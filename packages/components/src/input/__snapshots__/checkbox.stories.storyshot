@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots check box checkboxs 1`] = `
+exports[`Storyshots check box checkboxes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {},
@@ -88,107 +88,7 @@ initialize {
               ],
               "name": "label",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "data": " - ",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF itUwyi",
-                  },
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "checked": "",
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
-                        },
-                        "children": Array [],
-                        "name": "span",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "checked": undefined,
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "checked": undefined,
-                        "type": undefined,
-                      },
-                    },
-                    Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "checked": "",
-                          "type": "checkbox",
-                        },
-                        "children": Array [],
-                        "name": "input",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                  ],
-                  "name": "label",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "text",
-              },
+              "next": null,
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
@@ -281,8 +181,31 @@ initialize {
             ],
             "name": "label",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "data": " - ",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "data": "Default: ",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "li",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Default checked: ",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF itUwyi",
@@ -379,28 +302,10 @@ initialize {
                 },
               },
               "parent": [Circular],
-              "prev": [Circular],
-              "type": "text",
-            },
-            "parent": [Circular],
-            "prev": Object {
-              "data": "Default: ",
-              "next": [Circular],
-              "parent": [Circular],
               "prev": null,
               "type": "text",
             },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          Object {
-            "data": " - ",
-            "next": Object {
+            Object {
               "attribs": Object {
                 "class": "sc-kEYyzF itUwyi",
               },
@@ -486,98 +391,8 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": null,
               "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
-                    },
-                    "children": Array [],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "type": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
-                  },
-                  "children": Array [],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "type": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-              ],
-              "name": "label",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
               "prev": Object {
-                "data": "Default: ",
+                "data": "Default checked: ",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
@@ -591,27 +406,91 @@ initialize {
                 "class": undefined,
               },
             },
-            "type": "text",
-          },
-          Object {
-            "attribs": Object {
-              "class": "sc-kEYyzF itUwyi",
-            },
+          ],
+          "name": "li",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {},
             "children": Array [
               Object {
-                "attribs": Object {
-                  "checked": "",
-                  "type": "checkbox",
-                },
-                "children": Array [],
-                "name": "input",
-                "namespace": "http://www.w3.org/1999/xhtml",
+                "data": "Small: ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-kEYyzF dnCChO",
                   },
-                  "children": Array [],
-                  "name": "span",
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "attribs": Object {
+                          "class": "sc-hMqMXs DtPUz",
+                        },
+                        "children": Array [],
+                        "name": "span",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "type": undefined,
+                      },
+                    },
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs DtPUz",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "type": "checkbox",
+                        },
+                        "children": Array [],
+                        "name": "input",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "type": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "type": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "label",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": null,
                   "parent": [Circular],
@@ -626,177 +505,9 @@ initialize {
                 },
                 "parent": [Circular],
                 "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "checked": undefined,
-                  "type": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "checked": undefined,
-                  "type": undefined,
-                },
+                "type": "text",
               },
               Object {
-                "attribs": Object {
-                  "class": "sc-hMqMXs bGQyOE",
-                },
-                "children": Array [],
-                "name": "span",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "checked": "",
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "checked": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "checked": undefined,
-                    "type": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-            ],
-            "name": "label",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": Object {
-              "data": " - ",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "type": undefined,
-                    },
-                  },
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
-                    },
-                    "children": Array [],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "type": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                ],
-                "name": "label",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": Object {
-                  "data": "Default: ",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "type": "text",
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "li",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {},
-          "children": Array [
-            Object {
-              "data": "Small: ",
-              "next": Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF dnCChO",
                 },
@@ -874,8 +585,31 @@ initialize {
                 ],
                 "name": "label",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "data": " - ",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "data": "Small: ",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "li",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "Small checked: ",
                   "next": Object {
                     "attribs": Object {
                       "class": "sc-kEYyzF dnCChO",
@@ -972,9 +706,430 @@ initialize {
                     },
                   },
                   "parent": [Circular],
-                  "prev": [Circular],
+                  "prev": null,
                   "type": "text",
                 },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF dnCChO",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "checked": "",
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "attribs": Object {
+                          "class": "sc-hMqMXs DtPUz",
+                        },
+                        "children": Array [],
+                        "name": "span",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "checked": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "checked": undefined,
+                        "type": undefined,
+                      },
+                    },
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs DtPUz",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "checked": "",
+                          "type": "checkbox",
+                        },
+                        "children": Array [],
+                        "name": "input",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "checked": undefined,
+                          "type": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "checked": undefined,
+                          "type": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "data": "Small checked: ",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "li",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "data": "Default checked: ",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-kEYyzF itUwyi",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "checked": "",
+                    "type": "checkbox",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs bGQyOE",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-hMqMXs bGQyOE",
+                  },
+                  "children": Array [],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "checked": "",
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-kEYyzF itUwyi",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "checked": "",
+                  "type": "checkbox",
+                },
+                "children": Array [],
+                "name": "input",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-hMqMXs bGQyOE",
+                  },
+                  "children": Array [],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "checked": undefined,
+                  "type": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "checked": undefined,
+                  "type": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-hMqMXs bGQyOE",
+                },
+                "children": Array [],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "checked": "",
+                    "type": "checkbox",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "data": "Default checked: ",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "li",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Small: ",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-kEYyzF dnCChO",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs DtPUz",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "type": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs DtPUz",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "type": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
                 "parent": [Circular],
                 "prev": [Circular],
                 "type": "tag",
@@ -1067,8 +1222,31 @@ initialize {
               ],
               "name": "label",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "data": " - ",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "data": "Small: ",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "li",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Small checked: ",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-kEYyzF dnCChO",
@@ -1165,28 +1343,10 @@ initialize {
                   },
                 },
                 "parent": [Circular],
-                "prev": [Circular],
-                "type": "text",
-              },
-              "parent": [Circular],
-              "prev": Object {
-                "data": "Small: ",
-                "next": [Circular],
-                "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            Object {
-              "data": " - ",
-              "next": Object {
+              Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF dnCChO",
                 },
@@ -1272,7 +1432,13 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": null,
                 "parent": [Circular],
-                "prev": [Circular],
+                "prev": Object {
+                  "data": "Small checked: ",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
@@ -1281,10 +1447,31 @@ initialize {
                   "class": undefined,
                 },
               },
-              "parent": [Circular],
-              "prev": Object {
+            ],
+            "name": "li",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Default: ",
+              "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-kEYyzF itUwyi",
                 },
                 "children": Array [
                   Object {
@@ -1296,7 +1483,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-hMqMXs bGQyOE",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1324,7 +1511,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-hMqMXs bGQyOE",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1360,15 +1547,9 @@ initialize {
                 ],
                 "name": "label",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
+                "next": null,
                 "parent": [Circular],
-                "prev": Object {
-                  "data": "Small: ",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
+                "prev": [Circular],
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
@@ -1377,16 +1558,17 @@ initialize {
                   "class": undefined,
                 },
               },
+              "parent": [Circular],
+              "prev": null,
               "type": "text",
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-kEYyzF itUwyi",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "checked": "",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1394,7 +1576,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-hMqMXs bGQyOE",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1414,17 +1596,15 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
-                    "checked": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
-                    "checked": undefined,
                     "type": undefined,
                   },
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-hMqMXs bGQyOE",
                   },
                   "children": Array [],
                   "name": "span",
@@ -1433,7 +1613,6 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "checked": "",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1444,11 +1623,9 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
-                      "checked": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
-                      "checked": undefined,
                       "type": undefined,
                     },
                   },
@@ -1466,104 +1643,10 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": " - ",
+                "data": "Default: ",
                 "next": [Circular],
                 "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF dnCChO",
-                  },
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
-                        },
-                        "children": Array [],
-                        "name": "span",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "type": undefined,
-                      },
-                    },
-                    Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "type": "checkbox",
-                        },
-                        "children": Array [],
-                        "name": "input",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "type": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "type": undefined,
-                        },
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                  ],
-                  "name": "label",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Object {
-                    "data": "Small: ",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
+                "prev": null,
                 "type": "text",
               },
               "type": "tag",
@@ -1577,15 +1660,13 @@ initialize {
           ],
           "name": "li",
           "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
+          "next": [Circular],
           "parent": [Circular],
-          "prev": [Circular],
+          "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {},
           "x-attribsPrefix": Object {},
         },
-        "parent": [Circular],
-        "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {},
         "x-attribsPrefix": Object {},
@@ -1673,107 +1754,7 @@ initialize {
               ],
               "name": "label",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "data": " - ",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF dnCChO",
-                  },
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "checked": "",
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
-                        },
-                        "children": Array [],
-                        "name": "span",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "checked": undefined,
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "checked": undefined,
-                        "type": undefined,
-                      },
-                    },
-                    Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "checked": "",
-                          "type": "checkbox",
-                        },
-                        "children": Array [],
-                        "name": "input",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                  ],
-                  "name": "label",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "text",
-              },
+              "next": null,
               "parent": [Circular],
               "prev": [Circular],
               "type": "tag",
@@ -1866,8 +1847,31 @@ initialize {
             ],
             "name": "label",
             "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "data": " - ",
+            "next": null,
+            "parent": [Circular],
+            "prev": Object {
+              "data": "Small: ",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "li",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Small checked: ",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF dnCChO",
@@ -1964,27 +1968,547 @@ initialize {
                 },
               },
               "parent": [Circular],
-              "prev": [Circular],
+              "prev": null,
               "type": "text",
             },
-            "parent": [Circular],
-            "prev": Object {
-              "data": "Small: ",
-              "next": [Circular],
+            Object {
+              "attribs": Object {
+                "class": "sc-kEYyzF dnCChO",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "checked": "",
+                    "type": "checkbox",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs DtPUz",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-hMqMXs DtPUz",
+                  },
+                  "children": Array [],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "checked": "",
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "data": "Small checked: ",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "li",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Default checked: ",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-kEYyzF itUwyi",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "checked": "",
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs bGQyOE",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs bGQyOE",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "checked": "",
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "checked": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "checked": undefined,
+                        "type": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
               "parent": [Circular],
               "prev": null,
               "type": "text",
             },
+            Object {
+              "attribs": Object {
+                "class": "sc-kEYyzF itUwyi",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "checked": "",
+                    "type": "checkbox",
+                  },
+                  "children": Array [],
+                  "name": "input",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs bGQyOE",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "checked": undefined,
+                    "type": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-hMqMXs bGQyOE",
+                  },
+                  "children": Array [],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "checked": "",
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "checked": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "data": "Default checked: ",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "li",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Default: ",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF itUwyi",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "attribs": Object {
+                          "class": "sc-hMqMXs bGQyOE",
+                        },
+                        "children": Array [],
+                        "name": "span",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "type": undefined,
+                      },
+                    },
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs bGQyOE",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "type": "checkbox",
+                        },
+                        "children": Array [],
+                        "name": "input",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "type": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "type": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-kEYyzF itUwyi",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "type": "checkbox",
+                    },
+                    "children": Array [],
+                    "name": "input",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-hMqMXs bGQyOE",
+                      },
+                      "children": Array [],
+                      "name": "span",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "type": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-hMqMXs bGQyOE",
+                    },
+                    "children": Array [],
+                    "name": "span",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "type": "checkbox",
+                      },
+                      "children": Array [],
+                      "name": "input",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "type": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "data": "Default: ",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "li",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": null,
             "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
           },
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      Object {
+        "attribs": Object {},
+        "children": Array [
           Object {
-            "data": " - ",
+            "data": "Small checked: ",
             "next": Object {
               "attribs": Object {
                 "class": "sc-kEYyzF dnCChO",
@@ -2081,101 +2605,7 @@ initialize {
               },
             },
             "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
-                    },
-                    "children": Array [],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "type": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
-                  },
-                  "children": Array [],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "type": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-              ],
-              "name": "label",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": Object {
-                "data": "Small: ",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
+            "prev": null,
             "type": "text",
           },
           Object {
@@ -2265,10 +2695,31 @@ initialize {
             "next": null,
             "parent": [Circular],
             "prev": Object {
-              "data": " - ",
+              "data": "Small checked: ",
               "next": [Circular],
               "parent": [Circular],
-              "prev": Object {
+              "prev": null,
+              "type": "text",
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "li",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Small: ",
+              "next": Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF dnCChO",
                 },
@@ -2346,222 +2797,7 @@ initialize {
                 ],
                 "name": "label",
                 "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": Object {
-                  "data": "Small: ",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "type": "text",
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "li",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {},
-          "children": Array [
-            Object {
-              "data": "Default: ",
-              "next": Object {
-                "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "type": undefined,
-                    },
-                  },
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
-                    },
-                    "children": Array [],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "type": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                ],
-                "name": "label",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "data": " - ",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-kEYyzF itUwyi",
-                    },
-                    "children": Array [
-                      Object {
-                        "attribs": Object {
-                          "checked": "",
-                          "type": "checkbox",
-                        },
-                        "children": Array [],
-                        "name": "input",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "attribs": Object {
-                            "class": "sc-hMqMXs bGQyOE",
-                          },
-                          "children": Array [],
-                          "name": "span",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "class": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "class": undefined,
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "checked": undefined,
-                          "type": undefined,
-                        },
-                      },
-                      Object {
-                        "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
-                        },
-                        "children": Array [],
-                        "name": "span",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "checked": "",
-                            "type": "checkbox",
-                          },
-                          "children": Array [],
-                          "name": "input",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "checked": undefined,
-                            "type": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "checked": undefined,
-                            "type": undefined,
-                          },
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                        },
-                      },
-                    ],
-                    "name": "label",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "text",
-                },
+                "next": null,
                 "parent": [Circular],
                 "prev": [Circular],
                 "type": "tag",
@@ -2578,7 +2814,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-kEYyzF dnCChO",
               },
               "children": Array [
                 Object {
@@ -2590,7 +2826,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-hMqMXs DtPUz",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2618,7 +2854,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-hMqMXs DtPUz",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2654,8 +2890,33 @@ initialize {
               ],
               "name": "label",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "data": " - ",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "data": "Small: ",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "li",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Default checked: ",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-kEYyzF itUwyi",
@@ -2752,28 +3013,10 @@ initialize {
                   },
                 },
                 "parent": [Circular],
-                "prev": [Circular],
-                "type": "text",
-              },
-              "parent": [Circular],
-              "prev": Object {
-                "data": "Default: ",
-                "next": [Circular],
-                "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            Object {
-              "data": " - ",
-              "next": Object {
+              Object {
                 "attribs": Object {
                   "class": "sc-kEYyzF itUwyi",
                 },
@@ -2859,98 +3102,8 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": null,
                 "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
-                      },
-                      "children": Array [],
-                      "name": "span",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "type": undefined,
-                    },
-                  },
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
-                    },
-                    "children": Array [],
-                    "name": "span",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "type": "checkbox",
-                      },
-                      "children": Array [],
-                      "name": "input",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "type": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "type": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                ],
-                "name": "label",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
                 "prev": Object {
-                  "data": "Default: ",
+                  "data": "Default checked: ",
                   "next": [Circular],
                   "parent": [Circular],
                   "prev": null,
@@ -2964,27 +3117,93 @@ initialize {
                   "class": undefined,
                 },
               },
-              "type": "text",
-            },
-            Object {
-              "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
-              },
+            ],
+            "name": "li",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {},
               "children": Array [
                 Object {
-                  "attribs": Object {
-                    "checked": "",
-                    "type": "checkbox",
-                  },
-                  "children": Array [],
-                  "name": "input",
-                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "data": "Default: ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-kEYyzF itUwyi",
                     },
-                    "children": Array [],
-                    "name": "span",
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "type": "checkbox",
+                        },
+                        "children": Array [],
+                        "name": "input",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "attribs": Object {
+                            "class": "sc-hMqMXs bGQyOE",
+                          },
+                          "children": Array [],
+                          "name": "span",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                          },
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "type": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "type": undefined,
+                        },
+                      },
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-hMqMXs bGQyOE",
+                        },
+                        "children": Array [],
+                        "name": "span",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "type": "checkbox",
+                          },
+                          "children": Array [],
+                          "name": "input",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "type": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "type": undefined,
+                          },
+                        },
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                    ],
+                    "name": "label",
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": null,
                     "parent": [Circular],
@@ -2999,64 +3218,9 @@ initialize {
                   },
                   "parent": [Circular],
                   "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "checked": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "checked": undefined,
-                    "type": undefined,
-                  },
+                  "type": "text",
                 },
                 Object {
-                  "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
-                  },
-                  "children": Array [],
-                  "name": "span",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "checked": "",
-                      "type": "checkbox",
-                    },
-                    "children": Array [],
-                    "name": "input",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "checked": undefined,
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "checked": undefined,
-                      "type": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-              ],
-              "name": "label",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": Object {
-                "data": " - ",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": Object {
                   "attribs": Object {
                     "class": "sc-kEYyzF itUwyi",
                   },
@@ -3134,7 +3298,7 @@ initialize {
                   ],
                   "name": "label",
                   "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
+                  "next": null,
                   "parent": [Circular],
                   "prev": Object {
                     "data": "Default: ",
@@ -3151,22 +3315,20 @@ initialize {
                     "class": undefined,
                   },
                 },
-                "type": "text",
-              },
+              ],
+              "name": "li",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
               "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
             },
-          ],
-          "name": "li",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
           "type": "tag",
           "x-attribsNamespace": Object {},
           "x-attribsPrefix": Object {},
