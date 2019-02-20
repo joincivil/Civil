@@ -6,12 +6,12 @@ import { TutorialQuestion } from "../Tutorial/TutorialQuestion";
 import { TutorialTopicCompleted } from "../Tutorial/TutorialTopicCompleted";
 import { TutorialContain } from "./TokenTutorialStyledComponents";
 
-export const QUIZ_SECTION = {
-  INTRO: "intro",
-  TUTROIAL: "tutorial",
-  QUIZ: "quiz",
-  COMPLETED: "completed",
-};
+export enum QUIZ_SECTION {
+  INTRO = "intro",
+  TUTORIAL = "tutorial",
+  QUIZ = "quiz",
+  COMPLETED = "completed",
+}
 
 export interface TokenTutorialQuizProps {
   topicIdx: number;
@@ -63,7 +63,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             />
           </TutorialContain>
         );
-      case QUIZ_SECTION.TUTROIAL:
+      case QUIZ_SECTION.TUTORIAL:
         return (
           <TutorialContain>
             <TutorialInfo
@@ -115,7 +115,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
 
   private prev = () => {
     switch (this.state.activeSection) {
-      case QUIZ_SECTION.TUTROIAL:
+      case QUIZ_SECTION.TUTORIAL:
         if (this.state.slideIdx === 0) {
           this.setState({ activeSection: QUIZ_SECTION.INTRO, slideIdx: 0 });
         } else {
@@ -124,7 +124,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         break;
       case QUIZ_SECTION.QUIZ:
         this.setState({
-          activeSection: QUIZ_SECTION.TUTROIAL,
+          activeSection: QUIZ_SECTION.TUTORIAL,
           slideIdx: 0,
         });
         break;
@@ -136,9 +136,9 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
   private next = () => {
     switch (this.state.activeSection) {
       case QUIZ_SECTION.INTRO:
-        this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.TUTROIAL });
+        this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.TUTORIAL });
         break;
-      case QUIZ_SECTION.TUTROIAL:
+      case QUIZ_SECTION.TUTORIAL:
         if (this.state.slideIdx + 1 < TutorialContent[this.state.topicIdx].tutorials.length) {
           this.setState({ slideIdx: this.state.slideIdx + 1 });
         } else {

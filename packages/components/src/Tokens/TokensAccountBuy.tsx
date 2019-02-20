@@ -26,6 +26,7 @@ import {
 } from "./TokensTextComponents";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
@@ -45,8 +46,11 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
   }
 
   public render(): JSX.Element | null {
+    const { foundationAddress, network, faqUrl } = this.props;
+    const { step } = this.state;
     let tokenSection;
-    if (this.state.step === "disabled") {
+
+    if (step === TOKEN_PROGRESS.DISABLED) {
       tokenSection = (
         <FlexColumnsPrimaryModule padding={true}>
           <TokenBuySection>
@@ -57,7 +61,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
           </TokenBuySection>
         </FlexColumnsPrimaryModule>
       );
-    } else if (this.state.step === "active") {
+    } else if (step === TOKEN_PROGRESS.ACTIVE) {
       tokenSection = (
         <>
           <FlexColumnsPrimaryModule padding={true}>
@@ -71,9 +75,9 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
                   <TokenAirswapFoundationText />
                   <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
                   <AirswapBuyCVL
-                    network={this.props.network}
+                    network={network}
                     buyCVLBtnText={<TokenBuyFoundationBtnText />}
-                    buyFromAddress={this.props.foundationAddress}
+                    buyFromAddress={foundationAddress}
                     onComplete={this.onBuyComplete}
                   />
                 </>
@@ -84,7 +88,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
 
                 <TokenExchangeSection>
                   <TokenAirswapExchangeText />
-                  <AirswapBuyCVL network={this.props.network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
+                  <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
                 </TokenExchangeSection>
               </TokenAirswapSection>
             </TokenBuySection>
@@ -97,7 +101,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
           <FlexColumnsPrimaryModule padding={true}>
             <TokenBuySection>
               <TokenThanksPurchase>
-                <TokenThanksText faqUrl={this.props.faqUrl} />
+                <TokenThanksText faqUrl={faqUrl} />
               </TokenThanksPurchase>
               <TokenUnlock>
                 <TokenUnlockText />
@@ -115,6 +119,6 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
   }
 
   private onBuyComplete = () => {
-    this.setState({ step: "completed" });
+    this.setState({ step: TOKEN_PROGRESS.COMPLETED });
   };
 }

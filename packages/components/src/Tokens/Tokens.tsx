@@ -15,11 +15,11 @@ import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress } from "@joincivil/utils";
 
-export const TOKEN_PROGRESS = {
-  ACTIVE: "active",
-  COMPLETED: "completed",
-  DISABLED: "disabled",
-};
+export enum TOKEN_PROGRESS {
+  ACTIVE = "active",
+  COMPLETED = "completed",
+  DISABLED = "disabled",
+}
 
 export interface UserTokenAccountProps {
   foundationAddress: string;
@@ -51,12 +51,14 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     const userAccount = this.getUserAccount(user);
 
     const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
-    const tutorialState =
-      loggedInState === TOKEN_PROGRESS.ACTIVE
-        ? TOKEN_PROGRESS.DISABLED
-        : tutorialComplete
-          ? TOKEN_PROGRESS.COMPLETED
-          : TOKEN_PROGRESS.ACTIVE;
+    let tutorialState;
+    if (loggedInState === TOKEN_PROGRESS.ACTIVE) {
+      tutorialState = TOKEN_PROGRESS.DISABLED;
+    } else if (tutorialComplete) {
+      tutorialState = TOKEN_PROGRESS.COMPLETED;
+    } else {
+      tutorialState = TOKEN_PROGRESS.ACTIVE;
+    }
     const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (

@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -175,7 +176,9 @@ export const TokenRequirementIcon = styled.div`
   align-items: center;
   background-color: ${colors.basic.WHITE};
   border: ${(props: TokenRequirementStyleProps) =>
-    props.step === "disabled" ? "1px solid" + colors.accent.CIVIL_GRAY_3 : "1px solid" + colors.accent.CIVIL_BLUE};
+    props.step === TOKEN_PROGRESS.DISABLED
+      ? "1px solid" + colors.accent.CIVIL_GRAY_3
+      : "1px solid" + colors.accent.CIVIL_BLUE};
   border-radius: 50%;
   display: flex;
   height: 38px;
