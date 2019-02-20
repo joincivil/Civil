@@ -16,7 +16,7 @@ export const StyledListingDetailPhaseCardContainer = styled.div`
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 0 50px;
   position: relative;
-  width: 485px;
+  width: 440px;
 
   ${mediaQueries.MOBILE} {
     padding: 7px 0;
@@ -145,12 +145,23 @@ export const FormCopy = styled.p`
 
 export const VoteOptionsContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   margin: 20px 0;
 `;
+
 export const StyledOrText = styled.div`
   font: italic normal 20px/30px ${fonts.SERIF};
   padding: 10px 13px;
   text-align: center;
+`;
+
+export const StyledVoteCTAButton = styled.div`
+  ${Button} {
+    font-size: 13px;
+    line-height: 14px;
+    padding: 18px 0;
+    width: 100%;
+  }
 `;
 
 export const FormHeader = styled.h4`
@@ -183,9 +194,9 @@ export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> 
   "div",
 )`
   perspective: 800px;
-  width: ${props => (props.width ? props.width + "px" : "485")};
+  width: ${props => (props.width ? props.width + "px" : "440")};
 
-  &{mediaQueries.MOBILE} {
+  ${mediaQueries.MOBILE} {
     width: auto;
   }
 
