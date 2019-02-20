@@ -36,8 +36,6 @@ export async function initializeGovernmentParamSubscription(dispatch: Dispatch<a
   const civil = getCivil();
   const current = await civil.currentBlock();
   const govt = await tcr.getGovernment();
-  const appellate = await govt.getAppellate();
-  console.log("appellate: ", appellate);
   govt.getParameterSet(current).subscribe(async (p: Param) => {
     dispatch(setGovernmentParameter(p.paramName, p.value));
   });
