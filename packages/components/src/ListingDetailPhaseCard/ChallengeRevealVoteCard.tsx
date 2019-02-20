@@ -30,7 +30,7 @@ import {
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { RevealVote } from "./RevealVote";
 import { QuestionToolTip } from "../QuestionToolTip";
 
@@ -83,6 +83,7 @@ export class ChallengeRevealVoteCard extends React.Component<
                   isViewingUserChallenger={this.props.isViewingUserChallenger}
                   rewardPool={this.props.rewardPool}
                   stake={this.props.stake}
+                  dispensationPct={this.props.dispensationPct}
                 />
               </StyledListingDetailPhaseCardSection>
 

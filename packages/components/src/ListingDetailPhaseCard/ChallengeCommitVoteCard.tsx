@@ -33,7 +33,7 @@ import {
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
-import { NeedHelp } from "./NeedHelp";
+import NeedHelp from "./NeedHelp";
 import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import { CommitVote } from "./CommitVote";
 import { QuestionToolTip } from "../QuestionToolTip";
@@ -87,6 +87,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                   isViewingUserChallenger={this.props.isViewingUserChallenger}
                   rewardPool={this.props.rewardPool}
                   stake={this.props.stake}
+                  dispensationPct={this.props.dispensationPct}
                 />
               </StyledListingDetailPhaseCardSection>
 
@@ -115,10 +116,9 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                {this.renderCommitVoteCallout()}
+                <FormHeader>Submit a Secret Vote for Challenge #{this.props.challengeID}</FormHeader>
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
-                <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <CommitVote
                   tokenBalance={this.props.tokenBalance}
                   votingTokenBalance={this.props.votingTokenBalance}

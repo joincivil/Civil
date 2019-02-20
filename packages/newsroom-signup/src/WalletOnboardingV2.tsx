@@ -10,11 +10,11 @@ import {
   MetaMaskLogoButton,
   fonts,
   AccountEthAuth,
-  metaMaskNetworkSwitchImgSrc,
-  metaMaskLoginImgSrc,
-  metaMaskFrontLargeImgSrc,
-  metaMaskConnectImgSrc,
-  metaMaskSignImgSrc,
+  metaMaskNetworkSwitchImgUrl,
+  metaMaskLoginImgUrl,
+  metaMaskFrontLargeImgUrl,
+  metaMaskConnectImgUrl,
+  metaMaskSignImgUrl,
   HollowGreenCheck,
 } from "@joincivil/components";
 import {
@@ -194,7 +194,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
           </IntroText>
           <GetMetaMaskBox>
             <a href="https://metamask.io/" target="_blank">
-              <GetMetaMaskImg src={metaMaskFrontLargeImgSrc} />
+              <GetMetaMaskImg src={metaMaskFrontLargeImgUrl} />
               <GetMetaMaskText>Get the MetaMask Browser Extension</GetMetaMaskText>
             </a>
           </GetMetaMaskBox>
@@ -226,7 +226,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
                 <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
               </InstructionsButtonWrap>
             </InstructionsText>
-            <InstructionsImage src={metaMaskConnectImgSrc} />
+            <InstructionsImage src={metaMaskConnectImgUrl} />
           </InstructionsWrapper>
 
           <SmallestParagraph>
@@ -251,7 +251,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
                 wallet.
               </p>
             </InstructionsText>
-            <InstructionsImage src={metaMaskLoginImgSrc} />
+            <InstructionsImage src={metaMaskLoginImgUrl} />
           </InstructionsWrapper>
 
           {this.renderFaqEtc()}
@@ -273,7 +273,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
                 <strong>{this.props.requiredNetworkNiceName}</strong> selected.
               </p>
             </InstructionsText>
-            <InstructionsImage src={metaMaskNetworkSwitchImgSrc} />
+            <InstructionsImage src={metaMaskNetworkSwitchImgUrl} />
           </InstructionsWrapper>
 
           {this.renderFaqEtc()}
@@ -300,7 +300,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
                   />
                 </InstructionsButtonWrap>
               </InstructionsText>
-              <InstructionsImage src={metaMaskSignImgSrc} />
+              <InstructionsImage src={metaMaskSignImgUrl} />
             </InstructionsWrapper>
 
             {this.renderFaqEtc()}
@@ -332,7 +332,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
                   />
                 </InstructionsButtonWrap>
               </InstructionsText>
-              <InstructionsImage src={metaMaskSignImgSrc} />
+              <InstructionsImage src={metaMaskSignImgUrl} />
             </InstructionsWrapper>
             {this.renderFaqEtc()}
           </Wrapper>

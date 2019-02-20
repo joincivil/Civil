@@ -22,7 +22,6 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
@@ -38,7 +37,11 @@ import {
   getChallengeState,
 } from "../../selectors";
 import { fetchAndAddChallengeData, fetchAndAddGrantAppealTx } from "../../redux/actionCreators/challenges";
-import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
+import {
+  ChallengeContainerProps,
+  connectChallengeResults,
+  connectChallengePhase,
+} from "../utility/HigherOrderComponents";
 import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
 
 const withChallengeResults = (
@@ -58,7 +61,7 @@ const withChallengeResults = (
         ChallengeContainerProps &
         RequestAppealProps
     >
-  >(connectChallengeResults)(WrappedComponent);
+  >(connectChallengeResults, connectChallengePhase)(WrappedComponent);
 };
 
 const StyledChallengeResults = styled.div`
@@ -204,9 +207,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           challengeID={this.props.challengeID.toString()}
           endTime={endTime}
           phaseLength={phaseLength}
-          challenger={challenge!.challenger.toString()}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
           requestAppealURI={requestAppealURI}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />

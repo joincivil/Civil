@@ -1,13 +1,29 @@
 import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { getFormattedTokenBalance } from "@joincivil/utils";
-import { AppealResolveCard, ModalContent } from "@joincivil/components";
+import {
+  AppealResolveCard as AppealResolveCardComponent,
+  ModalContent,
+  ListingDetailPhaseCardComponentProps,
+  ChallengePhaseProps,
+  AppealDecisionProps,
+} from "@joincivil/components";
 
 import { updateStatus } from "../../apis/civilTCR";
+import {
+  ChallengeContainerProps,
+  connectChallengePhase,
+  connectChallengeResults,
+} from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import { AppealDetailProps } from "./AppealDetail";
+
+const AppealResolveCard = compose<
+  React.ComponentType<
+    ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeContainerProps & AppealDecisionProps
+  >
+>(connectChallengeResults, connectChallengePhase)(AppealResolveCardComponent);
 
 enum TransactionTypes {
   RESOLVE_APPEAL = "RESOLVE_APPEAL",
@@ -50,32 +66,11 @@ const transactionStatusModalConfig = {
 class AppealResolve extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
   public render(): JSX.Element {
     const transactions = this.getTransactions();
-    const challenge = this.props.challenge;
     const appealGranted = this.props.appeal.appealGranted;
-    const totalVotes = challenge.poll.votesAgainst.add(challenge.poll.votesFor);
-    const votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
-    const votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    const percentFor = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
-    const percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
     return (
       <>
         <AppealResolveCard
           challengeID={this.props.challengeID.toString()}
-          challenger={challenge!.challenger.toString()}
-          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
-          totalVotes={getFormattedTokenBalance(totalVotes)}
-          votesFor={votesFor}
-          votesAgainst={votesAgainst}
-          percentFor={percentFor.toString()}
-          percentAgainst={percentAgainst.toString()}
           appealGranted={appealGranted}
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
           transactions={transactions}

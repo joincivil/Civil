@@ -13,6 +13,7 @@ export const VoteTypeSummaryContainer = styled.div`
 
 export const VoteTypeSummary = styled.div`
   display: flex;
+  color: ${colors.accent.CIVIL_GRAY_0};
 `;
 
 export const BreakdownBarContainer = styled.div`

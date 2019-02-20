@@ -15,12 +15,14 @@ const NeedHelpCopy = styled.div`
   }
 `;
 
-export const NeedHelp: React.StatelessComponent = props => {
+const NeedHelp: React.StatelessComponent = props => {
   return (
     <StyledListingDetailPhaseCardSection>
       <NeedHelpCopy>
-        Need help? <a href="https://civil.co">Check out our guide</a>
+        Need help? <a href="#zendesk/registry">Check out our guide</a>
       </NeedHelpCopy>
     </StyledListingDetailPhaseCardSection>
   );
 };
+
+export default NeedHelp;

@@ -1,7 +1,8 @@
 import * as React from "react";
 import { ChallengeResultsProps } from "../ChallengeResultsChart";
 import { ListingSummaryComponentProps } from "./types";
-import { StyledListingSummaryContainer, StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
+import { StyledListingSummary, StyledListingSummarySection } from "./styledComponents";
+import ListingSummaryBase from "./ListingSummaryBase";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 import ChallengeResults, { AppealChallengeResults } from "./ChallengeResults";
@@ -14,7 +15,7 @@ export const ListingSummaryRejectedComponent: React.SFC<
 
   const hasTopPadding = !appeal && !appealRequested;
   return (
-    <StyledListingSummaryContainer>
+    <ListingSummaryBase {...props}>
       <StyledListingSummary hasTopPadding={hasTopPadding}>
         <AppealJudgementBanner {...props} />
         <NewsroomInfo {...props} />
@@ -26,6 +27,6 @@ export const ListingSummaryRejectedComponent: React.SFC<
           <SummaryActionButton {...props} />
         </StyledListingSummarySection>
       </StyledListingSummary>
-    </StyledListingSummaryContainer>
+    </ListingSummaryBase>
   );
 };

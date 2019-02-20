@@ -1,7 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { WalletOnboarding } from ".";
 
@@ -52,13 +51,6 @@ const mocks = {
     };
   },
 };
-
-let civil: Civil | undefined;
-try {
-  civil = new Civil();
-} catch (error) {
-  civil = undefined;
-}
 
 storiesOf("Wallet Onboarding", module)
   .addDecorator(
