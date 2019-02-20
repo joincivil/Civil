@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Collapsable, fonts, colors } from "@joincivil/components";
+import { fonts, colors } from "@joincivil/components";
 import { StyledCollapsable, AvatarWrap, AvatarImg, noAvatar } from "../styledComponents";
 import { CharterData, RosterMember } from "@joincivil/core";
 import { charterQuestions, questionsCopy } from "../constants";
@@ -10,7 +10,7 @@ export interface ApplicationSoFarPageProps {
   charter: Partial<CharterData>;
 }
 
-const CollapsableContainer = styled(StyledCollapsable)`
+const Collapsable = styled(StyledCollapsable)`
   margin-bottom: 0;
   margin-top: 0;
   border-bottom: none;
@@ -70,80 +70,72 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
   public render(): JSX.Element {
     return (
       <div>
-        <CollapsableContainer>
-          <Collapsable open={true} header={<SectionHeaders>Newsroom Details</SectionHeaders>}>
-            <CollapsableInner>
-              <GridWrapper>
-                <div>
-                  <Label>Newsroom Name</Label>
-                  <Value>{this.props.charter.name}</Value>
-                </div>
-                <div>
-                  <Label>Newsroom URL</Label>
-                  <Value>{this.props.charter.newsroomUrl}</Value>
-                </div>
-                <TwoSpanner>
-                  <LogoSection>
-                    <div>
-                      <Label>Newsroom Logo</Label>
-                      <Value>{this.props.charter.logoUrl}</Value>
-                    </div>
-                    <AvatarWrap>
-                      {this.props.charter.logoUrl ? <AvatarImg src={this.props.charter.logoUrl} /> : noAvatar}
-                    </AvatarWrap>
-                  </LogoSection>
-                </TwoSpanner>
-                <TwoSpanner>
-                  <Label>Tagline</Label>
-                  <Value>{this.props.charter.tagline}</Value>
-                </TwoSpanner>
-                {this.renderSocial()}
-              </GridWrapper>
-            </CollapsableInner>
-          </Collapsable>
-        </CollapsableContainer>
-        <CollapsableContainer>
-          <Collapsable open={false} header={<SectionHeaders>Roster</SectionHeaders>}>
-            <CollapsableInner>
-              {this.props.charter.roster!.map((member: RosterMember) => {
-                return <RosterMemberListItem member={member} />;
-              })}
-            </CollapsableInner>
-          </Collapsable>
-        </CollapsableContainer>
-        <CollapsableContainer>
-          <Collapsable open={false} header={<SectionHeaders>Charter</SectionHeaders>}>
-            <CollapsableInner>
-              <QuestionContainer>
-                <Label>{questionsCopy[charterQuestions.PURPOSE]}</Label>
-                <Value>{this.props.charter.mission![charterQuestions.PURPOSE]}</Value>
-              </QuestionContainer>
-              <QuestionContainer>
-                <Label>{questionsCopy[charterQuestions.STRUCTURE]}</Label>
-                <Value>{this.props.charter.mission![charterQuestions.STRUCTURE]}</Value>
-              </QuestionContainer>
-              <QuestionContainer>
-                <Label>{questionsCopy[charterQuestions.REVENUE]}</Label>
-                <Value>{this.props.charter.mission![charterQuestions.REVENUE]}</Value>
-              </QuestionContainer>
-              <QuestionContainer>
-                <Label>{questionsCopy[charterQuestions.ENCUMBRANCES]}</Label>
-                <Value>{this.props.charter.mission![charterQuestions.ENCUMBRANCES]}</Value>
-              </QuestionContainer>
-              <QuestionContainer>
-                <Label>{questionsCopy[charterQuestions.MISCELLANEOUS]}</Label>
-                <Value>{this.props.charter.mission![charterQuestions.MISCELLANEOUS]}</Value>
-              </QuestionContainer>
-            </CollapsableInner>
-          </Collapsable>
-        </CollapsableContainer>
-        <CollapsableContainer>
-          <Collapsable open={false} header={<SectionHeaders>Civil Constitution</SectionHeaders>}>
-            <CollapsableInner>
-              I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution.
-            </CollapsableInner>
-          </Collapsable>
-        </CollapsableContainer>
+        <Collapsable open={true} header={<SectionHeaders>Newsroom Details</SectionHeaders>}>
+          <CollapsableInner>
+            <GridWrapper>
+              <div>
+                <Label>Newsroom Name</Label>
+                <Value>{this.props.charter.name}</Value>
+              </div>
+              <div>
+                <Label>Newsroom URL</Label>
+                <Value>{this.props.charter.newsroomUrl}</Value>
+              </div>
+              <TwoSpanner>
+                <LogoSection>
+                  <div>
+                    <Label>Newsroom Logo</Label>
+                    <Value>{this.props.charter.logoUrl}</Value>
+                  </div>
+                  <AvatarWrap>
+                    {this.props.charter.logoUrl ? <AvatarImg src={this.props.charter.logoUrl} /> : noAvatar}
+                  </AvatarWrap>
+                </LogoSection>
+              </TwoSpanner>
+              <TwoSpanner>
+                <Label>Tagline</Label>
+                <Value>{this.props.charter.tagline}</Value>
+              </TwoSpanner>
+              {this.renderSocial()}
+            </GridWrapper>
+          </CollapsableInner>
+        </Collapsable>
+        <Collapsable open={false} header={<SectionHeaders>Roster</SectionHeaders>}>
+          <CollapsableInner>
+            {this.props.charter.roster!.map((member: RosterMember) => {
+              return <RosterMemberListItem member={member} />;
+            })}
+          </CollapsableInner>
+        </Collapsable>
+        <Collapsable open={false} header={<SectionHeaders>Charter</SectionHeaders>}>
+          <CollapsableInner>
+            <QuestionContainer>
+              <Label>{questionsCopy[charterQuestions.PURPOSE]}</Label>
+              <Value>{this.props.charter.mission![charterQuestions.PURPOSE]}</Value>
+            </QuestionContainer>
+            <QuestionContainer>
+              <Label>{questionsCopy[charterQuestions.STRUCTURE]}</Label>
+              <Value>{this.props.charter.mission![charterQuestions.STRUCTURE]}</Value>
+            </QuestionContainer>
+            <QuestionContainer>
+              <Label>{questionsCopy[charterQuestions.REVENUE]}</Label>
+              <Value>{this.props.charter.mission![charterQuestions.REVENUE]}</Value>
+            </QuestionContainer>
+            <QuestionContainer>
+              <Label>{questionsCopy[charterQuestions.ENCUMBRANCES]}</Label>
+              <Value>{this.props.charter.mission![charterQuestions.ENCUMBRANCES]}</Value>
+            </QuestionContainer>
+            <QuestionContainer>
+              <Label>{questionsCopy[charterQuestions.MISCELLANEOUS]}</Label>
+              <Value>{this.props.charter.mission![charterQuestions.MISCELLANEOUS]}</Value>
+            </QuestionContainer>
+          </CollapsableInner>
+        </Collapsable>
+        <Collapsable open={false} header={<SectionHeaders>Civil Constitution</SectionHeaders>}>
+          <CollapsableInner>
+            I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution.
+          </CollapsableInner>
+        </Collapsable>
       </div>
     );
   }
