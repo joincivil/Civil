@@ -16,10 +16,13 @@ export const AuthTextFooter: React.SFC = () => (
 export const AuthTextEmailSent: React.SFC<{
   emailAddress: string;
 }> = ({ emailAddress }) => (
-  <PageHeadingTextCentered>
-    We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
-    expires soon, so please check your email and click on the link. Once confimed, you can continue.
-  </PageHeadingTextCentered>
+  <>
+    <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
+    <PageHeadingTextCentered>
+      We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
+      expires soon, so please check your email and click on the link. Once confimed, you can continue.
+    </PageHeadingTextCentered>
+  </>
 );
 
 export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
@@ -37,4 +40,8 @@ export const AuthTextCreateAccount: React.SFC = () => (
     </PageHeadingTextCentered>
     <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
   </>
+);
+
+export const AuthTextCheckSpam: React.SFC = () => (
+  <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
 );

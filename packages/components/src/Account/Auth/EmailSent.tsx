@@ -2,7 +2,7 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { CheckEmailSection, AuthPageFooterLink } from "./AuthStyledComponents";
 import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
-import { AuthTextEmailSent } from "./AuthTextComponents";
+import { AuthTextEmailSent, AuthTextCheckSpam } from "./AuthTextComponents";
 
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
@@ -16,13 +16,11 @@ export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
 
     return (
       <>
-        <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
-
         <AuthTextEmailSent emailAddress={emailAddress} />
 
         <CheckEmailSection />
 
-        <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
+        <AuthTextCheckSpam />
 
         <AuthPageFooterLink>
           {/* // TODO(jorgelo): The link below should have a hover hand. */}
