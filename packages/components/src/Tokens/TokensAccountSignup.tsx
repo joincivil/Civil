@@ -3,6 +3,7 @@ import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
 import { FlexColumnsPrimaryModule, TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
 import { TokenConnectWalletText, TokenConnectWalletBtnText } from "./TokensTextComponents";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenRequirementProps {
   step?: string;
@@ -10,13 +11,13 @@ export interface TokenRequirementProps {
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
-  const { addWalletPath } = props;
+  const { addWalletPath, step } = props;
 
-  if (props.step === "active") {
+  if (step === TOKEN_PROGRESS.ACTIVE) {
     return (
       <FlexColumnsPrimaryModule padding={true}>
         <UserTokenAccountRequirement>
-          <TokenRequirementIcon step={props.step}>
+          <TokenRequirementIcon step={step}>
             <TokenWalletIcon />
           </TokenRequirementIcon>
           <TokenConnectWalletText />

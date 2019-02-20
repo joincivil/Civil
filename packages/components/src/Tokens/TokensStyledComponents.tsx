@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -175,7 +176,9 @@ export const TokenRequirementIcon = styled.div`
   align-items: center;
   background-color: ${colors.basic.WHITE};
   border: ${(props: TokenRequirementStyleProps) =>
-    props.step === "disabled" ? "1px solid" + colors.accent.CIVIL_GRAY_3 : "1px solid" + colors.accent.CIVIL_BLUE};
+    props.step === TOKEN_PROGRESS.DISABLED
+      ? "1px solid" + colors.accent.CIVIL_GRAY_3
+      : "1px solid" + colors.accent.CIVIL_BLUE};
   border-radius: 50%;
   display: flex;
   height: 38px;
@@ -306,8 +309,8 @@ export const TokenFAQCollapse = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
-  font-size: 16px;
-  line-height: 26px;
+  font-size: 14px;
+  line-height: 21px;
   padding: 20px 30px;
 
   h3 {
@@ -320,6 +323,23 @@ export const TokenFAQCollapse = styled.div`
   li {
     margin-bottom: 15px;
   }
+`;
+
+export const TokenFAQImg = styled.div`
+  align-items: flex-start;
+  display: flex;
+
+  img {
+    margin-left: 50px;
+    max-width: 250px;
+    width: 50%;
+  }
+`;
+
+export const TokenFAQLineBreak = styled.hr`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+  margin: 20px 0;
+  width: 15px;
 `;
 
 export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`

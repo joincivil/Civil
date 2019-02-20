@@ -3,14 +3,11 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
-import { EthAddress } from "@joincivil/core";
-import { getFormattedEthAddress } from "@joincivil/utils";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { WALLET_HOME } from "../Auth/index";
 
 export interface TokensProps {
-  userAccount: EthAddress;
   network: string;
 }
 
@@ -28,12 +25,8 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
             return "loading..";
           }
 
-          const userTutorialComplete = user && user.quizStatus === "complete";
-
           return (
             <UserTokenAccount
-              userTutorialComplete={userTutorialComplete}
-              userAccount={props.userAccount}
               supportEmailAddress={"support@civil.co"}
               faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
@@ -47,20 +40,11 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
     </>
   );
 };
-// TODO:Sarah get ethAddress from currentUser instead
+
 const mapStateToProps = (state: State): TokensProps => {
   const { network } = state;
-  const { user } = state.networkDependent;
 
-  let userAccount = "";
-  if (user && user.account.account) {
-    userAccount = getFormattedEthAddress(user.account.account);
-  }
-
-  return {
-    network,
-    userAccount,
-  };
+  return { network };
 };
 
 export const Tokens = connect(mapStateToProps)(TokensComponent);

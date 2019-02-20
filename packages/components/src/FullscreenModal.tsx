@@ -8,13 +8,14 @@ export interface ModalWrapperProps {
 }
 
 export const ModalWrapper = styled.div`
-  align-items: center;
+  align-items: ${(props: ModalWrapperProps) => (props.solidBackground ? "flex-start" : "center")};
   background-color: ${(props: ModalWrapperProps) =>
     props.solidBackground ? colors.basic.WHITE : "rgba(0, 0, 0, 0.4)"};
   bottom: 0;
   display: flex;
   justify-content: center;
   left: 0;
+  padding: ${(props: ModalWrapperProps) => (props.solidBackground ? "90px 0" : "0")};
   position: fixed;
   overflow: auto;
   right: 0;
@@ -23,7 +24,7 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalInner = styled.div`
-  align-items: center;
+  align-items: ${(props: ModalWrapperProps) => (props.solidBackground ? "flex-start" : "center")};
   background-color: ${colors.basic.WHITE};
   border: ${(props: ModalWrapperProps) => (props.solidBackground ? "none" : "1px solid " + colors.accent.CIVIL_GRAY_4)};
   display: flex;

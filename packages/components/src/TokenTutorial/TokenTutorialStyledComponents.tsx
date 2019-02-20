@@ -199,6 +199,10 @@ export const TopicProgress = styled.div`
   }
 `;
 
+export interface TutorialLandingProgressBarProps {
+  completed?: boolean;
+}
+
 export const TutorialLandingProgressBars = styled.div`
   align-items: center;
   display: flex;
@@ -206,7 +210,8 @@ export const TutorialLandingProgressBars = styled.div`
 `;
 
 export const TutorialLandingProgressBar = styled.div`
-  background-color: ${colors.accent.CIVIL_GRAY_4};
+  background-color: ${(props: TutorialLandingProgressBarProps) =>
+    props.completed ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_4};
   height: 5px;
   margin-right: 5px;
   width: 100px;
