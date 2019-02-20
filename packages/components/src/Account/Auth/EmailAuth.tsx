@@ -3,16 +3,21 @@ import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Link } from "react-router-dom";
+import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
+import { Button, buttonSizes } from "../../Button";
+import { TextInput } from "../../input";
+import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
+import { isValidEmail } from "@joincivil/utils";
 
 const signupMutation = gql`
-  mutation($emailAddress: String!) {
-    authSignupEmailSend(emailAddress: $emailAddress)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
+    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application)
   }
 `;
 
 const loginMutation = gql`
-  mutation($emailAddress: String!) {
-    authLoginEmailSend(emailAddress: $emailAddress)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
+    authLoginEmailSendForApplication(emailAddress: $emailAddress, application: $application)
   }
 `;
 
@@ -30,7 +35,10 @@ export interface AccountEmailAuthProps {
 
 export interface AccountEmailAuthState {
   emailAddress: string;
-  errorMessage: string | null;
+  errorMessage: string | undefined;
+  hasAgreedToTOS: boolean;
+  hasSelectedToAddToNewsletter: boolean;
+  hasBlurred: boolean;
 }
 
 export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
@@ -38,46 +46,81 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     super(props);
     this.state = {
       emailAddress: "",
-      errorMessage: null,
+      errorMessage: undefined,
+      hasAgreedToTOS: false,
+      hasSelectedToAddToNewsletter: false,
+      hasBlurred: false,
     };
   }
 
-  public renderLink(): JSX.Element {
-    const { isNewUser } = this.props;
+  public renderEmailInput(): JSX.Element {
+    const { emailAddress, hasBlurred } = this.state;
 
-    if (isNewUser) {
-      return <Link to="./login">Or login</Link>;
-    }
+    const isValid = !hasBlurred || isValidEmail(emailAddress);
 
-    return <Link to="./signup">Or sign up</Link>;
+    return (
+      <TextInput
+        placeholder="Email address"
+        noLabel
+        type="text"
+        name="email"
+        value={emailAddress}
+        invalidMessage={isValid ? undefined : "Please enter a valid email."}
+        invalid={!isValid}
+        onChange={(_, value) => this.setState({ emailAddress: value, hasBlurred: false })}
+        onBlur={() => this.setState({ hasBlurred: true })}
+      />
+    );
   }
 
+  public renderCheckboxes(): JSX.Element {
+    const { hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
+
+    return (
+      <CheckboxContainer>
+        <CheckboxSection>
+          <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
+          <CheckboxLabel>
+            I agree to Civil's {}
+            <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+          </CheckboxLabel>
+        </CheckboxSection>
+
+        <CheckboxSection>
+          <Checkbox
+            size={CheckboxSizes.SMALL}
+            checked={hasSelectedToAddToNewsletter}
+            onClick={this.toggleHasSelectedToAddToNewsletter}
+          />
+          <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
+        </CheckboxSection>
+      </CheckboxContainer>
+    );
+  }
   public render(): JSX.Element {
     const { isNewUser } = this.props;
-    const { errorMessage } = this.state;
+    const { hasAgreedToTOS } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
+    const isButtonDisabled = isNewUser && !hasAgreedToTOS;
+
     return (
       <Mutation mutation={emailMutation}>
-        {(sendEmail, { loading, error, data }) => {
+        {sendEmail => {
           return (
             <>
-              <h3>Let's Get Started</h3>
-              {errorMessage && <span>Error: {errorMessage}</span>}
-              <form onSubmit={async event => this.submit(event, sendEmail)}>
-                <input
-                  placeholder="Email address"
-                  type="text"
-                  name="email"
-                  value={this.state.emailAddress}
-                  onChange={event => this.setState({ emailAddress: event.target.value })}
-                />
-                <input type="submit" value="Confirm" />
-              </form>
-
-              {loading && <span>loading...</span>}
-
-              {this.renderLink()}
+              {this.renderEmailInput()}
+              {isNewUser && this.renderCheckboxes()}
+              <ConfirmButtonContainer>
+                <Button
+                  size={buttonSizes.SMALL_WIDE}
+                  textTransform="none"
+                  disabled={isButtonDisabled}
+                  onClick={async event => this.handleSubmit(event, sendEmail)}
+                >
+                  Confirm
+                </Button>
+              </ConfirmButtonContainer>
             </>
           );
         }}
@@ -85,13 +128,29 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     );
   }
 
-  private async submit(event: any, mutation: MutationFn): Promise<void> {
+  public toggleHasAgreedToTOS = (): void => {
+    const { hasAgreedToTOS } = this.state;
+    this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
+  };
+
+  public toggleHasSelectedToAddToNewsletter = (): void => {
+    const { hasSelectedToAddToNewsletter } = this.state;
+    this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
+  };
+
+  private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
-    const { emailAddress } = this.state;
+    this.setState({ errorMessage: undefined, hasBlurred: true });
+
+    const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
     const { applicationType, onEmailSend, isNewUser } = this.props;
 
-    const resultKey = isNewUser ? "authSignupEmailSend" : "authLoginEmailSend";
+    if (!isValidEmail(emailAddress)) {
+      return;
+    }
+
+    const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     const res: any = await mutation({
       variables: { emailAddress, application: applicationType },
@@ -101,6 +160,10 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     if (authResponse === "ok") {
       onEmailSend(isNewUser, emailAddress);
+      if (hasSelectedToAddToNewsletter) {
+        // TODO(jorge): Add to the email newsletter CIVIL-381
+        console.log(emailAddress + " wants to be on the newsletter");
+      }
       return;
     }
 

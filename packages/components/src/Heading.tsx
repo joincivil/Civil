@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-
-import { fonts } from "./styleConstants";
+import { fonts, colors } from "./styleConstants";
 
 const headingDefaultProps = {
   theme: {
@@ -62,3 +61,38 @@ export const ManagerSectionHeading = styled.h4`
 `;
 
 ManagerSectionHeading.defaultProps = headingDefaultProps;
+
+export const PageHeadingCentered = styled.h2`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 50px;
+  letter-spacing: -0.58px;
+  margin: 0;
+  text-align: center;
+`;
+
+PageHeadingCentered.defaultProps = headingDefaultProps;
+
+export const PageSubHeadingCentered = styled.h2`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 500;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 50px;
+  text-align: center;
+`;
+
+PageSubHeadingCentered.defaultProps = headingDefaultProps;
+
+export const PageHeadingTextCentered = styled.div`
+  text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 14px;
+  line-height: 25px;
+`;
+
+export const PageHeadingTextCenteredSmall = styled(PageHeadingTextCentered)`
+  font-size: 12px;
+  line-height: 20px;
+`;

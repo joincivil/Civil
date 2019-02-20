@@ -64,7 +64,7 @@ const mocks = {
   },
 };
 
-storiesOf("Account/Email", module)
+storiesOf("Email Signup Flow", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
@@ -78,7 +78,7 @@ storiesOf("Account/Email", module)
         applicationType={AuthApplicationEnum.DEFAULT}
         isNewUser={true}
         onEmailSend={() => {
-          alert("email sent");
+          console.log("Sent");
         }}
       />
     );
