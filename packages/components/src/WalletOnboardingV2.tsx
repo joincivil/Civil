@@ -9,27 +9,25 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
   fonts,
-  AccountEthAuth,
   metaMaskNetworkSwitchImgUrl,
   metaMaskLoginImgUrl,
   metaMaskFrontLargeImgUrl,
   metaMaskConnectImgUrl,
   metaMaskSignImgUrl,
   HollowGreenCheck,
-} from "@joincivil/components";
-import {
-  SectionTitle,
-  SectionDescription,
-  BorderedSection,
-  BorderedSectionActive,
-  SmallParagraph,
-  SmallestParagraph,
-  CollapsableHeader,
-  StyledCollapsable,
-  NoteContainer,
-  NoteHeading,
-  NoteText,
-} from "./styledComponents";
+  OBSectionTitle,
+  OBSectionDescription,
+  OBSmallParagraph,
+  OBSmallestParagraph,
+  OBBorderedSection,
+  OBBorderedSectionActive,
+  OBCollapsableHeader,
+  OBCollapsable,
+  OBNoteContainer,
+  OBNoteHeading,
+  OBNoteText,
+} from "./";
+import { AccountEthAuth } from "./Account/";
 import styled from "styled-components";
 
 export interface WalletOnboardingV2Props {
@@ -40,12 +38,9 @@ export interface WalletOnboardingV2Props {
   requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
-  profileUrl?: string;
-  profileAddressSaving?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
   notEnabled?: boolean;
-  requireAuth?: boolean;
   enable(): void;
   onOnboardingComplete?(): void;
   onContinue?(): void;
@@ -96,13 +91,13 @@ const MetaMaskIcon = styled(MetaMaskSideIcon)`
   top: 3px;
 `;
 
-const IntroText = styled(SectionDescription)`
+const IntroText = styled(OBSectionDescription)`
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 `;
 
-const InstructionsWrapper = styled(BorderedSection)`
+const InstructionsWrapper = styled(OBBorderedSection)`
   display: flex;
   justify-contents: space-between;
   margin: 32px auto 18px;
@@ -125,7 +120,7 @@ const InstructionsButtonWrap = styled.div`
   margin-top: 24px;
 `;
 
-const GetMetaMaskBox = styled(BorderedSectionActive)`
+const GetMetaMaskBox = styled(OBBorderedSectionActive)`
   margin: 24px auto 12px;
   max-width: 550px;
   padding: 24px;
@@ -142,7 +137,7 @@ const GetMetaMaskText = styled.div`
   font-weight: bold;
   line-height: 22px;
 `;
-const GetMetaMaskMoreHelp = styled(SmallParagraph)`
+const GetMetaMaskMoreHelp = styled(OBSmallParagraph)`
   text-align: left;
 `;
 
@@ -176,7 +171,7 @@ const WarningWrap = styled.p`
   border-radius: 4px;
   padding: 12px;
 
-  ${NoteText} {
+  ${OBNoteText} {
     display: inline-block;
     max-width: 520px;
   }
@@ -185,197 +180,223 @@ const WarningWrap = styled.p`
 export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props> {
   public render(): JSX.Element | null {
     if (this.props.noProvider) {
-      return (
-        <Wrapper>
-          <SectionTitle>Connect your crypto wallet</SectionTitle>
-          <IntroText>
-            To log in into your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend
-            using MetaMask.
-          </IntroText>
-          <GetMetaMaskBox>
-            <a href="https://metamask.io/" target="_blank">
-              <GetMetaMaskImg src={metaMaskFrontLargeImgUrl} />
-              <GetMetaMaskText>Get the MetaMask Browser Extension</GetMetaMaskText>
-            </a>
-          </GetMetaMaskBox>
-
-          <SmallestParagraph>
-            Once the extension is installed,{" "}
-            <a href="javascript:void(0)" onClick={() => window.location.reload()}>
-              refresh this page
-            </a>
-            .
-          </SmallestParagraph>
-
-          {this.renderFaqEtc()}
-        </Wrapper>
-      );
+      return this.renderNoProvider();
     } else if (this.props.notEnabled) {
-      return (
-        <Wrapper>
-          <SectionTitle>Connect your crypto wallet</SectionTitle>
-          <IntroText>
-            Civil uses MetaMask to view your public wallet address and prompt you with Ethereum transactions, but first
-            we need to connect with MetaMask. Please grant permission to Civil to view your wallet address.
-          </IntroText>
-
-          <InstructionsWrapper>
-            <InstructionsText>
-              <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
-              <InstructionsButtonWrap>
-                <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
-              </InstructionsButtonWrap>
-            </InstructionsText>
-            <InstructionsImage src={metaMaskConnectImgUrl} />
-          </InstructionsWrapper>
-
-          <SmallestParagraph>
-            If you do not see the MetaMask popup, please click the <MetaMaskIcon /> icon in your browser address bar.
-          </SmallestParagraph>
-
-          {this.renderFaqEtc()}
-        </Wrapper>
-      );
+      return this.renderNotEnabled();
     } else if (this.props.walletLocked) {
-      return (
-        <Wrapper>
-          <SectionTitle>Log in to your crypto wallet</SectionTitle>
-          <IntroText>
-            Please open the MetaMask extension and follow the instructions to log in to your crypto wallet. After you
-            are logged in, you can continue.
-          </IntroText>
-          <InstructionsWrapper>
-            <InstructionsText>
-              <p>
-                Open the MetaMask extension in your browser and follow the instructions to unlock and log into your
-                wallet.
-              </p>
-            </InstructionsText>
-            <InstructionsImage src={metaMaskLoginImgUrl} />
-          </InstructionsWrapper>
-
-          {this.renderFaqEtc()}
-        </Wrapper>
-      );
+      return this.renderLocked();
     } else if (this.props.wrongNetwork) {
-      return (
-        <Wrapper>
-          <SectionTitle>Log in to your crypto wallet</SectionTitle>
-          <IntroText>
-            Please open the MetaMask extension and follow the instructions to log in to your crypto wallet. After you
-            are logged in, you can continue.
-          </IntroText>
-
-          <InstructionsWrapper>
-            <InstructionsText>
-              <p>
-                Looks like you’re using an unsupported Ethereum network. Make sure you have the{" "}
-                <strong>{this.props.requiredNetworkNiceName}</strong> selected.
-              </p>
-            </InstructionsText>
-            <InstructionsImage src={metaMaskNetworkSwitchImgUrl} />
-          </InstructionsWrapper>
-
-          {this.renderFaqEtc()}
-        </Wrapper>
-      );
+      return this.renderWrongNetwork();
     } else if (this.props.metamaskWalletAddress) {
-      if (this.props.requireAuth && !this.props.profileWalletAddress) {
-        return (
-          <Wrapper>
-            <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
-            <IntroText>
-              Almost there! To set up your Civil account, you need to authenticate your account with a signature. This
-              is similar to signing in with a password. It verifies your account with your crypto wallet.
-            </IntroText>
-
-            <InstructionsWrapper>
-              <InstructionsText>
-                <p>MetaMask will open a new window, and will require you to sign a message.</p>
-                <InstructionsButtonWrap>
-                  <AccountEthAuth
-                    civil={this.props.civil!}
-                    onAuthenticated={this.props.onOnboardingComplete}
-                    buttonOnly={true}
-                  />
-                </InstructionsButtonWrap>
-              </InstructionsText>
-              <InstructionsImage src={metaMaskSignImgUrl} />
-            </InstructionsWrapper>
-
-            {this.renderFaqEtc()}
-          </Wrapper>
-        );
-      } else if (this.props.requireAuth && this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
-        return (
-          <Wrapper>
-            <SectionTitle>Log in to Civil with your crypto wallet</SectionTitle>
-            <IntroText>
-              The wallet address saved in your profile does not match your current MetaMask wallet address. Please
-              update your profile, or switch MetaMask to use the wallet that is saved to your profile.
-            </IntroText>
-            <WalletLabel>Profile wallet address</WalletLabel>
-            <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
-            <WalletLabel>Connected MetaMask wallet address</WalletLabel>
-            <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
-            <InstructionsWrapper>
-              <InstructionsText>
-                <p>
-                  Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.
-                </p>
-                <InstructionsButtonWrap>
-                  <AccountEthAuth
-                    civil={this.props.civil!}
-                    onAuthenticated={this.props.onOnboardingComplete}
-                    buttonOnly={true}
-                    buttonText={"Update Profile"}
-                  />
-                </InstructionsButtonWrap>
-              </InstructionsText>
-              <InstructionsImage src={metaMaskSignImgUrl} />
-            </InstructionsWrapper>
-            {this.renderFaqEtc()}
-          </Wrapper>
-        );
+      if (!this.props.profileWalletAddress) {
+        return this.renderSaveAddress();
+      } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
+        return this.renderAddressMismatch();
       } else {
-        return (
-          <Wrapper>
-            <SectionTitle>
-              <ConnectedCheck width={32} height={32} />
-              Wallet Connected
-            </SectionTitle>
-            <IntroText>
-              Your crypto wallet is connected. Your public wallet address will be linked to your email address on the
-              Civil network so you can log in using your wallet.
-            </IntroText>
-
-            <ConnectedWalletAddressWrap>
-              <WalletLabel>Public Wallet Address</WalletLabel>
-              <ConnectedWalletAddress>{this.props.metamaskWalletAddress}</ConnectedWalletAddress>
-            </ConnectedWalletAddressWrap>
-
-            <WarningWrap>
-              <NoteText>
-                Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase,
-                username and password in a safe place. We can’t help you restore or regain access if you lose it.
-              </NoteText>
-            </WarningWrap>
-
-            {this.props.onContinue && (
-              <ContinueButtonWrap>
-                <Button width={220} size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
-                  Continue
-                </Button>
-              </ContinueButtonWrap>
-            )}
-
-            {this.renderFaqEtc(false)}
-          </Wrapper>
-        );
+        return this.renderConnected();
       }
     } else {
       return null;
     }
+  }
+
+  private renderNoProvider(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Connect your crypto wallet</OBSectionTitle>
+        <IntroText>
+          To log in into your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using
+          MetaMask.
+        </IntroText>
+        <GetMetaMaskBox>
+          <a href="https://metamask.io/" target="_blank">
+            <GetMetaMaskImg src={metaMaskFrontLargeImgUrl} />
+            <GetMetaMaskText>Get the MetaMask Browser Extension</GetMetaMaskText>
+          </a>
+        </GetMetaMaskBox>
+
+        <OBSmallestParagraph>
+          Once the extension is installed,{" "}
+          <a href="javascript:void(0)" onClick={() => window.location.reload()}>
+            refresh this page
+          </a>
+          .
+        </OBSmallestParagraph>
+
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderNotEnabled(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Connect your crypto wallet</OBSectionTitle>
+        <IntroText>
+          Civil uses MetaMask to view your public wallet address and prompt you with Ethereum transactions, but first we
+          need to connect with MetaMask. Please grant permission to Civil to view your wallet address.
+        </IntroText>
+
+        <InstructionsWrapper>
+          <InstructionsText>
+            <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
+            <InstructionsButtonWrap>
+              <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
+            </InstructionsButtonWrap>
+          </InstructionsText>
+          <InstructionsImage src={metaMaskConnectImgUrl} />
+        </InstructionsWrapper>
+
+        <OBSmallestParagraph>
+          If you do not see the MetaMask popup, please click the <MetaMaskIcon /> icon in your browser address bar.
+        </OBSmallestParagraph>
+
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderLocked(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Log in to your crypto wallet</OBSectionTitle>
+        <IntroText>
+          Please open the MetaMask extension and follow the instructions to log in to your crypto wallet. After you are
+          logged in, you can continue.
+        </IntroText>
+        <InstructionsWrapper>
+          <InstructionsText>
+            <p>
+              Open the MetaMask extension in your browser and follow the instructions to unlock and log into your
+              wallet.
+            </p>
+          </InstructionsText>
+          <InstructionsImage src={metaMaskLoginImgUrl} />
+        </InstructionsWrapper>
+
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderWrongNetwork(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Log in to your crypto wallet</OBSectionTitle>
+        <IntroText>
+          Please open the MetaMask extension and follow the instructions to log in to your crypto wallet. After you are
+          logged in, you can continue.
+        </IntroText>
+
+        <InstructionsWrapper>
+          <InstructionsText>
+            <p>
+              Looks like you’re using an unsupported Ethereum network. Make sure you have the{" "}
+              <strong>{this.props.requiredNetworkNiceName}</strong> selected.
+            </p>
+          </InstructionsText>
+          <InstructionsImage src={metaMaskNetworkSwitchImgUrl} />
+        </InstructionsWrapper>
+
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderSaveAddress(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Log in to Civil with your crypto wallet</OBSectionTitle>
+        <IntroText>
+          Almost there! To set up your Civil account, you need to authenticate your account with a signature. This is
+          similar to signing in with a password. It verifies your account with your crypto wallet.
+        </IntroText>
+
+        <InstructionsWrapper>
+          <InstructionsText>
+            <p>MetaMask will open a new window, and will require you to sign a message.</p>
+            <InstructionsButtonWrap>
+              <AccountEthAuth
+                civil={this.props.civil!}
+                onAuthenticated={this.props.onOnboardingComplete}
+                buttonOnly={true}
+              />
+            </InstructionsButtonWrap>
+          </InstructionsText>
+          <InstructionsImage src={metaMaskSignImgUrl} />
+        </InstructionsWrapper>
+
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderAddressMismatch(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>Log in to Civil with your crypto wallet</OBSectionTitle>
+        <IntroText>
+          The wallet address saved in your profile does not match your current MetaMask wallet address. Please update
+          your profile, or switch MetaMask to use the wallet that is saved to your profile.
+        </IntroText>
+        <WalletLabel>Profile wallet address</WalletLabel>
+        <ProfileWalletAddress>{this.props.profileWalletAddress}</ProfileWalletAddress>{" "}
+        <WalletLabel>Connected MetaMask wallet address</WalletLabel>
+        <WalletAddress address={this.props.metamaskWalletAddress} />{" "}
+        <InstructionsWrapper>
+          <InstructionsText>
+            <p>Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.</p>
+            <InstructionsButtonWrap>
+              <AccountEthAuth
+                civil={this.props.civil!}
+                onAuthenticated={this.props.onOnboardingComplete}
+                buttonOnly={true}
+                buttonText={"Update Profile"}
+              />
+            </InstructionsButtonWrap>
+          </InstructionsText>
+          <InstructionsImage src={metaMaskSignImgUrl} />
+        </InstructionsWrapper>
+        {this.renderFaqEtc()}
+      </Wrapper>
+    );
+  }
+
+  private renderConnected(): JSX.Element {
+    return (
+      <Wrapper>
+        <OBSectionTitle>
+          <ConnectedCheck width={32} height={32} />
+          Wallet Connected
+        </OBSectionTitle>
+        <IntroText>
+          Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil
+          network so you can log in using your wallet.
+        </IntroText>
+
+        <ConnectedWalletAddressWrap>
+          <WalletLabel>Public Wallet Address</WalletLabel>
+          <ConnectedWalletAddress>{this.props.metamaskWalletAddress}</ConnectedWalletAddress>
+        </ConnectedWalletAddressWrap>
+
+        <WarningWrap>
+          <OBNoteText>
+            Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase,
+            username and password in a safe place. We can’t help you restore or regain access if you lose it.
+          </OBNoteText>
+        </WarningWrap>
+
+        {this.props.onContinue && (
+          <ContinueButtonWrap>
+            <Button width={220} size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
+              Continue
+            </Button>
+          </ContinueButtonWrap>
+        )}
+
+        {this.renderFaqEtc(false)}
+      </Wrapper>
+    );
   }
 
   private renderFaqEtc = (showDisabledButton = true): JSX.Element => {
@@ -389,74 +410,74 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
           </ContinueButtonWrap>
         )}
 
-        <NoteContainer>
-          <NoteHeading>Using a different wallet?</NoteHeading>
-          <NoteText>
+        <OBNoteContainer>
+          <OBNoteHeading>Using a different wallet?</OBNoteHeading>
+          <OBNoteText>
             Make sure it's unlocked
             {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}
             . You may need to refresh.
-          </NoteText>
-        </NoteContainer>
+          </OBNoteText>
+        </OBNoteContainer>
 
-        <StyledCollapsable
+        <OBCollapsable
           open={false}
-          header={<CollapsableHeader> What is a cryptocurrency wallet?</CollapsableHeader>}
+          header={<OBCollapsableHeader> What is a cryptocurrency wallet?</OBCollapsableHeader>}
         >
-          <SmallParagraph>
+          <OBSmallParagraph>
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of
             the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
-          </SmallParagraph>
-          <SmallParagraph>
+          </OBSmallParagraph>
+          <OBSmallParagraph>
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide
             access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using
             your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as
             your identity on the Ethereum blockchain.
-          </SmallParagraph>
-          <SmallParagraph>
+          </OBSmallParagraph>
+          <OBSmallParagraph>
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL
             tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
-          </SmallParagraph>
-        </StyledCollapsable>
+          </OBSmallParagraph>
+        </OBCollapsable>
 
-        <StyledCollapsable
+        <OBCollapsable
           open={false}
-          header={<CollapsableHeader> Why do I need a cryptocurrency wallet?</CollapsableHeader>}
+          header={<OBCollapsableHeader> Why do I need a cryptocurrency wallet?</OBCollapsableHeader>}
         >
-          <SmallParagraph>
+          <OBSmallParagraph>
             Having a wallet is required. We recommend{" "}
             <a href="https://metamask.io/" target="_blank">
               MetaMask
             </a>{" "}
             to log in and manage your transactions.
-          </SmallParagraph>
-          <SmallParagraph>
+          </OBSmallParagraph>
+          <OBSmallParagraph>
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your
             tokens, as well as sign and index posts to the Ethereum blockchain.
-          </SmallParagraph>
-          <SmallParagraph>
+          </OBSmallParagraph>
+          <OBSmallParagraph>
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with
             ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.{" "}
             <strong>Note:</strong> Processing times can vary, and it can take up to 7 days for the ETH to be deposited
             in your wallet.
-          </SmallParagraph>
-          <SmallParagraph>
+          </OBSmallParagraph>
+          <OBSmallParagraph>
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you
             regain access if you lose it.
-          </SmallParagraph>
-        </StyledCollapsable>
+          </OBSmallParagraph>
+        </OBCollapsable>
 
-        <StyledCollapsable
+        <OBCollapsable
           open={false}
-          header={<CollapsableHeader> Need help setting up your wallet?</CollapsableHeader>}
+          header={<OBCollapsableHeader> Need help setting up your wallet?</OBCollapsableHeader>}
         >
-          <SmallParagraph>
+          <OBSmallParagraph>
             Head over to our{" "}
             <a href="#@TODO/toby FAQ link" target="_blank">
               FAQ guide
             </a>{" "}
             on how to install a MetaMask wallet.
-          </SmallParagraph>
-        </StyledCollapsable>
+          </OBSmallParagraph>
+        </OBCollapsable>
 
         <GetMetaMaskMoreHelp>
           Need more info before you start using a crypto wallet?{" "}

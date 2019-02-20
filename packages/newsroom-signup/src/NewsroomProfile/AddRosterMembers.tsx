@@ -1,8 +1,14 @@
 import * as React from "react";
 import { LearnMoreButton } from "./LearnMoreButton";
-import { StyledHr, FormSection, SectionHeader, SectionDescription, StepSectionCounter } from "../styledComponents";
+import { StyledHr, FormSection, StepSectionCounter } from "../styledComponents";
 import { CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
-import { InvertedButton, BorderlessButton, buttonSizes } from "@joincivil/components";
+import {
+  InvertedButton,
+  BorderlessButton,
+  buttonSizes,
+  OBSectionHeader,
+  OBSectionDescription,
+} from "@joincivil/components";
 import { RosterMember } from "./RosterMember";
 import { findIndex } from "lodash";
 import styled from "styled-components";
@@ -17,12 +23,12 @@ export interface AddRosterMemberState {
   editingMember: Partial<RosterMemberInterface> | null;
 }
 
-const LowerHeader = styled(SectionHeader)`
+const LowerHeader = styled(OBSectionHeader)`
   font-size: 20px;
   text-align: left;
 `;
 
-const LowerDescription = styled(SectionDescription)`
+const LowerDescription = styled(OBSectionDescription)`
   text-align: left;
 `;
 
@@ -46,11 +52,11 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
   public render(): JSX.Element {
     return (
       <>
-        <SectionHeader>Now, add your team to the Newsroom Roster</SectionHeader>
-        <SectionDescription>
+        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
+        <OBSectionDescription>
           Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
           Registry Profile.
-        </SectionDescription>
+        </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />
         <FormSection>

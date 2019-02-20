@@ -12,6 +12,8 @@ import {
   MetaMaskStepCounter,
   colors,
   fonts,
+  OBSectionHeader,
+  OBSectionDescription,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage } from "@joincivil/utils";
 import { Civil, EthAddress, CharterData } from "@joincivil/core";
@@ -20,7 +22,7 @@ import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { IpfsObject } from "../Newsroom";
-import { SectionHeader, SectionDescription, StyledHr, StepSectionCounter } from "../styledComponents";
+import { StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 
 const CheckWrapper = styled.span`
@@ -187,12 +189,12 @@ class SignConstitutionComponent extends React.Component<
     const content = this.props.government ? this.props.government.get("constitutionContent") : "";
     return (
       <>
-        <SectionHeader>Review the Civil Constitution</SectionHeader>
-        <SectionDescription>
+        <OBSectionHeader>Review the Civil Constitution</OBSectionHeader>
+        <OBSectionDescription>
           The Civil Constitution reflects the mission, purpose and values of ethical journalism on the Civil network.
           All newsrooms are expected to comply with its standards and may be challenged if they are in violation of its
           principles.{" "}
-        </SectionDescription>
+        </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />
         <StepSectionCounter>Step 4 of 4: Signing</StepSectionCounter>
