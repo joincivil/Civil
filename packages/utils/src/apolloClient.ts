@@ -38,7 +38,7 @@ export function getNetwork(): number {
   if (network) {
     return network;
   } else {
-    return 4; // TODO: change to 1
+    return 1;
   }
 }
 

@@ -13,6 +13,7 @@ import {
   transformGraphQLDataIntoListing,
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
+import { StyledListingCopy } from "../utility/styledComponents";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import LoadingMsg from "../utility/LoadingMsg";
 import { NewsroomListing } from "@joincivil/core";
@@ -55,6 +56,11 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
 
             return (
               <>
+                <StyledListingCopy>
+                  Rejected Newsrooms have been removed from the Civil Registry following a vote that they had violated
+                  the <a href="https://civil.co/constitution/">Civil Constitution</a> in some way. Rejected Newsrooms
+                  can reapply to the Registry at any time. <a href="#zendesk">Learn how</a>.
+                </StyledListingCopy>
                 <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={map} />
               </>
             );
