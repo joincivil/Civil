@@ -161,7 +161,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     if (authResponse === "ok") {
       onEmailSend(isNewUser, emailAddress);
       if (hasSelectedToAddToNewsletter) {
-        // TODO(jorge): Add to the email newsletter
+        // TODO(jorge): Add to the email newsletter CIVIL-381
         console.log(emailAddress + " wants to be on the newsletter");
       }
       return;
