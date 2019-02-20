@@ -8,7 +8,8 @@ export enum charterQuestions {
 
 export const questionsCopy = {
   [charterQuestions.PURPOSE]: "Please describe your newsroom's mission or purpose.",
-  [charterQuestions.STRUCTURE]: "What is your Newsroom's ownership structure? e.g. not-for-profit, privately owned commercial enterprise, etc.",
+  [charterQuestions.STRUCTURE]:
+    "What is your Newsroom's ownership structure? e.g. not-for-profit, privately owned commercial enterprise, etc.",
   [charterQuestions.REVENUE]:
     "What are your Newsroom's current or planned revenue sources? e.g. membership, subscriptions, advertising, sponsored content",
   [charterQuestions.ENCUMBRANCES]:
