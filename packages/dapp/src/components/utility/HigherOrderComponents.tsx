@@ -13,7 +13,7 @@ import {
   AppealChallengeResultsProps,
   AppealChallengePhaseProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
@@ -42,6 +42,7 @@ export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   appealChallengeData?: AppealChallengeData;
   challengeDataRequestStatus?: any;
+  dispensationPct?: any;
   user: EthAddress;
 }
 
@@ -459,7 +460,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
     state: State,
     ownProps: ChallengeContainerProps,
   ): ChallengeContainerReduxProps & ChallengeContainerProps & GraphQLizableComponentProps => {
-    const { challenges, challengesFetching, user } = state.networkDependent;
+    const { challenges, challengesFetching, user, parameters } = state.networkDependent;
     const { useGraphQL } = state;
     let challengeData;
     const challengeID = ownProps.challengeID;
@@ -471,11 +472,14 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
       challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
     }
     const userAcct = user.account;
+    const dispensationPct =
+      parameters && parameters[Parameters.dispensationPct] && parameters[Parameters.dispensationPct].toString();
     return {
       ...ownProps,
       challengeID: challengeID!.toString(),
       challengeData,
       challengeDataRequestStatus,
+      dispensationPct,
       user: userAcct.account,
       useGraphQL,
     };
@@ -512,6 +516,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
                     isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
                     rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
                     stake={getFormattedTokenBalance(challenge!.stake)}
+                    dispensationPct={this.props.dispensationPct}
                   />
                 </>
               );
@@ -530,6 +535,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
             isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
             rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
             stake={getFormattedTokenBalance(challenge!.stake)}
+            dispensationPct={this.props.dispensationPct}
             {...this.props}
           />
         );

@@ -296,6 +296,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                             handleCreateProposal={this.showCreateGovtProposal}
                             handleProposalAction={this.showProposalAction}
                             canShowCreateProposal={this.props.isMemberOfAppellate}
+                            isGovtProposal={true}
                           />
                         );
                       })}

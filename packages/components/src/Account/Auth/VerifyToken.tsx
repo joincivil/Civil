@@ -1,10 +1,10 @@
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { setApolloSession } from "@joincivil/utils";
-import { ExecuteOnMount, Button, buttonSizes } from "../";
-import { AuthLoginResponse } from "./";
+import { ExecuteOnMount, Button, buttonSizes } from "../..";
+import { AuthLoginResponse } from "..";
+import { AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {
@@ -26,13 +26,9 @@ const verifyLoginTokenMutation = gql`
   }
 `;
 
-interface VerifyTokenParams {
-  token: string;
-}
-
-export interface AccountVerifyTokenProps extends Partial<RouteComponentProps> {
+export interface AccountVerifyTokenProps {
   isNewUser: boolean;
-  token?: string;
+  token: string;
   onAuthenticationContinue(isNewUser: boolean): void;
 }
 
@@ -52,14 +48,27 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public renderError(error: any): JSX.Element {
+    // TODO(jorgelo): Style figure out how to style this.
     const errorText = error.graphQLErrors.map((e: any) => e.message).join(" ,");
 
     return <>{errorText}</>;
   }
 
+  public renderVerified(): JSX.Element {
+    const { onAuthenticationContinue, isNewUser } = this.props;
+    return (
+      <>
+        <AuthTextVerifyTokenConfirmed />
+
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
+          Continue
+        </Button>
+      </>
+    );
+  }
   public render(): JSX.Element {
-    const loginJWT = this.props.token || (this.props.match!.params as VerifyTokenParams).token;
-    const { isNewUser, onAuthenticationContinue } = this.props;
+    const loginJWT = this.props.token;
+    const { isNewUser } = this.props;
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
@@ -79,17 +88,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
                 }}
               />
 
-              {this.state.hasValidated ? (
-                <>
-                  <h3>Email Address Confirmed!</h3>
-                  <p>Thanks for confirming your email address</p>
-                  <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
-                    Continue
-                  </Button>
-                </>
-              ) : (
-                <>Verifying email...</>
-              )}
+              {this.state.hasValidated ? this.renderVerified() : <>Verifying email...</>}
 
               <span>{error && this.renderError(error)}</span>
             </>

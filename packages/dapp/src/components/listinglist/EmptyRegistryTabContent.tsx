@@ -1,6 +1,13 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { RegistryEmptyIcon, StyledRegistryEmpty, StyledEmptyHeader, StyledEmptyCopy } from "@joincivil/components";
+import {
+  Button,
+  buttonSizes,
+  RegistryEmptyIcon,
+  StyledRegistryEmpty,
+  StyledEmptyHeader,
+  StyledEmptyCopy,
+} from "@joincivil/components";
 
 interface EmptyRegistryTabContent {
   header: string;
@@ -40,7 +47,10 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no new applications at this time",
     copy: (
       <>
-        You can <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        Join the community-approved ethical Newsrooms on Civil<br />
+        <Button to="/create-newsroom" size={buttonSizes.SMALL}>
+          Apply to Registry
+        </Button>
       </>
     ),
   },
@@ -48,35 +58,35 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no newsrooms under challenge at this time",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/under-challenge">view new applications</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
+        <Link to="/create-newsroom">apply to Registry</Link>
       </>
     ),
   },
   [REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL]: {
-    header: "There are no newsrooms under appeal at this time",
+    header: "There are no appeals to the Civil Council at this time",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/under-challenge">view listings under challenge</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
+        <Link to="/create-newsroom">apply to Registry</Link>
       </>
     ),
   },
   [REGISTRY_PHASE_TAB_TYPES.UNDER_APPEAL_CHALLENGE]: {
-    header: "There are no newsrooms with granted appeals at this time",
+    header: "There are no Civil Council decisions under challenge at this time",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/under-appeal">view listings under appeal</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
+        <Link to="/create-newsroom">apply to Registry</Link>
       </>
     ),
   },
   [REGISTRY_PHASE_TAB_TYPES.READY_TO_UPDATE]: {
-    header: "There are no newsrooms to update at this time",
+    header: "There are no newsrooms with statuses ready to update at this time",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
+        <Link to="/create-newsroom">apply to Registry</Link>
       </>
     ),
   },
@@ -91,8 +101,8 @@ export const EmptyRegistryTabContentComponent: React.SFC<EmptyRegistryTabContent
   return (
     <StyledRegistryEmpty>
       <StyledEmptyHeader>{tabContent.header}</StyledEmptyHeader>
-      <StyledEmptyCopy>{tabContent.copy}</StyledEmptyCopy>
       <RegistryEmptyIcon />
+      <StyledEmptyCopy>{tabContent.copy}</StyledEmptyCopy>
     </StyledRegistryEmpty>
   );
 };

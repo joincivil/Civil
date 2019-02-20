@@ -27,6 +27,7 @@ export interface UserTokenAccountProps {
   faqUrl: string;
   network: string;
   user?: any;
+  addWalletPath: string;
 }
 
 export interface UserTokenAccountStates {
@@ -65,7 +66,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <UserTokenAccountSignup step={loggedInState} />
+              <UserTokenAccountSignup step={loggedInState} addWalletPath={addWalletPath} />
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}

@@ -66,8 +66,8 @@ export const CommitVoteCalloutHeaderText: React.SFC = props => {
 export const CommitVoteCalloutCopyText: React.SFC = props => {
   return (
     <>
-      Evaluate whether the Newsroom is in violation of the Civil Constitution and cast your vote accordingly. Voters
-      will never lose tokens for participating in a vote.
+      Evaluate the Newsroom based on the Civil Constitution and vote accordingly. You will never lose tokens for
+      participating in a vote.
     </>
   );
 };
@@ -82,13 +82,12 @@ export const AppealChallengeCommitVoteCalloutCopyText: React.SFC = props => {
 };
 
 export const CommitVoteAlreadyVotedHeaderText: React.SFC = props => {
-  return <>Thanks for participating in this challenge!</>;
+  return <>You have already submitted your vote. Thank you.</>;
 };
 
+// TODO(jon): Pass in and render commit vote expiry
 export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
-  return (
-    <>You have committed a vote in this challenge. Thanks for that. You can change your vote until the deadline.</>
-  );
+  return <>You may revise your vote until the deadline.</>;
 };
 
 export const CommitVoteCalloutButtonText: React.SFC = props => <>Submit My Vote</>;
@@ -110,6 +109,7 @@ export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved
 // Tooltips
 export interface ToolTipTextProps {
   phaseLength?: number;
+  dispensationPct?: string;
 }
 
 export const DurationToolTipText: React.SFC<ToolTipTextProps> = props => {
@@ -220,11 +220,15 @@ export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const RewardPoolToolTipText: React.SFC = props => {
+export const RewardPoolToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       Amount of tokens to be distributed to voters of the winning party at the conclusion of the challenge. The amount
-      comes from 50% of the challenger or Newsroom's deposit.
+      comes from{" "}
+      {!!props.dispensationPct
+        ? `${props.dispensationPct}%`
+        : "a percentage (defined by the dispensationPct Parameter)"}{" "}
+      of the challenger or Newsroom's deposit.
     </>
   );
 };

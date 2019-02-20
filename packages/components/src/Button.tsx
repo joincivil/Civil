@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled, { StyledComponentClass } from "styled-components";
-
 import { colors, fonts } from "./styleConstants";
 
 export enum buttonSizes {
   SMALL = "SMALL",
+  SMALL_WIDE = "SMALL_WIDE",
   MEDIUM = "MEDIUM",
   MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
@@ -50,6 +50,7 @@ export interface ButtonTheme {
   darkButtonTextTransform?: string;
   borderlessButtonColor?: string;
   borderlessButtonHoverColor?: string;
+  borderlessButtonSize?: string;
   sansSerifFont?: string;
 }
 
@@ -88,6 +89,7 @@ const DARK_BUTTON_DEFAULT_THEME = {
 const BORDERLESS_BUTTON_DEFAULT_THEME = {
   borderlessButtonColor: colors.primary.CIVIL_BLUE_1,
   borderlessButtonHoverColor: colors.accent.CIVIL_BLUE_FADED,
+  borderlessButtonSize: "15px",
 };
 
 export const DEFAULT_BUTTON_THEME = {
@@ -100,6 +102,7 @@ export const DEFAULT_BUTTON_THEME = {
 
 const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
+  [buttonSizes.SMALL_WIDE]: "8px 60px",
   [buttonSizes.MEDIUM]: "10px 25px",
   [buttonSizes.MEDIUM_WIDE]: "9px 30px",
   [buttonSizes.LARGE]: "20px 50px",
@@ -107,6 +110,7 @@ const sizesObject: { [index: string]: string } = {
 
 const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
+  [buttonSizes.SMALL_WIDE]: "0.2px",
   [buttonSizes.MEDIUM]: "1px",
   [buttonSizes.MEDIUM_WIDE]: "0.2px",
   [buttonSizes.LARGE]: "3px",
@@ -261,7 +265,7 @@ export const BorderlessButton = styled(Button)`
   margin-left: 8px;
   letter-spacing: 0.7px;
   padding: ${sizesObject[buttonSizes.SMALL]};
-  font-size: 15px;
+  font-size: ${props => props.theme.borderlessButtonSize};
   background-color: transparent;
   &:focus,
   &:active,

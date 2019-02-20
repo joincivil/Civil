@@ -51,7 +51,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       accountInfo = (
         <CvlContainer>
           <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
-            Get Started
+            Sign Up | Log In
           </LogInButton>
         </CvlContainer>
       );

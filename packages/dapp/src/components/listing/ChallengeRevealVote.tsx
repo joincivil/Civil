@@ -3,22 +3,37 @@ import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  ChallengeRevealVoteCard,
+  ChallengeRevealVoteCard as ChallengeRevealVoteCardComponent,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
   RevealVoteSuccessIcon,
+  PhaseWithExpiryProps,
+  ListingDetailPhaseCardComponentProps,
+  ChallengePhaseProps,
+  RevealVoteProps,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings, getFormattedTokenBalance } from "@joincivil/utils";
+import { getLocalDateTimeStrings } from "@joincivil/utils";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
+import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
   TransactionStatusModalContentMap,
 } from "../utility/TransactionStatusModalsHOC";
 import { ChallengeDetailProps, ChallengeVoteState } from "./ChallengeDetail";
+
+const ChallengeRevealVoteCard = compose<
+  React.ComponentType<
+    ListingDetailPhaseCardComponentProps &
+      PhaseWithExpiryProps &
+      ChallengePhaseProps &
+      ChallengeContainerProps &
+      RevealVoteProps
+  >
+>(connectChallengePhase)(ChallengeRevealVoteCardComponent);
 
 enum TransactionTypes {
   REVEAL_VOTE = "REVEAL_VOTE",
@@ -102,10 +117,6 @@ class ChallengeRevealVote extends React.Component<
           endTime={endTime}
           phaseLength={phaseLength}
           secondaryPhaseLength={secondaryPhaseLength}
-          challenger={challenge!.challenger.toString()}
-          isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-          rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-          stake={getFormattedTokenBalance(challenge!.stake)}
           voteOption={this.state.voteOption}
           salt={this.state.salt}
           onInputChange={this.updateRevealVoteState}

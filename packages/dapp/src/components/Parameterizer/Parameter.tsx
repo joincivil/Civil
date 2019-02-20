@@ -6,7 +6,7 @@ import { Table, Tr, Td, ParameterizerTd, StyledTableAccentText } from "@joincivi
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
-import { makeGetProposalsByParameterName } from "../../selectors";
+import { makeGetProposalsByParameterName, makeGetGovtProposalsByParameterName } from "../../selectors";
 import { Proposal } from "./Proposal";
 
 export interface ParameterProps {
@@ -81,10 +81,13 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
 
 const makeMapStateToProps = () => {
   const getProposalsByParameterName = makeGetProposalsByParameterName();
+  const getGovtProposalsByParameterName = makeGetGovtProposalsByParameterName();
   const mapStateToProps = (state: State, ownProps: ParameterProps): ParameterProps & ParameterReduxProps => {
     let parameterProposals: Set<any> = Set<any>();
     if (!ownProps.isGovtProposal) {
       parameterProposals = getProposalsByParameterName(state, ownProps);
+    } else {
+      parameterProposals = getGovtProposalsByParameterName(state, ownProps);
     }
 
     return {
