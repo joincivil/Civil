@@ -17,6 +17,7 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
   updateCharter(charter: Partial<CharterData>): void;
+  toggleButtons(): void;
 }
 
 export interface AddRosterMemberState {
@@ -96,6 +97,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
+    this.props.toggleButtons();
     this.setState({ editingMember: {} });
   };
 
@@ -117,7 +119,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       ...this.props.charter,
       roster,
     });
-
+    this.props.toggleButtons();
     this.setState({ editingMember: null });
   };
 
