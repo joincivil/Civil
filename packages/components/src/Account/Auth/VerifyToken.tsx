@@ -4,7 +4,7 @@ import { Mutation } from "react-apollo";
 import { setApolloSession } from "@joincivil/utils";
 import { ExecuteOnMount, Button, buttonSizes } from "../..";
 import { AuthLoginResponse } from "..";
-import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
+import { AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
 
 const verifySignUpTokenMutation = gql`
   mutation($loginJWT: String!) {
@@ -58,8 +58,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     const { onAuthenticationContinue, isNewUser } = this.props;
     return (
       <>
-        <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
-        <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+        <AuthTextVerifyTokenConfirmed />
 
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
           Continue

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PageHeadingTextCenteredSmall, PageHeadingTextCentered } from "../../Heading";
+import { PageHeadingTextCenteredSmall, PageHeadingTextCentered, PageSubHeadingCentered } from "../../Heading";
 
 export const AuthTextFooter: React.SFC = () => (
   <PageHeadingTextCenteredSmall>
@@ -15,4 +15,11 @@ export const AuthTextEmailSent: React.SFC<{
     We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
     expires soon, so please check your email and click on the link. Once confimed, you can continue.
   </PageHeadingTextCentered>
+);
+
+export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
+  <>
+    <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
+    <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+  </>
 );
