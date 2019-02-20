@@ -8,11 +8,11 @@ export enum charterQuestions {
 
 export const questionsCopy = {
   [charterQuestions.PURPOSE]: "Please describe your newsroom's mission or purpose.",
-  [charterQuestions.STRUCTURE]: "What is your newsroom's ownership structure? (e.g. non-profit, for-profit, co-op)",
+  [charterQuestions.STRUCTURE]: "What is your Newsroom's ownership structure? e.g. not-for-profit, privately owned commercial enterprise, etc.",
   [charterQuestions.REVENUE]:
-    "What are your newsroom's current or planned revenue sources? (ex: membership, subscriptions, advertising, sponsored content, promoted links)",
+    "What are your Newsroom's current or planned revenue sources? e.g. membership, subscriptions, advertising, sponsored content",
   [charterQuestions.ENCUMBRANCES]:
-    "Does anything get in the way of your ability to report independently? Are there any conflicts of interest that voters should be aware of?",
+    "Do you have any conflicts of interests that may impact your editorial independence? e.g. advocacy organization, commercial interests, corporate ownership",
   [charterQuestions.MISCELLANEOUS]:
     "Is there anything else the Civil community should know about your Newsroom to support its inclusion on the Registry?",
 };
