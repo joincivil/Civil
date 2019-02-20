@@ -53,6 +53,36 @@ export const AppealChallengeVoteCallToActionText: React.SFC<VoteCallToActionText
   );
 };
 
+export const RevealVoteCallToActionHeaderText: React.SFC = props => <>Confirm Your Secret Vote and Make It Count!</>;
+
+export const RevealVoteCallToActionCopyText: React.SFC = props => (
+  <>
+    To finalize the vote, you must complete this step to be eligible for rewards. Similar to the actual elections, votes
+    are not revealed until after polls closed.
+  </>
+);
+
+export const RevealVoteDidNotCommitHeaderText: React.SFC = props => <>You did not participate in this challenge</>;
+
+export const RevealVoteDidNotCommitCopyText: React.SFC = props => (
+  <>You did not commit a vote, so there is nothing here for you to reveal</>
+);
+
+export const RevealVoteDoneHeaderText: React.SFC = props => <>You have revealed your vote</>;
+
+export const RevealVoteDoneCopyText: React.SFC = props => (
+  <>Thank you for participating! Please check back after the challenge ends to see if you have earned a reward.</>
+);
+
+export const RevealVoteCalloutCopyText: React.SFC = props => (
+  <>
+    Civil does not store your vote information. It is stored in the{" "}
+    <a href="#zendesk" target="_blank">
+      voting smart contract
+    </a>. Please confirm your vote below.
+  </>
+);
+
 // Label for Commit Vote num tokens form
 export const CommitVoteNumTokensLabelText: React.SFC = props => {
   return <>Enter amount of tokens to vote. 1 vote equals 1 token </>;
@@ -93,7 +123,7 @@ export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
 export const CommitVoteCalloutButtonText: React.SFC = props => <>Submit My Vote</>;
 
 // Reveal Vote
-export const RevealVoteButtonText: React.SFC = props => <>Reveal My Vote</>;
+export const RevealVoteButtonText: React.SFC = props => <>Confirm My Vote</>;
 
 // Phase Card Display Names
 export const UnderChallengePhaseDisplayNameText: React.SFC = props => <>Under Challenge</>;

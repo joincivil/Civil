@@ -26,6 +26,14 @@ import {
   UnderChallengeToolTipText,
   CommitVoteToolTipText,
   ConfirmVoteToolTipText,
+  RevealVoteCallToActionHeaderText,
+  RevealVoteCallToActionCopyText,
+  RevealVoteDidNotCommitHeaderText,
+  RevealVoteDidNotCommitCopyText,
+  RevealVoteDoneHeaderText,
+  RevealVoteDoneCopyText,
+  RevealVoteButtonText,
+  RevealVoteCalloutCopyText,
 } from "./textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import { buttonSizes } from "../Button";
@@ -101,14 +109,13 @@ export class ChallengeRevealVoteCard extends React.Component<
                 <StyledCardClose>
                   <span onClick={this.swapFlipped}>✖</span>
                 </StyledCardClose>
-                <FormHeader>Confirm Your Votes. Make Them Count!</FormHeader>
+                <FormHeader>Confirm Your Secret Vote for Challenge #{this.props.challengeID}</FormHeader>
                 <FormCopy>
-                  Confirm with your secret phrase and earn CVL tokens should the challenge results end in your favor.
+                  <RevealVoteCalloutCopyText />
                 </FormCopy>
               </StyledListingDetailPhaseCardSection>
 
               <StyledListingDetailPhaseCardSection>
-                <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
                 <RevealVote
                   salt={this.props.salt}
                   voteOption={this.props.voteOption}
@@ -127,34 +134,42 @@ export class ChallengeRevealVoteCard extends React.Component<
     if (!this.props.userHasCommittedVote) {
       return (
         <>
-          <FormHeader>You did not participate in this challenge</FormHeader>
-          <FormCopy>You did not commit a vote, so there is nothing here for you to reveal</FormCopy>
+          <FormHeader>
+            <RevealVoteDidNotCommitHeaderText />
+          </FormHeader>
+          <FormCopy>
+            <RevealVoteDidNotCommitCopyText />
+          </FormCopy>
         </>
       );
     } else if (this.props.userHasRevealedVote) {
       return (
         <>
-          <FormHeader>You have revealed your vote</FormHeader>
+          <FormHeader>
+            <RevealVoteDoneHeaderText />
+          </FormHeader>
           <FormCopy>
-            Thank you for participating! Please check back after the challenge ends to see if you have earned a reward{" "}
+            <RevealVoteDoneCopyText />
           </FormCopy>
         </>
       );
     } else {
       return (
         <>
-          <FormHeader>Confirm Your Votes. Make Them Count!</FormHeader>
+          <FormHeader>
+            <RevealVoteCallToActionHeaderText />
+          </FormHeader>
           <FormCopy>
-            Confirm with your secret phrase and earn CVL tokens should the challenge results end in your favor.
+            <RevealVoteCallToActionCopyText />
           </FormCopy>
           <StyledVisibleOnDesktop>
             <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-              Reveal My Vote
+              <RevealVoteButtonText />
             </FullWidthButton>
           </StyledVisibleOnDesktop>
           <StyledVisibleOnMobile>
             <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              Reveal My Vote
+              <RevealVoteButtonText />
             </FullWidthButton>
           </StyledVisibleOnMobile>
         </>

@@ -146,7 +146,7 @@ export const FormCopy = styled.p`
 export const VoteOptionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 20px 0;
+  margin: 20px 0 40px;
 `;
 
 export const StyledOrText = styled.div`
@@ -344,10 +344,41 @@ export const StyledAppMessage = styled.div`
   text-align: center;
 `;
 
+export const StyledStepCopy = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  display: flex;
+  font-size: 18px;
+  line-height: 21px;
+  margin: 0 0 16px;
+`;
+
+export const StyledStepCopyNum = styled.div`
+  color: ${colors.primary.BLACK};
+  font-size: 21px;
+  line-height: 25px;
+  margin-right: 15px;
+`;
+
 export const StyledButtonsContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-top: 23px;
+
+  ${Button} {
+    font-size: 13px;
+    line-height: 14px;
+    letter-spacing: 0.3px;
+    text-transform: none;
+    padding: 18px;
+    margin: 0 0 35px;
+    width: 100%;
+  }
+`;
+
+export const StyledTextActionButton = styled.span`
+  color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
 `;
 
 export const StyledVisibleOnDesktop = styled.div`
