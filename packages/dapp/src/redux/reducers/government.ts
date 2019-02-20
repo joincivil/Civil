@@ -14,6 +14,19 @@ export function govtParameters(state: object = {}, action: AnyAction): object {
   }
 }
 
+export function govtProposals(
+  state: Map<string, object> = Map<string, object>(),
+  action: AnyAction,
+): Map<string, object> {
+  switch (action.type) {
+    case governmentActions.ADD_OR_UPDATE_GOVT_PROPOSAL:
+      const newState = state.set(action.proposal.id, action.proposal);
+      return newState;
+    default:
+      return state;
+  }
+}
+
 export function government(state: Map<string, string> = Map<string, string>(), action: AnyAction): Map<string, string> {
   switch (action.type) {
     case governmentActions.ADD_GOVERNMENT_DATA:
