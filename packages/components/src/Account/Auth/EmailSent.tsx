@@ -2,6 +2,7 @@ import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { CheckEmailSection, AuthPageFooterLink } from "./AuthStyledComponents";
 import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
+import { AuthTextEmailSent } from "./AuthTextComponents";
 
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
@@ -17,10 +18,7 @@ export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
       <>
         <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
 
-        <PageHeadingTextCentered>
-          We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
-          expires soon, so please check your email and click on the link. Once confimed, you can continue.
-        </PageHeadingTextCentered>
+        <AuthTextEmailSent emailAddress={emailAddress} />
 
         <CheckEmailSection />
 
