@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { CheckEmailSection, AuthPageFooterLink } from "./AuthStyledComponents";
 import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
 
@@ -11,11 +11,10 @@ export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
 
 export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
   public render(): JSX.Element {
-    const { emailAddress, onSendAgain, isNewUser } = this.props;
+    const { emailAddress, onSendAgain } = this.props;
 
     return (
       <>
-        {/* <PageHeadingCentered>{isNewUser ? "Sign up to Civil" : "Log in to Civil"}</PageHeadingCentered> */}
         <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
 
         <PageHeadingTextCentered>
