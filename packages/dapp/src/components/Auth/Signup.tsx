@@ -2,11 +2,9 @@ import * as React from "react";
 import {
   AccountEmailAuth,
   AuthApplicationEnum,
-  PageSubHeadingCentered,
-  PageHeadingCentered,
-  PageHeadingTextCentered,
   AuthPageFooterLink,
   AuthWrapper,
+  AuthTextCreateAccount,
 } from "@joincivil/components";
 import { Link } from "react-router-dom";
 
@@ -17,11 +15,7 @@ export interface AuthSignupProps {
 export const AuthSignup: React.SFC<AuthSignupProps> = props => {
   return (
     <AuthWrapper>
-      <PageHeadingCentered>Create your Civil account</PageHeadingCentered>
-      <PageHeadingTextCentered>
-        First, please enter your email address. Your email is used to send account related updates from Civil.
-      </PageHeadingTextCentered>
-      <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
+      <AuthTextCreateAccount />
 
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}

@@ -12,6 +12,8 @@ export {
   AuthWrapper,
 } from "./Auth/AuthStyledComponents";
 
+export * from "./Auth/AuthTextComponents";
+
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",
   NEWSROOM = "NEWSROOM",

@@ -1,5 +1,10 @@
 import * as React from "react";
-import { PageHeadingTextCenteredSmall, PageHeadingTextCentered, PageSubHeadingCentered } from "../../Heading";
+import {
+  PageHeadingTextCenteredSmall,
+  PageHeadingTextCentered,
+  PageSubHeadingCentered,
+  PageHeadingCentered,
+} from "../../Heading";
 
 export const AuthTextFooter: React.SFC = () => (
   <PageHeadingTextCenteredSmall>
@@ -21,5 +26,15 @@ export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
   <>
     <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
     <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+  </>
+);
+
+export const AuthTextCreateAccount: React.SFC = () => (
+  <>
+    <PageHeadingCentered>Create your Civil account</PageHeadingCentered>
+    <PageHeadingTextCentered>
+      First, please enter your email address. Your email is used to send account related updates from Civil.
+    </PageHeadingTextCentered>
+    <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
   </>
 );
