@@ -43,7 +43,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    const { user, network, foundationAddress, faqUrl, supportEmailAddress } = this.props;
+    const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress } = this.props;
     const { isTutorialModalOpen } = this.state;
 
     const accountSignupComplete = this.getAccountComplete(user);
