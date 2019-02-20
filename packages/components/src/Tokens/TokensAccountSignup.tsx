@@ -6,7 +6,7 @@ import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 
 export interface TokenRequirementProps {
   step?: string;
-  addWalletPath: string;
+  addWalletPath?: string;
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
