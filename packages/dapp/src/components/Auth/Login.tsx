@@ -2,8 +2,6 @@ import * as React from "react";
 import {
   AccountEmailAuth,
   AuthApplicationEnum,
-  PageHeadingCentered,
-  PageHeadingTextCentered,
   AuthPageFooterLink,
   AuthWrapper,
   AuthTextSigninWithEmail,
@@ -17,7 +15,7 @@ export interface AuthLoginProps {
 export const AuthLogin: React.SFC<AuthLoginProps> = props => {
   return (
     <AuthWrapper>
-      <AuthApplicationEnum />
+      <AuthTextSigninWithEmail />
 
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
