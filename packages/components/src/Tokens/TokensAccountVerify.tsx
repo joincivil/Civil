@@ -13,6 +13,7 @@ import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { TokenTutorial } from "../TokenTutorial";
 import { colors } from "../styleConstants";
 import { CloseXIcon } from "../icons";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenAccountVerify extends FullScreenModalProps {
   step?: string;
@@ -21,28 +22,30 @@ export interface TokenAccountVerify extends FullScreenModalProps {
 }
 
 export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify> = props => {
-  if (props.step === "disabled") {
+  const { step } = props;
+
+  if (step === TOKEN_PROGRESS.DISABLED) {
     return (
       <FlexColumnsPrimaryModule padding={true}>
         <TokenAccountSectionHeader>
           <TokenVerifySectionText />
         </TokenAccountSectionHeader>
-        <UserTokenAccountRequirement step={props.step}>
-          <TokenRequirementIcon step={props.step}>
+        <UserTokenAccountRequirement step={step}>
+          <TokenRequirementIcon step={step}>
             <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
           </TokenRequirementIcon>
           <TokenQuizSectionText />
         </UserTokenAccountRequirement>
       </FlexColumnsPrimaryModule>
     );
-  } else if (props.step === "active") {
+  } else if (step === TOKEN_PROGRESS.ACTIVE) {
     return (
       <FlexColumnsPrimaryModule padding={true}>
         <TokenAccountSectionHeader>
           <TokenVerifySectionText />
         </TokenAccountSectionHeader>
-        <UserTokenAccountRequirement step={props.step}>
-          <TokenRequirementIcon step={props.step}>
+        <UserTokenAccountRequirement step={step}>
+          <TokenRequirementIcon step={step}>
             <CivilTutorialIcon />
           </TokenRequirementIcon>
           <TokenQuizSectionText />

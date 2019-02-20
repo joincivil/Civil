@@ -53,7 +53,7 @@ export const TutorialContentWrap = styled.div`
 `;
 
 export const TutorialSlideContent = styled.div`
-  margin: 0 auto 180px;
+  margin: 0 auto;
   max-width: 540px;
 
   h2 {
