@@ -22,7 +22,7 @@ class TestSlideComponent extends React.Component<any, TestComponentState> {
   };
 }
 
-class TestComponent extends React.Component<any, TestComponentState> {
+class TestComponent extends React.Component<{ checked?: boolean; size?: CheckboxSizes }, TestComponentState> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -41,13 +41,19 @@ storiesOf("check box", module)
   .add("slide check box", () => {
     return <TestSlideComponent />;
   })
-  .add("checkboxs", () => (
+  .add("checkboxes", () => (
     <ul>
       <li>
-        Default: <TestComponent /> - <TestComponent checked />
+        Default: <TestComponent />
       </li>
       <li>
-        Small: <TestComponent size={CheckboxSizes.SMALL} /> - <TestComponent size={CheckboxSizes.SMALL} checked />
+        Default checked: <TestComponent checked />
+      </li>
+      <li>
+        Small: <TestComponent size={CheckboxSizes.SMALL} />
+      </li>
+      <li>
+        Small checked: <TestComponent size={CheckboxSizes.SMALL} checked />
       </li>
     </ul>
   ));
