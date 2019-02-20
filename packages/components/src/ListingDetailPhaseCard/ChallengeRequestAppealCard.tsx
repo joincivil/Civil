@@ -89,6 +89,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 

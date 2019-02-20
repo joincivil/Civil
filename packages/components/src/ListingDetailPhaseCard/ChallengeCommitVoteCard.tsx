@@ -87,6 +87,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                   isViewingUserChallenger={this.props.isViewingUserChallenger}
                   rewardPool={this.props.rewardPool}
                   stake={this.props.stake}
+                  dispensationPct={this.props.dispensationPct}
                 />
               </StyledListingDetailPhaseCardSection>
 

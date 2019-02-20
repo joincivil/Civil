@@ -82,6 +82,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 

@@ -109,6 +109,7 @@ export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved
 // Tooltips
 export interface ToolTipTextProps {
   phaseLength?: number;
+  dispensationPct?: string;
 }
 
 export const DurationToolTipText: React.SFC<ToolTipTextProps> = props => {
@@ -219,11 +220,15 @@ export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const RewardPoolToolTipText: React.SFC = props => {
+export const RewardPoolToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
       Amount of tokens to be distributed to voters of the winning party at the conclusion of the challenge. The amount
-      comes from 50% of the challenger or Newsroom's deposit.
+      comes from{" "}
+      {!!props.dispensationPct
+        ? `${props.dispensationPct}%`
+        : "a percentage (defined by the dispensationPct Parameter)"}{" "}
+      of the challenger or Newsroom's deposit.
     </>
   );
 };

@@ -12,7 +12,10 @@ export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps>
         <MetaItem>
           <MetaItemLabel>
             Reward Pool
-            <QuestionToolTip explainerText={<RewardPoolToolTipText />} positionBottom={true} />
+            <QuestionToolTip
+              explainerText={<RewardPoolToolTipText dispensationPct={props.dispensationPct} />}
+              positionBottom={true}
+            />
           </MetaItemLabel>
           <MetaItemValue>{props.rewardPool}</MetaItemValue>
         </MetaItem>

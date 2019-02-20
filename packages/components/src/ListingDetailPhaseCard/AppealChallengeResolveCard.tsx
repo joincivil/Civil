@@ -53,6 +53,7 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
           isViewingUserChallenger={props.isViewingUserChallenger}
           rewardPool={props.rewardPool}
           stake={props.stake}
+          dispensationPct={props.dispensationPct}
         />
       </StyledListingDetailPhaseCardSection>
 

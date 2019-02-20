@@ -49,7 +49,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     super(props);
     this.state = {
       numTokensError: undefined,
-      displayStep: 0,
+      displayStep: 1,
     };
   }
 
