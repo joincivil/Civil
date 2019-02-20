@@ -1,7 +1,6 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { CheckEmailSection, AuthPageFooterLink } from "./AuthStyledComponents";
-import { PageSubHeadingCentered, PageHeadingTextCentered } from "../../Heading";
 import { AuthTextEmailSent, AuthTextCheckSpam } from "./AuthTextComponents";
 
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
