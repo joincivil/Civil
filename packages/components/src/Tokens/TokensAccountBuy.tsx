@@ -114,8 +114,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
     return tokenSection;
   }
 
-  private onBuyComplete = (transactionId: string) => {
-    // TODO:Sarah waiting on storefrontAirswapTxHash mutation for transactionId
+  private onBuyComplete = () => {
     this.setState({ step: "completed" });
   };
 }
