@@ -36,11 +36,17 @@ import SubmitChallengePage from "./listing/SubmitChallenge";
 import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
-import AccountRouter from "./Account";
+import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
+import { State } from "../redux/reducers";
+import { supportedNetworks } from "../helpers/networkHelpers";
 
-class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>> {
+export interface MainReduxProps {
+  network: string;
+}
+
+class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>> {
   public async componentDidMount(): Promise<void> {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = getCivil();
@@ -105,36 +111,43 @@ class Main extends React.Component<DispatchProp<any> & RouteComponentProps<any>>
   };
 
   public render(): JSX.Element {
+    const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));
     return (
       <StyledMainContainer>
-        <Switch>
-          <Route exact path="/" component={Listings} />
-          <Route path="/registry/:listingType/:subListingType" component={Listings} />
-          <Route path="/registry/:listingType" component={Listings} />
-          <Route path="/registry" component={Listings} />
-          <Route path="/contracts" component={Contracts} />
-          <Route path="/contract/:contract" component={ContractPage} />
-          <Route path="/contract-addresses" component={ContractAddresses} />
-          <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
-          <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
-          <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
-          <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
-          <Route path="/listing/:listing" component={Listing} />
-          <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
-          <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
-          <Route path="/parameterizer" component={Parameterizer} />
-          <Route path="/create-newsroom" component={CreateNewsroom} />
-          <Route path="/signupNewsroom" component={SignUpNewsroom} />
-          <Route path="/government" component={Government} />
-          <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/account" component={AccountRouter} />
-          <Route path="/tokens" component={Tokens} />
-        </Switch>
+        {isNetworkSupported && (
+          <Switch>
+            <Route exact path="/" component={Listings} />
+            <Route path="/registry/:listingType/:subListingType" component={Listings} />
+            <Route path="/registry/:listingType" component={Listings} />
+            <Route path="/registry" component={Listings} />
+            <Route path="/contracts" component={Contracts} />
+            <Route path="/contract/:contract" component={ContractPage} />
+            <Route path="/contract-addresses" component={ContractAddresses} />
+            <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
+            <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
+            <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
+            <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
+            <Route path="/listing/:listing" component={Listing} />
+            <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
+            <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
+            <Route path="/parameterizer" component={Parameterizer} />
+            <Route path="/create-newsroom" component={CreateNewsroom} />
+            <Route path="/signupNewsroom" component={SignUpNewsroom} />
+            <Route path="/government" component={Government} />
+            <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/auth" component={AuthRouter} />>
+            <Route path="/tokens" component={Tokens} />
+          </Switch>
+        )}
         <WrongNetwork />
       </StyledMainContainer>
     );
   }
 }
 
-export default withRouter(connect()(Main));
+const mapStateToProps = (state: State): MainReduxProps => {
+  return { network: state.network };
+};
+
+export default withRouter(connect(mapStateToProps)(Main));

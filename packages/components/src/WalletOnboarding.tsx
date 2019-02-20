@@ -9,7 +9,6 @@ import {
   fonts,
   ManagerSectionHeading,
 } from "./";
-import { AccountEthAuth } from "./Account/";
 import styled from "styled-components";
 import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
 import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
@@ -27,10 +26,8 @@ export interface WalletOnboardingProps {
   helpUrl?: string;
   helpUrlBase?: string;
   notEnabled?: boolean;
-  requireAuth?: boolean;
   enable(): void;
   saveAddressToProfile?(): Promise<void>;
-  onOnboardingComplete?(): void;
   onContinue?(): void;
 }
 
@@ -264,19 +261,6 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             </WalletAction>
           </Wrapper>
         );
-      } else if (this.props.requireAuth && !this.props.profileWalletAddress) {
-        return (
-          <Wrapper>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
-          </Wrapper>
-        );
-      } else if (this.props.requireAuth && this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
-        return (
-          <Wrapper>
-            <b>@TODO/toby Mismatch between MM address and profile address - update component copy.</b>
-            <AccountEthAuth civil={this.props.civil!} onAuthenticated={this.props.onOnboardingComplete} />
-          </Wrapper>
-        );
       } else {
         return (
           <Wrapper>
@@ -304,9 +288,5 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
     }
     await this.props.saveAddressToProfile();
     this.setState({ justSaved: true });
-
-    if (this.props.onOnboardingComplete) {
-      this.props.onOnboardingComplete();
-    }
   };
 }

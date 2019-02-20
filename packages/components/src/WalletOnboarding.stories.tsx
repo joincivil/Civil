@@ -1,7 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { WalletOnboarding } from ".";
 
@@ -53,13 +52,6 @@ const mocks = {
   },
 };
 
-let civil: Civil | undefined;
-try {
-  civil = new Civil();
-} catch (error) {
-  civil = undefined;
-}
-
 storiesOf("Wallet Onboarding", module)
   .addDecorator(
     apolloStorybookDecorator({
@@ -96,31 +88,6 @@ storiesOf("Wallet Onboarding", module)
         profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
         saveAddressToProfile={async () => {}}
       />
-    );
-  })
-  .add("Save wallet to Civil account", () => {
-    return (
-      <>
-        <WalletOnboarding
-          enable={() => {}}
-          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-          civil={civil}
-          requireAuth={true}
-        />
-      </>
-    );
-  })
-  .add("Civil account vs. MetaMask address mismatch", () => {
-    return (
-      <>
-        <WalletOnboarding
-          enable={() => {}}
-          metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-          profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
-          civil={civil}
-          requireAuth={true}
-        />
-      </>
     );
   })
   .add("Connected", () => {

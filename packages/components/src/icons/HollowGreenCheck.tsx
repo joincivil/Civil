@@ -2,6 +2,7 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 
 export interface HollowGreenCheckProps {
+  className?: string;
   color?: string;
   height?: number;
   width?: number;
@@ -13,7 +14,13 @@ export const HollowGreenCheck: React.SFC<HollowGreenCheckProps> = props => {
   const height = (props.height || 20).toString();
 
   return (
-    <svg width={width} height={height} viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={props.className}
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g fill="none" fillRule="evenodd" transform="translate(1 1)">
         <circle cx="9" cy="9" r="8.25" stroke={color} strokeWidth="1.5" className="svg-stroke" />
         <path

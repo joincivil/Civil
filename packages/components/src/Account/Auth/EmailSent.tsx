@@ -1,19 +1,30 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import { CheckEmailSection, AuthPageFooterLink } from "./AuthStyledComponents";
+import { AuthTextEmailSent, AuthTextCheckSpam } from "./AuthTextComponents";
 
 export interface AccountEmailSentProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
-  emailAddress?: string;
+  emailAddress: string;
+  onSendAgain?(): void;
 }
 
 export class AccountEmailSent extends React.Component<AccountEmailSentProps> {
   public render(): JSX.Element {
-    const emailAddress = this.props.emailAddress || this.props.location!.state.emailAddress;
+    const { emailAddress, onSendAgain } = this.props;
 
-    const { isNewUser } = this.props;
     return (
       <>
-        Check your email to {!isNewUser ? "sign in" : "register"}: <strong>{emailAddress}</strong>
+        <AuthTextEmailSent emailAddress={emailAddress} />
+
+        <CheckEmailSection />
+
+        <AuthTextCheckSpam />
+
+        <AuthPageFooterLink>
+          {/* // TODO(jorgelo): The link below should have a hover hand. */}
+          <a onClick={onSendAgain}>Hey, I didn’t get an email. Can you send one again?</a>
+        </AuthPageFooterLink>
       </>
     );
   }

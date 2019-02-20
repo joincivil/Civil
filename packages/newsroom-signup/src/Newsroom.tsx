@@ -6,7 +6,6 @@ import {
   StepNoButtons,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
-  WalletOnboarding,
 } from "@joincivil/components";
 import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
@@ -28,6 +27,7 @@ import {
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
+import { WalletOnboardingV2 } from "./WalletOnboardingV2";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -103,10 +103,7 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 845px;
   margin: auto;
-  &,
-  & p {
-    font-size: 14px;
-  }
+  font-size: 14px;
 `;
 
 const ErrorP = styled.p`
@@ -118,6 +115,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     theme: {
       ...DEFAULT_BUTTON_THEME,
       ...DEFAULT_CHECKBOX_THEME,
+      primaryButtonTextTransform: "none",
+      primaryButtonFontWeight: "bold",
+      borderlessButtonSize: "14px",
     },
   };
 
@@ -307,7 +307,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderWalletOnboarding(): JSX.Element {
     return (
-      <WalletOnboarding
+      <WalletOnboardingV2
         civil={this.props.civil}
         noProvider={!hasInjectedProvider()}
         requireAuth={true}

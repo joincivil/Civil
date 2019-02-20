@@ -34,7 +34,11 @@ storiesOf("Buttons", module)
         <br />
         <Button size={buttonSizes.MEDIUM}>medium</Button>
         <br />
+        <Button size={buttonSizes.MEDIUM_WIDE}>medium wide</Button>
+        <br />
         <Button size={buttonSizes.SMALL}>small</Button>
+        <br />
+        <Button size={buttonSizes.SMALL_WIDE}>small wide</Button>
         <br />
       </Container>
     );

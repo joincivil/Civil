@@ -4,17 +4,17 @@ exports[`Storyshots Hero Homepage 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jqIZGH kCwQvD",
+      "class": "sc-cBrjTV bFcxHt",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-jMMfwr boITTi",
+          "class": "sc-iCwjlJ gvAvaH",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-jGxEUC jELqsJ",
+              "class": "sc-fkyLDJ jLZAND",
             },
             "children": Array [
               Object {
@@ -29,7 +29,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jdeSqf cGBhvZ",
+                "class": "sc-jUpvKA eDSfsr",
               },
               "children": Array [
                 Object {
@@ -364,7 +364,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-cBrjTV GMmhE",
+                    "class": "sc-jdfcpN jciOBa",
                   },
                   "children": Array [
                     Object {
@@ -565,7 +565,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jdeSqf cGBhvZ",
+              "class": "sc-jUpvKA eDSfsr",
             },
             "children": Array [
               Object {
@@ -900,7 +900,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-cBrjTV GMmhE",
+                  "class": "sc-jdfcpN jciOBa",
                 },
                 "children": Array [
                   Object {
@@ -1082,7 +1082,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jGxEUC jELqsJ",
+                "class": "sc-fkyLDJ jLZAND",
               },
               "children": Array [
                 Object {
@@ -1133,7 +1133,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-cBrjTV GMmhE",
+                "class": "sc-jdfcpN jciOBa",
               },
               "children": Array [
                 Object {
@@ -1301,7 +1301,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jdeSqf cGBhvZ",
+                "class": "sc-jUpvKA eDSfsr",
               },
               "children": Array [
                 Object {
@@ -1621,7 +1621,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jGxEUC jELqsJ",
+                  "class": "sc-fkyLDJ jLZAND",
                 },
                 "children": Array [
                   Object {
@@ -1667,7 +1667,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-cBrjTV GMmhE",
+              "class": "sc-jdfcpN jciOBa",
             },
             "children": Array [
               Object {
@@ -1844,7 +1844,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jdeSqf cGBhvZ",
+                  "class": "sc-jUpvKA eDSfsr",
                 },
                 "children": Array [
                   Object {
@@ -2164,7 +2164,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jGxEUC jELqsJ",
+                    "class": "sc-fkyLDJ jLZAND",
                   },
                   "children": Array [
                     Object {
