@@ -4,6 +4,11 @@ import * as querystring from "querystring";
 const SIGNUP_ENDPOINT = "https://us-central1-civil-media.cloudfunctions.net/addToSendgrid";
 export const TCR_SENDGRID_LIST_ID = "5353193";
 
+export function isValidEmail(email: string): boolean {
+  const emailRegex = /[^@]+@[^\.]+\..+/;
+  return emailRegex.test(email);
+}
+
 export async function addToMailingList(
   email: string,
   listId: string,
@@ -25,8 +30,7 @@ export async function addToMailingList(
       throw new Error("There was a problem with your email signup. Please check the email you entered and try again.");
     }
   } catch (err) {
-    // TODO(jorgelo): Log error somewhere on error?
-    // console.error("Error:", { err });
+    // TODO(jorgelo): Should we call errorCallback on error?
     throw err;
   }
 }

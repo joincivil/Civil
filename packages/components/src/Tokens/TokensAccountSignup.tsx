@@ -3,22 +3,25 @@ import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
 import { FlexColumnsPrimaryModule, TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
 import { TokenConnectWalletText, TokenConnectWalletBtnText } from "./TokensTextComponents";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
+import { TOKEN_PROGRESS } from "./Tokens";
 
 export interface TokenRequirementProps {
   step?: string;
+  addWalletPath?: string;
 }
 
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
-  if (props.step === "active") {
+  const { addWalletPath, step } = props;
+
+  if (step === TOKEN_PROGRESS.ACTIVE) {
     return (
       <FlexColumnsPrimaryModule padding={true}>
         <UserTokenAccountRequirement>
-          <TokenRequirementIcon step={props.step}>
+          <TokenRequirementIcon step={step}>
             <TokenWalletIcon />
           </TokenRequirementIcon>
           <TokenConnectWalletText />
-          {/* TODO(jorgelo): The login url should probably be a global constant. */}
-          <TokenBtns to="/account/eth">
+          <TokenBtns to={addWalletPath}>
             <TokenConnectWalletBtnText />
           </TokenBtns>
         </UserTokenAccountRequirement>

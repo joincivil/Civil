@@ -5,6 +5,7 @@ import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
+import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
 const onClickFunc = () => {
   console.log("clicked!");
@@ -65,4 +66,7 @@ storiesOf("User Token Account", module)
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
       />
     );
+  })
+  .add("Storefront FAQ", () => {
+    return <UserTokenAccountFaq />;
   });
