@@ -10,7 +10,7 @@ import {
   ManagerSectionHeading,
   MetaMaskModal,
   ModalHeading,
-  metaMaskSignImgSrc,
+  metaMaskSignImgUrl,
 } from "../../";
 
 export interface AccountEthAuthProps {
@@ -63,7 +63,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         <div>
           <p>MetaMask will open a new window, and will require you to sign a message.</p>
           {this.renderTransactionUI()}
-          <img src={metaMaskSignImgSrc} />
+          <img src={metaMaskSignImgUrl} />
         </div>
       </>
     );

@@ -26,7 +26,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn clean && tsc && mkdir -p build/images && cp -a src/images/. build/images && rm build/images/*.ts",
+    "build": "yarn clean && tsc && mkdir build/images && cp -a src/images/. build/images",
     "build:watch": "tsc -w",
     "lint": "tslint --exclude \"**/storyFixtures/**\" --project ./",
     "clean": "rimraf build/",
