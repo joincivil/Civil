@@ -142,7 +142,6 @@ export const ListingItemBaseComponent: React.SFC<
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
   const listingViewProps = transformListingSummaryViewProps(props);
 
-  console.log(listingViewProps);
   return <ListingSummaryItem {...listingViewProps} />;
 };
 
