@@ -3,20 +3,27 @@ import { compose } from "redux";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  ChallengeCommitVoteCard,
+  ChallengeCommitVoteCard as ChallengeCommitVoteCardComponent,
   CommitVoteSuccessIcon,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
   ReviewVote,
   ReviewVoteProps,
+  PhaseWithExpiryProps,
+  ChallengePhaseProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { commitVote, approveVotingRights } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
+import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { ChallengeDetailProps, ChallengeVoteState } from "./ChallengeDetail";
+
+const ChallengeCommitVoteCard = compose<
+  React.ComponentType<PhaseWithExpiryProps & ChallengePhaseProps & ChallengeContainerProps>
+>(connectChallengePhase)(ChallengeCommitVoteCardComponent);
 
 enum TransactionTypes {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
@@ -127,11 +134,7 @@ class ChallengeCommitVote extends React.Component<
     const props = {
       endTime,
       phaseLength,
-      challenger: challenge!.challenger.toString(),
-      isViewingUserChallenger: challenge!.challenger.toString() === this.props.user,
       challengeID: this.props.challengeID.toString(),
-      rewardPool: getFormattedTokenBalance(challenge!.rewardPool),
-      stake: getFormattedTokenBalance(challenge!.stake),
       userHasCommittedVote,
       onInputChange: this.updateCommitVoteState,
       onCommitMaxTokens: () => this.commitMaxTokens(),

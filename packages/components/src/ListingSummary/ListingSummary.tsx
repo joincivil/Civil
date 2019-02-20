@@ -1,43 +1,17 @@
 import * as React from "react";
 import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import { ListingSummaryComponentProps } from "./types";
-import {
-  StyledListingSummaryContainer,
-  StyledListingSummary,
-  StyledListingSummarySection,
-  StyledAppealJudgementContainer,
-} from "./styledComponents";
+import { StyledListingSummary, StyledListingSummarySection, StyledAppealJudgementContainer } from "./styledComponents";
+import ListingSummaryBase from "./ListingSummaryBase";
 import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSummary";
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 
-export class ListingSummaryComponent extends React.Component<ListingSummaryComponentProps> {
-  public render(): JSX.Element {
-    const { challengeID, challengeStatementSummary, appealStatementSummary } = this.props;
+export const ListingSummaryComponent: React.SFC<ListingSummaryComponentProps> = props => {
+  const { challengeID, challengeStatementSummary, appealStatementSummary } = props;
 
-    return (
-      <StyledListingSummaryContainer>
-        <StyledListingSummary hasTopPadding={true}>
-          {this.renderAppealJudgement()}
-
-          <NewsroomInfo {...this.props} />
-
-          <StyledListingSummarySection>
-            <ChallengeOrAppealStatementSummary
-              challengeID={challengeID}
-              challengeStatementSummary={challengeStatementSummary}
-              appealStatementSummary={appealStatementSummary}
-            />
-
-            <SummaryActionButton {...this.props} />
-          </StyledListingSummarySection>
-        </StyledListingSummary>
-      </StyledListingSummaryContainer>
-    );
-  }
-
-  private renderAppealJudgement = (): JSX.Element => {
-    const { appeal, didChallengeOriginallySucceed } = this.props;
+  const renderAppealJudgement = (): JSX.Element => {
+    const { appeal, didChallengeOriginallySucceed } = props;
     if (!appeal || !appeal.appealGranted) {
       return <></>;
     }
@@ -62,4 +36,24 @@ export class ListingSummaryComponent extends React.Component<ListingSummaryCompo
 
     return <StyledAppealJudgementContainer>{decisionText}</StyledAppealJudgementContainer>;
   };
-}
+
+  return (
+    <ListingSummaryBase {...props}>
+      <StyledListingSummary hasTopPadding={true}>
+        {renderAppealJudgement()}
+
+        <NewsroomInfo {...props} />
+
+        <StyledListingSummarySection>
+          <ChallengeOrAppealStatementSummary
+            challengeID={challengeID}
+            challengeStatementSummary={challengeStatementSummary}
+            appealStatementSummary={appealStatementSummary}
+          />
+
+          <SummaryActionButton {...props} />
+        </StyledListingSummarySection>
+      </StyledListingSummary>
+    </ListingSummaryBase>
+  );
+};

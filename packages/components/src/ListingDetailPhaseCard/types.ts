@@ -29,6 +29,7 @@ export interface ChallengePhaseProps {
   challenger?: EthAddress;
   rewardPool?: string;
   stake?: string;
+  dispensationPct?: string;
   userHasCommittedVote?: boolean;
   userHasRevealedVote?: boolean;
 }

@@ -50,6 +50,7 @@ import {
   controller,
   appellateMembers,
   councilMultisigTransactions,
+  govtProposals,
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
@@ -112,6 +113,7 @@ export interface NetworkDependentState {
   parameterProposalChallenges: Map<string, ParamPropChallengeData>;
   parameterProposalChallengesFetching: Map<string, any>;
   govtParameters: object;
+  govtProposals: Map<string, object>;
   challenges: Map<string, WrappedChallengeData>;
   challengesFetching: Map<string, any>;
   challengesVotedOnByUser: Map<string, Set<string>>;
@@ -162,6 +164,7 @@ const networkDependentReducers = combineReducers({
   parameterProposalChallenges,
   parameterProposalChallengesFetching,
   govtParameters,
+  govtProposals,
   challenges,
   challengesFetching,
   challengesVotedOnByUser,
