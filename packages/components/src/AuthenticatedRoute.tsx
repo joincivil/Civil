@@ -8,6 +8,7 @@ export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
   onlyAllowUnauthenticated?: boolean;
   signupUrl: string;
+  render(): JSX.Element;
 }
 
 const userQuery = gql`
@@ -43,10 +44,6 @@ export const AuthenticatedRoute = ({
     }
   }
 
-  if (!render) {
-    throw new Error("Please set a render function");
-  }
-
   // TODO(jorgelo): Get the line below working without the ts-ignore
   // @ts-ignore
   const renderChildren = () => render(otherProps);
@@ -71,11 +68,7 @@ export const AuthenticatedRoute = ({
             return <Redirect to={redirectTo} />;
           }
 
-          if (render) {
-            return renderChildren();
-          }
-
-          return null;
+          return renderChildren();
         }}
       </Query>
     </Route>
