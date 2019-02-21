@@ -1,15 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
-import { StepProps, TextareaInput } from "@joincivil/components";
+import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
-import {
-  FormSection,
-  FormSubhead,
-  SectionHeader,
-  SectionDescription,
-  StyledHr,
-  StepSectionCounter,
-} from "../styledComponents";
+import { FormSection, FormSubhead, StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { charterQuestions, questionsCopy } from "../constants";
 
@@ -30,11 +23,11 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <SectionHeader>Now, add your team to the Newsroom Roster</SectionHeader>
-        <SectionDescription>
+        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
+        <OBSectionDescription>
           Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
           Registry Profile.
-        </SectionDescription>
+        </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />
         <StepSectionCounter>Step 2 of 4: Roster</StepSectionCounter>

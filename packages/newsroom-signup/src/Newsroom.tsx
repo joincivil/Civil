@@ -4,6 +4,7 @@ import {
   colors,
   StepProcessTopNavNoButtons,
   StepNoButtons,
+  WalletOnboardingV2,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
@@ -27,7 +28,6 @@ import {
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
-import { WalletOnboardingV2 } from "./WalletOnboardingV2";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -64,7 +64,6 @@ export interface NewsroomExternalProps {
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
-  profileUrl?: string;
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
@@ -310,7 +309,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       <WalletOnboardingV2
         civil={this.props.civil}
         noProvider={!hasInjectedProvider()}
-        requireAuth={true}
         notEnabled={this.props.civil && !this.props.metamaskEnabled}
         enable={this.props.enable}
         walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
@@ -319,7 +317,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         }
         requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
         metamaskWalletAddress={this.props.account}
-        profileUrl={this.props.profileUrl}
         helpUrl={this.props.helpUrl}
         helpUrlBase={this.props.helpUrlBase}
         profileWalletAddress={this.props.profileWalletAddress}
