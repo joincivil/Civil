@@ -46,7 +46,7 @@ const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
       <NavLink href="https://civil.co/constitution/" target="_blank">
         <NavLinkConstitutionText />
       </NavLink>
-      <NavLink to="/create-newsroom">
+      <NavLink to="/apply-to-registry">
         <NavLinkCreateNewsroomText />
       </NavLink>
       <NavDropDown label="Get Help">
