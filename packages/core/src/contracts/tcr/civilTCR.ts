@@ -518,7 +518,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @return the challengeID associated with the pollID passed in
    */
   public async getChallengeIDForPollID(pollID: BigNumber): Promise<BigNumber> {
-    const [ , challenger] = await this.instance.challenges.callAsync(pollID);
+    const [, challenger] = await this.instance.challenges.callAsync(pollID);
     if (challenger && challenger !== "" && !is0x0Address(challenger)) {
       const challengeStream = this.instance._ChallengeStream(
         { challengeID: pollID },

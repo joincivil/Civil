@@ -507,10 +507,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     return value;
   }
 
-  public async getUserProposalChallengeData(
-    propChallengeID: BigNumber,
-    user: EthAddress,
-  ): Promise<UserChallengeData> {
+  public async getUserProposalChallengeData(propChallengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
     let didUserCommit;
     let didUserReveal;
     let didUserCollect;
