@@ -8,7 +8,7 @@ export interface BuyCVLProps {
   buyCVLBtnText?: string | JSX.Element;
   network: string;
   onClick?(index: number): void;
-  onComplete(transactionID: string): void;
+  onComplete(): void;
 }
 
 class BuyCVLBase extends React.Component<BuyCVLProps> {
@@ -28,8 +28,8 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         env: environment,
         token: tokenAddress,
         address: buyFromAddress,
-        onComplete: (transactionID: string) => {
-          this.props.onComplete(transactionID);
+        onComplete: () => {
+          this.props.onComplete();
         },
         onCancel: () => {
           console.info("Trade cancelled");
