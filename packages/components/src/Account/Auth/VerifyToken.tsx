@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { setApolloSession, getApolloClient } from "@joincivil/utils";
-import { ExecuteOnMount, Button, buttonSizes } from "../..";
+import { Button, buttonSizes } from "../..";
 import { AuthLoginResponse } from "..";
 import { AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
 
@@ -44,6 +44,10 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
 
   constructor(props: AccountVerifyTokenProps) {
     super(props);
+  }
+
+  public async componentDidMount(): Promise<void> {
+    return this.handleTokenVerification();
   }
 
   public renderVerified(): JSX.Element {
@@ -104,12 +108,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     const { hasValidated, errorMessage } = this.state;
 
     if (!hasValidated) {
-      return (
-        <>
-          <ExecuteOnMount onDidMount={async () => this.handleTokenVerification()} />
-          {this.renderVerifiying()}
-        </>
-      );
+      return this.renderVerifiying();
     }
 
     if (errorMessage) {
