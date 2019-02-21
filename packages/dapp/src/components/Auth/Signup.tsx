@@ -13,6 +13,8 @@ export interface AuthSignupProps {
 }
 
 export const AuthSignup: React.SFC<AuthSignupProps> = props => {
+  // TODO
+  const redirectTo = "/registry";
   return (
     <AuthWrapper>
       <AuthTextCreateAccount />
@@ -20,6 +22,7 @@ export const AuthSignup: React.SFC<AuthSignupProps> = props => {
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}
+        redirectTo={redirectTo}
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
       />
 

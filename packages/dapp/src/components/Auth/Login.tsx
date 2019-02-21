@@ -20,6 +20,7 @@ export const AuthLogin: React.SFC<AuthLoginProps> = props => {
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
+        redirectTo="/registry"
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
       />
 

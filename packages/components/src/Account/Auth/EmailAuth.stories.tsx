@@ -77,6 +77,7 @@ storiesOf("Email Signup Flow", module)
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.DEFAULT}
         isNewUser={true}
+        redirectTo="/registry"
         onEmailSend={() => {
           console.log("Sent");
         }}

@@ -24,4 +24,5 @@ export interface AuthLoginResponse {
   token: string;
   refreshToken: string;
   uid: string;
+  redirectTo: string;
 }

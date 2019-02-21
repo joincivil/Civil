@@ -10,14 +10,14 @@ import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContain
 import { isValidEmail } from "@joincivil/utils";
 
 const signupMutation = gql`
-  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
-    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!, $redirectTo: String!) {
+    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application, redirectTo: $redirectTo)
   }
 `;
 
 const loginMutation = gql`
-  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
-    authLoginEmailSendForApplication(emailAddress: $emailAddress, application: $application)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!, $redirectTo: String!) {
+    authLoginEmailSendForApplication(emailAddress: $emailAddress, application: $application, redirectTo: $redirectTo)
   }
 `;
 
@@ -30,6 +30,7 @@ export interface AuthSignupEmailSendResult {
 export interface AccountEmailAuthProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
+  redirectTo: string;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
@@ -144,7 +145,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
     const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
-    const { applicationType, onEmailSend, isNewUser } = this.props;
+    const { applicationType, onEmailSend, isNewUser, redirectTo } = this.props;
 
     if (!isValidEmail(emailAddress)) {
       return;
@@ -153,7 +154,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     const res: any = await mutation({
-      variables: { emailAddress, application: applicationType },
+      variables: { emailAddress, application: applicationType, redirectTo },
     });
 
     const authResponse: string = res.data[resultKey];

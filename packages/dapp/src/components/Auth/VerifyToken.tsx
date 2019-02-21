@@ -5,7 +5,7 @@ import { RouteComponentProps } from "react-router-dom";
 export interface AuthVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
   token: string;
-  onAuthenticationContinue(isNewUser: boolean): void;
+  onAuthenticationContinue(isNewUser: boolean, redirectTo: string): void;
 }
 
 export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = ({ token, onAuthenticationContinue, isNewUser }) => {

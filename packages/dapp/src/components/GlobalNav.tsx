@@ -39,9 +39,10 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
         userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
         useGraphQL={props.useGraphQL}
         onLogin={() => {
-          if ((window as any).ethereum) {
-            (window as any).ethereum.enable();
-          }
+          document.location.href = "/auth/signup?redirect=/registry";
+        //   if ((window as any).ethereum) {
+        //     (window as any).ethereum.enable();
+        //   }
         }}
         onLoadingPrefToggled={async (): Promise<any> => {
           props.dispatch!(await toggleUseGraphQL());

@@ -126,11 +126,11 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     });
   };
 
-  public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
+  public handleOnAuthenticationContinue = (isNewUser: boolean, redirectTo: string): void => {
     const { history } = this.props;
 
     history.push({
-      pathname: TOKEN_HOME,
+      pathname: redirectTo,
       state: {},
     });
   };

@@ -11,6 +11,7 @@ const verifySignUpTokenMutation = gql`
       token
       refreshToken
       uid
+      redirectTo
     }
   }
 `;
@@ -21,6 +22,7 @@ const verifyLoginTokenMutation = gql`
       token
       refreshToken
       uid
+      redirectTo
     }
   }
 `;
@@ -28,18 +30,20 @@ const verifyLoginTokenMutation = gql`
 export interface AccountVerifyTokenProps {
   isNewUser: boolean;
   token: string;
-  onAuthenticationContinue(isNewUser: boolean): void;
+  onAuthenticationContinue(isNewUser: boolean, redirectTo: string): void;
 }
 
 export interface VerifyTokenState {
   hasValidated: boolean;
   errorMessage: string | null;
+  redirectTo: string;
 }
 
 export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps, VerifyTokenState> {
   public state = {
     hasValidated: false,
     errorMessage: null,
+    redirectTo: "/tokens",
   };
 
   constructor(props: AccountVerifyTokenProps) {
@@ -52,11 +56,12 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
 
   public renderVerified(): JSX.Element {
     const { onAuthenticationContinue, isNewUser } = this.props;
+    const { redirectTo } = this.state;
     return (
       <>
         <AuthTextVerifyTokenConfirmed />
 
-        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser)}>
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => onAuthenticationContinue(isNewUser, redirectTo)}>
           Continue
         </Button>
       </>
@@ -86,7 +91,9 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
         const authResponse: AuthLoginResponse = data[resultKey];
         setApolloSession(authResponse);
 
-        this.setState({ errorMessage: null, hasValidated: true });
+        const { redirectTo } = authResponse;
+        this.setState({ errorMessage: null, hasValidated: true, redirectTo});
+
       }
     } catch (err) {
       console.error("Error validating token:", err);
