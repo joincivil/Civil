@@ -61,9 +61,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     const userAccount = this.getUserAccount(user);
 
     const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
-
     const tutorialState = this.getTutorialState(loggedInState, tutorialComplete);
-
     const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (
@@ -73,7 +71,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <UserTokenAccountSignup step={loggedInState} addWalletPath={addWalletPath} />
+              <UserTokenAccountSignup user={user} step={loggedInState} addWalletPath={addWalletPath} />;
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}

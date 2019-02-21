@@ -1,5 +1,5 @@
 import * as React from "react";
-import { WalletOnboardingV2 } from "@joincivil/components";
+import { AuthOuterWrapper, WalletOnboardingV2 } from "@joincivil/components";
 import { getCivil } from "../../helpers/civilInstance";
 import { hasInjectedProvider } from "@joincivil/ethapi";
 
@@ -10,7 +10,7 @@ export interface AuthEthProps {
 // TODO(jorgelo): Allow user to add their wallet ONLY after they are signed in .
 
 export const AuthEth: React.SFC<AuthEthProps> = props => {
-  // TODO(jorgelo): Maybe pass civil
+  // TODO(jorgelo): Maybe pass civil into here.
 
   const civil = getCivil();
 
@@ -37,20 +37,22 @@ export const AuthEth: React.SFC<AuthEthProps> = props => {
   const onContinue = () => console.log("onContinue");
 
   return (
-    <WalletOnboardingV2
-      civil={civil}
-      noProvider={!hasInjectedProvider()}
-      notEnabled={!metamaskEnabled}
-      enable={enable}
-      walletLocked={civil && metamaskEnabled && !account}
-      wrongNetwork={wrongNetwork}
-      requiredNetworkNiceName={requiredNetworkNiceName}
-      metamaskWalletAddress={account}
-      helpUrl={helpUrl}
-      helpUrlBase={helpUrlBase}
-      profileWalletAddress={profileWalletAddress}
-      onOnboardingComplete={onOnboardingComplete}
-      onContinue={onContinue}
-    />
+    <AuthOuterWrapper>
+      <WalletOnboardingV2
+        civil={civil}
+        noProvider={!hasInjectedProvider()}
+        notEnabled={!metamaskEnabled}
+        enable={enable}
+        walletLocked={civil && metamaskEnabled && !account}
+        wrongNetwork={wrongNetwork}
+        requiredNetworkNiceName={requiredNetworkNiceName}
+        metamaskWalletAddress={account}
+        helpUrl={helpUrl}
+        helpUrlBase={helpUrlBase}
+        profileWalletAddress={profileWalletAddress}
+        onOnboardingComplete={onOnboardingComplete}
+        onContinue={onContinue}
+      />
+    </AuthOuterWrapper>
   );
 };
