@@ -35,11 +35,21 @@ export interface UserTokenAccountStates {
 }
 
 export class UserTokenAccount extends React.Component<UserTokenAccountProps, UserTokenAccountStates> {
-  constructor(props: any) {
+  public constructor(props: UserTokenAccountProps) {
     super(props);
     this.state = {
       isTutorialModalOpen: false,
     };
+  }
+  public getTutorialState(loggedInState: TOKEN_PROGRESS, tutorialComplete: boolean): TOKEN_PROGRESS {
+    if (loggedInState === TOKEN_PROGRESS.ACTIVE) {
+      return TOKEN_PROGRESS.DISABLED;
+    }
+    if (tutorialComplete) {
+      return TOKEN_PROGRESS.COMPLETED;
+    }
+
+    return TOKEN_PROGRESS.ACTIVE;
   }
 
   public render(): JSX.Element | null {
@@ -51,14 +61,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     const userAccount = this.getUserAccount(user);
 
     const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
-    let tutorialState;
-    if (loggedInState === TOKEN_PROGRESS.ACTIVE) {
-      tutorialState = TOKEN_PROGRESS.DISABLED;
-    } else if (tutorialComplete) {
-      tutorialState = TOKEN_PROGRESS.COMPLETED;
-    } else {
-      tutorialState = TOKEN_PROGRESS.ACTIVE;
-    }
+
+    const tutorialState = this.getTutorialState(loggedInState, tutorialComplete);
+
     const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (

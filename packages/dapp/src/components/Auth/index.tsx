@@ -27,6 +27,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     return (
       <>
         <Switch>
+          {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
           <AuthenticatedRoute
             {...routeProps}
@@ -101,7 +102,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
           {/* Account Home */}
           {/* TODO(jorgelo): This is just as a helper, not needed in production. */}
-          <AuthenticatedRoute {...routeProps} path={`${match.path}`} exact={true} render={AuthHome} />
+          {/* <AuthenticatedRoute {...routeProps} path={`${match.path}`} exact={true} component={AuthHome} /> */}
         </Switch>
       </>
     );

@@ -11,12 +11,16 @@ export interface AuthCheckEmailProps extends Partial<RouteComponentProps> {
 export const AuthCheckEmail: React.SFC<AuthCheckEmailProps> = props => {
   const { isNewUser, emailAddress, onSendAgain } = props;
 
-  // TODO(jorgelo): Maybe redirect if emailAddress is not set.
+  // TODO(jorgelo): Maybe redirect if emailAddress is not set
 
   return (
     <>
       <AuthWrapper>
-        <AccountEmailSent isNewUser={isNewUser} emailAddress={emailAddress} onSendAgain={onSendAgain} />
+        <AccountEmailSent
+          isNewUser={isNewUser}
+          emailAddress={emailAddress || "no email set"} // The default keeps the page from breaking.
+          onSendAgain={onSendAgain}
+        />
       </AuthWrapper>
     </>
   );
