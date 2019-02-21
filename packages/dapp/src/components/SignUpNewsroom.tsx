@@ -1,6 +1,6 @@
 import { EthAddress } from "@joincivil/core";
 import { Newsroom } from "@joincivil/newsroom-signup";
-import { isEthereumEnabled, enableEthereum } from "@joincivil/utils";
+import { ethereumEnable } from "@joincivil/utils";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { getCivil } from "../helpers/civilInstance";
@@ -32,7 +32,7 @@ class SignUpNewsroom extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    this.setState({ metamaskEnabled: await isEthereumEnabled() });
+    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
   }
 
   public render(): JSX.Element {
@@ -48,8 +48,7 @@ class SignUpNewsroom extends React.Component<
           allSteps={true}
           initialStep={0}
           enable={async () => {
-            await enableEthereum();
-            this.setState({ metamaskEnabled: true });
+            this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
           }}
         />
       </PageView>
