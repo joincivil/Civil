@@ -14,6 +14,7 @@ import {
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
 import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
+import { addUserProposalChallengeData } from "../redux/actionCreators/parameterizer";
 
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
@@ -89,8 +90,33 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     .votesCommitted(undefined, user)
     .subscribe(async (pollID: BigNumber) => {
       const challengeId = await tcr.getChallengeIDForPollID(pollID);
-      const wrappedChallenge = await tcr.getChallengeData(challengeId);
-      dispatch(addChallenge(wrappedChallenge));
+      if (!challengeId.isZero()) {
+        const wrappedChallenge = await tcr.getChallengeData(challengeId);
+        dispatch(addChallenge(wrappedChallenge));
+        const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
+        dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
+
+        // if the challenge ID corresponds to an appeal challenge, get any user data for it
+        if (!pollID.equals(challengeId)) {
+          const appealChallengeUserData = await tcr.getUserAppealChallengeData(pollID, user);
+          dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
+          dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
+        }
+      } else {
+        const parameterizer = await tcr.getParameterizer();
+        const propChallengeUserData = await parameterizer.getUserProposalChallengeData(pollID, user);
+        dispatch(addUserProposalChallengeData(pollID.toString(), user, propChallengeUserData));
+      }
+      // TODO: also add support for govt proposals
+    });
+
+  newChallengeActionsSubscription = Observable.merge(
+    tcr.getVoting().votesRevealed(current, user),
+    tcr.getVoting().votesRescued(current, user),
+    tcr.rewardsCollected(current, user),
+  ).subscribe(async (pollID: BigNumber) => {
+    const challengeId = await tcr.getChallengeIDForPollID(pollID);
+    if (!challengeId.isZero()) {
       const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
       dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
 
@@ -100,23 +126,12 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
         dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
       }
-    });
-
-  newChallengeActionsSubscription = Observable.merge(
-    tcr.getVoting().votesRevealed(current, user),
-    tcr.getVoting().votesRescued(current, user),
-    tcr.rewardsCollected(current, user),
-  ).subscribe(async (pollID: BigNumber) => {
-    const challengeId = await tcr.getChallengeIDForPollID(pollID);
-    const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
-    dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
-
-    // if the challenge ID corresponds to an appeal challenge, get any user data for it
-    if (!pollID.equals(challengeId)) {
-      const appealChallengeUserData = await tcr.getUserAppealChallengeData(pollID, user);
-      dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
-      dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
+    } else {
+      const parameterizer = await tcr.getParameterizer();
+      const propChallengeUserData = await parameterizer.getUserProposalChallengeData(pollID, user);
+      dispatch(addUserProposalChallengeData(pollID.toString(), user, propChallengeUserData));
     }
+    // TODO: also add support for govt proposals
   });
 
   challengeStartedSubscription = tcr.challengesStartedByUser(user).subscribe(async (challengeId: BigNumber) => {
