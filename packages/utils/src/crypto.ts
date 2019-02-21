@@ -11,6 +11,7 @@ import {
 import { recoverPersonalSignature } from "eth-sig-util";
 import { soliditySHA3 } from "ethereumjs-abi";
 import { Hex, EthSignedMessageRecovery, EthAddress } from "@joincivil/typescript-types";
+import { hasInjectedProvider } from "@joincivil/ethapi";
 
 const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
 
@@ -82,4 +83,20 @@ export async function ethereumEnable(): Promise<boolean | EthAddress[]> {
   } else {
     return true;
   }
+}
+
+export function isWalletOnboarded(
+  civilInstantiated: boolean,
+  metamaskWalletAddress?: EthAddress,
+  profileWalletAddress?: EthAddress,
+  wrongNetwork?: boolean,
+): boolean {
+  // We don't need to check if MM is enabled, because if it's disabled we won't have accesss to metamaskWalletAddress
+  return !!(
+    hasInjectedProvider() &&
+    civilInstantiated &&
+    !!metamaskWalletAddress &&
+    !wrongNetwork &&
+    metamaskWalletAddress === profileWalletAddress
+  );
 }

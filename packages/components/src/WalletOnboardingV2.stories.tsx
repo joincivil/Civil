@@ -68,30 +68,37 @@ storiesOf("Wallet Onboarding V2", module)
     }),
   )
   .add("No Provider", () => {
-    return <WalletOnboardingV2 enable={() => {}} noProvider={true} />;
+    return (
+      <>
+        <b>NOTE:</b> To see this state you must view this story with MetaMask disabled or from a browser without it
+        installed.
+        <WalletOnboardingV2 />;
+      </>
+    );
+    // return <WalletOnboardingV2 noProvider={true} />;
   })
   .add("Not Enabled", () => {
-    return <WalletOnboardingV2 enable={() => {}} notEnabled={true} />;
+    return (
+      <>
+        <b>NOTE:</b> To see this state you must view this story with metamask from a browser where you haven't enabled
+        MetaMask for this domain, or if you already have, you can go into MetaMask settings, enable privacy mode, and
+        hit Clear Privacy Data and refresh.
+        <WalletOnboardingV2 />;
+      </>
+    );
   })
   .add("Locked", () => {
-    return <WalletOnboardingV2 enable={() => {}} walletLocked={true} />;
+    return <WalletOnboardingV2 civil={civil} />;
   })
   .add("Wrong Network", () => {
-    return <WalletOnboardingV2 enable={() => {}} wrongNetwork={true} requiredNetworkNiceName="Main Ethereum Network" />;
+    return <WalletOnboardingV2 wrongNetwork={true} requiredNetworkNiceName="Main Ethereum Network" />;
   })
   .add("Save address to Civil account", () => {
-    return (
-      <WalletOnboardingV2
-        enable={() => {}}
-        metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-        civil={civil}
-      />
-    );
+    return <WalletOnboardingV2 metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" civil={civil} />;
   })
   .add("Civil account vs. MetaMask address mismatch", () => {
     return (
       <WalletOnboardingV2
-        enable={() => {}}
         metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
         profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
         civil={civil}
@@ -99,12 +106,11 @@ storiesOf("Wallet Onboarding V2", module)
     );
   })
   .add("Connected", () => {
-    // return <WalletOnboardingV2 enable={() => {}} walletLocked={true} onContinue={() => {}} metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" />;
     return (
       <WalletOnboardingV2
-        enable={() => {}}
         metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
         profileWalletAddress="0xabc1230000000000000000000000000000abc123"
+        civil={civil}
       />
     );
   });

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { hasInjectedProvider } from "@joincivil/ethapi";
+import { ethereumEnable, isWalletOnboarded } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -32,18 +34,19 @@ import styled from "styled-components";
 
 export interface WalletOnboardingV2Props {
   civil?: Civil;
-  noProvider?: boolean;
-  walletLocked?: boolean;
   wrongNetwork?: boolean;
   requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
   helpUrl?: string;
   helpUrlBase?: string;
-  notEnabled?: boolean;
-  enable(): void;
   onOnboardingComplete?(): void;
-  onContinue?(): void;
+}
+
+export interface WalletOnboardingV2State {
+  metamaskEnabled?: boolean;
+  showWalletConnected?: boolean;
+  onboarded?: boolean;
 }
 
 const Wrapper = styled.div`
@@ -177,13 +180,45 @@ const WarningWrap = styled.p`
   }
 `;
 
-export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props> {
+export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props, WalletOnboardingV2State> {
+  public static getDerivedStateFromProps(
+    props: WalletOnboardingV2Props,
+    state: WalletOnboardingV2State,
+  ): WalletOnboardingV2State {
+    return {
+      ...state,
+      onboarded: isWalletOnboarded(
+        !!props.civil,
+        props.metamaskWalletAddress,
+        props.profileWalletAddress,
+        props.wrongNetwork,
+      ),
+    };
+  }
+
+  constructor(props: WalletOnboardingV2Props) {
+    super(props);
+    this.state = {};
+  }
+
+  public async componentDidMount(): Promise<void> {
+    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
+  }
+
   public render(): JSX.Element | null {
-    if (this.props.noProvider) {
+    if (this.state.onboarded) {
+      if (this.state.showWalletConnected || !this.props.children) {
+        return this.renderConnected();
+      } else {
+        return <>{this.props.children}</>;
+      }
+    }
+
+    if (!hasInjectedProvider()) {
       return this.renderNoProvider();
-    } else if (this.props.notEnabled) {
+    } else if (!this.state.metamaskEnabled) {
       return this.renderNotEnabled();
-    } else if (this.props.walletLocked) {
+    } else if (this.props.civil && this.state.metamaskEnabled && !this.props.metamaskWalletAddress) {
       return this.renderLocked();
     } else if (this.props.wrongNetwork) {
       return this.renderWrongNetwork();
@@ -192,12 +227,10 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
         return this.renderSaveAddress();
       } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
         return this.renderAddressMismatch();
-      } else {
-        return this.renderConnected();
       }
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   private renderNoProvider(): JSX.Element {
@@ -241,7 +274,13 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
           <InstructionsText>
             <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
             <InstructionsButtonWrap>
-              <MetaMaskLogoButton onClick={() => this.props.enable()}>Open MetaMask</MetaMaskLogoButton>
+              <MetaMaskLogoButton
+                onClick={async () => {
+                  this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
+                }}
+              >
+                Open MetaMask
+              </MetaMaskLogoButton>
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskConnectImgUrl} />
@@ -318,7 +357,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
             <InstructionsButtonWrap>
               <AccountEthAuth
                 civil={this.props.civil!}
-                onAuthenticated={this.props.onOnboardingComplete}
+                onAuthenticated={() => this.setState({ showWalletConnected: true })}
                 buttonOnly={true}
               />
             </InstructionsButtonWrap>
@@ -349,7 +388,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
             <InstructionsButtonWrap>
               <AccountEthAuth
                 civil={this.props.civil!}
-                onAuthenticated={this.props.onOnboardingComplete}
+                onAuthenticated={() => this.setState({ showWalletConnected: true })}
                 buttonOnly={true}
                 buttonText={"Update Profile"}
               />
@@ -386,13 +425,11 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
           </OBNoteText>
         </WarningWrap>
 
-        {this.props.onContinue && (
-          <ContinueButtonWrap>
-            <Button width={220} size={buttonSizes.MEDIUM_WIDE} onClick={this.props.onContinue}>
-              Continue
-            </Button>
-          </ContinueButtonWrap>
-        )}
+        <ContinueButtonWrap>
+          <Button width={220} size={buttonSizes.MEDIUM_WIDE} onClick={this.onboardingComplete}>
+            Continue
+          </Button>
+        </ContinueButtonWrap>
 
         {this.renderFaqEtc(false)}
       </Wrapper>
@@ -490,5 +527,12 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props>
         </GetMetaMaskMoreHelp>
       </>
     );
+  };
+
+  private onboardingComplete = () => {
+    this.setState({ showWalletConnected: false });
+    if (this.props.onOnboardingComplete) {
+      this.props.onOnboardingComplete();
+    }
   };
 }
