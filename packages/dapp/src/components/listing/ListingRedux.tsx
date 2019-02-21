@@ -47,6 +47,7 @@ export interface ListingReduxProps {
   parameters: any;
   govtParameters: any;
   constitutionURI: string;
+  network: string;
   useGraphQL: boolean;
   loadingFinished: boolean;
 }
@@ -108,6 +109,7 @@ class ListingPageComponent extends React.Component<
 
         <ListingHeader
           userAccount={this.props.userAccount}
+          network={this.props.network}
           listing={listing!}
           newsroom={newsroom!}
           listingPhaseState={this.props.listingPhaseState}
@@ -198,7 +200,7 @@ const makeMapStateToProps = () => {
       content,
       loadingFinished,
     } = state.networkDependent;
-    const { useGraphQL } = state;
+    const { network, useGraphQL } = state;
     const constitutionURI = constitution.get("uri");
     const newsroom = ownProps.newsroom;
     let listingDataRequestStatus;
@@ -213,6 +215,7 @@ const makeMapStateToProps = () => {
     const listingPhaseState = getListingPhaseState(ownProps.listing);
     return {
       ...ownProps,
+      network,
       expiry,
       listingDataRequestStatus,
       listingPhaseState,

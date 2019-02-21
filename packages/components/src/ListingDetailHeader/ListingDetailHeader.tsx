@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CharterData } from "@joincivil/core";
 
 import { NorthEastArrow, TwitterIcon, FacebookIcon } from "../icons";
-import { DarkButton, buttonSizes } from "../Button";
+import { buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
 import {
   AwaitingApprovalStatusLabel,
@@ -13,7 +13,6 @@ import {
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
 } from "../ApplicationPhaseStatusLabels";
-import { QuestionToolTip } from "../QuestionToolTip";
 import { colors } from "../styleConstants";
 
 import {
@@ -22,19 +21,17 @@ import {
   StyledNewsroomIcon,
   StyledNewsroomLogo,
   StyledEthereumInfoToggle,
-  StyledEthereumInfo,
   ListingDetailNewsroomName,
   ListingDetailNewsroomDek,
   StyledRegistryLinkContainer,
   NewsroomLinks,
   VisitNewsroomButtonWrap,
-  StyledEthereumTerm,
-  StyledEthereumValue,
   FollowNewsroom,
   FollowNewsroomHeading,
   FollowNewsroomLink,
-  ExpandArrow,
+  StyledListingURLButton,
 } from "./ListingDetailHeaderStyledComponents";
+import EthereumInfoModal from "./EthereumInfoModal";
 
 export interface ListingDetailHeaderProps {
   listingAddress: string;
@@ -44,6 +41,7 @@ export interface ListingDetailHeaderProps {
   registryURL?: string;
   registryLinkText?: string;
   owner: string;
+  etherscanBaseURL: string;
   unstakedDeposit: string;
   isWhitelisted?: boolean;
   isRejected?: boolean;
@@ -76,16 +74,13 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     let newsroomDescription = "";
     let newsroomUrl = "";
     let logoURL;
-    if (this.props.charter) {
+    const { charter, listingAddress, owner, etherscanBaseURL } = this.props;
+    if (charter) {
       // TODO(toby) remove legacy `desc` after transition
-      newsroomDescription = this.props.charter.tagline || (this.props.charter as any).desc;
-      newsroomUrl = this.props.charter.newsroomUrl;
-      logoURL = this.props.charter.logoUrl;
+      newsroomDescription = charter.tagline || (charter as any).desc;
+      newsroomUrl = charter.newsroomUrl;
+      logoURL = charter.logoUrl;
     }
-
-    const toolTipTheme = {
-      toolTipColorEnabled: colors.accent.CIVIL_GRAY_4,
-    };
 
     return (
       <ListingDetailOuter>
@@ -100,38 +95,31 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
 
               <StyledEthereumInfoToggle onClick={this.toggleEthereumInfoDisplay}>
-                Ethereum Info <ExpandArrow isOpen={this.state.isEthereumInfoVisible} />
+                Ethereum Info
               </StyledEthereumInfoToggle>
-              <StyledEthereumInfo isOpen={this.state.isEthereumInfoVisible}>
-                <StyledEthereumTerm>
-                  Contract Address
-                  <QuestionToolTip
-                    explainerText={"The Ethereum Address for this Newsroom's Smart Contract"}
-                    positionBottom={true}
-                    theme={toolTipTheme}
-                  />
-                </StyledEthereumTerm>
-                <StyledEthereumValue>{this.props.listingAddress}</StyledEthereumValue>
 
-                <StyledEthereumTerm>
-                  Owner Address
-                  <QuestionToolTip
-                    explainerText={"The Ethereum Address for the Owner of this Newsroom's Smart Contract"}
-                    positionBottom={true}
-                    theme={toolTipTheme}
-                  />
-                </StyledEthereumTerm>
-                <StyledEthereumValue>{this.props.owner}</StyledEthereumValue>
-              </StyledEthereumInfo>
+              {this.state.isEthereumInfoVisible && (
+                <EthereumInfoModal
+                  listingAddress={listingAddress}
+                  owner={owner}
+                  etherscanBaseURL={etherscanBaseURL}
+                  handleCloseClick={this.toggleEthereumInfoDisplay}
+                />
+              )}
 
               <ListingDetailNewsroomDek>{newsroomDescription}</ListingDetailNewsroomDek>
 
               <NewsroomLinks>
                 {newsroomUrl && (
                   <VisitNewsroomButtonWrap>
-                    <DarkButton size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
+                    <StyledListingURLButton
+                      onClick={this.toggleEthereumInfoDisplay}
+                      size={buttonSizes.MEDIUM_WIDE}
+                      href={newsroomUrl}
+                      target="_blank"
+                    >
                       {newsroomUrl} <NorthEastArrow color={colors.basic.WHITE} />
-                    </DarkButton>
+                    </StyledListingURLButton>
                   </VisitNewsroomButtonWrap>
                 )}
 
