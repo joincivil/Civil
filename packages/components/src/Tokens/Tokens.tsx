@@ -77,7 +77,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 step={loggedInState}
                 addWalletPath={addWalletPath}
                 signupPath={signupPath}
-              />;
+              />
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
