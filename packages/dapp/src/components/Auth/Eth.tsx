@@ -6,6 +6,8 @@ export interface AuthEthProps {
   onAuthentication(): void;
 }
 
+// TODO(jorgelo): Allow user to add their wallet ONLY after they are signed in .
+
 export const AuthEth: React.SFC<AuthEthProps> = props => {
   return (
     <AuthWrapper>
