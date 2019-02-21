@@ -455,25 +455,28 @@ export const getUserAppealChallengesWithRescueTokens = createSelector(
   },
 );
 
-export const getUserTotalClaimedRewards = createSelector([getChallengeUserData, getUser], (challengeUserData, user) => {
-  const initTotal = new BigNumber(0);
-  if (!challengeUserData || !user || !user.account) {
-    return initTotal;
-  }
-  return challengeUserData
-    .filter((challengeData, challengeID, iter): boolean => {
-      try {
-        const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
-        return !!didUserCollect && !!didCollectAmount;
-      } catch (ex) {
-        return false;
-      }
-    })
-    .map((challengeData, challengeID, iter): BigNumber => challengeData!.get(user.account.account).didCollectAmount!)
-    .reduce((reduction, value, key, iter) => {
-      return (reduction as BigNumber).add(value!);
-    }, initTotal);
-});
+export const getUserTotalClaimedRewards = createSelector(
+  [getChallengeUserData, getAppealChallengeUserData, getUser],
+  (challengeUserData, appealChallengeUserData, user) => {
+    const initTotal = new BigNumber(0);
+    if (!challengeUserData || !appealChallengeUserData || !user || !user.account) {
+      return initTotal;
+    }
+    return (challengeUserData.merge(appealChallengeUserData))
+      .filter((challengeData, challengeID, iter): boolean => {
+        try {
+          const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
+          return !!didUserCollect && !!didCollectAmount;
+        } catch (ex) {
+          return false;
+        }
+      })
+      .map((challengeData, challengeID, iter): BigNumber => challengeData!.get(user.account.account).didCollectAmount!)
+      .reduce((reduction, value, key, iter) => {
+        return (reduction as BigNumber).add(value!);
+      }, initTotal);
+  },
+);
 
 export const getChallengesVotedOnByUser = createSelector(
   [getChallengesVotedOnByAllUsers, getUser],
