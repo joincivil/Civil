@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { fonts, colors } from "@joincivil/components";
-import { StyledCollapsable, AvatarWrap, AvatarImg, noAvatar } from "../styledComponents";
+import { fonts, colors, OBCollapsable } from "@joincivil/components";
+import { AvatarWrap, AvatarImg, noAvatar } from "../styledComponents";
 import { CharterData, RosterMember } from "@joincivil/core";
 import { charterQuestions, questionsCopy } from "../constants";
 import { RosterMemberListItem } from "./RosterMemberListItem";
@@ -10,7 +10,7 @@ export interface ApplicationSoFarPageProps {
   charter: Partial<CharterData>;
 }
 
-const Collapsable = styled(StyledCollapsable)`
+const Collapsable = styled(OBCollapsable)`
   margin-bottom: 0;
   margin-top: 0;
   border-bottom: none;
