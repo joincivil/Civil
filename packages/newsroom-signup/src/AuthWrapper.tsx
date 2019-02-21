@@ -55,10 +55,6 @@ export class AuthWrapper extends React.Component<{}, AuthWrapperState> {
       return (
         <>
           <AccountEmailSent isNewUser={true} emailAddress={this.state.magicEmailSent} />
-          <p>
-            (@TODO/toby) NOTE: The magic link email template isn't set up yet. To log in, copy the token from the email
-            and go to /signupNewsroom?token=[token]
-          </p>
         </>
       );
     }
@@ -80,6 +76,6 @@ export class AuthWrapper extends React.Component<{}, AuthWrapperState> {
 
   private onAuthenticationContinue = (isNewUser: boolean) => {
     // @TODO/tobek Once token verification is handled better (flushing apollo cache so that client uses auth header) we can jump straight to "logged in" state. For now we have to refresh, and on refresh we'll be in the logged in state.
-    window.location.reload();
+    document.location.href = document.location.href.replace(document.location.search, '');
   };
 }
