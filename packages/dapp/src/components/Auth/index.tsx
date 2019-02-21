@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { AuthenticatedRoute } from "@joincivil/components";
-import { AuthHome } from "./Home";
 import { AuthEth } from "./Eth";
 import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
@@ -21,7 +20,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     const routeProps = {
       redirectTo: TOKEN_HOME,
-      ethSignupPath: WALLET_HOME,
+      signupUrl: "/auth/signup",
     };
 
     return (
@@ -29,6 +28,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
         <Switch>
           {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
+
+          {/* Add Wallet */}
+          <AuthenticatedRoute
+            path={WALLET_HOME}
+            {...routeProps}
+            render={() => <AuthEth onAuthentication={this.handleOnAddWallet} />}
+          />
           <AuthenticatedRoute
             {...routeProps}
             onlyAllowUnauthenticated
@@ -94,8 +100,6 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                     );
                   }}
                 />
-                {/* Add Wallet */}
-                <Route path={WALLET_HOME} render={() => <AuthEth onAuthentication={this.handleOnAddWallet} />} />
               </>
             )}
           />
