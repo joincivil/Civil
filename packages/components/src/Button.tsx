@@ -24,6 +24,7 @@ export interface ButtonProps {
   target?: string;
   fullWidth?: boolean;
   width?: number;
+  // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
   onClick?(ev: any): void;
 }
