@@ -1,14 +1,13 @@
 import * as React from "react";
 import { AuthOuterWrapper, WalletOnboardingV2, LoadUser } from "@joincivil/components";
 import { getCivil } from "../../helpers/civilInstance";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { hasInjectedProvider } from "@joincivil/ethapi";
 import { ethereumEnable } from "@joincivil/utils";
 import { EthAddress } from "@joincivil/core";
 import { State } from "../../redux/reducers";
 
 export interface AuthEthProps {
-  userAccount?: EthAddress;
   onAuthentication(): void;
 }
 
@@ -17,20 +16,17 @@ export interface AuthEthState {
 }
 
 export interface AuthEthReduxProps {
-  userAccount: EthAddress;
+  userAccount?: EthAddress;
 }
 
 // TODO(jorgelo): Allow user to add their wallet ONLY after they are signed in .
 
-export class AuthEth extends React.Component<AuthEthProps, AuthEthState> {
-  constructor(props: AuthEthProps) {
+export class AuthEth extends React.Component<AuthEthProps & AuthEthReduxProps & DispatchProp<any>, AuthEthState> {
+  constructor(props: AuthEthProps & AuthEthReduxProps & DispatchProp<any>) {
     super(props);
     this.state = {
       metamaskEnabled: false,
     };
-  }
-  public async componentDidMount(): Promise<void> {
-    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
   }
 
   public render(): JSX.Element {
@@ -60,8 +56,9 @@ export class AuthEth extends React.Component<AuthEthProps, AuthEthState> {
 
             // This is called when the auth is complete.
             const onOnboardingComplete = () => console.log("Wallet auth complete");
-            const enable = () => console.log("Enable");
+            const enable = async () => this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
 
+            console.log({ metamaskWalletAddress });
             return (
               <WalletOnboardingV2
                 civil={civil}

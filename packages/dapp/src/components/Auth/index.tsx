@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { AuthenticatedRoute } from "@joincivil/components";
-import { AuthEth } from "./Eth";
+import { AuthEthConnected } from "./Eth";
 import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
@@ -33,7 +33,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
           <AuthenticatedRoute
             path={WALLET_HOME}
             {...routeProps}
-            render={() => <AuthEth onAuthentication={this.handleOnAddWallet} />}
+            render={() => <AuthEthConnected onAuthentication={this.handleOnAddWallet} />}
           />
           <AuthenticatedRoute
             {...routeProps}
