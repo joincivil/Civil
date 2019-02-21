@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
 import { getTCR } from "../../helpers/civilInstance";
-import { ParamPropChallengeData } from "@joincivil/core";
+import { ParamPropChallengeData, EthAddress, UserChallengeData } from "@joincivil/core";
 import { ensureWeb3BigNumber } from "../../apis/civilTCR";
 
 export enum parameterizerActions {
@@ -13,6 +13,7 @@ export enum parameterizerActions {
   FETCH_CHALLENGE_DATA_COMPLETE = "PARAMETERIZER_FETCH_CHALLENGE_DATA_COMPLETE",
   FETCH_CHALLENGE_DATA_IN_PROGRESS = "PARAMETERIZER_FETCH_CHALLENGE_DATA_IN_PROGRESS",
   FETCH_AND_ADD_CHALLENGE_DATA = "PARAMETERIZER_FETCH_AND_ADD_CHALLENGE_DATA",
+  ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA",
 }
 
 export const setParameter = (paramName: string, paramValue: any): AnyAction => {
@@ -44,6 +45,17 @@ export const addParameterProposalChallenge = (
   return {
     type: parameterizerActions.ADD_OR_UPDATE_CHALLENGE,
     data: { challengeID, ...challengeData },
+  };
+};
+
+export const addUserProposalChallengeData = (
+  challengeID: string,
+  user: EthAddress,
+  userChallengeData: UserChallengeData,
+) => {
+  return {
+    type: parameterizerActions.ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA,
+    data: { challengeID, user, userChallengeData },
   };
 };
 
