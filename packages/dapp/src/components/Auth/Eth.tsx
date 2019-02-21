@@ -35,8 +35,8 @@ export class AuthEth extends React.Component<AuthEthProps & AuthEthReduxProps & 
 
     const { onAuthentication, userAccount } = this.props;
     const { metamaskEnabled } = this.state;
-
     const metamaskWalletAddress = userAccount || undefined;
+
     return (
       <AuthOuterWrapper>
         <LoadUser>
@@ -58,7 +58,6 @@ export class AuthEth extends React.Component<AuthEthProps & AuthEthReduxProps & 
             const onOnboardingComplete = () => console.log("Wallet auth complete");
             const enable = async () => this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
 
-            console.log({ metamaskWalletAddress });
             return (
               <WalletOnboardingV2
                 civil={civil}
