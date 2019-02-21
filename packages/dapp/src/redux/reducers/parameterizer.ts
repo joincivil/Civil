@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { parameterizerActions } from "../actionCreators/parameterizer";
-import { ParamPropChallengeData } from "@joincivil/core";
+import { ParamPropChallengeData, UserChallengeData } from "@joincivil/core";
 import { Map } from "immutable";
 
 export function parameters(state: object = {}, action: AnyAction): object {
@@ -45,6 +45,24 @@ export function parameterProposalChallengesFetching(
     case parameterizerActions.FETCH_CHALLENGE_DATA_COMPLETE:
     case parameterizerActions.FETCH_CHALLENGE_DATA_IN_PROGRESS:
       return state.set(action.data.challengeID, action.data);
+    default:
+      return state;
+  }
+}
+
+export function proposalChallengeUserData(
+  state: Map<string, Map<string, UserChallengeData>> = Map<string, Map<string, UserChallengeData>>(),
+  action: AnyAction,
+): Map<string, Map<string, UserChallengeData>> {
+  switch (action.type) {
+    case parameterizerActions.ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA:
+      if (!state.contains(action.data.challengeID)) {
+        return state.set(
+          action.data.challengeID,
+          Map<string, UserChallengeData>([[action.data.user.toString(), action.data.userChallengeData]]),
+        );
+      }
+      return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
     default:
       return state;
   }
