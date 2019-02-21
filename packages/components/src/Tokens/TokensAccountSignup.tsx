@@ -17,6 +17,8 @@ export interface TokenRequirementProps {
   signupPath: string;
 }
 
+// TODO(jorgelo) This should take into account whether the currentUser.ethAddress is same as MM address. They should have to reconnect if that is true. (Thanks Toby!)
+
 export const UserTokenAccountSignup: React.StatelessComponent<TokenRequirementProps> = props => {
   const { addWalletPath, signupPath, step, user } = props;
 
