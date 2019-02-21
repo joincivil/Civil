@@ -462,7 +462,8 @@ export const getUserTotalClaimedRewards = createSelector(
     if (!challengeUserData || !appealChallengeUserData || !user || !user.account) {
       return initTotal;
     }
-    return (challengeUserData.merge(appealChallengeUserData))
+    return challengeUserData
+      .merge(appealChallengeUserData)
       .filter((challengeData, challengeID, iter): boolean => {
         try {
           const { didUserCollect, didCollectAmount } = challengeData!.get(user.account.account);
