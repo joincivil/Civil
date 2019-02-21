@@ -4,7 +4,7 @@ exports[`Storyshots Wallet Onboarding CMS profile vs. MetaMask address mismatch 
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
@@ -39,7 +39,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -54,7 +54,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kDhYZr kfCWGh",
+                "class": "sc-jhaWeW cMCokj",
               },
               "children": Array [
                 Object {
@@ -71,7 +71,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jhaWeW vHbWs",
+                    "class": "sc-cFlXAS flBSaG",
                   },
                   "children": Array [
                     Object {
@@ -169,7 +169,7 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-dHIava jBKiZE",
+                          "class": "sc-guztPN jwcFCd",
                         },
                         "children": Array [
                           Object {
@@ -303,7 +303,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -318,7 +318,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-kDhYZr kfCWGh",
+              "class": "sc-jhaWeW cMCokj",
             },
             "children": Array [
               Object {
@@ -335,7 +335,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jhaWeW vHbWs",
+                  "class": "sc-cFlXAS flBSaG",
                 },
                 "children": Array [
                   Object {
@@ -433,7 +433,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-dHIava jBKiZE",
+                        "class": "sc-guztPN jwcFCd",
                       },
                       "children": Array [
                         Object {
@@ -567,7 +567,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-jhaWeW vHbWs",
+          "class": "sc-cFlXAS flBSaG",
         },
         "children": Array [
           Object {
@@ -582,7 +582,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-kDhYZr kfCWGh",
+            "class": "sc-jhaWeW cMCokj",
           },
           "children": Array [
             Object {
@@ -599,7 +599,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jhaWeW vHbWs",
+                "class": "sc-cFlXAS flBSaG",
               },
               "children": Array [
                 Object {
@@ -697,7 +697,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-dHIava jBKiZE",
+                      "class": "sc-guztPN jwcFCd",
                     },
                     "children": Array [
                       Object {
@@ -846,7 +846,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-kDhYZr kfCWGh",
+          "class": "sc-jhaWeW cMCokj",
         },
         "children": Array [
           Object {
@@ -863,7 +863,7 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -961,7 +961,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-dHIava jBKiZE",
+                    "class": "sc-guztPN jwcFCd",
                   },
                   "children": Array [
                     Object {
@@ -1041,7 +1041,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -1127,7 +1127,7 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -1225,7 +1225,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-dHIava jBKiZE",
+                  "class": "sc-guztPN jwcFCd",
                 },
                 "children": Array [
                   Object {
@@ -1301,7 +1301,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-kDhYZr kfCWGh",
+            "class": "sc-jhaWeW cMCokj",
           },
           "children": Array [
             Object {
@@ -1318,7 +1318,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -1404,7 +1404,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-jhaWeW vHbWs",
+          "class": "sc-cFlXAS flBSaG",
         },
         "children": Array [
           Object {
@@ -1502,7 +1502,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dHIava jBKiZE",
+                "class": "sc-guztPN jwcFCd",
               },
               "children": Array [
                 Object {
@@ -1572,7 +1572,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-kDhYZr kfCWGh",
+              "class": "sc-jhaWeW cMCokj",
             },
             "children": Array [
               Object {
@@ -1589,7 +1589,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jhaWeW vHbWs",
+                "class": "sc-cFlXAS flBSaG",
               },
               "children": Array [
                 Object {
@@ -1766,7 +1766,7 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-dHIava jBKiZE",
+              "class": "sc-guztPN jwcFCd",
             },
             "children": Array [
               Object {
@@ -1822,7 +1822,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -1843,7 +1843,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kDhYZr kfCWGh",
+                "class": "sc-jhaWeW cMCokj",
               },
               "children": Array [
                 Object {
@@ -1860,7 +1860,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-jhaWeW vHbWs",
+                  "class": "sc-cFlXAS flBSaG",
                 },
                 "children": Array [
                   Object {
@@ -1964,7 +1964,7 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-dHIava jBKiZE",
+            "class": "sc-guztPN jwcFCd",
           },
           "children": Array [
             Object {
@@ -2099,7 +2099,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -2120,7 +2120,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-kDhYZr kfCWGh",
+                  "class": "sc-jhaWeW cMCokj",
                 },
                 "children": Array [
                   Object {
@@ -2137,7 +2137,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-jhaWeW vHbWs",
+                    "class": "sc-cFlXAS flBSaG",
                   },
                   "children": Array [
                     Object {
@@ -2241,7 +2241,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-dHIava jBKiZE",
+          "class": "sc-guztPN jwcFCd",
         },
         "children": Array [
           Object {
@@ -2370,7 +2370,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jhaWeW vHbWs",
+                "class": "sc-cFlXAS flBSaG",
               },
               "children": Array [
                 Object {
@@ -2391,7 +2391,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-kDhYZr kfCWGh",
+                    "class": "sc-jhaWeW cMCokj",
                   },
                   "children": Array [
                     Object {
@@ -2408,7 +2408,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-jhaWeW vHbWs",
+                      "class": "sc-cFlXAS flBSaG",
                     },
                     "children": Array [
                       Object {
@@ -2561,7 +2561,7 @@ exports[`Storyshots Wallet Onboarding Connected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
@@ -2581,7 +2581,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -2714,7 +2714,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-jhaWeW vHbWs",
+          "class": "sc-cFlXAS flBSaG",
         },
         "children": Array [
           Object {
@@ -2951,7 +2951,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -3097,7 +3097,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -3199,12 +3199,12 @@ exports[`Storyshots Wallet Onboarding Locked 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-guztPN IGpGc",
+          "class": "sc-hkbPbT geIBAc",
           "src": "test-file-stub",
         },
         "children": Array [],
@@ -3313,7 +3313,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -3490,7 +3490,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -3545,7 +3545,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-guztPN IGpGc",
+            "class": "sc-hkbPbT geIBAc",
             "src": "test-file-stub",
           },
           "children": Array [],
@@ -3660,7 +3660,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "theme": "[object Object]",
                   "type": "button",
                 },
@@ -3726,7 +3726,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-guztPN IGpGc",
+              "class": "sc-hkbPbT geIBAc",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -3775,7 +3775,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "theme": "[object Object]",
                 "type": "button",
               },
@@ -3907,7 +3907,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-guztPN IGpGc",
+                "class": "sc-hkbPbT geIBAc",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -3947,7 +3947,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
               "theme": "[object Object]",
               "type": "button",
             },
@@ -4088,7 +4088,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-guztPN IGpGc",
+                  "class": "sc-hkbPbT geIBAc",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4170,7 +4170,7 @@ exports[`Storyshots Wallet Onboarding No Provider 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
@@ -4213,7 +4213,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -4309,7 +4309,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -4391,7 +4391,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4487,7 +4487,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -4620,7 +4620,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -4710,7 +4710,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -4806,7 +4806,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -4895,7 +4895,7 @@ initialize {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -4970,7 +4970,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -5333,7 +5333,7 @@ initialize {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-sPYgB gLgrjl",
+                          "class": "sc-bSbAYC gJOlIR",
                         },
                         "children": Array [
                           Object {
@@ -5408,7 +5408,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -6050,7 +6050,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -6146,7 +6146,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -6228,7 +6228,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -6324,7 +6324,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+              "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -6457,7 +6457,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -6547,7 +6547,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -6643,7 +6643,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -6732,7 +6732,7 @@ initialize {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -6807,7 +6807,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-sPYgB gLgrjl",
+                    "class": "sc-bSbAYC gJOlIR",
                   },
                   "children": Array [
                     Object {
@@ -7170,7 +7170,7 @@ initialize {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -7245,7 +7245,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -7892,7 +7892,7 @@ initialize {
                 "data": "Open MetaMask.io ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-sPYgB gLgrjl",
+                    "class": "sc-bSbAYC gJOlIR",
                   },
                   "children": Array [
                     Object {
@@ -7967,7 +7967,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-sPYgB gLgrjl",
+                  "class": "sc-bSbAYC gJOlIR",
                 },
                 "children": Array [
                   Object {
@@ -8330,7 +8330,7 @@ initialize {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -8405,7 +8405,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-sPYgB gLgrjl",
+                    "class": "sc-bSbAYC gJOlIR",
                   },
                   "children": Array [
                     Object {
@@ -9026,7 +9026,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -9122,7 +9122,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -9204,7 +9204,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -9300,7 +9300,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -9433,7 +9433,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -9523,7 +9523,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -9619,7 +9619,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -10228,7 +10228,7 @@ initialize {
                   "data": "Open MetaMask.io ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -10303,7 +10303,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-sPYgB gLgrjl",
+                    "class": "sc-bSbAYC gJOlIR",
                   },
                   "children": Array [
                     Object {
@@ -10666,7 +10666,7 @@ initialize {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -10741,7 +10741,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -10874,7 +10874,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -10970,7 +10970,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -11052,7 +11052,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -11148,7 +11148,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -11281,7 +11281,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -11371,7 +11371,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -11467,7 +11467,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -12076,7 +12076,7 @@ initialize {
                     "data": "Open MetaMask.io ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -12151,7 +12151,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-sPYgB gLgrjl",
+                      "class": "sc-bSbAYC gJOlIR",
                     },
                     "children": Array [
                       Object {
@@ -12514,7 +12514,7 @@ initialize {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-sPYgB gLgrjl",
+                          "class": "sc-bSbAYC gJOlIR",
                         },
                         "children": Array [
                           Object {
@@ -12589,7 +12589,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -12722,7 +12722,7 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                          "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -12818,7 +12818,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -12900,7 +12900,7 @@ initialize {
                   "data": " ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -12996,7 +12996,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -13129,7 +13129,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -13219,7 +13219,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -13315,7 +13315,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                          "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -13920,7 +13920,7 @@ initialize {
                       "data": "Open MetaMask.io ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-sPYgB gLgrjl",
+                          "class": "sc-bSbAYC gJOlIR",
                         },
                         "children": Array [
                           Object {
@@ -13995,7 +13995,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-sPYgB gLgrjl",
+                        "class": "sc-bSbAYC gJOlIR",
                       },
                       "children": Array [
                         Object {
@@ -14358,7 +14358,7 @@ initialize {
                         "data": "Open MetaMask.io ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-sPYgB gLgrjl",
+                            "class": "sc-bSbAYC gJOlIR",
                           },
                           "children": Array [
                             Object {
@@ -14433,7 +14433,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-sPYgB gLgrjl",
+                          "class": "sc-bSbAYC gJOlIR",
                         },
                         "children": Array [
                           Object {
@@ -14566,7 +14566,7 @@ initialize {
                         "data": " ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                            "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -14662,7 +14662,7 @@ initialize {
                       "data": " ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                          "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -14744,7 +14744,7 @@ initialize {
                     "data": " ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -14840,7 +14840,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -14973,7 +14973,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -15063,7 +15063,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                          "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -15159,7 +15159,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                            "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -15328,7 +15328,7 @@ exports[`Storyshots Wallet Onboarding Not Enabled 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
@@ -15364,7 +15364,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "theme": "[object Object]",
                   "type": "button",
                 },
@@ -15404,7 +15404,7 @@ initialize {
                   "data": "If you do not see the MetaMask popup, please click the ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -15435,7 +15435,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15472,7 +15472,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -15549,7 +15549,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "theme": "[object Object]",
                 "type": "button",
               },
@@ -15589,7 +15589,7 @@ initialize {
                 "data": "If you do not see the MetaMask popup, please click the ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15620,7 +15620,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15657,7 +15657,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -15736,7 +15736,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
               "theme": "[object Object]",
               "type": "button",
             },
@@ -15776,7 +15776,7 @@ initialize {
               "data": "If you do not see the MetaMask popup, please click the ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15807,7 +15807,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -15844,7 +15844,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -15938,7 +15938,7 @@ initialize {
             "data": "If you do not see the MetaMask popup, please click the ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -15969,7 +15969,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+              "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -16006,7 +16006,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -16043,7 +16043,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "theme": "[object Object]",
                 "type": "button",
               },
@@ -16174,7 +16174,7 @@ exports[`Storyshots Wallet Onboarding Save address to CMS profile 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
@@ -16207,7 +16207,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -16305,7 +16305,7 @@ initialize {
                 "data": " ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-dHIava jBKiZE",
+                    "class": "sc-guztPN jwcFCd",
                   },
                   "children": Array [
                     Object {
@@ -16409,7 +16409,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -16507,7 +16507,7 @@ initialize {
               "data": " ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-dHIava jBKiZE",
+                  "class": "sc-guztPN jwcFCd",
                 },
                 "children": Array [
                   Object {
@@ -16613,7 +16613,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-jhaWeW vHbWs",
+          "class": "sc-cFlXAS flBSaG",
         },
         "children": Array [
           Object {
@@ -16711,7 +16711,7 @@ initialize {
             "data": " ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dHIava jBKiZE",
+                "class": "sc-guztPN jwcFCd",
               },
               "children": Array [
                 Object {
@@ -16913,7 +16913,7 @@ initialize {
           "data": " ",
           "next": Object {
             "attribs": Object {
-              "class": "sc-dHIava jBKiZE",
+              "class": "sc-guztPN jwcFCd",
             },
             "children": Array [
               Object {
@@ -16969,7 +16969,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-jhaWeW vHbWs",
+            "class": "sc-cFlXAS flBSaG",
           },
           "children": Array [
             Object {
@@ -17049,7 +17049,7 @@ initialize {
         "data": " ",
         "next": Object {
           "attribs": Object {
-            "class": "sc-dHIava jBKiZE",
+            "class": "sc-guztPN jwcFCd",
           },
           "children": Array [
             Object {
@@ -17184,7 +17184,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-jhaWeW vHbWs",
+              "class": "sc-cFlXAS flBSaG",
             },
             "children": Array [
               Object {
@@ -17264,7 +17264,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-dHIava jBKiZE",
+          "class": "sc-guztPN jwcFCd",
         },
         "children": Array [
           Object {
@@ -17393,7 +17393,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-jhaWeW vHbWs",
+                "class": "sc-cFlXAS flBSaG",
               },
               "children": Array [
                 Object {
@@ -17522,12 +17522,12 @@ exports[`Storyshots Wallet Onboarding Wrong Network 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bvTASY gvwuMM",
+      "class": "sc-kDhYZr hyLNtO",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-guztPN IGpGc",
+          "class": "sc-hkbPbT geIBAc",
           "src": "test-file-stub",
         },
         "children": Array [],
@@ -17573,7 +17573,7 @@ initialize {
                     "data": " to switch networks in MetaMask ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -17632,7 +17632,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -17677,7 +17677,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -17736,7 +17736,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -17816,7 +17816,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                      "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -17930,7 +17930,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -17989,7 +17989,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -18034,7 +18034,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -18093,7 +18093,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -18173,7 +18173,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                    "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -18228,7 +18228,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-guztPN IGpGc",
+            "class": "sc-hkbPbT geIBAc",
             "src": "test-file-stub",
           },
           "children": Array [],
@@ -18280,7 +18280,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -18339,7 +18339,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -18384,7 +18384,7 @@ initialize {
             "data": " to switch networks in MetaMask ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -18443,7 +18443,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+              "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -18523,7 +18523,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                  "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                   "theme": "[object Object]",
                   "type": "button",
                 },
@@ -18589,7 +18589,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-guztPN IGpGc",
+              "class": "sc-hkbPbT geIBAc",
               "src": "test-file-stub",
             },
             "children": Array [],
@@ -18638,7 +18638,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+                "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
                 "theme": "[object Object]",
                 "type": "button",
               },
@@ -18704,7 +18704,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -18763,7 +18763,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -18808,7 +18808,7 @@ initialize {
               "data": " to switch networks in MetaMask ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -18867,7 +18867,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -18950,7 +18950,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-guztPN IGpGc",
+                "class": "sc-hkbPbT geIBAc",
                 "src": "test-file-stub",
               },
               "children": Array [],
@@ -18990,7 +18990,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-koErNt iNsytQ sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
+              "class": "sc-sPYgB kdeJNT sc-cSHVUG fYaJzf sc-jzJRlG iUqVqJ",
               "theme": "[object Object]",
               "type": "button",
             },
@@ -19065,7 +19065,7 @@ initialize {
                     "data": " to switch networks in MetaMask ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                        "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -19124,7 +19124,7 @@ initialize {
                   "data": " to switch networks in MetaMask ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                      "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -19169,7 +19169,7 @@ initialize {
                 "data": " to switch networks in MetaMask ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                    "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -19228,7 +19228,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bSbAYC kQKWlx sc-cIShpX kSxxqN",
+                  "class": "sc-hcnlBt fWWUbY sc-cIShpX kSxxqN",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -19311,7 +19311,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-guztPN IGpGc",
+                  "class": "sc-hkbPbT geIBAc",
                   "src": "test-file-stub",
                 },
                 "children": Array [],

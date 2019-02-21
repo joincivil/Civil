@@ -9,6 +9,7 @@ export interface AuthEthProps {
 export const AuthEth: React.SFC<AuthEthProps> = props => {
   return (
     <AuthWrapper>
+      {/* TODO(jorgelo): Use Toby's new components */}
       <AccountEthAuth
         civil={getCivil()}
         onAuthenticated={() => {
