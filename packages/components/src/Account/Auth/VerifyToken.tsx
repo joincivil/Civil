@@ -106,7 +106,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     if (!hasValidated) {
       return (
         <>
-          <ExecuteOnMount onDidMount={() => this.handleTokenVerification()} />
+          <ExecuteOnMount onDidMount={async () => this.handleTokenVerification()} />
           {this.renderVerifiying()}
         </>
       );
