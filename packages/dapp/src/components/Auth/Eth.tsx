@@ -9,7 +9,7 @@ export interface AuthEthProps {
 
 // TODO(jorgelo): Allow user to add their wallet ONLY after they are signed in .
 
-export const AuthEth: React.SFC<AuthEthProps> = props => {
+export const AuthEth: React.SFC<AuthEthProps> = ({ onAuthentication }) => {
   // TODO(jorgelo): Maybe pass civil into here.
 
   const civil = getCivil();
@@ -31,9 +31,8 @@ export const AuthEth: React.SFC<AuthEthProps> = props => {
 
   const profileWalletAddress = undefined;
 
-  // How do onOnboardingComplete and onContinue differ?
+  // How do onOnboardingComplete and onContinue differ? Do we need the continue button?
   // () => props.onAuthentication()
-  const onOnboardingComplete = () => console.log("onOnboardingComplete");
   const onContinue = () => console.log("onContinue");
 
   return (
@@ -50,7 +49,7 @@ export const AuthEth: React.SFC<AuthEthProps> = props => {
         helpUrl={helpUrl}
         helpUrlBase={helpUrlBase}
         profileWalletAddress={profileWalletAddress}
-        onOnboardingComplete={onOnboardingComplete}
+        onOnboardingComplete={onAuthentication}
         onContinue={onContinue}
       />
     </AuthOuterWrapper>

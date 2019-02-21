@@ -28,6 +28,7 @@ export interface UserTokenAccountProps {
   network: string;
   user?: any;
   addWalletPath: string;
+  signupPath: string;
 }
 
 export interface UserTokenAccountStates {
@@ -53,7 +54,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress } = this.props;
+    const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress, signupPath } = this.props;
     const { isTutorialModalOpen } = this.state;
 
     const accountSignupComplete = this.getAccountComplete(user);
@@ -71,7 +72,12 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <UserTokenAccountSignup user={user} step={loggedInState} addWalletPath={addWalletPath} />;
+              <UserTokenAccountSignup
+                user={user}
+                step={loggedInState}
+                addWalletPath={addWalletPath}
+                signupPath={signupPath}
+              />;
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
