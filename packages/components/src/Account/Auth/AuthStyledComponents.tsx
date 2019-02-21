@@ -102,8 +102,8 @@ export const AuthFooterTerms = () => (
   <AuthFooterContainer>
     <AuthTextFooter />
     <BenefitsLink>
-      {/* // TODO(jorgelo): Where will this link? */}
-      <Link to={"https://civil.co"} target="_new">
+      {/* // TODO(jorgelo): Confirm this is the final link */}
+      <Link to={"https://civil.co/become-a-member"} target="_new">
         Read more about those benefits.
       </Link>
     </BenefitsLink>

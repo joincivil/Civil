@@ -1,14 +1,13 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation } from "react-apollo";
-import { setApolloSession } from "@joincivil/utils";
-import { ExecuteOnMount, Button, buttonSizes } from "../..";
+import { setApolloSession, getApolloClient } from "@joincivil/utils";
+import { Button, buttonSizes } from "../..";
 import { AuthLoginResponse } from "..";
 import { AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
 
 const verifySignUpTokenMutation = gql`
-  mutation($loginJWT: String!) {
-    authSignupEmailConfirm(signupJWT: $loginJWT) {
+  mutation($token: String!) {
+    authSignupEmailConfirm(signupJWT: $token) {
       token
       refreshToken
       uid
@@ -17,8 +16,8 @@ const verifySignUpTokenMutation = gql`
 `;
 
 const verifyLoginTokenMutation = gql`
-  mutation($loginJWT: String!) {
-    authLoginEmailConfirm(loginJWT: $loginJWT) {
+  mutation($token: String!) {
+    authLoginEmailConfirm(loginJWT: $token) {
       token
       refreshToken
       uid
@@ -47,11 +46,8 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     super(props);
   }
 
-  public renderError(error: any): JSX.Element {
-    // TODO(jorgelo): Style figure out how to style this.
-    const errorText = error.graphQLErrors.map((e: any) => e.message).join(" ,");
-
-    return <>{errorText}</>;
+  public async componentDidMount(): Promise<void> {
+    return this.handleTokenVerification();
   }
 
   public renderVerified(): JSX.Element {
@@ -66,35 +62,59 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
       </>
     );
   }
-  public render(): JSX.Element {
-    const loginJWT = this.props.token;
+
+  public handleTokenVerification = async (): Promise<void> => {
     const { isNewUser } = this.props;
+    const token = this.props.token;
+
+    const client = getApolloClient({});
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
 
-    return (
-      <>
-        <Mutation mutation={verifyMutation}>
-          {(verifyToken, { loading, error, data }) => (
-            <>
-              <ExecuteOnMount
-                onDidMount={async () => {
-                  const res: any = await verifyToken({ variables: { loginJWT } });
-                  const authResponse: AuthLoginResponse = res.data[resultKey];
-                  setApolloSession(authResponse);
-                  // TODO(jorgelo): Flush the local apollo cache here.
-                  this.setState({ hasValidated: true });
-                }}
-              />
+    try {
+      const { data, error } = await client.mutate({
+        mutation: verifyMutation,
+        variables: { token },
+      });
 
-              {this.state.hasValidated ? this.renderVerified() : <>Verifying email...</>}
+      if (error) {
+        console.log("Error authenticating:", error);
+        const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(" ,");
+        this.setState({ errorMessage, hasValidated: true });
+      } else {
+        const authResponse: AuthLoginResponse = data[resultKey];
+        setApolloSession(authResponse);
 
-              <span>{error && this.renderError(error)}</span>
-            </>
-          )}
-        </Mutation>
-      </>
-    );
+        this.setState({ errorMessage: null, hasValidated: true });
+      }
+    } catch (err) {
+      console.error("Error validating token:", err);
+      this.setState({ errorMessage: "There was a problem validating your token.", hasValidated: true });
+    }
+  };
+
+  public renderError(errorMessage: string): JSX.Element {
+    // TODO(jorgelo): What should the error state look like?
+    return <h1>Error: {errorMessage}</h1>;
+  }
+
+  public renderVerifiying(): JSX.Element {
+    // TODO(jorgelo): What should this loading look like?
+    return <h1>Verifiying...</h1>;
+  }
+
+  public render(): JSX.Element {
+    const { hasValidated, errorMessage } = this.state;
+
+    if (!hasValidated) {
+      return this.renderVerifiying();
+    }
+
+    if (errorMessage) {
+      return this.renderError(errorMessage);
+    }
+
+    return this.renderVerified();
   }
 }

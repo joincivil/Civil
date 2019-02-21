@@ -4,7 +4,7 @@ exports[`Storyshots Modal Fullscreen Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hSmEHG kryJJV",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {
@@ -83,7 +83,7 @@ exports[`Storyshots Modal Modal 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hSmEHG kryJJV",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {

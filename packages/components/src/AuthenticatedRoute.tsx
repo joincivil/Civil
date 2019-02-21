@@ -24,7 +24,7 @@ const userQuery = gql`
 `;
 
 export const AuthenticatedRoute = ({
-  component: Component,
+  render,
   redirectTo,
   onlyAllowUnauthenticated = false,
   allowWithoutEth = false,
@@ -37,6 +37,22 @@ export const AuthenticatedRoute = ({
 
   if (onlyAllowUnauthenticated === hasAuthToken) {
     return <Redirect to={redirectTo} />;
+  }
+
+  if (!render) {
+    return null;
+  }
+
+  // TODO(jorgelo): Get the line below working without the ts-ignore
+  // @ts-ignore
+  const renderChildren = () => render(otherProps);
+
+  if (onlyAllowUnauthenticated && !hasAuthToken) {
+    if (render) {
+      return renderChildren();
+    }
+
+    return null;
   }
 
   return (
@@ -58,11 +74,11 @@ export const AuthenticatedRoute = ({
             return <Redirect to={ethSignupPath} />;
           }
 
-          if (Component) {
-            // TODO(jorgelo): Get the line below working without the ts-ignore
-            // @ts-ignore
-            return <Component {...otherProps} />;
+          if (render) {
+            return renderChildren();
           }
+
+          console.log("NULL?");
 
           return null;
         }}
