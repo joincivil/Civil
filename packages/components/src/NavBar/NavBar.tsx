@@ -60,7 +60,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       <NavContainer>
         <NavOuter>
           <NavLogo>
-            <NavLink to="/">
+            <NavLink to="https://civil.co">
               <CivilLogo color={colors.basic.WHITE} />
             </NavLink>
           </NavLogo>

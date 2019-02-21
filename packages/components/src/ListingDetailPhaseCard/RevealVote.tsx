@@ -1,14 +1,33 @@
 import * as React from "react";
 import { SaltInput } from "../input/";
 import { TransactionButtonNoModal } from "../TransactionButton";
-import { FormQuestion, StyledOrText, VoteOptionsContainer } from "./styledComponents";
-import { VoteCallToActionText, AppealChallengeVoteCallToActionText, RevealVoteButtonText } from "./textComponents";
+import {
+  StyledOrText,
+  VoteOptionsContainer,
+  StyledButtonsContainer,
+  StyledStepCopy,
+  StyledStepCopyNum,
+} from "./styledComponents";
+import { RevealVoteButtonText } from "./textComponents";
 import { RevealVoteProps } from "./types";
 import VoteButton from "./VoteButton";
 
 export interface RevealVoteState {
   saltError?: string;
 }
+
+interface StepCopyProps {
+  step: string;
+}
+
+const StepCopy: React.SFC<StepCopyProps> = props => {
+  return (
+    <StyledStepCopy>
+      <StyledStepCopyNum>{props.step}</StyledStepCopyNum>
+      <div>{props.children}</div>
+    </StyledStepCopy>
+  );
+};
 
 export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState> {
   constructor(props: RevealVoteProps) {
@@ -18,14 +37,11 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
 
   public render(): JSX.Element {
     const canReveal = this.props.voteOption !== undefined && !this.state.saltError;
-    const DefaultCTATextComponent = this.props.isAppealChallenge
-      ? AppealChallengeVoteCallToActionText
-      : VoteCallToActionText;
     return (
       <>
-        <FormQuestion>
-          {this.props.children || <DefaultCTATextComponent newsroomName={this.props.newsroomName} />}
-        </FormQuestion>
+        <StepCopy step="1">
+          {this.props.children || "Reveal the vote option you chose in the submit vote phase"}
+        </StepCopy>
 
         <VoteOptionsContainer>
           <VoteButton buttonVoteOptionValue="1" {...this.props} />
@@ -33,22 +49,24 @@ export class RevealVote extends React.Component<RevealVoteProps, RevealVoteState
           <VoteButton buttonVoteOptionValue="0" {...this.props} />
         </VoteOptionsContainer>
 
+        <StepCopy step="2">Enter your 4-word voting code</StepCopy>
         <SaltInput
           salt={this.props.salt}
-          label="Enter your secret phrase"
           name="salt"
           onChange={this.onChange}
           invalid={!!this.state.saltError}
           invalidMessage={this.state.saltError}
         />
 
-        <TransactionButtonNoModal
-          transactions={this.props.transactions}
-          disabled={!canReveal}
-          postExecuteTransactions={this.props.postExecuteTransactions}
-        >
-          <RevealVoteButtonText />
-        </TransactionButtonNoModal>
+        <StyledButtonsContainer>
+          <TransactionButtonNoModal
+            transactions={this.props.transactions}
+            disabled={!canReveal}
+            postExecuteTransactions={this.props.postExecuteTransactions}
+          >
+            <RevealVoteButtonText />
+          </TransactionButtonNoModal>
+        </StyledButtonsContainer>
       </>
     );
   }

@@ -6,6 +6,13 @@ import { TutorialQuestion } from "../Tutorial/TutorialQuestion";
 import { TutorialTopicCompleted } from "../Tutorial/TutorialTopicCompleted";
 import { TutorialContain } from "./TokenTutorialStyledComponents";
 
+export enum QUIZ_SECTION {
+  INTRO = "intro",
+  TUTORIAL = "tutorial",
+  QUIZ = "quiz",
+  COMPLETED = "completed",
+}
+
 export interface TokenTutorialQuizProps {
   topicIdx: number;
   totalTopics: number;
@@ -43,7 +50,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
     const lastTopic = topicIdx === this.props.totalTopics ? true : false;
 
     switch (activeSection) {
-      case "intro":
+      case QUIZ_SECTION.INTRO:
         return (
           <TutorialContain>
             <TutorialTopicIntro
@@ -56,7 +63,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             />
           </TutorialContain>
         );
-      case "tutorial":
+      case QUIZ_SECTION.TUTORIAL:
         return (
           <TutorialContain>
             <TutorialInfo
@@ -68,7 +75,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
             />
           </TutorialContain>
         );
-      case "quiz":
+      case QUIZ_SECTION.QUIZ:
         if (this.state.resetQuestion) {
           return (
             <TutorialContain>
@@ -88,7 +95,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
         } else {
           this.resetQuestion();
         }
-      case "completed":
+      case QUIZ_SECTION.COMPLETED:
         return (
           <TutorialContain>
             <TutorialTopicCompleted
@@ -108,37 +115,37 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
 
   private prev = () => {
     switch (this.state.activeSection) {
-      case "tutorial":
+      case QUIZ_SECTION.TUTORIAL:
         if (this.state.slideIdx === 0) {
-          this.setState({ activeSection: "intro", slideIdx: 0 });
+          this.setState({ activeSection: QUIZ_SECTION.INTRO, slideIdx: 0 });
         } else {
           this.setState({ slideIdx: this.state.slideIdx - 1 });
         }
         break;
-      case "quiz":
+      case QUIZ_SECTION.QUIZ:
         this.setState({
-          activeSection: "tutorial",
+          activeSection: QUIZ_SECTION.TUTORIAL,
           slideIdx: 0,
         });
         break;
       default:
-        this.setState({ activeSection: "intro", slideIdx: 0 });
+        this.setState({ activeSection: QUIZ_SECTION.INTRO, slideIdx: 0 });
     }
   };
 
   private next = () => {
     switch (this.state.activeSection) {
-      case "intro":
-        this.setState({ slideIdx: 0, activeSection: "tutorial" });
+      case QUIZ_SECTION.INTRO:
+        this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.TUTORIAL });
         break;
-      case "tutorial":
+      case QUIZ_SECTION.TUTORIAL:
         if (this.state.slideIdx + 1 < TutorialContent[this.state.topicIdx].tutorials.length) {
           this.setState({ slideIdx: this.state.slideIdx + 1 });
         } else {
-          this.setState({ slideIdx: this.state.quizSlide, activeSection: "quiz" });
+          this.setState({ slideIdx: this.state.quizSlide, activeSection: QUIZ_SECTION.QUIZ });
         }
         break;
-      case "quiz":
+      case QUIZ_SECTION.QUIZ:
         if (this.state.slideIdx + 1 < TutorialContent[this.state.topicIdx].questions.length) {
           this.setState({
             slideIdx: this.state.slideIdx + 1,
@@ -147,23 +154,33 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
           });
           this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, false);
         } else {
-          this.setState({ slideIdx: 0, activeSection: "completed" });
+          this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.COMPLETED });
           this.props.handleSaveQuizState(TutorialContent[this.state.topicIdx].quizId, this.state.slideIdx, true);
         }
         break;
       default:
-        this.setState({ slideIdx: 0, activeSection: "intro" });
+        this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.INTRO });
     }
   };
 
   private skipTutorial = () => {
-    this.setState({ slideIdx: 0, activeSection: "quiz" });
+    this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.QUIZ });
   };
 
   private nextTopic = () => {
     this.props.skipTutorial
-      ? this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "quiz", quizSlide: 0 })
-      : this.setState({ topicIdx: this.state.topicIdx + 1, slideIdx: 0, activeSection: "intro", quizSlide: 0 });
+      ? this.setState({
+          topicIdx: this.state.topicIdx + 1,
+          slideIdx: 0,
+          activeSection: QUIZ_SECTION.QUIZ,
+          quizSlide: 0,
+        })
+      : this.setState({
+          topicIdx: this.state.topicIdx + 1,
+          slideIdx: 0,
+          activeSection: QUIZ_SECTION.INTRO,
+          quizSlide: 0,
+        });
   };
 
   private resetQuestion = () => {

@@ -1,20 +1,21 @@
 import * as React from "react";
-import { AccountEthAuth } from "@joincivil/components";
+import { AccountEthAuth, AuthWrapper } from "@joincivil/components";
 import { getCivil } from "../../helpers/civilInstance";
 
-export interface AccountEthProps {
+export interface AuthEthProps {
   onAuthentication(): void;
 }
 
-export const AccountEth: React.SFC<AccountEthProps> = props => {
+export const AuthEth: React.SFC<AuthEthProps> = props => {
   return (
-    <>
+    <AuthWrapper>
+      {/* TODO(jorgelo): Use Toby's new components */}
       <AccountEthAuth
         civil={getCivil()}
         onAuthenticated={() => {
           props.onAuthentication();
         }}
       />
-    </>
+    </AuthWrapper>
   );
 };

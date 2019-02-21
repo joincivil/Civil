@@ -13,21 +13,21 @@ import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
+import { getFormattedEthAddress } from "@joincivil/utils";
 
-export const TOKEN_PROGRESS = {
-  ACTIVE: "active",
-  COMPLETED: "completed",
-  DISABLED: "disabled",
-};
+export enum TOKEN_PROGRESS {
+  ACTIVE = "active",
+  COMPLETED = "completed",
+  DISABLED = "disabled",
+}
 
 export interface UserTokenAccountProps {
   foundationAddress: string;
   supportEmailAddress: string;
   faqUrl: string;
   network: string;
-  userAccount: string;
-  userTutorialComplete: boolean;
   user?: any;
+  addWalletPath: string;
 }
 
 export interface UserTokenAccountStates {
@@ -43,15 +43,23 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    const { user } = this.props;
-    const accountSignupStep = this.getUserStep(user);
+    const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress } = this.props;
+    const { isTutorialModalOpen } = this.state;
 
-    const loggedInState = accountSignupStep ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
-    const tutorialState = this.props.userTutorialComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+    const accountSignupComplete = this.getAccountComplete(user);
+    const tutorialComplete = this.getTutorialComplete(user);
+    const userAccount = this.getUserAccount(user);
 
-    // TODO:Sarah - commented out for testing
-    // const buyState =
-    //  accountSignupStep && this.props.userTutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
+    const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+    let tutorialState;
+    if (loggedInState === TOKEN_PROGRESS.ACTIVE) {
+      tutorialState = TOKEN_PROGRESS.DISABLED;
+    } else if (tutorialComplete) {
+      tutorialState = TOKEN_PROGRESS.COMPLETED;
+    } else {
+      tutorialState = TOKEN_PROGRESS.ACTIVE;
+    }
+    const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     return (
       <TokenAccountOuter>
@@ -60,29 +68,29 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <UserTokenAccountSignup step={loggedInState} />
+              <UserTokenAccountSignup step={loggedInState} addWalletPath={addWalletPath} />
               <UserTokenAccountVerify
                 step={tutorialState}
-                open={this.state.isTutorialModalOpen}
+                open={isTutorialModalOpen}
                 handleClose={this.closeTutorialModal}
                 handleOpen={this.openTutorialModal}
               />
               <UserTokenAccountBuy
-                step={"active"}
-                network={this.props.network}
-                foundationAddress={this.props.foundationAddress}
-                faqUrl={this.props.faqUrl}
+                step={buyState}
+                network={network}
+                foundationAddress={foundationAddress}
+                faqUrl={faqUrl}
               />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>
 
             <FlexColumnsSecondary>
               <UserTokenAccountProgress
-                userAccount={this.props.userAccount}
-                logInComplete={accountSignupStep}
-                tutorialComplete={this.props.userTutorialComplete}
+                userAccount={userAccount}
+                logInComplete={accountSignupComplete}
+                tutorialComplete={tutorialComplete}
               />
-              <UserTokenAccountHelp supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
+              <UserTokenAccountHelp supportEmailAddress={supportEmailAddress} faqUrl={faqUrl} />
             </FlexColumnsSecondary>
           </FlexColumns>
         </TokenAccountInner>
@@ -90,12 +98,28 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     );
   }
 
-  private getUserStep = (user: any) => {
+  private getAccountComplete = (user: any) => {
     if (user && user.ethAddress) {
       return true;
     }
 
     return false;
+  };
+
+  private getTutorialComplete = (user: any) => {
+    if (user && user.quizStatus) {
+      return true;
+    }
+
+    return false;
+  };
+
+  private getUserAccount = (user: any) => {
+    if (user && user.ethAddress) {
+      return getFormattedEthAddress(user.ethAddress);
+    }
+
+    return "";
   };
 
   private openTutorialModal = () => {

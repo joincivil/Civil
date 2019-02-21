@@ -1,7 +1,18 @@
-export * from "./VerifyToken";
+export * from "./Auth/VerifyToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
+export * from "./LoadUser";
+
+export {
+  AuthOuterWrapper,
+  AuthInnerWrapper,
+  AuthPageFooterLink,
+  AuthFooterTerms,
+  AuthWrapper,
+} from "./Auth/AuthStyledComponents";
+
+export * from "./Auth/AuthTextComponents";
 
 export enum AuthApplicationEnum {
   DEFAULT = "DEFAULT",

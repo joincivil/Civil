@@ -1,5 +1,5 @@
 import * as React from "react";
-import { buttonSizes, Button, InvertedButton } from "../Button";
+import { buttonSizes, Button } from "../Button";
 import { CurrencyInputWithButton } from "../input/";
 import { QuestionToolTip } from "../QuestionToolTip";
 
@@ -17,6 +17,7 @@ import {
   StyledStepLabel,
   StyledOneTokenOneVote,
   StyledButtonsContainer,
+  StyledTextActionButton,
   StyledAppMessage,
   StyledVoteCTAButton,
 } from "./styledComponents";
@@ -49,7 +50,7 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
     super(props);
     this.state = {
       numTokensError: undefined,
-      displayStep: 1,
+      displayStep: 0,
     };
   }
 
@@ -107,14 +108,6 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
           {this.renderAppMessages()}
 
           <StyledButtonsContainer>
-            <InvertedButton
-              onClick={() => this.setState({ displayStep: 0 })}
-              size={buttonSizes.MEDIUM}
-              theme={buttonTheme}
-            >
-              Back
-            </InvertedButton>
-
             <Button
               disabled={!canReview}
               size={buttonSizes.MEDIUM}
@@ -123,6 +116,10 @@ export class CommitVote extends React.Component<CommitVoteProps, CommitVoteState
             >
               {this.props.buttonText || <CommitVoteReviewButtonText />}
             </Button>
+
+            <div onClick={() => this.setState({ displayStep: 0 })}>
+              <StyledTextActionButton>Back</StyledTextActionButton>
+            </div>
           </StyledButtonsContainer>
         </StyledStep>
       </>

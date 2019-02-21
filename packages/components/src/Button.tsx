@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled, { StyledComponentClass } from "styled-components";
-
 import { colors, fonts } from "./styleConstants";
 
 export enum buttonSizes {
   SMALL = "SMALL",
+  SMALL_WIDE = "SMALL_WIDE",
   MEDIUM = "MEDIUM",
   MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
@@ -24,6 +24,7 @@ export interface ButtonProps {
   target?: string;
   fullWidth?: boolean;
   width?: number;
+  // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
   onClick?(ev: any): void;
 }
@@ -102,6 +103,7 @@ export const DEFAULT_BUTTON_THEME = {
 
 const sizesObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
+  [buttonSizes.SMALL_WIDE]: "8px 60px",
   [buttonSizes.MEDIUM]: "10px 25px",
   [buttonSizes.MEDIUM_WIDE]: "9px 30px",
   [buttonSizes.LARGE]: "20px 50px",
@@ -109,6 +111,7 @@ const sizesObject: { [index: string]: string } = {
 
 const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
+  [buttonSizes.SMALL_WIDE]: "0.2px",
   [buttonSizes.MEDIUM]: "1px",
   [buttonSizes.MEDIUM_WIDE]: "0.2px",
   [buttonSizes.LARGE]: "3px",
