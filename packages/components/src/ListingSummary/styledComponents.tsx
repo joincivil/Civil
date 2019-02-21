@@ -53,13 +53,14 @@ export const StyledListingSummary: StyledComponentClass<StyledListingSummaryProp
   ${(props: StyledListingSummaryProps) => (props.hasTopPadding ? "padding-top: 25px;" : "")};
 
   & ${StyledBaseStatus} {
-    margin: 10px 22px 10px;
+    margin: 0 22px 10px;
   }
 `;
 
 export const StyledListingSummaryTop = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   display: flex;
+  height: 140px;
   padding: 0 22px 25px;
 `;
 

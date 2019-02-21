@@ -35,6 +35,7 @@ export interface ListingListItemReduxProps {
 
 export const transformListingSummaryViewProps = (
   props: ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>,
+  usePrevChallenge: boolean = false,
 ) => {
   const { listingAddress, listing, newsroom, listingPhaseState, charter } = props;
   const listingData = listing!.data;
@@ -147,7 +148,7 @@ export const ListingItemBaseComponent: React.SFC<
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listing } = props;
-  const listingViewProps = transformListingSummaryViewProps(props);
+  const listingViewProps = transformListingSummaryViewProps(props, true);
   const data = listing!.data!;
   if (!data.prevChallenge) {
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
