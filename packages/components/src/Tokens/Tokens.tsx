@@ -14,11 +14,11 @@ import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
-export const TOKEN_PROGRESS = {
-  ACTIVE: "active",
-  COMPLETED: "completed",
-  DISABLED: "disabled",
-};
+export enum TOKEN_PROGRESS {
+  ACTIVE = "active",
+  COMPLETED = "completed",
+  DISABLED = "disabled",
+}
 
 export interface UserTokenAccountProps {
   foundationAddress: string;
@@ -45,9 +45,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
   public render(): JSX.Element | null {
     const { user, addWalletPath } = this.props;
-    const accountSignupStep = this.getUserStep(user);
+    const hasWallet = this.hasWallet(user);
 
-    const loggedInState = accountSignupStep ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
+    const loggedInState = hasWallet ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
     const tutorialState = this.props.userTutorialComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
 
     // TODO:Sarah - commented out for testing
@@ -80,7 +80,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
             <FlexColumnsSecondary>
               <UserTokenAccountProgress
                 userAccount={this.props.userAccount}
-                logInComplete={accountSignupStep}
+                logInComplete={hasWallet}
                 tutorialComplete={this.props.userTutorialComplete}
               />
               <UserTokenAccountHelp supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
@@ -91,7 +91,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     );
   }
 
-  private getUserStep = (user: any) => {
+  private hasWallet = (user: any) => {
     if (user && user.ethAddress) {
       return true;
     }
