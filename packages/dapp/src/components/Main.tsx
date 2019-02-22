@@ -128,7 +128,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
             <Route path="/parameterizer" component={Parameterizer} />
             <Route path="/create-newsroom" component={CreateNewsroom} />
-            <Route path="/apply-to-registry" component={SignUpNewsroom} />
+            <Route path="/apply-to-registry/:action?/:token?" component={SignUpNewsroom} />
             <Route path="/government" component={Government} />
             <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
