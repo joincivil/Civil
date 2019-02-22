@@ -138,6 +138,8 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth" component={AuthRouter} />>
             <Route path="/tokens" component={Tokens} />
+            {/* TODO(jorgelo): Better 404 */}
+            <Route path="*" render={() => <h1>404</h1>} />
           </Switch>
         )}
         <WrongNetwork />

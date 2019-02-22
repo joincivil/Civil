@@ -152,6 +152,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
+    // TODO(jorgelo): Handle if mutation throws an exception.
     const res: any = await mutation({
       variables: { emailAddress, application: applicationType },
     });
