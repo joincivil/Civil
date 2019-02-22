@@ -1,6 +1,5 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import apolloStorybookDecorator from "apollo-storybook-react";
 import { AuthEmailVerify } from "./AuthStyledComponents";
 
 const onAuthenticationContinue = (): void => {
