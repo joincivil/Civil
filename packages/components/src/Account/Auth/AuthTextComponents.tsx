@@ -8,11 +8,11 @@ import {
 
 export const AuthTextFooter: React.SFC = () => (
   // TODO(jorgelo): For the store front, the text should be:
-  // By joining Civil, you will become part of the Civil community supporting and building the future of news. As a member, you"ll get a direct say in running the Civil platform, connect with journalists and fund great journalism projects. Read more about those benefits"
 
   <PageHeadingTextCenteredSmall>
-    By joining Civil, you will become part of a community of high quality news publishers. Your content will be featured
-    alongside other Civil newsroom and enjoy all the privileges of the Civil community.
+    By joining Civil, you will become part of the Civil community supporting and building the future of news. As a
+    member, you'll get a direct say in running the Civil platform, connect with journalists and fund great journalism
+    projects. Read more about those benefits
   </PageHeadingTextCenteredSmall>
 );
 
@@ -32,6 +32,22 @@ export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
   <>
     <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
     <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+  </>
+);
+
+export const AuthTextVerifyTokenVerifying: React.SFC = () => (
+  <>
+    <PageSubHeadingCentered>Confirming your email address...</PageSubHeadingCentered>
+  </>
+);
+
+// TODO(jorgelo): Jorge made this up, it should probably be nicer.
+export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ errorMessage }) => (
+  <>
+    <PageSubHeadingCentered>Uh oh.</PageSubHeadingCentered>
+    <PageHeadingTextCentered>
+      There was a problem verifying your email: <strong>{errorMessage}</strong>
+    </PageHeadingTextCentered>
   </>
 );
 

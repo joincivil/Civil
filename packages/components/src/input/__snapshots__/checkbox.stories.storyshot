@@ -12,7 +12,7 @@ initialize {
             "data": "Default: ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-jDwBTQ eYcNLg",
               },
               "children": Array [
                 Object {
@@ -24,7 +24,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -52,7 +52,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -105,7 +105,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kEYyzF itUwyi",
+              "class": "sc-jDwBTQ eYcNLg",
             },
             "children": Array [
               Object {
@@ -117,7 +117,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -145,7 +145,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hMqMXs bGQyOE",
+                  "class": "sc-jAaTju hGzVQw",
                 },
                 "children": Array [],
                 "name": "span",
@@ -208,7 +208,7 @@ initialize {
               "data": "Default checked: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
+                  "class": "sc-jDwBTQ eYcNLg",
                 },
                 "children": Array [
                   Object {
@@ -221,7 +221,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -251,7 +251,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -307,7 +307,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-jDwBTQ eYcNLg",
               },
               "children": Array [
                 Object {
@@ -320,7 +320,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -350,7 +350,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -416,7 +416,7 @@ initialize {
                 "data": "Small: ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF dnCChO",
+                    "class": "sc-jDwBTQ gMEXMA",
                   },
                   "children": Array [
                     Object {
@@ -428,7 +428,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
+                          "class": "sc-jAaTju gIngBl",
                         },
                         "children": Array [],
                         "name": "span",
@@ -456,7 +456,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -509,7 +509,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-jDwBTQ gMEXMA",
                 },
                 "children": Array [
                   Object {
@@ -521,7 +521,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -549,7 +549,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -612,7 +612,7 @@ initialize {
                   "data": "Small checked: ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kEYyzF dnCChO",
+                      "class": "sc-jDwBTQ gMEXMA",
                     },
                     "children": Array [
                       Object {
@@ -625,7 +625,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-hMqMXs DtPUz",
+                            "class": "sc-jAaTju gIngBl",
                           },
                           "children": Array [],
                           "name": "span",
@@ -655,7 +655,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
+                          "class": "sc-jAaTju gIngBl",
                         },
                         "children": Array [],
                         "name": "span",
@@ -711,7 +711,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF dnCChO",
+                    "class": "sc-jDwBTQ gMEXMA",
                   },
                   "children": Array [
                     Object {
@@ -724,7 +724,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
+                          "class": "sc-jAaTju gIngBl",
                         },
                         "children": Array [],
                         "name": "span",
@@ -754,7 +754,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -845,7 +845,7 @@ initialize {
             "data": "Default checked: ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-jDwBTQ eYcNLg",
               },
               "children": Array [
                 Object {
@@ -858,7 +858,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -888,7 +888,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -944,7 +944,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kEYyzF itUwyi",
+              "class": "sc-jDwBTQ eYcNLg",
             },
             "children": Array [
               Object {
@@ -957,7 +957,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -987,7 +987,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hMqMXs bGQyOE",
+                  "class": "sc-jAaTju hGzVQw",
                 },
                 "children": Array [],
                 "name": "span",
@@ -1053,7 +1053,7 @@ initialize {
               "data": "Small: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-jDwBTQ gMEXMA",
                 },
                 "children": Array [
                   Object {
@@ -1065,7 +1065,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1093,7 +1093,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1146,7 +1146,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-jDwBTQ gMEXMA",
               },
               "children": Array [
                 Object {
@@ -1158,7 +1158,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1186,7 +1186,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -1249,7 +1249,7 @@ initialize {
                 "data": "Small checked: ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF dnCChO",
+                    "class": "sc-jDwBTQ gMEXMA",
                   },
                   "children": Array [
                     Object {
@@ -1262,7 +1262,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs DtPUz",
+                          "class": "sc-jAaTju gIngBl",
                         },
                         "children": Array [],
                         "name": "span",
@@ -1292,7 +1292,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1348,7 +1348,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-jDwBTQ gMEXMA",
                 },
                 "children": Array [
                   Object {
@@ -1361,7 +1361,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1391,7 +1391,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1471,7 +1471,7 @@ initialize {
               "data": "Default: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
+                  "class": "sc-jDwBTQ eYcNLg",
                 },
                 "children": Array [
                   Object {
@@ -1483,7 +1483,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1511,7 +1511,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1564,7 +1564,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-jDwBTQ eYcNLg",
               },
               "children": Array [
                 Object {
@@ -1576,7 +1576,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1604,7 +1604,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -1678,7 +1678,7 @@ initialize {
             "data": "Small: ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-jDwBTQ gMEXMA",
               },
               "children": Array [
                 Object {
@@ -1690,7 +1690,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1718,7 +1718,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -1771,7 +1771,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kEYyzF dnCChO",
+              "class": "sc-jDwBTQ gMEXMA",
             },
             "children": Array [
               Object {
@@ -1783,7 +1783,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -1811,7 +1811,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hMqMXs DtPUz",
+                  "class": "sc-jAaTju gIngBl",
                 },
                 "children": Array [],
                 "name": "span",
@@ -1874,7 +1874,7 @@ initialize {
               "data": "Small checked: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-jDwBTQ gMEXMA",
                 },
                 "children": Array [
                   Object {
@@ -1887,7 +1887,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -1917,7 +1917,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -1973,7 +1973,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-jDwBTQ gMEXMA",
               },
               "children": Array [
                 Object {
@@ -1986,7 +1986,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2016,7 +2016,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2090,7 +2090,7 @@ initialize {
               "data": "Default checked: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
+                  "class": "sc-jDwBTQ eYcNLg",
                 },
                 "children": Array [
                   Object {
@@ -2103,7 +2103,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -2133,7 +2133,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2189,7 +2189,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF itUwyi",
+                "class": "sc-jDwBTQ eYcNLg",
               },
               "children": Array [
                 Object {
@@ -2202,7 +2202,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2232,7 +2232,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs bGQyOE",
+                    "class": "sc-jAaTju hGzVQw",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2300,7 +2300,7 @@ initialize {
                 "data": "Default: ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF itUwyi",
+                    "class": "sc-jDwBTQ eYcNLg",
                   },
                   "children": Array [
                     Object {
@@ -2312,7 +2312,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
+                          "class": "sc-jAaTju hGzVQw",
                         },
                         "children": Array [],
                         "name": "span",
@@ -2340,7 +2340,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -2393,7 +2393,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
+                  "class": "sc-jDwBTQ eYcNLg",
                 },
                 "children": Array [
                   Object {
@@ -2405,7 +2405,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -2433,7 +2433,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2511,7 +2511,7 @@ initialize {
             "data": "Small checked: ",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-jDwBTQ gMEXMA",
               },
               "children": Array [
                 Object {
@@ -2524,7 +2524,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2554,7 +2554,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2610,7 +2610,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kEYyzF dnCChO",
+              "class": "sc-jDwBTQ gMEXMA",
             },
             "children": Array [
               Object {
@@ -2623,7 +2623,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2653,7 +2653,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hMqMXs DtPUz",
+                  "class": "sc-jAaTju gIngBl",
                 },
                 "children": Array [],
                 "name": "span",
@@ -2721,7 +2721,7 @@ initialize {
               "data": "Small: ",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF dnCChO",
+                  "class": "sc-jDwBTQ gMEXMA",
                 },
                 "children": Array [
                   Object {
@@ -2733,7 +2733,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs DtPUz",
+                        "class": "sc-jAaTju gIngBl",
                       },
                       "children": Array [],
                       "name": "span",
@@ -2761,7 +2761,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2814,7 +2814,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-kEYyzF dnCChO",
+                "class": "sc-jDwBTQ gMEXMA",
               },
               "children": Array [
                 Object {
@@ -2826,7 +2826,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs DtPUz",
+                      "class": "sc-jAaTju gIngBl",
                     },
                     "children": Array [],
                     "name": "span",
@@ -2854,7 +2854,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMqMXs DtPUz",
+                    "class": "sc-jAaTju gIngBl",
                   },
                   "children": Array [],
                   "name": "span",
@@ -2919,7 +2919,7 @@ initialize {
                 "data": "Default checked: ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF itUwyi",
+                    "class": "sc-jDwBTQ eYcNLg",
                   },
                   "children": Array [
                     Object {
@@ -2932,7 +2932,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
+                          "class": "sc-jAaTju hGzVQw",
                         },
                         "children": Array [],
                         "name": "span",
@@ -2962,7 +2962,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -3018,7 +3018,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF itUwyi",
+                  "class": "sc-jDwBTQ eYcNLg",
                 },
                 "children": Array [
                   Object {
@@ -3031,7 +3031,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -3061,7 +3061,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMqMXs bGQyOE",
+                      "class": "sc-jAaTju hGzVQw",
                     },
                     "children": Array [],
                     "name": "span",
@@ -3129,7 +3129,7 @@ initialize {
                   "data": "Default: ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kEYyzF itUwyi",
+                      "class": "sc-jDwBTQ eYcNLg",
                     },
                     "children": Array [
                       Object {
@@ -3141,7 +3141,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-hMqMXs bGQyOE",
+                            "class": "sc-jAaTju hGzVQw",
                           },
                           "children": Array [],
                           "name": "span",
@@ -3169,7 +3169,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
+                          "class": "sc-jAaTju hGzVQw",
                         },
                         "children": Array [],
                         "name": "span",
@@ -3222,7 +3222,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-kEYyzF itUwyi",
+                    "class": "sc-jDwBTQ eYcNLg",
                   },
                   "children": Array [
                     Object {
@@ -3234,7 +3234,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-hMqMXs bGQyOE",
+                          "class": "sc-jAaTju hGzVQw",
                         },
                         "children": Array [],
                         "name": "span",
@@ -3262,7 +3262,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMqMXs bGQyOE",
+                        "class": "sc-jAaTju hGzVQw",
                       },
                       "children": Array [],
                       "name": "span",
@@ -3376,7 +3376,7 @@ exports[`Storyshots check box slide check box 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-eNQAEJ DLkaa",
+      "class": "sc-cMljjf hSZyYC",
     },
     "children": Array [
       Object {
@@ -3388,7 +3388,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-jKJlTe ffguHa",
+            "class": "sc-brqgnP jLoaqf",
           },
           "children": Array [],
           "name": "span",
@@ -3416,7 +3416,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-jKJlTe ffguHa",
+          "class": "sc-brqgnP jLoaqf",
         },
         "children": Array [],
         "name": "span",
