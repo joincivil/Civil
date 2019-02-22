@@ -26,7 +26,7 @@ import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
   getUserChallengesWithUnrevealedVotes,
-  getCompletedChallengesForAppealChallengesWithUnrevealedVotes,
+  getChallengesForAppealChallengesWithUnrevealedVotes,
   getUserChallengesWithRescueTokens,
   getCompletedChallengesVotedOnByUser,
   getCompletedChallengesForAppealChallengesVotedOnByUser,
@@ -35,6 +35,8 @@ import {
   getChallengesForAppealChallengesVotedOnByUserWithAvailableActions,
   getUserAppealChallengesWithRescueTokens,
   getUserAppealChallengesWithUnclaimedRewards,
+  getProposalChallengesWithRescueTokens,
+  getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
@@ -65,6 +67,8 @@ export interface DashboardActivityReduxProps {
   userChallengesWithRescueTokens?: Set<string>;
   userAppealChallengesWithUnclaimedRewards?: Set<string>;
   userAppealChallengesWithRescueTokens?: Set<string>;
+  proposalChallengesWithUnclaimedRewards?: Set<string>;
+  proposalChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
 }
 
@@ -235,17 +239,27 @@ class DashboardActivity extends React.Component<
       userChallengesWithRescueTokens,
       userAppealChallengesWithRescueTokens,
       userAppealChallengesWithUnclaimedRewards,
+      proposalChallengesWithUnclaimedRewards,
+      proposalChallengesWithRescueTokens,
     } = this.props;
     const allVotesTabTitle = <AllChallengesDashboardTabTitle count={allChallengesWithAvailableActions.count()} />;
     const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={allChallengesWithUnrevealedVotes.count()} />;
     const claimRewardsTabTitle = (
       <ClaimRewardsDashboardTabTitle
-        count={userChallengesWithUnclaimedRewards!.count() + userAppealChallengesWithUnclaimedRewards!.count()}
+        count={
+          userChallengesWithUnclaimedRewards!.count() +
+          userAppealChallengesWithUnclaimedRewards!.count() +
+          proposalChallengesWithUnclaimedRewards!.count()
+        }
       />
     );
     const rescueTokensTabTitle = (
       <RescueTokensDashboardTabTitle
-        count={userChallengesWithRescueTokens!.count() + userAppealChallengesWithRescueTokens!.count()}
+        count={
+          userChallengesWithRescueTokens!.count() +
+          userAppealChallengesWithRescueTokens!.count() +
+          proposalChallengesWithRescueTokens!.count()
+        }
       />
     );
 
@@ -283,6 +297,7 @@ class DashboardActivity extends React.Component<
             <ChallengesWithRewardsToClaim
               challenges={userChallengesWithUnclaimedRewards}
               appealChallenges={userAppealChallengesWithUnclaimedRewards}
+              proposalChallenges={proposalChallengesWithUnclaimedRewards}
               onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
           </Tab>
@@ -290,6 +305,7 @@ class DashboardActivity extends React.Component<
             <ChallengesWithTokensToRescue
               challenges={userChallengesWithRescueTokens}
               appealChallenges={userAppealChallengesWithRescueTokens}
+              proposalChallenges={proposalChallengesWithRescueTokens}
               onMobileTransactionClick={this.showNoMobileTransactionsModal}
             />
           </Tab>
@@ -388,19 +404,21 @@ const mapStateToProps = (
 
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
 
-  const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
-  const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
-
   const userChallengesWithUnrevealedVotes = getUserChallengesWithUnrevealedVotes(state);
-  const userChallengesForAppealChallengesWithUnrevealedVotes = getCompletedChallengesForAppealChallengesWithUnrevealedVotes(
+  const userChallengesForAppealChallengesWithUnrevealedVotes = getChallengesForAppealChallengesWithUnrevealedVotes(
     state,
   );
   const allChallengesWithUnrevealedVotes = userChallengesWithUnrevealedVotes.union(
     userChallengesForAppealChallengesWithUnrevealedVotes,
   );
 
+  const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
+  const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
+  const proposalChallengesWithUnclaimedRewards = getProposalChallengesWithUnclaimedRewards(state);
+
   const userChallengesWithRescueTokens = getUserChallengesWithRescueTokens(state);
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
+  const proposalChallengesWithRescueTokens = getProposalChallengesWithRescueTokens(state);
 
   return {
     allChallengesWithAvailableActions,
@@ -412,6 +430,8 @@ const mapStateToProps = (
     userChallengesWithRescueTokens,
     userAppealChallengesWithUnclaimedRewards,
     userAppealChallengesWithRescueTokens,
+    proposalChallengesWithUnclaimedRewards,
+    proposalChallengesWithRescueTokens,
     userAccount: user.account.account,
     ...ownProps,
   };
