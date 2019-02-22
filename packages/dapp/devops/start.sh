@@ -1,3 +1,4 @@
 #!/bin/sh
-
-envsubst '\$ENVIRONMENT' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html && cat /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'
+echo "ENVIRONMENT is: $ENVIRONMENT"
+envsubst '\$ENVIRONMENT' < /usr/share/nginx/html/index.html > /usr/share/nginx/html/index.html
+exec nginx -g 'daemon off;'
