@@ -67,3 +67,15 @@ export function proposalChallengeUserData(
       return state;
   }
 }
+
+export function proposalChallengesToPropIDs(
+  state: Map<string, string> = Map<string, string>(),
+  action: AnyAction,
+): Map<string, string> {
+  switch (action.type) {
+    case parameterizerActions.ADD_CHALLENGE_TO_PROP_MAPPING:
+      return state.set(action.data.challengeID, action.data.propID);
+    default:
+      return state;
+  }
+}
