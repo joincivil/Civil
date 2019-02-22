@@ -5,14 +5,18 @@ import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { WALLET_HOME } from "../Auth/index";
 
 export interface TokensProps {
   network: string;
 }
 
-export const TokensComponent: React.SFC<TokensProps> = props => {
+export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
   // TODO:Sarah foundationAddress to @joincivil/utils
+
+  // TODO(jorgelo): Figure a way to pass these in here without busting typescript.
+  const addWalletPath = "/auth/wallet";
+  const signupPath = "/auth/signup";
+
   return (
     <>
       <Helmet>
@@ -22,7 +26,8 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
       <LoadUser>
         {({ loading, user }) => {
           if (loading) {
-            return "loading..";
+            // TODO(jorgelo): Should we have a loading state here?
+            return null;
           }
 
           return (
@@ -30,9 +35,10 @@ export const TokensComponent: React.SFC<TokensProps> = props => {
               supportEmailAddress={"support@civil.co"}
               faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
-              network={props.network}
+              network={network}
               user={user}
-              addWalletPath={WALLET_HOME}
+              addWalletPath={addWalletPath}
+              signupPath={signupPath}
             />
           );
         }}
