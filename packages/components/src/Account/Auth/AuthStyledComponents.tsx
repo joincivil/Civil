@@ -121,7 +121,7 @@ export const AuthFooterTerms: React.SFC = () => (
   </AuthFooterContainer>
 );
 
-interface AuthEmailVerifyProps {
+export interface AuthEmailVerifyProps {
   hasVerified: boolean;
   errorMessage: string | undefined;
   onAuthenticationContinue(): void;
