@@ -6,6 +6,7 @@ import {
   addOrUpdateProposal,
   checkAndUpdateParameterProposalState,
   multiSetParameters,
+  addChallengeToPropMapping,
 } from "../redux/actionCreators/parameterizer";
 import { getParameterValues } from "../apis/civilTCR";
 import { getTCR } from "./civilInstance";
@@ -64,6 +65,9 @@ export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>):
     };
     await setupParamProposalCallback(paramProposal, true, dispatch);
     dispatch(addOrUpdateProposal(paramProposal));
+    if (!challengeID.isZero()) {
+      dispatch(addChallengeToPropMapping(challengeID.toString(), propID));
+    }
   });
 }
 
