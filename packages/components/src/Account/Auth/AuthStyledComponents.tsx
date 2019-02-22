@@ -2,7 +2,13 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import { AuthTextFooter, AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
+import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import {
+  AuthTextFooter,
+  AuthTextVerifyTokenConfirmed,
+  AuthTextVerifyTokenVerifying,
+  AuthTextVerifyTokenError,
+} from "./AuthTextComponents";
 import { Button, buttonSizes } from "../..";
 
 export const CheckboxContainer = styled.ul`
@@ -30,9 +36,14 @@ export const ConfirmButtonContainer = styled.div`
 export const CheckEmailLetterIcon = styled.div`
   width: 108px;
   height: 108px;
+  background-position: center center;
   background-image: url(${checkEmailImage});
   background-size: cover;
   margin: 30px 0;
+`;
+
+export const ConfirmedEmailLetterIcon = styled(CheckEmailLetterIcon)`
+  background-image: url(${confirmedEmailImage});
 `;
 
 export const CenterWrapper: React.SFC = ({ children }) => (
@@ -117,20 +128,21 @@ interface AuthEmailVerifyProps {
 }
 
 export const AuthEmailVerify = ({ hasVerified, errorMessage, onAuthenticationContinue }: AuthEmailVerifyProps) => {
-  if (hasVerified) {
-    return (
-      <>
-        <AuthTextVerifyTokenConfirmed />
+  if (errorMessage) {
+    return <AuthTextVerifyTokenError errorMessage={errorMessage} />;
+  }
 
+  return (
+    <>
+      {hasVerified ? <AuthTextVerifyTokenConfirmed /> : <AuthTextVerifyTokenVerifying />}
+      <CenterWrapper>
+        <ConfirmedEmailLetterIcon />
+      </CenterWrapper>
+      <CenterWrapper>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={onAuthenticationContinue}>
           Continue
         </Button>
-      </>
-    );
-  }
-
-  if (errorMessage) {
-    return <h1>Error: {errorMessage}</h1>;
-  }
-  return <h1>Verifiying...</h1>;
+      </CenterWrapper>
+    </>
+  );
 };
