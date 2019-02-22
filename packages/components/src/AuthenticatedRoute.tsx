@@ -33,6 +33,7 @@ export const AuthenticatedRoute = ({
 
   const hasAuthToken = !!auth && !!auth.token;
 
+  // TODO(jorgelo): Refactor this boolean logic.
   if (onlyAllowUnauthenticated) {
     if (hasAuthToken) {
       return <Redirect to={redirectTo} />;

@@ -103,9 +103,9 @@ export const AuthFooterTerms = () => (
     <AuthTextFooter />
     <BenefitsLink>
       {/* // TODO(jorgelo): Confirm this is the final link and move this to src/helpers/config.ts */}
-      <Link to={"https://civil.co/become-a-member"} target="_new">
+      <a href={"https://civil.co/become-a-member"} target="_blank">
         Read more about those benefits.
-      </Link>
+      </a>
     </BenefitsLink>
   </AuthFooterContainer>
 );
