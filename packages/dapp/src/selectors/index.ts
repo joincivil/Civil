@@ -61,6 +61,10 @@ export interface ProposalParameterProps {
   parameterName: string;
 }
 
+export interface ProposalContainerProps {
+  propID?: string | BigNumber;
+}
+
 // Simple selectors from State. These don't look at component props or
 // return any derived props from state
 export const getUser = (state: State) => state.networkDependent.user;
@@ -75,6 +79,8 @@ export const getAppealChallengeIDsToChallengeIDs = (state: State) =>
 export const getChallengeUserData = (state: State) => state.networkDependent.challengeUserData;
 
 export const getAppealChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
+
+export const getProposalChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
 
 export const getChallengesVotedOnByAllUsers = (state: State) => state.networkDependent.challengesVotedOnByUser;
 
@@ -170,6 +176,17 @@ export const getAppealChallengeIDProp = (state: State, props: AppealChallengeCon
     appealChallengeID = appealChallengeID.toString();
   }
   return appealChallengeID;
+};
+
+export const getProposalIDProp = (state: State, props: ProposalContainerProps) => {
+  let { propID } = props;
+  if (!propID) {
+    return;
+  }
+  if (typeof propID !== "string") {
+    propID = propID.toString();
+  }
+  return propID;
 };
 
 export const getChallenge = createSelector([getChallenges, getChallengeID], (challenges, challengeID) => {
@@ -274,8 +291,19 @@ export const getChallengeUserDataMap = createSelector(
   },
 );
 
-export const makeGetUserChallengeData = () => {
-  return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
+export const getProposalChallengeUserDataMap = createSelector(
+  [getProposalChallengeUserData, getChallengeID],
+  (challengeUserData, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const challengeUserDataMap = challengeUserData.get(challengeID);
+    return challengeUserDataMap;
+  },
+);
+
+export const makeGetUserProposalChallengeData = () => {
+  return createSelector([getProposalChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
     if (!challengeUserDataMap || !user) {
       return;
     }
@@ -295,6 +323,16 @@ export const getAppealChallengeUserDataMap = createSelector(
     return appealChallengeUserDataMap;
   },
 );
+
+export const makeGetUserChallengeData = () => {
+  return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
+    if (!challengeUserDataMap || !user) {
+      return;
+    }
+    const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+    return userChallengeData;
+  });
+};
 
 export const makeGetUserAppealChallengeData = () => {
   return createSelector([getAppealChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
@@ -347,6 +385,26 @@ export const getUserAppealChallengesWithUnclaimedRewards = createSelector(
   },
 );
 
+export const getProposalChallengesWithUnclaimedRewards = createSelector(
+  [getProposalChallengeUserData, getUser],
+  (challengeUserData, user) => {
+    if (!challengeUserData || !user) {
+      return;
+    }
+    return challengeUserData
+      .filter((challengeData, challengeID, iter): boolean => {
+        try {
+          const { canUserCollect } = challengeData!.get(user.account.account);
+          return !!canUserCollect;
+        } catch (ex) {
+          return false;
+        }
+      })
+      .keySeq()
+      .toSet() as Set<string>;
+  },
+);
+
 export const getUserChallengesWithUnrevealedVotes = createSelector(
   [getChallenges, getChallengeUserData, getUser],
   (challenges, challengeUserData, user) => {
@@ -355,10 +413,8 @@ export const getUserChallengesWithUnrevealedVotes = createSelector(
       challengeIDs = challengeUserData
         .filter((challengeData, challengeID, iter): boolean => {
           try {
-            const { didUserCommit, didUserReveal } = challengeData!.get(user.account.account);
-            const challenge = challenges.get(challengeID!);
-            const inRevealPhase = challenge && isChallengeInRevealStage(challenge.challenge);
-            return !!didUserCommit && !didUserReveal && inRevealPhase;
+            const { canUserReveal } = challengeData!.get(user.account.account);
+            return !!canUserReveal;
           } catch (ex) {
             return false;
           }
@@ -379,8 +435,8 @@ export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
         try {
-          const { didUserCommit, didUserReveal, canUserReveal } = challengeData!.get(user.account.account);
-          return !!didUserCommit && !didUserReveal && canUserReveal!;
+          const { canUserReveal } = challengeData!.get(user.account.account);
+          return !!canUserReveal;
         } catch (ex) {
           return false;
         }
@@ -390,12 +446,12 @@ export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
   },
 );
 
-export const getCompletedChallengesForAppealChallengesWithUnrevealedVotes = createSelector(
+export const getChallengesForAppealChallengesWithUnrevealedVotes = createSelector(
   [getUserAppealChallengesWithUnrevealedVotes, getAppealChallengeIDsToChallengeIDs, getChallenges],
-  (appealChallengeIDs, appealChallengeIDsToChallengeIDs, challenges) => {
+  (appealChallengeIDs, appealChallengeIDsToChallengeIDs) => {
     let parentChallengeIDs = Set<string>();
 
-    if (appealChallengeIDs && appealChallengeIDsToChallengeIDs && challenges) {
+    if (appealChallengeIDs && appealChallengeIDsToChallengeIDs) {
       parentChallengeIDs = appealChallengeIDs
         .map((appealChallengeID): string => {
           return appealChallengeIDsToChallengeIDs.get(appealChallengeID!);
@@ -409,32 +465,49 @@ export const getCompletedChallengesForAppealChallengesWithUnrevealedVotes = crea
 );
 
 export const getUserChallengesWithRescueTokens = createSelector(
-  [getChallenges, getChallengeUserData, getUser],
-  (challenges, challengeUserData, user) => {
-    if (!challengeUserData || !user || !user.account) {
-      return;
+  [getChallengeUserData, getUser],
+  (challengeUserData, user) => {
+    let challengeIDs = Set<string>();
+    if (challengeUserData && user && !user.account) {
+      challengeIDs = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const { canUserRescue } = challengeData!.get(user.account.account);
+            return !!canUserRescue;
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
     }
-    return challengeUserData
-      .filter((challengeData, challengeID, iter): boolean => {
-        try {
-          const { didUserCommit, didUserReveal, didUserRescue } = challengeData!.get(user.account.account);
-          const challenge = challenges.get(challengeID!);
-          const canRescue =
-            challenge &&
-            !isChallengeInCommitStage(challenge.challenge) &&
-            !isChallengeInRevealStage(challenge.challenge);
-          return !!didUserCommit && !didUserReveal && canRescue && !didUserRescue;
-        } catch (ex) {
-          return false;
-        }
-      })
-      .keySeq()
-      .toSet() as Set<string>;
+    return challengeIDs;
   },
 );
 
 export const getUserAppealChallengesWithRescueTokens = createSelector(
   [getAppealChallengeUserData, getUser],
+  (challengeUserData, user) => {
+    let appealChallengeIDs = Set<string>();
+    if (challengeUserData && user && user.account) {
+      appealChallengeIDs = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const { canUserRescue } = challengeData!.get(user.account.account);
+            return !!canUserRescue;
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return appealChallengeIDs;
+  },
+);
+
+export const getProposalChallengesWithRescueTokens = createSelector(
+  [getProposalChallengeUserData, getUser],
   (challengeUserData, user) => {
     if (!challengeUserData || !user || !user.account) {
       return;
@@ -442,10 +515,8 @@ export const getUserAppealChallengesWithRescueTokens = createSelector(
     return challengeUserData
       .filter((challengeData, challengeID, iter): boolean => {
         try {
-          const { didUserCommit, didUserReveal, didUserRescue, canUserRescue } = challengeData!.get(
-            user.account.account,
-          );
-          return !!didUserCommit && !didUserReveal && canUserRescue! && !didUserRescue;
+          const { canUserRescue } = challengeData!.get(user.account.account);
+          return !!canUserRescue;
         } catch (ex) {
           return false;
         }
@@ -930,6 +1001,21 @@ export const makeGetProposalsByParameterName = () => {
       return proposalsForParameterName;
     },
   );
+};
+
+export const getProposalByPropID = createSelector(
+  [getParameterProposals, getChallenges, getProposalIDProp],
+  (parameterProposals, challenges, propID) => {
+    let proposal;
+    if (parameterProposals && propID) {
+      proposal = parameterProposals.get(propID);
+    }
+    return proposal;
+  },
+);
+
+export const makeGetProposalByPropID = () => {
+  return getProposalByPropID;
 };
 
 export const makeGetGovtProposalsByParameterName = () => {
