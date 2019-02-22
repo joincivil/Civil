@@ -2,8 +2,8 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import { Link } from "react-router-dom";
-import { AuthTextFooter } from "./AuthTextComponents";
+import { AuthTextFooter, AuthTextVerifyTokenConfirmed } from "./AuthTextComponents";
+import { Button, buttonSizes } from "../..";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
@@ -98,7 +98,7 @@ export const BenefitsLink = styled(AuthPageFooterLink)`
   padding: 0;
 `;
 
-export const AuthFooterTerms = () => (
+export const AuthFooterTerms: React.SFC = () => (
   <AuthFooterContainer>
     <AuthTextFooter />
     <BenefitsLink>
@@ -109,3 +109,28 @@ export const AuthFooterTerms = () => (
     </BenefitsLink>
   </AuthFooterContainer>
 );
+
+interface AuthEmailVerifyProps {
+  hasVerified: boolean;
+  errorMessage: string | undefined;
+  onAuthenticationContinue(): void;
+}
+
+export const AuthEmailVerify = ({ hasVerified, errorMessage, onAuthenticationContinue }: AuthEmailVerifyProps) => {
+  if (hasVerified) {
+    return (
+      <>
+        <AuthTextVerifyTokenConfirmed />
+
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={onAuthenticationContinue}>
+          Continue
+        </Button>
+      </>
+    );
+  }
+
+  if (errorMessage) {
+    return <h1>Error: {errorMessage}</h1>;
+  }
+  return <h1>Verifiying...</h1>;
+};
