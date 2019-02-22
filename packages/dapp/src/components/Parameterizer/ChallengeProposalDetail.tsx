@@ -105,6 +105,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     }
 
     const props = {
+      ...this.props,
       endTime,
       phaseLength,
       challenge: challenge!,
@@ -250,7 +251,7 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const { challengeUserData, appealChallengeUserData, user, parameters, govtParameters } = state.networkDependent;
+    const { proposalChallengeUserData, user, parameters, govtParameters } = state.networkDependent;
     let userChallengeData;
     const challengeID = ownProps.challengeID;
     const challengeData = getParameterProposalChallenge(state, ownProps);
@@ -259,15 +260,11 @@ const makeMapStateToProps = () => {
     const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
     if (challengeID && userAcct) {
-      let challengeUserDataMap = challengeUserData.get(challengeID!.toString());
-      if (!challengeUserDataMap) {
-        challengeUserDataMap = appealChallengeUserData.get(challengeID!.toString());
-      }
+      const challengeUserDataMap = proposalChallengeUserData.get(challengeID!.toString());
       if (challengeUserDataMap) {
         userChallengeData = challengeUserDataMap.get(userAcct.account);
       }
     }
-
     return {
       challengeData,
       userChallengeData,
