@@ -4,7 +4,7 @@ exports[`Storyshots Currency Converter USD to ETH and CVL 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cLmFfZ cxiwmW",
+      "class": "sc-eAyhxF ypXmH",
     },
     "children": Array [
       Object {
@@ -44,17 +44,17 @@ initialize {
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kkGfuU hXmdT",
+                            "class": "sc-gPEVay iafusi",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": " sc-dnqmqq egfTru",
+                                "class": " sc-chPdSV fTTIQ",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-dnqmqq egfTru",
+                                    "class": "sc-chPdSV fTTIQ",
                                     "min": "0.01",
                                     "name": "Convert currency",
                                     "placeholder": "0.00",
@@ -90,7 +90,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -126,7 +126,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-iAyFgw leZJwq",
+                                "class": "sc-iRbamj MehfR",
                               },
                               "children": Array [
                                 Object {
@@ -143,12 +143,12 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -246,17 +246,17 @@ initialize {
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kkGfuU hXmdT",
+                          "class": "sc-gPEVay iafusi",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": " sc-dnqmqq egfTru",
+                              "class": " sc-chPdSV fTTIQ",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-dnqmqq egfTru",
+                                  "class": "sc-chPdSV fTTIQ",
                                   "min": "0.01",
                                   "name": "Convert currency",
                                   "placeholder": "0.00",
@@ -292,7 +292,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-iAyFgw leZJwq",
+                                "class": "sc-iRbamj MehfR",
                               },
                               "children": Array [
                                 Object {
@@ -328,7 +328,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-iAyFgw leZJwq",
+                              "class": "sc-iRbamj MehfR",
                             },
                             "children": Array [
                               Object {
@@ -345,12 +345,12 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": " sc-dnqmqq egfTru",
+                                "class": " sc-chPdSV fTTIQ",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-dnqmqq egfTru",
+                                    "class": "sc-chPdSV fTTIQ",
                                     "min": "0.01",
                                     "name": "Convert currency",
                                     "placeholder": "0.00",
@@ -1185,17 +1185,17 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kkGfuU hXmdT",
+                              "class": "sc-gPEVay iafusi",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -1231,7 +1231,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -1267,7 +1267,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -1284,12 +1284,12 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -1387,17 +1387,17 @@ initialize {
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kkGfuU hXmdT",
+                            "class": "sc-gPEVay iafusi",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": " sc-dnqmqq egfTru",
+                                "class": " sc-chPdSV fTTIQ",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-dnqmqq egfTru",
+                                    "class": "sc-chPdSV fTTIQ",
                                     "min": "0.01",
                                     "name": "Convert currency",
                                     "placeholder": "0.00",
@@ -1433,7 +1433,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -1469,7 +1469,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-iAyFgw leZJwq",
+                                "class": "sc-iRbamj MehfR",
                               },
                               "children": Array [
                                 Object {
@@ -1486,12 +1486,12 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -1978,17 +1978,17 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-kkGfuU hXmdT",
+                                "class": "sc-gPEVay iafusi",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -2024,7 +2024,7 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-iAyFgw leZJwq",
+                                      "class": "sc-iRbamj MehfR",
                                     },
                                     "children": Array [
                                       Object {
@@ -2060,7 +2060,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -2077,12 +2077,12 @@ initialize {
                                   "parent": [Circular],
                                   "prev": Object {
                                     "attribs": Object {
-                                      "class": " sc-dnqmqq egfTru",
+                                      "class": " sc-chPdSV fTTIQ",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dnqmqq egfTru",
+                                          "class": "sc-chPdSV fTTIQ",
                                           "min": "0.01",
                                           "name": "Convert currency",
                                           "placeholder": "0.00",
@@ -2180,17 +2180,17 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kkGfuU hXmdT",
+                              "class": "sc-gPEVay iafusi",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -2226,7 +2226,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -2262,7 +2262,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -2279,12 +2279,12 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -2842,17 +2842,17 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kkGfuU hXmdT",
+                              "class": "sc-gPEVay iafusi",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -2888,7 +2888,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -2924,7 +2924,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -2941,12 +2941,12 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -3044,17 +3044,17 @@ initialize {
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kkGfuU hXmdT",
+                            "class": "sc-gPEVay iafusi",
                           },
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": " sc-dnqmqq egfTru",
+                                "class": " sc-chPdSV fTTIQ",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-dnqmqq egfTru",
+                                    "class": "sc-chPdSV fTTIQ",
                                     "min": "0.01",
                                     "name": "Convert currency",
                                     "placeholder": "0.00",
@@ -3090,7 +3090,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -3126,7 +3126,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-iAyFgw leZJwq",
+                                "class": "sc-iRbamj MehfR",
                               },
                               "children": Array [
                                 Object {
@@ -3143,12 +3143,12 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -3983,17 +3983,17 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-kkGfuU hXmdT",
+                                "class": "sc-gPEVay iafusi",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -4029,7 +4029,7 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-iAyFgw leZJwq",
+                                      "class": "sc-iRbamj MehfR",
                                     },
                                     "children": Array [
                                       Object {
@@ -4065,7 +4065,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -4082,12 +4082,12 @@ initialize {
                                   "parent": [Circular],
                                   "prev": Object {
                                     "attribs": Object {
-                                      "class": " sc-dnqmqq egfTru",
+                                      "class": " sc-chPdSV fTTIQ",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dnqmqq egfTru",
+                                          "class": "sc-chPdSV fTTIQ",
                                           "min": "0.01",
                                           "name": "Convert currency",
                                           "placeholder": "0.00",
@@ -4185,17 +4185,17 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kkGfuU hXmdT",
+                              "class": "sc-gPEVay iafusi",
                             },
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": " sc-dnqmqq egfTru",
+                                  "class": " sc-chPdSV fTTIQ",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dnqmqq egfTru",
+                                      "class": "sc-chPdSV fTTIQ",
                                       "min": "0.01",
                                       "name": "Convert currency",
                                       "placeholder": "0.00",
@@ -4231,7 +4231,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -4267,7 +4267,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-iAyFgw leZJwq",
+                                  "class": "sc-iRbamj MehfR",
                                 },
                                 "children": Array [
                                   Object {
@@ -4284,12 +4284,12 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -4776,17 +4776,17 @@ initialize {
                             "children": Array [
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-kkGfuU hXmdT",
+                                  "class": "sc-gPEVay iafusi",
                                 },
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": " sc-dnqmqq egfTru",
+                                      "class": " sc-chPdSV fTTIQ",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dnqmqq egfTru",
+                                          "class": "sc-chPdSV fTTIQ",
                                           "min": "0.01",
                                           "name": "Convert currency",
                                           "placeholder": "0.00",
@@ -4822,7 +4822,7 @@ initialize {
                                     "namespace": "http://www.w3.org/1999/xhtml",
                                     "next": Object {
                                       "attribs": Object {
-                                        "class": "sc-iAyFgw leZJwq",
+                                        "class": "sc-iRbamj MehfR",
                                       },
                                       "children": Array [
                                         Object {
@@ -4858,7 +4858,7 @@ initialize {
                                   },
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-iAyFgw leZJwq",
+                                      "class": "sc-iRbamj MehfR",
                                     },
                                     "children": Array [
                                       Object {
@@ -4875,12 +4875,12 @@ initialize {
                                     "parent": [Circular],
                                     "prev": Object {
                                       "attribs": Object {
-                                        "class": " sc-dnqmqq egfTru",
+                                        "class": " sc-chPdSV fTTIQ",
                                       },
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dnqmqq egfTru",
+                                            "class": "sc-chPdSV fTTIQ",
                                             "min": "0.01",
                                             "name": "Convert currency",
                                             "placeholder": "0.00",
@@ -4978,17 +4978,17 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-kkGfuU hXmdT",
+                                "class": "sc-gPEVay iafusi",
                               },
                               "children": Array [
                                 Object {
                                   "attribs": Object {
-                                    "class": " sc-dnqmqq egfTru",
+                                    "class": " sc-chPdSV fTTIQ",
                                   },
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dnqmqq egfTru",
+                                        "class": "sc-chPdSV fTTIQ",
                                         "min": "0.01",
                                         "name": "Convert currency",
                                         "placeholder": "0.00",
@@ -5024,7 +5024,7 @@ initialize {
                                   "namespace": "http://www.w3.org/1999/xhtml",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-iAyFgw leZJwq",
+                                      "class": "sc-iRbamj MehfR",
                                     },
                                     "children": Array [
                                       Object {
@@ -5060,7 +5060,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-iAyFgw leZJwq",
+                                    "class": "sc-iRbamj MehfR",
                                   },
                                   "children": Array [
                                     Object {
@@ -5077,12 +5077,12 @@ initialize {
                                   "parent": [Circular],
                                   "prev": Object {
                                     "attribs": Object {
-                                      "class": " sc-dnqmqq egfTru",
+                                      "class": " sc-chPdSV fTTIQ",
                                     },
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dnqmqq egfTru",
+                                          "class": "sc-chPdSV fTTIQ",
                                           "min": "0.01",
                                           "name": "Convert currency",
                                           "placeholder": "0.00",

@@ -4,12 +4,12 @@ exports[`Storyshots Airswap Buy CVL 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dCaJBF fdCfaZ",
+      "class": "sc-cXHFlN eRatKk",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-cSHVUG fYaJzf sc-jzJRlG eriKIJ",
+          "class": "sc-hMqMXs eoYhaK sc-eNQAEJ bEeVru",
           "theme": "[object Object]",
           "type": "button",
         },
@@ -82,12 +82,12 @@ exports[`Storyshots Airswap Buy CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-dCaJBF fdCfaZ",
+      "class": "sc-cXHFlN eRatKk",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-cSHVUG fYaJzf sc-jzJRlG eriKIJ",
+          "class": "sc-hMqMXs eoYhaK sc-eNQAEJ bEeVru",
           "theme": "[object Object]",
           "type": "button",
         },
