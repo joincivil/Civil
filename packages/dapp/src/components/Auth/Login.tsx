@@ -24,7 +24,7 @@ export const AuthLogin: React.SFC<AuthLoginProps> = props => {
       />
 
       <AuthPageFooterLink>
-        <Link to="/auth/signup">Don't have an acount?</Link>
+        <Link to="/auth/signup">Don't have an account?</Link>
       </AuthPageFooterLink>
     </AuthWrapper>
   );

@@ -1,10 +1,21 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { PhaseWithExpiryProps, ChallengePhaseProps, CommitVoteProps } from "../ListingDetailPhaseCard/types";
-import { StyledPhaseKicker, StyledPhaseDisplayName } from "../ListingDetailPhaseCard/styledComponents";
+import {
+  StyledPhaseKicker,
+  StyledPhaseDisplayName,
+  FormHeader,
+  FormCopy,
+} from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengePhaseDetail } from "../ListingDetailPhaseCard/ChallengePhaseDetail";
 import { CommitVote } from "../ListingDetailPhaseCard/CommitVote";
-import { UnderChallengePhaseDisplayNameText } from "../ListingDetailPhaseCard/textComponents";
+import {
+  UnderChallengePhaseDisplayNameText,
+  CommitVoteAlreadyVotedHeaderText,
+  CommitVoteAlreadyVotedCopyText,
+  CommitVoteCalloutHeaderText,
+  CommitVoteCalloutCopyText,
+} from "../ListingDetailPhaseCard/textComponents";
 import { TwoPhaseProgressBarCountdownTimer } from "../PhaseCountdown/";
 import {
   StyledCreateProposalOuter,
@@ -25,6 +36,7 @@ export interface ChallengeProposalCommitVoteProps {
   parameterDisplayName: string | JSX.Element;
   parameterCurrentValue: string;
   parameterProposalValue: string;
+  userHasCommittedVote?: boolean;
   transactions?: any[];
   modalContentComponents?: any;
   handleClose(): void;
@@ -47,6 +59,7 @@ export class ChallengeProposalCommitVote extends React.Component<TChallengePropo
   }
 
   public render(): React.ReactPortal {
+    const callout = this.renderCommitVoteCallout();
     return ReactDOM.createPortal(
       <StyledCreateProposalOuter>
         <StyledChallengeProposalContainer>
@@ -97,7 +110,7 @@ export class ChallengeProposalCommitVote extends React.Component<TChallengePropo
                 stake={this.props.stake}
               />
             </StyledSection>
-
+            {callout}
             <StyledSection>
               <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
               <CommitVote
@@ -122,4 +135,29 @@ export class ChallengeProposalCommitVote extends React.Component<TChallengePropo
       this.bucket,
     );
   }
+
+  private renderCommitVoteCallout = (): JSX.Element => {
+    if (this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>
+            <CommitVoteAlreadyVotedHeaderText />
+          </FormHeader>
+          <FormCopy>
+            <CommitVoteAlreadyVotedCopyText />
+          </FormCopy>
+        </>
+      );
+    }
+    return (
+      <>
+        <FormHeader>
+          <CommitVoteCalloutHeaderText />
+        </FormHeader>
+        <FormCopy>
+          <CommitVoteCalloutCopyText />
+        </FormCopy>
+      </>
+    );
+  };
 }

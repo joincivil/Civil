@@ -1,7 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { PhaseWithExpiryProps, ChallengePhaseProps, RevealVoteProps } from "../ListingDetailPhaseCard/types";
-import { StyledPhaseKicker, StyledPhaseDisplayName } from "../ListingDetailPhaseCard/styledComponents";
+import {
+  StyledPhaseKicker,
+  StyledPhaseDisplayName,
+  FormHeader,
+  FormCopy,
+} from "../ListingDetailPhaseCard/styledComponents";
 import { ChallengePhaseDetail } from "../ListingDetailPhaseCard/ChallengePhaseDetail";
 import { RevealVote } from "../ListingDetailPhaseCard/RevealVote";
 import { UnderChallengePhaseDisplayNameText } from "../ListingDetailPhaseCard/textComponents";
@@ -27,6 +32,8 @@ export interface ChallengeProposalRevealVoteProps {
   parameterProposalValue: string;
   transactions?: any[];
   modalContentComponents?: any;
+  userHasRevealedVote?: boolean;
+  userHasCommittedVote?: boolean;
   handleClose(): void;
   postExecuteTransactions?(): any;
 }
@@ -101,15 +108,7 @@ export class ChallengeProposalRevealVote extends React.Component<TChallengePropo
 
             <StyledSection>
               <StyledPhaseKicker>Challenge ID {this.props.challengeID}</StyledPhaseKicker>
-              <RevealVote
-                voteOption={this.props.voteOption}
-                salt={this.props.salt}
-                onInputChange={this.props.onInputChange}
-                transactions={this.props.transactions}
-                postExecuteTransactions={this.props.postExecuteTransactions}
-              >
-                Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
-              </RevealVote>
+              {this.renderRevealVote()}
             </StyledSection>
           </StyledCreateProposalContent>
         </StyledChallengeProposalContainer>
@@ -117,4 +116,38 @@ export class ChallengeProposalRevealVote extends React.Component<TChallengePropo
       this.bucket,
     );
   }
+
+  private renderRevealVote = (): JSX.Element => {
+    if (!this.props.userHasCommittedVote) {
+      return (
+        <>
+          <FormHeader>You did not participate in this challenge</FormHeader>
+          <FormCopy>You did not commit a vote, so there is nothing here for you to reveal</FormCopy>
+        </>
+      );
+    } else if (this.props.userHasRevealedVote) {
+      return (
+        <>
+          <FormHeader>You have revealed your vote</FormHeader>
+          <FormCopy>
+            Thank you for participating! Please check back after the challenge ends to see if you have earned a reward{" "}
+          </FormCopy>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <RevealVote
+            voteOption={this.props.voteOption}
+            salt={this.props.salt}
+            onInputChange={this.props.onInputChange}
+            transactions={this.props.transactions}
+            postExecuteTransactions={this.props.postExecuteTransactions}
+          >
+            Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
+          </RevealVote>
+        </>
+      );
+    }
+  };
 }

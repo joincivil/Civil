@@ -31,6 +31,7 @@ import {
   parameterProposalChallenges,
   parameterProposalChallengesFetching,
   proposalChallengeUserData,
+  proposalChallengesToPropIDs,
 } from "./parameterizer";
 import {
   appealChallengeUserData,
@@ -114,6 +115,7 @@ export interface NetworkDependentState {
   parameterProposalChallenges: Map<string, ParamPropChallengeData>;
   parameterProposalChallengesFetching: Map<string, any>;
   proposalChallengeUserData: Map<string, Map<string, UserChallengeData>>;
+  proposalChallengesToPropIDs: Map<string, string>;
   govtParameters: object;
   govtProposals: Map<string, object>;
   challenges: Map<string, WrappedChallengeData>;
@@ -166,6 +168,7 @@ const networkDependentReducers = combineReducers({
   parameterProposalChallenges,
   parameterProposalChallengesFetching,
   proposalChallengeUserData,
+  proposalChallengesToPropIDs,
   govtParameters,
   govtProposals,
   challenges,
