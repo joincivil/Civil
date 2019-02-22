@@ -14,6 +14,7 @@ export enum parameterizerActions {
   FETCH_CHALLENGE_DATA_IN_PROGRESS = "PARAMETERIZER_FETCH_CHALLENGE_DATA_IN_PROGRESS",
   FETCH_AND_ADD_CHALLENGE_DATA = "PARAMETERIZER_FETCH_AND_ADD_CHALLENGE_DATA",
   ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_PROPOSAL_CHALLENGE_DATA",
+  ADD_CHALLENGE_TO_PROP_MAPPING = "ADD_CHALLENGE_TO_PROP_MAPPING",
 }
 
 export const setParameter = (paramName: string, paramValue: any): AnyAction => {
@@ -35,6 +36,16 @@ export const addOrUpdateProposal = (proposal: object): AnyAction => {
   return {
     type: parameterizerActions.ADD_OR_UPDATE_PROPOSAL,
     proposal,
+  };
+};
+
+export const addChallengeToPropMapping = (challengeID: string, propID: string): AnyAction => {
+  return {
+    type: parameterizerActions.ADD_CHALLENGE_TO_PROP_MAPPING,
+    data: {
+      challengeID,
+      propID,
+    },
   };
 };
 
