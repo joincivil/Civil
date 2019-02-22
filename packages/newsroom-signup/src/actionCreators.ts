@@ -35,6 +35,13 @@ export enum governmentActions {
   ADD_CONSTITUTION_CONTENT = "ADD_CONSTITUTION_CONTENT",
 }
 
+export enum grantActions {
+  SET_GRANT = "CHOOSE_GRANT",
+  SET_SKIP = "CHOOSE_SKIP",
+  APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
+  APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
+}
+
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
   dispatch: any,
   getState: any,
@@ -282,5 +289,19 @@ export const addConstitutionHash = (hash: string): AnyAction => {
     data: {
       hash,
     },
+  };
+};
+
+export const setGrant = (value: boolean): AnyAction => {
+  return {
+    type: grantActions.SET_GRANT,
+    data: value,
+  };
+};
+
+export const setSkip = (value: boolean): AnyAction => {
+  return {
+    type: grantActions.SET_SKIP,
+    data: value,
   };
 };

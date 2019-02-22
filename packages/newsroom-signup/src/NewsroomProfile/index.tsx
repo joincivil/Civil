@@ -68,18 +68,22 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       },
       () => {
         return true;
-      }
+      },
     ];
     return functions[index];
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <NewsroomBio charter={this.props.charter} updateCharter={this.props.updateCharter} />,
-      <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} toggleButtons={this.toggleButtons} />,
+      <AddRosterMember
+        charter={this.props.charter}
+        updateCharter={this.props.updateCharter}
+        toggleButtons={this.toggleButtons}
+      />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
-      <GrantApplication/>
+      <GrantApplication />,
     ];
     return steps[this.state.currentStep];
   }
@@ -87,24 +91,26 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     if (!this.state.showButtons || this.state.currentStep === 5) {
       return null;
     }
-    return (<ButtonContainer>
-      {this.state.currentStep > 0 ? (
-        <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.goBack()}>
-          Back
-        </BorderlessButton>
-      ) : (
-        <div />
-      )}
-      <Button
-        disabled={this.getDisabled(this.state.currentStep)()}
-        textTransform="none"
-        width={220}
-        size={buttonSizes.MEDIUM}
-        onClick={() => this.goNext()}
-      >
-        Next
-      </Button>
-    </ButtonContainer>);
+    return (
+      <ButtonContainer>
+        {this.state.currentStep > 0 ? (
+          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.goBack()}>
+            Back
+          </BorderlessButton>
+        ) : (
+          <div />
+        )}
+        <Button
+          disabled={this.getDisabled(this.state.currentStep)()}
+          textTransform="none"
+          width={220}
+          size={buttonSizes.MEDIUM}
+          onClick={() => this.goNext()}
+        >
+          Next
+        </Button>
+      </ButtonContainer>
+    );
   }
   public goNext(): void {
     this.setState({ currentStep: this.state.currentStep + 1 });
@@ -121,6 +127,6 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     );
   }
   private toggleButtons = () => {
-    this.setState({showButtons: !this.state.showButtons});
-  }
+    this.setState({ showButtons: !this.state.showButtons });
+  };
 }
