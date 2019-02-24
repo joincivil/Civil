@@ -1,6 +1,18 @@
 import * as React from "react";
+import styled from "styled-components";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
-import { AccountEmailSent, AccountEmailAuth, AccountVerifyToken, AuthApplicationEnum } from "@joincivil/components";
+import {
+  AccountEmailSent,
+  AccountEmailAuth,
+  AccountVerifyToken,
+  AuthApplicationEnum,
+  AuthPageFooterLink,
+  AuthFooterTerms,
+  OBSectionTitle,
+  OBSectionDescription,
+  PageHeadingTextCentered,
+  PageSubHeadingCentered,
+} from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
 export interface AuthWrapperState {
@@ -14,6 +26,31 @@ export interface AuthParams {
   action?: "login" | "signup";
   token?: string;
 }
+
+const Wrapper = styled.div`
+  margin: 70px auto 0 auto;
+  max-width: 700px;
+`;
+const SignupLoginInnerWrap = styled.div`
+  margin: 0 auto;
+  max-width: 520px;
+`;
+
+const BodyText = styled(PageHeadingTextCentered)`
+  margin-bottom: 12px;
+`;
+
+const Footer: React.SFC = () => (
+  <AuthFooterTerms
+    textEl={
+      <BodyText>
+        By joining Civil, you will become part of a community of high quality news publishers. Your content will be
+        featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
+      </BodyText>
+    }
+    benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
+  />
+);
 
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
   constructor(props: RouteComponentProps) {
@@ -51,36 +88,72 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
 
     if (token || this.state.showTokenVerified) {
       return (
-        <AccountVerifyToken
-          isNewUser={isNewUser}
-          token={token!}
-          onAuthenticationContinue={this.onAuthenticationContinue}
-        />
+        <Wrapper>
+          <AccountVerifyToken
+            isNewUser={isNewUser}
+            token={token!}
+            onAuthenticationContinue={this.onAuthenticationContinue}
+            ethAuthNextExt={isNewUser}
+          />
+        </Wrapper>
       );
     }
 
     if (this.state.magicEmailSent) {
       return (
-        <>
-          <AccountEmailSent isNewUser={isNewUser} emailAddress={this.state.magicEmailSent} />
-        </>
+        <Wrapper>
+          <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
+          <AccountEmailSent
+            isNewUser={isNewUser}
+            emailAddress={this.state.magicEmailSent}
+            onSendAgain={this.sendAgain}
+          />
+          {isNewUser && <Footer />}
+        </Wrapper>
       );
     }
 
-    // @TODO/tobek Move dapp AuthLogin/AuthSignup into components package and use those here - AccountEmailAuth on its own is missing styles.
+    return this.renderSignupLogin(isNewUser);
+  }
+
+  private renderSignupLogin(isNewUser: boolean): JSX.Element {
     return (
-      <>
-        <AccountEmailAuth
-          applicationType={AuthApplicationEnum.NEWSROOM}
-          isNewUser={isNewUser}
-          onEmailSend={this.onEmailSend}
-        />
-        {isNewUser ? (
-          <Link to="/apply-to-registry/login">Already have an account?</Link>
-        ) : (
-          <Link to="/apply-to-registry/signup">Don't have an account?</Link>
-        )}
-      </>
+      <Wrapper>
+        <SignupLoginInnerWrap>
+          <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
+          <OBSectionDescription>
+            Create an account to add your newsroom to Civil. First, please enter your email address. Your email is used
+            to send account-related updates from Civil.
+          </OBSectionDescription>
+
+          {isNewUser ? (
+            <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
+          ) : (
+            <>
+              <PageSubHeadingCentered style={{ marginBottom: -4 }}>Sign in with email</PageSubHeadingCentered>
+              <BodyText>
+                Enter the email address associated with your account and we'll send a login link to your inbox.
+              </BodyText>
+            </>
+          )}
+
+          <AccountEmailAuth
+            applicationType={AuthApplicationEnum.NEWSROOM}
+            isNewUser={isNewUser}
+            onEmailSend={this.onEmailSend}
+          />
+
+          <AuthPageFooterLink>
+            {isNewUser ? (
+              <Link to="/apply-to-registry/login">Already have an account?</Link>
+            ) : (
+              <Link to="/apply-to-registry/signup">← Back to create an account</Link>
+            )}
+          </AuthPageFooterLink>
+        </SignupLoginInnerWrap>
+
+        {isNewUser && <Footer />}
+      </Wrapper>
     );
   }
 
@@ -99,6 +172,12 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
     // @TODO/tobek Once token verification is handled better (flushing apollo cache so that client uses auth header) we can jump straight to "logged in" state. For now we have to refresh, and on refresh we'll be in the logged in state.
     this.setState({ showTokenVerified: true }); // prevent flash before reload
     window.location.reload();
+  };
+
+  private sendAgain = () => {
+    this.setState({
+      magicEmailSent: undefined,
+    });
   };
 }
 

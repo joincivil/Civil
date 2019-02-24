@@ -4,6 +4,7 @@ import {
   PageHeadingTextCentered,
   PageSubHeadingCentered,
   PageHeadingCentered,
+  PageHeadingTextCenteredLarge,
 } from "../../Heading";
 
 export const AuthTextFooter: React.SFC = () => (
@@ -21,17 +22,17 @@ export const AuthTextEmailSent: React.SFC<{
 }> = ({ emailAddress }) => (
   <>
     <PageSubHeadingCentered>Check your email!</PageSubHeadingCentered>
-    <PageHeadingTextCentered>
+    <PageHeadingTextCenteredLarge>
       We sent you an email to <strong>{emailAddress}</strong> that includes a link to confirm your email address. It
       expires soon, so please check your email and click on the link. Once confimed, you can continue.
-    </PageHeadingTextCentered>
+    </PageHeadingTextCenteredLarge>
   </>
 );
 
 export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
   <>
     <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
-    <PageHeadingTextCentered>Thanks for confirming your email address</PageHeadingTextCentered>
+    <PageHeadingTextCenteredLarge>Thanks for confirming your email address.</PageHeadingTextCenteredLarge>
   </>
 );
 
@@ -41,13 +42,19 @@ export const AuthTextVerifyTokenVerifying: React.SFC = () => (
   </>
 );
 
+export const AuthTextEthAuthNext: React.SFC = () => (
+  <>
+    <PageHeadingTextCenteredLarge>Next, we'll set up your secure crypto wallet.</PageHeadingTextCenteredLarge>
+  </>
+);
+
 // TODO(jorgelo): Jorge made this up, it should probably be nicer.
 export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ errorMessage }) => (
   <>
     <PageSubHeadingCentered>Uh oh.</PageSubHeadingCentered>
-    <PageHeadingTextCentered>
+    <PageHeadingTextCenteredLarge>
       There was a problem verifying your email: <strong>{errorMessage}</strong>
-    </PageHeadingTextCentered>
+    </PageHeadingTextCenteredLarge>
   </>
 );
 
@@ -62,7 +69,7 @@ export const AuthTextCreateAccount: React.SFC = () => (
 );
 
 export const AuthTextCheckSpam: React.SFC = () => (
-  <PageHeadingTextCentered>Please check your spam folder if you don’t see the email.</PageHeadingTextCentered>
+  <PageHeadingTextCenteredLarge>Please check your spam folder if you don’t see the email.</PageHeadingTextCenteredLarge>
 );
 
 export const AuthTextSigninWithEmail: React.SFC = () => (
