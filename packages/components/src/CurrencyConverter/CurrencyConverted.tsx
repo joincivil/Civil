@@ -4,6 +4,7 @@ import { CurrencyConvertedBox, CurrencyCode } from "./CurrencyConverterStyledCom
 export interface CurrencyConvertedProps {
   currencyCode?: string | JSX.Element;
   currentPrice?: number;
+  cvlAmount?: number;
 }
 
 export interface CurrencyConvertedStates {

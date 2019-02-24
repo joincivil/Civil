@@ -217,19 +217,6 @@ export const TutorialContent = [
         ],
         answer: "Software wallet or “hot wallet”",
       },
-      {
-        question:
-          "Select the type of wallet that allows you to perform this action: You do not hold the private key to your wallet, and your tokens are stored in a server connected to the Internet.",
-        options: [
-          {
-            text: "Hardware wallet or “cold wallet”",
-          },
-          {
-            text: "Software wallet or “hot wallet”",
-          },
-        ],
-        answer: "Software wallet or “hot wallet”",
-      },
     ],
     completed: {
       header: "Huzzah! You crushed Topic 2",

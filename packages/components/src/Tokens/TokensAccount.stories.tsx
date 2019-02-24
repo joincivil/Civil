@@ -66,7 +66,4 @@ storiesOf("User Token Account", module)
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
       />
     );
-  })
-  .add("Storefront FAQ", () => {
-    return <UserTokenAccountFaq />;
   });
