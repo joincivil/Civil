@@ -4,6 +4,7 @@ export * from "./DashboardActivity";
 export * from "./DashboardActivityItem";
 export * from "./DashboardActivityItemTask";
 export * from "./DashboardActivityItemCTAButton";
+export * from "./DashboardActivityProposalItemCTAButton";
 export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
 export * from "./DashboardStyledComponents";

@@ -2,7 +2,13 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData, AppealChallengeData } from "@joincivil/core";
+import {
+  EthAddress,
+  ListingWrapper,
+  WrappedChallengeData,
+  AppealChallengeData,
+  ParamPropChallengeData,
+} from "@joincivil/core";
 import {
   ChallengeResultsProps,
   ChallengePhaseProps,
@@ -32,6 +38,7 @@ export interface ListingContainerProps {
 
 export interface ChallengeContainerProps {
   challengeID?: BigNumber | string;
+  isProposalChallenge?: boolean;
 }
 
 export interface AppealChallengeContainerProps {
@@ -41,6 +48,7 @@ export interface AppealChallengeContainerProps {
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   appealChallengeData?: AppealChallengeData;
+  proposalChallengeData?: ParamPropChallengeData;
   challengeDataRequestStatus?: any;
   dispensationPct?: any;
   user: EthAddress;

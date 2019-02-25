@@ -17,6 +17,7 @@ import {
   makeGetParameterProposalChallenge,
   getAppealChallengeParentChallenge,
   makeGetUserProposalChallengeData,
+  makeGetProposalByChallengeID,
 } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
@@ -37,6 +38,7 @@ export interface ActivityListItemClaimRewardReduxProps {
 }
 
 export interface ProposalItemClaimRewardReduxProps {
+  proposal?: any;
   proposalUserChallengeData?: UserChallengeData;
   unclaimedRewardAmount: string;
   challenge?: any;
@@ -92,14 +94,19 @@ class ActivityListItemClaimRewardComponent extends React.Component<
 
 class ProposalClaimRewardComponent extends React.Component<ProposalItemClaimRewardComponentProps & DispatchProp<any>> {
   public render(): JSX.Element {
-    const { challenge, challengeDataRequestStatus, challengeID, proposalUserChallengeData } = this.props;
+    const { proposal, challenge, challengeDataRequestStatus, challengeID, proposalUserChallengeData } = this.props;
 
     if (!challenge && !challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
     }
 
+    let title = "Parameter Proposal Challenge";
+    if (proposal) {
+      title = `${title}: ${proposal.paramName} = ${proposal.paramValue}`;
+    }
+
     const viewProps = {
-      title: `Parameter Proposal Challenge`,
+      title,
       challengeID,
       salt: proposalUserChallengeData && proposalUserChallengeData.salt,
       numTokens: this.props.unclaimedRewardAmount!,
@@ -167,12 +174,14 @@ const makeChallengeMapStateToProps = () => {
 const makeProposalMapStateToProps = () => {
   const getUserProposalChallengeData = makeGetUserProposalChallengeData();
   const getParameterProposalChallenge = makeGetParameterProposalChallenge();
+  const getProposalByChallengeID = makeGetProposalByChallengeID();
 
   const mapStateToProps = (
     state: State,
     ownProps: ActivityListItemClaimRewardOwnProps,
   ): ProposalItemClaimRewardComponentProps => {
     const { parameterProposalChallengesFetching } = state.networkDependent;
+    const proposal = getProposalByChallengeID(state, ownProps);
     const challenge = getParameterProposalChallenge(state, ownProps);
     const proposalUserChallengeData = getUserProposalChallengeData(state, ownProps);
     const unclaimedRewardAmountBN = proposalUserChallengeData && proposalUserChallengeData.voterReward;
@@ -186,6 +195,7 @@ const makeProposalMapStateToProps = () => {
     }
 
     return {
+      proposal,
       challenge,
       challengeDataRequestStatus,
       proposalUserChallengeData,
