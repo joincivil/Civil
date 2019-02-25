@@ -5,7 +5,6 @@ import { Button } from "../Button";
 
 export interface BuyCVLProps {
   buyFromAddress?: string;
-  cvlAmount?: string;
   buyCVLBtnText?: string | JSX.Element;
   network: string;
   onClick?(index: number): void;
@@ -21,7 +20,6 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
     const environment = getAirswapEnv(this.props.network);
     const tokenAddress = getAirswapCvlAddress(this.props.network);
     const buyFromAddress = this.props.buyFromAddress || "";
-    const cvlAmount = this.props.cvlAmount || "0";
 
     // @ts-ignore
     window.AirSwap.Trader.render(
@@ -30,7 +28,6 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         env: environment,
         token: tokenAddress,
         address: buyFromAddress,
-        amount: cvlAmount,
         onComplete: () => {
           this.props.onComplete();
         },

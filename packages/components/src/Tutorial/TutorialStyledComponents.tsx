@@ -194,13 +194,24 @@ export const TutorialQuizName = styled.h2`
   font-weight: 300;
   letter-spacing: -0.14px;
   line-height: 30px;
+  margin: 10px 0 40px -65px;
 `;
 
 export const TutorialQuizQuestion = styled.h3`
   font-family: ${fonts.SANS_SERIF};
   font-size: 24px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 29px;
+  position: relative;
+
+  span {
+    font-size: 18px;
+    left: -20px;
+    line-height: 28px;
+    position: absolute;
+    text-align: right;
+    top: 0;
+  }
 `;
 
 export const TutorialCompletedHeader = styled.p`
@@ -210,6 +221,7 @@ export const TutorialCompletedHeader = styled.p`
   font-weight: 700;
   letter-spacing: -0.58px;
   line-height: 39px;
+  margin: 30px 0;
   text-align: center;
 `;
 
@@ -219,6 +231,7 @@ export const TutorialCompletedP = styled.p`
   font-size: 18px;
   letter-spacing: -0.12px;
   line-height: 33px;
+  margin: 30px 0 70px;
 `;
 
 export const TutorialOptionBox = styled.div`
