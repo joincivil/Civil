@@ -19,6 +19,7 @@ export const TutorialProgressBar = styled.div`
   height: 6px;
   margin: 0 auto;
   max-width: 900px;
+  position: relative;
   width: 100%;
 `;
 
@@ -27,6 +28,18 @@ export const TutorialProgressBarActive = styled.div`
   border-radius: 3px;
   height: 6px;
   width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
+`;
+
+export const TutorialProgressBarSlideCount = styled.div`
+  color: ${colors.accent.CIVIL_BLUE};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 12px;
+  font-weight: bold;
+  left: calc(${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}% - 25px);
+  position: absolute;
+  text-align: center;
+  top: -20px;
+  width: 50px;
 `;
 
 export interface TutorialStyleProps {
