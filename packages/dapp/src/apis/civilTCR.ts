@@ -315,6 +315,13 @@ export async function updateGovernmentParameter(
   return govt.set(paramName, newValueBN);
 }
 
+export async function updateGovernmentProposal(propID: string): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+  const govt = await tcr.getGovernment();
+  return govt.processProposal(propID);
+}
+
 export async function multiClaimRewards(
   challengeIDs: BigNumber[],
   salts: BigNumber[],

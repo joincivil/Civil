@@ -8,6 +8,7 @@ import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { Multisig } from "../multisig/multisig";
 import { Voting } from "./voting";
+import { createTwoStepSimple } from "../utils/contracts";
 
 const debug = Debug("civil:tcr");
 
@@ -95,6 +96,11 @@ export class Government extends BaseWrapper<GovernmentContract> {
     const txdata = await this.instance.proposeReparameterization.getRaw(paramName, newValue, { gas: 0 });
     return this.multisig.submitTransaction(this.instance.address, this.ethApi.toBigNumber(0), txdata.data!);
   }
+
+  public async processProposal(propID: string): Promise<TwoStepEthTransaction> {
+    return createTwoStepSimple(this.ethApi, await this.instance.processProposal.sendTransactionAsync(propID));
+  }
+
   /**
    * Get the URI of the Civil Constitution
    */
