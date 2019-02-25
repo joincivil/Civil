@@ -54,7 +54,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
     const { isNewUser } = this.props;
     const token = this.props.token;
 
-    const client = getApolloClient({});
+    const client = getApolloClient();
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
