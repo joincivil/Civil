@@ -5,7 +5,6 @@ import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
-import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
 const onClickFunc = () => {
   console.log("clicked!");

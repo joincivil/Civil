@@ -29,7 +29,13 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
           const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 
           if (this.isQuizStarted(quizPayload)) {
-            return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={quizPayload} isQuizStarted={true} />;
+            return (
+              <TokenTutorialLanding
+                handleClose={this.props.handleClose}
+                quizPayload={quizPayload}
+                isQuizStarted={true}
+              />
+            );
           }
 
           return <TutorialWelcomeScreens handleClose={this.props.handleClose} quizPayload={quizPayload} />;

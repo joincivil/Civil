@@ -33,6 +33,7 @@ export interface UserTokenAccountProps {
 
 export interface UserTokenAccountStates {
   isTutorialModalOpen: boolean;
+  isTutorialComplete: boolean;
 }
 
 export class UserTokenAccount extends React.Component<UserTokenAccountProps, UserTokenAccountStates> {
@@ -40,6 +41,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     super(props);
     this.state = {
       isTutorialModalOpen: false,
+      isTutorialComplete: false,
     };
   }
   public getTutorialState(loggedInState: TOKEN_PROGRESS, tutorialComplete: boolean): TOKEN_PROGRESS {
@@ -81,7 +83,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
-                handleClose={this.closeTutorialModal}
+                handleClose={() => this.closeTutorialModal(user)}
                 handleOpen={this.openTutorialModal}
               />
               <UserTokenAccountBuy
@@ -135,7 +137,11 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     this.setState({ isTutorialModalOpen: true });
   };
 
-  private closeTutorialModal = () => {
-    this.setState({ isTutorialModalOpen: false });
+  private closeTutorialModal = (user: any) => {
+    if (user && user.quizStatus) {
+      this.setState({ isTutorialModalOpen: false, isTutorialComplete: true });
+    } else {
+      this.setState({ isTutorialModalOpen: false });
+    }
   };
 }
