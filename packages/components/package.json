@@ -74,6 +74,7 @@
   },
   "dependencies": {
     "@joincivil/core": "^4.7.5",
+    "@joincivil/ethapi": "^0.3.4",
     "@joincivil/utils": "^1.8.3",
     "@types/classnames": "^2.2.3",
     "apollo-storybook-react": "^0.1.8",

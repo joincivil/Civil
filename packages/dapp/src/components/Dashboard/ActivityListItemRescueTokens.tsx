@@ -5,18 +5,25 @@ import { UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
+import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
 import { State } from "../../redux/reducers";
 import {
   makeGetListingAddressByChallengeID,
   makeGetListingAddressByAppealChallengeID,
   makeGetUserChallengeData,
   makeGetUserAppealChallengeData,
+  makeGetChallenge,
+  makeGetParameterProposalChallenge,
+  getAppealChallengeParentChallenge,
+  makeGetUserProposalChallengeData,
 } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
 export interface ActivityListItemRescueTokensOwnProps {
   challengeID?: string;
   appealChallengeID?: string;
+  isProposalChallenge?: boolean;
   toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
@@ -25,10 +32,21 @@ export interface ActivityListItemRescueTokensReduxProps {
   newsroom?: NewsroomState;
   userChallengeData?: UserChallengeData;
   rescueTokensAmount: string;
+  challenge?: any;
+  challengeDataRequestStatus?: any;
+}
+
+export interface ProposalItemRescueTokensReduxProps {
+  proposalUserChallengeData?: UserChallengeData;
+  rescueTokensAmount: string;
+  challenge?: any;
+  challengeDataRequestStatus?: any;
 }
 
 type ActivityListItemRescueTokensComponentProps = ActivityListItemRescueTokensOwnProps &
   ActivityListItemRescueTokensReduxProps;
+
+type ProposalItemRescueTokensComponentProps = ActivityListItemRescueTokensOwnProps & ProposalItemRescueTokensReduxProps;
 
 class ActivityListItemRescueTokensComponent extends React.Component<
   ActivityListItemRescueTokensComponentProps & DispatchProp<any>
@@ -62,15 +80,42 @@ class ActivityListItemRescueTokensComponent extends React.Component<
   }
 
   private ensureListingAndNewsroomData = async (): Promise<void> => {
-    if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+    const { newsroom, challengeID, challenge, challengeDataRequestStatus, dispatch } = this.props;
+    if (newsroom) {
+      dispatch!(await getContent(newsroom.wrapper.data.charterHeader!));
+    }
+    if (challengeID && !challenge && !challengeDataRequestStatus) {
+      dispatch!(fetchAndAddChallengeData(challengeID! as string));
     }
   };
+}
+
+class ProposalRescueTokensComponent extends React.Component<
+  ProposalItemRescueTokensComponentProps & DispatchProp<any>
+> {
+  public render(): JSX.Element {
+    const { challenge, challengeDataRequestStatus, challengeID, proposalUserChallengeData } = this.props;
+
+    if (!challenge && !challengeDataRequestStatus) {
+      this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
+    }
+
+    const viewProps = {
+      title: `Parameter Proposal Challenge`,
+      challengeID,
+      salt: proposalUserChallengeData && proposalUserChallengeData.salt,
+      numTokens: this.props.rescueTokensAmount!,
+      toggleSelect: this.props.toggleSelect,
+    };
+
+    return <DashboardActivitySelectableItem {...viewProps} />;
+  }
 }
 
 const makeChallengeMapStateToProps = () => {
   const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
   const getListingAddressByAppealChallengeID = makeGetListingAddressByAppealChallengeID();
+  const getChallenge = makeGetChallenge();
   const getUserChallengeData = makeGetUserChallengeData();
   const getUserAppealChallengeData = makeGetUserAppealChallengeData();
 
@@ -78,17 +123,21 @@ const makeChallengeMapStateToProps = () => {
     state: State,
     ownProps: ActivityListItemRescueTokensOwnProps,
   ): ActivityListItemRescueTokensComponentProps => {
+    const { challengesFetching } = state.networkDependent;
     const { newsrooms } = state;
 
     let listingAddress;
     let userChallengeData;
+    let challenge;
 
     if (ownProps.appealChallengeID) {
       listingAddress = getListingAddressByAppealChallengeID(state, ownProps);
       userChallengeData = getUserAppealChallengeData(state, ownProps);
+      challenge = getAppealChallengeParentChallenge(state, ownProps);
     } else {
       listingAddress = getListingAddressByChallengeID(state, ownProps);
       userChallengeData = getUserChallengeData(state, ownProps);
+      challenge = getChallenge(state, ownProps);
     }
 
     const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
@@ -98,10 +147,16 @@ const makeChallengeMapStateToProps = () => {
     if (rescueTokensAmountBN) {
       rescueTokensAmount = getFormattedTokenBalance(rescueTokensAmountBN);
     }
+    let challengeDataRequestStatus;
+    if (ownProps.challengeID) {
+      challengeDataRequestStatus = challengesFetching.get(ownProps.challengeID as string);
+    }
 
     return {
       listingAddress,
       newsroom,
+      challenge,
+      challengeDataRequestStatus,
       userChallengeData,
       rescueTokensAmount,
       ...ownProps,
@@ -111,4 +166,49 @@ const makeChallengeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default connect(makeChallengeMapStateToProps)(ActivityListItemRescueTokensComponent);
+const makeProposalMapStateToProps = () => {
+  const getUserProposalChallengeData = makeGetUserProposalChallengeData();
+  const getParameterProposalChallenge = makeGetParameterProposalChallenge();
+
+  const mapStateToProps = (
+    state: State,
+    ownProps: ActivityListItemRescueTokensOwnProps,
+  ): ProposalItemRescueTokensComponentProps => {
+    const { parameterProposalChallengesFetching } = state.networkDependent;
+    const challenge = getParameterProposalChallenge(state, ownProps);
+    const proposalUserChallengeData = getUserProposalChallengeData(state, ownProps);
+    const rescueTokensAmountBN = proposalUserChallengeData && proposalUserChallengeData.numTokens;
+    let rescueTokensAmount = "";
+    if (rescueTokensAmountBN) {
+      rescueTokensAmount = getFormattedTokenBalance(rescueTokensAmountBN);
+    }
+    let challengeDataRequestStatus;
+    if (ownProps.challengeID) {
+      challengeDataRequestStatus = parameterProposalChallengesFetching.get(ownProps.challengeID as string);
+    }
+
+    return {
+      challenge,
+      challengeDataRequestStatus,
+      proposalUserChallengeData,
+      rescueTokensAmount,
+      ...ownProps,
+    };
+  };
+
+  return mapStateToProps;
+};
+
+const ProposalRescueTokens = connect(makeProposalMapStateToProps)(ProposalRescueTokensComponent);
+
+const ActivityListItemRescueTokens = connect(makeChallengeMapStateToProps)(ActivityListItemRescueTokensComponent);
+
+const RescueTokens: React.SFC<ActivityListItemRescueTokensOwnProps> = props => {
+  if (props.isProposalChallenge) {
+    return <ProposalRescueTokens {...props} />;
+  }
+
+  return <ActivityListItemRescueTokens {...props} />;
+};
+
+export default RescueTokens;
