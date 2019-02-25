@@ -46,10 +46,17 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
   public render(): JSX.Element {
     return (
       <>
-        <TutorialProgress activeSlide={this.props.activeSlide} totalSlides={this.props.totalSlides} />
+        <TutorialProgress
+          activeSlide={this.props.activeSlide}
+          totalSlides={this.props.totalSlides}
+          showSlideCount={true}
+        />
         <TutorialContentWrap>
-          <TutorialQuizName>{this.props.quizName}</TutorialQuizName>
-          <TutorialQuizQuestion>{this.props.question}</TutorialQuizQuestion>
+          <TutorialQuizName>Quiz: {this.props.quizName}</TutorialQuizName>
+          <TutorialQuizQuestion>
+            <span>{this.props.activeSlide}.</span>
+            {this.props.question}
+          </TutorialQuizQuestion>
           <div>
             <RadioInput
               name={this.props.quizId + "-" + this.props.activeSlide}
