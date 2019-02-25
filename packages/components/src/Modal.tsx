@@ -43,7 +43,10 @@ const ModalInner = styled.div`
     }
     return "";
   }} ${mediaQueries.MOBILE} {
+    max-height: 100%;
     max-width: 100%;
+    overflow: scroll;
+    padding-top: 65px;
   }
 `;
 
