@@ -52,7 +52,7 @@ storiesOf("User Token Account", module)
   )
   .addDecorator(StoryRouter())
   .add("Signup Section", () => {
-    return <UserTokenAccountSignup step={"active"} />;
+    return <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />;
   })
   .add("Tutorial Verify", () => {
     return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;

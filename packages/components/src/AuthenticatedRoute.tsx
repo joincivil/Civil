@@ -7,8 +7,7 @@ import { Query } from "react-apollo";
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
   onlyAllowUnauthenticated?: boolean;
-  allowWithoutEth?: boolean;
-  ethSignupPath: string;
+  signupUrl: string;
 }
 
 const userQuery = gql`
@@ -26,21 +25,27 @@ const userQuery = gql`
 export const AuthenticatedRoute = ({
   render,
   redirectTo,
+  signupUrl,
   onlyAllowUnauthenticated = false,
-  allowWithoutEth = false,
-  ethSignupPath,
   ...otherProps
 }: AuthenticatedRouteProps) => {
   const auth = getApolloSession();
 
   const hasAuthToken = !!auth && !!auth.token;
 
-  if (onlyAllowUnauthenticated === hasAuthToken) {
-    return <Redirect to={redirectTo} />;
+  // TODO(jorgelo): Refactor this boolean logic.
+  if (onlyAllowUnauthenticated) {
+    if (hasAuthToken) {
+      return <Redirect to={redirectTo} />;
+    }
+  } else {
+    if (!hasAuthToken) {
+      return <Redirect to={signupUrl} />;
+    }
   }
 
   if (!render) {
-    return null;
+    throw new Error("Please set a render function");
   }
 
   // TODO(jorgelo): Get the line below working without the ts-ignore
@@ -67,18 +72,9 @@ export const AuthenticatedRoute = ({
             return <Redirect to={redirectTo} />;
           }
 
-          const hasEth = error || (data.currentUser && data.currentUser.ethAddress);
-
-          if (!hasEth && !allowWithoutEth) {
-            // User doesn't have a wallet, but is signed in, redirect them to add their wallet.
-            return <Redirect to={ethSignupPath} />;
-          }
-
           if (render) {
             return renderChildren();
           }
-
-          console.log("NULL?");
 
           return null;
         }}

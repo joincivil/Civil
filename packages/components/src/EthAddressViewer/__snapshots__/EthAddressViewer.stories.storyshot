@@ -4,7 +4,7 @@ exports[`Storyshots EthAddress Viewer EthAddress Viewer 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iNovjJ bNmEGP",
+      "class": "sc-kyCyAI ixQqVT",
     },
     "children": Array [
       Object {
@@ -29,7 +29,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-fHxwqH hWRuxK",
+                "class": "sc-fHxwqH bfguvI",
               },
               "children": Array [
                 Object {
@@ -49,7 +49,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                      "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -66,7 +66,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                        "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                         "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                         "target": "_blank",
                         "theme": "[object Object]",
@@ -234,7 +234,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -251,7 +251,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                      "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                       "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                       "target": "_blank",
                       "theme": "[object Object]",
@@ -434,7 +434,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                    "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                     "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -563,7 +563,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                      "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -658,7 +658,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-fHxwqH hWRuxK",
+              "class": "sc-fHxwqH bfguvI",
             },
             "children": Array [
               Object {
@@ -678,7 +678,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -695,7 +695,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                      "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                       "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                       "target": "_blank",
                       "theme": "[object Object]",
@@ -863,7 +863,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                  "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                   "theme": "[object Object]",
                   "type": "button",
                 },
@@ -880,7 +880,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                    "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                     "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -1063,7 +1063,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                  "class": "sc-kEYyzF kaEEKN sc-eNQAEJ dhTCn",
                   "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                   "target": "_blank",
                   "theme": "[object Object]",
@@ -1192,7 +1192,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-hMqMXs eoYhaK sc-eNQAEJ dZPYdY",
                     "theme": "[object Object]",
                     "type": "button",
                   },

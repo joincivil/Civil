@@ -59,6 +59,7 @@ const transactionStatusModalConfig = {
 export interface ChallengesWithTokensToRescueProps {
   challenges: any;
   appealChallenges: any;
+  proposalChallenges: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -101,6 +102,15 @@ class ChallengesWithTokensToRescue extends React.Component<
 
         {this.props.appealChallenges.map((c: string) => (
           <ActivityListItemRescueTokens key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
+        ))}
+
+        {this.props.proposalChallenges.map((c: string) => (
+          <ActivityListItemRescueTokens
+            key={c}
+            isProposalChallenge={true}
+            challengeID={c!}
+            toggleSelect={this.setChallengesToMultiRescue}
+          />
         ))}
 
         <StyledBatchButtonContainer>

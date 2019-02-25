@@ -56,6 +56,7 @@ const transactionStatusModalConfig = {
 export interface ChallengesWithRewardsToClaimProps {
   challenges: any;
   appealChallenges: any;
+  proposalChallenges: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -98,6 +99,15 @@ class ChallengesWithRewardsToClaim extends React.Component<
 
         {this.props.appealChallenges.map((c: string) => (
           <ActivityListItemClaimReward key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
+        ))}
+
+        {this.props.proposalChallenges.map((c: string) => (
+          <ActivityListItemClaimReward
+            key={c}
+            isProposalChallenge={true}
+            challengeID={c!}
+            toggleSelect={this.setChallengesToMultiClaim}
+          />
         ))}
 
         <StyledBatchButtonContainer>

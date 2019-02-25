@@ -4,7 +4,7 @@ exports[`Storyshots Listing Details Header Accepting Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fEVUGC PsPOx",
+      "class": "sc-dchYKM ketimW",
     },
     "children": Array [
       Object {
@@ -67,7 +67,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -109,7 +109,7 @@ initialize {
                                           "children": Array [
                                             Object {
                                               "attribs": Object {
-                                                "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                                "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                                 "href": "https://civil.co",
                                                 "target": "_blank",
                                                 "theme": "[object Object]",
@@ -340,7 +340,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -382,7 +382,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -613,7 +613,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -655,7 +655,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -926,7 +926,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -1099,7 +1099,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -1199,7 +1199,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -1379,7 +1379,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -1530,7 +1530,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -1572,7 +1572,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -1803,7 +1803,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -1845,7 +1845,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -2076,7 +2076,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                              "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                               "theme": "[object Object]",
                               "type": "button",
                             },
@@ -2118,7 +2118,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -2389,7 +2389,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -2562,7 +2562,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -2662,7 +2662,7 @@ initialize {
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                      "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                       "href": "https://civil.co",
                                       "target": "_blank",
                                       "theme": "[object Object]",
@@ -2842,7 +2842,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -3060,7 +3060,7 @@ exports[`Storyshots Listing Details Header In Application 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fEVUGC PsPOx",
+      "class": "sc-dchYKM ketimW",
     },
     "children": Array [
       Object {
@@ -3123,7 +3123,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -3165,7 +3165,7 @@ initialize {
                                           "children": Array [
                                             Object {
                                               "attribs": Object {
-                                                "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                                "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                                 "href": "https://civil.co",
                                                 "target": "_blank",
                                                 "theme": "[object Object]",
@@ -3396,7 +3396,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -3438,7 +3438,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -3669,7 +3669,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -3711,7 +3711,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -3982,7 +3982,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -4155,7 +4155,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -4255,7 +4255,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -4435,7 +4435,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -4586,7 +4586,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -4628,7 +4628,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -4859,7 +4859,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -4901,7 +4901,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -5132,7 +5132,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                              "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                               "theme": "[object Object]",
                               "type": "button",
                             },
@@ -5174,7 +5174,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -5445,7 +5445,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -5618,7 +5618,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -5718,7 +5718,7 @@ initialize {
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                      "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                       "href": "https://civil.co",
                                       "target": "_blank",
                                       "theme": "[object Object]",
@@ -5898,7 +5898,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -6116,7 +6116,7 @@ exports[`Storyshots Listing Details Header No phase label 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fEVUGC PsPOx",
+      "class": "sc-dchYKM ketimW",
     },
     "children": Array [
       Object {
@@ -6164,7 +6164,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -6206,7 +6206,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -6412,7 +6412,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -6454,7 +6454,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -6700,7 +6700,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -6873,7 +6873,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -6948,7 +6948,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -7128,7 +7128,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -7239,7 +7239,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -7281,7 +7281,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -7487,7 +7487,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                              "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                               "theme": "[object Object]",
                               "type": "button",
                             },
@@ -7529,7 +7529,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -7775,7 +7775,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -7948,7 +7948,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -8023,7 +8023,7 @@ initialize {
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                      "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                       "href": "https://civil.co",
                                       "target": "_blank",
                                       "theme": "[object Object]",
@@ -8203,7 +8203,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -8396,7 +8396,7 @@ exports[`Storyshots Listing Details Header Revealing Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fEVUGC PsPOx",
+      "class": "sc-dchYKM ketimW",
     },
     "children": Array [
       Object {
@@ -8459,7 +8459,7 @@ initialize {
                                 "namespace": "http://www.w3.org/1999/xhtml",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -8501,7 +8501,7 @@ initialize {
                                           "children": Array [
                                             Object {
                                               "attribs": Object {
-                                                "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                                "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                                 "href": "https://civil.co",
                                                 "target": "_blank",
                                                 "theme": "[object Object]",
@@ -8732,7 +8732,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -8774,7 +8774,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -9005,7 +9005,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -9047,7 +9047,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -9318,7 +9318,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -9491,7 +9491,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -9591,7 +9591,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -9771,7 +9771,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                    "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                     "theme": "[object Object]",
                                     "type": "button",
                                   },
@@ -9922,7 +9922,7 @@ initialize {
                               "namespace": "http://www.w3.org/1999/xhtml",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },
@@ -9964,7 +9964,7 @@ initialize {
                                         "children": Array [
                                           Object {
                                             "attribs": Object {
-                                              "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                              "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                               "href": "https://civil.co",
                                               "target": "_blank",
                                               "theme": "[object Object]",
@@ -10195,7 +10195,7 @@ initialize {
                             "namespace": "http://www.w3.org/1999/xhtml",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -10237,7 +10237,7 @@ initialize {
                                       "children": Array [
                                         Object {
                                           "attribs": Object {
-                                            "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                            "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                             "href": "https://civil.co",
                                             "target": "_blank",
                                             "theme": "[object Object]",
@@ -10468,7 +10468,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                              "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                               "theme": "[object Object]",
                               "type": "button",
                             },
@@ -10510,7 +10510,7 @@ initialize {
                                     "children": Array [
                                       Object {
                                         "attribs": Object {
-                                          "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                          "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                           "href": "https://civil.co",
                                           "target": "_blank",
                                           "theme": "[object Object]",
@@ -10781,7 +10781,7 @@ initialize {
                                   "children": Array [
                                     Object {
                                       "attribs": Object {
-                                        "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                        "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                         "href": "https://civil.co",
                                         "target": "_blank",
                                         "theme": "[object Object]",
@@ -10954,7 +10954,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                 "theme": "[object Object]",
                                 "type": "button",
                               },
@@ -11054,7 +11054,7 @@ initialize {
                                 "children": Array [
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-dxZgTM dVZLqT sc-kgoBCf iXMGug sc-jzJRlG jWwySh",
+                                      "class": "sc-dxZgTM dVZLqT sc-iAyFgw eNveUp sc-eNQAEJ gYJxhW",
                                       "href": "https://civil.co",
                                       "target": "_blank",
                                       "theme": "[object Object]",
@@ -11234,7 +11234,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-eTpRJs gTGKdw sc-kgoBCf iXMGug sc-jzJRlG hvQAvg",
+                                  "class": "sc-eTpRJs gTGKdw sc-iAyFgw eNveUp sc-eNQAEJ ciZUpM",
                                   "theme": "[object Object]",
                                   "type": "button",
                                 },

@@ -19,8 +19,6 @@ import { initializeParameterizer, initializeProposalsSubscriptions } from "../he
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { Tokens } from "./Tokens";
-import ContractPage from "./ContractPage";
-import Contracts from "./Contracts";
 import ContractAddresses from "./ContractAddresses";
 import CreateNewsroom from "./CreateNewsroom";
 import SignUpNewsroom from "./SignUpNewsroom";
@@ -120,8 +118,6 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path="/registry/:listingType/:subListingType" component={Listings} />
             <Route path="/registry/:listingType" component={Listings} />
             <Route path="/registry" component={Listings} />
-            <Route path="/contracts" component={Contracts} />
-            <Route path="/contract/:contract" component={ContractPage} />
             <Route path="/contract-addresses" component={ContractAddresses} />
             <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
             <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
@@ -132,12 +128,14 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
             <Route path="/parameterizer" component={Parameterizer} />
             <Route path="/create-newsroom" component={CreateNewsroom} />
-            <Route path="/signupNewsroom" component={SignUpNewsroom} />
+            <Route path="/apply-to-registry" component={SignUpNewsroom} />
             <Route path="/government" component={Government} />
             <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth" component={AuthRouter} />>
             <Route path="/tokens" component={Tokens} />
+            {/* TODO(jorgelo): Better 404 */}
+            <Route path="*" render={() => <h1>404</h1>} />
           </Switch>
         )}
         <WrongNetwork />

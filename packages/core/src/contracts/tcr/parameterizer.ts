@@ -11,12 +11,14 @@ import {
   ParamProp,
   PollID,
   ParamPropChallengeData,
+  UserChallengeData,
 } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { CivilParameterizerContract } from "../generated/wrappers/civil_parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
+import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 
 const debug = Debug("civil:tcr");
 
@@ -50,16 +52,18 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Parameterizer(ethApi, instance);
+    return new Parameterizer(ethApi, instance, await Voting.singleton(ethApi));
   }
 
-  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Parameterizer {
+  public static async atUntrusted(web3wrapper: EthApi, address: EthAddress): Promise<Parameterizer> {
     const instance = CivilParameterizerContract.atUntrusted(web3wrapper, address);
-    return new Parameterizer(web3wrapper, instance);
+    return new Parameterizer(web3wrapper, instance, await Voting.singleton(web3wrapper));
   }
 
-  private constructor(ethApi: EthApi, instance: CivilParameterizerContract) {
+  private voting: Voting;
+  private constructor(ethApi: EthApi, instance: CivilParameterizerContract, voting: Voting) {
     super(ethApi, instance);
+    this.voting = voting;
   }
 
   /**
@@ -501,5 +505,81 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
   public async getPropValue(propID: string): Promise<BigNumber> {
     const [, , , , , , value] = await this.instance.proposals.callAsync(propID);
     return value;
+  }
+
+  public async getUserProposalChallengeData(propChallengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
+    let didUserCommit;
+    let didUserReveal;
+    let didUserCollect;
+    let didUserRescue = false;
+    let didCollectAmount;
+    let isVoterWinner;
+    let salt;
+    let numTokens;
+    let choice;
+    let voterReward;
+    const [, , resolved] = await this.instance.challenges.callAsync(propChallengeID);
+    const pollData = await this.voting.getPoll(propChallengeID);
+    let canUserReveal;
+    let canUserRescue;
+    let canUserCollect;
+    if (user) {
+      didUserCommit = await this.voting.didCommitVote(user, propChallengeID);
+      if (didUserCommit) {
+        didUserReveal = await this.voting.didRevealVote(user, propChallengeID);
+        if (resolved) {
+          if (didUserReveal) {
+            const reveal = await this.voting.getRevealedVoteEvent(propChallengeID, user);
+            salt = reveal!.args.salt;
+            numTokens = reveal!.args.numTokens;
+            choice = reveal!.args.choice;
+            didUserCollect = await this.instance.tokenClaims.callAsync(propChallengeID, user);
+            isVoterWinner = await this.voting.isVoterWinner(propChallengeID, user);
+            canUserCollect = isVoterWinner && !didUserCollect;
+          } else {
+            didUserRescue =
+              !(await this.voting.canRescueTokens(user, propChallengeID)) &&
+              !(await isInCommitStage(pollData)) &&
+              !(await isInRevealStage(pollData));
+          }
+        } else {
+          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
+        }
+        canUserRescue =
+          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+      }
+    }
+
+    if (didUserCollect) {
+      didCollectAmount = await this.getRewardClaimed(propChallengeID, user);
+    }
+
+    if (isVoterWinner && !didUserCollect) {
+      voterReward = await this.voterReward(propChallengeID, salt as BigNumber, user);
+    }
+
+    return {
+      didUserCommit,
+      didUserReveal,
+      canUserReveal,
+      didUserCollect,
+      canUserCollect,
+      didUserRescue,
+      canUserRescue,
+      didCollectAmount,
+      isVoterWinner,
+      salt,
+      numTokens,
+      choice,
+      voterReward,
+    };
+  }
+
+  public async getRewardClaimed(challengeID: BigNumber, user: EthAddress): Promise<BigNumber> {
+    const reward = await this.instance
+      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      .first()
+      .toPromise();
+    return reward.args.reward;
   }
 }

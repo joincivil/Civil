@@ -83,3 +83,18 @@ export async function ethereumEnable(): Promise<boolean | EthAddress[]> {
     return true;
   }
 }
+
+export function isWalletOnboarded(
+  civilInstantiated: boolean,
+  metamaskWalletAddress?: EthAddress,
+  profileWalletAddress?: EthAddress,
+  wrongNetwork?: boolean,
+): boolean {
+  // We don't need to check if MM is enabled here, nor do we have to check if hasInjectedProvider, because if either of these are not the case then we won't have metamaskWalletAddress
+  return !!(
+    civilInstantiated &&
+    !!metamaskWalletAddress &&
+    !wrongNetwork &&
+    metamaskWalletAddress === profileWalletAddress
+  );
+}

@@ -2,8 +2,14 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import { Link } from "react-router-dom";
-import { AuthTextFooter } from "./AuthTextComponents";
+import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import {
+  AuthTextFooter,
+  AuthTextVerifyTokenConfirmed,
+  AuthTextVerifyTokenVerifying,
+  AuthTextVerifyTokenError,
+} from "./AuthTextComponents";
+import { Button, buttonSizes } from "../..";
 
 export const CheckboxContainer = styled.ul`
   list-style: none;
@@ -30,9 +36,14 @@ export const ConfirmButtonContainer = styled.div`
 export const CheckEmailLetterIcon = styled.div`
   width: 108px;
   height: 108px;
+  background-position: center center;
   background-image: url(${checkEmailImage});
   background-size: cover;
   margin: 30px 0;
+`;
+
+export const ConfirmedEmailLetterIcon = styled(CheckEmailLetterIcon)`
+  background-image: url(${confirmedEmailImage});
 `;
 
 export const CenterWrapper: React.SFC = ({ children }) => (
@@ -98,14 +109,40 @@ export const BenefitsLink = styled(AuthPageFooterLink)`
   padding: 0;
 `;
 
-export const AuthFooterTerms = () => (
+export const AuthFooterTerms: React.SFC = () => (
   <AuthFooterContainer>
     <AuthTextFooter />
     <BenefitsLink>
-      {/* // TODO(jorgelo): Confirm this is the final link */}
-      <Link to={"https://civil.co/become-a-member"} target="_new">
+      {/* // TODO(jorgelo): Confirm this is the final link and move this to src/helpers/config.ts */}
+      <a href={"https://civil.co/become-a-member"} target="_blank">
         Read more about those benefits.
-      </Link>
+      </a>
     </BenefitsLink>
   </AuthFooterContainer>
 );
+
+export interface AuthEmailVerifyProps {
+  hasVerified: boolean;
+  errorMessage: string | undefined;
+  onAuthenticationContinue(): void;
+}
+
+export const AuthEmailVerify = ({ hasVerified, errorMessage, onAuthenticationContinue }: AuthEmailVerifyProps) => {
+  if (errorMessage) {
+    return <AuthTextVerifyTokenError errorMessage={errorMessage} />;
+  }
+
+  return (
+    <>
+      {hasVerified ? <AuthTextVerifyTokenConfirmed /> : <AuthTextVerifyTokenVerifying />}
+      <CenterWrapper>
+        <ConfirmedEmailLetterIcon />
+      </CenterWrapper>
+      <CenterWrapper>
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={onAuthenticationContinue}>
+          Continue
+        </Button>
+      </CenterWrapper>
+    </>
+  );
+};

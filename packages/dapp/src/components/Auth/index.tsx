@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { AuthenticatedRoute } from "@joincivil/components";
-import { AuthHome } from "./Home";
-import { AuthEth } from "./Eth";
+import { AuthEthConnected } from "./Eth";
 import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
@@ -21,13 +20,21 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     const routeProps = {
       redirectTo: TOKEN_HOME,
-      ethSignupPath: WALLET_HOME,
+      signupUrl: "/auth/signup",
     };
 
     return (
       <>
         <Switch>
+          {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
+
+          {/* Add Wallet */}
+          <AuthenticatedRoute
+            path={WALLET_HOME}
+            {...routeProps}
+            render={() => <AuthEthConnected onAuthentication={this.handleOnAddWallet} />}
+          />
           <AuthenticatedRoute
             {...routeProps}
             onlyAllowUnauthenticated
@@ -93,15 +100,9 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                     );
                   }}
                 />
-                {/* Add Wallet */}
-                <Route path={WALLET_HOME} render={() => <AuthEth onAuthentication={this.handleOnAddWallet} />} />
               </>
             )}
           />
-
-          {/* Account Home */}
-          {/* TODO(jorgelo): This is just as a helper, not needed in production. */}
-          <AuthenticatedRoute {...routeProps} path={`${match.path}`} exact={true} render={AuthHome} />
         </Switch>
       </>
     );
