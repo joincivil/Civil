@@ -9,7 +9,7 @@ import {
   ModalContent,
 } from "@joincivil/components";
 
-import { resolveReparameterizationChallenge } from "../../apis/civilTCR";
+import { resolveReparameterizationChallenge, updateGovernmentProposal } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ChallegeProposalResolveProps extends ResolveChallengeProposalComponentProps, ChallengeResultsProps {
@@ -17,6 +17,7 @@ export interface ChallegeProposalResolveProps extends ResolveChallengeProposalCo
   parameterDisplayName: string | JSX.Element;
   parameterCurrentValue: string;
   parameterNewValue: string;
+  isGovtProposal?: boolean;
   handleClose(): void;
 }
 
@@ -111,7 +112,11 @@ class ChallengeProposalResolve extends React.Component<
   };
 
   private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return resolveReparameterizationChallenge(this.props.propID!.toString());
+    if (this.props.isGovtProposal) {
+      return updateGovernmentProposal(this.props.propID.toString());
+    } else {
+      return resolveReparameterizationChallenge(this.props.propID!.toString());
+    }
   };
 }
 
