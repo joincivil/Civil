@@ -16,8 +16,6 @@ export const TutorialSkipText: React.SFC = props => (
   </p>
 );
 
-export const TutorialSkipBtnText: React.SFC = props => <>Take the quiz</>;
-
 export interface TutorialProgressTextProps {
   questions: number;
 }

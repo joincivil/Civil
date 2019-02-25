@@ -46,7 +46,7 @@ export class TutorialWelcomeScreens extends React.Component<TutorialWelcomeScree
       );
     }
 
-    return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={this.props.quizPayload} />;
+    return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={this.props.quizPayload} isQuizStarted={false} />;
   }
 
   private welcomeNext = () => {

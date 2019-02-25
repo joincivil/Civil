@@ -21,7 +21,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
     const environment = getAirswapEnv(this.props.network);
     const tokenAddress = getAirswapCvlAddress(this.props.network);
     const buyFromAddress = this.props.buyFromAddress || "";
-    const cvlAmount = this.props.cvlAmount || "";
+    const cvlAmount = this.props.cvlAmount || "0";
 
     // @ts-ignore
     window.AirSwap.Trader.render(

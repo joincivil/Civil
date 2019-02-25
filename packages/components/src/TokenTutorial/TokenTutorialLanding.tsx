@@ -16,7 +16,6 @@ import {
   TutorialIntroText,
   TutorialTimeText,
   TutorialSkipText,
-  TutorialSkipBtnText,
   TutorialProgressText,
 } from "./TokenTutorialTextComponents";
 import { TokenTutorialQuiz } from "./TokenTutorialQuiz";
@@ -25,6 +24,7 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialLandingProps {
+  isQuizStarted: boolean;
   quizPayload: {};
   handleClose(): void;
 }
@@ -69,7 +69,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         <TutorialSkipSection>
           <TutorialSkipText />
           <TakeQuizBtn onClick={() => this.skipTutorial()}>
-            <TutorialSkipBtnText />
+            {this.props.isQuizStarted ? "Continue" : "Take the quiz"}
           </TakeQuizBtn>
         </TutorialSkipSection>
 
@@ -78,8 +78,6 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
           // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
           // TODO(jorgelo): lastSlideIdx is the last slide that was completed correctly. Should we jump the user to that last slide?
-
-          console.log("For topic" + topic.name, { isComplete, lastSlideIdx });
 
           return (
             <TutorialTopic key={idx}>
