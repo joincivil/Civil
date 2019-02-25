@@ -44,7 +44,17 @@ export interface MainReduxProps {
   network: string;
 }
 
-class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>> {
+export interface MainState {
+  prevAccount: EthAddress;
+}
+
+class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>, MainState> {
+  constructor(props: MainReduxProps & DispatchProp<any> & RouteComponentProps<any>) {
+    super(props);
+    this.state = {
+      prevAccount: "",
+    };
+  }
   public async componentDidMount(): Promise<void> {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = getCivil();
@@ -84,8 +94,9 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
   };
 
   public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
-    if (account) {
+    if (account && account !== this.state.prevAccount) {
       try {
+        this.setState({ prevAccount: account });
         const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const voting = await tcr.getVoting();
