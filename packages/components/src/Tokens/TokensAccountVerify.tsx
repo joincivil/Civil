@@ -54,30 +54,26 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
             <TokenQuizSectionText />
             <Query query={getCurrentUserQuery}>
               {({ loading, error, data }) => {
-                if (loading) {
-                  return <></>;
+                if (loading || error) {
+                  return (
+                    <TokenBtns onClick={handleOpen}>
+                      <TokenQuizBtnText />
+                    </TokenBtns>
+                  );
                 }
 
                 const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
                 const isQuizStarted = this.isQuizStarted(quizPayload);
 
-                return (
-                  <>
-                    <TokenBtns onClick={handleOpen}>{isQuizStarted ? "Continue" : <TokenQuizBtnText />}</TokenBtns>
-                    <FullScreenModal open={open || false} solidBackground={true}>
-                      <CloseBtn onClick={handleClose}>
-                        <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
-                      </CloseBtn>
-                      <TokenTutorial
-                        handleClose={handleClose}
-                        quizPayload={quizPayload}
-                        isQuizStarted={isQuizStarted}
-                      />
-                    </FullScreenModal>
-                  </>
-                );
+                return <TokenBtns onClick={handleOpen}>{isQuizStarted ? "Continue" : <TokenQuizBtnText />}</TokenBtns>;
               }}
             </Query>
+            <FullScreenModal open={open || false} solidBackground={true}>
+              <CloseBtn onClick={handleClose}>
+                <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+              </CloseBtn>
+              <TokenTutorial handleClose={handleClose} />
+            </FullScreenModal>
           </UserTokenAccountRequirement>
         </FlexColumnsPrimaryModule>
       );
@@ -86,7 +82,7 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
     return <></>;
   }
 
-  private isQuizStarted = (quizPayload: any) => {
+  private isQuizStarted = (quizPayload: {}) => {
     if (Object.keys(quizPayload).length > 0) {
       return true;
     }

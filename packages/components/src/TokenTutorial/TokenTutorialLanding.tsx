@@ -24,7 +24,6 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialLandingProps {
-  isQuizStarted: boolean;
   quizPayload: {};
   handleClose(): void;
 }
@@ -68,9 +67,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
         <TutorialSkipSection>
           <TutorialSkipText />
-          <TakeQuizBtn onClick={() => this.skipTutorial()}>
-            {this.props.isQuizStarted ? "Continue" : "Take the quiz"}
-          </TakeQuizBtn>
+          <TakeQuizBtn onClick={() => this.skipTutorial()}>Take the quiz</TakeQuizBtn>
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {

@@ -1,19 +1,38 @@
 import * as React from "react";
 import { TutorialWelcomeScreens } from "./TutorialWelcomeScreens";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
+import { getCurrentUserQuery } from "@joincivil/utils";
+import { Query } from "react-apollo";
 
 export interface TokenTutorialProps {
-  isQuizStarted: boolean;
-  quizPayload: {};
   handleClose(): void;
 }
 
-export const TokenTutorial: React.StatelessComponent<TokenTutorialProps> = props => {
-  if (props.isQuizStarted) {
+export class TokenTutorial extends React.Component<TokenTutorialProps> {
+  public render(): JSX.Element {
     return (
-      <TokenTutorialLanding handleClose={props.handleClose} quizPayload={props.quizPayload} isQuizStarted={true} />
+      <Query query={getCurrentUserQuery}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return <></>;
+          }
+
+          const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
+
+          if (this.isQuizStarted(quizPayload)) {
+            return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={quizPayload} />;
+          }
+
+          return <TutorialWelcomeScreens handleClose={this.props.handleClose} quizPayload={quizPayload} />;
+        }}
+      </Query>
     );
   }
 
-  return <TutorialWelcomeScreens handleClose={props.handleClose} quizPayload={props.quizPayload} />;
-};
+  private isQuizStarted = (quizPayload: {}) => {
+    if (Object.keys(quizPayload).length > 0) {
+      return true;
+    }
+    return false;
+  };
+}
