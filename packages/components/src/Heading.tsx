@@ -90,6 +90,7 @@ export const PageHeadingTextCentered = styled.div`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-size: 14px;
   line-height: 25px;
+  font-family: ${props => props.theme.sansSerifFont};
 `;
 
 export const PageHeadingTextCenteredLarge = styled(PageHeadingTextCentered)`
