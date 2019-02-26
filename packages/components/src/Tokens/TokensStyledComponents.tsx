@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
 import { TOKEN_PROGRESS } from "./Tokens";
+import { TabComponentProps } from "../Tabs";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -466,4 +467,33 @@ export const TokenUnlock = styled.div`
     border-radius: 2px;
     padding: 16px 40px;
   }
+`;
+
+export const TokenBuySellTab = styled.li`
+  background-color: ${(props: TabComponentProps) => (props.isActive ? "transparent" : colors.accent.CIVIL_GRAY_4)};
+  border-top: 1px solid ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : "transparent")};
+  color: ${colors.primary.CIVIL_GRAY_1};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.12px;
+  line-height: 33px;
+  padding: 20px 0;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 500ms;
+  width: 50%;
+
+  ${mediaQueries.HOVER} {
+    &:hover {
+      border-color: ${(props: TabComponentProps) =>
+        props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_3};
+    }
+  }
+`;
+
+export const TokenBuySellTabsNav = styled.div`
+  height: 80px;
+  margin: -31px 0 50px;
 `;

@@ -10,6 +10,8 @@ import {
   TokenExchangeSection,
   TokenThanksPurchase,
   TokenUnlock,
+  TokenBuySellTab,
+  TokenBuySellTabsNav,
 } from "./TokensStyledComponents";
 import {
   TokenBuyText,
@@ -27,6 +29,7 @@ import {
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 import { TOKEN_PROGRESS } from "./Tokens";
+import { Tabs, Tab } from "../Tabs";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
@@ -52,19 +55,17 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
 
     if (step === TOKEN_PROGRESS.DISABLED) {
       tokenSection = (
-        <FlexColumnsPrimaryModule padding={true}>
-          <TokenBuySection>
-            <TokenBuyTextDisabled />
-            <TokenBtns disabled={true}>
-              <TokenBuyBtnDisabledText />
-            </TokenBtns>
-          </TokenBuySection>
-        </FlexColumnsPrimaryModule>
+        <TokenBuySection>
+          <TokenBuyTextDisabled />
+          <TokenBtns disabled={true}>
+            <TokenBuyBtnDisabledText />
+          </TokenBtns>
+        </TokenBuySection>
       );
     } else if (step === TOKEN_PROGRESS.ACTIVE) {
       tokenSection = (
-        <>
-          <FlexColumnsPrimaryModule padding={true}>
+        <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
+          <Tab title="Buy">
             <TokenBuySection>
               <TokenBuyIntro>
                 <TokenBuyText />
@@ -92,13 +93,16 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
                 </TokenExchangeSection>
               </TokenAirswapSection>
             </TokenBuySection>
-          </FlexColumnsPrimaryModule>
-        </>
+          </Tab>
+          <Tab title="Sell">
+            <TokenBuySection>Sell CVL! TKTK</TokenBuySection>
+          </Tab>
+        </Tabs>
       );
     } else {
       tokenSection = (
-        <>
-          <FlexColumnsPrimaryModule padding={true}>
+        <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
+          <Tab title="Buy">
             <TokenBuySection>
               <TokenThanksPurchase>
                 <TokenThanksText faqUrl={faqUrl} />
@@ -110,12 +114,15 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
                 </TokenBtnsInverted>
               </TokenUnlock>
             </TokenBuySection>
-          </FlexColumnsPrimaryModule>
-        </>
+          </Tab>
+          <Tab title="Sell">
+            <TokenBuySection>Sell CVL! TKTK</TokenBuySection>
+          </Tab>
+        </Tabs>
       );
     }
 
-    return tokenSection;
+    return <FlexColumnsPrimaryModule padding={true}>{tokenSection}</FlexColumnsPrimaryModule>;
   }
 
   private onBuyComplete = () => {
