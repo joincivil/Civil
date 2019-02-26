@@ -5,9 +5,14 @@ import { colors } from "../styleConstants";
 
 // Signup/Connect wallet section
 
-export const TokenWelcomeText: React.SFC = props => <>Hello and welcome!</>;
+export const TokenWelcomeHeaderText: React.SFC = props => (
+  <>
+    <h2>Hello and welcome!</h2>
+    <p>Let’s get you set up to use, buy and send CVL tokens.</p>
+  </>
+);
 
-export const TokenSetupText: React.SFC = props => <>Let’s get you set up to use, buy and send CVL tokens.</>;
+export const TokenBuySellHeaderText: React.SFC = props => <h2>Buy or Sell Civil Tokens</h2>;
 
 export const TokenConnectWalletText: React.SFC = props => (
   <>

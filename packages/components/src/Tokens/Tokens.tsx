@@ -5,8 +5,9 @@ import {
   FlexColumns,
   FlexColumnsPrimary,
   FlexColumnsSecondary,
+  TokenHeader,
 } from "./TokensStyledComponents";
-import { UserTokenAccountHeader } from "./TokensAccountHeader";
+import { TokenWelcomeHeaderText, TokenBuySellHeaderText } from "./TokensTextComponents";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
@@ -67,7 +68,6 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
     const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
     const tutorialState = this.getTutorialState(loggedInState, tutorialComplete);
-    // const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
 
     let buyState;
     if (isBuyComplete) {
@@ -81,7 +81,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     return (
       <TokenAccountOuter>
         <TokenAccountInner>
-          <UserTokenAccountHeader />
+          <TokenHeader>
+            {buyState === TOKEN_PROGRESS.ACTIVE ? <TokenBuySellHeaderText /> : <TokenWelcomeHeaderText />}
+          </TokenHeader>
 
           <FlexColumns>
             <FlexColumnsPrimary>

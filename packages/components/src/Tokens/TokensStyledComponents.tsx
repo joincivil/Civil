@@ -101,25 +101,23 @@ export const FlexColumnsSecondaryModule = styled.div`
   }
 `;
 
-export const TokenHeaderOuter = styled.div`
+export const TokenHeader = styled.div`
+  color: ${colors.primary.BLACK};
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 30px 40px;
   text-align: center;
-  width: 100%;
-`;
 
-export const TokenHeader = styled.h2`
-  color: ${colors.primary.BLACK};
-  font-size: 27px;
-  line-height: 39px;
-  margin-bottom: 25px;
-`;
+  h2 {
+    font-size: 27px;
+    line-height: 39px;
+    margin-bottom: 25px;
+  }
 
-export const TokenSetup = styled.p`
-  color: ${colors.primary.BLACK};
-  font-size: 24px;
-  line-height: 29px;
-  margin-bottom: 60px;
+  p {
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 60px;
+  }
 `;
 
 export const TokenAccountSectionHeader = styled.div`
