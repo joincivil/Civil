@@ -419,6 +419,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       <ChallengeContainer
         propID={this.state.challengeProposalID!}
         challengeID={this.state.proposal!.challenge.id}
+        parameterName={this.state.proposal!.paramName}
         parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
         parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
         parameterProposalValue={this.state.challengeProposalNewValue!}

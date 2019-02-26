@@ -25,6 +25,7 @@ export interface ChallengeDetailContainerProps {
   parameterCurrentValue: string;
   parameterProposalValue: string;
   showNotFoundMessage?: boolean;
+  parameterName: string;
   handleClose(): void;
 }
 
@@ -39,6 +40,7 @@ export interface ChallengeContainerReduxProps {
   parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
+  isGovtProposal?: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -56,6 +58,7 @@ export interface ChallengeDetailProps {
   balance?: BigNumber;
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
+  isGovtProposal?: boolean;
   handleClose(): void;
 }
 
@@ -233,6 +236,7 @@ class ChallengeContainer extends React.Component<
         votingBalance={this.props.votingBalance}
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
+        isGovtProposal={this.props.isGovtProposal}
       />
     );
   }
@@ -259,6 +263,7 @@ const makeMapStateToProps = () => {
     const userAcct = user.account;
     const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
+    const isGovtProposal = govtParameters[ownProps.parameterName] !== undefined;
     if (challengeID && userAcct) {
       const challengeUserDataMap = proposalChallengeUserData.get(challengeID!.toString());
       if (challengeUserDataMap) {
@@ -276,6 +281,7 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       isMemberOfAppellate,
+      isGovtProposal,
       ...ownProps,
     };
   };

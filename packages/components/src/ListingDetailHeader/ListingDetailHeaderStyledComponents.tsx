@@ -2,7 +2,12 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { DarkButton } from "../Button";
+import { Button, DarkButton, ButtonProps } from "../Button";
+import {
+  StyledDisplayName,
+  StyledEthAddressContainer,
+  StyledEthAddress,
+} from "../EthAddressViewer/StyledEthAddressViewer";
 
 export const ListingDetailOuter = styled.div`
   background: ${colors.primary.BLACK};
@@ -17,19 +22,6 @@ export const StyledListingDetailHeader = styled.div`
 
   ${mediaQueries.MOBILE} {
     padding: 30px 20px 42px;
-  }
-
-  & ${DarkButton} {
-    border: 1px solid ${colors.accent.CIVIL_GRAY_1};
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: 0.2px;
-    line-height: 14px;
-    padding: 15px 21px;
-
-    svg {
-      margin: 0 0 -2px 3px;
-    }
   }
 `;
 
@@ -53,67 +45,102 @@ export const StyledNewsroomLogo = styled.img`
   background: ${colors.basic.WHITE};
 `;
 
-export const StyledEthereumInfoToggle = styled.div`
-  color: ${colors.basic.WHITE};
+export const StyledEthereumInfoToggle: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+  background: ${colors.accent.CIVIL_GRAY_0};
+  color: ${colors.accent.CIVIL_GRAY_4};
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
+  letter-spacing: normal;
   line-height: 15px;
-  text-transform: uppercase;
+  padding: 4px 12px;
+  margin: 0 0 14px;
 `;
 
-export interface ExpandArrowProps {
-  isOpen?: boolean;
-}
+export const StyledListingURLButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  line-height: 14px;
+  padding: 15px 21px;
 
-export const StyledEthereumInfo: StyledComponentClass<ExpandArrowProps, "dl"> = styled<ExpandArrowProps, "dl">("dl")`
-  height: ${props => (!props.isOpen ? "0px" : "auto")};
-  margin: 0 0 20px;
-  max-width: 680px;
-  overflow: hidden;
-  transition: height 0.25s;
-`;
-
-export const ExpandArrow: StyledComponentClass<ExpandArrowProps, "div"> = styled<ExpandArrowProps, "div">("div")`
-  display: inline-block;
-  border-bottom: 2px solid ${colors.basic.WHITE};
-  border-left: 2px solid ${colors.basic.WHITE};
-  height: 8px;
-  margin-left: 6px;
-  transform: ${props => (props.isOpen ? "rotate(135deg)" : "rotate(-45deg)")};
-  transition: transform 0.25s;
-  width: 8px;
-`;
-
-export const StyledEthereumTerm = styled.dt`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  display: inline-block;
-  font-size: 14px;
-  line-height: 17px;
-  padding: 10px 0;
-  width: 23%;
-
-  ${mediaQueries.MOBILE} {
-    padding: 10px 0 78px;
-    vertical-align: top;
-    width: 44%;
+  svg {
+    margin: 0 0 -2px 3px;
   }
 `;
 
-export const StyledEthereumValue = styled.dd`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  display: inline-block;
-  font-family: ${fonts.MONOSPACE};
-  font-size: 15px;
-  letter-spacing: -0.11px;
-  line-height: 22px;
-  margin: 0;
-  padding: 0 0 10px;
-  width: 77%;
+export const StyledModalHeader = styled.div`
+  color: ${colors.primary.BLACK};
+  display: flex;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  line-height: 24px;
+  justify-content: space-between;
+`;
+
+export const StyledCloseModal = styled.span`
+  cursor: pointer;
+  margin-top: -10px;
+`;
+
+export const StyledEthereumInfoModalInner = styled.div`
+  display: flex;
+
+  & ~ & {
+    border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    padding-top: 26px;
+  }
+
+  & > div {
+    width: 48%;
+  }
 
   ${mediaQueries.MOBILE} {
-    padding: 10px 0;
-    width: 46%;
+    display: block;
+
+    & > div {
+      width: 100%;
+    }
+  }
+
+  ${StyledDisplayName} {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 26px;
+  }
+
+  ${StyledEthAddressContainer} {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  ${StyledEthAddress} {
+    margin: 0 0 17px;
+    width: 100%;
+  }
+
+  ${Button} {
+    margin: 0 12px 0 0;
+    padding: 16px 0;
+    width: 133px;
+  }
+`;
+
+export const StyledEthereumAddressDescription = styled.div`
+  font-size: 14px;
+  font-family: ${fonts.SANS_SERIF};
+  line-height: 22px;
+  margin-left: 28px;
+  padding-top: 28px;
+
+  p {
+    margin: 0 0 14px;
+  }
+
+  ${mediaQueries.MOBILE} {
+    margin-left: 0;
   }
 `;
 
