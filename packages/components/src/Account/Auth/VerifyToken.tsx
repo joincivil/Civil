@@ -27,6 +27,7 @@ const verifyLoginTokenMutation = gql`
 export interface AccountVerifyTokenProps {
   isNewUser: boolean;
   token: string;
+  ethAuthNextExt?: boolean;
   onAuthenticationContinue(isNewUser: boolean): void;
 }
 
@@ -82,12 +83,13 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
 
   public render(): JSX.Element {
     const { hasVerified, errorMessage } = this.state;
-    const { onAuthenticationContinue, isNewUser } = this.props;
+    const { onAuthenticationContinue, isNewUser, ethAuthNextExt } = this.props;
 
     return (
       <AuthEmailVerify
         hasVerified={hasVerified}
         errorMessage={errorMessage}
+        ethAuthNextExt={ethAuthNextExt}
         onAuthenticationContinue={() => onAuthenticationContinue(isNewUser)}
       />
     );
