@@ -63,9 +63,12 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
                 }
 
                 const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
-                const isQuizStarted = this.isQuizStarted(quizPayload);
 
-                return <TokenBtns onClick={handleOpen}>{isQuizStarted ? "Continue" : <TokenQuizBtnText />}</TokenBtns>;
+                return (
+                  <TokenBtns onClick={handleOpen}>
+                    {this.isQuizStarted(quizPayload) ? "Continue" : <TokenQuizBtnText />}
+                  </TokenBtns>
+                );
               }}
             </Query>
             <FullScreenModal open={open || false} solidBackground={true}>
