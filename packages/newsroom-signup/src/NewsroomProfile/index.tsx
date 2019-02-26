@@ -29,7 +29,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   constructor(props: NewsroomProfileProps) {
     super(props);
     this.state = {
-      currentStep: 4,
+      currentStep: 0,
     };
   }
   public getDisabled(index: number): () => boolean {
