@@ -22,7 +22,7 @@ injectGlobal`
 
 console.log("using config:", config);
 
-const client = getApolloClient({});
+const client = getApolloClient();
 
 export const App = (): JSX.Element => {
   return (

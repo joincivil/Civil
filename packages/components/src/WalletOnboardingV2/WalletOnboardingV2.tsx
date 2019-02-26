@@ -1,6 +1,7 @@
 import * as React from "react";
+import gql from "graphql-tag";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ethereumEnable, isWalletOnboarded } from "@joincivil/utils";
+import { ethereumEnable, isWalletOnboarded, getApolloClient } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -28,6 +29,7 @@ import {
   OBNoteContainer,
   OBNoteHeading,
   OBNoteText,
+  AuthApplicationEnum,
 } from "../";
 import { AccountEthAuth } from "../Account/";
 import styled from "styled-components";
@@ -40,6 +42,7 @@ export interface WalletOnboardingV2Props {
   profileWalletAddress?: EthAddress;
   helpUrl?: string;
   helpUrlBase?: string;
+  authApplicationType?: AuthApplicationEnum;
   onOnboardingComplete?(): void;
 }
 
@@ -48,6 +51,12 @@ export interface WalletOnboardingV2State {
   showWalletConnected?: boolean;
   onboarded?: boolean;
 }
+
+const sendNewsroomWelcomeEmailMutation = gql`
+  mutation sendNewsroomWelcomeMutation {
+    nrsignupSendWelcomeEmail
+  }
+`;
 
 const Wrapper = styled.div`
   text-align: center;
@@ -357,7 +366,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <InstructionsButtonWrap>
               <AccountEthAuth
                 civil={this.props.civil!}
-                onAuthenticated={() => this.setState({ showWalletConnected: true })}
+                onAuthenticated={async () => this.ethAddressSaved(true)}
                 buttonOnly={true}
               />
             </InstructionsButtonWrap>
@@ -388,7 +397,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <InstructionsButtonWrap>
               <AccountEthAuth
                 civil={this.props.civil!}
-                onAuthenticated={() => this.setState({ showWalletConnected: true })}
+                onAuthenticated={async () => this.ethAddressSaved()}
                 buttonOnly={true}
                 buttonText={"Update Profile"}
               />
@@ -527,6 +536,22 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         </GetMetaMaskMoreHelp>
       </>
     );
+  };
+
+  private ethAddressSaved = async (firstAddressSave?: boolean) => {
+    this.setState({ showWalletConnected: true });
+
+    if (firstAddressSave && this.props.authApplicationType === AuthApplicationEnum.NEWSROOM) {
+      const client = getApolloClient();
+
+      const { error } = await client.mutate({
+        mutation: sendNewsroomWelcomeEmailMutation,
+      });
+
+      if (error) {
+        console.error("Failed to send welcome email:", error);
+      }
+    }
   };
 
   private onboardingComplete = () => {
