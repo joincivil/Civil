@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from "react-router-redux";
+import { LOCATION_CHANGE } from "connected-react-router";
 import { createMiddleware } from "redux-beacon";
 import GoogleAnalytics, { trackPageView } from "@redux-beacon/google-analytics";
 
