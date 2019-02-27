@@ -2,12 +2,16 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { App } from "./App";
 import { createStore, applyMiddleware } from "redux";
-import reducers from "./redux/reducers";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { gaMiddleware } from "./redux/analytics";
+import { createBrowserHistory } from "history";
+import { routerMiddleware } from "connected-react-router";
+import createRootReducer from "./redux/reducers";
 
-const store = createStore(reducers, applyMiddleware(thunk, gaMiddleware));
+export const history = createBrowserHistory();
+
+const store = createStore(createRootReducer(history), applyMiddleware(routerMiddleware(history), thunk, gaMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>
