@@ -45,12 +45,12 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
   if (step === TOKEN_PROGRESS.DISABLED) {
     tokenSection = (
-        <TokenBuySection>
-          <TokenBuyTextDisabled />
-          <TokenBtns disabled={true}>
-            <TokenBuyBtnDisabledText />
-          </TokenBtns>
-        </TokenBuySection>
+      <TokenBuySection>
+        <TokenBuyTextDisabled />
+        <TokenBtns disabled={true}>
+          <TokenBuyBtnDisabledText />
+        </TokenBtns>
+      </TokenBuySection>
     );
   } else if (step === TOKEN_PROGRESS.ACTIVE) {
     tokenSection = (
