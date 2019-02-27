@@ -48,7 +48,7 @@ export function getDefaultFromBlock(network: number): number {
   // first Newsroom contract on that network
   const defaultFromBlocks: { [index: string]: number } = {
     1: 6904575,
-    4: 2848355,
+    4: 3689706,
     50: 0,
   };
   return defaultFromBlocks[network.toString()] || 0;

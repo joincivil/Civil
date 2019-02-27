@@ -1,7 +1,7 @@
 import { StorageHeader } from "../types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
-import * as IPFS from "ipfs-api";
+import * as IPFS from "ipfs-http-client";
 import { hashContent, promisify } from "@joincivil/utils";
 
 const ipfs = new IPFS({ host: "ipfs.infura.io", port: 5001, protocol: "https" });
