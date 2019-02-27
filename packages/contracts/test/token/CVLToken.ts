@@ -76,6 +76,4 @@ contract("CVLToken", accounts => {
     const account6Balance = await token.balanceOf.call(accounts[6]);
     expect(account6Balance.toNumber()).to.eql(100);
   });
-
-  it("should allow a user to send tokens to their multisig");
 });
