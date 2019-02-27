@@ -216,9 +216,8 @@ export const TokenBuySection = styled.div`
 
   p {
     color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 18px;
-    letter-spacing: -0.12px;
-    line-height: 33px;
+    font-size: 16px;
+    line-height: 24px;
     margin: 0 0 15px;
   }
 

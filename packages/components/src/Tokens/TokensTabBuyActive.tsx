@@ -11,13 +11,13 @@ import {
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
 
-export interface TokensBuyTabProps {
+export interface TokensTabBuyActiveProps {
   foundationAddress: string;
   network: string;
   onBuyComplete(): void;
 }
 
-export const TokensTabBuyActive: React.StatelessComponent<TokensBuyTabProps> = props => {
+export const TokensTabBuyActive: React.StatelessComponent<TokensTabBuyActiveProps> = props => {
   const { foundationAddress, network, onBuyComplete } = props;
 
   return (

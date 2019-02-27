@@ -3,11 +3,11 @@ import { TokenThanksPurchase } from "./TokensStyledComponents";
 import { TokenThanksText } from "./TokensTextComponents";
 import { TokensUnlockMessage } from "./TokensUnlockMessage";
 
-export interface TokensBuyTabProps {
+export interface TokensTabBuyCompleteProps {
   faqUrl: string;
 }
 
-export const TokensTabBuyComplete: React.StatelessComponent<TokensBuyTabProps> = props => {
+export const TokensTabBuyComplete: React.StatelessComponent<TokensTabBuyCompleteProps> = props => {
   const { faqUrl } = props;
 
   return (
