@@ -5,20 +5,19 @@ import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
 
 export interface TokensSellTabProps {
   foundationAddress: string;
-  faqUrl: string;
   network: string;
   step: string;
   onSellComplete(): void;
 }
 
 export const TokensSellTab: React.StatelessComponent<TokensSellTabProps> = props => {
-  const { faqUrl, step, onSellComplete } = props;
+  const { network, step, onSellComplete } = props;
 
   if (step === "unlock") {
-    return <TokensTabSellUnlock faqUrl={faqUrl} />;
+    return <TokensTabSellUnlock />;
   } else if (step === "completed") {
     return <TokensTabSellComplete />;
   }
 
-  return <TokensTabSellActive onSellComplete={onSellComplete} />;
+  return <TokensTabSellActive network={network} onSellComplete={onSellComplete} />;
 };

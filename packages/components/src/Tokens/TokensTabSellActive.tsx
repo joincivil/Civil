@@ -4,11 +4,12 @@ import { TokenSellInstructionsText, TokenSellAirswapText } from "./TokensTextCom
 import { AirswapSellCVL } from "../Airswap";
 
 export interface TokensTabSellActiveProps {
+  network: string;
   onSellComplete(): void;
 }
 
 export const TokensTabSellActive: React.StatelessComponent<TokensTabSellActiveProps> = props => {
-  const { onSellComplete } = props;
+  const { network, onSellComplete } = props;
 
   return (
     <>
@@ -19,7 +20,7 @@ export const TokensTabSellActive: React.StatelessComponent<TokensTabSellActivePr
       <TokenAirswapSection>
         <TokenSellAirswapText />
         <TokenSellSection>
-          <AirswapSellCVL onComplete={onSellComplete} sellCVLBtnText={"Sell CVL in Airswap"} />
+          <AirswapSellCVL onComplete={onSellComplete} network={network} sellCVLBtnText={"Sell CVL in Airswap"} />
         </TokenSellSection>
       </TokenAirswapSection>
     </>
