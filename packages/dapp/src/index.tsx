@@ -5,8 +5,9 @@ import { createStore, applyMiddleware } from "redux";
 import reducers from "./redux/reducers";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { gaMiddleware } from "./redux/analytics";
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(reducers, applyMiddleware(thunk, gaMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>
