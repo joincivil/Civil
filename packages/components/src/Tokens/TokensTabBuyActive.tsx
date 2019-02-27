@@ -44,7 +44,7 @@ export const TokensTabBuyActive: React.StatelessComponent<TokensBuyTabProps> = p
 
         <TokenExchangeSection>
           <TokenAirswapExchangeText />
-          <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
+          <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} onComplete={onBuyComplete} />
         </TokenExchangeSection>
       </TokenAirswapSection>
     </>
