@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TokenBuySection, TokenThanksPurchase } from "./TokensStyledComponents";
+import { TokenThanksPurchase } from "./TokensStyledComponents";
 import { TokenThanksText } from "./TokensTextComponents";
 import { TokensUnlockMessage } from "./TokensUnlockMessage";
 
@@ -11,11 +11,11 @@ export const TokensTabBuyComplete: React.StatelessComponent<TokensBuyTabProps> =
   const { faqUrl } = props;
 
   return (
-    <TokenBuySection>
+    <>
       <TokenThanksPurchase>
         <TokenThanksText faqUrl={faqUrl} />
       </TokenThanksPurchase>
       <TokensUnlockMessage />
-    </TokenBuySection>
+    </>
   );
 };

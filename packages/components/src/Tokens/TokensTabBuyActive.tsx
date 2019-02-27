@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
-  TokenBuySection,
-  TokenBuyIntro,
-  TokenAirswapSection,
-  TokenOrBreak,
-  TokenExchangeSection,
-} from "./TokensStyledComponents";
+import { TokenBuyIntro, TokenAirswapSection, TokenOrBreak, TokenExchangeSection } from "./TokensStyledComponents";
 import {
   TokenBuyText,
   TokenAirswapFoundationText,
@@ -27,7 +21,7 @@ export const TokensTabBuyActive: React.StatelessComponent<TokensBuyTabProps> = p
   const { foundationAddress, network, onBuyComplete } = props;
 
   return (
-    <TokenBuySection>
+    <>
       <TokenBuyIntro>
         <TokenBuyText />
       </TokenBuyIntro>
@@ -53,6 +47,6 @@ export const TokensTabBuyActive: React.StatelessComponent<TokensBuyTabProps> = p
           <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
         </TokenExchangeSection>
       </TokenAirswapSection>
-    </TokenBuySection>
+    </>
   );
 };

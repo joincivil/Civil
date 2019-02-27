@@ -1,5 +1,6 @@
 import * as React from "react";
-import { TokenBuySection } from "./TokensStyledComponents";
+import { TokenBuyIntro, TokenAirswapSection, TokenSellSection } from "./TokensStyledComponents";
+import { TokenSellInstructionsText, TokenSellAirswapText } from "./TokensTextComponents";
 import { AirswapSellCVL } from "../Airswap";
 
 export interface TokensTabSellActiveProps {
@@ -10,8 +11,17 @@ export const TokensTabSellActive: React.StatelessComponent<TokensTabSellActivePr
   const { onSellComplete } = props;
 
   return (
-    <TokenBuySection>
-      <AirswapSellCVL onComplete={onSellComplete} />
-    </TokenBuySection>
+    <>
+      <TokenBuyIntro>
+        <TokenSellInstructionsText />
+      </TokenBuyIntro>
+
+      <TokenAirswapSection>
+        <TokenSellAirswapText />
+        <TokenSellSection>
+          <AirswapSellCVL onComplete={onSellComplete} sellCVLBtnText={"Sell CVL in Airswap"} />
+        </TokenSellSection>
+      </TokenAirswapSection>
+    </>
   );
 };

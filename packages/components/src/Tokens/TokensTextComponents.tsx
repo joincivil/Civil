@@ -148,6 +148,25 @@ export const TokenThanksText: React.SFC<TokenTextProps> = props => (
   </>
 );
 
+// Sell section
+
+export const TokenSellInstructionsText: React.SFC = props => (
+  <p>
+    To sell Civil tokens (CVL), you must exchange them for Ether (ETH) and then you will be able to sell ETH for USD or
+    local currencies at an exchange like Coinbase. You can’t sell Civil tokens directly for USD or local currencies –
+    currencies need to be converted into ETH first.
+  </p>
+);
+
+export const TokenSellAirswapText: React.SFC = props => <h3>Sell Civil tokens in Airswap</h3>;
+
+export const TokenUnlockSellText: React.SFC = props => (
+  <p>
+    You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible
+    to sell them here.
+  </p>
+);
+
 export const TokenUnlockText: React.SFC = props => (
   <>
     <h4>

@@ -40,10 +40,14 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
     tokenSection = (
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
-          <TokensTabBuyActive foundationAddress={foundationAddress} network={network} onBuyComplete={onBuyComplete} />
+          <TokenBuySection>
+            <TokensTabBuyActive foundationAddress={foundationAddress} network={network} onBuyComplete={onBuyComplete} />
+          </TokenBuySection>
         </Tab>
         <Tab title="Sell">
-          <TokensTabSellActive onSellComplete={onSellComplete} />
+          <TokenBuySection>
+            <TokensTabSellActive onSellComplete={onSellComplete} />
+          </TokenBuySection>
         </Tab>
       </Tabs>
     );
@@ -51,10 +55,14 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
     tokenSection = (
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
-          <TokensTabBuyComplete faqUrl={faqUrl} />
+          <TokenBuySection>
+            <TokensTabBuyComplete faqUrl={faqUrl} />
+          </TokenBuySection>
         </Tab>
         <Tab title="Sell">
-          <TokensTabSellComplete />
+          <TokenBuySection>
+            <TokensTabSellComplete />
+          </TokenBuySection>
         </Tab>
       </Tabs>
     );

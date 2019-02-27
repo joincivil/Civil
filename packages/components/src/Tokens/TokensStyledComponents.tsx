@@ -255,6 +255,15 @@ export const TokenAirswapSection = styled.div`
   }
 `;
 
+export const TokenSellSection = styled.div`
+  margin: 0 auto;
+  max-width: 450px;
+
+  button {
+    margin-top: 50px;
+  }
+`;
+
 export const TokenOrBreak = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   margin: 50px 0;
