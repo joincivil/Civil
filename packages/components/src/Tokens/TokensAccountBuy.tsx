@@ -2,34 +2,17 @@ import * as React from "react";
 import {
   FlexColumnsPrimaryModule,
   TokenBtns,
-  TokenBtnsInverted,
   TokenBuySection,
-  TokenBuyIntro,
-  TokenAirswapSection,
-  TokenOrBreak,
-  TokenExchangeSection,
-  TokenThanksPurchase,
-  TokenUnlock,
   TokenBuySellTab,
   TokenBuySellTabsNav,
 } from "./TokensStyledComponents";
-import {
-  TokenBuyText,
-  TokenBuyTextDisabled,
-  TokenBuyFoundationBtnText,
-  TokenBuyBtnDisabledText,
-  TokenAirswapFoundationText,
-  TokenAirswapExchangeText,
-  TokenBuyExchangeBtnText,
-  TokenOrText,
-  TokenThanksText,
-  TokenUnlockText,
-  TokenUnlockBtnText,
-} from "./TokensTextComponents";
-import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
-import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
+import { TokenBuyTextDisabled, TokenBuyBtnDisabledText } from "./TokensTextComponents";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { Tabs, Tab } from "../Tabs";
+import { TokensTabBuyActive } from "./TokensTabBuyActive";
+import { TokensTabSellActive } from "./TokensTabSellActive";
+import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
+import { TokensTabSellComplete } from "./TokensTabSellComplete";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
@@ -37,10 +20,11 @@ export interface TokenAccountBuyProps {
   faqUrl: string;
   step?: string;
   onBuyComplete(): void;
+  onSellComplete(): void;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
-  const { foundationAddress, network, faqUrl, step, onBuyComplete } = props;
+  const { foundationAddress, network, faqUrl, step, onBuyComplete, onSellComplete } = props;
   let tokenSection;
 
   if (step === TOKEN_PROGRESS.DISABLED) {
@@ -56,36 +40,10 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
     tokenSection = (
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
-          <TokenBuySection>
-            <TokenBuyIntro>
-              <TokenBuyText />
-            </TokenBuyIntro>
-
-            <TokenAirswapSection>
-              <>
-                <TokenAirswapFoundationText />
-                <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
-                <AirswapBuyCVL
-                  network={network}
-                  buyCVLBtnText={<TokenBuyFoundationBtnText />}
-                  buyFromAddress={foundationAddress}
-                  onComplete={onBuyComplete}
-                />
-              </>
-
-              <TokenOrBreak>
-                <TokenOrText />
-              </TokenOrBreak>
-
-              <TokenExchangeSection>
-                <TokenAirswapExchangeText />
-                <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
-              </TokenExchangeSection>
-            </TokenAirswapSection>
-          </TokenBuySection>
+          <TokensTabBuyActive foundationAddress={foundationAddress} network={network} onBuyComplete={onBuyComplete} />
         </Tab>
         <Tab title="Sell">
-          <TokenBuySection>Sell CVL TKTK</TokenBuySection>
+          <TokensTabSellActive onSellComplete={onSellComplete} />
         </Tab>
       </Tabs>
     );
@@ -93,20 +51,10 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
     tokenSection = (
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
-          <TokenBuySection>
-            <TokenThanksPurchase>
-              <TokenThanksText faqUrl={faqUrl} />
-            </TokenThanksPurchase>
-            <TokenUnlock>
-              <TokenUnlockText />
-              <TokenBtnsInverted to="/dashboard/tasks/transfer-voting-tokens">
-                <TokenUnlockBtnText />
-              </TokenBtnsInverted>
-            </TokenUnlock>
-          </TokenBuySection>
+          <TokensTabBuyComplete faqUrl={faqUrl} />
         </Tab>
         <Tab title="Sell">
-          <TokenBuySection>Sell CVL TKTK</TokenBuySection>
+          <TokensTabSellComplete />
         </Tab>
       </Tabs>
     );

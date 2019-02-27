@@ -105,6 +105,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 foundationAddress={foundationAddress}
                 faqUrl={faqUrl}
                 onBuyComplete={this.onBuyComplete}
+                onSellComplete={this.onSellComplete}
               />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>
@@ -161,5 +162,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
   private onBuyComplete = () => {
     this.setState({ isBuyComplete: true });
+  };
+
+  private onSellComplete = () => {
+    console.log("sold");
   };
 }

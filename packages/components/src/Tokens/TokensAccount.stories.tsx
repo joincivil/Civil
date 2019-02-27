@@ -64,6 +64,7 @@ storiesOf("User Token Account", module)
         foundationAddress={"0x..."}
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
         onBuyComplete={onClickFunc}
+        onSellComplete={onClickFunc}
       />
     );
   });
