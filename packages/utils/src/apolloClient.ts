@@ -46,7 +46,7 @@ export function setNetworkValue(network: number): void {
   setItem(NETWORK_KEY, network);
 }
 
-export function getApolloClient(httpLinkOptions: HttpLink.Options): ApolloClient<NormalizedCacheObject> {
+export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloClient<NormalizedCacheObject> {
   if (client) {
     return client;
   }

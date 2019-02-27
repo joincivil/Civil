@@ -10,7 +10,7 @@ import { AuthVerifyToken } from "./VerifyToken";
 const TOKEN_HOME = "/tokens";
 export const WALLET_HOME = "/auth/wallet";
 
-interface AuthVerifyTokenRouteParams {
+export interface AuthVerifyTokenRouteParams {
   token: string;
 }
 
@@ -60,9 +60,9 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/login/verify-token/:token`}
                   exact
-                  render={(props: RouteComponentProps) => (
+                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => (
                     <AuthVerifyToken
-                      token={(props.match!.params as AuthVerifyTokenRouteParams).token}
+                      token={props.match.params.token}
                       isNewUser={false}
                       onAuthenticationContinue={this.handleOnAuthenticationContinue}
                     />
@@ -77,7 +77,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/signup/check-email`}
                   exact
-                  render={(props: RouteComponentProps) => (
+                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => (
                     <AuthCheckEmail
                       isNewUser={true}
                       emailAddress={props.location!.state.emailAddress}
@@ -88,8 +88,8 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                 <Route
                   path={`${match.path}/signup/verify-token/:token`}
                   exact
-                  render={(props: RouteComponentProps) => {
-                    const token = (props.match!.params as AuthVerifyTokenRouteParams).token;
+                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
+                    const token = props.match.params.token;
 
                     return (
                       <AuthVerifyToken

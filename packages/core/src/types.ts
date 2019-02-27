@@ -261,6 +261,31 @@ export interface ParamPropChallengeData {
   poll: PollData;
 }
 
+export interface PollIDWithBlockNum {
+  pollID: BigNumber;
+  blockNum: number;
+}
+
+export interface AppealChallengeChallengeID {
+  appealChallengeID: BigNumber;
+  challengeID: BigNumber;
+}
+
+export interface WrappedChallengeID {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+}
+
+export interface WrappedAppealChallengeID {
+  listingAddress: EthAddress;
+  appealChallengeToChallengeID: AppealChallengeChallengeID;
+}
+
+export interface WrappedPropID {
+  propID: string;
+  challengeID: BigNumber;
+}
+
 // tslint:disable-next-line
 export interface TimestampedEvent<T extends DecodedLogEntryEvent> extends DecodedLogEntryEvent {
   timestamp(): Promise<number>;

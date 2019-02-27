@@ -79,20 +79,24 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     return (
       <CheckboxContainer>
         <CheckboxSection>
-          <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
-          <CheckboxLabel>
-            I agree to Civil's {}
-            <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
-          </CheckboxLabel>
+          <label>
+            <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
+            <CheckboxLabel>
+              I agree to Civil's {}
+              <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+            </CheckboxLabel>
+          </label>
         </CheckboxSection>
 
         <CheckboxSection>
-          <Checkbox
-            size={CheckboxSizes.SMALL}
-            checked={hasSelectedToAddToNewsletter}
-            onClick={this.toggleHasSelectedToAddToNewsletter}
-          />
-          <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
+          <label>
+            <Checkbox
+              size={CheckboxSizes.SMALL}
+              checked={hasSelectedToAddToNewsletter}
+              onClick={this.toggleHasSelectedToAddToNewsletter}
+            />
+            <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
+          </label>
         </CheckboxSection>
       </CheckboxContainer>
     );

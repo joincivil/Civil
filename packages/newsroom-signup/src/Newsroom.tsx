@@ -4,6 +4,7 @@ import {
   StepProcessTopNavNoButtons,
   StepNoButtons,
   WalletOnboardingV2,
+  AuthApplicationEnum,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
@@ -309,6 +310,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
             metamaskWalletAddress={this.props.account}
             profileWalletAddress={this.props.profileWalletAddress}
+            authApplicationType={AuthApplicationEnum.NEWSROOM}
           >
             {this.renderManager()}
           </WalletOnboardingV2>

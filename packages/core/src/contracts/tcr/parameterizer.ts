@@ -12,6 +12,7 @@ import {
   PollID,
   ParamPropChallengeData,
   UserChallengeData,
+  WrappedPropID,
 } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
@@ -204,6 +205,15 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       ._NewChallengeStream({}, { fromBlock })
       .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
       .map(e => e.args.propID);
+  }
+
+  public allProposalChallengeIDsEver(): Observable<WrappedPropID> {
+    return this.instance._NewChallengeStream({}, { fromBlock: getDefaultFromBlock(this.ethApi.network()) }).map(e => {
+      return {
+        propID: e.args.propID,
+        challengeID: e.args.challengeID,
+      };
+    });
   }
 
   /**
