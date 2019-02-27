@@ -28,9 +28,6 @@ class SellCVLBase extends React.Component<SellCVLProps> {
         onComplete: () => {
           this.props.onComplete();
         },
-        onCancel: () => {
-          console.info("Trade cancelled");
-        },
       },
       "body",
     );
