@@ -54,14 +54,6 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
             <TokenQuizSectionText />
             <Query query={getCurrentUserQuery}>
               {({ loading, error, data }) => {
-                if (loading || error) {
-                  return (
-                    <TokenBtns onClick={handleOpen}>
-                      <TokenQuizBtnText />
-                    </TokenBtns>
-                  );
-                }
-
                 const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 
                 return (
