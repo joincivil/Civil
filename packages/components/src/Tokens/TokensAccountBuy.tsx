@@ -9,64 +9,46 @@ import {
 import { TokenBuyTextDisabled, TokenBuyBtnDisabledText } from "./TokensTextComponents";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { Tabs, Tab } from "../Tabs";
-import { TokensTabBuyActive } from "./TokensTabBuyActive";
-import { TokensTabSellActive } from "./TokensTabSellActive";
-import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
-import { TokensTabSellComplete } from "./TokensTabSellComplete";
+import { TokensTabBuy } from "./TokensTabBuy";
+import { TokensTabSell } from "./TokensTabSell";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
   faqUrl: string;
-  step?: string;
-  onBuyComplete(): void;
-  onSellComplete(): void;
+  step: string;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
-  const { foundationAddress, network, faqUrl, step, onBuyComplete, onSellComplete } = props;
-  let tokenSection;
+  const { foundationAddress, network, faqUrl, step } = props;
 
   if (step === TOKEN_PROGRESS.DISABLED) {
-    tokenSection = (
-      <TokenBuySection>
-        <TokenBuyTextDisabled />
-        <TokenBtns disabled={true}>
-          <TokenBuyBtnDisabledText />
-        </TokenBtns>
-      </TokenBuySection>
-    );
-  } else if (step === TOKEN_PROGRESS.ACTIVE) {
-    tokenSection = (
-      <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
-        <Tab title="Buy">
-          <TokenBuySection>
-            <TokensTabBuyActive foundationAddress={foundationAddress} network={network} onBuyComplete={onBuyComplete} />
-          </TokenBuySection>
-        </Tab>
-        <Tab title="Sell">
-          <TokenBuySection>
-            <TokensTabSellActive network={network} onSellComplete={onSellComplete} />
-          </TokenBuySection>
-        </Tab>
-      </Tabs>
-    );
-  } else {
-    tokenSection = (
-      <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
-        <Tab title="Buy">
-          <TokenBuySection>
-            <TokensTabBuyComplete faqUrl={faqUrl} />
-          </TokenBuySection>
-        </Tab>
-        <Tab title="Sell">
-          <TokenBuySection>
-            <TokensTabSellComplete />
-          </TokenBuySection>
-        </Tab>
-      </Tabs>
+    return (
+      <FlexColumnsPrimaryModule padding={true}>
+        <TokenBuySection>
+          <TokenBuyTextDisabled />
+          <TokenBtns disabled={true}>
+            <TokenBuyBtnDisabledText />
+          </TokenBtns>
+        </TokenBuySection>
+      </FlexColumnsPrimaryModule>
     );
   }
 
-  return <FlexColumnsPrimaryModule padding={true}>{tokenSection}</FlexColumnsPrimaryModule>;
+  return (
+    <FlexColumnsPrimaryModule padding={true}>
+      <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
+        <Tab title="Buy">
+          <TokenBuySection>
+            <TokensTabBuy foundationAddress={foundationAddress} faqUrl={faqUrl} network={network} />
+          </TokenBuySection>
+        </Tab>
+        <Tab title="Sell">
+          <TokenBuySection>
+            <TokensTabSell network={network} />
+          </TokenBuySection>
+        </Tab>
+      </Tabs>
+    </FlexColumnsPrimaryModule>
+  );
 };
