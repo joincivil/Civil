@@ -79,7 +79,11 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
 
               <TokenExchangeSection>
                 <TokenAirswapExchangeText />
-                <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
+                <AirswapBuyCVL
+                  network={network}
+                  buyCVLBtnText={<TokenBuyExchangeBtnText />}
+                  onComplete={onBuyComplete}
+                />
               </TokenExchangeSection>
             </TokenAirswapSection>
           </TokenBuySection>
