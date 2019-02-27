@@ -12,6 +12,7 @@ import {
   TokenUnlock,
   TokenBuySellTab,
   TokenBuySellTabsNav,
+  ComingSoon,
 } from "./TokensStyledComponents";
 import {
   TokenBuyText,
@@ -89,7 +90,12 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
           </TokenBuySection>
         </Tab>
         <Tab title="Sell">
-          <TokenBuySection>Sell CVL TKTK</TokenBuySection>
+          <TokenBuySection>
+            <ComingSoon>
+              <h3>Coming Soon...</h3>
+              <p>We appreciate your patience while we are testing this feature.</p>
+            </ComingSoon>
+          </TokenBuySection>
         </Tab>
       </Tabs>
     );
@@ -110,7 +116,12 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
           </TokenBuySection>
         </Tab>
         <Tab title="Sell">
-          <TokenBuySection>Sell CVL TKTK</TokenBuySection>
+          <TokenBuySection>
+            <ComingSoon>
+              <h3>Coming Soon...</h3>
+              <p>We appreciate your patience while we are testing this feature.</p>
+            </ComingSoon>
+          </TokenBuySection>
         </Tab>
       </Tabs>
     );
