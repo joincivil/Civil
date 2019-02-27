@@ -1,5 +1,5 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
-import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
+import { CivilErrors, getDefaultFromBlock, is0x0Address } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
@@ -22,6 +22,8 @@ import {
   TwoStepEthTransaction,
   UserChallengeData,
   WrappedChallengeData,
+  WrappedAppealChallengeID,
+  WrappedChallengeID,
 } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
@@ -477,6 +479,29 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       .concatMap(async l => l.getListingWrapper());
   }
 
+  public allChallengeIDsEver(): Observable<WrappedChallengeID> {
+    return this.instance._ChallengeStream({}, { fromBlock: getDefaultFromBlock(this.ethApi.network()) }).map(e => {
+      return {
+        listingAddress: e.args.listingAddress,
+        challengeID: e.args.challengeID,
+      };
+    });
+  }
+
+  public allAppealChallengeIDsEver(): Observable<WrappedAppealChallengeID> {
+    return this.instance
+      ._GrantedAppealChallengedStream({}, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      .map(e => {
+        return {
+          listingAddress: e.args.listingAddress,
+          appealChallengeToChallengeID: {
+            appealChallengeID: e.args.appealChallengeID,
+            challengeID: e.args.challengeID,
+          },
+        };
+      });
+  }
+
   public challengesStartedByUser(user: EthAddress): Observable<BigNumber> {
     return this.instance
       ._ChallengeStream({ challenger: user }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
@@ -518,25 +543,33 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @return the challengeID associated with the pollID passed in
    */
   public async getChallengeIDForPollID(pollID: BigNumber): Promise<BigNumber> {
-    const challengeStream = this.instance._ChallengeStream(
-      { challengeID: pollID },
-      { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
-    );
-    const appealChallengeStream = this.instance._GrantedAppealChallengedStream(
-      { appealChallengeID: pollID },
-      { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
-    );
-    const event = await challengeStream
-      .merge(appealChallengeStream)
-      .first() // only one will ever emit an event and it will emit exactly one
-      .toPromise();
+    const [, challenger] = await this.instance.challenges.callAsync(pollID);
+    if (challenger && challenger !== "" && !is0x0Address(challenger)) {
+      const challengeStream = this.instance._ChallengeStream(
+        { challengeID: pollID },
+        { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
+      );
+      const appealChallengeStream = this.instance._GrantedAppealChallengedStream(
+        { appealChallengeID: pollID },
+        { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
+      );
+      const event = await challengeStream
+        .merge(appealChallengeStream)
+        .first() // only one will ever emit an event and it will emit exactly one
+        .toPromise();
 
-    return event.args.challengeID; // both events have this argument
+      return event.args.challengeID; // both events have this argument
+    } else {
+      return new BigNumber(0);
+    }
   }
 
-  public async getChallengeData(challengeID: BigNumber): Promise<WrappedChallengeData> {
+  public async getChallengeData(challengeID: BigNumber, listingAddr?: string): Promise<WrappedChallengeData> {
     const challenge = new Challenge(this.ethApi, this.instance, challengeID);
-    const listingAddress = await challenge.getListingIdForChallenge();
+    let listingAddress = listingAddr;
+    if (!listingAddress) {
+      listingAddress = await challenge.getListingIdForChallenge();
+    }
     const challengeData = await challenge.getChallengeData();
     return {
       listingAddress,

@@ -26,7 +26,7 @@ import {
 
 export const TutorialContent = [
   {
-    name: "Topic 1: How to use Civil tokens",
+    name: "How to use Civil tokens",
     description: "Learn about CVL tokens and their intended uses within the Civil network.",
     quizId: "topic1",
     icon: <NetworkIcon />,
@@ -123,7 +123,7 @@ export const TutorialContent = [
     },
   },
   {
-    name: "Topic 2: Purchasing, storing and using Civil tokens",
+    name: "Purchasing, storing and using Civil tokens",
     description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
     quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
@@ -217,19 +217,6 @@ export const TutorialContent = [
         ],
         answer: "Software wallet or “hot wallet”",
       },
-      {
-        question:
-          "Select the type of wallet that allows you to perform this action: You do not hold the private key to your wallet, and your tokens are stored in a server connected to the Internet.",
-        options: [
-          {
-            text: "Hardware wallet or “cold wallet”",
-          },
-          {
-            text: "Software wallet or “hot wallet”",
-          },
-        ],
-        answer: "Software wallet or “hot wallet”",
-      },
     ],
     completed: {
       header: "Huzzah! You crushed Topic 2",
@@ -238,7 +225,7 @@ export const TutorialContent = [
     },
   },
   {
-    name: "Topic 3: Things to consider before buying Civil tokens",
+    name: "Things to consider before buying Civil tokens",
     description: "Learn about token price trends, token design, and potential risks.",
     quizId: "topic3",
     icon: <TrendsIcon />,

@@ -25,6 +25,7 @@ export interface ChallengeDetailContainerProps {
   parameterCurrentValue: string;
   parameterProposalValue: string;
   showNotFoundMessage?: boolean;
+  parameterName: string;
   handleClose(): void;
 }
 
@@ -39,6 +40,7 @@ export interface ChallengeContainerReduxProps {
   parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
+  isGovtProposal?: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -56,6 +58,7 @@ export interface ChallengeDetailProps {
   balance?: BigNumber;
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
+  isGovtProposal?: boolean;
   handleClose(): void;
 }
 
@@ -105,6 +108,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     }
 
     const props = {
+      ...this.props,
       endTime,
       phaseLength,
       challenge: challenge!,
@@ -232,6 +236,7 @@ class ChallengeContainer extends React.Component<
         votingBalance={this.props.votingBalance}
         govtParameters={this.props.govtParameters}
         isMemberOfAppellate={this.props.isMemberOfAppellate}
+        isGovtProposal={this.props.isGovtProposal}
       />
     );
   }
@@ -250,7 +255,7 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const { challengeUserData, appealChallengeUserData, user, parameters, govtParameters } = state.networkDependent;
+    const { proposalChallengeUserData, user, parameters, govtParameters } = state.networkDependent;
     let userChallengeData;
     const challengeID = ownProps.challengeID;
     const challengeData = getParameterProposalChallenge(state, ownProps);
@@ -258,16 +263,13 @@ const makeMapStateToProps = () => {
     const userAcct = user.account;
     const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
+    const isGovtProposal = govtParameters[ownProps.parameterName] !== undefined;
     if (challengeID && userAcct) {
-      let challengeUserDataMap = challengeUserData.get(challengeID!.toString());
-      if (!challengeUserDataMap) {
-        challengeUserDataMap = appealChallengeUserData.get(challengeID!.toString());
-      }
+      const challengeUserDataMap = proposalChallengeUserData.get(challengeID!.toString());
       if (challengeUserDataMap) {
         userChallengeData = challengeUserDataMap.get(userAcct.account);
       }
     }
-
     return {
       challengeData,
       userChallengeData,
@@ -279,6 +281,7 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       isMemberOfAppellate,
+      isGovtProposal,
       ...ownProps,
     };
   };

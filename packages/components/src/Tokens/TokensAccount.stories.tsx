@@ -5,7 +5,6 @@ import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
-import { UserTokenAccountFaq } from "./TokensAccountFaq";
 
 const onClickFunc = () => {
   console.log("clicked!");
@@ -52,7 +51,7 @@ storiesOf("User Token Account", module)
   )
   .addDecorator(StoryRouter())
   .add("Signup Section", () => {
-    return <UserTokenAccountSignup step={"active"} />;
+    return <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />;
   })
   .add("Tutorial Verify", () => {
     return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
@@ -66,7 +65,4 @@ storiesOf("User Token Account", module)
         faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
       />
     );
-  })
-  .add("Storefront FAQ", () => {
-    return <UserTokenAccountFaq />;
   });

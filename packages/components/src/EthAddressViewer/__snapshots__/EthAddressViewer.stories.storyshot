@@ -4,17 +4,17 @@ exports[`Storyshots EthAddress Viewer EthAddress Viewer 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-lhLRcH fgJNCT",
+      "class": "sc-dchYKM jeubPI",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-evWYkj dUEzoT",
+          "class": "sc-iQtOjA jPMiSl",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-idjmjb joujbs",
+              "class": "sc-fHxwqH kcoxuY",
             },
             "children": Array [
               Object {
@@ -29,12 +29,12 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-fHlXLc hEVGWc",
+                "class": "sc-cEvuZC bfYPRC",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-iKpIOp kCBCyo",
+                    "class": "sc-kXeGPI NyuQo",
                   },
                   "children": Array [
                     Object {
@@ -49,7 +49,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -66,7 +66,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                        "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                         "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                         "target": "_blank",
                         "theme": "[object Object]",
@@ -234,7 +234,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -251,7 +251,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                      "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                       "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                       "target": "_blank",
                       "theme": "[object Object]",
@@ -396,7 +396,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-iKpIOp kCBCyo",
+                      "class": "sc-kXeGPI NyuQo",
                     },
                     "children": Array [
                       Object {
@@ -434,7 +434,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                    "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                     "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -563,7 +563,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                       "theme": "[object Object]",
                       "type": "button",
                     },
@@ -582,7 +582,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-iKpIOp kCBCyo",
+                        "class": "sc-kXeGPI NyuQo",
                       },
                       "children": Array [
                         Object {
@@ -658,12 +658,12 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-fHlXLc hEVGWc",
+              "class": "sc-cEvuZC bfYPRC",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-iKpIOp kCBCyo",
+                  "class": "sc-kXeGPI NyuQo",
                 },
                 "children": Array [
                   Object {
@@ -678,7 +678,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -695,7 +695,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                      "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                       "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                       "target": "_blank",
                       "theme": "[object Object]",
@@ -863,7 +863,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                  "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                   "theme": "[object Object]",
                   "type": "button",
                 },
@@ -880,7 +880,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                    "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                     "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -1025,7 +1025,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-iKpIOp kCBCyo",
+                    "class": "sc-kXeGPI NyuQo",
                   },
                   "children": Array [
                     Object {
@@ -1063,7 +1063,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-kAzzGY gXatHv sc-jzJRlG wTxKH",
+                  "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
                   "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
                   "target": "_blank",
                   "theme": "[object Object]",
@@ -1192,7 +1192,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cSHVUG fYaJzf sc-jzJRlG dAhXWp",
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
                     "theme": "[object Object]",
                     "type": "button",
                   },
@@ -1211,7 +1211,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-iKpIOp kCBCyo",
+                      "class": "sc-kXeGPI NyuQo",
                     },
                     "children": Array [
                       Object {
@@ -1268,7 +1268,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-idjmjb joujbs",
+                "class": "sc-fHxwqH kcoxuY",
               },
               "children": Array [
                 Object {

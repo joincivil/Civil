@@ -1,23 +1,26 @@
 import * as React from "react";
 import styled from "styled-components";
-import { StepProps, QuestionToolTip } from "@joincivil/components";
+import {
+  StepProps,
+  QuestionToolTip,
+  OBCollapsable,
+  OBCollapsableHeader,
+  OBSmallParagraph,
+  OBSectionHeader,
+  OBSectionDescription,
+} from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
-  CollapsableHeader,
   FormSection,
   FormTitle,
   FormSubhead,
   FormRow,
   FormRowItem,
   HelperText,
-  SmallParagraph,
   StyledTextInput,
   StyledTextareaInput,
-  SectionHeader,
-  SectionDescription,
   StepSectionCounter,
-  StyledCollapsable,
 } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 
@@ -45,28 +48,28 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
     const charter = this.props.charter;
     return (
       <>
-        <SectionHeader>Create your Newsroom Registry profile</SectionHeader>
-        <SectionDescription>
+        <OBSectionHeader>Create your Newsroom Registry profile</OBSectionHeader>
+        <OBSectionDescription>
           Civil is based on transparency so we ask you to provide the following information to the best of your ability.
-        </SectionDescription>
+        </OBSectionDescription>
         <LearnMoreButton />
-        <StyledCollapsable
+        <OBCollapsable
           open={false}
-          header={<CollapsableHeader> Where will this profile be viewable?</CollapsableHeader>}
+          header={<OBCollapsableHeader> Where will this profile be viewable?</OBCollapsableHeader>}
         >
-          <SmallParagraph>
+          <OBSmallParagraph>
             The information provided will help the Civil network assess your newsrooms compliance with the Civil
             Constitution and may be the basis for a challenge if warranted
-          </SmallParagraph>
-        </StyledCollapsable>
-        <SmallParagraph>
+          </OBSmallParagraph>
+        </OBCollapsable>
+        <OBSmallParagraph>
           To create your Newsroom Registry Profile, you will complete 4 steps:<br />
           Newsroom Details, Roster, Charter, and Signing.
-        </SmallParagraph>
+        </OBSmallParagraph>
         <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
         <FormSection>
           <FormTitle>First, tell us about your Newsroom</FormTitle>
-          <SmallParagraph>Enter your newsroom details below.</SmallParagraph>
+          <OBSmallParagraph>Enter your newsroom details below.</OBSmallParagraph>
           <div>
             <FormSubhead>Newsroom Name</FormSubhead>
             <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />

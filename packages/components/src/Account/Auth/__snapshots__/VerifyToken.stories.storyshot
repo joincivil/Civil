@@ -1,0 +1,4693 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Account/VerifyToken Complete 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-gzVnrw hwklMf",
+    },
+    "children": Array [
+      Object {
+        "data": "Email Address Confirmed!",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
+    "name": "h2",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+      },
+      "children": Array [
+        Object {
+          "data": "Thanks for confirming your email address.",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": Object {
+        "attribs": Object {
+          "style": "display:flex;justify-content:center",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                },
+                "children": Array [],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": [Circular],
+          "root": Object {
+            "attribs": Object {},
+            "children": Array [
+              [Circular],
+              [Circular],
+              [Circular],
+              [Circular],
+            ],
+            "name": "root",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": null,
+            "type": "root",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        "parent": null,
+        "prev": [Circular],
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            [Circular],
+            [Circular],
+            [Circular],
+            Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                        "theme": "[object Object]",
+                        "type": "button",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Continue",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "button",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "style": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "style": undefined,
+        },
+      },
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                        "theme": "[object Object]",
+                        "type": "button",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Continue",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "button",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                      },
+                      "children": Array [],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+        Object {
+          "attribs": Object {
+            "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+          },
+          "children": Array [
+            Object {
+              "data": "Thanks for confirming your email address.",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                        "theme": "[object Object]",
+                        "type": "button",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Continue",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "button",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                  },
+                  "children": Array [],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+              },
+              "children": Array [
+                Object {
+                  "data": "Thanks for confirming your email address.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "1": Object {
+    "attribs": Object {
+      "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+    },
+    "children": Array [
+      Object {
+        "data": "Thanks for confirming your email address.",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+              },
+              "children": Array [],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": Object {
+        "attribs": Object {
+          "style": "display:flex;justify-content:center",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "theme": "[object Object]",
+                  "type": "button",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Continue",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "button",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": [Circular],
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-gzVnrw hwklMf",
+              },
+              "children": Array [
+                Object {
+                  "data": "Email Address Confirmed!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": null,
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            [Circular],
+            [Circular],
+            [Circular],
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "style": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "style": undefined,
+        },
+      },
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "class": "sc-gzVnrw hwklMf",
+      },
+      "children": Array [
+        Object {
+          "data": "Email Address Confirmed!",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+      ],
+      "name": "h2",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": null,
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                        "theme": "[object Object]",
+                        "type": "button",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Continue",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "button",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                      },
+                      "children": Array [],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Email Address Confirmed!",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        [Circular],
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                  },
+                  "children": Array [],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "2": Object {
+    "attribs": Object {
+      "style": "display:flex;justify-content:center",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+            },
+            "children": Array [],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "theme": "[object Object]",
+                "type": "button",
+              },
+              "children": Array [
+                Object {
+                  "data": "Continue",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "button",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+              },
+              "children": Array [
+                Object {
+                  "data": "Thanks for confirming your email address.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-gzVnrw hwklMf",
+              },
+              "children": Array [
+                Object {
+                  "data": "Email Address Confirmed!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": null,
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+      },
+      "children": Array [
+        Object {
+          "data": "Thanks for confirming your email address.",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": Object {
+        "attribs": Object {
+          "class": "sc-gzVnrw hwklMf",
+        },
+        "children": Array [
+          Object {
+            "data": "Email Address Confirmed!",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "h2",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": [Circular],
+        "parent": null,
+        "prev": null,
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            [Circular],
+            [Circular],
+            [Circular],
+            Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                        "theme": "[object Object]",
+                        "type": "button",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Continue",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "button",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "theme": undefined,
+                        "type": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Email Address Confirmed!",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+          },
+          "children": Array [
+            Object {
+              "data": "Thanks for confirming your email address.",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        [Circular],
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "style": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "style": undefined,
+    },
+  },
+  "3": Object {
+    "attribs": Object {
+      "style": "display:flex;justify-content:center",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "theme": "[object Object]",
+              "type": "button",
+            },
+            "children": Array [
+              Object {
+                "data": "Continue",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "button",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+              },
+              "children": Array [],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": Object {
+        "attribs": Object {
+          "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+        },
+        "children": Array [
+          Object {
+            "data": "Thanks for confirming your email address.",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": [Circular],
+        "parent": null,
+        "prev": Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Email Address Confirmed!",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": null,
+          "root": Object {
+            "attribs": Object {},
+            "children": Array [
+              [Circular],
+              [Circular],
+              [Circular],
+              [Circular],
+            ],
+            "name": "root",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": null,
+            "type": "root",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-gzVnrw hwklMf",
+              },
+              "children": Array [
+                Object {
+                  "data": "Email Address Confirmed!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": null,
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            [Circular],
+            [Circular],
+            [Circular],
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+              },
+              "children": Array [
+                Object {
+                  "data": "Thanks for confirming your email address.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-gzVnrw hwklMf",
+              },
+              "children": Array [
+                Object {
+                  "data": "Email Address Confirmed!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": null,
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Email Address Confirmed!",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "style": "display:flex;justify-content:center",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                      },
+                      "children": Array [],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": [Circular],
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "style": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "style": undefined,
+              },
+            },
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+          },
+          "children": Array [
+            Object {
+              "data": "Thanks for confirming your email address.",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Email Address Confirmed!",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                  },
+                  "children": Array [],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+            },
+            "children": Array [
+              Object {
+                "data": "Thanks for confirming your email address.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-gzVnrw hwklMf",
+              },
+              "children": Array [
+                Object {
+                  "data": "Email Address Confirmed!",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": null,
+              "prev": null,
+              "root": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "style": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "style": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 4,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Account/VerifyToken Error 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-gzVnrw hwklMf",
+    },
+    "children": Array [
+      Object {
+        "data": "Uh oh.",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
+    "name": "h2",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+      },
+      "children": Array [
+        Object {
+          "data": "There was a problem verifying your email: ",
+          "next": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "Error is bad",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "strong",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Error is bad",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "strong",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": Object {
+            "data": "There was a problem verifying your email: ",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+        Object {
+          "attribs": Object {
+            "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+          },
+          "children": Array [
+            Object {
+              "data": "There was a problem verifying your email: ",
+              "next": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "Error is bad",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "strong",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "Error is bad",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "strong",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": Object {
+                "data": "There was a problem verifying your email: ",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "1": Object {
+    "attribs": Object {
+      "class": "sc-dnqmqq eFaQQc sc-htoDjs jJQLyj",
+    },
+    "children": Array [
+      Object {
+        "data": "There was a problem verifying your email: ",
+        "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "Error is bad",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "strong",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "data": "Error is bad",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "strong",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": Object {
+          "data": "There was a problem verifying your email: ",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "class": "sc-gzVnrw hwklMf",
+      },
+      "children": Array [
+        Object {
+          "data": "Uh oh.",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+      ],
+      "name": "h2",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": null,
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Uh oh.",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 2,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;
+
+exports[`Storyshots Account/VerifyToken Loading 1`] = `
+initialize {
+  "0": Object {
+    "attribs": Object {
+      "class": "sc-gzVnrw hwklMf",
+    },
+    "children": Array [
+      Object {
+        "data": "Confirming your email address...",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "text",
+      },
+    ],
+    "name": "h2",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+              },
+              "children": Array [],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": Object {
+        "attribs": Object {
+          "style": "display:flex;justify-content:center",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "theme": "[object Object]",
+                  "type": "button",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Continue",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "button",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": [Circular],
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            [Circular],
+            [Circular],
+            [Circular],
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "style": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "style": undefined,
+        },
+      },
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "parent": null,
+    "prev": null,
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        [Circular],
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                  },
+                  "children": Array [],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "class": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "class": undefined,
+    },
+  },
+  "1": Object {
+    "attribs": Object {
+      "style": "display:flex;justify-content:center",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+            },
+            "children": Array [],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "theme": "[object Object]",
+                "type": "button",
+              },
+              "children": Array [
+                Object {
+                  "data": "Continue",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "button",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": [Circular],
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Confirming your email address...",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "class": "sc-gzVnrw hwklMf",
+      },
+      "children": Array [
+        Object {
+          "data": "Confirming your email address...",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "text",
+        },
+      ],
+      "name": "h2",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": null,
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          [Circular],
+          [Circular],
+          Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Continue",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "class": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "class": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Confirming your email address...",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        [Circular],
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Continue",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": [Circular],
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "style": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "style": undefined,
+    },
+  },
+  "2": Object {
+    "attribs": Object {
+      "style": "display:flex;justify-content:center",
+    },
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "theme": "[object Object]",
+              "type": "button",
+            },
+            "children": Array [
+              Object {
+                "data": "Continue",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "button",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
+    "name": "div",
+    "namespace": "http://www.w3.org/1999/xhtml",
+    "next": null,
+    "parent": null,
+    "prev": Object {
+      "attribs": Object {
+        "style": "display:flex;justify-content:center",
+      },
+      "children": Array [
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "attribs": Object {
+                "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+              },
+              "children": Array [],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+      ],
+      "name": "div",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": [Circular],
+      "parent": null,
+      "prev": Object {
+        "attribs": Object {
+          "class": "sc-gzVnrw hwklMf",
+        },
+        "children": Array [
+          Object {
+            "data": "Confirming your email address...",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "h2",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": [Circular],
+        "parent": null,
+        "prev": null,
+        "root": Object {
+          "attribs": Object {},
+          "children": Array [
+            [Circular],
+            [Circular],
+            [Circular],
+          ],
+          "name": "root",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": null,
+          "parent": null,
+          "prev": null,
+          "type": "root",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      "root": Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Confirming your email address...",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          [Circular],
+          [Circular],
+        ],
+        "name": "root",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": null,
+        "prev": null,
+        "type": "root",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      "type": "tag",
+      "x-attribsNamespace": Object {
+        "style": undefined,
+      },
+      "x-attribsPrefix": Object {
+        "style": undefined,
+      },
+    },
+    "root": Object {
+      "attribs": Object {},
+      "children": Array [
+        Object {
+          "attribs": Object {
+            "class": "sc-gzVnrw hwklMf",
+          },
+          "children": Array [
+            Object {
+              "data": "Confirming your email address...",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "style": "display:flex;justify-content:center",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                    },
+                    "children": Array [],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": [Circular],
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "style": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "style": undefined,
+            },
+          },
+          "parent": null,
+          "prev": null,
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        Object {
+          "attribs": Object {
+            "style": "display:flex;justify-content:center",
+          },
+          "children": Array [
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-ctwKVn ePgVNe sc-esExBO jSXaCU",
+                  },
+                  "children": Array [],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": null,
+          "prev": Object {
+            "attribs": Object {
+              "class": "sc-gzVnrw hwklMf",
+            },
+            "children": Array [
+              Object {
+                "data": "Confirming your email address...",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "h2",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": null,
+            "prev": null,
+            "root": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          "root": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "style": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "style": undefined,
+          },
+        },
+        [Circular],
+      ],
+      "name": "root",
+      "namespace": "http://www.w3.org/1999/xhtml",
+      "next": null,
+      "parent": null,
+      "prev": null,
+      "type": "root",
+      "x-attribsNamespace": Object {},
+      "x-attribsPrefix": Object {},
+    },
+    "type": "tag",
+    "x-attribsNamespace": Object {
+      "style": undefined,
+    },
+    "x-attribsPrefix": Object {
+      "style": undefined,
+    },
+  },
+  "_root": [Circular],
+  "length": 3,
+  "options": Object {
+    "decodeEntities": true,
+    "normalizeWhitespace": false,
+    "withDomLvl1": true,
+    "xml": false,
+  },
+}
+`;

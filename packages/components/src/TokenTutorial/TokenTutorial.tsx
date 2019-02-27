@@ -28,8 +28,14 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
 
           const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 
-          if (this.state.isQuizStarted) {
-            return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={quizPayload} />;
+          if (this.isQuizStarted(quizPayload)) {
+            return (
+              <TokenTutorialLanding
+                handleClose={this.props.handleClose}
+                quizPayload={quizPayload}
+                isQuizStarted={true}
+              />
+            );
           }
 
           return <TutorialWelcomeScreens handleClose={this.props.handleClose} quizPayload={quizPayload} />;
@@ -37,4 +43,11 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
       </Query>
     );
   }
+
+  private isQuizStarted = (quizPayload: any) => {
+    if (Object.keys(quizPayload)) {
+      return true;
+    }
+    return false;
+  };
 }

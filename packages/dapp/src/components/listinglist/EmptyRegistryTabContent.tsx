@@ -30,7 +30,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/under-challenge">view new applications</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        <Link to="/apply-to-registry">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -39,7 +39,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
-        <Link to="/create-newsroom">apply to join the Civil Registry</Link>
+        <Link to="/apply-to-registry">apply to join the Civil Registry</Link>
       </>
     ),
   },
@@ -48,7 +48,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         Join the community-approved ethical Newsrooms on Civil<br />
-        <Button to="/create-newsroom" size={buttonSizes.SMALL}>
+        <Button to="/apply-to-registry" size={buttonSizes.SMALL}>
           Apply to Registry
         </Button>
       </>
@@ -59,7 +59,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
-        <Link to="/create-newsroom">apply to Registry</Link>
+        <Link to="/apply-to-registry">apply to Registry</Link>
       </>
     ),
   },
@@ -68,7 +68,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
-        <Link to="/create-newsroom">apply to Registry</Link>
+        <Link to="/apply-to-registry">apply to Registry</Link>
       </>
     ),
   },
@@ -77,7 +77,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
-        <Link to="/create-newsroom">apply to Registry</Link>
+        <Link to="/apply-to-registry">apply to Registry</Link>
       </>
     ),
   },
@@ -86,7 +86,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     copy: (
       <>
         You can <Link to="/registry/approved">view approved newsrooms</Link> or{" "}
-        <Link to="/create-newsroom">apply to Registry</Link>
+        <Link to="/apply-to-registry">apply to Registry</Link>
       </>
     ),
   },

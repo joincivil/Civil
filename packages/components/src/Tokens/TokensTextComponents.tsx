@@ -11,7 +11,7 @@ export const TokenSetupText: React.SFC = props => <>Let’s get you set up to us
 
 export const TokenConnectWalletText: React.SFC = props => (
   <>
-    <h3>Sign up and connect your crypto wallet</h3>
+    <h3>Connect your crypto wallet</h3>
     <p>Use your wallet to safely store your cryptocurrencies like ETH and CVL tokens.</p>
   </>
 );
@@ -22,7 +22,19 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
   </h3>
 );
 
-export const TokenConnectWalletBtnText: React.SFC = props => <>Sign up or Log in to your wallet</>;
+// TODO(jorgelo): Is this text okay?
+export const TokenConnectWalletBtnText: React.SFC = props => <>Connect your wallet</>;
+
+// TODO(jorgelo): Find the real text here.
+export const TokenAuthText: React.SFC = props => (
+  <>
+    <h3>Sign up to Civil</h3>
+    <p>Something about signing up to Civil</p>
+  </>
+);
+
+// TODO(jorgelo): Is this text okay?
+export const TokenAuthBtnText: React.SFC = props => <>Sign up or Log in</>;
 
 // Tutorial section
 

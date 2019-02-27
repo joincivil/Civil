@@ -1,9 +1,10 @@
-import { hasInjectedProvider } from "@joincivil/ethapi";
 import {
   ButtonTheme,
   colors,
   StepProcessTopNavNoButtons,
   StepNoButtons,
+  WalletOnboardingV2,
+  AuthApplicationEnum,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
@@ -27,7 +28,6 @@ import {
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
-import { WalletOnboardingV2 } from "./WalletOnboardingV2";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
@@ -39,7 +39,6 @@ import { CmsUserData } from "./types";
 
 export interface NewsroomComponentState {
   currentStep: number;
-  showWalletConnected?: boolean;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -64,7 +63,6 @@ export interface NewsroomExternalProps {
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
-  profileUrl?: string;
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
@@ -212,10 +210,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public renderManager(): JSX.Element | null {
-    if (!hasInjectedProvider()) {
-      return null;
-    }
+  public renderManager(): JSX.Element {
     return (
       <>
         {this.props.userNotOnContract && (
@@ -305,34 +300,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return baseSteps;
   }
 
-  public renderWalletOnboarding(): JSX.Element {
-    return (
-      <WalletOnboardingV2
-        civil={this.props.civil}
-        noProvider={!hasInjectedProvider()}
-        requireAuth={true}
-        notEnabled={this.props.civil && !this.props.metamaskEnabled}
-        enable={this.props.enable}
-        walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}
-        wrongNetwork={
-          this.props.civil && !!this.props.requiredNetwork && this.props.currentNetwork !== this.props.requiredNetwork
-        }
-        requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
-        metamaskWalletAddress={this.props.account}
-        profileUrl={this.props.profileUrl}
-        helpUrl={this.props.helpUrl}
-        helpUrlBase={this.props.helpUrlBase}
-        profileWalletAddress={this.props.profileWalletAddress}
-        onOnboardingComplete={() => this.setState({ showWalletConnected: true })}
-        onContinue={() => this.setState({ showWalletConnected: false })}
-      />
-    );
-  }
-
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-        <Wrapper>{this.isWalletOnboarded() ? this.renderManager() : this.renderWalletOnboarding()}</Wrapper>
+        <Wrapper>
+          <WalletOnboardingV2
+            civil={this.props.civil}
+            wrongNetwork={!!this.props.requiredNetwork && this.props.currentNetwork !== this.props.requiredNetwork}
+            requiredNetworkNiceName={this.props.requiredNetworkNiceName || this.props.requiredNetwork}
+            metamaskWalletAddress={this.props.account}
+            profileWalletAddress={this.props.profileWalletAddress}
+            authApplicationType={AuthApplicationEnum.NEWSROOM}
+          >
+            {this.renderManager()}
+          </WalletOnboardingV2>
+        </Wrapper>
       </ThemeProvider>
     );
   }
@@ -348,18 +330,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.onNewsroomCreated(result.address);
     }
   };
-
-  private isWalletOnboarded(): boolean {
-    return !!(
-      hasInjectedProvider() &&
-      this.props.civil &&
-      this.props.metamaskEnabled &&
-      !!this.props.account &&
-      (!this.props.requiredNetwork || this.props.currentNetwork === this.props.requiredNetwork) &&
-      this.props.account === this.props.profileWalletAddress &&
-      !this.state.showWalletConnected
-    );
-  }
 
   private initCharter(): void {
     this.updateCharter(this.defaultCharterValues(this.props.persistedCharter || {}));
