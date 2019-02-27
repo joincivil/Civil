@@ -1,4 +1,6 @@
 import * as React from "react";
+import { getCurrentUserQuery } from "@joincivil/utils";
+import { Query } from "react-apollo";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
 import {
   FlexColumnsPrimaryModule,
@@ -15,53 +17,67 @@ import { colors } from "../styleConstants";
 import { CloseXIcon } from "../icons";
 import { TOKEN_PROGRESS } from "./Tokens";
 
-export interface TokenAccountVerify extends FullScreenModalProps {
+export interface TokenAccountVerifyProps extends FullScreenModalProps {
   step?: string;
   handleClose(): void;
   handleOpen(): void;
 }
 
-export const UserTokenAccountVerify: React.StatelessComponent<TokenAccountVerify> = props => {
-  const { step } = props;
+export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyProps> {
+  public render(): JSX.Element {
+    const { step, handleClose, handleOpen, open } = this.props;
 
-  if (step === TOKEN_PROGRESS.DISABLED) {
-    return (
-      <FlexColumnsPrimaryModule padding={true}>
-        <TokenAccountSectionHeader>
-          <TokenVerifySectionText />
-        </TokenAccountSectionHeader>
-        <UserTokenAccountRequirement step={step}>
-          <TokenRequirementIcon step={step}>
-            <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
-          </TokenRequirementIcon>
-          <TokenQuizSectionText />
-        </UserTokenAccountRequirement>
-      </FlexColumnsPrimaryModule>
-    );
-  } else if (step === TOKEN_PROGRESS.ACTIVE) {
-    return (
-      <FlexColumnsPrimaryModule padding={true}>
-        <TokenAccountSectionHeader>
-          <TokenVerifySectionText />
-        </TokenAccountSectionHeader>
-        <UserTokenAccountRequirement step={step}>
-          <TokenRequirementIcon step={step}>
-            <CivilTutorialIcon />
-          </TokenRequirementIcon>
-          <TokenQuizSectionText />
-          <TokenBtns onClick={props.handleOpen}>
-            <TokenQuizBtnText />
-          </TokenBtns>
-          <FullScreenModal open={props.open || false} solidBackground={true}>
-            <CloseBtn onClick={props.handleClose}>
-              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
-            </CloseBtn>
-            <TokenTutorial handleClose={props.handleClose} />
-          </FullScreenModal>
-        </UserTokenAccountRequirement>
-      </FlexColumnsPrimaryModule>
-    );
+    if (step === TOKEN_PROGRESS.DISABLED) {
+      return (
+        <FlexColumnsPrimaryModule padding={true}>
+          <TokenAccountSectionHeader>
+            <TokenVerifySectionText />
+          </TokenAccountSectionHeader>
+          <UserTokenAccountRequirement step={step}>
+            <TokenRequirementIcon step={step}>
+              <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_3} />
+            </TokenRequirementIcon>
+            <TokenQuizSectionText />
+          </UserTokenAccountRequirement>
+        </FlexColumnsPrimaryModule>
+      );
+    } else if (step === TOKEN_PROGRESS.ACTIVE) {
+      return (
+        <FlexColumnsPrimaryModule padding={true}>
+          <TokenAccountSectionHeader>
+            <TokenVerifySectionText />
+          </TokenAccountSectionHeader>
+          <UserTokenAccountRequirement step={step}>
+            <TokenRequirementIcon step={step}>
+              <CivilTutorialIcon />
+            </TokenRequirementIcon>
+            <TokenQuizSectionText />
+            <Query query={getCurrentUserQuery}>
+              {({ loading, error, data }) => {
+                const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
+
+                return (
+                  <TokenBtns onClick={handleOpen}>
+                    {this.isQuizStarted(quizPayload) ? "Continue" : <TokenQuizBtnText />}
+                  </TokenBtns>
+                );
+              }}
+            </Query>
+            <FullScreenModal open={open || false} solidBackground={true}>
+              <CloseBtn onClick={handleClose}>
+                <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+              </CloseBtn>
+              <TokenTutorial handleClose={handleClose} />
+            </FullScreenModal>
+          </UserTokenAccountRequirement>
+        </FlexColumnsPrimaryModule>
+      );
+    }
+
+    return <></>;
   }
 
-  return <></>;
-};
+  private isQuizStarted = (quizPayload: {}) => {
+    return Object.keys(quizPayload).length > 0;
+  };
+}
