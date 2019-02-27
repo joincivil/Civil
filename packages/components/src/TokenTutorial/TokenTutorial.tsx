@@ -30,9 +30,6 @@ export class TokenTutorial extends React.Component<TokenTutorialProps> {
   }
 
   private isQuizStarted = (quizPayload: {}) => {
-    if (Object.keys(quizPayload).length > 0) {
-      return true;
-    }
-    return false;
+    return Object.keys(quizPayload).length > 0;
   };
 }

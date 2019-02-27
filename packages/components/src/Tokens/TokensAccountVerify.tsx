@@ -78,9 +78,6 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
   }
 
   private isQuizStarted = (quizPayload: {}) => {
-    if (Object.keys(quizPayload).length > 0) {
-      return true;
-    }
-    return false;
+    return Object.keys(quizPayload).length > 0;
   };
 }
