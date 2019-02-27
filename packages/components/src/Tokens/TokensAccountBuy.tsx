@@ -95,7 +95,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
             </TokenBuySection>
           </Tab>
           <Tab title="Sell">
-            <TokenBuySection>Sell CVL! TKTK</TokenBuySection>
+            <TokenBuySection>Sell CVL TKTK</TokenBuySection>
           </Tab>
         </Tabs>
       );
@@ -116,7 +116,7 @@ export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, T
             </TokenBuySection>
           </Tab>
           <Tab title="Sell">
-            <TokenBuySection>Sell CVL! TKTK</TokenBuySection>
+            <TokenBuySection>Sell CVL TKTK</TokenBuySection>
           </Tab>
         </Tabs>
       );
