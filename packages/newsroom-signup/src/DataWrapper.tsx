@@ -29,6 +29,8 @@ const saveCharterMutation = gql`
   }
 `;
 
+// const askForGrant
+
 export interface DataWrapperChildrenProps {
   profileWalletAddress: EthAddress;
   persistedCharter: Partial<CharterData>;

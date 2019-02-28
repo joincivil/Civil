@@ -7,9 +7,11 @@ import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
 import { SignConstitution } from "./SignConstitution";
 import { ApplicationSoFarPage } from "./ApplicationSoFarPage";
+import { GrantApplication } from "./GrantApplication";
 
 export interface NewsroomProfileState {
   currentStep: number;
+  showButtons: boolean;
 }
 
 export interface NewsroomProfileProps {
@@ -30,6 +32,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     super(props);
     this.state = {
       currentStep: 0,
+      showButtons: true,
     };
   }
   public getDisabled(index: number): () => boolean {
@@ -61,6 +64,9 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return !(this.props.charter.signatures && this.props.charter.signatures.length);
       },
       () => {
+        return false;
+      },
+      () => {
         return true;
       },
     ];
@@ -69,12 +75,42 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <NewsroomBio charter={this.props.charter} updateCharter={this.props.updateCharter} />,
-      <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} />,
+      <AddRosterMember
+        charter={this.props.charter}
+        updateCharter={this.props.updateCharter}
+        toggleButtons={this.toggleButtons}
+      />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
+      <GrantApplication />,
     ];
     return steps[this.state.currentStep];
+  }
+  public renderButtons(): JSX.Element | null {
+    if (!this.state.showButtons || this.state.currentStep === 5) {
+      return null;
+    }
+    return (
+      <ButtonContainer>
+        {this.state.currentStep > 0 ? (
+          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.goBack()}>
+            Back
+          </BorderlessButton>
+        ) : (
+          <div />
+        )}
+        <Button
+          disabled={this.getDisabled(this.state.currentStep)()}
+          textTransform="none"
+          width={220}
+          size={buttonSizes.MEDIUM}
+          onClick={() => this.goNext()}
+        >
+          Next
+        </Button>
+      </ButtonContainer>
+    );
   }
   public goNext(): void {
     this.setState({ currentStep: this.state.currentStep + 1 });
@@ -86,24 +122,11 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     return (
       <>
         {this.renderCurrentStep()}
-        <ButtonContainer>
-          {this.state.currentStep > 0 ? (
-            <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.goBack()}>
-              Back
-            </BorderlessButton>
-          ) : (
-            <div />
-          )}
-          <Button
-            disabled={this.getDisabled(this.state.currentStep)()}
-            width={220}
-            size={buttonSizes.MEDIUM_WIDE}
-            onClick={() => this.goNext()}
-          >
-            Next
-          </Button>
-        </ButtonContainer>
+        {this.renderButtons()}
       </>
     );
   }
+  private toggleButtons = () => {
+    this.setState({ showButtons: !this.state.showButtons });
+  };
 }

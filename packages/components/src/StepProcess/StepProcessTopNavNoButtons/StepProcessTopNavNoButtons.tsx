@@ -2,32 +2,51 @@ import * as React from "react";
 import styled from "styled-components";
 import { StepTopNavNoButtonsProps } from "./Step";
 import { StepProcessTopNavState, StepsProps } from "../StepProcessTopNav";
+import { colors } from "../../styleConstants";
 
 export interface ContentProps {
   goNext?(): void;
   goPrevious?(): void;
 }
 
+export interface ProgressBarInnerProps {
+  percent: number;
+}
+
 const StyledNav = styled.div`
   position: relative;
-  height: 76px;
   margin: 0 auto;
   width: 100%;
   & > ul {
-    justify-content: space-between;
+    justify-content: space-around;
   }
 `;
 
 const StyledContainer = styled.ul`
   display: flex;
   list-style: none;
-  margin: 0 auto;
+  margin: 27px auto 0 auto;
   padding: 0;
 `;
 
 const MainSection = styled.div`
   background-color: #fff;
   padding: 45px 0;
+`;
+
+const ProgressBar = styled.div`
+  width: 100%;
+  height: 6px;
+  display: block;
+  border-radius: 2px;
+  background-color: ${colors.accent.CIVIL_GRAY_3};
+`;
+
+const ProgressBarInner = styled<ProgressBarInnerProps, "div">("div")`
+  width: ${props => `${Math.ceil(props.percent * 100)}%`};
+  height: 6px;
+  border-radius: 2px;
+  background-color: ${colors.accent.CIVIL_BLUE_FADED};
 `;
 
 export class StepProcessTopNavNoButtons extends React.Component<StepsProps, StepProcessTopNavState> {
@@ -71,6 +90,7 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
   public renderContent(): React.ReactNode | undefined {
     const children = this.props.children;
     const { activeIndex } = this.state;
+    console.log({ activeIndex, length: children.length });
     if (children[activeIndex]) {
       return React.cloneElement(children[activeIndex].props.children as React.ReactElement<ContentProps>, {
         goNext: this.goNext,
@@ -80,10 +100,14 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
   }
 
   public render(): JSX.Element {
+    const progress = (this.state.activeIndex + 1) / this.props.children.length;
     return (
       <div>
         <StyledNav innerRef={el => (this.navContainer = el)}>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
+          <ProgressBar>
+            <ProgressBarInner percent={progress} />
+          </ProgressBar>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>
       </div>

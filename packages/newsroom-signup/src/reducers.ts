@@ -1,7 +1,7 @@
 import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
 import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
-import { newsroomActions, uiActions, userActions, governmentActions } from "./actionCreators";
+import { newsroomActions, uiActions, userActions, governmentActions, grantActions } from "./actionCreators";
 import { CmsUserData } from "./types";
 
 export interface NewsroomState {
@@ -19,6 +19,7 @@ export interface StateWithNewsroom {
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, CmsUserData>;
   newsroomGovernment: Map<string, string>;
+  grantApplication: Map<string, boolean>;
 }
 
 export function newsrooms(
@@ -106,6 +107,22 @@ export function newsroomGovernment(state: Map<string, string> = Map(), action: A
       return state.set("constitutionUri", action.data.uri);
     case governmentActions.ADD_CONSTITUTION_CONTENT:
       return state.set("constitutionContent", action.data.content);
+    default:
+      return state;
+  }
+}
+
+export function grantApplication(
+  state: Map<string, boolean> = Map({ chooseGrant: false, chooseSkip: false }),
+  action: AnyAction,
+): Map<string, boolean> {
+  switch (action.type) {
+    case grantActions.SET_GRANT:
+      return state.set("chooseGrant", action.data);
+    case grantActions.SET_SKIP:
+      return state.set("chooseSkip", action.data);
+    case grantActions.APPLICATION_SUBMITTED:
+    case grantActions.APPLICATION_SKIPPED:
     default:
       return state;
   }
