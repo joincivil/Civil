@@ -1,4 +1,3 @@
-import { hasInjectedProvider } from "@joincivil/ethapi";
 import {
   ButtonTheme,
   colors,
@@ -27,8 +26,12 @@ import {
   addConstitutionUri,
   fetchConstitution,
 } from "./actionCreators";
+import { AuthWrapper } from "./AuthWrapper";
+import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
+// import { CompleteYourProfile } from "./CompleteYourProfile";
+// import { NameAndAddress } from "./NameAndAddress";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -55,29 +58,22 @@ export interface NewsroomExternalProps {
   civil?: Civil;
   ipfs?: IpfsObject;
   theme?: ButtonTheme;
-  profileWalletAddress?: EthAddress;
-  showWalletOnboarding?: boolean;
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
-  profileUrl?: string;
-  profileAddressSaving?: boolean;
   newsroomUrl?: string;
   logoUrl?: string;
   metamaskEnabled?: boolean;
   allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   initialStep?: number;
   enable(): void;
-  getPersistedCharter?(): Promise<Partial<CharterData> | void>;
-  persistCharter?(charter: Partial<CharterData>): Promise<void>;
-  saveAddressToProfile?(): Promise<void>;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
-export interface NewsroomProps extends NewsroomExternalProps {
+export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
   charter: Partial<CharterData>;
   // owners: string[];
   // editors: string[];
@@ -89,6 +85,13 @@ export interface NewsroomProps extends NewsroomExternalProps {
   charterUri?: string;
 }
 
+// Final props are from GQL
+export interface NewsroomProps extends NewsroomPropsWithRedux {
+  profileWalletAddress?: EthAddress;
+  persistedCharter?: Partial<CharterData>;
+  persistCharter(charter: Partial<CharterData>): Promise<any>;
+}
+
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
@@ -96,10 +99,7 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
   max-width: 845px;
   margin: auto;
-  &,
-  & p {
-    font-size: 14px;
-  }
+  font-size: 14px;
 `;
 
 const ErrorP = styled.p`
@@ -111,27 +111,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     theme: {
       ...DEFAULT_BUTTON_THEME,
       ...DEFAULT_CHECKBOX_THEME,
+      primaryButtonTextTransform: "none",
+      primaryButtonFontWeight: "bold",
+      borderlessButtonSize: "14px",
     },
   };
 
-  private persistCharter = debounce(
-    (charter: Partial<CharterData>): void => {
-      if (this.props.persistCharter) {
-        // We don't need to know when this finishes, but maybe some day we'd have a saving indicator or something.
-        // tslint:disable-next-line: no-floating-promises
-        this.props.persistCharter(charter);
-        return;
-      }
-
-      try {
-        localStorage[`civil:${this.props.address!}:charter`] = JSON.stringify(charter);
-      } catch (e) {
-        console.error("Failed to save charter to local storage:", e);
-      }
-    },
-    1000,
-    { maxWait: 2000 },
-  );
+  private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
   private checkCharterCompletion = debounce(
     () => {
@@ -195,12 +181,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetCmsUserDataForAddress(this.props.getCmsUserDataForAddress));
     }
 
-    this.props.dispatch!(addPersistCharter(this.persistCharter));
+    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
+    this.initCharter();
 
-    if (this.props.address && this.props.civil) {
-      await this.hydrateNewsroom(this.props.address);
-    }
     if (this.props.civil) {
+      if (this.props.address) {
+        await this.hydrateNewsroom(this.props.address);
+      }
+
       const tcr = await this.props.civil.tcrSingletonTrusted();
       const government = await tcr.getGovernment();
       const hash = await government.getConstitutionHash();
@@ -220,10 +208,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public renderManager(): JSX.Element | null {
-    if (!hasInjectedProvider()) {
-      return null;
-    }
+  public renderManager(): JSX.Element {
     return (
       <>
         {this.props.userNotOnContract && (
@@ -314,43 +299,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   };
 
-  private async initCharter(): Promise<void> {
-    this.updateCharter(this.defaultCharterValues(this.getCharterFromLocalStorage() || {}));
-
-    if (this.props.getPersistedCharter) {
-      try {
-        const charter = await this.props.getPersistedCharter();
-        if (charter) {
-          this.updateCharter(this.defaultCharterValues(charter));
-        }
-      } catch (e) {
-        console.error("Failed to load persisted charter", e);
-      }
-    }
+  private initCharter(): void {
+    this.updateCharter(this.defaultCharterValues(this.props.persistedCharter || {}));
   }
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
     await this.props.dispatch!(getNewsroom(address, this.props.civil!));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
-    await this.initCharter();
   };
 
   private setRoles = (address: EthAddress): void => {
     this.props.dispatch!(getIsOwner(address, this.props.civil!));
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
-  };
-
-  private getCharterFromLocalStorage = (): Partial<CharterData> | undefined => {
-    try {
-      const key = `civil:${this.props.address!}:charter`;
-      if (localStorage[key]) {
-        return JSON.parse(localStorage[key]);
-      }
-    } catch (e) {
-      console.error("Failed to retrieve charter from local storage:", e);
-    }
-    return undefined;
   };
 
   private updateCharter = (charter: Partial<CharterData>): void => {
@@ -369,7 +330,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomPropsWithRedux => {
   const { address } = ownProps;
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   // const userIsOwner = newsroom.isOwner;
@@ -392,4 +353,23 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
   };
 };
 
-export const Newsroom = connect(mapStateToProps)(NewsroomComponent);
+const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
+  return (
+    <AuthWrapper>
+      <DataWrapper>
+        {({ profileWalletAddress, persistedCharter, persistCharter }) => {
+          return (
+            <NewsroomComponent
+              {...props}
+              profileWalletAddress={profileWalletAddress}
+              persistCharter={persistCharter}
+              persistedCharter={persistedCharter}
+            />
+          );
+        }}
+      </DataWrapper>
+    </AuthWrapper>
+  );
+};
+
+export const Newsroom = connect(mapStateToProps)(NewsroomWithGqlData);
