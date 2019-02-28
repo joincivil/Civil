@@ -207,16 +207,19 @@ const networkDependent = (state: any, action: AnyAction) => {
   }
   return networkDependentReducers(state, action);
 };
+import { connectRouter } from "connected-react-router";
 
-export default combineReducers({
-  newsrooms, // have to be top level because come from a package
-  newsroomUi,
-  newsroomUsers,
-  newsroomGovernment,
-  grantApplication,
-  networkDependent,
-  network,
-  networkName,
-  ui,
-  useGraphQL,
-});
+export default (history: any) =>
+  combineReducers({
+    router: connectRouter(history),
+    newsrooms, // have to be top level because come from a package
+    newsroomUi,
+    newsroomUsers,
+    newsroomGovernment,
+    grantApplication,
+    networkDependent,
+    network,
+    networkName,
+    ui,
+    useGraphQL,
+  });
