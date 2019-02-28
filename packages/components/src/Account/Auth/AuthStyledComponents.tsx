@@ -3,6 +3,8 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
 import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import * as iconError from "../../images/icons/ico-error-red@2x.png";
+
 import {
   AuthTextFooter,
   AuthTextVerifyTokenConfirmed,
@@ -24,8 +26,9 @@ export const CheckboxSection = styled.li`
 
 export const CheckboxLabel = styled.span`
   color: ${colors.primary.CIVIL_GRAY_1};
-  font: 400 12px/20px ${fonts.SANS_SERIF};
+  font: 400 15px/20px ${fonts.SANS_SERIF};
   padding-left: 7px;
+  vertical-align: middle;
 `;
 
 export const ConfirmButtonContainer = styled.div`
@@ -162,3 +165,25 @@ export const AuthEmailVerify = ({
     </>
   );
 };
+
+export const AuthErrorMessage = styled.div`
+  border: 1px solid rgba(242, 82, 74, 0.56);
+  border-radius: 4px;
+  background-color: #fff7f8;
+
+  background-position: 10px center;
+  background-image: url(${iconError});
+  background-size: 30px;
+  background-repeat: no-repeat;
+
+  color: #555555;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+
+  /*  TODO(jorgelo): This is terrible, but the error message breaks out of the parent box. There has to be a better way. */
+  margin: 0 -116px 17px -116px;
+
+  padding: 18px 0;
+
+  text-align: center;
+`;
