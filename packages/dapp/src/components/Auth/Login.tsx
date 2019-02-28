@@ -15,12 +15,11 @@ export interface AuthLoginProps {
 export const AuthLogin: React.SFC<AuthLoginProps> = props => {
   return (
     <AuthWrapper>
-      <AuthTextSigninWithEmail />
-
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
+        headerComponent={<AuthTextSigninWithEmail />}
       />
 
       <AuthPageFooterLink>

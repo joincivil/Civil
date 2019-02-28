@@ -4,7 +4,7 @@ exports[`Storyshots Listing Details Header Accepting Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fqCOlO ddzxSx",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {
@@ -3060,7 +3060,7 @@ exports[`Storyshots Listing Details Header In Application 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fqCOlO ddzxSx",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {
@@ -6116,7 +6116,7 @@ exports[`Storyshots Listing Details Header No phase label 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fqCOlO ddzxSx",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {
@@ -8396,7 +8396,7 @@ exports[`Storyshots Listing Details Header Revealing Votes 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fqCOlO ddzxSx",
+      "class": "sc-BOulX gpOLQt",
     },
     "children": Array [
       Object {

@@ -89,7 +89,7 @@ export const Checkbox = (props: CheckboxProps) => {
   return (
     <Container locked={props.locked} size={props.size}>
       <input
-        onClick={() => {
+        onChange={() => {
           if (!props.locked) {
             props.onClick();
           }
