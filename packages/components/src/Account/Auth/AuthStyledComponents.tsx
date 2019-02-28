@@ -163,3 +163,15 @@ export const AuthEmailVerify = ({
     </>
   );
 };
+
+export const AuthErrorMessage = styled.div`
+  border: 1px solid rgba(242, 82, 74, 0.56);
+  border-radius: 4px;
+  background-color: #fff7f8;
+
+  color: #555555;
+  font-family: "Libre Franklin";
+  font-size: 13px;
+
+  text-align: center;
+`;

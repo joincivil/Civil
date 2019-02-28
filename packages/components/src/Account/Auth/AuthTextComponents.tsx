@@ -80,3 +80,14 @@ export const AuthTextSigninWithEmail: React.SFC = () => (
     </PageHeadingTextCentered>
   </>
 );
+
+export const AuthTextEmailNotFoundError: React.SFC = () => (
+  <>The email address you entered does not exist. Try again? or create a Civil account to continue.</>
+);
+
+export const AuthTextEmailExistsError: React.SFC = () => (
+  <>The email address you entered does not exist. Try again? or create a Civil account to continue.</>
+);
+
+// TODO(jorgelo): Make this text nicer.
+export const AuthTextUnknownError: React.SFC = () => <>An internal error has occured, please try again.</>;
