@@ -67,7 +67,6 @@ export async function approve(
     throw new Error(CivilErrors.InsufficientToken);
   }
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress || undefined);
-  console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
   if (approvedTokens.lessThan(amountBN)) {
     return token.approveSpender(tcr.address, amountBN);
   }
@@ -247,8 +246,8 @@ export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStep
   const difference = numTokensBN.sub(currentApprovedTokens);
   if (difference.greaterThan(0)) {
     const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
-    if (approvedTokensForSpender < difference) {
-      const approveSpenderReceipt = await eip.approveSpender(voting.address, difference);
+    if (approvedTokensForSpender.lessThan(numTokens)) {
+      const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokens);
       await approveSpenderReceipt.awaitReceipt();
     }
   }
