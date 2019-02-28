@@ -4,11 +4,8 @@ import {
   colors,
   StepProcessTopNavNoButtons,
   StepNoButtons,
-<<<<<<< HEAD
   WalletOnboardingV2,
   AuthApplicationEnum,
-=======
->>>>>>> Grant Flow ui and step process CIVIL-254 CIVIL-350
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
@@ -289,7 +286,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   public render(): JSX.Element {
     return (
       <ThemeProvider theme={this.props.theme}>
-<<<<<<< HEAD
         <Wrapper>
           <WalletOnboardingV2
             civil={this.props.civil}
@@ -302,9 +298,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             {this.renderManager()}
           </WalletOnboardingV2>
         </Wrapper>
-=======
-        <Wrapper>{this.renderManager()}</Wrapper>
->>>>>>> Grant Flow ui and step process CIVIL-254 CIVIL-350
       </ThemeProvider>
     );
   }

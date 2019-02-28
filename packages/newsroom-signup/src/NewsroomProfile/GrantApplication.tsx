@@ -41,7 +41,7 @@ const SmallNote = styled.p`
   line-height: 20px;
 `;
 
-const CheckboxArare = styled.div`
+const CheckboxArea = styled.div`
   display: grid;
   grid-template-columns: 5% 95%;
 `;
@@ -173,7 +173,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             <strong>Note:</strong> The process can take up to 14 days (reply times will vary). You will not be able to
             continue until the Civil Foundation team has reviewed your application.
           </SmallNote>
-          <CheckboxArare>
+          <CheckboxArea>
             <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} />
             <div>
               <CheckboxP>
@@ -182,7 +182,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
               </CheckboxP>
               <SmallNote>Please consult with a tax professional about receiving a token grant.</SmallNote>
             </div>
-          </CheckboxArare>
+          </CheckboxArea>
         </DialogueBox>
         <Divider>
           <DividerLine />
@@ -200,10 +200,10 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             <SmallNote>ETH transaction fees</SmallNote>
             <SmallNote>$15.00 USD (estimated)</SmallNote>
           </CostGrid>
-          <CheckboxArare>
+          <CheckboxArea>
             <Checkbox checked={this.props.chooseSkip} onClick={this.selectSkip} />
             <CheckboxP>Skip applying for a Civil Foundation Grant.</CheckboxP>
-          </CheckboxArare>
+          </CheckboxArea>
         </DialogueBox>
         {this.renderGrantModal()}
         {this.renderSkipModal()}
