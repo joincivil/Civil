@@ -503,3 +503,17 @@ export const TokenBuySellTabsNav = styled.div`
   height: 80px;
   margin: -31px 0 50px;
 `;
+
+export const ComingSoon = styled.div`
+  text-align: center;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
+  }
+`;
