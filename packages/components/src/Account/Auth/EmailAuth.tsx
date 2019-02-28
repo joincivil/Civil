@@ -41,9 +41,11 @@ export interface AccountEmailAuthProps {
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
+export type AuthEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
+
 export interface AccountEmailAuthState {
   emailAddress: string;
-  errorMessage: "unknown" | "emailexists" | "emailnotfound" | undefined;
+  errorMessage: AuthEmailError;
   hasAgreedToTOS: boolean;
   hasSelectedToAddToNewsletter: boolean;
   hasBlurred: boolean;
@@ -217,7 +219,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         return;
       }
 
-      this.setState({ errorMessage: authResponse });
+      this.setState({ errorMessage: authResponse as AuthEmailError });
 
       return;
     } catch (err) {
