@@ -10,13 +10,13 @@ import {
   OBSectionDescription,
 } from "@joincivil/components";
 import { RosterMember } from "./RosterMember";
-import { findIndex } from "lodash";
 import styled from "styled-components";
 import { RosterMemberListItem } from "./RosterMemberListItem";
 
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
   updateCharter(charter: Partial<CharterData>): void;
+  toggleButtons(): void;
 }
 
 export interface AddRosterMemberState {
@@ -96,6 +96,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
+    this.props.toggleButtons();
     this.setState({ editingMember: {} });
   };
 
@@ -106,7 +107,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
   private saveRosterMember = () => {
     const roster = (this.props.charter.roster || []).slice();
     const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
-    const memberIndex = findIndex(roster, rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    const memberIndex = roster.findIndex(rosterMember => rosterMember[key] === this.state.editingMember![key]);
     if (memberIndex >= 0) {
       roster[memberIndex] = this.state.editingMember as RosterMemberInterface;
     } else {
@@ -117,7 +118,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       ...this.props.charter,
       roster,
     });
-
+    this.props.toggleButtons();
     this.setState({ editingMember: null });
   };
 

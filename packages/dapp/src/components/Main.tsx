@@ -114,7 +114,6 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
         }
       }
     } else {
-      console.log("No account found");
       this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
     }
   };

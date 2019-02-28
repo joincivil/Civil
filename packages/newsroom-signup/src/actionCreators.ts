@@ -1,5 +1,4 @@
 import { AnyAction } from "redux";
-import { findIndex } from "lodash";
 import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
 import { getInfuraUrlFromIpfs } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
@@ -33,6 +32,13 @@ export enum governmentActions {
   ADD_CONSTITUTION_URI = "ADD_CONSTITUTION_URI",
   ADD_CONSTITUTION_HASH = "ADD_CONSTITUTION_HASH",
   ADD_CONSTITUTION_CONTENT = "ADD_CONSTITUTION_CONTENT",
+}
+
+export enum grantActions {
+  SET_GRANT = "CHOOSE_GRANT",
+  SET_SKIP = "CHOOSE_SKIP",
+  APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
+  APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
 }
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
@@ -212,7 +218,7 @@ export const ensureUserOnRoster = (newsroomAddress: EthAddress, address: EthAddr
   const { newsrooms, newsroomUsers }: StateWithNewsroom = getState();
   const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
   let roster = charter.roster || [];
-  if (findIndex(roster, member => (member.ethAddress || "").toLowerCase() === address.toLowerCase()) === -1) {
+  if (roster.findIndex(member => (member.ethAddress || "").toLowerCase() === address.toLowerCase()) === -1) {
     const user = makeUserObject(address, userData || newsroomUsers.get(address));
     roster = roster.concat(user.rosterData as RosterMember);
     dispatch(
@@ -282,5 +288,19 @@ export const addConstitutionHash = (hash: string): AnyAction => {
     data: {
       hash,
     },
+  };
+};
+
+export const setGrant = (value: boolean): AnyAction => {
+  return {
+    type: grantActions.SET_GRANT,
+    data: value,
+  };
+};
+
+export const setSkip = (value: boolean): AnyAction => {
+  return {
+    type: grantActions.SET_SKIP,
+    data: value,
   };
 };

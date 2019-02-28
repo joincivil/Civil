@@ -32,8 +32,6 @@ import { NewsroomProfile } from "./NewsroomProfile";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
-import { ApplyToTCR } from "./ApplyToTCR";
-import { ApplyToTCRPlaceholder } from "./ApplyToTCRPlaceholder";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -246,7 +244,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public renderSteps(): JSX.Element[] {
-    const baseSteps = [
+    return [
       <StepNoButtons
         title={"Registry Profile"}
         disabled={!this.props.userIsOwner}
@@ -255,49 +253,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       >
         <NewsroomProfile charter={this.props.charter} updateCharter={this.updateCharter} />
       </StepNoButtons>,
-      // <Step
-      //   title={"Create newsroom"}
-      //   complete={!!this.props.address}
-      //   key="createNewsroom"
-      // >
-      //   <NameAndAddress
-      //     userIsOwner={this.props.userIsOwner}
-      //     onNewsroomCreated={this.onNewsroomCreated}
-      //     name={this.props.name}
-      //     address={this.props.address}
-      //     txHash={this.props.txHash}
-      //     onContractDeployStarted={this.props.onContractDeployStarted}
-      //   />
-      // </Step>,
-      // <Step
-      //   disabled={!this.props.address}
-      //   title={"Add accounts"}
-      //   complete={this.props.owners.length > 1 || !!this.props.editors.length || this.state.currentStep > 1}
-      //   key="nameAndAddress"
-      // >
-      //   <CompleteYourProfile
-      //     userIsOwner={this.props.userIsOwner}
-      //     userIsEditor={this.props.userIsEditor}
-      //     address={this.props.address}
-      //     renderUserSearch={this.props.renderUserSearch}
-      //     profileWalletAddress={this.props.profileWalletAddress}
-      //   />
-      // </Step>,
-    ];
-    baseSteps.push(
-      <StepNoButtons
-        title={"Apply to the Registry"}
-        disabled={(!this.props.address && !this.props.charterUri) || !this.props.userIsOwner}
-        key="applyToRegistry"
-      >
-        {this.props.allSteps ? (
-          <ApplyToTCR address={this.props.address} />
-        ) : (
-          <ApplyToTCRPlaceholder address={this.props.address} />
-        )}
+      <StepNoButtons title={"Smart Contract"} disabled={true} key="smartcontract">
+        <div />
       </StepNoButtons>,
-    );
-    return baseSteps;
+      <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
+        <div />
+      </StepNoButtons>,
+      <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
+        <div />
+      </StepNoButtons>,
+      <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
+        <div />
+      </StepNoButtons>,
+    ];
   }
 
   public render(): JSX.Element {
