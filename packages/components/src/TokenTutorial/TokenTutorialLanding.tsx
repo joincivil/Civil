@@ -80,15 +80,15 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
-          // lastSlideIdx is the index number, lastSlideCount is the visible question number
+          // lastSlideIdx is the index number, lastSlideNumber is the visible question number
           const { lastSlideIdx, isComplete } = this.getTopicStatus(this.props.quizPayload, topic);
-          const lastSlideCount = lastSlideIdx + 1;
+          const lastSlideNumber = lastSlideIdx + 1;
 
           // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx, lastSlideCount)} disabled={isComplete}>
+              <LaunchTopic onClick={() => this.openTutorial(idx, lastSlideNumber)} disabled={isComplete}>
                 <LaunchTopicTop>
                   <div>
                     {topic.icon}
@@ -98,16 +98,16 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                   <DisclosureArrowIcon />
                 </LaunchTopicTop>
                 <TopicProgress>
-                  <TutorialProgressText questions={topic.questions.length - lastSlideCount} />
+                  <TutorialProgressText questions={topic.questions.length - lastSlideNumber} />
                   <TutorialLandingProgressBars>
                     {topic.questions.map((question, questionIdx) => {
-                      if (lastSlideCount > 0 && questionIdx <= lastSlideIdx) {
+                      if (lastSlideNumber > 0 && questionIdx <= lastSlideIdx) {
                         return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
                       }
                       return <TutorialLandingProgressBar key={questionIdx} />;
                     })}
                     <b>
-                      {lastSlideCount}/{topic.questions.length}
+                      {lastSlideNumber}/{topic.questions.length}
                     </b>
                   </TutorialLandingProgressBars>
                 </TopicProgress>
@@ -160,7 +160,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
 
-  private openTutorial = (topicNumber: number, lastSlideCount: number) => {
-    this.setState({ activeTutorialIdx: topicNumber, tutorialActive: true, quizSlide: lastSlideCount });
+  private openTutorial = (topicNumber: number, lastSlideNumber: number) => {
+    this.setState({ activeTutorialIdx: topicNumber, tutorialActive: true, quizSlide: lastSlideNumber });
   };
 }
