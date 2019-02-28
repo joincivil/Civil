@@ -7,6 +7,7 @@ import {
   TakeQuizBtn,
   TutorialTopic,
   LaunchTopic,
+  LaunchTopicTop,
   TopicProgress,
   TutorialLandingProgressBars,
   TutorialLandingProgressBar,
@@ -71,35 +72,37 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
-          const { lastSlideIdx } = this.getTopicStatus(this.props.quizPayload, topic);
+          const { lastSlideIdx, isComplete } = this.getTopicStatus(this.props.quizPayload, topic);
 
           // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
           // TODO(jorgelo): lastSlideIdx is the last slide that was completed correctly. Should we jump the user to that last slide?
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx)}>
-                <div>
-                  {topic.icon}
-                  <h3>{topic.name}</h3>
-                  <p>{topic.description}</p>
-                </div>
-                <DisclosureArrowIcon />
+              <LaunchTopic onClick={() => this.openTutorial(idx)} disabled={isComplete}>
+                <LaunchTopicTop>
+                  <div>
+                    {topic.icon}
+                    <h3>{topic.name}</h3>
+                    <p>{topic.description}</p>
+                  </div>
+                  <DisclosureArrowIcon />
+                </LaunchTopicTop>
+                <TopicProgress>
+                  <TutorialProgressText questions={topic.questions.length - lastSlideIdx} />
+                  <TutorialLandingProgressBars>
+                    {topic.questions.map((question, questionIdx) => {
+                      if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx - 1) {
+                        return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
+                      }
+                      return <TutorialLandingProgressBar key={questionIdx} />;
+                    })}
+                    <b>
+                      {lastSlideIdx}/{topic.questions.length}
+                    </b>
+                  </TutorialLandingProgressBars>
+                </TopicProgress>
               </LaunchTopic>
-              <TopicProgress>
-                <TutorialProgressText questions={topic.questions.length - lastSlideIdx} />
-                <TutorialLandingProgressBars>
-                  {topic.questions.map((question, questionIdx) => {
-                    if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx - 1) {
-                      return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
-                    }
-                    return <TutorialLandingProgressBar key={questionIdx} />;
-                  })}
-                  <b>
-                    {lastSlideIdx}/{topic.questions.length}
-                  </b>
-                </TutorialLandingProgressBars>
-              </TopicProgress>
             </TutorialTopic>
           );
         })}
@@ -112,21 +115,21 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
     if (isComplete) {
       // This bad boy loops through all the current topics and checks to see if any topic has not been completed. If complete set the quizStatus.
-      let allQuizesComplete: boolean = true;
+      let allQuizzesComplete: boolean = true;
 
       TutorialContent.forEach(t => {
-        if (!allQuizesComplete) {
+        if (!allQuizzesComplete) {
           return;
         }
 
         if (t.quizId === topic) {
-          allQuizesComplete = isComplete;
+          allQuizzesComplete = isComplete;
           return;
         }
 
-        allQuizesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
+        allQuizzesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
       });
-      updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizesComplete ? "complete" : undefined);
+      updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizzesComplete ? "complete" : undefined);
     } else {
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } });
     }
@@ -143,6 +146,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     return { isComplete, lastSlideIdx };
   }
 
+  // Take the quiz straight thru without reading the tutorial
   private skipTutorial = () => {
     this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
