@@ -12326,6 +12326,16 @@ react-dom@^16.2.0:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
+react-dom@^16.4:
+  version "16.8.3"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.3.tgz#ae236029e66210783ac81999d3015dfc475b9c32"
+  integrity sha512-ttMem9yJL4/lpItZAQ2NTFAbV7frotHk5DZEHXUOws2rMmrsvh1Na7ThGT0dTzUIl6pqTOi5tYREfL8AEna3lA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.13.3"
+
 react-ellipsis-text@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-ellipsis-text/-/react-ellipsis-text-1.0.0.tgz#98ac5d4e1a2b21e7f76e49f5f23ce65c99f74590"

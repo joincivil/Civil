@@ -27,7 +27,7 @@
     "json-loader": "^0.5.7",
     "react": "^16.4",
     "react-apollo": "^2.3.3",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.4",
     "react-ellipsis-text": "^1.0.0",
     "react-helmet": "^5.2.0",
     "react-markdown": "^3.3.0",

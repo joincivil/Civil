@@ -9,21 +9,14 @@
     "transform": {
       ".(ts|tsx)": "ts-jest"
     },
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "build"
-    ],
+    "testPathIgnorePatterns": ["/node_modules/", "build"],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>src/__mocks__/fileMock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>src/__mocks__/fileMock.js"
     },
     "testRegex": "(src/__test__/.*|\\.(test|spec))\\.(ts|tsx)$",
     "setupTestFrameworkScriptFile": "<rootDir>src/__test__/setupTests.js",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json"
-    ]
+    "moduleFileExtensions": ["ts", "tsx", "js", "json"]
   },
   "scripts": {
     "build": "yarn clean && tsc && mkdir build/images && cp -a src/images/. build/images",
@@ -54,8 +47,6 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^23.5.0",
     "npm-run-all": ">=4.1.5",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
     "rimraf": "^2.6.2",
     "storybook-react-router": "^1.0.1",
@@ -69,8 +60,8 @@
   "peerDependencies": {
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.4",
+    "react-dom": "^16.4"
   },
   "dependencies": {
     "@joincivil/core": "^4.7.5",
