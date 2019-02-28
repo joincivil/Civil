@@ -363,6 +363,7 @@ export async function requestVotingRights(numTokens: BigNumber): Promise<TwoStep
   const tcr = await getTCR();
   const voting = tcr.getVoting();
   const numTokensBN = ensureWeb3BigNumber(numTokens);
+  console.log("api deposit", numTokens, numTokens.toString());
   return voting.requestVotingRights(numTokensBN);
 }
 
