@@ -115,7 +115,10 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param numTokens number of tokens to withdraw from voting contract
    */
   public async withdrawVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.withdrawVotingRights.sendTransactionAsync(this.ethApi.toBigNumber(numTokens)));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.withdrawVotingRights.sendTransactionAsync(this.ethApi.toBigNumber(numTokens)),
+    );
   }
 
   /**
@@ -123,8 +126,10 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param numTokens number of tokens to deposit into voting contract
    */
   public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    console.log("core wrapper: deposit", numTokens, numTokens.toNumber());
-    return createTwoStepSimple(this.ethApi, await this.instance.requestVotingRights.sendTransactionAsync(this.ethApi.toBigNumber(numTokens)));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.requestVotingRights.sendTransactionAsync(this.ethApi.toBigNumber(numTokens)),
+    );
   }
 
   /**
