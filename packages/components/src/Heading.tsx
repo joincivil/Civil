@@ -87,7 +87,7 @@ PageSubHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageHeadingTextCentered = styled.div`
   text-align: center;
-  color: ${colors.primary.CIVIL_GRAY_3};
+  color: ${colors.primary.CIVIL_GRAY_0};
   font-size: 16px;
   line-height: 25px;
   font-family: ${props => props.theme.sansSerifFont};

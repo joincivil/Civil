@@ -177,7 +177,7 @@ export const AuthErrorMessage = styled.div`
   background-repeat: no-repeat;
 
   color: #555555;
-  font-family: "Libre Franklin";
+  font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
 
   /*  TODO(jorgelo): This is terrible, but the error message breaks out of the parent box. There has to be a better way. */
