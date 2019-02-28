@@ -1,9 +1,9 @@
 export const colors = {
   primary: {
     BLACK: "#000000",
+    CIVIL_GRAY_0: "#3F3C39",
     CIVIL_GRAY_1: "#5A5653",
     CIVIL_GRAY_2: "#7D7373",
-    CIVIL_GRAY_3: "#3F3C39", // Same as accent CIVIL_GRAY_0
     CIVIL_BLUE_1: "#2B56FF",
   },
   accent: {

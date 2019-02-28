@@ -102,5 +102,5 @@ export const PageHeadingTextCenteredLarge = styled(PageHeadingTextCentered)`
 export const PageHeadingTextCenteredSmall = styled(PageHeadingTextCentered)`
   font-size: 14px;
   line-height: 20px;
-  color: ${colors.primary.CIVIL_GRAY_3};
+  color: ${colors.primary.CIVIL_GRAY_0};
 `;
