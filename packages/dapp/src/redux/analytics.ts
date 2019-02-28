@@ -4,9 +4,8 @@ import GoogleAnalytics, { trackPageView } from "@redux-beacon/google-analytics";
 
 const eventsMap = {
   [LOCATION_CHANGE]: trackPageView((action: any) => {
-    console.log("trackPageView. action: ", action);
     return {
-      page: action.payload.pathname,
+      page: action.payload.location.pathname,
     };
   }),
 };
