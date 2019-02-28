@@ -24,9 +24,7 @@ export interface DashboardProps {
 export const Dashboard: React.SFC<DashboardProps> = props => {
   return (
     <>
-      <Helmet>
-        <title>My Dashboard - The Civil Registry</title>
-      </Helmet>
+      <Helmet title="My Dashboard - The Civil Registry" />
       <ScrollToTopOnMount />
       <UserDashboardHeader>
         <UserInfoSummary />
