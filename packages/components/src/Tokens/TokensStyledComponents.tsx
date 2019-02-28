@@ -520,5 +520,14 @@ export const ComingSoon = styled.div`
     color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     line-height: 20px;
+
+    a {
+      color: ${colors.accent.CIVIL_BLUE};
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;
