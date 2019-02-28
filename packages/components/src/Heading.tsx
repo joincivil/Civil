@@ -91,6 +91,7 @@ export const PageHeadingTextCentered = styled.div`
   font-size: 16px;
   line-height: 25px;
   font-family: ${props => props.theme.sansSerifFont};
+  padding: 10px 0;
 `;
 
 export const PageHeadingTextCenteredLarge = styled(PageHeadingTextCentered)`

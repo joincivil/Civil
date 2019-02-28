@@ -3,6 +3,8 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
 import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import * as iconError from "../../images/icons/ico-error-red@2x.png";
+
 import {
   AuthTextFooter,
   AuthTextVerifyTokenConfirmed,
@@ -168,6 +170,10 @@ export const AuthErrorMessage = styled.div`
   border: 1px solid rgba(242, 82, 74, 0.56);
   border-radius: 4px;
   background-color: #fff7f8;
+
+  background-position: left center;
+  background-image: url(${iconError});
+  background-size: cover;
 
   color: #555555;
   font-family: "Libre Franklin";
