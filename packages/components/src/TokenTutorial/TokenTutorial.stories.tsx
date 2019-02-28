@@ -51,5 +51,5 @@ storiesOf("Token Tutorial", module)
     return <TokenTutorial handleClose={onClickFunc} />;
   })
   .add("Tutorial Landing", () => {
-    return <TokenTutorialLanding quizPayload={{}} handleClose={onClickFunc} isQuizStarted={true} />;
+    return <TokenTutorialLanding quizPayload={{}} handleClose={onClickFunc} />;
   });

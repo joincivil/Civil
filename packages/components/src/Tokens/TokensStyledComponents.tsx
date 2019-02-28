@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
 import { TOKEN_PROGRESS } from "./Tokens";
+import { TabComponentProps } from "../Tabs";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -101,25 +102,23 @@ export const FlexColumnsSecondaryModule = styled.div`
   }
 `;
 
-export const TokenHeaderOuter = styled.div`
+export const TokenHeader = styled.div`
+  color: ${colors.primary.BLACK};
   font-family: ${fonts.SANS_SERIF};
   padding: 30px 30px 40px;
   text-align: center;
-  width: 100%;
-`;
 
-export const TokenHeader = styled.h2`
-  color: ${colors.primary.BLACK};
-  font-size: 27px;
-  line-height: 39px;
-  margin-bottom: 25px;
-`;
+  h2 {
+    font-size: 27px;
+    line-height: 39px;
+    margin-bottom: 25px;
+  }
 
-export const TokenSetup = styled.p`
-  color: ${colors.primary.BLACK};
-  font-size: 24px;
-  line-height: 29px;
-  margin-bottom: 60px;
+  p {
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 60px;
+  }
 `;
 
 export const TokenAccountSectionHeader = styled.div`
@@ -465,5 +464,48 @@ export const TokenUnlock = styled.div`
     border: 1px solid ${colors.accent.CIVIL_BLUE};
     border-radius: 2px;
     padding: 16px 40px;
+  }
+`;
+
+export const TokenBuySellTab = styled.li`
+  background-color: ${(props: TabComponentProps) => (props.isActive ? "transparent" : colors.accent.CIVIL_GRAY_4)};
+  border-top: 1px solid ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : "transparent")};
+  color: ${colors.primary.CIVIL_GRAY_1};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.12px;
+  line-height: 33px;
+  padding: 20px 0;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 500ms;
+  width: 50%;
+
+  ${mediaQueries.HOVER} {
+    &:hover {
+      border-color: ${(props: TabComponentProps) =>
+        props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_3};
+    }
+  }
+`;
+
+export const TokenBuySellTabsNav = styled.div`
+  height: 80px;
+  margin: -31px 0 50px;
+`;
+
+export const ComingSoon = styled.div`
+  text-align: center;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 20px;
   }
 `;

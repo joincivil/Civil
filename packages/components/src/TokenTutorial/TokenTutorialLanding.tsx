@@ -24,7 +24,6 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialLandingProps {
-  isQuizStarted: boolean;
   quizPayload: {};
   handleClose(): void;
 }
@@ -68,9 +67,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
         <TutorialSkipSection>
           <TutorialSkipText />
-          <TakeQuizBtn onClick={() => this.skipTutorial()}>
-            {this.props.isQuizStarted ? "Continue" : "Take the quiz"}
-          </TakeQuizBtn>
+          <TakeQuizBtn onClick={() => this.skipTutorial()}>Take the quiz</TakeQuizBtn>
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
@@ -93,7 +90,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                 <TutorialProgressText questions={topic.questions.length - lastSlideIdx} />
                 <TutorialLandingProgressBars>
                   {topic.questions.map((question, questionIdx) => {
-                    if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx) {
+                    if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx - 1) {
                       return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
                     }
                     return <TutorialLandingProgressBar key={questionIdx} />;
@@ -141,7 +138,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     }
 
     const isComplete = quizPayload[topic.quizId].isComplete || false;
-    const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx || 0;
+    const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx + 1 || 0;
 
     return { isComplete, lastSlideIdx };
   }

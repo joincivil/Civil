@@ -80,7 +80,7 @@ export const getChallengeUserData = (state: State) => state.networkDependent.cha
 
 export const getAppealChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
 
-export const getProposalChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
+export const getProposalChallengeUserData = (state: State) => state.networkDependent.proposalChallengeUserData;
 
 export const getChallengesVotedOnByAllUsers = (state: State) => state.networkDependent.challengesVotedOnByUser;
 

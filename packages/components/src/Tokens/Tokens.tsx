@@ -5,8 +5,9 @@ import {
   FlexColumns,
   FlexColumnsPrimary,
   FlexColumnsSecondary,
+  TokenHeader,
 } from "./TokensStyledComponents";
-import { UserTokenAccountHeader } from "./TokensAccountHeader";
+import { TokenWelcomeHeaderText, TokenBuySellHeaderText } from "./TokensTextComponents";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
@@ -34,6 +35,7 @@ export interface UserTokenAccountProps {
 export interface UserTokenAccountStates {
   isTutorialModalOpen: boolean;
   isTutorialComplete: boolean;
+  isBuyComplete: boolean;
 }
 
 export class UserTokenAccount extends React.Component<UserTokenAccountProps, UserTokenAccountStates> {
@@ -42,6 +44,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     this.state = {
       isTutorialModalOpen: false,
       isTutorialComplete: false,
+      isBuyComplete: false,
     };
   }
   public getTutorialState(loggedInState: TOKEN_PROGRESS, tutorialComplete: boolean): TOKEN_PROGRESS {
@@ -57,7 +60,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
   public render(): JSX.Element | null {
     const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress, signupPath } = this.props;
-    const { isTutorialModalOpen } = this.state;
+    const { isTutorialModalOpen, isBuyComplete } = this.state;
 
     const accountSignupComplete = this.getAccountComplete(user);
     const tutorialComplete = this.getTutorialComplete(user);
@@ -65,12 +68,22 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
     const loggedInState = accountSignupComplete ? TOKEN_PROGRESS.COMPLETED : TOKEN_PROGRESS.ACTIVE;
     const tutorialState = this.getTutorialState(loggedInState, tutorialComplete);
-    const buyState = accountSignupComplete && tutorialComplete ? TOKEN_PROGRESS.ACTIVE : TOKEN_PROGRESS.DISABLED;
+
+    let buyState;
+    if (isBuyComplete) {
+      buyState = TOKEN_PROGRESS.COMPLETED;
+    } else if (accountSignupComplete && tutorialComplete) {
+      buyState = TOKEN_PROGRESS.ACTIVE;
+    } else {
+      buyState = TOKEN_PROGRESS.DISABLED;
+    }
 
     return (
       <TokenAccountOuter>
         <TokenAccountInner>
-          <UserTokenAccountHeader />
+          <TokenHeader>
+            {buyState === TOKEN_PROGRESS.ACTIVE ? <TokenBuySellHeaderText /> : <TokenWelcomeHeaderText />}
+          </TokenHeader>
 
           <FlexColumns>
             <FlexColumnsPrimary>
@@ -91,6 +104,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 network={network}
                 foundationAddress={foundationAddress}
                 faqUrl={faqUrl}
+                onBuyComplete={this.onBuyComplete}
               />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>
@@ -143,5 +157,9 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
     } else {
       this.setState({ isTutorialModalOpen: false });
     }
+  };
+
+  private onBuyComplete = () => {
+    this.setState({ isBuyComplete: true });
   };
 }
