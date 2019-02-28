@@ -6,14 +6,14 @@ import {
   PageHeadingCentered,
   PageHeadingTextCenteredLarge,
 } from "../../Heading";
+import { Link } from "react-router-dom";
 
 export const AuthTextFooter: React.SFC = () => (
   // TODO(jorgelo): For the store front, the text should be:
 
   <PageHeadingTextCenteredSmall>
-    By joining Civil, you will become part of the Civil community supporting and building the future of news. As a
-    member, you'll get a direct say in running the Civil platform, connect with journalists and fund great journalism
-    projects. Read more about those benefits
+    By joining Civil, you will get a direct say in running the Civil platform, connect with journalists and fund great
+    journalism projects.
   </PageHeadingTextCenteredSmall>
 );
 
@@ -82,11 +82,16 @@ export const AuthTextSigninWithEmail: React.SFC = () => (
 );
 
 export const AuthTextEmailNotFoundError: React.SFC = () => (
-  <>The email address you entered does not exist. Try again? or create a Civil account to continue.</>
+  <>
+    The email address you entered does not exist. Try again? or{" "}
+    <Link to="/auth/signup">create a Civil account to continue.</Link>
+  </>
 );
 
 export const AuthTextEmailExistsError: React.SFC = () => (
-  <>The email address you entered does not exist. Try again? or create a Civil account to continue.</>
+  <>
+    You account already exists. <Link to="/auth/login">Login to continue.</Link>
+  </>
 );
 
 // TODO(jorgelo): Make this text nicer.

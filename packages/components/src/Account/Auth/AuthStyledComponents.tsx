@@ -166,7 +166,8 @@ export const AuthEmailVerify = ({
   );
 };
 
-// Staging: jorge+011012@civil.co exists.
+// Staging: jorge+011012@civil.co exists. jorge@civil.co does not.
+//
 export const AuthErrorMessage = styled.div`
   border: 1px solid rgba(242, 82, 74, 0.56);
   border-radius: 4px;
@@ -179,7 +180,7 @@ export const AuthErrorMessage = styled.div`
 
   color: #555555;
   font-family: "Libre Franklin";
-  font-size: 13px;
+  font-size: 14px;
 
   /*  TODO(jorgelo): This is terrible, but the error message breaks out of the parent box. There has to be a better way. */
   margin: 0 -116px 17px -116px;
