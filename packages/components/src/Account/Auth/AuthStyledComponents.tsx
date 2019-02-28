@@ -166,8 +166,6 @@ export const AuthEmailVerify = ({
   );
 };
 
-// Staging: jorge+011012@civil.co exists. jorge@civil.co does not.
-//
 export const AuthErrorMessage = styled.div`
   border: 1px solid rgba(242, 82, 74, 0.56);
   border-radius: 4px;

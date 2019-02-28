@@ -81,6 +81,7 @@ export const AuthTextSigninWithEmail: React.SFC = () => (
   </>
 );
 
+// TODO(jorgelo): Toby, does hardcording the path here break anything on the newsroom?
 export const AuthTextEmailNotFoundError: React.SFC = () => (
   <>
     The email address you entered does not exist. Try again? or{" "}
@@ -88,9 +89,11 @@ export const AuthTextEmailNotFoundError: React.SFC = () => (
   </>
 );
 
+// TODO(jorgelo): Here too.
+
 export const AuthTextEmailExistsError: React.SFC = () => (
   <>
-    You account already exists. <Link to="/auth/login">Login to continue.</Link>
+    Your account already exists. <Link to="/auth/login">Login to continue.</Link>
   </>
 );
 
