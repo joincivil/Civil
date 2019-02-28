@@ -90,9 +90,7 @@ const ContractAddresses: React.SFC<ContractAddressesReduxProps> = props => {
 
   return (
     <StyledMainContainer>
-      <Helmet>
-        <title>Contract Addresses - The Civil Registry</title>
-      </Helmet>
+      <Helmet title="Contract Addresses - The Civil Registry" />
       <StyledContent>
         <StyledHeader>
           <StyledNetwork>{formattedNetworkNames[props.network]}</StyledNetwork>
