@@ -19,6 +19,9 @@ contract DisbursementHandler is DisbursementHandlerI, Ownable {
 
     // Amount of tokens to be disbursed
     uint256 tokens;
+
+    // Whether the disbursement has been cancelled
+    bool cancelled;
   }
 
   event Setup(address indexed _vestor, uint256 _timestamp, uint256 _tokens);
@@ -29,7 +32,6 @@ contract DisbursementHandler is DisbursementHandlerI, Ownable {
   uint256 public totalAmount;
   mapping(address => Disbursement[]) public disbursements;
   mapping(address => uint256) public withdrawnTokens;
-  mapping(address => Disbursement[]) public cancelledDisbursements;
   mapping(address => uint256) public cancelledTokens;
 
   constructor(address _token) public {
@@ -49,7 +51,7 @@ contract DisbursementHandler is DisbursementHandlerI, Ownable {
     onlyOwner
   {
     require(block.timestamp < _timestamp, "unable to set up disbursement");
-    disbursements[_vestor].push(Disbursement(_timestamp, _tokens));
+    disbursements[_vestor].push(Disbursement(_timestamp, _tokens, false));
     totalAmount = totalAmount.add(_tokens);
     emit Setup(_vestor, _timestamp, _tokens);
   }
@@ -79,7 +81,7 @@ contract DisbursementHandler is DisbursementHandlerI, Ownable {
     Disbursement[] storage temp = disbursements[_beneficiary];
     uint256 tempLength = temp.length;
     for (uint256 i = 0; i < tempLength; i++) {
-      if (block.timestamp > temp[i].timestamp) {
+      if (!temp[i].cancelled && block.timestamp > temp[i].timestamp) {
         maxTokens = maxTokens.add(temp[i].tokens);
       }
     }
@@ -112,15 +114,15 @@ contract DisbursementHandler is DisbursementHandlerI, Ownable {
       
       if (block.timestamp < temp[i].timestamp && temp[i].tokens > 0) {
         // if the disbursement is in the future then add it to the cancelled list
-        cancelledDisbursements[_vestor].push(temp[i]);
+        temp[i].cancelled = true;
         // add the amount cancelled
         amountCancelled = amountCancelled.add(temp[i].tokens);
-        delete temp[i];
       }
     }
 
-    cancelledTokens[_vestor] = amountCancelled.add(cancelledTokens[_vestor]);
+    cancelledTokens[_vestor] = cancelledTokens[_vestor].add(amountCancelled);
 
+    require(token.transfer(owner, amountCancelled), "unable to transfer");
 
   }
 

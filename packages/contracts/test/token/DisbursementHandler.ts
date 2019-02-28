@@ -47,6 +47,7 @@ contract("DisbursementHandler", accounts => {
 
   it("cancel disbursement", async () => {
     const tokenAmount = new web3.BigNumber(100);
+    await token.transfer(disbursementHandler.address, tokenAmount * 7, { from: owner });
 
     // setup disbursements
     const timestamp1 = (await latestTime()) + duration.weeks(1);
@@ -58,8 +59,9 @@ contract("DisbursementHandler", accounts => {
     await disbursementHandler.setupDisbursement(beneficiary, tokenAmount, timestamp3, { from: owner });
     await disbursementHandler.setupDisbursement(beneficiary, tokenAmount, timestamp3, { from: owner });
 
-    await token.transfer(disbursementHandler.address, tokenAmount * 4, { from: owner });
+    // total disbursments = 500
 
+    const ownerBalance = await token.balanceOf.call(owner);
     let tokenBalance = await token.balanceOf.call(beneficiary);
     expect(tokenBalance).to.bignumber.equal(0);
 
@@ -68,11 +70,13 @@ contract("DisbursementHandler", accounts => {
     await disbursementHandler.withdraw(beneficiary, { from: beneficiary });
     tokenBalance = await token.balanceOf.call(beneficiary);
     expect(tokenBalance).to.bignumber.equal(100);
+    // total disbursments = 500, paid out = 100
 
     // increase time so that disbursement 2 is valid
     await increaseTime(duration.weeks(2.1));
     // cancel any remaining disbursements
     await disbursementHandler.cancelDisbursement(beneficiary, { from: owner });
+    // total disbursments = 500, paid out = 200, cancelled = 300
 
     // make sure that disbursement 2 was applied
     tokenBalance = await token.balanceOf.call(beneficiary);
@@ -98,6 +102,10 @@ contract("DisbursementHandler", accounts => {
     // beneficiary should not be allowed to access any more tokens
     const newWithdrawable = await disbursementHandler.calcMaxWithdraw.call(beneficiary);
     expect(newWithdrawable).to.bignumber.equal(0);
+
+    // make sure withdrawn tokens go back to the owner
+    const newOwnerBalance = await token.balanceOf.call(owner);
+    expect(newOwnerBalance).to.bignumber.equal(ownerBalance.add(300));
   });
   it("what happens if there aren't enough tokens?", async () => {
     const tokenAmount = new web3.BigNumber(100);
