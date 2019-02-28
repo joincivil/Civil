@@ -34,12 +34,19 @@ export interface TokenTutorialLandingStates {
   tutorialActive: boolean;
   skipTutorial: boolean;
   activeSection: string;
+  quizSlide: number;
 }
 
 export class TokenTutorialLanding extends React.Component<TokenTutorialLandingProps, TokenTutorialLandingStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeTutorialIdx: 0, tutorialActive: false, skipTutorial: false, activeSection: "intro" };
+    this.state = {
+      activeTutorialIdx: 0,
+      tutorialActive: false,
+      skipTutorial: false,
+      activeSection: "intro",
+      quizSlide: 0,
+    };
   }
 
   public render(): JSX.Element {
@@ -52,6 +59,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
           activeSection={this.state.activeSection}
           handleClose={this.props.handleClose}
           handleSaveQuizState={this.saveQuizState}
+          quizSlide={this.state.quizSlide}
         />
       );
     }
@@ -72,14 +80,15 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
+          // lastSlideIdx is the index number, lastSlideCount is the visible question number
           const { lastSlideIdx, isComplete } = this.getTopicStatus(this.props.quizPayload, topic);
+          const lastSlideCount = lastSlideIdx + 1;
 
           // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
-          // TODO(jorgelo): lastSlideIdx is the last slide that was completed correctly. Should we jump the user to that last slide?
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx)} disabled={isComplete}>
+              <LaunchTopic onClick={() => this.openTutorial(idx, lastSlideCount)} disabled={isComplete}>
                 <LaunchTopicTop>
                   <div>
                     {topic.icon}
@@ -89,16 +98,16 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                   <DisclosureArrowIcon />
                 </LaunchTopicTop>
                 <TopicProgress>
-                  <TutorialProgressText questions={topic.questions.length - lastSlideIdx} />
+                  <TutorialProgressText questions={topic.questions.length - lastSlideCount} />
                   <TutorialLandingProgressBars>
                     {topic.questions.map((question, questionIdx) => {
-                      if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx - 1) {
+                      if (lastSlideCount > 0 && questionIdx <= lastSlideIdx) {
                         return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
                       }
                       return <TutorialLandingProgressBar key={questionIdx} />;
                     })}
                     <b>
-                      {lastSlideIdx}/{topic.questions.length}
+                      {lastSlideCount}/{topic.questions.length}
                     </b>
                   </TutorialLandingProgressBars>
                 </TopicProgress>
@@ -141,7 +150,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     }
 
     const isComplete = quizPayload[topic.quizId].isComplete || false;
-    const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx + 1 || 0;
+    const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx || 0;
 
     return { isComplete, lastSlideIdx };
   }
@@ -151,7 +160,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
 
-  private openTutorial = (idx: number) => {
-    this.setState({ activeTutorialIdx: idx, tutorialActive: true });
+  private openTutorial = (topicNumber: number, lastSlideCount: number) => {
+    this.setState({ activeTutorialIdx: topicNumber, tutorialActive: true, quizSlide: lastSlideCount });
   };
 }

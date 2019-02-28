@@ -18,6 +18,7 @@ export interface TokenTutorialQuizProps {
   totalTopics: number;
   activeSection: string;
   skipTutorial: boolean;
+  quizSlide: number;
   handleClose(): void;
   handleSaveQuizState(topic: string, lastSlideIdx: number, isComplete: boolean): void;
 }
@@ -34,13 +35,13 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
   public constructor(props: any) {
     super(props);
 
-    const { topicIdx, activeSection } = this.props;
+    const { topicIdx, activeSection, quizSlide } = this.props;
 
     this.state = {
       topicIdx,
       slideIdx: 0,
       activeSection,
-      quizSlide: 0,
+      quizSlide,
       resetQuestion: true,
     };
   }
@@ -164,7 +165,7 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
   };
 
   private skipTutorial = () => {
-    this.setState({ slideIdx: 0, activeSection: QUIZ_SECTION.QUIZ });
+    this.setState({ slideIdx: this.state.quizSlide, activeSection: QUIZ_SECTION.QUIZ });
   };
 
   private nextTopic = () => {
