@@ -131,7 +131,7 @@ export const TokenAirswapExchangeText: React.SFC = props => (
 
 export const TokenOrText: React.SFC = props => <p>or</p>;
 
-export const TokenThanksText: React.SFC<TokenTextProps> = props => (
+export const TokenBuyCompleteText: React.SFC<TokenTextProps> = props => (
   <>
     <h3>Thanks for your purchase!</h3>
     <p>Your CVL will be deposited to your wallet address.</p>
@@ -165,6 +165,19 @@ export const TokenUnlockSellText: React.SFC = props => (
     You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible
     to sell them here.
   </p>
+);
+
+export const TokenSellCompleteText: React.SFC<TokenTextProps> = props => (
+  <>
+    <h3>Your sell was successful! </h3>
+    <p>Your ETH will be deposited to your wallet address.</p>
+    <p>
+      You can always view your CVL balance in the{" "}
+      <Link to="/dashboard/tasks/transfer-voting-tokens" target="_blank">
+        Dashboard
+      </Link>.
+    </p>
+  </>
 );
 
 export const TokenUnlockText: React.SFC = props => (

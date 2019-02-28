@@ -411,8 +411,13 @@ export const TokenCalcCVL = styled.div`
   }
 `;
 
-export const TokenThanksPurchase = styled.div`
+export const TokenBuySellComplete = styled.div`
+  margin-bottom: 35px;
   text-align: center;
+
+  & > svg {
+    margin 0 auto 5px;
+  }
 
   h3 {
     font-size: 20px;

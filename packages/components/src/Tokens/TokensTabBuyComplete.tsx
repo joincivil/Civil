@@ -1,7 +1,8 @@
 import * as React from "react";
-import { TokenThanksPurchase } from "./TokensStyledComponents";
-import { TokenThanksText } from "./TokensTextComponents";
+import { TokenBuySellComplete } from "./TokensStyledComponents";
+import { TokenBuyCompleteText } from "./TokensTextComponents";
 import { TokensUnlockMessage } from "./TokensUnlockMessage";
+import { HollowGreenCheck } from "../icons";
 
 export interface TokensTabBuyCompleteProps {
   faqUrl: string;
@@ -12,9 +13,10 @@ export const TokensTabBuyComplete: React.StatelessComponent<TokensTabBuyComplete
 
   return (
     <>
-      <TokenThanksPurchase>
-        <TokenThanksText faqUrl={faqUrl} />
-      </TokenThanksPurchase>
+      <TokenBuySellComplete>
+        <HollowGreenCheck width={48} height={48} />
+        <TokenBuyCompleteText faqUrl={faqUrl} />
+      </TokenBuySellComplete>
       <TokensUnlockMessage />
     </>
   );
