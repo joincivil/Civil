@@ -65,7 +65,7 @@ ManagerSectionHeading.defaultProps = headingDefaultProps;
 export const PageHeadingCentered = styled.h2`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 800;
-  font-size: 25px;
+  font-size: 28px;
   line-height: 50px;
   letter-spacing: -0.58px;
   margin: 0;
@@ -87,8 +87,8 @@ PageSubHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageHeadingTextCentered = styled.div`
   text-align: center;
-  color: ${colors.primary.CIVIL_GRAY_2};
-  font-size: 14px;
+  color: ${colors.primary.CIVIL_GRAY_3};
+  font-size: 16px;
   line-height: 25px;
   font-family: ${props => props.theme.sansSerifFont};
 `;
@@ -99,6 +99,7 @@ export const PageHeadingTextCenteredLarge = styled(PageHeadingTextCentered)`
 `;
 
 export const PageHeadingTextCenteredSmall = styled(PageHeadingTextCentered)`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
+  color: ${colors.primary.CIVIL_GRAY_3};
 `;
