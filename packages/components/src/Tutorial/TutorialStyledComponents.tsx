@@ -182,10 +182,23 @@ export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = 
   width: 160px;
 `;
 
-export const TutorialSkipQuizIntro = styled.div`
-  right: 0;
-  position: absolute;
-  top: 75px;
+export const TutorialTextBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  background-color: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  line-height: 14px;
+  padding: 12px;
+  text-transform: none;
+  width: 160px;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: underline;
+  }
 `;
 
 export const TutorialQuizName = styled.h2`

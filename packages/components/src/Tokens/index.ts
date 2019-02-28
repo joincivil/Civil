@@ -1,5 +1,4 @@
 export * from "./Tokens";
-export * from "./TokensAccountHeader";
 export * from "./TokensAccountHelp";
 export * from "./TokensAccountRequirement";
 export * from "./TokensAccountSignup";
