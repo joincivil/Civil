@@ -11,8 +11,7 @@ export const TutorialTimeText: React.SFC = props => <>30 minutes</>;
 
 export const TutorialSkipText: React.SFC = props => (
   <p>
-    <b>Skip the walkthrough and take the quiz.</b> If you’ve read our white paper, the Civil Constitution, and FAQ, skip
-    to the quiz.
+    <b>Skip the walkthrough and take the quiz.</b> If you’ve read the Civil Constitution and FAQ, skip to the quiz.
   </p>
 );
 
@@ -29,7 +28,7 @@ export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props 
 export const Topic1Intro: React.SFC = props => (
   <>
     <p>
-      <b>You’ll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
     <p>What is Civil, and what makes us different?</p>
     <p>How does a Newsroom join the Civil network?</p>
@@ -41,19 +40,19 @@ export const Topic1Intro: React.SFC = props => (
 export const Topic2Intro: React.SFC = props => (
   <>
     <p>
-      <b>You’ll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
-    <p>What is ETH? And what is gas?</p>
-    <p>What are all the different crypto wallets?</p>
+    <p>What is ETH and what is gas?</p>
+    <p>What is the difference between a “hot” and “cold” wallet?</p>
     <p>What are Public and Private Keys?</p>
-    <p>What is a recovery phrase (seed) and why is it important to secure it?</p>
+    <p>What is a recovery phrase (seed)?</p>
   </>
 );
 
 export const Topic3Intro: React.SFC = props => (
   <>
     <p>
-      <b>You’ll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
     <p>How are Civil tokens valued over time - do prices fluctuate?</p>
     <p>What factors should you take into consideration when buying Civil tokens?</p>
@@ -373,7 +372,7 @@ export const Topic3Tutorial1: React.SFC = props => (
       based on the growth and health of the Civil network overall — the more high-quality newsrooms on Civil, the more
       demand for Civil tokens compared to a fixed (or even diminishing) supply of freely circulating tokens. While other
       tokens may be attractive to passive speculators, Civil tokens are meant to incentivize community participation in
-      order to increase the value of the Civil network overall for everyone.
+      order to increase the usefulness of the Civil network overall for everyone.
     </p>
     <p>
       Civil tokens are specifically designed to change in price over time based on the growth and health of the Civil
@@ -409,7 +408,10 @@ export const Topic3Tutorial3: React.SFC = props => (
       There are no guaranteed outcomes or guaranteed returns with Civil tokens. While the value of Civil tokens may
       increase over time, you also must be prepared to lose some or all of their value. Maintaining your financial
       stability is crucial. Don’t buy more Civil tokens than you can afford to lose, and think carefully before you
-      borrow against credit cards, bank loans or personal loans in order to buy Civil tokens.
+      borrow against credit cards, bank loans or personal loans in order to buy Civil tokens. Please be aware that
+      nobody (including but not limited to anyone associated with the Civil token, the Civil Network, or the Civil token
+      sale) is agreeing or obligated to, or responsible for, creating any type of financial return for you in
+      association with your purchase of Civil tokens.
     </p>
   </>
 );
