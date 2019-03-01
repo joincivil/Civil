@@ -51,7 +51,7 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
 
   public render(): JSX.Element {
     const usdToSpend = this.state.convertedCvl;
-    // TODO:Sarah error messaging
+
     return (
       <CurrencyConverterSection>
         <CurrencyConverterContain>
