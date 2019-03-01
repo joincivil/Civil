@@ -35,6 +35,8 @@ import {
   getChallengesForAppealChallengesVotedOnByUserWithAvailableActions,
   getUserAppealChallengesWithRescueTokens,
   getUserAppealChallengesWithUnclaimedRewards,
+  getProposalChallengesWithAvailableActions,
+  getProposalChallengesWithUnrevealedVotes,
   getProposalChallengesWithRescueTokens,
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
@@ -67,6 +69,8 @@ export interface DashboardActivityReduxProps {
   userChallengesWithRescueTokens?: Set<string>;
   userAppealChallengesWithUnclaimedRewards?: Set<string>;
   userAppealChallengesWithRescueTokens?: Set<string>;
+  proposalChallengesWithAvailableActions?: Set<string>;
+  proposalChallengesWithUnrevealedVotes?: Set<string>;
   proposalChallengesWithUnclaimedRewards?: Set<string>;
   proposalChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
@@ -239,11 +243,21 @@ class DashboardActivity extends React.Component<
       userChallengesWithRescueTokens,
       userAppealChallengesWithRescueTokens,
       userAppealChallengesWithUnclaimedRewards,
+      proposalChallengesWithAvailableActions,
+      proposalChallengesWithUnrevealedVotes,
       proposalChallengesWithUnclaimedRewards,
       proposalChallengesWithRescueTokens,
     } = this.props;
-    const allVotesTabTitle = <AllChallengesDashboardTabTitle count={allChallengesWithAvailableActions.count()} />;
-    const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={allChallengesWithUnrevealedVotes.count()} />;
+    const allVotesTabTitle = (
+      <AllChallengesDashboardTabTitle
+        count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
+      />
+    );
+    const revealVoteTabTitle = (
+      <RevealVoteDashboardTabTitle
+        count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
+      />
+    );
     const claimRewardsTabTitle = (
       <ClaimRewardsDashboardTabTitle
         count={
@@ -274,6 +288,7 @@ class DashboardActivity extends React.Component<
           <Tab title={allVotesTabTitle}>
             <MyTasks
               challenges={allChallengesWithAvailableActions}
+              proposalChallenges={proposalChallengesWithAvailableActions}
               showClaimRewardsTab={() => {
                 this.showClaimRewardsTab();
               }}
@@ -285,6 +300,7 @@ class DashboardActivity extends React.Component<
           <Tab title={revealVoteTabTitle}>
             <MyTasks
               challenges={allChallengesWithUnrevealedVotes}
+              proposalChallenges={proposalChallengesWithUnrevealedVotes}
               showClaimRewardsTab={() => {
                 this.showClaimRewardsTab();
               }}
@@ -393,6 +409,7 @@ const mapStateToProps = (
   const allChallengesWithAvailableActions = currentUserChallengesVotedOnWithAvailableActions.union(
     challengesForAppealChallengesVotedOnByUserWithAvailableActions,
   );
+  const proposalChallengesWithAvailableActions = getProposalChallengesWithAvailableActions(state);
 
   const currentUserCompletedChallengesVotedOn = getCompletedChallengesVotedOnByUser(state);
   const currentUserCompletedChallengesForAppealChallengesVotedOnByUser = getCompletedChallengesForAppealChallengesVotedOnByUser(
@@ -411,6 +428,7 @@ const mapStateToProps = (
   const allChallengesWithUnrevealedVotes = userChallengesWithUnrevealedVotes.union(
     userChallengesForAppealChallengesWithUnrevealedVotes,
   );
+  const proposalChallengesWithUnrevealedVotes = getProposalChallengesWithUnrevealedVotes(state);
 
   const userChallengesWithUnclaimedRewards = getUserChallengesWithUnclaimedRewards(state);
   const userAppealChallengesWithUnclaimedRewards = getUserAppealChallengesWithUnclaimedRewards(state);
@@ -430,6 +448,8 @@ const mapStateToProps = (
     userChallengesWithRescueTokens,
     userAppealChallengesWithUnclaimedRewards,
     userAppealChallengesWithRescueTokens,
+    proposalChallengesWithAvailableActions,
+    proposalChallengesWithUnrevealedVotes,
     proposalChallengesWithUnclaimedRewards,
     proposalChallengesWithRescueTokens,
     userAccount: user.account.account,

@@ -27,7 +27,7 @@ import {
 export const TutorialContent = [
   {
     name: "How to use Civil tokens",
-    description: "Learn about CVL tokens and their intended uses within the Civil network.",
+    description: "Learn about Civil tokens and their intended uses within the Civil network",
     quizId: "topic1",
     icon: <NetworkIcon />,
     tutorialIntro: {
@@ -124,7 +124,7 @@ export const TutorialContent = [
   },
   {
     name: "Purchasing, storing and using Civil tokens",
-    description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
+    description: "Learn basic concepts of Ether, gas, digital wallets, keys, and seed phrases",
     quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
     tutorialIntro: {
@@ -226,7 +226,7 @@ export const TutorialContent = [
   },
   {
     name: "Things to consider before buying Civil tokens",
-    description: "Learn about token price trends, token design, and potential risks.",
+    description: "Learn how to responsibly manage cryptocurrency",
     quizId: "topic3",
     icon: <TrendsIcon />,
     tutorialIntro: {
@@ -289,6 +289,19 @@ export const TutorialContent = [
           },
         ],
         answer: "No more than you can afford to lose if Civil tokens lost all value",
+      },
+      {
+        question:
+          "Is anyone except for you responsible for creating any type of financial return for you in association with your purchase of CVL tokens?",
+        options: [
+          {
+            text: "Civil Media is responsible.",
+          },
+          {
+            text: "Solely I am responsible.",
+          },
+        ],
+        answer: "Solely I am responsible.",
       },
     ],
     completed: {

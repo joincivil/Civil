@@ -64,7 +64,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
               onChange={this.enableCheckAnswerBtn}
             >
               {this.props.options.map((option, idx) => (
-                <TutorialRadio id={this.props.quizId + "-" + idx} value={option.text} key={idx}>
+                <TutorialRadio value={option.text} key={idx}>
                   {option.text}
                 </TutorialRadio>
               ))}
@@ -113,8 +113,8 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     );
   }
 
-  private enableCheckAnswerBtn = (ev: any) => {
-    this.setState({ checkAnswerDisabled: false, usersAnswerValue: ev.target.value });
+  private enableCheckAnswerBtn = (name: string, value: any) => {
+    this.setState({ checkAnswerDisabled: false, usersAnswerValue: value });
   };
 
   private checkAnswer = () => {
