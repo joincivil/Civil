@@ -237,19 +237,14 @@ export async function confirmAppeal(id: number): Promise<TwoStepEthTransaction> 
 export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
-
   const voting = tcr.getVoting();
   const eip = await tcr.getToken();
 
   const numTokensBN = ensureWeb3BigNumber(numTokens);
-  const currentApprovedTokens = await voting.getNumVotingRights();
-  const difference = numTokensBN.sub(currentApprovedTokens);
-  if (difference.greaterThan(0)) {
-    const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
-    if (approvedTokensForSpender.lessThan(numTokens)) {
-      const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokens);
-      await approveSpenderReceipt.awaitReceipt();
-    }
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
+  if (approvedTokensForSpender.lessThan(numTokens)) {
+    const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokensBN);
+    await approveSpenderReceipt.awaitReceipt();
   }
 }
 

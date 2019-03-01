@@ -144,7 +144,7 @@ class DepositTokensComponent extends React.Component<
   }
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18).plus(this.props.votingBalance);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
     return approveVotingRights(numTokens);
   };
 
