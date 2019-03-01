@@ -45,7 +45,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
         </Tab>
         <Tab title="Sell">
           <TokenBuySection>
-            <TokensTabSell network={network} />
+            <TokensTabSell network={network} faqUrl={faqUrl} />
           </TokenBuySection>
         </Tab>
       </Tabs>

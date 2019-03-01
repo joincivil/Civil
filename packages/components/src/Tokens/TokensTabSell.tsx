@@ -5,6 +5,7 @@ import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
 import { ComingSoon } from "./TokensStyledComponents";
 
 export interface TokensTabSellProps {
+  faqUrl: string;
   network: string;
 }
 
@@ -21,7 +22,7 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
   }
 
   public render(): JSX.Element | null {
-    const { network } = this.props;
+    const { faqUrl, network } = this.props;
     const { isSellComplete } = this.state;
 
     // TODO(sarah): temporary messaging while waiting on market maker
@@ -45,7 +46,7 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
     if (!isTokenUnlocked) {
       return <TokensTabSellUnlock />;
     } else if (isSellComplete) {
-      return <TokensTabSellComplete />;
+      return <TokensTabSellComplete faqUrl={faqUrl} />;
     }
 
     return <TokensTabSellActive network={network} onSellComplete={this.onSellComplete} />;
