@@ -172,10 +172,14 @@ export const TokenSellCompleteText: React.SFC<TokenTextProps> = props => (
     <h3>Your sell was successful! </h3>
     <p>Your ETH will be deposited to your wallet address.</p>
     <p>
-      You can always view your CVL balance in the{" "}
+      Please check the{" "}
       <Link to="/dashboard/tasks/transfer-voting-tokens" target="_blank">
         Dashboard
-      </Link>.
+      </Link>{" "}
+      to see your CVL balance in the Available Balance. To learn how to sell ETH for USD,{" "}
+      <a href={props.faqUrl} target="_blank">
+        go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+      </a>.
     </p>
   </>
 );
@@ -191,7 +195,7 @@ export const TokenUnlockText: React.SFC = props => (
       below.
     </p>
     <p>
-      Unlocking your tokens is straightforward, and you only have to do this once. Simply,{" "}
+      Unlocking your tokens is straightforward, and you only have to do this once. Simply{" "}
       <b>transfer at least 50 percent of your purchased tokens into the voting balance</b>. And that’s it.
     </p>
   </>
