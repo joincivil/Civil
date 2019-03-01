@@ -42,7 +42,7 @@ export const Topic2Intro: React.SFC = props => (
     <p>
       <b>In this section, you’ll learn</b>
     </p>
-    <p>What is ETH? and what is gas?</p>
+    <p>What is ETH and what is gas?</p>
     <p>What is the difference between a “hot” and “cold” wallet?</p>
     <p>What are Public and Private Keys?</p>
     <p>What is a recovery phrase (seed)?</p>
