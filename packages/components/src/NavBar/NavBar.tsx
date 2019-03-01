@@ -60,9 +60,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
       <NavContainer>
         <NavOuter>
           <NavLogo>
-            <NavLink to="https://civil.co">
+            <a href="https://civil.co">
               <CivilLogo color={colors.basic.WHITE} />
-            </NavLink>
+            </a>
           </NavLogo>
 
           <NavInner>
