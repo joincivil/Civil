@@ -6,8 +6,15 @@ import { Link } from "react-router-dom";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
-import { CheckboxSection, CheckboxContainer, CheckboxLabel, ConfirmButtonContainer } from "./AuthStyledComponents";
+import {
+  CheckboxSection,
+  CheckboxContainer,
+  CheckboxLabel,
+  ConfirmButtonContainer,
+  AuthErrorMessage,
+} from "./AuthStyledComponents";
 import { isValidEmail } from "@joincivil/utils";
+import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
 
 const signupMutation = gql`
   mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
@@ -30,12 +37,15 @@ export interface AuthSignupEmailSendResult {
 export interface AccountEmailAuthProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
+  headerComponent?: JSX.Element;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
+export type AuthEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
+
 export interface AccountEmailAuthState {
   emailAddress: string;
-  errorMessage: string | undefined;
+  errorMessage: AuthEmailError;
   hasAgreedToTOS: boolean;
   hasSelectedToAddToNewsletter: boolean;
   hasBlurred: boolean;
@@ -101,34 +111,69 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       </CheckboxContainer>
     );
   }
+
+  public renderAuthError(): JSX.Element {
+    const { errorMessage } = this.state;
+
+    if (!errorMessage) {
+      return <></>;
+    }
+
+    if (errorMessage === "emailnotfound") {
+      return (
+        <AuthErrorMessage>
+          <AuthTextEmailNotFoundError />
+        </AuthErrorMessage>
+      );
+    }
+
+    if (errorMessage === "emailexists") {
+      return (
+        <AuthErrorMessage>
+          <AuthTextEmailExistsError />
+        </AuthErrorMessage>
+      );
+    }
+
+    return (
+      <AuthErrorMessage>
+        <AuthTextUnknownError />
+      </AuthErrorMessage>
+    );
+  }
+
   public render(): JSX.Element {
-    const { isNewUser } = this.props;
+    const { isNewUser, headerComponent } = this.props;
     const { hasAgreedToTOS } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
     const isButtonDisabled = isNewUser && !hasAgreedToTOS;
 
     return (
-      <Mutation mutation={emailMutation}>
-        {sendEmail => {
-          return (
-            <>
-              {this.renderEmailInput()}
-              {isNewUser && this.renderCheckboxes()}
-              <ConfirmButtonContainer>
-                <Button
-                  size={buttonSizes.SMALL_WIDE}
-                  textTransform={"none"}
-                  disabled={isButtonDisabled}
-                  onClick={async event => this.handleSubmit(event, sendEmail)}
-                >
-                  Confirm
-                </Button>
-              </ConfirmButtonContainer>
-            </>
-          );
-        }}
-      </Mutation>
+      <>
+        {this.renderAuthError()}
+        {headerComponent}
+        <Mutation mutation={emailMutation}>
+          {sendEmail => {
+            return (
+              <>
+                {this.renderEmailInput()}
+                {isNewUser && this.renderCheckboxes()}
+                <ConfirmButtonContainer>
+                  <Button
+                    size={buttonSizes.SMALL_WIDE}
+                    textTransform={"none"}
+                    disabled={isButtonDisabled}
+                    onClick={async event => this.handleSubmit(event, sendEmail)}
+                  >
+                    Confirm
+                  </Button>
+                </ConfirmButtonContainer>
+              </>
+            );
+          }}
+        </Mutation>
+      </>
     );
   }
 
@@ -157,23 +202,28 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     // TODO(jorgelo): Handle if mutation throws an exception.
-    const res: any = await mutation({
-      variables: { emailAddress, application: applicationType },
-    });
 
-    const authResponse: string = res.data[resultKey];
+    try {
+      const res: any = await mutation({
+        variables: { emailAddress, application: applicationType },
+      });
 
-    if (authResponse === "ok") {
-      onEmailSend(isNewUser, emailAddress);
-      if (hasSelectedToAddToNewsletter) {
-        // TODO(jorge): Add to the email newsletter CIVIL-381
-        console.log(emailAddress + " wants to be on the newsletter");
+      const authResponse: string = res.data[resultKey];
+
+      if (authResponse === "ok") {
+        onEmailSend(isNewUser, emailAddress);
+        if (hasSelectedToAddToNewsletter) {
+          // TODO(jorge): Add to the email newsletter CIVIL-381
+          console.log(emailAddress + " wants to be on the newsletter");
+        }
+        return;
       }
+
+      this.setState({ errorMessage: authResponse as AuthEmailError });
+
       return;
+    } catch (err) {
+      this.setState({ errorMessage: "unknown" });
     }
-
-    this.setState({ errorMessage: authResponse });
-
-    return;
   }
 }

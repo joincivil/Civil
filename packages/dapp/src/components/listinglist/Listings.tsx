@@ -65,9 +65,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
           >
             <Tab title={<ApprovedNewsroomsTabText />}>
               <StyledPageContent>
-                <Helmet>
-                  <title>The Civil Registry - A community-driven space for curating quality journalism</title>
-                </Helmet>
+                <Helmet title="The Civil Registry - A community-driven space for curating quality journalism" />
                 <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
@@ -82,9 +80,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
               <StyledPageContent>
-                <Helmet>
-                  <title>Rejected Newsrooms - The Civil Registry</title>
-                </Helmet>
+                <Helmet title="Rejected Newsrooms - The Civil Registry" />
                 <RejectedListingListContainer />
               </StyledPageContent>
             </Tab>
