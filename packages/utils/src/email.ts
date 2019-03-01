@@ -2,8 +2,6 @@ import * as querystring from "querystring";
 
 // TODO(jorgelo): Drop this into a configuration.
 const SIGNUP_ENDPOINT = "https://us-central1-civil-media.cloudfunctions.net/addToSendgrid";
-export const TCR_SENDGRID_STAGING_LIST_ID = "5353193";
-export const TCR_SENDGRID_PROD_LIST_ID = "6903287";
 
 export function isValidEmail(email: string): boolean {
   const emailRegex = /[^@]+@[^\.]+\..+/;
