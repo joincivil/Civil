@@ -154,7 +154,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public render(): JSX.Element {
     const { isNewUser, headerComponent } = this.props;
-    const { hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
+    const { hasAgreedToTOS } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
     const isButtonDisabled = isNewUser && !hasAgreedToTOS;
