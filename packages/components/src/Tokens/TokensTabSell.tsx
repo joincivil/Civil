@@ -27,8 +27,8 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
 
     // TODO(sarah): temporary messaging while waiting on market maker
     const urlParams = new URLSearchParams(window.location.search);
-    const testParam = urlParams.get("test-sell");
-    const comingSoon = testParam === null ? true : false;
+    const testParam = urlParams.get("test");
+    const comingSoon = testParam ? false : true;
     if (comingSoon) {
       return (
         <ComingSoon>
