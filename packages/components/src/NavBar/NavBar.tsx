@@ -1,6 +1,5 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
-import { NavLink } from "./NavLink";
 import { NavMenu } from "./NavMenu";
 import { NavDrawer } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
