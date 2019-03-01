@@ -104,7 +104,7 @@ class ProposalRescueTokensComponent extends React.Component<
 
     let title = "Parameter Proposal Challenge";
     if (proposal) {
-      title = `${title}: ${proposal.paramName} = ${proposal.paramValue}`;
+      title = `${title}: ${proposal.paramName} = ${proposal.propValue}`;
     }
 
     const viewProps = {

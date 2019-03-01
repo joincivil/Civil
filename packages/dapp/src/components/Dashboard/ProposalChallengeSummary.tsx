@@ -47,19 +47,7 @@ const ChallengeSummary: React.SFC<MyTasksProposalItemSubComponentProps> = props 
     return <></>;
   }
 
-  // const isResolved = challenge.resolved;
-  // const canResolveChallenge = canParamPropChallengeBeResolved(challenge);
-  // const didChallengeSucceed = didParamPropChallengeSucceed(challenge);
-
-  const {
-    // canUserReveal,
-    canUserCollect,
-    canUserRescue,
-    // didUserCommit,
-    // didUserReveal,
-    choice,
-    numTokens,
-  } = proposalUserChallengeData;
+  const { canUserCollect, canUserRescue, choice, numTokens } = proposalUserChallengeData;
 
   let userVotingSummary;
 

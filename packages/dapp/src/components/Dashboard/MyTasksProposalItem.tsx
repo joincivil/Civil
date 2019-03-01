@@ -52,7 +52,7 @@ class MyTasksProposalItemComponent extends React.Component<MyTasksProposalItemSu
 
     let title = `Parameter Proposal Challenge #${challengeID}`;
     if (proposal) {
-      title = `${title}: ${proposal.paramName} = ${proposal.paramValue}`;
+      title = `${title}: ${proposal.paramName} = ${proposal.propValue}`;
     }
 
     const viewProps = {

@@ -102,7 +102,7 @@ class ProposalClaimRewardComponent extends React.Component<ProposalItemClaimRewa
 
     let title = "Parameter Proposal Challenge";
     if (proposal) {
-      title = `${title}: ${proposal.paramName} = ${proposal.paramValue}`;
+      title = `${title}: ${proposal.paramName} = ${proposal.propValue}`;
     }
 
     const viewProps = {
