@@ -17,8 +17,12 @@ import { isValidEmail } from "@joincivil/utils";
 import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
 
 const signupMutation = gql`
-  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
-    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!, $addToMailing: Boolean!) {
+    authSignupEmailSendForApplication(
+      emailAddress: $emailAddress
+      application: $application
+      addToMailing: $addToMailing
+    )
   }
 `;
 
@@ -144,7 +148,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public render(): JSX.Element {
     const { isNewUser, headerComponent } = this.props;
-    const { hasAgreedToTOS } = this.state;
+    const { hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
 
     const emailMutation = isNewUser ? signupMutation : loginMutation;
     const isButtonDisabled = isNewUser && !hasAgreedToTOS;
@@ -179,6 +183,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public toggleHasAgreedToTOS = (): void => {
     const { hasAgreedToTOS } = this.state;
+
     this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
   };
 
@@ -201,22 +206,15 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
-    // TODO(jorgelo): Handle if mutation throws an exception.
-
     try {
       const res: any = await mutation({
-        variables: { emailAddress, application: applicationType },
+        variables: { emailAddress, application: applicationType, addToMailing: hasSelectedToAddToNewsletter },
       });
 
       const authResponse: string = res.data[resultKey];
 
       if (authResponse === "ok") {
         onEmailSend(isNewUser, emailAddress);
-        if (hasSelectedToAddToNewsletter) {
-          // TODO(jorge): Add to the email newsletter CIVIL-381
-          console.log(emailAddress + " wants to be on the newsletter");
-        }
-        return;
       }
 
       this.setState({ errorMessage: authResponse as AuthEmailError });
