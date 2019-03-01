@@ -13,8 +13,14 @@ import {
   ConfirmButtonContainer,
   AuthErrorMessage,
 } from "./AuthStyledComponents";
-import { isValidEmail } from "@joincivil/utils";
+import { isValidEmail, addToMailingList } from "@joincivil/utils";
 import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
+
+export interface AuthMutationVariables {
+  emailAddress: string;
+  application: AuthApplicationEnum;
+  addToMailing?: boolean;
+}
 
 const signupMutation = gql`
   mutation($emailAddress: String!, $application: AuthApplicationEnum!, $addToMailing: Boolean!) {
@@ -207,8 +213,13 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     try {
+      const variables: AuthMutationVariables = { emailAddress, application: applicationType };
+
+      if (isNewUser && hasSelectedToAddToNewsletter) {
+        variables.addToMailing = true;
+      }
       const res: any = await mutation({
-        variables: { emailAddress, application: applicationType, addToMailing: hasSelectedToAddToNewsletter },
+        variables,
       });
 
       const authResponse: string = res.data[resultKey];
