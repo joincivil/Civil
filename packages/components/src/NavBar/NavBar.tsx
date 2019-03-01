@@ -1,6 +1,5 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
-import { NavLink } from "./NavLink";
 import { NavMenu } from "./NavMenu";
 import { NavDrawer } from "./NavDrawer";
 import { CivilLogo } from "../CivilLogo";
@@ -60,9 +59,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
       <NavContainer>
         <NavOuter>
           <NavLogo>
-            <NavLink to="https://civil.co">
+            <a href="https://civil.co">
               <CivilLogo color={colors.basic.WHITE} />
-            </NavLink>
+            </a>
           </NavLogo>
 
           <NavInner>

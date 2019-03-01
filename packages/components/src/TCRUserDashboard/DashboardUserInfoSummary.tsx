@@ -69,8 +69,8 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <Button size={buttonSizes.MEDIUM_WIDE} href={props.buyCVLURL} target="_blank">
-          Buy CVL Tokens
+        <Button size={buttonSizes.MEDIUM_WIDE} to={props.buyCVLURL} target="_blank">
+          Buy or Sell CVL
         </Button>
       </StyledUserInfoSection>
     </StyledUserInfo>
