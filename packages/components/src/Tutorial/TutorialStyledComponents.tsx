@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { Button, InvertedButton, ButtonProps } from "../Button";
+import { Button, InvertedButton, SecondaryButton, ButtonProps } from "../Button";
 
 export interface TutorialProgressBarProps {
   activeSlide: number;
@@ -247,32 +247,59 @@ export const TutorialCompletedP = styled.p`
   margin: 30px 0 70px;
 `;
 
-export const TutorialOptionBox = styled.div`
-  border: 1px solid ${colors.accent.CIVIL_BLUE};
-  border-radius: 3px;
-  margin-bottom: 15px;
-  position: relative;
-  transition: background-color 0.2s ease;
+export const TutorialRadioBtnCircle = styled.div`
+  background-color: ${colors.basic.WHITE};
+  border: 1px solid ${colors.basic.WHITE};
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px ${colors.accent.CIVIL_GRAY_2};
+  height: 16px;
+  left: 22px;
+  position: absolute;
+  top: 16px;
+  width: 16px;
+`;
+
+export const TutorialRadioBtnContain = styled.div`
   width: 100%;
 
   input {
-    cursor: pointer;
-    left: 15px;
-    position: absolute;
-    top: 10px;
+    display: none;
   }
 
-  label {
+  input:checked + button {
+    background-color: ${colors.basic.WHITE};
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.accent.CIVIL_GRAY_0};
-    cursor: pointer;
-    display: block;
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 16px;
-    line-height: 26px;
-    padding: 8px 15px 8px 40px;
+
+    ${TutorialRadioBtnCircle} {
+      background-color: ${colors.accent.CIVIL_BLUE};
+      border: 1px solid ${colors.basic.WHITE};
+      box-shadow: 0 0 0 1px ${colors.accent.CIVIL_BLUE};
+    }
   }
+`;
+
+export const TutorialRadioBtn: StyledComponentClass<ButtonProps, "button"> = styled(SecondaryButton)`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 3px;
+  color: ${colors.accent.CIVIL_GRAY_0};
+  cursor: pointer;
+  display: block;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 26px;
+  margin-bottom: 15px;
+  padding: 12px 15px 12px 55px !important;
+  position: relative;
+  text-align: left;
+  text-transform: none;
+  transition: border-color 0.2s ease;
+  width: 100% !important;
 
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
+    background-color: ${colors.basic.WHITE};
+    border-color: ${colors.accent.CIVIL_BLUE};
+    color: ${colors.accent.CIVIL_GRAY_0};
   }
 `;

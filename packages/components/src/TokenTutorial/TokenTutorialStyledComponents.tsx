@@ -139,17 +139,13 @@ export const TutorialTopic = styled.div`
   margin-bottom: 15px;
 `;
 
-export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const LaunchTopicTop = styled.div`
   align-items: center;
-  border: none;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  cursor: pointer;
   display: flex;
   justify-content: space-between;
-  letter-spacing: 0;
   padding: 30px;
-  text-align: left;
-  text-transform: none;
+  transition: background-color 500ms ease;
   width: 100%;
 
   & > div {
@@ -178,10 +174,34 @@ export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(I
     line-height: 26px;
     margin: 0;
   }
+`;
+
+export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  border: none;
+  cursor: ${(props: ButtonProps) => (props.disabled ? "auto" : "pointer")};
+  letter-spacing: 0;
+  opacity: ${(props: ButtonProps) => (props.disabled ? 0.5 : 1)};
+  padding: 0;
+  text-align: left;
+  text-transform: none;
+  width: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  & > div > svg {
+    display: ${(props: ButtonProps) => (props.disabled ? "none" : "block")};
+  }
 
   &:focus,
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
+    background-color: ${colors.basic.WHITE};
+
+    ${LaunchTopicTop} {
+      background-color: ${(props: ButtonProps) =>
+        props.disabled ? colors.basic.WHITE : colors.accent.CIVIL_BLUE_FADED_2};
+    }
   }
 `;
 

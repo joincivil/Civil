@@ -7,8 +7,8 @@ import { colors } from "../styleConstants";
 
 export const TokenWelcomeHeaderText: React.SFC = props => (
   <>
-    <h2>Hello and welcome!</h2>
-    <p>Let’s get you set up to use, buy and send CVL tokens.</p>
+    <h2>Hello, you’re about to become a Civil member</h2>
+    <p>Let’s get you set up to use, buy or sell Civil tokens</p>
   </>
 );
 
@@ -47,8 +47,8 @@ export const TokenVerifySectionText: React.SFC = props => (
   <>
     <h3>Take the Civil Tutorial</h3>
     <p>
-      Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil tokens and
-      how the Registry works.
+      Before you can use, buy or sell Civil tokens, you must complete a tutorial to ensure you understand how to use
+      Civil tokens and how the Civil Registry works.
     </p>
   </>
 );
@@ -57,12 +57,12 @@ export const TokenQuizSectionText: React.SFC = props => (
   <>
     <h3>Civil Tutorial</h3>
     <p>
-      Complete a walkthrough and answering a series of questions about Civil and how to use Civil tokens (CVL). This is
-      a standard procedure to help inform you of best practices with purchasing and using tokens.
+      Complete a walkthrough and answer a series of questions about Civil and how to use Civil tokens (CVL). This is a
+      standard procedure to help inform you of best practices with purchasing and using tokens.
     </p>
     <p>
-      It will take about 30 minutes to complete. If at any point you answer incorrectly, don’t worry. You will be able
-      to answer the questions again.
+      It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry.
+      You will be able to answer the questions again.
     </p>
   </>
 );
@@ -75,25 +75,13 @@ export const TokenQuizCompletedText: React.SFC = props => (
   </h3>
 );
 
-export const TokenVerifyText: React.SFC = props => (
-  <>
-    <h3>Verify Your Identity</h3>
-    <p>
-      Verify for eligibility to buy CVL tokens from the Civil Media Company. This is required to prevent identity theft,
-      money laundering, and business fraud.
-    </p>
-  </>
-);
-
-export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
-
 // Buy section
 
 export const TokenBuyTextDisabled: React.SFC = props => (
-  <p>Once you’ve completed the above steps, you will be eligible to buy CVL tokens.</p>
+  <p>Once you’ve completed the Civil tutorial, you will be eligible to use, share or buy Civil tokens.</p>
 );
 
-export const TokenBuyBtnDisabledText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
+export const TokenBuyBtnDisabledText: React.SFC = props => <>Buy CVL</>;
 
 export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy from Foundation in Airswap</>;
 
