@@ -53,7 +53,7 @@ export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ 
   <>
     <PageSubHeadingCentered>Uh oh.</PageSubHeadingCentered>
     <PageHeadingTextCenteredLarge>
-      There was a problem verifying your email: <strong>{errorMessage}</strong>
+      <strong>{errorMessage}</strong>
     </PageHeadingTextCenteredLarge>
   </>
 );
