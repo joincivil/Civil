@@ -28,7 +28,7 @@ export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props 
 export const Topic1Intro: React.SFC = props => (
   <>
     <p>
-      <b>In this section, you'll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
     <p>What is Civil, and what makes us different?</p>
     <p>How does a Newsroom join the Civil network?</p>
@@ -40,7 +40,7 @@ export const Topic1Intro: React.SFC = props => (
 export const Topic2Intro: React.SFC = props => (
   <>
     <p>
-      <b>In this section, you'll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
     <p>What is ETH? and what is gas?</p>
     <p>What is the difference between a “hot” and “cold” wallet?</p>
@@ -52,7 +52,7 @@ export const Topic2Intro: React.SFC = props => (
 export const Topic3Intro: React.SFC = props => (
   <>
     <p>
-      <b>In this section, you'll learn</b>
+      <b>In this section, you’ll learn</b>
     </p>
     <p>How are Civil tokens valued over time - do prices fluctuate?</p>
     <p>What factors should you take into consideration when buying Civil tokens?</p>
