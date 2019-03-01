@@ -1,6 +1,7 @@
 import * as React from "react";
 import { EmailSignup as EmailSignupComponent, EmailSignupSuccess } from "@joincivil/components";
-import { TCR_SENDGRID_LIST_ID, addToMailingList } from "@joincivil/utils";
+import { addToMailingList } from "@joincivil/utils";
+import config from "../../helpers/config";
 
 export interface EmailSignupState {
   email: string;
@@ -48,8 +49,13 @@ class EmailSignup extends React.Component<{}, EmailSignupState> {
 
     try {
       this.setState(() => ({ isRequestPending: true }));
-      await addToMailingList(email, TCR_SENDGRID_LIST_ID);
-      this.setState(() => ({ email: "", isSignupSuccess: true, isRequestPending: false }));
+      const listID = config.SENDGRID_REGISTRY_LIST_ID;
+      let success = false;
+      if (listID !== undefined) {
+        await addToMailingList(email, listID);
+        success = true;
+      }
+      this.setState(() => ({ email: "", isSignupSuccess: success, isRequestPending: false }));
     } catch (err) {
       this.setState(() => ({ errorMessage: err.message, isRequestPending: false }));
     }
