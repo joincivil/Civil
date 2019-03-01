@@ -3132,32 +3132,6 @@ initialize {
       },
       "children": Array [
         Object {
-          "data": "There was a problem verifying your email: ",
-          "next": Object {
-            "attribs": Object {},
-            "children": Array [
-              Object {
-                "data": "Error is bad",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "strong",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": [Circular],
-            "type": "tag",
-            "x-attribsNamespace": Object {},
-            "x-attribsPrefix": Object {},
-          },
-          "parent": [Circular],
-          "prev": null,
-          "type": "text",
-        },
-        Object {
           "attribs": Object {},
           "children": Array [
             Object {
@@ -3172,13 +3146,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": null,
           "parent": [Circular],
-          "prev": Object {
-            "data": "There was a problem verifying your email: ",
-            "next": [Circular],
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
+          "prev": null,
           "type": "tag",
           "x-attribsNamespace": Object {},
           "x-attribsPrefix": Object {},
@@ -3224,32 +3192,6 @@ initialize {
           },
           "children": Array [
             Object {
-              "data": "There was a problem verifying your email: ",
-              "next": Object {
-                "attribs": Object {},
-                "children": Array [
-                  Object {
-                    "data": "Error is bad",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "strong",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {},
-                "x-attribsPrefix": Object {},
-              },
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-            Object {
               "attribs": Object {},
               "children": Array [
                 Object {
@@ -3264,13 +3206,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": null,
               "parent": [Circular],
-              "prev": Object {
-                "data": "There was a problem verifying your email: ",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
+              "prev": null,
               "type": "tag",
               "x-attribsNamespace": Object {},
               "x-attribsPrefix": Object {},
@@ -3314,32 +3250,6 @@ initialize {
     },
     "children": Array [
       Object {
-        "data": "There was a problem verifying your email: ",
-        "next": Object {
-          "attribs": Object {},
-          "children": Array [
-            Object {
-              "data": "Error is bad",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "strong",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {},
-          "x-attribsPrefix": Object {},
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "text",
-      },
-      Object {
         "attribs": Object {},
         "children": Array [
           Object {
@@ -3354,13 +3264,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
-        "prev": Object {
-          "data": "There was a problem verifying your email: ",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "text",
-        },
+        "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {},
         "x-attribsPrefix": Object {},
