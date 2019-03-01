@@ -4,6 +4,7 @@ export * from "./utils/listingDataHelpers/listingHelper";
 export * from "./utils/listingDataHelpers/appealHelper";
 export * from "./utils/listingDataHelpers/challengeHelper";
 export * from "./utils/listingDataHelpers/appealChallengeHelper";
+export * from "./utils/listingDataHelpers/paramPropChallengeHelper";
 export * from "./utils/listingDataHelpers/userChallengeDataHelper";
 export * from "./utils/listingDataHelpers/pollHelper";
 export * from "./contracts/generated/events";
