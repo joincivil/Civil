@@ -215,8 +215,8 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     try {
       const variables: AuthMutationVariables = { emailAddress, application: applicationType };
 
-      if (isNewUser && hasSelectedToAddToNewsletter) {
-        variables.addToMailing = true;
+      if (isNewUser) {
+        variables.addToMailing = hasSelectedToAddToNewsletter;
       }
       const res: any = await mutation({
         variables,
