@@ -4,7 +4,7 @@ import { StyledMainContainer } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
+import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { getCivil, isGraphQLSupportedOnNetwork } from "../helpers/civilInstance";
@@ -124,10 +124,11 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       <StyledMainContainer>
         {isNetworkSupported && (
           <Switch>
-            <Route exact path="/" component={Listings} />
+            <Redirect exact path="/" to="/registry/approved" />
+            <Redirect exact path="/registry" to="/registry/approved" />
+            <Redirect exact path="/registry/in-progress" to="/registry/in-progress/new-applications" />
             <Route path="/registry/:listingType/:subListingType" component={Listings} />
             <Route path="/registry/:listingType" component={Listings} />
-            <Route path="/registry" component={Listings} />
             <Route path="/contract-addresses" component={ContractAddresses} />
             <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
             <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
@@ -140,8 +141,8 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path="/create-newsroom" component={CreateNewsroom} />
             <Route path="/apply-to-registry/:action?/:token?" component={SignUpNewsroom} />
             <Route path="/government" component={Government} />
+            <Redirect exact path="/dashboard" to="/dashboard/tasks/all" />
             <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab" component={Dashboard} />
-            <Route path="/dashboard" component={Dashboard} />
             <Route path="/auth" component={AuthRouter} />>
             <Route path="/tokens" component={Tokens} />
             {/* TODO(jorgelo): Better 404 */}

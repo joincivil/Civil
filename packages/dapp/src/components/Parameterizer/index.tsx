@@ -209,9 +209,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     return (
       <>
         <ScrollToTopOnMount />
-        <Helmet>
-          <title>Registry Parameters - The Civil Registry</title>
-        </Helmet>
+        <Helmet title="Registry Parameters - The Civil Registry" />
         <GridRow>
           <StyledTitle>Civil Registry Parameters</StyledTitle>
           <StyledDescriptionP>

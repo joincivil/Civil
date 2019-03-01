@@ -19,9 +19,7 @@ export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
 
   return (
     <>
-      <Helmet>
-        <title>Token Account - The Civil Registry</title>
-      </Helmet>
+      <Helmet title="Token Account - The Civil Registry" />
       <ScrollToTopOnMount />
       <LoadUser>
         {({ loading, user }) => {

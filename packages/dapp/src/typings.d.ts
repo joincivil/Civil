@@ -9,3 +9,4 @@ declare module "react-ellipsis-text";
 declare module "react-rte";
 declare module "react-helmet";
 declare module "*.png";
+declare module "react-router-redux";
