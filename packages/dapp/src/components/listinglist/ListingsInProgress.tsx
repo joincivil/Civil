@@ -42,13 +42,7 @@ export interface ListingsInProgressProps {
   govtParameters: any;
 }
 
-const TABS: string[] = [
-  "in-application",
-  "under-challenge",
-  "under-appeal",
-  "under-appeal-challenge",
-  "ready-to-update",
-];
+const TABS: string[] = ["new-applications", "under-challenge", "under-appeal", "decisio-challenged", "ready-to-update"];
 
 class ListingsInProgress extends React.Component<ListingProps & ListingsInProgressProps> {
   public render(): JSX.Element {
@@ -86,41 +80,31 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       >
         <Tab title={newApplicationsTab}>
           <>
-            <Helmet>
-              <title>New Applications - The Civil Registry</title>
-            </Helmet>
+            <Helmet title="New Applications - The Civil Registry" />
             {this.renderApplications()}
           </>
         </Tab>
         <Tab title={underChallengeTab}>
           <>
-            <Helmet>
-              <title>Newsrooms Under Challenge - The Civil Registry</title>
-            </Helmet>
+            <Helmet title="Newsrooms Under Challenge - The Civil Registry" />
             {this.renderUnderChallenge()}
           </>
         </Tab>
         <Tab title={appealToCouncilTab}>
           <>
-            <Helmet>
-              <title>Newsrooms Under Appeal - The Civil Registry</title>
-            </Helmet>
+            <Helmet title="Newsrooms Under Appeal - The Civil Registry" />
             {this.renderUnderAppeal()}
           </>
         </Tab>
         <Tab title={challengeCouncilAppealTab}>
           <>
-            <Helmet>
-              <title>Newsrooms Decision Challenged- The Civil Registry</title>
-            </Helmet>
+            <Helmet title="Newsrooms Decision Challenged- The Civil Registry" />
             {this.renderUnderAppealChallenge()}
           </>
         </Tab>
         <Tab title={readyToUpdateTab}>
           <>
-            <Helmet>
-              <title>Newsrooms Ready To Update - The Civil Registry</title>
-            </Helmet>
+            <Helmet title="Newsrooms Ready To Update - The Civil Registry" />
             {this.renderReadyToUpdate()}
           </>
         </Tab>

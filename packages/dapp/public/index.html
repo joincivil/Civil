@@ -17,6 +17,28 @@
     <script>
       window.SERVER_CONFIG = "$ENVIRONMENT";
     </script>
+    <!-- Google Analytics -->
+    <script>
+      (function(i, s, o, g, r, a, m) {
+        i["GoogleAnalyticsObject"] = r;
+        (i[r] =
+          i[r] ||
+          function() {
+            (i[r].q = i[r].q || []).push(arguments);
+          }),
+          (i[r].l = 1 * new Date());
+        (a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m);
+      })(window, document, "script", "https://www.google-analytics.com/analytics.js", "ga");
+      let TRACKING_ID = "$GA_TRACKING_ID";
+      if (TRACKING_ID.startsWith("$")) {
+        TRACKING_ID = "UA-101410650-6";
+      }
+      ga("create", TRACKING_ID, "auto");
+    </script>
+    <!-- End Google Analytics -->
   </head>
   <body style="margin:0">
     <noscript> You need to enable JavaScript to run this app. </noscript>

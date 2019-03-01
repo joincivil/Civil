@@ -14,7 +14,7 @@ import {
   ChallengePhaseProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { commitVote, approveVotingRights } from "../../apis/civilTCR";
+import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
 import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
@@ -270,7 +270,7 @@ class ChallengeCommitVote extends React.Component<
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRights(numTokens);
+    return approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
