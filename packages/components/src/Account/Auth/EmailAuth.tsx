@@ -13,7 +13,7 @@ import {
   ConfirmButtonContainer,
   AuthErrorMessage,
 } from "./AuthStyledComponents";
-import { isValidEmail, addToMailingList } from "@joincivil/utils";
+import { isValidEmail } from "@joincivil/utils";
 import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
 
 export interface AuthMutationVariables {
