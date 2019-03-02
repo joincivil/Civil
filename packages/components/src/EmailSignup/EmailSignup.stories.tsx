@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { EmailSignup } from "./EmailSignup";
 import { EmailSignupSuccess } from "./EmailSignupSuccess";
-import { TCR_SENDGRID_LIST_ID, addToMailingList } from "@joincivil/utils";
+import { addToMailingList } from "@joincivil/utils";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ async function onSubmit(): Promise<void> {
   console.log("On Submit", email);
 
   try {
-    await addToMailingList(email, TCR_SENDGRID_LIST_ID);
+    await addToMailingList(email, "5353193");
   } catch (err) {
     console.error("Error adding to mailing list:", { err });
   }
