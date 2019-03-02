@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
+import { Dropdown, DropdownGroup, InputBase } from "../input";
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
@@ -219,4 +220,90 @@ export const StyledNumTokensContainer = styled.div`
   line-height: 18px;
   padding: 15px 0 0;
   text-align: right;
+`;
+
+// Transfer Tokens
+
+export const StyledTransferTokenTitle = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  text-align: center;
+  margin: 0 0 40px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0 0 10px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0;
+  }
+`;
+
+export const StyledTransferTokenForm = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  margin: 0 auto;
+  max-width: 460px;
+
+  ${Dropdown} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+    border-radius: 3px;
+    font-size: 15px;
+    margin-top 5px;
+  }
+
+  ${DropdownGroup} {
+    > div:nth-child(2) {
+      > div {
+        left: 0;
+        top: 10px;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
+  ${InputBase} {
+    margin-bottom: 3px;
+  }
+
+  label {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+  }
+`;
+
+export const StyledTransferTokenFormElement = styled.div`
+  margin-bottom: 25px;
+`;
+
+export const StyledInputLabel = styled.label`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 14px;
+`;
+
+export const StyledTransferTokenTip = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 18px;
+`;
+
+export const StyledTransferTokenDropdown = styled.div`
+  padding: 17px 45px 17px 15px;
+  position: relative;
+`;
+
+export const StyledDropdownArrow = styled.div`
+  align-items: center;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  display: flex;
+  justify-content: center;
+  padding: 12px 15px 12px 14px;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 14px);
 `;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { StyledTransferTokenTitle, StyledTransferTokenTip } from "./DashboardStyledComponents";
 
 export const SubTabAllChallengesVotedText: React.SFC = props => <>All</>;
 
@@ -30,8 +31,32 @@ export const YourPublicAddressLabelText: React.SFC = props => <>Your Public Addr
 
 export const BalanceLabelText: React.SFC = props => <>Available Balance</>;
 
+export const TokenBalanceLabelText: React.SFC = props => <>Token Balance</>;
+
 export const VotingBalanceLabelText: React.SFC = props => <>Voting Tokens</>;
 
 export const ChallengesWonLabelText: React.SFC = props => <>Challenges Won</>;
 
 export const RewardsClaimedLabelText: React.SFC = props => <>Rewards Claimed</>;
+
+export const TransferTokenText: React.SFC = props => (
+  <StyledTransferTokenTitle>
+    <h3>Rewards Claimed</h3>
+    <p>
+      Transfer tokens between your Available Balance and Voting Balance. Use tokens in your Available Balance to apply,
+      challenge, send or sell. Use tokens in your Voting Balance to vote in challenges. You may transfer any inactive
+      voting tokens to your Available Balance.
+    </p>
+  </StyledTransferTokenTitle>
+);
+
+export const TransferTokenTipsText: React.SFC = props => (
+  <StyledTransferTokenTip>
+    <b>Tips:</b> We recommend reserving some tokens in your available balance if you plan on applying, challenging, or
+    tipping newsrooms.
+  </StyledTransferTokenTip>
+);
+
+export const MetaMaskPopUpText: React.SFC = props => (
+  <StyledTransferTokenTip>This will pop-up MetaMask window to confirm your transactions</StyledTransferTokenTip>
+);
