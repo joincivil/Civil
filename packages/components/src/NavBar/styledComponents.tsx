@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps } from "../Button";
 
-import { NavArrowProps } from "./types";
+import { NavArrowProps } from "./NavBarTypes";
 
 export const NavContainer = styled.div`
   left: 0;

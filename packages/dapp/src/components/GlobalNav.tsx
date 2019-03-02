@@ -31,18 +31,14 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
       <NavBar
         balance={props.balance}
         votingBalance={props.votingBalance}
-        userAccount={props.userAccount && getFormattedEthAddress(props.userAccount)}
-        buyCvlUrl="https://civil.co/cvl/"
+        userEthAddress={props.userAccount && getFormattedEthAddress(props.userAccount)}
+        buyCvlUrl="/tokens"
         userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
         userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
         userChallengesStartedCount={props.currentUserChallengesStarted.count()}
         userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
         useGraphQL={props.useGraphQL}
-        onLogin={() => {
-          if ((window as any).ethereum) {
-            (window as any).ethereum.enable();
-          }
-        }}
+        authenticationURL="/auth/signup"
         onLoadingPrefToggled={async (): Promise<any> => {
           props.dispatch!(await toggleUseGraphQL());
         }}
