@@ -11,8 +11,6 @@ export interface TokensProps {
 }
 
 export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
-  // TODO:Sarah foundationAddress to @joincivil/utils
-
   // TODO(jorgelo): Figure a way to pass these in here without busting typescript.
   const addWalletPath = "/auth/wallet";
   const signupPath = "/auth/signup";

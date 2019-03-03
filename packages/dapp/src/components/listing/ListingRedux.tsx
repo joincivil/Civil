@@ -103,7 +103,7 @@ class ListingPageComponent extends React.Component<
 
     return (
       <>
-        <Helmet title="{newsroom!.data.name} - The Civil Registry" />
+        <Helmet title={`${newsroom!.data.name} - The Civil Registry`} />
 
         <ListingHeader
           userAccount={this.props.userAccount}

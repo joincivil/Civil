@@ -4,10 +4,12 @@ import styled from "styled-components";
 import {
   didChallengeOriginallySucceed,
   didAppealChallengeSucceed,
+  didParamPropChallengeSucceed,
   isAppealAwaitingJudgment,
   doesChallengeHaveAppeal,
   ChallengeData,
   AppealChallengeData,
+  ParamPropChallengeData,
 } from "@joincivil/core";
 import {
   colors,
@@ -25,7 +27,7 @@ import {
   ChallengeContainerReduxProps,
 } from "./HigherOrderComponents";
 
-import { getAppealChallenge } from "../../selectors";
+import { getAppealChallenge, getProposalChallengeByChallengeID } from "../../selectors";
 
 export interface WinningChallengeResultsProps {
   displayExplanation?: boolean;
@@ -37,6 +39,10 @@ interface AppealChallengeWinningResultsProps {
 
 interface ChallengeWinningResultsProps {
   challenge: ChallengeData;
+}
+
+interface ProposalChallengeWinningResultsProps {
+  challenge: ParamPropChallengeData;
 }
 
 const StyledPartialChallengeResultsExplanation = styled.p`
@@ -196,6 +202,47 @@ export const connectWinningChallengeResults = <
     );
   };
 
+  const ProposalChallengeWinningResults: React.SFC<
+    ProposalChallengeWinningResultsProps & WinningChallengeResultsProps
+  > = props => {
+    const { challenge } = props;
+    const totalVotes = challenge && challenge.poll.votesAgainst.add(challenge.poll.votesFor);
+
+    let voteType;
+    let votesCount;
+    let votesPercent;
+    let explanation;
+
+    if (didParamPropChallengeSucceed(challenge)) {
+      explanation = "The Civil Community voted to reject this proposal from The Civil Registry Parameters.";
+      voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
+      votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
+      votesPercent = challenge.poll.votesAgainst
+        .div(totalVotes)
+        .mul(100)
+        .toFixed(0);
+    } else {
+      explanation = "The Civil Community voted to accept this proposal to The Civil Registry Parameters.";
+      voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
+      votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
+      votesPercent = challenge.poll.votesFor
+        .div(totalVotes)
+        .mul(100)
+        .toFixed(0);
+    }
+
+    const viewProps = { voteType, votesCount, votesPercent };
+
+    return (
+      <>
+        {props.displayExplanation && (
+          <StyledPartialChallengeResultsExplanation>{explanation}</StyledPartialChallengeResultsExplanation>
+        )}
+        <PresentationComponent {...viewProps} />
+      </>
+    );
+  };
+
   // @TODO(jon): Can we get rid of this additional react component and just use redux's connect? Just need to figure out the correct typing to use when not passing `challengeID` as a prop to the presentation component
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps &
@@ -213,9 +260,13 @@ export const connectWinningChallengeResults = <
     }
 
     public render(): JSX.Element | null {
-      const { challengeData, appealChallengeData, displayExplanation } = this.props;
+      const { challengeData, appealChallengeData, proposalChallengeData, displayExplanation } = this.props;
 
-      if (appealChallengeData) {
+      if (proposalChallengeData) {
+        return (
+          <ProposalChallengeWinningResults challenge={proposalChallengeData!} displayExplanation={displayExplanation} />
+        );
+      } else if (appealChallengeData) {
         return <AppealChallengeWinningResults appealChallenge={appealChallengeData!} />;
       } else if (challengeData) {
         return <ChallengeWinningResults challenge={challengeData.challenge} displayExplanation={displayExplanation} />;
@@ -238,11 +289,14 @@ export const connectWinningChallengeResults = <
     const { challenges, challengesFetching, user } = state.networkDependent;
     let challengeData;
     let appealChallengeData;
+    let proposalChallengeData;
     let challengeDataRequestStatus;
     const challengeID = ownProps.challengeID;
     const appealChallengeID = ownProps.appealChallengeID;
 
-    if (appealChallengeID) {
+    if (ownProps.isProposalChallenge) {
+      proposalChallengeData = getProposalChallengeByChallengeID(state, ownProps);
+    } else if (appealChallengeID) {
       appealChallengeData = getAppealChallenge(state, ownProps);
     } else if (challengeID) {
       challengeData = challenges.get(challengeID.toString());
@@ -258,6 +312,7 @@ export const connectWinningChallengeResults = <
       ...ownProps,
       challengeData,
       appealChallengeData,
+      proposalChallengeData,
       challengeDataRequestStatus,
       user: userAcct.account,
     };

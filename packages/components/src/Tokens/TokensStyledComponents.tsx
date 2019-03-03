@@ -216,9 +216,8 @@ export const TokenBuySection = styled.div`
 
   p {
     color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 18px;
-    letter-spacing: -0.12px;
-    line-height: 33px;
+    font-size: 16px;
+    line-height: 24px;
     margin: 0 0 15px;
   }
 
@@ -252,6 +251,15 @@ export const TokenAirswapSection = styled.div`
   button {
     diplay: block;
     width: 100%;
+  }
+`;
+
+export const TokenSellSection = styled.div`
+  margin: 0 auto;
+  max-width: 450px;
+
+  button {
+    margin-top: 50px;
   }
 `;
 
@@ -403,8 +411,13 @@ export const TokenCalcCVL = styled.div`
   }
 `;
 
-export const TokenThanksPurchase = styled.div`
+export const TokenBuySellComplete = styled.div`
+  margin-bottom: 35px;
   text-align: center;
+
+  & > svg {
+    margin 0 auto 5px;
+  }
 
   h3 {
     font-size: 20px;
@@ -507,5 +520,14 @@ export const ComingSoon = styled.div`
     color: ${colors.accent.CIVIL_GRAY_1};
     font-size: 14px;
     line-height: 20px;
+
+    a {
+      color: ${colors.accent.CIVIL_BLUE};
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;

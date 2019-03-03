@@ -19,7 +19,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "href": "/https://civil.co",
+                  "href": "https://civil.co",
                 },
                 "children": Array [
                   Object {
@@ -59038,7 +59038,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "href": "/https://civil.co",
+                    "href": "https://civil.co",
                   },
                   "children": Array [
                     Object {

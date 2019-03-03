@@ -14,7 +14,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
-import { approveVotingRights, requestVotingRights } from "../../apis/civilTCR";
+import { approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { FormGroup } from "../utility/FormElements";
 
@@ -90,7 +90,6 @@ export interface DepositTokensProps {
 
 export interface DepositTokenReduxProps {
   balance: BigNumber;
-  votingBalance: BigNumber;
 }
 
 export interface DepositTokensState {
@@ -144,8 +143,8 @@ class DepositTokensComponent extends React.Component<
   }
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18).plus(this.props.votingBalance);
-    return approveVotingRights(numTokens);
+    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    return approveVotingRightsForTransfer(numTokens);
   };
 
   private depositTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
@@ -209,17 +208,12 @@ class DepositTokensComponent extends React.Component<
 const mapStateToProps = (state: State): DepositTokenReduxProps => {
   const { user } = state.networkDependent;
   let balance = new BigNumber(0);
-  let votingBalance = new BigNumber(0);
   if (user.account && user.account.balance) {
     balance = user.account.balance;
-  }
-  if (user.account && user.account.votingBalance) {
-    votingBalance = user.account.votingBalance;
   }
 
   return {
     balance,
-    votingBalance,
   };
 };
 
