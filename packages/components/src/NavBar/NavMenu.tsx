@@ -2,31 +2,20 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { NavMenuState } from "./NavBarTypes";
-import {
-  StyledNavMenuContainer,
-  StyledNavMenuResponsiveContainer,
-  StyledMobileNavMenu,
-  StyledVisibleIfLoggedInLink,
-} from "./styledComponents";
+import { StyledNavMenuContainer, StyledNavMenuResponsiveContainer, StyledMobileNavMenu } from "./styledComponents";
 import {
   NavLinkRegistryText,
   NavLinkParameterizerText,
   NavLinkContractAddressesText,
-  NavLinkCreateNewsroomText,
   NavLinkConstitutionText,
+  NavLinkFoundationText,
   NavLinkFaqText,
-  NavLinkContactText,
-  NavLinkDashboardText,
 } from "./textComponents";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
 import { NavMenuResponsiveToggleButton } from "./NavMenuResponsiveToggleButton";
 
-export interface NavMenuLinksComponentProps {
-  isLoggedIn: boolean;
-}
-
-const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
+const NavMenuLinksComponent: React.SFC = props => {
   return (
     <>
       <NavDropDown
@@ -43,32 +32,20 @@ const NavMenuLinksComponent: React.SFC<NavMenuLinksComponentProps> = props => {
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
-      <NavLink href="https://civil.co/constitution/" target="_blank">
+      <NavLink href="https://civil.co/constitution/">
         <NavLinkConstitutionText />
       </NavLink>
-      <NavLink to="/apply-to-registry">
-        <NavLinkCreateNewsroomText />
+      <NavLink href="https://civilfound.org/">
+        <NavLinkFoundationText />
       </NavLink>
-      <NavDropDown label="Get Help">
-        <NavLink href="https://civil.co/faq/" target="_blank">
-          <NavLinkFaqText />
-        </NavLink>
-        <NavLink href="https://civil.co/contact/" target="_blank">
-          <NavLinkContactText />
-        </NavLink>
-      </NavDropDown>
-      {props.isLoggedIn && (
-        <StyledVisibleIfLoggedInLink>
-          <NavLink to="/dashboard">
-            <NavLinkDashboardText />
-          </NavLink>
-        </StyledVisibleIfLoggedInLink>
-      )}
+      <NavLink href="https://help.civil.co/">
+        <NavLinkFaqText />
+      </NavLink>
     </>
   );
 };
 
-class NavMenuResponsiveDrawer extends React.Component<NavMenuState & NavMenuLinksComponentProps> {
+class NavMenuResponsiveDrawer extends React.Component<NavMenuState> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -96,8 +73,8 @@ class NavMenuResponsiveDrawer extends React.Component<NavMenuState & NavMenuLink
   }
 }
 
-export class NavMenu extends React.Component<NavMenuLinksComponentProps, NavMenuState> {
-  constructor(props: NavMenuLinksComponentProps) {
+export class NavMenu extends React.Component<{}, NavMenuState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       isResponsiveDrawerOpen: false,
@@ -108,17 +85,14 @@ export class NavMenu extends React.Component<NavMenuLinksComponentProps, NavMenu
     return (
       <>
         <StyledNavMenuContainer>
-          <NavMenuLinksComponent isLoggedIn={this.props.isLoggedIn} />
+          <NavMenuLinksComponent />
         </StyledNavMenuContainer>
         <NavMenuResponsiveToggleButton
           isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen}
           onClick={() => this.toggleResponsiveMenuDrawer()}
         />
         <StyledNavMenuResponsiveContainer>
-          <NavMenuResponsiveDrawer
-            isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen}
-            isLoggedIn={this.props.isLoggedIn}
-          />
+          <NavMenuResponsiveDrawer isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen} />
         </StyledNavMenuResponsiveContainer>
       </>
     );

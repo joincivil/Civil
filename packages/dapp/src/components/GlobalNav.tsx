@@ -41,13 +41,14 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
     balance,
     votingBalance,
     userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    buyCvlUrl: "/tokens",
     userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
     userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
     userChallengesStartedCount: currentUserChallengesStarted.count(),
     userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
     useGraphQL,
-    authenticationURL: "/auth/signup",
+    authenticationURL: "/auth/login",
+    buyCvlUrl: "https://civil.co/become-a-member",
+    applyURL: "https://civil.co/how-to-launch-newsroom",
     onLoadingPrefToggled: async (): Promise<any> => {
       props.dispatch!(await toggleUseGraphQL());
     },

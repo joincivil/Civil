@@ -48,12 +48,15 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
-    const heroCtaButtonText = this.props.userAcct ? "Buy CVL" : "Sign Up | Log In";
     return (
       <>
         <ScrollToTopOnMount />
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero ctaButtonURL="/tokens" ctaButtonText={heroCtaButtonText} learnMoreURL="#zendesk" />
+          <HomepageHero
+            applyURL="https://civil.co/how-to-launch-newsroom"
+            buyCvlUrl="https://civil.co/become-a-member"
+            learnMoreURL="#zendesk"
+          />
         </Hero>
         {!this.props.loadingFinished && <LoadingMsg />}
         {this.props.loadingFinished && (

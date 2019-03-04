@@ -6,6 +6,8 @@ export interface NavUserAccountProps {
 
 export interface NavAuthenticationProps {
   authenticationURL: string;
+  buyCvlUrl: string;
+  applyURL: string;
   enableEthereum?(): void;
 }
 
