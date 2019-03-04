@@ -5,6 +5,7 @@ export interface ConfigType {
   DISCOURSE_URL?: string;
   DEFAULT_ETHEREUM_NETWORK?: string;
   SUPPORTED_ETHEREUM_NETWORKS?: string;
+  SENDGRID_REGISTRY_LIST_ID?: string;
 }
 
 const defaultConfig: ConfigType = {
@@ -14,6 +15,7 @@ const defaultConfig: ConfigType = {
   DISCOURSE_URL: process.env.REACT_APP_DISCOURSE_URL,
   DEFAULT_ETHEREUM_NETWORK: process.env.REACT_APP_DEFAULT_ETHEREUM_NETWORK,
   SUPPORTED_ETHEREUM_NETWORKS: process.env.REACT_APP_SUPPORTED_ETHEREUM_NETWORKS,
+  SENDGRID_REGISTRY_LIST_ID: process.env.REACT_APP_SENDGRID_REGISTRY_LIST_ID,
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;
