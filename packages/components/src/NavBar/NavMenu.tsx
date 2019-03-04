@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { NavMenuState } from "./types";
+import { NavMenuState } from "./NavBarTypes";
 import {
   StyledNavMenuContainer,
   StyledNavMenuResponsiveContainer,

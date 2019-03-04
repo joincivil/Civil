@@ -19,12 +19,13 @@ storiesOf("Nav Bar", module)
       <NavBar
         balance={balance}
         votingBalance={votingBalance}
-        userAccount={userAccount}
+        userEthAddress={userAccount}
+        authenticationURL="#auth"
         userRevealVotesCount={userRevealVotesCount}
         userClaimRewardsCount={userClaimRewardsCount}
         userChallengesStartedCount={userChallengesStartedCount}
         userChallengesVotedOnCount={userChallengesVotedOnCount}
-        buyCvlUrl="https://civil.co/cvl/"
+        buyCvlUrl="https://registry.civil.co/tokens"
         useGraphQL={false}
         onLoadingPrefToggled={() => {
           console.log("thinged");

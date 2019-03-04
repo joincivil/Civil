@@ -1,27 +1,12 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 import { NavMenu } from "./NavMenu";
-import { NavDrawer } from "./NavDrawer";
+import NavDrawer from "./NavDrawer";
+import UserAccount from "./UserAccount";
 import { CivilLogo } from "../CivilLogo";
-import { CvlToken } from "../icons/CvlToken";
-import { buttonSizes } from "../Button";
 
-import { NavProps, NavState } from "./types";
-import {
-  NavContainer,
-  NavOuter,
-  NavLogo,
-  NavInner,
-  NavUser,
-  CvlContainer,
-  UserCvlBalance,
-  UserCvlVotingBalance,
-  AvatarContainer,
-  UserAvatar,
-  Arrow,
-  LogInButton,
-  BalancesContainer,
-} from "./styledComponents";
+import { NavProps, NavState } from "./NavBarTypes";
+import { NavContainer, NavOuter, NavLogo, NavInner, NavUser, CvlContainer } from "./styledComponents";
 
 export class NavBar extends React.Component<NavProps, NavState> {
   constructor(props: NavProps) {
@@ -31,30 +16,22 @@ export class NavBar extends React.Component<NavProps, NavState> {
   }
 
   public render(): JSX.Element {
-    let accountInfo;
-    if (this.props.userAccount) {
-      accountInfo = (
-        <CvlContainer>
-          <CvlToken />
-          <BalancesContainer>
-            <UserCvlBalance>{this.props.balance}</UserCvlBalance>
-            <UserCvlVotingBalance>{this.props.votingBalance}</UserCvlVotingBalance>
-          </BalancesContainer>
-          <AvatarContainer>
-            <UserAvatar />
-            <Arrow isOpen={this.state.isUserDrawerOpen} />
-          </AvatarContainer>
-        </CvlContainer>
-      );
-    } else {
-      accountInfo = (
-        <CvlContainer>
-          <LogInButton onClick={this.props.onLogin} size={buttonSizes.SMALL}>
-            Sign Up | Log In
-          </LogInButton>
-        </CvlContainer>
-      );
-    }
+    const {
+      authenticationURL,
+      balance,
+      userEthAddress,
+      votingBalance,
+      userRevealVotesCount,
+      userClaimRewardsCount,
+      userChallengesStartedCount,
+      userChallengesVotedOnCount,
+      buyCvlUrl,
+      useGraphQL,
+      onLoadingPrefToggled,
+      enableEthereum,
+    } = this.props;
+    const { isUserDrawerOpen } = this.state;
+
     return (
       <NavContainer>
         <NavOuter>
@@ -65,27 +42,37 @@ export class NavBar extends React.Component<NavProps, NavState> {
           </NavLogo>
 
           <NavInner>
-            <NavMenu isLoggedIn={!!this.props.userAccount} />
+            <NavMenu isLoggedIn={!!userEthAddress} />
 
-            <NavUser onClick={ev => this.toggle()}>{accountInfo}</NavUser>
+            <NavUser onClick={ev => this.toggle()}>
+              <CvlContainer>
+                <UserAccount
+                  balance={balance}
+                  votingBalance={votingBalance}
+                  isUserDrawerOpen={isUserDrawerOpen}
+                  userEthAddress={userEthAddress}
+                  authenticationURL={authenticationURL}
+                  enableEthereum={enableEthereum}
+                />
+              </CvlContainer>
+            </NavUser>
           </NavInner>
 
-          {this.props.userAccount &&
-            this.state.isUserDrawerOpen && (
-              <NavDrawer
-                balance={this.props.balance}
-                votingBalance={this.props.votingBalance}
-                userAccount={this.props.userAccount}
-                userRevealVotesCount={this.props.userRevealVotesCount}
-                userClaimRewardsCount={this.props.userClaimRewardsCount}
-                userChallengesStartedCount={this.props.userChallengesStartedCount}
-                userChallengesVotedOnCount={this.props.userChallengesVotedOnCount}
-                buyCvlUrl={this.props.buyCvlUrl}
-                useGraphQL={this.props.useGraphQL}
-                onLoadingPrefToggled={this.props.onLoadingPrefToggled}
-                handleOutsideClick={this.hideUserDrawer}
-              />
-            )}
+          {isUserDrawerOpen && (
+            <NavDrawer
+              balance={balance}
+              votingBalance={votingBalance}
+              userEthAddress={userEthAddress}
+              userRevealVotesCount={userRevealVotesCount}
+              userClaimRewardsCount={userClaimRewardsCount}
+              userChallengesStartedCount={userChallengesStartedCount}
+              userChallengesVotedOnCount={userChallengesVotedOnCount}
+              buyCvlUrl={buyCvlUrl}
+              useGraphQL={useGraphQL}
+              onLoadingPrefToggled={onLoadingPrefToggled}
+              handleOutsideClick={this.hideUserDrawer}
+            />
+          )}
         </NavOuter>
       </NavContainer>
     );
