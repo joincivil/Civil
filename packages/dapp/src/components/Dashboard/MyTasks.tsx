@@ -3,18 +3,18 @@ import { Set } from "immutable";
 import MyTasksItem from "./MyTasksItem";
 import MyTasksProposalItem from "./MyTasksProposalItem";
 
-export interface MyChallengesOwnProps {
+export interface MyTasksOwnProps {
   challenges?: Set<string>;
   proposalChallenges?: Set<string>;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
 }
 
-const MyChallenges: React.SFC<MyChallengesOwnProps> = props => {
+const MyTasks: React.SFC<MyTasksOwnProps> = props => {
   return (
     <>
       {props.challenges &&
-        props.challenges.map(c => {
+        props.challenges.sort((a, b) => parseInt(a, 10) - parseInt(b, 10)).map(c => {
           return (
             <MyTasksItem
               key={c}
@@ -29,7 +29,7 @@ const MyChallenges: React.SFC<MyChallengesOwnProps> = props => {
           );
         })}
       {props.proposalChallenges &&
-        props.proposalChallenges.map(c => {
+        props.proposalChallenges.sort((a, b) => parseInt(a, 10) - parseInt(b, 10)).map(c => {
           return (
             <MyTasksProposalItem
               key={c}
@@ -47,4 +47,4 @@ const MyChallenges: React.SFC<MyChallengesOwnProps> = props => {
   );
 };
 
-export default MyChallenges;
+export default MyTasks;
