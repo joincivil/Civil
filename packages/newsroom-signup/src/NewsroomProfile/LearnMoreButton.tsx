@@ -48,11 +48,20 @@ const Button = styled(BorderlessButton)`
   display: block;
 `;
 
+const LightButton = styled(BorderlessButton)`
+  font-weight: 200;
+  display: block;
+`;
+
 export interface LearnMoreButtonState {
   modalOpen: boolean;
 }
 
-export class LearnMoreButton extends React.Component<{}, LearnMoreButtonState> {
+export interface LearnMoreButtonProps {
+  lightStyle?: boolean;
+}
+
+export class LearnMoreButton extends React.Component<LearnMoreButtonProps, LearnMoreButtonState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -117,9 +126,15 @@ export class LearnMoreButton extends React.Component<{}, LearnMoreButtonState> {
     );
   }
   public render(): JSX.Element {
+    const button = this.props.lightStyle ? (
+      <LightButton onClick={this.showModal}>Learn more about applying to join Civil</LightButton>
+    ) : (
+      <Button onClick={this.showModal}>Learn more about applying to join Civil</Button>
+    );
+
     return (
       <>
-        <Button onClick={this.showModal}>Learn more about applying to join Civil</Button>
+        {button}
         {this.renderModal()}
       </>
     );
