@@ -31,7 +31,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   constructor(props: NewsroomProfileProps) {
     super(props);
     this.state = {
-      currentStep: 0,
+      currentStep: 5,
       showButtons: true,
     };
   }
