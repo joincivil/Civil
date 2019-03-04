@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { NavBar } from "@joincivil/components";
+import { NavBar, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
@@ -26,23 +26,42 @@ export interface NavBarProps {
 }
 
 const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
+  const {
+    balance,
+    votingBalance,
+    userAccount,
+    userChallengesWithUnrevealedVotes,
+    userChallengesWithUnclaimedRewards,
+    currentUserChallengesStarted,
+    currentUserChallengesVotedOn,
+    useGraphQL,
+  } = props;
+
+  const navBarViewProps: NavProps = {
+    balance,
+    votingBalance,
+    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
+    buyCvlUrl: "/tokens",
+    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
+    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
+    userChallengesStartedCount: currentUserChallengesStarted.count(),
+    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
+    useGraphQL,
+    authenticationURL: "/auth/signup",
+    onLoadingPrefToggled: async (): Promise<any> => {
+      props.dispatch!(await toggleUseGraphQL());
+    },
+  };
+
+  if ((window as any).ethereum) {
+    navBarViewProps.enableEthereum = () => {
+      (window as any).ethereum.enable();
+    };
+  }
+
   return (
     <>
-      <NavBar
-        balance={props.balance}
-        votingBalance={props.votingBalance}
-        userEthAddress={props.userAccount && getFormattedEthAddress(props.userAccount)}
-        buyCvlUrl="/tokens"
-        userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
-        userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
-        userChallengesStartedCount={props.currentUserChallengesStarted.count()}
-        userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
-        useGraphQL={props.useGraphQL}
-        authenticationURL="/auth/signup"
-        onLoadingPrefToggled={async (): Promise<any> => {
-          props.dispatch!(await toggleUseGraphQL());
-        }}
-      />
+      <NavBar {...navBarViewProps} />
     </>
   );
 };

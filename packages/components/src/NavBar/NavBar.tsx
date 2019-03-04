@@ -28,6 +28,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       buyCvlUrl,
       useGraphQL,
       onLoadingPrefToggled,
+      enableEthereum,
     } = this.props;
     const { isUserDrawerOpen } = this.state;
 
@@ -51,6 +52,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
                   isUserDrawerOpen={isUserDrawerOpen}
                   userEthAddress={userEthAddress}
                   authenticationURL={authenticationURL}
+                  enableEthereum={enableEthereum}
                 />
               </CvlContainer>
             </NavUser>

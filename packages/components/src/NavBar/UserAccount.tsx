@@ -20,7 +20,7 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 const UserAccount: React.SFC<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance } = props;
+  const { balance, userEthAddress, votingBalance, enableEthereum } = props;
 
   return (
     <LoadUser>
@@ -29,26 +29,32 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
           return null;
         }
 
-        if (!civilUser || !userEthAddress) {
+        if (civilUser && userEthAddress) {
           return (
-            <LogInButton to={props.authenticationURL} size={buttonSizes.SMALL}>
-              Sign Up | Log In
+            <>
+              <CvlToken />
+              <BalancesContainer>
+                <UserCvlBalance>{balance}</UserCvlBalance>
+                <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
+              </BalancesContainer>
+              <AvatarContainer>
+                <UserAvatar />
+                <Arrow isOpen={props.isUserDrawerOpen} />
+              </AvatarContainer>
+            </>
+          );
+        } else if (enableEthereum && !userEthAddress) {
+          return (
+            <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
+              Enable Ethereum
             </LogInButton>
           );
         }
 
         return (
-          <>
-            <CvlToken />
-            <BalancesContainer>
-              <UserCvlBalance>{balance}</UserCvlBalance>
-              <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
-            </BalancesContainer>
-            <AvatarContainer>
-              <UserAvatar />
-              <Arrow isOpen={props.isUserDrawerOpen} />
-            </AvatarContainer>
-          </>
+          <LogInButton to={props.authenticationURL} size={buttonSizes.SMALL}>
+            Sign Up | Log In
+          </LogInButton>
         );
       }}
     </LoadUser>

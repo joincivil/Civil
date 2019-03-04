@@ -6,6 +6,7 @@ export interface NavUserAccountProps {
 
 export interface NavAuthenticationProps {
   authenticationURL: string;
+  enableEthereum?(): void;
 }
 
 export interface NavDrawerProps {
