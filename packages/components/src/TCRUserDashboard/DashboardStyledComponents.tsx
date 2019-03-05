@@ -4,6 +4,11 @@ import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 
+export const DashboardStylesNoticeContainer = styled.div`
+  padding: 24px;
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+`;
+
 export const StyledUserActivity = styled.div`
   background-color: transparent;
 `;
@@ -48,9 +53,17 @@ export const StyledDashboardSubTab = styled(StyledTab)`
   }
 `;
 
-export const StyledDashboardActivityDescription = styled.div`
+export interface StyledDashboardActivityDescriptionProps {
+  noBorder?: boolean;
+}
+
+export const StyledDashboardActivityDescription = styled<StyledDashboardActivityDescriptionProps, "div">("div")`
+  ${props =>
+    props.noBorder
+      ? ""
+      : `
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  font-size: 21px;
+  `} font-size: 21px;
   font-weight: 300;
   line-height: 28px;
   letter-spacing: -0.14px;

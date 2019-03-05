@@ -21,6 +21,7 @@ import {
   StyledDashboardActivityDescription,
   Notice,
   NoticeTypes,
+  DashboardStylesNoticeContainer,
 } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
@@ -365,10 +366,12 @@ class DashboardActivity extends React.Component<
 
   private renderTransferTokensMsg(): JSX.Element {
     return (
-      <Notice type={NoticeTypes.ERROR}>
-        Unlock your account by transfering at least 50% of your <b>available tokens</b> into your <b>voting balance</b>.
-        Unlocking your account allow you to sell Civil tokens.
-      </Notice>
+      <DashboardStylesNoticeContainer>
+        <Notice type={NoticeTypes.ALERT}>
+          Unlock your account by transfering at least 50% of your <b>available tokens</b> into your{" "}
+          <b>voting balance</b>. Unlocking your account allow you to sell Civil tokens.
+        </Notice>
+      </DashboardStylesNoticeContainer>
     );
   }
 

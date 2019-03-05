@@ -45,6 +45,7 @@ export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   border-radius: 4px;
   background-color: ${props => typeColors[props.type].background};
   align-items: center;
+  font-weight: 400;
 `;
 
 export const NoticeIconContainer = styled("div")`

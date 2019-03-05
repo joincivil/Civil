@@ -93,7 +93,7 @@ class ReclaimTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StyledDashboardActivityDescription>
+        <StyledDashboardActivityDescription noBorder>
           <p>Transfer your voting tokens to your available balance</p>
 
           {!!this.props.numUserChallengesWithRescueTokens &&
