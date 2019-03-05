@@ -17,6 +17,7 @@ export interface EthereumInfoModalProps {
   listingAddress: EthAddress;
   owner: EthAddress;
   etherscanBaseURL: string;
+  ethInfoModalLearnMoreURL: string;
   handleCloseClick(): void;
 }
 
@@ -52,7 +53,7 @@ const EthereumInfoModal: React.SFC<EthereumInfoModalProps> = props => {
           <p>
             <b>Do not send CVL or ETH to this contract address.</b> You will lose your cryptocurrency, and the Civil
             Media Company can not help you to retrieve it.{" "}
-            <a href="#zendesk/waht-is-a-smart-contract" target="_blank">
+            <a href={props.ethInfoModalLearnMoreURL} target="_blank">
               Learn more
             </a>.
           </p>

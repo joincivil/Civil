@@ -11,6 +11,7 @@ import {
   RevealVoteSuccessIcon,
 } from "@joincivil/components";
 import { getLocalDateTimeStrings, Parameters } from "@joincivil/utils";
+import { FAQ_BASE_URL } from "../../constants";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
@@ -123,6 +124,7 @@ class AppealChallengeRevealVote extends React.Component<
           appealGranted={this.props.appeal.appealGranted}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
+          votingSmartContractFaqURL={`${FAQ_BASE_URL}/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-`}
           key={this.state.key}
         />
       </>
