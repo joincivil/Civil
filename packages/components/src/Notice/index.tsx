@@ -36,9 +36,6 @@ export const NoticeBackground = styled.div`
 export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   display: flex;
   flex-direction: row;
-  background-position: 10px center;
-  background-size: 30px;
-  background-repeat: no-repeat;
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
@@ -46,7 +43,6 @@ export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   text-align: center;
   border: 1px solid ${props => typeColors[props.type].border};
   border-radius: 4px;
-  background-color: #fff;
   background-color: ${props => typeColors[props.type].background};
   align-items: center;
 `;
