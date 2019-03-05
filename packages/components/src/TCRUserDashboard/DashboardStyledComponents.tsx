@@ -246,6 +246,11 @@ export const StyledTransferTokenTitle = styled.div`
 
 export const StyledTransferTokenForm = styled.div`
   font-family: ${fonts.SANS_SERIF};
+  font-weight: 400;
+  margin: 0 auto 80px;
+`;
+
+export const StyledTransferTokenFormGroup = styled.div`
   margin: 0 auto;
   max-width: 460px;
 
@@ -313,9 +318,10 @@ export const StyledTransferTokenForm = styled.div`
   }
 
   ${InputIcon} {
+    background-color: ${colors.basic.WHITE};
     left: calc(100% - 50px);
     position: absolute;
-    top: 39px;
+    top: 42px;
     z-index: 2;
   }
 `;
@@ -363,6 +369,11 @@ export const StyledFromBalance = styled.div`
   border-radius: 3px;
   margin-top 5px;
   padding: 17px 15px;
+`;
+
+export const StyledTutorialWarning = styled.div`
+  font-weight: 400;
+  padding: 35px;
 `;
 
 export const StyledWarningBox = styled.div`

@@ -20,7 +20,10 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   StyledDashboardActivityDescription,
+  DashboardTransferTokenForm,
+  DashboardTutorialWarning,
 } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
 import {
@@ -74,6 +77,8 @@ export interface DashboardActivityReduxProps {
   proposalChallengesWithUnclaimedRewards?: Set<string>;
   proposalChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
+  balance: BigNumber;
+  votingBalance: BigNumber;
 }
 
 export interface ChallengesToProcess {
@@ -276,6 +281,8 @@ class DashboardActivity extends React.Component<
         }
       />
     );
+    const balance = getFormattedTokenBalance(this.props.balance);
+    const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
 
     return (
       <>
@@ -329,8 +336,12 @@ class DashboardActivity extends React.Component<
             <>
               {/* TODO(jon): the value of `showTransferTokensMsg` should be populated from the TokenController */}
               {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
-              <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-              <DepositTokens />
+
+              <DashboardTransferTokenForm cvlAvailableBalance={balance} cvlVotingBalance={votingBalance}>
+                <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+                <DepositTokens />
+              </DashboardTransferTokenForm>
+              <DashboardTutorialWarning />
             </>
           </Tab>
         </Tabs>
@@ -438,6 +449,15 @@ const mapStateToProps = (
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
   const proposalChallengesWithRescueTokens = getProposalChallengesWithRescueTokens(state);
 
+  let balance = new BigNumber(0);
+  if (user.account && user.account.balance) {
+    balance = user.account.balance;
+  }
+  let votingBalance = new BigNumber(0);
+  if (user.account && user.account.votingBalance) {
+    votingBalance = user.account.votingBalance;
+  }
+
   return {
     allChallengesWithAvailableActions,
     currentUserNewsrooms,
@@ -453,6 +473,8 @@ const mapStateToProps = (
     proposalChallengesWithUnclaimedRewards,
     proposalChallengesWithRescueTokens,
     userAccount: user.account.account,
+    balance,
+    votingBalance,
     ...ownProps,
   };
 };

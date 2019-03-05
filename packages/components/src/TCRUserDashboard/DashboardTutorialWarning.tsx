@@ -1,11 +1,11 @@
 import * as React from "react";
-import { StyledWarningBox, StyledTutorialPrompt } from "./DashboardStyledComponents";
+import { StyledTutorialWarning, StyledWarningBox, StyledTutorialPrompt } from "./DashboardStyledComponents";
 import { TransferTokenTutorialWarnText, TransferTokenTakeTutorialText } from "./DashboardTextComponents";
 import { Button } from "../Button";
 
 export const DashboardTutorialWarning: React.StatelessComponent = props => {
   return (
-    <>
+    <StyledTutorialWarning>
       <StyledWarningBox>
         <TransferTokenTutorialWarnText />
       </StyledWarningBox>
@@ -13,6 +13,6 @@ export const DashboardTutorialWarning: React.StatelessComponent = props => {
         <TransferTokenTakeTutorialText />
         <Button to="/tokens">Start the Civil Tutorial</Button>
       </StyledTutorialPrompt>
-    </>
+    </StyledTutorialWarning>
   );
 };

@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   StyledTransferTokenForm,
+  StyledTransferTokenFormGroup,
   StyledTransferTokenFormElement,
   StyledTransferTokenDropdown,
   StyledDropdownArrow,
@@ -11,10 +12,9 @@ import {
   BalanceLabelText,
   TokenBalanceLabelText,
   TransferTokenText,
-  TransferTokenTipsText,
   MetaMaskPopUpText,
 } from "./DashboardTextComponents";
-import { Dropdown, DropdownGroup, DropdownItem, CurrencyInput } from "../input";
+import { Dropdown, DropdownGroup, DropdownItem } from "../input";
 import { DropdownArrow } from "../icons";
 
 export enum BalanceType {
@@ -24,15 +24,14 @@ export enum BalanceType {
 
 export interface TransferTokenDropdownOptionProps {
   label: string | JSX.Element;
-  cvl: number;
-  value?: number;
+  cvl: string;
 }
 
 export const TransferTokenBalance: React.StatelessComponent<TransferTokenDropdownOptionProps> = props => {
   return (
     <StyledTransferTokenBalance>
       <span>{props.label}</span>
-      <span>{props.cvl} CVL</span>
+      <span>{props.cvl}</span>
     </StyledTransferTokenBalance>
   );
 };
@@ -53,9 +52,8 @@ export const TransferTokenDropdownSelected: React.StatelessComponent<TransferTok
 };
 
 export interface DashboardTransferTokenFormProps {
-  cvlAvailableBalance: number;
-  cvlVotingBalance: number;
-  onChange(): void;
+  cvlAvailableBalance: string;
+  cvlVotingBalance: string;
 }
 
 export interface DashboardTransferTokenFormStates {
@@ -77,9 +75,9 @@ export class DashboardTransferTokenForm extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <>
+      <StyledTransferTokenForm>
         <TransferTokenText />
-        <StyledTransferTokenForm>
+        <StyledTransferTokenFormGroup>
           <StyledTransferTokenFormElement>
             <label>From</label>
             <Dropdown position="left" target={<TransferTokenDropdownSelected label={this.state.dropdownValue} />}>
@@ -101,20 +99,10 @@ export class DashboardTransferTokenForm extends React.Component<
             <label>To</label>
             <StyledFromBalance>{this.state.fromValue}</StyledFromBalance>
           </StyledTransferTokenFormElement>
-          <StyledTransferTokenFormElement>
-            <CurrencyInput
-              label="Enter amount"
-              placeholder="0"
-              name="CurrencyInput"
-              icon={<>CVL</>}
-              onChange={this.props.onChange}
-            />
-            <TransferTokenTipsText />
-          </StyledTransferTokenFormElement>
           {this.props.children}
           <MetaMaskPopUpText />
-        </StyledTransferTokenForm>
-      </>
+        </StyledTransferTokenFormGroup>
+      </StyledTransferTokenForm>
     );
   }
 
