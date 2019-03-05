@@ -201,15 +201,13 @@ export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>How do I buy ETH
 
 export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
 
-export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
+export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
-export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What is Airswap?</h3>;
-
-export const TokenETHFAQQuestion7Text: React.SFC = props => (
+export const TokenETHFAQQuestion6Text: React.SFC = props => (
   <h3>Why do I need to unlock my Civil tokens before I can sell them?</h3>
 );
 
-export const TokenETHFAQQuestion8Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
+export const TokenETHFAQQuestion7Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 

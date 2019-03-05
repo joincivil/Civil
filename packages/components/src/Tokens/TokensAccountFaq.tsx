@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TokenFAQCollapse, FlexColumnsPrimaryModule, TokenFAQImg, TokenFAQLineBreak } from "./TokensStyledComponents";
+import { TokenFAQCollapse, FlexColumnsPrimaryModule, TokenFAQImg } from "./TokensStyledComponents";
 import {
   TokenETHFAQQuestion1Text,
   TokenETHFAQQuestion2Text,
@@ -8,11 +8,9 @@ import {
   TokenETHFAQQuestion5Text,
   TokenETHFAQQuestion6Text,
   TokenETHFAQQuestion7Text,
-  TokenETHFAQQuestion8Text,
 } from "./TokensTextComponents";
 import { Collapsable } from "../Collapsable";
 import * as metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
-import * as metamaskDepositEth from "../images/img-metamask-deposit-eth@2x.png";
 
 export const UserTokenAccountFaq: React.StatelessComponent = props => {
   return (
@@ -22,9 +20,9 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
           <TokenFAQImg>
             <div>
               <p>
-                Ether (ETH) is the cryptocurrency for the Ethereum blockchain. Gas is the transaction cost that you will
-                have to pay in order for your information to be added to the Ethereum blockchain. Gas costs are
-                variable. Ether (ETH) acts like any other currency where its value fluctuates with the market.
+                Ether (ETH) is the cryptocurrency for the Ethereum blockchain. Gas is the transaction cost of performing
+                actions like adding content, or buying Civil tokens. Gas costs are variable. Like any currency, Ether
+                (ETH) fluctuates in value with the market.
               </p>
               <p>
                 You will have to pay gas in Ether (ETH), which you can purchase via MetaMask and a cryptocurrency
@@ -38,9 +36,9 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion2Text />} open={false}>
           <p>
-            When you confirm transactions, buy or send tokens, and send Ether (ETH) on the blockchain, you must pay for
-            that computing effort. That payment is calculated in gas. Gas is paid in ETH. Think about it like paying for
-            a stamp on an envelope or paying for the shipping costs of sending a package.
+            When you perform actions like buying or selling tokens, you need to pay the cost of that computing effort,
+            called Gas. Think about it like paying for a stamp on an envelope or paying for the shipping costs of
+            sending a package. Gas can only be paid for with ETH.
           </p>
           <p>ETH is used to also purchase Civil tokens (CVL) from an exchange or from Civil.</p>
         </Collapsable>
@@ -48,41 +46,30 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion3Text />} open={false}>
           <p>
-            In order to have Ether (ETH), which you’ll need to have in your wallet in order to complete transactions in
-            Civil, you’ll need to open an account at a crypto/fiat exchange such as{" "}
-            <a href="https://www.coinbase.com/" target="_blank">
+            To complete your membership contribution and receive Civil tokens (CVL), you must buy Ether (ETH). Then you
+            will be able to exchange ETH for CVL. Unfortunately at this time, you can’t use USD or local currencies to
+            directly buy Civil tokens. You must first convert local currencies into ETH using an exchange like Coinbase
+            or Gemini. You will need to have your debit card or bank account details handy, as well asyour passport to{" "}
+            <a
+              href="https://support.coinbase.com/customer/en/portal/articles/1220621-identity-verification?b_id=13521"
+              target="_blank"
+            >
+              verify your identity
+            </a>. Don’t worry, both Coinbase and Gemini are regulated and in compliance with all applicable laws in each
+            jurisdiction in which they operate.
+          </p>
+          <p>
+            Once you fund your token wallet via{" "}
+            <a href="https://www.coinbase.com/signup" target="_blank">
               Coinbase
             </a>{" "}
             or{" "}
-            <a href="https://gemini.com/" target="_blank">
+            <a href="https://exchange.gemini.com/register/check-location" target="_blank">
               Gemini
-            </a>, and connect it to a bank account for transferring your funds. Once you’ve been approved in the
-            exchange (which could take varying amounts of time), you can use U.S. dollars or other local currency to
-            purchase ETH and fund your wallet. Currencies need to be converted into ETH.
+            </a>, you can return to Civil where we will walk you through how to complete your membership contribution.
+            We know this can be confusing. For more information, <a href="">read this blog post</a> or contact us at{" "}
+            <a href="mailto:support@civil.co">support@civil.co</a>.
           </p>
-          <p>
-            Some wallets let you purchase ETH directly, depending on where you live. If your wallet doesn’t let you buy
-            currency, you will need to purchase ETH from an exchange, and then transfer the ETH from your exchange
-            wallet to your crypto wallet.
-          </p>
-          <TokenFAQLineBreak />
-          <p>You can connect to Coinbase and purchase ETH directly in your MetaMask account.</p>
-          <TokenFAQImg>
-            <div>
-              <p>
-                Once you select <b>Deposit</b> in MetaMask, you can select Coinbase and purchase ETH using USD.
-              </p>
-              <p>
-                You will need to verify your identity and account on Coinbase if it’s your first time. Coinbase uses a
-                ACH (Automated Clearing House, which is governed by the Federal Reserve) bank transfer system for U.S.
-                customers, and it can take 3-5 business days for funds to transfer from your bank.
-              </p>
-              <p>
-                Buying ETH with a debit or certain credit cards is instant, once your account is verified on Coinbase.
-              </p>
-            </div>
-            <img src={metamaskDepositEth} />
-          </TokenFAQImg>
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
@@ -100,20 +87,6 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
       </TokenFAQCollapse>
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion5Text />} open={false}>
-          <p>You will use Ether (ETH) for transactions on Civil. You’ll also use ETH to buy Civil tokens (CVL).</p>
-          <p>List of all fees:</p>
-          <ul>
-            <li>Registration deposit: $1,000 USD worth of CVL tokens (CVL)</li>
-            <li>Gas fees for voting or applying on the registry: $1 USD of ETH a vote? (varies)</li>
-            <li>
-              Appeal, in the event your newsroom is successfully challenged and you need to appeal: 0,000 Civil tokens
-              (CVL)
-            </li>
-          </ul>
-        </Collapsable>
-      </TokenFAQCollapse>
-      <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion6Text />} open={false}>
           <p>
             AirSwap is a secure decentralized, peer-to-peer token trading network built on the Ethereum blockchain. It
             is an independent entity. Airswap does not charge any of its own fees on each trade. You only have to pay a
@@ -131,43 +104,35 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion7Text />} open={false}>
+        <Collapsable header={<TokenETHFAQQuestion6Text />} open={false}>
           <p>
-            We believe that it is critical to ensure that only people who believe in Civil’s mission should possess
-            Civil tokens. Speculators have the ability to effect the price of CVL (to both raise and lower), which
-            decouples the value of the token from the actual work being done by real participants in the network. They
-            become “free riders” - the community does the work of curating the newsrooms yet speculators get the upside.
+            We believe it is critical to ensure that only people who aim to advance Civil’s mission should possess Civil
+            tokens. Speculators have the ability to affect the price of Civil tokens, which decouples the value from the
+            actual work being done by real participants in the network.
           </p>
-          <p>
-            In order to mitigate this, we are enacting restrictions that prevent an owner from transferring tokens under
-            certain conditions. We believe that this will drastically reduce the ability for tokens to be listed on
-            exchanges.
-          </p>
+          <p>In order to mitigate this, we restrict members from transferring tokens under certain conditions.</p>
           <p>What are the restrictions?</p>
           <ul>
+            <li>Anybody can receive tokens. There are only restrictions on SENDING tokens, but never on RECEIVING.</li>
             <li>
-              Everybody is allowed to receive tokens. There are only restrictions on SENDING tokens, but never on
-              RECEIVING
+              All token holders must complete the “Civil Tutorial” to use, send or sell their tokens. This ensures that
+              you know how to safely use Civil tokens and that you will to use them for their intended purpose.
             </li>
             <li>
-              All token holders must complete the “Civil Tutorial” to do anything with their tokens. This ensures that
-              you know how to safely hold your cryptocurrency and that you intend to use CVL for its intended purpose.
+              After you complete the tutorial, you may send Civil tokens to newsrooms on the Registry. However, until
+              your account is unlocked, so you cannot sell or transfer Civil tokens to anyone else.
             </li>
             <li>
-              After you complete the tutorial, you can interact with “core” Civil Smart Contracts, such as the Civil
-              Registry, and you are allowed to send CVL to newsrooms on the Registry. However, your account is not yet
-              “unlocked” so you cannot sell or transfer your CVL to anyone else.
+              In order to unlock your tokens, you must transfer tokens into the voting contract on the Civil Registry,
+              demonstrating your intent to be an active participant. More details on the unlocking process are provided
+              below.
             </li>
-            <li>
-              In order to “unlock” your tokens, you must be an active participant in the Civil economy. More details on
-              the unlocking process are provided below.
-            </li>
-            <li>After your tokens are “unlocked” you are allowed to freely transfer or sell your CVL.</li>
+            <li>After your tokens are unlocked, you are allowed to freely transfer or sell your Civil tokens.</li>
           </ul>
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion8Text />} open={false}>
+        <Collapsable header={<TokenETHFAQQuestion7Text />} open={false}>
           <p>Unlocking your tokens enable you to send and sell them.</p>
           <p>To unlock your tokens, make sure you’re first logged into your MetaMask account</p>
           <ul>
@@ -177,6 +142,9 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
             <li>
               Transfer at least 50% of your <b>Available Balance</b> tokens into the <b>Voting Balance</b> and click{" "}
               <b>Transfer</b>
+            </li>
+            <li>
+              <b>Don’t worry they are still your tokens to use as you see fit.</b>
             </li>
           </ul>
           <p>That’s it! Your tokens are now unlocked. And you only have to do this once.</p>
