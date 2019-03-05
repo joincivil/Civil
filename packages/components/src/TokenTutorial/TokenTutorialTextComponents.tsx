@@ -149,11 +149,7 @@ export const Topic2Tutorial2: React.SFC = props => (
     <p>
       Ethereum transaction fees (commonly referred to as “gas”) are the cost that you have to pay in order for your
       information to be added to the Ethereum blockchain. You will have to pay gas in Ether (ETH), which you can
-      purchase via{" "}
-      <a href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789371-What-is-MetaMask-" target="_blank">
-        MetaMask
-      </a>{" "}
-      and a cryptocurrency exchange such as{" "}
+      purchase via a cryptocurrency exchange such as{" "}
       <a href="https://www.coinbase.com/" target="_blank">
         Coinbase
       </a>.
