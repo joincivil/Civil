@@ -122,7 +122,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
         {props.transactions && <GrantAppealButton {...props} />}
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

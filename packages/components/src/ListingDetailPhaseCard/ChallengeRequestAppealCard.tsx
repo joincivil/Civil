@@ -109,7 +109,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
         <RequestAppealButton {...props} />
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

@@ -64,7 +64,7 @@ export const ChallengeResolveCard: React.StatelessComponent<
         </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };
