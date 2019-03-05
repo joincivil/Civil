@@ -13,6 +13,7 @@ import {
   OBSectionDescription,
   PageHeadingTextCentered,
   PageSubHeadingCentered,
+  OBPreRegNotice,
 } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
@@ -26,6 +27,12 @@ export interface AuthWrapperState {
 export interface AuthParams {
   action?: "login" | "signup";
 }
+
+const PreRegNotice = styled(OBPreRegNotice)`
+  margin-left: -20%;
+  margin-top: 0;
+  width: 140%;
+`;
 
 const Wrapper = styled.div`
   margin: 70px auto 0 auto;
@@ -125,6 +132,8 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             Create an account to add your newsroom to Civil. First, please enter your email address. Your email is used
             to send account-related updates from Civil.
           </OBSectionDescription>
+
+          <PreRegNotice />
 
           {isNewUser ? (
             <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
