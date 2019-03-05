@@ -151,6 +151,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
   };
 
   private editRosterMember = (index: number) => {
+    this.props.toggleButtons();
     this.setState({ editingMember: this.props.charter.roster![index] });
   };
 }
