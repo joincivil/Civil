@@ -22,6 +22,7 @@ import {
   StyledDashboardActivityDescription,
   DashboardTransferTokenForm,
   DashboardTutorialWarning,
+  BalanceType,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
@@ -91,7 +92,7 @@ export interface DashboardActivityState {
   activeTabIndex: number;
   activeSubTabIndex: number;
   tutorialComplete: boolean;
-  transferTokenToVoting: boolean;
+  fromBalanceType: number;
 }
 
 const StyledTabsComponent = styled.div`
@@ -160,7 +161,7 @@ class DashboardActivity extends React.Component<
       activeTabIndex: 0,
       activeSubTabIndex: 0,
       tutorialComplete: true,
-      transferTokenToVoting: true,
+      fromBalanceType: 0,
     };
   }
 
@@ -347,10 +348,10 @@ class DashboardActivity extends React.Component<
                   cvlAvailableBalance={balance}
                   cvlVotingBalance={votingBalance}
                 >
-                  {this.state.transferTokenToVoting ? (
-                    <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-                  ) : (
+                  {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
                     <DepositTokens />
+                  ) : (
+                    <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
                   )}
                 </DashboardTransferTokenForm>
               ) : (
@@ -365,11 +366,7 @@ class DashboardActivity extends React.Component<
   };
 
   private renderTransferBalance = (value: number) => {
-    if (value === 0 && this.state.transferTokenToVoting === false) {
-      this.setState({ transferTokenToVoting: true });
-    } else if (value === 1 && this.state.transferTokenToVoting === true) {
-      this.setState({ transferTokenToVoting: false });
-    }
+    this.setState({ fromBalanceType: value });
   };
 
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
