@@ -262,7 +262,8 @@ export const StyledTransferTokenTitle = styled.div`
 export const StyledTransferTokenForm = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 400;
-  margin: 0 auto 80px;
+  margin: 0 auto 45px;
+  padding: 35px;
 `;
 
 export const StyledTransferTokenFormGroup = styled.div`
@@ -280,8 +281,8 @@ export const StyledTransferTokenFormGroup = styled.div`
       box-shadow: none;
       left: -1px;
       top: -1px;
-      width: 100%;
-      max-width: 100%;
+      width: calc(100% + 2px);
+      max-width: unset;
 
       :before,
       :after {

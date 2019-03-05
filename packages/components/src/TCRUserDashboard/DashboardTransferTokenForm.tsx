@@ -10,7 +10,7 @@ import {
 } from "./DashboardStyledComponents";
 import {
   BalanceLabelText,
-  TokenBalanceLabelText,
+  VotingBalanceLabelText,
   TransferTokenText,
   MetaMaskPopUpText,
 } from "./DashboardTextComponents";
@@ -18,8 +18,8 @@ import { Dropdown, DropdownGroup, DropdownItem } from "../input";
 import { DropdownArrow } from "../icons";
 
 export enum BalanceType {
-  AVAILABLE_BALANCE = "available balance",
-  TOKEN_VOTING_BALANCE = "token voting balance",
+  AVAILABLE_BALANCE = 0,
+  TOKEN_VOTING_BALANCE = 1,
 }
 
 export interface TransferTokenDropdownOptionProps {
@@ -54,6 +54,7 @@ export const TransferTokenDropdownSelected: React.StatelessComponent<TransferTok
 export interface DashboardTransferTokenFormProps {
   cvlAvailableBalance: string;
   cvlVotingBalance: string;
+  renderTransferBalance(value: number): void;
 }
 
 export interface DashboardTransferTokenFormStates {
@@ -69,7 +70,7 @@ export class DashboardTransferTokenForm extends React.Component<
     super(props);
     this.state = {
       dropdownValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
-      fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
+      fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<VotingBalanceLabelText />} />,
     };
   }
 
@@ -89,7 +90,7 @@ export class DashboardTransferTokenForm extends React.Component<
                 </DropdownItem>
                 <DropdownItem>
                   <button onClick={() => this.onClick(BalanceType.TOKEN_VOTING_BALANCE)}>
-                    <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />
+                    <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<VotingBalanceLabelText />} />
                   </button>
                 </DropdownItem>
               </DropdownGroup>
@@ -106,17 +107,18 @@ export class DashboardTransferTokenForm extends React.Component<
     );
   }
 
-  private onClick = (value: string) => {
+  private onClick = (value: number) => {
     if (value === BalanceType.AVAILABLE_BALANCE) {
       this.setState({
         dropdownValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
-        fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
+        fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<VotingBalanceLabelText />} />,
       });
     } else {
       this.setState({
-        dropdownValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
+        dropdownValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<VotingBalanceLabelText />} />,
         fromValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
       });
     }
+    this.props.renderTransferBalance(value);
   };
 }

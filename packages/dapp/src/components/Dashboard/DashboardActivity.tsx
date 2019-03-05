@@ -90,6 +90,8 @@ export interface DashboardActivityState {
   showTransferTokensMsg: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
+  tutorialComplete: boolean;
+  transferTokenToVoting: boolean;
 }
 
 const StyledTabsComponent = styled.div`
@@ -157,6 +159,8 @@ class DashboardActivity extends React.Component<
       showTransferTokensMsg: true,
       activeTabIndex: 0,
       activeSubTabIndex: 0,
+      transferTokenToVoting: true,
+      tutorialComplete: true,
     };
   }
 
@@ -334,20 +338,38 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
-              {/* TODO(jon): the value of `showTransferTokensMsg` should be populated from the TokenController */}
+              {/* TODO(sarah): the value of `showTransferTokensMsg` and `tutorialComplete` should be populated from the TokenController */}
               {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
 
-              <DashboardTransferTokenForm cvlAvailableBalance={balance} cvlVotingBalance={votingBalance}>
-                <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-                <DepositTokens />
-              </DashboardTransferTokenForm>
-              <DashboardTutorialWarning />
+              {this.state.tutorialComplete ? (
+                <DashboardTransferTokenForm
+                  renderTransferBalance={this.renderTransferBalance}
+                  cvlAvailableBalance={balance}
+                  cvlVotingBalance={votingBalance}
+                >
+                  {this.state.transferTokenToVoting ? (
+                    <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+                  ) : (
+                    <DepositTokens />
+                  )}
+                </DashboardTransferTokenForm>
+              ) : (
+                <DashboardTutorialWarning />
+              )}
             </>
           </Tab>
         </Tabs>
         {this.renderNoMobileTransactions()}
       </>
     );
+  };
+
+  private renderTransferBalance = (value: number) => {
+    if (value === 0 && this.state.transferTokenToVoting === false) {
+      this.setState({ transferTokenToVoting: true });
+    } else if (value === 1 && this.state.transferTokenToVoting === true) {
+      this.setState({ transferTokenToVoting: false });
+    }
   };
 
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
