@@ -6,7 +6,7 @@ import UserAccount from "./UserAccount";
 import { CivilLogo } from "../CivilLogo";
 
 import { NavProps, NavState } from "./NavBarTypes";
-import { NavContainer, NavOuter, NavLogo, NavInner, NavUser, CvlContainer } from "./styledComponents";
+import { NavContainer, NavOuter, NavLogo, NavInner, NavInnerRight } from "./styledComponents";
 
 export class NavBar extends React.Component<NavProps, NavState> {
   constructor(props: NavProps) {
@@ -26,6 +26,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       userChallengesStartedCount,
       userChallengesVotedOnCount,
       buyCvlUrl,
+      applyURL,
       useGraphQL,
       onLoadingPrefToggled,
       enableEthereum,
@@ -35,28 +36,29 @@ export class NavBar extends React.Component<NavProps, NavState> {
     return (
       <NavContainer>
         <NavOuter>
-          <NavLogo>
-            <a href="https://civil.co">
-              <CivilLogo color={colors.basic.WHITE} />
-            </a>
-          </NavLogo>
-
           <NavInner>
-            <NavMenu isLoggedIn={!!userEthAddress} />
+            <NavLogo>
+              <a href="https://civil.co">
+                <CivilLogo color={colors.basic.WHITE} />
+              </a>
+            </NavLogo>
 
-            <NavUser onClick={ev => this.toggle()}>
-              <CvlContainer>
-                <UserAccount
-                  balance={balance}
-                  votingBalance={votingBalance}
-                  isUserDrawerOpen={isUserDrawerOpen}
-                  userEthAddress={userEthAddress}
-                  authenticationURL={authenticationURL}
-                  enableEthereum={enableEthereum}
-                />
-              </CvlContainer>
-            </NavUser>
+            <NavMenu />
           </NavInner>
+
+          <NavInnerRight>
+            <UserAccount
+              balance={balance}
+              votingBalance={votingBalance}
+              isUserDrawerOpen={isUserDrawerOpen}
+              userEthAddress={userEthAddress}
+              authenticationURL={authenticationURL}
+              buyCvlUrl={buyCvlUrl}
+              applyURL={applyURL}
+              enableEthereum={enableEthereum}
+              toggleDrawer={this.toggleDrawer}
+            />
+          </NavInnerRight>
 
           {isUserDrawerOpen && (
             <NavDrawer
@@ -78,7 +80,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
     );
   }
 
-  private toggle = () => {
+  private toggleDrawer = () => {
     this.setState({ isUserDrawerOpen: !this.state.isUserDrawerOpen });
   };
 

@@ -25,7 +25,8 @@ storiesOf("Nav Bar", module)
         userClaimRewardsCount={userClaimRewardsCount}
         userChallengesStartedCount={userChallengesStartedCount}
         userChallengesVotedOnCount={userChallengesVotedOnCount}
-        buyCvlUrl="https://registry.civil.co/tokens"
+        buyCvlUrl="#buy-tokens"
+        applyURL="#apply"
         useGraphQL={false}
         onLoadingPrefToggled={() => {
           console.log("thinged");

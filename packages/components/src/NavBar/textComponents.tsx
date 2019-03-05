@@ -11,7 +11,9 @@ export const NavLinkCreateNewsroomText: React.SFC = props => <>Apply to Registry
 
 export const NavLinkConstitutionText: React.SFC = props => <>Constitution</>;
 
-export const NavLinkFaqText: React.SFC = props => <>FAQ</>;
+export const NavLinkFoundationText: React.SFC = props => <>Foundation</>;
+
+export const NavLinkFaqText: React.SFC = props => <>Help</>;
 
 export const NavLinkContactText: React.SFC = props => <>Contact</>;
 
