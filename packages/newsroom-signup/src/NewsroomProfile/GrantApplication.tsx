@@ -131,7 +131,10 @@ const requestGrantMutation = gql`
   }
 `;
 
-export interface GrantApplicationProps {
+export interface GrantApplicationExternalProps {
+  setButtonVisibility(visibility: boolean): void;
+}
+export interface GrantApplicationProps extends GrantApplicationExternalProps {
   chooseGrant: boolean;
   chooseSkip: boolean;
 }
@@ -321,10 +324,13 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             grantRequested = data.nrsignupNewsroom.grantRequested;
           }
           if (grantRequested === true) {
+            this.props.setButtonVisibility(false);
             return <WaitingForGrant />;
           } else if (grantRequested === false) {
+            this.props.setButtonVisibility(true);
             return <WaitingAfterSkip />;
           } else {
+            this.props.setButtonVisibility(true);
             return this.renderOptions();
           }
         }}
@@ -346,8 +352,9 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom): GrantApplicationProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: GrantApplicationExternalProps): GrantApplicationProps => {
   return {
+    ...ownProps,
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
   };
