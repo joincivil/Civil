@@ -20,7 +20,7 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
     urlArg = "approved";
     label = "Approved Newsrooms";
   } else if (listingPhaseState.isInApplication) {
-    urlArg = "in-progress/in-application";
+    urlArg = "in-progress/new-applications";
     label = "Newsroom Applications";
   } else if (
     listingPhaseState.inChallengeCommitVotePhase ||
