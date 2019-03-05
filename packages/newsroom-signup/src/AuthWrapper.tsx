@@ -8,7 +8,6 @@ import {
   AccountVerifyToken,
   AuthApplicationEnum,
   AuthPageFooterLink,
-  AuthFooterTerms,
   OBSectionTitle,
   OBSectionDescription,
   PageHeadingTextCentered,
@@ -47,16 +46,22 @@ const BodyText = styled(PageHeadingTextCentered)`
   margin-bottom: 12px;
 `;
 
+const FooterLink = styled(AuthPageFooterLink)`
+  font-size: 13px;
+`;
+
 const Footer: React.SFC = () => (
-  <AuthFooterTerms
-    textEl={
-      <BodyText>
-        By joining Civil, you will become part of a community of high quality news publishers. Your content will be
-        featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
-      </BodyText>
-    }
-    benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
-  />
+  <></>
+  // @TODO/toby Re-enable footer when foundation launches this page
+  // <AuthFooterTerms
+  //   textEl={
+  //     <BodyText>
+  //       By joining Civil, you will become part of a community of high quality news publishers. Your content will be
+  //       featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
+  //     </BodyText>
+  //   }
+  //   benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
+  // />
 );
 
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
@@ -152,13 +157,13 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             onEmailSend={this.onEmailSend}
           />
 
-          <AuthPageFooterLink>
+          <FooterLink>
             {isNewUser ? (
               <Link to="/apply-to-registry/login">Already have an account?</Link>
             ) : (
               <Link to="/apply-to-registry/signup">← Back to create an account</Link>
             )}
-          </AuthPageFooterLink>
+          </FooterLink>
         </SignupLoginInnerWrap>
 
         {isNewUser && <Footer />}
