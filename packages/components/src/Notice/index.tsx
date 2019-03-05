@@ -23,8 +23,8 @@ const typeColors = {
     background: "rgb(242, 82, 74,0.1)",
   },
   [NoticeTypes.ALERT]: {
-    border: "#FFFDE9",
-    background: "rgba(94,94,94,0.12)",
+    border: "rgba(94,94,94,0.12)",
+    background: "#FFFDE9",
   },
 };
 
@@ -70,7 +70,7 @@ export const Notice: React.SFC<NoticeProps> = ({ children, type }): JSX.Element 
   return (
     <NoticeBackground>
       <NoticeContainer type={type}>
-        <NoticeIconContainer>{type !== NoticeTypes.INFO && <InfoNotification />}</NoticeIconContainer>
+        <NoticeIconContainer>{type === NoticeTypes.ERROR && <InfoNotification />}</NoticeIconContainer>
         <NoticeMessageContainer>{children}</NoticeMessageContainer>
       </NoticeContainer>
     </NoticeBackground>
