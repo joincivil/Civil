@@ -5,7 +5,6 @@ import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
 import {
-  colors,
   Tabs,
   Tab,
   DashboardActivity as DashboardActivityComponent,
@@ -20,6 +19,8 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   StyledDashboardActivityDescription,
+  Notice,
+  NoticeTypes,
 } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
@@ -96,18 +97,6 @@ export const StyledBatchButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
-`;
-
-const StyledTransferMessage = styled.div`
-  background: ${colors.accent.CIVIL_RED_VERY_FADED};
-  border-radius: 4px;
-  border: 1px solid ${colors.accent.CIVIL_RED};
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 14px;
-  line-height: 20px;
-  margin: 24px 33px 20px;
-  padding: 11px 28px 13px;
-  text-align: center;
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -376,10 +365,10 @@ class DashboardActivity extends React.Component<
 
   private renderTransferTokensMsg(): JSX.Element {
     return (
-      <StyledTransferMessage>
+      <Notice type={NoticeTypes.ERROR}>
         Unlock your account by transfering at least 50% of your <b>available tokens</b> into your <b>voting balance</b>.
         Unlocking your account allow you to sell Civil tokens.
-      </StyledTransferMessage>
+      </Notice>
     );
   }
 
