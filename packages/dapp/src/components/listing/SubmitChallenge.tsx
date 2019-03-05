@@ -146,6 +146,7 @@ class SubmitChallengeComponent extends React.Component<
       updateStatementValue: this.updateStatement,
       transactions: this.getTransactions(),
       postExecuteTransactions: this.onSubmitChallengeSuccess,
+      civil: getCivil(),
     };
 
     return (
