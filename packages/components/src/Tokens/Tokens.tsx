@@ -15,6 +15,7 @@ import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress } from "@joincivil/utils";
+import { Notice, NoticeTypes } from "../Notice";
 
 export enum TOKEN_PROGRESS {
   ACTIVE = "active",
@@ -84,6 +85,16 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 addWalletPath={addWalletPath}
                 signupPath={signupPath}
               />
+
+              <Notice type={NoticeTypes.INFO}>
+                You must buy Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here. You must buy
+                Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here.
+              </Notice>
+              <Notice type={NoticeTypes.ERROR}>
+                You must buy Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here. You must buy
+                Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here.
+              </Notice>
+
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
