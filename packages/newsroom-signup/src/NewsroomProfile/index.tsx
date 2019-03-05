@@ -86,7 +86,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <AddRosterMember
         charter={this.props.charter}
         updateCharter={this.props.updateCharter}
-        toggleButtons={this.toggleButtons}
+        setButtonVisibility={this.setButtonVisibility}
       />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
@@ -144,7 +144,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       </>
     );
   }
-  private toggleButtons = () => {
-    this.setState({ showButtons: !this.state.showButtons });
+  private setButtonVisibility = (visible: boolean) => {
+    this.setState({ showButtons: visible });
   };
 }
