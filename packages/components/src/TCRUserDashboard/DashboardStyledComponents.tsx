@@ -16,6 +16,11 @@ export const StyledUserActivityContent = styled.h3`
   min-height: 400px;
 `;
 
+export const StyledDashboardTabsContainer = styled.div`
+  background: ${colors.accent.CIVIL_GRAY_4};
+  padding: 25px 28px 13px;
+`;
+
 export const StyledDashboardTab = styled.li`
   color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.BLACK : colors.primary.CIVIL_GRAY_1)};
   cursor: pointer;
@@ -57,18 +62,6 @@ export const StyledUserInfo = styled.div`
   width: 277px;
 `;
 
-export const StyledUserInfoSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 24px 0;
-
-  & ${Button} {
-    text-align: center;
-    width: 100%;
-  }
-`;
-
-// '80' is a hexidecimal number that equals  0.5 alpha
 export const StyledUserInfoSectionLabel = styled.div`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 12px;
@@ -90,6 +83,28 @@ export const StyledUserInfoSectionValue = styled.div`
     font-size: 18px;
     font-weight: bold;
     line-height: 21px;
+  }
+`;
+
+export const StyledUserInfoSection = styled.div`
+  display: flex;
+  margin: 24px 0;
+  justify-content: space-between;
+
+  ${StyledUserInfoSectionLabel} {
+    width: 40%;
+  }
+`;
+
+export const StyledUserInfoButtonSection = styled.div`
+  margin: 24px 0;
+
+  & ${Button}, & ${InvertedButton} {
+    margin: 0 0 19px;
+    padding: 14px 0;
+    text-align: center;
+    text-transfrom: none;
+    width: 100%;
   }
 `;
 

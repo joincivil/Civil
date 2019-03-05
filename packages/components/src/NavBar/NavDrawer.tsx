@@ -2,6 +2,9 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { buttonSizes } from "../Button";
 
+import { LoadUser } from "../Account";
+import { QuestionToolTip } from "../QuestionToolTip";
+
 import {
   StyledNavDrawer,
   NavDrawerSection,
@@ -30,32 +33,39 @@ import {
   NavDrawerVotedChallengesText,
   NavDrawerLoadingPrefText,
 } from "./textComponents";
-import { QuestionToolTip } from "../QuestionToolTip";
 import { LoadingPrefToggle } from "./LoadingPrefToggle";
+import { NavUserAccountProps, NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
 
-export interface NavDrawerProps {
-  balance: string;
-  votingBalance: string;
-  userAccount: string;
-  userRevealVotesCount?: number;
-  userChallengesVotedOnCount?: number;
-  userChallengesStartedCount?: number;
-  userClaimRewardsCount?: number;
-  buyCvlUrl?: string;
-  useGraphQL: boolean;
-  onLoadingPrefToggled(): void;
+export interface NavDrawerProps extends NavDrawerBaseProps, NavUserAccountProps {
   handleOutsideClick(): void;
 }
 
 class NavDrawerComponent extends React.Component<NavDrawerProps> {
   public render(): JSX.Element {
+    const {
+      userEthAddress,
+      onLoadingPrefToggled,
+      useGraphQL,
+      balance,
+      votingBalance,
+      buyCvlUrl,
+      userRevealVotesCount,
+      userClaimRewardsCount,
+      userChallengesStartedCount,
+      userChallengesVotedOnCount,
+    } = this.props;
+
+    if (!userEthAddress) {
+      return <></>;
+    }
+
     return (
       <StyledNavDrawer>
         <NavDrawerSection>
           <NavDrawerSectionHeader>
             <NavDrawerUserAddessText />
           </NavDrawerSectionHeader>
-          <UserAddress>{this.props.userAccount}</UserAddress>
+          <UserAddress>{userEthAddress}</UserAddress>
           <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
           </CopyButton>
@@ -64,7 +74,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <NavDrawerRowLabel>
             <NavDrawerLoadingPrefText />
           </NavDrawerRowLabel>
-          <LoadingPrefToggle onClick={this.props.onLoadingPrefToggled} useGraphQL={this.props.useGraphQL} />
+          <LoadingPrefToggle onClick={onLoadingPrefToggled} useGraphQL={useGraphQL} />
         </NavDrawerSection>
         <NavDrawerSection>
           <NavDrawerSectionHeader>
@@ -75,7 +85,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
               <NavDrawerTotalBalanceText />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
-              <NavDrawerCvlBalance>{this.props.balance}</NavDrawerCvlBalance>
+              <NavDrawerCvlBalance>{balance}</NavDrawerCvlBalance>
             </NavDrawerRowInfo>
           </NavDrawerRow>
           <NavDrawerRow>
@@ -84,10 +94,10 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
               <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} />
             </NavDrawerRowLabel>
             <NavDrawerRowInfo>
-              <NavDrawerCvlBalance>{this.props.votingBalance}</NavDrawerCvlBalance>
+              <NavDrawerCvlBalance>{votingBalance}</NavDrawerCvlBalance>
             </NavDrawerRowInfo>
           </NavDrawerRow>
-          <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} href={this.props.buyCvlUrl}>
+          <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} to={buyCvlUrl}>
             <NavDrawerBuyCvlBtnText />
           </NavDrawerBuyCvlBtn>
         </NavDrawerSection>
@@ -99,25 +109,25 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
             <NavDrawerRowLabel>
               <NavDrawerRevealVotesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userRevealVotesCount || 0}</NavDrawerPill>
+            <NavDrawerPill>{userRevealVotesCount || 0}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerClaimRewardsText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userClaimRewardsCount || 0}</NavDrawerPill>
+            <NavDrawerPill>{userClaimRewardsCount || 0}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerSubmittedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesStartedCount || 0}</NavDrawerPill>
+            <NavDrawerPill>{userChallengesStartedCount || 0}</NavDrawerPill>
           </NavDrawerRow>
           <NavDrawerRow>
             <NavDrawerRowLabel>
               <NavDrawerVotedChallengesText />
             </NavDrawerRowLabel>
-            <NavDrawerPill>{this.props.userChallengesVotedOnCount || 0}</NavDrawerPill>
+            <NavDrawerPill>{userChallengesVotedOnCount || 0}</NavDrawerPill>
           </NavDrawerRow>
         </NavDrawerSection>
       </StyledNavDrawer>
@@ -126,8 +136,8 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
 
   private copyToClipBoard = () => {
     const textArea = document.createElement("textarea");
-    const userAccount = this.props.userAccount || "";
-    textArea.innerText = userAccount;
+    const userEthAddress = this.props.userEthAddress || "";
+    textArea.innerText = userEthAddress.replace(/ /g, "");
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand("copy");
@@ -135,7 +145,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
   };
 }
 
-export class NavDrawer extends React.Component<NavDrawerProps> {
+class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -160,3 +170,19 @@ export class NavDrawer extends React.Component<NavDrawerProps> {
     this.props.handleOutsideClick();
   };
 }
+
+const NavDrawer: React.SFC<NavDrawerProps> = props => {
+  return (
+    <LoadUser>
+      {({ loading, user: civilUser }) => {
+        if (loading || !civilUser || !props.userEthAddress) {
+          return null;
+        }
+
+        return <NavDrawerBucketComponent {...props} />;
+      }}
+    </LoadUser>
+  );
+};
+
+export default NavDrawer;

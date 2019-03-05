@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { CloseXIcon, HamburgerIcon } from "../icons";
 
-import { NavMenuState } from "./types";
+import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuResponsiveButton } from "./styledComponents";
 
 export interface NavMenuResponsiveToggleButtonProps extends NavMenuState {

@@ -18,7 +18,7 @@ export const ProgressModalContentInProgress: React.SFC<ProgressModalContentProps
       {content}
       <ModalContentInsetContainer>
         <ModalContent>
-          Your transaction is processing. This can take 1-3 minutes. Please don't close the tab.
+          Your transaction is processing. This can take several minutes. Please don't close the tab.
         </ModalContent>
         <ModalContent>How about taking a little breather and standing for a bit? Maybe even stretching?</ModalContent>
       </ModalContentInsetContainer>

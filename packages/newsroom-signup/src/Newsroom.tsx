@@ -63,10 +63,8 @@ export interface NewsroomExternalProps {
   helpUrlBase?: string;
   newsroomUrl?: string;
   logoUrl?: string;
-  metamaskEnabled?: boolean;
   allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   initialStep?: number;
-  enable(): void;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;

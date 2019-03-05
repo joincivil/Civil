@@ -10,7 +10,7 @@ storiesOf("Hero", module)
   .add("Homepage", () => {
     return (
       <Hero backgroundImage={heroImgUrl}>
-        <HomepageHero ctaButtonURL="#cta-button" learnMoreURL="#learn-more" />
+        <HomepageHero buyCvlUrl="#buy-tokens" applyURL="#apply" learnMoreURL="#learn-more" />
       </Hero>
     );
   });

@@ -17,7 +17,7 @@
         "appealFeeAmount": 5000000000000000000000,
         "challengeAppealLength": 604800,
         "requestAppealPhaseLength": 259200,
-        "judgeAppealPhaseLength": 345600,
+        "judgeAppealPhaseLength": 1209600,
         "appealChallengeCommitStageLength": 864000,
         "appealChallengeRevealStageLength": 604800,
         "appealSupermajorityPercentage": 66,
