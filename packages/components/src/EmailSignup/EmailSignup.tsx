@@ -50,8 +50,8 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
       <StyledEmailSignupCopy>
         <b>
           Follow us on twitter for alerts{" "}
-          <a href="https://twitter.com/CivilTCRalerts" target="_blank">
-            @CivilTCRalerts
+          <a href="https://twitter.com/civil_alerts" target="_blank">
+            @Civil_Alerts
           </a>
         </b>
       </StyledEmailSignupCopy>
