@@ -222,7 +222,7 @@ class ActivityListItemComponent extends React.Component<
 
     // This is a listing
     if (!userChallengeData && listingAddress) {
-      const manageNewsroomUrl = `/mgmt-v1/${this.props.listingAddress}`;
+      const manageNewsroomUrl = `/mgmt/${this.props.listingAddress}`;
       return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
     }
 

@@ -30,7 +30,7 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
         </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />
-        <StepSectionCounter>Step 2 of 4: Roster</StepSectionCounter>
+        <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
 
         <FormSection>
           <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
