@@ -29,7 +29,6 @@ import {
   SectionActions,
   PullRight,
 } from "./styledComponents";
-import { Civil } from "@joincivil/core";
 
 export interface SubmitChallengeStatementProps {
   constitutionURI?: string;
@@ -40,7 +39,6 @@ export interface SubmitChallengeStatementProps {
   revealStageLen?: string;
   newsroomName?: string;
   transactions: any[];
-  civil?: Civil;
   modalContentComponents?: { [index: string]: JSX.Element };
   updateStatementValue(key: string, value: any): void;
   postExecuteTransactions?(): void;
@@ -162,7 +160,6 @@ export class SubmitChallengeStatement extends React.Component<
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
                   disabled={this.isFormInvalid()}
-                  civil={this.props.civil}
                 >
                   Confirm and Deposit CVL
                 </TransactionButtonNoModal>

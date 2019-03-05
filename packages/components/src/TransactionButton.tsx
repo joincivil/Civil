@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash, Civil } from "@joincivil/core";
+import { detectProvider } from "@joincivil/ethapi";
 import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
@@ -42,7 +43,6 @@ export interface Transaction {
 }
 
 export interface TransactionButtonProps {
-  civil?: Civil;
   transactions: Transaction[];
   disabled?: boolean;
   disabledOnMobile?: boolean;
@@ -158,22 +158,27 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   public async componentDidMount(): Promise<void> {
-    this.createEthereumSubscription(this.props.civil);
+    this.createEthereumSubscription();
   }
 
   public async componentWillUnmount(): Promise<void> {
     this.unbscribeEthereum();
   }
 
-  public createEthereumSubscription(civil?: Civil): void {
+  public createEthereumSubscription(): void {
     this.unbscribeEthereum();
     let subscription: Subscription | undefined;
-    if (civil) {
-      subscription = civil.accountStream.subscribe(currentAccount => this.setState({ currentAccount }));
+
+    const provider = detectProvider();
+    if (provider) {
+      const civil = new Civil({ web3Provider: provider });
+      if (civil) {
+        subscription = civil.accountStream.subscribe(currentAccount => this.setState({ currentAccount }));
+      }
+      this.setState({
+        ethereumUpdates: subscription,
+      });
     }
-    this.setState({
-      ethereumUpdates: subscription,
-    });
   }
 
   public unbscribeEthereum(): void {
