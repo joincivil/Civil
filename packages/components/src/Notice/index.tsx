@@ -6,6 +6,7 @@ import { InfoNotification } from "../icons";
 export enum NoticeTypes {
   INFO,
   ERROR,
+  ALERT,
 }
 
 export interface NoticeContainerProps {
@@ -21,7 +22,12 @@ const typeColors = {
     border: "rgb(242, 82, 74,1)",
     background: "rgb(242, 82, 74,0.1)",
   },
+  [NoticeTypes.ALERT]: {
+    border: "#FFFDE9",
+    background: "rgba(94,94,94,0.12)",
+  },
 };
+
 export const NoticeBackground = styled.div`
   border-radius: 4px;
   background-color: #fff;

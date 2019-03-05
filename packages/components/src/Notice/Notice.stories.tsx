@@ -9,4 +9,7 @@ storiesOf("Notice", module)
   })
   .add("Error", () => {
     return <Notice type={NoticeTypes.ERROR}>This is an error notice</Notice>;
+  })
+  .add("Alert", () => {
+    return <Notice type={NoticeTypes.ALERT}>This is an alert notice</Notice>;
   });
