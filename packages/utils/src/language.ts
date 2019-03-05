@@ -54,5 +54,5 @@ export function isDefined<T extends any>(what?: T): what is T {
 }
 
 export function isBigNumber(what: any): what is BigNumber {
-  return what.toNumber !== undefined && what.toFraction !== undefined;
+  return what !== undefined && what.toNumber !== undefined && what.toFraction !== undefined;
 }

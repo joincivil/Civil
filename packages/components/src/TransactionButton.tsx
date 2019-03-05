@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction, TxHash, Civil } from "@joincivil/core";
+import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { Modal } from "./Modal";
 import {
@@ -10,12 +10,15 @@ import {
   ProgressModalContentError,
 } from "./ProgressModalContent";
 import { mediaQueries } from "./styleConstants";
+import { Subscription } from "rxjs";
 
 export interface TransactionButtonState {
   name: string;
   error: string;
   step: number;
   disableButton: boolean;
+  currentAccount?: EthAddress;
+  ethereumUpdates?: Subscription;
 }
 
 export interface TransactionButtonModalFlowState {
@@ -39,6 +42,7 @@ export interface Transaction {
 }
 
 export interface TransactionButtonProps {
+  civil?: Civil;
   transactions: Transaction[];
   disabled?: boolean;
   disabledOnMobile?: boolean;
@@ -153,6 +157,31 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
     }
   }
 
+  public async componentDidMount(): Promise<void> {
+    this.createEthereumSubscription(this.props.civil);
+  }
+
+  public async componentWillUnmount(): Promise<void> {
+    this.unbscribeEthereum();
+  }
+
+  public createEthereumSubscription(civil?: Civil): void {
+    this.unbscribeEthereum();
+    let subscription: Subscription | undefined;
+    if (civil) {
+      subscription = civil.accountStream.subscribe(currentAccount => this.setState({ currentAccount }));
+    }
+    this.setState({
+      ethereumUpdates: subscription,
+    });
+  }
+
+  public unbscribeEthereum(): void {
+    if (this.state.ethereumUpdates) {
+      this.state.ethereumUpdates.unsubscribe();
+    }
+  }
+
   public render(): JSX.Element {
     const ButtonComponent = this.props.Button || PrimaryTransactionButton;
     const MobileButtonComponent = this.props.Button || Button;
@@ -163,7 +192,11 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         <>
           <StyledVisibleOnDesktop>
             {this.state.error}
-            <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
+            <ButtonComponent
+              step={this.state.step}
+              onClick={this.onClick}
+              disabled={this.state.disableButton || !this.state.currentAccount}
+            >
               {this.props.children}
             </ButtonComponent>
           </StyledVisibleOnDesktop>
@@ -176,8 +209,13 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
     return (
       <>
+        {!this.state.currentAccount && <span>In order to make transactions, you must be logged in on MetaMask</span>}
         {this.state.error}
-        <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
+        <ButtonComponent
+          step={this.state.step}
+          onClick={this.onClick}
+          disabled={this.state.disableButton || !this.state.currentAccount}
+        >
           {this.props.children}
         </ButtonComponent>
       </>

@@ -32,6 +32,7 @@ storiesOf("User Statement Forms", module)
       minDeposit: "100,000 CVL",
       commitStageLen: "10 days",
       revealStageLen: "7 days",
+      civil: undefined,
       transactions: [],
       updateStatementValue,
     };
