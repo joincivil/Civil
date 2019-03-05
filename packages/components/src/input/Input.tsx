@@ -78,7 +78,7 @@ const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
   );
 };
 
-const InputBase = styled(InputBaseComponent)`
+export const InputBase = styled(InputBaseComponent)`
   margin-bottom: 10px;
   display: inline-grid;
   width: 100%;
