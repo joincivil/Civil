@@ -144,7 +144,6 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
   }
 
   private toggleEthereumInfoDisplay = (): void => {
-    console.log("toggle ethereum info display");
     this.setState({ isEthereumInfoVisible: !this.state.isEthereumInfoVisible });
   };
 
