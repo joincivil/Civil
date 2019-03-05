@@ -30,8 +30,16 @@ const ButtonContainer = styled.div`
 export class NewsroomProfile extends React.Component<NewsroomProfileProps, NewsroomProfileState> {
   constructor(props: NewsroomProfileProps) {
     super(props);
+    let currentStep = 0;
+    try {
+      if (localStorage.newsroomOnBoardingNewsroomProfileStep) {
+        currentStep = Number(localStorage.newsroomOnBoardingNewsroomProfileStep);
+      }
+    } catch (e) {
+      console.error("Failed to load step index");
+    }
     this.state = {
-      currentStep: 5,
+      currentStep,
       showButtons: true,
     };
   }
@@ -113,9 +121,19 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     );
   }
   public goNext(): void {
+    try {
+      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep + 1);
+    } catch (e) {
+      console.error("Failed to save step index", e);
+    }
     this.setState({ currentStep: this.state.currentStep + 1 });
   }
   public goBack(): void {
+    try {
+      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep - 1);
+    } catch (e) {
+      console.error("Failed to save step index", e);
+    }
     this.setState({ currentStep: this.state.currentStep - 1 });
   }
   public render(): JSX.Element {
