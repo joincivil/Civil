@@ -99,10 +99,6 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
     );
   }
 
-  // private removeMember = () => {
-  //   this.props.updateRosterMember(this.props.user.rosterData, {}, true);
-  // };
-
   private rosterInputChange = (name: string, val: string) => {
     this.props.updateRosterMember({
       ...this.props.user.rosterData,

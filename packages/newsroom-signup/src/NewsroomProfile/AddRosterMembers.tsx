@@ -42,6 +42,16 @@ const StyledUl = styled.ul`
   padding: 0;
 `;
 
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+`;
+
+const RemoveButton = styled(BorderlessButton)`
+  margin-left: auto;
+`;
+
 export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRosterMemberState> {
   constructor(props: AddRosterMemberProps) {
     super(props);
@@ -76,14 +86,17 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
             </StyledUl>
           )}
           {this.state.editingMember ? (
-            <>
+            <ButtonSection>
               <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>
                 Save
               </InvertedButton>
               <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({ editingMember: null })}>
                 Cancel
               </BorderlessButton>
-            </>
+              <RemoveButton size={buttonSizes.MEDIUM} onClick={this.removeRosterMember}>
+                Remove
+              </RemoveButton>
+            </ButtonSection>
           ) : (
             <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
               Add a profile
@@ -102,6 +115,21 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
     this.setState({ editingMember: newVal });
+  };
+
+  private removeRosterMember = () => {
+    const roster = (this.props.charter.roster || []).slice();
+    const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
+    const memberIndex = roster.findIndex(rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    if (memberIndex >= 0) {
+      roster.splice(memberIndex, 1);
+      this.props.updateCharter({
+        ...this.props.charter,
+        roster,
+      });
+    }
+    this.props.toggleButtons();
+    this.setState({ editingMember: null });
   };
 
   private saveRosterMember = () => {

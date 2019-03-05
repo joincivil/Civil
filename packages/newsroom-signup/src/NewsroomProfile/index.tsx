@@ -36,7 +36,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         currentStep = Number(localStorage.newsroomOnBoardingNewsroomProfileStep);
       }
     } catch (e) {
-      console.error("Failed to load step index", e);
+      console.error("Failed to load step index");
     }
     this.state = {
       currentStep,
