@@ -93,22 +93,28 @@ class ChallengesWithRewardsToClaim extends React.Component<
           <ClaimRewardsDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges.map((c: string) => (
-          <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-        ))}
+        {this.props.challenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
+          ))}
 
-        {this.props.appealChallenges.map((c: string) => (
-          <ActivityListItemClaimReward key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-        ))}
+        {this.props.appealChallenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemClaimReward key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
+          ))}
 
-        {this.props.proposalChallenges.map((c: string) => (
-          <ActivityListItemClaimReward
-            key={c}
-            isProposalChallenge={true}
-            challengeID={c!}
-            toggleSelect={this.setChallengesToMultiClaim}
-          />
-        ))}
+        {this.props.proposalChallenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemClaimReward
+              key={c}
+              isProposalChallenge={true}
+              challengeID={c!}
+              toggleSelect={this.setChallengesToMultiClaim}
+            />
+          ))}
 
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal

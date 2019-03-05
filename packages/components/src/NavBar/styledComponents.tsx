@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, ButtonProps } from "../Button";
+import { Button, DarkButton, ButtonProps } from "../Button";
 
-import { NavArrowProps } from "./types";
+import { NavArrowProps } from "./NavBarTypes";
 
 export const NavContainer = styled.div`
   left: 0;
@@ -24,33 +24,50 @@ export const NavOuter = styled.div`
   font-weight: 500;
   justify-content: space-between;
   letter-spacing: 1px;
+  min-height: 74px;
   text-transform: uppercase;
-  padding: 15px 25px;
+  padding: 10px 20px;
   position: relative;
   * {
     box-sizing: border-box;
   }
 
+  & a {
+    color: ${colors.basic.WHITE};
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      color: ${colors.accent.CIVIL_GRAY_2};
+    }
+  }
+
   ${mediaQueries.MOBILE} {
     justify-content: center;
+    min-height: auto;
+    padding: 15px 20px;
   }
 `;
 
 export const NavLogo = styled.div`
   height: 21px;
+  margin-right: 12px;
   width: 72px;
 `;
 
 export const NavInner = styled.div`
   align-items: center;
   display: flex;
-  & a {
-    color: ${colors.basic.WHITE};
-    text-decoration: none;
-    transition: color 0.2s;
-    &:hover {
-      color: ${colors.accent.CIVIL_GRAY_2};
-    }
+`;
+
+export const NavInnerRight = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
   }
 `;
 
@@ -67,14 +84,10 @@ export const NavUser = styled.div`
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_1};
   cursor: pointer;
   display: flex;
-  font-family: ${fonts.SERIF};
   height: 30px;
   justify-content: space-between;
   margin-left: 15px;
-  padding-left: 15px
-  width: 250px;
-
-  ${mediaQueries.MOBILE} {
+  padding-left: 15px ${mediaQueries.MOBILE} {
     display: none;
   }
 `;
@@ -82,8 +95,10 @@ export const NavUser = styled.div`
 export const CvlContainer = styled.div`
   align-items: center;
   display: flex;
+  box-sizing: border-box;
   justify-content: space-between;
-  width: 100%;
+  padding-left: 20px;
+  width: 280px;
 `;
 
 export const BalancesContainer = styled.span`
@@ -95,14 +110,15 @@ export const UserCvlBalance = styled.span`
   display: block;
   font-size: 16px;
   font-weight: 800;
-  line-height: 1;
+  line-height: 19px;
   margin-left: 10px;
 `;
 
 export const UserCvlVotingBalance = styled.span`
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
+  line-height: 16px;
   margin-left: 10px;
 `;
 
@@ -132,6 +148,22 @@ export const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrow
 
 export const LogInButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
   margin-left: 10px;
+`;
+
+export const NavBarButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+  border: 2px solid ${colors.basic.WHITE};
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-left: 30px;
+  padding: 15px 0;
+  text-align: center;
+  width: 180px;
+
+  &:hover {
+    background: ${colors.basic.WHITE};
+    color: ${colors.primary.BLACK};
+  }
 `;
 
 export const StyledNavDrawer = styled.div`

@@ -35,7 +35,8 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     votingBalance,
     challengesWonTotalCvl: getFormattedTokenBalance(challengesWonTotalCvl),
     rewardsEarned: getFormattedTokenBalance(userTotalClaimedRewards),
-    buyCVLURL: "/tokens",
+    buyCvlUrl: "https://civil.co/become-a-member",
+    applyURL: "https://civil.co/how-to-launch-newsroom",
   };
 };
 

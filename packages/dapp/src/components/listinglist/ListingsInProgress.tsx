@@ -42,7 +42,13 @@ export interface ListingsInProgressProps {
   govtParameters: any;
 }
 
-const TABS: string[] = ["new-applications", "under-challenge", "under-appeal", "decisio-challenged", "ready-to-update"];
+const TABS: string[] = [
+  "new-applications",
+  "under-challenge",
+  "under-appeal",
+  "decision-challenged",
+  "ready-to-update",
+];
 
 class ListingsInProgress extends React.Component<ListingProps & ListingsInProgressProps> {
   public render(): JSX.Element {

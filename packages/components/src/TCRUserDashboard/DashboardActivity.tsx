@@ -1,6 +1,11 @@
 import * as React from "react";
 import { Tabs, Tab } from "../Tabs";
-import { StyledUserActivity, StyledDashboardTab, StyledUserActivityContent } from "./DashboardStyledComponents";
+import {
+  StyledUserActivity,
+  StyledDashboardTabsContainer,
+  StyledDashboardTab,
+  StyledUserActivityContent,
+} from "./DashboardStyledComponents";
 import { MyVotingTabText, MyNewsroomsTabText, MyChallengesTabText } from "./DashboardTextComponents";
 
 export interface DashboardActivityProps {
@@ -14,7 +19,12 @@ export interface DashboardActivityProps {
 export const DashboardActivity: React.StatelessComponent<DashboardActivityProps> = props => {
   return (
     <StyledUserActivity>
-      <Tabs TabComponent={StyledDashboardTab} activeIndex={props.activeIndex} onActiveTabChange={props.onTabChange}>
+      <Tabs
+        TabsNavComponent={StyledDashboardTabsContainer}
+        TabComponent={StyledDashboardTab}
+        activeIndex={props.activeIndex}
+        onActiveTabChange={props.onTabChange}
+      >
         <Tab title={<MyVotingTabText />}>
           <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
         </Tab>
