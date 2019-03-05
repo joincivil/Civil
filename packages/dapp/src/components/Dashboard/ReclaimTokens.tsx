@@ -32,7 +32,7 @@ const transactionLabels = {
 
 const transactionSuccessContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "You have successfully transfered your voting tokens",
+    "You have successfully transferred your voting tokens",
     <ModalContent>
       Tokens in your Available Balance can be used for applying to The Civil Registry or challenging newsrooms
     </ModalContent>,
@@ -41,14 +41,14 @@ const transactionSuccessContent = {
 
 const transactionRejectionContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "Your tokens were not transfered",
+    "Your tokens were not transferred",
     "To transfer your tokens, you need to confirm the transaction in your MetaMask wallet.",
   ],
 };
 
 const transactionErrorContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "The was an problem with transfering your tokens",
+    "The was an problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
