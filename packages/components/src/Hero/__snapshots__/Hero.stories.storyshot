@@ -4,17 +4,17 @@ exports[`Storyshots Hero Homepage 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-eNNmBn iGSvZH",
+      "class": "sc-eEieub bdgECH",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-eEieub igIVgq",
+          "class": "sc-RbTVP foUXuy",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-RbTVP hCRfCh",
+              "class": "sc-hMrMfs iAvVvu",
             },
             "children": Array [
               Object {
@@ -29,7 +29,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-hMrMfs bvUwAC",
+                "class": "sc-drlKqa vDciZ",
               },
               "children": Array [
                 Object {
@@ -347,12 +347,12 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-drlKqa jzJdPP",
+                  "class": "sc-bIqbHp lduwSU",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#buy-tokens",
                       "theme": "[object Object]",
                     },
@@ -369,7 +369,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                        "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                         "href": "#apply",
                         "theme": "[object Object]",
                       },
@@ -415,7 +415,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#apply",
                       "theme": "[object Object]",
                     },
@@ -434,7 +434,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                        "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                         "href": "#buy-tokens",
                         "theme": "[object Object]",
                       },
@@ -481,7 +481,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-jxGEyO hMrCwf",
+                    "class": "sc-gacfCG kHowzl",
                   },
                   "children": Array [
                     Object {
@@ -678,7 +678,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-hMrMfs bvUwAC",
+              "class": "sc-drlKqa vDciZ",
             },
             "children": Array [
               Object {
@@ -996,12 +996,12 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-drlKqa jzJdPP",
+                "class": "sc-bIqbHp lduwSU",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#buy-tokens",
                     "theme": "[object Object]",
                   },
@@ -1018,7 +1018,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#apply",
                       "theme": "[object Object]",
                     },
@@ -1064,7 +1064,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#apply",
                     "theme": "[object Object]",
                   },
@@ -1083,7 +1083,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#buy-tokens",
                       "theme": "[object Object]",
                     },
@@ -1130,7 +1130,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-jxGEyO hMrCwf",
+                  "class": "sc-gacfCG kHowzl",
                 },
                 "children": Array [
                   Object {
@@ -1308,7 +1308,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-RbTVP hCRfCh",
+                "class": "sc-hMrMfs iAvVvu",
               },
               "children": Array [
                 Object {
@@ -1342,12 +1342,12 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-drlKqa jzJdPP",
+              "class": "sc-bIqbHp lduwSU",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                  "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                   "href": "#buy-tokens",
                   "theme": "[object Object]",
                 },
@@ -1364,7 +1364,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#apply",
                     "theme": "[object Object]",
                   },
@@ -1410,7 +1410,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                  "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                   "href": "#apply",
                   "theme": "[object Object]",
                 },
@@ -1429,7 +1429,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#buy-tokens",
                     "theme": "[object Object]",
                   },
@@ -1476,7 +1476,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-jxGEyO hMrCwf",
+                "class": "sc-gacfCG kHowzl",
               },
               "children": Array [
                 Object {
@@ -1644,7 +1644,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hMrMfs bvUwAC",
+                "class": "sc-drlKqa vDciZ",
               },
               "children": Array [
                 Object {
@@ -1964,7 +1964,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-RbTVP hCRfCh",
+                  "class": "sc-hMrMfs iAvVvu",
                 },
                 "children": Array [
                   Object {
@@ -2006,7 +2006,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-jxGEyO hMrCwf",
+              "class": "sc-gacfCG kHowzl",
             },
             "children": Array [
               Object {
@@ -2164,12 +2164,12 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-drlKqa jzJdPP",
+                "class": "sc-bIqbHp lduwSU",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#buy-tokens",
                     "theme": "[object Object]",
                   },
@@ -2186,7 +2186,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#apply",
                       "theme": "[object Object]",
                     },
@@ -2232,7 +2232,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                     "href": "#apply",
                     "theme": "[object Object]",
                   },
@@ -2251,7 +2251,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bIqbHp czCDwv sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "class": "sc-jxGEyO iScknp sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
                       "href": "#buy-tokens",
                       "theme": "[object Object]",
                     },
@@ -2300,7 +2300,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hMrMfs bvUwAC",
+                  "class": "sc-drlKqa vDciZ",
                 },
                 "children": Array [
                   Object {
@@ -2620,7 +2620,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-RbTVP hCRfCh",
+                    "class": "sc-hMrMfs iAvVvu",
                   },
                   "children": Array [
                     Object {

@@ -4,25 +4,25 @@ exports[`Storyshots Notice Alert 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-gJTSre iuJjnL",
+      "class": "sc-fdqjUm qwomD",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-fdqjUm btyfm",
+          "class": "sc-cLmFfZ gSPhhp",
           "type": "2",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cLmFfZ hufnuY",
+              "class": "sc-eAyhxF bteHJh",
             },
             "children": Array [],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-eAyhxF hyrGlI",
+                "class": "sc-kbdWBx dtvnZA",
               },
               "children": Array [
                 Object {
@@ -58,7 +58,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-eAyhxF hyrGlI",
+              "class": "sc-kbdWBx dtvnZA",
             },
             "children": Array [
               Object {
@@ -75,7 +75,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cLmFfZ hufnuY",
+                "class": "sc-eAyhxF bteHJh",
               },
               "children": Array [],
               "name": "div",
@@ -158,18 +158,18 @@ exports[`Storyshots Notice Error 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-gJTSre iuJjnL",
+      "class": "sc-fdqjUm qwomD",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-fdqjUm ioxpBW",
+          "class": "sc-cLmFfZ ipXBet",
           "type": "1",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cLmFfZ hufnuY",
+              "class": "sc-eAyhxF bteHJh",
             },
             "children": Array [
               Object {
@@ -871,7 +871,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-eAyhxF hyrGlI",
+                "class": "sc-kbdWBx dtvnZA",
               },
               "children": Array [
                 Object {
@@ -907,7 +907,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-eAyhxF hyrGlI",
+              "class": "sc-kbdWBx dtvnZA",
             },
             "children": Array [
               Object {
@@ -924,7 +924,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cLmFfZ hufnuY",
+                "class": "sc-eAyhxF bteHJh",
               },
               "children": Array [
                 Object {
@@ -1702,25 +1702,25 @@ exports[`Storyshots Notice Info 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-gJTSre iuJjnL",
+      "class": "sc-fdqjUm qwomD",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-fdqjUm hdJALM",
+          "class": "sc-cLmFfZ tKpHg",
           "type": "0",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cLmFfZ hufnuY",
+              "class": "sc-eAyhxF bteHJh",
             },
             "children": Array [],
             "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-eAyhxF hyrGlI",
+                "class": "sc-kbdWBx dtvnZA",
               },
               "children": Array [
                 Object {
@@ -1756,7 +1756,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-eAyhxF hyrGlI",
+              "class": "sc-kbdWBx dtvnZA",
             },
             "children": Array [
               Object {
@@ -1773,7 +1773,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cLmFfZ hufnuY",
+                "class": "sc-eAyhxF bteHJh",
               },
               "children": Array [],
               "name": "div",
