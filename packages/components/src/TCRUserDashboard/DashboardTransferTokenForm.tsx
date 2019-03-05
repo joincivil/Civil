@@ -4,6 +4,8 @@ import {
   StyledTransferTokenFormElement,
   StyledTransferTokenDropdown,
   StyledDropdownArrow,
+  StyledTransferTokenBalance,
+  StyledFromBalance,
 } from "./DashboardStyledComponents";
 import {
   BalanceLabelText,
@@ -15,42 +17,31 @@ import {
 import { Dropdown, DropdownGroup, DropdownItem, CurrencyInput } from "../input";
 import { DropdownArrow } from "../icons";
 
+export enum BalanceType {
+  AVAILABLE_BALANCE = "available balance",
+  TOKEN_VOTING_BALANCE = "token voting balance",
+}
+
 export interface TransferTokenDropdownOptionProps {
   label: string | JSX.Element;
   cvl: number;
+  value?: number;
 }
 
-export const TransferTokenDropdownOption: React.StatelessComponent<TransferTokenDropdownOptionProps> = props => {
+export const TransferTokenBalance: React.StatelessComponent<TransferTokenDropdownOptionProps> = props => {
   return (
-    <>
+    <StyledTransferTokenBalance>
       <span>{props.label}</span>
       <span>{props.cvl} CVL</span>
-    </>
+    </StyledTransferTokenBalance>
   );
 };
 
-export interface TransferTokenDropdownOptionsProps {
-  label?: string | JSX.Element;
-}
-
-export const TransferTokenDropdownOptions: React.StatelessComponent<TransferTokenDropdownOptionsProps> = props => {
-  return (
-    <DropdownGroup>
-      <DropdownItem>
-        <TransferTokenDropdownOption cvl={500.005} label={<BalanceLabelText />} />
-      </DropdownItem>
-      <DropdownItem>
-        <TransferTokenDropdownOption cvl={500.005} label={<TokenBalanceLabelText />} />
-      </DropdownItem>
-    </DropdownGroup>
-  );
-};
-
-export interface TransferTokenDropdownProps {
+export interface TransferTokenDropdownSelectedProps {
   label: string | JSX.Element;
 }
 
-export const TransferTokenDropdown: React.StatelessComponent<TransferTokenDropdownProps> = props => {
+export const TransferTokenDropdownSelected: React.StatelessComponent<TransferTokenDropdownSelectedProps> = props => {
   return (
     <StyledTransferTokenDropdown>
       {props.label}
@@ -68,7 +59,8 @@ export interface DashboardTransferTokenFormProps {
 }
 
 export interface DashboardTransferTokenFormStates {
-  onChange?: boolean;
+  dropdownValue: string | JSX.Element;
+  fromValue: string | JSX.Element;
 }
 
 export class DashboardTransferTokenForm extends React.Component<
@@ -78,7 +70,8 @@ export class DashboardTransferTokenForm extends React.Component<
   constructor(props: DashboardTransferTokenFormProps) {
     super(props);
     this.state = {
-      onChange: true,
+      dropdownValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
+      fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
     };
   }
 
@@ -89,38 +82,29 @@ export class DashboardTransferTokenForm extends React.Component<
         <StyledTransferTokenForm>
           <StyledTransferTokenFormElement>
             <label>From</label>
-            <Dropdown
-              position="left"
-              target={
-                <TransferTokenDropdown
-                  label={
-                    <TransferTokenDropdownOption cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />
-                  }
-                />
-              }
-            >
-              <TransferTokenDropdownOptions />
+            <Dropdown position="left" target={<TransferTokenDropdownSelected label={this.state.dropdownValue} />}>
+              <DropdownGroup>
+                <DropdownItem>
+                  <button onClick={() => this.onClick(BalanceType.AVAILABLE_BALANCE)}>
+                    <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />
+                  </button>
+                </DropdownItem>
+                <DropdownItem>
+                  <button onClick={() => this.onClick(BalanceType.TOKEN_VOTING_BALANCE)}>
+                    <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />
+                  </button>
+                </DropdownItem>
+              </DropdownGroup>
             </Dropdown>
           </StyledTransferTokenFormElement>
           <StyledTransferTokenFormElement>
             <label>To</label>
-            <Dropdown
-              position="left"
-              target={
-                <TransferTokenDropdown
-                  label={
-                    <TransferTokenDropdownOption cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />
-                  }
-                />
-              }
-            >
-              <TransferTokenDropdownOptions />
-            </Dropdown>
+            <StyledFromBalance>{this.state.fromValue}</StyledFromBalance>
           </StyledTransferTokenFormElement>
           <StyledTransferTokenFormElement>
             <CurrencyInput
               label="Enter amount"
-              placeholder="0.0000"
+              placeholder="0"
               name="CurrencyInput"
               icon={<>CVL</>}
               onChange={this.props.onChange}
@@ -133,4 +117,18 @@ export class DashboardTransferTokenForm extends React.Component<
       </>
     );
   }
+
+  private onClick = (value: string) => {
+    if (value === BalanceType.AVAILABLE_BALANCE) {
+      this.setState({
+        dropdownValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
+        fromValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
+      });
+    } else {
+      this.setState({
+        dropdownValue: <TransferTokenBalance cvl={this.props.cvlVotingBalance} label={<TokenBalanceLabelText />} />,
+        fromValue: <TransferTokenBalance cvl={this.props.cvlAvailableBalance} label={<BalanceLabelText />} />,
+      });
+    }
+  };
 }

@@ -11,9 +11,7 @@ const onChange = () => {
 storiesOf("Dashboard", module)
   .addDecorator(StoryRouter())
   .add("Transfer Token Form", () => {
-    return (
-      <DashboardTransferTokenForm cvlAvailableBalance={500.005} cvlVotingBalance={7001.1234} onChange={onChange} />
-    );
+    return <DashboardTransferTokenForm cvlAvailableBalance={500.005} cvlVotingBalance={7001.1234} onChange={onChange} />;
   })
   .add("take tutorial", () => {
     return <DashboardTutorialWarning />;

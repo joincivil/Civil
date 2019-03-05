@@ -3,7 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
-import { Dropdown, DropdownGroup, InputBase, InputIcon } from "../input";
+import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
@@ -256,16 +256,36 @@ export const StyledTransferTokenForm = styled.div`
     margin-top 5px;
 
     & > div:nth-child(2) > div {
-      left: 0;
-      top: 10px;
+      border-top: none;
+      box-shadow: none;
+      left: -1px;
+      top: -1px;
       width: 100%;
       max-width: 100%;
+
+      :before,
+      :after {
+        display: none;
+      }
     }
 
     ${DropdownGroup} {
       li {
+        border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
         display: flex;
         justify-content: space-between;
+      }
+    }
+
+    ${DropdownItem} {
+      padding: 0;
+
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 17px 50px 17px 15px;
+        width: 100%;
       }
     }
   }
@@ -316,10 +336,15 @@ export const StyledTransferTokenTip = styled.div`
 `;
 
 export const StyledTransferTokenDropdown = styled.div`
-  display: flex;
-  justify-content: space-between;
   padding: 17px 50px 17px 15px;
   position: relative;
+`;
+
+export const StyledTransferTokenBalance = styled.div`
+  display: flex;
+  font-size: 15px;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const StyledDropdownArrow = styled.div`
@@ -331,6 +356,13 @@ export const StyledDropdownArrow = styled.div`
   position: absolute;
   right: 0;
   top: calc(50% - 14px);
+`;
+
+export const StyledFromBalance = styled.div`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  border-radius: 3px;
+  margin-top 5px;
+  padding: 17px 15px;
 `;
 
 export const StyledWarningBox = styled.div`
