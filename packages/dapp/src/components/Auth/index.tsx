@@ -6,12 +6,27 @@ import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
+import * as qs from "querystring";
 
 const TOKEN_HOME = "/tokens";
 export const WALLET_HOME = "/auth/wallet";
 
 export interface AuthVerifyTokenRouteParams {
   token: string;
+}
+
+const TOKEN_PARAM = "jwt";
+
+function getTokenFromSearch(search: string): string | undefined {
+  try {
+    // Needs substr since search includes the ?
+    const parsed = qs.parse(search.substr(1));
+
+    return parsed[TOKEN_PARAM] as string;
+  } catch (err) {
+    console.error("Error parsing query:", err);
+    return undefined;
+  }
 }
 
 export class AuthRouter extends React.Component<RouteComponentProps> {
@@ -58,15 +73,19 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   )}
                 />
                 <Route
-                  path={`${match.path}/login/verify-token/:token`}
+                  path={`${match.path}/login/verify-token`}
                   exact
-                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => (
-                    <AuthVerifyToken
-                      token={props.match.params.token}
-                      isNewUser={false}
-                      onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                    />
-                  )}
+                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
+                    const token = getTokenFromSearch(props.location.search);
+
+                    return (
+                      <AuthVerifyToken
+                        token={token}
+                        isNewUser={false}
+                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                      />
+                    );
+                  }}
                 />
                 {/* SignUp Routes */}
                 <Route
@@ -86,10 +105,10 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   )}
                 />
                 <Route
-                  path={`${match.path}/signup/verify-token/:token`}
+                  path={`${match.path}/signup/verify-token`}
                   exact
                   render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
-                    const token = props.match.params.token;
+                    const token = getTokenFromSearch(props.location.search);
 
                     return (
                       <AuthVerifyToken

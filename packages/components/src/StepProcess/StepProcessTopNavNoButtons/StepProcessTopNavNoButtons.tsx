@@ -90,7 +90,6 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
   public renderContent(): React.ReactNode | undefined {
     const children = this.props.children;
     const { activeIndex } = this.state;
-    console.log({ activeIndex, length: children.length });
     if (children[activeIndex]) {
       return React.cloneElement(children[activeIndex].props.children as React.ReactElement<ContentProps>, {
         goNext: this.goNext,

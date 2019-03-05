@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as qs from "querystring";
 import styled from "styled-components";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import {
@@ -24,7 +25,6 @@ export interface AuthWrapperState {
 
 export interface AuthParams {
   action?: "login" | "signup";
-  token?: string;
 }
 
 const Wrapper = styled.div`
@@ -83,7 +83,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
       return <>Loading...</>;
     }
 
-    const token = this.props.match.params.token;
+    const token = qs.parse(this.props.location.search.substr(1)).jwt as string;
     const isNewUser = this.props.match.params.action !== "login";
 
     if (token || this.state.showTokenVerified) {
@@ -164,7 +164,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
   };
 
   private onAuthenticationContinue = (isNewUser: boolean) => {
-    // Remove e.g. /signup/[token] from path
+    // Remove e.g. /signup?jwt=[token] from path
     this.props.history.replace({
       pathname: "/apply-to-registry",
     });
