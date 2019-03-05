@@ -67,8 +67,11 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
             <a href="https://exchange.gemini.com/register/check-location" target="_blank">
               Gemini
             </a>, you can return to Civil where we will walk you through how to complete your membership contribution.
-            We know this can be confusing. For more information, <a href="">read this blog post</a> or contact us at{" "}
-            <a href="mailto:support@civil.co">support@civil.co</a>.
+            We know this can be confusing. For more information,{" "}
+            <a href="https://blog.joincivil.com/how-to-fund-your-token-wallet-to-buy-a-civil-membership-7f8c190960ca">
+              read this blog post
+            </a>{" "}
+            or contact us at <a href="mailto:support@civil.co">support@civil.co</a>.
           </p>
         </Collapsable>
       </TokenFAQCollapse>
