@@ -6,8 +6,9 @@ import {
   FlexColumnsPrimary,
   FlexColumnsSecondary,
   TokenHeader,
+  TokenSection,
 } from "./TokensStyledComponents";
-import { TokenWelcomeHeaderText, TokenBuySellHeaderText } from "./TokensTextComponents";
+import { TokenWelcomeHeaderText, TokenBuySellHeaderText, TokenMustBuyEth } from "./TokensTextComponents";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
@@ -86,21 +87,18 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 signupPath={signupPath}
               />
 
-              <Notice type={NoticeTypes.INFO}>
-                You must buy Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here. You must buy
-                Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here.
-              </Notice>
-              <Notice type={NoticeTypes.ERROR}>
-                You must buy Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here. You must buy
-                Ether (ETH) in order to buy Civil tokens (CVL). Learn how to buy ETH here.
-              </Notice>
-
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
                 handleClose={() => this.closeTutorialModal(user)}
                 handleOpen={this.openTutorialModal}
               />
+
+              <TokenSection>
+                <Notice type={NoticeTypes.INFO}>
+                  <TokenMustBuyEth />
+                </Notice>
+              </TokenSection>
               <UserTokenAccountBuy
                 step={buyState}
                 network={network}

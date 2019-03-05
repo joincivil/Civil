@@ -18,10 +18,14 @@ const typeColors = {
     background: "rgb(208,237,237)",
   },
   [NoticeTypes.ERROR]: {
-    border: "#FBF9F6",
-    background: "rgb(208,237,237)",
+    border: "rgb(242, 82, 74,1)",
+    background: "rgb(242, 82, 74,0.1)",
   },
 };
+export const NoticeBackground = styled.div`
+  border-radius: 4px;
+  background-color: #fff;
+`;
 
 export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   display: flex;
@@ -32,7 +36,7 @@ export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
-  padding: 18px 0;
+  padding: 30px 0;
   text-align: center;
   border: 1px solid ${props => typeColors[props.type].border};
   border-radius: 4px;
@@ -58,9 +62,11 @@ export interface NoticeProps {
 
 export const Notice: React.SFC<NoticeProps> = ({ children, type }): JSX.Element => {
   return (
-    <NoticeContainer type={type}>
-      <NoticeIconContainer>{type !== NoticeTypes.INFO && <InfoNotification />}</NoticeIconContainer>
-      <NoticeMessageContainer>{children}</NoticeMessageContainer>
-    </NoticeContainer>
+    <NoticeBackground>
+      <NoticeContainer type={type}>
+        <NoticeIconContainer>{type !== NoticeTypes.INFO && <InfoNotification />}</NoticeIconContainer>
+        <NoticeMessageContainer>{children}</NoticeMessageContainer>
+      </NoticeContainer>
+    </NoticeBackground>
   );
 };
