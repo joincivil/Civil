@@ -112,12 +112,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               <NewsroomLinks>
                 {newsroomUrl && (
                   <VisitNewsroomButtonWrap>
-                    <StyledListingURLButton
-                      onClick={this.toggleEthereumInfoDisplay}
-                      size={buttonSizes.MEDIUM_WIDE}
-                      href={newsroomUrl}
-                      target="_blank"
-                    >
+                    <StyledListingURLButton size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
                       {newsroomUrl} <NorthEastArrow color={colors.basic.WHITE} />
                     </StyledListingURLButton>
                   </VisitNewsroomButtonWrap>
@@ -149,6 +144,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
   }
 
   private toggleEthereumInfoDisplay = (): void => {
+    console.log("toggle ethereum info display");
     this.setState({ isEthereumInfoVisible: !this.state.isEthereumInfoVisible });
   };
 
