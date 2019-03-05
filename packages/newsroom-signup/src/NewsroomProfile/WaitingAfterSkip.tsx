@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 const ReviewNotice = styled(OBNoteHeading)`
   color: ${colors.accent.CIVIL_BLUE_FADED};
   display: block;
-  margin: -36px 0 48px;
+  margin: -24px 0 48px;
 `;
 const NoticeCheck = styled(HollowGreenCheck)`
   margin-right: 4px;
