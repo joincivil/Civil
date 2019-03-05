@@ -118,7 +118,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 {this.renderRevealVote()}
               </StyledListingDetailPhaseCardSection>
 
-              <NeedHelp />
+              <NeedHelp faqURL={this.props.faqURL} />
             </StyledListingDetailPhaseCardContainer>
           </StyledCardFront>
 
@@ -130,7 +130,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 </StyledCardClose>
                 <FormHeader>Confirm Your Secret Vote for Appeal Challenge #{this.props.appealChallengeID}</FormHeader>
                 <FormCopy>
-                  <RevealVoteCalloutCopyText />
+                  <RevealVoteCalloutCopyText votingSmartContractFaqURL={this.props.votingSmartContractFaqURL} />
                 </FormCopy>
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
@@ -140,6 +140,8 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
+                  votingSmartContractFaqURL={this.props.votingSmartContractFaqURL}
+                />
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
