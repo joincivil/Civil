@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StyledTransferTokenTitle, StyledTransferTokenTip } from "./DashboardStyledComponents";
-import { HollowRedNoGood } from "../icons";
+import { WarningIcon } from "../icons";
 
 export const SubTabAllChallengesVotedText: React.SFC = props => <>All</>;
 
@@ -31,8 +31,6 @@ export const RescueTokensDescriptionText: React.SFC = props => (
 export const YourPublicAddressLabelText: React.SFC = props => <>Your Public Address</>;
 
 export const BalanceLabelText: React.SFC = props => <>Available Balance</>;
-
-export const TokenBalanceLabelText: React.SFC = props => <>Token Balance</>;
 
 export const VotingBalanceLabelText: React.SFC = props => <>Voting Tokens</>;
 
@@ -65,7 +63,7 @@ export const MetaMaskPopUpText: React.SFC = props => (
 export const TransferTokenTutorialWarnText: React.SFC = props => (
   <>
     <h2>
-      <HollowRedNoGood width={25} height={25} /> Take the Civil Tutorial
+      <WarningIcon width={25} height={25} /> Take the Civil Tutorial
     </h2>
     <p>
       Before you can transfer Civil tokens, you must complete a tutorial to ensure you understand how to use Civil

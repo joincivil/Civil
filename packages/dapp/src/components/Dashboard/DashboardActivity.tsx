@@ -159,8 +159,8 @@ class DashboardActivity extends React.Component<
       showTransferTokensMsg: true,
       activeTabIndex: 0,
       activeSubTabIndex: 0,
-      transferTokenToVoting: true,
       tutorialComplete: true,
+      transferTokenToVoting: true,
     };
   }
 
