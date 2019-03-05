@@ -1,6 +1,6 @@
 import { Civil, EthAddress } from "@joincivil/core";
 import { CivilErrors, setNetworkValue } from "@joincivil/utils";
-import { StyledMainContainer } from "@joincivil/components";
+import { StyledMainContainer, AskTrackingBar } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -39,6 +39,9 @@ import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
+import cookie from "react-cookies";
+import { addMiddleware } from "redux-dynamic-middlewares";
+import { gaMiddleware } from "../redux/analytics";
 
 export interface MainReduxProps {
   network: string;
@@ -48,6 +51,8 @@ export interface MainState {
   prevAccount: EthAddress;
 }
 
+const COOKIE_MAX_AGE = 120; // 2 minutes. TODO: make 30 days.
+
 class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>, MainState> {
   constructor(props: MainReduxProps & DispatchProp<any> & RouteComponentProps<any>) {
     super(props);
@@ -55,6 +60,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       prevAccount: "",
     };
   }
+
   public async componentDidMount(): Promise<void> {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = getCivil();
@@ -118,10 +124,29 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     }
   };
 
+  public allowTracking = (ev: any): void => {
+    this.answerTracking();
+    cookie.save("allowTracking", true, { path: "/", maxAge: COOKIE_MAX_AGE });
+    addMiddleware(gaMiddleware);
+    this.props.dispatch!({
+      type: "FORCE_PAGE_VIEW",
+      payload: { location: this.props.location },
+    });
+    this.forceUpdate();
+  };
+
+  public denyTracking = (ev: any): void => {
+    this.answerTracking();
+    cookie.save("allowTracking", false, { path: "/", maxAge: COOKIE_MAX_AGE });
+    this.forceUpdate();
+  };
+
   public render(): JSX.Element {
+    const didAnswerTracking = cookie.load("didAnswerTracking");
     const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));
     return (
       <StyledMainContainer>
+        {!didAnswerTracking && <AskTrackingBar onClickYes={this.allowTracking} onClickNo={this.denyTracking} />}
         {isNetworkSupported && (
           <Switch>
             <Redirect exact path="/" to="/registry/approved" />
@@ -152,6 +177,10 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       </StyledMainContainer>
     );
   }
+
+  private answerTracking = (): void => {
+    cookie.save("didAnswerTracking", true, { path: "/", maxAge: COOKIE_MAX_AGE });
+  };
 }
 
 const mapStateToProps = (state: State): MainReduxProps => {
