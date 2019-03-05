@@ -4,7 +4,7 @@ exports[`Storyshots Clip Loader Default Size (32px x 32px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hlELIx ezcOAV",
+      "class": "sc-bQduHL DVsER",
     },
     "children": Array [
       Object {
@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dEfkYy iPOTxN",
+              "class": "sc-ghsgMZ dhukqp",
               "size": "35",
             },
             "children": Array [],
@@ -84,7 +84,7 @@ exports[`Storyshots Clip Loader Prop-defined size (100px x 100px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-hlELIx ezcOAV",
+      "class": "sc-bQduHL DVsER",
     },
     "children": Array [
       Object {
@@ -92,7 +92,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-dEfkYy bFaZar",
+              "class": "sc-ghsgMZ dPrNwB",
               "size": "100",
             },
             "children": Array [],

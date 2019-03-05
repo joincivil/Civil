@@ -3,6 +3,7 @@ import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/compon
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { getFormattedTokenBalance, getFormattedEthAddress, getEtherscanBaseURL } from "@joincivil/utils";
 
+import { FAQ_BASE_URL } from "../../constants";
 export interface ListingHeaderProps {
   newsroom: NewsroomWrapper;
   listing: ListingWrapper;
@@ -64,6 +65,8 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
     owner: getFormattedEthAddress(props.listing.data.owner),
     etherscanBaseURL,
     registryURL: `/registry/${registryURLParameter}`,
+
+    ethInfoModalLearnMoreURL: `${FAQ_BASE_URL}/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-`,
     registryLinkText,
     unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
     ...props.listingPhaseState,

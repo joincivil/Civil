@@ -13,6 +13,7 @@ export * from "./ClockIcon";
 export * from "./CloseXIcon";
 export * from "./CommitVoteSuccessIcon";
 export * from "./DisclosureArrowIcon";
+export * from "./DropdownArrow";
 export * from "./ExamIcon";
 export * from "./ExchangeArrowsIcon";
 export * from "./ExpandDownArrow";

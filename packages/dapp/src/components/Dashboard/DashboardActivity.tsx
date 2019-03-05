@@ -22,7 +22,11 @@ import {
   Notice,
   NoticeTypes,
   DashboardStylesNoticeContainer,
+  DashboardTransferTokenForm,
+  DashboardTutorialWarning,
+  BalanceType,
 } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
 import {
@@ -76,6 +80,8 @@ export interface DashboardActivityReduxProps {
   proposalChallengesWithUnclaimedRewards?: Set<string>;
   proposalChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
+  balance: BigNumber;
+  votingBalance: BigNumber;
 }
 
 export interface ChallengesToProcess {
@@ -87,6 +93,8 @@ export interface DashboardActivityState {
   showTransferTokensMsg: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
+  tutorialComplete: boolean;
+  fromBalanceType: number;
 }
 
 const StyledTabsComponent = styled.div`
@@ -142,6 +150,8 @@ class DashboardActivity extends React.Component<
       showTransferTokensMsg: true,
       activeTabIndex: 0,
       activeSubTabIndex: 0,
+      tutorialComplete: true,
+      fromBalanceType: 0,
     };
   }
 
@@ -266,6 +276,8 @@ class DashboardActivity extends React.Component<
         }
       />
     );
+    const balance = getFormattedTokenBalance(this.props.balance);
+    const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
 
     return (
       <>
@@ -317,16 +329,34 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
-              {/* TODO(jon): the value of `showTransferTokensMsg` should be populated from the TokenController */}
+              {/* TODO(sarah): the value of `showTransferTokensMsg` and `tutorialComplete` should be populated from the TokenController */}
               {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
-              <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-              <DepositTokens />
+
+              {this.state.tutorialComplete ? (
+                <DashboardTransferTokenForm
+                  renderTransferBalance={this.renderTransferBalance}
+                  cvlAvailableBalance={balance}
+                  cvlVotingBalance={votingBalance}
+                >
+                  {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
+                    <DepositTokens />
+                  ) : (
+                    <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+                  )}
+                </DashboardTransferTokenForm>
+              ) : (
+                <DashboardTutorialWarning />
+              )}
             </>
           </Tab>
         </Tabs>
         {this.renderNoMobileTransactions()}
       </>
     );
+  };
+
+  private renderTransferBalance = (value: number) => {
+    this.setState({ fromBalanceType: value });
   };
 
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
@@ -430,6 +460,15 @@ const mapStateToProps = (
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
   const proposalChallengesWithRescueTokens = getProposalChallengesWithRescueTokens(state);
 
+  let balance = new BigNumber(0);
+  if (user.account && user.account.balance) {
+    balance = user.account.balance;
+  }
+  let votingBalance = new BigNumber(0);
+  if (user.account && user.account.votingBalance) {
+    votingBalance = user.account.votingBalance;
+  }
+
   return {
     allChallengesWithAvailableActions,
     currentUserNewsrooms,
@@ -445,6 +484,8 @@ const mapStateToProps = (
     proposalChallengesWithUnclaimedRewards,
     proposalChallengesWithRescueTokens,
     userAccount: user.account.account,
+    balance,
+    votingBalance,
     ...ownProps,
   };
 };

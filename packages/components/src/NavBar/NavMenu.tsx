@@ -15,20 +15,28 @@ import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
 import { NavMenuResponsiveToggleButton } from "./NavMenuResponsiveToggleButton";
 
-const NavMenuLinksComponent: React.SFC = props => {
+interface NavMenuCloseDrawerProp {
+  closeDrawer?(): void;
+}
+
+const NavMenuLinksComponent: React.SFC<NavMenuCloseDrawerProp> = props => {
+  let mobileOnClickProp: any = {};
+  if (props.closeDrawer) {
+    mobileOnClickProp = { onClick: props.closeDrawer };
+  }
   return (
     <>
       <NavDropDown
         label={
-          <NavLink to="/registry">
+          <NavLink to="/registry" {...mobileOnClickProp}>
             <NavLinkRegistryText />
           </NavLink>
         }
       >
-        <NavLink to="/parameterizer">
+        <NavLink to="/parameterizer" {...mobileOnClickProp}>
           <NavLinkParameterizerText />
         </NavLink>
-        <NavLink to="/contract-addresses">
+        <NavLink to="/contract-addresses" {...mobileOnClickProp}>
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
@@ -45,7 +53,7 @@ const NavMenuLinksComponent: React.SFC = props => {
   );
 };
 
-class NavMenuResponsiveDrawer extends React.Component<NavMenuState> {
+class NavMenuResponsiveDrawer extends React.Component<NavMenuState & NavMenuCloseDrawerProp> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -92,7 +100,10 @@ export class NavMenu extends React.Component<{}, NavMenuState> {
           onClick={() => this.toggleResponsiveMenuDrawer()}
         />
         <StyledNavMenuResponsiveContainer>
-          <NavMenuResponsiveDrawer isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen} />
+          <NavMenuResponsiveDrawer
+            isResponsiveDrawerOpen={this.state.isResponsiveDrawerOpen}
+            closeDrawer={this.closeResponsiveMenuDrawer}
+          />
         </StyledNavMenuResponsiveContainer>
       </>
     );
@@ -100,5 +111,9 @@ export class NavMenu extends React.Component<{}, NavMenuState> {
 
   private toggleResponsiveMenuDrawer = (): void => {
     this.setState({ isResponsiveDrawerOpen: !this.state.isResponsiveDrawerOpen });
+  };
+
+  private closeResponsiveMenuDrawer = (): void => {
+    this.setState({ isResponsiveDrawerOpen: false });
   };
 }

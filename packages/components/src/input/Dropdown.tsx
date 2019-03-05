@@ -36,7 +36,7 @@ export class DropdownComponent extends React.Component<DropdownProps, DropdownSt
         <div onClick={ev => this.toggle()}>{this.props.target}</div>
         {this.state.open ? (
           <div ref={ref => this.setWrapperRef(ref)}>
-            <div>{this.props.children}</div>
+            <div onClick={ev => this.toggle()}>{this.props.children}</div>
           </div>
         ) : null}
       </div>
