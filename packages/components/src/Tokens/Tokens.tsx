@@ -6,8 +6,9 @@ import {
   FlexColumnsPrimary,
   FlexColumnsSecondary,
   TokenHeader,
+  TokenSection,
 } from "./TokensStyledComponents";
-import { TokenWelcomeHeaderText, TokenBuySellHeaderText } from "./TokensTextComponents";
+import { TokenWelcomeHeaderText, TokenBuySellHeaderText, TokenMustBuyEth } from "./TokensTextComponents";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
@@ -15,6 +16,7 @@ import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress } from "@joincivil/utils";
+import { Notice, NoticeTypes } from "../Notice";
 
 export enum TOKEN_PROGRESS {
   ACTIVE = "active",
@@ -84,12 +86,19 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 addWalletPath={addWalletPath}
                 signupPath={signupPath}
               />
+
               <UserTokenAccountVerify
                 step={tutorialState}
                 open={isTutorialModalOpen}
                 handleClose={() => this.closeTutorialModal(user)}
                 handleOpen={this.openTutorialModal}
               />
+
+              <TokenSection>
+                <Notice type={NoticeTypes.INFO}>
+                  <TokenMustBuyEth />
+                </Notice>
+              </TokenSection>
               <UserTokenAccountBuy
                 step={buyState}
                 network={network}

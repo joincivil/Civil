@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { EthAddress } from "@joincivil/core";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
+import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
 import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
@@ -28,6 +29,7 @@ class WhitelistedDetail extends React.Component<
           whitelistedTimestamp={this.props.whitelistedTimestamp}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

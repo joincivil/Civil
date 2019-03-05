@@ -16,7 +16,7 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
   updateCharter(charter: Partial<CharterData>): void;
-  toggleButtons(): void;
+  setButtonVisibility(visibility: boolean): void;
 }
 
 export interface AddRosterMemberState {
@@ -90,7 +90,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
               <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>
                 Save
               </InvertedButton>
-              <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({ editingMember: null })}>
+              <BorderlessButton size={buttonSizes.MEDIUM} onClick={this.cancelEdit}>
                 Cancel
               </BorderlessButton>
               <RemoveButton size={buttonSizes.MEDIUM} onClick={this.removeRosterMember}>
@@ -109,8 +109,13 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(false);
     this.setState({ editingMember: {} });
+  };
+
+  private cancelEdit = () => {
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null });
   };
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
@@ -128,7 +133,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
         roster,
       });
     }
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(true);
     this.setState({ editingMember: null });
   };
 
@@ -146,12 +151,12 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       ...this.props.charter,
       roster,
     });
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(true);
     this.setState({ editingMember: null });
   };
 
   private editRosterMember = (index: number) => {
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(false);
     this.setState({ editingMember: this.props.charter.roster![index] });
   };
 }

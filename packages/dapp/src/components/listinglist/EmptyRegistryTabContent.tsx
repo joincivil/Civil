@@ -38,7 +38,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no rejected newsrooms",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
+        You can <Link to="/registry/in-progress/new-applications">view new applications</Link> or{" "}
         <Link to="/apply-to-registry">apply to join the Civil Registry</Link>
       </>
     ),

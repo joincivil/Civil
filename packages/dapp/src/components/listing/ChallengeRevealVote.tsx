@@ -14,6 +14,7 @@ import {
   RevealVoteProps,
 } from "@joincivil/components";
 import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { FAQ_BASE_URL } from "../../constants";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
@@ -121,6 +122,8 @@ class ChallengeRevealVote extends React.Component<
           salt={this.state.salt}
           onInputChange={this.updateRevealVoteState}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          votingSmartContractFaqURL={`${FAQ_BASE_URL}/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-`}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}

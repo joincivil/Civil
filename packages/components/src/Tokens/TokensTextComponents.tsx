@@ -27,6 +27,13 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
   </h3>
 );
 
+export const TokenMustBuyEth: React.SFC = props => (
+  <>
+    <strong>You must buy Ether (ETH)</strong> in order to buy Civil tokens (CVL).{" "}
+    <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa">Learn how to buy ETH here.</a>
+  </>
+);
+
 // TODO(jorgelo): Is this text okay?
 export const TokenConnectWalletBtnText: React.SFC = props => <>Connect your wallet</>;
 
