@@ -36,7 +36,7 @@ const multiStepTransactionLabels = {
 const transactionSuccessContent = {
   [TransactionTypes.APPROVE_VOTING_RIGHTS]: [undefined, undefined],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "You have successfully transfered your voting tokens",
+    "You have successfully transferred your voting tokens",
     <ModalContent>
       Tokens in your Voting Balance can be used for voting on Challenges on The Civil Registry
     </ModalContent>,
@@ -45,11 +45,11 @@ const transactionSuccessContent = {
 
 const transactionRejectionContent = {
   [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
-    "Your tokens were not transfered",
+    "Your tokens were not transferred",
     "Before transferring tokens, you need to confirm the approval of your voting token deposit in your MetaMask wallet.",
   ],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "Your tokens were not transfered",
+    "Your tokens were not transferred",
     "To transfer your tokens, you need to confirm the transaction in your MetaMask wallet.",
   ],
 };
@@ -67,7 +67,7 @@ const transactionErrorContent = {
     </>,
   ],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "The was an problem with transfering your tokens",
+    "The was an problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
