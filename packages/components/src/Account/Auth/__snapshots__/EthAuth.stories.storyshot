@@ -47,20 +47,192 @@ initialize {
             "name": "p",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "In order to make transactions, you must be logged in on MetaMask",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "span",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "theme": "[object Object]",
+                  "type": "button",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-kIWQTW eEBYJh",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-ktHwxA OsEBr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "data": "Open MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "text",
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  Object {
+                    "data": "Open MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-kIWQTW eEBYJh",
+                      },
+                      "children": Array [
+                        Object {
+                          "attribs": Object {
+                            "class": "sc-ktHwxA OsEBr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                      ],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    "type": "text",
+                  },
+                ],
+                "name": "button",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "src": "test-file-stub",
+                  },
+                  "children": Array [],
+                  "name": "img",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "src": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "src": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "theme": undefined,
+                  "type": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "In order to make transactions, you must be logged in on MetaMask",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "span",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
               "attribs": Object {
-                "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                 "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -105,12 +277,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -181,26 +353,45 @@ initialize {
               },
             },
             "parent": [Circular],
-            "prev": null,
+            "prev": Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "MetaMask will open a new window, and will require you to sign a message.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
             "type": "tag",
             "x-attribsNamespace": Object {},
             "x-attribsPrefix": Object {},
           },
           Object {
             "attribs": Object {
-              "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
               "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -245,12 +436,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -311,18 +502,37 @@ initialize {
               "attribs": Object {},
               "children": Array [
                 Object {
-                  "data": "MetaMask will open a new window, and will require you to sign a message.",
+                  "data": "In order to make transactions, you must be logged in on MetaMask",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
                   "type": "text",
                 },
               ],
-              "name": "p",
+              "name": "span",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
-              "prev": null,
+              "prev": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
               "type": "tag",
               "x-attribsNamespace": Object {},
               "x-attribsPrefix": Object {},
@@ -350,19 +560,19 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                 "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -407,12 +617,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -456,18 +666,37 @@ initialize {
                 "attribs": Object {},
                 "children": Array [
                   Object {
-                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
                     "type": "text",
                   },
                 ],
-                "name": "p",
+                "name": "span",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
@@ -542,20 +771,192 @@ initialize {
                 "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-kIWQTW eEBYJh",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-ktHwxA OsEBr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                        ],
+                        "name": "div",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Open MetaMask",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Open MetaMask",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-kIWQTW eEBYJh",
+                          },
+                          "children": Array [
+                            Object {
+                              "attribs": Object {
+                                "class": "sc-ktHwxA OsEBr",
+                                "src": "test-file-stub",
+                              },
+                              "children": Array [],
+                              "name": "img",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                            },
+                          ],
+                          "name": "div",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "src": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -600,12 +1001,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -676,26 +1077,45 @@ initialize {
                   },
                 },
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -740,12 +1160,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -806,18 +1226,37 @@ initialize {
                   "attribs": Object {},
                   "children": Array [
                     Object {
-                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "p",
+                  "name": "span",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
-                  "prev": null,
+                  "prev": Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
                   "type": "tag",
                   "x-attribsNamespace": Object {},
                   "x-attribsPrefix": Object {},
@@ -845,19 +1284,19 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -902,12 +1341,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -951,18 +1390,37 @@ initialize {
                     "attribs": Object {},
                     "children": Array [
                       Object {
-                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "data": "In order to make transactions, you must be logged in on MetaMask",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "text",
                       },
                     ],
-                    "name": "p",
+                    "name": "span",
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": [Circular],
                     "parent": [Circular],
-                    "prev": null,
+                    "prev": Object {
+                      "attribs": Object {},
+                      "children": Array [
+                        Object {
+                          "data": "MetaMask will open a new window, and will require you to sign a message.",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "p",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {},
+                      "x-attribsPrefix": Object {},
+                    },
                     "type": "tag",
                     "x-attribsNamespace": Object {},
                     "x-attribsPrefix": Object {},
@@ -1048,20 +1506,192 @@ initialize {
                 "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-kIWQTW eEBYJh",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-ktHwxA OsEBr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                        ],
+                        "name": "div",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Open MetaMask",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Open MetaMask",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-kIWQTW eEBYJh",
+                          },
+                          "children": Array [
+                            Object {
+                              "attribs": Object {
+                                "class": "sc-ktHwxA OsEBr",
+                                "src": "test-file-stub",
+                              },
+                              "children": Array [],
+                              "name": "img",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                            },
+                          ],
+                          "name": "div",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "src": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -1106,12 +1736,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -1182,26 +1812,45 @@ initialize {
                   },
                 },
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -1246,12 +1895,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -1312,18 +1961,37 @@ initialize {
                   "attribs": Object {},
                   "children": Array [
                     Object {
-                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "p",
+                  "name": "span",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
-                  "prev": null,
+                  "prev": Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
                   "type": "tag",
                   "x-attribsNamespace": Object {},
                   "x-attribsPrefix": Object {},
@@ -1351,19 +2019,19 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -1408,12 +2076,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -1457,18 +2125,37 @@ initialize {
                     "attribs": Object {},
                     "children": Array [
                       Object {
-                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "data": "In order to make transactions, you must be logged in on MetaMask",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "text",
                       },
                     ],
-                    "name": "p",
+                    "name": "span",
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": [Circular],
                     "parent": [Circular],
-                    "prev": null,
+                    "prev": Object {
+                      "attribs": Object {},
+                      "children": Array [
+                        Object {
+                          "data": "MetaMask will open a new window, and will require you to sign a message.",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "p",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {},
+                      "x-attribsPrefix": Object {},
+                    },
                     "type": "tag",
                     "x-attribsNamespace": Object {},
                     "x-attribsPrefix": Object {},
@@ -1528,20 +2215,192 @@ initialize {
               "name": "p",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kIWQTW eEBYJh",
+                      },
+                      "children": Array [
+                        Object {
+                          "attribs": Object {
+                            "class": "sc-ktHwxA OsEBr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                      ],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "data": "Open MetaMask",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    Object {
+                      "data": "Open MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-kIWQTW eEBYJh",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-ktHwxA OsEBr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                        ],
+                        "name": "div",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "src": "test-file-stub",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "src": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "In order to make transactions, you must be logged in on MetaMask",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "span",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -1586,12 +2445,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -1662,26 +2521,45 @@ initialize {
                 },
               },
               "parent": [Circular],
-              "prev": null,
+              "prev": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
               "type": "tag",
               "x-attribsNamespace": Object {},
               "x-attribsPrefix": Object {},
             },
             Object {
               "attribs": Object {
-                "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                 "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -1726,12 +2604,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -1792,18 +2670,37 @@ initialize {
                 "attribs": Object {},
                 "children": Array [
                   Object {
-                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
                     "type": "text",
                   },
                 ],
-                "name": "p",
+                "name": "span",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
@@ -1831,19 +2728,19 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -1888,12 +2785,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -1937,18 +2834,37 @@ initialize {
                   "attribs": Object {},
                   "children": Array [
                     Object {
-                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "p",
+                  "name": "span",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
-                  "prev": null,
+                  "prev": Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
                   "type": "tag",
                   "x-attribsNamespace": Object {},
                   "x-attribsPrefix": Object {},
@@ -2052,20 +2968,192 @@ initialize {
           "name": "p",
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "In order to make transactions, you must be logged in on MetaMask",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "span",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "theme": "[object Object]",
+                "type": "button",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-kIWQTW eEBYJh",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-ktHwxA OsEBr",
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "data": "Open MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "text",
+                  },
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                Object {
+                  "data": "Open MetaMask",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-kIWQTW eEBYJh",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-ktHwxA OsEBr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                    ],
+                    "name": "div",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "text",
+                },
+              ],
+              "name": "button",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "src": "test-file-stub",
+                },
+                "children": Array [],
+                "name": "img",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "src": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "src": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+                "theme": undefined,
+                "type": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "In order to make transactions, you must be logged in on MetaMask",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "span",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
             "attribs": Object {
-              "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
               "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2110,12 +3198,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -2186,26 +3274,45 @@ initialize {
             },
           },
           "parent": [Circular],
-          "prev": null,
+          "prev": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "MetaMask will open a new window, and will require you to sign a message.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
           "type": "tag",
           "x-attribsNamespace": Object {},
           "x-attribsPrefix": Object {},
         },
         Object {
           "attribs": Object {
-            "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+            "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
             "theme": "[object Object]",
             "type": "button",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-hMjcWo dPpozJ",
+                "class": "sc-kIWQTW eEBYJh",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kafWEX hckcKk",
+                    "class": "sc-ktHwxA OsEBr",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -2250,12 +3357,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2316,18 +3423,37 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "MetaMask will open a new window, and will require you to sign a message.",
+                "data": "In order to make transactions, you must be logged in on MetaMask",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
             ],
-            "name": "p",
+            "name": "span",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": null,
+            "prev": Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "MetaMask will open a new window, and will require you to sign a message.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
             "type": "tag",
             "x-attribsNamespace": Object {},
             "x-attribsPrefix": Object {},
@@ -2355,19 +3481,19 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
               "theme": "[object Object]",
               "type": "button",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -2412,12 +3538,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -2461,18 +3587,37 @@ initialize {
               "attribs": Object {},
               "children": Array [
                 Object {
-                  "data": "MetaMask will open a new window, and will require you to sign a message.",
+                  "data": "In order to make transactions, you must be logged in on MetaMask",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
                   "type": "text",
                 },
               ],
-              "name": "p",
+              "name": "span",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
-              "prev": null,
+              "prev": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
               "type": "tag",
               "x-attribsNamespace": Object {},
               "x-attribsPrefix": Object {},
@@ -2590,20 +3735,192 @@ initialize {
                 "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "span",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                      "theme": "[object Object]",
+                      "type": "button",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-kIWQTW eEBYJh",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-ktHwxA OsEBr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                        ],
+                        "name": "div",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Open MetaMask",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Open MetaMask",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-kIWQTW eEBYJh",
+                          },
+                          "children": Array [
+                            Object {
+                              "attribs": Object {
+                                "class": "sc-ktHwxA OsEBr",
+                                "src": "test-file-stub",
+                              },
+                              "children": Array [],
+                              "name": "img",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                            },
+                          ],
+                          "name": "div",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "button",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "src": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "theme": undefined,
+                      "type": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -2648,12 +3965,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -2724,26 +4041,45 @@ initialize {
                   },
                 },
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -2788,12 +4124,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -2854,18 +4190,37 @@ initialize {
                   "attribs": Object {},
                   "children": Array [
                     Object {
-                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "p",
+                  "name": "span",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
-                  "prev": null,
+                  "prev": Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
                   "type": "tag",
                   "x-attribsNamespace": Object {},
                   "x-attribsPrefix": Object {},
@@ -2893,19 +4248,19 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                     "theme": "[object Object]",
                     "type": "button",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -2950,12 +4305,12 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-hMjcWo dPpozJ",
+                          "class": "sc-kIWQTW eEBYJh",
                         },
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-kafWEX hckcKk",
+                              "class": "sc-ktHwxA OsEBr",
                               "src": "test-file-stub",
                             },
                             "children": Array [],
@@ -2999,18 +4354,37 @@ initialize {
                     "attribs": Object {},
                     "children": Array [
                       Object {
-                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "data": "In order to make transactions, you must be logged in on MetaMask",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
                         "type": "text",
                       },
                     ],
-                    "name": "p",
+                    "name": "span",
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": [Circular],
                     "parent": [Circular],
-                    "prev": null,
+                    "prev": Object {
+                      "attribs": Object {},
+                      "children": Array [
+                        Object {
+                          "data": "MetaMask will open a new window, and will require you to sign a message.",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "p",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {},
+                      "x-attribsPrefix": Object {},
+                    },
                     "type": "tag",
                     "x-attribsNamespace": Object {},
                     "x-attribsPrefix": Object {},
@@ -3112,20 +4486,192 @@ initialize {
               "name": "p",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "span",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                    "theme": "[object Object]",
+                    "type": "button",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-kIWQTW eEBYJh",
+                      },
+                      "children": Array [
+                        Object {
+                          "attribs": Object {
+                            "class": "sc-ktHwxA OsEBr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                      ],
+                      "name": "div",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "data": "Open MetaMask",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                      },
+                    },
+                    Object {
+                      "data": "Open MetaMask",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-kIWQTW eEBYJh",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-ktHwxA OsEBr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                        ],
+                        "name": "div",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                        },
+                      },
+                      "type": "text",
+                    },
+                  ],
+                  "name": "button",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "src": "test-file-stub",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "src": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "theme": undefined,
+                    "type": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
+            Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "In order to make transactions, you must be logged in on MetaMask",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "span",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -3170,12 +4716,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -3246,26 +4792,45 @@ initialize {
                 },
               },
               "parent": [Circular],
-              "prev": null,
+              "prev": Object {
+                "attribs": Object {},
+                "children": Array [
+                  Object {
+                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {},
+                "x-attribsPrefix": Object {},
+              },
               "type": "tag",
               "x-attribsNamespace": Object {},
               "x-attribsPrefix": Object {},
             },
             Object {
               "attribs": Object {
-                "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                 "theme": "[object Object]",
                 "type": "button",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-hMjcWo dPpozJ",
+                    "class": "sc-kIWQTW eEBYJh",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-kafWEX hckcKk",
+                        "class": "sc-ktHwxA OsEBr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -3310,12 +4875,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -3376,18 +4941,37 @@ initialize {
                 "attribs": Object {},
                 "children": Array [
                   Object {
-                    "data": "MetaMask will open a new window, and will require you to sign a message.",
+                    "data": "In order to make transactions, you must be logged in on MetaMask",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
                     "type": "text",
                   },
                 ],
-                "name": "p",
+                "name": "span",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
-                "prev": null,
+                "prev": Object {
+                  "attribs": Object {},
+                  "children": Array [
+                    Object {
+                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {},
+                  "x-attribsPrefix": Object {},
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {},
                 "x-attribsPrefix": Object {},
@@ -3415,19 +4999,19 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+                  "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
                   "theme": "[object Object]",
                   "type": "button",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-hMjcWo dPpozJ",
+                      "class": "sc-kIWQTW eEBYJh",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-kafWEX hckcKk",
+                          "class": "sc-ktHwxA OsEBr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -3472,12 +5056,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-hMjcWo dPpozJ",
+                        "class": "sc-kIWQTW eEBYJh",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-kafWEX hckcKk",
+                            "class": "sc-ktHwxA OsEBr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -3521,18 +5105,37 @@ initialize {
                   "attribs": Object {},
                   "children": Array [
                     Object {
-                      "data": "MetaMask will open a new window, and will require you to sign a message.",
+                      "data": "In order to make transactions, you must be logged in on MetaMask",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "p",
+                  "name": "span",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
-                  "prev": null,
+                  "prev": Object {
+                    "attribs": Object {},
+                    "children": Array [
+                      Object {
+                        "data": "MetaMask will open a new window, and will require you to sign a message.",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {},
+                    "x-attribsPrefix": Object {},
+                  },
                   "type": "tag",
                   "x-attribsNamespace": Object {},
                   "x-attribsPrefix": Object {},
@@ -3599,20 +5202,192 @@ initialize {
         "name": "p",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "In order to make transactions, you must be logged in on MetaMask",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "span",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+              "theme": "[object Object]",
+              "type": "button",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-kIWQTW eEBYJh",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-ktHwxA OsEBr",
+                      "src": "test-file-stub",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                ],
+                "name": "div",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "data": "Open MetaMask",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "text",
+                },
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              Object {
+                "data": "Open MetaMask",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-kIWQTW eEBYJh",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-ktHwxA OsEBr",
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                  ],
+                  "name": "div",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "type": "text",
+              },
+            ],
+            "name": "button",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "src": "test-file-stub",
+              },
+              "children": Array [],
+              "name": "img",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": null,
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "src": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "src": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": [Circular],
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+              "theme": undefined,
+              "type": undefined,
+            },
+          },
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "data": "In order to make transactions, you must be logged in on MetaMask",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "span",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": Object {
           "attribs": Object {
-            "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+            "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
             "theme": "[object Object]",
             "type": "button",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-hMjcWo dPpozJ",
+                "class": "sc-kIWQTW eEBYJh",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kafWEX hckcKk",
+                    "class": "sc-ktHwxA OsEBr",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -3657,12 +5432,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -3733,26 +5508,45 @@ initialize {
           },
         },
         "parent": [Circular],
-        "prev": null,
+        "prev": Object {
+          "attribs": Object {},
+          "children": Array [
+            Object {
+              "data": "MetaMask will open a new window, and will require you to sign a message.",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "p",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {},
+          "x-attribsPrefix": Object {},
+        },
         "type": "tag",
         "x-attribsNamespace": Object {},
         "x-attribsPrefix": Object {},
       },
       Object {
         "attribs": Object {
-          "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+          "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
           "theme": "[object Object]",
           "type": "button",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-hMjcWo dPpozJ",
+              "class": "sc-kIWQTW eEBYJh",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-kafWEX hckcKk",
+                  "class": "sc-ktHwxA OsEBr",
                   "src": "test-file-stub",
                 },
                 "children": Array [],
@@ -3797,12 +5591,12 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-hMjcWo dPpozJ",
+                "class": "sc-kIWQTW eEBYJh",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kafWEX hckcKk",
+                    "class": "sc-ktHwxA OsEBr",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -3863,18 +5657,37 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "MetaMask will open a new window, and will require you to sign a message.",
+              "data": "In order to make transactions, you must be logged in on MetaMask",
               "next": null,
               "parent": [Circular],
               "prev": null,
               "type": "text",
             },
           ],
-          "name": "p",
+          "name": "span",
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": [Circular],
           "parent": [Circular],
-          "prev": null,
+          "prev": Object {
+            "attribs": Object {},
+            "children": Array [
+              Object {
+                "data": "MetaMask will open a new window, and will require you to sign a message.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": [Circular],
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {},
+            "x-attribsPrefix": Object {},
+          },
           "type": "tag",
           "x-attribsNamespace": Object {},
           "x-attribsPrefix": Object {},
@@ -3902,19 +5715,19 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-hZeNU hfHclI sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
+            "class": "sc-dzOgQY cEwUzG sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm",
             "theme": "[object Object]",
             "type": "button",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-hMjcWo dPpozJ",
+                "class": "sc-kIWQTW eEBYJh",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-kafWEX hckcKk",
+                    "class": "sc-ktHwxA OsEBr",
                     "src": "test-file-stub",
                   },
                   "children": Array [],
@@ -3959,12 +5772,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-hMjcWo dPpozJ",
+                  "class": "sc-kIWQTW eEBYJh",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-kafWEX hckcKk",
+                      "class": "sc-ktHwxA OsEBr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -4008,18 +5821,37 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "MetaMask will open a new window, and will require you to sign a message.",
+                "data": "In order to make transactions, you must be logged in on MetaMask",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
             ],
-            "name": "p",
+            "name": "span",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": [Circular],
             "parent": [Circular],
-            "prev": null,
+            "prev": Object {
+              "attribs": Object {},
+              "children": Array [
+                Object {
+                  "data": "MetaMask will open a new window, and will require you to sign a message.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {},
+              "x-attribsPrefix": Object {},
+            },
             "type": "tag",
             "x-attribsNamespace": Object {},
             "x-attribsPrefix": Object {},

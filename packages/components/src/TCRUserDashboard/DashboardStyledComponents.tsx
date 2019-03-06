@@ -3,6 +3,7 @@ import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
+import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
@@ -234,4 +235,215 @@ export const StyledNumTokensContainer = styled.div`
   line-height: 18px;
   padding: 15px 0 0;
   text-align: right;
+`;
+
+// Transfer Tokens
+
+export const StyledTransferTokenTitle = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  text-align: center;
+  margin: 0 0 40px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0 0 10px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0;
+  }
+`;
+
+export const StyledTransferTokenForm = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 400;
+  margin: 0 auto 45px;
+  padding: 35px;
+`;
+
+export const StyledTransferTokenFormGroup = styled.div`
+  margin: 0 auto;
+  max-width: 460px;
+
+  ${Dropdown} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+    border-radius: 3px;
+    font-size: 15px;
+    margin-top 5px;
+
+    & > div:nth-child(2) > div {
+      border-top: none;
+      box-shadow: none;
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      max-width: unset;
+
+      :before,
+      :after {
+        display: none;
+      }
+    }
+
+    ${DropdownGroup} {
+      li {
+        border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    ${DropdownItem} {
+      padding: 0;
+
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 17px 50px 17px 15px;
+        width: 100%;
+      }
+    }
+  }
+
+  ${InputBase} {
+    margin-bottom: 3px;
+    position: relative;
+
+    > input,
+    > textarea {
+      border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+      border-radius: 3px;
+      padding: 15px;
+    }
+
+    > input:focus,
+    > textarea:focus {
+      border: 1px solid ${colors.accent.CIVIL_BLUE};
+    }
+  }
+
+  label {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+  }
+
+  ${InputIcon} {
+    background-color: ${colors.basic.WHITE};
+    left: calc(100% - 50px);
+    position: absolute;
+    top: 42px;
+    z-index: 2;
+  }
+`;
+
+export const StyledTransferTokenFormElement = styled.div`
+  margin-bottom: 25px;
+`;
+
+export const StyledInputLabel = styled.label`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 14px;
+`;
+
+export const StyledTransferTokenTip = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 18px;
+`;
+
+export const StyledTransferTokenDropdown = styled.div`
+  padding: 17px 50px 17px 15px;
+  position: relative;
+`;
+
+export const StyledTransferTokenBalance = styled.div`
+  display: flex;
+  font-size: 15px;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const StyledDropdownArrow = styled.div`
+  align-items: center;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  display: flex;
+  justify-content: center;
+  padding: 12px 15px 12px 14px;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 14px);
+`;
+
+export const StyledFromBalance = styled.div`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  border-radius: 3px;
+  margin-top 5px;
+  padding: 17px 15px;
+`;
+
+export const StyledTutorialWarning = styled.div`
+  font-weight: 400;
+  padding: 35px;
+`;
+
+export const StyledWarningBox = styled.div`
+  background-color: ${colors.accent.CIVIL_RED_ULTRA_FADED};
+  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
+  border-radius: 3px;
+  font-family: ${fonts.SANS_SERIF};
+  margin-bottom: 40px;
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0;
+
+    svg {
+      vertical-align: text-bottom;
+    }
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0 0 15px;
+  }
+`;
+
+export const StyledTutorialPrompt = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  text-align: left;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.12px;
+    line-height: 33px;
+    margin: 0;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 15px;
+  }
+
+  ${Button} {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    line-height: 14px;
+    text-transform: none;
+  }
 `;

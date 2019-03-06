@@ -54,6 +54,13 @@ export const StyledResponsiveTabsToggleButton = styled.div`
     transform: ${(props: StyledResponsiveTabsToggleButtonProps) => (props.isExpanded ? "rotate(180deg)" : "rotate(0)")};
     z-index: 2;
   }
+
+  & svg {
+    ${mediaQueries.MOBILE} {
+      width: 16px;
+      height: 26px;
+    }
+  }
 `;
 
 export const TabContainer = styled.ul`
@@ -93,6 +100,7 @@ export const StyledTabLarge = styled.li`
 
   & svg {
     margin-right: 5px;
+
     & circle {
       stroke: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2)};
     }
@@ -107,6 +115,9 @@ export const StyledTabLarge = styled.li`
     display: ${(props: TabComponentProps) => (props.isActive || props.isResponsiveAndVisible ? "block" : "none")};
     padding: 20px 16px;
     margin: 0;
+
+
+  & svg {
 
     ${(props: TabComponentProps) =>
       props.isResponsiveAndVisible

@@ -77,13 +77,17 @@ storiesOf("Listing Details Phase Card", module)
     return (
       <Container>
         {process.env.NODE_ENV !== "test" && (
-          <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} />
+          <InApplicationCard endTime={endTime} phaseLength={phaseLength} transactions={[]} faqURL="#faq" />
         )}
       </Container>
     );
   })
   .add("Resolve Application", () => {
-    return <Container>{process.env.NODE_ENV !== "test" && <InApplicationResolveCard transactions={[]} />}</Container>;
+    return (
+      <Container>
+        {process.env.NODE_ENV !== "test" && <InApplicationResolveCard transactions={[]} faqURL="#faq" />}
+      </Container>
+    );
   })
   .add("Under Challenge: Commit Vote", () => {
     return (
@@ -106,6 +110,7 @@ storiesOf("Listing Details Phase Card", module)
             onCommitMaxTokens={noop}
             onReviewVote={noop}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -128,6 +133,8 @@ storiesOf("Listing Details Phase Card", module)
             onInputChange={commitVoteChange}
             transactions={[]}
             userHasCommittedVote={false}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -151,6 +158,8 @@ storiesOf("Listing Details Phase Card", module)
             transactions={[]}
             userHasCommittedVote={true}
             userHasRevealedVote={true}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -172,6 +181,8 @@ storiesOf("Listing Details Phase Card", module)
             onInputChange={commitVoteChange}
             transactions={[]}
             userHasCommittedVote={true}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -195,6 +206,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -216,6 +228,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -240,6 +253,7 @@ storiesOf("Listing Details Phase Card", module)
             percentFor={percentFor}
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -265,6 +279,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -289,6 +304,7 @@ storiesOf("Listing Details Phase Card", module)
             appealGranted={true}
             didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -311,6 +327,7 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
             transactions={[]}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -346,6 +363,7 @@ storiesOf("Listing Details Phase Card", module)
             appealGranted={true}
             didChallengeSucceed={didChallengeSucceed}
             onReviewVote={noop}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -375,6 +393,8 @@ storiesOf("Listing Details Phase Card", module)
             percentAgainst={percentAgainst}
             appealChallengeID={appealChallengeID}
             appealGranted={true}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -405,6 +425,8 @@ storiesOf("Listing Details Phase Card", module)
             appealGranted={true}
             userHasCommittedVote={true}
             userHasRevealedVote={true}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -435,6 +457,8 @@ storiesOf("Listing Details Phase Card", module)
             appealGranted={true}
             userHasCommittedVote={true}
             userHasRevealedVote={false}
+            votingSmartContractFaqURL="#voting-smart-contract-faq"
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -464,6 +488,7 @@ storiesOf("Listing Details Phase Card", module)
             transactions={[]}
             appealChallengeID={appealChallengeID}
             didAppealChallengeSucceed={didChallengeSucceed}
+            faqURL="#faq"
           />
         )}
       </Container>
@@ -472,7 +497,9 @@ storiesOf("Listing Details Phase Card", module)
   .add("Whitelisted", () => {
     return (
       <Container>
-        {process.env.NODE_ENV !== "test" && <WhitelistedCard whitelistedTimestamp={now} transactions={[]} />}
+        {process.env.NODE_ENV !== "test" && (
+          <WhitelistedCard whitelistedTimestamp={now} transactions={[]} faqURL="#faq" />
+        )}
       </Container>
     );
   })
@@ -488,6 +515,7 @@ storiesOf("Listing Details Phase Card", module)
             percentFor={percentFor}
             percentAgainst={percentAgainst}
             didChallengeSucceed={didChallengeSucceed}
+            faqURL="#faq"
           />
         )}
       </Container>

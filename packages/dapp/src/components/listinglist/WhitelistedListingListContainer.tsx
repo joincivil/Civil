@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Set } from "immutable";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
+import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
@@ -68,7 +69,12 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
               <StyledListingCopy>
                 All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
                 <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
-                <a href="#zendesk">community vetting process</a>.
+                <a
+                  href={`${FAQ_BASE_URL}/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-`}
+                  target="_blank"
+                >
+                  community vetting process
+                </a>.
               </StyledListingCopy>
               <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
             </>

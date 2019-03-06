@@ -33,8 +33,6 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
         <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
 
         <FormSection>
-          <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
-
           <FormSubhead>{questionsCopy[charterQuestions.PURPOSE]}</FormSubhead>
           <Textarea
             name={charterQuestions.PURPOSE}

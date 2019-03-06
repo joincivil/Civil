@@ -74,10 +74,14 @@ export const RevealVoteDoneCopyText: React.SFC = props => (
   <>Thank you for participating! Please check back after the challenge ends to see if you have earned a reward.</>
 );
 
-export const RevealVoteCalloutCopyText: React.SFC = props => (
+export interface RevealVoteCalloutCopyTextProps {
+  votingSmartContractFaqURL: string;
+}
+
+export const RevealVoteCalloutCopyText: React.SFC<RevealVoteCalloutCopyTextProps> = props => (
   <>
     Civil does not store your vote information. It is stored in the{" "}
-    <a href="#zendesk" target="_blank">
+    <a href={props.votingSmartContractFaqURL} target="_blank">
       voting smart contract
     </a>. Please confirm your vote below.
   </>
