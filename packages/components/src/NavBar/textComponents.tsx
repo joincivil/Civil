@@ -38,7 +38,7 @@ export const NavDrawerVotingBalanceToolTipText: React.SFC = props => (
   <>This deposit is set aside for the duration of the challenge process.</>
 );
 
-export const NavDrawerBuyCvlBtnText: React.SFC = props => <>Buy CVL Tokens</>;
+export const NavDrawerBuyCvlBtnText: React.SFC = props => <>Buy Civil Tokens</>;
 
 export const NavDrawerCopyBtnText: React.SFC = props => <>Copy</>;
 
