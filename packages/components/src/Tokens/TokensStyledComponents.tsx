@@ -27,27 +27,50 @@ export const TokenSection = styled.div`
 export const PaypalDonateContainer = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid red;
+  border: 1px solid rgba(64, 102, 255, 0.5);
 `;
 
 export const PaypalDonateIconContainer = styled.div`
-  padding: 14px 10px;
-  border-right: 1px solid red;
+  padding: 18px 12px;
+  border-right: 1px solid rgba(64, 102, 255, 0.5);
 `;
 
 export const PaypalDonateIconButtonContainer = styled.div`
   flex-grow: 1;
 `;
-export const PaypalDonateIconButton = styled.input``;
+
+export const PaypalLogoContainer = styled.div`
+  padding: 18px 10px;
+`;
+
+export const PaypalDonateIconButton = styled.input`
+  background: #fff;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  color: red;
+  padding: 20px;
+  border-left: 1px solid rgba(64, 102, 255, 0.5);
+  flex-grow: 1;
+  width: 100%;
+
+  &:hover {
+    background: rgba(64, 102, 255, 0.5);
+    color: white;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+  }
+`;
 
 export const PaypalDonate: React.SFC = () => (
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
     <PaypalDonateContainer>
-      <div>
+      <PaypalLogoContainer>
         <PaypalLogoIcon />
-      </div>
+      </PaypalLogoContainer>
       <PaypalDonateIconButtonContainer>
-        <PaypalDonateIconButton type="submit">Donate</PaypalDonateIconButton>
+        <PaypalDonateIconButton type="submit" value="Donate" />
       </PaypalDonateIconButtonContainer>
     </PaypalDonateContainer>
     <input type="hidden" name="cmd" value="_s-xclick" />
