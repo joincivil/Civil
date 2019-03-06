@@ -53,6 +53,7 @@ import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
+import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 const SUB_TABS: { [index: string]: string[] } = {
@@ -90,10 +91,8 @@ export interface ChallengesToProcess {
 
 export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
-  showTransferTokensMsg: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
-  tutorialComplete: boolean;
   fromBalanceType: number;
 }
 
@@ -147,10 +146,8 @@ class DashboardActivity extends React.Component<
     super(props);
     this.state = {
       isNoMobileTransactionVisible: false,
-      showTransferTokensMsg: true,
       activeTabIndex: 0,
       activeSubTabIndex: 0,
-      tutorialComplete: true,
       fromBalanceType: 0,
     };
   }
@@ -278,6 +275,8 @@ class DashboardActivity extends React.Component<
     );
     const balance = getFormattedTokenBalance(this.props.balance);
     const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
+    const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
+    const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
 
     return (
       <>
@@ -329,10 +328,9 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
-              {/* TODO(sarah): the value of `showTransferTokensMsg` and `tutorialComplete` should be populated from the TokenController */}
-              {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
+              {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
 
-              {this.state.tutorialComplete ? (
+              {isCivilianWhitelist ? (
                 <DashboardTransferTokenForm
                   renderTransferBalance={this.renderTransferBalance}
                   cvlAvailableBalance={balance}
