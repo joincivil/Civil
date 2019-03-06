@@ -145,7 +145,7 @@ class RequestAppealComponent extends React.Component<
       <>
         <ScrollToTopOnMount />
         {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar minDeposit={appealFee} buyCVLURL="https://civil.co" />}
+          appealFee && <InsufficientBalanceSnackBar minDeposit={appealFee} buyCVLURL="/tokens" />}
         <RequestAppealStatementComponent {...props} />
       </>
     );

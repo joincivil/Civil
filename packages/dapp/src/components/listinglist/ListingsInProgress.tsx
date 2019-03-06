@@ -17,6 +17,7 @@ import {
   ListingSummaryReadyToUpdateComponent,
 } from "@joincivil/components";
 
+import { FAQ_BASE_URL } from "../../constants";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 import ListingList from "./ListingList";
@@ -126,7 +127,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             New applications are subject to Civil community review to ensure alignment with the{" "}
             <a href="https://civil.co/constitution/">Civil Constitution</a>. If you believe any of these Newsrooms don't
             abide by the Civil Constitution, you may challenge them at any time.{" "}
-            <a href="#zendesk" target="_blank">
+            <a href={`${FAQ_BASE_URL}/hc/en-us/articles/360024546932-How-do-I-challenge-a-Newsroom-`} target="_blank">
               Learn how
             </a>.
           </StyledListingCopy>
@@ -153,7 +154,9 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             These Newsrooms have been challenged by a community member who perceives they violated the{" "}
             <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to accept or reject the
             Newsroom from the Civil Registry and potentially earn Civil tokens when you vote.{" "}
-            <a href="#zendesk">Learn how</a>.
+            <a href={`${FAQ_BASE_URL}/hc/en-us/articles/360024855271-How-do-I-vote-in-a-challenge-`} target="_blank">
+              Learn how
+            </a>.
           </StyledListingCopy>
           <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />
         </>
@@ -175,7 +178,13 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
             The <a href="http://civilfound.org/">Civil Council</a> has agreed to consider the appeals of these
             challenged Newsrooms. Their decisions are based on the{" "}
             <a href="https://civil.co/constitution/">Civil Constitution</a>. If you disagree with the Civil Council’s
-            decision, you will have a chance to challenge it. <a href="#zendesk">Learn how</a>.
+            decision, you will have a chance to challenge it.
+            <a
+              href={`${FAQ_BASE_URL}/hc/en-us/articles/360024855191-How-do-I-request-an-appeal-to-the-Civil-Council-`}
+              target="_blank"
+            >
+              Learn how
+            </a>.
           </StyledListingCopy>
           <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />
         </>
@@ -196,7 +205,10 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
           <StyledListingCopy>
             A community member has challenged the Civil Council's appeal decision on these Newsrooms' fate, based on the{" "}
             <a href="https://civil.co/constitution/">Civil Constitution</a>. You can vote to uphold or overturn the
-            Civil Council's decision and potentially earn Civil tokens when you vote. <a href="#zendesk">Learn how</a>.
+            Civil Council's decision and potentially earn Civil tokens when you vote.
+            <a href={`${FAQ_BASE_URL}/hc/en-us/articles/360024855271-How-do-I-vote-in-a-challenge-`} target="_blank">
+              Learn how
+            </a>.
           </StyledListingCopy>
           <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
         </>
@@ -216,7 +228,13 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
         <>
           <StyledListingCopy>
             The Civil community has spoken and the vote results are in. In order to enact the decision, community
-            members must update the Newsroom's status. <a href="#zendesk">Learn more</a>.
+            members must update the Newsroom's status.
+            <a
+              href={`${FAQ_BASE_URL}/hc/en-us/articles/360024545012-How-do-I-update-a-Newsroom-s-status-on-the-Civil-Registry-`}
+              target="_blank"
+            >
+              Learn more
+            </a>.
           </StyledListingCopy>
           <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />
         </>

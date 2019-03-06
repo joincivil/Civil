@@ -39,6 +39,7 @@ export * from "./RescueTokens";
 export * from "./MetaMaskModal";
 export * from "./NavBar";
 export * from "./NavBar/NavErrorBar";
+export * from "./Notice";
 export * from "./ReviewVote";
 export * from "./onboardingStyledComponents";
 export * from "./WalletOnboarding";
