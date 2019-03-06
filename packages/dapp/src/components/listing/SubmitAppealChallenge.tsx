@@ -149,7 +149,7 @@ class SubmitAppealChallengeComponent extends React.Component<
       <>
         <ScrollToTopOnMount />
         {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar appealFee={appealFee!} buyCVLURL="https://civil.co" />}
+          appealFee && <InsufficientBalanceSnackBar appealFee={appealFee!} buyCVLURL="/tokens" />}
         <SubmitAppealChallengeStatementComponent {...props} />
       </>
     );

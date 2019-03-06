@@ -65,6 +65,7 @@ export const StyledListingURLButton: StyledComponentClass<ButtonProps, "button">
   letter-spacing: 0.2px;
   line-height: 14px;
   padding: 15px 21px;
+  white-space: nowrap;
 
   svg {
     margin: 0 0 -2px 3px;
