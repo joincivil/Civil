@@ -72,9 +72,9 @@ export class ChallengeCommitVoteCard extends React.Component<
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
                   displayLabel="Accepting votes"
-                  toolTipText={<CommitVoteToolTipText />}
+                  toolTipText={<CommitVoteToolTipText phaseLength={this.props.phaseLength} />}
                   secondaryDisplayLabel="Confirming Votes"
-                  secondaryToolTipText={<ConfirmVoteToolTipText />}
+                  secondaryToolTipText={<ConfirmVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />
