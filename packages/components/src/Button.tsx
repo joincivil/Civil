@@ -26,6 +26,7 @@ export interface ButtonProps {
   width?: number;
   // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
+  type?: string;
   onClick?(ev: any): void;
 }
 
@@ -127,7 +128,7 @@ const fontObject: { [index: string]: string } = {
 export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
   const activeClass = props.active ? " active" : "";
   const disabledClass = props.disabled ? " disabled" : "";
-  const { children, className, onClick, disabled, to, href, target, inputRef } = props;
+  const { children, className, onClick, disabled, to, href, target, type, inputRef } = props;
 
   if (to) {
     return (
@@ -150,7 +151,7 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
       {...props}
       className={className + activeClass + disabledClass}
       onClick={onClick}
-      type="button"
+      type={type || "button"}
       disabled={disabled}
       ref={inputRef}
     >
