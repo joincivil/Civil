@@ -29,6 +29,7 @@ class WhitelistedDetail extends React.Component<
           whitelistedTimestamp={this.props.whitelistedTimestamp}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          learnMoreURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />

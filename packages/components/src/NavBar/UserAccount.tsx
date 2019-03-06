@@ -27,7 +27,7 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 const UserAccount: React.SFC<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance, enableEthereum, buyCvlUrl, applyURL } = props;
+  const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
 
   return (
     <LoadUser>
@@ -67,9 +67,9 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
           );
         }
 
-        let buyBtnProps: any = { href: buyCvlUrl };
-        if (buyCvlUrl.charAt(0) === "/") {
-          buyBtnProps = { to: buyCvlUrl };
+        let memberBtnProps: any = { href: joinAsMemberUrl };
+        if (joinAsMemberUrl.charAt(0) === "/") {
+          memberBtnProps = { to: joinAsMemberUrl };
         }
         let applyBtnProps: any = { href: applyURL };
         if (applyURL.charAt(0) === "/") {
@@ -80,7 +80,7 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
           <>
             <NavLink to={props.authenticationURL}>Log In</NavLink>
 
-            <NavBarButton size={buttonSizes.SMALL} {...buyBtnProps}>
+            <NavBarButton size={buttonSizes.SMALL} {...memberBtnProps}>
               Join as a member
             </NavBarButton>
 

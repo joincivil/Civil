@@ -247,7 +247,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       <Wrapper>
         <OBSectionTitle>Connect your crypto wallet</OBSectionTitle>
         <IntroText>
-          To log in into your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using
+          To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using
           MetaMask.
         </IntroText>
         <GetMetaMaskBox>

@@ -12,6 +12,7 @@ import {
   StyledRightContentWell,
 } from "@joincivil/components";
 
+import { links } from "../../constants";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
@@ -46,7 +47,6 @@ export interface ListingReduxProps {
   charter?: CharterData;
   parameters: any;
   govtParameters: any;
-  constitutionURI: string;
   network: string;
   useGraphQL: boolean;
   loadingFinished: boolean;
@@ -123,7 +123,7 @@ class ListingPageComponent extends React.Component<
               listingPhaseState={this.props.listingPhaseState}
               parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
-              constitutionURI={this.props.constitutionURI}
+              constitutionURI={links.CONSTITUTION}
             />
             <EmailSignup />
           </StyledRightContentWell>
@@ -189,17 +189,8 @@ class ListingPageComponent extends React.Component<
 const makeMapStateToProps = () => {
   const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const {
-      listingsFetching,
-      user,
-      parameters,
-      govtParameters,
-      constitution,
-      content,
-      loadingFinished,
-    } = state.networkDependent;
+    const { listingsFetching, user, parameters, govtParameters, content, loadingFinished } = state.networkDependent;
     const { network, useGraphQL } = state;
-    const constitutionURI = constitution.get("uri");
     const newsroom = ownProps.newsroom;
     let listingDataRequestStatus;
     if (ownProps.listingAddress) {
@@ -221,7 +212,6 @@ const makeMapStateToProps = () => {
       userAccount: user.account,
       parameters,
       govtParameters,
-      constitutionURI,
       charter,
       useGraphQL,
       loadingFinished,

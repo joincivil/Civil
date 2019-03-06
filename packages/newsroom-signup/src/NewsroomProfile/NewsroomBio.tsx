@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import {
+  colors,
   StepProps,
   QuestionToolTip,
   OBCollapsable,
@@ -31,8 +32,36 @@ export interface NewsroomBioProps extends StepProps {
 
 const LogoFormWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: -4px;
+
+  small {
+    background: white;
+    padding: 5px 5px 5px 10px;
+    right: 5px;
+    top: 10px;
+    width: auto;
+    z-index: 1;
+  }
+`;
+const LogoImgWrap = styled.div`
+  margin-left: 36px;
+  position: relative;
+  width: 100px;
+`;
+const LogoImg = styled.img`
+  position: absolute;
+  width: 100px;
+  height: auto;
+  top: -50%;
+`;
+const LogoHelperText = styled(HelperText)`
+  margin: -16px 0 12px;
+`;
+const ImageHelperLink = styled(HelperText)`
+  color: ${colors.accent.CIVIL_BLUE};
+  float: right;
+  margin: 0;
 `;
 
 const NewsroomURLInput = styled(StyledTextInput)`
@@ -76,7 +105,7 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
           </div>
           <div>
             <FormSubhead>
-              Logo
+              Newsroom Logo
               <QuestionToolTip explainerText={"You need to add a URL to a logo or image."} />
             </FormSubhead>
             <LogoFormWrap>
@@ -88,8 +117,19 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
                 invalid={this.invalidUrlInput(charter.logoUrl)}
                 invalidMessage={"Invalid URL"}
               />
+              <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
             </LogoFormWrap>
-            <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
+            <div style={{ maxWidth: 400 }}>
+              <ImageHelperLink>
+                <a
+                  href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360022147751-How-do-I-add-a-logo-or-image-to-my-newsroom-profile-"
+                  target="_blank"
+                >
+                  How to upload an image
+                </a>
+              </ImageHelperLink>
+              <LogoHelperText>Needs to be an image URL</LogoHelperText>
+            </div>
           </div>
 
           <div>
