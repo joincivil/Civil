@@ -91,10 +91,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
             activeTopic++;
           }
 
-          let topicDisabled = true;
-          if (activeTopic === idx) {
-            topicDisabled = false;
-          }
+          const topicDisabled = activeTopic === idx ? false : true;
 
           return (
             <TutorialTopic key={idx}>
