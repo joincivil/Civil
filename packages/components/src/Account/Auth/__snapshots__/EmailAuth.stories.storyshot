@@ -143,7 +143,8 @@ initialize {
                             "data": "I agree to Civil's ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -162,9 +163,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                             "parent": [Circular],
@@ -173,7 +176,8 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -198,9 +202,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                         ],
@@ -236,7 +242,8 @@ initialize {
                           "data": "I agree to Civil's ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -255,9 +262,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                           "parent": [Circular],
@@ -266,7 +275,8 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "/https://civil.co/terms/",
+                            "href": "https://civil.co/terms/",
+                            "target": "_blank",
                           },
                           "children": Array [
                             Object {
@@ -291,9 +301,11 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                         },
                       ],
@@ -1027,7 +1039,8 @@ initialize {
                               "data": "I agree to Civil's ",
                               "next": Object {
                                 "attribs": Object {
-                                  "href": "/https://civil.co/terms/",
+                                  "href": "https://civil.co/terms/",
+                                  "target": "_blank",
                                 },
                                 "children": Array [
                                   Object {
@@ -1046,9 +1059,11 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "href": undefined,
+                                  "target": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "href": undefined,
+                                  "target": undefined,
                                 },
                               },
                               "parent": [Circular],
@@ -1057,7 +1072,8 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -1082,9 +1098,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                           ],
@@ -1120,7 +1138,8 @@ initialize {
                             "data": "I agree to Civil's ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -1139,9 +1158,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                             "parent": [Circular],
@@ -1150,7 +1171,8 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -1175,9 +1197,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                         ],
@@ -1494,7 +1518,8 @@ initialize {
                           "data": "I agree to Civil's ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -1513,9 +1538,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                           "parent": [Circular],
@@ -1524,7 +1551,8 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "/https://civil.co/terms/",
+                            "href": "https://civil.co/terms/",
+                            "target": "_blank",
                           },
                           "children": Array [
                             Object {
@@ -1549,9 +1577,11 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                         },
                       ],
@@ -1587,7 +1617,8 @@ initialize {
                         "data": "I agree to Civil's ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "/https://civil.co/terms/",
+                            "href": "https://civil.co/terms/",
+                            "target": "_blank",
                           },
                           "children": Array [
                             Object {
@@ -1606,9 +1637,11 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                         },
                         "parent": [Circular],
@@ -1617,7 +1650,8 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "/https://civil.co/terms/",
+                          "href": "https://civil.co/terms/",
+                          "target": "_blank",
                         },
                         "children": Array [
                           Object {
@@ -1642,9 +1676,11 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "href": undefined,
+                          "target": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "href": undefined,
+                          "target": undefined,
                         },
                       },
                     ],
@@ -2378,7 +2414,8 @@ initialize {
                             "data": "I agree to Civil's ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -2397,9 +2434,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                             "parent": [Circular],
@@ -2408,7 +2447,8 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -2433,9 +2473,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                         ],
@@ -2471,7 +2513,8 @@ initialize {
                           "data": "I agree to Civil's ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -2490,9 +2533,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                           "parent": [Circular],
@@ -2501,7 +2546,8 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "/https://civil.co/terms/",
+                            "href": "https://civil.co/terms/",
+                            "target": "_blank",
                           },
                           "children": Array [
                             Object {
@@ -2526,9 +2572,11 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                         },
                       ],
@@ -2931,7 +2979,8 @@ initialize {
                             "data": "I agree to Civil's ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -2950,9 +2999,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                             "parent": [Circular],
@@ -2961,7 +3012,8 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -2986,9 +3038,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                         ],
@@ -3024,7 +3078,8 @@ initialize {
                           "data": "I agree to Civil's ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -3043,9 +3098,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                           "parent": [Circular],
@@ -3054,7 +3111,8 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "/https://civil.co/terms/",
+                            "href": "https://civil.co/terms/",
+                            "target": "_blank",
                           },
                           "children": Array [
                             Object {
@@ -3079,9 +3137,11 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "href": undefined,
+                            "target": undefined,
                           },
                         },
                       ],
@@ -3815,7 +3875,8 @@ initialize {
                               "data": "I agree to Civil's ",
                               "next": Object {
                                 "attribs": Object {
-                                  "href": "/https://civil.co/terms/",
+                                  "href": "https://civil.co/terms/",
+                                  "target": "_blank",
                                 },
                                 "children": Array [
                                   Object {
@@ -3834,9 +3895,11 @@ initialize {
                                 "type": "tag",
                                 "x-attribsNamespace": Object {
                                   "href": undefined,
+                                  "target": undefined,
                                 },
                                 "x-attribsPrefix": Object {
                                   "href": undefined,
+                                  "target": undefined,
                                 },
                               },
                               "parent": [Circular],
@@ -3845,7 +3908,8 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -3870,9 +3934,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                           ],
@@ -3908,7 +3974,8 @@ initialize {
                             "data": "I agree to Civil's ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "/https://civil.co/terms/",
+                                "href": "https://civil.co/terms/",
+                                "target": "_blank",
                               },
                               "children": Array [
                                 Object {
@@ -3927,9 +3994,11 @@ initialize {
                               "type": "tag",
                               "x-attribsNamespace": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                               "x-attribsPrefix": Object {
                                 "href": undefined,
+                                "target": undefined,
                               },
                             },
                             "parent": [Circular],
@@ -3938,7 +4007,8 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "/https://civil.co/terms/",
+                              "href": "https://civil.co/terms/",
+                              "target": "_blank",
                             },
                             "children": Array [
                               Object {
@@ -3963,9 +4033,11 @@ initialize {
                             "type": "tag",
                             "x-attribsNamespace": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                             "x-attribsPrefix": Object {
                               "href": undefined,
+                              "target": undefined,
                             },
                           },
                         ],
