@@ -91,9 +91,9 @@ export const TokenBuyTextDisabled: React.SFC = props => (
 
 export const TokenBuyBtnDisabledText: React.SFC = props => <>Buy CVL</>;
 
-export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy from Foundation in Airswap</>;
+export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy CVL from Civil Media Company in Airswap</>;
 
-export const TokenBuyExchangeBtnText: React.SFC = props => <>Buy from Exchange in Airswap</>;
+export const TokenBuyExchangeBtnText: React.SFC = props => <>Buy CVL on the open market in Airswap</>;
 
 export const TokenBuyText: React.SFC = props => (
   <>
@@ -110,18 +110,26 @@ export const TokenBuyText: React.SFC = props => (
 
 export const TokenAirswapFoundationText: React.SFC = props => (
   <>
-    <h3>Civil tokens from Civil Foundation</h3>
+    <h3>Contribute to the Civil Foundation</h3>
     <p>
-      Get a quote from the Civil Foundation. When buying from the Foundation, 100% net proceeds goes to funding worthy
-      journalism projects.
+      Buy Civil tokens from The Civil Media Company and 100% net proceeds goes to the Civil Foundation for supporting
+      worthy journalism.{" "}
+      <a href="https://medium.com/@kinsleyd/5e0ccdc918cc" target="_blank">
+        Learn about our transparent pricing.
+      </a>
     </p>
   </>
 );
 
 export const TokenAirswapExchangeText: React.SFC = props => (
   <>
-    <h4>Civil tokens from Exchange</h4>
-    <p>When buying from an exchange, the rate is based on market demand.</p>
+    <h3>Buy Civil tokens on the open market</h3>
+    <p>
+      The Civil community can buy and sell Civil tokens between each other without a middle man, sometimes resulting in
+      a lower price than offered by The Civil Media Company. Tokens bought on the open market perform the exact same
+      utility as those purchased directly from The Civil Media Company, however none of the proceeds go to the Civil
+      Foundation. Instead, the funds go to a third-party buyer.
+    </p>
   </>
 );
 
