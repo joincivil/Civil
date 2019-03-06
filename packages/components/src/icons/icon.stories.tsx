@@ -18,6 +18,7 @@ import {
   CvlToken,
   DisclosureArrowIcon,
   DropdownArrow,
+  ErrorIcon,
   ExamIcon,
   ExchangeArrowsIcon,
   ExpandDownArrow,
@@ -37,6 +38,7 @@ import {
   RejectedNewsroomsIcon,
   RequestAppealSuccessIcon,
   RevealVoteSuccessIcon,
+  ReviewIcon,
   SubmitChallengeSuccessIcon,
   TokenWalletIcon,
   TrendsIcon,
@@ -165,6 +167,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <DropdownArrow />
+      </Container>
+    );
+  })
+  .add("ErrorIcon", () => {
+    return (
+      <Container>
+        <ErrorIcon />
       </Container>
     );
   })
@@ -298,6 +307,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <RevealVoteSuccessIcon />
+      </Container>
+    );
+  })
+  .add("ReviewIcon", () => {
+    return (
+      <Container>
+        <ReviewIcon />
       </Container>
     );
   })

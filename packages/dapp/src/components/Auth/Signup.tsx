@@ -20,6 +20,8 @@ export const AuthSignup: React.SFC<AuthSignupProps> = props => {
         isNewUser={true}
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
         headerComponent={<AuthTextCreateAccount />}
+        loginPath="/auth/login"
+        signupPath="/auth/signup"
       />
 
       <AuthPageFooterLink>

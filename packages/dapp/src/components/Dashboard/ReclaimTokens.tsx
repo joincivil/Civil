@@ -88,6 +88,21 @@ class ReclaimTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <StyledDashboardActivityDescription noBorder>
+          <p>Transfer your voting tokens to your available balance</p>
+
+          {!!this.props.numUserChallengesWithRescueTokens &&
+            "Please rescue tokens from all of your unrevealed votes before transferring"}
+        </StyledDashboardActivityDescription>
+        <StyledContainer>
+          <p>Voting Tokens: {getFormattedTokenBalance(this.props.votingBalance)}</p>
+          <FormGroup>
+            <InputGroup
+=======
+=======
+>>>>>>> 12d6b068bb59f0cec31bcd64de2041cd0a417d35
         {!!this.props.numUserChallengesWithRescueTokens && (
           <StyledDashboardActivityDescription>
             "Please rescue tokens from all of your unrevealed votes before transferring"
@@ -98,6 +113,10 @@ class ReclaimTokensComponent extends React.Component<
             <CurrencyInput
               label="Enter amount"
               placeholder="0"
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
+>>>>>>> 12d6b068bb59f0cec31bcd64de2041cd0a417d35
               name="numTokens"
               icon={<>CVL</>}
               onChange={this.updateViewState}

@@ -28,11 +28,6 @@ const typeColors = {
   },
 };
 
-export const NoticeBackground = styled.div`
-  border-radius: 4px;
-  background-color: #fff;
-`;
-
 export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   display: flex;
   flex-direction: row;
@@ -62,15 +57,14 @@ export const NoticeMessageContainer = styled.div`
 
 export interface NoticeProps {
   type: NoticeTypes;
+  className?: string;
 }
 
-export const Notice: React.SFC<NoticeProps> = ({ children, type }): JSX.Element => {
+export const Notice: React.SFC<NoticeProps> = ({ className, children, type }): JSX.Element => {
   return (
-    <NoticeBackground>
-      <NoticeContainer type={type}>
-        <NoticeIconContainer>{type === NoticeTypes.ERROR && <InfoNotification />}</NoticeIconContainer>
-        <NoticeMessageContainer>{children}</NoticeMessageContainer>
-      </NoticeContainer>
-    </NoticeBackground>
+    <NoticeContainer type={type} className={className}>
+      <NoticeIconContainer>{type === NoticeTypes.ERROR && <InfoNotification />}</NoticeIconContainer>
+      <NoticeMessageContainer>{children}</NoticeMessageContainer>
+    </NoticeContainer>
   );
 };
