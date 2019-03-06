@@ -78,7 +78,6 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
         uri,
       };
     }
-
     return {
       headers,
       uri,
@@ -110,8 +109,18 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
     }
   });
 
+  const createOmitTypenameLink = new ApolloLink((operation, forward) => {
+    if (operation.variables) {
+      operation.variables = JSON.parse(
+        JSON.stringify(operation.variables),
+        (key, value) => (key === "__typename" ? undefined : value),
+      );
+    }
+    return forward ? forward(operation) : null;
+  });
+
   client = new ApolloClient({
-    link: ApolloLink.from([errorLink, authLink, httpLink]),
+    link: ApolloLink.from([createOmitTypenameLink, errorLink, authLink, httpLink]),
     cache: new InMemoryCache(),
   });
 

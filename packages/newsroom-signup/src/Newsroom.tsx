@@ -63,10 +63,8 @@ export interface NewsroomExternalProps {
   helpUrlBase?: string;
   newsroomUrl?: string;
   logoUrl?: string;
-  metamaskEnabled?: boolean;
   allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
   initialStep?: number;
-  enable(): void;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -87,6 +85,7 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
 
 // Final props are from GQL
 export interface NewsroomProps extends NewsroomPropsWithRedux {
+  grantRequested?: boolean;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
@@ -251,7 +250,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         complete={this.state.charterPartOneComplete}
         key="createCharterPartOne"
       >
-        <NewsroomProfile charter={this.props.charter} updateCharter={this.updateCharter} />
+        <NewsroomProfile
+          grantRequested={this.props.grantRequested}
+          charter={this.props.charter}
+          updateCharter={this.updateCharter}
+        />
       </StepNoButtons>,
       <StepNoButtons title={"Smart Contract"} disabled={true} key="smartcontract">
         <div />
@@ -357,13 +360,14 @@ const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>
-        {({ profileWalletAddress, persistedCharter, persistCharter }) => {
+        {({ profileWalletAddress, persistedCharter, persistCharter, grantRequested }) => {
           return (
             <NewsroomComponent
               {...props}
               profileWalletAddress={profileWalletAddress}
               persistCharter={persistCharter}
               persistedCharter={persistedCharter}
+              grantRequested={grantRequested}
             />
           );
         }}

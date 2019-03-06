@@ -67,7 +67,6 @@ export async function approve(
     throw new Error(CivilErrors.InsufficientToken);
   }
   const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress || undefined);
-  console.log("approved tokens: " + approvedTokens + " - amount: " + amount);
   if (approvedTokens.lessThan(amountBN)) {
     return token.approveSpender(tcr.address, amountBN);
   }
@@ -235,7 +234,7 @@ export async function confirmAppeal(id: number): Promise<TwoStepEthTransaction> 
   return council.confirmAppeal(id);
 }
 
-export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
+export async function approveVotingRightsForCommit(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
 
@@ -247,10 +246,25 @@ export async function approveVotingRights(numTokens: BigNumber): Promise<TwoStep
   const difference = numTokensBN.sub(currentApprovedTokens);
   if (difference.greaterThan(0)) {
     const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
-    if (approvedTokensForSpender < difference) {
+    if (approvedTokensForSpender.lessThan(difference)) {
       const approveSpenderReceipt = await eip.approveSpender(voting.address, difference);
       await approveSpenderReceipt.awaitReceipt();
     }
+  }
+}
+
+export async function approveVotingRightsForTransfer(numTokens: BigNumber): Promise<TwoStepEthTransaction | void> {
+  const civil = getCivil();
+  const tcr = await civil.tcrSingletonTrusted();
+
+  const voting = tcr.getVoting();
+  const eip = await tcr.getToken();
+
+  const numTokensBN = ensureWeb3BigNumber(numTokens);
+  const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
+  if (approvedTokensForSpender.lessThan(numTokensBN)) {
+    const approveSpenderReceipt = await eip.approveSpender(voting.address, numTokensBN);
+    await approveSpenderReceipt.awaitReceipt();
   }
 }
 

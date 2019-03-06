@@ -16,9 +16,19 @@ import {
 import { isValidEmail } from "@joincivil/utils";
 import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
 
+export interface AuthMutationVariables {
+  emailAddress: string;
+  application: AuthApplicationEnum;
+  addToMailing?: boolean;
+}
+
 const signupMutation = gql`
-  mutation($emailAddress: String!, $application: AuthApplicationEnum!) {
-    authSignupEmailSendForApplication(emailAddress: $emailAddress, application: $application)
+  mutation($emailAddress: String!, $application: AuthApplicationEnum!, $addToMailing: Boolean!) {
+    authSignupEmailSendForApplication(
+      emailAddress: $emailAddress
+      application: $application
+      addToMailing: $addToMailing
+    )
   }
 `;
 
@@ -159,7 +169,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         <Mutation mutation={emailMutation}>
           {sendEmail => {
             return (
-              <>
+              <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>
                 {this.renderEmailInput()}
                 {isNewUser && this.renderCheckboxes()}
                 <ConfirmButtonContainer>
@@ -167,12 +177,12 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                     size={buttonSizes.SMALL_WIDE}
                     textTransform={"none"}
                     disabled={isButtonDisabled}
-                    onClick={async event => this.handleSubmit(event, sendEmail)}
+                    type={"submit"}
                   >
                     Confirm
                   </Button>
                 </ConfirmButtonContainer>
-              </>
+              </form>
             );
           }}
         </Mutation>
@@ -182,6 +192,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public toggleHasAgreedToTOS = (): void => {
     const { hasAgreedToTOS } = this.state;
+
     this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
   };
 
@@ -190,7 +201,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
+  private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
@@ -204,22 +215,20 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
     const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
-    // TODO(jorgelo): Handle if mutation throws an exception.
-
     try {
+      const variables: AuthMutationVariables = { emailAddress, application: applicationType };
+
+      if (isNewUser) {
+        variables.addToMailing = hasSelectedToAddToNewsletter;
+      }
       const res: any = await mutation({
-        variables: { emailAddress, application: applicationType },
+        variables,
       });
 
       const authResponse: string = res.data[resultKey];
 
       if (authResponse === "ok") {
         onEmailSend(isNewUser, emailAddress);
-        if (hasSelectedToAddToNewsletter) {
-          // TODO(jorge): Add to the email newsletter CIVIL-381
-          console.log(emailAddress + " wants to be on the newsletter");
-        }
-        return;
       }
 
       this.setState({ errorMessage: authResponse as AuthEmailError });

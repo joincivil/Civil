@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   StyledUserInfo,
   StyledUserInfoSection,
+  StyledUserInfoButtonSection,
   StyledUserInfoSectionLabel,
   StyledUserInfoSectionValue,
   StyledUserAddress,
@@ -13,7 +14,7 @@ import {
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
 } from "./DashboardTextComponents";
-import { Button, buttonSizes } from "../Button";
+import { Button, InvertedButton, buttonSizes } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {
   userAccount: string;
@@ -21,10 +22,22 @@ export interface DashboardUserInfoSummaryProps {
   votingBalance: string;
   challengesWonTotalCvl: string;
   rewardsEarned: string;
-  buyCVLURL: string;
+  buyCvlUrl: string;
+  applyURL: string;
 }
 
 export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInfoSummaryProps> = props => {
+  const { buyCvlUrl, applyURL } = props;
+
+  let buyBtnProps: any = { href: buyCvlUrl };
+  if (buyCvlUrl.charAt(0) === "/") {
+    buyBtnProps = { to: buyCvlUrl };
+  }
+  let applyBtnProps: any = { href: applyURL };
+  if (applyURL.charAt(0) === "/") {
+    applyBtnProps = { to: applyURL };
+  }
+
   return (
     <StyledUserInfo>
       <StyledUserInfoSectionLabel>
@@ -68,11 +81,15 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
-      <StyledUserInfoSection>
-        <Button size={buttonSizes.MEDIUM_WIDE} href={props.buyCVLURL} target="_blank">
-          Buy CVL Tokens
+      <StyledUserInfoButtonSection>
+        <Button size={buttonSizes.MEDIUM_WIDE} {...buyBtnProps}>
+          Buy or Sell Civil Tokens
         </Button>
-      </StyledUserInfoSection>
+
+        <InvertedButton size={buttonSizes.MEDIUM_WIDE} {...applyBtnProps}>
+          Join as a newsroom
+        </InvertedButton>
+      </StyledUserInfoButtonSection>
     </StyledUserInfo>
   );
 };

@@ -36,12 +36,12 @@ export class InApplicationCard extends React.Component<
           <CTACopy>
             If you believe this newsroom does not align with the{" "}
             <a href={this.props.constitutionURI}>Civil Constitution</a>, you may challenge this newsroom.{" "}
-            <a href="#zendesk/how-do-i-challenge">Learn More</a>.
+            <a href={this.props.learnMoreURL}>Learn More</a>.
           </CTACopy>
           {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
 
-        <NeedHelp />
+        <NeedHelp faqURL={this.props.faqURL} />
       </StyledListingDetailPhaseCardContainer>
     );
   }

@@ -1,16 +1,32 @@
 import * as React from "react";
-import { Button, buttonSizes } from "../Button";
+import { buttonSizes } from "../Button";
 import { ExpandDownArrow } from "../icons";
-import { StyledHeroHeading, StyledHeroCopy, StyledExplore } from "./HeroStyledComponents";
+import {
+  StyledHeroHeading,
+  StyledHeroCopy,
+  StyledExplore,
+  StyledButtonContainer,
+  CTAButton,
+} from "./HeroStyledComponents";
 import { HeroTitleText, HeroCopyText, ExploreTCRText } from "./HeroTextComponents";
 
 export interface HomepageHeroProps {
-  ctaButtonURL: string;
-  ctaButtonText?: string;
+  buyCvlUrl: string;
+  applyURL: string;
   learnMoreURL: string;
 }
 
 export const HomepageHero: React.SFC<HomepageHeroProps> = props => {
+  const { buyCvlUrl, applyURL } = props;
+
+  let buyBtnProps: any = { href: buyCvlUrl };
+  if (buyCvlUrl.charAt(0) === "/") {
+    buyBtnProps = { to: buyCvlUrl };
+  }
+  let applyBtnProps: any = { href: applyURL };
+  if (applyURL.charAt(0) === "/") {
+    applyBtnProps = { to: applyURL };
+  }
   return (
     <>
       <StyledHeroHeading>
@@ -21,9 +37,15 @@ export const HomepageHero: React.SFC<HomepageHeroProps> = props => {
         <HeroCopyText {...props} />
       </StyledHeroCopy>
 
-      <Button to={props.ctaButtonURL} size={buttonSizes.SMALL}>
-        {props.ctaButtonText || "Get CVL"}
-      </Button>
+      <StyledButtonContainer>
+        <CTAButton size={buttonSizes.SMALL} {...buyBtnProps}>
+          Join as a member
+        </CTAButton>
+
+        <CTAButton size={buttonSizes.SMALL} {...applyBtnProps}>
+          Join as a newsroom
+        </CTAButton>
+      </StyledButtonContainer>
 
       <StyledExplore>
         <ExploreTCRText />

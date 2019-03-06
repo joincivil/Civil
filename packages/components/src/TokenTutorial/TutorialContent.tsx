@@ -27,7 +27,7 @@ import {
 export const TutorialContent = [
   {
     name: "How to use Civil tokens",
-    description: "Learn about CVL tokens and their intended uses within the Civil network.",
+    description: "Learn about Civil tokens and their intended uses within Civil",
     quizId: "topic1",
     icon: <NetworkIcon />,
     tutorialIntro: {
@@ -92,7 +92,7 @@ export const TutorialContent = [
             text: "Civil tokens are used to apply, challenge, vote or appeal in community governance decisions.",
           },
           {
-            text: "Civil tokens are used to invest in newsrooms.",
+            text: "Civil tokens are used as an investment vehicle in newsrooms.",
           },
           {
             text: "Civil tokens are used to publish articles on the Civil platform.",
@@ -107,7 +107,7 @@ export const TutorialContent = [
             text: "By participating in all the challenges and appeals",
           },
           {
-            text: "By voting among the majority in a community decision",
+            text: "By voting to uphold the Civil Constitution.",
           },
           {
             text: "All of the above",
@@ -124,7 +124,7 @@ export const TutorialContent = [
   },
   {
     name: "Purchasing, storing and using Civil tokens",
-    description: "Learn basic concepts of ETH, gas, digital wallets, keys, and recovery seed phrases.",
+    description: "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
     quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
     tutorialIntro: {
@@ -226,7 +226,7 @@ export const TutorialContent = [
   },
   {
     name: "Things to consider before buying Civil tokens",
-    description: "Learn about token price trends, token design, and potential risks.",
+    description: "Learn about token price trends, token design and potential risks",
     quizId: "topic3",
     icon: <TrendsIcon />,
     tutorialIntro: {
@@ -290,11 +290,24 @@ export const TutorialContent = [
         ],
         answer: "No more than you can afford to lose if Civil tokens lost all value",
       },
+      {
+        question:
+          "Is anyone except for you responsible for creating any type of financial return for you in association with your purchase of CVL tokens?",
+        options: [
+          {
+            text: "The Civil Media Company is responsible.",
+          },
+          {
+            text: "Solely I am responsible.",
+          },
+        ],
+        answer: "Solely I am responsible.",
+      },
     ],
     completed: {
       header: "Congrats! You’ve completed the Civil tutorial",
       content:
-        "You’ve proved that you understand Civil and how Civil token works. Now you’re eligible to use, share and buy Civil tokens.",
+        "You’ve proved that you understand Civil and how Civil tokens work. Now, you are eligible to use, share and buy Civil tokens.",
       btnText: "Buy Civil Tokens",
     },
   },

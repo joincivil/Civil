@@ -9,7 +9,20 @@ initialize {
         "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Default: ",
+            "attribs": Object {
+              "for": "check1",
+            },
+            "children": Array [
+              Object {
+                "data": "Default:",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
                 "class": "sc-gPEVay gluHMa",
@@ -17,6 +30,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "id": "check1",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -44,9 +58,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -61,6 +77,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+                      "id": "check1",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -71,9 +88,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -101,7 +120,13 @@ initialize {
             },
             "parent": [Circular],
             "prev": null,
-            "type": "text",
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "for": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "for": undefined,
+            },
           },
           Object {
             "attribs": Object {
@@ -110,6 +135,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
+                  "id": "check1",
                   "type": "checkbox",
                 },
                 "children": Array [],
@@ -137,9 +163,11 @@ initialize {
                 "prev": null,
                 "type": "tag",
                 "x-attribsNamespace": Object {
+                  "id": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
+                  "id": undefined,
                   "type": undefined,
                 },
               },
@@ -154,6 +182,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+                    "id": "check1",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -164,9 +193,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -184,11 +215,30 @@ initialize {
             "next": null,
             "parent": [Circular],
             "prev": Object {
-              "data": "Default: ",
+              "attribs": Object {
+                "for": "check1",
+              },
+              "children": Array [
+                Object {
+                  "data": "Default:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             "type": "tag",
             "x-attribsNamespace": Object {
@@ -205,7 +255,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Default checked: ",
+              "attribs": Object {
+                "for": "check2",
+              },
+              "children": Array [
+                Object {
+                  "data": "Default checked:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay gluHMa",
@@ -214,6 +277,7 @@ initialize {
                   Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -242,10 +306,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -261,6 +327,7 @@ initialize {
                     "prev": Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check2",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -272,10 +339,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -303,7 +372,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -313,6 +388,7 @@ initialize {
                 Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check2",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -341,10 +417,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -360,6 +438,7 @@ initialize {
                   "prev": Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -371,10 +450,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -392,11 +473,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Default checked: ",
+                "attribs": Object {
+                  "for": "check2",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Default checked:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -413,7 +513,20 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "Small: ",
+                "attribs": Object {
+                  "for": "check3",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Small:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-gPEVay bvwXCb",
@@ -421,6 +534,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
+                        "id": "check3",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -448,9 +562,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -465,6 +581,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
+                          "id": "check3",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -475,9 +592,11 @@ initialize {
                         "prev": null,
                         "type": "tag",
                         "x-attribsNamespace": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -505,7 +624,13 @@ initialize {
                 },
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               Object {
                 "attribs": Object {
@@ -514,6 +639,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -541,9 +667,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -558,6 +686,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+                        "id": "check3",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -568,9 +697,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -588,11 +719,30 @@ initialize {
                 "next": null,
                 "parent": [Circular],
                 "prev": Object {
-                  "data": "Small: ",
+                  "attribs": Object {
+                    "for": "check3",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Small:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 "type": "tag",
                 "x-attribsNamespace": Object {
@@ -609,7 +759,20 @@ initialize {
               "attribs": Object {},
               "children": Array [
                 Object {
-                  "data": "Small checked: ",
+                  "attribs": Object {
+                    "for": "check4",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Small checked:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
                       "class": "sc-gPEVay bvwXCb",
@@ -618,6 +781,7 @@ initialize {
                       Object {
                         "attribs": Object {
                           "checked": "",
+                          "id": "check4",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -646,10 +810,12 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -665,6 +831,7 @@ initialize {
                         "prev": Object {
                           "attribs": Object {
                             "checked": "",
+                            "id": "check4",
                             "type": "checkbox",
                           },
                           "children": Array [],
@@ -676,10 +843,12 @@ initialize {
                           "type": "tag",
                           "x-attribsNamespace": Object {
                             "checked": undefined,
+                            "id": undefined,
                             "type": undefined,
                           },
                           "x-attribsPrefix": Object {
                             "checked": undefined,
+                            "id": undefined,
                             "type": undefined,
                           },
                         },
@@ -707,7 +876,13 @@ initialize {
                   },
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 Object {
                   "attribs": Object {
@@ -717,6 +892,7 @@ initialize {
                     Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check4",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -745,10 +921,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -764,6 +942,7 @@ initialize {
                       "prev": Object {
                         "attribs": Object {
                           "checked": "",
+                          "id": "check4",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -775,10 +954,12 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -796,11 +977,30 @@ initialize {
                   "next": null,
                   "parent": [Circular],
                   "prev": Object {
-                    "data": "Small checked: ",
+                    "attribs": Object {
+                      "for": "check4",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Small checked:",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "label",
+                    "namespace": "http://www.w3.org/1999/xhtml",
                     "next": [Circular],
                     "parent": [Circular],
                     "prev": null,
-                    "type": "text",
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "for": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "for": undefined,
+                    },
                   },
                   "type": "tag",
                   "x-attribsNamespace": Object {
@@ -842,7 +1042,20 @@ initialize {
         "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Default checked: ",
+            "attribs": Object {
+              "for": "check2",
+            },
+            "children": Array [
+              Object {
+                "data": "Default checked:",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
                 "class": "sc-gPEVay gluHMa",
@@ -851,6 +1064,7 @@ initialize {
                 Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check2",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -879,10 +1093,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -898,6 +1114,7 @@ initialize {
                   "prev": Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -909,10 +1126,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -940,7 +1159,13 @@ initialize {
             },
             "parent": [Circular],
             "prev": null,
-            "type": "text",
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "for": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "for": undefined,
+            },
           },
           Object {
             "attribs": Object {
@@ -950,6 +1175,7 @@ initialize {
               Object {
                 "attribs": Object {
                   "checked": "",
+                  "id": "check2",
                   "type": "checkbox",
                 },
                 "children": Array [],
@@ -978,10 +1204,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "checked": undefined,
+                  "id": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "checked": undefined,
+                  "id": undefined,
                   "type": undefined,
                 },
               },
@@ -997,6 +1225,7 @@ initialize {
                 "prev": Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check2",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1008,10 +1237,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -1029,11 +1260,30 @@ initialize {
             "next": null,
             "parent": [Circular],
             "prev": Object {
-              "data": "Default checked: ",
+              "attribs": Object {
+                "for": "check2",
+              },
+              "children": Array [
+                Object {
+                  "data": "Default checked:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             "type": "tag",
             "x-attribsNamespace": Object {
@@ -1050,7 +1300,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Small: ",
+              "attribs": Object {
+                "for": "check3",
+              },
+              "children": Array [
+                Object {
+                  "data": "Small:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay bvwXCb",
@@ -1058,6 +1321,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1085,9 +1349,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1102,6 +1368,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+                        "id": "check3",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -1112,9 +1379,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -1142,7 +1411,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -1151,6 +1426,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "id": "check3",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1178,9 +1454,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -1195,6 +1473,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1205,9 +1484,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1225,11 +1506,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Small: ",
+                "attribs": Object {
+                  "for": "check3",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Small:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -1246,7 +1546,20 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "Small checked: ",
+                "attribs": Object {
+                  "for": "check4",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Small checked:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-gPEVay bvwXCb",
@@ -1255,6 +1568,7 @@ initialize {
                     Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check4",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -1283,10 +1597,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -1302,6 +1618,7 @@ initialize {
                       "prev": Object {
                         "attribs": Object {
                           "checked": "",
+                          "id": "check4",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -1313,10 +1630,12 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -1344,7 +1663,13 @@ initialize {
                 },
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               Object {
                 "attribs": Object {
@@ -1354,6 +1679,7 @@ initialize {
                   Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check4",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1382,10 +1708,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1401,6 +1729,7 @@ initialize {
                     "prev": Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check4",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -1412,10 +1741,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -1433,11 +1764,30 @@ initialize {
                 "next": null,
                 "parent": [Circular],
                 "prev": Object {
-                  "data": "Small checked: ",
+                  "attribs": Object {
+                    "for": "check4",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Small checked:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 "type": "tag",
                 "x-attribsNamespace": Object {
@@ -1468,7 +1818,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Default: ",
+              "attribs": Object {
+                "for": "check1",
+              },
+              "children": Array [
+                Object {
+                  "data": "Default:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay gluHMa",
@@ -1476,6 +1839,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "id": "check1",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1503,9 +1867,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1520,6 +1886,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+                        "id": "check1",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -1530,9 +1897,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -1560,7 +1929,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -1569,6 +1944,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "id": "check1",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1596,9 +1972,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -1613,6 +1991,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+                      "id": "check1",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1623,9 +2002,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1643,11 +2024,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Default: ",
+                "attribs": Object {
+                  "for": "check1",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Default:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -1675,7 +2075,20 @@ initialize {
         "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Small: ",
+            "attribs": Object {
+              "for": "check3",
+            },
+            "children": Array [
+              Object {
+                "data": "Small:",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
                 "class": "sc-gPEVay bvwXCb",
@@ -1683,6 +2096,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "id": "check3",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1710,9 +2124,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -1727,6 +2143,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1737,9 +2154,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1767,7 +2186,13 @@ initialize {
             },
             "parent": [Circular],
             "prev": null,
-            "type": "text",
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "for": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "for": undefined,
+            },
           },
           Object {
             "attribs": Object {
@@ -1776,6 +2201,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
+                  "id": "check3",
                   "type": "checkbox",
                 },
                 "children": Array [],
@@ -1803,9 +2229,11 @@ initialize {
                 "prev": null,
                 "type": "tag",
                 "x-attribsNamespace": Object {
+                  "id": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
+                  "id": undefined,
                   "type": undefined,
                 },
               },
@@ -1820,6 +2248,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+                    "id": "check3",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -1830,9 +2259,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -1850,11 +2281,30 @@ initialize {
             "next": null,
             "parent": [Circular],
             "prev": Object {
-              "data": "Small: ",
+              "attribs": Object {
+                "for": "check3",
+              },
+              "children": Array [
+                Object {
+                  "data": "Small:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             "type": "tag",
             "x-attribsNamespace": Object {
@@ -1871,7 +2321,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Small checked: ",
+              "attribs": Object {
+                "for": "check4",
+              },
+              "children": Array [
+                Object {
+                  "data": "Small checked:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay bvwXCb",
@@ -1880,6 +2343,7 @@ initialize {
                   Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check4",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -1908,10 +2372,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -1927,6 +2393,7 @@ initialize {
                     "prev": Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check4",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -1938,10 +2405,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -1969,7 +2438,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -1979,6 +2454,7 @@ initialize {
                 Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check4",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -2007,10 +2483,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -2026,6 +2504,7 @@ initialize {
                   "prev": Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check4",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2037,10 +2516,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2058,11 +2539,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Small checked: ",
+                "attribs": Object {
+                  "for": "check4",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Small checked:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -2087,7 +2587,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Default checked: ",
+              "attribs": Object {
+                "for": "check2",
+              },
+              "children": Array [
+                Object {
+                  "data": "Default checked:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay gluHMa",
@@ -2096,6 +2609,7 @@ initialize {
                   Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2124,10 +2638,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2143,6 +2659,7 @@ initialize {
                     "prev": Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check2",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -2154,10 +2671,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -2185,7 +2704,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -2195,6 +2720,7 @@ initialize {
                 Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check2",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -2223,10 +2749,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -2242,6 +2770,7 @@ initialize {
                   "prev": Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2253,10 +2782,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2274,11 +2805,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Default checked: ",
+                "attribs": Object {
+                  "for": "check2",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Default checked:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -2297,7 +2847,20 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "Default: ",
+                "attribs": Object {
+                  "for": "check1",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Default:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-gPEVay gluHMa",
@@ -2305,6 +2868,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
+                        "id": "check1",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -2332,9 +2896,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -2349,6 +2915,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
+                          "id": "check1",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -2359,9 +2926,11 @@ initialize {
                         "prev": null,
                         "type": "tag",
                         "x-attribsNamespace": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -2389,7 +2958,13 @@ initialize {
                 },
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               Object {
                 "attribs": Object {
@@ -2398,6 +2973,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "id": "check1",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2425,9 +3001,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2442,6 +3020,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+                        "id": "check1",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -2452,9 +3031,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -2472,11 +3053,30 @@ initialize {
                 "next": null,
                 "parent": [Circular],
                 "prev": Object {
-                  "data": "Default: ",
+                  "attribs": Object {
+                    "for": "check1",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Default:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 "type": "tag",
                 "x-attribsNamespace": Object {
@@ -2508,7 +3108,20 @@ initialize {
         "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Small checked: ",
+            "attribs": Object {
+              "for": "check4",
+            },
+            "children": Array [
+              Object {
+                "data": "Small checked:",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "label",
+            "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
                 "class": "sc-gPEVay bvwXCb",
@@ -2517,6 +3130,7 @@ initialize {
                 Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check4",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -2545,10 +3159,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -2564,6 +3180,7 @@ initialize {
                   "prev": Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check4",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2575,10 +3192,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2606,7 +3225,13 @@ initialize {
             },
             "parent": [Circular],
             "prev": null,
-            "type": "text",
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "for": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "for": undefined,
+            },
           },
           Object {
             "attribs": Object {
@@ -2616,6 +3241,7 @@ initialize {
               Object {
                 "attribs": Object {
                   "checked": "",
+                  "id": "check4",
                   "type": "checkbox",
                 },
                 "children": Array [],
@@ -2644,10 +3270,12 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "checked": undefined,
+                  "id": undefined,
                   "type": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "checked": undefined,
+                  "id": undefined,
                   "type": undefined,
                 },
               },
@@ -2663,6 +3291,7 @@ initialize {
                 "prev": Object {
                   "attribs": Object {
                     "checked": "",
+                    "id": "check4",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -2674,10 +3303,12 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "checked": undefined,
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -2695,11 +3326,30 @@ initialize {
             "next": null,
             "parent": [Circular],
             "prev": Object {
-              "data": "Small checked: ",
+              "attribs": Object {
+                "for": "check4",
+              },
+              "children": Array [
+                Object {
+                  "data": "Small checked:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             "type": "tag",
             "x-attribsNamespace": Object {
@@ -2718,7 +3368,20 @@ initialize {
           "attribs": Object {},
           "children": Array [
             Object {
-              "data": "Small: ",
+              "attribs": Object {
+                "for": "check3",
+              },
+              "children": Array [
+                Object {
+                  "data": "Small:",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "label",
+              "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
                   "class": "sc-gPEVay bvwXCb",
@@ -2726,6 +3389,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2753,9 +3417,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2770,6 +3436,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+                        "id": "check3",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -2780,9 +3447,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -2810,7 +3479,13 @@ initialize {
               },
               "parent": [Circular],
               "prev": null,
-              "type": "text",
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "for": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "for": undefined,
+              },
             },
             Object {
               "attribs": Object {
@@ -2819,6 +3494,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
+                    "id": "check3",
                     "type": "checkbox",
                   },
                   "children": Array [],
@@ -2846,9 +3522,11 @@ initialize {
                   "prev": null,
                   "type": "tag",
                   "x-attribsNamespace": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                   "x-attribsPrefix": Object {
+                    "id": undefined,
                     "type": undefined,
                   },
                 },
@@ -2863,6 +3541,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+                      "id": "check3",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -2873,9 +3552,11 @@ initialize {
                     "prev": null,
                     "type": "tag",
                     "x-attribsNamespace": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -2893,11 +3574,30 @@ initialize {
               "next": null,
               "parent": [Circular],
               "prev": Object {
-                "data": "Small: ",
+                "attribs": Object {
+                  "for": "check3",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Small:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               "type": "tag",
               "x-attribsNamespace": Object {
@@ -2916,7 +3616,20 @@ initialize {
             "attribs": Object {},
             "children": Array [
               Object {
-                "data": "Default checked: ",
+                "attribs": Object {
+                  "for": "check2",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Default checked:",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "label",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
                     "class": "sc-gPEVay gluHMa",
@@ -2925,6 +3638,7 @@ initialize {
                     Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check2",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -2953,10 +3667,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -2972,6 +3688,7 @@ initialize {
                       "prev": Object {
                         "attribs": Object {
                           "checked": "",
+                          "id": "check2",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -2983,10 +3700,12 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "checked": undefined,
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -3014,7 +3733,13 @@ initialize {
                 },
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "for": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "for": undefined,
+                },
               },
               Object {
                 "attribs": Object {
@@ -3024,6 +3749,7 @@ initialize {
                   Object {
                     "attribs": Object {
                       "checked": "",
+                      "id": "check2",
                       "type": "checkbox",
                     },
                     "children": Array [],
@@ -3052,10 +3778,12 @@ initialize {
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "checked": undefined,
+                      "id": undefined,
                       "type": undefined,
                     },
                   },
@@ -3071,6 +3799,7 @@ initialize {
                     "prev": Object {
                       "attribs": Object {
                         "checked": "",
+                        "id": "check2",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -3082,10 +3811,12 @@ initialize {
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "checked": undefined,
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -3103,11 +3834,30 @@ initialize {
                 "next": null,
                 "parent": [Circular],
                 "prev": Object {
-                  "data": "Default checked: ",
+                  "attribs": Object {
+                    "for": "check2",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Default checked:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 "type": "tag",
                 "x-attribsNamespace": Object {
@@ -3126,7 +3876,20 @@ initialize {
               "attribs": Object {},
               "children": Array [
                 Object {
-                  "data": "Default: ",
+                  "attribs": Object {
+                    "for": "check1",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Default:",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "label",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
                       "class": "sc-gPEVay gluHMa",
@@ -3134,6 +3897,7 @@ initialize {
                     "children": Array [
                       Object {
                         "attribs": Object {
+                          "id": "check1",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -3161,9 +3925,11 @@ initialize {
                         "prev": null,
                         "type": "tag",
                         "x-attribsNamespace": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -3178,6 +3944,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
+                            "id": "check1",
                             "type": "checkbox",
                           },
                           "children": Array [],
@@ -3188,9 +3955,11 @@ initialize {
                           "prev": null,
                           "type": "tag",
                           "x-attribsNamespace": Object {
+                            "id": undefined,
                             "type": undefined,
                           },
                           "x-attribsPrefix": Object {
+                            "id": undefined,
                             "type": undefined,
                           },
                         },
@@ -3218,7 +3987,13 @@ initialize {
                   },
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "for": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "for": undefined,
+                  },
                 },
                 Object {
                   "attribs": Object {
@@ -3227,6 +4002,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
+                        "id": "check1",
                         "type": "checkbox",
                       },
                       "children": Array [],
@@ -3254,9 +4030,11 @@ initialize {
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                       "x-attribsPrefix": Object {
+                        "id": undefined,
                         "type": undefined,
                       },
                     },
@@ -3271,6 +4049,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
+                          "id": "check1",
                           "type": "checkbox",
                         },
                         "children": Array [],
@@ -3281,9 +4060,11 @@ initialize {
                         "prev": null,
                         "type": "tag",
                         "x-attribsNamespace": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                         "x-attribsPrefix": Object {
+                          "id": undefined,
                           "type": undefined,
                         },
                       },
@@ -3301,11 +4082,30 @@ initialize {
                   "next": null,
                   "parent": [Circular],
                   "prev": Object {
-                    "data": "Default: ",
+                    "attribs": Object {
+                      "for": "check1",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Default:",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "label",
+                    "namespace": "http://www.w3.org/1999/xhtml",
                     "next": [Circular],
                     "parent": [Circular],
                     "prev": null,
-                    "type": "text",
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "for": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "for": undefined,
+                    },
                   },
                   "type": "tag",
                   "x-attribsNamespace": Object {

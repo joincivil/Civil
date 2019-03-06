@@ -48,11 +48,20 @@ const Button = styled(BorderlessButton)`
   display: block;
 `;
 
+const LightButton = styled(BorderlessButton)`
+  font-weight: 200;
+  display: block;
+`;
+
 export interface LearnMoreButtonState {
   modalOpen: boolean;
 }
 
-export class LearnMoreButton extends React.Component<{}, LearnMoreButtonState> {
+export interface LearnMoreButtonProps {
+  lightStyle?: boolean;
+}
+
+export class LearnMoreButton extends React.Component<LearnMoreButtonProps, LearnMoreButtonState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -69,45 +78,71 @@ export class LearnMoreButton extends React.Component<{}, LearnMoreButtonState> {
           <BorderlessButton onClick={this.close}>Back</BorderlessButton>
           <ContentWrapper>
             <Header>About applying to join Civil</Header>
-            <SectionHeader>What is the process and what to expect</SectionHeader>
             <Paragraph>
-              In this section we'll take you thought the steps of completing your application to join the Civil network.
-              You will be led through the steps of completing your application to the Civil Registry, which unlocks
-              several key benefits. It allows you to be part of a community that has vetted your newsroom and deemed it
-              as having a credible journalistic mission. It also allows your content to be featured alongside content
-              from other approved Civil network newsrooms.
+              In this section we'll take you through the steps to join the Civil network. But first, let’s start with a
+              few key terms.
             </Paragraph>
-            <Paragraph>
-              When creating your Newsroom Profile, we will ask you to complete the application asking for information
-              about your newsroom. We ask that any newsroom applying to the registry provide the information to the best
-              of their ability.
-            </Paragraph>
+
             <SectionHeader>What is the Civil Registry</SectionHeader>
             <Paragraph>
-              Civil Registry is the destination to which prospective Civil Newsrooms must apply to access publishing
-              rights on the Civil platform. You can apply to the Civil Registry after creating your Newsroom Smart
-              Contract.
+              The Civil Registry is the online destination where prospective Civil newsrooms apply to be part of the
+              network.
             </Paragraph>
             <Paragraph>
-              Being included in the Civil Registry means that the community has vetted a Newsroom and deemed it as
-              having a credible, journalistic mission, and that it has pledged to adhere to the journalistic ethics
-              outlined by the Civil Constitution.
+              Newsrooms on the Civil Registry have been vetted by the community and deemed it as having a credible,
+              journalistic practices as outlined in the{" "}
+              <a href="https://civil.co/constitution/" target="_blank">
+                Civil Constitution
+              </a>.
             </Paragraph>
+
+            <SectionHeader>Civil Tokens</SectionHeader>
+            <Paragraph>
+              Civil tokens (CVL) enable the "community-owned and operated" Civil model to work. A token is a piece of
+              software, it’s not a physical coin. But it does have value and represents a piece of ownership in the
+              network.
+            </Paragraph>
+
+            <SectionHeader>Ether (ETH)</SectionHeader>
+            <Paragraph>
+              Ether (ETH) is the cryptocurrency or fuel for the Ethereum blockchain. You will need ETH to pay for
+              certain transcations on Civil. Each transaction takes a small amount of computing effort, called Gas,
+              which is paid for in ETH.
+            </Paragraph>
+
             <SectionHeader>Applying to the Civil Registry</SectionHeader>
             <Paragraph>
-              You will need to deposit 0,000 CVL token with your application. This is to state the seriousness of your
+              You will need to deposit 5,000 CVL tokens with your application. This is to signal the seriousness of your
               intent to the community.
             </Paragraph>
             <Paragraph>
-              Your application for the Newsroom will be up for community vote and review on the Application in Review
-              tab of the Civil Registry for 14 days. A Newsroom will be approved if there are no challenges.
+              Your application to the Civil Registry will be up for community review on the Application in Review tab of
+              the Civil Registry for 14 days. A newsroom will be approved if there are no successful challenges.
             </Paragraph>
             <Paragraph>
-              If the application is challenged by the community, there will be a 10 day period for the community to
-              Commit their votes. In order to finalize their votes, they have a 7 day period to Confirm. The newsroom
-              can request an Appeal from the Civil Council within 3 days. The Civil Council will decide on the appeal
-              within 14 days, and the challenge can be appealed, and the Commit and Confirm process begins again.
+              When a new newsroom applies to be on the Civil Registry, the community has 14 days to review the
+              application. During the period, any CVL token holder may challenge this newsroom by matching the
+              application deposit if they believe the newsroom’s mission, charter or roster is in any way a violation of
+              the principles of the{" "}
+              <a href="https://civil.co/constitution/" target="_blank">
+                Civil Constitution
+              </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the
+              <a href="https://registry.civil.co/" target="_blank">
+                Civil Registry
+              </a>, a newsroom is committing to uphold the values of the{" "}
+              <a href="https://civil.co/constitution/" target="_blank">
+                Civil Constitution
+              </a>.
             </Paragraph>
+            <Paragraph>
+              The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
+              an opportunity to be heard in the Civil community. You can learn more about the review and challenge
+              phases{" "}
+              <a href="https://cvlconsensys.zendesk.com/hc/en-us/categories/360001542132-Registry" target="_blank">
+                here
+              </a>.
+            </Paragraph>
+
             <InvertedButton size={buttonSizes.SMALL} target="_blank" href={"https://cvlconsensys.zendesk.com/hc/en-us"}>
               Read more on our FAQ
             </InvertedButton>
@@ -117,9 +152,15 @@ export class LearnMoreButton extends React.Component<{}, LearnMoreButtonState> {
     );
   }
   public render(): JSX.Element {
+    const button = this.props.lightStyle ? (
+      <LightButton onClick={this.showModal}>Learn more about applying to join Civil</LightButton>
+    ) : (
+      <Button onClick={this.showModal}>Learn more about applying to join Civil</Button>
+    );
+
     return (
       <>
-        <Button onClick={this.showModal}>Learn more about applying to join Civil</Button>
+        {button}
         {this.renderModal()}
       </>
     );

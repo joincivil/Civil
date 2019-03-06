@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { StepTopNavNoButtonsProps } from "./Step";
+import { OBPreRegNotice } from "../../onboardingStyledComponents";
 import { StepProcessTopNavState, StepsProps } from "../StepProcessTopNav";
 import { colors } from "../../styleConstants";
 
@@ -31,7 +32,7 @@ const StyledContainer = styled.ul`
 
 const MainSection = styled.div`
   background-color: #fff;
-  padding: 45px 0;
+  padding: 45px 10px;
 `;
 
 const ProgressBar = styled.div`
@@ -90,7 +91,6 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
   public renderContent(): React.ReactNode | undefined {
     const children = this.props.children;
     const { activeIndex } = this.state;
-    console.log({ activeIndex, length: children.length });
     if (children[activeIndex]) {
       return React.cloneElement(children[activeIndex].props.children as React.ReactElement<ContentProps>, {
         goNext: this.goNext,
@@ -109,7 +109,10 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
             <ProgressBarInner percent={progress} />
           </ProgressBar>
         </StyledNav>
-        <MainSection>{this.renderContent()}</MainSection>
+        <MainSection>
+          <OBPreRegNotice />
+          {this.renderContent()}
+        </MainSection>
       </div>
     );
   }

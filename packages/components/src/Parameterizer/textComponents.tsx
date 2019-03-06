@@ -24,10 +24,10 @@ export const ParamDispensationPctLabelText: React.SFC = props => (
   <>Percentage of Stake Distributed To Parameter Proposal Challenge Winner</>
 );
 
-export const VoteQuorumLabelText: React.SFC = props => <>Percentage of Votes Needed For Quorum</>;
+export const VoteQuorumLabelText: React.SFC = props => <>Percentage of Votes Needed for Challenge to Succeed</>;
 
 export const ParamVoteQuorumLabelText: React.SFC = props => (
-  <>Percentage of Votes Needed For Quorum for Parameter Proposal Challenge</>
+  <>Percentage of Votes Needed for Parameter Proposal Challenge to Succeed</>
 );
 
 export const ChallengeAppealLenLabelText: React.SFC = props => <>Duration of Challenge Appeal Stage</>;

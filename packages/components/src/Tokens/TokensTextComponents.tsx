@@ -7,8 +7,8 @@ import { colors } from "../styleConstants";
 
 export const TokenWelcomeHeaderText: React.SFC = props => (
   <>
-    <h2>Hello and welcome!</h2>
-    <p>Let’s get you set up to use, buy and send CVL tokens.</p>
+    <h2>Hello, you’re about to become a Civil member</h2>
+    <p>Let’s get you set up to use, buy or sell Civil tokens</p>
   </>
 );
 
@@ -16,8 +16,8 @@ export const TokenBuySellHeaderText: React.SFC = props => <h2>Buy or Sell Civil 
 
 export const TokenConnectWalletText: React.SFC = props => (
   <>
-    <h3>Connect your crypto wallet</h3>
-    <p>Use your wallet to safely store your cryptocurrencies like ETH and CVL tokens.</p>
+    <h3>Connect your cryptocurrency wallet</h3>
+    <p>Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)</p>
   </>
 );
 
@@ -27,14 +27,21 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
   </h3>
 );
 
+export const TokenMustBuyEth: React.SFC = props => (
+  <>
+    <strong>You must buy Ether (ETH)</strong> in order to buy Civil tokens (CVL).{" "}
+    <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa">Learn how to buy ETH here.</a>
+  </>
+);
+
 // TODO(jorgelo): Is this text okay?
 export const TokenConnectWalletBtnText: React.SFC = props => <>Connect your wallet</>;
 
 // TODO(jorgelo): Find the real text here.
 export const TokenAuthText: React.SFC = props => (
   <>
-    <h3>Sign up to Civil</h3>
-    <p>Something about signing up to Civil</p>
+    <h3>Sign up or Log in to your Civil account</h3>
+    <p>Create a Civil account with your email address or log in to your existing account.</p>
   </>
 );
 
@@ -47,8 +54,8 @@ export const TokenVerifySectionText: React.SFC = props => (
   <>
     <h3>Take the Civil Tutorial</h3>
     <p>
-      Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil tokens and
-      how the Registry works.
+      Before you can use, buy or sell Civil tokens, you must complete a tutorial to ensure you understand how to use
+      Civil tokens and how the Civil Registry works.
     </p>
   </>
 );
@@ -57,12 +64,12 @@ export const TokenQuizSectionText: React.SFC = props => (
   <>
     <h3>Civil Tutorial</h3>
     <p>
-      Complete a walkthrough and answering a series of questions about Civil and how to use Civil tokens (CVL). This is
-      a standard procedure to help inform you of best practices with purchasing and using tokens.
+      Complete a walkthrough and answer a series of questions about Civil and how to use Civil tokens (CVL). This is a
+      standard procedure to help inform you of best practices with purchasing and using tokens.
     </p>
     <p>
-      It will take about 30 minutes to complete. If at any point you answer incorrectly, don’t worry. You will be able
-      to answer the questions again.
+      It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry.
+      You will be able to answer the questions again.
     </p>
   </>
 );
@@ -75,25 +82,13 @@ export const TokenQuizCompletedText: React.SFC = props => (
   </h3>
 );
 
-export const TokenVerifyText: React.SFC = props => (
-  <>
-    <h3>Verify Your Identity</h3>
-    <p>
-      Verify for eligibility to buy CVL tokens from the Civil Media Company. This is required to prevent identity theft,
-      money laundering, and business fraud.
-    </p>
-  </>
-);
-
-export const TokenVerifyBtnText: React.SFC = props => <>Verify for Eligibility</>;
-
 // Buy section
 
 export const TokenBuyTextDisabled: React.SFC = props => (
-  <p>Once you’ve completed the above steps, you will be eligible to buy CVL tokens.</p>
+  <p>Once you’ve completed the Civil tutorial, you will be eligible to use, share or buy Civil tokens.</p>
 );
 
-export const TokenBuyBtnDisabledText: React.SFC = props => <>To Buy CVL, Sign up or Log in</>;
+export const TokenBuyBtnDisabledText: React.SFC = props => <>Buy CVL</>;
 
 export const TokenBuyFoundationBtnText: React.SFC = props => <>Buy from Foundation in Airswap</>;
 
@@ -131,7 +126,7 @@ export const TokenAirswapExchangeText: React.SFC = props => (
 
 export const TokenOrText: React.SFC = props => <p>or</p>;
 
-export const TokenThanksText: React.SFC<TokenTextProps> = props => (
+export const TokenBuyCompleteText: React.SFC<TokenTextProps> = props => (
   <>
     <h3>Thanks for your purchase!</h3>
     <p>Your CVL will be deposited to your wallet address.</p>
@@ -148,6 +143,42 @@ export const TokenThanksText: React.SFC<TokenTextProps> = props => (
   </>
 );
 
+// Sell section
+
+export const TokenSellInstructionsText: React.SFC = props => (
+  <p>
+    To sell Civil tokens (CVL), you must exchange them for Ether (ETH) and then you will be able to sell ETH for USD or
+    local currencies at an exchange like Coinbase. You can’t sell Civil tokens directly for USD or local currencies –
+    currencies need to be converted into ETH first.
+  </p>
+);
+
+export const TokenSellAirswapText: React.SFC = props => <h3>Sell Civil tokens in Airswap</h3>;
+
+export const TokenUnlockSellText: React.SFC = props => (
+  <p>
+    You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible
+    to sell them here.
+  </p>
+);
+
+export const TokenSellCompleteText: React.SFC<TokenTextProps> = props => (
+  <>
+    <h3>Your sell was successful! </h3>
+    <p>Your ETH will be deposited to your wallet address.</p>
+    <p>
+      Please check the{" "}
+      <Link to="/dashboard/tasks/transfer-voting-tokens" target="_blank">
+        Dashboard
+      </Link>{" "}
+      to see your CVL balance in the Available Balance. To learn how to sell ETH for USD,{" "}
+      <a href={props.faqUrl} target="_blank">
+        go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+      </a>.
+    </p>
+  </>
+);
+
 export const TokenUnlockText: React.SFC = props => (
   <>
     <h4>
@@ -159,7 +190,7 @@ export const TokenUnlockText: React.SFC = props => (
       below.
     </p>
     <p>
-      Unlocking your tokens is straightforward, and you only have to do this once. Simply,{" "}
+      Unlocking your tokens is straightforward, and you only have to do this once. Simply{" "}
       <b>transfer at least 50 percent of your purchased tokens into the voting balance</b>. And that’s it.
     </p>
   </>
@@ -177,15 +208,13 @@ export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>How do I buy ETH
 
 export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
 
-export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
+export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
-export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What is Airswap?</h3>;
-
-export const TokenETHFAQQuestion7Text: React.SFC = props => (
+export const TokenETHFAQQuestion6Text: React.SFC = props => (
   <h3>Why do I need to unlock my Civil tokens before I can sell them?</h3>
 );
 
-export const TokenETHFAQQuestion8Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
+export const TokenETHFAQQuestion7Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 

@@ -4,17 +4,17 @@ exports[`Storyshots Hero Homepage 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kNBZmU jXtAXU",
+      "class": "sc-crNyjn eRDYDj",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-eopZyb gSqWNe",
+          "class": "sc-cpHetk bvaWEg",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-eNNmBn dMgOHb",
+              "class": "sc-nrwXf dfSJxq",
             },
             "children": Array [
               Object {
@@ -29,7 +29,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-eEieub eKAMoL",
+                "class": "sc-eitiEO hPrRTy",
               },
               "children": Array [
                 Object {
@@ -347,24 +347,141 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                  "href": "/#cta-button",
-                  "theme": "[object Object]",
+                  "class": "sc-bhlBdH fMLxun",
                 },
                 "children": Array [
                   Object {
-                    "data": "Get CVL",
-                    "next": null,
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#buy-tokens",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a member",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                        "href": "#apply",
+                        "theme": "[object Object]",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Join as a newsroom",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "theme": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "theme": undefined,
+                      },
+                    },
                     "parent": [Circular],
                     "prev": null,
-                    "type": "text",
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#apply",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a newsroom",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                        "href": "#buy-tokens",
+                        "theme": "[object Object]",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Join as a member",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "theme": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "theme": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
                   },
                 ],
-                "name": "a",
+                "name": "div",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-RbTVP cuGLKt",
+                    "class": "sc-keFjpB lirPqv",
                   },
                   "children": Array [
                     Object {
@@ -534,13 +651,9 @@ initialize {
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
                 },
               },
               "parent": [Circular],
@@ -565,7 +678,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-eEieub eKAMoL",
+              "class": "sc-eitiEO hPrRTy",
             },
             "children": Array [
               Object {
@@ -883,24 +996,141 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                "href": "/#cta-button",
-                "theme": "[object Object]",
+                "class": "sc-bhlBdH fMLxun",
               },
               "children": Array [
                 Object {
-                  "data": "Get CVL",
-                  "next": null,
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#buy-tokens",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a member",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#apply",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a newsroom",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#apply",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a newsroom",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#buy-tokens",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a member",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
                 },
               ],
-              "name": "a",
+              "name": "div",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-RbTVP cuGLKt",
+                  "class": "sc-keFjpB lirPqv",
                 },
                 "children": Array [
                   Object {
@@ -1070,19 +1300,15 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
-                "href": undefined,
-                "theme": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
-                "href": undefined,
-                "theme": undefined,
               },
             },
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-eNNmBn dMgOHb",
+                "class": "sc-nrwXf dfSJxq",
               },
               "children": Array [
                 Object {
@@ -1116,24 +1342,141 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-              "href": "/#cta-button",
-              "theme": "[object Object]",
+              "class": "sc-bhlBdH fMLxun",
             },
             "children": Array [
               Object {
-                "data": "Get CVL",
-                "next": null,
+                "attribs": Object {
+                  "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                  "href": "#buy-tokens",
+                  "theme": "[object Object]",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Join as a member",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#apply",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a newsroom",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                },
                 "parent": [Circular],
                 "prev": null,
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "theme": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "theme": undefined,
+                },
+              },
+              Object {
+                "attribs": Object {
+                  "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                  "href": "#apply",
+                  "theme": "[object Object]",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Join as a newsroom",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#buy-tokens",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a member",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                },
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "theme": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "theme": undefined,
+                },
               },
             ],
-            "name": "a",
+            "name": "div",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-RbTVP cuGLKt",
+                "class": "sc-keFjpB lirPqv",
               },
               "children": Array [
                 Object {
@@ -1301,7 +1644,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-eEieub eKAMoL",
+                "class": "sc-eitiEO hPrRTy",
               },
               "children": Array [
                 Object {
@@ -1621,7 +1964,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-eNNmBn dMgOHb",
+                  "class": "sc-nrwXf dfSJxq",
                 },
                 "children": Array [
                   Object {
@@ -1656,18 +1999,14 @@ initialize {
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
-              "href": undefined,
-              "theme": undefined,
             },
             "x-attribsPrefix": Object {
               "class": undefined,
-              "href": undefined,
-              "theme": undefined,
             },
           },
           Object {
             "attribs": Object {
-              "class": "sc-RbTVP cuGLKt",
+              "class": "sc-keFjpB lirPqv",
             },
             "children": Array [
               Object {
@@ -1825,26 +2164,143 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                "href": "/#cta-button",
-                "theme": "[object Object]",
+                "class": "sc-bhlBdH fMLxun",
               },
               "children": Array [
                 Object {
-                  "data": "Get CVL",
-                  "next": null,
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#buy-tokens",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a member",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#apply",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a newsroom",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                  },
                   "parent": [Circular],
                   "prev": null,
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                    "href": "#apply",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Join as a newsroom",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-AnqlK TUiiI sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
+                      "href": "#buy-tokens",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Join as a member",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "theme": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "theme": undefined,
+                  },
                 },
               ],
-              "name": "a",
+              "name": "div",
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": [Circular],
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-eEieub eKAMoL",
+                  "class": "sc-eitiEO hPrRTy",
                 },
                 "children": Array [
                   Object {
@@ -2164,7 +2620,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-eNNmBn dMgOHb",
+                    "class": "sc-nrwXf dfSJxq",
                   },
                   "children": Array [
                     Object {
@@ -2199,13 +2655,9 @@ initialize {
               "type": "tag",
               "x-attribsNamespace": Object {
                 "class": undefined,
-                "href": undefined,
-                "theme": undefined,
               },
               "x-attribsPrefix": Object {
                 "class": undefined,
-                "href": undefined,
-                "theme": undefined,
               },
             },
             "type": "tag",

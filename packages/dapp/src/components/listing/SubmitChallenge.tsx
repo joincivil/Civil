@@ -152,7 +152,7 @@ class SubmitChallengeComponent extends React.Component<
       <>
         <ScrollToTopOnMount />
         {isInsufficientBalance &&
-          minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="https://civil.co" />}
+          minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="/tokens" />}
         <SubmitChallengeStatementComponent {...props} />
       </>
     );

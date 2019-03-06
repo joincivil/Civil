@@ -15,6 +15,11 @@ import {
 } from "./textComponents";
 
 export const InsufficientCVL: React.SFC<BuyCVLButtonProps> = props => {
+  const { buyCVLURL } = props;
+  let buyBtnProps: any = { href: buyCVLURL };
+  if (buyCVLURL.charAt(0) === "/") {
+    buyBtnProps = { to: buyCVLURL };
+  }
   return (
     <StyledMessageWithIconContainer>
       <StyledMessageIconContainer>
@@ -23,7 +28,7 @@ export const InsufficientCVL: React.SFC<BuyCVLButtonProps> = props => {
       <StyledErrorMessage>{props.children}</StyledErrorMessage>
       {props.buyCVLURL && (
         <StyledBuyCVLButtonContainer>
-          <InvertedButton href={props.buyCVLURL} size={buttonSizes.MEDIUM}>
+          <InvertedButton {...buyBtnProps} size={buttonSizes.MEDIUM}>
             Buy CVL
           </InvertedButton>
         </StyledBuyCVLButtonContainer>

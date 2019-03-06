@@ -4,17 +4,17 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jLrYHE fLDmtf",
+      "class": "sc-hgeeVt eBwUEM",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-ijnzTp fmPUgU",
+          "class": "sc-esoVGF bKElSp",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-kWHCRG jnMVmy",
+              "class": "sc-ZUflv cBgRtc",
             },
             "children": Array [
               Object {
@@ -182,7 +182,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -448,7 +448,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-AUpyg fheXgx",
+                    "class": "sc-hPeUyl kNLSsm",
                   },
                   "children": Array [
                     Object {
@@ -458,12 +458,12 @@ initialize {
                           "data": "Follow us on twitter for alerts ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "https://twitter.com/CivilTCRalerts",
+                              "href": "https://twitter.com/civil_alerts",
                               "target": "_blank",
                             },
                             "children": Array [
                               Object {
-                                "data": "@CivilTCRalerts",
+                                "data": "@Civil_Alerts",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -491,12 +491,12 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "https://twitter.com/CivilTCRalerts",
+                            "href": "https://twitter.com/civil_alerts",
                             "target": "_blank",
                           },
                           "children": Array [
                             Object {
-                              "data": "@CivilTCRalerts",
+                              "data": "@Civil_Alerts",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -580,7 +580,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-AUpyg fheXgx",
+              "class": "sc-hPeUyl kNLSsm",
             },
             "children": Array [
               Object {
@@ -846,7 +846,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-AUpyg fheXgx",
+                  "class": "sc-hPeUyl kNLSsm",
                 },
                 "children": Array [
                   Object {
@@ -856,12 +856,12 @@ initialize {
                         "data": "Follow us on twitter for alerts ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://twitter.com/CivilTCRalerts",
+                            "href": "https://twitter.com/civil_alerts",
                             "target": "_blank",
                           },
                           "children": Array [
                             Object {
-                              "data": "@CivilTCRalerts",
+                              "data": "@Civil_Alerts",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -889,12 +889,12 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://twitter.com/CivilTCRalerts",
+                          "href": "https://twitter.com/civil_alerts",
                           "target": "_blank",
                         },
                         "children": Array [
                           Object {
-                            "data": "@CivilTCRalerts",
+                            "data": "@Civil_Alerts",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -959,7 +959,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kWHCRG jnMVmy",
+                "class": "sc-ZUflv cBgRtc",
               },
               "children": Array [
                 Object {
@@ -1397,7 +1397,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -1407,12 +1407,12 @@ initialize {
                       "data": "Follow us on twitter for alerts ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://twitter.com/CivilTCRalerts",
+                          "href": "https://twitter.com/civil_alerts",
                           "target": "_blank",
                         },
                         "children": Array [
                           Object {
-                            "data": "@CivilTCRalerts",
+                            "data": "@Civil_Alerts",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -1440,12 +1440,12 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://twitter.com/CivilTCRalerts",
+                        "href": "https://twitter.com/civil_alerts",
                         "target": "_blank",
                       },
                       "children": Array [
                         Object {
-                          "data": "@CivilTCRalerts",
+                          "data": "@Civil_Alerts",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -1500,7 +1500,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -1517,7 +1517,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-kWHCRG jnMVmy",
+                  "class": "sc-ZUflv cBgRtc",
                 },
                 "children": Array [
                   Object {
@@ -1712,7 +1712,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-AUpyg fheXgx",
+              "class": "sc-hPeUyl kNLSsm",
             },
             "children": Array [
               Object {
@@ -1722,12 +1722,12 @@ initialize {
                     "data": "Follow us on twitter for alerts ",
                     "next": Object {
                       "attribs": Object {
-                        "href": "https://twitter.com/CivilTCRalerts",
+                        "href": "https://twitter.com/civil_alerts",
                         "target": "_blank",
                       },
                       "children": Array [
                         Object {
-                          "data": "@CivilTCRalerts",
+                          "data": "@Civil_Alerts",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -1755,12 +1755,12 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "href": "https://twitter.com/CivilTCRalerts",
+                      "href": "https://twitter.com/civil_alerts",
                       "target": "_blank",
                     },
                     "children": Array [
                       Object {
-                        "data": "@CivilTCRalerts",
+                        "data": "@Civil_Alerts",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -2058,7 +2058,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-AUpyg fheXgx",
+                  "class": "sc-hPeUyl kNLSsm",
                 },
                 "children": Array [
                   Object {
@@ -2075,7 +2075,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-kWHCRG jnMVmy",
+                    "class": "sc-ZUflv cBgRtc",
                   },
                   "children": Array [
                     Object {
@@ -2333,12 +2333,12 @@ exports[`Storyshots Email Signup Component Email Signup Success 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-jLrYHE fLDmtf",
+      "class": "sc-hgeeVt eBwUEM",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-fUdGnz kpaYrj sc-ijnzTp fmPUgU",
+          "class": "sc-cAJUJo bwTJbt sc-esoVGF bKElSp",
         },
         "children": Array [
           Object {
@@ -2460,7 +2460,7 @@ initialize {
             "namespace": "http://www.w3.org/2000/svg",
             "next": Object {
               "attribs": Object {
-                "class": "sc-kWHCRG jnMVmy",
+                "class": "sc-ZUflv cBgRtc",
               },
               "children": Array [
                 Object {
@@ -2475,7 +2475,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-AUpyg fheXgx",
+                  "class": "sc-hPeUyl kNLSsm",
                 },
                 "children": Array [
                   Object {
@@ -2490,7 +2490,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-AUpyg fheXgx",
+                    "class": "sc-hPeUyl kNLSsm",
                   },
                   "children": Array [
                     Object {
@@ -2500,12 +2500,12 @@ initialize {
                           "data": "Follow us on twitter for alerts ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "https://twitter.com/CivilTCRalerts",
+                              "href": "https://twitter.com/civil_alerts",
                               "target": "_blank",
                             },
                             "children": Array [
                               Object {
-                                "data": "@CivilTCRalerts",
+                                "data": "@Civil_Alerts",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -2533,12 +2533,12 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "https://twitter.com/CivilTCRalerts",
+                            "href": "https://twitter.com/civil_alerts",
                             "target": "_blank",
                           },
                           "children": Array [
                             Object {
-                              "data": "@CivilTCRalerts",
+                              "data": "@Civil_Alerts",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -2628,7 +2628,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-kWHCRG jnMVmy",
+              "class": "sc-ZUflv cBgRtc",
             },
             "children": Array [
               Object {
@@ -2643,7 +2643,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -2658,7 +2658,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-AUpyg fheXgx",
+                  "class": "sc-hPeUyl kNLSsm",
                 },
                 "children": Array [
                   Object {
@@ -2668,12 +2668,12 @@ initialize {
                         "data": "Follow us on twitter for alerts ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://twitter.com/CivilTCRalerts",
+                            "href": "https://twitter.com/civil_alerts",
                             "target": "_blank",
                           },
                           "children": Array [
                             Object {
-                              "data": "@CivilTCRalerts",
+                              "data": "@Civil_Alerts",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -2701,12 +2701,12 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://twitter.com/CivilTCRalerts",
+                          "href": "https://twitter.com/civil_alerts",
                           "target": "_blank",
                         },
                         "children": Array [
                           Object {
-                            "data": "@CivilTCRalerts",
+                            "data": "@Civil_Alerts",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -2913,7 +2913,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-AUpyg fheXgx",
+              "class": "sc-hPeUyl kNLSsm",
             },
             "children": Array [
               Object {
@@ -2928,7 +2928,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -2938,12 +2938,12 @@ initialize {
                       "data": "Follow us on twitter for alerts ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://twitter.com/CivilTCRalerts",
+                          "href": "https://twitter.com/civil_alerts",
                           "target": "_blank",
                         },
                         "children": Array [
                           Object {
-                            "data": "@CivilTCRalerts",
+                            "data": "@Civil_Alerts",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -2971,12 +2971,12 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://twitter.com/CivilTCRalerts",
+                        "href": "https://twitter.com/civil_alerts",
                         "target": "_blank",
                       },
                       "children": Array [
                         Object {
-                          "data": "@CivilTCRalerts",
+                          "data": "@Civil_Alerts",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -3031,7 +3031,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-kWHCRG jnMVmy",
+                "class": "sc-ZUflv cBgRtc",
               },
               "children": Array [
                 Object {
@@ -3198,7 +3198,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-AUpyg fheXgx",
+              "class": "sc-hPeUyl kNLSsm",
             },
             "children": Array [
               Object {
@@ -3208,12 +3208,12 @@ initialize {
                     "data": "Follow us on twitter for alerts ",
                     "next": Object {
                       "attribs": Object {
-                        "href": "https://twitter.com/CivilTCRalerts",
+                        "href": "https://twitter.com/civil_alerts",
                         "target": "_blank",
                       },
                       "children": Array [
                         Object {
-                          "data": "@CivilTCRalerts",
+                          "data": "@Civil_Alerts",
                           "next": null,
                           "parent": [Circular],
                           "prev": null,
@@ -3241,12 +3241,12 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "href": "https://twitter.com/CivilTCRalerts",
+                      "href": "https://twitter.com/civil_alerts",
                       "target": "_blank",
                     },
                     "children": Array [
                       Object {
-                        "data": "@CivilTCRalerts",
+                        "data": "@Civil_Alerts",
                         "next": null,
                         "parent": [Circular],
                         "prev": null,
@@ -3291,7 +3291,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-AUpyg fheXgx",
+                "class": "sc-hPeUyl kNLSsm",
               },
               "children": Array [
                 Object {
@@ -3308,7 +3308,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-kWHCRG jnMVmy",
+                  "class": "sc-ZUflv cBgRtc",
                 },
                 "children": Array [
                   Object {

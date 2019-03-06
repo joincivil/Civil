@@ -3,8 +3,6 @@ import gql from "graphql-tag";
 import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
 import { EthAddress, CharterData } from "@joincivil/core";
 
-const JSON_BLOB_ID = "newsroomSignupCharter";
-
 const userEthAddress = gql`
   query {
     currentUser {
@@ -15,23 +13,56 @@ const userEthAddress = gql`
 // Unfortunately we can't combine this charter query with eth address query, because if no charter is saved at all yet, then the whole query errors and we won't get eth address
 const getCharterQuery = gql`
   query {
-    jsonb(id: "${JSON_BLOB_ID}") {
-      rawJson
+    nrsignupNewsroom {
+      grantRequested
+      charter {
+        name
+        tagline
+        logoUrl
+        newsroomUrl
+        roster {
+          name
+          role
+          bio
+          ethAddress
+          socialUrls {
+            twitter
+            facebook
+          }
+          avatarUrl
+          signature
+        }
+        signatures {
+          signer
+          signature
+          message
+        }
+        mission {
+          purpose
+          structure
+          revenue
+          encumbrances
+          miscellaneous
+        }
+        socialUrls {
+          twitter
+          facebook
+        }
+      }
     }
   }
 `;
 
 const saveCharterMutation = gql`
-  mutation($input: JsonbInput!) {
-    jsonbSave(input: $input) {
-      id
-    }
+  mutation($input: CharterInput!) {
+    nrsignupSaveCharter(charterData: $input)
   }
 `;
 
 // const askForGrant
 
 export interface DataWrapperChildrenProps {
+  grantRequested?: boolean;
   profileWalletAddress: EthAddress;
   persistedCharter: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
@@ -68,18 +99,19 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                 }
 
                 let persistedCharter: Partial<CharterData>;
-                if (charterData && charterData.jsonb && charterData.jsonb.rawJson) {
-                  try {
-                    persistedCharter = JSON.parse(charterData.jsonb.rawJson);
-                  } catch (err) {
-                    console.error("Failed to parse persisted charter JSON", err, charterData.jsonb.rawJson);
+                let grantRequested: boolean;
+                if (charterData && charterData.nrsignupNewsroom) {
+                  if (charterData.nrsignupNewsroom.charter) {
+                    persistedCharter = charterData.nrsignupNewsroom.charter;
                   }
+                  grantRequested = charterData.nrsignupNewsroom.grantRequested;
                 }
 
                 return (
                   <Mutation mutation={saveCharterMutation}>
                     {(saveCharter: MutationFunc) => {
                       return this.props.children({
+                        grantRequested,
                         profileWalletAddress: data.currentUser.ethAddress,
                         persistedCharter,
                         persistCharter: this.saveCharterFuncFromMutation(saveCharter),
@@ -98,13 +130,10 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
   private saveCharterFuncFromMutation(
     mutation: MutationFunc,
   ): (charter: Partial<CharterData>) => Promise<void | FetchResult> {
-    return async (charter: Partial<CharterData>) => {
+    return async (charter: any) => {
       return mutation({
         variables: {
-          input: {
-            id: JSON_BLOB_ID,
-            jsonStr: JSON.stringify(charter),
-          },
+          input: charter,
         },
       });
     };

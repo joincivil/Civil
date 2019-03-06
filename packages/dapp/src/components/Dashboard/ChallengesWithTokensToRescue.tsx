@@ -96,22 +96,32 @@ class ChallengesWithTokensToRescue extends React.Component<
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges.map((c: string) => (
-          <ActivityListItemRescueTokens key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
-        ))}
+        {this.props.challenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemRescueTokens key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
+          ))}
 
-        {this.props.appealChallenges.map((c: string) => (
-          <ActivityListItemRescueTokens key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
-        ))}
+        {this.props.appealChallenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemRescueTokens
+              key={c}
+              appealChallengeID={c!}
+              toggleSelect={this.setChallengesToMultiRescue}
+            />
+          ))}
 
-        {this.props.proposalChallenges.map((c: string) => (
-          <ActivityListItemRescueTokens
-            key={c}
-            isProposalChallenge={true}
-            challengeID={c!}
-            toggleSelect={this.setChallengesToMultiRescue}
-          />
-        ))}
+        {this.props.proposalChallenges
+          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+          .map((c: string) => (
+            <ActivityListItemRescueTokens
+              key={c}
+              isProposalChallenge={true}
+              challengeID={c!}
+              toggleSelect={this.setChallengesToMultiRescue}
+            />
+          ))}
 
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal

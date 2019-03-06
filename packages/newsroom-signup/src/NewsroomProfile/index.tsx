@@ -9,6 +9,8 @@ import { SignConstitution } from "./SignConstitution";
 import { ApplicationSoFarPage } from "./ApplicationSoFarPage";
 import { GrantApplication } from "./GrantApplication";
 
+const NUM_STEPS = 5;
+
 export interface NewsroomProfileState {
   currentStep: number;
   showButtons: boolean;
@@ -16,6 +18,7 @@ export interface NewsroomProfileState {
 
 export interface NewsroomProfileProps {
   charter: Partial<CharterData>;
+  grantRequested?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
   goNext?(): void;
 }
@@ -30,8 +33,16 @@ const ButtonContainer = styled.div`
 export class NewsroomProfile extends React.Component<NewsroomProfileProps, NewsroomProfileState> {
   constructor(props: NewsroomProfileProps) {
     super(props);
+    let currentStep = 0;
+    try {
+      if (localStorage.newsroomOnBoardingNewsroomProfileStep) {
+        currentStep = Number(localStorage.newsroomOnBoardingNewsroomProfileStep);
+      }
+    } catch (e) {
+      console.error("Failed to load step index");
+    }
     this.state = {
-      currentStep: 0,
+      currentStep,
       showButtons: true,
     };
   }
@@ -78,17 +89,21 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <AddRosterMember
         charter={this.props.charter}
         updateCharter={this.props.updateCharter}
-        toggleButtons={this.toggleButtons}
+        setButtonVisibility={this.setButtonVisibility}
       />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
-      <GrantApplication />,
+      <GrantApplication setButtonVisibility={this.setButtonVisibility} />,
     ];
     return steps[this.state.currentStep];
   }
   public renderButtons(): JSX.Element | null {
-    if (!this.state.showButtons || this.state.currentStep === 5) {
+    if (!this.state.showButtons) {
+      return null;
+    }
+    console.log(this.props.grantRequested);
+    if (this.props.grantRequested !== undefined && this.props.grantRequested !== null) {
       return null;
     }
     return (
@@ -100,22 +115,36 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         ) : (
           <div />
         )}
-        <Button
-          disabled={this.getDisabled(this.state.currentStep)()}
-          textTransform="none"
-          width={220}
-          size={buttonSizes.MEDIUM}
-          onClick={() => this.goNext()}
-        >
-          Next
-        </Button>
+        {this.state.currentStep < NUM_STEPS ? (
+          <Button
+            disabled={this.getDisabled(this.state.currentStep)()}
+            textTransform="none"
+            width={220}
+            size={buttonSizes.MEDIUM}
+            onClick={() => this.goNext()}
+          >
+            Next
+          </Button>
+        ) : (
+          <div />
+        )}
       </ButtonContainer>
     );
   }
   public goNext(): void {
+    try {
+      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep + 1);
+    } catch (e) {
+      console.error("Failed to save step index", e);
+    }
     this.setState({ currentStep: this.state.currentStep + 1 });
   }
   public goBack(): void {
+    try {
+      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep - 1);
+    } catch (e) {
+      console.error("Failed to save step index", e);
+    }
     this.setState({ currentStep: this.state.currentStep - 1 });
   }
   public render(): JSX.Element {
@@ -126,7 +155,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       </>
     );
   }
-  private toggleButtons = () => {
-    this.setState({ showButtons: !this.state.showButtons });
+  private setButtonVisibility = (visible: boolean) => {
+    this.setState({ showButtons: visible });
   };
 }

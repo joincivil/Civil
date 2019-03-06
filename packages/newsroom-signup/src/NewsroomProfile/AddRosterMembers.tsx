@@ -16,7 +16,7 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
   updateCharter(charter: Partial<CharterData>): void;
-  toggleButtons(): void;
+  setButtonVisibility(visibility: boolean): void;
 }
 
 export interface AddRosterMemberState {
@@ -40,6 +40,16 @@ const StyledUl = styled.ul`
   list-style: none;
   margin: 0 0 35px 0;
   padding: 0;
+`;
+
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+`;
+
+const RemoveButton = styled(BorderlessButton)`
+  margin-left: auto;
 `;
 
 export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRosterMemberState> {
@@ -76,14 +86,17 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
             </StyledUl>
           )}
           {this.state.editingMember ? (
-            <>
+            <ButtonSection>
               <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>
                 Save
               </InvertedButton>
-              <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({ editingMember: null })}>
+              <BorderlessButton size={buttonSizes.MEDIUM} onClick={this.cancelEdit}>
                 Cancel
               </BorderlessButton>
-            </>
+              <RemoveButton size={buttonSizes.MEDIUM} onClick={this.removeRosterMember}>
+                Remove
+              </RemoveButton>
+            </ButtonSection>
           ) : (
             <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
               Add a profile
@@ -96,12 +109,32 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(false);
     this.setState({ editingMember: {} });
+  };
+
+  private cancelEdit = () => {
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null });
   };
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
     this.setState({ editingMember: newVal });
+  };
+
+  private removeRosterMember = () => {
+    const roster = (this.props.charter.roster || []).slice();
+    const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
+    const memberIndex = roster.findIndex(rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    if (memberIndex >= 0) {
+      roster.splice(memberIndex, 1);
+      this.props.updateCharter({
+        ...this.props.charter,
+        roster,
+      });
+    }
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null });
   };
 
   private saveRosterMember = () => {
@@ -118,11 +151,12 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       ...this.props.charter,
       roster,
     });
-    this.props.toggleButtons();
+    this.props.setButtonVisibility(true);
     this.setState({ editingMember: null });
   };
 
   private editRosterMember = (index: number) => {
+    this.props.setButtonVisibility(false);
     this.setState({ editingMember: this.props.charter.roster![index] });
   };
 }

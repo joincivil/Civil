@@ -99,6 +99,8 @@ export const getParameterProposalChallenges = (state: State) => state.networkDep
 export const getParameterProposalChallengesFetching = (state: State) =>
   state.networkDependent.parameterProposalChallengesFetching;
 
+export const getProposalChallengesToPropIDs = (state: State) => state.networkDependent.proposalChallengesToPropIDs;
+
 export const getAppellateMembers = (state: State) => state.networkDependent.appellateMembers;
 
 // end simple selectors
@@ -446,6 +448,27 @@ export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
   },
 );
 
+export const getProposalChallengesWithUnrevealedVotes = createSelector(
+  [getProposalChallengeUserData, getUser],
+  (proposalChallengeUserData, user) => {
+    let challengeIDs = Set<string>();
+    if (proposalChallengeUserData && user && user.account) {
+      challengeIDs = proposalChallengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const { canUserReveal } = challengeData!.get(user.account.account);
+            return !!canUserReveal;
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengeIDs;
+  },
+);
+
 export const getChallengesForAppealChallengesWithUnrevealedVotes = createSelector(
   [getUserAppealChallengesWithUnrevealedVotes, getAppealChallengeIDsToChallengeIDs, getChallenges],
   (appealChallengeIDs, appealChallengeIDsToChallengeIDs) => {
@@ -640,6 +663,41 @@ export const getChallengesForAppealChallengesVotedOnByUserWithAvailableActions =
         .toSet() as Set<string>;
     }
     return challengesWithAppealChallengesVotedOnByUserWthAvailableActions;
+  },
+);
+
+export const getProposalChallengesWithAvailableActions = createSelector(
+  [getParameterProposalChallenges, getProposalChallengeUserData, getUser],
+  (challenges, challengeUserData, user) => {
+    let challengesVotedOnByUserWthAvailableActions = Set<string>();
+    if (challenges && challengeUserData && user && user.account) {
+      challengesVotedOnByUserWthAvailableActions = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const {
+              didUserCommit,
+              didUserReveal,
+              didUserRescue,
+              didUserCollect,
+              canUserRescue,
+              canUserCollect,
+            } = challengeData!.get(user.account.account);
+            const challenge = challenges.get(challengeID!);
+            return (
+              !!didUserCommit &&
+              (!didUserReveal ||
+                (canUserRescue && !didUserRescue) ||
+                (canUserCollect && !didUserCollect) ||
+                !challenge.resolved)
+            );
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengesVotedOnByUserWthAvailableActions;
   },
 );
 
@@ -1004,8 +1062,8 @@ export const makeGetProposalsByParameterName = () => {
 };
 
 export const getProposalByPropID = createSelector(
-  [getParameterProposals, getChallenges, getProposalIDProp],
-  (parameterProposals, challenges, propID) => {
+  [getParameterProposals, getProposalIDProp],
+  (parameterProposals, propID) => {
     let proposal;
     if (parameterProposals && propID) {
       proposal = parameterProposals.get(propID);
@@ -1016,6 +1074,35 @@ export const getProposalByPropID = createSelector(
 
 export const makeGetProposalByPropID = () => {
   return getProposalByPropID;
+};
+
+export const getProposalChallengeByChallengeID = createSelector(
+  [getParameterProposalChallenges, getChallengeID],
+  (proposalChallenges, challengeID) => {
+    let challenge;
+    if (proposalChallenges && challengeID) {
+      challenge = proposalChallenges.get(challengeID);
+    }
+    return challenge;
+  },
+);
+
+export const getProposalByChallengeID = createSelector(
+  [getParameterProposals, getProposalChallengesToPropIDs, getChallengeID],
+  (parameterProposals, proposalChallengesToPropIDs, challengeID) => {
+    let proposal;
+    if (parameterProposals && proposalChallengesToPropIDs && challengeID) {
+      const propID = proposalChallengesToPropIDs.get(challengeID);
+      if (propID) {
+        proposal = parameterProposals.get(propID);
+      }
+    }
+    return proposal;
+  },
+);
+
+export const makeGetProposalByChallengeID = () => {
+  return getProposalByChallengeID;
 };
 
 export const makeGetGovtProposalsByParameterName = () => {

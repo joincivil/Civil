@@ -12,7 +12,10 @@ import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { setGrant, setSkip } from "../actionCreators";
 import { StateWithNewsroom } from "../reducers";
-import { LearnMoreButton } from "./LearnMoreButton";
+import { WaitingAfterSkip } from "./WaitingAfterSkip";
+import { WaitingForGrant } from "./WaitingForGrant";
+import { Mutation, MutationFunc, Query } from "react-apollo";
+import gql from "graphql-tag";
 
 const DialogueBox = styled.div`
   border: 1px solid rgba(43, 86, 255, 0.4);
@@ -87,7 +90,51 @@ const CostGrid = styled.div`
   grid-template-columns: 30% auto;
 `;
 
-export interface GrantApplicationProps {
+const ModalHeader = styled.h4`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+`;
+
+const ModalP = styled.p`
+  color: ${colors.accent.CIVIL_GRAY_2};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 24px;
+`;
+
+const ModalLi = styled.li`
+  color: ${colors.accent.CIVIL_GRAY_2};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 9px;
+`;
+
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const grantQuery = gql`
+  query {
+    nrsignupNewsroom {
+      grantRequested
+    }
+  }
+`;
+
+const requestGrantMutation = gql`
+  mutation($input: Boolean!) {
+    nrsignupRequestGrant(requested: $input)
+  }
+`;
+
+export interface GrantApplicationExternalProps {
+  setButtonVisibility(visibility: boolean): void;
+}
+export interface GrantApplicationProps extends GrantApplicationExternalProps {
   chooseGrant: boolean;
   chooseSkip: boolean;
 }
@@ -98,32 +145,59 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
       return null;
     }
     return (
-      <Modal>
-        <h4>Apply for a Civil Foundation Grant</h4>
-        <p>By continuing, you agree to the following:</p>
+      <Modal width={560}>
+        <ModalHeader>Apply for a Civil Foundation Grant</ModalHeader>
+        <ModalP>By continuing, you agree to the following:</ModalP>
         <ul>
-          <li>Your Newsroom Registry Profile will be reviewed by the Civil Foundation</li>
-          <li>You will be notified via email once your application has been decided (reply times will vary)</li>
-          <li>
+          <ModalLi>Your Newsroom Registry Profile will be reviewed by the Civil Foundation</ModalLi>
+          <ModalLi>
+            You will be notified via email once your application has been decided (reply times will vary)
+          </ModalLi>
+          <ModalLi>
             You will not be able to to edit your Registry Profile until the Foundation team has completed its review
-          </li>
-          <li>
+          </ModalLi>
+          <ModalLi>
             If approved, you will receive a small amount of ETH and CVL tokens (CVL) to apply to the Civil Registry, in
             the wallet associated with your Newsroom Smart Contract
-          </li>
-          <li>
+          </ModalLi>
+          <ModalLi>
             You must complete a verification walkthrough tutorial and steps necessary to receive and store Civil tokens
             (CVL)
-          </li>
-          <li>We recommend you consult a tax professional about reporting a token-based grant</li>
-          <li>
+          </ModalLi>
+          <ModalLi>We recommend you consult a tax professional about reporting a token-based grant</ModalLi>
+          <ModalLi>
             You understand that a successful token grant application does not allow you to bypass review and potential
             challenge by the Civil community
-          </li>
+          </ModalLi>
         </ul>
-        <LearnMoreButton />
-        <BorderlessButton onClick={this.deselectGrant}>Cancel</BorderlessButton>
-        <BorderlessButton>Continue</BorderlessButton>
+        <Mutation
+          update={cache => {
+            cache.writeQuery({
+              query: grantQuery,
+              data: { nrsignupNewsroom: { grantRequested: true } },
+            });
+          }}
+          mutation={requestGrantMutation}
+        >
+          {(requestGrant: MutationFunc) => {
+            return (
+              <ButtonSection>
+                <BorderlessButton onClick={this.deselectGrant}>Cancel</BorderlessButton>
+                <BorderlessButton
+                  onClick={async () => {
+                    return requestGrant({
+                      variables: {
+                        input: true,
+                      },
+                    });
+                  }}
+                >
+                  Continue
+                </BorderlessButton>
+              </ButtonSection>
+            );
+          }}
+        </Mutation>
       </Modal>
     );
   }
@@ -133,31 +207,58 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
       return null;
     }
     return (
-      <Modal>
-        <h4>Skip applying for a Civil Foundation Grant</h4>
-        <p>By continuing, you agree to the following:</p>
+      <Modal width={560}>
+        <ModalHeader>Skip applying for a Civil Foundation Grant</ModalHeader>
+        <ModalP>By continuing, you agree to the following:</ModalP>
         <ul>
-          <li>
+          <ModalLi>
             Your newsroom will be responsible for purchasing $1000 USD worth of CVL tokens (CVL) to apply to the Civil
             Registry. To do so, you must purchase ETH, first.
-          </li>
-          <li>You will also need to purchase enough ETH (Ether) to cover your transaction fees on the blockchain</li>
-          <li>
+          </ModalLi>
+          <ModalLi>
+            You will also need to purchase enough ETH (Ether) to cover your transaction fees on the blockchain
+          </ModalLi>
+          <ModalLi>
             You must complete a verification walkthrough tutorial to ensure you understand how to purchase and store
             Civil tokens (CVL)
-          </li>
-          <li>
+          </ModalLi>
+          <ModalLi>
             You understand that your newsroom must submit to review and potential challenge by the Civil community
-          </li>
+          </ModalLi>
         </ul>
-        <LearnMoreButton />
-        <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
-        <BorderlessButton>Continue</BorderlessButton>
+        <Mutation
+          mutation={requestGrantMutation}
+          update={cache => {
+            cache.writeQuery({
+              query: grantQuery,
+              data: { nrsignupNewsroom: { grantRequested: false } },
+            });
+          }}
+        >
+          {(requestGrant: MutationFunc) => {
+            return (
+              <ButtonSection>
+                <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
+                <BorderlessButton
+                  onClick={async () => {
+                    return requestGrant({
+                      variables: {
+                        input: false,
+                      },
+                    });
+                  }}
+                >
+                  Continue
+                </BorderlessButton>
+              </ButtonSection>
+            );
+          }}
+        </Mutation>
       </Modal>
     );
   }
 
-  public render(): JSX.Element {
+  public renderOptions(): JSX.Element {
     return (
       <>
         <OBSectionHeader>Civil Foundation Grant</OBSectionHeader>
@@ -174,11 +275,13 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             continue until the Civil Foundation team has reviewed your application.
           </SmallNote>
           <CheckboxArea>
-            <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} />
+            <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} id="apply_for_grant" />
             <div>
               <CheckboxP>
-                I would like to apply for a Civil Foundation Grant. My Newsroom Registry Profile will be reviewed by the
-                Civil Foundation team so they can evaluate an ETH and Civil Token Grant.
+                <label htmlFor="apply_for_grant">
+                  I would like to apply for a Civil Foundation Grant. My Newsroom Registry Profile will be reviewed by
+                  the Civil Foundation team so they can evaluate an ETH and Civil Token Grant.
+                </label>
               </CheckboxP>
               <SmallNote>Please consult with a tax professional about receiving a token grant.</SmallNote>
             </div>
@@ -201,13 +304,38 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             <SmallNote>$15.00 USD (estimated)</SmallNote>
           </CostGrid>
           <CheckboxArea>
-            <Checkbox checked={this.props.chooseSkip} onClick={this.selectSkip} />
-            <CheckboxP>Skip applying for a Civil Foundation Grant.</CheckboxP>
+            <Checkbox checked={this.props.chooseSkip} onClick={this.selectSkip} id="skip_grant" />
+            <CheckboxP>
+              <label htmlFor="skip_grant">Skip applying for a Civil Foundation Grant.</label>
+            </CheckboxP>
           </CheckboxArea>
         </DialogueBox>
         {this.renderGrantModal()}
         {this.renderSkipModal()}
       </>
+    );
+  }
+
+  public render(): JSX.Element {
+    return (
+      <Query query={grantQuery}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return "Loading...";
+          }
+          let grantRequested: boolean | undefined;
+          if (data && data.nrsignupNewsroom) {
+            grantRequested = data.nrsignupNewsroom.grantRequested;
+          }
+          if (grantRequested === true) {
+            return <WaitingForGrant />;
+          } else if (grantRequested === false) {
+            return <WaitingAfterSkip />;
+          } else {
+            return this.renderOptions();
+          }
+        }}
+      </Query>
     );
   }
 
@@ -225,8 +353,9 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom): GrantApplicationProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: GrantApplicationExternalProps): GrantApplicationProps => {
   return {
+    ...ownProps,
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
   };

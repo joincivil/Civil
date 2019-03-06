@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as qs from "querystring";
 import styled from "styled-components";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import {
@@ -7,11 +8,11 @@ import {
   AccountVerifyToken,
   AuthApplicationEnum,
   AuthPageFooterLink,
-  AuthFooterTerms,
   OBSectionTitle,
   OBSectionDescription,
   PageHeadingTextCentered,
   PageSubHeadingCentered,
+  OBPreRegNotice,
 } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
@@ -24,10 +25,15 @@ export interface AuthWrapperState {
 
 export interface AuthParams {
   action?: "login" | "signup";
-  token?: string;
 }
 
+
 const BASE_PATH = "/apply-to-registry";
+const PreRegNotice = styled(OBPreRegNotice)`
+  margin-left: -20%;
+  margin-top: 0;
+  width: 140%;
+`;
 
 const Wrapper = styled.div`
   margin: 70px auto 0 auto;
@@ -42,16 +48,22 @@ const BodyText = styled(PageHeadingTextCentered)`
   margin-bottom: 12px;
 `;
 
+const FooterLink = styled(AuthPageFooterLink)`
+  font-size: 13px;
+`;
+
 const Footer: React.SFC = () => (
-  <AuthFooterTerms
-    textEl={
-      <BodyText>
-        By joining Civil, you will become part of a community of high quality news publishers. Your content will be
-        featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
-      </BodyText>
-    }
-    benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
-  />
+  <></>
+  // @TODO/toby Re-enable footer when foundation launches this page
+  // <AuthFooterTerms
+  //   textEl={
+  //     <BodyText>
+  //       By joining Civil, you will become part of a community of high quality news publishers. Your content will be
+  //       featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
+  //     </BodyText>
+  //   }
+  //   benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
+  // />
 );
 
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
@@ -85,7 +97,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
       return <>Loading...</>;
     }
 
-    const token = this.props.match.params.token;
+    const token = qs.parse(this.props.location.search.substr(1)).jwt as string;
     const isNewUser = this.props.match.params.action !== "login";
 
     if (token || this.state.showTokenVerified) {
@@ -128,6 +140,8 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             to send account-related updates from Civil.
           </OBSectionDescription>
 
+          <PreRegNotice />
+
           {isNewUser ? (
             <PageSubHeadingCentered>Let's get started</PageSubHeadingCentered>
           ) : (
@@ -147,13 +161,13 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             signupPath={`${BASE_PATH}/signup`}
           />
 
-          <AuthPageFooterLink>
+          <FooterLink>
             {isNewUser ? (
               <Link to={`${BASE_PATH}/login`}>Already have an account?</Link>
             ) : (
               <Link to={`${BASE_PATH}/signup`}>← Back to create an account</Link>
             )}
-          </AuthPageFooterLink>
+          </FooterLink>
         </SignupLoginInnerWrap>
 
         {isNewUser && <Footer />}
@@ -168,7 +182,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
   };
 
   private onAuthenticationContinue = (isNewUser: boolean) => {
-    // Remove e.g. /signup/[token] from path
+    // Remove e.g. /signup?jwt=[token] from path
     this.props.history.replace({
       pathname: BASE_PATH,
     });
