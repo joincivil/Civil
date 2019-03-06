@@ -59,6 +59,11 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
       return <></>;
     }
 
+    let buyCvlBtnProps: any = { href: buyCvlUrl };
+    if (buyCvlUrl.charAt(0) === "/") {
+      buyCvlBtnProps = { to: buyCvlUrl };
+    }
+
     return (
       <StyledNavDrawer>
         <NavDrawerSection>
@@ -97,7 +102,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
               <NavDrawerCvlBalance>{votingBalance}</NavDrawerCvlBalance>
             </NavDrawerRowInfo>
           </NavDrawerRow>
-          <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} to={buyCvlUrl}>
+          <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} {...buyCvlBtnProps}>
             <NavDrawerBuyCvlBtnText />
           </NavDrawerBuyCvlBtn>
         </NavDrawerSection>

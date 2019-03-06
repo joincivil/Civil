@@ -4,6 +4,7 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { TabComponentProps } from "../Tabs";
+import { PaypalLogoIcon } from "../icons/logos";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -22,6 +23,67 @@ export const TokenAccountOuter = styled.div`
 export const TokenSection = styled.div`
   margin-bottom: 30px;
 `;
+
+const PAYPAL_BLUE = "rgba(43,86,255,0.5)";
+const PAYPAL_BLUE_DARK = "#2b56ff";
+
+export const PaypalDonateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  border: 1px solid ${PAYPAL_BLUE};
+`;
+
+export const PaypalDonateIconContainer = styled.div`
+  padding: 18px 12px;
+  border-right: 1px solid ${PAYPAL_BLUE};
+`;
+
+export const PaypalDonateIconButtonContainer = styled.div`
+  flex-grow: 1;
+`;
+
+export const PaypalLogoContainer = styled.div`
+  padding: 18px;
+`;
+
+export const PaypalDonateIconButton = styled.input`
+  background: #fff;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  color: ${PAYPAL_BLUE_DARK};
+  padding: 20px;
+  border-left: 1px solid ${PAYPAL_BLUE};
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-weight: bold;
+
+  &:hover {
+    background: ${PAYPAL_BLUE_DARK};
+    color: #fff;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+  }
+`;
+
+export const PaypalDonate: React.SFC = () => (
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <PaypalDonateContainer>
+      <PaypalLogoContainer>
+        <PaypalLogoIcon />
+      </PaypalLogoContainer>
+      <PaypalDonateIconButtonContainer>
+        <PaypalDonateIconButton type="submit" value="Donate" />
+      </PaypalDonateIconButtonContainer>
+    </PaypalDonateContainer>
+    <input type="hidden" name="cmd" value="_s-xclick" />
+    <input type="hidden" name="hosted_button_id" value="7MGFAU85AUA46" />
+    <img src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+  </form>
+);
 
 export const TokenAccountInner = styled.div`
   width: 1200px;

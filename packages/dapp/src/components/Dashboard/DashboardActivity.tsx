@@ -5,7 +5,6 @@ import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
 import {
-  colors,
   Tabs,
   Tab,
   DashboardActivity as DashboardActivityComponent,
@@ -20,6 +19,8 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   StyledDashboardActivityDescription,
+  Notice,
+  NoticeTypes,
   DashboardTransferTokenForm,
   DashboardTutorialWarning,
   BalanceType,
@@ -51,6 +52,7 @@ import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
+import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
 
 const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
 const SUB_TABS: { [index: string]: string[] } = {
@@ -88,10 +90,8 @@ export interface ChallengesToProcess {
 
 export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
-  showTransferTokensMsg: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
-  tutorialComplete: boolean;
   fromBalanceType: number;
 }
 
@@ -104,18 +104,6 @@ export const StyledBatchButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
-`;
-
-const StyledTransferMessage = styled.div`
-  background: ${colors.accent.CIVIL_RED_VERY_FADED};
-  border-radius: 4px;
-  border: 1px solid ${colors.accent.CIVIL_RED};
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 14px;
-  line-height: 20px;
-  margin: 24px 33px 20px;
-  padding: 11px 28px 13px;
-  text-align: center;
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -157,10 +145,8 @@ class DashboardActivity extends React.Component<
     super(props);
     this.state = {
       isNoMobileTransactionVisible: false,
-      showTransferTokensMsg: true,
       activeTabIndex: 0,
       activeSubTabIndex: 0,
-      tutorialComplete: true,
       fromBalanceType: 0,
     };
   }
@@ -288,6 +274,8 @@ class DashboardActivity extends React.Component<
     );
     const balance = getFormattedTokenBalance(this.props.balance);
     const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
+    const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
+    const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
 
     return (
       <>
@@ -339,10 +327,9 @@ class DashboardActivity extends React.Component<
           </Tab>
           <Tab title={<SubTabReclaimTokensText />}>
             <>
-              {/* TODO(sarah): the value of `showTransferTokensMsg` and `tutorialComplete` should be populated from the TokenController */}
-              {this.state.showTransferTokensMsg && this.renderTransferTokensMsg()}
+              {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
 
-              {this.state.tutorialComplete ? (
+              {isCivilianWhitelist ? (
                 <DashboardTransferTokenForm
                   renderTransferBalance={this.renderTransferBalance}
                   cvlAvailableBalance={balance}
@@ -406,10 +393,12 @@ class DashboardActivity extends React.Component<
 
   private renderTransferTokensMsg(): JSX.Element {
     return (
-      <StyledTransferMessage>
-        Unlock your account by transfering at least 50% of your <b>available tokens</b> into your <b>voting balance</b>.
-        Unlocking your account allow you to sell Civil tokens.
-      </StyledTransferMessage>
+      <StyledDashboardActivityDescription noBorder={true}>
+        <Notice type={NoticeTypes.ERROR}>
+          Unlock your account by transfering at least 50% of your <b>available tokens</b> into your{" "}
+          <b>voting balance</b>. Unlocking your account allow you to sell Civil tokens.
+        </Notice>
+      </StyledDashboardActivityDescription>
     );
   }
 

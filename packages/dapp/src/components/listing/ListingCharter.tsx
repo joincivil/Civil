@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
-import { fonts, colors, Button, buttonSizes } from "@joincivil/components";
+import { fonts, colors, Button, buttonSizes, NorthEastArrow } from "@joincivil/components";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import ListingCharterRosterMember from "./ListingCharterRosterMember";
@@ -77,7 +77,7 @@ class ListingCharter extends React.Component<ListingCharterProps> {
 
         <VisitNewsroomWrapper>
           <Button size={buttonSizes.MEDIUM_WIDE} href={charter.newsroomUrl} target="_blank">
-            Visit Newsroom 🡭
+            Visit Newsroom <NorthEastArrow color={colors.basic.WHITE} />
           </Button>
         </VisitNewsroomWrapper>
       </Wrapper>

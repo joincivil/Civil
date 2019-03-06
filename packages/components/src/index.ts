@@ -61,3 +61,4 @@ export * from "./EthAddressViewer";
 export * from "./Airswap";
 export * from "./TokenTutorial";
 export * from "./Tutorial";
+export * from "./Notice";

@@ -13,6 +13,8 @@ import {
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
+
+import { FAQ_BASE_URL, links } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallenge, publishContent, challengeListingWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
@@ -37,7 +39,6 @@ interface SubmitChallengeProps {
 
 interface SubmitChallengeReduxProps {
   newsroomName: string;
-  constitutionURI: string;
   minDeposit: string;
   commitStageLen: string;
   revealStageLen: string;
@@ -127,7 +128,6 @@ class SubmitChallengeComponent extends React.Component<
     const {
       listingURI,
       newsroomName,
-      constitutionURI,
       governanceGuideURI,
       minDeposit,
       commitStageLen,
@@ -138,7 +138,7 @@ class SubmitChallengeComponent extends React.Component<
     const props: SubmitChallengeStatementProps = {
       listingURI,
       newsroomName,
-      constitutionURI,
+      constitutionURI: links.CONSTITUTION,
       governanceGuideURI,
       minDeposit,
       commitStageLen,
@@ -292,8 +292,7 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, constitution, user } = state.networkDependent;
-  const constitutionURI = constitution.get("uri") || "#";
+  const { parameters, user } = state.networkDependent;
 
   let minDeposit = "";
   let commitStageLen = "";
@@ -322,7 +321,6 @@ const mapStateToProps = (
 
   return {
     newsroomName,
-    constitutionURI,
     minDeposit,
     commitStageLen,
     revealStageLen,
@@ -351,7 +349,7 @@ const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusMo
 const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
   const listingAddress = props.match.params.listing;
   const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = "https://civil.co";
+  const governanceGuideURI = `${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`;
   return (
     <SubmitChallenge
       listingAddress={listingAddress}
