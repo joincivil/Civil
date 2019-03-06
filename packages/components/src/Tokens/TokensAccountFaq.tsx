@@ -36,44 +36,39 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion2Text />} open={false}>
           <p>
-            When you perform actions like buying or selling tokens, you need to pay the cost of that computing effort,
-            called Gas. Think about it like paying for a stamp on an envelope or paying for the shipping costs of
-            sending a package. Gas can only be paid for with ETH.
+            When you perform actions like buying or selling tokens, you need to pay the cost of that computing effort.
+            That payment is calculated in gas. Think about it like paying for a stamp on an envelope or paying for the
+            shipping costs of sending a package. Gas can only be paid for with ETH.
           </p>
           <p>ETH is used to also purchase Civil tokens (CVL) from an exchange or from Civil.</p>
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion3Text />} open={false}>
-          <p>
-            To complete your membership contribution and receive Civil tokens (CVL), you must buy Ether (ETH). Then you
-            will be able to exchange ETH for CVL. Unfortunately at this time, you can’t use USD or local currencies to
-            directly buy Civil tokens. You must first convert local currencies into ETH using an exchange like Coinbase
-            or Gemini. You will need to have your debit card or bank account details handy, as well asyour passport to{" "}
-            <a
-              href="https://support.coinbase.com/customer/en/portal/articles/1220621-identity-verification?b_id=13521"
-              target="_blank"
-            >
-              verify your identity
-            </a>. Don’t worry, both Coinbase and Gemini are regulated and in compliance with all applicable laws in each
-            jurisdiction in which they operate.
-          </p>
-          <p>
-            Once you fund your token wallet via{" "}
-            <a href="https://www.coinbase.com/signup" target="_blank">
-              Coinbase
-            </a>{" "}
-            or{" "}
-            <a href="https://exchange.gemini.com/register/check-location" target="_blank">
-              Gemini
-            </a>, you can return to Civil where we will walk you through how to complete your membership contribution.
-            We know this can be confusing. For more information,{" "}
-            <a href="https://blog.joincivil.com/how-to-fund-your-token-wallet-to-buy-a-civil-membership-7f8c190960ca">
-              read this blog post
-            </a>{" "}
-            or contact us at <a href="mailto:support@civil.co">support@civil.co</a>.
-          </p>
-        </Collapsable>
+        <Collapsable header={<TokenETHFAQQuestion3Text />} open={false} />
+        <p>
+          To complete your membership contribution and receive Civil tokens (CVL), you must buy Ether (ETH). Then you
+          will be able to exchange ETH for CVL. Unfortunately at this time, you can’t use USD or local currencies to
+          directly buy Civil tokens. You must first convert local currencies into ETH using an exchange like Coinbase or
+          Gemini. You will need to have your debit card or bank account details handy, as well as your passport to{" "}
+          <a
+            href="https://support.coinbase.com/customer/en/portal/articles/1220621-identity-verification?b_id=13521"
+            target="_blank"
+          >
+            verify your identity
+          </a>
+          Don't worry, both Coinbase and Gemini are regulated and in compliance with all applicable laws in each
+          jurisdiction in which they operate. Once you fund your token wallet via{" "}
+          <a href="https://www.coinbase.com/signup" target="_new">
+            Coinbase
+          </a>{" "}
+          or{" "}
+          <a herf="https://exchange.gemini.com/register/check-location" target="_blank">
+            Gemini{" "}
+          </a>{" "}
+          (), you can return to Civil where we will walk you through how to complete your membership contribution. We
+          know this can be confusing. For more information, read this blog post or contact us at
+          <a href="mailto:support@civil.co">support@civil.co</a>.
+        </p>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion4Text />} open={false}>
