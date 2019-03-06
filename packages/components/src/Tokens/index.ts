@@ -8,3 +8,4 @@ export * from "./TokensAccountFaq";
 export * from "./TokensAccountProgress";
 export * from "./TokensStyledComponents";
 export * from "./TokensTextComponents";
+export * from "./TokensAccountPaypal";
