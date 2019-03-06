@@ -39,6 +39,7 @@ export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
+  line-height: 20px;
   padding: 30px 0;
   text-align: center;
   border: 1px solid ${props => typeColors[props.type].border};

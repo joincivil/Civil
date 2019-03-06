@@ -26,6 +26,7 @@ import {
   HamburgerIcon,
   HollowGreenCheck,
   HollowRedNoGood,
+  InfoNotification,
   LockOpenIcon,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
@@ -220,6 +221,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <HollowRedNoGood />
+      </Container>
+    );
+  })
+  .add("InfoNotification", () => {
+    return (
+      <Container>
+        <InfoNotification />
       </Container>
     );
   })
