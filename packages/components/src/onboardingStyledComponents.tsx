@@ -1,6 +1,8 @@
-import { colors, fonts, Collapsable, CollapsableProps } from "./";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
+import { colors, fonts } from "./";
+import { Collapsable, CollapsableProps } from "./Collapsable";
+import { Notice, NoticeTypes } from "./Notice";
 import styled, { StyledComponentClass } from "styled-components";
 
 export const OBSectionTitle = styled.h2`
@@ -92,3 +94,16 @@ export const OBNoteText = styled.span`
   font-size: 13px;
   line-height: 16px;
 `;
+
+const PreRegNotice = styled(Notice)`
+  font-size: 12px;
+  line-height: 18px;
+  padding: 15px;
+  margin: -24px 0 36px;
+`;
+export const OBPreRegNotice: React.SFC<{ className?: string }> = ({ className }) => (
+  <PreRegNotice className={className} type={NoticeTypes.ALERT}>
+    Pre-registration is now open for the first stage of the application. This should take about 10 minutes to complete.
+    The second and final stage of the process will be available soon.
+  </PreRegNotice>
+);
