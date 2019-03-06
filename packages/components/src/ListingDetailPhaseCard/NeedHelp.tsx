@@ -3,6 +3,10 @@ import styled, { StyledComponentClass } from "styled-components";
 import { StyledListingDetailPhaseCardSection } from "./styledComponents";
 import { colors } from "../styleConstants";
 
+export interface NeedHelpProps {
+  faqURL: string;
+}
+
 const NeedHelpCopy = styled.div`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-size: 14px;
@@ -15,11 +19,14 @@ const NeedHelpCopy = styled.div`
   }
 `;
 
-const NeedHelp: React.StatelessComponent = props => {
+const NeedHelp: React.StatelessComponent<NeedHelpProps> = props => {
   return (
     <StyledListingDetailPhaseCardSection>
       <NeedHelpCopy>
-        Need help? <a href="#zendesk/registry">Check out our guide</a>
+        Need help?{" "}
+        <a href={props.faqURL} target="_blank">
+          Check out our guide
+        </a>
       </NeedHelpCopy>
     </StyledListingDetailPhaseCardSection>
   );

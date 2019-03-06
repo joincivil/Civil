@@ -17,6 +17,7 @@ import {
   CommitVoteSuccessIcon,
   CvlToken,
   DisclosureArrowIcon,
+  DropdownArrow,
   ExamIcon,
   ExchangeArrowsIcon,
   ExpandDownArrow,
@@ -156,6 +157,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <DisclosureArrowIcon />
+      </Container>
+    );
+  })
+  .add("DropdownArrow", () => {
+    return (
+      <Container>
+        <DropdownArrow />
       </Container>
     );
   })

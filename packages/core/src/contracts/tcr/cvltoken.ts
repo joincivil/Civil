@@ -106,6 +106,14 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     return code.toNumber() === 0;
   }
 
+  public async isCivilian(user: EthAddress): Promise<boolean> {
+    return this.tokenController.civilianList.callAsync(user);
+  }
+
+  public async isUnlocked(user: EthAddress): Promise<boolean> {
+    return this.tokenController.unlockedList.callAsync(user);
+  }
+
   /**
    * Transfer tokens from user or multisig to another wallet
    * @param recipient address to send tokens to

@@ -143,6 +143,7 @@ export class ChallengeProposalRevealVote extends React.Component<TChallengePropo
             onInputChange={this.props.onInputChange}
             transactions={this.props.transactions}
             postExecuteTransactions={this.props.postExecuteTransactions}
+            votingSmartContractFaqURL={this.props.votingSmartContractFaqURL}
           >
             Should this proposal be <b>accepted</b> or <b>rejected</b> from the Civil Registry?
           </RevealVote>

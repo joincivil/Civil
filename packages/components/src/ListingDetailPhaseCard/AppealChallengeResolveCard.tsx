@@ -102,7 +102,7 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
         </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };
