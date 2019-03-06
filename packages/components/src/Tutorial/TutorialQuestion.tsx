@@ -27,6 +27,10 @@ export interface TutorialQuestionProps {
   question: string;
   options: Options[];
   answer: string;
+  checkAnswerDisabled: boolean;
+  usersAnswerValue: string;
+  usersAnswerResult: string;
+  resetQuestion: number;
   onClickPrev(e: any): void;
   onClickNext(e: any): void;
 }
@@ -35,15 +39,45 @@ export interface TutorialQuestionStates {
   checkAnswerDisabled: boolean;
   usersAnswerValue: string;
   usersAnswerResult: string;
+  resetQuestion: number;
 }
 
 export class TutorialQuestion extends React.Component<TutorialQuestionProps, TutorialQuestionStates> {
+  public static getDerivedStateFromProps(
+    props: TutorialQuestionProps,
+    state: TutorialQuestionStates,
+  ): TutorialQuestionStates {
+    if (props.resetQuestion !== state.resetQuestion) {
+      return {
+        checkAnswerDisabled: props.checkAnswerDisabled,
+        usersAnswerValue: props.usersAnswerValue,
+        usersAnswerResult: props.usersAnswerResult,
+        resetQuestion: props.resetQuestion,
+      };
+    } else {
+      return {
+        checkAnswerDisabled: state.checkAnswerDisabled,
+        usersAnswerValue: state.usersAnswerValue,
+        usersAnswerResult: state.usersAnswerResult,
+        resetQuestion: state.resetQuestion,
+      }
+    };
+  }
+
   public constructor(props: any) {
     super(props);
-    this.state = { checkAnswerDisabled: true, usersAnswerValue: "", usersAnswerResult: "" };
+    this.state = {
+      checkAnswerDisabled: this.props.checkAnswerDisabled,
+      usersAnswerValue: this.props.usersAnswerValue,
+      usersAnswerResult: this.props.usersAnswerResult,
+      resetQuestion: this.props.resetQuestion,
+    };
   }
 
   public render(): JSX.Element {
+    console.log("checkAnswerDisabled: " + this.state.checkAnswerDisabled);
+    console.log("usersAnswerValue: " + this.state.usersAnswerValue);
+    console.log("usersAnswerResult: " + this.state.usersAnswerResult);
     return (
       <>
         <TutorialProgress
@@ -80,7 +114,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
                   <CorrectText />
                 </h3>
               </TutorialFooterLeft>
-              <TutorialBtn onClick={this.props.onClickNext}>Continue</TutorialBtn>
+              <TutorialBtn onClick={this.resetQuestion}>Continue</TutorialBtn>
             </>
           ) : this.state.usersAnswerResult === "incorrect" ? (
             <>
@@ -123,5 +157,11 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     } else {
       this.setState({ usersAnswerResult: "incorrect", checkAnswerDisabled: true });
     }
+  };
+
+  private resetQuestion = (e: any) => {
+    this.props.onClickNext(e)
+
+    this.setState({ resetQuestion: this.state.resetQuestion + 1 });
   };
 }
