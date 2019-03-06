@@ -209,11 +209,14 @@ class SignConstitutionComponent extends React.Component<
         <p>
           <CheckWrapper>
             <Checkbox
+              id="agree_to_constitution"
               checked={this.state.agreedToConstitution}
               onClick={() => this.setState({ agreedToConstitution: !this.state.agreedToConstitution })}
             />
           </CheckWrapper>{" "}
-          I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution
+          <label htmlFor="agree_to_constitution">
+            I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution
+          </label>
         </p>
         <StepFormSection>
           <CivilContext.Consumer>

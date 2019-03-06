@@ -16,8 +16,8 @@ export const TokenBuySellHeaderText: React.SFC = props => <h2>Buy or Sell Civil 
 
 export const TokenConnectWalletText: React.SFC = props => (
   <>
-    <h3>Connect your crypto wallet</h3>
-    <p>Use your wallet to safely store your cryptocurrencies like ETH and CVL tokens.</p>
+    <h3>Connect your cryptocurrency wallet</h3>
+    <p>Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)</p>
   </>
 );
 
@@ -40,8 +40,8 @@ export const TokenConnectWalletBtnText: React.SFC = props => <>Connect your wall
 // TODO(jorgelo): Find the real text here.
 export const TokenAuthText: React.SFC = props => (
   <>
-    <h3>Sign up to Civil</h3>
-    <p>Something about signing up to Civil</p>
+    <h3>Sign up or Log in to your Civil account</h3>
+    <p>Create a Civil account with your email address or log in to your existing account.</p>
   </>
 );
 

@@ -82,6 +82,7 @@ export interface CheckboxProps {
   checked: boolean;
   locked?: boolean;
   size?: CheckboxSizes;
+  id?: string;
   onClick(): void;
 }
 
@@ -95,6 +96,7 @@ export const Checkbox = (props: CheckboxProps) => {
           }
         }}
         checked={props.checked}
+        id={props.id}
         type="checkbox"
       />
       <Box locked={props.locked} size={props.size} />

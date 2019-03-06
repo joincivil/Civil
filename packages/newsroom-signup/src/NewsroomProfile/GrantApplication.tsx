@@ -275,11 +275,13 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             continue until the Civil Foundation team has reviewed your application.
           </SmallNote>
           <CheckboxArea>
-            <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} />
+            <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} id="apply_for_grant" />
             <div>
               <CheckboxP>
-                I would like to apply for a Civil Foundation Grant. My Newsroom Registry Profile will be reviewed by the
-                Civil Foundation team so they can evaluate an ETH and Civil Token Grant.
+                <label htmlFor="apply_for_grant">
+                  I would like to apply for a Civil Foundation Grant. My Newsroom Registry Profile will be reviewed by
+                  the Civil Foundation team so they can evaluate an ETH and Civil Token Grant.
+                </label>
               </CheckboxP>
               <SmallNote>Please consult with a tax professional about receiving a token grant.</SmallNote>
             </div>
@@ -302,8 +304,10 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             <SmallNote>$15.00 USD (estimated)</SmallNote>
           </CostGrid>
           <CheckboxArea>
-            <Checkbox checked={this.props.chooseSkip} onClick={this.selectSkip} />
-            <CheckboxP>Skip applying for a Civil Foundation Grant.</CheckboxP>
+            <Checkbox checked={this.props.chooseSkip} onClick={this.selectSkip} id="skip_grant" />
+            <CheckboxP>
+              <label htmlFor="skip_grant">Skip applying for a Civil Foundation Grant.</label>
+            </CheckboxP>
           </CheckboxArea>
         </DialogueBox>
         {this.renderGrantModal()}
