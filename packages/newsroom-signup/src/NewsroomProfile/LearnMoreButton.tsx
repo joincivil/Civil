@@ -80,13 +80,12 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps, Learn
             <Header>About applying to join Civil</Header>
             <Paragraph>
               In this section we'll take you through the steps to join the Civil network. But first, let’s start with a
-              few key terms. In this section we'll take you through the steps to join the Civil network. But first,
-              let’s start with a few key terms.
+              few key terms.
             </Paragraph>
 
             <SectionHeader>What is the Civil Registry</SectionHeader>
             <Paragraph>
-              The Civil Registry is the online destination where prospective Civil Newsrooms apply to be part of the
+              The Civil Registry is the online destination where prospective Civil newsrooms apply to be part of the
               network.
             </Paragraph>
             <Paragraph>
@@ -103,40 +102,34 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps, Learn
               software, it’s not a physical coin. But it does have value and represents a piece of ownership in the
               network.
             </Paragraph>
-            <Paragraph>
-              For those that want to get more technical, CVL is a utility token based on the ERC20 protocol. It’s a
-              value stored in a decentralized database that’s managed by Civil’s smart contracts, which allows the Civil
-              platform to interact with the Civil token. CVL is the software that bridges Civil with the Ethereum
-              blockchain.
-            </Paragraph>
 
             <SectionHeader>Ether (ETH)</SectionHeader>
             <Paragraph>
-              Ether (ETH) is different cryptocurrency than CVL but you will need some to to pay for certain actions on
-              Civil like sending tokens. That takes a small amount of computing effort, called Gas, which must be paid
-              for in ETH. When sending a transaction, you set a gas limit. You must set this limit carefully, because if
-              you set it too low and the transaction fails as a result, you will lose the gas / ETH that you spent.
+              Ether (ETH) is the cryptocurrency or fuel for the Ethereum blockchain. You will need ETH to pay for
+              certain transcations on Civil. Each transaction takes a small amount of computing effort, called Gas,
+              which is paid for in ETH.
             </Paragraph>
 
             <SectionHeader>Applying to the Civil Registry</SectionHeader>
             <Paragraph>
-              You will need to deposit $1,000.00 worth of CVL tokens with your application. This is to signal the
-              seriousness of your intent to the community.
+              You will need to deposit 5,000 CVL tokens with your application. This is to signal the seriousness of your
+              intent to the community.
             </Paragraph>
             <Paragraph>
-              Your application for the Newsroom will be up for community review on the Application in Review tab of the
-              Civil Registry for 14 days. A Newsroom will be approved if there are no challenges.
+              Your application to the Civil Registry will be up for community review on the Application in Review tab of
+              the Civil Registry for 14 days. A newsroom will be approved if there are no successful challenges.
             </Paragraph>
             <Paragraph>
-              When a new Newsroom applies to be on the Civil Registry, the community has 14 days to review the
-              application. During the period, any CVL token holder may challenge this Newsroom if they believe the
-              Newsroom’s mission, charter or roster is in any way a violation of the principles of the{" "}
+              When a new newsroom applies to be on the Civil Registry, the community has 14 days to review the
+              application. During the period, any CVL token holder may challenge this newsroom by matching the
+              application deposit if they believe the newsroom’s mission, charter or roster is in any way a violation of
+              the principles of the{" "}
               <a href="https://civil.co/constitution/" target="_blank">
                 Civil Constitution
-              </a>. If there are no challenges, this Newsroom will be automatically approved. By applying to the
+              </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the
               <a href="https://registry.civil.co/" target="_blank">
                 Civil Registry
-              </a>, a Newsroom is committing to uphold the values of the{" "}
+              </a>, a newsroom is committing to uphold the values of the{" "}
               <a href="https://civil.co/constitution/" target="_blank">
                 Civil Constitution
               </a>.

@@ -324,13 +324,10 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             grantRequested = data.nrsignupNewsroom.grantRequested;
           }
           if (grantRequested === true) {
-            this.props.setButtonVisibility(false);
             return <WaitingForGrant />;
           } else if (grantRequested === false) {
-            this.props.setButtonVisibility(true);
             return <WaitingAfterSkip />;
           } else {
-            this.props.setButtonVisibility(true);
             return this.renderOptions();
           }
         }}
