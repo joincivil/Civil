@@ -16,7 +16,7 @@ export interface NavDrawerProps {
   userClaimRewardsCount?: number;
   userChallengesStartedCount?: number;
   userChallengesVotedOnCount?: number;
-  buyCvlUrl?: string;
+  buyCvlUrl: string;
   useGraphQL: boolean;
   onLoadingPrefToggled(): void;
 }
