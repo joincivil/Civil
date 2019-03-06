@@ -27,7 +27,6 @@ export interface AuthParams {
   action?: "login" | "signup";
 }
 
-
 const BASE_PATH = "/apply-to-registry";
 const PreRegNotice = styled(OBPreRegNotice)`
   margin-left: -20%;
