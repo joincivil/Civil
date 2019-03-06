@@ -80,6 +80,8 @@ storiesOf("Email Signup Flow", module)
         onEmailSend={() => {
           console.log("Sent");
         }}
+        signupPath=""
+        loginPath=""
       />
     );
   });
