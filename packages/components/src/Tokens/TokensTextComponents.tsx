@@ -1,3 +1,4 @@
+import styled, { StyledComponentClass } from "styled-components";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
@@ -122,6 +123,21 @@ export const TokenAirswapExchangeText: React.SFC = props => (
     <h4>Civil tokens from Exchange</h4>
     <p>When buying from an exchange, the rate is based on market demand.</p>
   </>
+);
+
+export const TokenAirswapExchangeTermsOfSaleTextContainer = styled.div`
+  margin-top: 12px;
+  font-size: 13px;
+  color: ${colors.primary.CIVIL_GRAY_2};
+`;
+
+export const TokenAirswapExchangeTermsOfSaleText: React.SFC = props => (
+  <TokenAirswapExchangeTermsOfSaleTextContainer>
+    By clicking buy to purchase Civil tokens, you agree to the{" "}
+    <a href="https://civil.co/terms-of-sale/" target="_blank">
+      Terms of Sale.
+    </a>
+  </TokenAirswapExchangeTermsOfSaleTextContainer>
 );
 
 export const TokenOrText: React.SFC = props => <p>or</p>;
