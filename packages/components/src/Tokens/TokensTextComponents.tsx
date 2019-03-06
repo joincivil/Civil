@@ -216,6 +216,13 @@ export const TokenETHFAQQuestion7Text: React.SFC = props => (
   <h3>Why do I need to unlock my Civil tokens before I can sell them?</h3>
 );
 
+export const TokenDonateToCivilFoundationText: React.SFC = () => (
+  <>
+    <h3>Donate to the Civil Foundation</h3>
+    <p>Want to support this project, but don’t want to buy Civil tokens? </p>
+  </>
+);
+
 export const TokenETHFAQQuestion8Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;

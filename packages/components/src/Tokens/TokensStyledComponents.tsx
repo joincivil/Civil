@@ -24,15 +24,18 @@ export const TokenSection = styled.div`
   margin-bottom: 30px;
 `;
 
+const PAYPAL_BLUE = "rgba(43,86,255,0.5)";
+const PAYPAL_BLUE_DARK = "#2b56ff";
+
 export const PaypalDonateContainer = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid rgba(64, 102, 255, 0.5);
+  border: 1px solid ${PAYPAL_BLUE};
 `;
 
 export const PaypalDonateIconContainer = styled.div`
   padding: 18px 12px;
-  border-right: 1px solid rgba(64, 102, 255, 0.5);
+  border-right: 1px solid ${PAYPAL_BLUE};
 `;
 
 export const PaypalDonateIconButtonContainer = styled.div`
@@ -40,7 +43,7 @@ export const PaypalDonateIconButtonContainer = styled.div`
 `;
 
 export const PaypalLogoContainer = styled.div`
-  padding: 18px 10px;
+  padding: 18px;
 `;
 
 export const PaypalDonateIconButton = styled.input`
@@ -48,15 +51,18 @@ export const PaypalDonateIconButton = styled.input`
   box-shadow: 0px 0px 0px transparent;
   border: 0px solid transparent;
   text-shadow: 0px 0px 0px transparent;
-  color: red;
+  color: ${PAYPAL_BLUE_DARK};
   padding: 20px;
-  border-left: 1px solid rgba(64, 102, 255, 0.5);
+  border-left: 1px solid ${PAYPAL_BLUE};
   flex-grow: 1;
   width: 100%;
+  height: 100%;
+  outline: none;
+  font-weight: bold;
 
   &:hover {
-    background: rgba(64, 102, 255, 0.5);
-    color: white;
+    background: ${PAYPAL_BLUE_DARK};
+    color: #fff;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
     text-shadow: 0px 0px 0px transparent;
