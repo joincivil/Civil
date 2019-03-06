@@ -44,31 +44,32 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
         </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion3Text />} open={false} />
-        <p>
-          To complete your membership contribution and receive Civil tokens (CVL), you must buy Ether (ETH). Then you
-          will be able to exchange ETH for CVL. Unfortunately at this time, you can’t use USD or local currencies to
-          directly buy Civil tokens. You must first convert local currencies into ETH using an exchange like Coinbase or
-          Gemini. You will need to have your debit card or bank account details handy, as well as your passport to{" "}
-          <a
-            href="https://support.coinbase.com/customer/en/portal/articles/1220621-identity-verification?b_id=13521"
-            target="_blank"
-          >
-            verify your identity
-          </a>
-          Don't worry, both Coinbase and Gemini are regulated and in compliance with all applicable laws in each
-          jurisdiction in which they operate. Once you fund your token wallet via{" "}
-          <a href="https://www.coinbase.com/signup" target="_new">
-            Coinbase
-          </a>{" "}
-          or{" "}
-          <a href="https://exchange.gemini.com/register/check-location" target="_blank">
-            Gemini{" "}
-          </a>{" "}
-          (), you can return to Civil where we will walk you through how to complete your membership contribution. We
-          know this can be confusing. For more information, read this blog post or contact us at
-          <a href="mailto:support@civil.co">support@civil.co</a>.
-        </p>
+        <Collapsable header={<TokenETHFAQQuestion3Text />} open={false}>
+          <p>
+            To complete your membership contribution and receive Civil tokens (CVL), you must buy Ether (ETH). Then you
+            will be able to exchange ETH for CVL. Unfortunately at this time, you can’t use USD or local currencies to
+            directly buy Civil tokens. You must first convert local currencies into ETH using an exchange like Coinbase
+            or Gemini. You will need to have your debit card or bank account details handy, as well as your passport to{" "}
+            <a
+              href="https://support.coinbase.com/customer/en/portal/articles/1220621-identity-verification?b_id=13521"
+              target="_blank"
+            >
+              verify your identity
+            </a>
+            Don't worry, both Coinbase and Gemini are regulated and in compliance with all applicable laws in each
+            jurisdiction in which they operate. Once you fund your token wallet via{" "}
+            <a href="https://www.coinbase.com/signup" target="_new">
+              Coinbase
+            </a>{" "}
+            or{" "}
+            <a href="https://exchange.gemini.com/register/check-location" target="_blank">
+              Gemini{" "}
+            </a>{" "}
+            (), you can return to Civil where we will walk you through how to complete your membership contribution. We
+            know this can be confusing. For more information, read this blog post or contact us at
+            <a href="mailto:support@civil.co">support@civil.co</a>.
+          </p>
+        </Collapsable>
       </TokenFAQCollapse>
       <TokenFAQCollapse>
         <Collapsable header={<TokenETHFAQQuestion4Text />} open={false}>
