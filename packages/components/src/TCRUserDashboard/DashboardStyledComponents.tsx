@@ -4,7 +4,6 @@ import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
-import { Notice } from "../Notice";
 
 export const DashboardStylesNoticeContainer = styled.div`
   padding: 24px;
