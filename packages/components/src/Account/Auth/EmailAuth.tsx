@@ -2,7 +2,6 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
-import { Link } from "react-router-dom";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
