@@ -18,6 +18,7 @@ export interface NewsroomProfileState {
 
 export interface NewsroomProfileProps {
   charter: Partial<CharterData>;
+  grantRequested?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
   goNext?(): void;
 }
@@ -99,6 +100,10 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   }
   public renderButtons(): JSX.Element | null {
     if (!this.state.showButtons) {
+      return null;
+    }
+    console.log(this.props.grantRequested);
+    if (this.props.grantRequested !== undefined && this.props.grantRequested !== null) {
       return null;
     }
     return (
