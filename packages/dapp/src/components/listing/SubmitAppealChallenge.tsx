@@ -13,6 +13,8 @@ import {
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
+
+import { FAQ_BASE_URL } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
@@ -37,7 +39,6 @@ interface SubmitAppealChallengeProps {
 
 interface SubmitAppealChallengeReduxProps {
   newsroomName: string;
-  constitutionURI: string;
   appealFee: string;
   challengeAppealCommitLen: string;
   challengeAppealRevealLen: string;
@@ -122,7 +123,6 @@ class SubmitAppealChallengeComponent extends React.Component<
     const {
       listingURI,
       newsroomName,
-      constitutionURI,
       governanceGuideURI,
       appealFee,
       challengeAppealCommitLen,
@@ -134,7 +134,6 @@ class SubmitAppealChallengeComponent extends React.Component<
     const props: SubmitAppealChallengeStatementProps = {
       listingURI,
       newsroomName,
-      constitutionURI,
       governanceGuideURI,
       appealFee,
       challengeAppealCommitLen,
@@ -297,8 +296,7 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, govtParameters, constitution, user } = state.networkDependent;
-  const constitutionURI = constitution.get("uri") || "#";
+  const { parameters, govtParameters, user } = state.networkDependent;
 
   let appealFee = "";
   let challengeAppealCommitLen = "";
@@ -334,7 +332,6 @@ const mapStateToProps = (
 
   return {
     newsroomName,
-    constitutionURI,
     appealFee,
     challengeAppealCommitLen,
     challengeAppealRevealLen,
@@ -365,7 +362,7 @@ const SubmitAppealChallenge = compose(
 const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
   const listingAddress = props.match.params.listing;
   const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = "https://civil.co";
+  const governanceGuideURI = `${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`;
   return (
     <SubmitAppealChallenge
       listingAddress={listingAddress}
