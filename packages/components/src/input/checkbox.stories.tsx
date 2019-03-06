@@ -22,7 +22,10 @@ class TestSlideComponent extends React.Component<any, TestComponentState> {
   };
 }
 
-class TestComponent extends React.Component<{ checked?: boolean; size?: CheckboxSizes }, TestComponentState> {
+class TestComponent extends React.Component<
+  { id?: string; checked?: boolean; size?: CheckboxSizes },
+  TestComponentState
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -30,7 +33,7 @@ class TestComponent extends React.Component<{ checked?: boolean; size?: Checkbox
     };
   }
   public render(): JSX.Element {
-    return <Checkbox onClick={this.onClick} checked={this.state.checked} size={this.props.size} />;
+    return <Checkbox onClick={this.onClick} checked={this.state.checked} size={this.props.size} id={this.props.id} />;
   }
   private onClick = (): void => {
     this.setState({ checked: !this.state.checked });
@@ -44,16 +47,20 @@ storiesOf("check box", module)
   .add("checkboxes", () => (
     <ul>
       <li>
-        Default: <TestComponent />
+        <label htmlFor="check1">Default:</label>
+        <TestComponent id="check1" />
       </li>
       <li>
-        Default checked: <TestComponent checked />
+        <label htmlFor="check2">Default checked:</label>
+        <TestComponent checked id="check2" />
       </li>
       <li>
-        Small: <TestComponent size={CheckboxSizes.SMALL} />
+        <label htmlFor="check3">Small:</label>
+        <TestComponent size={CheckboxSizes.SMALL} id="check3" />
       </li>
       <li>
-        Small checked: <TestComponent size={CheckboxSizes.SMALL} checked />
+        <label htmlFor="check4">Small checked:</label>
+        <TestComponent size={CheckboxSizes.SMALL} checked id="check4" />
       </li>
     </ul>
   ));
