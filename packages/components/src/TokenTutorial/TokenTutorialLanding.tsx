@@ -101,7 +101,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                   <TutorialProgressText questions={topic.questions.length - lastSlideNumber} />
                   <TutorialLandingProgressBars>
                     {topic.questions.map((question, questionIdx) => {
-                      if (lastSlideNumber > 0 && questionIdx <= lastSlideIdx) {
+                      if (lastSlideNumber > 1 && questionIdx <= lastSlideIdx) {
                         return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
                       }
                       return <TutorialLandingProgressBar key={questionIdx} />;
