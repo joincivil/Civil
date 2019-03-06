@@ -17,6 +17,7 @@ import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress } from "@joincivil/utils";
 import { Notice, NoticeTypes } from "../Notice";
+import { UserTokenAccountPaypal } from "./TokensAccountPaypal";
 
 export enum TOKEN_PROGRESS {
   ACTIVE = "active",
@@ -114,6 +115,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 logInComplete={accountSignupComplete}
                 tutorialComplete={tutorialComplete}
               />
+              <UserTokenAccountPaypal />
               <UserTokenAccountHelp supportEmailAddress={supportEmailAddress} faqUrl={faqUrl} />
             </FlexColumnsSecondary>
           </FlexColumns>

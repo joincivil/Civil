@@ -43,3 +43,4 @@ export * from "./VerifyIdentityIcon";
 export * from "./WarningIcon";
 export * from "./WaitForApply";
 export * from "./Info";
+export * from "./logos";
