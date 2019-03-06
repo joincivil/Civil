@@ -221,7 +221,6 @@ export const TokenDonateToCivilFoundationText: React.SFC = () => (
   </>
 );
 
-export const TokenETHFAQQuestion8Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 export const TokenETHFAQQuestion7Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
