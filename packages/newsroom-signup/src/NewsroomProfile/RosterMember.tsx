@@ -52,7 +52,6 @@ const ImageLabel = styled.p`
 const Image = styled.img`
   display: inline;
   margin: 0 auto;
-  margin-left: -25%;
   height: 100%;
   width: auto;
 `;
