@@ -53,8 +53,8 @@ export const AppealResolveCard: React.StatelessComponent<
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-          <a href="#">resolve this appeal</a>.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
+          appeal.
         </CTACopy>
         <TransactionButtonNoModal
           transactions={props.transactions!}
@@ -65,7 +65,7 @@ export const AppealResolveCard: React.StatelessComponent<
         </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

@@ -106,7 +106,7 @@ export class ChallengeCommitVoteCard extends React.Component<
                 </StyledVisibleOnMobile>
               </StyledListingDetailPhaseCardSection>
 
-              <NeedHelp />
+              <NeedHelp faqURL={this.props.faqURL} />
             </StyledListingDetailPhaseCardContainer>
           </StyledCardFront>
 
