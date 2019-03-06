@@ -1,13 +1,20 @@
 import * as React from "react";
+import styled, { StyledComponentClass } from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Table, Tr, Td, ParameterizerTd, StyledTableAccentText } from "@joincivil/components";
+import { Table, Tr, Td, ParameterizerTd, StyledTableAccentText, mediaQueries } from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import { makeGetProposalsByParameterName, makeGetGovtProposalsByParameterName } from "../../selectors";
 import { Proposal } from "./Proposal";
+
+export const StyledHiddenOnMobile = styled.div`
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
 
 export interface ParameterProps {
   parameterName: string;
@@ -47,9 +54,11 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
     return (
       <Tr>
         <Td align="right" colSpan={3}>
-          <StyledTableAccentText strong>
-            <span onClick={this.onCreateProposal}>Propose New Value</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onCreateProposal}>Propose New Value</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </Tr>
     );
