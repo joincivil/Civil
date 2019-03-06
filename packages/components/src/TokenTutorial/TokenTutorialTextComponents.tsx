@@ -335,11 +335,7 @@ export const Topic3Tutorial1: React.SFC = props => (
       Civil tokens are a cryptocurrency — and just like any currency, they increase and decrease in value over time
       based on relevant market conditions. Typically, tokens fluctuate in price due to various factors including the
       total circulating supply of tokens, how many people are in the network, how often they use tokens, and how often
-      tokens are bought and sold on the open market. Civil tokens are specifically designed to change in price over time
-      based on the growth and health of the Civil network overall — the more high-quality newsrooms on Civil, the more
-      demand for Civil tokens compared to a fixed (or even diminishing) supply of freely circulating tokens. While other
-      tokens may be attractive to passive speculators, Civil tokens are meant to incentivize community participation in
-      order to increase the usefulness of the Civil network overall for everyone.
+      tokens are bought and sold on the open market.
     </p>
     <p>
       Civil tokens are specifically designed to change in price over time based on the growth and health of the Civil

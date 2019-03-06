@@ -7,6 +7,7 @@ import {
   TokenOrText,
   TokenAirswapExchangeText,
   TokenBuyExchangeBtnText,
+  TokenAirswapExchangeTermsOfSaleText,
 } from "./TokensTextComponents";
 import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
 import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
@@ -36,6 +37,7 @@ export const TokensTabBuyActive: React.StatelessComponent<TokensTabBuyActiveProp
             buyFromAddress={foundationAddress}
             onComplete={onBuyComplete}
           />
+          <TokenAirswapExchangeTermsOfSaleText />
         </>
 
         <TokenOrBreak>
@@ -46,6 +48,8 @@ export const TokensTabBuyActive: React.StatelessComponent<TokensTabBuyActiveProp
           <TokenAirswapExchangeText />
           <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} onComplete={onBuyComplete} />
         </TokenExchangeSection>
+
+        <TokenAirswapExchangeTermsOfSaleText />
       </TokenAirswapSection>
     </>
   );
