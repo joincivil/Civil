@@ -27,6 +27,7 @@ import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import BigNumber from "bignumber.js";
+import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   makeGetAppealChallengeState,
@@ -208,6 +209,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           endTime={endTime}
           phaseLength={phaseLength}
           requestAppealURI={requestAppealURI}
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

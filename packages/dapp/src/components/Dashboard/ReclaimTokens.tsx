@@ -2,25 +2,21 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import BigNumber from "bignumber.js";
-import styled from "styled-components";
 import { Set } from "immutable";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   StyledDashboardActivityDescription,
   TransactionButtonNoModal,
-  InputGroup,
+  CurrencyInput,
   ModalContent,
+  TransferTokenTipsText,
+  StyledTransferTokenFormElement,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { getUserChallengesWithRescueTokens } from "../../selectors";
 import { withdrawVotingRights } from "../../apis/civilTCR";
 import { FormGroup } from "../utility/FormElements";
-
-const StyledContainer = styled.div`
-  padding: 0 24px;
-`;
 
 enum TransactionTypes {
   WITHDRAW_VOTING_RIGHTS = "WITHDRAW_VOTING_RIGHTS",
@@ -32,7 +28,7 @@ const transactionLabels = {
 
 const transactionSuccessContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "You have successfully transfered your voting tokens",
+    "You have successfully transferred your voting tokens",
     <ModalContent>
       Tokens in your Available Balance can be used for applying to The Civil Registry or challenging newsrooms
     </ModalContent>,
@@ -41,14 +37,14 @@ const transactionSuccessContent = {
 
 const transactionRejectionContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "Your tokens were not transfered",
+    "Your tokens were not transferred",
     "To transfer your tokens, you need to confirm the transaction in your MetaMask wallet.",
   ],
 };
 
 const transactionErrorContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "The was an problem with transfering your tokens",
+    "The was an problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
@@ -66,7 +62,6 @@ export interface ReclaimTokenProps {
 
 export interface ReclaimTokenReduxProps {
   numUserChallengesWithRescueTokens: number;
-  votingBalance: BigNumber;
 }
 
 interface ReclaimTokensState {
@@ -93,22 +88,22 @@ class ReclaimTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StyledDashboardActivityDescription>
-          <p>Transfer your voting tokens to your available balance</p>
-
-          {!!this.props.numUserChallengesWithRescueTokens &&
-            "Please rescue tokens from all of your unrevealed votes before transferring"}
-        </StyledDashboardActivityDescription>
-        <StyledContainer>
-          <p>Voting Tokens: {getFormattedTokenBalance(this.props.votingBalance)}</p>
-          <FormGroup>
-            <InputGroup
+        {!!this.props.numUserChallengesWithRescueTokens && (
+          <StyledDashboardActivityDescription>
+            "Please rescue tokens from all of your unrevealed votes before transferring"
+          </StyledDashboardActivityDescription>
+        )}
+        <>
+          <StyledTransferTokenFormElement>
+            <CurrencyInput
+              label="Enter amount"
+              placeholder="0"
               name="numTokens"
-              prepend="CVL"
-              label="Amount of tokens to transfer"
+              icon={<>CVL</>}
               onChange={this.updateViewState}
             />
-          </FormGroup>
+            <TransferTokenTipsText />
+          </StyledTransferTokenFormElement>
 
           <FormGroup>
             <TransactionButtonNoModal
@@ -120,7 +115,7 @@ class ReclaimTokensComponent extends React.Component<
               Transfer
             </TransactionButtonNoModal>
           </FormGroup>
-        </StyledContainer>
+        </>
       </>
     );
   }
@@ -166,16 +161,10 @@ class ReclaimTokensComponent extends React.Component<
 }
 
 const mapStateToProps = (state: State): ReclaimTokenReduxProps => {
-  const { user } = state.networkDependent;
   const userChallengesWithRescueTokens: Set<string> = getUserChallengesWithRescueTokens(state)!;
-  let votingBalance = new BigNumber(0);
-  if (user.account && user.account.votingBalance) {
-    votingBalance = user.account.votingBalance;
-  }
 
   return {
     numUserChallengesWithRescueTokens: userChallengesWithRescueTokens.count(),
-    votingBalance,
   };
 };
 

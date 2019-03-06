@@ -56,6 +56,7 @@ export interface ListingDetailHeaderProps {
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
+  ethInfoModalLearnMoreURL: string;
 }
 
 export interface ListingDetailHeaderState {
@@ -74,7 +75,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     let newsroomDescription = "";
     let newsroomUrl = "";
     let logoURL;
-    const { charter, listingAddress, owner, etherscanBaseURL } = this.props;
+    const { charter, listingAddress, owner, etherscanBaseURL, ethInfoModalLearnMoreURL } = this.props;
     if (charter) {
       // TODO(toby) remove legacy `desc` after transition
       newsroomDescription = charter.tagline || (charter as any).desc;
@@ -103,6 +104,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                   listingAddress={listingAddress}
                   owner={owner}
                   etherscanBaseURL={etherscanBaseURL}
+                  ethInfoModalLearnMoreURL={ethInfoModalLearnMoreURL}
                   handleCloseClick={this.toggleEthereumInfoDisplay}
                 />
               )}

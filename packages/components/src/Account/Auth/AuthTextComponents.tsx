@@ -53,7 +53,7 @@ export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ 
   <>
     <PageSubHeadingCentered>Uh oh.</PageSubHeadingCentered>
     <PageHeadingTextCenteredLarge>
-      There was a problem verifying your email: <strong>{errorMessage}</strong>
+      <strong>{errorMessage}</strong>
     </PageHeadingTextCenteredLarge>
   </>
 );
@@ -81,19 +81,16 @@ export const AuthTextSigninWithEmail: React.SFC = () => (
   </>
 );
 
-// TODO(jorgelo): Toby, does hardcording the path here break anything on the newsroom?
-export const AuthTextEmailNotFoundError: React.SFC = () => (
+export const AuthTextEmailNotFoundError: React.SFC<{ signupPath: string }> = ({ signupPath }) => (
   <>
     The email address you entered does not exist. Try again? or{" "}
-    <Link to="/auth/signup">create a Civil account to continue.</Link>
+    <Link to={signupPath}>create a Civil account to continue.</Link>
   </>
 );
 
-// TODO(jorgelo): Here too.
-
-export const AuthTextEmailExistsError: React.SFC = () => (
+export const AuthTextEmailExistsError: React.SFC<{ loginPath: string }> = ({ loginPath }) => (
   <>
-    Your account already exists. <Link to="/auth/login">Login to continue.</Link>
+    Your account already exists. <Link to={loginPath}>Login to continue.</Link>
   </>
 );
 

@@ -62,6 +62,7 @@ const saveCharterMutation = gql`
 // const askForGrant
 
 export interface DataWrapperChildrenProps {
+  grantRequested?: boolean;
   profileWalletAddress: EthAddress;
   persistedCharter: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
@@ -96,15 +97,21 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                     return `Error! ${JSON.stringify(charterError)}`;
                   }
                 }
+
                 let persistedCharter: Partial<CharterData>;
-                if (charterData && charterData.nrsignupNewsroom && charterData.nrsignupNewsroom.charter) {
-                  persistedCharter = charterData.nrsignupNewsroom.charter;
+                let grantRequested: boolean;
+                if (charterData && charterData.nrsignupNewsroom) {
+                  if (charterData.nrsignupNewsroom.charter) {
+                    persistedCharter = charterData.nrsignupNewsroom.charter;
+                  }
+                  grantRequested = charterData.nrsignupNewsroom.grantRequested;
                 }
 
                 return (
                   <Mutation mutation={saveCharterMutation}>
                     {(saveCharter: MutationFunc) => {
                       return this.props.children({
+                        grantRequested,
                         profileWalletAddress: data.currentUser.ethAddress,
                         persistedCharter,
                         persistCharter: this.saveCharterFuncFromMutation(saveCharter),

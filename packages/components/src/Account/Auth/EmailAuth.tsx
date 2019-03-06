@@ -48,6 +48,8 @@ export interface AccountEmailAuthProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
   headerComponent?: JSX.Element;
+  signupPath: string;
+  loginPath: string;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
@@ -124,6 +126,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public renderAuthError(): JSX.Element {
     const { errorMessage } = this.state;
+    const { loginPath, signupPath } = this.props;
 
     if (!errorMessage) {
       return <></>;
@@ -132,7 +135,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     if (errorMessage === "emailnotfound") {
       return (
         <AuthErrorMessage>
-          <AuthTextEmailNotFoundError />
+          <AuthTextEmailNotFoundError signupPath={signupPath} />
         </AuthErrorMessage>
       );
     }
@@ -140,7 +143,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     if (errorMessage === "emailexists") {
       return (
         <AuthErrorMessage>
-          <AuthTextEmailExistsError />
+          <AuthTextEmailExistsError loginPath={loginPath} />
         </AuthErrorMessage>
       );
     }
@@ -166,7 +169,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         <Mutation mutation={emailMutation}>
           {sendEmail => {
             return (
-              <>
+              <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>
                 {this.renderEmailInput()}
                 {isNewUser && this.renderCheckboxes()}
                 <ConfirmButtonContainer>
@@ -174,12 +177,12 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                     size={buttonSizes.SMALL_WIDE}
                     textTransform={"none"}
                     disabled={isButtonDisabled}
-                    onClick={async event => this.handleSubmit(event, sendEmail)}
+                    type={"submit"}
                   >
                     Confirm
                   </Button>
                 </ConfirmButtonContainer>
-              </>
+              </form>
             );
           }}
         </Mutation>
@@ -198,7 +201,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
+  private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });

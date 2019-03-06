@@ -16,8 +16,8 @@ export const TokenBuySellHeaderText: React.SFC = props => <h2>Buy or Sell Civil 
 
 export const TokenConnectWalletText: React.SFC = props => (
   <>
-    <h3>Connect your crypto wallet</h3>
-    <p>Use your wallet to safely store your cryptocurrencies like ETH and CVL tokens.</p>
+    <h3>Connect your cryptocurrency wallet</h3>
+    <p>Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)</p>
   </>
 );
 
@@ -27,14 +27,21 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
   </h3>
 );
 
+export const TokenMustBuyEth: React.SFC = props => (
+  <>
+    <strong>You must buy Ether (ETH)</strong> in order to buy Civil tokens (CVL).{" "}
+    <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa">Learn how to buy ETH here.</a>
+  </>
+);
+
 // TODO(jorgelo): Is this text okay?
 export const TokenConnectWalletBtnText: React.SFC = props => <>Connect your wallet</>;
 
 // TODO(jorgelo): Find the real text here.
 export const TokenAuthText: React.SFC = props => (
   <>
-    <h3>Sign up to Civil</h3>
-    <p>Something about signing up to Civil</p>
+    <h3>Sign up or Log in to your Civil account</h3>
+    <p>Create a Civil account with your email address or log in to your existing account.</p>
   </>
 );
 
@@ -201,15 +208,13 @@ export const TokenETHFAQQuestion3Text: React.SFC = props => <h3>How do I buy ETH
 
 export const TokenETHFAQQuestion4Text: React.SFC = props => <h3>How long does it take to buy ETH?</h3>;
 
-export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What else will I need to use ETH for?</h3>;
+export const TokenETHFAQQuestion5Text: React.SFC = props => <h3>What is Airswap?</h3>;
 
-export const TokenETHFAQQuestion6Text: React.SFC = props => <h3>What is Airswap?</h3>;
-
-export const TokenETHFAQQuestion7Text: React.SFC = props => (
+export const TokenETHFAQQuestion6Text: React.SFC = props => (
   <h3>Why do I need to unlock my Civil tokens before I can sell them?</h3>
 );
 
-export const TokenETHFAQQuestion8Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
+export const TokenETHFAQQuestion7Text: React.SFC = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 

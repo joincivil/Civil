@@ -19,6 +19,10 @@ export const TokenAccountOuter = styled.div`
   width: 100%;
 `;
 
+export const TokenSection = styled.div`
+  margin-bottom: 30px;
+`;
+
 export const TokenAccountInner = styled.div`
   width: 1200px;
 `;

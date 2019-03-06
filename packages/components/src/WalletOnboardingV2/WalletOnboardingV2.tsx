@@ -518,7 +518,10 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         >
           <OBSmallParagraph>
             Head over to our{" "}
-            <a href="#@TODO/toby FAQ link" target="_blank">
+            <a
+              href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-"
+              target="_blank"
+            >
               FAQ guide
             </a>{" "}
             on how to install a MetaMask wallet.
@@ -527,7 +530,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
 
         <GetMetaMaskMoreHelp>
           Need more info before you start using a crypto wallet?{" "}
-          <a href="#@TODO/toby FAQ link" target="_blank">
+          <a href="https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets" target="_blank">
             Learn more in our support area{" "}
             <ArrowWrap>
               <NorthEastArrow />
