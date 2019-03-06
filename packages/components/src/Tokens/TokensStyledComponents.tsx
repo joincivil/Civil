@@ -4,6 +4,7 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, ButtonProps, InvertedButton } from "../Button";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { TabComponentProps } from "../Tabs";
+import { PaypalLogoIcon } from "../icons/logos";
 
 export interface TokenRequirementStyleProps {
   step?: string;
@@ -22,6 +23,38 @@ export const TokenAccountOuter = styled.div`
 export const TokenSection = styled.div`
   margin-bottom: 30px;
 `;
+
+export const PaypalDonateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  border: 1px solid red;
+`;
+
+export const PaypalDonateIconContainer = styled.div`
+  padding: 14px 10px;
+  border-right: 1px solid red;
+`;
+
+export const PaypalDonateIconButtonContainer = styled.div`
+  flex-grow: 1;
+`;
+export const PaypalDonateIconButton = styled.input``;
+
+export const PaypalDonate: React.SFC = () => (
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <PaypalDonateContainer>
+      <div>
+        <PaypalLogoIcon />
+      </div>
+      <PaypalDonateIconButtonContainer>
+        <PaypalDonateIconButton type="submit">Donate</PaypalDonateIconButton>
+      </PaypalDonateIconButtonContainer>
+    </PaypalDonateContainer>
+    <input type="hidden" name="cmd" value="_s-xclick" />
+    <input type="hidden" name="hosted_button_id" value="7MGFAU85AUA46" />
+    <img src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+  </form>
+);
 
 export const TokenAccountInner = styled.div`
   width: 1200px;
