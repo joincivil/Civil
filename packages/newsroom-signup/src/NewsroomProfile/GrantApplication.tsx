@@ -131,10 +131,7 @@ const requestGrantMutation = gql`
   }
 `;
 
-export interface GrantApplicationExternalProps {
-  setButtonVisibility(visibility: boolean): void;
-}
-export interface GrantApplicationProps extends GrantApplicationExternalProps {
+export interface GrantApplicationProps {
   chooseGrant: boolean;
   chooseSkip: boolean;
 }
@@ -353,9 +350,8 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: GrantApplicationExternalProps): GrantApplicationProps => {
+const mapStateToProps = (state: StateWithNewsroom): GrantApplicationProps => {
   return {
-    ...ownProps,
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
   };

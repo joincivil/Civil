@@ -30,8 +30,11 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
 
 export const TokenMustBuyEth: React.SFC = props => (
   <>
-    <strong>You must buy Ether (ETH)</strong> in order to buy Civil tokens (CVL).{" "}
-    <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa">Learn how to buy ETH here.</a>
+    To complete your membership contribution and receive Civil tokens (CVL), you must use Ether (ETH). Then you will be
+    able to exchange ETH for CVL.{" "}
+    <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa" target="_blank">
+      Learn how to buy ETH here.
+    </a>
   </>
 );
 
