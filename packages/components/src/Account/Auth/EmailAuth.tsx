@@ -105,7 +105,9 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
             <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
             <CheckboxLabel>
               I agree to Civil's {}
-              <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+              <a href="https://civil.co/terms/" target="_blank">
+                Privacy Policy and Terms of Use
+              </a>
             </CheckboxLabel>
           </label>
         </CheckboxSection>
