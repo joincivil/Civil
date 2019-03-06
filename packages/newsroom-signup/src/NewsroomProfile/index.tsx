@@ -94,16 +94,12 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
-      <GrantApplication setButtonVisibility={this.setButtonVisibility} />,
+      <GrantApplication />,
     ];
     return steps[this.state.currentStep];
   }
   public renderButtons(): JSX.Element | null {
-    if (!this.state.showButtons) {
-      return null;
-    }
-    console.log(this.props.grantRequested);
-    if (this.props.grantRequested !== undefined && this.props.grantRequested !== null) {
+    if (!this.state.showButtons || this.props.grantRequested) {
       return null;
     }
     return (
