@@ -48,6 +48,8 @@ export interface AccountEmailAuthProps {
   applicationType: AuthApplicationEnum;
   isNewUser: boolean;
   headerComponent?: JSX.Element;
+  signupPath: string;
+  loginPath: string;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
@@ -124,6 +126,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
 
   public renderAuthError(): JSX.Element {
     const { errorMessage } = this.state;
+    const { loginPath, signupPath } = this.props;
 
     if (!errorMessage) {
       return <></>;
@@ -132,7 +135,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     if (errorMessage === "emailnotfound") {
       return (
         <AuthErrorMessage>
-          <AuthTextEmailNotFoundError />
+          <AuthTextEmailNotFoundError signupPath={signupPath} />
         </AuthErrorMessage>
       );
     }
@@ -140,7 +143,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     if (errorMessage === "emailexists") {
       return (
         <AuthErrorMessage>
-          <AuthTextEmailExistsError />
+          <AuthTextEmailExistsError loginPath={loginPath} />
         </AuthErrorMessage>
       );
     }

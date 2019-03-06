@@ -27,6 +27,8 @@ export interface AuthParams {
   action?: "login" | "signup";
 }
 
+
+const BASE_PATH = "/apply-to-registry";
 const PreRegNotice = styled(OBPreRegNotice)`
   margin-left: -20%;
   margin-top: 0;
@@ -155,13 +157,15 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             applicationType={AuthApplicationEnum.NEWSROOM}
             isNewUser={isNewUser}
             onEmailSend={this.onEmailSend}
+            loginPath={`${BASE_PATH}/login`}
+            signupPath={`${BASE_PATH}/signup`}
           />
 
           <FooterLink>
             {isNewUser ? (
-              <Link to="/apply-to-registry/login">Already have an account?</Link>
+              <Link to={`${BASE_PATH}/login`}>Already have an account?</Link>
             ) : (
-              <Link to="/apply-to-registry/signup">← Back to create an account</Link>
+              <Link to={`${BASE_PATH}/signup`}>← Back to create an account</Link>
             )}
           </FooterLink>
         </SignupLoginInnerWrap>
@@ -180,7 +184,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
   private onAuthenticationContinue = (isNewUser: boolean) => {
     // Remove e.g. /signup?jwt=[token] from path
     this.props.history.replace({
-      pathname: "/apply-to-registry",
+      pathname: BASE_PATH,
     });
 
     // @TODO/tobek Once token verification is handled better (flushing apollo cache so that client uses auth header) we can jump straight to "logged in" state. For now we have to refresh, and on refresh we'll be in the logged in state.
