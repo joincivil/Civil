@@ -62,7 +62,7 @@ export const UserTokenAccountFaq: React.StatelessComponent = props => {
             Coinbase
           </a>{" "}
           or{" "}
-          <a herf="https://exchange.gemini.com/register/check-location" target="_blank">
+          <a href="https://exchange.gemini.com/register/check-location" target="_blank">
             Gemini{" "}
           </a>{" "}
           (), you can return to Civil where we will walk you through how to complete your membership contribution. We
