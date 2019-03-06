@@ -9,3 +9,5 @@ export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
 export * from "./DashboardStyledComponents";
 export * from "./DashboardTextComponents";
+export * from "./DashboardTransferTokenForm";
+export * from "./DashboardTutorialWarning";

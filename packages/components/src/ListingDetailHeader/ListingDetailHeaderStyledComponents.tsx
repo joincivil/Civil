@@ -55,6 +55,7 @@ export const StyledEthereumInfoToggle: StyledComponentClass<ButtonProps, "button
   line-height: 15px;
   padding: 4px 12px;
   margin: 0 0 14px;
+  white-space: nowrap;
 `;
 
 export const StyledListingURLButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
@@ -182,6 +183,11 @@ export const StyledRegistryLinkContainer = styled.div`
 export const NewsroomLinks = styled.div`
   display: flex;
   margin-top: 40px;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+    padding-bottom: 20px;
+  }
 `;
 
 export const VisitNewsroomButtonWrap = styled.div`

@@ -15,6 +15,7 @@ import {
   AppealDecisionProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
+import { FAQ_BASE_URL } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
@@ -111,6 +112,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         <WhitelistedDetail
           listingAddress={this.props.listing.address}
           constitutionURI={this.props.constitutionURI}
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />
       </>
@@ -148,6 +150,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       }
       return (
         <RejectedCardComponent
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           {...challengeProps}
           {...challengeResultsProps}
           {...appealProps}
@@ -173,6 +176,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           phaseLength={phaseLength}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />
       </>

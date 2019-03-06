@@ -15,13 +15,6 @@ export const Container = styled.div`
 
 storiesOf("Airswap", module)
   .addDecorator(StoryRouter())
-  .add("Buy CVL", () => {
-    return (
-      <Container>
-        <AirswapBuyCVL network={"4"} />
-      </Container>
-    );
-  })
   .add("Buy CVL from address", () => {
     return (
       <Container>

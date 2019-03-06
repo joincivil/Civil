@@ -5,22 +5,18 @@ import BigNumber from "bignumber.js";
 import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  StyledDashboardActivityDescription,
   TransactionButtonNoModal,
-  InputGroup,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
+  TransferTokenTipsText,
+  StyledTransferTokenFormElement,
+  CurrencyInput,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { FormGroup } from "../utility/FormElements";
-
-const StyledContainer = styled.div`
-  padding: 0 24px;
-`;
 
 enum TransactionTypes {
   APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
@@ -114,30 +110,26 @@ class DepositTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StyledDashboardActivityDescription>
-          <p>Transfer your available balance tokens to your voting balance</p>
-        </StyledDashboardActivityDescription>
-        <StyledContainer>
-          <p>Available Tokens: {getFormattedTokenBalance(this.props.balance)}</p>
-          <FormGroup>
-            <InputGroup
-              name="numTokens"
-              prepend="CVL"
-              label="Amount of tokens to transfer"
-              onChange={this.updateViewState}
-            />
-          </FormGroup>
+        <StyledTransferTokenFormElement>
+          <CurrencyInput
+            label="Enter amount"
+            placeholder="0"
+            name="numTokens"
+            icon={<>CVL</>}
+            onChange={this.updateViewState}
+          />
+          <TransferTokenTipsText />
+        </StyledTransferTokenFormElement>
 
-          <FormGroup>
-            <TransactionButtonNoModal
-              transactions={this.getTransactions()}
-              disabledOnMobile={true}
-              onMobileClick={this.props.onMobileTransactionClick}
-            >
-              Transfer
-            </TransactionButtonNoModal>
-          </FormGroup>
-        </StyledContainer>
+        <FormGroup>
+          <TransactionButtonNoModal
+            transactions={this.getTransactions()}
+            disabledOnMobile={true}
+            onMobileClick={this.props.onMobileTransactionClick}
+          >
+            Transfer
+          </TransactionButtonNoModal>
+        </FormGroup>
       </>
     );
   }

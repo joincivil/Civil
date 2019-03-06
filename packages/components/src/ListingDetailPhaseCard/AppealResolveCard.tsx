@@ -65,7 +65,7 @@ export const AppealResolveCard: React.StatelessComponent<
         </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

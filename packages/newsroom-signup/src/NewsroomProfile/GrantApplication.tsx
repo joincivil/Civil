@@ -171,7 +171,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
           update={cache => {
             cache.writeQuery({
               query: grantQuery,
-              data: { newsroom: { grantRequested: true } },
+              data: { nrsignupRequestGrant: { grantRequested: true } },
             });
           }}
           mutation={requestGrantMutation}
@@ -228,7 +228,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
           update={cache => {
             cache.writeQuery({
               query: grantQuery,
-              data: { newsroom: { grantRequested: false } },
+              data: { nrsignupRequestGrant: { grantRequested: false } },
             });
           }}
         >

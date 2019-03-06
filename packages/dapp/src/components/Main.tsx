@@ -7,6 +7,7 @@ import { connect, DispatchProp } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
+import { catchWindowOnError } from "../redux/actionCreators/errors";
 import { getCivil, isGraphQLSupportedOnNetwork } from "../helpers/civilInstance";
 import {
   initializeGovernment,
@@ -55,6 +56,14 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       prevAccount: "",
     };
   }
+
+  public componentWillMount(): void {
+    (window as any).onerror = (message: string, source: string, lineNum: string, colNum: string, errorObj: any) => {
+      this.props.dispatch!(catchWindowOnError(message, source, lineNum, colNum, errorObj));
+      return false;
+    };
+  }
+
   public async componentDidMount(): Promise<void> {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = getCivil();

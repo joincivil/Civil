@@ -15,6 +15,7 @@ import {
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
 
+import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import LoadingMsg from "../utility/LoadingMsg";
@@ -55,7 +56,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
           <HomepageHero
             applyURL="https://civil.co/how-to-launch-newsroom"
             buyCvlUrl="https://civil.co/become-a-member"
-            learnMoreURL="#zendesk"
+            learnMoreURL={`${FAQ_BASE_URL}/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-`}
           />
         </Hero>
         {!this.props.loadingFinished && <LoadingMsg />}
