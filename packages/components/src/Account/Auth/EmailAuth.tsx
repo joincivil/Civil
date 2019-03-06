@@ -166,7 +166,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         <Mutation mutation={emailMutation}>
           {sendEmail => {
             return (
-              <>
+              <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>
                 {this.renderEmailInput()}
                 {isNewUser && this.renderCheckboxes()}
                 <ConfirmButtonContainer>
@@ -174,12 +174,12 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                     size={buttonSizes.SMALL_WIDE}
                     textTransform={"none"}
                     disabled={isButtonDisabled}
-                    onClick={async event => this.handleSubmit(event, sendEmail)}
+                    type={"submit"}
                   >
                     Confirm
                   </Button>
                 </ConfirmButtonContainer>
-              </>
+              </form>
             );
           }}
         </Mutation>
@@ -198,7 +198,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async handleSubmit(event: Event, mutation: MutationFn): Promise<void> {
+  private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
