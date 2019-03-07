@@ -25,7 +25,8 @@ storiesOf("Nav Bar", module)
         userClaimRewardsCount={userClaimRewardsCount}
         userChallengesStartedCount={userChallengesStartedCount}
         userChallengesVotedOnCount={userChallengesVotedOnCount}
-        buyCvlUrl="#buy-tokens"
+        joinAsMemberUrl="#buy-tokens"
+        buyCvlUrl="#become-member"
         applyURL="#apply"
         useGraphQL={false}
         onLoadingPrefToggled={() => {

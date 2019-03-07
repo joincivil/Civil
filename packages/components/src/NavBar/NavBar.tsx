@@ -26,6 +26,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       userChallengesStartedCount,
       userChallengesVotedOnCount,
       buyCvlUrl,
+      joinAsMemberUrl,
       applyURL,
       useGraphQL,
       onLoadingPrefToggled,
@@ -53,7 +54,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
               isUserDrawerOpen={isUserDrawerOpen}
               userEthAddress={userEthAddress}
               authenticationURL={authenticationURL}
-              buyCvlUrl={buyCvlUrl}
+              joinAsMemberUrl={joinAsMemberUrl}
               applyURL={applyURL}
               enableEthereum={enableEthereum}
               toggleDrawer={this.toggleDrawer}

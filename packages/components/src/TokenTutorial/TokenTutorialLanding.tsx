@@ -50,6 +50,8 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
   }
 
   public render(): JSX.Element {
+    let activeTopic = 0;
+
     if (this.state.tutorialActive) {
       return (
         <TokenTutorialQuiz
@@ -81,14 +83,19 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
         {TutorialContent.map((topic, idx) => {
           // lastSlideIdx is the index number, lastSlideNumber is the visible question number
-          const { lastSlideIdx, isComplete } = this.getTopicStatus(this.props.quizPayload, topic);
+          const { lastSlideIdx, isComplete, isStarted } = this.getTopicStatus(this.props.quizPayload, topic);
           const lastSlideNumber = lastSlideIdx + 1;
+          const skipToQuestion = isStarted ? lastSlideNumber : 0;
 
-          // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
+          if (isComplete) {
+            activeTopic++;
+          }
+
+          const topicDisabled = activeTopic === idx ? false : true;
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx, lastSlideNumber)} disabled={isComplete}>
+              <LaunchTopic onClick={() => this.openTutorial(idx, skipToQuestion)} disabled={topicDisabled}>
                 <LaunchTopicTop>
                   <div>
                     {topic.icon}
@@ -101,7 +108,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                   <TutorialProgressText questions={topic.questions.length - lastSlideNumber} />
                   <TutorialLandingProgressBars>
                     {topic.questions.map((question, questionIdx) => {
-                      if (lastSlideNumber > 1 && questionIdx <= lastSlideIdx) {
+                      if (isStarted && questionIdx <= lastSlideIdx) {
                         return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
                       }
                       return <TutorialLandingProgressBar key={questionIdx} />;
@@ -144,15 +151,18 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
     }
   };
 
-  private getTopicStatus(quizPayload: any, topic: any): { isComplete: boolean; lastSlideIdx: number } {
+  private getTopicStatus(
+    quizPayload: any,
+    topic: any,
+  ): { isComplete: boolean; lastSlideIdx: number; isStarted: boolean } {
     if (!quizPayload || !quizPayload[topic.quizId]) {
-      return { isComplete: false, lastSlideIdx: 0 };
+      return { isComplete: false, lastSlideIdx: 0, isStarted: false };
     }
 
     const isComplete = quizPayload[topic.quizId].isComplete || false;
     const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx || 0;
 
-    return { isComplete, lastSlideIdx };
+    return { isComplete, lastSlideIdx, isStarted: true };
   }
 
   // Take the quiz straight thru without reading the tutorial

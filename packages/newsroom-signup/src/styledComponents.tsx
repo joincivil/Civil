@@ -62,8 +62,8 @@ export const FormRowItem = styled.div`
 
 export const HelperText = styled.div`
   margin-top: -6px;
-  padding-left: 15px;
-  font-size: 13px;
+  padding-left: 11px;
+  font-size: 12px;
   color: #72777c;
 `;
 

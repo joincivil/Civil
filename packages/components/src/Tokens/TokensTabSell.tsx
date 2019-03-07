@@ -32,10 +32,11 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
     if (comingSoon) {
       return (
         <ComingSoon>
-          <h3>Coming Soon...</h3>
+          <h3>Coming soon!</h3>
           <p>
-            We appreciate your patience while we are testing this feature.<br />If you need help or have questions,
-            please contact our support team at <a href="mailto:support@civil.co">support@civil.co</a>.
+            Civil members who have completed the tutorial and unlocked their tokens may now send their tokens to anyone,
+            and soon will be able to sell their tokens on the open market via this page on civil.co. If you need help or
+            have questions, please contact us at <a href="mailto:support@civil.co">support@civil.co</a>.
           </p>
         </ComingSoon>
       );

@@ -6,6 +6,7 @@ import {
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
 import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
+import { links } from "../../constants";
 import { State } from "../../redux/reducers";
 import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 
@@ -35,8 +36,8 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     votingBalance,
     challengesWonTotalCvl: getFormattedTokenBalance(challengesWonTotalCvl),
     rewardsEarned: getFormattedTokenBalance(userTotalClaimedRewards),
-    buyCvlUrl: "https://civil.co/become-a-member",
-    applyURL: "https://civil.co/how-to-launch-newsroom",
+    buyCvlUrl: "/tokens",
+    applyURL: links.APPLY,
   };
 };
 

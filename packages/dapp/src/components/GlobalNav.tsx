@@ -4,6 +4,7 @@ import { State } from "../redux/reducers";
 import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
+import { links } from "../constants";
 import {
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
@@ -47,8 +48,9 @@ const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => 
     userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
     useGraphQL,
     authenticationURL: "/auth/login",
-    buyCvlUrl: "https://civil.co/become-a-member",
-    applyURL: "https://civil.co/how-to-launch-newsroom",
+    buyCvlUrl: "/tokens",
+    joinAsMemberUrl: "https://civil.co/become-a-member",
+    applyURL: links.APPLY,
     onLoadingPrefToggled: async (): Promise<any> => {
       props.dispatch!(await toggleUseGraphQL());
     },

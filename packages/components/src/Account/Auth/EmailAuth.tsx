@@ -2,7 +2,6 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
-import { Link } from "react-router-dom";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
@@ -105,7 +104,9 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
             <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
             <CheckboxLabel>
               I agree to Civil's {}
-              <Link to="https://civil.co/terms/">Privacy Policy and Terms of Use</Link>
+              <a href="https://civil.co/terms/" target="_blank">
+                Privacy Policy and Terms of Use
+              </a>
             </CheckboxLabel>
           </label>
         </CheckboxSection>
