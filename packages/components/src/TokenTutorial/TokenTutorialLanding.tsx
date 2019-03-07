@@ -85,7 +85,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
           // lastSlideIdx is the index number, lastSlideNumber is the visible question number
           const { lastSlideIdx, isComplete, isStarted } = this.getTopicStatus(this.props.quizPayload, topic);
           const lastSlideNumber = lastSlideIdx + 1;
-          const skipToQuestion = isStarted ? lastSlideNumber : 0;
+          const nextQuestionNumber = isStarted ? lastSlideNumber : 0;
 
           if (isComplete) {
             activeTopic++;
@@ -95,7 +95,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx, skipToQuestion)} disabled={topicDisabled}>
+              <LaunchTopic onClick={() => this.openTutorial(idx, nextQuestionNumber)} disabled={topicDisabled}>
                 <LaunchTopicTop>
                   <div>
                     {topic.icon}
@@ -105,7 +105,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                   <DisclosureArrowIcon />
                 </LaunchTopicTop>
                 <TopicProgress>
-                  <TutorialProgressText questions={topic.questions.length - lastSlideNumber} />
+                  <TutorialProgressText questions={topic.questions.length - nextQuestionNumber} />
                   <TutorialLandingProgressBars>
                     {topic.questions.map((question, questionIdx) => {
                       if (isStarted && questionIdx <= lastSlideIdx) {
@@ -114,7 +114,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
                       return <TutorialLandingProgressBar key={questionIdx} />;
                     })}
                     <b>
-                      {lastSlideNumber}/{topic.questions.length}
+                      {nextQuestionNumber}/{topic.questions.length}
                     </b>
                   </TutorialLandingProgressBars>
                 </TopicProgress>

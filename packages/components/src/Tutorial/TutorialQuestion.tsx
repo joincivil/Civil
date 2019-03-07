@@ -60,8 +60,8 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
         usersAnswerValue: state.usersAnswerValue,
         usersAnswerResult: state.usersAnswerResult,
         resetQuestion: state.resetQuestion,
-      }
-    };
+      };
+    }
   }
 
   public constructor(props: any) {
@@ -75,9 +75,6 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
   }
 
   public render(): JSX.Element {
-    console.log("checkAnswerDisabled: " + this.state.checkAnswerDisabled);
-    console.log("usersAnswerValue: " + this.state.usersAnswerValue);
-    console.log("usersAnswerResult: " + this.state.usersAnswerResult);
     return (
       <>
         <TutorialProgress
@@ -159,9 +156,14 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     }
   };
 
-  private resetQuestion = (e: any) => {
-    this.props.onClickNext(e)
+  private resetQuestion = (ev: any) => {
+    const radioButtons = Array.from(document.querySelectorAll("input[type=radio]"));
+    radioButtons.forEach(radio => {
+      const radioInput = radio as HTMLInputElement;
+      radioInput.checked = false;
+    });
 
+    this.props.onClickNext(ev);
     this.setState({ resetQuestion: this.state.resetQuestion + 1 });
   };
 }
