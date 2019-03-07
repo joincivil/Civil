@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getReadableDuration } from "@joincivil/utils";
 import { ToolTipHdr, ToolTipItalic } from "./styledComponents";
 
 // Text for reviewing a vote to commit
@@ -147,8 +148,7 @@ export interface ToolTipTextProps {
 }
 
 export const DurationToolTipText: React.SFC<ToolTipTextProps> = props => {
-  const days = props.phaseLength! / 86400;
-  const duration = days <= 1 ? days + " day" : days + " days";
+  const duration = getReadableDuration(props.phaseLength || 0);
   return <>Time duration: {duration}</>;
 };
 

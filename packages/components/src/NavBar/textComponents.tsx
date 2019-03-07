@@ -3,6 +3,8 @@ import * as React from "react";
 // Nav Links
 export const NavLinkRegistryText: React.SFC = props => <>Registry</>;
 
+export const NavLinkRegistryHomeText: React.SFC = props => <>Registry Home</>;
+
 export const NavLinkParameterizerText: React.SFC = props => <>Registry Parameters</>;
 
 export const NavLinkContractAddressesText: React.SFC = props => <>Contract Addresses</>;
