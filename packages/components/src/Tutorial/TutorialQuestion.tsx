@@ -149,14 +149,14 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     }
   };
 
-  private resetQuestion = (ev: any) => {
+  private resetQuestion = (event: any) => {
     const radioButtons = Array.from(document.querySelectorAll("input[type=radio]"));
     radioButtons.forEach(radio => {
       const radioInput = radio as HTMLInputElement;
       radioInput.checked = false;
     });
 
-    this.props.onClickNext(ev);
+    this.props.onClickNext(event);
     this.setState({ resetQuestion: true });
   };
 }
