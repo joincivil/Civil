@@ -77,7 +77,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Accepting Appeal Requests"
-          toolTipText={<RequestAppealToolTipText />}
+          toolTipText={<RequestAppealToolTipText phaseLength={props.phaseLength} />}
           flavorText="under challenge"
         />
       </StyledListingDetailPhaseCardSection>

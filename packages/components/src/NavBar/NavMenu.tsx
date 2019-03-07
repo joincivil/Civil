@@ -5,6 +5,7 @@ import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuContainer, StyledNavMenuResponsiveContainer, StyledMobileNavMenu } from "./styledComponents";
 import {
   NavLinkRegistryText,
+  NavLinkRegistryHomeText,
   NavLinkParameterizerText,
   NavLinkContractAddressesText,
   NavLinkConstitutionText,
@@ -33,6 +34,9 @@ const NavMenuLinksComponent: React.SFC<NavMenuCloseDrawerProp> = props => {
           </NavLink>
         }
       >
+        <NavLink to="/registry" {...mobileOnClickProp}>
+          <NavLinkRegistryHomeText />
+        </NavLink>
         <NavLink to="/parameterizer" {...mobileOnClickProp}>
           <NavLinkParameterizerText />
         </NavLink>

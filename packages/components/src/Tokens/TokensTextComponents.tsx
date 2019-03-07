@@ -213,7 +213,7 @@ export const TokenUnlockText: React.SFC = props => (
     </h4>
     <p>
       All first-time token purchasers must unlock their tokens by participating in community votes and the general
-      oversight of Civil. This is to prevent speculators from effecting the price of Civil tokens. Learn more in the FAQ
+      oversight of Civil. This is to prevent speculators from affecting the price of Civil tokens. Learn more in the FAQ
       below.
     </p>
     <p>
