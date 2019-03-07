@@ -27,10 +27,6 @@ export interface TutorialQuestionProps {
   question: string;
   options: Options[];
   answer: string;
-  checkAnswerDisabled: boolean;
-  usersAnswerValue: string;
-  usersAnswerResult: string;
-  resetQuestion: number;
   onClickPrev(e: any): void;
   onClickNext(e: any): void;
 }
@@ -39,7 +35,7 @@ export interface TutorialQuestionStates {
   checkAnswerDisabled: boolean;
   usersAnswerValue: string;
   usersAnswerResult: string;
-  resetQuestion: number;
+  resetQuestion: boolean;
 }
 
 export class TutorialQuestion extends React.Component<TutorialQuestionProps, TutorialQuestionStates> {
@@ -47,30 +43,27 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     props: TutorialQuestionProps,
     state: TutorialQuestionStates,
   ): TutorialQuestionStates {
-    if (props.resetQuestion !== state.resetQuestion) {
+    if (state.resetQuestion) {
       return {
-        checkAnswerDisabled: props.checkAnswerDisabled,
-        usersAnswerValue: props.usersAnswerValue,
-        usersAnswerResult: props.usersAnswerResult,
-        resetQuestion: props.resetQuestion,
-      };
-    } else {
-      return {
-        checkAnswerDisabled: state.checkAnswerDisabled,
-        usersAnswerValue: state.usersAnswerValue,
-        usersAnswerResult: state.usersAnswerResult,
-        resetQuestion: state.resetQuestion,
+        checkAnswerDisabled: true,
+        usersAnswerValue: "",
+        usersAnswerResult: "",
+        resetQuestion: false,
       };
     }
+
+    return {
+      ...state,
+    };
   }
 
   public constructor(props: any) {
     super(props);
     this.state = {
-      checkAnswerDisabled: this.props.checkAnswerDisabled,
-      usersAnswerValue: this.props.usersAnswerValue,
-      usersAnswerResult: this.props.usersAnswerResult,
-      resetQuestion: this.props.resetQuestion,
+      checkAnswerDisabled: true,
+      usersAnswerValue: "",
+      usersAnswerResult: "",
+      resetQuestion: false,
     };
   }
 
@@ -164,6 +157,6 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     });
 
     this.props.onClickNext(ev);
-    this.setState({ resetQuestion: this.state.resetQuestion + 1 });
+    this.setState({ resetQuestion: true });
   };
 }

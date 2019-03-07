@@ -87,10 +87,6 @@ export class TokenTutorialQuiz extends React.Component<TokenTutorialQuizProps, T
               onClickNext={() => this.next()}
               activeSlide={slideIdx + 1}
               totalSlides={TutorialContent[topicIdx].questions.length}
-              checkAnswerDisabled={true}
-              usersAnswerValue={""}
-              usersAnswerResult={""}
-              resetQuestion={0}
             />
           </TutorialContain>
         );

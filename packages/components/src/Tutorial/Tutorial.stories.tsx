@@ -88,10 +88,6 @@ storiesOf("Tutorial", module)
         totalSlides={3}
         onClickPrev={onClickFunc}
         onClickNext={onClickFunc}
-        checkAnswerDisabled={true}
-        usersAnswerValue={""}
-        usersAnswerResult={""}
-        resetQuestion={0}
       />
     );
   })
