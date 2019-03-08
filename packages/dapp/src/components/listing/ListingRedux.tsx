@@ -146,8 +146,8 @@ class ListingPageComponent extends React.Component<
 
                   <p>
                     Use this space to discuss or ask questions of the Civil community. When using this forum, you agree
-                    to adhere to our <a href="https://civil.co/code-of-conduct">code of conduct</a>. If you have
-                    questions, please <a href="https://civil.co/contact">contact us</a>.
+                    to adhere to our <a href={links.CODE_OF_CONDUCT}>code of conduct</a>. If you have questions, please{" "}
+                    <a href={links.CONTACT}>contact us</a>.
                   </p>
                   <ListingDiscourse />
                 </ListingTabContent>

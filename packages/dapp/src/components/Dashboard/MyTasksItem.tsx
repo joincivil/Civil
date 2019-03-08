@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import {
   ListingWrapper,
   WrappedChallengeData,
@@ -11,6 +12,8 @@ import {
 } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItemTask } from "@joincivil/components";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import { ListingWrapperWithExpiry } from "../../redux/reducers/listings";
 import {
@@ -84,19 +87,17 @@ class MyTasksItemComponent extends React.Component<
     }
 
     const { canUserCollect, canUserRescue, didUserCommit } = userChallengeData;
-    const { inCommitPhase, inRevealPhase, isAwaitingAppealJudgement } = challengeState;
+    const { inCommitPhase, inRevealPhase } = challengeState;
 
     if (listing && listing.data && newsroom) {
       const newsroomData = newsroom.wrapper.data;
-      const listingDetailURL = `/listing/${address}`;
+      const listingDetailURL = formatRoute(routes.LISTING, { listingAddress: address });
       let viewDetailURL = listingDetailURL;
       const title = `${newsroomData.name} Challenge #${challengeID}`;
       const logoUrl = charter && charter.logoUrl;
 
       if (canUserCollect || canUserRescue) {
-        viewDetailURL = `${listingDetailURL}/challenge/${challengeID}`;
-      } else if (isAwaitingAppealJudgement) {
-        viewDetailURL = listingDetailURL;
+        viewDetailURL = formatRoute(routes.CHALLENGE, { listingAddress: address, challengeID });
       }
 
       const viewProps = {

@@ -1,8 +1,9 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
-import { FAQ_BASE_URL } from "../../constants";
+import { FAQ_BASE_URL, routes, links } from "../../constants";
 import { State } from "../../redux/reducers";
 import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
@@ -22,15 +23,16 @@ class WhitelistedDetail extends React.Component<
   }
 
   public render(): JSX.Element {
-    const submitChallengeURI = `/listing/${this.props.listingAddress}/submit-challenge`;
+    const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listing.address });
+
     return (
       <>
         <WhitelistedCard
           whitelistedTimestamp={this.props.whitelistedTimestamp}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
-          learnMoreURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
-          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          learnMoreURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

@@ -27,6 +27,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
+import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
@@ -54,10 +55,21 @@ import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
 import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
 
-const TABS: string[] = ["tasks", "newsrooms", "challenges", "activity"];
-const SUB_TABS: { [index: string]: string[] } = {
-  tasks: ["all", "reveal-vote", "claim-rewards", "rescue-tokens", "transfer-voting-tokens"],
-  challenges: ["completed", "staked"],
+const TABS: TDashboardTab[] = [
+  dashboardTabs.TASKS,
+  dashboardTabs.NEWSROOMS,
+  dashboardTabs.CHALLENGES,
+  dashboardTabs.ACTIVITY,
+];
+const SUB_TABS: { [index in TDashboardTab]?: TDashboardSubTab[] } = {
+  [dashboardTabs.TASKS]: [
+    dashboardSubTabs.TASKS_ALL,
+    dashboardSubTabs.TASKS_REVEAL_VOTE,
+    dashboardSubTabs.TASKS_CLAIM_REWARDS,
+    dashboardSubTabs.TASKS_RESCUE_TOKENS,
+    dashboardSubTabs.TASKS_TRANSFER_VOTING_TOKENS,
+  ],
+  [dashboardTabs.CHALLENGES]: [dashboardSubTabs.CHALLENGES_COMPLETED, dashboardSubTabs.CHALLENGES_STAKED],
 };
 
 export interface DashboardActivityProps {
@@ -359,7 +371,8 @@ class DashboardActivity extends React.Component<
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
     const tabName = TABS[activeTabIndex];
     this.setState({ activeTabIndex, activeSubTabIndex });
-    const subTabName = (SUB_TABS[tabName] && `/${SUB_TABS[tabName][activeSubTabIndex]}`) || "";
+    const subTabName =
+      (SUB_TABS[tabName] && SUB_TABS[tabName]![activeSubTabIndex] && `/${SUB_TABS[tabName]![activeSubTabIndex]}`) || "";
     this.props.history.push(`/dashboard/${tabName}${subTabName}`);
   };
 
@@ -372,14 +385,14 @@ class DashboardActivity extends React.Component<
   };
 
   private showClaimRewardsTab = (): void => {
-    const activeTabIndex = TABS.indexOf("tasks");
-    const activeSubTabIndex = SUB_TABS.tasks.indexOf("claim-rewards");
+    const activeTabIndex = TABS.indexOf(dashboardTabs.TASKS);
+    const activeSubTabIndex = SUB_TABS[dashboardTabs.TASKS]!.indexOf(dashboardSubTabs.TASKS_CLAIM_REWARDS);
     this.setActiveTabAndSubTabIndex(activeTabIndex, activeSubTabIndex);
   };
 
   private showRescueTokensTab = (): void => {
-    const activeTabIndex = TABS.indexOf("tasks");
-    const activeSubTabIndex = SUB_TABS.tasks.indexOf("rescue-tokens");
+    const activeTabIndex = TABS.indexOf(dashboardTabs.TASKS);
+    const activeSubTabIndex = SUB_TABS[dashboardTabs.TASKS]!.indexOf(dashboardSubTabs.TASKS_RESCUE_TOKENS);
     this.setActiveTabAndSubTabIndex(activeTabIndex, activeSubTabIndex);
   };
 

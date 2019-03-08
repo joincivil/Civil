@@ -1,6 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   InsufficientCVLForAppealChallenge,
@@ -14,7 +15,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 
-import { FAQ_BASE_URL } from "../../constants";
+import { FAQ_BASE_URL, routes, links } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
@@ -264,8 +265,9 @@ class SubmitAppealChallengeComponent extends React.Component<
   };
 
   private redirectToListingPage = (): void => {
+    const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
     this.props.closeAllModals();
-    this.props.history.push("/listing/" + this.props.listingAddress);
+    this.props.history.push(listingURI);
   };
 
   // Transactions
@@ -361,8 +363,8 @@ const SubmitAppealChallenge = compose(
 
 const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
   const listingAddress = props.match.params.listing;
-  const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = `${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`;
+  const listingURI = formatRoute(routes.LISTING, { listingAddress });
+  const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
   return (
     <SubmitAppealChallenge
       listingAddress={listingAddress}

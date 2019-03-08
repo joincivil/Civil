@@ -6,6 +6,8 @@ import {
   isParamPropChallengeInRevealStage,
 } from "@joincivil/core";
 import { DashboardActivityItemTask } from "@joincivil/components";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   makeGetParameterProposalChallenge,
@@ -57,7 +59,7 @@ class MyTasksProposalItemComponent extends React.Component<MyTasksProposalItemSu
 
     const viewProps = {
       title,
-      viewDetailURL: "/parameterizer",
+      viewDetailURL: routes.PARAMETERIZER,
     };
 
     const inCommitPhase = isParamPropChallengeInCommitStage(challenge);

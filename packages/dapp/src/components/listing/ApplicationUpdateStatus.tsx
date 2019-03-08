@@ -4,7 +4,7 @@ import { updateStatus } from "../../apis/civilTCR";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { InApplicationResolveCard, ModalContent } from "@joincivil/components";
 
-import { FAQ_BASE_URL } from "../../constants";
+import { FAQ_BASE_URL, links } from "../../constants";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ApplicationUpdateStatusProps {
@@ -56,7 +56,7 @@ class ApplicationUpdateStatus extends React.Component<
     return (
       <InApplicationResolveCard
         transactions={this.getTransactions()}
-        faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+        faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );
