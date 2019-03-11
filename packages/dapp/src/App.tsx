@@ -1,6 +1,7 @@
 import * as React from "react";
 import { GlobalNav } from "./components/GlobalNav";
 import Main from "./components/Main";
+import Footer from "./components/Footer";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
 import config from "./helpers/config";
@@ -32,6 +33,7 @@ export const App = (): JSX.Element => {
         <>
           <GlobalNav />
           <Main />
+          <Footer />
         </>
       </ConnectedRouter>
     </ApolloProvider>
