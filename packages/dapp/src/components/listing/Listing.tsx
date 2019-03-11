@@ -74,7 +74,7 @@ const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingPag
   return {
     ...ownProps,
     useGraphQl: state.useGraphQL,
-    listingAddress: ownProps.match.params.listing,
+    listingAddress: ownProps.match.params.listingAddress,
   };
 };
 

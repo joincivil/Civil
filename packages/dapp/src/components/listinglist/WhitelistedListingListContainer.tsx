@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Set } from "immutable";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
-import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
@@ -16,8 +15,8 @@ import {
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import { StyledListingCopy } from "../utility/styledComponents";
 import LoadingMsg from "../utility/LoadingMsg";
+import { WhitelistedTabDescription } from "./TabDescriptions";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -66,16 +65,7 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
 
           return (
             <>
-              <StyledListingCopy>
-                All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
-                <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
-                <a
-                  href={`${FAQ_BASE_URL}/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-`}
-                  target="_blank"
-                >
-                  community vetting process
-                </a>.
-              </StyledListingCopy>
+              <WhitelistedTabDescription />
               <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
             </>
           );

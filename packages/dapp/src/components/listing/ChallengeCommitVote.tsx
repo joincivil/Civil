@@ -1,5 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -14,6 +15,8 @@ import {
   ChallengePhaseProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
@@ -178,7 +181,8 @@ class ChallengeCommitVote extends React.Component<
     }
 
     const { challenge } = this.props;
-    const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
+    const relativeListingDetailURL = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
+    const listingDetailURL = `https://${window.location.hostname}${relativeListingDetailURL}`;
     const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const props: ReviewVoteProps = {

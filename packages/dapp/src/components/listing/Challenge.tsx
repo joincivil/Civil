@@ -1,11 +1,14 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { BigNumber } from "bignumber.js";
-import styled from "styled-components";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import { State } from "../../redux/reducers";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
+import { BigNumber } from "bignumber.js";
+import styled from "styled-components";
+import { formatRoute } from "react-router-named-routes";
+
+import { routes } from "../../constants";
+import { State } from "../../redux/reducers";
+import ChallengeDetailContainer from "./ChallengeDetail";
 import { CHALLENGE_QUERY, transformGraphQLDataIntoChallenge } from "../../helpers/queryTransformations";
 
 const StyledPageOuter = styled.div`
@@ -33,7 +36,7 @@ export interface ChallengePageProps {
 class ChallengePage extends React.Component<ChallengePageProps> {
   public render(): JSX.Element {
     const listingAddress = this.props.match.params.listing;
-    const listingURL = `/listing/${listingAddress}`;
+    const listingURL = formatRoute(routes.LISTING, { listingAddress });
     const challengeID = new BigNumber(this.props.match.params.challengeID);
     if (!this.props.useGraphQL) {
       return (

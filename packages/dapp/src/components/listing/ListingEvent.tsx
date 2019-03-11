@@ -1,5 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
+import { BigNumber } from "bignumber.js";
 import {
   AppealGrantedEvent,
   AppealRequestedEvent,
@@ -18,8 +20,9 @@ import {
   WithdrawalEvent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
-import { BigNumber } from "bignumber.js";
 
 export interface ListingEventProps {
   event: any;
@@ -117,7 +120,10 @@ class ListingEvent extends React.Component<ListingEventProps> {
 
   private renderChallengeEvent(wrappedEvent: any): JSX.Element {
     const { challengeID, challenger } = wrappedEvent.args;
-    const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
+    const challengeURI = formatRoute(routes.CHALLENGE, {
+      listingAddress: this.props.listing,
+      challengeID: challengeID.toString(),
+    });
     return (
       <ChallengeEvent
         timestamp={(wrappedEvent as any).timestamp}

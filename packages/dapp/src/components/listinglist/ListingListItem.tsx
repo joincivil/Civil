@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
@@ -10,6 +11,7 @@ import {
   ListingSummaryRejectedComponent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
@@ -96,7 +98,7 @@ export const transformListingSummaryViewProps = (
   const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry.toNumber();
 
   const newsroomData = newsroom!.data;
-  const listingDetailURL = `/listing/${listingAddress}`;
+  const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
 
   let challengeResultsProps = {};
 

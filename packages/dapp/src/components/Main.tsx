@@ -5,6 +5,8 @@ import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
+import { routes, registryListingTypes, registrySubListingTypes, dashboardTabs, dashboardSubTabs } from "../constants";
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { catchWindowOnError } from "../redux/actionCreators/errors";
@@ -133,26 +135,48 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       <StyledMainContainer>
         {isNetworkSupported && (
           <Switch>
-            <Redirect exact path="/" to="/registry/approved" />
-            <Redirect exact path="/registry" to="/registry/approved" />
-            <Redirect exact path="/registry/in-progress" to="/registry/in-progress/new-applications" />
-            <Route path="/registry/:listingType/:subListingType?" component={Listings} />
-            <Route path="/contract-addresses" component={ContractAddresses} />
-            <Route path="/listing/:listing/challenge/:challengeID" component={ChallengePage} />
-            <Route path="/listing/:listing/submit-challenge" component={SubmitChallengePage} />
-            <Route path="/listing/:listing/submit-appeal-challenge" component={SubmitAppealChallengePage} />
-            <Route path="/listing/:listing/request-appeal" component={RequestAppealPage} />
-            <Route path="/listing/:listing" component={Listing} />
-            <Route path="/mgmt/:newsroomAddress" component={NewsroomManagement} />
-            <Route path="/mgmt-v1/:newsroomAddress" component={NewsroomManagementV1} />
-            <Route path="/parameterizer" component={Parameterizer} />
-            <Route path="/create-newsroom" component={CreateNewsroom} />
-            <Route path="/apply-to-registry/:action?" component={SignUpNewsroom} />
-            <Route path="/government" component={Government} />
-            <Redirect exact path="/dashboard" to="/dashboard/tasks/all" />
-            <Route path="/dashboard/:activeDashboardTab/:activeDashboardSubTab?" component={Dashboard} />
-            <Route path="/auth" component={AuthRouter} />>
-            <Route path="/tokens" component={Tokens} />
+            <Redirect
+              exact
+              path={routes.HOMEPAGE}
+              to={formatRoute(routes.REGISTRY_HOME, { listingType: registryListingTypes.APPROVED })}
+            />
+            <Redirect
+              exact
+              path={routes.REGISTRY_HOME_ROOT}
+              to={formatRoute(routes.REGISTRY_HOME, { listingType: registryListingTypes.APPROVED })}
+            />
+            <Redirect
+              exact
+              path={formatRoute(routes.REGISTRY_HOME, { listingType: registryListingTypes.IN_PROGRESS })}
+              to={formatRoute(routes.REGISTRY_HOME, {
+                listingType: registryListingTypes.IN_PROGRESS,
+                subListingType: registrySubListingTypes.IN_APPLICATION,
+              })}
+            />
+            <Route path={routes.REGISTRY_HOME} component={Listings} />
+            <Route path={routes.CONTRACT_ADDRESSES} component={ContractAddresses} />
+            <Route path={routes.CHALLENGE} component={ChallengePage} />
+            <Route path={routes.SUBMIT_CHALLENGE} component={SubmitChallengePage} />
+            <Route path={routes.SUBMIT_APPEAL_CHALLENGE} component={SubmitAppealChallengePage} />
+            <Route path={routes.REQUEST_APPEAL} component={RequestAppealPage} />
+            <Route path={routes.LISTING} component={Listing} />
+            <Route path={routes.NEWSROOM_MANAGEMENT} component={NewsroomManagement} />
+            <Route path={routes.NEWSROOM_MANAGEMENT_V1} component={NewsroomManagementV1} />
+            <Route path={routes.PARAMETERIZER} component={Parameterizer} />
+            <Route path={routes.CREATE_NEWSROOM} component={CreateNewsroom} />
+            <Route path={routes.APPLY_TO_REGISTRY} component={SignUpNewsroom} />
+            <Route path={routes.GOVERNMENT} component={Government} />
+            <Redirect
+              exact
+              path={routes.DASHBOARD_ROOT}
+              to={formatRoute(routes.DASHBOARD, {
+                activeDashboardTab: dashboardTabs.TASKS,
+                activeDashboardSubTab: dashboardSubTabs.TASKS_ALL,
+              })}
+            />
+            <Route path={routes.DASHBOARD} component={Dashboard} />
+            <Route path={routes.AUTH} component={AuthRouter} />>
+            <Route path={routes.TOKEN_STOREFRONT} component={Tokens} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />
           </Switch>
