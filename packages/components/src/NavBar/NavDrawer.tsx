@@ -37,6 +37,7 @@ import { LoadingPrefToggle } from "./LoadingPrefToggle";
 import { NavUserAccountProps, NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
 
 export interface NavDrawerProps extends NavDrawerBaseProps, NavUserAccountProps {
+  userAccountElRef?: any;
   handleOutsideClick(): void;
 }
 
@@ -168,7 +169,11 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
   }
 
   private handleClick = (event: any) => {
-    if (this.bucket.contains(event.target)) {
+    const toggleEl = this.props.userAccountElRef && this.props.userAccountElRef.current;
+    if (
+      this.bucket.contains(event.target) ||
+      ((toggleEl && toggleEl.contains(event.target)) || event.target === toggleEl)
+    ) {
       return;
     }
 
