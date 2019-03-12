@@ -29,6 +29,7 @@ import {
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
+import { SmartContract } from "./SmartContract";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
@@ -257,7 +258,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         />
       </StepNoButtons>,
       <StepNoButtons title={"Smart Contract"} disabled={true} key="smartcontract">
-        <div />
+        <SmartContract profileWalletAddress={this.props.profileWalletAddress} charter={this.props.charter} />
       </StepNoButtons>,
       <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
         <div />
