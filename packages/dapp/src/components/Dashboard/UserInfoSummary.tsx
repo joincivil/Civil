@@ -5,8 +5,7 @@ import {
   DashboardUserInfoSummary as DashboardUserInfoSummaryComponent,
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
-import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
-import { links } from "../../constants";
+import { getFormattedEthAddress, getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 

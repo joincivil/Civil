@@ -11,8 +11,8 @@ import {
   StyledLeftContentWell,
   StyledRightContentWell,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 
-import { links } from "../../constants";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
