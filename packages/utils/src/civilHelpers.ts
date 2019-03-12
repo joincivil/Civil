@@ -1,3 +1,4 @@
+import * as sanitizeHtml from "sanitize-html";
 import { EthAddress, Hex } from "@joincivil/typescript-types";
 import { soliditySha3 } from "./crypto";
 
@@ -104,4 +105,14 @@ export enum GovernmentParameters {
 export function getInfuraUrlFromIpfs(ipfsUrl: string): string {
   const hash = ipfsUrl.split("://")[1];
   return `https://ipfs.infura.io/ipfs/${hash}`;
+}
+
+export function sanitizeConstitutionHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["h2"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      h2: ["id"],
+    },
+  });
 }
