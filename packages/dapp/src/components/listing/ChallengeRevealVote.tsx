@@ -13,8 +13,8 @@ import {
   ChallengePhaseProps,
   RevealVoteProps,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings } from "@joincivil/utils";
-import { FAQ_BASE_URL, links } from "../../constants";
+import { getLocalDateTimeStrings, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";

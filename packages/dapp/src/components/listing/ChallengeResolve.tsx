@@ -6,8 +6,8 @@ import {
   ChallengeResolveCard as ChallengeResolveCardComponent,
   ModalContent,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL, links } from "../../constants";
 import { updateStatus } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import {

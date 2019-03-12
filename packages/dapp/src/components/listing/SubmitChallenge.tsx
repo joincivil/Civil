@@ -13,9 +13,9 @@ import {
   SubmitChallengeStatementProps,
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
-import { getFormattedParameterValue, Parameters } from "@joincivil/utils";
+import { getFormattedParameterValue, Parameters, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL, links, routes } from "../../constants";
+import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallenge, publishContent, challengeListingWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";

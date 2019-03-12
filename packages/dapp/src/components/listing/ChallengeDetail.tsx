@@ -3,6 +3,7 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
+import BigNumber from "bignumber.js";
 import {
   canRequestAppeal,
   doesChallengeHaveAppeal,
@@ -23,13 +24,14 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import BigNumber from "bignumber.js";
 
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   makeGetAppealChallengeState,
