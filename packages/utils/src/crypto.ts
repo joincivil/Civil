@@ -103,6 +103,7 @@ export function isBrowserCompatible(): boolean {
   return true;
 }
 
+/** This function doesn't really do anything except formalize which properties need checking in order to determine whether user is fully onboarded and set up to use their wallet on their current account and browser. */
 export function isWalletOnboarded(
   civilInstantiated: boolean,
   metamaskWalletAddress?: EthAddress,
