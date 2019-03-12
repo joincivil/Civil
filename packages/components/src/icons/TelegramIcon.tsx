@@ -21,7 +21,7 @@ const _TelegramIcon: React.SFC<TelegramIconProps> = props => {
       <defs>
         <path id="a" d="M1 2h16.718v14.954H1z" />
       </defs>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path
           fill="#8b8581"
           fillRule="evenodd"

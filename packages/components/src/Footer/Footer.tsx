@@ -1,4 +1,5 @@
 import * as React from "react";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { CivilIcon, TwitterIcon, FacebookIcon, InstagramIcon, MediumIcon, TelegramIcon } from "../icons";
 import {
@@ -23,7 +24,7 @@ export const Footer: React.SFC<FooterProps> = props => {
       <StyledFooterInner>
         <StyledFooterInnerLeft>
           <StyledFooterLogo>
-            <a href="https://civil.co">
+            <a href={links.MARKETING_SITE}>
               <CivilIcon />
             </a>
           </StyledFooterLogo>
@@ -35,7 +36,7 @@ export const Footer: React.SFC<FooterProps> = props => {
                   <b>For Developers</b>
                 </li>
                 <li>
-                  <a href="https://github.com/joincivil" target="_blank">
+                  <a href={links.GITHUB} target="_blank">
                     Github
                   </a>
                 </li>
@@ -47,26 +48,26 @@ export const Footer: React.SFC<FooterProps> = props => {
                   <b>About</b>
                 </li>
                 <li>
-                  <a href="https://blog.joincivil.com/" target="_blank">
+                  <a href={links.MEDIUM} target="_blank">
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="https://civil.co/press">Press</a>
+                  <a href={links.PRESS}>Press</a>
                 </li>
                 <li>
-                  <a href="https://civil.co/our-team">Team</a>
+                  <a href={links.TEAM}>Team</a>
                 </li>
                 <li>
-                  <a href="https://civil.co/partners">Partners</a>
+                  <a href={links.PARTNERS}>Partners</a>
                 </li>
                 <li>
-                  <a href="https://civilfound.org/" target="_blank">
+                  <a href={links.FOUNDATION} target="_blank">
                     Civil Foundation
                   </a>
                 </li>
                 <li>
-                  <a href="https://civilfound.org/#civil-council" target="_blank">
+                  <a href={links.COUNCIL} target="_blank">
                     Civil Council
                   </a>
                 </li>
@@ -78,7 +79,7 @@ export const Footer: React.SFC<FooterProps> = props => {
                   <b>Contact Us</b>
                 </li>
                 <li>
-                  <a href="https://civil.co/contact">Contact</a>
+                  <a href={links.CONTACT}>Contact</a>
                 </li>
               </ul>
             </div>
@@ -88,13 +89,13 @@ export const Footer: React.SFC<FooterProps> = props => {
                   <b>Other</b>
                 </li>
                 <li>
-                  <a href="https://civil.co/terms">Terms</a>
+                  <a href={links.TERMS}>Terms</a>
                 </li>
                 <li>
-                  <a href="https://civil.co/privacy">Privacy</a>
+                  <a href={links.PRIVACY_POLICY}>Privacy</a>
                 </li>
                 <li>
-                  <a href="https://civil.co/careers">Careers</a>
+                  <a href={links.CAREERS}>Careers</a>
                 </li>
               </ul>
             </div>
@@ -105,19 +106,19 @@ export const Footer: React.SFC<FooterProps> = props => {
           <StyledSlogan>#ownthenews</StyledSlogan>
 
           <StyledFooterSocial>
-            <a href="https://twitter.com/civil" target="_blank">
+            <a href={links.TWITTER} target="_blank">
               <TwitterIcon width={20} height={20} />
             </a>
-            <a href="https://www.facebook.com/joincivil" target="_blank">
+            <a href={links.FACEBOOK} target="_blank">
               <FacebookIcon width={20} height={20} />
             </a>
-            <a href="https://www.instagram.com/join_civil" target="_blank">
+            <a href={links.INSTAGRAM} target="_blank">
               <InstagramIcon width={20} height={20} />
             </a>
-            <a href="https://t.me/join_civil" target="_blank">
+            <a href={links.TELEGRAM} target="_blank">
               <TelegramIcon width={20} height={20} />
             </a>
-            <a href="https://blog.joincivil.com/" target="_blank">
+            <a href={links.MEDIUM} target="_blank">
               <MediumIcon width={20} height={20} />
             </a>
           </StyledFooterSocial>
