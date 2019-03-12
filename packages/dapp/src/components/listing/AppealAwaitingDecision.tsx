@@ -1,14 +1,13 @@
 import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard as AppealAwaitingDecisionCardComponent,
   AppealAwaitingDecisionCardProps,
   ModalContent,
 } from "@joincivil/components";
 
-import { FAQ_BASE_URL, links } from "../../constants";
 import { confirmAppeal, grantAppeal } from "../../apis/civilTCR";
 import {
   ChallengeContainerProps,

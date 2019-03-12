@@ -3,7 +3,9 @@ import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";

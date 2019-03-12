@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FAQ_BASE_URL, links } from "../../constants";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 import { StyledListingCopy } from "../utility/styledComponents";
 
 export const WhitelistedTabDescription: React.SFC = props => (

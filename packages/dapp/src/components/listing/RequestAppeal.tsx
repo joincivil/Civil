@@ -13,9 +13,14 @@ import {
   RequestAppealSuccessIcon,
   SnackBar,
 } from "@joincivil/components";
-import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
+import {
+  getFormattedParameterValue,
+  GovernmentParameters,
+  FAQ_BASE_URL,
+  urlConstants as links,
+} from "@joincivil/utils";
 
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForAppeal, publishContent, requestAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";

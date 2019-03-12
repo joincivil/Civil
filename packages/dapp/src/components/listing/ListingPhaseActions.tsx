@@ -1,11 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import styled from "styled-components";
-import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import ChallengeResolve from "./ChallengeResolve";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import {
   InApplicationCard,
   RejectedCard as RejectedCardComponent,
@@ -16,7 +13,12 @@ import {
   AppealDecisionProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import ChallengeDetailContainer from "./ChallengeDetail";
+import ChallengeResolve from "./ChallengeResolve";
+import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
