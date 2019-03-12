@@ -2,6 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
+import { TwitterIcon, FacebookIcon, InstagramIcon, MediumIcon, TelegramIcon } from "../icons";
 
 export const StyledFooter = styled.footer`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -113,6 +114,22 @@ export const StyledSlogan = styled.span`
 
 export const StyledFooterSocial = styled.div`
   margin: 0 0 69px;
+
+  ${TwitterIcon} path,
+  ${FacebookIcon} path,
+  ${InstagramIcon} path,
+  ${MediumIcon} path,
+  ${TelegramIcon} path {
+    fill: ${colors.accent.CIVIL_GRAY_1};
+  }
+
+  ${TwitterIcon}:hover path,
+  ${FacebookIcon}:hover path,
+  ${InstagramIcon}:hover path,
+  ${MediumIcon}:hover path,
+  ${TelegramIcon}:hover path {
+    fill: ${colors.accent.CIVIL_BLUE};
+  }
 
   ${mediaQueries.MOBILE} {
     margin: 0 0 30px;
