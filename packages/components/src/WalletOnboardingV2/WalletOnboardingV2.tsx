@@ -1,13 +1,15 @@
 import * as React from "react";
 import gql from "graphql-tag";
+import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ethereumEnable, isWalletOnboarded, getApolloClient } from "@joincivil/utils";
+import { ethereumEnable, isWalletOnboarded, getApolloClient, isBrowserCompatible } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
   AddressWithMetaMaskIcon,
   NorthEastArrow,
   Button,
+  InvertedButton,
   buttonSizes,
   MetaMaskSideIcon,
   MetaMaskLogoButton,
@@ -32,7 +34,8 @@ import {
   AuthApplicationEnum,
 } from "../";
 import { AccountEthAuth } from "../Account/";
-import styled from "styled-components";
+import * as chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
+import * as firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
 
 export interface WalletOnboardingV2Props {
   civil?: Civil;
@@ -73,6 +76,43 @@ const Wrapper = styled.div`
 
   a {
     color: ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
+const BrowserCompatHeading = styled(OBSectionTitle)`
+  @media (min-width: 640px) {
+    && {
+      margin-top: 100px;
+    }
+  }
+`;
+const BrowserLogo = styled.img`
+  height: 24px;
+  margin-right: 15px;
+  width: 24px;
+  vertical-align: bottom;
+`;
+const BrowserButtons = styled.div`
+  margin: 32px 0 128px;
+`;
+const BrowserButton = styled(InvertedButton)`
+  border-width: 1px;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  min-width: 210px;
+  padding: 5px 16px 7px;
+  text-transform: none;
+
+  @media (min-width: 640px) {
+    &:first-child {
+      margin-right: 16px;
+    }
+  }
+`;
+const BrowserCompatLinks = styled.a`
+  &:first-child {
+    margin-right: 48px;
   }
 `;
 
@@ -223,7 +263,9 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       }
     }
 
-    if (!hasInjectedProvider()) {
+    if (!isBrowserCompatible()) {
+      return this.renderBrowserIncompatible();
+    } else if (!hasInjectedProvider()) {
       return this.renderNoProvider();
     } else if (!this.state.metamaskEnabled) {
       return this.renderNotEnabled();
@@ -240,6 +282,37 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     }
 
     return null;
+  }
+
+  private renderBrowserIncompatible(): JSX.Element {
+    return (
+      <Wrapper>
+        <BrowserCompatHeading>Can we switch to a different browser?</BrowserCompatHeading>
+        <IntroText>
+          Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support,
+          like desktop Chrome and Firefox. We’re working to support other browsers.
+        </IntroText>
+        <IntroText>In the meantime, please…</IntroText>
+
+        <BrowserButtons>
+          <BrowserButton size={buttonSizes.MEDIUM_WIDE} href="https://www.google.com/chrome/" target="_blank">
+            <BrowserLogo src={chromeLogoImgUrl} />
+            Get Google Chrome
+          </BrowserButton>
+          <BrowserButton size={buttonSizes.MEDIUM_WIDE} href="https://www.mozilla.org/en-US/firefox/" target="_blank">
+            <BrowserLogo src={firefoxLogoImgUrl} />
+            Get Firefox
+          </BrowserButton>
+        </BrowserButtons>
+
+        <OBSmallestParagraph>
+          <BrowserCompatLinks href="mailto:support@civil.co">Contact Us</BrowserCompatLinks>
+          <BrowserCompatLinks href="https://cvlconsensys.zendesk.com" target="_blank">
+            Visit Support
+          </BrowserCompatLinks>
+        </OBSmallestParagraph>
+      </Wrapper>
+    );
   }
 
   private renderNoProvider(): JSX.Element {
