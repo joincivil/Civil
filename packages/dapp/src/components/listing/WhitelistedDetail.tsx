@@ -2,8 +2,8 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
-import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
 import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -25,7 +25,7 @@ class WhitelistedDetail extends React.Component<
   }
 
   public render(): JSX.Element {
-    const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listing.address });
+    const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listingAddress });
 
     return (
       <>
