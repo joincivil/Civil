@@ -2,12 +2,16 @@ import * as React from "react";
 import { formatRoute } from "react-router-named-routes";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
-import { getFormattedTokenBalance, getFormattedEthAddress, getEtherscanBaseURL } from "@joincivil/utils";
+import {
+  getFormattedTokenBalance,
+  getFormattedEthAddress,
+  getEtherscanBaseURL,
+  FAQ_BASE_URL,
+  urlConstants as links,
+} from "@joincivil/utils";
 
 import {
-  FAQ_BASE_URL,
   routes,
-  links,
   TRegistryListingType,
   TRegistrySubListingType,
   registryListingTypes,

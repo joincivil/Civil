@@ -62,3 +62,4 @@ export * from "./Airswap";
 export * from "./TokenTutorial";
 export * from "./Tutorial";
 export * from "./Notice";
+export * from "./Footer";

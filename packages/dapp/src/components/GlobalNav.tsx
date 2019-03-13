@@ -1,10 +1,9 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
-import { links } from "../constants";
 import {
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
