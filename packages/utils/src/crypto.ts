@@ -10,6 +10,7 @@ import {
 } from "ethereumjs-util";
 import { recoverPersonalSignature } from "eth-sig-util";
 import { soliditySHA3 } from "ethereumjs-abi";
+import { detect } from "detect-browser";
 import { Hex, EthSignedMessageRecovery, EthAddress } from "@joincivil/typescript-types";
 
 const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
@@ -84,6 +85,25 @@ export async function ethereumEnable(): Promise<boolean | EthAddress[]> {
   }
 }
 
+/** Return true if web3 provider is present or browser is known to support a wallet extension - currently just desktop chrome, firefox, and opera. */
+export function isBrowserCompatible(): boolean {
+  if ((window as any).web3) {
+    return true;
+  }
+
+  const browser = detect() || { name: "", os: "" };
+
+  if (["chrome", "firefox", "opera"].indexOf(browser.name) === -1) {
+    return false;
+  }
+  if (["android", "Android OS", "iOS", "Windows Mobile"].indexOf(browser.os as string) !== -1) {
+    return false;
+  }
+
+  return true;
+}
+
+/** This function doesn't really do anything except formalize which properties need checking in order to determine whether user is fully onboarded and set up to use their wallet on their current account and browser. */
 export function isWalletOnboarded(
   civilInstantiated: boolean,
   metamaskWalletAddress?: EthAddress,

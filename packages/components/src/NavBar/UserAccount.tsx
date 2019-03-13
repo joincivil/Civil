@@ -37,6 +37,15 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
         }
 
         if (civilUser && userEthAddress) {
+          const userAccountElRef = React.createRef<HTMLDivElement>();
+          let child;
+
+          if (props.children) {
+            child = React.cloneElement(props.children as React.ReactElement<any>, {
+              userAccountElRef,
+            });
+          }
+
           return (
             <>
               <StyledVisibleIfLoggedInLink>
@@ -44,19 +53,23 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
                   <NavLinkDashboardText />
                 </NavLink>
               </StyledVisibleIfLoggedInLink>
-              <NavUser onClick={ev => props.toggleDrawer()}>
-                <CvlContainer>
-                  <CvlToken />
-                  <BalancesContainer>
-                    <UserCvlBalance>{balance}</UserCvlBalance>
-                    <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
-                  </BalancesContainer>
-                  <AvatarContainer>
-                    <UserAvatar />
-                    <Arrow isOpen={props.isUserDrawerOpen} />
-                  </AvatarContainer>
-                </CvlContainer>
-              </NavUser>
+              <div ref={userAccountElRef}>
+                <NavUser onClick={ev => props.toggleDrawer()}>
+                  <CvlContainer>
+                    <CvlToken />
+                    <BalancesContainer>
+                      <UserCvlBalance>{balance}</UserCvlBalance>
+                      <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
+                    </BalancesContainer>
+                    <AvatarContainer>
+                      <UserAvatar />
+                      <Arrow isOpen={props.isUserDrawerOpen} />
+                    </AvatarContainer>
+                  </CvlContainer>
+                </NavUser>
+              </div>
+
+              {child}
             </>
           );
         } else if (civilUser && enableEthereum && !userEthAddress) {

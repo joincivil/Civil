@@ -1,10 +1,10 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
-import { getInfuraUrlFromIpfs } from "@joincivil/utils";
+import { BigNumber } from "bignumber.js";
+import { EthAddress, Civil, CharterData, RosterMember, ListingWrapper } from "@joincivil/core";
+import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { makeUserObject } from "./utils";
-import * as sanitizeHtml from "sanitize-html";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -15,6 +15,8 @@ export enum newsroomActions {
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
+  SET_MULTISIG_ADDRESS = "SET_MULTISIG_ADDRESS",
+  SET_MULTISIG_BALANCE = "SET_MULTISIG_BALANCE",
 }
 
 export enum uiActions {
@@ -39,6 +41,10 @@ export enum grantActions {
   SET_SKIP = "CHOOSE_SKIP",
   APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
   APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
+}
+
+export enum listingActions {
+  ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
 }
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
@@ -83,6 +89,47 @@ export const getIsEditor = (address: EthAddress, civil: Civil): any => async (
   return dispatch(setIsEditor(address, await newsroom.isEditor()));
 };
 
+export const getNewsroomMultisigBalance = (
+  address: EthAddress,
+  multisigAddress: EthAddress,
+  civil: Civil,
+): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
+  const tcr = await civil.tcrSingletonTrusted();
+  const token = await tcr.getToken();
+  const balance = await token.getBalance(multisigAddress);
+  dispatch(setNewsroomMultisigAddress(address, multisigAddress));
+  return dispatch(setNewsroomMultisigBalance(address, balance));
+};
+
+export const setNewsroomMultisigAddress = (address: EthAddress, multisigAddress: EthAddress): AnyAction => {
+  return {
+    type: newsroomActions.SET_MULTISIG_ADDRESS,
+    data: {
+      address,
+      multisigAddress,
+    },
+  };
+};
+
+export const setNewsroomMultisigBalance = (address: EthAddress, multisigBalance: BigNumber): AnyAction => {
+  return {
+    type: newsroomActions.SET_MULTISIG_BALANCE,
+    data: {
+      address,
+      multisigBalance,
+    },
+  };
+};
+
+export const getListing = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
+  const tcr = await civil.tcrSingletonTrusted();
+  const listing = await tcr.getListing(address);
+  return dispatch(addListing(await listing.getListingWrapper()));
+};
+
 export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
   return {
     type: newsroomActions.ADD_NEWSROOM,
@@ -117,6 +164,13 @@ export const addOwner = (address: EthAddress, owner: EthAddress): AnyAction => {
       address,
       owner,
     },
+  };
+};
+
+export const addListing = (listing: ListingWrapper): AnyAction => {
+  return {
+    type: listingActions.ADD_OR_UPDATE_LISTING,
+    data: listing,
   };
 };
 
@@ -181,7 +235,7 @@ export const fetchConstitution = (ipfsAddress: string): any => async (dispatch: 
   return dispatch({
     type: governmentActions.ADD_CONSTITUTION_CONTENT,
     data: {
-      content: sanitizeHtml(constitution.content),
+      content: sanitizeConstitutionHtml(constitution.content),
     },
   });
 };

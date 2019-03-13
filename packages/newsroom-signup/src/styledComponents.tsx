@@ -8,6 +8,7 @@ import {
   InputProps,
   QuestionToolTip as _QuestionToolTip,
   ToolTipProps,
+  TransactionPopUpWarning as _TransactionPopUpWarning,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
@@ -52,12 +53,30 @@ export const FormRow = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 `;
-export const FormRowItem = styled.div`
-  flex: 1;
+
+export const FormRowLeftAlign = styled(FormRow)`
+  justify-content: flex-start;
+`;
+
+export const FormRowCenter = styled(FormRow)`
+  justify-content: center;
+`;
+
+export interface FormRowItemProps {
+  align?: string;
+  width?: string;
+}
+
+export const FormRowItem: StyledComponentClass<FormRowItemProps, "div"> = styled<FormRowItemProps, "div">("div")`
   padding-right: 15px;
+  text-align: ${(props: FormRowItemProps) => props.align || "left"};
   &:last-child {
     padding-right: 0;
   }
+
+  // Support either specified widths or true flexible child elements
+  ${(props: FormRowItemProps) => (props.width ? "" : "flex: 1;")};
+  ${(props: FormRowItemProps) => (props.width ? `width: ${props.width};` : "")};
 `;
 
 export const HelperText = styled.div`
@@ -146,3 +165,29 @@ export const _NoAvatar = styled.div`
 `;
 
 export const noAvatar = <_NoAvatar>?</_NoAvatar>;
+
+export const TransactionPopUpWarning = styled(_TransactionPopUpWarning)`
+  margin-top: 12px;
+`;
+
+// Apply to Registry
+export const TransferTextLarge = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 16px;
+  line-height: 24px;
+`;
+
+export const CivilLabel = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: -0.07px;
+  line-height: 15px;
+`;
+
+export const DepositAmountText = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 15px;
+`;
