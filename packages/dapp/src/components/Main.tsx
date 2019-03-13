@@ -95,7 +95,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       if (err.message !== CivilErrors.UnsupportedNetwork) {
         throw err;
       } else {
-        console.error("Unsupported network, unlock Metamask and switch to Rinkeby");
+        console.error("Unsupported network, unlock Metamask and switch to Mainnet");
       }
     }
   };
