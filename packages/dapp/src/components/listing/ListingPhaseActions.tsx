@@ -110,6 +110,10 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
+    let approvalDate;
+    if (this.props.listing.data.approvalDate) {
+      approvalDate = this.props.listing.data.approvalDate;
+    }
     return (
       <>
         <WhitelistedDetail
@@ -117,6 +121,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           constitutionURI={this.props.constitutionURI}
           faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
+          approvalDate={approvalDate}
         />
       </>
     );

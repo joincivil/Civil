@@ -10,10 +10,12 @@ import { State } from "../../redux/reducers";
 import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
+import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;
   constitutionURI?: string;
+  approvalDate?: BigNumber;
   onMobileTransactionClick(): any;
 }
 
@@ -49,7 +51,12 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: WhitelistedCardSubmitChallengeProps & ListingContainerProps,
   ): WhitelistedCardSubmitChallengeProps & WhitelistedCardProps => {
-    const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
+    let whitelistedTimestamp;
+    if (ownProps.approvalDate) {
+      whitelistedTimestamp = ownProps.approvalDate.toNumber();
+    } else {
+      whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
+    }
     return { ...ownProps, whitelistedTimestamp };
   };
 
