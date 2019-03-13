@@ -36,6 +36,7 @@
     "apollo-link": "^1.2.6",
     "apollo-link-error": "^1.1.5",
     "bignumber.js": "~5.0.0",
+    "detect-browser": "^4.1.0",
     "eth-sig-util": "^1.4.2",
     "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^5.2.0",
