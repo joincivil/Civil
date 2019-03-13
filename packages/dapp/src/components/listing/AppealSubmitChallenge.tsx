@@ -8,8 +8,9 @@ import {
   ChallengePhaseProps,
   AppealDecisionProps,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { routes } from "../../constants";
 import {
   ChallengeContainerProps,
   connectChallengePhase,

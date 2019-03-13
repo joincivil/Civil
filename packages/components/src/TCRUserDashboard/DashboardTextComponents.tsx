@@ -40,7 +40,7 @@ export const RewardsClaimedLabelText: React.SFC = props => <>Rewards Claimed</>;
 
 export const TransferTokenText: React.SFC = props => (
   <StyledTransferTokenTitle>
-    <h3>Rewards Claimed</h3>
+    <h3>Transfer Tokens</h3>
     <p>
       Transfer tokens between your Available Balance and Voting Balance. Use tokens in your Available Balance to apply,
       challenge, send or sell. Use tokens in your Voting Balance to vote in challenges. You may transfer any inactive
@@ -51,7 +51,7 @@ export const TransferTokenText: React.SFC = props => (
 
 export const TransferTokenTipsText: React.SFC = props => (
   <StyledTransferTokenTip>
-    <b>Tips:</b> We recommend reserving some tokens in your available balance if you plan on applying, challenging, or
+    <b>Tip:</b> We recommend reserving some tokens in your available balance if you plan on applying, challenging, or
     tipping newsrooms.
   </StyledTransferTokenTip>
 );
