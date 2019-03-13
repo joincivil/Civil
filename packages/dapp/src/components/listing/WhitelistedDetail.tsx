@@ -19,11 +19,21 @@ export interface WhitelistedCardSubmitChallengeProps {
   onMobileTransactionClick(): any;
 }
 
+export interface WhitelistedCardReduxProps {
+  useGraphQL?: boolean;
+}
+
 class WhitelistedDetail extends React.Component<
-  ListingDetailPhaseCardComponentProps & WhitelistedCardProps & WhitelistedCardSubmitChallengeProps & DispatchProp<any>
+  ListingDetailPhaseCardComponentProps &
+    WhitelistedCardProps &
+    WhitelistedCardSubmitChallengeProps &
+    WhitelistedCardReduxProps &
+    DispatchProp<any>
 > {
   public async componentDidMount(): Promise<void> {
-    this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress));
+    if (!this.props.useGraphQL) {
+      this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress));
+    }
   }
 
   public render(): JSX.Element {
@@ -50,14 +60,14 @@ const makeMapStateToProps = () => {
   const mapStateToProps = (
     state: State,
     ownProps: WhitelistedCardSubmitChallengeProps & ListingContainerProps,
-  ): WhitelistedCardSubmitChallengeProps & WhitelistedCardProps => {
+  ): WhitelistedCardSubmitChallengeProps & WhitelistedCardProps & WhitelistedCardReduxProps => {
     let whitelistedTimestamp;
     if (ownProps.approvalDate) {
       whitelistedTimestamp = ownProps.approvalDate.toNumber();
     } else {
       whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
     }
-    return { ...ownProps, whitelistedTimestamp };
+    return { ...ownProps, whitelistedTimestamp, useGraphQL: state.useGraphQL };
   };
 
   return mapStateToProps;
