@@ -491,7 +491,7 @@ export const getUserChallengesWithRescueTokens = createSelector(
   [getChallengeUserData, getUser],
   (challengeUserData, user) => {
     let challengeIDs = Set<string>();
-    if (challengeUserData && user && !user.account) {
+    if (challengeUserData && user && user.account) {
       challengeIDs = challengeUserData
         .filter((challengeData, challengeID, iter): boolean => {
           try {
