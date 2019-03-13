@@ -64,12 +64,6 @@ const ConstitutionContainer = styled.div`
     border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
     padding: 31px 23px;
   }
-  h4 {
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 32px;
-    font-family: ${fonts.SANS_SERIF};
-  }
 `;
 
 const Constitution = styled.div`
@@ -78,9 +72,30 @@ const Constitution = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 16px;
   line-height: 26px;
+  h2 {
+    border: none;
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    margin-top: 32px;
+    padding: 0;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  h4 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    font-family: ${fonts.SANS_SERIF};
+  }
   p {
     font-size: 16px;
     line-height: 26px;
+  }
+  a {
+    cursor: pointer;
   }
 `;
 
