@@ -5,12 +5,10 @@ import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { Button, buttonSizes } from "@joincivil/components";
 
 export interface SmartContractProps {
+  currentStep: number;
   profileWalletAddress?: EthAddress;
   charter: Partial<CharterData>;
-}
-
-export interface SmartContractState {
-  currentStep: number;
+  navigate(go: 1 | -1): void;
 }
 
 const ContinueButton = styled(Button)`
@@ -23,18 +21,12 @@ const ContinueButtonContainer = styled.div`
   justify-content: center;
 `;
 
-export class SmartContract extends React.Component<SmartContractProps, SmartContractState> {
-  constructor(props: SmartContractProps) {
-    super(props);
-    this.state = {
-      currentStep: 0,
-    };
-  }
+export class SmartContract extends React.Component<SmartContractProps> {
   public renderButtons(): JSX.Element | void {
-    if (this.state.currentStep === 0) {
+    if (this.props.currentStep === 0) {
       return (
         <ContinueButtonContainer>
-          <ContinueButton onClick={this.goNext} size={buttonSizes.MEDIUM_WIDE}>
+          <ContinueButton onClick={() => this.props.navigate(+1)} size={buttonSizes.MEDIUM_WIDE}>
             Continue
           </ContinueButton>
         </ContinueButtonContainer>
@@ -45,7 +37,7 @@ export class SmartContract extends React.Component<SmartContractProps, SmartCont
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
     ];
-    return steps[this.state.currentStep];
+    return steps[this.props.currentStep];
   }
   public render(): JSX.Element {
     return (
@@ -55,7 +47,4 @@ export class SmartContract extends React.Component<SmartContractProps, SmartCont
       </>
     );
   }
-  private goNext = (): void => {
-    this.setState({ currentStep: this.state.currentStep + 1 });
-  };
 }

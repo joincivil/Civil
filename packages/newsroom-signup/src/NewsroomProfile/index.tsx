@@ -12,15 +12,15 @@ import { GrantApplication } from "./GrantApplication";
 const NUM_STEPS = 5;
 
 export interface NewsroomProfileState {
-  currentStep: number;
   showButtons: boolean;
 }
 
 export interface NewsroomProfileProps {
+  currentStep: number;
   charter: Partial<CharterData>;
   grantRequested?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
-  goNext?(): void;
+  navigate(go: 1 | -1): void;
 }
 
 const ButtonContainer = styled.div`
@@ -33,16 +33,7 @@ const ButtonContainer = styled.div`
 export class NewsroomProfile extends React.Component<NewsroomProfileProps, NewsroomProfileState> {
   constructor(props: NewsroomProfileProps) {
     super(props);
-    let currentStep = 0;
-    try {
-      if (localStorage.newsroomOnBoardingNewsroomProfileStep) {
-        currentStep = Number(localStorage.newsroomOnBoardingNewsroomProfileStep);
-      }
-    } catch (e) {
-      console.error("Failed to load step index");
-    }
     this.state = {
-      currentStep,
       showButtons: true,
     };
   }
@@ -78,7 +69,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return false;
       },
       () => {
-        return true;
+        return !!this.props.grantRequested;
       },
     ];
     return functions[index];
@@ -96,7 +87,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <ApplicationSoFarPage charter={this.props.charter} />,
       <GrantApplication />,
     ];
-    return steps[this.state.currentStep];
+    return steps[this.props.currentStep];
   }
   public renderButtons(): JSX.Element | null {
     if (!this.state.showButtons || this.props.grantRequested) {
@@ -104,45 +95,26 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     }
     return (
       <ButtonContainer>
-        {this.state.currentStep > 0 ? (
-          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.goBack()}>
+        {this.props.currentStep > 0 ? (
+          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.props.navigate(-1)}>
             Back
           </BorderlessButton>
         ) : (
           <div />
         )}
-        {this.state.currentStep < NUM_STEPS ? (
-          <Button
-            disabled={this.getDisabled(this.state.currentStep)()}
-            textTransform="none"
-            width={220}
-            size={buttonSizes.MEDIUM}
-            onClick={() => this.goNext()}
-          >
-            Next
-          </Button>
-        ) : (
-          <div />
-        )}
+        <Button
+          disabled={this.getDisabled(this.props.currentStep)()}
+          textTransform="none"
+          width={220}
+          size={buttonSizes.MEDIUM}
+          onClick={() => this.props.navigate(+1)}
+        >
+          Next
+        </Button>
       </ButtonContainer>
     );
   }
-  public goNext(): void {
-    try {
-      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep + 1);
-    } catch (e) {
-      console.error("Failed to save step index", e);
-    }
-    this.setState({ currentStep: this.state.currentStep + 1 });
-  }
-  public goBack(): void {
-    try {
-      localStorage.newsroomOnBoardingNewsroomProfileStep = JSON.stringify(this.state.currentStep - 1);
-    } catch (e) {
-      console.error("Failed to save step index", e);
-    }
-    this.setState({ currentStep: this.state.currentStep - 1 });
-  }
+
   public render(): JSX.Element {
     return (
       <>
