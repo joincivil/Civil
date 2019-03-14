@@ -22,9 +22,17 @@ export interface RejectedListingsListContainerReduxProps {
   useGraphQL: boolean;
 }
 const LISTINGS_QUERY = gql`
-  query($rejectedOnly: Boolean!) {
-    listings(rejectedOnly: $rejectedOnly) {
-      ...ListingFragment
+  query Listings($rejectedOnly: Boolean!, $cursor: String) {
+    tcrListings(rejectedOnly: $rejectedOnly, first: 2, after: $cursor) {
+      edges {
+        node {
+          ...ListingFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
   ${LISTING_FRAGMENT}
@@ -34,7 +42,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
     if (this.props.useGraphQL) {
       return (
         <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }} pollInterval={30000}>
-          {({ loading, error, data }: any): JSX.Element => {
+          {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
             if (loading) {
               return <LoadingMsg />;
             }
@@ -42,10 +50,10 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
               return <ErrorLoadingDataMsg />;
             }
             const map = Set<NewsroomListing>(
-              data.listings.map((listing: any) => {
+              tcrListings.edges.map((edge: any) => {
                 return {
-                  listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
-                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
+                  listing: transformGraphQLDataIntoListing(edge.node, edge.node.contractAddress),
+                  newsroom: transformGraphQLDataIntoNewsroom(edge.node, edge.node.contractAddress),
                 };
               }),
             );
@@ -58,6 +66,31 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
               <>
                 <RejectedTabDescription />
                 <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={map} />
+                <button
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: tcrListings.pageInfo.endCursor,
+                      },
+                      updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                        const newEdges = fetchMoreResult.tcrListings.edges;
+                        const pageInfo = fetchMoreResult.tcrListings.pageInfo;
+
+                        return newEdges.length
+                          ? {
+                              tcrListings: {
+                                __typename: previousResult.tcrListings.__typename,
+                                edges: [...previousResult.tcrListings.edges, ...newEdges],
+                                pageInfo,
+                              },
+                            }
+                          : previousResult;
+                      },
+                    })
+                  }
+                >
+                  load more
+                </button>
               </>
             );
           }}
