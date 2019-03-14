@@ -81,7 +81,11 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
             return "Loading...";
           }
           if (error) {
-            return `Error! ${JSON.stringify(error)}`;
+            return (
+              <>
+                Sorry, there was an error! <code>{JSON.stringify(error)}</code>
+              </>
+            );
           }
 
           return (
@@ -91,10 +95,14 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                   return "Loading...";
                 }
                 if (charterError) {
-                  if (charterError.graphQLErrors && charterError.graphQLErrors[0].message === "No jsonb found") {
+                  if (charterError.graphQLErrors[0] && charterError.graphQLErrors[0].message === "No jsonb found") {
                     // ok, they haven't saved a charter yet
                   } else {
-                    return `Error! ${JSON.stringify(charterError)}`;
+                    return (
+                      <>
+                        Sorry, there was an error! <code>{JSON.stringify(charterError)}</code>
+                      </>
+                    );
                   }
                 }
 
