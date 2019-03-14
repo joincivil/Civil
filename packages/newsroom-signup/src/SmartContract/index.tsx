@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { EthAddress, CharterData } from "@joincivil/core";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
+import { UnderstandingEth } from "./UnderstandingEth";
 import { Button, buttonSizes } from "@joincivil/components";
 
 export interface SmartContractProps {
@@ -36,6 +37,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
+      <UnderstandingEth />,
     ];
     return steps[this.props.currentStep];
   }
