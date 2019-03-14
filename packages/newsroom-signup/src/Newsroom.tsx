@@ -254,12 +254,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
   }
 
-  public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
-    if (newProps.address && !this.props.address) {
-      await this.hydrateNewsroom(newProps.address);
+  public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
+    if (this.props.address && !prevProps.address) {
+      await this.hydrateNewsroom(this.props.address);
     }
-    if (this.props.newsroom && newProps.account !== this.props.account) {
-      this.setRoles(newProps.address || this.props.address!);
+    if (prevProps.newsroom && this.props.account !== prevProps.account) {
+      this.setRoles(this.props.address || prevProps.address!);
     }
   }
 
