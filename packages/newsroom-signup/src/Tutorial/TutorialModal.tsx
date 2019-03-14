@@ -5,9 +5,11 @@ import {
   CloseBtn,
   CloseXIcon,
   TokenTutorial,
-  TokenBtns,
   HollowGreenCheck,
+  Button,
+  ButtonProps,
 } from "@joincivil/components";
+import styled, { StyledComponentClass } from "styled-components";
 
 export interface TutorialModalProps {
   user: any;
@@ -17,6 +19,26 @@ export interface TutorialModalStates {
   isTutorialComplete: boolean;
   isTutorialModalOpen: boolean;
 }
+
+export const LaunchTutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+  font-size: 13px;
+  letter-spacing: 0.2px;
+  margin-top: 7px;
+  padding: 10px 45px;
+`;
+
+const TutorialCheck = styled.div`
+  display: flex;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.2px;
+  line-height: 14px;
+  margin-top: 20px;
+
+  svg {
+    margin-left: 5px;
+  }
+`;
 
 export class TutorialModal extends React.Component<TutorialModalProps, TutorialModalStates> {
   public constructor(props: TutorialModalProps) {
@@ -32,14 +54,14 @@ export class TutorialModal extends React.Component<TutorialModalProps, TutorialM
 
     if (tutorialComplete) {
       return (
-        <>
-          <HollowGreenCheck height={16} width={16} /> Tutorial completed
-        </>
+        <TutorialCheck>
+          Tutorial completed <HollowGreenCheck height={16} width={16} />
+        </TutorialCheck>
       );
     }
     return (
       <>
-        <TokenBtns onClick={this.openTutorialModal}>Open the Tutorial</TokenBtns>
+        <LaunchTutorialBtn onClick={this.openTutorialModal}>Open the Tutorial</LaunchTutorialBtn>
         <FullScreenModal open={this.state.isTutorialModalOpen} solidBackground={true}>
           <CloseBtn onClick={() => this.closeTutorialModal(this.props.user)}>
             <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />

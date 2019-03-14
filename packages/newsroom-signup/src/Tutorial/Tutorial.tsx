@@ -4,14 +4,20 @@ import {
   OBSectionHeader,
   OBSectionDescription,
   fonts,
+  colors,
   CivilTutorialIcon,
-  TokenBtns,
 } from "@joincivil/components";
-import { TutorialModal } from "./TutorialModal";
+import { TutorialModal, LaunchTutorialBtn } from "./TutorialModal";
 import styled from "styled-components";
 
+const SectionWrap = styled.div`
+  border-bottom: 1px solid #d8d8d8;
+  margin-bottom: 35px;
+  padding: 0 50px 40px;
+`;
+
 const TutorialSectionStyled = styled.div`
-  font-family: ${fonts.SANS_SERIF}
+  font-family: ${fonts.SANS_SERIF};
   padding-left: 60px;
   position: relative;
 
@@ -19,36 +25,44 @@ const TutorialSectionStyled = styled.div`
     font-size: 20px;
     font-weight: bold;
     line-height: 1;
+    margin-top: 0;
   }
 
   p {
-    color: #23282D;
+    color: #23282d;
     font-size: 14px;
     line-height: 20px;
+    max-width: 600px;
   }
 `;
 
 const IconStyled = styled.div`
+  align-items: center;
   border: 1px solid #d8d8d8;
   border-radius: 50%;
+  display: flex;
+  height: 48px;
+  justify-content: center;
   left: 0;
-  padding: 8px;
   position: absolute;
-  top: 0;
+  top: -11px;
+  width: 48px;
 `;
 
-export class TutorialPage extends React.Component {
+export class Tutorial extends React.Component {
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Take the Civil Tutorial</OBSectionHeader>
-        <OBSectionDescription>
-          Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil tokens
-          and how the Registry works.
-        </OBSectionDescription>
+        <SectionWrap>
+          <OBSectionHeader>Take the Civil Tutorial</OBSectionHeader>
+          <OBSectionDescription>
+            Before you can use Civil tokens, you must complete a tutorial to ensure you understand how to use Civil
+            tokens and how the Registry works.
+          </OBSectionDescription>
+        </SectionWrap>
         <TutorialSectionStyled>
           <IconStyled>
-            <CivilTutorialIcon />
+            <CivilTutorialIcon color={colors.accent.CIVIL_GRAY_2} />
           </IconStyled>
           <h2>Civil Tutorial</h2>
           <p>
@@ -62,7 +76,7 @@ export class TutorialPage extends React.Component {
           <LoadUser>
             {({ loading, user }) => {
               if (loading) {
-                return <TokenBtns disabled={true}>Open the Tutorial</TokenBtns>;
+                return <LaunchTutorialBtn disabled={true}>Open the Tutorial</LaunchTutorialBtn>;
               }
 
               return <TutorialModal user={user} />;

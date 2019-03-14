@@ -308,7 +308,7 @@ export const TutorialContent = [
       header: "Congrats! You’ve completed the Civil tutorial",
       content:
         "You’ve proved that you understand Civil and how Civil tokens work. Now, you are eligible to use, share and buy Civil tokens.",
-      btnText: "Buy Civil Tokens",
+      btnText: "Done",
     },
   },
 ];
