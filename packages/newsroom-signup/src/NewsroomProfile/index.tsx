@@ -9,8 +9,6 @@ import { SignConstitution } from "./SignConstitution";
 import { ApplicationSoFarPage } from "./ApplicationSoFarPage";
 import { GrantApplication } from "./GrantApplication";
 
-const NUM_STEPS = 5;
-
 export interface NewsroomProfileState {
   showButtons: boolean;
 }
@@ -19,6 +17,7 @@ export interface NewsroomProfileProps {
   currentStep: number;
   charter: Partial<CharterData>;
   grantRequested?: boolean;
+  grantApproved?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
   navigate(go: 1 | -1): void;
 }
@@ -72,6 +71,14 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return !!this.props.grantRequested;
       },
     ];
+
+    if (index >= functions.length) {
+      // Dumb edge case because of how auto-skipping from grant step interacts with our nested step processes, we can briefly have too-high a step
+      return () => {
+        return false;
+      };
+    }
+
     return functions[index];
   }
   public renderCurrentStep(): JSX.Element {
@@ -89,8 +96,11 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     ];
     return steps[this.props.currentStep];
   }
+
   public renderButtons(): JSX.Element | null {
-    if (!this.state.showButtons || this.props.grantRequested) {
+    // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
+    const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
+    if (!this.state.showButtons || waitingOnGrant) {
       return null;
     }
     return (
@@ -123,6 +133,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       </>
     );
   }
+
   private setButtonVisibility = (visible: boolean) => {
     this.setState({ showButtons: visible });
   };

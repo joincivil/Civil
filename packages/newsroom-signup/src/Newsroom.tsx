@@ -131,6 +131,7 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
 // Final props are from GQL
 export interface NewsroomProps extends NewsroomPropsWithRedux {
   grantRequested?: boolean;
+  grantApproved?: boolean;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
@@ -160,6 +161,21 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       borderlessButtonSize: "14px",
     },
   };
+
+  public static getDerivedStateFromProps(
+    props: NewsroomProps,
+    state: NewsroomComponentState,
+  ): NewsroomComponentState | null {
+    // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
+    const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
+    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant) {
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
+      };
+    }
+    return null;
+  }
 
   private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
@@ -282,6 +298,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
+          grantApproved={this.props.grantApproved}
           charter={this.props.charter}
           updateCharter={this.updateCharter}
         />
@@ -421,7 +438,7 @@ const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>
-        {({ profileWalletAddress, persistedCharter, persistCharter, grantRequested }) => {
+        {({ profileWalletAddress, persistedCharter, persistCharter, grantRequested, grantApproved }) => {
           return (
             <NewsroomComponent
               {...props}
@@ -429,6 +446,7 @@ const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
               persistCharter={persistCharter}
               persistedCharter={persistedCharter}
               grantRequested={grantRequested}
+              grantApproved={grantApproved}
             />
           );
         }}
