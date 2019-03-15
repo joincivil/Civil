@@ -29,8 +29,6 @@ export enum TOKEN_PROGRESS {
 
 export interface UserTokenAccountProps {
   foundationAddress: string;
-  supportEmailAddress: string;
-  faqUrl: string;
   network: string;
   user?: any;
   addWalletPath: string;
@@ -62,7 +60,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    const { user, supportEmailAddress, faqUrl } = this.props;
+    const { user } = this.props;
 
     const accountSignupComplete = this.getAccountComplete(user);
     const tutorialComplete = this.getTutorialComplete(user);
@@ -96,7 +94,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                 tutorialComplete={tutorialComplete}
               />
               <UserTokenAccountPaypal />
-              <UserTokenAccountHelp supportEmailAddress={supportEmailAddress} faqUrl={faqUrl} />
+              <UserTokenAccountHelp />
             </FlexColumnsSecondary>
           </FlexColumns>
         </TokenAccountInner>
@@ -107,7 +105,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   private renderBrowserIncompatible = () => {
     return (
       <FlexColumnsPrimaryModule>
-        <BrowserCompatible supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
+        <BrowserCompatible />
       </FlexColumnsPrimaryModule>
     );
   };
@@ -139,7 +137,6 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
           step={buyState}
           network={this.props.network}
           foundationAddress={this.props.foundationAddress}
-          faqUrl={this.props.faqUrl}
         />
       </>
     );

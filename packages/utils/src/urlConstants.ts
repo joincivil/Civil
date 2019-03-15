@@ -37,7 +37,9 @@ export enum urlConstants {
   FAQ_HOW_TO_CHALLENGE = "/hc/en-us/articles/360024546932-How-do-I-challenge-a-Newsroom-",
   FAQ_HOW_TO_VOTE = "/hc/en-us/articles/360024855271-How-do-I-vote-in-a-challenge-",
   FAQ_HOW_TO_APPEAL = "/hc/en-us/articles/360024855191-How-do-I-request-an-appeal-to-the-Civil-Council-",
+  FAQ_HOW_TO_SETUP_METAMASK = "/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
   FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS = "/hc/en-us/articles/360024545012-How-do-I-update-a-Newsroom-s-status-on-the-Civil-Registry-",
   FAQ_WHAT_IS_SMART_CONTRACT = "/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-",
   FAQ_WHAT_IS_PLCR_CONTRACT = "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",
+  FAQ_WALLETS = "/hc/en-us/sections/360003838452-Wallets",
 }

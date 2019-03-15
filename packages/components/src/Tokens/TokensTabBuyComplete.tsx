@@ -4,18 +4,12 @@ import { TokenBuyCompleteText } from "./TokensTextComponents";
 import { TokensUnlockMessage } from "./TokensUnlockMessage";
 import { HollowGreenCheck } from "../icons";
 
-export interface TokensTabBuyCompleteProps {
-  faqUrl: string;
-}
-
-export const TokensTabBuyComplete: React.StatelessComponent<TokensTabBuyCompleteProps> = props => {
-  const { faqUrl } = props;
-
+export const TokensTabBuyComplete: React.StatelessComponent = props => {
   return (
     <>
       <TokenBuySellComplete>
         <HollowGreenCheck width={48} height={48} />
-        <TokenBuyCompleteText faqUrl={faqUrl} />
+        <TokenBuyCompleteText />
       </TokenBuySellComplete>
       <TokensUnlockMessage />
     </>
