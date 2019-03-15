@@ -27,6 +27,9 @@ export enum urlConstants {
   INSTAGRAM = "https://www.instagram.com/join_civil",
   TELEGRAM = "https://t.me/join_civil",
 
+  // Email
+  EMAIL_SUPPORT = "support@civil.co",
+
   // FAQ
   FAQ_REGISTRY = "/hc/en-us/categories/360001542132-Registry",
   FAQ_COMMUNITY_VETTING_PROCESS = "/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-",

@@ -4,6 +4,7 @@ import {
   TokenAccountInner,
   FlexColumns,
   FlexColumnsPrimary,
+  FlexColumnsPrimaryModule,
   FlexColumnsSecondary,
   TokenHeader,
   TokenSection,
@@ -18,6 +19,7 @@ import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress } from "@joincivil/utils";
 import { Notice, NoticeTypes } from "../Notice";
 import { UserTokenAccountPaypal } from "./TokensAccountPaypal";
+import { BrowserCompatible } from "../BrowserCompatible";
 
 export enum TOKEN_PROGRESS {
   ACTIVE = "active",
@@ -81,6 +83,10 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
+              <FlexColumnsPrimaryModule>
+                <BrowserCompatible />
+              </FlexColumnsPrimaryModule>
+
               <UserTokenAccountSignup
                 user={user}
                 step={loggedInState}
@@ -100,6 +106,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
                   <TokenMustBuyEth />
                 </Notice>
               </TokenSection>
+
               <UserTokenAccountBuy
                 step={buyState}
                 network={network}
