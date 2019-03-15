@@ -16,7 +16,7 @@ import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
-import { getFormattedEthAddress } from "@joincivil/utils";
+import { getFormattedEthAddress, isBrowserCompatible } from "@joincivil/utils";
 import { Notice, NoticeTypes } from "../Notice";
 import { UserTokenAccountPaypal } from "./TokensAccountPaypal";
 import { BrowserCompatible } from "../BrowserCompatible";
@@ -62,8 +62,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   }
 
   public render(): JSX.Element | null {
-    const { user, addWalletPath, network, foundationAddress, faqUrl, supportEmailAddress, signupPath } = this.props;
-    const { isTutorialModalOpen } = this.state;
+    const { user, supportEmailAddress, faqUrl } = this.props;
 
     const accountSignupComplete = this.getAccountComplete(user);
     const tutorialComplete = this.getTutorialComplete(user);
@@ -83,36 +82,10 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
 
           <FlexColumns>
             <FlexColumnsPrimary>
-              <FlexColumnsPrimaryModule>
-                <BrowserCompatible />
-              </FlexColumnsPrimaryModule>
+              {!isBrowserCompatible()
+                ? this.renderBrowserIncompatible()
+                : this.renderTokenSteps(loggedInState, tutorialState, buyState)}
 
-              <UserTokenAccountSignup
-                user={user}
-                step={loggedInState}
-                addWalletPath={addWalletPath}
-                signupPath={signupPath}
-              />
-
-              <UserTokenAccountVerify
-                step={tutorialState}
-                open={isTutorialModalOpen}
-                handleClose={() => this.closeTutorialModal(user)}
-                handleOpen={this.openTutorialModal}
-              />
-
-              <TokenSection>
-                <Notice type={NoticeTypes.INFO}>
-                  <TokenMustBuyEth />
-                </Notice>
-              </TokenSection>
-
-              <UserTokenAccountBuy
-                step={buyState}
-                network={network}
-                foundationAddress={foundationAddress}
-                faqUrl={faqUrl}
-              />
               <UserTokenAccountFaq />
             </FlexColumnsPrimary>
 
@@ -130,6 +103,47 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
       </TokenAccountOuter>
     );
   }
+
+  private renderBrowserIncompatible = () => {
+    return (
+      <FlexColumnsPrimaryModule>
+        <BrowserCompatible supportEmailAddress={this.props.supportEmailAddress} faqUrl={this.props.faqUrl} />
+      </FlexColumnsPrimaryModule>
+    );
+  };
+
+  private renderTokenSteps = (loggedInState: any, tutorialState: any, buyState: any) => {
+    return (
+      <>
+        <UserTokenAccountSignup
+          user={this.props.user}
+          step={loggedInState}
+          addWalletPath={this.props.addWalletPath}
+          signupPath={this.props.signupPath}
+        />
+
+        <UserTokenAccountVerify
+          step={tutorialState}
+          open={this.state.isTutorialModalOpen}
+          handleClose={() => this.closeTutorialModal(this.props.user)}
+          handleOpen={this.openTutorialModal}
+        />
+
+        <TokenSection>
+          <Notice type={NoticeTypes.INFO}>
+            <TokenMustBuyEth />
+          </Notice>
+        </TokenSection>
+
+        <UserTokenAccountBuy
+          step={buyState}
+          network={this.props.network}
+          foundationAddress={this.props.foundationAddress}
+          faqUrl={this.props.faqUrl}
+        />
+      </>
+    );
+  };
 
   private getAccountComplete = (user: any) => {
     if (user && user.ethAddress) {
