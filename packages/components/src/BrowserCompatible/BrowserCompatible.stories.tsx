@@ -6,5 +6,5 @@ import { BrowserCompatible } from "./BrowserCompatible";
 storiesOf("Browser Compatible Message", module)
   .addDecorator(StoryRouter())
   .add("Browser Compatible", () => {
-    return <BrowserCompatible />;
+    return <BrowserCompatible supportEmailAddress={"support@civil.co"} faqUrl={"https://help.civil.co"} />;
   });

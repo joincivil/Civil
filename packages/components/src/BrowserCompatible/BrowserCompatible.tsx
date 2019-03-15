@@ -12,8 +12,8 @@ import * as chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
 import * as firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
 
 export interface BrowserCompatibleProps {
-  supportEmail?: string;
-  faqURL?: string;
+  supportEmailAddress: string;
+  faqUrl: string;
 }
 
 export const BrowserCompatible: React.StatelessComponent<BrowserCompatibleProps> = props => {
@@ -34,8 +34,8 @@ export const BrowserCompatible: React.StatelessComponent<BrowserCompatibleProps>
       </BrowserButtons>
 
       <OBSmallestParagraph>
-        <BrowserCompatLinks href={props.supportEmail}>Contact Us</BrowserCompatLinks>
-        <BrowserCompatLinks href={props.faqURL} target="_blank">
+        <BrowserCompatLinks href={"mailto:" + props.supportEmailAddress}>Contact Us</BrowserCompatLinks>
+        <BrowserCompatLinks href={props.faqUrl} target="_blank">
           Visit Support
         </BrowserCompatLinks>
       </OBSmallestParagraph>

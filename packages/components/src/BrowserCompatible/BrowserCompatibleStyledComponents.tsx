@@ -31,9 +31,13 @@ export const BrowserButton: StyledComponentClass<ButtonProps, "button"> = styled
   padding: 5px 16px 7px;
   text-transform: none;
 
+  &:first-child {
+    margin-right: 16px;
+  }
+
   ${mediaQueries.MOBILE} {
     &:first-child {
-      margin-right: 16px;
+      margin-right: 0;
     }
   }
 `;
