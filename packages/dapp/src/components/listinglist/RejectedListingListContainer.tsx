@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Button, ListingSummaryRejectedComponent, buttonSizes } from "@joincivil/components";
+import { Button, ListingSummaryRejectedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import RejectedListingListRedux from "./RejectedListingListRedux";
@@ -77,7 +77,6 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
                 {tcrListings.pageInfo.hasNextPage && (
                   <LoadMoreContainer>
                     <Button
-                      size={buttonSizes.MEDIUM_WIDE}
                       onClick={() =>
                         fetchMore({
                           variables: {

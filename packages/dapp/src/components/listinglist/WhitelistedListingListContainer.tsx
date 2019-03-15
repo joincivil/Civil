@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Button, ListingSummaryApprovedComponent, buttonSizes } from "@joincivil/components";
+import { Button, ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
@@ -77,7 +77,6 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
               {tcrListings.pageInfo.hasNextPage && (
                 <LoadMoreContainer>
                   <Button
-                    size={buttonSizes.MEDIUM_WIDE}
                     onClick={() =>
                       fetchMore({
                         variables: {
