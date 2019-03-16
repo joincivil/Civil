@@ -1,2 +1,1 @@
-export * from "./AirswapBuyCVL";
-export * from "./AirswapSellCVL";
+export * from "../Tokens/buy/AirswapBuyCVL";

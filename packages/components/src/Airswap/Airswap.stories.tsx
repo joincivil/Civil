@@ -1,8 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import StoryRouter from "storybook-react-router";
-import { AirswapBuyCVL } from "./AirswapBuyCVL";
-import { AirswapSellCVL } from "./AirswapSellCVL";
+import { AirswapBuyCVL } from "../Tokens/buy/AirswapBuyCVL";
 import styled, { StyledComponentClass } from "styled-components";
 
 export const Container = styled.div`
@@ -19,13 +18,6 @@ storiesOf("Airswap", module)
     return (
       <Container>
         <AirswapBuyCVL network={"4"} buyFromAddress={"0x0..."} buyCVLBtnText={"Buy from the Civil Foundation"} />
-      </Container>
-    );
-  })
-  .add("Sell CVL", () => {
-    return (
-      <Container>
-        <AirswapSellCVL network={"4"} sellCVLBtnText={"Sell CVL"} />
       </Container>
     );
   });

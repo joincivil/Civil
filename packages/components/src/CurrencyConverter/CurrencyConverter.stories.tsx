@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import { UsdEthCvlConverter } from "./UsdEthCvlConverter";
+import { CurrencyConverter } from "./CurrencyConverter";
 import styled, { StyledComponentClass } from "styled-components";
 
 const Container = styled.div`
@@ -43,10 +43,33 @@ storiesOf("Currency Converter", module)
       mocks,
     }),
   )
-  .add("USD to ETH and CVL", () => {
+  .add("USD to ETH", () => {
     return (
       <Container>
-        <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
+        <div>(exchange rate is 0.5x)</div>
+        <CurrencyConverter
+          currencyCodeFrom="USD"
+          currencyCodeTo="ETH"
+          currencyLabelFrom="Enter USD Amount"
+          currencyLabelTo="Converted ETH"
+          onConversion={() => null}
+          doConversion={async (from: number) => from * 2}
+        />
+      </Container>
+    );
+  })
+  .add("CVL to ETH", () => {
+    return (
+      <Container>
+        <div>(exchange rate is 2x)</div>
+        <CurrencyConverter
+          currencyCodeFrom="CVL"
+          currencyCodeTo="ETH"
+          currencyLabelFrom="Enter CVL Amount"
+          currencyLabelTo="Converted ETH"
+          onConversion={() => null}
+          doConversion={async (from: number) => from * 2}
+        />
       </Container>
     );
   });
