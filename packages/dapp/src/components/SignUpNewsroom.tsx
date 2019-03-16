@@ -20,13 +20,7 @@ class SignUpNewsroom extends React.Component<CreateNewsroomProps & CreateNewsroo
     const civil = getCivil();
     return (
       <PageView>
-        <Newsroom
-          civil={civil}
-          account={this.props.userAccount}
-          currentNetwork={this.props.networkName}
-          allSteps={true}
-          initialStep={0}
-        />
+        <Newsroom civil={civil} account={this.props.userAccount} currentNetwork={this.props.networkName} />
       </PageView>
     );
   }
