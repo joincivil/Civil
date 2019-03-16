@@ -27,7 +27,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
     if (this.props.currentStep === 0) {
       return (
         <ContinueButtonContainer>
-          <ContinueButton onClick={() => this.props.navigate(+1)} size={buttonSizes.MEDIUM_WIDE}>
+          <ContinueButton onClick={() => this.props.navigate(1)} size={buttonSizes.MEDIUM_WIDE}>
             Continue
           </ContinueButton>
         </ContinueButtonContainer>

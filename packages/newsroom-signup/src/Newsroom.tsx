@@ -109,7 +109,6 @@ export interface NewsroomExternalProps {
   helpUrlBase?: string;
   newsroomUrl?: string;
   logoUrl?: string;
-  forceInitialStep?: STEP;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   onNewsroomCreated?(address: EthAddress): void;
   onContractDeployStarted?(txHash: TxHash): void;
@@ -213,17 +212,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : 0;
-    if (typeof props.forceInitialStep !== "undefined") {
-      currentStep = props.forceInitialStep;
-    } else {
-      try {
-        if (localStorage.newsroomOnBoardingLastSeen) {
-          currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
-        }
-      } catch (e) {
-        console.error("Failed to load step index", e);
+    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : STEP.PROFILE_SO_FAR;
+    try {
+      if (localStorage.newsroomOnBoardingLastSeen) {
+        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
       }
+    } catch (e) {
+      console.error("Failed to load step index", e);
     }
 
     this.state = {

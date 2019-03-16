@@ -117,7 +117,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
           textTransform="none"
           width={220}
           size={buttonSizes.MEDIUM}
-          onClick={() => this.props.navigate(+1)}
+          onClick={() => this.props.navigate(1)}
         >
           Next
         </Button>
