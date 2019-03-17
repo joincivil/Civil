@@ -143,7 +143,7 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
-  max-width: 845px;
+  max-width: 720px;
   margin: auto;
   font-size: 14px;
 `;

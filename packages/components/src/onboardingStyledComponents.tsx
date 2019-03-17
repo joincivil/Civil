@@ -39,6 +39,12 @@ export const OBSmallParagraph = styled.p`
   font-size: 14px;
   line-height: 24px;
 `;
+export const OBSmallList = styled.ul`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 24px;
+`;
 export const OBSmallestParagraph = styled(OBSmallParagraph)`
   font-size: 12px;
   line-height: 22px;

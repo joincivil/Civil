@@ -138,6 +138,13 @@ export const StepSectionCounter = styled.p`
   margin-bottom: 10px;
 `;
 
+export const NextBackButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-top: 24px;
+`;
+
 export const StyledHr = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   heigth: 0;

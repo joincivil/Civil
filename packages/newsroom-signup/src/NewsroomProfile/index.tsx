@@ -1,6 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
-import { colors, BorderlessButton, Button, buttonSizes } from "@joincivil/components";
+import { BorderlessButton, Button, buttonSizes } from "@joincivil/components";
+import { NextBackButtonContainer } from "../styledComponents";
 import { CharterData } from "@joincivil/core";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
@@ -21,13 +21,6 @@ export interface NewsroomProfileProps {
   updateCharter(charter: Partial<CharterData>): void;
   navigate(go: 1 | -1): void;
 }
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-top: 24px;
-`;
 
 export class NewsroomProfile extends React.Component<NewsroomProfileProps, NewsroomProfileState> {
   constructor(props: NewsroomProfileProps) {
@@ -104,7 +97,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       return null;
     }
     return (
-      <ButtonContainer>
+      <NextBackButtonContainer>
         {this.props.currentStep > 0 ? (
           <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.props.navigate(-1)}>
             Back
@@ -121,7 +114,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         >
           Next
         </Button>
-      </ButtonContainer>
+      </NextBackButtonContainer>
     );
   }
 

@@ -1,9 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 import { EthAddress, CharterData } from "@joincivil/core";
+import { NextBackButtonContainer } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
-import { Button, buttonSizes } from "@joincivil/components";
+import { BorderlessButton, Button, buttonSizes } from "@joincivil/components";
 
 export interface SmartContractProps {
   currentStep: number;
@@ -23,6 +24,19 @@ const ContinueButtonContainer = styled.div`
 `;
 
 export class SmartContract extends React.Component<SmartContractProps> {
+  public getDisabled(index: number): () => boolean {
+    const functions = [
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+    ];
+
+    return functions[index];
+  }
+
   public renderButtons(): JSX.Element | void {
     if (this.props.currentStep === 0) {
       return (
@@ -33,6 +47,27 @@ export class SmartContract extends React.Component<SmartContractProps> {
         </ContinueButtonContainer>
       );
     }
+
+    return (
+      <NextBackButtonContainer>
+        {this.props.currentStep > 0 ? (
+          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.props.navigate(-1)}>
+            Back
+          </BorderlessButton>
+        ) : (
+          <div />
+        )}
+        <Button
+          disabled={this.getDisabled(this.props.currentStep)()}
+          textTransform="none"
+          width={220}
+          size={buttonSizes.MEDIUM}
+          onClick={() => this.props.navigate(1)}
+        >
+          Next
+        </Button>
+      </NextBackButtonContainer>
+    );
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [
