@@ -14,8 +14,8 @@ import {
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL, links } from "../../constants";
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import LoadingMsg from "../utility/LoadingMsg";

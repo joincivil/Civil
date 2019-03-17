@@ -148,6 +148,7 @@ export interface ListingData {
   challenge?: ChallengeData;
   prevChallengeID?: BigNumber;
   prevChallenge?: ChallengeData;
+  approvalDate?: BigNumber;
 }
 
 export interface PollData {

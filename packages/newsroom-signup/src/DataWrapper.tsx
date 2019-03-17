@@ -15,6 +15,7 @@ const getCharterQuery = gql`
   query {
     nrsignupNewsroom {
       grantRequested
+      grantApproved
       charter {
         name
         tagline
@@ -59,10 +60,9 @@ const saveCharterMutation = gql`
   }
 `;
 
-// const askForGrant
-
 export interface DataWrapperChildrenProps {
   grantRequested?: boolean;
+  grantApproved?: boolean;
   profileWalletAddress: EthAddress;
   persistedCharter: Partial<CharterData>;
   persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
@@ -81,7 +81,11 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
             return "Loading...";
           }
           if (error) {
-            return `Error! ${JSON.stringify(error)}`;
+            return (
+              <>
+                Sorry, there was an error! <code>{JSON.stringify(error)}</code>
+              </>
+            );
           }
 
           return (
@@ -91,20 +95,26 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                   return "Loading...";
                 }
                 if (charterError) {
-                  if (charterError.graphQLErrors && charterError.graphQLErrors[0].message === "No jsonb found") {
+                  if (charterError.graphQLErrors[0] && charterError.graphQLErrors[0].message === "No jsonb found") {
                     // ok, they haven't saved a charter yet
                   } else {
-                    return `Error! ${JSON.stringify(charterError)}`;
+                    return (
+                      <>
+                        Sorry, there was an error! <code>{JSON.stringify(charterError)}</code>
+                      </>
+                    );
                   }
                 }
 
                 let persistedCharter: Partial<CharterData>;
                 let grantRequested: boolean;
+                let grantApproved: boolean;
                 if (charterData && charterData.nrsignupNewsroom) {
                   if (charterData.nrsignupNewsroom.charter) {
                     persistedCharter = charterData.nrsignupNewsroom.charter;
                   }
                   grantRequested = charterData.nrsignupNewsroom.grantRequested;
+                  grantApproved = charterData.nrsignupNewsroom.grantApproved;
                 }
 
                 return (
@@ -112,6 +122,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                     {(saveCharter: MutationFunc) => {
                       return this.props.children({
                         grantRequested,
+                        grantApproved,
                         profileWalletAddress: data.currentUser.ethAddress,
                         persistedCharter,
                         persistCharter: this.saveCharterFuncFromMutation(saveCharter),

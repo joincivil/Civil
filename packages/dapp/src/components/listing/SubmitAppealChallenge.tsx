@@ -13,9 +13,15 @@ import {
   SubmitAppealChallengeStatementProps,
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
-import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
+import {
+  getFormattedParameterValue,
+  Parameters,
+  GovernmentParameters,
+  FAQ_BASE_URL,
+  urlConstants as links,
+} from "@joincivil/utils";
 
-import { FAQ_BASE_URL, routes, links } from "../../constants";
+import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
