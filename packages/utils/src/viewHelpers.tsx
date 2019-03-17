@@ -123,15 +123,16 @@ export const percentParams: string[] = [
   GovernmentParameters.appealChallengeVoteDispensationPct,
 ];
 
-export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber): string {
+export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber | number): string {
   let value = "";
+  const parameterValueBN = new BigNumber(parameterValue);
 
   if (amountParams.includes(parameterName)) {
-    value = getFormattedTokenBalance(parameterValue);
+    value = getFormattedTokenBalance(parameterValueBN);
   } else if (durationParams.includes(parameterName)) {
-    value = getReadableDuration(parameterValue.toNumber());
+    value = getReadableDuration(parameterValueBN.toNumber());
   } else if (percentParams.includes(parameterName)) {
-    value = `${parameterValue.toString()}%`;
+    value = `${parameterValueBN.toString()}%`;
   }
 
   return value;

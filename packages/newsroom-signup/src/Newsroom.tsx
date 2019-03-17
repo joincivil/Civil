@@ -33,6 +33,7 @@ import { SmartContract } from "./SmartContract";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
+import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -313,7 +314,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         <div />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
-        <div />
+        <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
       </StepNoButtons>,
     ];
   }
