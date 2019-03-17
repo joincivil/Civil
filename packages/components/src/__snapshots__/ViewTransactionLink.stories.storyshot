@@ -4,7 +4,7 @@ exports[`Storyshots viewTransactionLink link 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-iIHSe kvqyxo",
+      "class": "sc-gldTML llezYQ",
       "href": "https://rinkeby.etherscan.io/tx/0x90cf2411cac2a4d4873332bcf60bed49e62d7d4021120c3de0749eba8f6168af",
       "target": "_blank",
     },
