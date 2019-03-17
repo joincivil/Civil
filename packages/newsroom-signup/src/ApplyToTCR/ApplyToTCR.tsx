@@ -17,7 +17,7 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
 
     // TODO: This would be a good place for a loading indicator
     if (!minDeposit || !multisigAddress) {
-      return <></>;
+      return <>Loading...</>;
     }
 
     return (

@@ -33,7 +33,7 @@ import { SmartContract } from "./SmartContract";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
-import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR";
+import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
