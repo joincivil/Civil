@@ -168,7 +168,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   ): NewsroomComponentState | null {
     // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
     const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant) {
+    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && props.grantRequested !== null) {
       return {
         ...state,
         currentStep: state.currentStep + 1,
@@ -213,7 +213,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : STEP.PROFILE_SO_FAR;
+    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : 0;
     try {
       if (localStorage.newsroomOnBoardingLastSeen) {
         currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
@@ -308,13 +308,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         />
       </StepNoButtons>,
       <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
-        <Tutorial />
+        <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
         <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
-        <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
+        <ApplyToTCR
+          navigate={this.navigate}
+          newsroom={this.props.newsroom}
+          address={this.props.address}
+          civil={this.props.civil}
+        />
       </StepNoButtons>,
     ];
   }
