@@ -60,7 +60,8 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return false;
       },
       () => {
-        return !!this.props.grantRequested;
+        const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
+        return waitingOnGrant || this.props.grantRequested === null;
       },
     ];
 
