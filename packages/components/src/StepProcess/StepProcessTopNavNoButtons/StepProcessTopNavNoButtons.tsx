@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import { StepTopNavNoButtonsProps } from "./Step";
-import { OBPreRegNotice } from "../../onboardingStyledComponents";
 import { StepProcessTopNavState, StepsProps } from "../StepProcessTopNav";
 import { colors } from "../../styleConstants";
 
@@ -109,10 +108,7 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
             <ProgressBarInner percent={progress} />
           </ProgressBar>
         </StyledNav>
-        <MainSection>
-          <OBPreRegNotice />
-          {this.renderContent()}
-        </MainSection>
+        <MainSection>{this.renderContent()}</MainSection>
       </div>
     );
   }

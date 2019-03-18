@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { EthAddress, CharterData } from "@joincivil/core";
+import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
 import { Button, buttonSizes } from "@joincivil/components";
@@ -23,6 +24,28 @@ const ContinueButtonContainer = styled.div`
 `;
 
 export class SmartContract extends React.Component<SmartContractProps> {
+  public getDisabled(index: number): () => boolean {
+    const functions = [
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+    ];
+
+    return functions[index];
+  }
+
   public renderButtons(): JSX.Element | void {
     if (this.props.currentStep === 0) {
       return (
@@ -33,11 +56,15 @@ export class SmartContract extends React.Component<SmartContractProps> {
         </ContinueButtonContainer>
       );
     }
+
+    return <NextBack navigate={this.props.navigate} nextDisabled={this.getDisabled(this.props.currentStep)()} />;
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
       <UnderstandingEth />,
+      <>create contract</>,
+      <>assign roles</>,
     ];
     return steps[this.props.currentStep];
   }

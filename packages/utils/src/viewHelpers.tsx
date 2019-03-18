@@ -49,10 +49,10 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
 }
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
-export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean): string {
+export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
   // TODO: get decimal places value from EIP20 wrapper
   const formattedBalance = balance.div(1e18);
-  return `${formattedBalance.toFormat(2)} ${!!noCVLLabel ? "" : "CVL"}`;
+  return `${formattedBalance.toFormat(decimals)} ${!!noCVLLabel ? "" : "CVL"}`;
 }
 
 // Accepts a `seconds` or `Date` argument and returns a tuple containing

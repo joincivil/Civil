@@ -32,8 +32,7 @@ import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
 import { CivilContext } from "./CivilContext";
-// import { CompleteYourProfile } from "./CompleteYourProfile";
-// import { NameAndAddress } from "./NameAndAddress";
+import { PurchaseTokens } from "./PurchaseTokens";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
@@ -143,7 +142,7 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
-  max-width: 845px;
+  max-width: 720px;
   margin: auto;
   font-size: 14px;
 `;
@@ -169,7 +168,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   ): NewsroomComponentState | null {
     // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
     const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant) {
+    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && props.grantRequested !== null) {
       return {
         ...state,
         currentStep: state.currentStep + 1,
@@ -214,7 +213,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : STEP.PROFILE_SO_FAR;
+    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : 0;
     try {
       if (localStorage.newsroomOnBoardingLastSeen) {
         currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
@@ -300,7 +299,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           updateCharter={this.updateCharter}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Smart Contract"} key="smartcontract">
+      <StepNoButtons title={"Smart Contract"} disabled={this.getDisabled(SECTION.CONTRACT)()} key="smartcontract">
         <SmartContract
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.CONTRACT]}
           navigate={this.navigate}
@@ -308,14 +307,19 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           charter={this.props.charter}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
-        <Tutorial />
+      <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
+        <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
-      <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
-        <div />
+      <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
+        <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
-      <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
-        <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
+      <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
+        <ApplyToTCR
+          navigate={this.navigate}
+          newsroom={this.props.newsroom}
+          address={this.props.address}
+          civil={this.props.civil}
+        />
       </StepNoButtons>,
     ];
   }
@@ -350,6 +354,26 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.onNewsroomCreated(result.address);
     }
   };
+
+  private getDisabled(section: SECTION): () => boolean {
+    // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
+    const functions = {
+      [SECTION.CONTRACT]: () => {
+        return false;
+      },
+      [SECTION.TUTORIAL]: () => {
+        return false;
+      },
+      [SECTION.TOKENS]: () => {
+        return false;
+      },
+      [SECTION.APPLY]: () => {
+        return false;
+      },
+    };
+
+    return functions[section];
+  }
 
   private navigateToSection = (newSection: SECTION): void => {
     if (newSection === STEP_TO_SECTION[this.state.currentStep]) {

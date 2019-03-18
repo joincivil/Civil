@@ -8,7 +8,12 @@ import {
   CivilTutorialIcon,
 } from "@joincivil/components";
 import { TutorialModal, LaunchTutorialBtn } from "./TutorialModal";
+import { NextBack } from "../styledComponents";
 import styled from "styled-components";
+
+export interface TutorialProps {
+  navigate(go: 1 | -1): void;
+}
 
 const SectionWrap = styled.div`
   border-bottom: 1px solid #d8d8d8;
@@ -49,7 +54,7 @@ const IconStyled = styled.div`
   width: 48px;
 `;
 
-export class Tutorial extends React.Component {
+export class Tutorial extends React.Component<TutorialProps> {
   public render(): JSX.Element {
     return (
       <>
@@ -75,11 +80,17 @@ export class Tutorial extends React.Component {
           </p>
           <LoadUser>
             {({ loading, user }) => {
-              if (loading) {
-                return <LaunchTutorialBtn disabled={true}>Open the Tutorial</LaunchTutorialBtn>;
-              }
+              return (
+                <>
+                  {loading ? (
+                    <LaunchTutorialBtn disabled={true}>Open the Tutorial</LaunchTutorialBtn>
+                  ) : (
+                    <TutorialModal user={user} />
+                  )}
 
-              return <TutorialModal user={user} />;
+                  <NextBack navigate={this.props.navigate} nextDisabled={!user || !user.quizStatus} />
+                </>
+              );
             }}
           </LoadUser>
         </TutorialSectionStyled>
