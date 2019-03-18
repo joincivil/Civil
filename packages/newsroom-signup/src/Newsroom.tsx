@@ -30,6 +30,7 @@ import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
+import { Tutorial } from "./Tutorial";
 import { CivilContext } from "./CivilContext";
 // import { CompleteYourProfile } from "./CompleteYourProfile";
 // import { NameAndAddress } from "./NameAndAddress";
@@ -308,7 +309,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         />
       </StepNoButtons>,
       <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
-        <div />
+        <Tutorial />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
         <div />
