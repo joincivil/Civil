@@ -1,10 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 import { EthAddress, CharterData } from "@joincivil/core";
-import { NextBackButtonContainer } from "../styledComponents";
+import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
-import { BorderlessButton, Button, buttonSizes } from "@joincivil/components";
+import { Button, buttonSizes } from "@joincivil/components";
 
 export interface SmartContractProps {
   currentStep: number;
@@ -48,26 +48,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
       );
     }
 
-    return (
-      <NextBackButtonContainer style={{ marginTop: 64 }}>
-        {this.props.currentStep > 0 ? (
-          <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.navigate(-1)}>
-            Back
-          </BorderlessButton>
-        ) : (
-          <div />
-        )}
-        <Button
-          disabled={this.getDisabled(this.props.currentStep)()}
-          textTransform="none"
-          width={220}
-          size={buttonSizes.MEDIUM_WIDE}
-          onClick={() => this.props.navigate(1)}
-        >
-          Next
-        </Button>
-      </NextBackButtonContainer>
-    );
+    return <NextBack navigate={this.props.navigate} nextDisabled={this.getDisabled(this.props.currentStep)()} />;
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [

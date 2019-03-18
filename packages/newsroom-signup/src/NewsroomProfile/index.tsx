@@ -1,6 +1,5 @@
 import * as React from "react";
-import { BorderlessButton, Button, buttonSizes } from "@joincivil/components";
-import { NextBackButtonContainer } from "../styledComponents";
+import { NextBack } from "../styledComponents";
 import { CharterData } from "@joincivil/core";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
@@ -97,24 +96,11 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       return null;
     }
     return (
-      <NextBackButtonContainer>
-        {this.props.currentStep > 0 ? (
-          <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.navigate(-1)}>
-            Back
-          </BorderlessButton>
-        ) : (
-          <div />
-        )}
-        <Button
-          disabled={this.getDisabled(this.props.currentStep)()}
-          textTransform="none"
-          width={220}
-          size={buttonSizes.MEDIUM_WIDE}
-          onClick={() => this.props.navigate(1)}
-        >
-          Next
-        </Button>
-      </NextBackButtonContainer>
+      <NextBack
+        navigate={this.props.navigate}
+        backHidden={this.props.currentStep === 0}
+        nextDisabled={this.getDisabled(this.props.currentStep)()}
+      />
     );
   }
 

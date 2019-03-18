@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
-  BorderlessButton,
   Button,
   buttonSizes,
   OBSectionHeader,
@@ -17,7 +16,7 @@ import {
   OBNoteHeading,
   HollowGreenCheck,
 } from "@joincivil/components";
-import { NextBackButtonContainer, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
+import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
 export interface PurchaseTokensExternalProps {
   navigate(go: 1 | -1): void;
@@ -71,22 +70,7 @@ const BuyButtonContainer = styled.div`
 
 export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps> {
   public renderButtons(): JSX.Element | void {
-    return (
-      <NextBackButtonContainer style={{ marginTop: 64 }}>
-        <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.navigate(-1)}>
-          Back
-        </BorderlessButton>
-        <Button
-          disabled={!this.props.hasMinDeposit}
-          textTransform="none"
-          width={220}
-          size={buttonSizes.MEDIUM_WIDE}
-          onClick={() => this.props.navigate(1)}
-        >
-          Next
-        </Button>
-      </NextBackButtonContainer>
-    );
+    return <NextBack navigate={this.props.navigate} nextDisabled={!this.props.hasMinDeposit} />;
   }
 
   public renderNotEnoughTokens(): JSX.Element {
