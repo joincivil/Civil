@@ -299,7 +299,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           updateCharter={this.updateCharter}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Smart Contract"} key="smartcontract">
+      <StepNoButtons title={"Smart Contract"} disabled={this.getDisabled(SECTION.CONTRACT)()} key="smartcontract">
         <SmartContract
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.CONTRACT]}
           navigate={this.navigate}
@@ -307,13 +307,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           charter={this.props.charter}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
+      <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
         <Tutorial />
       </StepNoButtons>,
-      <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
+      <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
         <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
-      <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
+      <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
         <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
       </StepNoButtons>,
     ];
@@ -349,6 +349,26 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.onNewsroomCreated(result.address);
     }
   };
+
+  private getDisabled(section: SECTION): () => boolean {
+    // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
+    const functions = {
+      [SECTION.CONTRACT]: () => {
+        return false;
+      },
+      [SECTION.TUTORIAL]: () => {
+        return false;
+      },
+      [SECTION.TOKENS]: () => {
+        return false;
+      },
+      [SECTION.APPLY]: () => {
+        return false;
+      },
+    };
+
+    return functions[section];
+  }
 
   private navigateToSection = (newSection: SECTION): void => {
     if (newSection === STEP_TO_SECTION[this.state.currentStep]) {
