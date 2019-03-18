@@ -308,13 +308,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         />
       </StepNoButtons>,
       <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
-        <Tutorial />
+        <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
         <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
-        <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
+        <ApplyToTCR
+          navigate={this.navigate}
+          newsroom={this.props.newsroom}
+          address={this.props.address}
+          civil={this.props.civil}
+        />
       </StepNoButtons>,
     ];
   }
