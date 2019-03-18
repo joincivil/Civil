@@ -168,7 +168,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   ): NewsroomComponentState | null {
     // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
     const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant) {
+    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && props.grantRequested !== null) {
       return {
         ...state,
         currentStep: state.currentStep + 1,
