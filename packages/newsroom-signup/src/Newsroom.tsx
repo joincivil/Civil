@@ -213,7 +213,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : STEP.PROFILE_SO_FAR;
+    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : 0;
     try {
       if (localStorage.newsroomOnBoardingLastSeen) {
         currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
