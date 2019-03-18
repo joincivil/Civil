@@ -5,8 +5,10 @@ import BigNumber from "bignumber.js";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import RichTextEditor from "react-rte";
 import { Subscription } from "rxjs";
+import { routes } from "../../constants";
 import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
 import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
@@ -167,7 +169,8 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   };
 
   private postApply = (result: any) => {
-    this.props.history.push("/listing/" + this.props.match.params.newsroomAddress);
+    const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.match.params.newsroomAddress });
+    this.props.history.push(listingURI);
   };
 
   private onArticleURLChange = async (e: any) => {

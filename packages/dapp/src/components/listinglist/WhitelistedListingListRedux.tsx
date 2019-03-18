@@ -5,11 +5,10 @@ import { Set } from "immutable";
 import { NewsroomListing } from "@joincivil/core";
 import { ListingSummaryApprovedComponent } from "@joincivil/components";
 
-import { FAQ_BASE_URL } from "../../constants";
 import { State } from "../../redux/reducers";
-import { StyledListingCopy } from "../utility/styledComponents";
 
 import ListingList from "./ListingList";
+import { WhitelistedTabDescription } from "./TabDescriptions";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 
 export interface WhitelistedListingsListReduxReduxProps {
@@ -30,15 +29,7 @@ const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxPr
 
     return (
       <>
-        <StyledListingCopy>
-          All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
-          <a href="https://civil.co/constitution/">Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
-          <a
-            href={`${FAQ_BASE_URL}/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-`}
-          >
-            community vetting process
-          </a>.
-        </StyledListingCopy>
+        <WhitelistedTabDescription />
         <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
       </>
     );

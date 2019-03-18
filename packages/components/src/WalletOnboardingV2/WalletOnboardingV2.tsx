@@ -1,7 +1,15 @@
 import * as React from "react";
 import gql from "graphql-tag";
+import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ethereumEnable, isWalletOnboarded, getApolloClient } from "@joincivil/utils";
+import {
+  ethereumEnable,
+  isWalletOnboarded,
+  getApolloClient,
+  isBrowserCompatible,
+  FAQ_BASE_URL,
+  urlConstants as links,
+} from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -32,7 +40,7 @@ import {
   AuthApplicationEnum,
 } from "../";
 import { AccountEthAuth } from "../Account/";
-import styled from "styled-components";
+import { BrowserCompatible } from "../BrowserCompatible";
 
 export interface WalletOnboardingV2Props {
   civil?: Civil;
@@ -40,8 +48,6 @@ export interface WalletOnboardingV2Props {
   requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
-  helpUrl?: string;
-  helpUrlBase?: string;
   authApplicationType?: AuthApplicationEnum;
   onOnboardingComplete?(): void;
 }
@@ -223,7 +229,9 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       }
     }
 
-    if (!hasInjectedProvider()) {
+    if (!isBrowserCompatible()) {
+      return this.renderBrowserIncompatible();
+    } else if (!hasInjectedProvider()) {
       return this.renderNoProvider();
     } else if (!this.state.metamaskEnabled) {
       return this.renderNotEnabled();
@@ -240,6 +248,14 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     }
 
     return null;
+  }
+
+  private renderBrowserIncompatible(): JSX.Element {
+    return (
+      <Wrapper>
+        <BrowserCompatible />
+      </Wrapper>
+    );
   }
 
   private renderNoProvider(): JSX.Element {
@@ -518,10 +534,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         >
           <OBSmallParagraph>
             Head over to our{" "}
-            <a
-              href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-"
-              target="_blank"
-            >
+            <a href={`${FAQ_BASE_URL}${links.FAQ_HOW_TO_SETUP_METAMASK}`} target="_blank">
               FAQ guide
             </a>{" "}
             on how to install a MetaMask wallet.
@@ -530,7 +543,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
 
         <GetMetaMaskMoreHelp>
           Need more info before you start using a crypto wallet?{" "}
-          <a href="https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets" target="_blank">
+          <a href={`${FAQ_BASE_URL}${links.FAQ_WALLETS}`} target="_blank">
             Learn more in our support area{" "}
             <ArrowWrap>
               <NorthEastArrow />

@@ -10,9 +10,8 @@ import {
   ModalUnorderedList,
   ModalListItem,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { getLocalDateTimeStrings, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL } from "../../constants";
 import { revealVote } from "../../apis/civilTCR";
 import {
   InjectedTransactionStatusModalProps,
@@ -92,7 +91,7 @@ class ChallengeProposalRevealVote extends React.Component<
       salt: this.state.salt,
       challengeID: this.props.challengeID.toString(),
       transactions: this.getTransactions(),
-      votingSmartContractFaqURL: `${FAQ_BASE_URL}/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-`,
+      votingSmartContractFaqURL: `${FAQ_BASE_URL}${links.FAQ_WHAT_IS_PLCR_CONTRACT}`,
       postExecuteTransactions: this.onRevealVoteSuccess,
     };
 

@@ -58,24 +58,24 @@ export class NavBar extends React.Component<NavProps, NavState> {
               applyURL={applyURL}
               enableEthereum={enableEthereum}
               toggleDrawer={this.toggleDrawer}
-            />
+            >
+              {isUserDrawerOpen && (
+                <NavDrawer
+                  balance={balance}
+                  votingBalance={votingBalance}
+                  userEthAddress={userEthAddress}
+                  userRevealVotesCount={userRevealVotesCount}
+                  userClaimRewardsCount={userClaimRewardsCount}
+                  userChallengesStartedCount={userChallengesStartedCount}
+                  userChallengesVotedOnCount={userChallengesVotedOnCount}
+                  buyCvlUrl={buyCvlUrl}
+                  useGraphQL={useGraphQL}
+                  onLoadingPrefToggled={onLoadingPrefToggled}
+                  handleOutsideClick={this.hideUserDrawer}
+                />
+              )}
+            </UserAccount>
           </NavInnerRight>
-
-          {isUserDrawerOpen && (
-            <NavDrawer
-              balance={balance}
-              votingBalance={votingBalance}
-              userEthAddress={userEthAddress}
-              userRevealVotesCount={userRevealVotesCount}
-              userClaimRewardsCount={userClaimRewardsCount}
-              userChallengesStartedCount={userChallengesStartedCount}
-              userChallengesVotedOnCount={userChallengesVotedOnCount}
-              buyCvlUrl={buyCvlUrl}
-              useGraphQL={useGraphQL}
-              onLoadingPrefToggled={onLoadingPrefToggled}
-              handleOutsideClick={this.hideUserDrawer}
-            />
-          )}
         </NavOuter>
       </NavContainer>
     );

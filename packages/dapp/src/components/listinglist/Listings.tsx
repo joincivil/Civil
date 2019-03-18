@@ -14,8 +14,8 @@ import {
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
-import { FAQ_BASE_URL, links } from "../../constants";
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
 import LoadingMsg from "../utility/LoadingMsg";
@@ -55,8 +55,8 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
         <Hero backgroundImage={heroImgUrl}>
           <HomepageHero
             applyURL={links.APPLY}
-            buyCvlUrl="https://civil.co/become-a-member"
-            learnMoreURL={`${FAQ_BASE_URL}/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-`}
+            buyCvlUrl={links.BECOME_A_MEMBER}
+            learnMoreURL={`${FAQ_BASE_URL}${links.FAQ_COMMUNITY_VETTING_PROCESS}`}
           />
         </Hero>
         {!this.props.loadingFinished && <LoadingMsg />}

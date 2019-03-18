@@ -1,11 +1,14 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   getChallenge,
@@ -222,7 +225,7 @@ class ActivityListItemComponent extends React.Component<
 
     // This is a listing
     if (!userChallengeData && listingAddress) {
-      const manageNewsroomUrl = `/mgmt/${this.props.listingAddress}`;
+      const manageNewsroomUrl = formatRoute(routes.NEWSROOM_MANAGEMENT, { newsroomAddress: this.props.listingAddress });
       return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
     }
 

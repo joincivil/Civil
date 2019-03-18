@@ -130,6 +130,7 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
       challenge: transformGraphQLDataIntoChallenge(listing.challenge),
       prevChallengeID: transformGraphQLDataIntoPrevChallengeID(listing.prevChallenge),
       prevChallenge: transformGraphQLDataIntoChallenge(listing.prevChallenge),
+      approvalDate: listing.approvalDate ? new BigNumber(listing.approvalDate) : new BigNumber(0),
     },
   };
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   InsufficientCVLForAppeal,
@@ -12,9 +13,14 @@ import {
   RequestAppealSuccessIcon,
   SnackBar,
 } from "@joincivil/components";
-import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
+import {
+  getFormattedParameterValue,
+  GovernmentParameters,
+  FAQ_BASE_URL,
+  urlConstants as links,
+} from "@joincivil/utils";
 
-import { FAQ_BASE_URL, links } from "../../constants";
+import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
 import { approveForAppeal, publishContent, requestAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
@@ -245,8 +251,9 @@ class RequestAppealComponent extends React.Component<
   };
 
   private redirectToListingPage = (): void => {
+    const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
     this.props.closeAllModals();
-    this.props.history.push("/listing/" + this.props.listingAddress);
+    this.props.history.push(listingURI);
   };
 
   // Transactions
@@ -323,8 +330,8 @@ const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModa
 
 const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
   const listingAddress = props.match.params.listing;
-  const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = `${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`;
+  const listingURI = formatRoute(routes.LISTING, { listingAddress });
+  const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
   return (
     <RequestAppeal
       listingAddress={listingAddress}

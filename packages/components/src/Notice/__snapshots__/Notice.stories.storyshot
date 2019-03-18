@@ -4,20 +4,20 @@ exports[`Storyshots Notice Alert 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kafWEX dhdFev",
+      "class": "sc-jwKygS izsiZb",
       "type": "2",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-feJyhm clgfks",
+          "class": "sc-btzYZH fWqRPJ",
         },
         "children": Array [],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iELTvK fmGCtr",
+            "class": "sc-lhVmIH kOqdeI",
           },
           "children": Array [
             Object {
@@ -53,7 +53,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iELTvK fmGCtr",
+          "class": "sc-lhVmIH kOqdeI",
         },
         "children": Array [
           Object {
@@ -70,7 +70,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-feJyhm clgfks",
+            "class": "sc-btzYZH fWqRPJ",
           },
           "children": Array [],
           "name": "div",
@@ -139,13 +139,13 @@ exports[`Storyshots Notice Error 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kafWEX gglfMy",
+      "class": "sc-jwKygS lbYOhB",
       "type": "1",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-feJyhm clgfks",
+          "class": "sc-btzYZH fWqRPJ",
         },
         "children": Array [
           Object {
@@ -294,7 +294,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iELTvK fmGCtr",
+            "class": "sc-lhVmIH kOqdeI",
           },
           "children": Array [
             Object {
@@ -330,7 +330,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iELTvK fmGCtr",
+          "class": "sc-lhVmIH kOqdeI",
         },
         "children": Array [
           Object {
@@ -347,7 +347,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-feJyhm clgfks",
+            "class": "sc-btzYZH fWqRPJ",
           },
           "children": Array [
             Object {
@@ -558,20 +558,20 @@ exports[`Storyshots Notice Info 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kafWEX lmrqP",
+      "class": "sc-jwKygS fXosWa",
       "type": "0",
     },
     "children": Array [
       Object {
         "attribs": Object {
-          "class": "sc-feJyhm clgfks",
+          "class": "sc-btzYZH fWqRPJ",
         },
         "children": Array [],
         "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-iELTvK fmGCtr",
+            "class": "sc-lhVmIH kOqdeI",
           },
           "children": Array [
             Object {
@@ -607,7 +607,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-iELTvK fmGCtr",
+          "class": "sc-lhVmIH kOqdeI",
         },
         "children": Array [
           Object {
@@ -624,7 +624,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-feJyhm clgfks",
+            "class": "sc-btzYZH fWqRPJ",
           },
           "children": Array [],
           "name": "div",

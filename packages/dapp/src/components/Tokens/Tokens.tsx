@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
@@ -28,8 +27,6 @@ export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
 
           return (
             <UserTokenAccount
-              supportEmailAddress={"support@civil.co"}
-              faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
               network={network}
               user={user}

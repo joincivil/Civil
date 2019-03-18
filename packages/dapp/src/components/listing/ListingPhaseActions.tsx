@@ -1,10 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import ChallengeResolve from "./ChallengeResolve";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import {
   InApplicationCard,
   RejectedCard as RejectedCardComponent,
@@ -15,7 +13,12 @@ import {
   AppealDecisionProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
-import { FAQ_BASE_URL } from "../../constants";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import ChallengeDetailContainer from "./ChallengeDetail";
+import ChallengeResolve from "./ChallengeResolve";
+import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
@@ -107,13 +110,18 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
+    let approvalDate;
+    if (this.props.listing.data.approvalDate) {
+      approvalDate = this.props.listing.data.approvalDate;
+    }
     return (
       <>
         <WhitelistedDetail
           listingAddress={this.props.listing.address}
           constitutionURI={this.props.constitutionURI}
-          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
+          approvalDate={approvalDate}
         />
       </>
     );
@@ -167,7 +175,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     if (!endTime || !phaseLength) {
       return null;
     }
-    const submitChallengeURI = `/listing/${this.props.listing.address}/submit-challenge`;
+    const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listing.address });
 
     return (
       <>

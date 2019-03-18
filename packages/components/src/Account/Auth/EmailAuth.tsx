@@ -83,7 +83,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       <TextInput
         placeholder="Email address"
         noLabel
-        type="text"
+        type="email"
         name="email"
         value={emailAddress}
         invalidMessage={isValid ? undefined : "Please enter a valid email."}

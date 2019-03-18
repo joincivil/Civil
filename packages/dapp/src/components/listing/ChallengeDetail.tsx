@@ -1,7 +1,9 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
+import BigNumber from "bignumber.js";
 import {
   canRequestAppeal,
   doesChallengeHaveAppeal,
@@ -22,12 +24,14 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import BigNumber from "bignumber.js";
-import { FAQ_BASE_URL } from "../../constants";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   makeGetAppealChallengeState,
@@ -200,7 +204,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     const endTime = challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
     const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
-    const requestAppealURI = `/listing/${this.props.listingAddress}/request-appeal`;
+    const requestAppealURI = formatRoute(routes.REQUEST_APPEAL, { listingAddress: this.props.listingAddress });
 
     return (
       <>
@@ -209,7 +213,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           endTime={endTime}
           phaseLength={phaseLength}
           requestAppealURI={requestAppealURI}
-          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
