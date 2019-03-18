@@ -4,7 +4,6 @@ import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
 
 export interface TokensTabBuyProps {
   foundationAddress: string;
-  faqUrl: string;
   network: string;
 }
 
@@ -21,11 +20,11 @@ export class TokensTabBuy extends React.Component<TokensTabBuyProps, TokensTabBu
   }
 
   public render(): JSX.Element | null {
-    const { foundationAddress, network, faqUrl } = this.props;
+    const { foundationAddress, network } = this.props;
     const { isBuyComplete } = this.state;
 
     if (isBuyComplete) {
-      return <TokensTabBuyComplete faqUrl={faqUrl} />;
+      return <TokensTabBuyComplete />;
     }
 
     return (

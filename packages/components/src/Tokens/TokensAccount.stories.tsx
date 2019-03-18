@@ -57,12 +57,5 @@ storiesOf("User Token Account", module)
     return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
   })
   .add("Buy Section", () => {
-    return (
-      <UserTokenAccountBuy
-        step={"active"}
-        network={"4"}
-        foundationAddress={"0x..."}
-        faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
-      />
-    );
+    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />;
   });
