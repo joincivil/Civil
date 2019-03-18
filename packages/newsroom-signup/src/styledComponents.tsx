@@ -1,7 +1,9 @@
 import {
   colors,
   fonts,
+  buttonSizes,
   Button,
+  BorderlessButton,
   ButtonProps,
   TextInput,
   TextareaInput,
@@ -25,7 +27,7 @@ export const FormTitle = styled.h4`
   font-family: ${fonts.SANS_SERIF};
   line-height: 32px;
   font-weight: bold;
-  magin-bottom: 10px;
+  margin-bottom: 10px;
 `;
 
 export interface FormSubheadProps {
@@ -138,13 +140,6 @@ export const StepSectionCounter = styled.p`
   margin-bottom: 10px;
 `;
 
-export const NextBackButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-top: 24px;
-`;
-
 export const StyledHr = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   heigth: 0;
@@ -198,3 +193,41 @@ export const DepositAmountText = styled.span`
   font-weight: bold;
   line-height: 15px;
 `;
+
+export const NextBackButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-top: 24px;
+`;
+export interface NextBackProps {
+  backHidden?: boolean;
+  nextDisabled?: boolean;
+  nextHidden?: boolean;
+  navigate(go: 1 | -1): void;
+}
+export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
+  <NextBackButtonContainer style={{ marginTop: 64 }}>
+    {!props.backHidden ? (
+      <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => props.navigate(-1)}>
+        Back
+      </BorderlessButton>
+    ) : (
+      <div />
+    )}
+
+    {!props.nextHidden ? (
+      <Button
+        disabled={props.nextDisabled}
+        textTransform="none"
+        width={220}
+        size={buttonSizes.MEDIUM_WIDE}
+        onClick={() => props.navigate(1)}
+      >
+        Next
+      </Button>
+    ) : (
+      <div />
+    )}
+  </NextBackButtonContainer>
+);

@@ -28,7 +28,7 @@ const GrantNote = styled(OBNoteText)`
 `;
 
 const GetMoreInfo = styled(OBSmallParagraph)`
-  margin: 32px 0 64px;
+  margin-top: 32px;
   text-align: left;
 `;
 const ArrowWrap = styled.span`
@@ -130,20 +130,18 @@ export class UnderstandingEth extends React.Component {
             You will use Ether (ETH) for transactions on Civil. You’ll also use ETH to buy Civil tokens (CVL).
           </OBSmallParagraph>
           <OBSmallParagraph>List of all fees:</OBSmallParagraph>
-          <OBSmallParagraph>
-            <OBSmallList>
-              <li>
-                Registration deposit: <em>5,000 CVL tokens - about $1,000 USD</em>
-              </li>
-              <li>
-                Gas fees for voting or applying on the registry: <em>varies based on Gas rates</em>
-              </li>
-              <li>
-                Appeal, in the event your newsroom is successfully challenged and you need to appeal:{" "}
-                <em>varies based on Application deposit</em>
-              </li>
-            </OBSmallList>
-          </OBSmallParagraph>
+          <OBSmallList>
+            <li>
+              Registration deposit: <em>5,000 CVL tokens - about $1,000 USD</em>
+            </li>
+            <li>
+              Gas fees for voting or applying on the registry: <em>varies based on Gas rates</em>
+            </li>
+            <li>
+              Appeal, in the event your newsroom is successfully challenged and you need to appeal:{" "}
+              <em>varies based on Application deposit</em>
+            </li>
+          </OBSmallList>
         </OBCollapsable>
 
         <GetMoreInfo>

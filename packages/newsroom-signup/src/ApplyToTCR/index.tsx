@@ -3,6 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
 import { Civil, EthAddress, ListingWrapper, isInApplicationPhase } from "@joincivil/core";
 import { Parameters, getFormattedParameterValue } from "@joincivil/utils";
+import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
@@ -11,6 +12,7 @@ export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
   newsroom: any;
   civil?: Civil;
+  navigate(go: 1 | -1): void;
 }
 
 export interface ApplyToTCRStepReduxProps {
@@ -40,7 +42,7 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
     }
   }
 
-  public render(): JSX.Element {
+  public renderApply(): JSX.Element {
     const { listing, applyStageLenDisplay } = this.props;
     if (listing && listing.data && isInApplicationPhase(listing.data) && applyStageLenDisplay) {
       return <ApplyToTCRSuccess listing={listing} applyStageLenDisplay={applyStageLenDisplay} />;
@@ -53,6 +55,15 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
           postTransfer={this.hydrateNewsroomMultisigBalance}
           postApplyToTCR={this.hydrateListing}
         />
+      </>
+    );
+  }
+
+  public render(): JSX.Element {
+    return (
+      <>
+        {this.renderApply()}
+        <NextBack navigate={this.props.navigate} nextHidden={true} />
       </>
     );
   }
