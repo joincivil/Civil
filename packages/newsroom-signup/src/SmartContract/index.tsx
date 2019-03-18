@@ -32,6 +32,15 @@ export class SmartContract extends React.Component<SmartContractProps> {
       () => {
         return false;
       },
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
+      () => {
+        return false;
+      },
     ];
 
     return functions[index];
@@ -54,6 +63,8 @@ export class SmartContract extends React.Component<SmartContractProps> {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
       <UnderstandingEth />,
+      <>create contract</>,
+      <>assign roles</>,
     ];
     return steps[this.props.currentStep];
   }
