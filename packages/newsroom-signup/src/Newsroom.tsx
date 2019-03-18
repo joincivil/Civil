@@ -32,8 +32,7 @@ import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
 import { CivilContext } from "./CivilContext";
-// import { CompleteYourProfile } from "./CompleteYourProfile";
-// import { NameAndAddress } from "./NameAndAddress";
+import { PurchaseTokens } from "./PurchaseTokens";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
@@ -312,7 +311,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         <Tutorial />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
-        <div />
+        <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
         <ApplyToTCR newsroom={this.props.newsroom} address={this.props.address} civil={this.props.civil} />
