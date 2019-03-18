@@ -25,7 +25,7 @@ export const FormTitle = styled.h4`
   font-family: ${fonts.SANS_SERIF};
   line-height: 32px;
   font-weight: bold;
-  magin-bottom: 10px;
+  margin-bottom: 10px;
 `;
 
 export interface FormSubheadProps {

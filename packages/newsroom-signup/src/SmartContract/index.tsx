@@ -49,9 +49,9 @@ export class SmartContract extends React.Component<SmartContractProps> {
     }
 
     return (
-      <NextBackButtonContainer>
+      <NextBackButtonContainer style={{ marginTop: 64 }}>
         {this.props.currentStep > 0 ? (
-          <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.props.navigate(-1)}>
+          <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.props.navigate(-1)}>
             Back
           </BorderlessButton>
         ) : (
@@ -61,7 +61,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
           disabled={this.getDisabled(this.props.currentStep)()}
           textTransform="none"
           width={220}
-          size={buttonSizes.MEDIUM}
+          size={buttonSizes.MEDIUM_WIDE}
           onClick={() => this.props.navigate(1)}
         >
           Next
