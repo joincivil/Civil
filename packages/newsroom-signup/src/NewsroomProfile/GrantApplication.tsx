@@ -15,7 +15,8 @@ import { StateWithNewsroom } from "../reducers";
 import { WaitingAfterSkip } from "./WaitingAfterSkip";
 import { WaitingForGrant } from "./WaitingForGrant";
 import { Mutation, MutationFunc, Query } from "react-apollo";
-import gql from "graphql-tag";
+import { grantQuery } from "../queries";
+import { requestGrantMutation } from "../mutations";
 
 const DialogueBox = styled.div`
   border: 1px solid rgba(43, 86, 255, 0.4);
@@ -115,20 +116,6 @@ const ModalLi = styled.li`
 const ButtonSection = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-
-const grantQuery = gql`
-  query {
-    nrsignupNewsroom {
-      grantRequested
-    }
-  }
-`;
-
-const requestGrantMutation = gql`
-  mutation($input: Boolean!) {
-    nrsignupRequestGrant(requested: $input)
-  }
 `;
 
 export interface GrantApplicationProps {

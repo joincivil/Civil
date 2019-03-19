@@ -8,7 +8,7 @@ import {
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
-import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
+import { Civil, EthAddress, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
@@ -16,7 +16,6 @@ import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
-  updateNewsroom,
   getEditors,
   getIsOwner,
   getIsEditor,
@@ -36,6 +35,7 @@ import { PurchaseTokens } from "./PurchaseTokens";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
+import { MutationFunc } from "react-apollo";
 
 enum SECTION {
   PROFILE,
@@ -95,8 +95,7 @@ export interface IpfsObject {
 }
 
 export interface NewsroomExternalProps {
-  address?: EthAddress;
-  txHash?: TxHash;
+  newsroomAddress?: string;
   disabled?: boolean;
   account?: string;
   currentNetwork?: string;
@@ -108,18 +107,13 @@ export interface NewsroomExternalProps {
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
-  newsroomUrl?: string;
   logoUrl?: string;
   renderUserSearch?(onSetAddress: any): JSX.Element;
-  onNewsroomCreated?(address: EthAddress): void;
-  onContractDeployStarted?(txHash: TxHash): void;
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
 export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
   charter: Partial<CharterData>;
-  // owners: string[];
-  // editors: string[];
   name?: string;
   newsroom?: any;
   userIsOwner?: boolean;
@@ -132,8 +126,10 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
 export interface NewsroomProps extends NewsroomPropsWithRedux {
   grantRequested?: boolean;
   grantApproved?: boolean;
+  newsroomDeployTx?: EthAddress;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
+  saveAddress: MutationFunc;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
@@ -213,7 +209,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? SECTION_STARTS[SECTION.CONTRACT] : 0;
+    let currentStep = props.newsroomAddress ? SECTION_STARTS[SECTION.CONTRACT] : 0;
     try {
       if (localStorage.newsroomOnBoardingLastSeen) {
         currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
@@ -236,8 +232,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.initCharter();
 
     if (this.props.civil) {
-      if (this.props.address) {
-        await this.hydrateNewsroom(this.props.address);
+      if (this.props.newsroomAddress) {
+        await this.hydrateNewsroom(this.props.newsroomAddress);
+      }
+
+      if (!this.props.newsroomAddress && this.props.newsroomDeployTx) {
+        const newsroom = await this.props.civil.newsroomFromFactoryTxHashUntrusted(this.props.newsroomDeployTx);
+        await this.props.saveAddress({ variables: { input: newsroom.address } });
       }
 
       const tcr = await this.props.civil.tcrSingletonTrusted();
@@ -251,11 +252,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
-    if (this.props.address && !prevProps.address) {
-      await this.hydrateNewsroom(this.props.address);
+    if (this.props.newsroomAddress && !prevProps.newsroomAddress) {
+      await this.hydrateNewsroom(this.props.newsroomAddress);
     }
     if (prevProps.newsroom && this.props.account !== prevProps.account) {
-      this.setRoles(this.props.address || prevProps.address!);
+      this.setRoles(this.props.newsroomAddress || prevProps.newsroomAddress!);
     }
   }
 
@@ -305,6 +306,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           navigate={this.navigate}
           profileWalletAddress={this.props.profileWalletAddress}
           charter={this.props.charter}
+          userIsOwner={this.props.userIsOwner}
+          newsroomAddress={this.props.newsroomAddress}
+          newsroomDeployTxHash={this.props.newsroomDeployTx}
+          updateCharter={this.updateCharter}
+          newsroom={this.props.newsroom}
         />
       </StepNoButtons>,
       <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
@@ -317,7 +323,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         <ApplyToTCR
           navigate={this.navigate}
           newsroom={this.props.newsroom}
-          address={this.props.address}
+          address={this.props.newsroomAddress}
           civil={this.props.civil}
         />
       </StepNoButtons>,
@@ -342,18 +348,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       </ThemeProvider>
     );
   }
-
-  public onNewsroomCreated = async (result: any) => {
-    await this.props.dispatch!(
-      updateNewsroom(result.address, {
-        wrapper: await result.getNewsroomWrapper(),
-        newsroom: result,
-      }),
-    );
-    if (this.props.onNewsroomCreated) {
-      this.props.onNewsroomCreated(result.address);
-    }
-  };
 
   private getDisabled(section: SECTION): () => boolean {
     // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
@@ -402,11 +396,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   private initCharter(): void {
-    this.updateCharter(this.defaultCharterValues(this.props.persistedCharter || {}));
+    this.updateCharter(this.props.persistedCharter || {});
   }
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
-    await this.props.dispatch!(getNewsroom(address, this.props.civil!));
+    await this.props.dispatch!(getNewsroom(address, this.props.civil!, this.props.persistedCharter || {}));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
   };
@@ -417,57 +411,48 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 
   private updateCharter = (charter: Partial<CharterData>): void => {
-    this.props.dispatch!(updateCharter(this.props.address || "", charter));
+    this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter));
     this.checkCharterCompletion();
-  };
-
-  /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
-  private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
-    const { newsroomUrl, logoUrl } = this.props;
-    return {
-      ...charter,
-      newsroomUrl: charter.newsroomUrl || newsroomUrl,
-      logoUrl: charter.logoUrl || logoUrl,
-    };
   };
 }
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomPropsWithRedux => {
-  const { address } = ownProps;
-  const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  // const userIsOwner = newsroom.isOwner;
-  // const userIsEditor = newsroom.isEditor;
-  // const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
-  // const editors = newsroom.editors ? newsroom.editors.toArray() : [];
-
-  // const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
+  const { newsroomAddress } = ownProps;
+  const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
-    // charterUri,
     newsroom: newsroom.newsroom,
-    // name: newsroom.wrapper.data.name,
-    // userIsOwner,
-    // userIsEditor,
-    // userNotOnContract,
-    // owners: newsroom.wrapper.data.owners || [],
-    // editors,
     charter: newsroom.charter || {},
   };
 };
 
-const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
+const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
+
+export const Newsroom: React.SFC<NewsroomExternalProps> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>
-        {({ profileWalletAddress, persistedCharter, persistCharter, grantRequested, grantApproved }) => {
+        {({
+          profileWalletAddress,
+          persistedCharter,
+          persistCharter,
+          grantRequested,
+          grantApproved,
+          newsroomAddress,
+          newsroomDeployTx,
+          saveAddress,
+        }) => {
           return (
-            <NewsroomComponent
+            <NewsroomRedux
               {...props}
               profileWalletAddress={profileWalletAddress}
               persistCharter={persistCharter}
               persistedCharter={persistedCharter}
               grantRequested={grantRequested}
               grantApproved={grantApproved}
+              newsroomAddress={newsroomAddress}
+              newsroomDeployTx={newsroomDeployTx}
+              saveAddress={saveAddress}
             />
           );
         }}
@@ -475,5 +460,3 @@ const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
     </AuthWrapper>
   );
 };
-
-export const Newsroom = connect(mapStateToProps)(NewsroomWithGqlData);

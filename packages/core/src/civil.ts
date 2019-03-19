@@ -116,12 +116,20 @@ export class Civil {
    * The smart contract is trusted since it comes from a trusted source (us).
    * This call may require user input - such as approving a transaction in Metamask
    */
-  public async newsroomDeployTrusted(newsroomName: string): Promise<TwoStepEthTransaction<Newsroom>> {
-    return Newsroom.deployTrusted(this.ethApi, this.contentProvider, newsroomName);
+  public async newsroomDeployTrusted(
+    newsroomName: string,
+    charterUri: string = "",
+    charterHash: string = "",
+  ): Promise<TwoStepEthTransaction<Newsroom>> {
+    return Newsroom.deployTrusted(this.ethApi, this.contentProvider, newsroomName, charterUri, charterHash);
   }
 
-  public async estimateNewsroomDeployTrusted(newsroomName: string): Promise<number> {
-    return Newsroom.estimateDeployTrusted(newsroomName, this.ethApi);
+  public async estimateNewsroomDeployTrusted(
+    newsroomName: string,
+    charterUri: string,
+    charterHash: string,
+  ): Promise<number> {
+    return Newsroom.estimateDeployTrusted(this.ethApi, newsroomName, charterUri, charterHash);
   }
 
   /**

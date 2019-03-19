@@ -137,14 +137,26 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
   }
 
-  public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
+  public static async estimateDeployTrusted(
+    ethApi: EthApi,
+    newsroomName: string,
+    charterUri: string = "",
+    charterHash: string = "",
+  ): Promise<number> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
     const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return factory.create.estimateGasAsync(newsroomName, "", "", [account], ethApi.toBigNumber(1), txData);
+    return factory.create.estimateGasAsync(
+      newsroomName,
+      charterUri,
+      charterHash,
+      [account],
+      ethApi.toBigNumber(1),
+      txData,
+    );
   }
 
   public static async deployNonMultisigTrusted(

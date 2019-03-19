@@ -1,16 +1,25 @@
 import * as React from "react";
 import styled from "styled-components";
-import { EthAddress, CharterData } from "@joincivil/core";
+import { EthAddress, CharterData, TxHash } from "@joincivil/core";
 import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
+import { CreateNewsroomContract } from "./CreateNewsroomContract";
 import { Button, buttonSizes } from "@joincivil/components";
+import { Mutation, MutationFunc } from "react-apollo";
+import { getCharterQuery } from "../queries";
+import { SaveAdressMutation, SaveTxMutation } from "../mutations";
 
 export interface SmartContractProps {
   currentStep: number;
   profileWalletAddress?: EthAddress;
   charter: Partial<CharterData>;
+  userIsOwner?: boolean;
+  newsroomAddress?: EthAddress;
+  newsroomDeployTxHash?: TxHash;
+  newsroom?: any;
   navigate(go: 1 | -1): void;
+  updateCharter(charter: Partial<CharterData>): void;
 }
 
 const ContinueButton = styled(Button)`
@@ -63,8 +72,41 @@ export class SmartContract extends React.Component<SmartContractProps> {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
       <UnderstandingEth />,
-      <>create contract</>,
-      <>assign roles</>,
+      <Mutation
+        mutation={SaveTxMutation}
+        refetchQueries={[
+          {
+            query: getCharterQuery,
+          },
+        ]}
+      >
+        {(saveTx: MutationFunc) => {
+          return (
+            <Mutation
+              mutation={SaveAdressMutation}
+              refetchQueries={[
+                {
+                  query: getCharterQuery,
+                },
+              ]}
+            >
+              {(saveAddress: MutationFunc) => {
+                return (
+                  <CreateNewsroomContract
+                    charter={this.props.charter!}
+                    updateCharter={this.props.updateCharter}
+                    newsroomAddress={this.props.newsroomAddress}
+                    newsroomDeployTxHash={this.props.newsroomDeployTxHash}
+                    newsroom={this.props.newsroom}
+                    saveTx={saveTx}
+                    saveAddress={saveAddress}
+                  />
+                );
+              }}
+            </Mutation>
+          );
+        }}
+      </Mutation>,
     ];
     return steps[this.props.currentStep];
   }
