@@ -7,6 +7,7 @@ import { NewsroomListing } from "@joincivil/core";
 export interface ListingListOwnProps {
   ListingItemComponent?: any;
   listings?: Set<NewsroomListing>;
+  history?: any;
 }
 
 class ListingList extends React.Component<ListingListOwnProps> {
@@ -29,6 +30,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
                 listing={l!.listing}
                 even={index % 2 === 0}
                 ListingItemComponent={this.props.ListingItemComponent}
+                history={this.props.history}
               />
             );
           })}

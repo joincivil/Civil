@@ -10,13 +10,14 @@ import { State } from "../../redux/reducers";
 import ListingList from "./ListingList";
 import { WhitelistedTabDescription } from "./TabDescriptions";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
+import { ListingProps } from "./Listings";
 
 export interface WhitelistedListingsListReduxReduxProps {
   whitelistedListings: Set<NewsroomListing>;
   loadingFinished: boolean;
 }
 
-const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxProps> = props => {
+const WhitelistedListingListRedux: React.SFC<ListingProps & WhitelistedListingsListReduxReduxProps> = props => {
   if (props.whitelistedListings.count()) {
     const predicate = (newsroomListing?: NewsroomListing) => {
       const listing = newsroomListing && newsroomListing.listing;
@@ -30,7 +31,11 @@ const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxPr
     return (
       <>
         <WhitelistedTabDescription />
-        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
+        <ListingList
+          ListingItemComponent={ListingSummaryApprovedComponent}
+          listings={groupedListings}
+          history={props.history}
+        />;
       </>
     );
   }
@@ -38,7 +43,10 @@ const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxPr
   return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
 };
 
-const mapStateToProps = (state: State): WhitelistedListingsListReduxReduxProps => {
+const mapStateToProps = (
+  state: State,
+  ownProps: ListingProps,
+): WhitelistedListingsListReduxReduxProps & ListingProps => {
   const { whitelistedListings, listings, loadingFinished } = state.networkDependent;
   const { newsrooms } = state;
   const whitelistedNewsroomListings = whitelistedListings
@@ -52,6 +60,7 @@ const mapStateToProps = (state: State): WhitelistedListingsListReduxReduxProps =
   return {
     whitelistedListings: whitelistedNewsroomListings,
     loadingFinished,
+    ...ownProps,
   };
 };
 

@@ -17,6 +17,7 @@ import {
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import LoadingMsg from "../utility/LoadingMsg";
 import { WhitelistedTabDescription } from "./TabDescriptions";
+import { ListingProps } from "./Listings";
 
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -30,7 +31,7 @@ const LISTINGS_QUERY = gql`
   }
   ${LISTING_FRAGMENT}
 `;
-const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContainerReduxProps> = props => {
+const WhitelistedListingListContainer: React.SFC<ListingProps & WhitelistedListingsListContainerReduxProps> = props => {
   if (props.useGraphQL) {
     return (
       <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={10000}>
@@ -66,14 +67,18 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
           return (
             <>
               <WhitelistedTabDescription />
-              <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
+              <ListingList
+                ListingItemComponent={ListingSummaryApprovedComponent}
+                listings={groupedListings}
+                history={props.history}
+              />
             </>
           );
         }}
       </Query>
     );
   } else {
-    return <WhitelistedListingListRedux />;
+    return <WhitelistedListingListRedux history={props.history} />;
   }
 };
 

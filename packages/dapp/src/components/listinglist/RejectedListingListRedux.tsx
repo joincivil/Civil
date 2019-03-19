@@ -9,15 +9,22 @@ import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./Em
 import { State } from "../../redux/reducers";
 import { NewsroomListing } from "@joincivil/core";
 import { RejectedTabDescription } from "./TabDescriptions";
+import { ListingProps } from "./Listings";
 
 export interface RejectedListingsListReduxReduxProps {
   rejectedListings: Set<NewsroomListing>;
   loadingFinished: boolean;
 }
 
-const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> = props => {
+const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps & ListingProps> = props => {
   if (props.rejectedListings.count()) {
-    return <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={props.rejectedListings} />;
+    return (
+      <ListingList
+        ListingItemComponent={ListingSummaryRejectedComponent}
+        listings={props.rejectedListings}
+        history={props.history}
+      />
+    );
   }
 
   return (
@@ -28,7 +35,7 @@ const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> =
   );
 };
 
-const mapStateToProps = (state: State): RejectedListingsListReduxReduxProps => {
+const mapStateToProps = (state: State, ownProps: ListingProps): RejectedListingsListReduxReduxProps & ListingProps => {
   const { rejectedListings, listings, loadingFinished } = state.networkDependent;
   const { newsrooms } = state;
   const rejectedNewsroomListings = rejectedListings
@@ -42,6 +49,7 @@ const mapStateToProps = (state: State): RejectedListingsListReduxReduxProps => {
   return {
     rejectedListings: rejectedNewsroomListings,
     loadingFinished,
+    ...ownProps,
   };
 };
 

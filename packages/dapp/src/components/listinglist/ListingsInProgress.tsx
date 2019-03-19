@@ -131,6 +131,7 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
           <ListingList
             ListingItemComponent={ListingSummaryUnderChallengeComponent}
             listings={this.props.applications}
+            history={this.props.history}
           />
         </>
       );
@@ -148,7 +149,11 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       return (
         <>
           <UnderChallengeTabDescription />
-          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={beingChallenged} />
+          <ListingList
+            ListingItemComponent={ListingSummaryUnderChallengeComponent}
+            listings={beingChallenged}
+            history={this.props.history}
+          />
         </>
       );
     }
@@ -165,7 +170,11 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       return (
         <>
           <UnderAppealTabDescription />
-          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={consideringAppeal} />
+          <ListingList
+            ListingItemComponent={ListingSummaryUnderChallengeComponent}
+            listings={consideringAppeal}
+            history={this.props.history}
+          />
         </>
       );
     }
@@ -182,7 +191,11 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       return (
         <>
           <UnderAppealChallengeTabDescription />
-          <ListingList ListingItemComponent={ListingSummaryUnderChallengeComponent} listings={appealChallenge} />;
+          <ListingList
+            ListingItemComponent={ListingSummaryUnderChallengeComponent}
+            listings={appealChallenge}
+            history={this.props.history}
+          />;
         </>
       );
     }
@@ -199,7 +212,11 @@ class ListingsInProgress extends React.Component<ListingProps & ListingsInProgre
       return (
         <>
           <ReadyToUpdateTabDescription />
-          <ListingList ListingItemComponent={ListingSummaryReadyToUpdateComponent} listings={readyToUpdate} />
+          <ListingList
+            ListingItemComponent={ListingSummaryReadyToUpdateComponent}
+            listings={readyToUpdate}
+            history={this.props.history}
+          />
         </>
       );
     }

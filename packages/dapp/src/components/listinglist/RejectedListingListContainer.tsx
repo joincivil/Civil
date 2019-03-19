@@ -17,6 +17,7 @@ import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import LoadingMsg from "../utility/LoadingMsg";
 import { NewsroomListing } from "@joincivil/core";
 import { RejectedTabDescription } from "./TabDescriptions";
+import { ListingProps } from "./Listings";
 
 export interface RejectedListingsListContainerReduxProps {
   useGraphQL: boolean;
@@ -29,7 +30,7 @@ const LISTINGS_QUERY = gql`
   }
   ${LISTING_FRAGMENT}
 `;
-class RejectedListingListContainer extends React.Component<RejectedListingsListContainerReduxProps> {
+class RejectedListingListContainer extends React.Component<ListingProps & RejectedListingsListContainerReduxProps> {
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
@@ -57,14 +58,18 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
             return (
               <>
                 <RejectedTabDescription />
-                <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={map} />
+                <ListingList
+                  ListingItemComponent={ListingSummaryRejectedComponent}
+                  listings={map}
+                  history={this.props.history}
+                />
               </>
             );
           }}
         </Query>
       );
     } else {
-      return <RejectedListingListRedux />;
+      return <RejectedListingListRedux history={this.props.history} />;
     }
   }
 }

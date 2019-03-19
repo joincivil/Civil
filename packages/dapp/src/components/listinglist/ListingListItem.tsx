@@ -25,6 +25,7 @@ export interface ListingListItemOwnProps {
   even: boolean;
   user?: string;
   queryData?: any;
+  history?: any;
 }
 
 export interface ListingListItemReduxProps {
@@ -145,7 +146,7 @@ export const ListingItemBaseComponent: React.SFC<
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
   const listingViewProps = transformListingSummaryViewProps(props);
 
-  return <ListingSummaryItem {...listingViewProps} />;
+  return <ListingSummaryItem {...listingViewProps} history={props.history} />;
 };
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
@@ -156,7 +157,7 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
-    return <ListingSummaryRejected {...listingViewProps} />;
+    return <ListingSummaryRejected {...listingViewProps} history={props.history} />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
     return (
@@ -164,6 +165,7 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
         challengeID={data.prevChallengeID!.toString()}
         {...listingViewProps}
         {...challengeResultsProps}
+        history={props.history}
       />
     );
   }
