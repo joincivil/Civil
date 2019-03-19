@@ -368,7 +368,7 @@ const SubmitAppealChallenge = compose(
 )(SubmitAppealChallengeComponent) as React.ComponentClass<SubmitAppealChallengeProps>;
 
 const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
-  const listingAddress = props.match.params.listing;
+  const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
   return (
