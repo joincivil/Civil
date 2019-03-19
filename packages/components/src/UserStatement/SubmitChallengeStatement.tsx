@@ -73,7 +73,7 @@ export class SubmitChallengeStatement extends React.Component<
             <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
-              A deposit of <strong>{this.props.minDeposit} tokens</strong> is required to request an appeal. Read our{" "}
+              A deposit of <strong>{this.props.minDeposit} tokens</strong> is required to challenge a newsroom. Read our{" "}
               <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
             </CopyLarge>
             <StyledOl>
