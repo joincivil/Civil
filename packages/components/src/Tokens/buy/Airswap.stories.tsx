@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import StoryRouter from "storybook-react-router";
-import { AirswapBuyCVL } from "../Tokens/buy/AirswapBuyCVL";
+import { AirswapBuyCVL } from "./AirswapBuyCVL";
 import styled, { StyledComponentClass } from "styled-components";
 
 export const Container = styled.div`

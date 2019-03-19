@@ -4,7 +4,7 @@ exports[`Storyshots Clip Loader Default Size (32px x 32px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fxmata cgOaxr",
+      "class": "sc-hokXgN iZfCuA",
     },
     "children": Array [
       Object {
@@ -84,7 +84,7 @@ exports[`Storyshots Clip Loader Prop-defined size (100px x 100px) 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-fxmata cgOaxr",
+      "class": "sc-hokXgN iZfCuA",
     },
     "children": Array [
       Object {

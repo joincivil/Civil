@@ -1,12 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots DetailTransactionButton detail transaction button 1`] = `
+exports[`Storyshots Uniswap Buy CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cIsjWt laDzAt",
+      "class": "sc-kwclOP lodAXk",
     },
-    "children": Array [],
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "data": "loading price...",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,
@@ -45,13 +66,34 @@ initialize {
 }
 `;
 
-exports[`Storyshots DetailTransactionButton detail transaction button with visible progress modal 1`] = `
+exports[`Storyshots Uniswap Sell CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cIsjWt laDzAt",
+      "class": "sc-bWkBrx edXCVp",
     },
-    "children": Array [],
+    "children": Array [
+      Object {
+        "attribs": Object {},
+        "children": Array [
+          Object {
+            "data": "loading...",
+            "next": null,
+            "parent": [Circular],
+            "prev": null,
+            "type": "text",
+          },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
+        "type": "tag",
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
+      },
+    ],
     "name": "div",
     "namespace": "http://www.w3.org/1999/xhtml",
     "next": null,

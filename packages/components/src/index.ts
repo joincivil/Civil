@@ -59,7 +59,6 @@ export * from "./Tokens";
 export * from "./ExecuteOnMount";
 export * from "./AuthenticatedRoute";
 export * from "./EthAddressViewer";
-export * from "./Airswap";
 export * from "./TokenTutorial";
 export * from "./Tutorial";
 export * from "./Notice";

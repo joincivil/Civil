@@ -2,7 +2,7 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { TokenBuyFoundationBtnText, TokenAirswapExchangeTermsOfSaleText } from "../TokensTextComponents";
-import { AirswapBuyCVL } from "../../Airswap";
+import { AirswapBuyCVL } from "./AirswapBuyCVL";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
 
 const cvlPriceQuery = gql`
