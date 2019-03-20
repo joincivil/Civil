@@ -1,11 +1,11 @@
 import * as React from "react";
+import { FAQ_BASE_URL, urlConstants } from "@joincivil/utils";
 import * as metaMaskNetworkSwitchUrl from "../images/img-metamask-networkswitch@2x.png";
 import { Modal } from "../Modal";
 import { MetaMaskMockImage, MetaMaskIcon, StyledLargeModalText, StyledSmallModalText } from "./styledComponents";
 
 export interface WrongNetworkComponentProps {
   requiredNetworkNiceName: string;
-  helpUrlBase: string;
 }
 
 export const WrongNetworkComponent: React.SFC<WrongNetworkComponentProps> = props => {
@@ -16,7 +16,7 @@ export const WrongNetworkComponent: React.SFC<WrongNetworkComponentProps> = prop
         <b>{props.requiredNetworkNiceName}</b>.
       </StyledLargeModalText>
       <StyledSmallModalText>
-        <a href={props.helpUrlBase + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-"} target="_blank">
+        <a href={`${FAQ_BASE_URL}${urlConstants.FAQ_SWITCH_NETWORKS}`} target="_blank">
           Read this tutorial
         </a>{" "}
         to switch networks in MetaMask <MetaMaskIcon />
