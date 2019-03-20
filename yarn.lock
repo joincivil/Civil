@@ -7758,6 +7758,7 @@ ipaddr.js@1.8.0:
 ipfs-api@^26.1.2:
   version "26.1.2"
   resolved "https://registry.yarnpkg.com/ipfs-api/-/ipfs-api-26.1.2.tgz#6b53d4720455060ad39784336234a4acc54d4332"
+  integrity sha512-HkM6vQOHL9z9ZCXIrbDXvAOsIzfWPaAac9kY+SjUuVqMydWHzP8qTxfv5jaXResGbmLcbwcROhuqgJU+HrclSg==
   dependencies:
     async "^2.6.1"
     big.js "^5.2.2"

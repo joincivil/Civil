@@ -23,7 +23,6 @@
     "bignumber.js": "~5.0.0",
     "ethereumjs-util": "^5.2.0",
     "graphql-tag": "^2.9.2",
-    "ipfs-api": "^26.1.2",
     "lodash": "^4.17.10",
     "react-add-to-calendar": "^0.1.5",
     "react-apollo": "^2.3.3",
