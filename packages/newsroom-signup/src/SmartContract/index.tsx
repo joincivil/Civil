@@ -5,6 +5,7 @@ import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
 import { CreateNewsroomContract } from "./CreateNewsroomContract";
+import { AddMembersToContract } from "./AddMembersToContract";
 import { Button, buttonSizes } from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { getCharterQuery } from "../queries";
@@ -45,10 +46,10 @@ export class SmartContract extends React.Component<SmartContractProps> {
         return false;
       },
       () => {
-        return false;
+        return !this.props.newsroomAddress;
       },
       () => {
-        return false;
+        return !this.props.newsroomAddress;
       },
     ];
 
@@ -107,6 +108,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
           );
         }}
       </Mutation>,
+      <AddMembersToContract />,
     ];
     return steps[this.props.currentStep];
   }

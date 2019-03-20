@@ -8,7 +8,6 @@ import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
-  ADD_MULTISIG = "ADD_MULTISIG",
   UPDATE_NEWSROOM = "UPDATE_NEWSROOM",
   CHANGE_NAME = "CHANGE_NAME",
   ADD_EDITOR = "ADD_EDITOR",
@@ -72,7 +71,7 @@ export const getNewsroom = (address: EthAddress, civil: Civil, charter: Partial<
     dispatch(initContractMember(address, userAddress));
   });
   const multiSigAddr = await newsroom.getMultisigAddress();
-  dispatch(addMultisig(address, multiSigAddr || ""));
+  dispatch(setNewsroomMultisigAddress(address, multiSigAddr || ""));
   return dispatch(updateNewsroom(address, { wrapper, newsroom, charter }));
 };
 
@@ -137,16 +136,6 @@ export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
   return {
     type: newsroomActions.ADD_NEWSROOM,
     data: newsroom,
-  };
-};
-
-export const addMultisig = (address: EthAddress, multisig: EthAddress): AnyAction => {
-  return {
-    type: newsroomActions.ADD_MULTISIG,
-    data: {
-      address,
-      multisig,
-    },
   };
 };
 
