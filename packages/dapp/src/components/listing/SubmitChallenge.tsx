@@ -349,7 +349,7 @@ const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusMo
 ) as React.ComponentClass<SubmitChallengeProps>;
 
 const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
-  const listingAddress = props.match.params.listing;
+  const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
   return (
