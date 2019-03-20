@@ -25,7 +25,15 @@ export interface WhitelistedListingsListContainerReduxProps {
 const LISTINGS_QUERY = gql`
   query Listings($whitelistedOnly: Boolean!, $cursor: String) {
     tcrListings(whitelistedOnly: $whitelistedOnly, first: 12, after: $cursor) {
-      ...ListingFragment
+      edges {
+        node {
+          ...ListingFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
   ${LISTING_FRAGMENT}
