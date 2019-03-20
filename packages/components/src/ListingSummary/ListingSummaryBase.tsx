@@ -1,16 +1,22 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
-
 import { ListingSummaryComponentProps } from "./types";
 import { StyledListingSummaryContainer } from "./styledComponents";
 
-const ListingSummaryBase: React.SFC<ListingSummaryComponentProps> = props => {
-  return (
-    <StyledListingSummaryContainer>
-      {props.listingDetailURL && <Link to={props.listingDetailURL}>{props.children}</Link>}
-      {!props.listingDetailURL && <>{props.children}</>}
-    </StyledListingSummaryContainer>
-  );
-};
+export interface ListingSummaryBaseHistoryProp {
+  history?: any;
+}
+class ListingSummaryBase extends React.Component<ListingSummaryComponentProps & ListingSummaryBaseHistoryProp> {
+  public render(): JSX.Element {
+    return (
+      <StyledListingSummaryContainer>
+        {this.props.listingDetailURL && <div onClick={this.redirect}>{this.props.children}</div>}
+        {!this.props.listingDetailURL && <>{this.props.children}</>}
+      </StyledListingSummaryContainer>
+    );
+  }
+  private redirect = (ev: any): void => {
+    this.props.history.push(this.props.listingDetailURL);
+  };
+}
 
 export default ListingSummaryBase;
