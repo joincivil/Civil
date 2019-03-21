@@ -36,7 +36,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         env: environment,
         token: tokenAddress,
         address: buyFromAddress,
-        amount: amountString,
+        // amount: amountString,
         onComplete: () => {
           this.props.onComplete();
         },
