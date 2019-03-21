@@ -4,7 +4,7 @@ exports[`Storyshots Email Signup Component Email Signup 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-OnmeF dufyOC",
+      "class": "sc-hQfrgq lggvcC",
     },
     "children": Array [
       Object {
@@ -2333,7 +2333,7 @@ exports[`Storyshots Email Signup Component Email Signup Success 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-OnmeF dufyOC",
+      "class": "sc-hQfrgq lggvcC",
     },
     "children": Array [
       Object {
