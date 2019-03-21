@@ -64,7 +64,7 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
       <>
         <StyledUserStatementHeaderOuter>
           <StyledUserStatementHeader>
-            <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
+            <StatementHeaderHeading>Request Appeal</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
               A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}

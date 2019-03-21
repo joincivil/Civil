@@ -3,6 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
 import { colors } from "../styleConstants";
+import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
 
 // Signup/Connect wallet section
 
@@ -153,7 +154,7 @@ export const TokenAirswapExchangeTermsOfSaleText: React.SFC = props => (
 
 export const TokenOrText: React.SFC = props => <p>or</p>;
 
-export const TokenBuyCompleteText: React.SFC<TokenTextProps> = props => (
+export const TokenBuyCompleteText: React.SFC = props => (
   <>
     <h3>Thanks for your purchase!</h3>
     <p>Your CVL will be deposited to your wallet address.</p>
@@ -163,7 +164,7 @@ export const TokenBuyCompleteText: React.SFC<TokenTextProps> = props => (
         Dashboard
       </Link>{" "}
       to see your purchased CVL in the Available Balance.<br />To learn how to add Civil tokens in your MetaMask wallet,{" "}
-      <a href={props.faqUrl} target="_blank">
+      <a href={FAQ_BASE_URL} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
       </a>
     </p>
@@ -189,7 +190,7 @@ export const TokenUnlockSellText: React.SFC = props => (
   </p>
 );
 
-export const TokenSellCompleteText: React.SFC<TokenTextProps> = props => (
+export const TokenSellCompleteText: React.SFC = props => (
   <>
     <h3>Your sell was successful! </h3>
     <p>Your ETH will be deposited to your wallet address.</p>
@@ -199,7 +200,7 @@ export const TokenSellCompleteText: React.SFC<TokenTextProps> = props => (
         Dashboard
       </Link>{" "}
       to see your CVL balance in the Available Balance. To learn how to sell ETH for USD,{" "}
-      <a href={props.faqUrl} target="_blank">
+      <a href={FAQ_BASE_URL} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
       </a>.
     </p>
@@ -252,20 +253,14 @@ export const TokenETHFAQQuestion7Text: React.SFC = props => <h3>How do I unlock 
 
 export const TokenQuestionsHeaderText: React.SFC = props => <h3>Ask Questions</h3>;
 
-export interface TokenTextProps {
-  supportEmailAddress?: string;
-  faqUrl?: string;
-}
-
-export const TokenFAQText: React.SFC<TokenTextProps> = props => (
+export const TokenFAQText: React.SFC = props => (
   <>
     <p>
-      For support inquiries, send email to{" "}
-      <a href={"mailto:" + props.supportEmailAddress}>{props.supportEmailAddress}</a>
+      For support inquiries, send email to <a href={"mailto:" + `${links.EMAIL_SUPPORT}`}>{links.EMAIL_SUPPORT}</a>
     </p>
     <p>
       Read our{" "}
-      <a href={props.faqUrl} target="_blank">
+      <a href={FAQ_BASE_URL} target="_blank">
         Frequently Asked Questions (FAQ)
       </a>{" "}
       for general help

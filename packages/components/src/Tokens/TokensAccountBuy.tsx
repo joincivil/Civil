@@ -9,18 +9,17 @@ import {
 import { TokenBuyTextDisabled, TokenBuyBtnDisabledText } from "./TokensTextComponents";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { Tabs, Tab } from "../Tabs";
-import { TokensTabBuy } from "./TokensTabBuy";
-import { TokensTabSell } from "./TokensTabSell";
+import { TokensTabBuy } from "./buy/TokensTabBuy";
+import { TokensTabSell } from "./sell/TokensTabSell";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
-  faqUrl: string;
   step: string;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
-  const { foundationAddress, network, faqUrl, step } = props;
+  const { foundationAddress, network, step } = props;
 
   if (step === TOKEN_PROGRESS.DISABLED) {
     return (
@@ -40,12 +39,12 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
           <TokenBuySection>
-            <TokensTabBuy foundationAddress={foundationAddress} faqUrl={faqUrl} network={network} />
+            <TokensTabBuy foundationAddress={foundationAddress} network={network} />
           </TokenBuySection>
         </Tab>
         <Tab title="Sell">
           <TokenBuySection>
-            <TokensTabSell network={network} faqUrl={faqUrl} />
+            <TokensTabSell network={network} />
           </TokenBuySection>
         </Tab>
       </Tabs>

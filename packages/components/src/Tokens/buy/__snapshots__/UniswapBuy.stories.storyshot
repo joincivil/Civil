@@ -1,43 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Airswap Buy CVL from address 1`] = `
+exports[`Storyshots Uniswap Buy CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD:packages/components/src/Airswap/__snapshots__/Airswap.stories.storyshot
       "class": "sc-gneEKw iySzPE",
+=======
+      "class": "sc-kwclOP lodAXk",
+>>>>>>> origin/master:packages/components/src/Tokens/buy/__snapshots__/UniswapBuy.stories.storyshot
     },
     "children": Array [
       Object {
-        "attribs": Object {
-          "class": "sc-kEYyzF bnmMlI sc-hMqMXs gXdhII",
-          "theme": "[object Object]",
-          "type": "button",
-        },
+        "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Buy from the Civil Foundation",
+            "data": "loading price...",
             "next": null,
             "parent": [Circular],
             "prev": null,
             "type": "text",
           },
         ],
-        "name": "button",
+        "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-          "theme": undefined,
-          "type": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-          "theme": undefined,
-          "type": undefined,
-        },
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
       },
     ],
     "name": "div",
@@ -78,44 +70,36 @@ initialize {
 }
 `;
 
-exports[`Storyshots Airswap Sell CVL 1`] = `
+exports[`Storyshots Uniswap Sell CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
+<<<<<<< HEAD:packages/components/src/Airswap/__snapshots__/Airswap.stories.storyshot
       "class": "sc-gneEKw iySzPE",
+=======
+      "class": "sc-bWkBrx edXCVp",
+>>>>>>> origin/master:packages/components/src/Tokens/buy/__snapshots__/UniswapBuy.stories.storyshot
     },
     "children": Array [
       Object {
-        "attribs": Object {
-          "class": "sc-kEYyzF bnmMlI sc-hMqMXs gXdhII",
-          "theme": "[object Object]",
-          "type": "button",
-        },
+        "attribs": Object {},
         "children": Array [
           Object {
-            "data": "Sell CVL",
+            "data": "loading...",
             "next": null,
             "parent": [Circular],
             "prev": null,
             "type": "text",
           },
         ],
-        "name": "button",
+        "name": "div",
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": null,
         "parent": [Circular],
         "prev": null,
         "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-          "theme": undefined,
-          "type": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-          "theme": undefined,
-          "type": undefined,
-        },
+        "x-attribsNamespace": Object {},
+        "x-attribsPrefix": Object {},
       },
     ],
     "name": "div",

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { ListingSummaryApprovedComponent } from "@joincivil/components";
+import { Button, ListingSummaryApprovedComponent } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
@@ -17,24 +17,39 @@ import {
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import LoadingMsg from "../utility/LoadingMsg";
 import { WhitelistedTabDescription } from "./TabDescriptions";
-
+import styled from "styled-components";
 export interface WhitelistedListingsListContainerReduxProps {
   useGraphQL: boolean;
 }
 
 const LISTINGS_QUERY = gql`
-  query($whitelistedOnly: Boolean!) {
-    listings(whitelistedOnly: $whitelistedOnly) {
-      ...ListingFragment
+  query Listings($whitelistedOnly: Boolean!, $cursor: String) {
+    tcrListings(whitelistedOnly: $whitelistedOnly, first: 12, after: $cursor) {
+      edges {
+        node {
+          ...ListingFragment
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
   ${LISTING_FRAGMENT}
 `;
+
+const LoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+`;
+
 const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContainerReduxProps> = props => {
   if (props.useGraphQL) {
     return (
-      <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }} pollInterval={10000}>
-        {({ loading, error, data }: any): JSX.Element => {
+      <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }}>
+        {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
           if (loading) {
             return <LoadingMsg />;
           }
@@ -42,10 +57,10 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
             return <ErrorLoadingDataMsg />;
           }
           const map = Set<NewsroomListing>(
-            data.listings.map((listing: any) => {
+            tcrListings.edges.map((edge: any) => {
               return {
-                listing: transformGraphQLDataIntoListing(listing, listing.contractAddress),
-                newsroom: transformGraphQLDataIntoNewsroom(listing, listing.contractAddress),
+                listing: transformGraphQLDataIntoListing(edge.node, edge.node.contractAddress),
+                newsroom: transformGraphQLDataIntoNewsroom(edge.node, edge.node.contractAddress),
               };
             }),
           );
@@ -67,6 +82,35 @@ const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContaine
             <>
               <WhitelistedTabDescription />
               <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
+              {tcrListings.pageInfo.hasNextPage && (
+                <LoadMoreContainer>
+                  <Button
+                    onClick={() =>
+                      fetchMore({
+                        variables: {
+                          cursor: tcrListings.pageInfo.endCursor,
+                        },
+                        updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                          const newEdges = fetchMoreResult.tcrListings.edges;
+                          const pageInfo = fetchMoreResult.tcrListings.pageInfo;
+
+                          return newEdges.length
+                            ? {
+                                tcrListings: {
+                                  __typename: previousResult.tcrListings.__typename,
+                                  edges: [...previousResult.tcrListings.edges, ...newEdges],
+                                  pageInfo,
+                                },
+                              }
+                            : previousResult;
+                        },
+                      })
+                    }
+                  >
+                    Load More
+                  </Button>
+                </LoadMoreContainer>
+              )}
             </>
           );
         }}

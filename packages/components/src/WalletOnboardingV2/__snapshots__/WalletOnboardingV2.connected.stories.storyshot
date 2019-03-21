@@ -4,7 +4,7 @@ exports[`Storyshots Wallet Onboarding V2/Connected Connected 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-imDfJI gKxrUQ",
+      "class": "sc-dPNhBE bqDHjE",
     },
     "children": Array [
       Object {
@@ -14,7 +14,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-bEufUU iKLsch",
+              "class": "sc-gFXMyG fifYmB",
               "height": "32",
               "viewBox": "0 0 20 20",
               "width": "32",
@@ -198,7 +198,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bEufUU iKLsch",
+                "class": "sc-gFXMyG fifYmB",
                 "height": "32",
                 "viewBox": "0 0 20 20",
                 "width": "32",
@@ -377,7 +377,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+            "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -392,12 +396,12 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-gFXMyG eGIx",
+              "class": "sc-gQNndl fkjHou",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cbMPqi giQeNa",
+                  "class": "sc-gMcBNU jliclF",
                 },
                 "children": Array [
                   Object {
@@ -412,7 +416,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-gQNndl gVplOx",
+                    "class": "sc-MYvYT fjvUHJ",
                   },
                   "children": Array [
                     Object {
@@ -448,7 +452,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-gQNndl gVplOx",
+                  "class": "sc-MYvYT fjvUHJ",
                 },
                 "children": Array [
                   Object {
@@ -465,7 +469,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cbMPqi giQeNa",
+                    "class": "sc-gMcBNU jliclF",
                   },
                   "children": Array [
                     Object {
@@ -502,7 +506,11 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-MYvYT LPNtJ",
+=======
+                "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -536,7 +544,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-bTiqRo bYOhoL",
+                  "class": "sc-bEufUU eyHwtC",
                 },
                 "children": Array [
                   Object {
@@ -4517,7 +4525,7 @@ initialize {
                                       "data": "Head over to our ",
                                       "next": Object {
                                         "attribs": Object {
-                                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                           "target": "_blank",
                                         },
                                         "children": Array [
@@ -4556,7 +4564,7 @@ initialize {
                                     },
                                     Object {
                                       "attribs": Object {
-                                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                         "target": "_blank",
                                       },
                                       "children": Array [
@@ -4601,7 +4609,7 @@ initialize {
                                       "parent": [Circular],
                                       "prev": Object {
                                         "attribs": Object {
-                                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                           "target": "_blank",
                                         },
                                         "children": Array [
@@ -4688,7 +4696,7 @@ initialize {
                                     "data": "Head over to our ",
                                     "next": Object {
                                       "attribs": Object {
-                                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                         "target": "_blank",
                                       },
                                       "children": Array [
@@ -4727,7 +4735,7 @@ initialize {
                                   },
                                   Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -4772,7 +4780,7 @@ initialize {
                                     "parent": [Circular],
                                     "prev": Object {
                                       "attribs": Object {
-                                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                         "target": "_blank",
                                       },
                                       "children": Array [
@@ -5005,14 +5013,18 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
+<<<<<<< HEAD
                             "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                            "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                           },
                           "children": Array [
                             Object {
                               "data": "Need more info before you start using a crypto wallet? ",
                               "next": Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                                  "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -5020,7 +5032,7 @@ initialize {
                                     "data": "Learn more in our support area ",
                                     "next": Object {
                                       "attribs": Object {
-                                        "class": "sc-izvnbC fWrskk",
+                                        "class": "sc-cbMPqi uoqCa",
                                       },
                                       "children": Array [
                                         Object {
@@ -5095,7 +5107,7 @@ initialize {
                                   },
                                   Object {
                                     "attribs": Object {
-                                      "class": "sc-izvnbC fWrskk",
+                                      "class": "sc-cbMPqi uoqCa",
                                     },
                                     "children": Array [
                                       Object {
@@ -5192,7 +5204,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                                "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -5200,7 +5212,7 @@ initialize {
                                   "data": "Learn more in our support area ",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-izvnbC fWrskk",
+                                      "class": "sc-cbMPqi uoqCa",
                                     },
                                     "children": Array [
                                       Object {
@@ -5275,7 +5287,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-izvnbC fWrskk",
+                                    "class": "sc-cbMPqi uoqCa",
                                   },
                                   "children": Array [
                                     Object {
@@ -5478,7 +5490,11 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+          "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
@@ -5493,12 +5509,12 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-gFXMyG eGIx",
+            "class": "sc-gQNndl fkjHou",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cbMPqi giQeNa",
+                "class": "sc-gMcBNU jliclF",
               },
               "children": Array [
                 Object {
@@ -5513,7 +5529,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-gQNndl gVplOx",
+                  "class": "sc-MYvYT fjvUHJ",
                 },
                 "children": Array [
                   Object {
@@ -5549,7 +5565,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-gQNndl gVplOx",
+                "class": "sc-MYvYT fjvUHJ",
               },
               "children": Array [
                 Object {
@@ -5566,7 +5582,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-cbMPqi giQeNa",
+                  "class": "sc-gMcBNU jliclF",
                 },
                 "children": Array [
                   Object {
@@ -5603,7 +5619,11 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-MYvYT LPNtJ",
+=======
+              "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -5637,7 +5657,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-bTiqRo bYOhoL",
+                "class": "sc-bEufUU eyHwtC",
               },
               "children": Array [
                 Object {
@@ -9618,7 +9638,7 @@ initialize {
                                     "data": "Head over to our ",
                                     "next": Object {
                                       "attribs": Object {
-                                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                         "target": "_blank",
                                       },
                                       "children": Array [
@@ -9657,7 +9677,7 @@ initialize {
                                   },
                                   Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -9702,7 +9722,7 @@ initialize {
                                     "parent": [Circular],
                                     "prev": Object {
                                       "attribs": Object {
-                                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                         "target": "_blank",
                                       },
                                       "children": Array [
@@ -9789,7 +9809,7 @@ initialize {
                                   "data": "Head over to our ",
                                   "next": Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -9828,7 +9848,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -9873,7 +9893,7 @@ initialize {
                                   "parent": [Circular],
                                   "prev": Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -10106,14 +10126,18 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
+<<<<<<< HEAD
                           "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                          "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                         },
                         "children": Array [
                           Object {
                             "data": "Need more info before you start using a crypto wallet? ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                                "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -10121,7 +10145,7 @@ initialize {
                                   "data": "Learn more in our support area ",
                                   "next": Object {
                                     "attribs": Object {
-                                      "class": "sc-izvnbC fWrskk",
+                                      "class": "sc-cbMPqi uoqCa",
                                     },
                                     "children": Array [
                                       Object {
@@ -10196,7 +10220,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "class": "sc-izvnbC fWrskk",
+                                    "class": "sc-cbMPqi uoqCa",
                                   },
                                   "children": Array [
                                     Object {
@@ -10293,7 +10317,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                              "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -10301,7 +10325,7 @@ initialize {
                                 "data": "Learn more in our support area ",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-izvnbC fWrskk",
+                                    "class": "sc-cbMPqi uoqCa",
                                   },
                                   "children": Array [
                                     Object {
@@ -10376,7 +10400,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-izvnbC fWrskk",
+                                  "class": "sc-cbMPqi uoqCa",
                                 },
                                 "children": Array [
                                   Object {
@@ -10565,7 +10589,7 @@ initialize {
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-bEufUU iKLsch",
+                "class": "sc-gFXMyG fifYmB",
                 "height": "32",
                 "viewBox": "0 0 20 20",
                 "width": "32",
@@ -10749,7 +10773,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bEufUU iKLsch",
+                  "class": "sc-gFXMyG fifYmB",
                   "height": "32",
                   "viewBox": "0 0 20 20",
                   "width": "32",
@@ -10947,12 +10971,12 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-gFXMyG eGIx",
+          "class": "sc-gQNndl fkjHou",
         },
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-cbMPqi giQeNa",
+              "class": "sc-gMcBNU jliclF",
             },
             "children": Array [
               Object {
@@ -10967,7 +10991,7 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-gQNndl gVplOx",
+                "class": "sc-MYvYT fjvUHJ",
               },
               "children": Array [
                 Object {
@@ -11003,7 +11027,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "class": "sc-gQNndl gVplOx",
+              "class": "sc-MYvYT fjvUHJ",
             },
             "children": Array [
               Object {
@@ -11020,7 +11044,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-cbMPqi giQeNa",
+                "class": "sc-gMcBNU jliclF",
               },
               "children": Array [
                 Object {
@@ -11057,7 +11081,11 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-MYvYT LPNtJ",
+=======
+            "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -11091,7 +11119,7 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
-              "class": "sc-bTiqRo bYOhoL",
+              "class": "sc-bEufUU eyHwtC",
             },
             "children": Array [
               Object {
@@ -15072,7 +15100,7 @@ initialize {
                                   "data": "Head over to our ",
                                   "next": Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -15111,7 +15139,7 @@ initialize {
                                 },
                                 Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -15156,7 +15184,7 @@ initialize {
                                   "parent": [Circular],
                                   "prev": Object {
                                     "attribs": Object {
-                                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                       "target": "_blank",
                                     },
                                     "children": Array [
@@ -15243,7 +15271,7 @@ initialize {
                                 "data": "Head over to our ",
                                 "next": Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -15282,7 +15310,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -15327,7 +15355,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -15560,14 +15588,18 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
+<<<<<<< HEAD
                         "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                        "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                       },
                       "children": Array [
                         Object {
                           "data": "Need more info before you start using a crypto wallet? ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                              "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -15575,7 +15607,7 @@ initialize {
                                 "data": "Learn more in our support area ",
                                 "next": Object {
                                   "attribs": Object {
-                                    "class": "sc-izvnbC fWrskk",
+                                    "class": "sc-cbMPqi uoqCa",
                                   },
                                   "children": Array [
                                     Object {
@@ -15650,7 +15682,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "class": "sc-izvnbC fWrskk",
+                                  "class": "sc-cbMPqi uoqCa",
                                 },
                                 "children": Array [
                                   Object {
@@ -15747,7 +15779,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                            "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -15755,7 +15787,7 @@ initialize {
                               "data": "Learn more in our support area ",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-izvnbC fWrskk",
+                                  "class": "sc-cbMPqi uoqCa",
                                 },
                                 "children": Array [
                                   Object {
@@ -15830,7 +15862,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-izvnbC fWrskk",
+                                "class": "sc-cbMPqi uoqCa",
                               },
                               "children": Array [
                                 Object {
@@ -16004,7 +16036,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+            "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -16026,7 +16062,7 @@ initialize {
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-bEufUU iKLsch",
+                  "class": "sc-gFXMyG fifYmB",
                   "height": "32",
                   "viewBox": "0 0 20 20",
                   "width": "32",
@@ -16210,7 +16246,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bEufUU iKLsch",
+                    "class": "sc-gFXMyG fifYmB",
                     "height": "32",
                     "viewBox": "0 0 20 20",
                     "width": "32",
@@ -16416,7 +16452,11 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-MYvYT LPNtJ",
+=======
+          "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
@@ -16450,7 +16490,7 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
-            "class": "sc-bTiqRo bYOhoL",
+            "class": "sc-bEufUU eyHwtC",
           },
           "children": Array [
             Object {
@@ -20431,7 +20471,7 @@ initialize {
                                 "data": "Head over to our ",
                                 "next": Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -20470,7 +20510,7 @@ initialize {
                               },
                               Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -20515,7 +20555,7 @@ initialize {
                                 "parent": [Circular],
                                 "prev": Object {
                                   "attribs": Object {
-                                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                    "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                     "target": "_blank",
                                   },
                                   "children": Array [
@@ -20602,7 +20642,7 @@ initialize {
                               "data": "Head over to our ",
                               "next": Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -20641,7 +20681,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -20686,7 +20726,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -20919,14 +20959,18 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                      "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
                         "data": "Need more info before you start using a crypto wallet? ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                            "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -20934,7 +20978,7 @@ initialize {
                               "data": "Learn more in our support area ",
                               "next": Object {
                                 "attribs": Object {
-                                  "class": "sc-izvnbC fWrskk",
+                                  "class": "sc-cbMPqi uoqCa",
                                 },
                                 "children": Array [
                                   Object {
@@ -21009,7 +21053,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "class": "sc-izvnbC fWrskk",
+                                "class": "sc-cbMPqi uoqCa",
                               },
                               "children": Array [
                                 Object {
@@ -21106,7 +21150,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                          "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -21114,7 +21158,7 @@ initialize {
                             "data": "Learn more in our support area ",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-izvnbC fWrskk",
+                                "class": "sc-cbMPqi uoqCa",
                               },
                               "children": Array [
                                 Object {
@@ -21189,7 +21233,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-izvnbC fWrskk",
+                              "class": "sc-cbMPqi uoqCa",
                             },
                             "children": Array [
                               Object {
@@ -21353,12 +21397,12 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-gFXMyG eGIx",
+            "class": "sc-gQNndl fkjHou",
           },
           "children": Array [
             Object {
               "attribs": Object {
-                "class": "sc-cbMPqi giQeNa",
+                "class": "sc-gMcBNU jliclF",
               },
               "children": Array [
                 Object {
@@ -21373,7 +21417,7 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
-                  "class": "sc-gQNndl gVplOx",
+                  "class": "sc-MYvYT fjvUHJ",
                 },
                 "children": Array [
                   Object {
@@ -21409,7 +21453,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "class": "sc-gQNndl gVplOx",
+                "class": "sc-MYvYT fjvUHJ",
               },
               "children": Array [
                 Object {
@@ -21426,7 +21470,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-cbMPqi giQeNa",
+                  "class": "sc-gMcBNU jliclF",
                 },
                 "children": Array [
                   Object {
@@ -21465,7 +21509,11 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+              "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -21487,7 +21535,7 @@ initialize {
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-bEufUU iKLsch",
+                    "class": "sc-gFXMyG fifYmB",
                     "height": "32",
                     "viewBox": "0 0 20 20",
                     "width": "32",
@@ -21671,7 +21719,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-bEufUU iKLsch",
+                      "class": "sc-gFXMyG fifYmB",
                       "height": "32",
                       "viewBox": "0 0 20 20",
                       "width": "32",
@@ -21885,7 +21933,7 @@ initialize {
       },
       Object {
         "attribs": Object {
-          "class": "sc-bTiqRo bYOhoL",
+          "class": "sc-bEufUU eyHwtC",
         },
         "children": Array [
           Object {
@@ -25866,7 +25914,7 @@ initialize {
                               "data": "Head over to our ",
                               "next": Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -25905,7 +25953,7 @@ initialize {
                             },
                             Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -25950,7 +25998,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                  "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                   "target": "_blank",
                                 },
                                 "children": Array [
@@ -26037,7 +26085,7 @@ initialize {
                             "data": "Head over to our ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -26076,7 +26124,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -26121,7 +26169,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -26354,14 +26402,18 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                    "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
                       "data": "Need more info before you start using a crypto wallet? ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                          "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -26369,7 +26421,7 @@ initialize {
                             "data": "Learn more in our support area ",
                             "next": Object {
                               "attribs": Object {
-                                "class": "sc-izvnbC fWrskk",
+                                "class": "sc-cbMPqi uoqCa",
                               },
                               "children": Array [
                                 Object {
@@ -26444,7 +26496,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "class": "sc-izvnbC fWrskk",
+                              "class": "sc-cbMPqi uoqCa",
                             },
                             "children": Array [
                               Object {
@@ -26541,7 +26593,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                        "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -26549,7 +26601,7 @@ initialize {
                           "data": "Learn more in our support area ",
                           "next": Object {
                             "attribs": Object {
-                              "class": "sc-izvnbC fWrskk",
+                              "class": "sc-cbMPqi uoqCa",
                             },
                             "children": Array [
                               Object {
@@ -26624,7 +26676,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "class": "sc-izvnbC fWrskk",
+                            "class": "sc-cbMPqi uoqCa",
                           },
                           "children": Array [
                             Object {
@@ -26778,7 +26830,11 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-MYvYT LPNtJ",
+=======
+            "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
@@ -26814,12 +26870,12 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-gFXMyG eGIx",
+              "class": "sc-gQNndl fkjHou",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-cbMPqi giQeNa",
+                  "class": "sc-gMcBNU jliclF",
                 },
                 "children": Array [
                   Object {
@@ -26834,7 +26890,7 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-gQNndl gVplOx",
+                    "class": "sc-MYvYT fjvUHJ",
                   },
                   "children": Array [
                     Object {
@@ -26870,7 +26926,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-gQNndl gVplOx",
+                  "class": "sc-MYvYT fjvUHJ",
                 },
                 "children": Array [
                   Object {
@@ -26887,7 +26943,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-cbMPqi giQeNa",
+                    "class": "sc-gMcBNU jliclF",
                   },
                   "children": Array [
                     Object {
@@ -26926,7 +26982,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -26948,7 +27008,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-bEufUU iKLsch",
+                      "class": "sc-gFXMyG fifYmB",
                       "height": "32",
                       "viewBox": "0 0 20 20",
                       "width": "32",
@@ -27132,7 +27192,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-bEufUU iKLsch",
+                        "class": "sc-gFXMyG fifYmB",
                         "height": "32",
                         "viewBox": "0 0 20 20",
                         "width": "32",
@@ -31292,7 +31352,7 @@ initialize {
                             "data": "Head over to our ",
                             "next": Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -31331,7 +31391,7 @@ initialize {
                           },
                           Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -31376,7 +31436,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                                "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                                 "target": "_blank",
                               },
                               "children": Array [
@@ -31463,7 +31523,7 @@ initialize {
                           "data": "Head over to our ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -31502,7 +31562,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -31547,7 +31607,7 @@ initialize {
                           "parent": [Circular],
                           "prev": Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -31780,14 +31840,18 @@ initialize {
               "namespace": "http://www.w3.org/1999/xhtml",
               "next": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                  "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
                     "data": "Need more info before you start using a crypto wallet? ",
                     "next": Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                        "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -31795,7 +31859,7 @@ initialize {
                           "data": "Learn more in our support area ",
                           "next": Object {
                             "attribs": Object {
-                              "class": "sc-izvnbC fWrskk",
+                              "class": "sc-cbMPqi uoqCa",
                             },
                             "children": Array [
                               Object {
@@ -31870,7 +31934,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "class": "sc-izvnbC fWrskk",
+                            "class": "sc-cbMPqi uoqCa",
                           },
                           "children": Array [
                             Object {
@@ -31967,7 +32031,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                      "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                       "target": "_blank",
                     },
                     "children": Array [
@@ -31975,7 +32039,7 @@ initialize {
                         "data": "Learn more in our support area ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-izvnbC fWrskk",
+                            "class": "sc-cbMPqi uoqCa",
                           },
                           "children": Array [
                             Object {
@@ -32050,7 +32114,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-izvnbC fWrskk",
+                          "class": "sc-cbMPqi uoqCa",
                         },
                         "children": Array [
                           Object {
@@ -32194,7 +32258,7 @@ initialize {
         "parent": [Circular],
         "prev": Object {
           "attribs": Object {
-            "class": "sc-bTiqRo bYOhoL",
+            "class": "sc-bEufUU eyHwtC",
           },
           "children": Array [
             Object {
@@ -32239,7 +32303,11 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-MYvYT LPNtJ",
+=======
+              "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
@@ -32275,12 +32343,12 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-gFXMyG eGIx",
+                "class": "sc-gQNndl fkjHou",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-cbMPqi giQeNa",
+                    "class": "sc-gMcBNU jliclF",
                   },
                   "children": Array [
                     Object {
@@ -32295,7 +32363,7 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-gQNndl gVplOx",
+                      "class": "sc-MYvYT fjvUHJ",
                     },
                     "children": Array [
                       Object {
@@ -32331,7 +32399,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-gQNndl gVplOx",
+                    "class": "sc-MYvYT fjvUHJ",
                   },
                   "children": Array [
                     Object {
@@ -32348,7 +32416,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-cbMPqi giQeNa",
+                      "class": "sc-gMcBNU jliclF",
                     },
                     "children": Array [
                       Object {
@@ -32387,7 +32455,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                  "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
@@ -32409,7 +32481,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-bEufUU iKLsch",
+                        "class": "sc-gFXMyG fifYmB",
                         "height": "32",
                         "viewBox": "0 0 20 20",
                         "width": "32",
@@ -32593,7 +32665,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-bEufUU iKLsch",
+                          "class": "sc-gFXMyG fifYmB",
                           "height": "32",
                           "viewBox": "0 0 20 20",
                           "width": "32",
@@ -36651,7 +36723,7 @@ initialize {
                           "data": "Head over to our ",
                           "next": Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -36690,7 +36762,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -36735,7 +36807,7 @@ initialize {
                           "parent": [Circular],
                           "prev": Object {
                             "attribs": Object {
-                              "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                              "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                               "target": "_blank",
                             },
                             "children": Array [
@@ -36822,7 +36894,7 @@ initialize {
                         "data": "Head over to our ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -36861,7 +36933,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -36906,7 +36978,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -37139,14 +37211,18 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+                "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
                   "data": "Need more info before you start using a crypto wallet? ",
                   "next": Object {
                     "attribs": Object {
-                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                      "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                       "target": "_blank",
                     },
                     "children": Array [
@@ -37154,7 +37230,7 @@ initialize {
                         "data": "Learn more in our support area ",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-izvnbC fWrskk",
+                            "class": "sc-cbMPqi uoqCa",
                           },
                           "children": Array [
                             Object {
@@ -37229,7 +37305,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-izvnbC fWrskk",
+                          "class": "sc-cbMPqi uoqCa",
                         },
                         "children": Array [
                           Object {
@@ -37326,7 +37402,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                    "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                     "target": "_blank",
                   },
                   "children": Array [
@@ -37334,7 +37410,7 @@ initialize {
                       "data": "Learn more in our support area ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-izvnbC fWrskk",
+                          "class": "sc-cbMPqi uoqCa",
                         },
                         "children": Array [
                           Object {
@@ -37409,7 +37485,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-izvnbC fWrskk",
+                        "class": "sc-cbMPqi uoqCa",
                       },
                       "children": Array [
                         Object {
@@ -37655,7 +37731,7 @@ initialize {
           "parent": [Circular],
           "prev": Object {
             "attribs": Object {
-              "class": "sc-bTiqRo bYOhoL",
+              "class": "sc-bEufUU eyHwtC",
             },
             "children": Array [
               Object {
@@ -37700,7 +37776,11 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
+<<<<<<< HEAD
                 "class": "sc-MYvYT LPNtJ",
+=======
+                "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
               },
               "children": Array [
                 Object {
@@ -37736,12 +37816,12 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-gFXMyG eGIx",
+                  "class": "sc-gQNndl fkjHou",
                 },
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-cbMPqi giQeNa",
+                      "class": "sc-gMcBNU jliclF",
                     },
                     "children": Array [
                       Object {
@@ -37756,7 +37836,7 @@ initialize {
                     "namespace": "http://www.w3.org/1999/xhtml",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-gQNndl gVplOx",
+                        "class": "sc-MYvYT fjvUHJ",
                       },
                       "children": Array [
                         Object {
@@ -37792,7 +37872,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-gQNndl gVplOx",
+                      "class": "sc-MYvYT fjvUHJ",
                     },
                     "children": Array [
                       Object {
@@ -37809,7 +37889,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-cbMPqi giQeNa",
+                        "class": "sc-gMcBNU jliclF",
                       },
                       "children": Array [
                         Object {
@@ -37848,7 +37928,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                    "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
@@ -37870,7 +37954,7 @@ initialize {
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-bEufUU iKLsch",
+                          "class": "sc-gFXMyG fifYmB",
                           "height": "32",
                           "viewBox": "0 0 20 20",
                           "width": "32",
@@ -38054,7 +38138,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-bEufUU iKLsch",
+                            "class": "sc-gFXMyG fifYmB",
                             "height": "32",
                             "viewBox": "0 0 20 20",
                             "width": "32",
@@ -41288,7 +41372,7 @@ initialize {
                         "data": "Head over to our ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -41327,7 +41411,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -41372,7 +41456,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -41459,7 +41543,7 @@ initialize {
                       "data": "Head over to our ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -41498,7 +41582,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -41543,7 +41627,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -41776,14 +41860,18 @@ initialize {
           "namespace": "http://www.w3.org/1999/xhtml",
           "next": Object {
             "attribs": Object {
+<<<<<<< HEAD
               "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+              "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
                 "data": "Need more info before you start using a crypto wallet? ",
                 "next": Object {
                   "attribs": Object {
-                    "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                    "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                     "target": "_blank",
                   },
                   "children": Array [
@@ -41791,7 +41879,7 @@ initialize {
                       "data": "Learn more in our support area ",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-izvnbC fWrskk",
+                          "class": "sc-cbMPqi uoqCa",
                         },
                         "children": Array [
                           Object {
@@ -41866,7 +41954,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-izvnbC fWrskk",
+                        "class": "sc-cbMPqi uoqCa",
                       },
                       "children": Array [
                         Object {
@@ -41963,7 +42051,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                  "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                   "target": "_blank",
                 },
                 "children": Array [
@@ -41971,7 +42059,7 @@ initialize {
                     "data": "Learn more in our support area ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-izvnbC fWrskk",
+                        "class": "sc-cbMPqi uoqCa",
                       },
                       "children": Array [
                         Object {
@@ -42046,7 +42134,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-izvnbC fWrskk",
+                      "class": "sc-cbMPqi uoqCa",
                     },
                     "children": Array [
                       Object {
@@ -43116,7 +43204,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bTiqRo bYOhoL",
+                "class": "sc-bEufUU eyHwtC",
               },
               "children": Array [
                 Object {
@@ -43161,7 +43249,11 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
+<<<<<<< HEAD
                   "class": "sc-MYvYT LPNtJ",
+=======
+                  "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
                 },
                 "children": Array [
                   Object {
@@ -43197,12 +43289,12 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-gFXMyG eGIx",
+                    "class": "sc-gQNndl fkjHou",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-cbMPqi giQeNa",
+                        "class": "sc-gMcBNU jliclF",
                       },
                       "children": Array [
                         Object {
@@ -43217,7 +43309,7 @@ initialize {
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
                         "attribs": Object {
-                          "class": "sc-gQNndl gVplOx",
+                          "class": "sc-MYvYT fjvUHJ",
                         },
                         "children": Array [
                           Object {
@@ -43253,7 +43345,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "class": "sc-gQNndl gVplOx",
+                        "class": "sc-MYvYT fjvUHJ",
                       },
                       "children": Array [
                         Object {
@@ -43270,7 +43362,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-cbMPqi giQeNa",
+                          "class": "sc-gMcBNU jliclF",
                         },
                         "children": Array [
                           Object {
@@ -43309,7 +43401,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                      "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
@@ -43331,7 +43427,7 @@ initialize {
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-bEufUU iKLsch",
+                            "class": "sc-gFXMyG fifYmB",
                             "height": "32",
                             "viewBox": "0 0 20 20",
                             "width": "32",
@@ -43515,7 +43611,7 @@ initialize {
                           "parent": [Circular],
                           "prev": Object {
                             "attribs": Object {
-                              "class": "sc-bEufUU iKLsch",
+                              "class": "sc-gFXMyG fifYmB",
                               "height": "32",
                               "viewBox": "0 0 20 20",
                               "width": "32",
@@ -43933,7 +44029,7 @@ initialize {
                       "data": "Head over to our ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -43972,7 +44068,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -44017,7 +44113,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -44104,7 +44200,7 @@ initialize {
                     "data": "Head over to our ",
                     "next": Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -44143,7 +44239,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                      "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                       "target": "_blank",
                     },
                     "children": Array [
@@ -44188,7 +44284,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -44421,14 +44517,18 @@ initialize {
         "namespace": "http://www.w3.org/1999/xhtml",
         "next": Object {
           "attribs": Object {
+<<<<<<< HEAD
             "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+            "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
           },
           "children": Array [
             Object {
               "data": "Need more info before you start using a crypto wallet? ",
               "next": Object {
                 "attribs": Object {
-                  "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                  "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                   "target": "_blank",
                 },
                 "children": Array [
@@ -44436,7 +44536,7 @@ initialize {
                     "data": "Learn more in our support area ",
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-izvnbC fWrskk",
+                        "class": "sc-cbMPqi uoqCa",
                       },
                       "children": Array [
                         Object {
@@ -44511,7 +44611,7 @@ initialize {
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-izvnbC fWrskk",
+                      "class": "sc-cbMPqi uoqCa",
                     },
                     "children": Array [
                       Object {
@@ -44608,7 +44708,7 @@ initialize {
             },
             Object {
               "attribs": Object {
-                "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                 "target": "_blank",
               },
               "children": Array [
@@ -44616,7 +44716,7 @@ initialize {
                   "data": "Learn more in our support area ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-izvnbC fWrskk",
+                      "class": "sc-cbMPqi uoqCa",
                     },
                     "children": Array [
                       Object {
@@ -44691,7 +44791,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-izvnbC fWrskk",
+                    "class": "sc-cbMPqi uoqCa",
                   },
                   "children": Array [
                     Object {
@@ -48577,7 +48677,7 @@ initialize {
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bTiqRo bYOhoL",
+                  "class": "sc-bEufUU eyHwtC",
                 },
                 "children": Array [
                   Object {
@@ -48622,7 +48722,11 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
+<<<<<<< HEAD
                     "class": "sc-MYvYT LPNtJ",
+=======
+                    "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
                   },
                   "children": Array [
                     Object {
@@ -48658,12 +48762,12 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-gFXMyG eGIx",
+                      "class": "sc-gQNndl fkjHou",
                     },
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-cbMPqi giQeNa",
+                          "class": "sc-gMcBNU jliclF",
                         },
                         "children": Array [
                           Object {
@@ -48678,7 +48782,7 @@ initialize {
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": Object {
                           "attribs": Object {
-                            "class": "sc-gQNndl gVplOx",
+                            "class": "sc-MYvYT fjvUHJ",
                           },
                           "children": Array [
                             Object {
@@ -48714,7 +48818,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "class": "sc-gQNndl gVplOx",
+                          "class": "sc-MYvYT fjvUHJ",
                         },
                         "children": Array [
                           Object {
@@ -48731,7 +48835,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-cbMPqi giQeNa",
+                            "class": "sc-gMcBNU jliclF",
                           },
                           "children": Array [
                             Object {
@@ -48770,7 +48874,11 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
+<<<<<<< HEAD
                         "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                        "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
                       },
                       "children": Array [
                         Object {
@@ -48792,7 +48900,7 @@ initialize {
                         "children": Array [
                           Object {
                             "attribs": Object {
-                              "class": "sc-bEufUU iKLsch",
+                              "class": "sc-gFXMyG fifYmB",
                               "height": "32",
                               "viewBox": "0 0 20 20",
                               "width": "32",
@@ -48976,7 +49084,7 @@ initialize {
                             "parent": [Circular],
                             "prev": Object {
                               "attribs": Object {
-                                "class": "sc-bEufUU iKLsch",
+                                "class": "sc-gFXMyG fifYmB",
                                 "height": "32",
                                 "viewBox": "0 0 20 20",
                                 "width": "32",
@@ -49230,14 +49338,18 @@ initialize {
       },
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-fFTYTi eADqAN sc-dKEPtC epMKLN",
+=======
+          "class": "sc-bTiqRo ljjsqQ sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
         },
         "children": Array [
           Object {
             "data": "Need more info before you start using a crypto wallet? ",
             "next": Object {
               "attribs": Object {
-                "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+                "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
                 "target": "_blank",
               },
               "children": Array [
@@ -49245,7 +49357,7 @@ initialize {
                   "data": "Learn more in our support area ",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-izvnbC fWrskk",
+                      "class": "sc-cbMPqi uoqCa",
                     },
                     "children": Array [
                       Object {
@@ -49320,7 +49432,7 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-izvnbC fWrskk",
+                    "class": "sc-cbMPqi uoqCa",
                   },
                   "children": Array [
                     Object {
@@ -49417,7 +49529,7 @@ initialize {
           },
           Object {
             "attribs": Object {
-              "href": "https://cvlconsensys.zendesk.com/hc/en-us/sections/360003838452-Wallets",
+              "href": "https://help.civil.co/hc/en-us/sections/360003838452-Wallets",
               "target": "_blank",
             },
             "children": Array [
@@ -49425,7 +49537,7 @@ initialize {
                 "data": "Learn more in our support area ",
                 "next": Object {
                   "attribs": Object {
-                    "class": "sc-izvnbC fWrskk",
+                    "class": "sc-cbMPqi uoqCa",
                   },
                   "children": Array [
                     Object {
@@ -49500,7 +49612,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-izvnbC fWrskk",
+                  "class": "sc-cbMPqi uoqCa",
                 },
                 "children": Array [
                   Object {
@@ -49776,7 +49888,7 @@ initialize {
                         "data": "Head over to our ",
                         "next": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -49815,7 +49927,7 @@ initialize {
                       },
                       Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -49860,7 +49972,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                            "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                             "target": "_blank",
                           },
                           "children": Array [
@@ -49947,7 +50059,7 @@ initialize {
                       "data": "Head over to our ",
                       "next": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -49986,7 +50098,7 @@ initialize {
                     },
                     Object {
                       "attribs": Object {
-                        "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                        "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                         "target": "_blank",
                       },
                       "children": Array [
@@ -50031,7 +50143,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "href": "https://cvlconsensys.zendesk.com/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
+                          "href": "https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
                           "target": "_blank",
                         },
                         "children": Array [
@@ -54038,7 +54150,7 @@ initialize {
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-bTiqRo bYOhoL",
+                    "class": "sc-bEufUU eyHwtC",
                   },
                   "children": Array [
                     Object {
@@ -54083,7 +54195,11 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
+<<<<<<< HEAD
                       "class": "sc-MYvYT LPNtJ",
+=======
+                      "class": "sc-RmnOB bWlJFH",
+>>>>>>> origin/master
                     },
                     "children": Array [
                       Object {
@@ -54119,12 +54235,12 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-gFXMyG eGIx",
+                        "class": "sc-gQNndl fkjHou",
                       },
                       "children": Array [
                         Object {
                           "attribs": Object {
-                            "class": "sc-cbMPqi giQeNa",
+                            "class": "sc-gMcBNU jliclF",
                           },
                           "children": Array [
                             Object {
@@ -54139,7 +54255,7 @@ initialize {
                           "namespace": "http://www.w3.org/1999/xhtml",
                           "next": Object {
                             "attribs": Object {
-                              "class": "sc-gQNndl gVplOx",
+                              "class": "sc-MYvYT fjvUHJ",
                             },
                             "children": Array [
                               Object {
@@ -54175,7 +54291,7 @@ initialize {
                         },
                         Object {
                           "attribs": Object {
-                            "class": "sc-gQNndl gVplOx",
+                            "class": "sc-MYvYT fjvUHJ",
                           },
                           "children": Array [
                             Object {
@@ -54192,7 +54308,7 @@ initialize {
                           "parent": [Circular],
                           "prev": Object {
                             "attribs": Object {
-                              "class": "sc-cbMPqi giQeNa",
+                              "class": "sc-gMcBNU jliclF",
                             },
                             "children": Array [
                               Object {
@@ -54231,7 +54347,11 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
+<<<<<<< HEAD
                           "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+                          "class": "sc-iLVFha eJFGsi sc-jtRfpW hyFxyF",
+>>>>>>> origin/master
                         },
                         "children": Array [
                           Object {
@@ -54253,7 +54373,7 @@ initialize {
                           "children": Array [
                             Object {
                               "attribs": Object {
-                                "class": "sc-bEufUU iKLsch",
+                                "class": "sc-gFXMyG fifYmB",
                                 "height": "32",
                                 "viewBox": "0 0 20 20",
                                 "width": "32",
@@ -54437,7 +54557,7 @@ initialize {
                               "parent": [Circular],
                               "prev": Object {
                                 "attribs": Object {
-                                  "class": "sc-bEufUU iKLsch",
+                                  "class": "sc-gFXMyG fifYmB",
                                   "height": "32",
                                   "viewBox": "0 0 20 20",
                                   "width": "32",

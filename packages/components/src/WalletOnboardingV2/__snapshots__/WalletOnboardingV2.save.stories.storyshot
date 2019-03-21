@@ -4,11 +4,12 @@ exports[`Storyshots Wallet Onboarding V2/Save Address Save address to Civil acco
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-imDfJI gKxrUQ",
+      "class": "sc-dPNhBE bqDHjE",
     },
     "children": Array [
       Object {
         "attribs": Object {
+<<<<<<< HEAD
           "class": "sc-hAnkBK bQeKrU sc-iIHjhz glzLDW",
         },
         "children": Array [
@@ -40,136 +41,84 @@ initialize {
           "next": Object {
             "attribs": Object {
               "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+=======
+          "class": "sc-imDfJI edEocJ",
+        },
+        "children": Array [
+          Object {
+            "attribs": Object {
+              "class": "sc-bYSBpT bEzNmz",
+>>>>>>> origin/master
             },
             "children": Array [
               Object {
-                "data": "In the meantime, please…",
+                "data": "Can we switch to a different browser?",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,
                 "type": "text",
               },
             ],
-            "name": "p",
+            "name": "h2",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-geAPOV fHfuxj",
+                "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
               },
               "children": Array [
                 Object {
+                  "data": "Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+                },
+                "children": Array [
+                  Object {
+                    "data": "In the meantime, please…",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
                   "attribs": Object {
-                    "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                    "href": "https://www.google.com/chrome/",
-                    "target": "_blank",
-                    "theme": "[object Object]",
+                    "class": "sc-DNdyV dfgEGN",
                   },
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
-                        "src": "test-file-stub",
+                        "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                        "href": "https://www.google.com/chrome/",
+                        "target": "_blank",
+                        "theme": "[object Object]",
                       },
-                      "children": Array [],
-                      "name": "img",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": "Get Google Chrome",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                    },
-                    Object {
-                      "data": "Get Google Chrome",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
-                          "src": "test-file-stub",
-                        },
-                        "children": Array [],
-                        "name": "img",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                          "src": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                          "src": undefined,
-                        },
-                      },
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                      "href": "https://www.mozilla.org/en-US/firefox/",
-                      "target": "_blank",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
-                          "src": "test-file-stub",
-                        },
-                        "children": Array [],
-                        "name": "img",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": "Get Firefox",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "class": undefined,
-                          "src": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "class": undefined,
-                          "src": undefined,
-                        },
-                      },
-                      Object {
-                        "data": "Get Firefox",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
+                      "children": Array [
+                        Object {
                           "attribs": Object {
-                            "class": "sc-DNdyV XPsNq",
+                            "class": "sc-hAnkBK iUVeCr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
                           "name": "img",
                           "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
+                          "next": Object {
+                            "data": "Get Google Chrome",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": [Circular],
+                            "type": "text",
+                          },
                           "parent": [Circular],
                           "prev": null,
                           "type": "tag",
@@ -182,90 +131,265 @@ initialize {
                             "src": undefined,
                           },
                         },
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                    "href": "https://www.mozilla.org/en-US/firefox/",
-                    "target": "_blank",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
-                        "src": "test-file-stub",
-                      },
-                      "children": Array [],
-                      "name": "img",
+                        Object {
+                          "data": "Get Google Chrome",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": [Circular],
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
                       "namespace": "http://www.w3.org/1999/xhtml",
                       "next": Object {
-                        "data": "Get Firefox",
+                        "attribs": Object {
+                          "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                          "href": "https://www.mozilla.org/en-US/firefox/",
+                          "target": "_blank",
+                          "theme": "[object Object]",
+                        },
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": Object {
+                              "data": "Get Firefox",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": [Circular],
+                              "type": "text",
+                            },
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                          Object {
+                            "data": "Get Firefox",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": Object {
+                              "attribs": Object {
+                                "class": "sc-hAnkBK iUVeCr",
+                                "src": "test-file-stub",
+                              },
+                              "children": Array [],
+                              "name": "img",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": [Circular],
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                            },
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
                         "next": null,
                         "parent": [Circular],
                         "prev": [Circular],
-                        "type": "text",
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                          "theme": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                          "theme": undefined,
+                        },
                       },
                       "parent": [Circular],
                       "prev": null,
                       "type": "tag",
                       "x-attribsNamespace": Object {
                         "class": undefined,
-                        "src": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "class": undefined,
-                        "src": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
                       },
                     },
                     Object {
-                      "data": "Get Firefox",
+                      "attribs": Object {
+                        "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                        "href": "https://www.mozilla.org/en-US/firefox/",
+                        "target": "_blank",
+                        "theme": "[object Object]",
+                      },
+                      "children": Array [
+                        Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": Object {
+                            "data": "Get Firefox",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": [Circular],
+                            "type": "text",
+                          },
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        Object {
+                          "data": "Get Firefox",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": [Circular],
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
                       "next": null,
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
-                          "src": "test-file-stub",
+                          "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                          "href": "https://www.google.com/chrome/",
+                          "target": "_blank",
+                          "theme": "[object Object]",
                         },
-                        "children": Array [],
-                        "name": "img",
+                        "children": Array [
+                          Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": Object {
+                              "data": "Get Google Chrome",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": [Circular],
+                              "type": "text",
+                            },
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
+                          Object {
+                            "data": "Get Google Chrome",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": Object {
+                              "attribs": Object {
+                                "class": "sc-hAnkBK iUVeCr",
+                                "src": "test-file-stub",
+                              },
+                              "children": Array [],
+                              "name": "img",
+                              "namespace": "http://www.w3.org/1999/xhtml",
+                              "next": [Circular],
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "tag",
+                              "x-attribsNamespace": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                              "x-attribsPrefix": Object {
+                                "class": undefined,
+                                "src": undefined,
+                              },
+                            },
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
                         "namespace": "http://www.w3.org/1999/xhtml",
                         "next": [Circular],
                         "parent": [Circular],
@@ -273,23 +397,251 @@ initialize {
                         "type": "tag",
                         "x-attribsNamespace": Object {
                           "class": undefined,
-                          "src": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                          "theme": undefined,
                         },
                         "x-attribsPrefix": Object {
                           "class": undefined,
-                          "src": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                          "theme": undefined,
                         },
                       },
-                      "type": "text",
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
+                      },
                     },
                   ],
-                  "name": "a",
+                  "name": "div",
                   "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-dqBHgY kWFWuO sc-kTUwUJ eMckgz",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-bJTOcE cgJIwr",
+                          "href": "mailto:support@civil.co",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "Contact Us",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "attribs": Object {
+                            "class": "sc-bJTOcE cgJIwr",
+                            "href": "https://help.civil.co",
+                            "target": "_blank",
+                          },
+                          "children": Array [
+                            Object {
+                              "data": "Visit Support",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "text",
+                            },
+                          ],
+                          "name": "a",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "href": undefined,
+                            "target": undefined,
+                          },
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "href": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "href": undefined,
+                        },
+                      },
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-bJTOcE cgJIwr",
+                          "href": "https://help.civil.co",
+                          "target": "_blank",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "Visit Support",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-bJTOcE cgJIwr",
+                            "href": "mailto:support@civil.co",
+                          },
+                          "children": Array [
+                            Object {
+                              "data": "Contact Us",
+                              "next": null,
+                              "parent": [Circular],
+                              "prev": null,
+                              "type": "text",
+                            },
+                          ],
+                          "name": "a",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "href": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "href": undefined,
+                          },
+                        },
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                      },
+                    ],
+                    "name": "p",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": null,
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+            },
+            "children": Array [
+              Object {
+                "data": "Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+              },
+              "children": Array [
+                Object {
+                  "data": "In the meantime, please…",
                   "next": null,
                   "parent": [Circular],
-                  "prev": Object {
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-DNdyV dfgEGN",
+                },
+                "children": Array [
+                  Object {
                     "attribs": Object {
-                      "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
                       "href": "https://www.google.com/chrome/",
                       "target": "_blank",
                       "theme": "[object Object]",
@@ -297,7 +649,7 @@ initialize {
                     "children": Array [
                       Object {
                         "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
+                          "class": "sc-hAnkBK iUVeCr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -328,7 +680,7 @@ initialize {
                         "parent": [Circular],
                         "prev": Object {
                           "attribs": Object {
-                            "class": "sc-DNdyV XPsNq",
+                            "class": "sc-hAnkBK iUVeCr",
                             "src": "test-file-stub",
                           },
                           "children": Array [],
@@ -352,6 +704,7 @@ initialize {
                     ],
                     "name": "a",
                     "namespace": "http://www.w3.org/1999/xhtml",
+<<<<<<< HEAD
                     "next": [Circular],
                     "parent": [Circular],
                     "prev": null,
@@ -407,18 +760,68 @@ initialize {
                     ],
                     "name": "a",
                     "namespace": "http://www.w3.org/1999/xhtml",
+=======
+>>>>>>> origin/master
                     "next": Object {
                       "attribs": Object {
-                        "class": "sc-PLyBE kiQjrp",
-                        "href": "https://cvlconsensys.zendesk.com",
+                        "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                        "href": "https://www.mozilla.org/en-US/firefox/",
                         "target": "_blank",
+                        "theme": "[object Object]",
                       },
                       "children": Array [
                         Object {
-                          "data": "Visit Support",
-                          "next": null,
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": Object {
+                            "data": "Get Firefox",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": [Circular],
+                            "type": "text",
+                          },
                           "parent": [Circular],
                           "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        Object {
+                          "data": "Get Firefox",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": [Circular],
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
                           "type": "text",
                         },
                       ],
@@ -432,11 +835,13 @@ initialize {
                         "class": undefined,
                         "href": undefined,
                         "target": undefined,
+                        "theme": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "class": undefined,
                         "href": undefined,
                         "target": undefined,
+                        "theme": undefined,
                       },
                     },
                     "parent": [Circular],
@@ -445,24 +850,76 @@ initialize {
                     "x-attribsNamespace": Object {
                       "class": undefined,
                       "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
                       "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
                     },
                   },
                   Object {
                     "attribs": Object {
-                      "class": "sc-PLyBE kiQjrp",
-                      "href": "https://cvlconsensys.zendesk.com",
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "href": "https://www.mozilla.org/en-US/firefox/",
                       "target": "_blank",
+                      "theme": "[object Object]",
                     },
                     "children": Array [
                       Object {
-                        "data": "Visit Support",
-                        "next": null,
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Get Firefox",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
                         "parent": [Circular],
                         "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Get Firefox",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
                         "type": "text",
                       },
                     ],
@@ -472,15 +929,64 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-PLyBE kiQjrp",
-                        "href": "mailto:support@civil.co",
+                        "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                        "href": "https://www.google.com/chrome/",
+                        "target": "_blank",
+                        "theme": "[object Object]",
                       },
                       "children": Array [
                         Object {
-                          "data": "Contact Us",
-                          "next": null,
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": Object {
+                            "data": "Get Google Chrome",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": [Circular],
+                            "type": "text",
+                          },
                           "parent": [Circular],
                           "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        Object {
+                          "data": "Get Google Chrome",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": Object {
+                            "attribs": Object {
+                              "class": "sc-hAnkBK iUVeCr",
+                              "src": "test-file-stub",
+                            },
+                            "children": Array [],
+                            "name": "img",
+                            "namespace": "http://www.w3.org/1999/xhtml",
+                            "next": [Circular],
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "tag",
+                            "x-attribsNamespace": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                            "x-attribsPrefix": Object {
+                              "class": undefined,
+                              "src": undefined,
+                            },
+                          },
                           "type": "text",
                         },
                       ],
@@ -493,10 +999,14 @@ initialize {
                       "x-attribsNamespace": Object {
                         "class": undefined,
                         "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
                       },
                       "x-attribsPrefix": Object {
                         "class": undefined,
                         "href": undefined,
+                        "target": undefined,
+                        "theme": undefined,
                       },
                     },
                     "type": "tag",
@@ -504,16 +1014,19 @@ initialize {
                       "class": undefined,
                       "href": undefined,
                       "target": undefined,
+                      "theme": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
                       "href": undefined,
                       "target": undefined,
+                      "theme": undefined,
                     },
                   },
                 ],
-                "name": "p",
+                "name": "div",
                 "namespace": "http://www.w3.org/1999/xhtml",
+<<<<<<< HEAD
                 "next": null,
                 "parent": [Circular],
                 "prev": [Circular],
@@ -634,20 +1147,245 @@ initialize {
                       "class": undefined,
                       "src": undefined,
                     },
+=======
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-dqBHgY kWFWuO sc-kTUwUJ eMckgz",
+>>>>>>> origin/master
                   },
-                  Object {
-                    "data": "Get Google Chrome",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
+                  "children": Array [
+                    Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
+                        "class": "sc-bJTOcE cgJIwr",
+                        "href": "mailto:support@civil.co",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Contact Us",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "attribs": Object {
+                          "class": "sc-bJTOcE cgJIwr",
+                          "href": "https://help.civil.co",
+                          "target": "_blank",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "Visit Support",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "href": undefined,
+                          "target": undefined,
+                        },
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                      },
+                    },
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-bJTOcE cgJIwr",
+                        "href": "https://help.civil.co",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Visit Support",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-bJTOcE cgJIwr",
+                          "href": "mailto:support@civil.co",
+                        },
+                        "children": Array [
+                          Object {
+                            "data": "Contact Us",
+                            "next": null,
+                            "parent": [Circular],
+                            "prev": null,
+                            "type": "text",
+                          },
+                        ],
+                        "name": "a",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "href": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "href": undefined,
+                        },
+                      },
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": [Circular],
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                  },
+                },
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-bYSBpT bEzNmz",
+              },
+              "children": Array [
+                Object {
+                  "data": "Can we switch to a different browser?",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "h2",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": null,
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+          Object {
+            "attribs": Object {
+              "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+            },
+            "children": Array [
+              Object {
+                "data": "In the meantime, please…",
+                "next": null,
+                "parent": [Circular],
+                "prev": null,
+                "type": "text",
+              },
+            ],
+            "name": "p",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-DNdyV dfgEGN",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "href": "https://www.google.com/chrome/",
+                    "target": "_blank",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hAnkBK iUVeCr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
                       "name": "img",
                       "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
+                      "next": Object {
+                        "data": "Get Google Chrome",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
                       "parent": [Circular],
                       "prev": null,
                       "type": "tag",
@@ -660,14 +1398,137 @@ initialize {
                         "src": undefined,
                       },
                     },
-                    "type": "text",
+                    Object {
+                      "data": "Get Google Chrome",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "href": "https://www.mozilla.org/en-US/firefox/",
+                      "target": "_blank",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Get Firefox",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Get Firefox",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": [Circular],
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
                   },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                },
+                Object {
                   "attribs": Object {
-                    "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
                     "href": "https://www.mozilla.org/en-US/firefox/",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -675,7 +1536,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
+                        "class": "sc-hAnkBK iUVeCr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -706,7 +1567,534 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "href": "https://www.google.com/chrome/",
+                      "target": "_blank",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Get Google Chrome",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Get Google Chrome",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": Object {
+                "attribs": Object {
+                  "class": "sc-dqBHgY kWFWuO sc-kTUwUJ eMckgz",
+                },
+<<<<<<< HEAD
+              },
+            ],
+            "name": "div",
+            "namespace": "http://www.w3.org/1999/xhtml",
+            "next": Object {
+              "attribs": Object {
+                "class": "sc-dvpmds jpkOAK sc-dKEPtC epMKLN",
+              },
+              "children": Array [
+                Object {
+                  "attribs": Object {
+                    "class": "sc-PLyBE kiQjrp",
+                    "href": "mailto:support@civil.co",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Contact Us",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+=======
+                "children": Array [
+                  Object {
+>>>>>>> origin/master
+                    "attribs": Object {
+                      "class": "sc-bJTOcE cgJIwr",
+                      "href": "mailto:support@civil.co",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Contact Us",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "attribs": Object {
+                        "class": "sc-bJTOcE cgJIwr",
+                        "href": "https://help.civil.co",
+                        "target": "_blank",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Visit Support",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                        "target": undefined,
+                      },
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                    },
+                  },
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-bJTOcE cgJIwr",
+                      "href": "https://help.civil.co",
+                      "target": "_blank",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Visit Support",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-bJTOcE cgJIwr",
+                        "href": "mailto:support@civil.co",
+                      },
+                      "children": Array [
+                        Object {
+                          "data": "Contact Us",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "text",
+                        },
+                      ],
+                      "name": "a",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "href": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "href": undefined,
+                      },
+                    },
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                    },
+                  },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": null,
+                "parent": [Circular],
+                "prev": [Circular],
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "parent": [Circular],
+              "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "parent": [Circular],
+            "prev": Object {
+              "attribs": Object {
+                "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+              },
+              "children": Array [
+                Object {
+                  "data": "Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "text",
+                },
+              ],
+              "name": "p",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "class": "sc-bYSBpT bEzNmz",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Can we switch to a different browser?",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "h2",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
+            "type": "tag",
+            "x-attribsNamespace": Object {
+              "class": undefined,
+            },
+            "x-attribsPrefix": Object {
+              "class": undefined,
+            },
+          },
+<<<<<<< HEAD
+          "parent": [Circular],
+          "prev": [Circular],
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "parent": [Circular],
+        "prev": Object {
+          "attribs": Object {
+            "class": "sc-hAnkBK bQeKrU sc-iIHjhz glzLDW",
+          },
+          "children": Array [
+            Object {
+              "data": "Can we switch to a different browser?",
+              "next": null,
+              "parent": [Circular],
+              "prev": null,
+              "type": "text",
+            },
+          ],
+          "name": "h2",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": [Circular],
+          "parent": [Circular],
+          "prev": null,
+          "type": "tag",
+          "x-attribsNamespace": Object {
+            "class": undefined,
+          },
+          "x-attribsPrefix": Object {
+            "class": undefined,
+          },
+        },
+        "type": "tag",
+        "x-attribsNamespace": Object {
+          "class": undefined,
+        },
+        "x-attribsPrefix": Object {
+          "class": undefined,
+        },
+      },
+      Object {
+        "attribs": Object {
+          "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
+        },
+        "children": Array [
+=======
+>>>>>>> origin/master
+          Object {
+            "attribs": Object {
+              "class": "sc-DNdyV dfgEGN",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                  "href": "https://www.google.com/chrome/",
+                  "target": "_blank",
+                  "theme": "[object Object]",
+                },
+                "children": Array [
+                  Object {
+                    "attribs": Object {
+                      "class": "sc-hAnkBK iUVeCr",
+                      "src": "test-file-stub",
+                    },
+                    "children": Array [],
+                    "name": "img",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": Object {
+                      "data": "Get Google Chrome",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": [Circular],
+                      "type": "text",
+                    },
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "src": undefined,
+                    },
+                  },
+                  Object {
+                    "data": "Get Google Chrome",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": Object {
+                      "attribs": Object {
+                        "class": "sc-hAnkBK iUVeCr",
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": [Circular],
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+                  "attribs": Object {
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "href": "https://www.mozilla.org/en-US/firefox/",
+                    "target": "_blank",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hAnkBK iUVeCr",
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "data": "Get Firefox",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                    },
+                    Object {
+                      "data": "Get Firefox",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -765,7 +2153,7 @@ initialize {
               },
               Object {
                 "attribs": Object {
-                  "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                  "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
                   "href": "https://www.mozilla.org/en-US/firefox/",
                   "target": "_blank",
                   "theme": "[object Object]",
@@ -773,7 +2161,7 @@ initialize {
                 "children": Array [
                   Object {
                     "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
+                      "class": "sc-hAnkBK iUVeCr",
                       "src": "test-file-stub",
                     },
                     "children": Array [],
@@ -804,7 +2192,7 @@ initialize {
                     "parent": [Circular],
                     "prev": Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
+                        "class": "sc-hAnkBK iUVeCr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -830,9 +2218,66 @@ initialize {
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": null,
                 "parent": [Circular],
+<<<<<<< HEAD
+                "prev": null,
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                  "theme": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                  "theme": undefined,
+                },
+              },
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+                "href": undefined,
+                "target": undefined,
+                "theme": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+                "href": undefined,
+                "target": undefined,
+                "theme": undefined,
+              },
+            },
+          ],
+          "name": "div",
+          "namespace": "http://www.w3.org/1999/xhtml",
+          "next": Object {
+            "attribs": Object {
+              "class": "sc-dvpmds jpkOAK sc-dKEPtC epMKLN",
+            },
+            "children": Array [
+              Object {
+                "attribs": Object {
+                  "class": "sc-PLyBE kiQjrp",
+                  "href": "mailto:support@civil.co",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Contact Us",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": Object {
+=======
                 "prev": Object {
+>>>>>>> origin/master
                   "attribs": Object {
-                    "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
                     "href": "https://www.google.com/chrome/",
                     "target": "_blank",
                     "theme": "[object Object]",
@@ -840,7 +2285,7 @@ initialize {
                   "children": Array [
                     Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
+                        "class": "sc-hAnkBK iUVeCr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
@@ -871,7 +2316,7 @@ initialize {
                       "parent": [Circular],
                       "prev": Object {
                         "attribs": Object {
-                          "class": "sc-DNdyV XPsNq",
+                          "class": "sc-hAnkBK iUVeCr",
                           "src": "test-file-stub",
                         },
                         "children": Array [],
@@ -931,12 +2376,12 @@ initialize {
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": Object {
               "attribs": Object {
-                "class": "sc-dvpmds jpkOAK sc-dKEPtC epMKLN",
+                "class": "sc-dqBHgY kWFWuO sc-kTUwUJ eMckgz",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-PLyBE kiQjrp",
+                    "class": "sc-bJTOcE cgJIwr",
                     "href": "mailto:support@civil.co",
                   },
                   "children": Array [
@@ -952,8 +2397,8 @@ initialize {
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": Object {
                     "attribs": Object {
-                      "class": "sc-PLyBE kiQjrp",
-                      "href": "https://cvlconsensys.zendesk.com",
+                      "class": "sc-bJTOcE cgJIwr",
+                      "href": "https://help.civil.co",
                       "target": "_blank",
                     },
                     "children": Array [
@@ -996,8 +2441,8 @@ initialize {
                 },
                 Object {
                   "attribs": Object {
-                    "class": "sc-PLyBE kiQjrp",
-                    "href": "https://cvlconsensys.zendesk.com",
+                    "class": "sc-bJTOcE cgJIwr",
+                    "href": "https://help.civil.co",
                     "target": "_blank",
                   },
                   "children": Array [
@@ -1015,7 +2460,7 @@ initialize {
                   "parent": [Circular],
                   "prev": Object {
                     "attribs": Object {
-                      "class": "sc-PLyBE kiQjrp",
+                      "class": "sc-bJTOcE cgJIwr",
                       "href": "mailto:support@civil.co",
                     },
                     "children": Array [
@@ -1069,508 +2514,54 @@ initialize {
               },
             },
             "parent": [Circular],
-            "prev": [Circular],
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-hAnkBK bQeKrU sc-iIHjhz glzLDW",
-          },
-          "children": Array [
-            Object {
-              "data": "Can we switch to a different browser?",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "h2",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-      Object {
-        "attribs": Object {
-          "class": "sc-dYzWWc hGWMSe sc-isBZXS kOBrnw",
-        },
-        "children": Array [
-          Object {
-            "data": "In the meantime, please…",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "p",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
-            "class": "sc-geAPOV fHfuxj",
-          },
-          "children": Array [
-            Object {
+            "prev": Object {
               "attribs": Object {
-                "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                "href": "https://www.google.com/chrome/",
-                "target": "_blank",
-                "theme": "[object Object]",
+                "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
               },
               "children": Array [
                 Object {
-                  "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
-                  },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Google Chrome",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "text",
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Google Chrome",
+                  "data": "In the meantime, please…",
                   "next": null,
                   "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
+                  "prev": null,
                   "type": "text",
                 },
               ],
-              "name": "a",
+              "name": "p",
               "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
-                  "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                  "href": "https://www.mozilla.org/en-US/firefox/",
-                  "target": "_blank",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "data": "Get Firefox",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "text",
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  Object {
-                    "data": "Get Firefox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
-                        "src": "test-file-stub",
-                      },
-                      "children": Array [],
-                      "name": "img",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                    },
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-            },
-            Object {
-              "attribs": Object {
-                "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                "href": "https://www.mozilla.org/en-US/firefox/",
-                "target": "_blank",
-                "theme": "[object Object]",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
-                  },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Firefox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "text",
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Firefox",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  "type": "text",
-                },
-              ],
-              "name": "a",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
+              "next": [Circular],
               "parent": [Circular],
               "prev": Object {
                 "attribs": Object {
-                  "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                  "href": "https://www.google.com/chrome/",
-                  "target": "_blank",
-                  "theme": "[object Object]",
+                  "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
                 },
                 "children": Array [
                   Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "data": "Get Google Chrome",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "text",
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  Object {
-                    "data": "Get Google Chrome",
+                    "data": "Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.",
                     "next": null,
                     "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
-                        "src": "test-file-stub",
-                      },
-                      "children": Array [],
-                      "name": "img",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                    },
+                    "prev": null,
                     "type": "text",
                   },
                 ],
-                "name": "a",
+                "name": "p",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": [Circular],
                 "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": Object {
-            "attribs": Object {
-              "class": "sc-dvpmds jpkOAK sc-dKEPtC epMKLN",
-            },
-            "children": Array [
-              Object {
-                "attribs": Object {
-                  "class": "sc-PLyBE kiQjrp",
-                  "href": "mailto:support@civil.co",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Contact Us",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-PLyBE kiQjrp",
-                    "href": "https://cvlconsensys.zendesk.com",
-                    "target": "_blank",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Visit Support",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                },
-              },
-              Object {
-                "attribs": Object {
-                  "class": "sc-PLyBE kiQjrp",
-                  "href": "https://cvlconsensys.zendesk.com",
-                  "target": "_blank",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Visit Support",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-PLyBE kiQjrp",
-                    "href": "mailto:support@civil.co",
+                    "class": "sc-bYSBpT bEzNmz",
                   },
                   "children": Array [
                     Object {
-                      "data": "Contact Us",
+                      "data": "Can we switch to a different browser?",
                       "next": null,
                       "parent": [Circular],
                       "prev": null,
                       "type": "text",
                     },
                   ],
-                  "name": "a",
+                  "name": "h2",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
@@ -1578,31 +2569,27 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
-                    "href": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
-                    "href": undefined,
                   },
                 },
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
                 },
               },
-            ],
-            "name": "p",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": [Circular],
+              "type": "tag",
+              "x-attribsNamespace": Object {
+                "class": undefined,
+              },
+              "x-attribsPrefix": Object {
+                "class": undefined,
+              },
+            },
             "type": "tag",
             "x-attribsNamespace": Object {
               "class": undefined,
@@ -1611,6 +2598,7 @@ initialize {
               "class": undefined,
             },
           },
+<<<<<<< HEAD
           "parent": [Circular],
           "prev": [Circular],
           "type": "tag",
@@ -1686,215 +2674,107 @@ initialize {
           "class": "sc-geAPOV fHfuxj",
         },
         "children": Array [
+=======
+>>>>>>> origin/master
           Object {
             "attribs": Object {
-              "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-              "href": "https://www.google.com/chrome/",
-              "target": "_blank",
-              "theme": "[object Object]",
+              "class": "sc-dqBHgY kWFWuO sc-kTUwUJ eMckgz",
             },
             "children": Array [
               Object {
                 "attribs": Object {
-                  "class": "sc-DNdyV XPsNq",
-                  "src": "test-file-stub",
+                  "class": "sc-bJTOcE cgJIwr",
+                  "href": "mailto:support@civil.co",
                 },
-                "children": Array [],
-                "name": "img",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "data": "Get Google Chrome",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "text",
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "src": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "src": undefined,
-                },
-              },
-              Object {
-                "data": "Get Google Chrome",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
-                  },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                "type": "text",
-              },
-            ],
-            "name": "a",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
-                "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                "href": "https://www.mozilla.org/en-US/firefox/",
-                "target": "_blank",
-                "theme": "[object Object]",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
-                  },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Firefox",
+                "children": Array [
+                  Object {
+                    "data": "Contact Us",
                     "next": null,
                     "parent": [Circular],
-                    "prev": [Circular],
+                    "prev": null,
                     "type": "text",
                   },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Firefox",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  "type": "text",
-                },
-              ],
-              "name": "a",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-              "href": undefined,
-              "target": undefined,
-              "theme": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-              "href": undefined,
-              "target": undefined,
-              "theme": undefined,
-            },
-          },
-          Object {
-            "attribs": Object {
-              "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-              "href": "https://www.mozilla.org/en-US/firefox/",
-              "target": "_blank",
-              "theme": "[object Object]",
-            },
-            "children": Array [
-              Object {
-                "attribs": Object {
-                  "class": "sc-DNdyV XPsNq",
-                  "src": "test-file-stub",
-                },
-                "children": Array [],
-                "name": "img",
+                ],
+                "name": "a",
                 "namespace": "http://www.w3.org/1999/xhtml",
                 "next": Object {
-                  "data": "Get Firefox",
+                  "attribs": Object {
+                    "class": "sc-bJTOcE cgJIwr",
+                    "href": "https://help.civil.co",
+                    "target": "_blank",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Visit Support",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
                   "next": null,
                   "parent": [Circular],
                   "prev": [Circular],
-                  "type": "text",
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                  },
                 },
                 "parent": [Circular],
                 "prev": null,
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
-                  "src": undefined,
+                  "href": undefined,
                 },
                 "x-attribsPrefix": Object {
                   "class": undefined,
-                  "src": undefined,
+                  "href": undefined,
                 },
               },
               Object {
-                "data": "Get Firefox",
+                "attribs": Object {
+                  "class": "sc-bJTOcE cgJIwr",
+                  "href": "https://help.civil.co",
+                  "target": "_blank",
+                },
+                "children": Array [
+                  Object {
+                    "data": "Visit Support",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "text",
+                  },
+                ],
+                "name": "a",
+                "namespace": "http://www.w3.org/1999/xhtml",
                 "next": null,
                 "parent": [Circular],
                 "prev": Object {
                   "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
+                    "class": "sc-bJTOcE cgJIwr",
+                    "href": "mailto:support@civil.co",
                   },
-                  "children": Array [],
-                  "name": "img",
+                  "children": Array [
+                    Object {
+                      "data": "Contact Us",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
                   "namespace": "http://www.w3.org/1999/xhtml",
                   "next": [Circular],
                   "parent": [Circular],
@@ -1902,79 +2782,71 @@ initialize {
                   "type": "tag",
                   "x-attribsNamespace": Object {
                     "class": undefined,
-                    "src": undefined,
+                    "href": undefined,
                   },
                   "x-attribsPrefix": Object {
                     "class": undefined,
-                    "src": undefined,
+                    "href": undefined,
                   },
                 },
-                "type": "text",
+                "type": "tag",
+                "x-attribsNamespace": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                },
+                "x-attribsPrefix": Object {
+                  "class": undefined,
+                  "href": undefined,
+                  "target": undefined,
+                },
               },
             ],
-            "name": "a",
+            "name": "p",
             "namespace": "http://www.w3.org/1999/xhtml",
             "next": null,
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                "href": "https://www.google.com/chrome/",
-                "target": "_blank",
-                "theme": "[object Object]",
+                "class": "sc-DNdyV dfgEGN",
               },
               "children": Array [
                 Object {
                   "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "href": "https://www.google.com/chrome/",
+                    "target": "_blank",
+                    "theme": "[object Object]",
                   },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Google Chrome",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "text",
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Google Chrome",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
+                  "children": Array [
+                    Object {
+                      "attribs": Object {
+                        "class": "sc-hAnkBK iUVeCr",
+                        "src": "test-file-stub",
+                      },
+                      "children": Array [],
+                      "name": "img",
+                      "namespace": "http://www.w3.org/1999/xhtml",
+                      "next": Object {
+                        "data": "Get Google Chrome",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "tag",
+                      "x-attribsNamespace": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
+                      "x-attribsPrefix": Object {
+                        "class": undefined,
+                        "src": undefined,
+                      },
                     },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
+<<<<<<< HEAD
                   },
                   "type": "text",
                 },
@@ -2389,269 +3261,159 @@ initialize {
                   },
                   "children": Array [],
                   "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Google Chrome",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "text",
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Google Chrome",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  "type": "text",
-                },
-              ],
-              "name": "a",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
-                  "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                  "href": "https://www.mozilla.org/en-US/firefox/",
-                  "target": "_blank",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "data": "Get Firefox",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "text",
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  Object {
-                    "data": "Get Firefox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
-                        "src": "test-file-stub",
-                      },
-                      "children": Array [],
-                      "name": "img",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "src": undefined,
-                      },
-                    },
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-                "href": undefined,
-                "target": undefined,
-                "theme": undefined,
-              },
-            },
-            Object {
-              "attribs": Object {
-                "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                "href": "https://www.mozilla.org/en-US/firefox/",
-                "target": "_blank",
-                "theme": "[object Object]",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-DNdyV XPsNq",
-                    "src": "test-file-stub",
-                  },
-                  "children": Array [],
-                  "name": "img",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "data": "Get Firefox",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "text",
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "src": undefined,
-                  },
-                },
-                Object {
-                  "data": "Get Firefox",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "src": undefined,
-                    },
-                  },
-                  "type": "text",
-                },
-              ],
-              "name": "a",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
-                  "class": "sc-bJTOcE gjvQgm sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
-                  "href": "https://www.google.com/chrome/",
-                  "target": "_blank",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-DNdyV XPsNq",
-                      "src": "test-file-stub",
-                    },
-                    "children": Array [],
-                    "name": "img",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
+=======
+                    Object {
                       "data": "Get Google Chrome",
                       "next": null,
                       "parent": [Circular],
-                      "prev": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
                       "type": "text",
                     },
+                  ],
+                  "name": "a",
+>>>>>>> origin/master
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": Object {
+                    "attribs": Object {
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "href": "https://www.mozilla.org/en-US/firefox/",
+                      "target": "_blank",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Get Firefox",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Get Firefox",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": null,
                     "parent": [Circular],
-                    "prev": null,
+                    "prev": [Circular],
                     "type": "tag",
                     "x-attribsNamespace": Object {
                       "class": undefined,
-                      "src": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
                     },
                     "x-attribsPrefix": Object {
                       "class": undefined,
-                      "src": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
                     },
                   },
-                  Object {
-                    "data": "Get Google Chrome",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
+                  "parent": [Circular],
+                  "prev": null,
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                },
+                Object {
+                  "attribs": Object {
+                    "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                    "href": "https://www.mozilla.org/en-US/firefox/",
+                    "target": "_blank",
+                    "theme": "[object Object]",
+                  },
+                  "children": Array [
+                    Object {
                       "attribs": Object {
-                        "class": "sc-DNdyV XPsNq",
+                        "class": "sc-hAnkBK iUVeCr",
                         "src": "test-file-stub",
                       },
                       "children": Array [],
                       "name": "img",
                       "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
+                      "next": Object {
+                        "data": "Get Firefox",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": [Circular],
+                        "type": "text",
+                      },
                       "parent": [Circular],
                       "prev": null,
                       "type": "tag",
@@ -2664,8 +3426,204 @@ initialize {
                         "src": undefined,
                       },
                     },
+                    Object {
+                      "data": "Get Firefox",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": [Circular],
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      "type": "text",
+                    },
+                  ],
+                  "name": "a",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": null,
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc",
+                      "href": "https://www.google.com/chrome/",
+                      "target": "_blank",
+                      "theme": "[object Object]",
+                    },
+                    "children": Array [
+                      Object {
+                        "attribs": Object {
+                          "class": "sc-hAnkBK iUVeCr",
+                          "src": "test-file-stub",
+                        },
+                        "children": Array [],
+                        "name": "img",
+                        "namespace": "http://www.w3.org/1999/xhtml",
+                        "next": Object {
+                          "data": "Get Google Chrome",
+                          "next": null,
+                          "parent": [Circular],
+                          "prev": [Circular],
+                          "type": "text",
+                        },
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "tag",
+                        "x-attribsNamespace": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                        "x-attribsPrefix": Object {
+                          "class": undefined,
+                          "src": undefined,
+                        },
+                      },
+                      Object {
+                        "data": "Get Google Chrome",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": Object {
+                          "attribs": Object {
+                            "class": "sc-hAnkBK iUVeCr",
+                            "src": "test-file-stub",
+                          },
+                          "children": Array [],
+                          "name": "img",
+                          "namespace": "http://www.w3.org/1999/xhtml",
+                          "next": [Circular],
+                          "parent": [Circular],
+                          "prev": null,
+                          "type": "tag",
+                          "x-attribsNamespace": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                          "x-attribsPrefix": Object {
+                            "class": undefined,
+                            "src": undefined,
+                          },
+                        },
+                        "type": "text",
+                      },
+                    ],
+                    "name": "a",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                      "href": undefined,
+                      "target": undefined,
+                      "theme": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+                    "href": undefined,
+                    "target": undefined,
+                    "theme": undefined,
+                  },
+                },
+              ],
+              "name": "div",
+              "namespace": "http://www.w3.org/1999/xhtml",
+              "next": [Circular],
+              "parent": [Circular],
+              "prev": Object {
+                "attribs": Object {
+                  "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+                },
+                "children": Array [
+                  Object {
+                    "data": "In the meantime, please…",
+                    "next": null,
+                    "parent": [Circular],
+                    "prev": null,
                     "type": "text",
                   },
+                ],
+                "name": "p",
+                "namespace": "http://www.w3.org/1999/xhtml",
+                "next": [Circular],
+                "parent": [Circular],
+                "prev": Object {
+                  "attribs": Object {
+                    "class": "sc-PLyBE mDfkC sc-jtRfpW hyFxyF",
+                  },
+                  "children": Array [
+                    Object {
+                      "data": "Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.",
+                      "next": null,
+                      "parent": [Circular],
+                      "prev": null,
+                      "type": "text",
+                    },
+                  ],
+                  "name": "p",
+                  "namespace": "http://www.w3.org/1999/xhtml",
+                  "next": [Circular],
+                  "parent": [Circular],
+                  "prev": Object {
+                    "attribs": Object {
+                      "class": "sc-bYSBpT bEzNmz",
+                    },
+                    "children": Array [
+                      Object {
+                        "data": "Can we switch to a different browser?",
+                        "next": null,
+                        "parent": [Circular],
+                        "prev": null,
+                        "type": "text",
+                      },
+                    ],
+                    "name": "h2",
+                    "namespace": "http://www.w3.org/1999/xhtml",
+                    "next": [Circular],
+                    "parent": [Circular],
+                    "prev": null,
+                    "type": "tag",
+                    "x-attribsNamespace": Object {
+                      "class": undefined,
+                    },
+                    "x-attribsPrefix": Object {
+                      "class": undefined,
+                    },
+                  },
+                  "type": "tag",
+                  "x-attribsNamespace": Object {
+                    "class": undefined,
+                  },
+<<<<<<< HEAD
                 ],
                 "name": "a",
                 "namespace": "http://www.w3.org/1999/xhtml",
@@ -2750,13 +3708,12 @@ initialize {
                     "parent": [Circular],
                     "prev": null,
                     "type": "text",
+=======
+                  "x-attribsPrefix": Object {
+                    "class": undefined,
+>>>>>>> origin/master
                   },
-                ],
-                "name": "h2",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
+                },
                 "type": "tag",
                 "x-attribsNamespace": Object {
                   "class": undefined,
@@ -2781,14 +3738,12 @@ initialize {
               "class": undefined,
             },
           },
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
+        ],
+        "name": "div",
+        "namespace": "http://www.w3.org/1999/xhtml",
+        "next": null,
+        "parent": [Circular],
+        "prev": null,
         "type": "tag",
         "x-attribsNamespace": Object {
           "class": undefined,

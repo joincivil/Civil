@@ -329,7 +329,7 @@ const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModa
 ) as React.ComponentClass<RequestAppealProps>;
 
 const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
-  const listingAddress = props.match.params.listing;
+  const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
   return (

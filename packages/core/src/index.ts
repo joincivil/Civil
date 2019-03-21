@@ -1,5 +1,8 @@
 export { Civil } from "./civil";
+export { UniswapService } from "./UniswapService";
+export { FeatureFlagService } from "./FeatureFlagService";
 export * from "./types";
+export * from "./utils/ethersHelpers";
 export * from "./utils/listingDataHelpers/listingHelper";
 export * from "./utils/listingDataHelpers/appealHelper";
 export * from "./utils/listingDataHelpers/challengeHelper";
