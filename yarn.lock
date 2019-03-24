@@ -1207,10 +1207,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.6.tgz#9c03d3fed70a8d517c191b7734da2879b50ca26c"
 
 "@types/react-dom@^16.0.4":
-  version "16.0.9"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.9.tgz#73ceb7abe6703822eab6600e65c5c52efd07fb91"
+  version "16.8.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.3.tgz#6131b7b6158bc7ed1925a3374b88b7c00481f0cb"
+  integrity sha512-HF5hD5YR3z9Mn6kXcW1VKe4AQ04ZlZj1EdLBae61hzQ3eEWWxMgNLUbIxeZp40BnSxqY1eAYLsH9QopQcxzScA==
   dependencies:
-    "@types/node" "*"
     "@types/react" "*"
 
 "@types/react-redux@^5.0.19":
@@ -14227,6 +14227,7 @@ style-loader@^0.20.3:
 styled-components@^3.2.3, styled-components@^3.2.5:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.2.5.tgz#b5d5d7d618ab240ff10602b5ca5886b8db3d0a0d"
+  integrity sha1-tdXX1hirJA/xBgK1yliGuNs9Cg0=
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
