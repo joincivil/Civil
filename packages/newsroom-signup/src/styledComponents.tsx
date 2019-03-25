@@ -209,7 +209,7 @@ export const NextBackButtonContainer = styled.div`
 `;
 export interface NextBackProps {
   backHidden?: boolean;
-  nextDisabled?: boolean;
+  nextDisabled?: () => boolean;
   nextHidden?: boolean;
   navigate(go: 1 | -1): void;
 }
@@ -225,7 +225,7 @@ export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
 
     {!props.nextHidden ? (
       <Button
-        disabled={props.nextDisabled}
+        disabled={props.nextDisabled && props.nextDisabled()}
         textTransform="none"
         width={220}
         size={buttonSizes.MEDIUM_WIDE}

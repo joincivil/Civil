@@ -65,13 +65,6 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       },
     ];
 
-    if (index >= functions.length) {
-      // Dumb edge case because of how auto-skipping from grant step interacts with our nested step processes, we can briefly have too-high a step
-      return () => {
-        return false;
-      };
-    }
-
     return functions[index];
   }
   public renderCurrentStep(): JSX.Element {
@@ -100,7 +93,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <NextBack
         navigate={this.props.navigate}
         backHidden={this.props.currentStep === 0}
-        nextDisabled={this.getDisabled(this.props.currentStep)()}
+        nextDisabled={this.getDisabled(this.props.currentStep)}
       />
     );
   }
