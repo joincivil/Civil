@@ -2,6 +2,7 @@ import * as React from "react";
 import { OBSectionHeader, OBSectionDescription, colors, fonts } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 import styled from "styled-components";
+import { AboutSmartContractsButton } from "./AboutSmartContractsButton";
 
 export interface LetsGetStartedPageProps {
   name: string;
@@ -12,6 +13,7 @@ const BorderBox = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.09);
   border-radius: 8px;
+  margin-top: 24px;
   padding: 24px;
   & > div:first-child {
     margin-bottom: 25px;
@@ -61,6 +63,7 @@ export class LetsGetStartedPage extends React.Component<LetsGetStartedPageProps>
           Next, you’ll be creating your Newsroom Smart Contract. You’ll be able to use Civil’s blockchain signing and
           publishing tools once your Newsroom Smart Contract is created.
         </OBSectionDescription>
+        <AboutSmartContractsButton />
         <BorderBox>
           <div>
             <Label>Newsroom name</Label>

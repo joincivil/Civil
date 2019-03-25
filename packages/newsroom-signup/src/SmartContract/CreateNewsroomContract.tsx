@@ -27,6 +27,7 @@ import { updateNewsroom } from "../actionCreators";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import { StateWithNewsroom } from "../reducers";
 import { TransactionButtonInner } from "../TransactionButtonInner";
+import { AboutSmartContractsButton } from "./AboutSmartContractsButton";
 import { FormTitle } from "../styledComponents";
 import { MutationFunc } from "react-apollo";
 
@@ -84,7 +85,7 @@ const Success = styled.div`
 `;
 
 const Divider = styled.div`
-  margin: 35px 0;
+  margin: 24px 0 32px;
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   width: 100%;
   height: 0;
@@ -359,6 +360,7 @@ export class CreateNewsroomContractComponent extends React.Component<
           Your Newsroom Smart Contract effectively acts as your newsroom's byline on the Ethereum blockchain, and lays
           the groundwork for licensing and archiving opportunties.
         </OBSectionDescription>
+        <AboutSmartContractsButton />
         <Divider />
         {body}
         {this.renderPreMetamaskCreateModal()}
