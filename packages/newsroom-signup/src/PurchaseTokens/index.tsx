@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
@@ -28,7 +29,7 @@ export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
   hasMinDeposit: boolean;
 }
 
-const BUY_TOKENS_URL = "/tokens?redirect=%2Fapply-to-registry";
+const BUY_TOKENS_PATH = "/tokens?redirect=%2Fapply-to-registry";
 
 const Border = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -97,7 +98,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         </OBSmallParagraph>
 
         <BuyButtonContainer>
-          <Button textTransform="none" width={220} size={buttonSizes.MEDIUM_WIDE} href={BUY_TOKENS_URL}>
+          <Button textTransform="none" width={220} size={buttonSizes.MEDIUM_WIDE} to={BUY_TOKENS_PATH}>
             Buy CVL tokens
           </Button>
         </BuyButtonContainer>
@@ -129,7 +130,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
               </CvlBalance>
               <OBNoteText>tokens in your wallet</OBNoteText>
               <BuyCvlTextLink>
-                <a href={BUY_TOKENS_URL}>Buy additional CVL tokens</a>
+                <Link to={BUY_TOKENS_PATH}>Buy additional CVL tokens</Link>
               </BuyCvlTextLink>
             </FormRowItem>
           </FormRow>
