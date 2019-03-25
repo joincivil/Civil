@@ -30,8 +30,8 @@ export const BrowserCompatible: React.StatelessComponent = props => {
       </BrowserButtons>
 
       <OBSmallestParagraph>
-        <BrowserCompatLinks href={"mailto:" + `${links.EMAIL_SUPPORT}`}>Contact Us</BrowserCompatLinks>
-        <BrowserCompatLinks href={links.FAQ_HOME} target="_blank">
+        <BrowserCompatLinks href={links.EMAIL_MAILTO}>Contact Us</BrowserCompatLinks>
+        <BrowserCompatLinks href={links.FAQ_BROWSER_SUPPORT} target="_blank">
           Visit Support
         </BrowserCompatLinks>
       </OBSmallestParagraph>
