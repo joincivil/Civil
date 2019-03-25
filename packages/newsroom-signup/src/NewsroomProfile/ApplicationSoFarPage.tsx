@@ -52,6 +52,7 @@ const Value = styled.div`
   letter-spacing: 0.13px;
   line-height: 24px;
   color: ${colors.primary.BLACK};
+  word-break: break-word;
 `;
 
 const CollapsableInner = styled.div`
@@ -62,7 +63,7 @@ const GridWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 40% 50%;
-  grid-template-rows: 70px 70px auto 70px;
+  grid-template-rows: 70px minmax(70px, auto) auto 70px;
 `;
 
 const TwoSpanner = styled.div`

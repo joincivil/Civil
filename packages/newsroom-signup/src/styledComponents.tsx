@@ -156,6 +156,7 @@ export const StyledHr = styled.div`
 export const AvatarWrap = styled.div`
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
 `;
 export const AvatarImg = styled.img`
   width: 100%;
