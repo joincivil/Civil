@@ -48,7 +48,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.TRANSFER_TO_MULTISIG]: [
-    "The was an problem with transferring your tokens",
+    "There was a problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
@@ -160,7 +160,7 @@ const TransferToMultisig: React.SFC<
               });
               const tcr = await value.civil!.tcrSingletonTrusted();
               const token = await tcr.getToken();
-              return token.transfer(multisigAddress, tokenAmountToTransfer);
+              return token.transfer(multisigAddress, value.civil!.toBigNumber(tokenAmountToTransfer));
             },
             handleTransactionHash: (txHash: TxHash) => {
               props.updateTransactionStatusModalsState({

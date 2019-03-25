@@ -44,7 +44,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.WITHDRAW_VOTING_RIGHTS]: [
-    "The was an problem with transferring your tokens",
+    "There was a problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
