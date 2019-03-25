@@ -13,7 +13,7 @@ import {
   AppealDecisionProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import ChallengeDetailContainer from "./ChallengeDetail";
@@ -119,7 +119,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
         <WhitelistedDetail
           listingAddress={this.props.listing.address}
           constitutionURI={this.props.constitutionURI}
-          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+          faqURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
           approvalDate={approvalDate}
         />
@@ -158,7 +158,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       }
       return (
         <RejectedCardComponent
-          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          faqURL={links.FAQ_REGISTRY}
           {...challengeProps}
           {...challengeResultsProps}
           {...appealProps}
@@ -184,8 +184,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           phaseLength={phaseLength}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
-          faqURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
-          learnMoreURL={`${FAQ_BASE_URL}/hc/en-us/categories/360001542132-Registry`}
+          faqURL={links.FAQ_REGISTRY}
+          learnMoreURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />
       </>

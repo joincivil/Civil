@@ -9,7 +9,7 @@ import {
   Button,
   buttonSizes,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings, padString, FAQ_BASE_URL } from "@joincivil/utils";
+import { getLocalDateTimeStrings, padString, urlConstants } from "@joincivil/utils";
 
 import { FormSection, FormRow, FormRowCenter, FormRowItem } from "../styledComponents";
 
@@ -110,7 +110,7 @@ const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
         <FormRowCenter>
           <p>
             If you have any questions, you can contact{" "}
-            <a href={FAQ_BASE_URL} target="_blank">
+            <a href={urlConstants.EMAIL_MAILTO} target="_blank">
               support
             </a>
           </p>
