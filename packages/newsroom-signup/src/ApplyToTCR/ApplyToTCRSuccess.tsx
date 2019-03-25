@@ -70,8 +70,8 @@ const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
       </FormRowCenter>
       <OBSectionHeader>Application submitted!</OBSectionHeader>
       <OBSectionDescription>
-        Your newsroom application was submitted to the Civil Registry will now be reviewed by the Civil Community over
-        the next {props.applyStageLenDisplay}.
+        Your newsroom application was submitted to the Civil Registry and will now be reviewed by the Civil Community
+        over the next {props.applyStageLenDisplay}.
       </OBSectionDescription>
 
       <FormSection>
