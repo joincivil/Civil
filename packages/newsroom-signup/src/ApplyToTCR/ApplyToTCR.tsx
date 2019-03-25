@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { OBCollapsable, OBCollapsableHeader, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
+import { OBCollapsable, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
 
 import { ApplyToTCRStepOwnProps, ApplyToTCRStepReduxProps } from "./index";
 import TransferToMultisig, { TransferPostTransactionProp } from "./TransferToMultisig";

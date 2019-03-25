@@ -209,9 +209,9 @@ export const NextBackButtonContainer = styled.div`
 `;
 export interface NextBackProps {
   backHidden?: boolean;
-  nextDisabled?: () => boolean;
   nextHidden?: boolean;
   navigate(go: 1 | -1): void;
+  nextDisabled?(): boolean;
 }
 export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
   <NextBackButtonContainer style={{ marginTop: 64 }}>
