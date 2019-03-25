@@ -10,6 +10,7 @@ import {
   grantSubmittedImgUrl,
   ReviewIcon,
 } from "@joincivil/components";
+import { urlConstants } from "@joincivil/utils";
 
 const Wrapper = styled.div`
   margin: auto;
@@ -77,37 +78,24 @@ export class WaitingForGrant extends React.Component {
 
         <AddendaText>
           After that there's three more steps before your Registry Application is complete —{" "}
-          <a
-            href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-"
-            target="_blank"
-          >
+          <a href={urlConstants.FAQ_WHAT_IS_SMART_CONTRACT} target="_blank">
             Newsroom Smart Contract
           </a>,{" "}
-          <a
-            href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360021949732-What-is-the-Civil-Tutorial-"
-            target="_blank"
-          >
+          <a href={urlConstants.FAQ_WHAT_IS_TUTORIAL} target="_blank">
             Civil Tutorial
           </a>{" "}
           and{" "}
-          <a
-            href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360024542352-Why-do-I-need-to-apply-with-Civil-tokens-"
-            target="_blank"
-          >
+          <a href={urlConstants.FAQ_APPLICATION_DEPOSIT} target="_blank">
             Application Deposit
-          </a>. While you wait for the Grant request to be reviewed, we suggest you review these materials to
-          familiarize yourself with the Civil ecosystem. The Civil Tutorial is a brief series of questions to ensure you
-          know how tokens work and how to use the Registry.
+          </a>. While you wait for the Grant request to be reviewed, we suggest you review these items to familiarize
+          yourself with the Civil ecosystem.
         </AddendaText>
         <AddendaText>
-          <a
-            href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360021942132-Civil-Foundation-Token-Grant"
-            target="_blank"
-          >
+          <a href={urlConstants.FAQ_GRANT} target="_blank">
             Learn more
           </a>{" "}
           about the grant process and if you have any questions, contact{" "}
-          <a href="mailto:support@civil.co" target="_blank">
+          <a href={urlConstants.EMAIL_MAILTO} target="_blank">
             support
           </a>.
         </AddendaText>

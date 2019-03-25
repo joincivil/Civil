@@ -213,7 +213,7 @@ export class CreateNewsroomContractComponent extends React.Component<
     }
     const message = this.props.newsroomAddress
       ? "Your name change did not complete"
-      : "Your newsroom smart contract did not complete";
+      : "Your newsroom smart contract creation did not complete";
 
     const denialMessage = this.props.newsroomAddress
       ? "To change your newsroom's name, you need to confirm the transaction in your MetaMask wallet."
@@ -310,7 +310,7 @@ export class CreateNewsroomContractComponent extends React.Component<
           <Label>Newsroom Contract Address</Label>
           <AddressWithCopyButton address={this.props.newsroomAddress || ""} />
           <StepDescription>
-            Your newsroom contract address like the byline of your newsroom on the Ethereum blockchain.<strong>
+            Your newsroom contract address is like the byline of your newsroom on the Ethereum blockchain.<strong>
               {" "}
               CVL or ETH cannot be sent to this contract address. If funds are sent to this address, you will lose your
               cryptocurrency and the Civil Media Company can not help you to retrieve it.
@@ -357,8 +357,8 @@ export class CreateNewsroomContractComponent extends React.Component<
       <>
         <OBSectionHeader>Create your Newsroom Smart Contract</OBSectionHeader>
         <OBSectionDescription>
-          Your Newsroom Smart Contract effectively acts as your newsroom's byline on the Ethereum blockchain, and lays
-          the groundwork for licensing and archiving opportunties.
+          Your Newsroom Smart Contract effectively acts as your newsroom's byline on the Ethereum blockchain, and it
+          binds your newsroom’s identity to the content you create.
         </OBSectionDescription>
         <AboutSmartContractsButton />
         <Divider />

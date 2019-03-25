@@ -137,7 +137,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
         >
           <CollapsableInner>
             {this.props.charter.roster!.map((member: RosterMember) => {
-              return <RosterMemberListItem member={member} />;
+              return <RosterMemberListItem member={member} key={member.ethAddress || member.name} />;
             })}
           </CollapsableInner>
         </Collapsable>
@@ -152,23 +152,23 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           <CollapsableInner>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.PURPOSE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.PURPOSE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.PURPOSE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.STRUCTURE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.STRUCTURE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.STRUCTURE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.REVENUE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.REVENUE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.REVENUE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.ENCUMBRANCES]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.ENCUMBRANCES]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.ENCUMBRANCES]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.MISCELLANEOUS]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.MISCELLANEOUS]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.MISCELLANEOUS]}</Value>
             </QuestionContainer>
           </CollapsableInner>
         </Collapsable>

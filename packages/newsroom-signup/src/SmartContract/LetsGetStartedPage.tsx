@@ -60,8 +60,8 @@ export class LetsGetStartedPage extends React.Component<LetsGetStartedPageProps>
       <>
         <OBSectionHeader>Let’s get your Newsroom onto the Civil Network</OBSectionHeader>
         <OBSectionDescription>
-          Next, you’ll be creating your Newsroom Smart Contract. You’ll be able to use Civil’s blockchain signing and
-          publishing tools once your Newsroom Smart Contract is created.
+          Next, you’ll be creating your Newsroom Smart Contract. Once your Newsroom Smart Contract is created, you can
+          use Civil's signing and publishing tools.
         </OBSectionDescription>
         <AboutSmartContractsButton />
         <BorderBox>

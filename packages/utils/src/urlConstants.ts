@@ -3,6 +3,7 @@ const FAQ_BASE_URL = "https://help.civil.co";
 export const urlConstants = {
   // Marketing site  / Foundation
   MARKETING_SITE: "https://civil.co",
+  REGISTRY: "https://registry.civil.co/",
   CONSTITUTION: "https://civil.co/constitution",
   FOUNDATION: "https://civilfound.org",
   COUNCIL: "https://civilfound.org/#civil-council",
@@ -34,11 +35,13 @@ export const urlConstants = {
   // FAQ
   FAQ_HOME: FAQ_BASE_URL,
   FAQ_REGISTRY: FAQ_BASE_URL + "/hc/en-us/categories/360001542132-Registry",
+  FAQ_APPLICATION_DEPOSIT: FAQ_BASE_URL + "/hc/en-us/articles/360024542352-Why-do-I-need-to-apply-with-Civil-tokens-",
   FAQ_COMMUNITY_VETTING_PROCESS:
     FAQ_BASE_URL +
     "/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-",
   FAQ_CAN_REJECTED_NEWSROOMS_REAPPLY:
     FAQ_BASE_URL + "/hc/en-us/articles/360024545152-Can-rejected-Newsrooms-re-apply-to-the-Civil-Registry-",
+  FAQ_GRANT: FAQ_BASE_URL + "/hc/en-us/articles/360021942132-Civil-Foundation-Token-Grant",
   FAQ_HOW_TO_CHALLENGE: FAQ_BASE_URL + "/hc/en-us/articles/360024546932-How-do-I-challenge-a-Newsroom-",
   FAQ_HOW_TO_VOTE: FAQ_BASE_URL + "/hc/en-us/articles/360024855271-How-do-I-vote-in-a-challenge-",
   FAQ_HOW_TO_APPEAL: FAQ_BASE_URL + "/hc/en-us/articles/360024855191-How-do-I-request-an-appeal-to-the-Civil-Council-",
@@ -46,6 +49,7 @@ export const urlConstants = {
   FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS:
     FAQ_BASE_URL + "/hc/en-us/articles/360024545012-How-do-I-update-a-Newsroom-s-status-on-the-Civil-Registry-",
   FAQ_SWITCH_NETWORKS: FAQ_BASE_URL + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-",
+  FAQ_WHAT_IS_TUTORIAL: FAQ_BASE_URL + "/hc/en-us/articles/360021949732-What-is-the-Civil-Tutorial-",
   FAQ_WHAT_IS_SMART_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-",
   FAQ_WHAT_IS_PLCR_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",
   FAQ_WALLETS: FAQ_BASE_URL + "/hc/en-us/sections/360003838452-Wallets",

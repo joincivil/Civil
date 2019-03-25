@@ -15,6 +15,7 @@ import {
   OBSmallParagraph,
   OBNoteHeading,
   HollowGreenCheck,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
@@ -47,6 +48,12 @@ const YouHaveEnough = styled(OBSectionSubHeader)`
   text-align: center;
 `;
 
+const BalanceTip = styled(QuestionToolTip)`
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+`;
 const CvlBalance = styled(FormTitle)`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: -4px;
@@ -79,15 +86,14 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <Border />
 
         <OBSmallParagraph>
-          To buy CVL tokens, you must buy ETH and then you will be able to buy CVL from an exchange. You can’t use USD
-          to directly buy a CVL token — currencies need to be converted into ETH first.
+          To buy Civil tokens (CVL), you must buy Ether (ETH) and then you will be able to buy CVL. You can’t use USD or
+          local currencies to directly buy a Civil token – currencies need to be converted into ETH first.
         </OBSmallParagraph>
 
         <OBSectionSubHeader>You can buy Civil tokens (CVL) from our Token Store.</OBSectionSubHeader>
         <OBSmallParagraph>
           To buy tokens, you’ll be purchasing them from our Token store. It uses Airswap, a secure decentralized token
-          exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any of its own fees
-          on each trade.
+          exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any fees.
         </OBSmallParagraph>
 
         <BuyButtonContainer>
@@ -111,7 +117,10 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <FormSection>
           <FormRow>
             <FormRowItem>
-              <OBSectionSubHeader>Token Balance</OBSectionSubHeader>
+              <OBSectionSubHeader>
+                Token Balance
+                <BalanceTip explainerText="This is the total amount of Civil tokens availabe in your connected wallet." />
+              </OBSectionSubHeader>
             </FormRowItem>
             <FormRowItem>
               <CvlBalance>
@@ -136,8 +145,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <OBSectionDescription>
           You will need {!this.props.hasMinDeposit && "to purchase"}{" "}
           {getFormattedTokenBalance(this.props.minDeposit, true, 0)} Civil tokens (CVL) to deposit with your
-          application. You can buy these tokens using ETH. These tokens are to state the seriousness of your intent to
-          the Civil community.
+          application. These tokens are to state the seriousness of your intent to the Civil community.
         </OBSectionDescription>
 
         {this.props.hasMinDeposit ? this.renderEnoughTokens() : this.renderNotEnoughTokens()}

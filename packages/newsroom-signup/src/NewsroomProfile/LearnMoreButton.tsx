@@ -1,5 +1,6 @@
 import * as React from "react";
 import { InvertedButton, buttonSizes } from "@joincivil/components";
+import { urlConstants } from "@joincivil/utils";
 import { InfoModalButton, Header, SectionHeader, Paragraph } from "../InfoModalButton";
 
 export interface LearnMoreButtonProps {
@@ -28,7 +29,7 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
             <Paragraph>
               Newsrooms on the Civil Registry have been vetted by the community and deemed it as having a credible,
               journalistic practices as outlined in the{" "}
-              <a href="https://civil.co/constitution/" target="_blank">
+              <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
               </a>.
             </Paragraph>
@@ -49,6 +50,7 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
 
             <SectionHeader>Applying to the Civil Registry</SectionHeader>
             <Paragraph>
+              {/*@TODO/toby Populate from parameterizer*/}
               You will need to deposit 5,000 CVL tokens with your application. This is to signal the seriousness of your
               intent to the community.
             </Paragraph>
@@ -61,13 +63,13 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               application. During the period, any CVL token holder may challenge this newsroom by matching the
               application deposit if they believe the newsroom’s mission, charter or roster is in any way a violation of
               the principles of the{" "}
-              <a href="https://civil.co/constitution/" target="_blank">
+              <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
               </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the
-              <a href="https://registry.civil.co/" target="_blank">
+              <a href={urlConstants.REGISTRY} target="_blank">
                 Civil Registry
               </a>, a newsroom is committing to uphold the values of the{" "}
-              <a href="https://civil.co/constitution/" target="_blank">
+              <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
               </a>.
             </Paragraph>
@@ -75,12 +77,12 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
               an opportunity to be heard in the Civil community. You can learn more about the review and challenge
               phases{" "}
-              <a href="https://cvlconsensys.zendesk.com/hc/en-us/categories/360001542132-Registry" target="_blank">
+              <a href={urlConstants.FAQ_REGISTRY} target="_blank">
                 here
               </a>.
             </Paragraph>
 
-            <InvertedButton size={buttonSizes.SMALL} target="_blank" href={"https://cvlconsensys.zendesk.com/hc/en-us"}>
+            <InvertedButton size={buttonSizes.SMALL} target="_blank" href={urlConstants.FAQ_HOME}>
               Read more on our FAQ
             </InvertedButton>
           </>

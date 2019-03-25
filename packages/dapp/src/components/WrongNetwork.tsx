@@ -20,9 +20,7 @@ const WrongNetwork: React.SFC<WrongNetworkProps> = props => {
     } else {
       formattedSupportedNetworkNames = supportedNetworkNames.join(" or ");
     }
-    return (
-      <WrongNetworkModal requiredNetworkNiceName={formattedSupportedNetworkNames} />
-    );
+    return <WrongNetworkModal requiredNetworkNiceName={formattedSupportedNetworkNames} />;
   }
 
   return <></>;
