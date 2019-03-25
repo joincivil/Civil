@@ -53,7 +53,7 @@ export class AboutApplicationButton extends React.Component {
               The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
               an opportunity to be heard in the Civil community. You can learn more about the review and challenge
               phases{" "}
-              <a href={urlConstants.FAQ_REGISTRY} target="_blank">
+              <a href={urlConstants.FAQ_COMMUNITY_VETTING_PROCESS} target="_blank">
                 here
               </a>.
             </Paragraph>

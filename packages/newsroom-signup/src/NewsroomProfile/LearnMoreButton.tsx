@@ -65,7 +65,7 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               the principles of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the
+              </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the{" "}
               <a href={urlConstants.REGISTRY} target="_blank">
                 Civil Registry
               </a>, a newsroom is committing to uphold the values of the{" "}
@@ -77,7 +77,7 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
               an opportunity to be heard in the Civil community. You can learn more about the review and challenge
               phases{" "}
-              <a href={urlConstants.FAQ_REGISTRY} target="_blank">
+              <a href={urlConstants.FAQ_COMMUNITY_VETTING_PROCESS} target="_blank">
                 here
               </a>.
             </Paragraph>
