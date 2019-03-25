@@ -137,9 +137,10 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           }
         >
           <CollapsableInner>
-            {this.props.charter.roster!.map((member: RosterMember) => {
-              return <RosterMemberListItem member={member} key={member.ethAddress || member.name} />;
-            })}
+            {this.props.charter.roster &&
+              this.props.charter.roster.map((member: RosterMember) => {
+                return <RosterMemberListItem member={member} key={member.ethAddress || member.name} />;
+              })}
           </CollapsableInner>
         </Collapsable>
         <Collapsable
