@@ -87,7 +87,7 @@ const ApplyToTCRFormComponent: React.SFC<
       <FormRow>
         <FormRowItem>
           <FormTitle>
-            Newsroom Token Deposit{" "}
+            Newsroom Token Stake{" "}
             <QuestionToolTip explainerText="The deposit is subject to change. You wil be notified when changes occur." />
           </FormTitle>
         </FormRowItem>

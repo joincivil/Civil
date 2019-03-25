@@ -1,5 +1,6 @@
 import * as React from "react";
-import { OBCollapsableHeader, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
+import styled from "styled-components";
+import { OBCollapsable, OBCollapsableHeader, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
 
 import { ApplyToTCRStepOwnProps, ApplyToTCRStepReduxProps } from "./index";
 import TransferToMultisig, { TransferPostTransactionProp } from "./TransferToMultisig";
@@ -10,6 +11,11 @@ export type TApplyToTCRProps = ApplyToTCRStepOwnProps &
   ApplyToTCRStepReduxProps &
   TransferPostTransactionProp &
   ApplyPostTransactionProp;
+
+const TransferredCollapsable = styled(OBCollapsable)`
+  padding-top: 36px;
+  padding-bottom: 36px;
+`;
 
 class ApplyToTCR extends React.Component<TApplyToTCRProps> {
   public render(): JSX.Element {
@@ -55,9 +61,10 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
 
     if (multisigHasMinDeposit) {
       return (
-        <OBCollapsableHeader>
-          Civil tokens transfered from your Public Wallet to your Newsroom’s Public Wallet.
-        </OBCollapsableHeader>
+        <TransferredCollapsable
+          open={false}
+          header={<>Civil tokens transferred from your wallet to your Newsroom’s wallet.</>}
+        />
       );
     }
 
