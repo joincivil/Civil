@@ -150,7 +150,7 @@ const ApplyToTCRForm: React.SFC<
               const token = await tcr.getToken();
               const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress);
               if (approvedTokens.lessThan(minDeposit!)) {
-                return token.approveSpender(tcr.address, minDeposit!);
+                return token.approveSpender(tcr.address, value.civil!.toBigNumber(minDeposit!));
               }
               return;
             },
@@ -172,7 +172,7 @@ const ApplyToTCRForm: React.SFC<
                 transactionType: TransactionTypes.APPLY_TO_REGISTRY,
               });
               const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
-              return tcr.apply(newsroomAddress!, minDeposit, "");
+              return tcr.apply(newsroomAddress!, value.civil!.toBigNumber(minDeposit), "");
             },
             handleTransactionHash: (txHash: TxHash) => {
               props.updateTransactionStatusModalsState({
