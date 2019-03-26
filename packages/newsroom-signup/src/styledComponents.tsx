@@ -131,6 +131,12 @@ export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_
   top: 2px;
 `;
 
+export const MemberDisplayName = styled(FormSubhead)`
+  display: inline-block;
+  font-weight: bold;
+  margin: 0 10px 0 0;
+`;
+
 export const StepSectionCounter = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 12px;

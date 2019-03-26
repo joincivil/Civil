@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
 import { EthAddress, CharterData } from "@joincivil/core";
 import { userEthAddress, getCharterQuery } from "./queries";
-import { saveCharterMutation, SaveAdressMutation } from "./mutations";
+import { saveCharterMutation, SaveAddressMutation } from "./mutations";
 
 export interface DataWrapperChildrenProps {
   newsroomDeployTx?: EthAddress;
@@ -70,7 +70,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
 
                 return (
                   <Mutation
-                    mutation={SaveAdressMutation}
+                    mutation={SaveAddressMutation}
                     refetchQueries={[
                       {
                         query: getCharterQuery,

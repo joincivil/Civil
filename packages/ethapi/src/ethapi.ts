@@ -95,6 +95,7 @@ export class EthApi {
   }
 
   public async getConfirmations(startBlock: number): Promise<number> {
+    console.log({get: (await this.getLatestBlockNumber())});
     return (await this.getLatestBlockNumber()) - startBlock;
   }
 
@@ -190,10 +191,11 @@ export class EthApi {
    */
   public async awaitReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
     txHash: TxHash,
-    blockConfirmations: number = this.network() === 50 ? 0 : 1, // wait till the api says the current block is confirmed
+    blockConfirmations: number = this.network() === 50 ? 0 : 0, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
       const receipt = await this.getReceipt<R>(txHash);
+      console.log(receipt);
       if (!receipt) {
         // TODO(ritave): Move to pending block parsing instead of polling
         await delay(POLL_MILLISECONDS);
@@ -209,6 +211,7 @@ export class EthApi {
   public async awaitConfirmations(startblock: number, confirmations: number): Promise<void> {
     while (true) {
       const confirmationsSoFar = await this.getConfirmations(startblock);
+      console.log({confirmationsSoFar, confirmations});
       if (confirmationsSoFar >= confirmations) {
         return;
       } else {

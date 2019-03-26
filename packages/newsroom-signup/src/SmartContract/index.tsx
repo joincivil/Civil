@@ -9,7 +9,7 @@ import { AddMembersToContract } from "./AddMembersToContract";
 import { Button, buttonSizes } from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { getCharterQuery } from "../queries";
-import { SaveAdressMutation, SaveTxMutation } from "../mutations";
+import { SaveAddressMutation, SaveTxMutation } from "../mutations";
 
 export interface SmartContractProps {
   currentStep: number;
@@ -84,7 +84,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
         {(saveTx: MutationFunc) => {
           return (
             <Mutation
-              mutation={SaveAdressMutation}
+              mutation={SaveAddressMutation}
               refetchQueries={[
                 {
                   query: getCharterQuery,
@@ -108,11 +108,16 @@ export class SmartContract extends React.Component<SmartContractProps> {
           );
         }}
       </Mutation>,
-      <AddMembersToContract />,
+      <AddMembersToContract
+        charter={this.props.charter!}
+        newsroom={this.props.newsroom}
+        updateCharter={this.props.updateCharter}
+      />,
     ];
     return steps[this.props.currentStep];
   }
   public render(): JSX.Element {
+    console.log({props: this.props});
     return (
       <>
         {this.renderCurrentStep()}
