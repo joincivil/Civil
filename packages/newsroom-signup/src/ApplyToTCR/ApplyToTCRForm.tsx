@@ -181,7 +181,14 @@ const ApplyToTCRForm: React.SFC<
               });
             },
             handleTransactionError: props.handleTransactionError,
-            postTransaction: postApplyToTCR,
+            postTransaction: () => {
+              props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+              postApplyToTCR();
+            },
           },
         ];
 

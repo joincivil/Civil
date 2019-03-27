@@ -169,7 +169,14 @@ const TransferToMultisig: React.SFC<
               });
             },
             handleTransactionError: props.handleTransactionError,
-            postTransaction: postTransfer,
+            postTransaction: () => {
+              props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+              postTransfer();
+            },
           },
         ];
         return <TransferToMultisigComponent {...props} transactions={transactions} />;
