@@ -23,3 +23,9 @@ export const requestGrantMutation = gql`
     nrsignupRequestGrant(requested: $input)
   }
 `;
+
+export const saveStepsMutation = gql`
+  mutation($input: NrsignupStepsInput!) {
+    nrsignupUpdateSteps(input: $input)
+  }
+`;

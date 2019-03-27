@@ -1,29 +1,19 @@
 import * as React from "react";
 import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
 import { EthAddress, CharterData } from "@joincivil/core";
-import { userEthAddress, getCharterQuery } from "./queries";
-import { saveCharterMutation, SaveAddressMutation } from "./mutations";
-
-export interface DataWrapperChildrenProps {
-  newsroomDeployTx?: EthAddress;
-  newsroomAddress?: string;
-  grantRequested?: boolean;
-  grantApproved?: boolean;
-  profileWalletAddress: EthAddress;
-  persistedCharter: Partial<CharterData>;
-  saveAddress: MutationFunc;
-  persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
-}
+import { NewsroomGqlProps } from "./Newsroom";
+import { userDataQuery, getCharterQuery } from "./queries";
+import { saveCharterMutation, SaveAddressMutation, saveStepsMutation } from "./mutations";
 
 export interface DataWrapperProps {
-  children(props: DataWrapperChildrenProps): any;
+  children(props: NewsroomGqlProps): any;
 }
 
 export class DataWrapper extends React.Component<DataWrapperProps> {
   public render(): JSX.Element {
     return (
-      <Query query={userEthAddress}>
-        {({ loading, error, data }) => {
+      <Query query={userDataQuery}>
+        {({ loading, error, data: userData }) => {
           if (loading) {
             return "Loading...";
           }
@@ -81,16 +71,25 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                       return (
                         <Mutation mutation={saveCharterMutation}>
                           {(saveCharter: MutationFunc) => {
-                            return this.props.children({
-                              grantRequested,
-                              grantApproved,
-                              newsroomDeployTx,
-                              newsroomAddress,
-                              profileWalletAddress: data.currentUser.ethAddress,
-                              persistedCharter,
-                              saveAddress,
-                              persistCharter: this.saveCharterFuncFromMutation(saveCharter),
-                            });
+                            return (
+                              <Mutation mutation={saveStepsMutation}>
+                                {(saveSteps: MutationFunc) => {
+                                  return this.props.children({
+                                    grantRequested,
+                                    grantApproved,
+                                    newsroomDeployTx,
+                                    newsroomAddress,
+                                    profileWalletAddress: userData.currentUser.ethAddress,
+                                    savedStep: userData.currentUser.nrStep || 0,
+                                    furthestStep: userData.currentUser.nrFurthestStep || 0,
+                                    persistedCharter,
+                                    saveAddress,
+                                    saveSteps,
+                                    persistCharter: this.saveCharterFuncFromMutation(saveCharter),
+                                  });
+                                }}
+                              </Mutation>
+                            );
                           }}
                         </Mutation>
                       );

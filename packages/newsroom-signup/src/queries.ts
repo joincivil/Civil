@@ -1,9 +1,11 @@
 import gql from "graphql-tag";
 
-export const userEthAddress = gql`
+export const userDataQuery = gql`
   query {
     currentUser {
       ethAddress
+      nrStep
+      nrFurthestStep
     }
   }
 `;
