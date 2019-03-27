@@ -29,8 +29,8 @@ export class AboutSmartContractsButton extends React.Component {
               newsroom's identity.
             </Paragraph>
             <Paragraph>
-              Your index will appear in the Civil network, and provides a way to track it back to your website, along
-              with proof that the contents have not changed since last publish.
+              Using Civil's publishing tools, your content can be indexed on the Civil network, which provides a way to
+              track it back to your website, along with proof that the contents have not changed since last publish.
             </Paragraph>
             <Paragraph>
               Archiving will save the full text of your post to IPFS and, if you choose, the Ethereum blockchain. You

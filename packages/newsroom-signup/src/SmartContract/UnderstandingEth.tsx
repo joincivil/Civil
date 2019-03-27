@@ -110,7 +110,7 @@ export class UnderstandingEth extends React.Component {
         >
           <OBSmallParagraph>
             If you purchase Ether (ETH) in Coinbase using your bank account, Coinbase uses ACH. Automated Clearing
-            House, which is governed by the Federal Reserve is a bank transfer system for U.S. customers, and it can
+            House, which is governed by the Federal Reserve, is a bank transfer system for U.S. customers, and it can
             take 3-5 business days for funds to transfer from your bank.
           </OBSmallParagraph>
           <OBSmallParagraph>
