@@ -153,10 +153,12 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
-        <MetaMaskModal ipfsPost={true} waiting={true}>
-          <ModalStepLabel>{stepLabel}</ModalStepLabel>
-          <ModalHeading>Posting to IPFS</ModalHeading>
-        </MetaMaskModal>
+        <Modal width={558} textAlign="center">
+          <ProgressModalContentInProgress>
+            <ModalStepLabel>{stepLabel}</ModalStepLabel>
+            <ModalHeading>Posting to IPFS</ModalHeading>
+          </ProgressModalContentInProgress>
+        </Modal>
       );
     }
 
