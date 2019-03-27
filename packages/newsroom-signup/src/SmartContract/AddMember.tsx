@@ -22,7 +22,7 @@ import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "../reducers";
 import { getUserObject } from "../utils";
 import { UserData } from "../types";
-import {addAndHydrateEditor, addAndHydrateOwner} from "../actionCreators";
+import { addAndHydrateEditor, addAndHydrateOwner } from "../actionCreators";
 
 export interface AddMemberProps {
   civil: Civil;
@@ -38,7 +38,7 @@ export interface AddMemberProps {
 }
 
 export interface AddMemberState extends TransactionButtonModalFlowState {
-  selectedState: {label: string; value: memberTypes};
+  selectedState: { label: string; value: memberTypes };
   walletAddress: EthAddress;
 }
 
@@ -86,7 +86,7 @@ const SectionWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-`
+`;
 
 const StyledDisplayName = styled(MemberDisplayName)`
   margin-left: 16px;
@@ -152,7 +152,7 @@ const StyledCheck = styled(HollowGreenCheck)`
 export class AddMemberComponent extends React.Component<AddMemberProps & DispatchProp<any>, AddMemberState> {
   constructor(props: AddMemberProps) {
     super(props);
-    const value = options.find((option) => {
+    const value = options.find(option => {
       return option.value === props.role;
     });
     this.state = {
@@ -161,16 +161,14 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     };
   }
 
-  public componentDidUpdate(
-    prevProps: AddMemberProps,
-  ): void {
+  public componentDidUpdate(prevProps: AddMemberProps): void {
     if (prevProps.role !== this.props.role) {
-      const value = options.find((option) => {
+      const value = options.find(option => {
         return option.value === this.props.role;
       });
       this.setState({
         selectedState: value!,
-      })
+      });
     }
   }
 
@@ -193,22 +191,19 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.completeModalOpen) {
       return null;
     }
-    const message = this.state.selectedState.value === memberTypes.CIVIL_MEMBER
-      ? "A Civil Member has been added to the newsroom smart contract!"
-      : "A Civil Officer has been added to the newsroom smart contract!";
+    const message =
+      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
+        ? "A Civil Member has been added to the newsroom smart contract!"
+        : "A Civil Officer has been added to the newsroom smart contract!";
 
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          The transaction has completed and the {this.state.selectedState.label} was added. You
-          can keep adding officers and members to your newsroom smart contract or continue to the next step to create
-          your Registry profile.
+          The transaction has completed and the {this.state.selectedState.label} was added. You can keep adding officers
+          and members to your newsroom smart contract or continue to the next step to create your Registry profile.
         </p>
-        <Button
-          size={buttonSizes.MEDIUM_WIDE}
-          onClick={() => this.setState({ completeModalOpen: false })}
-        >
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ completeModalOpen: false })}>
           OK
         </Button>
       </Modal>
@@ -219,7 +214,10 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
-    const message = this.state.selectedState.value === memberTypes.CIVIL_MEMBER ? "Open MetaMask to add Civil Member" : "Open MetaMask to add Civil Officer";
+    const message =
+      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
+        ? "Open MetaMask to add Civil Member"
+        : "Open MetaMask to add Civil Officer";
     return (
       <MetaMaskModal
         waiting={false}
@@ -235,9 +233,10 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.modalOpen) {
       return null;
     }
-    const message = this.state.selectedState.value === memberTypes.CIVIL_MEMBER
-      ? "A Civil Member is being added to your newsroom smart contract"
-      : "A Civil Officer is being added to your newsroom smart contract";
+    const message =
+      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
+        ? "A Civil Member is being added to your newsroom smart contract"
+        : "A Civil Officer is being added to your newsroom smart contract";
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
@@ -258,23 +257,23 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
       return null;
     }
     const addEditor = this.state.selectedState.value === memberTypes.CIVIL_MEMBER;
-    const message = addEditor
-      ? "Your new Civil Member was not added"
-      : "Your new Civil Officer was not added";
+    const message = addEditor ? "Your new Civil Member was not added" : "Your new Civil Officer was not added";
 
     const denialMessage = addEditor
       ? "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet."
       : "To add a new Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
-    return (<MetaMaskModal
-      waiting={false}
-      denied={true}
-      denialText={denialMessage}
-      cancelTransaction={() => this.cancelTransaction()}
-      denialRestartTransactions={this.getTransaction(true)}
-    >
-      <ModalHeading>{message}</ModalHeading>
-    </MetaMaskModal>);
+    return (
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={() => this.cancelTransaction()}
+        denialRestartTransactions={this.getTransaction(true)}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
+    );
   }
 
   public renderAddAddress(): JSX.Element | null {
@@ -282,123 +281,131 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
       return null;
     }
 
-    return <>
-      <AddAddressInfoSection>
-        <ErrorText>Missing wallet address</ErrorText>
-        <ExplainerText>To add this person to the Newsroom Smart Contract, please add their wallet address to their roster profile.</ExplainerText>
-      </AddAddressInfoSection>
-      <AddAddressSection>
-        <StyledInput
-          placeholder="Public Wallet Address"
-          name="walletAddress"
-          value={this.state.walletAddress}
-          onChange={(name, val) => this.setState({walletAddress: val})}
-        />
-        <BorderlessButton onClick={this.addAddress}>Add Wallet Address</BorderlessButton>
-      </AddAddressSection>
-    </>;
+    return (
+      <>
+        <AddAddressInfoSection>
+          <ErrorText>Missing wallet address</ErrorText>
+          <ExplainerText>
+            To add this person to the Newsroom Smart Contract, please add their wallet address to their roster profile.
+          </ExplainerText>
+        </AddAddressInfoSection>
+        <AddAddressSection>
+          <StyledInput
+            placeholder="Public Wallet Address"
+            name="walletAddress"
+            value={this.state.walletAddress}
+            onChange={(name, val) => this.setState({ walletAddress: val })}
+          />
+          <BorderlessButton onClick={this.addAddress}>Add Wallet Address</BorderlessButton>
+        </AddAddressSection>
+      </>
+    );
   }
 
   public render(): JSX.Element {
     let thirdSection = null;
     if (this.props.memberAddress && this.state.selectedState.value !== memberTypes.NONE) {
-      thirdSection = this.props.isOnContract ?
-      <SectionWrapper><StyledCheck/><StatusText>Added to Smart Contract</StatusText></SectionWrapper> :
-      <TransactionButtonNoModal
-        Button={TransactionButtonInner}
-        transactions={this.getTransaction(false)}
-      >
-        Add to Smart Contract
-      </TransactionButtonNoModal>;
+      thirdSection = this.props.isOnContract ? (
+        <SectionWrapper>
+          <StyledCheck />
+          <StatusText>Added to Smart Contract</StatusText>
+        </SectionWrapper>
+      ) : (
+        <TransactionButtonNoModal Button={TransactionButtonInner} transactions={this.getTransaction(false)}>
+          Add to Smart Contract
+        </TransactionButtonNoModal>
+      );
     }
-    return <>
-      <StyledLi>
-        <SectionWrapper>
-          <AvatarWrap>
-            {this.props.avatarUrl ? <AvatarImg src={this.props.avatarUrl} /> : noAvatar}
-          </AvatarWrap>
-          <StyledDisplayName>{this.props.name}</StyledDisplayName>
-        </SectionWrapper>
-        <SectionWrapper>
-          <StyledSelect
-            isDisabled={this.props.isOnContract}
-            value={this.state.selectedState}
-            onChange={this.onChange}
-            options={options}
-          />
-        </SectionWrapper>
-        <SectionWrapper>
-          {thirdSection}
-        </SectionWrapper>
-        {this.renderAddAddress()}
-      </StyledLi>
-      {this.renderPreMetamMask()}
-      {this.renderAwaitingTransactionModal()}
-      {this.renderMetaMaskRejectionModal()}
-      {this.renderCompleteModal()}
-      {this.renderProgressModal()}
-    </>;
+    return (
+      <>
+        <StyledLi>
+          <SectionWrapper>
+            <AvatarWrap>{this.props.avatarUrl ? <AvatarImg src={this.props.avatarUrl} /> : noAvatar}</AvatarWrap>
+            <StyledDisplayName>{this.props.name}</StyledDisplayName>
+          </SectionWrapper>
+          <SectionWrapper>
+            <StyledSelect
+              isDisabled={this.props.isOnContract}
+              value={this.state.selectedState}
+              onChange={this.onChange}
+              options={options}
+            />
+          </SectionWrapper>
+          <SectionWrapper>{thirdSection}</SectionWrapper>
+          {this.renderAddAddress()}
+        </StyledLi>
+        {this.renderPreMetamMask()}
+        {this.renderAwaitingTransactionModal()}
+        {this.renderMetaMaskRejectionModal()}
+        {this.renderCompleteModal()}
+        {this.renderProgressModal()}
+      </>
+    );
   }
 
   private getTransaction = (noPreModal: boolean) => {
     if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
-      return [{
-        requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
-        transaction: async () => {
-          this.setState({
-            metaMaskRejectionModal: false,
-            isWaitingTransactionModalOpen: true,
-            isPreTransactionModalOpen: false,
-          });
-          return this.props.newsroom.addOwner(this.props.memberAddress);
+      return [
+        {
+          requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
+          transaction: async () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.props.newsroom.addOwner(this.props.memberAddress);
+          },
+          postTransaction: () => {
+            this.props.dispatch!(addAndHydrateOwner(this.props.newsroom.address, this.props.memberAddress!));
+            this.setState({
+              modalOpen: false,
+              completeModalOpen: true,
+            });
+          },
+          handleTransactionHash: this.handleTransactionHash,
+          handleTransactionError: this.handleTransactionError,
         },
-        postTransaction: () => {
-          this.props.dispatch!(addAndHydrateOwner(this.props.newsroom.address, this.props.memberAddress!));
-          this.setState({
-            modalOpen: false,
-            completeModalOpen: true,
-          });
-        },
-        handleTransactionHash: this.handleTransactionHash,
-        handleTransactionError: this.handleTransactionError,
-      }];
+      ];
     } else {
-      return [{
-        requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
-        transaction: () => {
-          this.setState({
-            metaMaskRejectionModal: false,
-            isWaitingTransactionModalOpen: true,
-            isPreTransactionModalOpen: false,
-          });
-          return this.props.newsroom.addRole(this.props.memberAddress, NewsroomRoles.Editor);
+      return [
+        {
+          requireBeforeTransaction: noPreModal ? undefined : this.requireBeforeTransaction,
+          transaction: () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.props.newsroom.addRole(this.props.memberAddress, NewsroomRoles.Editor);
+          },
+          postTransaction: () => {
+            this.props.dispatch!(addAndHydrateEditor(this.props.newsroom.address, this.props.memberAddress!));
+            this.setState({
+              modalOpen: false,
+              completeModalOpen: true,
+            });
+          },
+          handleTransactionHash: this.handleTransactionHash,
+          handleTransactionError: this.handleTransactionError,
         },
-        postTransaction: () => {
-          this.props.dispatch!(addAndHydrateEditor(this.props.newsroom.address, this.props.memberAddress!));
-          this.setState({
-            modalOpen: false,
-            completeModalOpen: true,
-          });
-        },
-        handleTransactionHash: this.handleTransactionHash,
-        handleTransactionError: this.handleTransactionError,
-      }];
+      ];
     }
-  }
+  };
 
   private handleTransactionHash = () => {
     this.setState({
       modalOpen: true,
       isWaitingTransactionModalOpen: false,
     });
-  }
+  };
 
   private handleTransactionError = (err: Error) => {
     this.setState({ isWaitingTransactionModalOpen: false });
     if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
       this.setState({ metaMaskRejectionModal: true });
     }
-  }
+  };
 
   private requireBeforeTransaction = async () => {
     return new Promise((res, rej) => {
@@ -411,8 +418,8 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
   };
 
   private onChange = (selected: any) => {
-    this.setState({selectedState: selected});
-  }
+    this.setState({ selectedState: selected });
+  };
 
   private cancelTransaction = () => {
     if (this.state.cancelTransaction) {
@@ -441,18 +448,15 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
   private addAddress = async () => {
     const member = this.props.charter.roster![this.props.index];
     const roster = [...this.props.charter.roster!];
-    roster[this.props.index] = {...member, ethAddress: this.state.walletAddress};
+    roster[this.props.index] = { ...member, ethAddress: this.state.walletAddress };
     return this.props.updateCharter({
       ...this.props.charter,
       roster,
     });
-  }
+  };
 }
 
-const mapStateToProps = (
-  state: StateWithNewsroom,
-  ownProps: AddMemberProps,
-): AddMemberProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: AddMemberProps): AddMemberProps => {
   const address = ownProps.newsroom ? ownProps.newsroom.address : "";
   const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
   const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
@@ -465,12 +469,20 @@ const mapStateToProps = (
   let editor = false;
   let role = memberTypes.NONE;
   if (ownProps.memberAddress) {
-    owner = owners.findIndex((item: UserData) => {
-      return !!item.rosterData.ethAddress && item.rosterData.ethAddress!.toLowerCase() === ownProps.memberAddress!.toLowerCase();
-    }) > -1;
-    editor = editors.findIndex((item: UserData) => {
-      return !!item.rosterData.ethAddress && item.rosterData.ethAddress!.toLowerCase() === ownProps.memberAddress!.toLowerCase();
-    }) > -1;
+    owner =
+      owners.findIndex((item: UserData) => {
+        return (
+          !!item.rosterData.ethAddress &&
+          item.rosterData.ethAddress!.toLowerCase() === ownProps.memberAddress!.toLowerCase()
+        );
+      }) > -1;
+    editor =
+      editors.findIndex((item: UserData) => {
+        return (
+          !!item.rosterData.ethAddress &&
+          item.rosterData.ethAddress!.toLowerCase() === ownProps.memberAddress!.toLowerCase()
+        );
+      }) > -1;
     isOnContract = owner || editor;
     if (owner) {
       role = memberTypes.CIVIL_OFFICER;

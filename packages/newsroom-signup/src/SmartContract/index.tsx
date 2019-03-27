@@ -117,7 +117,6 @@ export class SmartContract extends React.Component<SmartContractProps> {
     return steps[this.props.currentStep];
   }
   public render(): JSX.Element {
-    console.log({props: this.props});
     return (
       <>
         {this.renderCurrentStep()}

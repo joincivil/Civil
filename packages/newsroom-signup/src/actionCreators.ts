@@ -1,10 +1,9 @@
 import { AnyAction } from "redux";
 import { BigNumber } from "bignumber.js";
-import { EthAddress, Civil, CharterData, RosterMember, ListingWrapper } from "@joincivil/core";
+import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
-import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -221,7 +220,7 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
   const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
   if (persistCharter && !dontPersist) {
-    console.log("here", {charter, dontPersist});
+    console.log("here", { charter, dontPersist });
     persistCharter(charter);
   }
   return dispatch(

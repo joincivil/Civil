@@ -233,14 +233,11 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     if (this.props.civil) {
       if (this.props.newsroomAddress) {
-        console.log("hydrate");
         await this.hydrateNewsroom(this.props.newsroomAddress);
       }
 
       if (!this.props.newsroomAddress && this.props.newsroomDeployTx) {
-        console.log("before");
         const newsroom = await this.props.civil.newsroomFromFactoryTxHashUntrusted(this.props.newsroomDeployTx);
-        console.log("after");
         await this.props.saveAddress({ variables: { input: newsroom.address } });
       }
 

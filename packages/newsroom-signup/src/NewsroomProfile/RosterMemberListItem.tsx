@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RosterMember } from "@joincivil/core";
 import { colors, BorderlessButton, buttonSizes } from "@joincivil/components";
-import { FormSubhead, AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
+import { AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
 import styled from "styled-components";
 
 export interface RosterMemberListItemProps {
