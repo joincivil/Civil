@@ -47,6 +47,13 @@ export interface ValueOption {
   value: memberTypes;
 }
 
+export interface SelectProps {
+  isDisabled: boolean;
+  value: ValueOption;
+  options: ValueOption[];
+  onChange(selected: any): void;
+}
+
 export enum memberTypes {
   NONE = "NONE",
   CIVIL_MEMBER = "CIVIL_MEMBER",
@@ -70,7 +77,7 @@ const options = [
 
 const StyledLi = styled.li`
   display: grid;
-  grid-template-columns: 24% 38% 38%;
+  grid-template-columns: 30% 32% 38%;
   padding: 15px 0;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
@@ -132,6 +139,14 @@ const ExplainerText = styled.p`
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 21px;
+`;
+
+const StyledSelect = styled<SelectProps, any>(Select)`
+  width: 150px;
+`;
+
+const StyledCheck = styled(HollowGreenCheck)`
+  margin-right: 10px;
 `;
 
 export class AddMemberComponent extends React.Component<AddMemberProps & DispatchProp<any>, AddMemberState> {
@@ -288,7 +303,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     let thirdSection = null;
     if (this.props.memberAddress && this.state.selectedState.value !== memberTypes.NONE) {
       thirdSection = this.props.isOnContract ?
-      <div><HollowGreenCheck/><StatusText>Added to Smart Contract</StatusText></div> :
+      <SectionWrapper><StyledCheck/><StatusText>Added to Smart Contract</StatusText></SectionWrapper> :
       <TransactionButtonNoModal
         Button={TransactionButtonInner}
         transactions={this.getTransaction(false)}
@@ -304,8 +319,17 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
           </AvatarWrap>
           <StyledDisplayName>{this.props.name}</StyledDisplayName>
         </SectionWrapper>
-        <Select isDisabled={this.props.isOnContract} value={this.state.selectedState} onChange={this.onChange} options={options} />
-        {thirdSection}
+        <SectionWrapper>
+          <StyledSelect
+            isDisabled={this.props.isOnContract}
+            value={this.state.selectedState}
+            onChange={this.onChange}
+            options={options}
+          />
+        </SectionWrapper>
+        <SectionWrapper>
+          {thirdSection}
+        </SectionWrapper>
         {this.renderAddAddress()}
       </StyledLi>
       {this.renderPreMetamMask()}

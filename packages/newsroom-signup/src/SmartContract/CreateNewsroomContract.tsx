@@ -146,7 +146,6 @@ export class CreateNewsroomContractComponent extends React.Component<
   }
 
   public onChange(name: string, value: string | void): void {
-    console.log("onchange createnewroom contract");
     this.props.updateCharter({
       ...this.props.charter,
       name: value || undefined,

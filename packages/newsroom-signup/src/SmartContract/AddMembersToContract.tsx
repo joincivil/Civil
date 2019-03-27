@@ -21,7 +21,7 @@ const MemberUL = styled.ul`
 
 const MemberUlLabels = styled.li`
   display: grid;
-  grid-template-columns: 24% 38% 38%;
+  grid-template-columns: 30% 32% 38%;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding-bottom: 10px;
 `;
