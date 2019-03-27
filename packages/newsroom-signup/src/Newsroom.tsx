@@ -58,6 +58,7 @@ export enum STEP {
   TUTORIAL,
   TOKENS,
   APPLY,
+  APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
 }
 const STEP_TO_SECTION = {
   [STEP.PROFILE_BIO]: SECTION.PROFILE,
@@ -218,8 +219,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
+    let currentStep = props.savedStep;
+    if (currentStep === STEP.APPLIED) {
+      // Not a real step, see its description above
+      currentStep--;
+    }
     this.state = {
-      currentStep: props.savedStep,
+      currentStep,
       furthestStep: props.furthestStep,
     };
   }
@@ -390,10 +396,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.saveStep(newStep);
     this.setState({ currentStep: newStep });
   };
-  private navigate = (go: 1 | -1): void => {
+  private navigate = (go: 1 | -1, allDone?: boolean): void => {
+    if (allDone) {
+      this.saveStep(STEP.APPLIED);
+      return;
+    }
+
     if (this.container) {
       this.container.scrollIntoView(true);
     }
+
     this.saveStep(this.state.currentStep + go);
     this.setState({ currentStep: this.state.currentStep + go });
   };
