@@ -78,7 +78,7 @@ const BuyButtonContainer = styled.div`
 
 export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps> {
   public renderButtons(): JSX.Element | void {
-    return <NextBack navigate={this.props.navigate} nextDisabled={!this.props.hasMinDeposit} />;
+    return <NextBack navigate={this.props.navigate} nextDisabled={() => !this.props.hasMinDeposit} />;
   }
 
   public renderNotEnoughTokens(): JSX.Element {

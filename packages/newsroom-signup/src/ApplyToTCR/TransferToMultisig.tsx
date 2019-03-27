@@ -48,7 +48,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.TRANSFER_TO_MULTISIG]: [
-    "The was an problem with transferring your tokens",
+    "There was a problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
@@ -87,14 +87,14 @@ const TransferToMultisigComponent: React.SFC<
       open={true}
       header={
         <OBCollapsableHeader>
-          Transfer {getFormattedTokenBalance(minDeposit!)} tokens (CVL) from your Wallet to your Newsroom’s Wallet to
-          deposit with your application.
+          Transfer {getFormattedTokenBalance(minDeposit!)} from your wallet to your Newsroom’s wallet to deposit with
+          your application.
         </OBCollapsableHeader>
       }
     >
       <OBSmallParagraph>
-        You need to transfer your Civil tokens to the Newsroom when you are applying on behalf of the newsroom. This
-        transaction moves your CVL tokens to the Newsroom’s Public wallet address.
+        You need to transfer your Civil tokens (CVL) to your Newsroom when you are applying on behalf of your newsroom.
+        This transaction moves your CVL to your Newsroom’s wallet.
       </OBSmallParagraph>
 
       <FormRowLeftAlign>
@@ -160,7 +160,7 @@ const TransferToMultisig: React.SFC<
               });
               const tcr = await value.civil!.tcrSingletonTrusted();
               const token = await tcr.getToken();
-              return token.transfer(multisigAddress, tokenAmountToTransfer);
+              return token.transfer(multisigAddress, value.civil!.toBigNumber(tokenAmountToTransfer));
             },
             handleTransactionHash: (txHash: TxHash) => {
               props.updateTransactionStatusModalsState({

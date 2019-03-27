@@ -43,9 +43,6 @@ export class SmartContract extends React.Component<SmartContractProps> {
         return false;
       },
       () => {
-        return false;
-      },
-      () => {
         return !this.props.newsroomAddress;
       },
       () => {
@@ -67,7 +64,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
       );
     }
 
-    return <NextBack navigate={this.props.navigate} nextDisabled={this.getDisabled(this.props.currentStep)()} />;
+    return <NextBack navigate={this.props.navigate} nextDisabled={this.getDisabled(this.props.currentStep)} />;
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [

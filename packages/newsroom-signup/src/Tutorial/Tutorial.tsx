@@ -88,7 +88,7 @@ export class Tutorial extends React.Component<TutorialProps> {
                     <TutorialModal user={user} />
                   )}
 
-                  <NextBack navigate={this.props.navigate} nextDisabled={!user || !user.quizStatus} />
+                  <NextBack navigate={this.props.navigate} nextDisabled={() => !user || !user.quizStatus} />
                 </>
               );
             }}

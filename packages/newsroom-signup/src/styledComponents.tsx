@@ -156,6 +156,7 @@ export const StyledHr = styled.div`
 export const AvatarWrap = styled.div`
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
 `;
 export const AvatarImg = styled.img`
   width: 100%;
@@ -208,9 +209,9 @@ export const NextBackButtonContainer = styled.div`
 `;
 export interface NextBackProps {
   backHidden?: boolean;
-  nextDisabled?: boolean;
   nextHidden?: boolean;
   navigate(go: 1 | -1): void;
+  nextDisabled?(): boolean;
 }
 export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
   <NextBackButtonContainer style={{ marginTop: 64 }}>
@@ -224,7 +225,7 @@ export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
 
     {!props.nextHidden ? (
       <Button
-        disabled={props.nextDisabled}
+        disabled={props.nextDisabled && props.nextDisabled()}
         textTransform="none"
         width={220}
         size={buttonSizes.MEDIUM_WIDE}

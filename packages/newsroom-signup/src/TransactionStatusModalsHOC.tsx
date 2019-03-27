@@ -231,6 +231,9 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
 
     public handleTransactionError = (err: Error) => {
       const isErrorUserRejection = err.message === "Error: MetaMask Tx Signature: User denied transaction signature.";
+      if (!isErrorUserRejection) {
+        console.error(`${this.state.transactionType} transaction failed:`, err);
+      }
       this.setState(() => ({
         isWaitingTransactionModalOpen: false,
         isTransactionProgressModalOpen: false,

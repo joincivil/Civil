@@ -70,7 +70,7 @@ export class Civil {
     this.contentProvider = new providerConstructor({ ethApi: this.ethApi });
   }
 
-  public toBigNumber(num: number | string): any {
+  public toBigNumber(num: number | string | BigNumber): any {
     return this.ethApi.toBigNumber(num);
   }
 
