@@ -174,6 +174,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return null;
   }
 
+  public container?: HTMLDivElement;
+
   private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
   private checkCharterCompletion = debounce(
@@ -278,12 +280,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <StepProcessTopNavNoButtons
-            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
-            onActiveTabChange={this.navigateToSection}
-          >
-            {this.renderSteps()}
-          </StepProcessTopNavNoButtons>
+          <div ref={(el: HTMLDivElement) => (this.container = el)}>
+            <StepProcessTopNavNoButtons
+              activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+              onActiveTabChange={this.navigateToSection}
+            >
+              {this.renderSteps()}
+            </StepProcessTopNavNoButtons>
+          </div>
         </CivilContext.Provider>
       </>
     );
@@ -380,11 +384,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newSection === SECTION.PROFILE) {
       newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
     }
-
+    if (this.container) {
+      this.container.scrollIntoView(true);
+    }
     this.saveStep(newStep);
     this.setState({ currentStep: newStep });
   };
   private navigate = (go: 1 | -1): void => {
+    if (this.container) {
+      this.container.scrollIntoView(true);
+    }
     this.saveStep(this.state.currentStep + go);
     this.setState({ currentStep: this.state.currentStep + go });
   };
