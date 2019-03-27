@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
@@ -15,6 +16,7 @@ import {
   OBSmallParagraph,
   OBNoteHeading,
   HollowGreenCheck,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
@@ -27,7 +29,7 @@ export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
   hasMinDeposit: boolean;
 }
 
-const BUY_TOKENS_URL = "/tokens?redirect=%2Fapply-to-registry";
+const BUY_TOKENS_PATH = "/tokens?redirect=%2Fapply-to-registry";
 
 const Border = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -47,6 +49,12 @@ const YouHaveEnough = styled(OBSectionSubHeader)`
   text-align: center;
 `;
 
+const BalanceTip = styled(QuestionToolTip)`
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+`;
 const CvlBalance = styled(FormTitle)`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: -4px;
@@ -79,19 +87,18 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <Border />
 
         <OBSmallParagraph>
-          To buy CVL tokens, you must buy ETH and then you will be able to buy CVL from an exchange. You can’t use USD
-          to directly buy a CVL token — currencies need to be converted into ETH first.
+          To buy Civil tokens (CVL), you must buy Ether (ETH) and then you will be able to buy CVL. You can’t use USD or
+          local currencies to directly buy a Civil token – currencies need to be converted into ETH first.
         </OBSmallParagraph>
 
         <OBSectionSubHeader>You can buy Civil tokens (CVL) from our Token Store.</OBSectionSubHeader>
         <OBSmallParagraph>
           To buy tokens, you’ll be purchasing them from our Token store. It uses Airswap, a secure decentralized token
-          exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any of its own fees
-          on each trade.
+          exchange where you can buy and sell tokens on Ethereum blockchain. Airswap does not charge any fees.
         </OBSmallParagraph>
 
         <BuyButtonContainer>
-          <Button textTransform="none" width={220} size={buttonSizes.MEDIUM_WIDE} href={BUY_TOKENS_URL}>
+          <Button textTransform="none" width={220} size={buttonSizes.MEDIUM_WIDE} to={BUY_TOKENS_PATH}>
             Buy CVL tokens
           </Button>
         </BuyButtonContainer>
@@ -111,7 +118,10 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <FormSection>
           <FormRow>
             <FormRowItem>
-              <OBSectionSubHeader>Token Balance</OBSectionSubHeader>
+              <OBSectionSubHeader>
+                Token Balance
+                <BalanceTip explainerText="This is the total amount of Civil tokens availabe in your connected wallet." />
+              </OBSectionSubHeader>
             </FormRowItem>
             <FormRowItem>
               <CvlBalance>
@@ -120,7 +130,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
               </CvlBalance>
               <OBNoteText>tokens in your wallet</OBNoteText>
               <BuyCvlTextLink>
-                <a href={BUY_TOKENS_URL}>Buy additional CVL tokens</a>
+                <Link to={BUY_TOKENS_PATH}>Buy additional CVL tokens</Link>
               </BuyCvlTextLink>
             </FormRowItem>
           </FormRow>
@@ -136,8 +146,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
         <OBSectionDescription>
           You will need {!this.props.hasMinDeposit && "to purchase"}{" "}
           {getFormattedTokenBalance(this.props.minDeposit, true, 0)} Civil tokens (CVL) to deposit with your
-          application. You can buy these tokens using ETH. These tokens are to state the seriousness of your intent to
-          the Civil community.
+          application. These tokens are to state the seriousness of your intent to the Civil community.
         </OBSectionDescription>
 
         {this.props.hasMinDeposit ? this.renderEnoughTokens() : this.renderNotEnoughTokens()}

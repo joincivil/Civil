@@ -2,9 +2,9 @@ import * as React from "react";
 import { OBCollapsableHeader, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
 
 import { ApplyToTCRStepOwnProps, ApplyToTCRStepReduxProps } from "./index";
-
 import TransferToMultisig, { TransferPostTransactionProp } from "./TransferToMultisig";
 import ApplyToTCRForm, { ApplyPostTransactionProp } from "./ApplyToTCRForm";
+import { AboutApplicationButton } from "./AboutApplicationButton";
 
 export type TApplyToTCRProps = ApplyToTCRStepOwnProps &
   ApplyToTCRStepReduxProps &
@@ -28,6 +28,7 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
           for community review for the next {this.props.applyStageLenDisplay}. You can check back here at any time
           during the process and will also be notified via email.
         </OBSectionDescription>
+        <AboutApplicationButton />
 
         {this.renderTransferSection()}
 

@@ -14,7 +14,7 @@ import {
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
@@ -56,7 +56,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
           <HomepageHero
             applyURL={links.APPLY}
             buyCvlUrl={links.BECOME_A_MEMBER}
-            learnMoreURL={`${FAQ_BASE_URL}${links.FAQ_COMMUNITY_VETTING_PROCESS}`}
+            learnMoreURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
           />
         </Hero>
         {!this.props.loadingFinished && <LoadingMsg />}

@@ -3,7 +3,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
 import { colors } from "../styleConstants";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 // Signup/Connect wallet section
 
@@ -164,7 +164,7 @@ export const TokenBuyCompleteText: React.SFC = props => (
         Dashboard
       </Link>{" "}
       to see your purchased CVL in the Available Balance.<br />To learn how to add Civil tokens in your MetaMask wallet,{" "}
-      <a href={FAQ_BASE_URL} target="_blank">
+      <a href={links.FAQ_HOME} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
       </a>
     </p>
@@ -200,7 +200,7 @@ export const TokenSellCompleteText: React.SFC = props => (
         Dashboard
       </Link>{" "}
       to see your CVL balance in the Available Balance. To learn how to sell ETH for USD,{" "}
-      <a href={FAQ_BASE_URL} target="_blank">
+      <a href={links.FAQ_HOME} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
       </a>.
     </p>
@@ -260,7 +260,7 @@ export const TokenFAQText: React.SFC = props => (
     </p>
     <p>
       Read our{" "}
-      <a href={FAQ_BASE_URL} target="_blank">
+      <a href={links.FAQ_HOME} target="_blank">
         Frequently Asked Questions (FAQ)
       </a>{" "}
       for general help

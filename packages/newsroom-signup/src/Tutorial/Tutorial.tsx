@@ -71,12 +71,12 @@ export class Tutorial extends React.Component<TutorialProps> {
           </IconStyled>
           <h2>Civil Tutorial</h2>
           <p>
-            You’ll be completing a completing a series of questions about Civil and how to use Civil tokens (CVL). This
-            is a standard procedure to help inform you of best practices with purchasing and using tokens.
+            You’ll be completing a series of questions about Civil and how to use Civil tokens (CVL). This is a standard
+            procedure to help ensure you understand buying and using Civil tokens.
           </p>
           <p>
-            It will take about 30 minutes to complete. If at any point you answer incorrectly, don’t worry. You will be
-            able to answer the questions again.
+            It should take you under 20 minutes to complete. If at any point you answer incorrectly, don’t worry. You
+            will be able to answer the questions again.
           </p>
           <LoadUser>
             {({ loading, user }) => {
