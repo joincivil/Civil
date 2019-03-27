@@ -1,10 +1,9 @@
 import { AnyAction } from "redux";
 import { BigNumber } from "bignumber.js";
-import { EthAddress, Civil, CharterData, RosterMember, ListingWrapper } from "@joincivil/core";
+import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
-import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -213,14 +212,15 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   };
 };
 
-export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): any => (
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>, dontPersist?: boolean): any => (
   dispatch: any,
   getState: any,
 ): AnyAction => {
   const { newsrooms, newsroomUi }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
   const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
-  if (persistCharter) {
+  if (persistCharter && !dontPersist) {
+    console.log("here", { charter, dontPersist });
     persistCharter(charter);
   }
   return dispatch(
@@ -267,25 +267,6 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const ensureUserOnRoster = (newsroomAddress: EthAddress, address: EthAddress, userData?: CmsUserData): any => (
-  dispatch: any,
-  getState: any,
-) => {
-  const { newsrooms, newsroomUsers }: StateWithNewsroom = getState();
-  const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
-  let roster = charter.roster || [];
-  if (roster.findIndex(member => (member.ethAddress || "").toLowerCase() === address.toLowerCase()) === -1) {
-    const user = makeUserObject(address, userData || newsroomUsers.get(address));
-    roster = roster.concat(user.rosterData as RosterMember);
-    dispatch(
-      updateCharter(newsroomAddress, {
-        ...charter,
-        roster,
-      }),
-    );
-  }
-};
-
 export const storeUserData = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): AnyAction => {
   return {
     type: userActions.STORE_USER_DATA,
@@ -309,8 +290,6 @@ export const initContractMember = (newsroomAddress: EthAddress, userAddress: Eth
     userData = await getCmsUserDataForAddress(userAddress);
     dispatch(storeUserData(newsroomAddress, userAddress, userData));
   }
-
-  dispatch(ensureUserOnRoster(newsroomAddress, userAddress, userData));
 };
 
 export const addAndHydrateEditor = (newsroomAddress: EthAddress, editorAddress: EthAddress): any => async (

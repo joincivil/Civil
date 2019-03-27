@@ -4,11 +4,7 @@ exports[`Storyshots Uniswap Buy CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD:packages/components/src/Airswap/__snapshots__/Airswap.stories.storyshot
-      "class": "sc-gneEKw iySzPE",
-=======
-      "class": "sc-kwclOP lodAXk",
->>>>>>> origin/master:packages/components/src/Tokens/buy/__snapshots__/UniswapBuy.stories.storyshot
+      "class": "sc-bWkBrx edXCVp",
     },
     "children": Array [
       Object {
@@ -74,11 +70,7 @@ exports[`Storyshots Uniswap Sell CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-<<<<<<< HEAD:packages/components/src/Airswap/__snapshots__/Airswap.stories.storyshot
-      "class": "sc-gneEKw iySzPE",
-=======
-      "class": "sc-bWkBrx edXCVp",
->>>>>>> origin/master:packages/components/src/Tokens/buy/__snapshots__/UniswapBuy.stories.storyshot
+      "class": "sc-cxZfpC gsWhWR",
     },
     "children": Array [
       Object {

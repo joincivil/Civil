@@ -6,7 +6,7 @@ export const saveCharterMutation = gql`
   }
 `;
 
-export const SaveAdressMutation = gql`
+export const SaveAddressMutation = gql`
   mutation($input: String!) {
     nrsignupSaveAddress(address: $input)
   }

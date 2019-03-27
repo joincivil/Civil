@@ -228,8 +228,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetCmsUserDataForAddress(this.props.getCmsUserDataForAddress));
     }
 
-    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
     this.initCharter();
+    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
 
     if (this.props.civil) {
       if (this.props.newsroomAddress) {
@@ -396,7 +396,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   private initCharter(): void {
-    this.updateCharter(this.props.persistedCharter || {});
+    this.updateCharter(this.props.persistedCharter || {}, true);
   }
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
@@ -410,8 +410,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
 
-  private updateCharter = (charter: Partial<CharterData>): void => {
-    this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter));
+  private updateCharter = (charter: Partial<CharterData>, dontPersist?: boolean): void => {
+    this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, dontPersist));
     this.checkCharterCompletion();
   };
 }
