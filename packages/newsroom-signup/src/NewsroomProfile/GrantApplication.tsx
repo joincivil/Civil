@@ -12,7 +12,7 @@ import {
 import { urlConstants } from "@joincivil/utils";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
-import { setGrant, setSkip } from "../actionCreators";
+import { setGrant, setSkip, grantSubmitted, grantSkipped } from "../actionCreators";
 import { StateWithNewsroom } from "../reducers";
 import { WaitingAfterSkip } from "./WaitingAfterSkip";
 import { WaitingForGrant } from "./WaitingForGrant";
@@ -181,6 +181,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
                 <BorderlessButton onClick={this.deselectGrant}>Cancel</BorderlessButton>
                 <BorderlessButton
                   onClick={async () => {
+                    this.props.dispatch!(grantSubmitted());
                     return requestGrant({
                       variables: {
                         input: true,
@@ -238,6 +239,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
                 <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
                 <BorderlessButton
                   onClick={async () => {
+                    this.props.dispatch!(grantSkipped());
                     return requestGrant({
                       variables: {
                         input: false,

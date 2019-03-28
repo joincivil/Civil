@@ -24,6 +24,8 @@ import {
   addConstitutionHash,
   addConstitutionUri,
   fetchConstitution,
+  navigateStep,
+  reachedNewStep,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
@@ -257,7 +259,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(fetchConstitution(uri));
     }
 
-    this.saveStep(this.props.savedStep); // lazy way to update `lastSeen` - can't bear to make another separate mutation
+    this.saveStep(this.props.savedStep, true); // lazy way to update `lastSeen` - can't bear to make another separate mutation
   }
 
   public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
@@ -409,7 +411,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
     this.setState({ currentStep: newStep });
   };
-  private saveStep(step: STEP): void {
+  private saveStep(step: STEP, doNotTrack?: boolean): void {
+    if (!doNotTrack) {
+      this.props.dispatch!(navigateStep(step));
+      if (step > this.state.furthestStep) {
+        this.props.dispatch!(reachedNewStep(step));
+      }
+    }
+
     const furthestStep = Math.max(step, this.state.furthestStep);
     this.setState({ furthestStep });
     this.props

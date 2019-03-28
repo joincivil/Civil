@@ -23,7 +23,7 @@ import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, Charter
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled, { StyledComponentClass } from "styled-components";
-import { updateNewsroom } from "../actionCreators";
+import { updateNewsroom, trackTx, TX_TYPE } from "../actionCreators";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import { StateWithNewsroom } from "../reducers";
 import { TransactionButtonInner } from "../TransactionButtonInner";
@@ -392,6 +392,7 @@ export class CreateNewsroomContractComponent extends React.Component<
           },
           postTransaction: this.postTransaction,
           handleTransactionHash: async (txHash: TxHash) => {
+            this.props.dispatch!(trackTx(TX_TYPE.CREATE_NEWSROOM, "start", txHash));
             await this.props.saveTx({ variables: { input: txHash } });
             this.setState({
               modalOpen: true,
@@ -414,7 +415,8 @@ export class CreateNewsroomContractComponent extends React.Component<
             return this.changeName();
           },
           postTransaction: this.onNameChange,
-          handleTransactionHash: txhash => {
+          handleTransactionHash: txHash => {
+            this.props.dispatch!(trackTx(TX_TYPE.CHANGE_NAME, "start", txHash));
             this.setState({
               modalOpen: true,
               isWaitingTransactionModalOpen: false,
@@ -426,9 +428,10 @@ export class CreateNewsroomContractComponent extends React.Component<
     }
   };
 
-  private postTransaction = async (result: any): Promise<void> => {
+  private postTransaction = async (result: any, txHash?: TxHash): Promise<void> => {
     await this.props.saveAddress({ variables: { input: result.address } });
     this.props.dispatch!(updateNewsroom(result, { charter: this.props.charter }));
+    this.props.dispatch!(trackTx(TX_TYPE.CREATE_NEWSROOM, "complete", txHash));
     this.setState({ modalOpen: false, collapsableOpen: false });
   };
 
@@ -436,7 +439,8 @@ export class CreateNewsroomContractComponent extends React.Component<
     return this.props.newsroom!.setName(this.props.charter.name!);
   };
 
-  private onNameChange = (result: any): void => {
+  private onNameChange = (result: any, txHash?: TxHash): void => {
+    this.props.dispatch!(trackTx(TX_TYPE.CHANGE_NAME, "complete", txHash));
     this.setState({ modalOpen: false });
   };
 
@@ -444,7 +448,10 @@ export class CreateNewsroomContractComponent extends React.Component<
     return civil.newsroomDeployTrusted(this.props.charter.name!, this.state.contentURI, this.state.contentHash);
   };
 
-  private handleTransactionError = (err: Error) => {
+  private handleTransactionError = (err: Error, txHash?: TxHash) => {
+    this.props.dispatch!(
+      trackTx(this.props.newsroomAddress ? TX_TYPE.CREATE_NEWSROOM : TX_TYPE.CHANGE_NAME, "error", txHash),
+    );
     this.setState({ isWaitingTransactionModalOpen: false });
     if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
       this.setState({ metaMaskRejectionModal: true });
