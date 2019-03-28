@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as qs from "querystring";
 import styled from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
@@ -16,6 +17,7 @@ import {
   OBSmallParagraph,
   OBNoteHeading,
   HollowGreenCheck,
+  ClipLoader,
   QuestionToolTip,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
@@ -29,7 +31,7 @@ export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
   hasMinDeposit: boolean;
 }
 
-const BUY_TOKENS_PATH = "/tokens?redirect=%2Fapply-to-registry";
+const BUY_TOKENS_PATH = "/tokens?redirect=%2Fapply-to-registry%3Fpurchased=true";
 
 const Border = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -106,13 +108,23 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
     );
   }
 
-  public renderEnoughTokens(): JSX.Element {
+  public renderEnoughTokensOrJustPurchased(): JSX.Element {
     return (
       <>
         <YouHaveEnough>
-          <HollowGreenCheck width={48} height={48} />
-          <br />
-          You have enough tokens to apply
+          {this.props.hasMinDeposit ? (
+            <>
+              <HollowGreenCheck width={48} height={48} />
+              <br />
+              You have enough tokens to apply
+            </>
+          ) : (
+            <>
+              <ClipLoader size={48} />
+              <br />
+              You token purchase is processing and your balance will update shortly
+            </>
+          )}
         </YouHaveEnough>
 
         <FormSection>
@@ -140,6 +152,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
   }
 
   public render(): JSX.Element {
+    const justPurchased = !!qs.parse(document.location.search.substr(1)).purchased;
     return (
       <>
         <OBSectionHeader>Purchase Tokens to Apply to the Registry</OBSectionHeader>
@@ -149,7 +162,9 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
           application. These tokens are to state the seriousness of your intent to the Civil community.
         </OBSectionDescription>
 
-        {this.props.hasMinDeposit ? this.renderEnoughTokens() : this.renderNotEnoughTokens()}
+        {this.props.hasMinDeposit || justPurchased
+          ? this.renderEnoughTokensOrJustPurchased()
+          : this.renderNotEnoughTokens()}
 
         <OBCollapsable
           open={false}
