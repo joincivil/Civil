@@ -1,3 +1,4 @@
+import * as qs from "querystring";
 import {
   ButtonTheme,
   colors,
@@ -187,8 +188,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return null;
   }
 
-  public container?: HTMLDivElement;
-
   private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
   private checkCharterCompletion = debounce(
@@ -229,6 +228,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (currentStep === STEP.APPLIED) {
       // Not a real step, see its description above
       currentStep--;
+    }
+    if (qs.parse(document.location.search.substr(1)).purchased) {
+      // Just been redirected back from token purchase
+      currentStep = STEP.TOKENS;
     }
     this.state = {
       currentStep,
@@ -277,7 +280,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderManager(): JSX.Element {
     return (
-      <div ref={(el: HTMLDivElement) => (this.container = el)}>
+      <>
         {this.props.userNotOnContract && (
           <ErrorP>
             Your wallet address is not listed on your newsroom contract, so you are unable to make changes to it. Please
@@ -300,7 +303,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             {this.renderSteps()}
           </StepProcessTopNavNoButtons>
         </CivilContext.Provider>
-      </div>
+      </>
     );
   }
 
@@ -406,9 +409,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (newSection === SECTION.PROFILE) {
       newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
     }
-    if (this.container) {
-      this.container.scrollIntoView(true);
-    }
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.saveStep(newStep);
     this.setState({ currentStep: newStep });
   };
@@ -419,9 +420,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       // Dummy step we don't actually update view for, but need to send to API.
       return;
     }
-    if (this.container) {
-      this.container.scrollIntoView(true);
-    }
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.setState({ currentStep: newStep });
   };
   private saveStep(step: STEP, doNotTrack?: boolean): void {
