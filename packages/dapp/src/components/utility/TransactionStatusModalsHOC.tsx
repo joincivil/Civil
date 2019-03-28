@@ -2,10 +2,12 @@ import * as React from "react";
 import {
   Button,
   buttonSizes,
+  LoadingIndicator,
   MetaMaskModal,
   Modal,
   ModalContentInsetContainer,
   ModalHeading,
+  ModalContent,
   ModalStepLabel,
   ProgressModalContentError,
   ProgressModalContentInProgress,
@@ -153,10 +155,17 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         (multiStepTransactionLabels && multiStepTransactionLabels[this.state.transactionType!]) || "1 of 1";
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
-        <MetaMaskModal ipfsPost={true} waiting={true}>
+        <Modal width={558} textAlign="center">
+          <LoadingIndicator height={100} width={150} />
           <ModalStepLabel>{stepLabel}</ModalStepLabel>
           <ModalHeading>Posting to IPFS</ModalHeading>
-        </MetaMaskModal>
+          <ModalContentInsetContainer>
+            <ModalContent>This can take several minutes. Please don't close the tab.</ModalContent>
+            <ModalContent>
+              How about taking a little breather and standing for a bit? Maybe even stretching?
+            </ModalContent>
+          </ModalContentInsetContainer>
+        </Modal>
       );
     }
 
