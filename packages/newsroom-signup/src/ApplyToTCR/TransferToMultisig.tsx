@@ -175,8 +175,7 @@ const TransferToMultisig: React.SFC<
                 isTransactionProgressModalOpen: false,
                 isTransactionSuccessModalOpen: true,
               });
-              // Don't call postTransfer (which hydrates multisig balance) until user clicks ok on success modal, otherwise UI updates and this whole component is removed, resulting in flash of success modal.
-              props.setHandleTransactionSuccessButtonClick(postTransfer);
+              postTransfer();
             },
           },
         ];
