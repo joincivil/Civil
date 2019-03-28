@@ -58,6 +58,7 @@ export enum STEP {
   TUTORIAL,
   TOKENS,
   APPLY,
+  APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
 }
 const STEP_TO_SECTION = {
   [STEP.PROFILE_BIO]: SECTION.PROFILE,
@@ -84,6 +85,7 @@ const SECTION_STARTS = {
 
 export interface NewsroomComponentState {
   currentStep: STEP;
+  furthestStep: STEP;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -112,7 +114,7 @@ export interface NewsroomExternalProps {
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
-export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
+export interface NewsroomReduxProps extends NewsroomExternalProps {
   charter: Partial<CharterData>;
   name?: string;
   newsroom?: any;
@@ -122,16 +124,21 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
   charterUri?: string;
 }
 
-// Final props are from GQL
-export interface NewsroomProps extends NewsroomPropsWithRedux {
+export interface NewsroomGqlProps {
+  newsroomAddress?: string;
   grantRequested?: boolean;
   grantApproved?: boolean;
   newsroomDeployTx?: EthAddress;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
+  savedStep: STEP;
+  furthestStep: STEP;
   saveAddress: MutationFunc;
+  saveSteps: MutationFunc;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
+
+export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps;
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
@@ -212,17 +219,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.newsroomAddress ? SECTION_STARTS[SECTION.CONTRACT] : 0;
-    try {
-      if (localStorage.newsroomOnBoardingLastSeen) {
-        currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
-      }
-    } catch (e) {
-      console.error("Failed to load step index", e);
+    let currentStep = props.savedStep;
+    if (currentStep === STEP.APPLIED) {
+      // Not a real step, see its description above
+      currentStep--;
     }
-
     this.state = {
       currentStep,
+      furthestStep: props.furthestStep,
     };
   }
 
@@ -252,6 +256,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addConstitutionUri(uri));
       this.props.dispatch!(fetchConstitution(uri));
     }
+
+    this.saveStep(this.props.savedStep); // lazy way to update `lastSeen` - can't bear to make another separate mutation
   }
 
   public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
@@ -391,18 +397,31 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.setState({ currentStep: newStep });
   };
   private navigate = (go: 1 | -1): void => {
+    const newStep = this.state.currentStep + go;
+    this.saveStep(newStep);
+    if (newStep === STEP.APPLIED) {
+      // Dummy step we don't actually update view for, but need to send to API.
+      return;
+    }
     if (this.container) {
       this.container.scrollIntoView(true);
     }
-    this.saveStep(this.state.currentStep + go);
-    this.setState({ currentStep: this.state.currentStep + go });
+    this.setState({ currentStep: newStep });
   };
   private saveStep(step: STEP): void {
-    try {
-      localStorage.newsroomOnBoardingLastSeen = JSON.stringify(step);
-    } catch (e) {
-      console.error("Failed to save step index", e);
-    }
+    const furthestStep = Math.max(step, this.state.furthestStep);
+    this.setState({ furthestStep });
+    this.props
+      .saveSteps({
+        variables: {
+          input: {
+            step,
+            furthestStep,
+            lastSeen: Math.floor(Date.now() / 1000),
+          },
+        },
+      })
+      .catch(err => {}); // easier than changing 10 functions to async
   }
 
   private initCharter(): void {
@@ -426,7 +445,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomPropsWithRedux => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
@@ -442,29 +461,8 @@ export const Newsroom: React.SFC<NewsroomExternalProps> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>
-        {({
-          profileWalletAddress,
-          persistedCharter,
-          persistCharter,
-          grantRequested,
-          grantApproved,
-          newsroomAddress,
-          newsroomDeployTx,
-          saveAddress,
-        }) => {
-          return (
-            <NewsroomRedux
-              {...props}
-              profileWalletAddress={profileWalletAddress}
-              persistCharter={persistCharter}
-              persistedCharter={persistedCharter}
-              grantRequested={grantRequested}
-              grantApproved={grantApproved}
-              newsroomAddress={newsroomAddress}
-              newsroomDeployTx={newsroomDeployTx}
-              saveAddress={saveAddress}
-            />
-          );
+        {(gqlProps: NewsroomGqlProps) => {
+          return <NewsroomRedux {...props} {...gqlProps} />;
         }}
       </DataWrapper>
     </AuthWrapper>

@@ -53,7 +53,7 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
         <ApplyToTCR
           {...this.props}
           postTransfer={this.hydrateNewsroomMultisigBalance}
-          postApplyToTCR={this.hydrateListing}
+          postApplyToTCR={this.postApplyToTCR}
         />
       </>
     );
@@ -73,6 +73,11 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
       const multisigAddress = await this.props.newsroom.getMultisigAddress();
       await this.props.dispatch!(getNewsroomMultisigBalance(this.props.address, multisigAddress, this.props.civil));
     }
+  };
+
+  private postApplyToTCR = async (): Promise<void> => {
+    this.props.navigate(1);
+    await this.hydrateListing();
   };
 
   private hydrateListing = async (): Promise<void> => {
