@@ -1,7 +1,10 @@
 import { LOCATION_CHANGE } from "connected-react-router";
 import { createMiddleware } from "redux-beacon";
 import GoogleAnalytics, { trackPageView, trackEvent } from "@redux-beacon/google-analytics";
+import { analyticsEventActions } from "./actionCreators/analytics";
+
 import { errorActions } from "./actionCreators/errors";
+const { ANALYTICS_EVENT } = analyticsEventActions;
 
 const eventsMap = {
   [LOCATION_CHANGE]: trackPageView((action: any) => {
@@ -16,6 +19,9 @@ const eventsMap = {
       action: error.message,
       label: `Source: ${error.source} L${error.lineNum}-${error.colNum}`,
     };
+  }),
+  [ANALYTICS_EVENT]: trackEvent(action => {
+    return action.event;
   }),
 };
 

@@ -6,6 +6,7 @@ import { AuthLogin } from "./Login";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
+import { connect, DispatchProp } from "react-redux";
 import * as qs from "querystring";
 
 const TOKEN_HOME = "/tokens";
@@ -29,7 +30,7 @@ function getTokenFromSearch(search: string): string | undefined {
   }
 }
 
-export class AuthRouter extends React.Component<RouteComponentProps> {
+export class AuthRouter extends React.Component<RouteComponentProps & DispatchProp<any>> {
   public render(): JSX.Element {
     const { match } = this.props;
 
@@ -83,6 +84,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                         token={token}
                         isNewUser={false}
                         onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                        onTokenValidation={this.handleOnTokenValidation}
                       />
                     );
                   }}
@@ -115,6 +117,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                         token={token}
                         isNewUser={true}
                         onAuthenticationContinue={this.handleOnAuthenticationContinue}
+                        onTokenValidation={this.handleOnTokenValidation}
                       />
                     );
                   }}
@@ -150,6 +153,12 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     });
   };
 
+  public handleOnTokenValidation = (isNewUser: boolean): void => {
+    const { dispatch } = this.props;
+
+    console.log("DISPATCH?", { dispatch });
+  };
+
   public handleOnAddWallet = (): void => {
     const { history } = this.props;
 
@@ -173,3 +182,5 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     });
   };
 }
+
+export const AuthRouterConnected = connect()(AuthRouter);

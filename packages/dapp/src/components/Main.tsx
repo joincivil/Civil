@@ -37,7 +37,7 @@ import SubmitChallengePage from "./listing/SubmitChallenge";
 import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
 import RequestAppealPage from "./listing/RequestAppeal";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
-import { AuthRouter } from "./Auth";
+import { AuthRouterConnected } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
@@ -175,7 +175,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
               })}
             />
             <Route path={routes.DASHBOARD} component={Dashboard} />
-            <Route path={routes.AUTH} component={AuthRouter} />>
+            <Route path={routes.AUTH} component={AuthRouterConnected} />>
             <Route path={routes.TOKEN_STOREFRONT} component={Tokens} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />

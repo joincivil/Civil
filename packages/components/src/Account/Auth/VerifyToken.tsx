@@ -29,6 +29,7 @@ export interface AccountVerifyTokenProps {
   token: string;
   ethAuthNextExt?: boolean;
   onAuthenticationContinue(isNewUser: boolean): void;
+  onTokenValidation?(isNewUser: boolean): void;
 }
 
 export interface VerifyTokenState {
@@ -51,7 +52,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public handleTokenVerification = async (): Promise<void> => {
-    const { isNewUser } = this.props;
+    const { isNewUser, onTokenValidation } = this.props;
     const token = this.props.token;
 
     const client = getApolloClient();
@@ -74,6 +75,9 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
         setApolloSession(authResponse);
 
         this.setState({ errorMessage: undefined, hasVerified: true });
+        if (onTokenValidation) {
+          onTokenValidation(isNewUser);
+        }
       }
     } catch (err) {
       console.error("Error validating token:", err);

@@ -6,9 +6,15 @@ export interface AuthVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
   token?: string;
   onAuthenticationContinue(isNewUser: boolean): void;
+  onTokenValidation(isNewUser: boolean): void;
 }
 
-export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = ({ token, onAuthenticationContinue, isNewUser }) => {
+export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = ({
+  token,
+  onAuthenticationContinue,
+  onTokenValidation,
+  isNewUser,
+}) => {
   if (!token) {
     const target = isNewUser ? "/auth/signup" : "/auth/login";
 
@@ -17,7 +23,12 @@ export const AuthVerifyToken: React.SFC<AuthVerifyTokenProps> = ({ token, onAuth
 
   return (
     <AuthWrapper>
-      <AccountVerifyToken isNewUser={isNewUser} token={token} onAuthenticationContinue={onAuthenticationContinue} />
+      <AccountVerifyToken
+        isNewUser={isNewUser}
+        token={token}
+        onAuthenticationContinue={onAuthenticationContinue}
+        onTokenValidation={onTokenValidation}
+      />
     </AuthWrapper>
   );
 };
