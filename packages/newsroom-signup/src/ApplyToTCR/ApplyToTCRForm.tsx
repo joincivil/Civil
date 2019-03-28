@@ -55,11 +55,23 @@ const transactionErrorContent = {
   ],
 };
 
+const transactionSuccessContent = {
+  [TransactionTypes.APPROVE_FOR_APPLY]: [
+    "Transaction Successful",
+    <ModalContent>You have approved the token deposit for your application.</ModalContent>,
+  ],
+  [TransactionTypes.APPLY_TO_REGISTRY]: [
+    "Transaction Successful",
+    <ModalContent>Your application to the registry has been recorded!</ModalContent>,
+  ],
+};
+
 const transactionStatusModalConfig = {
   transactionLabels,
   multiStepTransactionLabels,
   transactionRejectionContent,
   transactionErrorContent,
+  transactionSuccessContent,
 };
 
 export interface ApplyToTCRFormProps {
@@ -165,8 +177,7 @@ const ApplyToTCRForm: React.SFC<
           {
             transaction: async () => {
               props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isIPFSUploadModalOpen: true,
+                isWaitingTransactionModalOpen: true,
                 isTransactionProgressModalOpen: false,
                 isTransactionSuccessModalOpen: false,
                 transactionType: TransactionTypes.APPLY_TO_REGISTRY,
@@ -176,8 +187,8 @@ const ApplyToTCRForm: React.SFC<
             },
             handleTransactionHash: (txHash: TxHash) => {
               props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: true,
-                isTransactionProgressModalOpen: false,
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
               });
             },
             handleTransactionError: props.handleTransactionError,

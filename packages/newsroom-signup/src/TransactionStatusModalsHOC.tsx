@@ -119,7 +119,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           <ModalHeading>{successContent[0]}</ModalHeading>
           <ModalContentInsetContainer>{successContent[1]}</ModalContentInsetContainer>
           <Button size={buttonSizes.MEDIUM} onClick={onClick}>
-            Ok, got it
+            OK
           </Button>
         </Modal>
       );
@@ -226,6 +226,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         isTransactionSuccessModalOpen: false,
         isTransactionErrorModalOpen: false,
         isTransactionRejectionModalOpen: false,
+        isIPFSUploadModalOpen: false,
       });
     };
 
@@ -238,6 +239,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
         isWaitingTransactionModalOpen: false,
         isTransactionProgressModalOpen: false,
         isTransactionSuccessModalOpen: false,
+        isIPFSUploadModalOpen: false,
         isTransactionErrorModalOpen: !isErrorUserRejection,
         isTransactionRejectionModalOpen: isErrorUserRejection,
       }));
