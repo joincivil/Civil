@@ -160,7 +160,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           <ModalStepLabel>{stepLabel}</ModalStepLabel>
           <ModalHeading>Posting to IPFS</ModalHeading>
           <ModalContentInsetContainer>
-            <ModalContent>This can take several minutes. Please don't close the tab.</ModalContent>
+            <ModalContent>This can take several moments. Please don't close the tab.</ModalContent>
             <ModalContent>
               How about taking a little breather and standing for a bit? Maybe even stretching?
             </ModalContent>
