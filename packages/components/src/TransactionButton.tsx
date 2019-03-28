@@ -37,8 +37,8 @@ export interface Transaction {
   transaction(): Promise<TwoStepEthTransaction<any> | EthSignedMessage | void>;
   preTransaction?(): any;
   requireBeforeTransaction?(): Promise<any>;
-  postTransaction?(result: any): any;
-  handleTransactionError?(err: any): any;
+  postTransaction?(result: any, txHash?: TxHash): any;
+  handleTransactionError?(err: any, txHash?: TxHash): any;
   handleTransactionHash?(txhash?: TxHash): void;
 }
 
@@ -247,17 +247,19 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         setImmediate(() => currTransaction.preTransaction!());
       }
 
+      let txHash: TxHash | undefined;
       try {
         if (currTransaction.requireBeforeTransaction) {
           await currTransaction.requireBeforeTransaction();
         }
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
+        txHash = pending && "txHash" in pending ? pending.txHash : undefined;
         this.setState({ step: 2 });
 
         if (currTransaction.handleTransactionHash && pending) {
           if ("txHash" in pending) {
-            currTransaction.handleTransactionHash(pending.txHash);
+            currTransaction.handleTransactionHash(txHash);
           } else {
             currTransaction.handleTransactionHash();
           }
@@ -274,7 +276,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
           }
 
           if (currTransaction.postTransaction) {
-            currTransaction.postTransaction!(receipt);
+            currTransaction.postTransaction(receipt, txHash);
           }
         }
 
@@ -283,7 +285,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         this.setState({ step: 0, disableButton: false });
 
         if (currTransaction.handleTransactionError) {
-          setImmediate(() => currTransaction.handleTransactionError!(err));
+          setImmediate(() => currTransaction.handleTransactionError!(err, txHash));
         }
       }
     } else if (this.props.postExecuteTransactions) {

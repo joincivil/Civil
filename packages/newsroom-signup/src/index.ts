@@ -1,3 +1,4 @@
+export * from "./analytics";
 export * from "./Newsroom";
 export * from "./reducers";
 export * from "./actionCreators";

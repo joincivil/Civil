@@ -38,12 +38,27 @@ export enum governmentActions {
 export enum grantActions {
   SET_GRANT = "CHOOSE_GRANT",
   SET_SKIP = "CHOOSE_SKIP",
-  APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
-  APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
 }
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
+}
+
+export enum analyticsActions {
+  NAVIGATE_STEP = "NAVIGATE_STEP",
+  REACHED_NEW_STEP = "REACHED_NEW_STEP",
+  APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
+  APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
+  TRACK_TX = "TRACK_TX",
+  PUBLISH_CHARTER = "PUBLISH_CHARTER",
+}
+
+export enum TX_TYPE {
+  CREATE_NEWSROOM = "CREATE_NEWSROOM",
+  CHANGE_NAME = "CHANGE_NAME",
+  TRANSFER_TOKENS = "TRANSFER_TOKENS",
+  APPROVE_TOKENS = "APPROVE_TOKENS",
+  APPLY_TO_TCR = "APPLY_TO_TCR",
 }
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
@@ -337,5 +352,48 @@ export const setSkip = (value: boolean): AnyAction => {
   return {
     type: grantActions.SET_SKIP,
     data: value,
+  };
+};
+
+export const grantSubmitted = (): AnyAction => {
+  return {
+    type: analyticsActions.APPLICATION_SUBMITTED,
+  };
+};
+export const grantSkipped = (): AnyAction => {
+  return {
+    type: analyticsActions.APPLICATION_SKIPPED,
+  };
+};
+
+export const trackTx = (txType: TX_TYPE, state: "start" | "complete" | "error", txHash?: string): AnyAction => {
+  return {
+    type: analyticsActions.TRACK_TX,
+    data: {
+      txType,
+      state,
+      txHash,
+    },
+  };
+};
+
+export const publishCharter = (ipfsHash: string): AnyAction => {
+  return {
+    type: analyticsActions.PUBLISH_CHARTER,
+    data: ipfsHash,
+  };
+};
+
+export const navigateStep = (step: number, path: string = "/apply-to-registry"): AnyAction => {
+  return {
+    type: analyticsActions.NAVIGATE_STEP,
+    step,
+    path,
+  };
+};
+export const reachedNewStep = (step: number): AnyAction => {
+  return {
+    type: analyticsActions.REACHED_NEW_STEP,
+    step,
   };
 };

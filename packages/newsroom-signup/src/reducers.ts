@@ -142,8 +142,6 @@ export function grantApplication(
       return state.set("chooseGrant", action.data);
     case grantActions.SET_SKIP:
       return state.set("chooseSkip", action.data);
-    case grantActions.APPLICATION_SUBMITTED:
-    case grantActions.APPLICATION_SKIPPED:
     default:
       return state;
   }
