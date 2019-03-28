@@ -8,7 +8,7 @@ import {
   ChallengePhaseProps,
   AppealDecisionProps,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import {
@@ -47,7 +47,7 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
         challengeID={this.props.challengeID.toString()}
         appealGranted={appealGranted}
         submitAppealChallengeURI={submitAppealChallengeURI}
-        faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+        faqURL={links.FAQ_REGISTRY}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );

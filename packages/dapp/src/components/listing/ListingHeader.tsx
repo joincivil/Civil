@@ -6,7 +6,6 @@ import {
   getFormattedTokenBalance,
   getFormattedEthAddress,
   getEtherscanBaseURL,
-  FAQ_BASE_URL,
   urlConstants as links,
 } from "@joincivil/utils";
 
@@ -86,7 +85,7 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
     etherscanBaseURL,
     registryURL: formatRoute(routes.REGISTRY_HOME, registryURLData[0]),
 
-    ethInfoModalLearnMoreURL: `${FAQ_BASE_URL}${links.FAQ_WHAT_IS_SMART_CONTRACT}`,
+    ethInfoModalLearnMoreURL: links.FAQ_WHAT_IS_SMART_CONTRACT,
     registryLinkText,
     unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
     ...props.listingPhaseState,

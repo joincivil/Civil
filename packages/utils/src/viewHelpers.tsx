@@ -49,10 +49,10 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
 }
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
-export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean): string {
+export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
   // TODO: get decimal places value from EIP20 wrapper
   const formattedBalance = balance.div(1e18);
-  return `${formattedBalance.toFormat(2)} ${!!noCVLLabel ? "" : "CVL"}`;
+  return `${formattedBalance.toFormat(decimals)} ${!!noCVLLabel ? "" : "CVL"}`;
 }
 
 // Accepts a `seconds` or `Date` argument and returns a tuple containing
@@ -123,15 +123,16 @@ export const percentParams: string[] = [
   GovernmentParameters.appealChallengeVoteDispensationPct,
 ];
 
-export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber): string {
+export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber | number): string {
   let value = "";
+  const parameterValueBN = new BigNumber(parameterValue);
 
   if (amountParams.includes(parameterName)) {
-    value = getFormattedTokenBalance(parameterValue);
+    value = getFormattedTokenBalance(parameterValueBN);
   } else if (durationParams.includes(parameterName)) {
-    value = getReadableDuration(parameterValue.toNumber());
+    value = getReadableDuration(parameterValueBN.toNumber());
   } else if (percentParams.includes(parameterName)) {
-    value = `${parameterValue.toString()}%`;
+    value = `${parameterValueBN.toString()}%`;
   }
 
   return value;

@@ -44,6 +44,7 @@ import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";
 import { Newsroom as Events, NewsroomContract } from "./generated/wrappers/newsroom";
 import { NewsroomFactory, NewsroomFactoryContract } from "./generated/wrappers/newsroom_factory";
+import { CreateNewsroomInGroupContract } from "./generated/wrappers/create_newsroom_in_group";
 import { MultisigProxyTransaction } from "./multisig/basemultisigproxy";
 import { Multisig } from "./multisig/multisig";
 import { MultisigTransaction } from "./multisig/multisigtransaction";
@@ -92,11 +93,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
 
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-
     return createTwoStepTransaction(
       ethApi,
       await factory.create.sendTransactionAsync(
@@ -118,15 +118,15 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     ethApi: EthApi,
     contentProvider: ContentProvider,
   ): Promise<Newsroom> {
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
+    const newsroomFactory = await NewsroomFactoryContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-
     const createdNewsroom = findEvents<NewsroomFactory.Logs.ContractInstantiation>(
       factoryReceipt,
       NewsroomFactory.Events.ContractInstantiation,
-    ).find(log => log.address === factory.address);
+    ).find(log => log.address === newsroomFactory!.address);
 
     if (!createdNewsroom) {
       throw new Error("No Newsroom created during deployment through factory");
@@ -137,14 +137,26 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
   }
 
-  public static async estimateDeployTrusted(newsroomName: string, ethApi: EthApi): Promise<number> {
+  public static async estimateDeployTrusted(
+    ethApi: EthApi,
+    newsroomName: string,
+    charterUri: string = "",
+    charterHash: string = "",
+  ): Promise<number> {
     const account = await requireAccount(ethApi).toPromise();
     const txData: TxData = { from: account };
-    const factory = await NewsroomFactoryContract.singletonTrusted(ethApi);
+    const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return factory.create.estimateGasAsync(newsroomName, "", "", [account], ethApi.toBigNumber(1), txData);
+    return factory.create.estimateGasAsync(
+      newsroomName,
+      charterUri,
+      charterHash,
+      [account],
+      ethApi.toBigNumber(1),
+      txData,
+    );
   }
 
   public static async deployNonMultisigTrusted(
