@@ -7,9 +7,10 @@ export enum analyticsEventActions {
 export interface AnalyticsEvent {
   category: string;
   action: string;
-  label: string;
-  value: string;
+  label?: string;
+  value?: number;
 }
+
 export const analyticsEvent = (event: AnalyticsEvent): AnyAction => {
   return {
     type: analyticsEventActions.ANALYTICS_EVENT,

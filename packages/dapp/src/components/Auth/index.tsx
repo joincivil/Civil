@@ -158,13 +158,15 @@ export class AuthRouter extends React.Component<RouteComponentProps & DispatchPr
   public handleOnTokenValidation = (isNewUser: boolean): void => {
     const { dispatch } = this.props;
 
-    console.log("DISPATCH?", { dispatch });
-    dispatch!(
+    if (!dispatch) {
+      return;
+    }
+
+    dispatch(
       analyticsEvent({
         category: "category",
         action: "action",
         label: "label",
-        value: "value",
       }),
     );
   };
