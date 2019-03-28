@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { StyledHr, FormSection, StepSectionCounter } from "../styledComponents";
-import { CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { CharterData, RosterMember as RosterMemberInterface, EthAddress } from "@joincivil/core";
 import {
   InvertedButton,
   BorderlessButton,
@@ -15,6 +15,7 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
+  profileWalletAddress?: EthAddress;
   updateCharter(charter: Partial<CharterData>): void;
   setButtonVisibility(visibility: boolean): void;
 }
@@ -99,7 +100,9 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
             </ButtonSection>
           ) : (
             <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
-              Add a profile
+              {this.props.charter.roster && this.props.charter.roster.length
+                ? "Add a profile"
+                : "Add yourself to roster"}
             </InvertedButton>
           )}
         </FormSection>
@@ -110,7 +113,11 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
   private addRosterMember = (e: any) => {
     e.preventDefault();
     this.props.setButtonVisibility(false);
-    this.setState({ editingMember: {} });
+    const editingMember: Partial<RosterMemberInterface> = {};
+    if (!this.props.charter.roster || (this.props.charter.roster && this.props.charter.roster.length === 0)) {
+      editingMember.ethAddress = this.props.profileWalletAddress;
+    }
+    this.setState({ editingMember });
   };
 
   private cancelEdit = () => {

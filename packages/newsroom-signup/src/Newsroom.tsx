@@ -303,6 +303,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     return [
       <StepNoButtons title={"Registry Profile"} complete={this.state.charterPartOneComplete} key="createCharterPartOne">
         <NewsroomProfile
+          profileWalletAddress={this.props.profileWalletAddress}
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
