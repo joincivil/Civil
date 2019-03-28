@@ -274,7 +274,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderManager(): JSX.Element {
     return (
-      <>
+      <div ref={(el: HTMLDivElement) => (this.container = el)}>
         {this.props.userNotOnContract && (
           <ErrorP>
             Your wallet address is not listed on your newsroom contract, so you are unable to make changes to it. Please
@@ -289,6 +289,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
+<<<<<<< HEAD
           <div ref={(el: HTMLDivElement) => (this.container = el)}>
             <StepProcessTopNavNoButtons
               activeIndex={STEP_TO_SECTION[this.state.currentStep]}
@@ -298,8 +299,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
               {this.renderSteps()}
             </StepProcessTopNavNoButtons>
           </div>
+=======
+          <StepProcessTopNavNoButtons
+            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+            onActiveTabChange={this.navigateToSection}
+            contentPrepend={this.renderRepublishCharter()}
+          >
+            {this.renderSteps()}
+          </StepProcessTopNavNoButtons>
+>>>>>>> CIVIL-459 hide sign button if signed
         </CivilContext.Provider>
-      </>
+      </div>
     );
   }
 
