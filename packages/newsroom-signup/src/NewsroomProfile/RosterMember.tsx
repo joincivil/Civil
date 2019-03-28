@@ -76,6 +76,11 @@ const ImageHelperText = styled(HelperText)`
   margin: 0;
 `;
 
+const EmailHelpText = styled(HelperText)`
+  margin: 0;
+  padding: 0;
+`;
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -139,6 +144,7 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
           <FormSubhead optional>Public Wallet Address</FormSubhead>
           <Input name="ethAddress" value={user.rosterData.ethAddress || ""} onChange={this.rosterInputChange} />
           <FormSubhead optional>Email Address</FormSubhead>
+          <EmailHelpText>Email addresses will not be displayed on the Registry Profile page. </EmailHelpText>
           <Input
             name="email"
             value={(user.rosterData.socialUrls || {}).email}
