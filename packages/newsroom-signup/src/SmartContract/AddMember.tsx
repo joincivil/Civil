@@ -402,7 +402,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
 
   private handleTransactionError = (err: Error) => {
     this.setState({ isWaitingTransactionModalOpen: false });
-    if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
+    if (err && err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
       this.setState({ metaMaskRejectionModal: true });
     }
   };

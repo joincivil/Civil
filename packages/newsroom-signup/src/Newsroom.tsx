@@ -34,6 +34,7 @@ import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
 import { CivilContext } from "./CivilContext";
 import { PurchaseTokens } from "./PurchaseTokens";
+import { RepublishCharterNotice } from "./RepublishCharterNotice";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
@@ -292,6 +293,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             <StepProcessTopNavNoButtons
               activeIndex={STEP_TO_SECTION[this.state.currentStep]}
               onActiveTabChange={this.navigateToSection}
+              contentPrepend={this.renderRepublishCharter()}
             >
               {this.renderSteps()}
             </StepProcessTopNavNoButtons>
@@ -360,6 +362,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           </WalletOnboardingV2>
         </Wrapper>
       </ThemeProvider>
+    );
+  }
+
+  private renderRepublishCharter(): JSX.Element | undefined {
+    if (!this.props.newsroomAddress || STEP_TO_SECTION[this.state.currentStep] !== SECTION.PROFILE) {
+      return;
+    }
+
+    return (
+      <RepublishCharterNotice civil={this.props.civil!} charter={this.props.charter} newsroom={this.props.newsroom} />
     );
   }
 

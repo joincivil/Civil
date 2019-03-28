@@ -108,7 +108,10 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
             <ProgressBarInner percent={progress} />
           </ProgressBar>
         </StyledNav>
-        <MainSection>{this.renderContent()}</MainSection>
+        <MainSection>
+          {this.props.contentPrepend}
+          {this.renderContent()}
+        </MainSection>
       </div>
     );
   }
