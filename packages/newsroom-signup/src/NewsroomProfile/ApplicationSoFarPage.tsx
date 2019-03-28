@@ -1,6 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { fonts, colors, OBCollapsable } from "@joincivil/components";
+import {
+  fonts,
+  colors,
+  OBCollapsable,
+  OBSectionHeader,
+  OBSectionDescription,
+  HollowGreenCheck,
+} from "@joincivil/components";
 import { AvatarWrap, AvatarImg, noAvatar } from "../styledComponents";
 import { CharterData, RosterMember } from "@joincivil/core";
 import { charterQuestions, questionsCopy } from "../constants";
@@ -11,17 +18,25 @@ export interface ApplicationSoFarPageProps {
 }
 
 const Collapsable = styled(OBCollapsable)`
-  margin-bottom: 0;
-  margin-top: 0;
-  border-bottom: none;
+  &:last-child {
+    margin-bottom: 64px;
+  }
 `;
 
 const SectionHeaders = styled.h4`
+  padding-left: 36px;
   margin-bottom: 0;
   font-size: 16px;
   font-weight: bold;
   line-height: 32px;
   font-family: ${fonts.SANS_SERIF};
+`;
+const SectionHeaderCheck = styled(HollowGreenCheck)`
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 24px;
+  height: 24px;
 `;
 
 const Label = styled.div`
@@ -37,17 +52,18 @@ const Value = styled.div`
   letter-spacing: 0.13px;
   line-height: 24px;
   color: ${colors.primary.BLACK};
+  word-break: break-word;
 `;
 
 const CollapsableInner = styled.div`
-  padding: 10px 20px;
+  padding: 10px 20px 10px 36px;
 `;
 
 const GridWrapper = styled.div`
   position: relative;
   display: grid;
   grid-template-columns: 40% 50%;
-  grid-template-rows: 70px 70px auto 70px;
+  grid-template-rows: 70px minmax(70px, auto) auto 70px;
 `;
 
 const TwoSpanner = styled.div`
@@ -70,7 +86,19 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
   public render(): JSX.Element {
     return (
       <div>
-        <Collapsable open={true} header={<SectionHeaders>Newsroom Details</SectionHeaders>}>
+        <OBSectionHeader>Here’s your Registry Profile so far</OBSectionHeader>
+        <OBSectionDescription>
+          Please review your newsroom Registry Profile. Keep in mind that this is a public document.
+        </OBSectionDescription>
+        <Collapsable
+          open={true}
+          header={
+            <SectionHeaders>
+              <SectionHeaderCheck />
+              Newsroom Details
+            </SectionHeaders>
+          }
+        >
           <CollapsableInner>
             <GridWrapper>
               <div>
@@ -100,38 +128,60 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
             </GridWrapper>
           </CollapsableInner>
         </Collapsable>
-        <Collapsable open={false} header={<SectionHeaders>Roster</SectionHeaders>}>
+        <Collapsable
+          open={false}
+          header={
+            <SectionHeaders>
+              <SectionHeaderCheck />Roster
+            </SectionHeaders>
+          }
+        >
           <CollapsableInner>
-            {this.props.charter.roster!.map((member: RosterMember) => {
-              return <RosterMemberListItem member={member} />;
-            })}
+            {this.props.charter.roster &&
+              this.props.charter.roster.map((member: RosterMember) => {
+                return <RosterMemberListItem member={member} key={member.ethAddress || member.name} />;
+              })}
           </CollapsableInner>
         </Collapsable>
-        <Collapsable open={false} header={<SectionHeaders>Charter</SectionHeaders>}>
+        <Collapsable
+          open={false}
+          header={
+            <SectionHeaders>
+              <SectionHeaderCheck />Charter
+            </SectionHeaders>
+          }
+        >
           <CollapsableInner>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.PURPOSE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.PURPOSE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.PURPOSE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.STRUCTURE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.STRUCTURE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.STRUCTURE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.REVENUE]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.REVENUE]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.REVENUE]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.ENCUMBRANCES]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.ENCUMBRANCES]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.ENCUMBRANCES]}</Value>
             </QuestionContainer>
             <QuestionContainer>
               <Label>{questionsCopy[charterQuestions.MISCELLANEOUS]}</Label>
-              <Value>{this.props.charter.mission![charterQuestions.MISCELLANEOUS]}</Value>
+              <Value>{this.props.charter.mission && this.props.charter.mission[charterQuestions.MISCELLANEOUS]}</Value>
             </QuestionContainer>
           </CollapsableInner>
         </Collapsable>
-        <Collapsable open={false} header={<SectionHeaders>Civil Constitution</SectionHeaders>}>
+        <Collapsable
+          open={false}
+          header={
+            <SectionHeaders>
+              <SectionHeaderCheck />Civil Constitution
+            </SectionHeaders>
+          }
+        >
           <CollapsableInner>
             I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution.
           </CollapsableInner>

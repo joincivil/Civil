@@ -63,3 +63,5 @@ export * from "./TokenTutorial";
 export * from "./Tutorial";
 export * from "./Notice";
 export * from "./Footer";
+export * from "./CurrencyConverter";
+export * from "./GasEstimate";

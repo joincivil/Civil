@@ -4,7 +4,7 @@ exports[`Storyshots Uniswap Buy CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-kwclOP lodAXk",
+      "class": "sc-bWkBrx edXCVp",
     },
     "children": Array [
       Object {
@@ -70,7 +70,7 @@ exports[`Storyshots Uniswap Sell CVL from address 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-bWkBrx edXCVp",
+      "class": "sc-cxZfpC gsWhWR",
     },
     "children": Array [
       Object {

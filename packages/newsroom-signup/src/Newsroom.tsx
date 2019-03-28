@@ -1,3 +1,4 @@
+import * as qs from "querystring";
 import {
   ButtonTheme,
   colors,
@@ -8,7 +9,7 @@ import {
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
-import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
+import { Civil, EthAddress, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
@@ -16,7 +17,6 @@ import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
-  updateNewsroom,
   getEditors,
   getIsOwner,
   getIsEditor,
@@ -25,18 +25,74 @@ import {
   addConstitutionHash,
   addConstitutionUri,
   fetchConstitution,
+  navigateStep,
+  reachedNewStep,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
+import { SmartContract } from "./SmartContract";
+import { Tutorial } from "./Tutorial";
 import { CivilContext } from "./CivilContext";
-// import { CompleteYourProfile } from "./CompleteYourProfile";
-// import { NameAndAddress } from "./NameAndAddress";
+import { PurchaseTokens } from "./PurchaseTokens";
+import { RepublishCharterNotice } from "./RepublishCharterNotice";
+import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
+import { MutationFunc } from "react-apollo";
+
+enum SECTION {
+  PROFILE,
+  CONTRACT,
+  TUTORIAL,
+  TOKENS,
+  APPLY,
+}
+
+export enum STEP {
+  PROFILE_BIO,
+  PROFILE_ROSTER,
+  PROFILE_CHARTER,
+  PROFILE_SIGN,
+  PROFILE_SO_FAR,
+  PROFILE_GRANT,
+  CONTRACT_GET_STARTED,
+  CONTRACT_UNDERSTANDING_ETH,
+  CONTRACT_CREATE,
+  CONTRACT_ASSIGN,
+  TUTORIAL,
+  TOKENS,
+  APPLY,
+  APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
+}
+
+const STEP_TO_SECTION = {
+  [STEP.PROFILE_BIO]: SECTION.PROFILE,
+  [STEP.PROFILE_ROSTER]: SECTION.PROFILE,
+  [STEP.PROFILE_CHARTER]: SECTION.PROFILE,
+  [STEP.PROFILE_SIGN]: SECTION.PROFILE,
+  [STEP.PROFILE_SO_FAR]: SECTION.PROFILE,
+  [STEP.PROFILE_GRANT]: SECTION.PROFILE,
+  [STEP.CONTRACT_GET_STARTED]: SECTION.CONTRACT,
+  [STEP.CONTRACT_UNDERSTANDING_ETH]: SECTION.CONTRACT,
+  [STEP.CONTRACT_CREATE]: SECTION.CONTRACT,
+  [STEP.CONTRACT_ASSIGN]: SECTION.CONTRACT,
+  [STEP.TUTORIAL]: SECTION.TUTORIAL,
+  [STEP.TOKENS]: SECTION.TOKENS,
+  [STEP.APPLY]: SECTION.APPLY,
+};
+
+const SECTION_STARTS = {
+  [SECTION.PROFILE]: 0,
+  [SECTION.CONTRACT]: 6,
+  [SECTION.TUTORIAL]: 10,
+  [SECTION.TOKENS]: 11,
+  [SECTION.APPLY]: 12,
+};
 
 export interface NewsroomComponentState {
-  currentStep: number;
+  currentStep: STEP;
+  furthestStep: STEP;
   subscription?: any;
   charterPartOneComplete?: boolean;
   charterPartTwoComplete?: boolean;
@@ -48,8 +104,7 @@ export interface IpfsObject {
 }
 
 export interface NewsroomExternalProps {
-  address?: EthAddress;
-  txHash?: TxHash;
+  newsroomAddress?: string;
   disabled?: boolean;
   account?: string;
   currentNetwork?: string;
@@ -61,20 +116,13 @@ export interface NewsroomExternalProps {
   showWelcome?: boolean;
   helpUrl?: string;
   helpUrlBase?: string;
-  newsroomUrl?: string;
   logoUrl?: string;
-  allSteps?: boolean; // @TODO temporary while excluding it from IRL newsroom use but including for testing in dapp
-  initialStep?: number;
   renderUserSearch?(onSetAddress: any): JSX.Element;
-  onNewsroomCreated?(address: EthAddress): void;
-  onContractDeployStarted?(txHash: TxHash): void;
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
 
-export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
+export interface NewsroomReduxProps extends NewsroomExternalProps {
   charter: Partial<CharterData>;
-  // owners: string[];
-  // editors: string[];
   name?: string;
   newsroom?: any;
   userIsOwner?: boolean;
@@ -83,20 +131,28 @@ export interface NewsroomPropsWithRedux extends NewsroomExternalProps {
   charterUri?: string;
 }
 
-// Final props are from GQL
-export interface NewsroomProps extends NewsroomPropsWithRedux {
+export interface NewsroomGqlProps {
+  newsroomAddress?: string;
   grantRequested?: boolean;
+  grantApproved?: boolean;
+  newsroomDeployTx?: EthAddress;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
+  savedStep: STEP;
+  furthestStep: STEP;
+  saveAddress: MutationFunc;
+  saveSteps: MutationFunc;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
+
+export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps;
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
 export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
-  max-width: 845px;
+  max-width: 720px;
   margin: auto;
   font-size: 14px;
 `;
@@ -115,6 +171,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       borderlessButtonSize: "14px",
     },
   };
+
+  public static getDerivedStateFromProps(
+    props: NewsroomProps,
+    state: NewsroomComponentState,
+  ): NewsroomComponentState | null {
+    const decidedWhetherToApply = typeof props.grantRequested === "boolean";
+    // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
+    const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
+    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && decidedWhetherToApply) {
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
+      };
+    }
+    return null;
+  }
 
   private debouncedPersistCharter = debounce(this.props.persistCharter, 1000, { maxWait: 5000 });
 
@@ -152,26 +224,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.address ? 1 : 0;
-    if (typeof props.initialStep !== "undefined") {
-      currentStep = props.initialStep;
-    } else {
-      try {
-        if (localStorage.newsroomOnBoardingLastSeen) {
-          currentStep = Number(localStorage.newsroomOnBoardingLastSeen);
-
-          // @TODO Temporary cause of infinite loop in sign constitution step
-          if (this.props.allSteps && currentStep === 4) {
-            currentStep--;
-          }
-        }
-      } catch (e) {
-        console.error("Failed to load step index", e);
-      }
+    let currentStep = props.savedStep;
+    if (currentStep === STEP.APPLIED) {
+      // Not a real step, see its description above
+      currentStep--;
     }
-
+    if (qs.parse(document.location.search.substr(1)).purchased) {
+      // Just been redirected back from token purchase
+      currentStep = STEP.TOKENS;
+    }
     this.state = {
       currentStep,
+      furthestStep: props.furthestStep,
     };
   }
 
@@ -180,12 +244,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addGetCmsUserDataForAddress(this.props.getCmsUserDataForAddress));
     }
 
-    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
     this.initCharter();
+    this.props.dispatch!(addPersistCharter(this.debouncedPersistCharter));
 
     if (this.props.civil) {
-      if (this.props.address) {
-        await this.hydrateNewsroom(this.props.address);
+      if (this.props.newsroomAddress) {
+        await this.hydrateNewsroom(this.props.newsroomAddress);
+      }
+
+      if (!this.props.newsroomAddress && this.props.newsroomDeployTx) {
+        const newsroom = await this.props.civil.newsroomFromFactoryTxHashUntrusted(this.props.newsroomDeployTx);
+        await this.props.saveAddress({ variables: { input: newsroom.address } });
       }
 
       const tcr = await this.props.civil.tcrSingletonTrusted();
@@ -196,14 +265,16 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       this.props.dispatch!(addConstitutionUri(uri));
       this.props.dispatch!(fetchConstitution(uri));
     }
+
+    this.saveStep(this.props.savedStep, true); // lazy way to update `lastSeen` - can't bear to make another separate mutation
   }
 
-  public async componentWillReceiveProps(newProps: NewsroomProps & DispatchProp<any>): Promise<void> {
-    if (newProps.address && !this.props.address) {
-      await this.hydrateNewsroom(newProps.address);
+  public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
+    if (this.props.newsroomAddress && !prevProps.newsroomAddress) {
+      await this.hydrateNewsroom(this.props.newsroomAddress);
     }
-    if (this.props.newsroom && newProps.account !== this.props.account) {
-      this.setRoles(newProps.address || this.props.address!);
+    if (prevProps.newsroom && this.props.account !== prevProps.account) {
+      this.setRoles(this.props.newsroomAddress || prevProps.newsroomAddress!);
     }
   }
 
@@ -225,15 +296,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           }}
         >
           <StepProcessTopNavNoButtons
-            activeIndex={this.state.currentStep}
-            onActiveTabChange={(newIndex: number) => {
-              try {
-                localStorage.newsroomOnBoardingLastSeen = JSON.stringify(newIndex);
-              } catch (e) {
-                console.error("Failed to save step index", e);
-              }
-              this.setState({ currentStep: newIndex });
-            }}
+            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+            onActiveTabChange={this.navigateToSection}
+            contentPrepend={this.renderRepublishCharter()}
           >
             {this.renderSteps()}
           </StepProcessTopNavNoButtons>
@@ -244,29 +309,43 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderSteps(): JSX.Element[] {
     return [
-      <StepNoButtons
-        title={"Registry Profile"}
-        disabled={!this.props.userIsOwner}
-        complete={this.state.charterPartOneComplete}
-        key="createCharterPartOne"
-      >
+      <StepNoButtons title={"Registry Profile"} complete={this.state.charterPartOneComplete} key="createCharterPartOne">
         <NewsroomProfile
+          profileWalletAddress={this.props.profileWalletAddress}
+          currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
+          navigate={this.navigate}
           grantRequested={this.props.grantRequested}
+          grantApproved={this.props.grantApproved}
           charter={this.props.charter}
           updateCharter={this.updateCharter}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Smart Contract"} disabled={true} key="smartcontract">
-        <div />
+      <StepNoButtons title={"Smart Contract"} disabled={this.getDisabled(SECTION.CONTRACT)()} key="smartcontract">
+        <SmartContract
+          currentStep={this.state.currentStep - SECTION_STARTS[SECTION.CONTRACT]}
+          navigate={this.navigate}
+          profileWalletAddress={this.props.profileWalletAddress}
+          charter={this.props.charter}
+          userIsOwner={this.props.userIsOwner}
+          newsroomAddress={this.props.newsroomAddress}
+          newsroomDeployTxHash={this.props.newsroomDeployTx}
+          updateCharter={this.updateCharter}
+          newsroom={this.props.newsroom}
+        />
       </StepNoButtons>,
-      <StepNoButtons title={"Tutorial"} disabled={true} key="tutorial">
-        <div />
+      <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
+        <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
-      <StepNoButtons title={"Civil Tokens"} disabled={true} key="ct">
-        <div />
+      <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
+        <PurchaseTokens navigate={this.navigate} />
       </StepNoButtons>,
-      <StepNoButtons title={"Apply to Registry"} disabled={true} key="atr">
-        <div />
+      <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
+        <ApplyToTCR
+          navigate={this.navigate}
+          newsroom={this.props.newsroom}
+          address={this.props.newsroomAddress}
+          civil={this.props.civil}
+        />
       </StepNoButtons>,
     ];
   }
@@ -290,24 +369,89 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
-  public onNewsroomCreated = async (result: any) => {
-    await this.props.dispatch!(
-      updateNewsroom(result.address, {
-        wrapper: await result.getNewsroomWrapper(),
-        newsroom: result,
-      }),
-    );
-    if (this.props.onNewsroomCreated) {
-      this.props.onNewsroomCreated(result.address);
+  private renderRepublishCharter(): JSX.Element | undefined {
+    if (!this.props.newsroomAddress || STEP_TO_SECTION[this.state.currentStep] !== SECTION.PROFILE) {
+      return;
     }
+
+    return (
+      <RepublishCharterNotice civil={this.props.civil!} charter={this.props.charter} newsroom={this.props.newsroom} />
+    );
+  }
+
+  private getDisabled(section: SECTION): () => boolean {
+    // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
+    const functions = {
+      [SECTION.CONTRACT]: () => {
+        return false;
+      },
+      [SECTION.TUTORIAL]: () => {
+        return false;
+      },
+      [SECTION.TOKENS]: () => {
+        return false;
+      },
+      [SECTION.APPLY]: () => {
+        return false;
+      },
+    };
+
+    return functions[section];
+  }
+
+  private navigateToSection = (newSection: SECTION): void => {
+    if (newSection === STEP_TO_SECTION[this.state.currentStep]) {
+      // Already on this section
+      return;
+    }
+
+    let newStep = SECTION_STARTS[newSection]; // Go to first step in that section
+    if (newSection === SECTION.PROFILE) {
+      newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
+    }
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
+    this.saveStep(newStep);
+    this.setState({ currentStep: newStep });
   };
+  private navigate = (go: 1 | -1): void => {
+    const newStep = this.state.currentStep + go;
+    this.saveStep(newStep);
+    if (newStep === STEP.APPLIED) {
+      // Dummy step we don't actually update view for, but need to send to API.
+      return;
+    }
+    document.documentElement.scrollTop = document.body.scrollTop = 0;
+    this.setState({ currentStep: newStep });
+  };
+  private saveStep(step: STEP, doNotTrack?: boolean): void {
+    if (!doNotTrack) {
+      this.props.dispatch!(navigateStep(step));
+      if (step > this.state.furthestStep) {
+        this.props.dispatch!(reachedNewStep(step));
+      }
+    }
+
+    const furthestStep = Math.max(step, this.state.furthestStep);
+    this.setState({ furthestStep });
+    this.props
+      .saveSteps({
+        variables: {
+          input: {
+            step,
+            furthestStep,
+            lastSeen: Math.floor(Date.now() / 1000),
+          },
+        },
+      })
+      .catch(err => {}); // easier than changing 10 functions to async
+  }
 
   private initCharter(): void {
-    this.updateCharter(this.defaultCharterValues(this.props.persistedCharter || {}));
+    this.updateCharter(this.props.persistedCharter || {}, true);
   }
 
   private hydrateNewsroom = async (address: EthAddress): Promise<void> => {
-    await this.props.dispatch!(getNewsroom(address, this.props.civil!));
+    await this.props.dispatch!(getNewsroom(address, this.props.civil!, this.props.persistedCharter || {}));
     this.props.dispatch!(getEditors(address, this.props.civil!));
     this.setRoles(address);
   };
@@ -317,63 +461,32 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.props.dispatch!(getIsEditor(address, this.props.civil!));
   };
 
-  private updateCharter = (charter: Partial<CharterData>): void => {
-    this.props.dispatch!(updateCharter(this.props.address || "", charter));
+  private updateCharter = (charter: Partial<CharterData>, dontPersist?: boolean): void => {
+    this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, dontPersist));
     this.checkCharterCompletion();
-  };
-
-  /** Replace even empty string values for newsroom/logo URLs in case user has partially filled charter and later goes in to CMS and sets these values. */
-  private defaultCharterValues = (charter: Partial<CharterData>): Partial<CharterData> => {
-    const { newsroomUrl, logoUrl } = this.props;
-    return {
-      ...charter,
-      newsroomUrl: charter.newsroomUrl || newsroomUrl,
-      logoUrl: charter.logoUrl || logoUrl,
-    };
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomPropsWithRedux => {
-  const { address } = ownProps;
-  const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  // const userIsOwner = newsroom.isOwner;
-  // const userIsEditor = newsroom.isEditor;
-  // const userNotOnContract = !!ownProps.address && userIsOwner === false && userIsEditor === false;
-  // const editors = newsroom.editors ? newsroom.editors.toArray() : [];
-
-  // const charterUri = newsroom.wrapper.data.charterHeader && newsroom.wrapper.data.charterHeader.uri;
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomReduxProps => {
+  const { newsroomAddress } = ownProps;
+  const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
-    // charterUri,
     newsroom: newsroom.newsroom,
-    // name: newsroom.wrapper.data.name,
-    // userIsOwner,
-    // userIsEditor,
-    // userNotOnContract,
-    // owners: newsroom.wrapper.data.owners || [],
-    // editors,
     charter: newsroom.charter || {},
   };
 };
 
-const NewsroomWithGqlData: React.SFC<NewsroomPropsWithRedux> = props => {
+const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
+
+export const Newsroom: React.SFC<NewsroomExternalProps> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>
-        {({ profileWalletAddress, persistedCharter, persistCharter, grantRequested }) => {
-          return (
-            <NewsroomComponent
-              {...props}
-              profileWalletAddress={profileWalletAddress}
-              persistCharter={persistCharter}
-              persistedCharter={persistedCharter}
-              grantRequested={grantRequested}
-            />
-          );
+        {(gqlProps: NewsroomGqlProps) => {
+          return <NewsroomRedux {...props} {...gqlProps} />;
         }}
       </DataWrapper>
     </AuthWrapper>
   );
 };
-
-export const Newsroom = connect(mapStateToProps)(NewsroomWithGqlData);

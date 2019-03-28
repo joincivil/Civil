@@ -6,7 +6,7 @@ import {
   ChallengeResolveCard as ChallengeResolveCardComponent,
   ModalContent,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { updateStatus } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -78,7 +78,7 @@ class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedT
         challengeID={this.props.challengeID}
         transactions={transactions}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
-        faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+        faqURL={links.FAQ_REGISTRY}
       />
     );
   }

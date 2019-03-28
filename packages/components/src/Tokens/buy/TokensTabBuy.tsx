@@ -1,4 +1,6 @@
 import * as React from "react";
+import * as qs from "querystring";
+import { Redirect } from "react-router-dom";
 import { TokensTabBuyActive } from "./TokensTabBuyActive";
 import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
 
@@ -24,6 +26,10 @@ export class TokensTabBuy extends React.Component<TokensTabBuyProps, TokensTabBu
     const { isBuyComplete } = this.state;
 
     if (isBuyComplete) {
+      const redirect = qs.parse(document.location.search.substr(1)).redirect as string;
+      if (redirect) {
+        return <Redirect to={redirect} />;
+      }
       return <TokensTabBuyComplete />;
     }
 
