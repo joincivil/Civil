@@ -3,7 +3,7 @@ import * as qs from "querystring";
 import styled from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
@@ -22,7 +22,7 @@ import {
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
-export interface PurchaseTokensExternalProps {
+export interface PurchaseTokensExternalProps extends RouteComponentProps {
   navigate(go: 1 | -1): void;
 }
 export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
@@ -80,7 +80,7 @@ const BuyButtonContainer = styled.div`
 
 export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps> {
   public renderButtons(): JSX.Element | void {
-    return <NextBack navigate={this.props.navigate} nextDisabled={() => !this.props.hasMinDeposit} />;
+    return <NextBack navigate={this.navigate} nextDisabled={() => !this.props.hasMinDeposit} />;
   }
 
   public renderNotEnoughTokens(): JSX.Element {
@@ -187,6 +187,16 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
       </>
     );
   }
+
+  private navigate = (go: 1 | -1): void => {
+    if (qs.parse(document.location.search.substr(1)).purchased) {
+      // Remove query string, otherwise they will be forced back to token purchase step if they refresh
+      this.props.history.replace({
+        pathname: this.props.location.pathname,
+      });
+    }
+    this.props.navigate(go);
+  };
 }
 
 const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps): PurchaseTokensProps => {
@@ -201,4 +211,4 @@ const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps): Pur
   };
 };
 
-export const PurchaseTokens = connect(mapStateToProps)(PurchaseTokensComponent);
+export const PurchaseTokens = withRouter(connect(mapStateToProps)(PurchaseTokensComponent));
