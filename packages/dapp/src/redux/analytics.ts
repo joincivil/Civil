@@ -21,6 +21,7 @@ const eventsMap = {
     };
   }),
   [ANALYTICS_EVENT]: trackEvent(action => {
+    console.log({ action });
     return action.event;
   }),
 };

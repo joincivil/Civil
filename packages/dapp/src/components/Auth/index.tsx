@@ -8,6 +8,7 @@ import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
 import { connect, DispatchProp } from "react-redux";
 import * as qs from "querystring";
+import { analyticsEvent } from "../../redux/actionCreators/analytics";
 
 const TOKEN_HOME = "/tokens";
 export const WALLET_HOME = "/auth/wallet";
@@ -41,6 +42,7 @@ export class AuthRouter extends React.Component<RouteComponentProps & DispatchPr
 
     return (
       <>
+        <button onClick={() => this.handleOnTokenValidation(true)}>Click</button>
         <Switch>
           {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
@@ -157,6 +159,14 @@ export class AuthRouter extends React.Component<RouteComponentProps & DispatchPr
     const { dispatch } = this.props;
 
     console.log("DISPATCH?", { dispatch });
+    dispatch!(
+      analyticsEvent({
+        category: "category",
+        action: "action",
+        label: "label",
+        value: "value",
+      }),
+    );
   };
 
   public handleOnAddWallet = (): void => {
