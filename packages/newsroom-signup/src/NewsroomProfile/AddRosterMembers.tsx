@@ -22,6 +22,7 @@ export interface AddRosterMemberProps {
 
 export interface AddRosterMemberState {
   editingMember: Partial<RosterMemberInterface> | null;
+  editingIndex: number;
 }
 
 const LowerHeader = styled(OBSectionHeader)`
@@ -58,6 +59,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
     super(props);
     this.state = {
       editingMember: null,
+      editingIndex: -1,
     };
   }
   public render(): JSX.Element {
@@ -122,7 +124,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private cancelEdit = () => {
     this.props.setButtonVisibility(true);
-    this.setState({ editingMember: null });
+    this.setState({ editingMember: null, editingIndex: -1 });
   };
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
@@ -131,8 +133,7 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
 
   private removeRosterMember = () => {
     const roster = (this.props.charter.roster || []).slice();
-    const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
-    const memberIndex = roster.findIndex(rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    const memberIndex = this.state.editingIndex;
     if (memberIndex >= 0) {
       roster.splice(memberIndex, 1);
       this.props.updateCharter({
@@ -141,13 +142,12 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       });
     }
     this.props.setButtonVisibility(true);
-    this.setState({ editingMember: null });
+    this.setState({ editingMember: null, editingIndex: -1 });
   };
 
   private saveRosterMember = () => {
     const roster = (this.props.charter.roster || []).slice();
-    const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
-    const memberIndex = roster.findIndex(rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    const memberIndex = this.state.editingIndex;
     if (memberIndex >= 0) {
       roster[memberIndex] = this.state.editingMember as RosterMemberInterface;
     } else {
@@ -159,11 +159,11 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       roster,
     });
     this.props.setButtonVisibility(true);
-    this.setState({ editingMember: null });
+    this.setState({ editingMember: null, editingIndex: -1 });
   };
 
   private editRosterMember = (index: number) => {
     this.props.setButtonVisibility(false);
-    this.setState({ editingMember: this.props.charter.roster![index] });
+    this.setState({ editingMember: this.props.charter.roster![index], editingIndex: index });
   };
 }
