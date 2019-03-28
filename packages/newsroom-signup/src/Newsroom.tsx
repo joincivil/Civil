@@ -47,6 +47,7 @@ enum SECTION {
   TOKENS,
   APPLY,
 }
+
 export enum STEP {
   PROFILE_BIO,
   PROFILE_ROSTER,
@@ -63,6 +64,7 @@ export enum STEP {
   APPLY,
   APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
 }
+
 const STEP_TO_SECTION = {
   [STEP.PROFILE_BIO]: SECTION.PROFILE,
   [STEP.PROFILE_ROSTER]: SECTION.PROFILE,
@@ -78,6 +80,7 @@ const STEP_TO_SECTION = {
   [STEP.TOKENS]: SECTION.TOKENS,
   [STEP.APPLY]: SECTION.APPLY,
 };
+
 const SECTION_STARTS = {
   [SECTION.PROFILE]: 0,
   [SECTION.CONTRACT]: 6,
