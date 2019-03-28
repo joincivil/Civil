@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NextBack } from "../styledComponents";
-import { CharterData } from "@joincivil/core";
+import { CharterData, EthAddress } from "@joincivil/core";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
@@ -13,6 +13,7 @@ export interface NewsroomProfileState {
 }
 
 export interface NewsroomProfileProps {
+  profileWalletAddress?: EthAddress;
   currentStep: number;
   charter: Partial<CharterData>;
   grantRequested?: boolean;
@@ -74,6 +75,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         charter={this.props.charter}
         updateCharter={this.props.updateCharter}
         setButtonVisibility={this.setButtonVisibility}
+        profileWalletAddress={this.props.profileWalletAddress}
       />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
