@@ -31,7 +31,10 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
 
 export const TokenWalletAddressText: React.SFC = props => (
   <>
-    <span>Public Address</span> <a href={links.FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS} target="_blank">What's this?</a>
+    <span>Public Address</span>{" "}
+    <a href={links.FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS} target="_blank">
+      What's this?
+    </a>
   </>
 );
 
