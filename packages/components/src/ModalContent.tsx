@@ -8,6 +8,10 @@ export const ModalHeading = styled.h2`
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
+
+  && {
+    margin: 16px 0;
+  }
 `;
 
 export const ModalContent = styled.p`

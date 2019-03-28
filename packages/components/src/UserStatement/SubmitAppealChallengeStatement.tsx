@@ -68,15 +68,15 @@ export class SubmitAppealChallengeStatement extends React.Component<
       <>
         <StyledUserStatementHeaderOuter>
           <StyledUserStatementHeader>
-            <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
+            <StatementHeaderHeading>Challenge Granted Appeal</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
-              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}
-              <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
+              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to challenge a granted appeal.
+              Read our <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
             </CopyLarge>
             <StyledOl>
               <StyledLi>
-                <StyledLiContent>State reasons for your challenge</StyledLiContent>
+                <StyledLiContent>State reasons for your challenge of the granted appeal</StyledLiContent>
               </StyledLi>
               <StyledLi>
                 <StyledLiContent>Deposit CVL tokens to challenge</StyledLiContent>

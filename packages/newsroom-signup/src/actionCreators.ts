@@ -1,9 +1,9 @@
 import { AnyAction } from "redux";
-import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
+import { BigNumber } from "bignumber.js";
+import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
-import { makeUserObject } from "./utils";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -14,6 +14,8 @@ export enum newsroomActions {
   REMOVE_EDITOR = "REMOVE_EDITOR",
   SET_IS_OWNER = "SET_IS_OWNER",
   SET_IS_EDITOR = "SET_IS_EDITOR",
+  SET_MULTISIG_ADDRESS = "SET_MULTISIG_ADDRESS",
+  SET_MULTISIG_BALANCE = "SET_MULTISIG_BALANCE",
 }
 
 export enum uiActions {
@@ -36,8 +38,27 @@ export enum governmentActions {
 export enum grantActions {
   SET_GRANT = "CHOOSE_GRANT",
   SET_SKIP = "CHOOSE_SKIP",
+}
+
+export enum listingActions {
+  ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
+}
+
+export enum analyticsActions {
+  NAVIGATE_STEP = "NAVIGATE_STEP",
+  REACHED_NEW_STEP = "REACHED_NEW_STEP",
   APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
   APPLICATION_SKIPPED = "APPLICATION_SKIPPED",
+  TRACK_TX = "TRACK_TX",
+  PUBLISH_CHARTER = "PUBLISH_CHARTER",
+}
+
+export enum TX_TYPE {
+  CREATE_NEWSROOM = "CREATE_NEWSROOM",
+  CHANGE_NAME = "CHANGE_NAME",
+  TRANSFER_TOKENS = "TRANSFER_TOKENS",
+  APPROVE_TOKENS = "APPROVE_TOKENS",
+  APPLY_TO_TCR = "APPLY_TO_TCR",
 }
 
 export const getEditors = (address: EthAddress, civil: Civil): any => async (
@@ -54,7 +75,7 @@ export const getEditors = (address: EthAddress, civil: Civil): any => async (
     });
 };
 
-export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
+export const getNewsroom = (address: EthAddress, civil: Civil, charter: Partial<CharterData>): any => async (
   dispatch: any,
   getState: any,
 ): Promise<AnyAction> => {
@@ -63,7 +84,9 @@ export const getNewsroom = (address: EthAddress, civil: Civil): any => async (
   wrapper.data.owners.forEach((userAddress: EthAddress) => {
     dispatch(initContractMember(address, userAddress));
   });
-  return dispatch(updateNewsroom(address, { wrapper, newsroom }));
+  const multiSigAddr = await newsroom.getMultisigAddress();
+  dispatch(setNewsroomMultisigAddress(address, multiSigAddr || ""));
+  return dispatch(updateNewsroom(address, { wrapper, newsroom, charter }));
 };
 
 export const getIsOwner = (address: EthAddress, civil: Civil): any => async (
@@ -80,6 +103,47 @@ export const getIsEditor = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const newsroom = await civil.newsroomAtUntrusted(address);
   return dispatch(setIsEditor(address, await newsroom.isEditor()));
+};
+
+export const getNewsroomMultisigBalance = (
+  address: EthAddress,
+  multisigAddress: EthAddress,
+  civil: Civil,
+): any => async (dispatch: any, getState: any): Promise<AnyAction> => {
+  const tcr = await civil.tcrSingletonTrusted();
+  const token = await tcr.getToken();
+  const balance = await token.getBalance(multisigAddress);
+  dispatch(setNewsroomMultisigAddress(address, multisigAddress));
+  return dispatch(setNewsroomMultisigBalance(address, balance));
+};
+
+export const setNewsroomMultisigAddress = (address: EthAddress, multisigAddress: EthAddress): AnyAction => {
+  return {
+    type: newsroomActions.SET_MULTISIG_ADDRESS,
+    data: {
+      address,
+      multisigAddress,
+    },
+  };
+};
+
+export const setNewsroomMultisigBalance = (address: EthAddress, multisigBalance: BigNumber): AnyAction => {
+  return {
+    type: newsroomActions.SET_MULTISIG_BALANCE,
+    data: {
+      address,
+      multisigBalance,
+    },
+  };
+};
+
+export const getListing = (address: EthAddress, civil: Civil): any => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
+  const tcr = await civil.tcrSingletonTrusted();
+  const listing = await tcr.getListing(address);
+  return dispatch(addListing(await listing.getListingWrapper()));
 };
 
 export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
@@ -116,6 +180,13 @@ export const addOwner = (address: EthAddress, owner: EthAddress): AnyAction => {
       address,
       owner,
     },
+  };
+};
+
+export const addListing = (listing: ListingWrapper): AnyAction => {
+  return {
+    type: listingActions.ADD_OR_UPDATE_LISTING,
+    data: listing,
   };
 };
 
@@ -156,14 +227,14 @@ export const changeName = (address: EthAddress, name: string): AnyAction => {
   };
 };
 
-export const updateCharter = (address: EthAddress, charter: Partial<CharterData>): any => (
+export const updateCharter = (address: EthAddress, charter: Partial<CharterData>, dontPersist?: boolean): any => (
   dispatch: any,
   getState: any,
 ): AnyAction => {
   const { newsrooms, newsroomUi }: StateWithNewsroom = getState();
   const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
   const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
-  if (persistCharter) {
+  if (persistCharter && !dontPersist) {
     persistCharter(charter);
   }
   return dispatch(
@@ -210,25 +281,6 @@ export const addPersistCharter = (func: (charter: Partial<CharterData>) => void)
   };
 };
 
-export const ensureUserOnRoster = (newsroomAddress: EthAddress, address: EthAddress, userData?: CmsUserData): any => (
-  dispatch: any,
-  getState: any,
-) => {
-  const { newsrooms, newsroomUsers }: StateWithNewsroom = getState();
-  const charter = (newsrooms.get(newsroomAddress) || {}).charter || {};
-  let roster = charter.roster || [];
-  if (roster.findIndex(member => (member.ethAddress || "").toLowerCase() === address.toLowerCase()) === -1) {
-    const user = makeUserObject(address, userData || newsroomUsers.get(address));
-    roster = roster.concat(user.rosterData as RosterMember);
-    dispatch(
-      updateCharter(newsroomAddress, {
-        ...charter,
-        roster,
-      }),
-    );
-  }
-};
-
 export const storeUserData = (newsroomAddress: EthAddress, address: EthAddress, userData: CmsUserData): AnyAction => {
   return {
     type: userActions.STORE_USER_DATA,
@@ -252,8 +304,6 @@ export const initContractMember = (newsroomAddress: EthAddress, userAddress: Eth
     userData = await getCmsUserDataForAddress(userAddress);
     dispatch(storeUserData(newsroomAddress, userAddress, userData));
   }
-
-  dispatch(ensureUserOnRoster(newsroomAddress, userAddress, userData));
 };
 
 export const addAndHydrateEditor = (newsroomAddress: EthAddress, editorAddress: EthAddress): any => async (
@@ -301,5 +351,48 @@ export const setSkip = (value: boolean): AnyAction => {
   return {
     type: grantActions.SET_SKIP,
     data: value,
+  };
+};
+
+export const grantSubmitted = (): AnyAction => {
+  return {
+    type: analyticsActions.APPLICATION_SUBMITTED,
+  };
+};
+export const grantSkipped = (): AnyAction => {
+  return {
+    type: analyticsActions.APPLICATION_SKIPPED,
+  };
+};
+
+export const trackTx = (txType: TX_TYPE, state: "start" | "complete" | "error", txHash?: string): AnyAction => {
+  return {
+    type: analyticsActions.TRACK_TX,
+    data: {
+      txType,
+      state,
+      txHash,
+    },
+  };
+};
+
+export const publishCharter = (ipfsHash: string): AnyAction => {
+  return {
+    type: analyticsActions.PUBLISH_CHARTER,
+    data: ipfsHash,
+  };
+};
+
+export const navigateStep = (step: number, path: string = "/apply-to-registry"): AnyAction => {
+  return {
+    type: analyticsActions.NAVIGATE_STEP,
+    step,
+    path,
+  };
+};
+export const reachedNewStep = (step: number): AnyAction => {
+  return {
+    type: analyticsActions.REACHED_NEW_STEP,
+    step,
   };
 };

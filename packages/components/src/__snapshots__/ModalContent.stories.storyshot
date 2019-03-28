@@ -12,7 +12,7 @@ initialize {
         "children": Array [
           Object {
             "attribs": Object {
-              "class": "sc-fMiknA fBtDDw",
+              "class": "sc-fMiknA djkGrf",
             },
             "children": Array [
               Object {
@@ -80,7 +80,7 @@ initialize {
             "parent": [Circular],
             "prev": Object {
               "attribs": Object {
-                "class": "sc-fMiknA fBtDDw",
+                "class": "sc-fMiknA djkGrf",
               },
               "children": Array [
                 Object {

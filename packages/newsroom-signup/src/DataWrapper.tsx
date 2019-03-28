@@ -1,121 +1,109 @@
 import * as React from "react";
-import gql from "graphql-tag";
 import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
 import { EthAddress, CharterData } from "@joincivil/core";
-
-const userEthAddress = gql`
-  query {
-    currentUser {
-      ethAddress
-    }
-  }
-`;
-// Unfortunately we can't combine this charter query with eth address query, because if no charter is saved at all yet, then the whole query errors and we won't get eth address
-const getCharterQuery = gql`
-  query {
-    nrsignupNewsroom {
-      grantRequested
-      charter {
-        name
-        tagline
-        logoUrl
-        newsroomUrl
-        roster {
-          name
-          role
-          bio
-          ethAddress
-          socialUrls {
-            twitter
-            facebook
-          }
-          avatarUrl
-          signature
-        }
-        signatures {
-          signer
-          signature
-          message
-        }
-        mission {
-          purpose
-          structure
-          revenue
-          encumbrances
-          miscellaneous
-        }
-        socialUrls {
-          twitter
-          facebook
-        }
-      }
-    }
-  }
-`;
-
-const saveCharterMutation = gql`
-  mutation($input: CharterInput!) {
-    nrsignupSaveCharter(charterData: $input)
-  }
-`;
-
-// const askForGrant
-
-export interface DataWrapperChildrenProps {
-  grantRequested?: boolean;
-  profileWalletAddress: EthAddress;
-  persistedCharter: Partial<CharterData>;
-  persistCharter(charter: Partial<CharterData>): Promise<void | FetchResult>;
-}
+import { NewsroomGqlProps } from "./Newsroom";
+import { userDataQuery, getCharterQuery } from "./queries";
+import { saveCharterMutation, SaveAddressMutation, saveStepsMutation } from "./mutations";
 
 export interface DataWrapperProps {
-  children(props: DataWrapperChildrenProps): any;
+  children(props: NewsroomGqlProps): any;
 }
 
 export class DataWrapper extends React.Component<DataWrapperProps> {
   public render(): JSX.Element {
     return (
-      <Query query={userEthAddress}>
-        {({ loading, error, data }) => {
+      <Query query={userDataQuery}>
+        {({ loading, error, data: userData }) => {
           if (loading) {
             return "Loading...";
           }
           if (error) {
-            return `Error! ${JSON.stringify(error)}`;
+            return (
+              <>
+                Sorry, there was an error! <code>{JSON.stringify(error)}</code>
+              </>
+            );
           }
 
           return (
             <Query query={getCharterQuery}>
-              {({ loading: charterLoading, error: charterError, data: charterData }) => {
+              {({ loading: charterLoading, error: charterError, data: charterData, refetch: refetchCharterQuery }) => {
                 if (charterLoading) {
                   return "Loading...";
                 }
+                let doRefetchHack = false;
                 if (charterError) {
-                  if (charterError.graphQLErrors && charterError.graphQLErrors[0].message === "No jsonb found") {
+                  if (charterError.graphQLErrors[0] && charterError.graphQLErrors[0].message === "No jsonb found") {
                     // ok, they haven't saved a charter yet
+                    // Due to an apollo bug (https://github.com/apollographql/react-apollo/issues/2070) when a query errors, future refetches from mutation refetchQueries fail to update the query. There are various solutions suggested, some of which didn't work, but using the refetch function we get here will work if we call it just once (once we do data and the query won't error).
+                    doRefetchHack = true;
                   } else {
-                    return `Error! ${JSON.stringify(charterError)}`;
+                    return (
+                      <>
+                        Sorry, there was an error! <code>{JSON.stringify(charterError)}</code>
+                      </>
+                    );
                   }
                 }
 
                 let persistedCharter: Partial<CharterData>;
                 let grantRequested: boolean;
+                let grantApproved: boolean;
+                let newsroomDeployTx: string;
+                let newsroomAddress: EthAddress;
                 if (charterData && charterData.nrsignupNewsroom) {
                   if (charterData.nrsignupNewsroom.charter) {
                     persistedCharter = charterData.nrsignupNewsroom.charter;
                   }
                   grantRequested = charterData.nrsignupNewsroom.grantRequested;
+                  grantApproved = charterData.nrsignupNewsroom.grantApproved;
+                  newsroomDeployTx = charterData.nrsignupNewsroom.newsroomDeployTx;
+                  newsroomAddress = charterData.nrsignupNewsroom.newsroomAddress;
                 }
 
                 return (
-                  <Mutation mutation={saveCharterMutation}>
-                    {(saveCharter: MutationFunc) => {
-                      return this.props.children({
-                        grantRequested,
-                        profileWalletAddress: data.currentUser.ethAddress,
-                        persistedCharter,
-                        persistCharter: this.saveCharterFuncFromMutation(saveCharter),
-                      });
+                  <Mutation
+                    mutation={SaveAddressMutation}
+                    refetchQueries={[
+                      {
+                        query: getCharterQuery,
+                      },
+                    ]}
+                  >
+                    {saveAddress => {
+                      return (
+                        <Mutation
+                          mutation={saveCharterMutation}
+                          onCompleted={async () => {
+                            if (doRefetchHack) {
+                              await refetchCharterQuery();
+                              doRefetchHack = false;
+                            }
+                          }}
+                        >
+                          {(saveCharter: MutationFunc) => {
+                            return (
+                              <Mutation mutation={saveStepsMutation}>
+                                {(saveSteps: MutationFunc) => {
+                                  return this.props.children({
+                                    grantRequested,
+                                    grantApproved,
+                                    newsroomDeployTx,
+                                    newsroomAddress,
+                                    profileWalletAddress: userData.currentUser.ethAddress,
+                                    savedStep: userData.currentUser.nrStep || 0,
+                                    furthestStep: userData.currentUser.nrFurthestStep || 0,
+                                    persistedCharter,
+                                    saveAddress,
+                                    saveSteps,
+                                    persistCharter: this.saveCharterFuncFromMutation(saveCharter),
+                                  });
+                                }}
+                              </Mutation>
+                            );
+                          }}
+                        </Mutation>
+                      );
                     }}
                   </Mutation>
                 );

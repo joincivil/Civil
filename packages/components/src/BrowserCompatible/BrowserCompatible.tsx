@@ -10,7 +10,7 @@ import {
 import { BrowserCompatHeadingText, BrowserCompatIntroText } from "./BrowserCompatibleTextComponents";
 import * as chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
 import * as firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 export const BrowserCompatible: React.StatelessComponent = props => {
   return (
@@ -30,8 +30,8 @@ export const BrowserCompatible: React.StatelessComponent = props => {
       </BrowserButtons>
 
       <OBSmallestParagraph>
-        <BrowserCompatLinks href={"mailto:" + `${links.EMAIL_SUPPORT}`}>Contact Us</BrowserCompatLinks>
-        <BrowserCompatLinks href={FAQ_BASE_URL} target="_blank">
+        <BrowserCompatLinks href={links.EMAIL_MAILTO}>Contact Us</BrowserCompatLinks>
+        <BrowserCompatLinks href={links.FAQ_BROWSER_SUPPORT} target="_blank">
           Visit Support
         </BrowserCompatLinks>
       </OBSmallestParagraph>

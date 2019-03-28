@@ -13,13 +13,7 @@ import {
   SubmitAppealChallengeStatementProps,
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
-import {
-  getFormattedParameterValue,
-  Parameters,
-  GovernmentParameters,
-  FAQ_BASE_URL,
-  urlConstants as links,
-} from "@joincivil/utils";
+import { getFormattedParameterValue, Parameters, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
@@ -368,9 +362,9 @@ const SubmitAppealChallenge = compose(
 )(SubmitAppealChallengeComponent) as React.ComponentClass<SubmitAppealChallengeProps>;
 
 const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
-  const listingAddress = props.match.params.listing;
+  const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
-  const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
+  const governanceGuideURI = links.FAQ_REGISTRY;
   return (
     <SubmitAppealChallenge
       listingAddress={listingAddress}

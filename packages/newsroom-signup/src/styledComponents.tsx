@@ -1,13 +1,16 @@
 import {
   colors,
   fonts,
+  buttonSizes,
   Button,
+  BorderlessButton,
   ButtonProps,
   TextInput,
   TextareaInput,
   InputProps,
   QuestionToolTip as _QuestionToolTip,
   ToolTipProps,
+  TransactionPopUpWarning as _TransactionPopUpWarning,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
@@ -24,7 +27,7 @@ export const FormTitle = styled.h4`
   font-family: ${fonts.SANS_SERIF};
   line-height: 32px;
   font-weight: bold;
-  magin-bottom: 10px;
+  margin-bottom: 10px;
 `;
 
 export interface FormSubheadProps {
@@ -52,12 +55,30 @@ export const FormRow = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 `;
-export const FormRowItem = styled.div`
-  flex: 1;
+
+export const FormRowLeftAlign = styled(FormRow)`
+  justify-content: flex-start;
+`;
+
+export const FormRowCenter = styled(FormRow)`
+  justify-content: center;
+`;
+
+export interface FormRowItemProps {
+  align?: string;
+  width?: string;
+}
+
+export const FormRowItem: StyledComponentClass<FormRowItemProps, "div"> = styled<FormRowItemProps, "div">("div")`
   padding-right: 15px;
+  text-align: ${(props: FormRowItemProps) => props.align || "left"};
   &:last-child {
     padding-right: 0;
   }
+
+  // Support either specified widths or true flexible child elements
+  ${(props: FormRowItemProps) => (props.width ? "" : "flex: 1;")};
+  ${(props: FormRowItemProps) => (props.width ? `width: ${props.width};` : "")};
 `;
 
 export const HelperText = styled.div`
@@ -110,6 +131,12 @@ export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_
   top: 2px;
 `;
 
+export const MemberDisplayName = styled(FormSubhead)`
+  display: inline-block;
+  font-weight: bold;
+  margin: 0 10px 0 0;
+`;
+
 export const StepSectionCounter = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 12px;
@@ -129,6 +156,7 @@ export const StyledHr = styled.div`
 export const AvatarWrap = styled.div`
   width: 50px;
   height: 50px;
+  flex-shrink: 0;
 `;
 export const AvatarImg = styled.img`
   width: 100%;
@@ -146,3 +174,67 @@ export const _NoAvatar = styled.div`
 `;
 
 export const noAvatar = <_NoAvatar>?</_NoAvatar>;
+
+export const TransactionPopUpWarning = styled(_TransactionPopUpWarning)`
+  margin-top: 12px;
+`;
+
+// Apply to Registry
+export const TransferTextLarge = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 16px;
+  line-height: 24px;
+`;
+
+export const CivilLabel = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: -0.07px;
+  line-height: 15px;
+`;
+
+export const DepositAmountText = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 15px;
+`;
+
+export const NextBackButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-top: 24px;
+`;
+export interface NextBackProps {
+  backHidden?: boolean;
+  nextHidden?: boolean;
+  navigate(go: 1 | -1): void;
+  nextDisabled?(): boolean;
+}
+export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
+  <NextBackButtonContainer style={{ marginTop: 64 }}>
+    {!props.backHidden ? (
+      <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => props.navigate(-1)}>
+        Back
+      </BorderlessButton>
+    ) : (
+      <div />
+    )}
+
+    {!props.nextHidden ? (
+      <Button
+        disabled={props.nextDisabled && props.nextDisabled()}
+        textTransform="none"
+        width={220}
+        size={buttonSizes.MEDIUM_WIDE}
+        onClick={() => props.navigate(1)}
+      >
+        Next
+      </Button>
+    ) : (
+      <div />
+    )}
+  </NextBackButtonContainer>
+);

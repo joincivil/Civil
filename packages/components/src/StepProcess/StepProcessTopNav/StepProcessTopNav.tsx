@@ -6,6 +6,7 @@ export interface StepsProps {
   activeIndex?: number;
   children: Array<React.ReactElement<StepTopNavProps>>;
   startPosition?: number;
+  contentPrepend?: JSX.Element;
   onActiveTabChange?(activeIndex: number): void;
 }
 

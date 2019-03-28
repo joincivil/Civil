@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   colors,
-  HollowGreenCheck,
   OBSectionHeader,
   OBSectionDescription,
   OBSmallParagraph,
@@ -14,17 +13,6 @@ const Wrapper = styled.div`
   margin: auto;
   max-width: 700px;
   text-align: center;
-`;
-const ReviewNotice = styled(OBNoteHeading)`
-  color: ${colors.accent.CIVIL_BLUE_FADED};
-  display: block;
-  margin: -24px 0 48px;
-`;
-const NoticeCheck = styled(HollowGreenCheck)`
-  margin-right: 4px;
-  position: relative;
-  top: 2px;
-  vertical-align: bottom;
 `;
 
 const ApplicationSavedImageWrap = styled.div`
@@ -53,23 +41,14 @@ export class WaitingAfterSkip extends React.Component {
   public render(): JSX.Element {
     return (
       <Wrapper>
-        <ReviewNotice>
-          <NoticeCheck width={24} height={24} />
-          Pre-registration complete
-        </ReviewNotice>
-
         <ApplicationSavedImageWrap>
           <ApplicationSavedImage src={applicationSavedImgUrl} />
         </ApplicationSavedImageWrap>
         <OBSectionHeader style={{ marginBottom: 24 }}>Newsroom Registry Profile Saved</OBSectionHeader>
 
         <MainText>
-          Thank you for completing your Newsroom Registry Profile. We are launching the remainder of application process
-          to the Civil Registry soon, and once that's live, you'll need to come back to finish your application.
-        </MainText>
-        <MainText>
-          We'll send you an email once that's ready for you to complete. Note that you can edit your Registry Profile at
-          any time.
+          Thank you for completing your Newsroom Registry Profile. You may now continue to create your Newsroom Smart
+          Contract and apply to the Civil Registry.
         </MainText>
 
         <AddendaLink>

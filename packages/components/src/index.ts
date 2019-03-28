@@ -1,4 +1,5 @@
 export * from "./containers";
+export * from "./context";
 export * from "./input";
 export * from "./Account";
 export * from "./Button";
@@ -58,8 +59,9 @@ export * from "./Tokens";
 export * from "./ExecuteOnMount";
 export * from "./AuthenticatedRoute";
 export * from "./EthAddressViewer";
-export * from "./Airswap";
 export * from "./TokenTutorial";
 export * from "./Tutorial";
 export * from "./Notice";
 export * from "./Footer";
+export * from "./CurrencyConverter";
+export * from "./GasEstimate";

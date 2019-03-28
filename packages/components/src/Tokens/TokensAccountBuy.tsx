@@ -9,8 +9,8 @@ import {
 import { TokenBuyTextDisabled, TokenBuyBtnDisabledText } from "./TokensTextComponents";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { Tabs, Tab } from "../Tabs";
-import { TokensTabBuy } from "./TokensTabBuy";
-import { TokensTabSell } from "./TokensTabSell";
+import { TokensTabBuy } from "./buy/TokensTabBuy";
+import { TokensTabSell } from "./sell/TokensTabSell";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;

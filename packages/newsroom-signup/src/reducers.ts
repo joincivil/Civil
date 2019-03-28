@@ -1,7 +1,15 @@
 import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
-import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
-import { newsroomActions, uiActions, userActions, governmentActions, grantActions } from "./actionCreators";
+import { BigNumber } from "bignumber.js";
+import { NewsroomWrapper, EthAddress, CharterData, ListingWrapper } from "@joincivil/core";
+import {
+  newsroomActions,
+  uiActions,
+  userActions,
+  governmentActions,
+  grantActions,
+  listingActions,
+} from "./actionCreators";
 import { CmsUserData } from "./types";
 
 export interface NewsroomState {
@@ -12,6 +20,8 @@ export interface NewsroomState {
   isOwner?: boolean;
   isEditor?: boolean;
   charter?: Partial<CharterData>;
+  multisigAddress?: EthAddress;
+  multisigBalance?: BigNumber;
 }
 
 export interface StateWithNewsroom {
@@ -20,6 +30,7 @@ export interface StateWithNewsroom {
   newsroomUsers: Map<EthAddress, CmsUserData>;
   newsroomGovernment: Map<string, string>;
   grantApplication: Map<string, boolean>;
+  listings: Map<string, ListingWrapper>;
 }
 
 export function newsrooms(
@@ -71,6 +82,16 @@ export function newsrooms(
         ...state.get(action.data.address),
         isEditor: action.data.isEditor,
       });
+    case newsroomActions.SET_MULTISIG_ADDRESS:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        multisigAddress: action.data.multisigAddress,
+      });
+    case newsroomActions.SET_MULTISIG_BALANCE:
+      return state.set(action.data.address, {
+        ...state.get(action.data.address),
+        multisigBalance: action.data.multisigBalance,
+      });
     default:
       return state;
   }
@@ -121,8 +142,19 @@ export function grantApplication(
       return state.set("chooseGrant", action.data);
     case grantActions.SET_SKIP:
       return state.set("chooseSkip", action.data);
-    case grantActions.APPLICATION_SUBMITTED:
-    case grantActions.APPLICATION_SKIPPED:
+    default:
+      return state;
+  }
+}
+
+export function listings(
+  state: Map<string, ListingWrapper> = Map<string, ListingWrapper>(),
+  action: AnyAction,
+): Map<string, ListingWrapper> {
+  switch (action.type) {
+    case listingActions.ADD_OR_UPDATE_LISTING:
+      const { listingAddress, listing } = action.data;
+      return state.set(listingAddress, listing);
     default:
       return state;
   }
