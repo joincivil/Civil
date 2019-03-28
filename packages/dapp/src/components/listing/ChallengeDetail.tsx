@@ -24,7 +24,7 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
@@ -213,7 +213,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           endTime={endTime}
           phaseLength={phaseLength}
           requestAppealURI={requestAppealURI}
-          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+          faqURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

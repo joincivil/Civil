@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
-import { FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
 
 import { routes } from "../../constants";
@@ -45,8 +45,8 @@ class WhitelistedDetail extends React.Component<
           whitelistedTimestamp={this.props.whitelistedTimestamp}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
-          learnMoreURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
-          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+          learnMoreURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

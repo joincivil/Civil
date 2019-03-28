@@ -54,6 +54,10 @@ import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import DepositTokens from "./DepositTokens";
 import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import LoadingMsg from "../utility/LoadingMsg";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 const TABS: TDashboardTab[] = [
   dashboardTabs.TASKS,
@@ -94,6 +98,7 @@ export interface DashboardActivityReduxProps {
   userAccount: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
+  useGraphQL: boolean;
 }
 
 export interface ChallengesToProcess {
@@ -116,6 +121,14 @@ export const StyledBatchButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 12px 0 36px;
+`;
+
+const NEWSROOMS_QUERY = gql`
+  query {
+    nrsignupNewsroom {
+      newsroomAddress
+    }
+  }
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -187,9 +200,28 @@ class DashboardActivity extends React.Component<
       />
     );
   }
-
   private renderUserNewsrooms = (): JSX.Element => {
-    return <ActivityList listings={this.props.currentUserNewsrooms} />;
+    if (this.props.useGraphQL) {
+      return (
+        <Query query={NEWSROOMS_QUERY}>
+          {({ loading, error, data }: any): JSX.Element => {
+            if (loading && !data) {
+              return <LoadingMsg />;
+            }
+            if (error) {
+              return <ErrorLoadingDataMsg />;
+            }
+            const newsrooms =
+              data.nrsignupNewsroom &&
+              data.nrsignupNewsroom.newsroomAddress &&
+              Set([data.nrsignupNewsroom.newsroomAddress]);
+            return <ActivityList listings={newsrooms} />;
+          }}
+        </Query>
+      );
+    } else {
+      return <ActivityList listings={this.props.currentUserNewsrooms} />;
+    }
   };
 
   private renderUserChallenges = (): JSX.Element => {
@@ -433,6 +465,7 @@ const mapStateToProps = (
   ownProps: DashboardActivityProps,
 ): DashboardActivityProps & DashboardActivityReduxProps => {
   const { currentUserNewsrooms, user } = state.networkDependent;
+  const { useGraphQL } = state;
 
   const currentUserChallengesVotedOnWithAvailableActions = getChallengesVotedOnByUserWithAvailableActions(state);
   const challengesForAppealChallengesVotedOnByUserWithAvailableActions = getChallengesForAppealChallengesVotedOnByUserWithAvailableActions(
@@ -496,6 +529,7 @@ const mapStateToProps = (
     userAccount: user.account.account,
     balance,
     votingBalance,
+    useGraphQL,
     ...ownProps,
   };
 };

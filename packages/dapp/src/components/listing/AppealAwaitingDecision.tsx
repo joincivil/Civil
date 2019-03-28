@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { getFormattedTokenBalance, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard as AppealAwaitingDecisionCardComponent,
   AppealAwaitingDecisionCardProps,
@@ -104,7 +104,7 @@ class AwaitingAppealDecision extends React.Component<
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           uriValue={this.state.uriValue}
           onChange={this.onURIChange}
-          faqURL={`${FAQ_BASE_URL}${links.FAQ_REGISTRY}`}
+          faqURL={links.FAQ_REGISTRY}
         />
       </>
     );

@@ -56,7 +56,7 @@ const transactionRejectionContent = {
 
 const transactionErrorContent = {
   [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
-    "The was an problem with transferring your tokens",
+    "There was a problem with transferring your tokens",
     <>
       <ModalContent>Please check the following and retry your transaction</ModalContent>
       <ModalUnorderedList>
@@ -67,7 +67,7 @@ const transactionErrorContent = {
     </>,
   ],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "The was an problem with transferring your tokens",
+    "There was a problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };

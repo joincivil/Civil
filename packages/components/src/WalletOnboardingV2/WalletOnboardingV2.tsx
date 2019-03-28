@@ -7,7 +7,6 @@ import {
   isWalletOnboarded,
   getApolloClient,
   isBrowserCompatible,
-  FAQ_BASE_URL,
   urlConstants as links,
 } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
@@ -534,7 +533,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         >
           <OBSmallParagraph>
             Head over to our{" "}
-            <a href={`${FAQ_BASE_URL}${links.FAQ_HOW_TO_SETUP_METAMASK}`} target="_blank">
+            <a href={links.FAQ_HOW_TO_SETUP_METAMASK} target="_blank">
               FAQ guide
             </a>{" "}
             on how to install a MetaMask wallet.
@@ -543,7 +542,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
 
         <GetMetaMaskMoreHelp>
           Need more info before you start using a crypto wallet?{" "}
-          <a href={`${FAQ_BASE_URL}${links.FAQ_WALLETS}`} target="_blank">
+          <a href={links.FAQ_WALLETS} target="_blank">
             Learn more in our support area{" "}
             <ArrowWrap>
               <NorthEastArrow />

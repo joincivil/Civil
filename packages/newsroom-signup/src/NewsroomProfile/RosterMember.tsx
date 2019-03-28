@@ -71,6 +71,22 @@ const ImageArea = styled.div`
   align-items: center;
 `;
 
+const ImageHelperText = styled(HelperText)`
+  color: ${colors.accent.CIVIL_BLUE};
+  margin: 0;
+`;
+
+const EmailHelpText = styled(HelperText)`
+  margin: 0;
+  padding: 0;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+`;
+
 export class RosterMemberComponent extends React.Component<RosterMemberProps & DispatchProp<any>> {
   constructor(props: RosterMemberProps & DispatchProp<any>) {
     super(props);
@@ -94,7 +110,17 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
         <Wrapper>
           <FormSubhead>Name</FormSubhead>
           <Input name="name" value={user.rosterData.name || ""} onChange={this.rosterInputChange} />
-          <FormSubhead optional>Avatar URL</FormSubhead>
+          <Container>
+            <FormSubhead optional>Avatar URL</FormSubhead>
+            <ImageHelperText>
+              <a
+                href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360022147751-How-do-I-add-a-logo-or-image-to-my-newsroom-profile-"
+                target="_blank"
+              >
+                How to upload an image
+              </a>
+            </ImageHelperText>
+          </Container>
           <Input
             name="avatarUrl"
             value={user.rosterData.avatarUrl || ""}
@@ -118,6 +144,7 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
           <FormSubhead optional>Public Wallet Address</FormSubhead>
           <Input name="ethAddress" value={user.rosterData.ethAddress || ""} onChange={this.rosterInputChange} />
           <FormSubhead optional>Email Address</FormSubhead>
+          <EmailHelpText>Email addresses will not be displayed on the Registry Profile page. </EmailHelpText>
           <Input
             name="email"
             value={(user.rosterData.socialUrls || {}).email}

@@ -23,10 +23,9 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
+        <OBSectionHeader>Let’s write your Newsroom Charter</OBSectionHeader>
         <OBSectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
-          Registry Profile.
+          Your Charter is an outline of your Newsroom's journalistic mission and purpose.
         </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />

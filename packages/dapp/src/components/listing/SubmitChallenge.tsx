@@ -13,7 +13,7 @@ import {
   SubmitChallengeStatementProps,
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
-import { getFormattedParameterValue, Parameters, FAQ_BASE_URL, urlConstants as links } from "@joincivil/utils";
+import { getFormattedParameterValue, Parameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { getCivil } from "../../helpers/civilInstance";
@@ -351,7 +351,7 @@ const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusMo
 const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
   const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
-  const governanceGuideURI = `${FAQ_BASE_URL}${links.FAQ_REGISTRY}`;
+  const governanceGuideURI = links.FAQ_REGISTRY;
   return (
     <SubmitChallenge
       listingAddress={listingAddress}

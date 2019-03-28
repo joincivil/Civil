@@ -5,8 +5,11 @@ import { analyticsEventActions } from "./actionCreators/analytics";
 
 import { errorActions } from "./actionCreators/errors";
 const { ANALYTICS_EVENT } = analyticsEventActions;
+import { newsroomSignupAnalyticsEvents } from "@joincivil/newsroom-signup";
 
 const eventsMap = {
+  ...newsroomSignupAnalyticsEvents,
+
   [LOCATION_CHANGE]: trackPageView((action: any) => {
     return {
       page: action.payload.location.pathname,
