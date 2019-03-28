@@ -86,7 +86,6 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   }
 
   public renderButtons(): JSX.Element | null {
-    // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
     const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
     if (!this.state.showButtons || waitingOnGrant) {
       return null;

@@ -235,7 +235,6 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
   const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
   if (persistCharter && !dontPersist) {
-    console.log("here", { charter, dontPersist });
     persistCharter(charter);
   }
   return dispatch(

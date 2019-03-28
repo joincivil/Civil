@@ -27,13 +27,16 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
 
           return (
             <Query query={getCharterQuery}>
-              {({ loading: charterLoading, error: charterError, data: charterData }) => {
+              {({ loading: charterLoading, error: charterError, data: charterData, refetch: refetchCharterQuery }) => {
                 if (charterLoading) {
                   return "Loading...";
                 }
+                let doRefetchHack = false;
                 if (charterError) {
                   if (charterError.graphQLErrors[0] && charterError.graphQLErrors[0].message === "No jsonb found") {
                     // ok, they haven't saved a charter yet
+                    // Due to an apollo bug (https://github.com/apollographql/react-apollo/issues/2070) when a query errors, future refetches from mutation refetchQueries fail to update the query. There are various solutions suggested, some of which didn't work, but using the refetch function we get here will work if we call it just once (once we do data and the query won't error).
+                    doRefetchHack = true;
                   } else {
                     return (
                       <>
@@ -69,7 +72,15 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                   >
                     {saveAddress => {
                       return (
-                        <Mutation mutation={saveCharterMutation}>
+                        <Mutation
+                          mutation={saveCharterMutation}
+                          onCompleted={async () => {
+                            if (doRefetchHack) {
+                              await refetchCharterQuery();
+                              doRefetchHack = false;
+                            }
+                          }}
+                        >
                           {(saveCharter: MutationFunc) => {
                             return (
                               <Mutation mutation={saveStepsMutation}>
