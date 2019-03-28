@@ -199,6 +199,11 @@ const ApplyToTCRForm: React.SFC<
                 isTransactionSuccessModalOpen: true,
               });
               postApplyToTCR();
+
+              // @TODO A hack until https://github.com/joincivil/Civil/pull/1148
+              props.setHandleTransactionSuccessButtonClick(() => {
+                document.location.reload();
+              });
             },
           },
         ];
