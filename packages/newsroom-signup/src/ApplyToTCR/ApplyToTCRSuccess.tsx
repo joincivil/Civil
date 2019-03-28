@@ -61,7 +61,8 @@ const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
   const listingAddress = listing.address;
   const endTime = listing.data.appExpiry.toNumber();
   const applicationEndDateTime = getLocalDateTimeStrings(endTime);
-  const registryListingURL = `https://registry.civil.co/listing/${listingAddress}`;
+  // Need an absolute URL cause it goes into calendar event:
+  const registryListingURL = `${document.location.origin}/listing/${listingAddress}`;
 
   return (
     <>

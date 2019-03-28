@@ -19,6 +19,10 @@ const ModalP = styled.p`
   font-size: 16px;
   color: #5f5f5f;
   line-height: 26px;
+
+  && {
+    margin: 16px 0;
+  }
 `;
 
 const HalfPWrapper = styled.div`
