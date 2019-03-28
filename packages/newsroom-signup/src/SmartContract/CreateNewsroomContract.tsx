@@ -42,9 +42,6 @@ export interface NameAndAddressProps {
   saveAddress: MutationFunc;
   updateCharter(charter: Partial<CharterData>): void;
 }
-// onNewsroomCreated?(result: any): void;
-// onContractDeployStarted?(txHash: TxHash): void;
-// }
 
 const STANDIN_IPFS_URL = "ipfs://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";

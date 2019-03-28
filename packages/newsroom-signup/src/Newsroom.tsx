@@ -1,3 +1,4 @@
+import * as qs from "querystring";
 import {
   ButtonTheme,
   colors,
@@ -229,6 +230,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (currentStep === STEP.APPLIED) {
       // Not a real step, see its description above
       currentStep--;
+    }
+    if (qs.parse(document.location.search.substr(1)).purchased) {
+      // Just been redirected back from token purchase
+      currentStep = STEP.TOKENS;
     }
     this.state = {
       currentStep,
