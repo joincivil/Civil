@@ -14,6 +14,7 @@ import {
   fonts,
   OBSectionHeader,
   OBSectionDescription,
+  HollowGreenCheck,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage } from "@joincivil/utils";
 import { Civil, EthAddress, CharterData } from "@joincivil/core";
@@ -97,6 +98,16 @@ const Constitution = styled.div`
   a {
     cursor: pointer;
   }
+`;
+
+const StyledCheck = styled(HollowGreenCheck)`
+  margin-right: 10px;
+`;
+
+const SignedMessage = styled.div`
+  font-weight: bold;
+  display: flex;
+  align-items: center;
 `;
 
 class SignConstitutionComponent extends React.Component<
@@ -202,6 +213,7 @@ class SignConstitutionComponent extends React.Component<
 
   public render(): JSX.Element {
     const content = this.props.government ? this.props.government.get("constitutionContent") : "";
+    const hasSigned = this.props.charter.signatures && this.props.charter.signatures.length;
     return (
       <>
         <OBSectionHeader>Review the Civil Constitution</OBSectionHeader>
@@ -244,17 +256,24 @@ class SignConstitutionComponent extends React.Component<
                     save the charter to your newsroom smart contract. You will see two windows: one to sign this message
                     and the other to confirm.
                   </StepDescription>
-                  <TransactionButtonNoModal
-                    disabled={!this.state.agreedToConstitution}
-                    Button={props => {
-                      return (
-                        <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
-                          Complete Your Charter
-                        </MetaMaskLogoButton>
-                      );
-                    }}
-                    transactions={this.getTransactions(value.civil!)}
-                  />
+                  {hasSigned ? (
+                    <SignedMessage>
+                      {" "}
+                      <StyledCheck /> <div>Civil Constitution Signed</div>
+                    </SignedMessage>
+                  ) : (
+                    <TransactionButtonNoModal
+                      disabled={!this.state.agreedToConstitution}
+                      Button={props => {
+                        return (
+                          <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
+                            Complete Your Charter
+                          </MetaMaskLogoButton>
+                        );
+                      }}
+                      transactions={this.getTransactions(value.civil!)}
+                    />
+                  )}
                 </>
               );
             }}

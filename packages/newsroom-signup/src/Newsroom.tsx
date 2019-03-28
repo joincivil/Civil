@@ -47,6 +47,7 @@ enum SECTION {
   TOKENS,
   APPLY,
 }
+
 export enum STEP {
   PROFILE_BIO,
   PROFILE_ROSTER,
@@ -63,6 +64,7 @@ export enum STEP {
   APPLY,
   APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
 }
+
 const STEP_TO_SECTION = {
   [STEP.PROFILE_BIO]: SECTION.PROFILE,
   [STEP.PROFILE_ROSTER]: SECTION.PROFILE,
@@ -78,6 +80,7 @@ const STEP_TO_SECTION = {
   [STEP.TOKENS]: SECTION.TOKENS,
   [STEP.APPLY]: SECTION.APPLY,
 };
+
 const SECTION_STARTS = {
   [SECTION.PROFILE]: 0,
   [SECTION.CONTRACT]: 6,
@@ -274,7 +277,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   public renderManager(): JSX.Element {
     return (
-      <>
+      <div ref={(el: HTMLDivElement) => (this.container = el)}>
         {this.props.userNotOnContract && (
           <ErrorP>
             Your wallet address is not listed on your newsroom contract, so you are unable to make changes to it. Please
@@ -289,17 +292,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-          <div ref={(el: HTMLDivElement) => (this.container = el)}>
-            <StepProcessTopNavNoButtons
-              activeIndex={STEP_TO_SECTION[this.state.currentStep]}
-              onActiveTabChange={this.navigateToSection}
-              contentPrepend={this.renderRepublishCharter()}
-            >
-              {this.renderSteps()}
-            </StepProcessTopNavNoButtons>
-          </div>
+          <StepProcessTopNavNoButtons
+            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+            onActiveTabChange={this.navigateToSection}
+            contentPrepend={this.renderRepublishCharter()}
+          >
+            {this.renderSteps()}
+          </StepProcessTopNavNoButtons>
         </CivilContext.Provider>
-      </>
+      </div>
     );
   }
 
