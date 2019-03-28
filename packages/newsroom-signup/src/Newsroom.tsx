@@ -289,17 +289,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             account: this.props.account,
           }}
         >
-<<<<<<< HEAD
-          <div ref={(el: HTMLDivElement) => (this.container = el)}>
-            <StepProcessTopNavNoButtons
-              activeIndex={STEP_TO_SECTION[this.state.currentStep]}
-              onActiveTabChange={this.navigateToSection}
-              contentPrepend={this.renderRepublishCharter()}
-            >
-              {this.renderSteps()}
-            </StepProcessTopNavNoButtons>
-          </div>
-=======
           <StepProcessTopNavNoButtons
             activeIndex={STEP_TO_SECTION[this.state.currentStep]}
             onActiveTabChange={this.navigateToSection}
@@ -307,7 +296,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           >
             {this.renderSteps()}
           </StepProcessTopNavNoButtons>
->>>>>>> CIVIL-459 hide sign button if signed
         </CivilContext.Provider>
       </div>
     );
