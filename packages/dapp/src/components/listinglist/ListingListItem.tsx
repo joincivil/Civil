@@ -16,6 +16,7 @@ import { ListingContainerProps, connectLatestChallengeSucceededResults } from ".
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import { history } from "../../redux/store";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -145,7 +146,7 @@ export const ListingItemBaseComponent: React.SFC<
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
   const listingViewProps = transformListingSummaryViewProps(props);
 
-  return <ListingSummaryItem {...listingViewProps} />;
+  return <ListingSummaryItem {...listingViewProps} history={history} />;
 };
 
 const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
@@ -156,7 +157,7 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
-    return <ListingSummaryRejected {...listingViewProps} />;
+    return <ListingSummaryRejected {...listingViewProps} history={history} />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
     return (
@@ -164,6 +165,7 @@ const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & Listin
         challengeID={data.prevChallengeID!.toString()}
         {...listingViewProps}
         {...challengeResultsProps}
+        history={history}
       />
     );
   }
@@ -223,7 +225,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
         {isWhitelisted && <WhitelistedListingItem {...this.props} approvalDate={approvalDate} />}
         {listingExists &&
           !isWhitelisted &&
-          !listingPhaseState.isRejected && <ListingItemBaseComponent {...this.props} />}
+          !listingPhaseState.isRejected && <ListingItemBaseComponent {...this.props} history={history} />}
         {listingExists && listingPhaseState.isRejected && <RejectedListing {...this.props} />}
       </>
     );

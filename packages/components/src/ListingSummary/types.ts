@@ -42,6 +42,7 @@ export interface ListingSummaryComponentProps {
   appealChallengeRevealEndDate?: number;
   appealChallengeID?: string;
   appealChallengeStatementSummary?: string;
+  history?: any;
 }
 
 export interface ListingSummaryAppealChallengeResultsProps {

@@ -4,6 +4,7 @@ import { State } from "../../redux/reducers";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps, ListingItemBaseComponent } from "./ListingListItem";
 import BigNumber from "bignumber.js";
+import { history } from "../../redux/store";
 
 export interface WhitelistedCardProps {
   approvalDate?: BigNumber;
@@ -15,7 +16,7 @@ export interface WhitelistedCardReduxProps {
 const WhitelistedListingItem: React.SFC<
   ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardProps & WhitelistedCardReduxProps
 > = props => {
-  return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} />;
+  return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} history={history} />;
 };
 
 const makeMapStateToProps = () => {
