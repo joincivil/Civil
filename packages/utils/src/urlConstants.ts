@@ -41,5 +41,6 @@ export enum urlConstants {
   FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS = "/hc/en-us/articles/360024545012-How-do-I-update-a-Newsroom-s-status-on-the-Civil-Registry-",
   FAQ_WHAT_IS_SMART_CONTRACT = "/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-",
   FAQ_WHAT_IS_PLCR_CONTRACT = "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",
+  FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS = "/hc/en-us/articles/360016566312-What-is-a-public-wallet-address-",
   FAQ_WALLETS = "/hc/en-us/sections/360003838452-Wallets",
 }

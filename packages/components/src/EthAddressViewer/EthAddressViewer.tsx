@@ -13,7 +13,7 @@ import {
 
 export interface EthAddressViewerProps {
   address: string;
-  displayName: string;
+  displayName: string | JSX.Element;
   etherscanBaseURL?: string;
 }
 

@@ -29,6 +29,12 @@ export const TokenConnectWalletCompletedText: React.SFC = props => (
   </h3>
 );
 
+export const TokenWalletAddressText: React.SFC = props => (
+  <>
+    <span>Public Address</span> <a href={links.FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS} target="_blank">What's this?</a>
+  </>
+);
+
 export const TokenMustBuyEth: React.SFC = props => (
   <>
     To complete your membership contribution and receive Civil tokens (CVL), you must use Ether (ETH). Then you will be

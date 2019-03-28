@@ -1,6 +1,10 @@
 import * as React from "react";
 import { FlexColumnsSecondaryModule, TokenProgressContain } from "./TokensStyledComponents";
-import { TokenConnectWalletCompletedText, TokenQuizCompletedText } from "./TokensTextComponents";
+import {
+  TokenConnectWalletCompletedText,
+  TokenWalletAddressText,
+  TokenQuizCompletedText,
+} from "./TokensTextComponents";
 import { EthAddressViewer } from "../EthAddressViewer";
 
 export interface UserTokenAccountProgressProps {
@@ -20,7 +24,7 @@ export const UserTokenAccountProgress: React.StatelessComponent<UserTokenAccount
       logInComplete = (
         <TokenProgressContain>
           <TokenConnectWalletCompletedText />
-          <EthAddressViewer address={props.userAccount} displayName="Your Public Wallet Address" />
+          <EthAddressViewer address={props.userAccount} displayName={<TokenWalletAddressText />} />
         </TokenProgressContain>
       );
     }
