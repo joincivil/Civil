@@ -62,7 +62,7 @@ export class GasEstimate extends React.Component<GasEstimateProps, GasEstimateSt
 
   public render(): JSX.Element {
     if (this.state.price === 0 && !this.state.priceFailed) {
-      return <SmallText>Estimating cost.</SmallText>;
+      return <SmallText>Estimating cost...</SmallText>;
     } else if (this.state.priceFailed) {
       return <SmallText>Could not estimate cost.</SmallText>;
     } else {
