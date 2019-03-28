@@ -2,10 +2,12 @@ import * as React from "react";
 import {
   Button,
   buttonSizes,
+  LoadingIndicator,
   MetaMaskModal,
   Modal,
   ModalContentInsetContainer,
   ModalHeading,
+  ModalContent,
   ModalStepLabel,
   ProgressModalContentError,
   ProgressModalContentInProgress,
@@ -154,10 +156,15 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
       const stepLabel = `Step ${stepLabelText} - ${transactionLabel}`;
       return (
         <Modal width={558} textAlign="center">
-          <ProgressModalContentInProgress>
-            <ModalStepLabel>{stepLabel}</ModalStepLabel>
-            <ModalHeading>Posting to IPFS</ModalHeading>
-          </ProgressModalContentInProgress>
+          <LoadingIndicator height={100} width={150} />
+          <ModalStepLabel>{stepLabel}</ModalStepLabel>
+          <ModalHeading>Posting to IPFS</ModalHeading>
+          <ModalContentInsetContainer>
+            <ModalContent>This can take several minutes. Please don't close the tab.</ModalContent>
+            <ModalContent>
+              How about taking a little breather and standing for a bit? Maybe even stretching?
+            </ModalContent>
+          </ModalContentInsetContainer>
         </Modal>
       );
     }
