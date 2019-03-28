@@ -12,7 +12,7 @@ export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
   newsroom: any;
   civil?: Civil;
-  navigate(go: 1 | -1, allDone?: boolean): void;
+  navigate(go: 1 | -1): void;
 }
 
 export interface ApplyToTCRStepReduxProps {
@@ -76,7 +76,7 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
   };
 
   private postApplyToTCR = async (): Promise<void> => {
-    this.props.navigate(1, true);
+    this.props.navigate(1);
     await this.hydrateListing();
   };
 

@@ -396,18 +396,17 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.saveStep(newStep);
     this.setState({ currentStep: newStep });
   };
-  private navigate = (go: 1 | -1, allDone?: boolean): void => {
-    if (allDone) {
-      this.saveStep(STEP.APPLIED);
+  private navigate = (go: 1 | -1): void => {
+    const newStep = this.state.currentStep + go;
+    this.saveStep(newStep);
+    if (newStep === STEP.APPLIED) {
+      // Dummy step we don't actually update view for, but need to send to API.
       return;
     }
-
     if (this.container) {
       this.container.scrollIntoView(true);
     }
-
-    this.saveStep(this.state.currentStep + go);
-    this.setState({ currentStep: this.state.currentStep + go });
+    this.setState({ currentStep: newStep });
   };
   private saveStep(step: STEP): void {
     const furthestStep = Math.max(step, this.state.furthestStep);
