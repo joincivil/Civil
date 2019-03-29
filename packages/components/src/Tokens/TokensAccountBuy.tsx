@@ -16,10 +16,11 @@ export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
   step: string;
+  onBuyComplete(isFromFoundation: boolean, eth: number): void;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
-  const { foundationAddress, network, step } = props;
+  const { foundationAddress, network, step, onBuyComplete } = props;
 
   if (step === TOKEN_PROGRESS.DISABLED) {
     return (
@@ -39,7 +40,7 @@ export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps>
       <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
         <Tab title="Buy">
           <TokenBuySection>
-            <TokensTabBuy foundationAddress={foundationAddress} network={network} />
+            <TokensTabBuy foundationAddress={foundationAddress} network={network} onBuyComplete={onBuyComplete} />
           </TokenBuySection>
         </Tab>
         <Tab title="Sell">

@@ -35,6 +35,7 @@ export interface UserTokenAccountProps {
   signupPath: string;
   onQuizBegin(): void;
   onQuizComplete(): void;
+  onBuyComplete(isFromFoundation: boolean, eth: number): void;
 }
 
 export interface UserTokenAccountStates {
@@ -113,7 +114,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   };
 
   private renderTokenSteps = (loggedInState: any, tutorialState: any, buyState: any) => {
-    const { onQuizBegin, onQuizComplete } = this.props;
+    const { onQuizBegin, onQuizComplete, onBuyComplete } = this.props;
     return (
       <>
         <UserTokenAccountSignup
@@ -142,6 +143,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
           step={buyState}
           network={this.props.network}
           foundationAddress={this.props.foundationAddress}
+          onBuyComplete={onBuyComplete}
         />
       </>
     );

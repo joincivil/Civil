@@ -66,5 +66,5 @@ storiesOf("User Token Account", module)
     );
   })
   .add("Buy Section", () => {
-    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />;
+    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} onBuyComplete={() => {}} />;
   });

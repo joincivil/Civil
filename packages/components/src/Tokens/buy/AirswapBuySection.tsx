@@ -18,7 +18,7 @@ export interface AirswapBuySectionProps {
   ethToSpend: number;
   foundationAddress: string;
   network: string;
-  onBuyComplete(): void;
+  onBuyComplete(isFromFoundation: boolean, eth: number): void;
 }
 export const AirswapBuySection = (props: AirswapBuySectionProps) => {
   const { usdToSpend, onBuyComplete, foundationAddress, network } = props;

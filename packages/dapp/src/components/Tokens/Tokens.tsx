@@ -4,7 +4,12 @@ import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { tutorialBegin, tutorialComplete } from "../../redux/actionCreators/tokenSaleAnalytics";
+import {
+  tutorialBegin,
+  tutorialComplete,
+  tokenPurchase,
+  TokenPurchaseType,
+} from "../../redux/actionCreators/tokenSaleAnalytics";
 
 export interface TokensProps {
   network: string;
@@ -35,6 +40,11 @@ export const TokensComponent: React.SFC<TokensProps & DispatchProp<any>> = ({ ne
               signupPath={signupPath}
               onQuizBegin={() => dispatch!(tutorialBegin())}
               onQuizComplete={() => dispatch!(tutorialComplete())}
+              onBuyComplete={(isFromFoundation: boolean, eth: number) =>
+                dispatch!(
+                  tokenPurchase(isFromFoundation ? TokenPurchaseType.FOUNDATION : TokenPurchaseType.OPEN_MARKET, eth),
+                )
+              }
             />
           );
         }}

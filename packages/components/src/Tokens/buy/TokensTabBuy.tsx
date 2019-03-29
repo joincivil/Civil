@@ -7,6 +7,7 @@ import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
 export interface TokensTabBuyProps {
   foundationAddress: string;
   network: string;
+  onBuyComplete(isFromFoundation: boolean, eth: number): void;
 }
 
 export interface TokensTabBuyStates {
@@ -38,7 +39,10 @@ export class TokensTabBuy extends React.Component<TokensTabBuyProps, TokensTabBu
     );
   }
 
-  private onBuyComplete = () => {
+  private onBuyComplete = (isFromFoundation: boolean, eth: number) => {
+    if (this.onBuyComplete) {
+      this.onBuyComplete(isFromFoundation, eth);
+    }
     this.setState({ isBuyComplete: true });
   };
 }
