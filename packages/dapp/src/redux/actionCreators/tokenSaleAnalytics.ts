@@ -1,12 +1,5 @@
 import { analyticsEvent } from "./analytics";
 
-/*
-Account Created (GA)
-Purchases - Open Market (GA)
-Purchases - Foundation (GA)
-Tutorial Complete (GA)
-*/
-
 const category = "Token Storefront";
 
 export const accountCreated = () =>
@@ -21,10 +14,15 @@ export const accountLogin = () =>
     action: "Account Login",
   });
 
-export const tokenPurchase = (type: "Open Market" | "Foundation", amount: number) =>
+export enum TokenPurchaseType {
+  OPEN_MARKET = "Open Market",
+  FOUNDATION = "Foundation",
+}
+
+export const tokenPurchase = (type: TokenPurchaseType, amount: number) =>
   analyticsEvent({
     category,
-    action: `Token Purcase`,
+    action: `Token Purchase`,
     label: type,
     value: amount,
   });

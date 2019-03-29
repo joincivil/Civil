@@ -8,7 +8,7 @@ import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
 import { connect, DispatchProp } from "react-redux";
 import * as qs from "querystring";
-import { analyticsEvent } from "../../redux/actionCreators/analytics";
+import { accountCreated, accountLogin } from "../../redux/actionCreators/tokenSaleAnalytics";
 
 const TOKEN_HOME = "/tokens";
 export const WALLET_HOME = "/auth/wallet";
@@ -162,13 +162,11 @@ export class AuthRouter extends React.Component<RouteComponentProps & DispatchPr
       return;
     }
 
-    dispatch(
-      analyticsEvent({
-        category: "category",
-        action: "action",
-        label: "label",
-      }),
-    );
+    if (isNewUser) {
+      dispatch(accountCreated());
+    } else {
+      dispatch(accountLogin());
+    }
   };
 
   public handleOnAddWallet = (): void => {
