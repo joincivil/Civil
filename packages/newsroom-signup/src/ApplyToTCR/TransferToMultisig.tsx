@@ -164,8 +164,8 @@ const TransferToMultisig: React.SFC<
             },
             handleTransactionHash: (txHash: TxHash) => {
               props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: true,
-                isTransactionProgressModalOpen: false,
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
               });
             },
             handleTransactionError: props.handleTransactionError,
