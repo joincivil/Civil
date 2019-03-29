@@ -36,10 +36,7 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
         token: tokenAddress,
         address: buyFromAddress,
         // amount: amountString,
-        onComplete: (...args: any[]) => {
-          console.log("Buy complete", { args });
-          this.props.onComplete();
-        },
+        onComplete: this.props.onComplete,
         onCancel: () => {
           console.info("Trade cancelled");
         },
