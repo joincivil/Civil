@@ -29,15 +29,15 @@ class BuyCVLBase extends React.Component<BuyCVLProps> {
 
     console.log("amountString", amountString);
 
-    // @ts-ignore
-    window.AirSwap.Trader.render(
+    (window as any).AirSwap.Trader.render(
       {
         mode: "buy",
         env: environment,
         token: tokenAddress,
         address: buyFromAddress,
         // amount: amountString,
-        onComplete: () => {
+        onComplete: (...args: any[]) => {
+          console.log("Buy complete", { args });
           this.props.onComplete();
         },
         onCancel: () => {

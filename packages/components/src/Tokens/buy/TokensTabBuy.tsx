@@ -3,6 +3,7 @@ import * as qs from "querystring";
 import { Redirect } from "react-router-dom";
 import { TokensTabBuyActive } from "./TokensTabBuyActive";
 import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
+import Eth from "@ledgerhq/hw-app-eth";
 
 export interface TokensTabBuyProps {
   foundationAddress: string;
@@ -40,8 +41,9 @@ export class TokensTabBuy extends React.Component<TokensTabBuyProps, TokensTabBu
   }
 
   private onBuyComplete = (isFromFoundation: boolean, eth: number) => {
-    if (this.onBuyComplete) {
-      this.onBuyComplete(isFromFoundation, eth);
+    alert({ eth });
+    if (this.props.onBuyComplete) {
+      this.props.onBuyComplete(isFromFoundation, eth);
     }
     this.setState({ isBuyComplete: true });
   };
