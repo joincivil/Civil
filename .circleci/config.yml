@@ -115,8 +115,8 @@ jobs:
                     TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
                     docker build -f Dockerfile-dapp . \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
-                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
-                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test-$CIRCLE_SHA1
             - deploy:
                 name: Push Containers to Registry
