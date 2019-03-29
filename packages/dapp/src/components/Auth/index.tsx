@@ -42,7 +42,6 @@ export class AuthRouter extends React.Component<RouteComponentProps & DispatchPr
 
     return (
       <>
-        <button onClick={() => this.handleOnTokenValidation(true)}>Click</button>
         <Switch>
           {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}

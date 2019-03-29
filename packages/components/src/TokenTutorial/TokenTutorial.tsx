@@ -6,6 +6,8 @@ import { Query } from "react-apollo";
 
 export interface TokenTutorialProps {
   handleClose(): void;
+  onQuizBegin?(): void;
+  onQuizComplete?(): void;
 }
 
 export interface TokenTutorialStates {
@@ -19,6 +21,7 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
   }
 
   public render(): JSX.Element {
+    const { onQuizComplete } = this.props;
     return (
       <Query query={getCurrentUserQuery}>
         {({ loading, error, data }) => {
@@ -29,7 +32,13 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
           const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 
           if (this.state.startQuiz || this.isQuizStarted(quizPayload)) {
-            return <TokenTutorialLanding handleClose={this.props.handleClose} quizPayload={quizPayload} />;
+            return (
+              <TokenTutorialLanding
+                handleClose={this.props.handleClose}
+                quizPayload={quizPayload}
+                onQuizComplete={onQuizComplete}
+              />
+            );
           }
 
           return <TutorialWelcomeScreens handleStartQuiz={this.startQuiz} />;
@@ -43,6 +52,12 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
   };
 
   private startQuiz = () => {
+    const { onQuizBegin } = this.props;
+
+    if (onQuizBegin) {
+      onQuizBegin();
+    }
+
     this.setState({ startQuiz: true });
   };
 }

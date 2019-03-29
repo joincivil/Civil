@@ -27,6 +27,13 @@ export const tokenPurchase = (type: TokenPurchaseType, amount: number) =>
     value: amount,
   });
 
+export const tutorialBegin = () =>
+  analyticsEvent({
+    category,
+    action: `Tutorial`,
+    label: "Begin",
+  });
+
 export const tutorialComplete = () =>
   analyticsEvent({
     category,

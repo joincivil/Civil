@@ -27,6 +27,7 @@ import { updateQuizPayload } from "@joincivil/utils";
 export interface TokenTutorialLandingProps {
   quizPayload: {};
   handleClose(): void;
+  onQuizComplete?(): void;
 }
 
 export interface TokenTutorialLandingStates {
@@ -127,7 +128,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
   }
 
   private saveQuizState = (topic: string, lastSlideIdx: number, isComplete: boolean): void => {
-    const { quizPayload } = this.props;
+    const { quizPayload, onQuizComplete } = this.props;
 
     if (isComplete) {
       // This bad boy loops through all the current topics and checks to see if any topic has not been completed. If complete set the quizStatus.
@@ -146,6 +147,10 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
         allQuizzesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
       });
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizzesComplete ? "complete" : undefined);
+
+      if (allQuizzesComplete && onQuizComplete) {
+        onQuizComplete();
+      }
     } else {
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } });
     }

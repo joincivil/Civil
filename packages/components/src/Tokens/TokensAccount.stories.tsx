@@ -54,7 +54,16 @@ storiesOf("User Token Account", module)
     return <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />;
   })
   .add("Tutorial Verify", () => {
-    return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
+    return (
+      <UserTokenAccountVerify
+        step={"active"}
+        open={false}
+        handleClose={onClickFunc}
+        handleOpen={onClickFunc}
+        onQuizBegin={() => {}}
+        onQuizComplete={() => {}}
+      />
+    );
   })
   .add("Buy Section", () => {
     return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />;

@@ -1,15 +1,16 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+import { tutorialBegin, tutorialComplete } from "../../redux/actionCreators/tokenSaleAnalytics";
 
 export interface TokensProps {
   network: string;
 }
 
-export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
+export const TokensComponent: React.SFC<TokensProps & DispatchProp<any>> = ({ network, dispatch }) => {
   // TODO(jorgelo): Figure a way to pass these in here without busting typescript.
   const addWalletPath = "/auth/wallet";
   const signupPath = "/auth/signup";
@@ -32,6 +33,8 @@ export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
               user={user}
               addWalletPath={addWalletPath}
               signupPath={signupPath}
+              onQuizBegin={() => dispatch!(tutorialBegin())}
+              onQuizComplete={() => dispatch!(tutorialComplete())}
             />
           );
         }}

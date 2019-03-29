@@ -21,11 +21,13 @@ export interface TokenAccountVerifyProps extends FullScreenModalProps {
   step?: string;
   handleClose(): void;
   handleOpen(): void;
+  onQuizBegin(): void;
+  onQuizComplete(): void;
 }
 
 export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyProps> {
   public render(): JSX.Element {
-    const { step, handleClose, handleOpen, open } = this.props;
+    const { step, handleClose, handleOpen, open, onQuizBegin, onQuizComplete } = this.props;
 
     if (step === TOKEN_PROGRESS.DISABLED) {
       return (
@@ -67,7 +69,7 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
               <CloseBtn onClick={handleClose}>
                 <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
               </CloseBtn>
-              <TokenTutorial handleClose={handleClose} />
+              <TokenTutorial handleClose={handleClose} onQuizBegin={onQuizBegin} onQuizComplete={onQuizComplete} />
             </FullScreenModal>
           </UserTokenAccountRequirement>
         </FlexColumnsPrimaryModule>

@@ -33,6 +33,8 @@ export interface UserTokenAccountProps {
   user?: any;
   addWalletPath: string;
   signupPath: string;
+  onQuizBegin(): void;
+  onQuizComplete(): void;
 }
 
 export interface UserTokenAccountStates {
@@ -111,6 +113,7 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
   };
 
   private renderTokenSteps = (loggedInState: any, tutorialState: any, buyState: any) => {
+    const { onQuizBegin, onQuizComplete } = this.props;
     return (
       <>
         <UserTokenAccountSignup
@@ -125,6 +128,8 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
           open={this.state.isTutorialModalOpen}
           handleClose={() => this.closeTutorialModal(this.props.user)}
           handleOpen={this.openTutorialModal}
+          onQuizBegin={onQuizBegin}
+          onQuizComplete={onQuizComplete}
         />
 
         <TokenSection>
