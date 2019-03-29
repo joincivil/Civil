@@ -3,12 +3,11 @@ import * as qs from "querystring";
 import { Redirect } from "react-router-dom";
 import { TokensTabBuyActive } from "./TokensTabBuyActive";
 import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
-import Eth from "@ledgerhq/hw-app-eth";
 
 export interface TokensTabBuyProps {
   foundationAddress: string;
   network: string;
-  onBuyComplete(isFromFoundation: boolean, eth: number): void;
+  onBuyComplete(isFromFoundation: boolean): void;
 }
 
 export interface TokensTabBuyStates {
@@ -40,10 +39,9 @@ export class TokensTabBuy extends React.Component<TokensTabBuyProps, TokensTabBu
     );
   }
 
-  private onBuyComplete = (isFromFoundation: boolean, eth: number) => {
-    alert({ eth });
+  private onBuyComplete = (isFromFoundation: boolean) => {
     if (this.props.onBuyComplete) {
-      this.props.onBuyComplete(isFromFoundation, eth);
+      this.props.onBuyComplete(isFromFoundation);
     }
     this.setState({ isBuyComplete: true });
   };

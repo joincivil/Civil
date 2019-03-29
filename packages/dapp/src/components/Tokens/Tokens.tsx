@@ -40,9 +40,9 @@ export const TokensComponent: React.SFC<TokensProps & DispatchProp<any>> = ({ ne
               signupPath={signupPath}
               onQuizBegin={() => dispatch!(tutorialBegin())}
               onQuizComplete={() => dispatch!(tutorialComplete())}
-              onBuyComplete={(isFromFoundation: boolean, eth: number) =>
+              onBuyComplete={(isFromFoundation: boolean) =>
                 dispatch!(
-                  tokenPurchase(isFromFoundation ? TokenPurchaseType.FOUNDATION : TokenPurchaseType.OPEN_MARKET, eth),
+                  tokenPurchase(isFromFoundation ? TokenPurchaseType.FOUNDATION : TokenPurchaseType.OPEN_MARKET),
                 )
               }
             />

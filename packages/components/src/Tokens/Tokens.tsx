@@ -35,7 +35,7 @@ export interface UserTokenAccountProps {
   signupPath: string;
   onQuizBegin(): void;
   onQuizComplete(): void;
-  onBuyComplete(isFromFoundation: boolean, eth: number): void;
+  onBuyComplete(isFromFoundation: boolean): void;
 }
 
 export interface UserTokenAccountStates {

@@ -19,12 +19,11 @@ export enum TokenPurchaseType {
   FOUNDATION = "Foundation",
 }
 
-export const tokenPurchase = (type: TokenPurchaseType, amount: number) =>
+export const tokenPurchase = (type: TokenPurchaseType) =>
   analyticsEvent({
     category,
     action: `Token Purchase`,
     label: type,
-    value: amount,
   });
 
 export const tutorialBegin = () =>

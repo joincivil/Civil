@@ -16,7 +16,7 @@ export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
   step: string;
-  onBuyComplete(isFromFoundation: boolean, eth: number): void;
+  onBuyComplete(isFromFoundation: boolean): void;
 }
 
 export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {

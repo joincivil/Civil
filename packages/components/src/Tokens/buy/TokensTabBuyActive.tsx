@@ -14,7 +14,7 @@ import { UsdEthConverter } from "../../CurrencyConverter/UsdEthConverter";
 export interface TokensTabBuyActiveProps {
   foundationAddress: string;
   network: string;
-  onBuyComplete(isFromFoundation: boolean, eth: number): void;
+  onBuyComplete(isFromFoundation: boolean): void;
 }
 
 export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps, any> {
@@ -38,7 +38,7 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
               foundationAddress={foundationAddress}
               usdToSpend={this.state.usdToSpend}
               ethToSpend={this.state.etherToSpend}
-              onBuyComplete={() => onBuyComplete(true, this.state.etherToSpend)}
+              onBuyComplete={() => onBuyComplete(true)}
               network={network}
             />
           </TokenAirswapSection>
@@ -51,7 +51,7 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
             <UniswapBuySection
               usdToSpend={this.state.usdToSpend}
               ethToSpend={this.state.etherToSpend}
-              onComplete={() => onBuyComplete(false, this.state.etherToSpend)}
+              onComplete={() => onBuyComplete(false)}
             />
 
             <TokenAirswapExchangeTermsOfSaleText />

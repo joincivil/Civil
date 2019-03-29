@@ -60,11 +60,24 @@ storiesOf("User Token Account", module)
         open={false}
         handleClose={onClickFunc}
         handleOpen={onClickFunc}
-        onQuizBegin={() => {}}
-        onQuizComplete={() => {}}
+        onQuizBegin={() => {
+          return;
+        }}
+        onQuizComplete={() => {
+          return;
+        }}
       />
     );
   })
   .add("Buy Section", () => {
-    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} onBuyComplete={() => {}} />;
+    return (
+      <UserTokenAccountBuy
+        step={"active"}
+        network={"4"}
+        foundationAddress={"0x..."}
+        onBuyComplete={() => {
+          return;
+        }}
+      />
+    );
   });
