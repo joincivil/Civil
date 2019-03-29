@@ -85,7 +85,7 @@ const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
               </b>.
             </p>
 
-            <p>Please check your emails during that time to keep tabs on your newsroom's process.</p>
+            <p>Please check your emails during that time to keep tabs on your newsroom's progress.</p>
           </FormRowItem>
           <FormRowItem align="right">
             <AddApplicationEndToCalendar endTime={endTime} listingDetailURL={registryListingURL} />
