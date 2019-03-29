@@ -23,10 +23,7 @@ const eventsMap = {
       label: `Source: ${error.source} L${error.lineNum}-${error.colNum}`,
     };
   }),
-  [ANALYTICS_EVENT]: trackEvent(action => {
-    console.log({ action });
-    return action.event;
-  }),
+  [ANALYTICS_EVENT]: trackEvent(({ event }) => event),
 };
 
 export const gaMiddleware = createMiddleware(eventsMap, GoogleAnalytics());
