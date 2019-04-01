@@ -104,7 +104,7 @@ class AwaitingAppealDecision extends React.Component<
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           uriValue={this.state.uriValue}
           onChange={this.onURIChange}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
         />
       </>
     );

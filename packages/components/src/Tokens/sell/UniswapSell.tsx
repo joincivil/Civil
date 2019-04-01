@@ -1,16 +1,43 @@
 import * as React from "react";
+import styled from "styled-components";
 import { CivilContext, ICivilContext } from "../../context/CivilContext";
-import { Button } from "../../Button";
-import { TokenAirswapSection } from "..";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
+import { MetaMaskLogoButton } from "../../MetaMaskLogoButton";
+import { Notice, NoticeTypes } from "../../Notice";
+import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
+import { SellFeeNotice, ApproveNoticeText } from "../TokensTextComponents";
+
+const SellContainer = styled.div`
+  padding: 0;
+  > button {
+    margin-top: 25px;
+    width: 100%;
+  }
+`;
+
+const ApproveNotice = styled(Notice)`
+  margin-top: 20px;
+  padding-bottom: 10px;
+  font-size: 14px;
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  > div > button {
+    margin: 20px;
+  }
+`;
 
 export interface UniswapSellProps {
   ethExchangeRate: number;
   cvlToSell: number;
-  etherToReceive: number;
+  onSellComplete(): void;
 }
 export interface UniswapSellState {
   approvedTokens?: any;
+  weiToReceive?: number;
 }
 export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellState> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
@@ -19,24 +46,45 @@ export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellSt
     this.state = {};
   }
 
+  public async componentDidUpdate(prevProps: UniswapSellProps): Promise<void> {
+    if (prevProps.cvlToSell !== this.props.cvlToSell) {
+      const uniswap = this.context.uniswap;
+      const weiToReceive = await uniswap.quoteCVLToETH(uniswap.parseEther(this.props.cvlToSell.toString()));
+      this.setState({ ...this.state, weiToReceive });
+    }
+  }
+
   public async componentDidMount(): Promise<void> {
     const uniswap = this.context.uniswap;
     const approvedTokens = await uniswap.getApprovedSellAmount();
-    this.setState({ ...this.state, approvedTokens });
+    const weiToReceive = await uniswap.quoteCVLToETH(uniswap.parseEther(this.props.cvlToSell || "0"));
+    this.setState({ ...this.state, approvedTokens, weiToReceive });
   }
 
   public render(): JSX.Element {
-    if (!this.state.approvedTokens) {
-      return <div>loading...</div>;
+    if (!this.state.approvedTokens || !this.state.weiToReceive) {
+      return <div />;
     }
 
     const uniswap = this.context.uniswap;
     const { ethExchangeRate } = this.props;
-    const usdAmount = this.props.etherToReceive * ethExchangeRate;
     const cvlWei = uniswap.parseEther((this.props.cvlToSell || "0").toString());
-    const weiToReceive = uniswap.parseEther(this.props.etherToReceive.toString());
+    const weiToReceive = this.state.weiToReceive;
+    const etherToReceive = uniswap.weiToEtherNumber(this.state.weiToReceive);
+    const usdAmount = etherToReceive * ethExchangeRate;
     let usdPerCVL: number = 0;
     let usdTotal: number = 0;
+
+    if (this.props.cvlToSell === 0) {
+      return (
+        <SellContainer>
+          <MetaMaskLogoButton onClick={() => null} disabled>
+            Estimate Proceeds
+          </MetaMaskLogoButton>
+        </SellContainer>
+      );
+    }
+
     if (this.props.cvlToSell > 0) {
       usdPerCVL = usdAmount / this.props.cvlToSell!;
       usdTotal = this.props.cvlToSell * usdPerCVL;
@@ -52,44 +100,54 @@ export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellSt
       />
     );
 
-    const currentApproval = uniswap.weiToEtherNumber(this.state.approvedTokens);
     if (this.state.approvedTokens.lt(cvlWei)) {
       return (
-        <>
+        <SellContainer>
           {summary}
-          <TokenAirswapSection>
-            <div>
-              Almost there! Before you can proceed, you need to authorize the exchange to sell tokens on your behalf.
-            </div>
-            {currentApproval > 0 ? <div>You currently have authorized {currentApproval} CVL</div> : null}
-            <Button onClick={async () => this.approve(cvlWei)}>
-              Approve Exchange to Sell {this.props.cvlToSell} CVL
-            </Button>
-          </TokenAirswapSection>
-        </>
+          <ApproveNotice type={NoticeTypes.ATTENTION}>
+            <ApproveNoticeText cvlToSell={this.props.cvlToSell} />
+            <EthereumTransactionButton
+              modalHeading={`Confirm in Metamask to approve your sale of ${this.props.cvlToSell} CVL`}
+              execute={async () => this.approve(cvlWei)}
+              disabled={this.props.cvlToSell === 0}
+              onComplete={async () => this.updateApprovedSellAmount()}
+            >
+              Open MetaMask to approve
+            </EthereumTransactionButton>
+            <SellFeeNotice />
+          </ApproveNotice>
+        </SellContainer>
       );
     }
 
     return (
-      <>
+      <SellContainer>
         {summary}
-        <TokenAirswapSection>
-          <Button onClick={async () => this.sellCVL(cvlWei, weiToReceive)} disabled={this.props.cvlToSell === 0}>
-            Sell {this.props.cvlToSell} CVL on Uniswap
-          </Button>
-        </TokenAirswapSection>
-      </>
+        <EthereumTransactionButton
+          modalHeading={`Confirm in Metamask to complete your sale of ${this.props.cvlToSell} CVL`}
+          execute={async () => this.sellCVL(cvlWei, weiToReceive)}
+          disabled={this.props.cvlToSell === 0}
+          onComplete={() => this.props.onSellComplete()}
+        >
+          Complete Sale
+        </EthereumTransactionButton>
+        <SellFeeNotice />
+      </SellContainer>
     );
   }
 
-  private async sellCVL(cvlWei: any, weiToReceive: any): Promise<void> {
+  private async sellCVL(cvlWei: any, weiToReceive: any): Promise<EthereumTransactionInfo> {
     const uniswap = this.context.uniswap;
-    await uniswap.executeCVLToETH(cvlWei, weiToReceive);
+    return uniswap.executeCVLToETH(cvlWei, weiToReceive);
   }
 
-  private async approve(cvlWei: any): Promise<void> {
+  private async approve(cvlWei: any): Promise<EthereumTransactionInfo> {
     const uniswap = this.context.uniswap;
-    await uniswap.setApprovedSellAmount(cvlWei);
+    return uniswap.setApprovedSellAmount(cvlWei);
+  }
+
+  private async updateApprovedSellAmount(): Promise<void> {
+    const uniswap = this.context.uniswap;
     const approvedTokens = await uniswap.getApprovedSellAmount();
     this.setState({ ...this.state, approvedTokens });
   }

@@ -14,9 +14,9 @@ export class UniswapCvlEthConverter extends React.Component<UniswapCvlEthConvert
     return (
       <CurrencyConverter
         currencyCodeFrom="CVL"
-        currencyLabelFrom="Enter CVL Amount"
+        currencyLabelFrom="Enter amount of CVL to sell"
         currencyCodeTo="ETH"
-        currencyLabelTo="Amount of ETH"
+        currencyLabelTo="Estimated ETH from sale"
         doConversion={async (cvlAmount: number) => this.convertToETH(cvlAmount)}
         onConversion={(cvlValue, ethValue) => this.props.onConversion(cvlValue, ethValue)}
       />

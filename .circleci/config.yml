@@ -98,6 +98,33 @@ jobs:
                     - .kubernetes_ns
                     - .kube
 
+    # Adds specific test images so we can both push specific branches via circleci, but
+    # also start up an fresh test container with the last test image in k8s
+    push-test-containers:
+        <<: *defaults
+        docker:
+            - image: civilmedia/gcloud-node:latest
+        steps:
+            - checkout
+            - attach_workspace:
+                at: /root
+            - setup_remote_docker
+            - run:
+                name: Build Container
+                command: |
+                    TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
+                    docker build -f Dockerfile-dapp . \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test \
+                    -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test-$CIRCLE_SHA1
+            - deploy:
+                name: Push Containers to Registry
+                command: |
+                    gcloud config list
+                    echo "pushing $GOOGLE_PROJECT_ID"
+                    docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
+
     push-containers:
         <<: *defaults
         docker:
@@ -120,6 +147,7 @@ jobs:
                     gcloud config list
                     echo "pushing $GOOGLE_PROJECT_ID"
                     docker push gcr.io/$GOOGLE_PROJECT_ID/dapp
+
     deploy-test:
         <<: *defaults
         docker:
@@ -207,6 +235,14 @@ workflows:
                             - master
                             - production
                             - /test.*/
+            - push-test-containers:
+                context: gcp-common
+                requires:
+                    - setup-gcp
+                filters:
+                    branches:
+                        only:
+                            - /test.*/
             - push-containers:
                 context: gcp-common
                 requires:
@@ -216,11 +252,10 @@ workflows:
                         only:
                             - master
                             - production
-                            - /test.*/
             - deploy-test:
                 context: gcp-common
                 requires:
-                    - push-containers
+                    - push-test-containers
                 filters:
                     branches:
                         only:

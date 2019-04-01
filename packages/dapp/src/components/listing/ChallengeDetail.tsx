@@ -213,7 +213,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           endTime={endTime}
           phaseLength={phaseLength}
           requestAppealURI={requestAppealURI}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

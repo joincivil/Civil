@@ -78,7 +78,7 @@ class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedT
         challengeID={this.props.challengeID}
         transactions={transactions}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
-        faqURL={links.FAQ_REGISTRY}
+        faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
       />
     );
   }
