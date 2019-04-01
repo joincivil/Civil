@@ -4,6 +4,8 @@ import { TokensTabSellActive } from "./TokensTabSellActive";
 import { TokensTabSellComplete } from "./TokensTabSellComplete";
 import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
 import { ICivilContext, CivilContext } from "../../context";
+import { FeatureFlag } from "../../features/FeatureFlag";
+import { ComingSoon } from "../TokensStyledComponents";
 
 export interface TokensTabSellProps {
   network: string;
@@ -33,20 +35,37 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
   public render(): JSX.Element | null {
     const { isSellComplete, isTokenUnlocked } = this.state;
 
+    const comingSoon = (
+      <ComingSoon>
+        <h3>Coming Soon...</h3>
+        <p>
+          We appreciate your patience while we are testing this feature.<br />If you need help or have questions, please
+          contact our support team at <a href="mailto:support@civil.co">support@civil.co</a>.
+        </p>
+      </ComingSoon>
+    );
+
+    let content: JSX.Element;
     if (isTokenUnlocked === null) {
       return null;
     } else if (!isTokenUnlocked) {
-      return <TokensTabSellUnlock />;
+      content = <TokensTabSellUnlock />;
     } else if (isSellComplete) {
-      return <TokensTabSellComplete />;
+      content = <TokensTabSellComplete />;
     } else {
-      return (
+      content = (
         <TokensTabSellActive
           balance={getFormattedTokenBalance(this.state.balance)}
           onSellComplete={this.onSellComplete}
         />
       );
     }
+
+    return (
+      <FeatureFlag feature="uniswap" replacement={comingSoon}>
+        {content}
+      </FeatureFlag>
+    );
   }
   private async setUnlockedStatus(): Promise<void> {
     const civil = this.context.civil;
