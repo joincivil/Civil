@@ -111,7 +111,7 @@ export class UniswapService {
       gasLimit: 100000,
     };
 
-    const tx = await this.exchange.ethToTokenSwapInput(
+    return this.exchange.ethToTokenSwapInput(
       // TODO: price might move before mined
       // tokens are in WEI, so make sure slippage relevative to ether amount
       // minTokensToReceive.mul(1 - TOKEN_ALLOWED_SLIPPAGE),
@@ -119,25 +119,21 @@ export class UniswapService {
       deadline,
       overrides,
     );
-
-    console.log("done: ", tx);
   }
 
-  public async executeCVLToETH(cvlToSpend: BigNumber, minETHToReceive: BigNumber): Promise<void> {
+  public async executeCVLToETH(cvlToSpend: BigNumber, minETHToReceive: BigNumber): Promise<any> {
     const deadline = await this.getBlockDeadline();
     console.log(
       "executeCVLToETH",
       ethers.utils.formatEther(cvlToSpend),
-      ethers.utils.formatEther(minETHToReceive),
+      minETHToReceive.toString(),
       deadline.toString(),
     );
 
     const overrides = {
       gasLimit: 100000,
     };
-    const tx = await this.exchange.tokenToEthSwapInput(cvlToSpend, minETHToReceive, deadline, overrides);
-
-    console.log("done: ", tx);
+    return this.exchange.tokenToEthSwapInput(cvlToSpend, minETHToReceive, deadline, overrides);
   }
 
   public parseEther(amount: string): BigNumber {

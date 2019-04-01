@@ -124,7 +124,7 @@ export const TutorialContent = [
   },
   {
     name: "Purchasing, storing and using Civil tokens",
-    description: "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+    description: "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
     quizId: "topic2",
     icon: <TokenWalletIcon height={48} width={42} />,
     tutorialIntro: {

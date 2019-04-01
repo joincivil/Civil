@@ -255,7 +255,7 @@ workflows:
             - deploy-test:
                 context: gcp-common
                 requires:
-                    - push-containers
+                    - push-test-containers
                 filters:
                     branches:
                         only:
