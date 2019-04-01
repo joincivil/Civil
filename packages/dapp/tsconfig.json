@@ -1,16 +1,21 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "build/dist",
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "moduleResolution": "node",
     "rootDir": "src",
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "strictPropertyInitialization": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "isolatedModules": true,
+    "noEmit": true,
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules", "build", "scripts", "acceptance-tests", "webpack", "jest", "src/setupTests.ts"],
   "include": ["./**/*.ts", "./**/*.tsx"],

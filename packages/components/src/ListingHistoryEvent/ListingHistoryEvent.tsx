@@ -62,7 +62,7 @@ export const StyledEventCopy = styled.div`
   }
 `;
 
-export const ListingHistoryEvent: React.StatelessComponent<ListingHistoryEventProps> = props => {
+export const ListingHistoryEvent: React.FunctionComponent<ListingHistoryEventProps> = props => {
   return (
     <StyledListingHistoryEvent>
       <EventDate timestamp={props.timestamp} />
@@ -73,7 +73,7 @@ export const ListingHistoryEvent: React.StatelessComponent<ListingHistoryEventPr
   );
 };
 
-const EventDetail: React.StatelessComponent<ListingHistoryEventDetailsProps> = props => {
+const EventDetail: React.FunctionComponent<ListingHistoryEventDetailsProps> = props => {
   return (
     <StyledEventDetail eventStyle={props.eventStyle}>
       <svg viewBox="0 0 26 26" width="26" height="26" xmlns="http://www.w3.org/2000/svg">

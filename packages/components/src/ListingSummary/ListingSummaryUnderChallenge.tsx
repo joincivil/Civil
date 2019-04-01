@@ -17,7 +17,9 @@ export interface ListingSummaryUnderChallengeComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export const ListingSummaryUnderChallengeComponent: React.SFC<ListingSummaryUnderChallengeComponentProps> = props => {
+export const ListingSummaryUnderChallengeComponent: React.FunctionComponent<
+  ListingSummaryUnderChallengeComponentProps
+> = props => {
   const { appeal, appealRequested } = props;
 
   const hasTopPadding = !appeal && !appealRequested;

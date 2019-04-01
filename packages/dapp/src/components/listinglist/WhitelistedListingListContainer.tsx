@@ -45,7 +45,7 @@ const LoadMoreContainer = styled.div`
   width: 100%;
 `;
 
-const WhitelistedListingListContainer: React.SFC<WhitelistedListingsListContainerReduxProps> = props => {
+const WhitelistedListingListContainer = (props: WhitelistedListingsListContainerReduxProps) => {
   if (props.useGraphQL) {
     return (
       <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }}>

@@ -126,8 +126,9 @@ export const DropdownGroup = styled.ul`
 
 export interface DropdownItemProps {
   className?: string;
+  children?: any;
 }
-const DropdownItemComponent: React.StatelessComponent<DropdownItemProps> = ({ className, children }) => {
+const DropdownItemComponent = ({ className, children }: DropdownItemProps) => {
   return <li className={className}>{children}</li>;
 };
 
@@ -144,8 +145,9 @@ export const DropdownItem = styled(DropdownItemComponent)`
 export interface DropdownLinkProps {
   to: string;
   className?: string;
+  children?: any;
 }
-const DropdownLinkComponent: React.StatelessComponent<DropdownLinkProps> = ({ className, to, children }) => {
+const DropdownLinkComponent = ({ className, to, children }: DropdownLinkProps) => {
   return (
     <li className={className}>
       <Link to={to}>{children}</Link>

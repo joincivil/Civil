@@ -4,7 +4,7 @@ import { ChallengeCompletedEventProps } from "./types";
 import { ListingEventTitles } from "./constants";
 import { ListingHistoryEvent } from "./ListingHistoryEvent";
 
-export const ChallengeFailedEvent: React.StatelessComponent<ChallengeCompletedEventProps> = props => {
+export const ChallengeFailedEvent: React.FunctionComponent<ChallengeCompletedEventProps> = props => {
   const {
     totalVotes,
     votesFor,

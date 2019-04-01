@@ -18,7 +18,7 @@ export interface FooterProps {
   currentYear: string;
 }
 
-export const Footer: React.SFC<FooterProps> = props => {
+export const Footer: React.FunctionComponent<FooterProps> = props => {
   return (
     <StyledFooter>
       <StyledFooterInner>

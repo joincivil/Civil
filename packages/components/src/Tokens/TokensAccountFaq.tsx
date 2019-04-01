@@ -12,7 +12,7 @@ import {
 import { Collapsable } from "../Collapsable";
 import * as metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
 
-export const UserTokenAccountFaq: React.StatelessComponent = props => {
+export const UserTokenAccountFaq: React.FunctionComponent = props => {
   return (
     <FlexColumnsPrimaryModule>
       <TokenFAQCollapse>

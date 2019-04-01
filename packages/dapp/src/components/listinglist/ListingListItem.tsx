@@ -139,7 +139,7 @@ export const transformListingSummaryViewProps = (
   };
 };
 
-export const ListingItemBaseComponent: React.SFC<
+export const ListingItemBaseComponent: React.FunctionComponent<
   ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>
 > = props => {
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
@@ -148,7 +148,7 @@ export const ListingItemBaseComponent: React.SFC<
   return <ListingSummaryItem {...listingViewProps} />;
 };
 
-const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
+const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listing } = props;
   const listingViewProps = transformListingSummaryViewProps(props, true);
   const data = listing!.data!;

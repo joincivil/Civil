@@ -4,7 +4,7 @@ import { buttonSizes, InvertedButton } from "../Button";
 
 import { DashboardActivityItemCTAButtonProps } from "./DashboardTypes";
 
-export const DashboardActivityItemCTAButton: React.SFC<DashboardActivityItemCTAButtonProps> = props => {
+export const DashboardActivityItemCTAButton: React.FunctionComponent<DashboardActivityItemCTAButtonProps> = props => {
   const {
     listingDetailURL,
     inCommitPhase,

@@ -72,7 +72,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
             <NavDrawerUserAddessText />
           </NavDrawerSectionHeader>
           <UserAddress>{userEthAddress}</UserAddress>
-          <CopyButton size={buttonSizes.SMALL} onClick={ev => this.copyToClipBoard()}>
+          <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
           </CopyButton>
         </NavDrawerSection>
@@ -181,7 +181,7 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
   };
 }
 
-const NavDrawer: React.SFC<NavDrawerProps> = props => {
+const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
   return (
     <LoadUser>
       {({ loading, user: civilUser }) => {

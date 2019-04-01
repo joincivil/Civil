@@ -25,7 +25,7 @@ export interface NavBarProps {
   useGraphQL: boolean;
 }
 
-const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
+const GlobalNavComponent = (props: NavBarProps & DispatchProp<any>) => {
   const {
     balance,
     votingBalance,

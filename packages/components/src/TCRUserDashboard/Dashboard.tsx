@@ -15,7 +15,7 @@ const StyledDashboardHeader = styled.div`
   width: 1200px;
 `;
 
-export const UserDashboardHeader: React.StatelessComponent = props => {
+export const UserDashboardHeader: React.FunctionComponent = props => {
   return (
     <StyledDashboardHeaderOuter>
       <StyledDashboardHeader>{props.children}</StyledDashboardHeader>

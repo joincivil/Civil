@@ -16,7 +16,7 @@ export interface WhitelistedListingsListReduxReduxProps {
   loadingFinished: boolean;
 }
 
-const WhitelistedListingListRedux: React.SFC<WhitelistedListingsListReduxReduxProps> = props => {
+const WhitelistedListingListRedux = (props: WhitelistedListingsListReduxReduxProps) => {
   if (props.whitelistedListings.count()) {
     const predicate = (newsroomListing?: NewsroomListing) => {
       const listing = newsroomListing && newsroomListing.listing;

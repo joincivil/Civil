@@ -4,7 +4,7 @@ import { UserVotingSummaryProps } from "./types";
 import { voteTypeLabel } from "./ChallengeResultsChartTextComponents";
 import { UserVotingSummaryContainer, UserVotingSummaryColumn, UserVotingSummaryColHeader } from "./styledComponents";
 
-export const UserVotingSummary: React.SFC<UserVotingSummaryProps> = props => {
+export const UserVotingSummary: React.FunctionComponent<UserVotingSummaryProps> = props => {
   return (
     <UserVotingSummaryContainer>
       <UserVotingSummaryColumn>

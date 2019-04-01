@@ -6,9 +6,10 @@ import { colors, fonts } from "./styleConstants";
 export interface MessageProps {
   className?: string;
   text?: string;
+  children?: any;
 }
 
-const MessageBase: React.StatelessComponent<MessageProps> = props => {
+const MessageBase = (props: MessageProps) => {
   return <div className={props.className}>{props.children}</div>;
 };
 

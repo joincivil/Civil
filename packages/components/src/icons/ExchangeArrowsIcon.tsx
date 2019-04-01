@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const ExchangeArrowsIcon: React.SFC = props => {
+export const ExchangeArrowsIcon: React.FunctionComponent = props => {
   return (
     <svg width="18" height="14" viewBox="0 0 18 14" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="#8B8581" fillRule="evenodd">

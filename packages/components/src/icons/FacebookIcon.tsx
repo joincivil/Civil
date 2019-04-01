@@ -7,7 +7,7 @@ export interface FacebookIconProps {
   width?: number;
 }
 
-const _FacebookIcon: React.SFC<FacebookIconProps> = props => {
+const _FacebookIcon = (props: FacebookIconProps) => {
   const height = props.height || 23;
   const width = props.width || 23;
   return (

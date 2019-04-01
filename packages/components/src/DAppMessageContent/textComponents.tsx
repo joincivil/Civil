@@ -1,7 +1,7 @@
 import * as React from "react";
 import { InsufficientCVLProps } from "./types";
 
-export const InsufficientCVLForChallengeText: React.SFC<InsufficientCVLProps> = props => {
+export const InsufficientCVLForChallengeText: React.FunctionComponent<InsufficientCVLProps> = props => {
   return (
     <>
       Sorry, you don’t have enough CVL tokens to challenge this newsroom. A deposit of {props.minDeposit} tokens is
@@ -10,7 +10,7 @@ export const InsufficientCVLForChallengeText: React.SFC<InsufficientCVLProps> = 
   );
 };
 
-export const InsufficientCVLForAppealText: React.SFC<InsufficientCVLProps> = props => {
+export const InsufficientCVLForAppealText: React.FunctionComponent<InsufficientCVLProps> = props => {
   return (
     <>
       Sorry, you don’t have enough CVL tokens to request an appeal. A deposit of {props.minDeposit} tokens is required
@@ -19,7 +19,7 @@ export const InsufficientCVLForAppealText: React.SFC<InsufficientCVLProps> = pro
   );
 };
 
-export const InsufficientCVLForAppealChallengeText: React.SFC<InsufficientCVLProps> = props => {
+export const InsufficientCVLForAppealChallengeText: React.FunctionComponent<InsufficientCVLProps> = props => {
   return (
     <>
       Sorry, you don’t have enough CVL tokens to challenge this granted appeal. A deposit of {props.minDeposit} tokens

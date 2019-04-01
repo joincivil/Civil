@@ -96,7 +96,7 @@ export interface EmptyRegistryTabContentProps {
   phaseTabType: number;
 }
 
-export const EmptyRegistryTabContentComponent: React.SFC<EmptyRegistryTabContentProps> = props => {
+export const EmptyRegistryTabContentComponent: React.FunctionComponent<EmptyRegistryTabContentProps> = props => {
   const tabContent = EMPTY_REGISTRY_TAB_CONTENT[props.phaseTabType];
   return (
     <StyledRegistryEmpty>

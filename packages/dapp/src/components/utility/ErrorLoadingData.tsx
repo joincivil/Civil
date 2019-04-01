@@ -12,7 +12,7 @@ export interface ErrorLoadingDataMsgReduxProps {
   useGraphQL: boolean;
 }
 
-const ErrorLoadingDataMsg: React.SFC<ErrorLoadingDataMsgReduxProps & DispatchProp<any>> = props => {
+const ErrorLoadingDataMsg = (props: ErrorLoadingDataMsgReduxProps & DispatchProp<any>) => {
   return (
     <StyledInPageMsgContainer>
       <ErrorLoadingData

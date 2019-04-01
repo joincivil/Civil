@@ -29,7 +29,7 @@ export interface ListingEventProps {
   listing: string;
 }
 
-const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
+const challengeCompletedEventContainer = (WrappedComponent: React.FunctionComponent<ChallengeCompletedEventProps>) => {
   return compose<React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>>(
     connectChallengeResults,
   )(WrappedComponent);

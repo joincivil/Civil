@@ -18,7 +18,7 @@ import { getFormattedTokenBalance } from "@joincivil/utils";
 import { WinningChallengeResults } from "./WinningChallengeResults";
 import { MyTasksProposalItemSubComponentProps } from "./MyTasksProposalItem";
 
-const CurrentChallengeStateExplanation: React.SFC<MyTasksProposalItemSubComponentProps> = props => {
+const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
   const { challenge } = props;
 
   if (!challenge) {
@@ -40,7 +40,7 @@ const CurrentChallengeStateExplanation: React.SFC<MyTasksProposalItemSubComponen
   return explanation;
 };
 
-const ChallengeSummary: React.SFC<MyTasksProposalItemSubComponentProps> = props => {
+const ChallengeSummary: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
   const { challengeID, challenge, proposalUserChallengeData, showClaimRewardsTab, showRescueTokensTab } = props;
 
   if (!proposalUserChallengeData || !challenge) {
@@ -106,7 +106,7 @@ const ChallengeSummary: React.SFC<MyTasksProposalItemSubComponentProps> = props 
   );
 };
 
-const DashboardProposalItemChallengeDetails: React.SFC<MyTasksProposalItemSubComponentProps> = props => {
+const DashboardProposalItemChallengeDetails: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
   const { challenge } = props;
 
   if (!challenge) {

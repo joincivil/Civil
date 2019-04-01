@@ -5,7 +5,7 @@ export interface NavDropDownProps {
   label: string | JSX.Element;
 }
 
-export const NavDropDown: React.StatelessComponent<NavDropDownProps> = props => {
+export const NavDropDown: React.FunctionComponent<NavDropDownProps> = props => {
   return (
     <DropDownContain>
       <DropDownLabel>

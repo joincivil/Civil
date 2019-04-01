@@ -8,7 +8,7 @@ export interface AuthCheckEmailProps extends Partial<RouteComponentProps> {
   onSendAgain(): void;
 }
 
-export const AuthCheckEmail: React.SFC<AuthCheckEmailProps> = props => {
+export const AuthCheckEmail: React.FunctionComponent<AuthCheckEmailProps> = props => {
   const { isNewUser, emailAddress, onSendAgain } = props;
 
   // TODO(jorgelo): Maybe redirect if emailAddress is not set

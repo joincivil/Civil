@@ -3,7 +3,7 @@ import { LoadingIndicator, LoadingIndicatorProps } from "@joincivil/components";
 
 import { StyledInPageMsgContainer, StyledMsgLargeCopy } from "./styledComponents";
 
-const LoadingMsg: React.SFC<LoadingIndicatorProps> = props => {
+const LoadingMsg: React.FunctionComponent<LoadingIndicatorProps> = props => {
   const defaultCopy = "Loading";
   return (
     <StyledInPageMsgContainer>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TransactionButtonInnerProps, buttonSizes, Button } from "@joincivil/components";
 
-export const TransactionButtonInner: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const TransactionButtonInner: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (

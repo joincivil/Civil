@@ -6,7 +6,7 @@ export interface HollowRedNoGoodProps {
   width?: number;
 }
 
-export const HollowRedNoGood: React.SFC<HollowRedNoGoodProps> = props => {
+export const HollowRedNoGood: React.FunctionComponent<HollowRedNoGoodProps> = props => {
   const color = props.color || "#f2524a";
   const width = (props.width || 20).toString();
   const height = (props.height || 20).toString();

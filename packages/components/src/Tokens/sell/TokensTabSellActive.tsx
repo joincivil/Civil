@@ -73,7 +73,7 @@ class CVLBalanceHeader extends React.Component<any, any> {
   }
 }
 
-export const TokensTabSellActive: React.StatelessComponent<TokensTabSellActiveProps> = props => {
+export const TokensTabSellActive: React.FunctionComponent<TokensTabSellActiveProps> = props => {
   const { onSellComplete, balance } = props;
 
   return (

@@ -69,7 +69,7 @@ export const PaypalDonateIconButton = styled.input`
   }
 `;
 
-export const PaypalDonate: React.SFC = () => (
+export const PaypalDonate: React.FunctionComponent = () => (
   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
     <PaypalDonateContainer>
       <PaypalLogoContainer>

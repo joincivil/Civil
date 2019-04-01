@@ -1,4 +1,4 @@
-export const enum routes {
+export enum routes {
   REGISTRY_HOME = "/registry/:listingType/:subListingType?",
   REGISTRY_HOME_ROOT = "/registry",
   HOMEPAGE = "/",
@@ -20,13 +20,13 @@ export const enum routes {
   TOKEN_STOREFRONT = "/tokens",
 }
 
-export const enum registryListingTypes {
+export enum registryListingTypes {
   APPROVED = "approved",
   IN_PROGRESS = "in-progress",
   REJECTED = "rejected",
 }
 
-export const enum registrySubListingTypes {
+export enum registrySubListingTypes {
   IN_APPLICATION = "new-applications",
   UNDER_CHALLENGE = "under-challenge",
   UNDER_APPEAL = "under-appeal",
@@ -46,14 +46,14 @@ export type TRegistrySubListingType =
   | registrySubListingTypes.UNDER_APPEAL_CHALLENGE
   | registrySubListingTypes.READY_TO_UPDATE;
 
-export const enum dashboardTabs {
+export enum dashboardTabs {
   TASKS = "tasks",
   NEWSROOMS = "newsrooms",
   CHALLENGES = "challenges",
   ACTIVITY = "activity",
 }
 
-export const enum dashboardSubTabs {
+export enum dashboardSubTabs {
   TASKS_ALL = "all",
   TASKS_REVEAL_VOTE = "reveal-vote",
   TASKS_CLAIM_REWARDS = "claim-rewards",

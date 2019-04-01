@@ -36,7 +36,7 @@ export interface DashboardActivityItemProps {
   toggleSelect?(challengeID: string, isSelected: boolean, salt: any): void;
 }
 
-export const DashboardActivityItem: React.SFC<DashboardActivityItemProps> = props => {
+export const DashboardActivityItem: React.FunctionComponent<DashboardActivityItemProps> = props => {
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>

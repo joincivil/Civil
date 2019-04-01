@@ -74,7 +74,7 @@ export interface PhaseCountdownReduxProps {
 export const connectChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
   PresentationComponent:
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
-    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+    | React.FunctionComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const mapStateToProps = (
     state: State,
@@ -259,7 +259,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
 
   class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any>> {
     public render(): JSX.Element | null {
-      let displayLabel: string | React.SFC = "";
+      let displayLabel: string | React.FunctionComponent = "";
       let flavorText;
       let endTime = 0;
       let totalSeconds = 0;
@@ -340,7 +340,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     | React.ComponentClass<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >
-    | React.StatelessComponent<
+    | React.FunctionComponent<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >,
 ) => {
@@ -389,7 +389,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(
-        this.props.challengeData && this.props.challengeData.challenge,
+        this.props.challengeData && (this.props.challengeData as any).challenge,
       ) as ChallengeResultsProps;
 
       let appealPhaseProps = {};
@@ -462,7 +462,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 export const connectChallengePhase = <TChallengeContainerProps extends ChallengeContainerProps>(
   PhaseCardComponent:
     | React.ComponentClass<TChallengeContainerProps & ChallengePhaseProps>
-    | React.StatelessComponent<TChallengeContainerProps & ChallengePhaseProps>,
+    | React.FunctionComponent<TChallengeContainerProps & ChallengePhaseProps>,
 ) => {
   const mapStateToProps = (
     state: State,

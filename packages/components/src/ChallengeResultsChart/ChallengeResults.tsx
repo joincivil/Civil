@@ -24,7 +24,7 @@ const StyledInner = styled.div`
   padding-top: 14px;
 `;
 
-const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
+const ExplainerText: React.FunctionComponent<ChallengeResultsProps> = props => {
   let explainerText;
 
   if (props.didChallengeSucceed) {
@@ -45,7 +45,7 @@ const ExplainerText: React.SFC<ChallengeResultsProps> = props => {
   return <StyledExplainerText>{explainerText}</StyledExplainerText>;
 };
 
-const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = props => {
+const ChallengeResultsInner: React.FunctionComponent<ChallengeResultsProps> = props => {
   const Header = props.styledHeaderComponent || DefaultHeader;
   const defaultHeaderText = props.challengeID ? `Challenge ${props.challengeID} Results` : "Challenge Results";
   const explainerText = !props.noExplainerText && <ExplainerText {...props} />;
@@ -86,7 +86,7 @@ const ChallengeResultsInner: React.StatelessComponent<ChallengeResultsProps> = p
   );
 };
 
-export const ChallengeResults: React.StatelessComponent<ChallengeResultsProps> = props => {
+export const ChallengeResults: React.FunctionComponent<ChallengeResultsProps> = props => {
   if (props.collapsable) {
     const Header = props.styledHeaderComponent || DefaultHeader;
     const headerElement = <Header>{props.headerText || "Challenge Results"}</Header>;
