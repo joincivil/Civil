@@ -175,9 +175,15 @@ export const TokenBuyCompleteText: React.SFC = props => (
 
 export const TokenSellInstructionsText: React.SFC = props => (
   <p>
-    To sell Civil tokens (CVL), you must exchange them for Ether (ETH) and then you will be able to sell ETH for USD or
-    local currencies at an exchange like Coinbase. You can’t sell Civil tokens directly for USD or local currencies –
-    currencies need to be converted into ETH first.
+    To sell Civil tokens (CVL), you must first exchange them for Ether (ETH). Then, you will be able to exchange ETH for
+    USD or local currencies at an exchange like{" "}
+    <a href="https://coinbase.com" target="_blank">
+      Coinbase
+    </a>{" "}
+    or{" "}
+    <a href="https://gemini.com/" target="_blank">
+      Gemini
+    </a>
   </p>
 );
 
@@ -266,4 +272,17 @@ export const TokenFAQText: React.SFC = props => (
       for general help
     </p>
   </>
+);
+
+export const SellFeeNotice = (props: any) => (
+  <small>
+    A small transaction fee will be added for all sales. This fee does not go to the Civil Media Company. Learn more
+  </small>
+);
+
+export const ApproveNoticeText = ({ cvlToSell }: { cvlToSell: any }) => (
+  <span>
+    Almost there! You need to authorize the exchange to sell {cvlToSell} CVL on your behalf. After you approve you can
+    complete the sale.
+  </span>
 );

@@ -13,7 +13,7 @@ const ethPriceQuery = gql`
 export interface UniswapBuySectionProps {
   ethToSpend: number;
   usdToSpend: number;
-  onComplete(): void;
+  onBuyComplete(): void;
 }
 export const UniswapBuySection = (props: UniswapBuySectionProps) => {
   return (
@@ -31,6 +31,7 @@ export const UniswapBuySection = (props: UniswapBuySectionProps) => {
                   usdToSpend={props.usdToSpend}
                   ethToSpend={props.ethToSpend}
                   ethExchangeRate={data.storefrontEthPrice}
+                  onBuyComplete={props.onBuyComplete}
                 />
               </div>
             </>

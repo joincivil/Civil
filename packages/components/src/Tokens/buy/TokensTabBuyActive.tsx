@@ -7,7 +7,6 @@ import {
   TokenAirswapFoundationText,
 } from "../TokensTextComponents";
 import { UniswapBuySection } from "./UniswapBuySection";
-import { FeatureFlag } from "../../features/FeatureFlag";
 import { AirswapBuySection } from "./AirswapBuySection";
 import { UsdEthConverter } from "../../CurrencyConverter/UsdEthConverter";
 
@@ -43,19 +42,17 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
             />
           </TokenAirswapSection>
 
-          <FeatureFlag feature="uniswap">
-            <TokenOrBreak>
-              <TokenOrText />
-            </TokenOrBreak>
+          <TokenOrBreak>
+            <TokenOrText />
+          </TokenOrBreak>
 
-            <UniswapBuySection
-              usdToSpend={this.state.usdToSpend}
-              ethToSpend={this.state.etherToSpend}
-              onComplete={onBuyComplete}
-            />
+          <UniswapBuySection
+            usdToSpend={this.state.usdToSpend}
+            ethToSpend={this.state.etherToSpend}
+            onBuyComplete={onBuyComplete}
+          />
 
-            <TokenAirswapExchangeTermsOfSaleText />
-          </FeatureFlag>
+          <TokenAirswapExchangeTermsOfSaleText />
         </TokenAirswapSection>
       </>
     );

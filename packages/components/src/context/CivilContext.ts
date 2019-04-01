@@ -7,12 +7,13 @@ export interface ICivilContext {
   features: FeatureFlagService;
   network: number;
   setCivil(civil: Civil): void;
+  waitForTx(txHash: string): Promise<void>;
 }
 
-export function buildCivilContext(civil?: Civil, defaultNetwork?: string): ICivilContext {
+export function buildCivilContext(civil?: Civil, defaultNetwork?: string, featureFlags?: string[]): ICivilContext {
   const ctx: any = {};
   ctx.civil = civil;
-  ctx.features = new FeatureFlagService();
+  ctx.features = new FeatureFlagService(featureFlags);
 
   const { provider, signer, network }: EthersProviderResult = makeEthersProvider(defaultNetwork!);
   try {
@@ -25,6 +26,8 @@ export function buildCivilContext(civil?: Civil, defaultNetwork?: string): ICivi
   ctx.setCivil = (_civil: Civil): void => {
     ctx.civil = _civil;
   };
+
+  ctx.waitForTx = async (txHash: string) => provider.waitForTransaction(txHash);
 
   return ctx;
 }
