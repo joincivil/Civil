@@ -447,7 +447,7 @@ export class CreateNewsroomContractComponent extends React.Component<
 
   private handleTransactionError = (err: Error, txHash?: TxHash) => {
     this.props.dispatch!(
-      trackTx(this.props.newsroomAddress ? TX_TYPE.CREATE_NEWSROOM : TX_TYPE.CHANGE_NAME, "error", txHash),
+      trackTx(this.props.newsroomAddress ? TX_TYPE.CHANGE_NAME : TX_TYPE.CREATE_NEWSROOM, "error", txHash),
     );
     this.setState({ isWaitingTransactionModalOpen: false });
     if (err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
