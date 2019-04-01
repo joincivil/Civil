@@ -184,7 +184,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           phaseLength={phaseLength}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_CHALLENGE_SECTION}
           learnMoreURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />

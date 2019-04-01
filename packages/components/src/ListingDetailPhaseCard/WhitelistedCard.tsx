@@ -16,6 +16,7 @@ import { WhitelistedNewroomsDisplayNameText, WhitelistedNewroomsToolTipText } fr
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { QuestionToolTip } from "../QuestionToolTip";
+import NeedHelp from "./NeedHelp";
 
 export interface WhitelistedCardProps {
   whitelistedTimestamp?: number;
@@ -48,6 +49,8 @@ export const WhitelistedCard: React.StatelessComponent<
         </CTACopy>
         {renderSubmitChallengeButton(props)}
       </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

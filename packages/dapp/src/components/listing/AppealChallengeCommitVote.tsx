@@ -13,7 +13,7 @@ import {
   ReviewVote,
   ReviewVoteProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
+import { getFormattedTokenBalance, Parameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
@@ -160,6 +160,7 @@ class AppealChallengeCommitVote extends React.Component<
       key: this.state.key,
       onMobileTransactionClick: this.props.onMobileTransactionClick,
       appealGrantedStatementURI: this.props.appeal.appealGrantedStatementURI,
+      faqURL: links.FAQ_VOTING_SECTION,
     };
 
     return (

@@ -76,7 +76,7 @@ class AppealResolve extends React.Component<AppealDetailProps & InjectedTransact
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
           transactions={transactions}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
         />
       </>
     );

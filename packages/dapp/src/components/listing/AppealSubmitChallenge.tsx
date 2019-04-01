@@ -47,7 +47,7 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
         challengeID={this.props.challengeID.toString()}
         appealGranted={appealGranted}
         submitAppealChallengeURI={submitAppealChallengeURI}
-        faqURL={links.FAQ_REGISTRY}
+        faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );
