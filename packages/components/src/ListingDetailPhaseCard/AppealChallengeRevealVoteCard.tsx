@@ -77,9 +77,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
-                  displayLabel="Revealing votes"
+                  displayLabel="Confirm Vote Phase"
                   toolTipText={<ConfirmVoteToolTipText phaseLength={this.props.phaseLength} />}
-                  secondaryDisplayLabel="Accepting votes"
+                  secondaryDisplayLabel="Submit Vote Phase"
                   secondaryToolTipText={<CommitVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={1}

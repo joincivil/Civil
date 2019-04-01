@@ -175,7 +175,7 @@ export const UnderChallengeToolTipText: React.SFC<ToolTipTextProps> = props => {
         This Newsroom is being challenged by a CVL token holder who believes it violates one of principles outlined in
         the Civil Constitution. Read the challenger's statement in the Discussion section.
       </p>
-      <p>The challenge phase consists of 3 subphases: Commit vote, Confirm vote, and Request an Appeal.</p>
+      <p>The challenge phase consists of 2 subphases: Submit Vote and Confirm Vote.</p>
     </>
   );
 };
@@ -231,8 +231,8 @@ export const CommitVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
       <p>
         Decide how many tokens you would like to put towards this vote. Note that the more tokens you include, the more
         power your vote carries. You can never lose your vote, but you will not be able to withdraw them until the end
-        of the voting process. All votes will be hidden, using a secret phrase, until the end of the voting period. You
-        have to come back and confirm your vote for it to count.
+        of the voting process. All votes will be hidden, using a unique 4-word voting code, until the end of the voting
+        period. You have to come back and confirm your vote for it to count.
       </p>
     </>
   );
@@ -241,14 +241,14 @@ export const CommitVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
 export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   return (
     <>
-      <ToolTipHdr>Finalize vote using secret ph rase</ToolTipHdr>
+      <ToolTipHdr>Finalize vote using a unique 4-word voting code</ToolTipHdr>
       <ToolTipItalic>
         <DurationToolTipText phaseLength={props.phaseLength} />
       </ToolTipItalic>
       <p>
-        Voters must enter the secret phrase they received during the commit vote stage of the process in order to
-        confirm their vote. Votes can not be counted and rewards can not be claimed unless voters confirm their earlier
-        vote.
+        Voters must enter the unique 4-word voting code they received during the commit vote stage of the process in
+        order to confirm their vote. Votes can not be counted and rewards can not be claimed unless voters confirm their
+        earlier vote.
       </p>
     </>
   );

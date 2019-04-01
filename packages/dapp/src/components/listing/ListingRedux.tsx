@@ -130,7 +130,7 @@ class ListingPageComponent extends React.Component<
 
           <StyledLeftContentWell>
             <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTab} onActiveTabChange={this.onTabChange}>
-              <Tab title="About">
+              <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
                     listing={this.props.listing!}
@@ -142,7 +142,11 @@ class ListingPageComponent extends React.Component<
 
               <Tab title="Discussions">
                 <ListingTabContent>
-                  <ListingChallengeStatement listingAddress={this.props.listingAddress} listing={this.props.listing} />
+                  <ListingChallengeStatement
+                    listingAddress={this.props.listingAddress}
+                    listing={this.props.listing}
+                    showCharterTab={this.showCharterTab}
+                  />
 
                   <p>
                     Use this space to discuss or ask questions of the Civil community. When using this forum, you agree
@@ -183,6 +187,10 @@ class ListingPageComponent extends React.Component<
 
   private onTabChange = (newActiveTab: number): void => {
     this.setState({ activeTab: newActiveTab });
+  };
+
+  private showCharterTab = (): void => {
+    this.onTabChange(0);
   };
 }
 
