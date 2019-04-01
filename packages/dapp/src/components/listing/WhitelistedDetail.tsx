@@ -46,7 +46,7 @@ class WhitelistedDetail extends React.Component<
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
           learnMoreURL={links.FAQ_REGISTRY}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_CHALLENGE_SECTION}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>

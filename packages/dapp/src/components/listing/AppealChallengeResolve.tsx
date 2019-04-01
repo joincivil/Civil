@@ -11,7 +11,7 @@ import {
   AppealChallengeResolveCardProps,
   ModalContent,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 
 import { updateStatus } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -109,6 +109,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
           didAppealChallengeSucceed={didAppealChallengeSucceed}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
+          faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
         />
       </>
     );

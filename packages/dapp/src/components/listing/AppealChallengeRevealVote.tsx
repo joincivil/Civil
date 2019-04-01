@@ -125,6 +125,7 @@ class AppealChallengeRevealVote extends React.Component<
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
           votingSmartContractFaqURL={links.FAQ_WHAT_IS_PLCR_CONTRACT}
           key={this.state.key}
+          faqURL={links.FAQ_VOTING_SECTION}
         />
       </>
     );

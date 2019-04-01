@@ -151,7 +151,7 @@ class ChallengeCommitVote extends React.Component<
       voteOption: this.state.voteOption,
       numTokens: this.state.numTokens,
       key: this.state.key,
-      faqURL: links.FAQ_REGISTRY,
+      faqURL: links.FAQ_VOTING_SECTION,
     };
 
     return (
