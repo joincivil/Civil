@@ -224,18 +224,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
   constructor(props: NewsroomProps) {
     super(props);
-    let currentStep = props.savedStep;
-    if (currentStep === STEP.APPLIED) {
-      // Not a real step, see its description above
-      currentStep--;
-    }
-    if (qs.parse(document.location.search.substr(1)).purchased) {
-      // Just been redirected back from token purchase
-      currentStep = STEP.TOKENS;
-    }
-    currentStep = this.backtrackSteps(currentStep);
     this.state = {
-      currentStep,
+      currentStep: this.determineInitialStep(props.savedStep),
       furthestStep: props.furthestStep,
     };
   }
@@ -370,6 +360,28 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
+  private determineInitialStep(savedStep: STEP): STEP {
+    let currentStep = savedStep;
+    if (currentStep === STEP.APPLIED) {
+      // Not a real step, see its description above
+      currentStep--;
+    }
+
+    if (qs.parse(document.location.search.substr(1)).purchased) {
+      // Just been redirected back from token purchase
+      currentStep = STEP.TOKENS;
+    }
+
+    if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
+      // Waiting on grant
+      currentStep = STEP.PROFILE_GRANT;
+    }
+
+    currentStep = this.backtrackSteps(currentStep);
+
+    return currentStep;
+  }
+
   /** Handle situation where user used nav to jump too far ahead in step process before we put in disable checks - they should be backtracked back to where they need to be. */
   private backtrackSteps(step: STEP): STEP {
     const section = STEP_TO_SECTION[step];
@@ -396,7 +408,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         return false;
       },
       [SECTION.CONTRACT]: () => {
-        const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
+        const waitingOnGrant = !!this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
         return typeof this.props.grantRequested !== "boolean" || waitingOnGrant;
       },
       [SECTION.TUTORIAL]: () => {
@@ -423,7 +435,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     let newStep = SECTION_STARTS[newSection]; // Go to first step in that section
     if (newSection === SECTION.PROFILE) {
       if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
-        newStep = STEP.PROFILE_GRANT;
+        newStep = STEP.PROFILE_GRANT; // Waiting on grant
       } else {
         newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
       }
