@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const InfoNotification: React.SFC = () => (
+export const InfoNotification: React.FunctionComponent = () => (
   <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
     <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd" transform="translate(-2, -2)">
       <polygon points="0 0 32 0 32 32 0 32" />

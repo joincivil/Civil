@@ -177,7 +177,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     state: NewsroomComponentState,
   ): NewsroomComponentState | null {
     const decidedWhetherToApply = typeof props.grantRequested === "boolean";
-    // @TODO/toby Confirm that when grant is rejected, it comes through as explicit `false` and not null or undefined
     const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
     if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && decidedWhetherToApply) {
       return {
@@ -479,7 +478,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
 
 const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
 
-export const Newsroom: React.SFC<NewsroomExternalProps> = props => {
+export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>

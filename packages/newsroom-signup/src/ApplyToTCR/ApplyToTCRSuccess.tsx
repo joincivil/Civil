@@ -36,7 +36,7 @@ interface AddApplicationEndToCalendar {
   listingDetailURL: string;
 }
 
-const AddApplicationEndToCalendar: React.SFC<AddApplicationEndToCalendar> = props => {
+const AddApplicationEndToCalendar: React.FunctionComponent<AddApplicationEndToCalendar> = props => {
   const title = "My Newsroom review period has ended for the Civil Registry";
   const description = "My Newsroom review period has ended for the Civil Registry";
   const location = props.listingDetailURL;
@@ -56,7 +56,7 @@ const AddApplicationEndToCalendar: React.SFC<AddApplicationEndToCalendar> = prop
   );
 };
 
-const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
+const ApplyToTCRSuccess: React.FunctionComponent<ApplyToTCRSuccessProps> = props => {
   const { listing } = props;
   const listingAddress = listing.address;
   const endTime = listing.data.appExpiry.toNumber();
@@ -85,7 +85,7 @@ const ApplyToTCRSuccess: React.SFC<ApplyToTCRSuccessProps> = props => {
               </b>.
             </p>
 
-            <p>Please check your emails during that time to keep tabs on your newsroom's process.</p>
+            <p>Please check your emails during that time to keep tabs on your newsroom's progress.</p>
           </FormRowItem>
           <FormRowItem align="right">
             <AddApplicationEndToCalendar endTime={endTime} listingDetailURL={registryListingURL} />

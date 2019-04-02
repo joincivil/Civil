@@ -26,7 +26,7 @@ export interface DashboardUserInfoSummaryProps {
   applyURL: string;
 }
 
-export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInfoSummaryProps> = props => {
+export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) => {
   const { buyCvlUrl, applyURL } = props;
 
   let buyBtnProps: any = { href: buyCvlUrl };

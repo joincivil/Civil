@@ -8,7 +8,7 @@ export interface NavLinkProps {
   onClick?(): void;
 }
 
-export const NavLink: React.StatelessComponent<NavLinkProps> = props => {
+export const NavLink: React.FunctionComponent<NavLinkProps> = props => {
   let LinkType;
 
   if (props.to) {

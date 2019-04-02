@@ -35,6 +35,8 @@ export const urlConstants = {
   // FAQ
   FAQ_HOME: FAQ_BASE_URL,
   FAQ_REGISTRY: FAQ_BASE_URL + "/hc/en-us/categories/360001542132-Registry",
+  FAQ_CHALLENGE_SECTION: FAQ_BASE_URL + "/hc/en-us/sections/360003838572-Challenge",
+  FAQ_VOTING_SECTION: FAQ_BASE_URL + "/hc/en-us/sections/360003838592-Voting",
   FAQ_APPLICATION_DEPOSIT: FAQ_BASE_URL + "/hc/en-us/articles/360024542352-Why-do-I-need-to-apply-with-Civil-tokens-",
   FAQ_BROWSER_SUPPORT: FAQ_BASE_URL + "/hc/en-us/articles/360022147571-Browser-Support",
   FAQ_COMMUNITY_VETTING_PROCESS:

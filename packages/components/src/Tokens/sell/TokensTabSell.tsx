@@ -1,9 +1,11 @@
 import * as React from "react";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import { TokensTabSellActive } from "./TokensTabSellActive";
 import { TokensTabSellComplete } from "./TokensTabSellComplete";
 import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
-import { ComingSoon } from "../TokensStyledComponents";
+import { ICivilContext, CivilContext } from "../../context";
 import { FeatureFlag } from "../../features/FeatureFlag";
+import { ComingSoon } from "../TokensStyledComponents";
 
 export interface TokensTabSellProps {
   network: string;
@@ -11,46 +13,71 @@ export interface TokensTabSellProps {
 
 export interface TokensTabSellStates {
   isSellComplete: boolean;
+  isTokenUnlocked: boolean | null;
+  balance: any | null;
 }
 
 export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTabSellStates> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
   public constructor(props: TokensTabSellProps) {
     super(props);
     this.state = {
       isSellComplete: false,
+      isTokenUnlocked: null,
+      balance: null,
     };
   }
 
-  public render(): JSX.Element | null {
-    const { isSellComplete } = this.state;
-    // TODO(sarah): check token controller.
-    const isTokenUnlocked = true;
+  public async componentDidMount(): Promise<void> {
+    await this.setUnlockedStatus();
+  }
 
-    const uniswapComingSoon = (
+  public render(): JSX.Element | null {
+    const { isSellComplete, isTokenUnlocked } = this.state;
+
+    const comingSoon = (
       <ComingSoon>
-        <h3>Coming soon!</h3>
+        <h3>Coming Soon...</h3>
         <p>
-          Civil members who have completed the tutorial and unlocked their tokens may now send their tokens to anyone,
-          and soon will be able to sell their tokens on the open market via this page on civil.co. If you need help or
-          have questions, please contact us at <a href="mailto:support@civil.co">support@civil.co</a>.
+          We appreciate your patience while we are testing this feature.<br />If you need help or have questions, please
+          contact our support team at <a href="mailto:support@civil.co">support@civil.co</a>.
         </p>
       </ComingSoon>
     );
 
-    let componentToDisplay;
-    if (!isTokenUnlocked) {
-      componentToDisplay = <TokensTabSellUnlock />;
+    let content: JSX.Element;
+    if (isTokenUnlocked === null) {
+      return null;
+    } else if (!isTokenUnlocked) {
+      content = <TokensTabSellUnlock />;
     } else if (isSellComplete) {
-      componentToDisplay = <TokensTabSellComplete />;
+      content = <TokensTabSellComplete />;
     } else {
-      componentToDisplay = <TokensTabSellActive onSellComplete={this.onSellComplete} />;
+      content = (
+        <TokensTabSellActive
+          balance={getFormattedTokenBalance(this.state.balance)}
+          onSellComplete={this.onSellComplete}
+        />
+      );
     }
 
     return (
-      <FeatureFlag feature="uniswap" replacement={uniswapComingSoon}>
-        {componentToDisplay}
+      <FeatureFlag feature="uniswap" replacement={comingSoon}>
+        {content}
       </FeatureFlag>
     );
+  }
+  private async setUnlockedStatus(): Promise<void> {
+    const civil = this.context.civil;
+    const account = await civil.accountStream.first().toPromise();
+    if (!account) {
+      return this.setState({ ...this.state, isTokenUnlocked: false });
+    }
+    const tcr = await civil.tcrSingletonTrusted();
+    const token = await tcr.getToken();
+    const unlocked = await token.isUnlocked(account);
+    const balance = await token.instance.balanceOf.callAsync(account);
+    this.setState({ ...this.state, isTokenUnlocked: unlocked, balance });
   }
 
   private onSellComplete = () => {

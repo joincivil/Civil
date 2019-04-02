@@ -75,8 +75,8 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
   }
 
   public renderTabs(): Array<React.ReactElement<StepTopNavNoButtonsProps>> {
-    return React.Children.map(this.props.children, (child: React.ReactChild, index) => {
-      return React.cloneElement(child as React.ReactElement<StepTopNavNoButtonsProps>, {
+    return React.Children.map(this.props.children, (child, index) => {
+      return React.cloneElement(child as React.ReactElement, {
         index,
         startPosition: this.state.startPosition,
         isCurrent: this.state.activeIndex === index,

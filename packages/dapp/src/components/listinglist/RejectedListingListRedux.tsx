@@ -15,7 +15,7 @@ export interface RejectedListingsListReduxReduxProps {
   loadingFinished: boolean;
 }
 
-const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> = props => {
+const RejectedListingListRedux = (props: RejectedListingsListReduxReduxProps) => {
   if (props.rejectedListings.count()) {
     return <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={props.rejectedListings} />;
   }

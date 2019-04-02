@@ -7,7 +7,7 @@ export interface DisclosureArrowIconProps {
   width?: number;
 }
 
-export const DisclosureArrowIcon: React.SFC<DisclosureArrowIconProps> = props => {
+export const DisclosureArrowIcon: React.FunctionComponent<DisclosureArrowIconProps> = props => {
   const color = props.color || colors.accent.CIVIL_BLUE;
   const width = (props.width || 8).toString();
   const height = (props.height || 12).toString();

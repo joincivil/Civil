@@ -1,13 +1,14 @@
 import * as React from "react";
-import { buttonSizes, InvertedButton } from "../../Button";
 import { CurrencyCalcCVL, CurrencyConverterSection } from "../../CurrencyConverter";
 import { CivilContext, ICivilContext } from "../../context";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
+import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
 
 export interface UniswapBuyProps {
   usdToSpend: number;
   ethToSpend: number;
   ethExchangeRate: number;
+  onBuyComplete(): void;
 }
 export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
@@ -52,9 +53,14 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
           />
         </CurrencyCalcCVL>
         <div>
-          <InvertedButton size={buttonSizes.MEDIUM} onClick={async () => this.buyCVL()}>
+          <EthereumTransactionButton
+            modalHeading={`Confirm in Metamask to complete your purchase of ${cvl} CVL`}
+            execute={async () => this.buyCVL()}
+            disabled={this.props.usdToSpend === 0}
+            onComplete={() => this.props.onBuyComplete()}
+          >
             Buy CVL on the open market from Uniswap
-          </InvertedButton>
+          </EthereumTransactionButton>
         </div>
       </CurrencyConverterSection>
     );
@@ -68,9 +74,9 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     this.setState({ cvlToReceive: result });
   }
 
-  private async buyCVL(): Promise<void> {
+  private async buyCVL(): Promise<EthereumTransactionInfo> {
     const uniswap = this.context.uniswap;
     const weiToSpend = uniswap.parseEther(this.props.ethToSpend.toString());
-    await uniswap.executeETHToCVL(weiToSpend, this.state.cvlToReceive);
+    return uniswap.executeETHToCVL(weiToSpend, this.state.cvlToReceive);
   }
 }

@@ -56,7 +56,7 @@ class ApplicationUpdateStatus extends React.Component<
     return (
       <InApplicationResolveCard
         transactions={this.getTransactions()}
-        faqURL={links.FAQ_REGISTRY}
+        faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );

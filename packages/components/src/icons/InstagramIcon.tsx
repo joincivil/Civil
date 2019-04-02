@@ -7,7 +7,7 @@ export interface InstagramIconProps {
   width?: number;
 }
 
-const _InstagramIcon: React.SFC<InstagramIconProps> = props => {
+const _InstagramIcon = (props: InstagramIconProps) => {
   const height = props.height || 23;
   const width = props.width || 23;
   return (

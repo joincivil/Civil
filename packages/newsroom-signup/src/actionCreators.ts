@@ -1,7 +1,8 @@
 import { AnyAction } from "redux";
 import { BigNumber } from "bignumber.js";
+import { Map } from "immutable";
 import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
-import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
+import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml, is0x0Address } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 
@@ -41,7 +42,10 @@ export enum grantActions {
 }
 
 export enum listingActions {
+  GET_LISTING_FAIL = "GET_LISTING_FAIL",
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
+  SETUP_LISTING_APPLICATION_SUBSCRIPTION = "SETUP_LISTING_APPLICATION_SUBSCRIPTION",
+  LISTING_APPLICATION_SUBSCRIPTION_ALREADY_EXISTS = "LISTING_APPLICATION_SUBSCRIPTION_ALREADY_EXISTS",
 }
 
 export enum analyticsActions {
@@ -143,7 +147,63 @@ export const getListing = (address: EthAddress, civil: Civil): any => async (
 ): Promise<AnyAction> => {
   const tcr = await civil.tcrSingletonTrusted();
   const listing = await tcr.getListing(address);
-  return dispatch(addListing(await listing.getListingWrapper()));
+
+  const listingData = await getListingData(listing);
+  if (listingData) {
+    return dispatch(addListing(listingData));
+  } else if (listing) {
+    return dispatch(setupListingApplicationsSubscription(address, listing));
+  }
+
+  return {
+    type: listingActions.GET_LISTING_FAIL,
+  };
+};
+
+const getListingData = async (listing: any): Promise<ListingWrapper | undefined> => {
+  const listingData = await listing.getListingWrapper();
+  const owner = listingData && listingData.data && listingData.data.owner;
+  if (owner && !is0x0Address(owner)) {
+    return listingData;
+  }
+  return;
+};
+
+// @TODO(jon): This should probably go into an actual Redux store, but its a little
+// weird b/c the DApp is responsible for the reducers for the store. It may make sense
+// to abstract redux into a separate package first?
+let listingApplicationSubscriptions: Map<EthAddress, any> = Map<EthAddress, any>();
+
+const setupListingApplicationsSubscription = (listingAddress: EthAddress, listing: any) => async (
+  dispatch: any,
+  getState: any,
+): Promise<AnyAction> => {
+  if (!listingApplicationSubscriptions.includes(listingAddress)) {
+    const applicationEventHandler = async (event: any) => {
+      const listingData = await getListingData(listing);
+      if (listingData) {
+        dispatch(addListing(listingData));
+        listingApplicationSubscriptions.get(listingAddress).unsubscribe(applicationEventHandler);
+        listingApplicationSubscriptions = listingApplicationSubscriptions.delete(listingAddress);
+      }
+    };
+    const subscription = listing.applications().subscribe(applicationEventHandler);
+    listingApplicationSubscriptions = listingApplicationSubscriptions.set(listingAddress, subscription);
+
+    return {
+      type: listingActions.SETUP_LISTING_APPLICATION_SUBSCRIPTION,
+      data: {
+        address: listingAddress,
+      },
+    };
+  }
+
+  return {
+    type: listingActions.LISTING_APPLICATION_SUBSCRIPTION_ALREADY_EXISTS,
+    data: {
+      address: listingAddress,
+    },
+  };
 };
 
 export const addNewsroom = (newsroom: NewsroomState): AnyAction => {
@@ -235,7 +295,6 @@ export const updateCharter = (address: EthAddress, charter: Partial<CharterData>
   const newsroom = newsrooms.get(address) || { wrapper: { data: {} } };
   const persistCharter = newsroomUi.get(uiActions.PERSIST_CHARTER);
   if (persistCharter && !dontPersist) {
-    console.log("here", { charter, dontPersist });
     persistCharter(charter);
   }
   return dispatch(

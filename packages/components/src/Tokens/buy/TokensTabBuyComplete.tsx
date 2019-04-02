@@ -4,7 +4,7 @@ import { TokenBuyCompleteText } from "../TokensTextComponents";
 import { TokensUnlockMessage } from "../TokensUnlockMessage";
 import { HollowGreenCheck } from "../../icons";
 
-export const TokensTabBuyComplete: React.StatelessComponent = props => {
+export const TokensTabBuyComplete: React.FunctionComponent = props => {
   return (
     <>
       <TokenBuySellComplete>

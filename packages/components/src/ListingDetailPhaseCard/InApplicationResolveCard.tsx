@@ -7,8 +7,9 @@ import {
   CTACopy,
 } from "./styledComponents";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import NeedHelp from "./NeedHelp";
 
-export const InApplicationResolveCard: React.SFC<ListingDetailPhaseCardComponentProps> = props => {
+export const InApplicationResolveCard: React.FunctionComponent<ListingDetailPhaseCardComponentProps> = props => {
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
@@ -26,6 +27,8 @@ export const InApplicationResolveCard: React.SFC<ListingDetailPhaseCardComponent
           Add To Registry
         </TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

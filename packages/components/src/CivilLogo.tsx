@@ -4,7 +4,7 @@ export interface CivilLogoProps {
   color?: string;
 }
 
-export const CivilLogo: React.SFC<CivilLogoProps> = props => {
+export const CivilLogo: React.FunctionComponent<CivilLogoProps> = props => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="72" height="21" viewBox="0 0 72 21">
       <g fill={props.color || "#000"}>

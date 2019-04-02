@@ -14,7 +14,7 @@ const StyledDiv = styled.div`
   width: 600px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
 storiesOf("Listing History Event", module)
   .addDecorator(StoryRouter())

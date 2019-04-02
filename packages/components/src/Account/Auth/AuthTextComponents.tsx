@@ -8,7 +8,7 @@ import {
 } from "../../Heading";
 import { Link } from "react-router-dom";
 
-export const AuthTextFooter: React.SFC = () => (
+export const AuthTextFooter: React.FunctionComponent = () => (
   // TODO(jorgelo): For the store front, the text should be:
 
   <PageHeadingTextCenteredSmall>
@@ -17,7 +17,7 @@ export const AuthTextFooter: React.SFC = () => (
   </PageHeadingTextCenteredSmall>
 );
 
-export const AuthTextEmailSent: React.SFC<{
+export const AuthTextEmailSent: React.FunctionComponent<{
   emailAddress: string;
 }> = ({ emailAddress }) => (
   <>
@@ -29,27 +29,27 @@ export const AuthTextEmailSent: React.SFC<{
   </>
 );
 
-export const AuthTextVerifyTokenConfirmed: React.SFC = () => (
+export const AuthTextVerifyTokenConfirmed: React.FunctionComponent = () => (
   <>
     <PageSubHeadingCentered>Email Address Confirmed!</PageSubHeadingCentered>
     <PageHeadingTextCenteredLarge>Thanks for confirming your email address.</PageHeadingTextCenteredLarge>
   </>
 );
 
-export const AuthTextVerifyTokenVerifying: React.SFC = () => (
+export const AuthTextVerifyTokenVerifying: React.FunctionComponent = () => (
   <>
     <PageSubHeadingCentered>Confirming your email address...</PageSubHeadingCentered>
   </>
 );
 
-export const AuthTextEthAuthNext: React.SFC = () => (
+export const AuthTextEthAuthNext: React.FunctionComponent = () => (
   <>
     <PageHeadingTextCenteredLarge>Next, we'll set up your secure crypto wallet.</PageHeadingTextCenteredLarge>
   </>
 );
 
 // TODO(jorgelo): Jorge made this up, it should probably be nicer.
-export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ errorMessage }) => (
+export const AuthTextVerifyTokenError: React.FunctionComponent<{ errorMessage: string }> = ({ errorMessage }) => (
   <>
     <PageSubHeadingCentered>Uh oh.</PageSubHeadingCentered>
     <PageHeadingTextCenteredLarge>
@@ -58,7 +58,7 @@ export const AuthTextVerifyTokenError: React.SFC<{ errorMessage: string }> = ({ 
   </>
 );
 
-export const AuthTextCreateAccount: React.SFC = () => (
+export const AuthTextCreateAccount: React.FunctionComponent = () => (
   <>
     <PageHeadingCentered>Create your Civil account</PageHeadingCentered>
     <PageHeadingTextCentered>
@@ -68,11 +68,11 @@ export const AuthTextCreateAccount: React.SFC = () => (
   </>
 );
 
-export const AuthTextCheckSpam: React.SFC = () => (
+export const AuthTextCheckSpam: React.FunctionComponent = () => (
   <PageHeadingTextCenteredLarge>Please check your spam folder if you don’t see the email.</PageHeadingTextCenteredLarge>
 );
 
-export const AuthTextSigninWithEmail: React.SFC = () => (
+export const AuthTextSigninWithEmail: React.FunctionComponent = () => (
   <>
     <PageHeadingCentered>Sign in with email</PageHeadingCentered>
     <PageHeadingTextCentered>
@@ -81,18 +81,20 @@ export const AuthTextSigninWithEmail: React.SFC = () => (
   </>
 );
 
-export const AuthTextEmailNotFoundError: React.SFC<{ signupPath: string }> = ({ signupPath }) => (
+export const AuthTextEmailNotFoundError: React.FunctionComponent<{ signupPath: string }> = ({ signupPath }) => (
   <>
     The email address you entered does not exist. Try again? or{" "}
     <Link to={signupPath}>create a Civil account to continue.</Link>
   </>
 );
 
-export const AuthTextEmailExistsError: React.SFC<{ loginPath: string }> = ({ loginPath }) => (
+export const AuthTextEmailExistsError: React.FunctionComponent<{ loginPath: string }> = ({ loginPath }) => (
   <>
     Your account already exists. <Link to={loginPath}>Login to continue.</Link>
   </>
 );
 
 // TODO(jorgelo): Make this text nicer.
-export const AuthTextUnknownError: React.SFC = () => <>An internal error has occured, please try again.</>;
+export const AuthTextUnknownError: React.FunctionComponent = () => (
+  <>An internal error has occured, please try again.</>
+);

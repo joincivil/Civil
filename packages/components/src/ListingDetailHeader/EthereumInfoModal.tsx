@@ -21,7 +21,7 @@ export interface EthereumInfoModalProps {
   handleCloseClick(): void;
 }
 
-const EthereumInfoModal: React.SFC<EthereumInfoModalProps> = props => {
+const EthereumInfoModal: React.FunctionComponent<EthereumInfoModalProps> = props => {
   return (
     <Modal width={630}>
       <StyledModalHeader>

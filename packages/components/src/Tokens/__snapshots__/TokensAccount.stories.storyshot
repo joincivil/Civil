@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots User Token Account Buy Section 1`] = `
+exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
@@ -9343,7 +9343,7 @@ initialize {
 }
 `;
 
-exports[`Storyshots User Token Account Signup Section 1`] = `
+exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
@@ -10068,7 +10068,7 @@ initialize {
 }
 `;
 
-exports[`Storyshots User Token Account Tutorial Verify 1`] = `
+exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {

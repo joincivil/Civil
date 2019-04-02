@@ -8,7 +8,7 @@ export interface WrongNetworkComponentProps {
   requiredNetworkNiceName: string;
 }
 
-export const WrongNetworkComponent: React.SFC<WrongNetworkComponentProps> = props => {
+export const WrongNetworkComponent: React.FunctionComponent<WrongNetworkComponentProps> = props => {
   return (
     <>
       <StyledLargeModalText>
@@ -26,7 +26,7 @@ export const WrongNetworkComponent: React.SFC<WrongNetworkComponentProps> = prop
   );
 };
 
-export const WrongNetworkModal: React.SFC<WrongNetworkComponentProps> = props => {
+export const WrongNetworkModal: React.FunctionComponent<WrongNetworkComponentProps> = props => {
   return (
     <Modal width={558}>
       <WrongNetworkComponent {...props} />

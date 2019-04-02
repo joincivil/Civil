@@ -14,7 +14,7 @@ import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChar
 import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-export const ChallengeResolveCard: React.StatelessComponent<
+export const ChallengeResolveCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
 > = props => {
   return (

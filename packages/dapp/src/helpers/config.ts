@@ -7,6 +7,7 @@ export interface ConfigType {
   SUPPORTED_ETHEREUM_NETWORKS?: string;
   SENDGRID_REGISTRY_LIST_ID?: string;
   INFURA_APP_KEY?: string;
+  FEATURE_FLAGS?: string;
 }
 
 const defaultConfig: ConfigType = {
@@ -18,6 +19,7 @@ const defaultConfig: ConfigType = {
   SUPPORTED_ETHEREUM_NETWORKS: process.env.REACT_APP_SUPPORTED_ETHEREUM_NETWORKS,
   SENDGRID_REGISTRY_LIST_ID: process.env.REACT_APP_SENDGRID_REGISTRY_LIST_ID,
   INFURA_APP_KEY: process.env.REACT_APP_INFURA_APP_KEY,
+  FEATURE_FLAGS: process.env.REACT_APP_FEATURE_FLAGS,
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;

@@ -2,43 +2,43 @@ import * as React from "react";
 import { StyledTransferTokenTitle, StyledTransferTokenTip } from "./DashboardStyledComponents";
 import { WarningIcon } from "../icons";
 
-export const SubTabAllChallengesVotedText: React.SFC = props => <>All</>;
+export const SubTabAllChallengesVotedText: React.FunctionComponent = props => <>All</>;
 
-export const SubTabRevealVoteText: React.SFC = props => <>Reveal Vote</>;
+export const SubTabRevealVoteText: React.FunctionComponent = props => <>Reveal Vote</>;
 
-export const SubTabClaimRewardsText: React.SFC = props => <>Claim Rewards</>;
+export const SubTabClaimRewardsText: React.FunctionComponent = props => <>Claim Rewards</>;
 
-export const SubTabRescueTokensText: React.SFC = props => <>Rescue Tokens</>;
+export const SubTabRescueTokensText: React.FunctionComponent = props => <>Rescue Tokens</>;
 
-export const SubTabReclaimTokensText: React.SFC = props => <>Transfer Voting Tokens</>;
+export const SubTabReclaimTokensText: React.FunctionComponent = props => <>Transfer Voting Tokens</>;
 
-export const SubTabChallengesCompletedText: React.SFC = props => <>Completed</>;
+export const SubTabChallengesCompletedText: React.FunctionComponent = props => <>Completed</>;
 
-export const SubTabChallengesStakedText: React.SFC = props => <>Staked</>;
+export const SubTabChallengesStakedText: React.FunctionComponent = props => <>Staked</>;
 
-export const MyVotingTabText: React.SFC = props => <>Tasks</>;
+export const MyVotingTabText: React.FunctionComponent = props => <>Tasks</>;
 
-export const MyNewsroomsTabText: React.SFC = props => <>Newsrooms</>;
+export const MyNewsroomsTabText: React.FunctionComponent = props => <>Newsrooms</>;
 
-export const MyChallengesTabText: React.SFC = props => <>Challenges</>;
+export const MyChallengesTabText: React.FunctionComponent = props => <>Challenges</>;
 
-export const ClaimRewardsDescriptionText: React.SFC = props => <>Claim rewards from your winning votes</>;
+export const ClaimRewardsDescriptionText: React.FunctionComponent = props => <>Claim rewards from your winning votes</>;
 
-export const RescueTokensDescriptionText: React.SFC = props => (
+export const RescueTokensDescriptionText: React.FunctionComponent = props => (
   <>Reclaim your voting tokens from votes that you did not reveal</>
 );
 
-export const YourPublicAddressLabelText: React.SFC = props => <>Your Public Address</>;
+export const YourPublicAddressLabelText: React.FunctionComponent = props => <>Your Public Address</>;
 
-export const BalanceLabelText: React.SFC = props => <>Available Balance</>;
+export const BalanceLabelText: React.FunctionComponent = props => <>Available Balance</>;
 
-export const VotingBalanceLabelText: React.SFC = props => <>Voting Tokens</>;
+export const VotingBalanceLabelText: React.FunctionComponent = props => <>Voting Tokens</>;
 
-export const ChallengesWonLabelText: React.SFC = props => <>Challenges Won</>;
+export const ChallengesWonLabelText: React.FunctionComponent = props => <>Challenges Won</>;
 
-export const RewardsClaimedLabelText: React.SFC = props => <>Rewards Claimed</>;
+export const RewardsClaimedLabelText: React.FunctionComponent = props => <>Rewards Claimed</>;
 
-export const TransferTokenText: React.SFC = props => (
+export const TransferTokenText: React.FunctionComponent = props => (
   <StyledTransferTokenTitle>
     <h3>Transfer Tokens</h3>
     <p>
@@ -49,18 +49,18 @@ export const TransferTokenText: React.SFC = props => (
   </StyledTransferTokenTitle>
 );
 
-export const TransferTokenTipsText: React.SFC = props => (
+export const TransferTokenTipsText: React.FunctionComponent = props => (
   <StyledTransferTokenTip>
     <b>Tip:</b> We recommend reserving some tokens in your available balance if you plan on applying, challenging, or
     tipping newsrooms.
   </StyledTransferTokenTip>
 );
 
-export const MetaMaskPopUpText: React.SFC = props => (
+export const MetaMaskPopUpText: React.FunctionComponent = props => (
   <StyledTransferTokenTip>This will pop-up MetaMask window to confirm your transactions</StyledTransferTokenTip>
 );
 
-export const TransferTokenTutorialWarnText: React.SFC = props => (
+export const TransferTokenTutorialWarnText: React.FunctionComponent = props => (
   <>
     <h2>
       <WarningIcon width={25} height={25} /> Take the Civil Tutorial
@@ -72,7 +72,7 @@ export const TransferTokenTutorialWarnText: React.SFC = props => (
   </>
 );
 
-export const TransferTokenTakeTutorialText: React.SFC = props => (
+export const TransferTokenTakeTutorialText: React.FunctionComponent = props => (
   <>
     <h3>Civil Tutorial</h3>
     <p>

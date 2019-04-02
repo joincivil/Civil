@@ -13,7 +13,7 @@ import { VoteTypeSummaryRowProps } from "./types";
 import { voteColor } from "./constants";
 import { voteTypeLabel } from "./ChallengeResultsChartTextComponents";
 
-export const VoteTypeSummaryRow: React.StatelessComponent<VoteTypeSummaryRowProps> = props => {
+export const VoteTypeSummaryRow: React.FunctionComponent<VoteTypeSummaryRowProps> = props => {
   const color = voteColor[props.voteType];
   return (
     <VoteTypeSummary>

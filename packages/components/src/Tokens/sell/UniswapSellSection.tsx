@@ -29,15 +29,15 @@ export class UniswapSellSection extends React.Component<UniswapSellSectionProps,
       <Query query={ethPriceQuery}>
         {({ loading, error, data }) => {
           if (loading) {
-            return <div />;
+            return null;
           }
           return (
             <>
               <UniswapCvlEthConverter onConversion={updatePrice} />
               <UniswapSell
                 cvlToSell={this.state.cvlToSell}
-                etherToReceive={this.state.etherToReceive}
                 ethExchangeRate={data.storefrontEthPrice}
+                onSellComplete={this.props.onComplete}
               />
             </>
           );

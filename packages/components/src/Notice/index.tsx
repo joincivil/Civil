@@ -7,6 +7,7 @@ export enum NoticeTypes {
   INFO,
   ERROR,
   ALERT,
+  ATTENTION,
 }
 
 export interface NoticeContainerProps {
@@ -25,6 +26,10 @@ const typeColors = {
   [NoticeTypes.ALERT]: {
     border: "rgba(94,94,94,0.12)",
     background: "#FFFDE9",
+  },
+  [NoticeTypes.ATTENTION]: {
+    border: "rgba(255,00,0,1)",
+    background: "#FBF9F6",
   },
 };
 
@@ -58,9 +63,10 @@ export const NoticeMessageContainer = styled.div`
 export interface NoticeProps {
   type: NoticeTypes;
   className?: string;
+  children?: any;
 }
 
-export const Notice: React.SFC<NoticeProps> = ({ className, children, type }): JSX.Element => {
+export const Notice = ({ className, children, type }: NoticeProps): JSX.Element => {
   return (
     <NoticeContainer type={type} className={className}>
       <NoticeIconContainer>{type === NoticeTypes.ERROR && <InfoNotification />}</NoticeIconContainer>

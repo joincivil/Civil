@@ -89,7 +89,7 @@ export interface TransactionsProp {
   transactions: any;
 }
 
-const ApplyToTCRFormComponent: React.SFC<
+const ApplyToTCRFormComponent: React.FunctionComponent<
   ApplyToTCRFormProps & ApplyPostTransactionProp & TransactionsProp & InjectedTransactionStatusModalProps
 > = props => {
   const { minDeposit, multisigHasMinDeposit, transactions } = props;
@@ -139,7 +139,7 @@ const ApplyToTCRFormComponent: React.SFC<
   );
 };
 
-const ApplyToTCRForm: React.SFC<
+const ApplyToTCRForm: React.FunctionComponent<
   ApplyToTCRFormProps & ApplyPostTransactionProp & InjectedTransactionStatusModalProps
 > = props => {
   const { newsroomAddress, minDeposit, multisigAddress, postApplyToTCR } = props;
@@ -199,6 +199,11 @@ const ApplyToTCRForm: React.SFC<
                 isTransactionSuccessModalOpen: true,
               });
               postApplyToTCR();
+
+              // @TODO A hack until https://github.com/joincivil/Civil/pull/1148
+              props.setHandleTransactionSuccessButtonClick(() => {
+                document.location.reload();
+              });
             },
           },
         ];

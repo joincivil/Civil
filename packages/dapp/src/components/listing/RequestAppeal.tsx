@@ -271,7 +271,7 @@ interface InsufficientBalanceSnackBarProps {
   minDeposit: string;
 }
 
-const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
   return (
     <SnackBar>
       <InsufficientCVLForAppeal minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
@@ -323,7 +323,7 @@ const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModa
   RequestAppealComponent,
 ) as React.ComponentClass<RequestAppealProps>;
 
-const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
+const RequestAppealPage = (props: RequestAppealPageProps) => {
   const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = links.FAQ_REGISTRY;

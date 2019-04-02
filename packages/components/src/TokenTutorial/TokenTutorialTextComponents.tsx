@@ -1,10 +1,10 @@
 import * as React from "react";
 
-export const TutorialIntroText: React.SFC = props => <h2>Choose a topic below to get started</h2>;
+export const TutorialIntroText: React.FunctionComponent = props => <h2>Choose a topic below to get started</h2>;
 
-export const TutorialTimeText: React.SFC = props => <>Approximately 10-15 minutes</>;
+export const TutorialTimeText: React.FunctionComponent = props => <>Approximately 10-15 minutes</>;
 
-export const TutorialSkipText: React.SFC = props => (
+export const TutorialSkipText: React.FunctionComponent = props => (
   <p>If you’ve read the Civil Constitution and FAQ, skip to the quiz.</p>
 );
 
@@ -12,13 +12,13 @@ export interface TutorialProgressTextProps {
   questions: number;
 }
 
-export const TutorialProgressText: React.SFC<TutorialProgressTextProps> = props => (
+export const TutorialProgressText: React.FunctionComponent<TutorialProgressTextProps> = props => (
   <>
     You have {props.questions} question{props.questions === 1 ? "" : "s"} left
   </>
 );
 
-export const Topic1Intro: React.SFC = props => (
+export const Topic1Intro: React.FunctionComponent = props => (
   <>
     <p>
       <b>In this section, you’ll learn</b>
@@ -30,7 +30,7 @@ export const Topic1Intro: React.SFC = props => (
   </>
 );
 
-export const Topic2Intro: React.SFC = props => (
+export const Topic2Intro: React.FunctionComponent = props => (
   <>
     <p>
       <b>In this section, you’ll learn</b>
@@ -42,7 +42,7 @@ export const Topic2Intro: React.SFC = props => (
   </>
 );
 
-export const Topic3Intro: React.SFC = props => (
+export const Topic3Intro: React.FunctionComponent = props => (
   <>
     <p>
       <b>In this section, you’ll learn</b>
@@ -53,7 +53,7 @@ export const Topic3Intro: React.SFC = props => (
   </>
 );
 
-export const Topic1Tutorial1: React.SFC = props => (
+export const Topic1Tutorial1: React.FunctionComponent = props => (
   <>
     <h2>What is Civil?</h2>
     <p>
@@ -64,7 +64,7 @@ export const Topic1Tutorial1: React.SFC = props => (
   </>
 );
 
-export const Topic1Tutorial2: React.SFC = props => (
+export const Topic1Tutorial2: React.FunctionComponent = props => (
   <>
     <h2>What makes Civil different?</h2>
     <p>
@@ -75,7 +75,7 @@ export const Topic1Tutorial2: React.SFC = props => (
   </>
 );
 
-export const Topic1Tutorial3: React.SFC = props => (
+export const Topic1Tutorial3: React.FunctionComponent = props => (
   <>
     <h2>How does a Newsroom join Civil?</h2>
     <h3>Newsroom Application:</h3>
@@ -105,7 +105,7 @@ export const Topic1Tutorial3: React.SFC = props => (
   </>
 );
 
-export const Topic1Tutorial4: React.SFC = props => (
+export const Topic1Tutorial4: React.FunctionComponent = props => (
   <>
     <h2>What are Civil tokens (CVL)?</h2>
     <p>
@@ -120,7 +120,7 @@ export const Topic1Tutorial4: React.SFC = props => (
   </>
 );
 
-export const Topic1Tutorial5: React.SFC = props => (
+export const Topic1Tutorial5: React.FunctionComponent = props => (
   <>
     <h2>What is the Civil Registry?</h2>
     <p>
@@ -131,7 +131,7 @@ export const Topic1Tutorial5: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial1: React.SFC = props => (
+export const Topic2Tutorial1: React.FunctionComponent = props => (
   <>
     <h2>What is ETH (Ether)?</h2>
     <p>
@@ -143,7 +143,7 @@ export const Topic2Tutorial1: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial2: React.SFC = props => (
+export const Topic2Tutorial2: React.FunctionComponent = props => (
   <>
     <h2>What are Ethereum transaction fees or “Gas”?</h2>
     <p>
@@ -167,7 +167,7 @@ export const Topic2Tutorial2: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial3: React.SFC = props => (
+export const Topic2Tutorial3: React.FunctionComponent = props => (
   <>
     <h2>What is a token wallet?</h2>
     <p>
@@ -205,7 +205,7 @@ export const Topic2Tutorial3: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial4: React.SFC = props => (
+export const Topic2Tutorial4: React.FunctionComponent = props => (
   <>
     <h2>What is a hardware wallet or a ‘cold wallet’?</h2>
     <p>
@@ -227,7 +227,7 @@ export const Topic2Tutorial4: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial5: React.SFC = props => (
+export const Topic2Tutorial5: React.FunctionComponent = props => (
   <>
     <h2>What is a software wallet or a ‘hot wallet’?</h2>
     <p>
@@ -261,7 +261,7 @@ export const Topic2Tutorial5: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial6: React.SFC = props => (
+export const Topic2Tutorial6: React.FunctionComponent = props => (
   <>
     <h2>What is a public wallet address?</h2>
     <p>
@@ -277,7 +277,7 @@ export const Topic2Tutorial6: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial7: React.SFC = props => (
+export const Topic2Tutorial7: React.FunctionComponent = props => (
   <>
     <h2>What is a private key?</h2>
     <p>
@@ -300,7 +300,7 @@ export const Topic2Tutorial7: React.SFC = props => (
   </>
 );
 
-export const Topic2Tutorial8: React.SFC = props => (
+export const Topic2Tutorial8: React.FunctionComponent = props => (
   <>
     <h2>What is a recovery phrase (seed phrase) and why is it important to secure it?</h2>
     <p>
@@ -328,7 +328,7 @@ export const Topic2Tutorial8: React.SFC = props => (
   </>
 );
 
-export const Topic3Tutorial1: React.SFC = props => (
+export const Topic3Tutorial1: React.FunctionComponent = props => (
   <>
     <h2>How are Civil tokens valued over time - do prices fluctuate?</h2>
     <p>
@@ -347,7 +347,7 @@ export const Topic3Tutorial1: React.SFC = props => (
   </>
 );
 
-export const Topic3Tutorial2: React.SFC = props => (
+export const Topic3Tutorial2: React.FunctionComponent = props => (
   <>
     <h2>What factors should you take into consideration when buying Civil tokens?</h2>
     <p>
@@ -364,7 +364,7 @@ export const Topic3Tutorial2: React.SFC = props => (
   </>
 );
 
-export const Topic3Tutorial3: React.SFC = props => (
+export const Topic3Tutorial3: React.FunctionComponent = props => (
   <>
     <h2>How much is safe to consider spending on Civil tokens?</h2>
     <p>

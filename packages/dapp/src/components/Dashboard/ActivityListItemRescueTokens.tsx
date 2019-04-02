@@ -213,7 +213,7 @@ const ProposalRescueTokens = connect(makeProposalMapStateToProps)(ProposalRescue
 
 const ActivityListItemRescueTokens = connect(makeChallengeMapStateToProps)(ActivityListItemRescueTokensComponent);
 
-const RescueTokens: React.SFC<ActivityListItemRescueTokensOwnProps> = props => {
+const RescueTokens: React.FunctionComponent<ActivityListItemRescueTokensOwnProps> = props => {
   if (props.isProposalChallenge) {
     return <ProposalRescueTokens {...props} />;
   }

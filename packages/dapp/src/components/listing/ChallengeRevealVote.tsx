@@ -122,7 +122,7 @@ class ChallengeRevealVote extends React.Component<
           salt={this.state.salt}
           onInputChange={this.updateRevealVoteState}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
-          faqURL={links.FAQ_REGISTRY}
+          faqURL={links.FAQ_VOTING_SECTION}
           votingSmartContractFaqURL={links.FAQ_WHAT_IS_PLCR_CONTRACT}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}

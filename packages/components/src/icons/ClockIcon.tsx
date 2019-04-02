@@ -6,7 +6,7 @@ export interface ClockIconProps {
   width?: number;
 }
 
-export const ClockIcon: React.SFC<ClockIconProps> = props => {
+export const ClockIcon: React.FunctionComponent<ClockIconProps> = props => {
   const color = props.color || "#8B8581";
   const width = (props.width || 18).toString();
   const height = (props.height || 18).toString();

@@ -5,7 +5,7 @@ import { TutorialQuestion } from "./TutorialQuestion";
 import { TutorialTopicIntro } from "./TutorialTopicIntro";
 import { TutorialTopicCompleted } from "./TutorialTopicCompleted";
 
-const TopicTutorial: React.SFC = props => (
+const TopicTutorial: React.FunctionComponent = props => (
   <>
     <h2>What is Civil?</h2>
     <p>
@@ -22,7 +22,7 @@ const TopicTutorial: React.SFC = props => (
   </>
 );
 
-const TopicIntro: React.SFC = props => (
+const TopicIntro: React.FunctionComponent = props => (
   <>
     <p>
       <b>You’ll learn</b>

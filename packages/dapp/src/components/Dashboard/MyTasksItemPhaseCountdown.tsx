@@ -5,7 +5,9 @@ import { PHASE_TYPE_NAMES } from "@joincivil/components";
 import { ActivityListItemOwnProps, ActivityListItemReduxProps } from "./MyTasksItem";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 
-const TaskItemPhaseCountdown: React.SFC<ActivityListItemOwnProps & ActivityListItemReduxProps> = props => {
+const TaskItemPhaseCountdown: React.FunctionComponent<
+  ActivityListItemOwnProps & ActivityListItemReduxProps
+> = props => {
   const { challenge, challengeState } = props;
 
   let phaseCountdown = <></>;

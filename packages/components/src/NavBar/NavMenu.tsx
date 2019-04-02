@@ -20,7 +20,7 @@ interface NavMenuCloseDrawerProp {
   closeDrawer?(): void;
 }
 
-const NavMenuLinksComponent: React.SFC<NavMenuCloseDrawerProp> = props => {
+const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = props => {
   let mobileOnClickProp: any = {};
   if (props.closeDrawer) {
     mobileOnClickProp = { onClick: props.closeDrawer };

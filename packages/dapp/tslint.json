@@ -3,6 +3,7 @@
   "rules": {
     "variable-name": [true, "ban-keywords", "allow-leading-underscore"],
     "no-var-requires": false,
-    "no-unused-variable": [true, { "ignore-pattern": "^React|styled|StyledComponentClass" }]
+    "no-unused-variable": [true, { "ignore-pattern": "^React|styled|StyledComponentClass" }],
+    "whitespace": false
   }
 }

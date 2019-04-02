@@ -4,7 +4,7 @@ exports[`Storyshots Currency Converter CVL to ETH 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cIsjWt hHWvnQ",
+      "class": "sc-rzOft boETPg",
     },
     "children": Array [
       Object {
@@ -4860,7 +4860,7 @@ exports[`Storyshots Currency Converter USD to ETH 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
-      "class": "sc-cIsjWt hHWvnQ",
+      "class": "sc-rzOft boETPg",
     },
     "children": Array [
       Object {

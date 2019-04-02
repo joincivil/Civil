@@ -12,7 +12,7 @@ export interface TabTitleProps {
   count?: number;
 }
 
-const TabTitle: React.SFC<TabTitleProps> = props => {
+const TabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <>
       {props.children}
@@ -21,7 +21,7 @@ const TabTitle: React.SFC<TabTitleProps> = props => {
   );
 };
 
-export const NewApplicationsTabTitle: React.SFC<TabTitleProps> = props => {
+export const NewApplicationsTabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <TabTitle count={props.count}>
       <TabNewApplicationsText />
@@ -29,7 +29,7 @@ export const NewApplicationsTabTitle: React.SFC<TabTitleProps> = props => {
   );
 };
 
-export const UnderChallengeTabTitle: React.SFC<TabTitleProps> = props => {
+export const UnderChallengeTabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <TabTitle count={props.count}>
       <TabUnderChallengeText />
@@ -37,7 +37,7 @@ export const UnderChallengeTabTitle: React.SFC<TabTitleProps> = props => {
   );
 };
 
-export const AppealToCouncilTabTitle: React.SFC<TabTitleProps> = props => {
+export const AppealToCouncilTabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <TabTitle count={props.count}>
       <TabAppealToCouncilText />
@@ -45,7 +45,7 @@ export const AppealToCouncilTabTitle: React.SFC<TabTitleProps> = props => {
   );
 };
 
-export const ChallengeCouncilAppealTabTitle: React.SFC<TabTitleProps> = props => {
+export const ChallengeCouncilAppealTabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <TabTitle count={props.count}>
       <TabChallengeCouncilAppealText />
@@ -53,7 +53,7 @@ export const ChallengeCouncilAppealTabTitle: React.SFC<TabTitleProps> = props =>
   );
 };
 
-export const ReadyToUpdateTabTitle: React.SFC<TabTitleProps> = props => {
+export const ReadyToUpdateTabTitle: React.FunctionComponent<TabTitleProps> = props => {
   return (
     <TabTitle count={props.count}>
       <TabReadyToUpdateText />

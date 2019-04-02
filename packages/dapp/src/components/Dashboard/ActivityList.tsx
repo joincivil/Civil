@@ -12,7 +12,7 @@ export interface ActivityListOwnProps {
   toggleChallengeSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
-const ActivityList: React.SFC<ActivityListOwnProps> = props => {
+const ActivityList: React.FunctionComponent<ActivityListOwnProps> = props => {
   let index = 0;
   const ActivityListItemComponent = props.ActivityListItemComponent || ChallengeActivityListItem;
   return (

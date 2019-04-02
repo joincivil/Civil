@@ -7,7 +7,7 @@ export interface MediumIconProps {
   width?: number;
 }
 
-const _MediumIcon: React.SFC<MediumIconProps> = props => {
+const _MediumIcon = (props: MediumIconProps) => {
   const height = props.height || 23;
   const width = props.width || 23;
   return (

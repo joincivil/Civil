@@ -46,7 +46,7 @@ export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
   disabledOnMobile?: boolean;
-  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
+  Button?: React.FunctionComponent<TransactionButtonInnerProps>;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
   onMobileClick?(): any;
@@ -104,7 +104,7 @@ export interface TransactionButtonInnerProps {
   onClick(event?: any): void;
 }
 
-export const PrimaryTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const PrimaryTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -116,7 +116,7 @@ export const PrimaryTransactionButton: React.StatelessComponent<TransactionButto
   );
 };
 
-export const InvertedTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const InvertedTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -128,7 +128,7 @@ export const InvertedTransactionButton: React.StatelessComponent<TransactionButt
   );
 };
 
-export const DarkTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const DarkTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -372,13 +372,13 @@ export class TransactionButton extends React.Component<
       DEFAULT_MODAL_COMPONENTS[this.state.progressModalState!];
     let modalContent: JSX.Element | undefined;
     if (modalContentSource) {
-      modalContent = React.cloneElement(modalContentSource as React.ReactElement<any>, {
+      modalContent = React.cloneElement(modalContentSource as React.ReactElement, {
         hideModal: this.hideProgressModal,
       });
     }
     if (modalComponent) {
       return React.cloneElement(
-        modalComponent as React.ReactElement<any>,
+        modalComponent as React.ReactElement,
         {
           visible: this.state.isProgressModalVisible,
         },

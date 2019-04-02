@@ -2,7 +2,7 @@ import * as React from "react";
 import { TokenUnlock, TokenBtnsInverted } from "./TokensStyledComponents";
 import { TokenUnlockText, TokenUnlockBtnText } from "./TokensTextComponents";
 
-export const TokensUnlockMessage: React.StatelessComponent = props => {
+export const TokensUnlockMessage: React.FunctionComponent = props => {
   return (
     <TokenUnlock>
       <TokenUnlockText />

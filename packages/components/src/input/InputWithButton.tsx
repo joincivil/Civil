@@ -124,7 +124,7 @@ class InputContainer extends React.Component<InputContainerProps, InputWithButto
   private setButtonRef = (el: HTMLButtonElement) => (this.buttonElement = el);
 }
 
-export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps> = props => {
+export const TextInputWithButton: React.FunctionComponent<InputWithButtonProps> = props => {
   const { onButtonClick, icon, buttonText, ...restProps } = props;
   const inputProps = { ...restProps, noLabel: true };
   const containerProps = { onButtonClick, buttonText, icon };
@@ -147,7 +147,7 @@ export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps>
   );
 };
 
-export const CurrencyInputWithButton: React.StatelessComponent<InputWithButtonProps> = props => {
+export const CurrencyInputWithButton: React.FunctionComponent<InputWithButtonProps> = props => {
   const { onButtonClick, icon, buttonText, ...restProps } = props;
   const inputProps = { ...restProps, noLabel: true };
   const containerProps = { onButtonClick, buttonText, icon };
@@ -170,7 +170,7 @@ export const CurrencyInputWithButton: React.StatelessComponent<InputWithButtonPr
   );
 };
 
-export const CurrencyInputWithoutButton: React.StatelessComponent<InputProps> = props => {
+export const CurrencyInputWithoutButton: React.FunctionComponent<InputProps> = props => {
   const { icon, ...restProps } = props;
   const inputProps = { ...restProps, noLabel: true };
   const containerProps = { icon };

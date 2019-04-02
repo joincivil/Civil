@@ -42,7 +42,7 @@ export interface UserTokenAccountProgressProps {
   userAccount: string;
 }
 
-storiesOf("User Token Account", module)
+storiesOf("Storefront / User Token Account", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,

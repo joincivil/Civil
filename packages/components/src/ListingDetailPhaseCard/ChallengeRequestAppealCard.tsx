@@ -27,7 +27,7 @@ import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-const RequestAppealButton: React.SFC<
+const RequestAppealButton: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &
@@ -58,7 +58,7 @@ const RequestAppealButton: React.SFC<
   );
 };
 
-export const ChallengeRequestAppealCard: React.StatelessComponent<
+export const ChallengeRequestAppealCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &

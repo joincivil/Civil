@@ -2,7 +2,7 @@ import * as React from "react";
 import { NewsroomTaglineProps } from "./types";
 import { StyledListingSummaryDescription } from "./styledComponents";
 
-const NewsroomTagline: React.SFC<NewsroomTaglineProps> = props => {
+const NewsroomTagline: React.FunctionComponent<NewsroomTaglineProps> = props => {
   let { description } = props;
   if (!description) {
     return null;

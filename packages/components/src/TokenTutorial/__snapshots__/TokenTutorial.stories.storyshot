@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Token Tutorial Tutorial Landing 1`] = `
+exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
@@ -4447,7 +4447,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -4502,7 +4502,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -4601,7 +4601,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -4966,7 +4966,7 @@ initialize {
                                     "attribs": Object {},
                                     "children": Array [
                                       Object {
-                                        "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                        "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -5021,7 +5021,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -5120,7 +5120,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -7236,7 +7236,7 @@ initialize {
                                     "attribs": Object {},
                                     "children": Array [
                                       Object {
-                                        "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                        "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -7291,7 +7291,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -7390,7 +7390,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -7755,7 +7755,7 @@ initialize {
                                       "attribs": Object {},
                                       "children": Array [
                                         Object {
-                                          "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                          "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                           "next": null,
                                           "parent": [Circular],
                                           "prev": null,
@@ -7810,7 +7810,7 @@ initialize {
                                     "attribs": Object {},
                                     "children": Array [
                                       Object {
-                                        "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                        "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -7909,7 +7909,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -17463,7 +17463,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -17518,7 +17518,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -17617,7 +17617,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -17982,7 +17982,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -18037,7 +18037,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -18136,7 +18136,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -20252,7 +20252,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -20307,7 +20307,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -20406,7 +20406,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -20771,7 +20771,7 @@ initialize {
                                     "attribs": Object {},
                                     "children": Array [
                                       Object {
-                                        "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                        "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                         "next": null,
                                         "parent": [Circular],
                                         "prev": null,
@@ -20826,7 +20826,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -20925,7 +20925,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -30981,7 +30981,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -31036,7 +31036,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -31135,7 +31135,7 @@ initialize {
                           "attribs": Object {},
                           "children": Array [
                             Object {
-                              "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                              "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -31500,7 +31500,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -31555,7 +31555,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -31654,7 +31654,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -33770,7 +33770,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -33825,7 +33825,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -33924,7 +33924,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -34289,7 +34289,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -34344,7 +34344,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -34443,7 +34443,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -40986,7 +40986,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -41041,7 +41041,7 @@ initialize {
                           "attribs": Object {},
                           "children": Array [
                             Object {
-                              "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                              "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -41140,7 +41140,7 @@ initialize {
                         "attribs": Object {},
                         "children": Array [
                           Object {
-                            "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                            "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                             "next": null,
                             "parent": [Circular],
                             "prev": null,
@@ -41505,7 +41505,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -41560,7 +41560,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -41659,7 +41659,7 @@ initialize {
                           "attribs": Object {},
                           "children": Array [
                             Object {
-                              "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                              "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -43775,7 +43775,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -43830,7 +43830,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -43929,7 +43929,7 @@ initialize {
                           "attribs": Object {},
                           "children": Array [
                             Object {
-                              "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                              "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -44294,7 +44294,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -44349,7 +44349,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -44448,7 +44448,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -60114,7 +60114,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -60169,7 +60169,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -60268,7 +60268,7 @@ initialize {
                           "attribs": Object {},
                           "children": Array [
                             Object {
-                              "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                              "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                               "next": null,
                               "parent": [Circular],
                               "prev": null,
@@ -60633,7 +60633,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -60688,7 +60688,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -60787,7 +60787,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -62903,7 +62903,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -62958,7 +62958,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,
@@ -63057,7 +63057,7 @@ initialize {
                             "attribs": Object {},
                             "children": Array [
                               Object {
-                                "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                 "next": null,
                                 "parent": [Circular],
                                 "prev": null,
@@ -63422,7 +63422,7 @@ initialize {
                                   "attribs": Object {},
                                   "children": Array [
                                     Object {
-                                      "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                      "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                       "next": null,
                                       "parent": [Circular],
                                       "prev": null,
@@ -63477,7 +63477,7 @@ initialize {
                                 "attribs": Object {},
                                 "children": Array [
                                   Object {
-                                    "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                    "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                     "next": null,
                                     "parent": [Circular],
                                     "prev": null,
@@ -63576,7 +63576,7 @@ initialize {
                               "attribs": Object {},
                               "children": Array [
                                 Object {
-                                  "data": "Learn basic concepts of EHT, gas, token wallets, keys, and seed phrases",
+                                  "data": "Learn basic concepts of ETH, gas, token wallets, keys, and seed phrases",
                                   "next": null,
                                   "parent": [Circular],
                                   "prev": null,

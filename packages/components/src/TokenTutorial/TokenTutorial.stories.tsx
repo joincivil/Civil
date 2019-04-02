@@ -39,7 +39,7 @@ const mocks = {
   },
 };
 
-storiesOf("Token Tutorial", module)
+storiesOf("Storefront / Token Tutorial", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,

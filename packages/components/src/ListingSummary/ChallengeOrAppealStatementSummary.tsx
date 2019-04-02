@@ -2,7 +2,7 @@ import * as React from "react";
 import { ListingSummaryComponentProps, ChallengeOrAppealStatementSummaryProps } from "./types";
 import { StyledListingChallengeOrAppealStatement } from "./styledComponents";
 
-const ChallengeOrAppealStatementSummary: React.SFC<
+const ChallengeOrAppealStatementSummary: React.FunctionComponent<
   ListingSummaryComponentProps & ChallengeOrAppealStatementSummaryProps
 > = props => {
   const {

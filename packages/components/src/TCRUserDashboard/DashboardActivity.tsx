@@ -16,7 +16,7 @@ export interface DashboardActivityProps {
   onTabChange(activeIndex: number): void;
 }
 
-export const DashboardActivity: React.StatelessComponent<DashboardActivityProps> = props => {
+export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> = props => {
   return (
     <StyledUserActivity>
       <Tabs

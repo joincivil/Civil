@@ -7,7 +7,7 @@ export interface HamburgerIconProps {
   width?: number;
 }
 
-export const HamburgerIcon: React.SFC<HamburgerIconProps> = props => {
+export const HamburgerIcon: React.FunctionComponent<HamburgerIconProps> = props => {
   const color = props.color || colors.basic.WHITE;
   const width = (props.width || 42).toString();
   const height = (props.height || 42).toString();

@@ -11,6 +11,7 @@ import {
   QuestionToolTip as _QuestionToolTip,
   ToolTipProps,
   TransactionPopUpWarning as _TransactionPopUpWarning,
+  DetailTransactionButtonProps,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
@@ -175,7 +176,7 @@ export const _NoAvatar = styled.div`
 
 export const noAvatar = <_NoAvatar>?</_NoAvatar>;
 
-export const TransactionPopUpWarning = styled(_TransactionPopUpWarning)`
+export const TransactionPopUpWarning = styled<DetailTransactionButtonProps, any>(_TransactionPopUpWarning)`
   margin-top: 12px;
 `;
 
@@ -213,7 +214,7 @@ export interface NextBackProps {
   navigate(go: 1 | -1): void;
   nextDisabled?(): boolean;
 }
-export const NextBack: React.SFC<NextBackProps> = (props: NextBackProps) => (
+export const NextBack: React.FunctionComponent<NextBackProps> = (props: NextBackProps) => (
   <NextBackButtonContainer style={{ marginTop: 64 }}>
     {!props.backHidden ? (
       <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => props.navigate(-1)}>
