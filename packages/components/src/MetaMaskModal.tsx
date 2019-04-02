@@ -164,11 +164,11 @@ export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props 
     ) : (
       <ModalP>
         This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If
-        you don't see it, please click the MetaMask{" "}
+        you don't see it, please click the MetaMask icon{" "}
         <ImgWrapperSmall>
           <MetaMaskSideIcon />
         </ImgWrapperSmall>{" "}
-        in the browser bar.
+        in your browser bar.
       </ModalP>
     );
   }
