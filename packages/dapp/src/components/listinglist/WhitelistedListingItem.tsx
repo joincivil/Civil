@@ -12,9 +12,9 @@ export interface WhitelistedCardReduxProps {
   whitelistedTimestamp?: number;
 }
 
-const WhitelistedListingItem: React.SFC<
-  ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardProps & WhitelistedCardReduxProps
-> = props => {
+const WhitelistedListingItem = (
+  props: ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardProps & WhitelistedCardReduxProps,
+) => {
   return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} />;
 };
 

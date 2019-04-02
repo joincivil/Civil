@@ -6,7 +6,7 @@ export interface ApplicationInProgressProps {
   width?: string;
 }
 
-export const ApplicationInProgressIcon: React.SFC<ApplicationInProgressProps> = props => {
+export const ApplicationInProgressIcon: React.FunctionComponent<ApplicationInProgressProps> = props => {
   const color = colors.primary.CIVIL_GRAY_2;
   const width = props.width || "19";
   const height = props.height || "18";

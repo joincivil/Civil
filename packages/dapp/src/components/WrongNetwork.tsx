@@ -8,7 +8,7 @@ export interface WrongNetworkProps {
   network: string;
 }
 
-const WrongNetwork: React.SFC<WrongNetworkProps> = props => {
+const WrongNetwork = (props: WrongNetworkProps) => {
   if (!isNetworkSupported(props.network)) {
     const supportedNetworkNames = getFormattedNetworkNames(supportedNetworks);
     let formattedSupportedNetworkNames;

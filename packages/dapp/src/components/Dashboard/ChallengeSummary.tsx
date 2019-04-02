@@ -23,7 +23,7 @@ interface AppealDecisionTextProps {
   councilDecision: string;
 }
 
-const AppealDecisionText: React.SFC<AppealDecisionTextProps> = props => {
+const AppealDecisionText: React.FunctionComponent<AppealDecisionTextProps> = props => {
   return (
     <p>
       The Civil Council {props.currentNewsroomStatusPastTense} this newsroom, {props.councilDecision}ing the Community's
@@ -32,7 +32,7 @@ const AppealDecisionText: React.SFC<AppealDecisionTextProps> = props => {
   );
 };
 
-const CurrentChallengeStateExplanation: React.SFC<MyTasksItemSubComponentProps> = props => {
+const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const { appeal, appealChallenge, appealChallengeState, challengeState } = props;
 
   if (!challengeState) {
@@ -108,7 +108,7 @@ const CurrentChallengeStateExplanation: React.SFC<MyTasksItemSubComponentProps> 
   return explanation;
 };
 
-const AppealSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
+const AppealSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const { appeal, challengeState } = props;
   const { didChallengeOriginallySucceed } = challengeState;
 
@@ -134,7 +134,7 @@ const AppealSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
   );
 };
 
-const UserAppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
+const UserAppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const { appealChallenge, appealChallengeState, appealUserChallengeData } = props;
 
   if (!appealChallenge || !appealChallengeState) {
@@ -175,7 +175,7 @@ const UserAppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = prop
   );
 };
 
-const AppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
+const AppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const {
     appealChallengeID,
     appealChallenge,
@@ -237,7 +237,7 @@ const AppealChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props =>
   );
 };
 
-const ChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
+const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const {
     challengeID,
     challengeState,
@@ -333,7 +333,7 @@ const ChallengeSummary: React.SFC<MyTasksItemSubComponentProps> = props => {
   );
 };
 
-const DashboardItemChallengeDetails: React.SFC<MyTasksItemSubComponentProps> = props => {
+const DashboardItemChallengeDetails: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const { appeal, appealChallenge, challenge } = props;
 
   if (!challenge) {

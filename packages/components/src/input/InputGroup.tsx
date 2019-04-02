@@ -54,7 +54,7 @@ const InputGroupText = styled.span`
   white-space: nowrap;
 `;
 
-const InputGroupAppend: React.StatelessComponent<InputGroupTextProps> = props => {
+const InputGroupAppend: React.FunctionComponent<InputGroupTextProps> = props => {
   return (
     <StyledInputGroupAppend>
       <InputGroupText noPadding={props.noPadding}>{props.children}</InputGroupText>
@@ -62,7 +62,7 @@ const InputGroupAppend: React.StatelessComponent<InputGroupTextProps> = props =>
   );
 };
 
-const InputGroupPrepend: React.StatelessComponent = props => {
+const InputGroupPrepend: React.FunctionComponent = props => {
   return (
     <StyledInputGroupPrepend>
       <InputGroupText>{props.children}</InputGroupText>
@@ -74,10 +74,10 @@ export interface InputGroupProps {
   append?: string | JSX.Element;
   prepend?: string | JSX.Element;
   noAppendPadding?: boolean;
-  inputComponent?: React.ComponentClass<any> | React.SFC<any>;
+  inputComponent?: React.ComponentClass<any> | React.FunctionComponent<any>;
 }
 
-export const InputGroup: React.StatelessComponent<InputGroupProps & InputProps> = (props: any) => {
+export const InputGroup: React.FunctionComponent<InputGroupProps & InputProps> = (props: any) => {
   const { label, append, prepend, placeholder, noAppendPadding, invalid, invalidMessage, ...inputProps } = props;
   const Input = props.inputComponent || TextInput;
 

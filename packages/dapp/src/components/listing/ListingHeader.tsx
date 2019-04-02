@@ -72,7 +72,7 @@ function getRegistryURLData(listingPhaseState: any): [TRegistryURLDataParameters
   return [urlArg, label];
 }
 
-const ListingHeader: React.SFC<ListingHeaderProps> = props => {
+const ListingHeader: React.FunctionComponent<ListingHeaderProps> = props => {
   const registryURLData = getRegistryURLData(props.listingPhaseState);
   const registryLinkText = registryURLData[1];
   const etherscanBaseURL = getEtherscanBaseURL(props.network);

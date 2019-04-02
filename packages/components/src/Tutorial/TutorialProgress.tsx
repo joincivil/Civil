@@ -12,7 +12,7 @@ export interface TutorialProgressProps {
   showSlideCount?: boolean;
 }
 
-export const TutorialProgress: React.StatelessComponent<TutorialProgressProps> = props => {
+export const TutorialProgress: React.FunctionComponent<TutorialProgressProps> = props => {
   return (
     <>
       <TutorialProgressContain>

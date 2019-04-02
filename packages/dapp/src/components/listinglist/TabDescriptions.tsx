@@ -2,7 +2,7 @@ import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
 import { StyledListingCopy } from "../utility/styledComponents";
 
-export const WhitelistedTabDescription: React.SFC = props => (
+export const WhitelistedTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     All approved Newsrooms agreed to uphold the journalistic principles in the{" "}
     <a href={links.CONSTITUTION}>Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
@@ -12,7 +12,7 @@ export const WhitelistedTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const RejectedTabDescription: React.SFC = props => (
+export const RejectedTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     Rejected Newsrooms have been removed from the Civil Registry following a vote that they had violated the{" "}
     <a href={links.CONSTITUTION}>Civil Constitution</a> in some way. Rejected Newsrooms can reapply to the Registry at
@@ -23,7 +23,7 @@ export const RejectedTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const NewApplicationsTabDescription: React.SFC = props => (
+export const NewApplicationsTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     New applications are subject to Civil community review to ensure alignment with the{" "}
     <a href={links.CONSTITUTION}>Civil Constitution</a>. If you believe any of these Newsrooms don't abide by the Civil
@@ -34,7 +34,7 @@ export const NewApplicationsTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const UnderChallengeTabDescription: React.SFC = props => (
+export const UnderChallengeTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     These Newsrooms have been challenged by a community member who perceives they violated the{" "}
     <a href={links.CONSTITUTION}>Civil Constitution</a>. You can vote to accept or reject the Newsroom from the Civil
@@ -45,7 +45,7 @@ export const UnderChallengeTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const UnderAppealTabDescription: React.SFC = props => (
+export const UnderAppealTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     The <a href={links.FOUNDATION}>Civil Council</a> has agreed to consider the appeals of these challenged Newsrooms.
     Their decisions are based on the <a href={links.CONSTITUTION}>Civil Constitution</a>. If you disagree with the Civil
@@ -56,7 +56,7 @@ export const UnderAppealTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const UnderAppealChallengeTabDescription: React.SFC = props => (
+export const UnderAppealChallengeTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     A community member has challenged the Civil Council's appeal decision on these Newsrooms' fate, based on the{" "}
     <a href={links.CONSTITUTION}>Civil Constitution</a>. You can vote to uphold or overturn the Civil Council's decision
@@ -67,7 +67,7 @@ export const UnderAppealChallengeTabDescription: React.SFC = props => (
   </StyledListingCopy>
 );
 
-export const ReadyToUpdateTabDescription: React.SFC = props => (
+export const ReadyToUpdateTabDescription: React.FunctionComponent = props => (
   <StyledListingCopy>
     The Civil community has spoken and the vote results are in. In order to enact the decision, community members must
     update the Newsroom's status.

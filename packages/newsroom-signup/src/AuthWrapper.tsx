@@ -45,7 +45,7 @@ const FooterLink = styled(AuthPageFooterLink)`
   font-size: 13px;
 `;
 
-const Footer: React.SFC = () => (
+const Footer: React.FunctionComponent = () => (
   <></>
   // @TODO/toby Re-enable footer when foundation launches this page
   // <AuthFooterTerms

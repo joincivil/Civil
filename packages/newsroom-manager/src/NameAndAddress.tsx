@@ -202,7 +202,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             <DetailTransactionButton
               transactions={this.getTransactions(value.civil!)}
               civil={value.civil}
-              estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name)]}
+              estimateFunctions={[value.civil!.estimateNewsroomDeployTrusted.bind(value.civil, this.props.name!)]}
               requiredNetwork={value.requiredNetwork}
               Button={TransactionButtonInner}
               noModal={true}

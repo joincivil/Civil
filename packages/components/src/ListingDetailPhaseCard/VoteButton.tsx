@@ -43,7 +43,7 @@ export interface VoteButtonProps extends VoteBaseProps {
 import { buttonTheme } from "./styledComponents";
 import { WhitelistActionText, RemoveActionText, UpholdActionText, OverturnActionText } from "./textComponents";
 
-const VoteButton: React.SFC<VoteButtonProps> = props => {
+const VoteButton: React.FunctionComponent<VoteButtonProps> = props => {
   let buttonText;
   const { voteOption, buttonVoteOptionValue, isAppealChallenge } = props;
   const isSelected = voteOption === buttonVoteOptionValue;

@@ -50,13 +50,13 @@ export const ConfirmedEmailLetterIcon = styled(CheckEmailLetterIcon)`
   background-image: url(${confirmedEmailImage});
 `;
 
-export const CenterWrapper: React.SFC = ({ children }) => (
+export const CenterWrapper: React.FunctionComponent = ({ children }) => (
   <div style={{ display: "flex", justifyContent: "center" }}>
     <div>{children}</div>
   </div>
 );
 
-export const CheckEmailSection: React.SFC = props => (
+export const CheckEmailSection = () => (
   <CenterWrapper>
     <CheckEmailLetterIcon />
   </CenterWrapper>
@@ -77,7 +77,7 @@ export const AuthOuterWrapperContainer = styled.div`
   width: 700px;
 `;
 
-export const AuthOuterWrapper: React.SFC = ({ children }) => (
+export const AuthOuterWrapper: React.FunctionComponent = ({ children }) => (
   <CenterWrapper>
     <AuthOuterWrapperContainer>
       <CenterWrapper>{children}</CenterWrapper>
@@ -85,7 +85,7 @@ export const AuthOuterWrapper: React.SFC = ({ children }) => (
   </CenterWrapper>
 );
 
-export const AuthWrapper: React.SFC = ({ children }) => (
+export const AuthWrapper: React.FunctionComponent = ({ children }) => (
   <AuthOuterWrapper>
     <AuthInnerWrapper>{children}</AuthInnerWrapper>
     {/* // TODO(jorgelo): Confirm this is the final link and move this to src/helpers/config.ts */}
@@ -118,7 +118,7 @@ export interface AuthFooterTermsProps {
   textEl: JSX.Element;
   benefitsUrl: string;
 }
-export const AuthFooterTerms: React.SFC<AuthFooterTermsProps> = ({ textEl, benefitsUrl }) => (
+export const AuthFooterTerms: React.FunctionComponent<AuthFooterTermsProps> = ({ textEl, benefitsUrl }) => (
   <AuthFooterContainer>
     {textEl}
     <BenefitsLink>

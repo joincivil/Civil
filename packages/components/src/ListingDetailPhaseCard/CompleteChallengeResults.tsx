@@ -22,7 +22,7 @@ export type CompleteChallengeResultsAllProps = ListingDetailPhaseCardComponentPr
   AppealChallengeResultsProps &
   CompleteChallengeResultsProps;
 
-export const CompleteChallengeResults: React.StatelessComponent<CompleteChallengeResultsAllProps> = props => {
+export const CompleteChallengeResults: React.FunctionComponent<CompleteChallengeResultsAllProps> = props => {
   const showAppealChallenge =
     props.appealChallengeTotalVotes &&
     props.appealChallengeVotesFor &&

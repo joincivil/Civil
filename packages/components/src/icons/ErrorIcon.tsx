@@ -4,7 +4,7 @@ export interface ErrorIconProps {
   className?: string;
 }
 
-export const ErrorIcon: React.SFC<ErrorIconProps> = props => {
+export const ErrorIcon: React.FunctionComponent<ErrorIconProps> = props => {
   return (
     <svg className={props.className} height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">

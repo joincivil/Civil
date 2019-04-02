@@ -14,14 +14,14 @@ export interface CountdownTimerState {
 }
 
 export interface ProgressBarCountdownProps extends CountdownTimerProps {
-  displayLabel: string | React.SFC | React.ComponentClass;
+  displayLabel: string | React.FunctionComponent | React.ComponentClass;
   totalSeconds: number;
-  flavorText?: string | React.SFC | React.ComponentClass;
+  flavorText?: string | React.FunctionComponent | React.ComponentClass;
   toolTipText?: string | React.ReactNode;
 }
 
 export interface TwoPhaseProgressBarCountdownProps extends ProgressBarCountdownProps {
   activePhaseIndex: number;
-  secondaryDisplayLabel: string | React.SFC | React.ComponentClass;
+  secondaryDisplayLabel: string | React.FunctionComponent | React.ComponentClass;
   secondaryToolTipText?: string | React.ReactNode;
 }

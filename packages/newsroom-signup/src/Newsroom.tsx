@@ -478,7 +478,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalPro
 
 const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
 
-export const Newsroom: React.SFC<NewsroomExternalProps> = props => {
+export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props => {
   return (
     <AuthWrapper>
       <DataWrapper>

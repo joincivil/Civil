@@ -16,7 +16,7 @@ export interface TutorialInfoProps {
   onClickNext(e: any): void;
 }
 
-export const TutorialInfo: React.StatelessComponent<TutorialInfoProps> = props => {
+export const TutorialInfo: React.FunctionComponent<TutorialInfoProps> = props => {
   return (
     <>
       <TutorialProgress activeSlide={props.activeSlide} totalSlides={props.totalSlides} />

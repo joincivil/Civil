@@ -39,7 +39,7 @@ export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentPro
   ChallengeResultsProps &
   AppealProps;
 
-const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+const GrantAppealButton: React.FunctionComponent<AppealAwaitingDecisionCardProps> = props => {
   let text = "Grant Appeal";
   if (props.txIdToConfirm) {
     text = "Confirm Appeal";
@@ -59,7 +59,7 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
   );
 };
 
-export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+export const AppealAwaitingDecisionCard: React.FunctionComponent<AppealAwaitingDecisionCardProps> = props => {
   const localDateTime = getLocalDateTimeStrings(props.endTime);
   return (
     <StyledListingDetailPhaseCardContainer>

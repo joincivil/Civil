@@ -18,7 +18,7 @@ export interface TokenAccountBuyProps {
   step: string;
 }
 
-export const UserTokenAccountBuy: React.StatelessComponent<TokenAccountBuyProps> = props => {
+export const UserTokenAccountBuy: React.FunctionComponent<TokenAccountBuyProps> = props => {
   const { foundationAddress, network, step } = props;
 
   if (step === TOKEN_PROGRESS.DISABLED) {

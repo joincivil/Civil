@@ -13,11 +13,11 @@ import {
 
 export interface EthAddressViewerProps {
   address: string;
-  displayName: string;
+  displayName: string | JSX.Element;
   etherscanBaseURL?: string;
 }
 
-export const EthAddressViewer: React.SFC<EthAddressViewerProps> = props => {
+export const EthAddressViewer: React.FunctionComponent<EthAddressViewerProps> = props => {
   const { address, displayName, etherscanBaseURL } = props;
 
   const copyToClipBoard = () => {

@@ -7,7 +7,7 @@ export interface CloseXIconProps {
   width?: number;
 }
 
-export const CloseXIcon: React.SFC<CloseXIconProps> = props => {
+export const CloseXIcon: React.FunctionComponent<CloseXIconProps> = props => {
   const color = props.color || colors.basic.WHITE;
   const width = (props.width || 42).toString();
   const height = (props.height || 42).toString();

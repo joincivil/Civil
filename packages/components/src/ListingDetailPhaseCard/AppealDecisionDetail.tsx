@@ -19,7 +19,7 @@ const StyledInner = styled.div`
   padding-top: 14px;
 `;
 
-const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props => {
+const AppealDecisionDetailInner: React.FunctionComponent<AppealDecisionDetailProps> = props => {
   const decisionText = props.appealGranted ? "granted" : "not granted";
   return (
     <StyledInner>
@@ -37,7 +37,7 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
   );
 };
 
-export const AppealDecisionDetail: React.SFC<AppealDecisionDetailProps> = props => {
+export const AppealDecisionDetail: React.FunctionComponent<AppealDecisionDetailProps> = props => {
   const headerElement = (
     <StyledListingDetailPhaseCardSectionHeader>Civil Council Decision</StyledListingDetailPhaseCardSectionHeader>
   );

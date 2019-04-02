@@ -6,7 +6,7 @@ export interface LoadingIndicatorProps {
   width?: string | number;
 }
 
-export const LoadingIndicator: React.StatelessComponent<LoadingIndicatorProps> = props => {
+export const LoadingIndicator: React.FunctionComponent<LoadingIndicatorProps> = props => {
   let height = props.height || "32";
 
   if (typeof height === "number") {

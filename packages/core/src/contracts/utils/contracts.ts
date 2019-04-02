@@ -115,6 +115,7 @@ export function createTwoStepTransaction<T>(
 export function createTwoStepSimple(ethApi: EthApi, txHash: TxHash): TwoStepEthTransaction {
   return {
     txHash,
+    // @ts-ignore
     awaitReceipt: ethApi.awaitReceipt.bind(ethApi, txHash),
   };
 }

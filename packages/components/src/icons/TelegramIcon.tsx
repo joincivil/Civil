@@ -7,7 +7,7 @@ export interface TelegramIconProps {
   width?: number;
 }
 
-const _TelegramIcon: React.SFC<TelegramIconProps> = props => {
+const _TelegramIcon = (props: TelegramIconProps) => {
   const height = props.height || 23;
   const width = props.width || 23;
   return (

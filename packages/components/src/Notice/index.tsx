@@ -63,9 +63,10 @@ export const NoticeMessageContainer = styled.div`
 export interface NoticeProps {
   type: NoticeTypes;
   className?: string;
+  children?: any;
 }
 
-export const Notice: React.SFC<NoticeProps> = ({ className, children, type }): JSX.Element => {
+export const Notice = ({ className, children, type }: NoticeProps): JSX.Element => {
   return (
     <NoticeContainer type={type} className={className}>
       <NoticeIconContainer>{type === NoticeTypes.ERROR && <InfoNotification />}</NoticeIconContainer>

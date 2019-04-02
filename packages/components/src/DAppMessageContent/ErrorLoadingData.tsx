@@ -10,7 +10,7 @@ export interface ErrorLoadingDataProps {
   toggleGraphQL?(): void | Promise<any>;
 }
 
-export const ErrorLoadingData: React.SFC<ErrorLoadingDataProps> = props => {
+export const ErrorLoadingData: React.FunctionComponent<ErrorLoadingDataProps> = props => {
   return (
     <>
       <StyledErrorIconContainer>
@@ -26,7 +26,7 @@ export const ErrorLoadingData: React.SFC<ErrorLoadingDataProps> = props => {
   );
 };
 
-const SuggestedAction: React.SFC<ErrorLoadingDataProps> = props => {
+const SuggestedAction: React.FunctionComponent<ErrorLoadingDataProps> = props => {
   if (props.useGraphQL) {
     return (
       <>

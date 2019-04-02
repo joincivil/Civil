@@ -11,7 +11,7 @@ export interface LoadUserProps {
   children(props: LoadUserChildrenProps): any;
 }
 
-export const LoadUser: React.SFC<LoadUserProps> = props => {
+export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
   const auth = getApolloSession();
 
   const renderFunction = props.children;

@@ -8,7 +8,7 @@ import {
 } from "./styledComponents";
 import NewsroomTagline from "./NewsroomTagline";
 
-const NewsroomInfo: React.SFC<ListingSummaryComponentProps> = props => {
+const NewsroomInfo: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   let description = "";
   if (props.charter) {
     // TODO(toby) remove legacy `desc` after transition

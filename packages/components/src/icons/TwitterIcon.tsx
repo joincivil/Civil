@@ -7,7 +7,7 @@ export interface TwitterIconProps {
   width?: number;
 }
 
-const _TwitterIcon: React.SFC<TwitterIconProps> = props => {
+const _TwitterIcon = (props: TwitterIconProps) => {
   const height = props.height || 23;
   const width = props.width || 23;
   return (

@@ -7,15 +7,15 @@ import {
 } from "../ListingDetailPhaseCard/textComponents";
 
 // Review Vote modal
-export const ReviewVoteHeaderTitleText: React.SFC = props => {
+export const ReviewVoteHeaderTitleText: React.FunctionComponent = props => {
   return <>Review Voting Information</>;
 };
 
-export const ReviewVoteHeaderCopyText: React.SFC = props => {
+export const ReviewVoteHeaderCopyText: React.FunctionComponent = props => {
   return <>Save this information to reveal and confirm your votes in the “Confirm Vote” phase.</>;
 };
 
-export const ReviewVoteCopyText: React.SFC = props => {
+export const ReviewVoteCopyText: React.FunctionComponent = props => {
   return (
     <>
       Your votes are concealed with a given secret phrase until the end of the commit voting period. This is to prevent
@@ -25,15 +25,15 @@ export const ReviewVoteCopyText: React.SFC = props => {
   );
 };
 
-export const ReviewVoteDepositedCVLLabelText: React.SFC = props => {
+export const ReviewVoteDepositedCVLLabelText: React.FunctionComponent = props => {
   return <>My Deposited CVL</>;
 };
 
-export const ReviewVoteMyAddressLabelText: React.SFC = props => {
+export const ReviewVoteMyAddressLabelText: React.FunctionComponent = props => {
   return <>My Public Address</>;
 };
 
-export const SaltLabelText: React.SFC = props => {
+export const SaltLabelText: React.FunctionComponent = props => {
   return <>My Secret Phrase</>;
 };
 
@@ -42,7 +42,7 @@ export interface ReviewVoteDecisionTextProps {
   voteOption?: string;
 }
 
-export const ReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = props => {
+export const ReviewVoteDecisionText: React.FunctionComponent<ReviewVoteDecisionTextProps> = props => {
   if (!props.voteOption) {
     return <></>;
   }
@@ -55,7 +55,7 @@ export const ReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = pr
   );
 };
 
-export const AppealChallengeReviewVoteDecisionText: React.SFC<ReviewVoteDecisionTextProps> = props => {
+export const AppealChallengeReviewVoteDecisionText: React.FunctionComponent<ReviewVoteDecisionTextProps> = props => {
   if (!props.voteOption) {
     return <></>;
   }
@@ -67,35 +67,35 @@ export const AppealChallengeReviewVoteDecisionText: React.SFC<ReviewVoteDecision
   );
 };
 
-export const ConfirmVotesHeaderText: React.SFC = props => {
+export const ConfirmVotesHeaderText: React.FunctionComponent = props => {
   return <>Confirm Vote Dates</>;
 };
 
-export const ConfirmVotesSaveSaltCopyText: React.SFC = props => {
+export const ConfirmVotesSaveSaltCopyText: React.FunctionComponent = props => {
   return <>We also recommend doing one of the following to save your information:</>;
 };
 
-export const WriteItDownText: React.SFC = props => {
+export const WriteItDownText: React.FunctionComponent = props => {
   return <>Write it down</>;
 };
 
-export const TakeAScreenShotText: React.SFC = props => {
+export const TakeAScreenShotText: React.FunctionComponent = props => {
   return <>Take a screenshot</>;
 };
 
-export const PrintThisText: React.SFC = props => {
+export const PrintThisText: React.FunctionComponent = props => {
   return <>Print this out</>;
 };
 
-export const EmailYourselfText: React.SFC = props => {
+export const EmailYourselfText: React.FunctionComponent = props => {
   return <>Email it to yourself</>;
 };
 
-export const TransactionButtonText: React.SFC = props => {
+export const TransactionButtonText: React.FunctionComponent = props => {
   return <>Confirm With Metamask</>;
 };
 
-export const SaltPhraseToolTipText: React.SFC = props => {
+export const SaltPhraseToolTipText: React.FunctionComponent = props => {
   return (
     <>
       <p>

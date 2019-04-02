@@ -3,7 +3,7 @@ import { HollowGreenCheck, HollowRedNoGood } from "../icons";
 import { ListingSummaryComponentProps } from "./types";
 import { StyledBaseResultsBanner, StyledRejectedResultsBanner } from "./styledComponents";
 
-const ChallengeResultsBanner: React.SFC<ListingSummaryComponentProps> = props => {
+const ChallengeResultsBanner: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   const { appeal, didChallengeOriginallySucceed, canBeWhitelisted } = props;
   let decisionText = null;
 

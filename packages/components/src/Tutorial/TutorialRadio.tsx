@@ -7,7 +7,7 @@ export interface TutorialOptionProps {
   name?: string;
 }
 
-export const TutorialRadio: React.StatelessComponent<TutorialOptionProps> = props => {
+export const TutorialRadio: React.FunctionComponent<TutorialOptionProps> = props => {
   let input: any;
   const { onChange, children, value, name } = props;
   const clickHandler = () => {

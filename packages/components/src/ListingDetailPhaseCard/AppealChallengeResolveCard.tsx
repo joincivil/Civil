@@ -28,7 +28,7 @@ export type AppealChallengeResolveCardProps = ListingDetailPhaseCardComponentPro
   AppealChallengePhaseProps &
   AppealChallengeResultsProps;
 
-export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardProps> = props => {
+export const AppealChallengeResolveCard: React.FunctionComponent<AppealChallengeResolveCardProps> = props => {
   const showAppealChallenge =
     props.appealChallengeTotalVotes &&
     props.appealChallengeVotesFor &&

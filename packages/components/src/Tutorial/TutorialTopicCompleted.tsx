@@ -16,7 +16,7 @@ export interface TutorialTopicCompletedProps {
   handleClose(): void;
 }
 
-export const TutorialTopicCompleted: React.StatelessComponent<TutorialTopicCompletedProps> = props => {
+export const TutorialTopicCompleted: React.FunctionComponent<TutorialTopicCompletedProps> = props => {
   const buttonNext = props.lastTopic ? (
     <TutorialBtn onClick={props.handleClose}>{props.continueBtnText}</TutorialBtn>
   ) : (
