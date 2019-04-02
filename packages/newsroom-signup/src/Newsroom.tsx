@@ -140,6 +140,7 @@ export interface NewsroomGqlProps {
   persistedCharter?: Partial<CharterData>;
   savedStep: STEP;
   furthestStep: STEP;
+  quizStatus?: string;
   saveAddress: MutationFunc;
   saveSteps: MutationFunc;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
@@ -382,16 +383,18 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
     const functions = {
       [SECTION.CONTRACT]: () => {
-        return false;
+        const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
+        return typeof this.props.grantRequested !== "boolean" || waitingOnGrant;
       },
       [SECTION.TUTORIAL]: () => {
-        return false;
+        return !this.props.newsroomAddress;
       },
       [SECTION.TOKENS]: () => {
-        return false;
+        return !this.props.newsroomAddress || !this.props.quizStatus;
       },
       [SECTION.APPLY]: () => {
-        return false;
+        // Really it should be disabled if user's token balance is insufficient, but not worth rigging that up - this step handles insufficient tokens ok
+        return !this.props.newsroomAddress || !this.props.quizStatus;
       },
     };
 
@@ -406,8 +409,14 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     let newStep = SECTION_STARTS[newSection]; // Go to first step in that section
     if (newSection === SECTION.PROFILE) {
-      newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
+      if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
+        newStep = STEP.PROFILE_GRANT;
+      } else {
+        newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
+      }
     }
+    newSection = Math.min(this.props.furthestStep, newSection); // Don't let them advance past where they have gotten through next button
+
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.saveStep(newStep);
     this.setState({ currentStep: newStep });
