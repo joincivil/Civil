@@ -233,6 +233,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       // Just been redirected back from token purchase
       currentStep = STEP.TOKENS;
     }
+    currentStep = this.backtrackSteps(currentStep);
     this.state = {
       currentStep,
       furthestStep: props.furthestStep,
@@ -369,6 +370,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
+  /** Handle situation where user used nav to jump too far ahead in step process before we put in disable checks - they should be backtracked back to where they need to be. */
+  private backtrackSteps(step: STEP): STEP {
+    const section = STEP_TO_SECTION[step];
+    if (this.getDisabled(section)()) {
+      return this.backtrackSteps(step - 1);
+    }
+    return step;
+  }
+
   private renderRepublishCharter(): JSX.Element | undefined {
     if (!this.props.newsroomAddress || STEP_TO_SECTION[this.state.currentStep] !== SECTION.PROFILE) {
       return;
@@ -382,6 +392,9 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   private getDisabled(section: SECTION): () => boolean {
     // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
     const functions = {
+      [SECTION.PROFILE]: () => {
+        return false;
+      },
       [SECTION.CONTRACT]: () => {
         const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
         return typeof this.props.grantRequested !== "boolean" || waitingOnGrant;
@@ -415,7 +428,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
       }
     }
-    newSection = Math.min(this.props.furthestStep, newSection); // Don't let them advance past where they have gotten through next button
+    newStep = Math.min(this.props.furthestStep, newStep); // Don't let them advance past where they have gotten through next button
 
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.saveStep(newStep);
