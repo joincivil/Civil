@@ -12,7 +12,7 @@ export class FallbackProvider implements ContentProvider {
 
   private providers: ContentProvider[];
 
-  private constructor(providers: ContentProviderCreator[], options: ContentProviderOptions) {
+  public constructor(providers: ContentProviderCreator[], options: ContentProviderOptions) {
     this.providers = providers.map(creator => new creator(options));
   }
 

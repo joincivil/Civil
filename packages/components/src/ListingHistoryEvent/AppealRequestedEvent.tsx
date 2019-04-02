@@ -3,7 +3,7 @@ import { ListingHistoryEventTimestampProps } from "./types";
 import { ListingEventTitles } from "./constants";
 import { ListingHistoryEvent, StyledEventCopy } from "./ListingHistoryEvent";
 
-export const AppealRequestedEvent: React.StatelessComponent<ListingHistoryEventTimestampProps> = props => {
+export const AppealRequestedEvent: React.FunctionComponent<ListingHistoryEventTimestampProps> = props => {
   return (
     <ListingHistoryEvent title={ListingEventTitles.APPEAL_REQUESTED} timestamp={props.timestamp}>
       <StyledEventCopy>

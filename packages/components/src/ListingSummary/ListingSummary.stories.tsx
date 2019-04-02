@@ -75,7 +75,7 @@ const newsrooms = newsroomData.map((newsroom: ListingSummaryComponentProps) => {
   return { ...newsroom, listingDetailURL };
 });
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>

@@ -10,7 +10,7 @@ export interface MyTasksOwnProps {
   showRescueTokensTab(): void;
 }
 
-const MyTasks: React.SFC<MyTasksOwnProps> = props => {
+const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
   return (
     <>
       {props.challenges &&

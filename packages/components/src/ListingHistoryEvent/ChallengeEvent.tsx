@@ -11,7 +11,7 @@ export interface ChallengeEventProps extends ListingHistoryEventTimestampProps {
   challengeURI: string;
 }
 
-export const ChallengeEvent: React.StatelessComponent<ChallengeEventProps> = props => {
+export const ChallengeEvent: React.FunctionComponent<ChallengeEventProps> = props => {
   return (
     <ListingHistoryEvent title={ListingEventTitles.CHALLENGE} timestamp={props.timestamp}>
       <StyledEventCopy>

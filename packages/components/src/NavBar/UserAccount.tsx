@@ -26,7 +26,7 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
   toggleDrawer(): void;
 }
 
-const UserAccount: React.SFC<NavUserAccountProps> = props => {
+const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
   const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
 
   return (
@@ -41,7 +41,7 @@ const UserAccount: React.SFC<NavUserAccountProps> = props => {
           let child;
 
           if (props.children) {
-            child = React.cloneElement(props.children as React.ReactElement<any>, {
+            child = React.cloneElement(props.children as React.ReactElement, {
               userAccountElRef,
             });
           }

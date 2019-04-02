@@ -41,7 +41,7 @@ export interface DashboardReduxProps {
   userAccount?: EthAddress;
 }
 
-const DashboardComponent: React.SFC<DashboardProps & DashboardReduxProps> = props => {
+const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
   return (
     <>
       <Helmet title="My Dashboard - The Civil Registry" />

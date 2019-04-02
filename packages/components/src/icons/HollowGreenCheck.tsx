@@ -8,7 +8,7 @@ export interface HollowGreenCheckProps {
   width?: number;
 }
 
-export const HollowGreenCheck: React.SFC<HollowGreenCheckProps> = props => {
+export const HollowGreenCheck = (props: HollowGreenCheckProps) => {
   const color = props.color || colors.accent.CIVIL_GREEN_1;
   const width = (props.width || 20).toString();
   const height = (props.height || 20).toString();

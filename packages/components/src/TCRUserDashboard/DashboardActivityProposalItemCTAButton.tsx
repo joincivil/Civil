@@ -4,7 +4,9 @@ import { buttonSizes, InvertedButton } from "../Button";
 
 import { DashboardActivityItemProposalCTAButtonProps } from "./DashboardTypes";
 
-export const DashboardActivityProposalItemCTAButton: React.SFC<DashboardActivityItemProposalCTAButtonProps> = props => {
+export const DashboardActivityProposalItemCTAButton: React.FunctionComponent<
+  DashboardActivityItemProposalCTAButtonProps
+> = props => {
   const { propDetailURL, canUserReveal, canUserCollect, canUserRescue, onClick } = props;
 
   let buttonText;

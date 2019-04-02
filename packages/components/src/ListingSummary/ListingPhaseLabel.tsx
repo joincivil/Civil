@@ -10,7 +10,7 @@ import {
 } from "../ApplicationPhaseStatusLabels";
 import { ListingSummaryComponentProps } from "./types";
 
-const ListingPhaseLabel: React.SFC<ListingSummaryComponentProps> = props => {
+const ListingPhaseLabel: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   const {
     isInApplication,
     inChallengeCommitVotePhase,

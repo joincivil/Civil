@@ -4,7 +4,7 @@ export interface ReviewIconProps {
   className?: string;
 }
 
-export const ReviewIcon: React.SFC<ReviewIconProps> = props => {
+export const ReviewIcon = (props: ReviewIconProps) => {
   return (
     <svg className={props.className} height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd">

@@ -6,7 +6,7 @@ export interface GreenCheckMark {
   width?: number;
 }
 
-export const GreenCheckMark: React.SFC<GreenCheckMark> = props => {
+export const GreenCheckMark: React.FunctionComponent<GreenCheckMark> = props => {
   const height = (props.height || 26).toString();
   const width = (props.width || 26).toString();
   return (

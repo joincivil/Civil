@@ -7,7 +7,7 @@ import {
   StyledNotGrantedResultsBanner,
 } from "./styledComponents";
 
-const AppealDecisionBanner: React.SFC<ListingSummaryComponentProps> = props => {
+const AppealDecisionBanner: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   const { appeal, appealRequested, appealGranted, didChallengeOriginallySucceed } = props;
   if (!appeal && !appealRequested) {
     return <></>;

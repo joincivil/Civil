@@ -23,7 +23,7 @@ import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChar
 import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
-export const AppealDecisionCard: React.SFC<
+export const AppealDecisionCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &

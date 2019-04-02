@@ -1,11 +1,11 @@
 import * as React from "react";
 
-export const SkipToQuizBtnText: React.SFC = props => <>Skip to the quiz</>;
+export const SkipToQuizBtnText: React.FunctionComponent = props => <>Skip to the quiz</>;
 
-export const LetsGoBtnText: React.SFC = props => <>Let’s go</>;
+export const LetsGoBtnText: React.FunctionComponent = props => <>Let’s go</>;
 
-export const IncorrectText: React.SFC = props => <>Sorry, the correct answer is</>;
+export const IncorrectText: React.FunctionComponent = props => <>Sorry, the correct answer is</>;
 
-export const SelectCorrectText: React.SFC = props => <>Select the correct answer to continue</>;
+export const SelectCorrectText: React.FunctionComponent = props => <>Select the correct answer to continue</>;
 
-export const CorrectText: React.SFC = props => <>You are correct</>;
+export const CorrectText: React.FunctionComponent = props => <>You are correct</>;

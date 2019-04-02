@@ -7,7 +7,7 @@ export interface BellIconProps {
   width?: number;
 }
 
-export const BellIcon: React.SFC<BellIconProps> = props => {
+export const BellIcon: React.FunctionComponent<BellIconProps> = props => {
   const color = props.color || colors.primary.BLACK;
   const width = (props.width || 21).toString();
   const height = (props.height || 24).toString();

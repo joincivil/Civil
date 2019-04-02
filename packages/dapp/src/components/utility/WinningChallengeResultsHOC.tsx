@@ -65,7 +65,7 @@ export const connectWinningChallengeResults = <
 >(
   PresentationComponent: React.ComponentType<PartialChallengeResultsProps>,
 ) => {
-  const AppealChallengeWinningResults: React.SFC<AppealChallengeWinningResultsProps> = props => {
+  const AppealChallengeWinningResults: React.FunctionComponent<AppealChallengeWinningResultsProps> = props => {
     const { appealChallenge } = props;
     const totalVotes = appealChallenge && appealChallenge.poll.votesAgainst.add(appealChallenge.poll.votesFor);
 
@@ -94,7 +94,9 @@ export const connectWinningChallengeResults = <
     return <PresentationComponent {...viewProps} />;
   };
 
-  const ChallengeWinningResults: React.SFC<ChallengeWinningResultsProps & WinningChallengeResultsProps> = props => {
+  const ChallengeWinningResults: React.FunctionComponent<
+    ChallengeWinningResultsProps & WinningChallengeResultsProps
+  > = props => {
     const { challenge } = props;
     const totalVotes = challenge && challenge.poll.votesAgainst.add(challenge.poll.votesFor);
     const appeal = challenge && challenge.appeal;
@@ -202,7 +204,7 @@ export const connectWinningChallengeResults = <
     );
   };
 
-  const ProposalChallengeWinningResults: React.SFC<
+  const ProposalChallengeWinningResults: React.FunctionComponent<
     ProposalChallengeWinningResultsProps & WinningChallengeResultsProps
   > = props => {
     const { challenge } = props;

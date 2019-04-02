@@ -19,7 +19,7 @@ export interface TutorialTopicIntroProps {
   onClickSkipTutorial(e: any): void;
 }
 
-export const TutorialTopicIntro: React.StatelessComponent<TutorialTopicIntroProps> = props => {
+export const TutorialTopicIntro: React.FunctionComponent<TutorialTopicIntroProps> = props => {
   return (
     <>
       <TutorialProgress activeSlide={props.activeSlide} totalSlides={props.totalSlides} />

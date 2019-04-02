@@ -13,7 +13,7 @@ export interface DashboardActivityTabTitleProps {
   count?: number;
 }
 
-const DashboardActivityTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+const DashboardActivityTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <>
       {props.children}
@@ -22,7 +22,7 @@ const DashboardActivityTabTitle: React.SFC<DashboardActivityTabTitleProps> = pro
   );
 };
 
-export const AllChallengesDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const AllChallengesDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabAllChallengesVotedText />
@@ -30,7 +30,7 @@ export const AllChallengesDashboardTabTitle: React.SFC<DashboardActivityTabTitle
   );
 };
 
-export const RevealVoteDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const RevealVoteDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabRevealVoteText />
@@ -38,7 +38,7 @@ export const RevealVoteDashboardTabTitle: React.SFC<DashboardActivityTabTitlePro
   );
 };
 
-export const ClaimRewardsDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const ClaimRewardsDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabClaimRewardsText />
@@ -46,7 +46,7 @@ export const ClaimRewardsDashboardTabTitle: React.SFC<DashboardActivityTabTitleP
   );
 };
 
-export const RescueTokensDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const RescueTokensDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabRescueTokensText />
@@ -54,7 +54,7 @@ export const RescueTokensDashboardTabTitle: React.SFC<DashboardActivityTabTitleP
   );
 };
 
-export const ChallengesCompletedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const ChallengesCompletedDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabChallengesCompletedText />
@@ -62,7 +62,7 @@ export const ChallengesCompletedDashboardTabTitle: React.SFC<DashboardActivityTa
   );
 };
 
-export const ChallengesStakedDashboardTabTitle: React.SFC<DashboardActivityTabTitleProps> = props => {
+export const ChallengesStakedDashboardTabTitle: React.FunctionComponent<DashboardActivityTabTitleProps> = props => {
   return (
     <DashboardActivityTabTitle count={props.count}>
       <SubTabChallengesStakedText />

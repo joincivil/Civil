@@ -1,9 +1,9 @@
 import * as React from "react";
 import { HomepageHeroProps } from "./HomepageHero";
 
-export const HeroTitleText: React.SFC = props => <>The Civil Registry</>;
+export const HeroTitleText: React.FunctionComponent = props => <>The Civil Registry</>;
 
-export const HeroCopyText: React.SFC<HomepageHeroProps> = props => (
+export const HeroCopyText: React.FunctionComponent<HomepageHeroProps> = props => (
   <>
     <p>A community-driven space for curating quality journalism.</p>
     <p>
@@ -15,4 +15,4 @@ export const HeroCopyText: React.SFC<HomepageHeroProps> = props => (
   </>
 );
 
-export const ExploreTCRText: React.SFC = props => <>Explore The Civil Registry</>;
+export const ExploreTCRText: React.FunctionComponent = props => <>Explore The Civil Registry</>;

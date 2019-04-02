@@ -31,7 +31,7 @@ export type RejectedCardAllProps = ListingDetailPhaseCardComponentProps &
   AppealChallengeResultsProps &
   RejectedCardProps;
 
-export const RejectedCard: React.StatelessComponent<RejectedCardAllProps> = props => {
+export const RejectedCard: React.FunctionComponent<RejectedCardAllProps> = props => {
   let displayDateTime;
   const showAppealChallenge =
     props.appealChallengeTotalVotes &&

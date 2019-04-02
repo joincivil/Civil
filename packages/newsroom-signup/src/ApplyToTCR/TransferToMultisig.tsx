@@ -75,7 +75,7 @@ export interface TransactionsProp {
   transactions: any;
 }
 
-const TransferToMultisigComponent: React.SFC<
+const TransferToMultisigComponent: React.FunctionComponent<
   TransferToMultisigProps & TransferPostTransactionProp & TransactionsProp
 > = props => {
   const transformFormLeftColWidth = "126px";
@@ -139,7 +139,7 @@ const TransferToMultisigComponent: React.SFC<
   );
 };
 
-const TransferToMultisig: React.SFC<
+const TransferToMultisig: React.FunctionComponent<
   TransferToMultisigProps & TransferPostTransactionProp & InjectedTransactionStatusModalProps
 > = props => {
   return (

@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   background-color: #fff;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>

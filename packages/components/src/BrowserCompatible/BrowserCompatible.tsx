@@ -12,7 +12,7 @@ import * as chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
 import * as firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
 import { urlConstants as links } from "@joincivil/utils";
 
-export const BrowserCompatible: React.StatelessComponent = props => {
+export const BrowserCompatible: React.FunctionComponent = props => {
   return (
     <BrowserCompatWrapper>
       <BrowserCompatHeadingText />

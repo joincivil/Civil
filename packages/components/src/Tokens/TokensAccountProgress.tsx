@@ -11,7 +11,7 @@ export interface UserTokenAccountProgressProps {
   tutorialComplete: boolean;
 }
 
-export const UserTokenAccountProgress: React.StatelessComponent<UserTokenAccountProgressProps> = props => {
+export const UserTokenAccountProgress: React.FunctionComponent<UserTokenAccountProgressProps> = props => {
   let logInComplete;
   let tutorialComplete;
 

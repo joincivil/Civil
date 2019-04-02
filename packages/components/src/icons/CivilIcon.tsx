@@ -8,7 +8,7 @@ export interface CivilIconProps {
   width?: number;
 }
 
-const _CivilIcon: React.SFC<CivilIconProps> = props => {
+const _CivilIcon = (props: CivilIconProps) => {
   const height = props.height || 21;
   const width = props.width || 72;
   return (

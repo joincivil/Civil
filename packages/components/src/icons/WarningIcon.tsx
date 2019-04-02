@@ -8,7 +8,7 @@ export interface WarningIconProps {
   width?: number;
 }
 
-export const WarningIcon: React.SFC<WarningIconProps> = props => {
+export const WarningIcon: React.FunctionComponent<WarningIconProps> = props => {
   const color = props.color || colors.accent.CIVIL_RED;
   const fill = props.fill || colors.accent.CIVIL_GRAY_6;
   const width = (props.width || 28).toString();

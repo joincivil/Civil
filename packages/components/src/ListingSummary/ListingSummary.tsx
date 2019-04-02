@@ -7,7 +7,7 @@ import ChallengeOrAppealStatementSummary from "./ChallengeOrAppealStatementSumma
 import NewsroomInfo from "./NewsroomInfo";
 import SummaryActionButton from "./SummaryActionButton";
 
-export const ListingSummaryComponent: React.SFC<ListingSummaryComponentProps> = props => {
+export const ListingSummaryComponent: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   const { challengeID, challengeStatementSummary, appealStatementSummary } = props;
 
   const renderAppealJudgement = (): JSX.Element => {

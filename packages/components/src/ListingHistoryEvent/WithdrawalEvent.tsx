@@ -7,7 +7,7 @@ export interface WithdrawalEventProps extends ListingHistoryEventTimestampProps 
   deposit: string;
 }
 
-export const WithdrawalEvent: React.StatelessComponent<WithdrawalEventProps> = props => {
+export const WithdrawalEvent: React.FunctionComponent<WithdrawalEventProps> = props => {
   return (
     <ListingHistoryEvent title={ListingEventTitles.WITHDRAWAL} timestamp={props.timestamp}>
       <StyledEventCopy>

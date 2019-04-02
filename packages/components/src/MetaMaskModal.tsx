@@ -105,7 +105,7 @@ export interface MetaMaskModalProps {
   startTransaction?(): void;
 }
 
-export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
+export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props => {
   let buttonSection;
   if (props.ipfsPost) {
   } else if (props.alert) {
