@@ -16,7 +16,7 @@ export interface HomepageHeroProps {
   learnMoreURL: string;
 }
 
-export const HomepageHero: React.SFC<HomepageHeroProps> = props => {
+export const HomepageHero: React.FunctionComponent<HomepageHeroProps> = props => {
   const { buyCvlUrl, applyURL } = props;
 
   let buyBtnProps: any = { href: buyCvlUrl };

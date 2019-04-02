@@ -7,7 +7,7 @@ export interface ApplicationEventProps extends ListingHistoryEventTimestampProps
   deposit: string;
 }
 
-export const ApplicationEvent: React.StatelessComponent<ApplicationEventProps> = props => {
+export const ApplicationEvent: React.FunctionComponent<ApplicationEventProps> = props => {
   return (
     <ListingHistoryEvent title={ListingEventTitles.APPLICATION} timestamp={props.timestamp}>
       <StyledEventCopy>

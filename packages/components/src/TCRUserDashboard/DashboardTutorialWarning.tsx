@@ -3,7 +3,7 @@ import { StyledTutorialWarning, StyledWarningBox, StyledTutorialPrompt } from ".
 import { TransferTokenTutorialWarnText, TransferTokenTakeTutorialText } from "./DashboardTextComponents";
 import { Button } from "../Button";
 
-export const DashboardTutorialWarning: React.StatelessComponent = props => {
+export const DashboardTutorialWarning: React.FunctionComponent = props => {
   return (
     <StyledTutorialWarning>
       <StyledWarningBox>

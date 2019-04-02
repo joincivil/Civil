@@ -15,7 +15,7 @@ const StyledEventDate = styled.div`
   max-width: 148px;
 `;
 
-const EventDate: React.StatelessComponent<ListingHistoryEventTimestampProps> = props => {
+const EventDate: React.FunctionComponent<ListingHistoryEventTimestampProps> = props => {
   const eventDateTimeStrings = getLocalDateTimeStrings(props.timestamp);
   return <StyledEventDate>{eventDateTimeStrings[0]}</StyledEventDate>;
 };

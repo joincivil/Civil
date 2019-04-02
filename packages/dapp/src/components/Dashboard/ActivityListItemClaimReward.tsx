@@ -211,7 +211,7 @@ const ProposalClaimReward = connect(makeProposalMapStateToProps)(ProposalClaimRe
 
 const ActivityListItemClaimReward = connect(makeChallengeMapStateToProps)(ActivityListItemClaimRewardComponent);
 
-const ClaimReward: React.SFC<ActivityListItemClaimRewardOwnProps> = props => {
+const ClaimReward: React.FunctionComponent<ActivityListItemClaimRewardOwnProps> = props => {
   if (props.isProposalChallenge) {
     return <ProposalClaimReward {...props} />;
   }

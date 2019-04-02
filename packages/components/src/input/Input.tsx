@@ -42,7 +42,7 @@ export interface InputBaseProps {
   onChange?(name: string, value: string | null): void;
 }
 
-const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = props => {
+const InputBaseWrapperComponent: React.FunctionComponent<InputBaseProps> = props => {
   const { icon, className, label, noLabel, invalid, invalidMessage } = props;
   return (
     <div className={`${invalid ? "civil-input-error" : ""} ${className}`}>
@@ -54,7 +54,7 @@ const InputBaseWrapperComponent: React.StatelessComponent<InputBaseProps> = prop
   );
 };
 
-const InputBaseComponent: React.StatelessComponent<InputBaseProps> = props => {
+const InputBaseComponent = (props: InputBaseProps) => {
   const { onChange, inputRef, invalid, noLabel, invalidMessage, ...inputProps } = props;
   let cb;
   if (onChange) {
@@ -136,18 +136,18 @@ export interface InputProps {
   onChange?(name: string, value: string): any;
 }
 
-export const TextInput: React.StatelessComponent<InputProps> = props => {
+export const TextInput = (props: InputProps) => {
   return <InputBase type="text" {...props} />;
 };
 
-export const NumericInput: React.StatelessComponent<InputProps> = props => {
+export const NumericInput = (props: InputProps) => {
   return <InputBase type="number" min="0.01" step="0.01" {...props} />;
 };
 
 export interface CurrencyProps extends InputProps {
   currency: string;
 }
-export const CurrencyInput: React.StatelessComponent<InputProps> = props => {
+export const CurrencyInput = (props: InputProps) => {
   const icon = props.icon || <span>USD</span>;
   return <InputBase type="number" min="0.01" step="0.01" {...props} icon={icon} />;
 };
@@ -166,6 +166,6 @@ export interface TextareaProps {
   maxLength?: string;
 }
 
-export const TextareaInput: React.StatelessComponent<TextareaProps & InputProps> = props => {
+export const TextareaInput = (props: TextareaProps & InputProps) => {
   return <InputBase type="textarea" {...props} />;
 };

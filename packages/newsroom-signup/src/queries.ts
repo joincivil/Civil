@@ -6,6 +6,7 @@ export const userDataQuery = gql`
       ethAddress
       nrStep
       nrFurthestStep
+      quizStatus
     }
   }
 `;

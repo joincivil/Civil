@@ -12,7 +12,7 @@ export interface AuthSignupProps {
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
-export const AuthSignup: React.SFC<AuthSignupProps> = props => {
+export const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
   return (
     <AuthWrapper>
       <AccountEmailAuth

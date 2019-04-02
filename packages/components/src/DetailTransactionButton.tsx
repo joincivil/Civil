@@ -15,9 +15,9 @@ import { QuestionToolTip } from "./QuestionToolTip";
 export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
-  estimateFunctions?: Array<() => Promise<number>>;
+  estimateFunctions?: Array<(...args: any[]) => Promise<number>>;
   requiredNetwork?: string;
-  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
+  Button?: React.FunctionComponent<TransactionButtonInnerProps>;
   noModal?: boolean;
   disabled?: boolean;
   preExecuteTransactions?(): any;

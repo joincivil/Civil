@@ -98,7 +98,7 @@ function getCalendarEventDateTime(seconds: number | Date): string {
   return `${dateString}T${timeString}`;
 }
 
-const AddRevealPhaseToCalendar: React.SFC<ReviewVoteProps> = props => {
+const AddRevealPhaseToCalendar: React.FunctionComponent<ReviewVoteProps> = props => {
   // @TODO(jon): `textComponents` don't work here b/c these fields are plaintext. Let's
   // revisit converting JSX.Components to strings via textContent before this goes to mainnet
   const title = `Reveal My Vote for ${props.newsroomName} on The Civil Registry`;
@@ -130,7 +130,7 @@ const AddRevealPhaseToCalendar: React.SFC<ReviewVoteProps> = props => {
   );
 };
 
-export const ReviewVote: React.StatelessComponent<ReviewVoteProps> = props => {
+export const ReviewVote: React.FunctionComponent<ReviewVoteProps> = props => {
   return (
     <FullScreenModal open={props.open || false}>
       <ModalOuter>

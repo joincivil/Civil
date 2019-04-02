@@ -10,7 +10,7 @@ import {
   StyledNumTokensContainer,
 } from "./DashboardStyledComponents";
 
-const ItemCheckbox: React.SFC<DashboardActivitySelectableItemProps> = props => {
+const ItemCheckbox: React.FunctionComponent<DashboardActivitySelectableItemProps> = props => {
   const challengeID = props.appealChallengeID || props.challengeID;
   const handleChange = (event: any) => {
     props.toggleSelect!(challengeID!, event.target.checked, props.salt);
@@ -18,7 +18,7 @@ const ItemCheckbox: React.SFC<DashboardActivitySelectableItemProps> = props => {
   return <input type="checkbox" onChange={handleChange} />;
 };
 
-export const DashboardActivitySelectableItem: React.SFC<DashboardActivitySelectableItemProps> = props => {
+export const DashboardActivitySelectableItem: React.FunctionComponent<DashboardActivitySelectableItemProps> = props => {
   if (props.challengeID && props.appealChallengeID) {
     throw new Error("DashboardActivitySelectableItem: cannot have both challengeID and appealChallengeID props");
   }

@@ -336,7 +336,7 @@ interface InsufficientBalanceSnackBarProps {
   minDeposit: string;
 }
 
-const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
   return (
     <SnackBar>
       <InsufficientCVLForChallenge minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
@@ -348,7 +348,7 @@ const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusMo
   SubmitChallengeComponent,
 ) as React.ComponentClass<SubmitChallengeProps>;
 
-const SubmitChallengePage: React.SFC<SubmitChallengePageProps> = props => {
+const SubmitChallengePage = (props: SubmitChallengePageProps) => {
   const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = links.FAQ_REGISTRY;

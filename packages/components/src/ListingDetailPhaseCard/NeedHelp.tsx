@@ -19,7 +19,7 @@ const NeedHelpCopy = styled.div`
   }
 `;
 
-const NeedHelp: React.StatelessComponent<NeedHelpProps> = props => {
+const NeedHelp: React.FunctionComponent<NeedHelpProps> = props => {
   return (
     <StyledListingDetailPhaseCardSection>
       <NeedHelpCopy>

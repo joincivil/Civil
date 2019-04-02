@@ -8,7 +8,7 @@ import {
   StyledEmailSignupCopy,
 } from "./EmailStyledComponents";
 
-export const EmailSignupSuccess: React.SFC = props => {
+export const EmailSignupSuccess: React.FunctionComponent = props => {
   return (
     <StyledEmailSignupSuccessContainer>
       <GreenCheckMark width={36} height={36} />

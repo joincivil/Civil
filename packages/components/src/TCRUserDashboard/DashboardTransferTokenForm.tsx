@@ -27,7 +27,7 @@ export interface TransferTokenDropdownOptionProps {
   cvl: string;
 }
 
-export const TransferTokenBalance: React.StatelessComponent<TransferTokenDropdownOptionProps> = props => {
+export const TransferTokenBalance: React.FunctionComponent<TransferTokenDropdownOptionProps> = props => {
   return (
     <StyledTransferTokenBalance>
       <span>{props.label}</span>
@@ -40,7 +40,7 @@ export interface TransferTokenDropdownSelectedProps {
   label: string | JSX.Element;
 }
 
-export const TransferTokenDropdownSelected: React.StatelessComponent<TransferTokenDropdownSelectedProps> = props => {
+export const TransferTokenDropdownSelected: React.FunctionComponent<TransferTokenDropdownSelectedProps> = props => {
   return (
     <StyledTransferTokenDropdown>
       {props.label}

@@ -55,5 +55,6 @@ export const urlConstants = {
   FAQ_WHAT_IS_TUTORIAL: FAQ_BASE_URL + "/hc/en-us/articles/360021949732-What-is-the-Civil-Tutorial-",
   FAQ_WHAT_IS_SMART_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-",
   FAQ_WHAT_IS_PLCR_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",
+  FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS: FAQ_BASE_URL + "/hc/en-us/articles/360016566312-What-is-a-public-wallet-address-",
   FAQ_WALLETS: FAQ_BASE_URL + "/hc/en-us/sections/360003838452-Wallets",
 };

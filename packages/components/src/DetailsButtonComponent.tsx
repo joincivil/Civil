@@ -29,7 +29,7 @@ export class DetailsButtonComponent extends React.Component<DetailsButtonCompone
   }
 
   private renderButtonComponent = (): JSX.Element => {
-    return React.cloneElement(this.props.buttonComponent as React.ReactElement<any>, {
+    return React.cloneElement(this.props.buttonComponent as React.ReactElement, {
       size: buttonSizes.SMALL,
     });
   };

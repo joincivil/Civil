@@ -348,7 +348,7 @@ interface InsufficientBalanceSnackBarProps {
   appealFee: string;
 }
 
-const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
   return (
     <SnackBar>
       <InsufficientCVLForAppealChallenge appealFee={props.appealFee} buyCVLURL={props.buyCVLURL} />
@@ -361,7 +361,7 @@ const SubmitAppealChallenge = compose(
   hasTransactionStatusModals(transactionStatusModalConfig),
 )(SubmitAppealChallengeComponent) as React.ComponentClass<SubmitAppealChallengeProps>;
 
-const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
+const SubmitAppealChallengePage = (props: SubmitAppealChallengePageProps) => {
   const listingAddress = props.match.params.listingAddress;
   const listingURI = formatRoute(routes.LISTING, { listingAddress });
   const governanceGuideURI = links.FAQ_REGISTRY;

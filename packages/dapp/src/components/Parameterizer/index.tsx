@@ -497,7 +497,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       [GovernmentParameters.appealChallengeVoteDispensationPct]: AppealVoteDispensationPctLabelText,
     };
 
-    let DisplayName: React.SFC = props => <></>;
+    let DisplayName: React.FunctionComponent = props => <></>;
     if (parameterDisplayNameMap[parameterName]) {
       DisplayName = parameterDisplayNameMap[parameterName];
     }

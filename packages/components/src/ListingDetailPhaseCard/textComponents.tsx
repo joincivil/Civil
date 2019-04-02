@@ -3,26 +3,26 @@ import { getReadableDuration } from "@joincivil/utils";
 import { ToolTipHdr, ToolTipItalic } from "./styledComponents";
 
 // Text for reviewing a vote to commit
-export const CommitVoteReviewButtonText: React.SFC = props => <>Review My Vote</>;
+export const CommitVoteReviewButtonText: React.FunctionComponent = props => <>Review My Vote</>;
 
 // Text for whitelisting action. Used in buttons and calls to action
-export const WhitelistActionText: React.SFC = props => <>approve</>;
+export const WhitelistActionText: React.FunctionComponent = props => <>approve</>;
 
 // Text for removing action. Used in buttons and calls to action
-export const RemoveActionText: React.SFC = props => <>reject</>;
+export const RemoveActionText: React.FunctionComponent = props => <>reject</>;
 
 // Text for upholding granted appeal action. Used in buttons and calls to action
-export const UpholdActionText: React.SFC = props => <>upheld</>;
+export const UpholdActionText: React.FunctionComponent = props => <>upheld</>;
 
 // Text for overturning granted appeal  action. Used in buttons and calls to action
-export const OverturnActionText: React.SFC = props => <>overturned</>;
+export const OverturnActionText: React.FunctionComponent = props => <>overturned</>;
 
 // Call to action text. Used on Commit Vote form
 export interface VoteCallToActionTextProps {
   newsroomName?: string;
 }
 
-export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props => {
+export const VoteCallToActionText: React.FunctionComponent<VoteCallToActionTextProps> = props => {
   return (
     <>
       Do you{" "}
@@ -38,7 +38,7 @@ export const VoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props 
   );
 };
 
-export const AppealChallengeVoteCallToActionText: React.SFC<VoteCallToActionTextProps> = props => {
+export const AppealChallengeVoteCallToActionText: React.FunctionComponent<VoteCallToActionTextProps> = props => {
   return (
     <>
       Should the Civil Council's decision be{" "}
@@ -54,24 +54,28 @@ export const AppealChallengeVoteCallToActionText: React.SFC<VoteCallToActionText
   );
 };
 
-export const RevealVoteCallToActionHeaderText: React.SFC = props => <>Confirm Your Secret Vote and Make It Count!</>;
+export const RevealVoteCallToActionHeaderText: React.FunctionComponent = props => (
+  <>Confirm Your Secret Vote and Make It Count!</>
+);
 
-export const RevealVoteCallToActionCopyText: React.SFC = props => (
+export const RevealVoteCallToActionCopyText: React.FunctionComponent = props => (
   <>
     To finalize the vote, you must complete this step to be eligible for rewards. Similar to the actual elections, votes
     are not revealed until after polls closed.
   </>
 );
 
-export const RevealVoteDidNotCommitHeaderText: React.SFC = props => <>You did not participate in this challenge</>;
+export const RevealVoteDidNotCommitHeaderText: React.FunctionComponent = props => (
+  <>You did not participate in this challenge</>
+);
 
-export const RevealVoteDidNotCommitCopyText: React.SFC = props => (
+export const RevealVoteDidNotCommitCopyText: React.FunctionComponent = props => (
   <>You did not commit a vote, so there is nothing here for you to reveal</>
 );
 
-export const RevealVoteDoneHeaderText: React.SFC = props => <>You have revealed your vote</>;
+export const RevealVoteDoneHeaderText: React.FunctionComponent = props => <>You have revealed your vote</>;
 
-export const RevealVoteDoneCopyText: React.SFC = props => (
+export const RevealVoteDoneCopyText: React.FunctionComponent = props => (
   <>Thank you for participating! Please check back after the challenge ends to see if you have earned a reward.</>
 );
 
@@ -79,7 +83,7 @@ export interface RevealVoteCalloutCopyTextProps {
   votingSmartContractFaqURL: string;
 }
 
-export const RevealVoteCalloutCopyText: React.SFC<RevealVoteCalloutCopyTextProps> = props => (
+export const RevealVoteCalloutCopyText: React.FunctionComponent<RevealVoteCalloutCopyTextProps> = props => (
   <>
     Civil does not store your vote information. It is stored in the{" "}
     <a href={props.votingSmartContractFaqURL} target="_blank">
@@ -89,16 +93,16 @@ export const RevealVoteCalloutCopyText: React.SFC<RevealVoteCalloutCopyTextProps
 );
 
 // Label for Commit Vote num tokens form
-export const CommitVoteNumTokensLabelText: React.SFC = props => {
+export const CommitVoteNumTokensLabelText: React.FunctionComponent = props => {
   return <>Enter amount of tokens to vote. 1 vote equals 1 token </>;
 };
 
 // Commit Vote callouts
-export const CommitVoteCalloutHeaderText: React.SFC = props => {
+export const CommitVoteCalloutHeaderText: React.FunctionComponent = props => {
   return <>You're Invited to Vote!</>;
 };
 
-export const CommitVoteCalloutCopyText: React.SFC = props => {
+export const CommitVoteCalloutCopyText: React.FunctionComponent = props => {
   return (
     <>
       Evaluate the Newsroom based on the Civil Constitution and vote accordingly. You will never lose tokens for
@@ -107,7 +111,7 @@ export const CommitVoteCalloutCopyText: React.SFC = props => {
   );
 };
 
-export const AppealChallengeCommitVoteCalloutCopyText: React.SFC = props => {
+export const AppealChallengeCommitVoteCalloutCopyText: React.FunctionComponent = props => {
   return (
     <>
       Evaluate whether the Granted Appeal should be upheld or overturned and cast your vote accordingly. Voters will
@@ -116,30 +120,30 @@ export const AppealChallengeCommitVoteCalloutCopyText: React.SFC = props => {
   );
 };
 
-export const CommitVoteAlreadyVotedHeaderText: React.SFC = props => {
+export const CommitVoteAlreadyVotedHeaderText: React.FunctionComponent = props => {
   return <>You have already submitted your vote. Thank you.</>;
 };
 
 // TODO(jon): Pass in and render commit vote expiry
-export const CommitVoteAlreadyVotedCopyText: React.SFC = props => {
+export const CommitVoteAlreadyVotedCopyText: React.FunctionComponent = props => {
   return <>You may revise your vote until the deadline.</>;
 };
 
-export const CommitVoteCalloutButtonText: React.SFC = props => <>Submit My Vote</>;
+export const CommitVoteCalloutButtonText: React.FunctionComponent = props => <>Submit My Vote</>;
 
 // Reveal Vote
-export const RevealVoteButtonText: React.SFC = props => <>Confirm My Vote</>;
+export const RevealVoteButtonText: React.FunctionComponent = props => <>Confirm My Vote</>;
 
 // Phase Card Display Names
-export const UnderChallengePhaseDisplayNameText: React.SFC = props => <>Under Challenge</>;
+export const UnderChallengePhaseDisplayNameText: React.FunctionComponent = props => <>Under Challenge</>;
 
-export const ReadyToCompletePhaseDisplayNameText: React.SFC = props => <>Ready to Complete</>;
+export const ReadyToCompletePhaseDisplayNameText: React.FunctionComponent = props => <>Ready to Complete</>;
 
-export const NewApplicationDisplayNameText: React.SFC = props => <>New Application</>;
+export const NewApplicationDisplayNameText: React.FunctionComponent = props => <>New Application</>;
 
-export const RejectedNewroomDisplayNameText: React.SFC = props => <>Rejected Newsroom</>;
+export const RejectedNewroomDisplayNameText: React.FunctionComponent = props => <>Rejected Newsroom</>;
 
-export const WhitelistedNewroomsDisplayNameText: React.SFC = props => <>Approved Newsroom</>;
+export const WhitelistedNewroomsDisplayNameText: React.FunctionComponent = props => <>Approved Newsroom</>;
 
 // Tooltips
 export interface ToolTipTextProps {
@@ -147,12 +151,12 @@ export interface ToolTipTextProps {
   dispensationPct?: string;
 }
 
-export const DurationToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const DurationToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   const duration = getReadableDuration(props.phaseLength || 0);
   return <>Time duration: {duration}</>;
 };
 
-export const NewApplicationToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const NewApplicationToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Under review by the community</ToolTipHdr>
@@ -167,7 +171,7 @@ export const NewApplicationToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const UnderChallengeToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const UnderChallengeToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>A CVL token holder is challenging this newsroom</ToolTipHdr>
@@ -180,7 +184,7 @@ export const UnderChallengeToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const WhitelistedNewroomsToolTipText: React.SFC = props => {
+export const WhitelistedNewroomsToolTipText: React.FunctionComponent = props => {
   return (
     <>
       <p>
@@ -196,7 +200,7 @@ export const WhitelistedNewroomsToolTipText: React.SFC = props => {
   );
 };
 
-export const RejectedNewsroomsToolTipText: React.SFC = props => {
+export const RejectedNewsroomsToolTipText: React.FunctionComponent = props => {
   return (
     <>
       <p>
@@ -208,7 +212,7 @@ export const RejectedNewsroomsToolTipText: React.SFC = props => {
   );
 };
 
-export const ResolveChallengeToolTipText: React.SFC = props => {
+export const ResolveChallengeToolTipText: React.FunctionComponent = props => {
   return (
     <>
       <ToolTipHdr>Resolve Challenge</ToolTipHdr>
@@ -221,7 +225,7 @@ export const ResolveChallengeToolTipText: React.SFC = props => {
   );
 };
 
-export const CommitVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const CommitVoteToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Commit tokens to cast a secret vote</ToolTipHdr>
@@ -238,7 +242,7 @@ export const CommitVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const ConfirmVoteToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipHdr>Finalize vote using secret ph rase</ToolTipHdr>
@@ -254,7 +258,7 @@ export const ConfirmVoteToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const RewardPoolToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const RewardPoolToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       Amount of tokens to be distributed to voters of the winning party at the conclusion of the challenge. The amount
@@ -267,7 +271,7 @@ export const RewardPoolToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const DepositsToolTipText: React.SFC = props => {
+export const DepositsToolTipText: React.FunctionComponent = props => {
   return (
     <>
       Amount of CVL tokens staked by the Newsroom when they apply to The Civil Registry, and by the Challenger upon
@@ -276,7 +280,7 @@ export const DepositsToolTipText: React.SFC = props => {
   );
 };
 
-export const RequestAppealToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const RequestAppealToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipItalic>
@@ -291,7 +295,7 @@ export const RequestAppealToolTipText: React.SFC<ToolTipTextProps> = props => {
   );
 };
 
-export const WaitingCouncilDecisionToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const WaitingCouncilDecisionToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipItalic>
@@ -306,7 +310,7 @@ export const WaitingCouncilDecisionToolTipText: React.SFC<ToolTipTextProps> = pr
   );
 };
 
-export const ChallangeCouncilToolTipText: React.SFC<ToolTipTextProps> = props => {
+export const ChallangeCouncilToolTipText: React.FunctionComponent<ToolTipTextProps> = props => {
   return (
     <>
       <ToolTipItalic>
@@ -322,15 +326,15 @@ export const ChallangeCouncilToolTipText: React.SFC<ToolTipTextProps> = props =>
 };
 
 // Num tokens for Commit Vote text
-export const VotingTokenBalanceText: React.SFC = props => {
+export const VotingTokenBalanceText: React.FunctionComponent = props => {
   return <>Voting Token Balance</>;
 };
 
-export const AvailableTokenBalanceText: React.SFC = props => {
+export const AvailableTokenBalanceText: React.FunctionComponent = props => {
   return <>Available Token Balance</>;
 };
 
-export const VotingTokenBalanceTooltipText: React.SFC = props => {
+export const VotingTokenBalanceTooltipText: React.FunctionComponent = props => {
   return (
     <>
       Voting tokens are tokens locked in voting contracts until the challenge is completed. If a token is locked in a
@@ -340,7 +344,7 @@ export const VotingTokenBalanceTooltipText: React.SFC = props => {
   );
 };
 
-export const AvailableTokenBalanceTooltipText: React.SFC = props => {
+export const AvailableTokenBalanceTooltipText: React.FunctionComponent = props => {
   return (
     <>
       CVL tokens you can use to tip journalists, use for deposits to challenge, request appeal, and challenge appeal, or
@@ -352,15 +356,15 @@ export const AvailableTokenBalanceTooltipText: React.SFC = props => {
   );
 };
 
-export const SelectNumTokensText: React.SFC = props => {
+export const SelectNumTokensText: React.FunctionComponent = props => {
   return <>Select amount of CVL tokens to commit to your vote.</>;
 };
 
-export const OneTokenOneVoteText: React.SFC = props => {
+export const OneTokenOneVoteText: React.FunctionComponent = props => {
   return <>1 token equals 1 vote.</>;
 };
 
-export const OneTokenOneVoteTooltipText: React.SFC = props => {
+export const OneTokenOneVoteTooltipText: React.FunctionComponent = props => {
   return (
     <>
       Your vote is weighted based on the amount of CVL tokens you put towards your vote. If you have 1 CVL, you have 1
@@ -370,11 +374,11 @@ export const OneTokenOneVoteTooltipText: React.SFC = props => {
   );
 };
 
-export const CommitVoteInsufficientTokensText: React.SFC = props => {
+export const CommitVoteInsufficientTokensText: React.FunctionComponent = props => {
   return <>You don't have enough CVL tokens in your available balance</>;
 };
 
-export const CommitVoteMaxTokensWarningText: React.SFC = props => {
+export const CommitVoteMaxTokensWarningText: React.FunctionComponent = props => {
   return (
     <>
       You are commiting all of your CVL tokens to this vote. If you’re planning on taking other actions - tipping

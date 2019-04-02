@@ -22,7 +22,7 @@ export interface WhitelistedCardProps {
   whitelistedTimestamp?: number;
 }
 
-export const WhitelistedCard: React.StatelessComponent<
+export const WhitelistedCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
 > = props => {
   let displayDateTime;
@@ -55,7 +55,7 @@ export const WhitelistedCard: React.StatelessComponent<
   );
 };
 
-const renderSubmitChallengeButton: React.StatelessComponent<
+const renderSubmitChallengeButton: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
 > = props => {
   if (props.submitChallengeURI) {

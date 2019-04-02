@@ -14,7 +14,7 @@ import * as React from "react";
 const connectCountdownTimer = () => <TCountdownTimerProps extends CountdownTimerProps>(
   CountdownTimerComponent:
     | React.ComponentClass<TCountdownTimerProps & InjectedCountdownTimerProps>
-    | React.StatelessComponent<TCountdownTimerProps & InjectedCountdownTimerProps>,
+    | React.FunctionComponent<TCountdownTimerProps & InjectedCountdownTimerProps>,
 ) => {
   return class HOCountdownTimerContainer extends React.Component<TCountdownTimerProps, CountdownTimerState> {
     public timer?: number;

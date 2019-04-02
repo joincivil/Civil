@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TransactionButtonInnerProps, MetaMaskLogoButton, buttonSizes, Button } from "@joincivil/components";
 
-export const TransactionButtonInner: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const TransactionButtonInner: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   const B = props.step === 0 ? MetaMaskLogoButton : Button;

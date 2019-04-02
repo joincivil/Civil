@@ -6,7 +6,7 @@ export interface ApprovedNewsroomsProps {
   width?: string;
 }
 
-export const ApprovedNewsroomsIcon: React.SFC<ApprovedNewsroomsProps> = props => {
+export const ApprovedNewsroomsIcon: React.FunctionComponent<ApprovedNewsroomsProps> = props => {
   const color = colors.primary.CIVIL_GRAY_2;
   const width = props.width || "18";
   const height = props.height || "18";

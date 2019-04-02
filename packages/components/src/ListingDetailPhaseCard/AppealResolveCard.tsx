@@ -13,7 +13,7 @@ import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
-export const AppealResolveCard: React.StatelessComponent<
+export const AppealResolveCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & AppealDecisionProps & ChallengeResultsProps
 > = props => {
   return (

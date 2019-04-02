@@ -11,7 +11,7 @@ import {
 } from "./DashboardStyledComponents";
 import DashboardActivityItemTitle from "./DashboardActivityItemTitle";
 
-export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = props => {
+export const DashboardActivityItemTask: React.FunctionComponent<DashboardActivityItemProps> = props => {
   const { logoUrl } = props;
   return (
     <StyledDashboardActivityItem>

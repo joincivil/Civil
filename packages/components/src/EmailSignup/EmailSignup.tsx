@@ -14,7 +14,7 @@ export interface EmailSignupProps {
   onSubmit(): void;
 }
 
-export const EmailSignup: React.SFC<EmailSignupProps> = props => {
+export const EmailSignup: React.FunctionComponent<EmailSignupProps> = props => {
   const SignUpButton = (
     <Button size={buttonSizes.SMALL} onClick={props.onSubmit}>
       {!!props.isRequestPending ? "Saving" : "Sign Up"}
