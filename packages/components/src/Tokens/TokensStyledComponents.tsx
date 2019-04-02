@@ -373,8 +373,21 @@ export const TokenProgressContain = styled.div`
     line-height: 21px;
   }
 
+  span {
+    margin-right: 15px;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: none;
+  }
+
+  div {
+    align-items: flex-start;
+  }
+
   button {
-    display: none;
+    margin: 0 0 0 10px;
   }
 `;
 
