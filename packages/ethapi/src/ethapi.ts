@@ -182,6 +182,11 @@ export class EthApi {
     return this.web3.toBigNumber(numberOrHexString as number | string);
   }
 
+  public async accountBalace(account: EthAddress): Promise<number> {
+    const getBalance = promisify<BigNumber>(this.web3.eth.getBalance, this.web3.eth);
+    return this.web3.fromWei(await getBalance(account), "ether").toNumber();
+  }
+
   /**
    * Awaits to confirm that the transaction was succesfull
    * @param txHash Transaction hash which will be checked
