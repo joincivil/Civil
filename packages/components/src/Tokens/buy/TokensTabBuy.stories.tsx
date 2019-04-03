@@ -8,6 +8,7 @@ import { CivilContext, buildCivilContext } from "../../context/CivilContext";
 import { Civil } from "@joincivil/core";
 import { UniswapBuy } from "./UniswapBuy";
 import { AirswapBuyCVL } from "./AirswapBuyCVL";
+import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
 
 export const Container = styled.div`
   align-items: center;
@@ -92,5 +93,14 @@ storiesOf("Storefront / Buy Tab", module)
       <Container>
         <AirswapBuyCVL network={"4"} buyFromAddress={"0x0..."} buyCVLBtnText={"Buy from the Civil Foundation"} />
       </Container>
+    );
+  })
+  .add("Buy Complete", () => {
+    return (
+      <CivilContext.Provider value={civilContext}>
+        <Container>
+          <TokensTabBuyComplete />
+        </Container>
+      </CivilContext.Provider>
     );
   });
