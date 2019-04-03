@@ -60,36 +60,40 @@ storiesOf("Wallet Onboarding", module)
     }),
   )
   .add("No Provider", () => {
-    return <WalletOnboarding enable={() => {}} noProvider={true} />;
+    return <WalletOnboarding enable={() => undefined} noProvider={true} />;
   })
   .add("Not Enabled", () => {
-    return <WalletOnboarding enable={() => {}} notEnabled={true} />;
+    return <WalletOnboarding enable={() => undefined} notEnabled={true} />;
   })
   .add("Locked", () => {
-    return <WalletOnboarding enable={() => {}} walletLocked={true} />;
+    return <WalletOnboarding enable={() => undefined} walletLocked={true} />;
   })
   .add("Wrong Network", () => {
-    return <WalletOnboarding enable={() => {}} wrongNetwork={true} requiredNetworkNiceName="Main Ethereum Network" />;
+    return (
+      <WalletOnboarding enable={() => undefined} wrongNetwork={true} requiredNetworkNiceName="Main Ethereum Network" />
+    );
   })
   .add("Save address to CMS profile", () => {
     return (
       <WalletOnboarding
-        enable={() => {}}
+        enable={() => undefined}
         metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
-        saveAddressToProfile={async () => {}}
+        saveAddressToProfile={async () => undefined}
       />
     );
   })
   .add("CMS profile vs. MetaMask address mismatch", () => {
     return (
       <WalletOnboarding
-        enable={() => {}}
+        enable={() => undefined}
         metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"
         profileWalletAddress="0x123abc00000000000000000000000000000x123abc"
-        saveAddressToProfile={async () => {}}
+        saveAddressToProfile={async () => undefined}
       />
     );
   })
   .add("Connected", () => {
-    return <WalletOnboarding enable={() => {}} metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" />;
+    return (
+      <WalletOnboarding enable={() => undefined} metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" />
+    );
   });
