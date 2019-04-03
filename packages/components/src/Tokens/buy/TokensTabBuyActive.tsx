@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TokenBuyIntro, TokenAirswapSection, TokenOrBreak } from "../TokensStyledComponents";
+import { TokenAirswapSection, TokenOrBreak } from "../TokensStyledComponents";
 import {
   TokenBuyText,
   TokenOrText,
@@ -10,6 +10,8 @@ import { UniswapBuySection } from "./UniswapBuySection";
 import { AirswapBuySection } from "./AirswapBuySection";
 import { UsdEthConverter } from "../../CurrencyConverter/UsdEthConverter";
 import { FeatureFlag } from "../../features/FeatureFlag";
+import { PaddedSection } from "../../containers";
+import { Notice, NoticeTypes } from "../../Notice";
 
 export interface TokensTabBuyActiveProps {
   foundationAddress: string;
@@ -27,13 +29,15 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
 
     return (
       <>
-        <TokenBuyIntro>
+        <Notice type={NoticeTypes.ERROR}>
           <TokenBuyText />
-        </TokenBuyIntro>
+        </Notice>
         <TokenAirswapSection>
           <TokenAirswapSection>
             <TokenAirswapFoundationText />
-            <UsdEthConverter onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)} />
+            <PaddedSection>
+              <UsdEthConverter onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)} />
+            </PaddedSection>
             <AirswapBuySection
               foundationAddress={foundationAddress}
               usdToSpend={this.state.usdToSpend}

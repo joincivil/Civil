@@ -113,13 +113,12 @@ export const TokenBuyExchangeBtnText: React.FunctionComponent = props => <>Buy C
 export const TokenBuyText: React.FunctionComponent = props => (
   <>
     <p>
-      To buy Civil tokens (CVL), you must buy Ether (ETH) and then you will be able to buy CVL. You can’t use USD or
-      local currencies to directly buy a Civil token – currencies need to be converted into ETH first.
+      To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't
+      have enough ETH, you can buy ETH on <a href="https://coinbase.com">Coinbase</a> or{" "}
+      <a href="https://gemini.com">Gemini</a> or{" "}
+      <a href="https://blog.joincivil.com/how-to-purchase-eth-an-explainer-725bd90cfaaa">learn how</a>. Please note, if
+      you are a first-time purchaser, it may take a few days to get ETH in your wallet.
     </p>
-    <span>
-      Please note, if you are a first-time ETH purchaser, it may take a few days to get ETH in your wallet. Learn more
-      about ETH below.
-    </span>
   </>
 );
 

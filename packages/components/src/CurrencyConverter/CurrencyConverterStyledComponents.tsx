@@ -72,7 +72,6 @@ export const CurrencyIconContain = styled.div`
 
 export const CurrencyCalcCVL = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
-  margin: 70px 0 0;
   text-align: center;
 
   span {

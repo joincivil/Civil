@@ -7,9 +7,8 @@ import {
   FlexColumnsPrimaryModule,
   FlexColumnsSecondary,
   TokenHeader,
-  TokenSection,
 } from "./TokensStyledComponents";
-import { TokenWelcomeHeaderText, TokenBuySellHeaderText, TokenMustBuyEth } from "./TokensTextComponents";
+import { TokenWelcomeHeaderText, TokenBuySellHeaderText } from "./TokensTextComponents";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
@@ -17,7 +16,6 @@ import { UserTokenAccountHelp } from "./TokensAccountHelp";
 import { UserTokenAccountProgress } from "./TokensAccountProgress";
 import { UserTokenAccountFaq } from "./TokensAccountFaq";
 import { getFormattedEthAddress, isBrowserCompatible } from "@joincivil/utils";
-import { Notice, NoticeTypes } from "../Notice";
 import { UserTokenAccountPaypal } from "./TokensAccountPaypal";
 import { BrowserCompatible } from "../BrowserCompatible";
 
@@ -126,12 +124,6 @@ export class UserTokenAccount extends React.Component<UserTokenAccountProps, Use
           handleClose={() => this.closeTutorialModal(this.props.user)}
           handleOpen={this.openTutorialModal}
         />
-
-        <TokenSection>
-          <Notice type={NoticeTypes.INFO}>
-            <TokenMustBuyEth />
-          </Notice>
-        </TokenSection>
 
         <UserTokenAccountBuy
           step={buyState}

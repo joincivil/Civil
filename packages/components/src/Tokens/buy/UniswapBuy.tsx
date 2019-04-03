@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CurrencyCalcCVL, CurrencyConverterSection } from "../../CurrencyConverter";
+import { CurrencyConverterSection } from "../../CurrencyConverter";
 import { CivilContext, ICivilContext } from "../../context";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
 import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
@@ -43,15 +43,13 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
 
     return (
       <CurrencyConverterSection>
-        <CurrencyCalcCVL>
-          <TokenPurchaseSummary
-            mode="buy"
-            currencyCode="CVL"
-            pricePer={pricePerCVL}
-            totalTokens={cvl}
-            totalPrice={pricePerCVL * cvl}
-          />
-        </CurrencyCalcCVL>
+        <TokenPurchaseSummary
+          mode="buy"
+          currencyCode="CVL"
+          pricePer={pricePerCVL}
+          totalTokens={cvl}
+          totalPrice={pricePerCVL * cvl}
+        />
         <div>
           <EthereumTransactionButton
             modalHeading={`Confirm in Metamask to complete your purchase of ${cvl} CVL`}
