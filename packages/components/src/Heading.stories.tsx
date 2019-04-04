@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Headings", module).add("Headings", () => {
+storiesOf("Pattern Library / Typography / Headings", module).add("Headings", () => {
   return (
     <Container>
       <Heading>Heading</Heading>

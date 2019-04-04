@@ -32,7 +32,7 @@ const Step3 = (props: StepProps): JSX.Element => {
   );
 };
 
-storiesOf("Step Process", module).add("Step Process", () => {
+storiesOf("Common / Steps / Step Process (deprecated?)", module).add("Step Process", () => {
   return (
     <div>
       <StepProcess>

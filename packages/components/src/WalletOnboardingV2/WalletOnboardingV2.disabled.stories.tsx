@@ -10,7 +10,7 @@ try {
   civil = undefined;
 }
 
-storiesOf("Wallet Onboarding V2/Not Enabled", module).add("Not Enabled", () => {
+storiesOf("Common / Wallet Onboarding V2/Not Enabled", module).add("Not Enabled", () => {
   return (
     <WalletOnboardingV2
       metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"

@@ -13,7 +13,7 @@ import {
 } from "./TabsStyled";
 import { ApprovedNewsroomsTabText, ApplicationsInProgressTabText, RejectedNewsroomsTabText } from "./textComponents";
 
-storiesOf("Tabs", module)
+storiesOf("Common / Tabs", module)
   .add("Default Tabs", () => {
     return (
       <Tabs>

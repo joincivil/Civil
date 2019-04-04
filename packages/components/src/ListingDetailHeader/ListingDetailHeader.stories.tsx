@@ -22,7 +22,7 @@ const charter = {
   newsroomUrl: "https://civil.co",
 };
 
-storiesOf("Listing Details Header", module)
+storiesOf("Registry / Listing / Listing Details Header", module)
   .add("No phase label", () => {
     const props: ListingDetailHeaderProps = {
       listingAddress: "0x0",

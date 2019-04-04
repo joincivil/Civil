@@ -6,7 +6,7 @@ import { Button, SecondaryButton } from "../../Button";
 import { StepProcessTopNav } from "./StepProcessTopNav";
 import { Step, RenderButtonsArgs } from "./Step";
 
-storiesOf("StepProcessTopNav", module)
+storiesOf("Common / Steps / Step Process (with buttons)", module)
   .add("StepProcessTopNav step 1", () => {
     return (
       <StepProcessTopNav>

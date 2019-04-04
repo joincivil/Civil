@@ -1,5 +1,1445 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-rzOft boETPg"
+    >
+      <div>
+        (exchange rate is 2x)
+      </div>
+      <div
+        className="sc-cIwbeI eHlvnT"
+      >
+        <div
+          className="sc-dUcZlc ddgOYr"
+        >
+          <div
+            className="sc-fdJbru fuOUdx"
+          >
+            Enter CVL Amount
+          </div>
+          <div
+            className="sc-dYcyhn hFqXpg"
+          >
+            <div
+              className="sc-iRbamj dUGcDR"
+            >
+              <div
+                className=" sc-kgoBCf bwAjsU"
+              >
+                <input
+                  className="sc-kgoBCf bwAjsU"
+                  min="0.01"
+                  name="Convert currency"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  step="0.01"
+                  type="number"
+                />
+              </div>
+              <div
+                className="sc-jlyJG elEcor"
+              >
+                CVL
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-jTNJqp gfdzUF"
+        >
+          <svg
+            height="14"
+            viewBox="0 0 18 14"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#8B8581"
+              fillRule="evenodd"
+              stroke="none"
+              strokeWidth="1"
+            >
+              <g
+                transform="translate(-336 -216)"
+              >
+                <path
+                  d="M349,228 L349,221 L347,221 L347,228 L344,228 L348,232 L352,228 L349,228 L349,228 Z M342,214 L338,218 L341,218 L341,225 L343,225 L343,218 L346,218 L342,214 L342,214 Z"
+                  transform="translate(345 223) rotate(90) translate(-345 -223)"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div
+          className="sc-dUcZlc ddgOYr"
+        >
+          <div
+            className="sc-fdJbru fuOUdx"
+          >
+            Converted ETH
+          </div>
+          <div
+            className="sc-cIbcTr bUcQdt"
+          >
+            0
+            <div
+              className="sc-hmyDHa cxUlow"
+            >
+              ETH
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Common / Currency / Currency Converter
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            CVL to ETH
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    StorybookProvider
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      styled.div
+                    </span>
+                    <span />
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        div
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        (exchange rate is 2x)
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        div
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      CurrencyConverter
+                    </span>
+                    <span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyCodeFrom
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              CVL
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyCodeTo
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              ETH
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyLabelFrom
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Enter CVL Amount
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyLabelTo
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Converted ETH
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          onConversion
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onConversion
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          doConversion
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              doConversion
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        <br />
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      /&gt;
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      styled.div
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    StorybookProvider
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              CurrencyConverter
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              StorybookProvider
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-rzOft boETPg"
+    >
+      <div>
+        (exchange rate is 0.5x)
+      </div>
+      <div
+        className="sc-cIwbeI eHlvnT"
+      >
+        <div
+          className="sc-dUcZlc ddgOYr"
+        >
+          <div
+            className="sc-fdJbru fuOUdx"
+          >
+            Enter USD Amount
+          </div>
+          <div
+            className="sc-dYcyhn hFqXpg"
+          >
+            <div
+              className="sc-iRbamj dUGcDR"
+            >
+              <div
+                className=" sc-kgoBCf bwAjsU"
+              >
+                <input
+                  className="sc-kgoBCf bwAjsU"
+                  min="0.01"
+                  name="Convert currency"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  step="0.01"
+                  type="number"
+                />
+              </div>
+              <div
+                className="sc-jlyJG elEcor"
+              >
+                USD
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-jTNJqp gfdzUF"
+        >
+          <svg
+            height="14"
+            viewBox="0 0 18 14"
+            width="18"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="#8B8581"
+              fillRule="evenodd"
+              stroke="none"
+              strokeWidth="1"
+            >
+              <g
+                transform="translate(-336 -216)"
+              >
+                <path
+                  d="M349,228 L349,221 L347,221 L347,228 L344,228 L348,232 L352,228 L349,228 L349,228 Z M342,214 L338,218 L341,218 L341,225 L343,225 L343,218 L346,218 L342,214 L342,214 Z"
+                  transform="translate(345 223) rotate(90) translate(-345 -223)"
+                />
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div
+          className="sc-dUcZlc ddgOYr"
+        >
+          <div
+            className="sc-fdJbru fuOUdx"
+          >
+            Converted ETH
+          </div>
+          <div
+            className="sc-cIbcTr bUcQdt"
+          >
+            0
+            <div
+              className="sc-hmyDHa cxUlow"
+            >
+              ETH
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Common / Currency / Currency Converter
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            USD to ETH
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    StorybookProvider
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      styled.div
+                    </span>
+                    <span />
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        div
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        (exchange rate is 0.5x)
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        div
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      CurrencyConverter
+                    </span>
+                    <span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyCodeFrom
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              USD
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyCodeTo
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              ETH
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyLabelFrom
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Enter USD Amount
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          currencyLabelTo
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Converted ETH
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          onConversion
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onConversion
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          doConversion
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              doConversion
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        <br />
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      /&gt;
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      styled.div
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    StorybookProvider
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              CurrencyConverter
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              StorybookProvider
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Currency Converter CVL to ETH 1`] = `
 <div>
   <div

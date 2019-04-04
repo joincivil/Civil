@@ -32,15 +32,15 @@ async function onSubmit(): Promise<void> {
   }
 }
 
-storiesOf("Email Signup Component", module)
-  .add("Email Signup", () => {
+storiesOf("Registry / Mailing List Signup Component", module)
+  .add("Mailing List Signup Signup", () => {
     return (
       <Container>
         <EmailSignup onChange={onChange} onSubmit={onSubmit} />
       </Container>
     );
   })
-  .add("Email Signup Success", () => {
+  .add("Mailing List Signup Success", () => {
     return (
       <Container>
         <EmailSignupSuccess />

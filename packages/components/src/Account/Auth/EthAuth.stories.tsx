@@ -60,7 +60,7 @@ try {
   civil = undefined;
 }
 
-storiesOf("Account/ETH", module)
+storiesOf("Common / Auth / ETH", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
