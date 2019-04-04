@@ -5,7 +5,7 @@ import { StepProcessTopNavState, StepsProps } from "../StepProcessTopNav";
 import { colors } from "../../styleConstants";
 
 export interface StepsNoButtonsProps extends StepsProps {
-  fullyControlledIndex?: boolean; /** If true, step nav won't update activeIndex, it will simply call onActiveTabChange and rely on parent component to update index. */
+  fullyControlledIndex?: boolean /** If true, step nav won't update activeIndex, it will simply call onActiveTabChange and rely on parent component to update index. */;
 }
 
 export interface ContentProps {

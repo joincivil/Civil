@@ -441,7 +441,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
       }
     }
-    newStep = Math.min(this.props.furthestStep, newStep); // Don't let them advance past where they have gotten through next button
+    newStep = Math.min(this.state.furthestStep, newStep); // Don't let them advance past where they have gotten through next button
 
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.saveStep(newStep);
