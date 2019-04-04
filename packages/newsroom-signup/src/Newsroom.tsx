@@ -117,6 +117,7 @@ export interface NewsroomExternalProps {
   helpUrl?: string;
   helpUrlBase?: string;
   logoUrl?: string;
+  forceStep?: STEP;
   renderUserSearch?(onSetAddress: any): JSX.Element;
   getCmsUserDataForAddress?(address: EthAddress): Promise<CmsUserData>;
 }
@@ -225,7 +226,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   constructor(props: NewsroomProps) {
     super(props);
     this.state = {
-      currentStep: this.determineInitialStep(props.savedStep),
+      currentStep: this.determineInitialStep(),
       furthestStep: props.furthestStep,
     };
   }
@@ -361,8 +362,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     );
   }
 
-  private determineInitialStep(savedStep: STEP): STEP {
-    let currentStep = savedStep;
+  private determineInitialStep(): STEP {
+    let currentStep = this.props.savedStep;
     if (currentStep === STEP.APPLIED) {
       // Not a real step, see its description above
       currentStep--;
@@ -371,6 +372,10 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     if (qs.parse(document.location.search.substr(1)).purchased) {
       // Just been redirected back from token purchase
       currentStep = STEP.TOKENS;
+    }
+
+    if (this.props.forceStep) {
+      currentStep = this.props.forceStep;
     }
 
     if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {

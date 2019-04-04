@@ -64,7 +64,8 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     return (
       <Wrapper type={NoticeTypes.ALERT}>
         <strong>Note:</strong> Your charter has already been published alongside your newsroom smart contract. If you
-        make any further changes, please make sure to republish your charter afterwards.{" "}
+        wish to make any changes, please use the back/next buttons below to navigate between sections. Once you have
+        completed any changes, make sure to republish your charter.{" "}
         <CivilContext.Consumer>
           {(value: CivilContextValue) => {
             return (
@@ -192,7 +193,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     return (
       <Modal textAlign="left">
         <ModalHeading>Charter Republished Successfully</ModalHeading>
-        <p>Your updated charter has been republished and is live on the registry.</p>
+        <p>Your updated charter has been republished and will be viewable on your newsroom page on the registry.</p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={onClick}>
           OK
         </Button>
