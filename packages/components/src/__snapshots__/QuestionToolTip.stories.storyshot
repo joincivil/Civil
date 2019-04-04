@@ -1,251 +1,383 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots QuestionToolTip tooltip 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-bWkBrx boDfmm",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-gxMtzJ jpYkcZ",
-        },
-        "children": Array [
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bWkBrx boDfmm"
+    >
+      <div
+        className="sc-gxMtzJ jpYkcZ"
+      >
+        <div
+          className="sc-kTUwUJ iRFJdw"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="sc-dfVpRl dldHIg"
+          >
+            <svg
+              height="18"
+              viewBox="0 0 18 18"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                opacity=".56"
+              >
+                <path
+                  d="m0 0h18v18h-18z"
+                  stroke="#000000"
+                  strokeOpacity=".008"
+                  strokeWidth=".5"
+                />
+                <path
+                  d="m8.25 13.5h1.5v-1.5h-1.5zm.75-12c-4.13999999 0-7.5 3.36000001-7.5 7.5 0 4.1400003 3.36000001 7.5 7.5 7.5 4.1400003 0 7.5-3.3599997 7.5-7.5 0-4.14000035-3.3599997-7.5-7.5-7.5zm0 13.5c-3.30749989 0-6-2.6925002-6-6 0-3.30749989 2.69250011-6 6-6 3.3074998 0 6 2.69250011 6 6 0 3.3074998-2.6925002 6-6 6zm0-10.5c-1.65750003 0-3 1.34249997-3 3h1.5c0-.82500029.6749997-1.5 1.5-1.5.82500023 0 1.5.67499971 1.5 1.5 0 1.5-2.25 1.3125-2.25 3.75h1.5c0-1.6875 2.25-1.875 2.25-3.75 0-1.65750003-1.3425-3-3-3z"
+                  fill="#000000"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "attribs": Object {
-              "class": "sc-kTUwUJ iRFJdw",
-            },
-            "children": Array [
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-dfVpRl dldHIg",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "height": "18",
-                      "viewBox": "0 0 18 18",
-                      "width": "18",
-                      "xmlns": "http://www.w3.org/2000/svg",
-                    },
-                    "children": Array [
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            QuestionToolTip
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            tooltip
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
                       Object {
-                        "attribs": Object {
-                          "fill": "none",
-                          "fill-rule": "evenodd",
-                          "opacity": ".56",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "m0 0h18v18h-18z",
-                              "stroke": "#000000",
-                              "stroke-opacity": ".008",
-                              "stroke-width": ".5",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": Object {
-                              "attribs": Object {
-                                "d": "m8.25 13.5h1.5v-1.5h-1.5zm.75-12c-4.13999999 0-7.5 3.36000001-7.5 7.5 0 4.1400003 3.36000001 7.5 7.5 7.5 4.1400003 0 7.5-3.3599997 7.5-7.5 0-4.14000035-3.3599997-7.5-7.5-7.5zm0 13.5c-3.30749989 0-6-2.6925002-6-6 0-3.30749989 2.69250011-6 6-6 3.3074998 0 6 2.69250011 6 6 0 3.3074998-2.6925002 6-6 6zm0-10.5c-1.65750003 0-3 1.34249997-3 3h1.5c0-.82500029.6749997-1.5 1.5-1.5.82500023 0 1.5.67499971 1.5 1.5 0 1.5-2.25 1.3125-2.25 3.75h1.5c0-1.6875 2.25-1.875 2.25-3.75 0-1.65750003-1.3425-3-3-3z",
-                                "fill": "#000000",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                              },
-                            },
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "stroke": undefined,
-                              "stroke-opacity": undefined,
-                              "stroke-width": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "stroke": undefined,
-                              "stroke-opacity": undefined,
-                              "stroke-width": undefined,
-                            },
-                          },
-                          Object {
-                            "attribs": Object {
-                              "d": "m8.25 13.5h1.5v-1.5h-1.5zm.75-12c-4.13999999 0-7.5 3.36000001-7.5 7.5 0 4.1400003 3.36000001 7.5 7.5 7.5 4.1400003 0 7.5-3.3599997 7.5-7.5 0-4.14000035-3.3599997-7.5-7.5-7.5zm0 13.5c-3.30749989 0-6-2.6925002-6-6 0-3.30749989 2.69250011-6 6-6 3.3074998 0 6 2.69250011 6 6 0 3.3074998-2.6925002 6-6 6zm0-10.5c-1.65750003 0-3 1.34249997-3 3h1.5c0-.82500029.6749997-1.5 1.5-1.5.82500023 0 1.5.67499971 1.5 1.5 0 1.5-2.25 1.3125-2.25 3.75h1.5c0-1.6875 2.25-1.875 2.25-3.75 0-1.65750003-1.3425-3-3-3z",
-                              "fill": "#000000",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": Object {
-                              "attribs": Object {
-                                "d": "m0 0h18v18h-18z",
-                                "stroke": "#000000",
-                                "stroke-opacity": ".008",
-                                "stroke-width": ".5",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "stroke": undefined,
-                                "stroke-opacity": undefined,
-                                "stroke-width": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "stroke": undefined,
-                                "stroke-opacity": undefined,
-                                "stroke-width": undefined,
-                              },
-                            },
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                            },
-                          },
-                        ],
-                        "name": "g",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                          "opacity": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                          "opacity": undefined,
-                        },
-                      },
-                    ],
-                    "name": "svg",
-                    "namespace": "http://www.w3.org/2000/svg",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "http://www.w3.org/2000/xmlns/",
-                    },
-                    "x-attribsPrefix": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "",
-                    },
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    QuestionToolTip
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        explainerText
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            this is a tool tip
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              QuestionToolTip
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

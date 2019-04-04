@@ -12,6 +12,7 @@ export interface UniswapBuyProps {
 }
 export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
+  private isMounted = true;
   constructor(props: UniswapBuyProps) {
     super(props);
     this.state = {};
@@ -23,6 +24,10 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     if (prevProps.ethToSpend !== this.props.ethToSpend) {
       await this.updatePrice();
     }
+  }
+
+  public componentWillUnmount(): void {
+    this.isMounted = false;
   }
 
   public render(): JSX.Element {
@@ -69,7 +74,9 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     const weiToSpend = uniswap.parseEther(this.props.ethToSpend.toString());
     const result = await uniswap.quoteETHToCVL(weiToSpend);
 
-    this.setState({ cvlToReceive: result });
+    if (this.isMounted) {
+      this.setState({ cvlToReceive: result });
+    }
   }
 
   private async buyCVL(): Promise<EthereumTransactionInfo> {
