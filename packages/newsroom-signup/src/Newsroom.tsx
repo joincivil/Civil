@@ -290,6 +290,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
             activeIndex={STEP_TO_SECTION[this.state.currentStep]}
             onActiveTabChange={this.navigateToSection}
             contentPrepend={this.renderRepublishCharter()}
+            fullyControlledIndex={true}
           >
             {this.renderSteps()}
           </StepProcessTopNavNoButtons>

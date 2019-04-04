@@ -4,6 +4,10 @@ import { StepTopNavNoButtonsProps } from "./Step";
 import { StepProcessTopNavState, StepsProps } from "../StepProcessTopNav";
 import { colors } from "../../styleConstants";
 
+export interface StepsNoButtonsProps extends StepsProps {
+  fullyControlledIndex?: boolean; /** If true, step nav won't update activeIndex, it will simply call onActiveTabChange and rely on parent component to update index. */
+}
+
 export interface ContentProps {
   goNext?(): void;
   goPrevious?(): void;
@@ -49,18 +53,18 @@ const ProgressBarInner = styled<ProgressBarInnerProps, "div">("div")`
   background-color: ${colors.accent.CIVIL_BLUE_FADED};
 `;
 
-export class StepProcessTopNavNoButtons extends React.Component<StepsProps, StepProcessTopNavState> {
+export class StepProcessTopNavNoButtons extends React.Component<StepsNoButtonsProps, StepProcessTopNavState> {
   public buttonContainer?: HTMLDivElement;
   public navContainer?: HTMLDivElement;
 
-  constructor(props: StepsProps) {
+  constructor(props: StepsNoButtonsProps) {
     super(props);
     this.state = {
       activeIndex: props.activeIndex || 0,
     };
   }
 
-  public componentDidUpdate(prevProps: StepsProps, prevState: StepProcessTopNavState): void {
+  public componentDidUpdate(prevProps: StepsNoButtonsProps, prevState: StepProcessTopNavState): void {
     if (typeof this.props.activeIndex === "undefined") {
       return;
     }
@@ -132,7 +136,9 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(newIndex);
     }
-    this.setState({ activeIndex: newIndex });
+    if (!this.props.fullyControlledIndex) {
+      this.setState({ activeIndex: newIndex });
+    }
   };
 
   private goPrevious = (): void => {
@@ -141,13 +147,17 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsProps, Step
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(newIndex);
     }
-    this.setState({ activeIndex: newIndex });
+    if (!this.props.fullyControlledIndex) {
+      this.setState({ activeIndex: newIndex });
+    }
   };
 
   private handleClick = (index: number): void => {
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(index);
     }
-    this.setState({ activeIndex: index });
+    if (!this.props.fullyControlledIndex) {
+      this.setState({ activeIndex: index });
+    }
   };
 }
