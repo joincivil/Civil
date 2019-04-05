@@ -52,7 +52,7 @@ const mocks = {
   },
 };
 
-storiesOf("Wallet Onboarding", module)
+storiesOf("Common / Wallet Onboarding", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,

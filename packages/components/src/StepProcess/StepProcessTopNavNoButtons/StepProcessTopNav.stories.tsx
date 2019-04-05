@@ -18,7 +18,7 @@ const StepThing = (props: StepThingProps): JSX.Element => {
   );
 };
 
-storiesOf("StepProcessTopNavNoButtons", module)
+storiesOf("Common / Steps / Step Process (no buttons)", module)
   .add("StepProcessTopNavNoButtons StepNoButtons 1", () => {
     return (
       <StepProcessTopNavNoButtons>

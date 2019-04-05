@@ -11,7 +11,7 @@ try {
   civil = undefined;
 }
 
-storiesOf("Wallet Onboarding V2/Mismatch", module)
+storiesOf("Common / Wallet Onboarding V2/Mismatch", module)
   .addDecorator(apolloDecorator)
   .add("Civil account vs. MetaMask address mismatch", () => {
     return (

@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("EthAddress Viewer", module).add("EthAddress Viewer", () => {
+storiesOf("Common / Ethereum / EthAddress Viewer", module).add("EthAddress Viewer", () => {
   return (
     <Container>
       <EthAddressViewer

@@ -40,7 +40,7 @@ class TestComponent extends React.Component<
   };
 }
 
-storiesOf("check box", module)
+storiesOf("Pattern Library / inputs / check box", module)
   .add("slide check box", () => {
     return <TestSlideComponent />;
   })

@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Clip Loader", module)
+storiesOf("Pattern Library / Loading / Clip Loader", module)
   .add("Default Size (32px x 32px)", () => {
     return (
       <Container>

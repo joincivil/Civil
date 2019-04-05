@@ -20,7 +20,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Application Status Labels", module).add("Labels", () => {
+storiesOf("Registry / Application Status Labels", module).add("Labels", () => {
   return (
     <Container>
       <AwaitingApprovalStatusLabel />

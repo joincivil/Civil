@@ -5,7 +5,7 @@ import { Hero } from "./Hero";
 import { HomepageHero } from "./HomepageHero";
 import * as heroImgUrl from "./img-hero-listings.png";
 
-storiesOf("Hero", module)
+storiesOf("Registry / Hero", module)
   .addDecorator(StoryRouter())
   .add("Homepage", () => {
     return (
