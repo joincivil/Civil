@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Wallet Onboarding V2/Wrong Network Wrong Network 1`] = `
+exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1`] = `
 <div>
   <div
     style={
@@ -226,7 +226,7 @@ exports[`Storyshots Wallet Onboarding V2/Wrong Network Wrong Network 1`] = `
               }
             }
           >
-            Wallet Onboarding V2/Wrong Network
+            Common / Wallet Onboarding V2/ Wrong Network
           </h1>
           <h2
             style={
