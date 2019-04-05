@@ -11,7 +11,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
     }
   >
     <div
-      className="sc-fVHxE efduHX"
+      className="sc-jvjHmY cCfhBy"
     >
       <div
         className="sc-gKLXLV eEsSag"
@@ -83,54 +83,6 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
             </svg>
           </a>
         </p>
-      </div>
-      <div
-        className="sc-bvCTgw gBYDQU"
-      >
-        <h4>
-          <svg
-            height="18"
-            viewBox="0 0 14 18"
-            width="14"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="#FF0C1A"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <path
-                d="M6.85714286,13.7142857 C7.8,13.7142857 8.57142857,12.9428571 8.57142857,12 C8.57142857,11.0571429 7.8,10.2857143 6.85714286,10.2857143 C5.91428571,10.2857143 5.14285714,11.0571429 5.14285714,12 C5.14285714,12.9428571 5.91428571,13.7142857 6.85714286,13.7142857 L6.85714286,13.7142857 Z M12,6 L11.1428571,6 L11.1428571,4.28571429 C11.1428571,1.88571429 9.25714286,0 6.85714286,0 C4.45714286,0 2.57142857,1.88571429 2.57142857,4.28571429 L4.2,4.28571429 C4.2,2.82857143 5.4,1.62857143 6.85714286,1.62857143 C8.31428571,1.62857143 9.51428571,2.82857143 9.51428571,4.28571429 L9.51428571,6 L1.71428571,6 C0.771428571,6 0,6.77142857 0,7.71428571 L0,16.2857143 C0,17.2285714 0.771428571,18 1.71428571,18 L12,18 C12.9428571,18 13.7142857,17.2285714 13.7142857,16.2857143 L13.7142857,7.71428571 C13.7142857,6.77142857 12.9428571,6 12,6 L12,6 Z M12,16.2857143 L1.71428571,16.2857143 L1.71428571,7.71428571 L12,7.71428571 L12,16.2857143 L12,16.2857143 Z"
-              />
-            </g>
-          </svg>
-          Unlock Tokens
-        </h4>
-        <p>
-          All first-time token purchasers must unlock their tokens by participating in community votes and the general oversight of Civil. This is to prevent speculators from affecting the price of Civil tokens. Learn more in the FAQ below.
-        </p>
-        <p>
-          Unlocking your tokens is straightforward, and you only have to do this once. Simply
-           
-          <b>
-            transfer at least 50 percent of your purchased tokens into the voting balance
-          </b>
-          . And that’s it.
-        </p>
-        <a
-          className="sc-jMvuUo RcNtJ sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
-          href="/dashboard/tasks/transfer-voting-tokens"
-          onClick={[Function]}
-          theme={
-            Object {
-              "invertedButtonBackground": "#FFFFFF",
-              "invertedButtonColor": "#2B56FF",
-            }
-          }
-        >
-          Unlock My Tokens
-        </a>
       </div>
     </div>
   </div>
@@ -670,39 +622,15 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
     }
   >
     <div
-      className="sc-fVHxE efduHX"
+      className="sc-jvjHmY cCfhBy"
     >
       <div
-        className="sc-bvTASY dJdlbe"
-        type={1}
+        className="sc-bvTASY hRvbHG"
+        type={2}
       >
         <div
           className="sc-koErNt hwIUZX"
-        >
-          <svg
-            height="28"
-            viewBox="0 0 28 28"
-            width="28"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-              transform="translate(-2, -2)"
-            >
-              <polygon
-                points="0 0 32 0 32 32 0 32"
-              />
-              <path
-                d="M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z"
-                fill="#F2524A"
-                fillRule="nonzero"
-              />
-            </g>
-          </svg>
-        </div>
+        />
         <div
           className="sc-gJqsIT huVgDW"
         >
@@ -1367,7 +1295,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
     }
   >
     <div
-      className="sc-fVHxE efduHX"
+      className="sc-jvjHmY cCfhBy"
     >
       <button
         className="sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
@@ -1926,7 +1854,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Uniswap 1`] = `
     }
   >
     <div
-      className="sc-fVHxE efduHX"
+      className="sc-jvjHmY cCfhBy"
     >
       <div>
         loading price...

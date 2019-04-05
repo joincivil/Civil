@@ -29,7 +29,7 @@ export const TokensTabBuyComplete = () => {
         <HollowGreenCheck width={48} height={48} />
         <TokenBuyCompleteText />
       </TokenBuySellComplete>
-      {!unlocked ? <TokensUnlockMessage /> : null}
+      {unlocked === false ? <TokensUnlockMessage /> : null}
     </>
   );
 };
