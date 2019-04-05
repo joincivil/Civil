@@ -13,6 +13,7 @@ import {
   NoticeTypes,
   NorthEastArrow,
 } from "@joincivil/components";
+import { Civil } from "@joincivil/core";
 
 const EthNotice = styled(Notice)`
   background: ${colors.accent.CIVIL_RED_ULTRA_FADED};
@@ -38,8 +39,31 @@ const ArrowWrap = styled.span`
   }
 `;
 
-export class UnderstandingEth extends React.Component {
+export interface UnderstandingEthProps {
+  civil?: Civil;
+}
+
+export interface UnderstandingEthState {
+  balance?: number;
+}
+
+export class UnderstandingEth extends React.Component<UnderstandingEthProps, UnderstandingEthState> {
+  constructor(props: UnderstandingEthProps) {
+    super(props);
+    this.state = {};
+  }
+  public async componentDidMount(): Promise<void> {
+    const account = await this.props.civil!.accountStream.first().toPromise();
+    this.setState({
+      balance: await this.props.civil!.accountBalance(account!),
+    });
+  }
   public render(): JSX.Element {
+    const warningCopy =
+      this.state.balance && this.state.balance > 0.05
+        ? "You can continue to the next step to create your Newsroom Smart Contract. You will use your ETH to process the transaction."
+        : "You can continue to the next step to create your Newsroom Smart Contract, but without ETH your transaction will not go through. Please note, if you are a first-time purchaser, it may take a few days to get ETH in your wallet.";
+
     return (
       <>
         <OBSectionHeader>Understanding Ether (ETH)</OBSectionHeader>
@@ -48,11 +72,7 @@ export class UnderstandingEth extends React.Component {
           buy Civil tokens later in this process.
         </OBSectionDescription>
 
-        <EthNotice type={NoticeTypes.ERROR}>
-          You can continue to the next step to create your Newsroom Smart Contract, but without ETH your transaction
-          will not go through. Please note, if you are a first-time purchaser, it may take a few days to get ETH in your
-          wallet.
-        </EthNotice>
+        <EthNotice type={NoticeTypes.ERROR}>{warningCopy}</EthNotice>
 
         <GrantNote>
           If you received a Civil Foundation Grant, your grant covers your initial ETH transaction costs.
