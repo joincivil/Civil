@@ -23,9 +23,7 @@ jobs:
                     - node_modules
             - run:
                 name: Building
-                command:  |
-                    export REACT_APP_APP_VERSION=$CIRCLE_SHA1
-                    yarn build
+                command:  yarn build
             - persist_to_workspace:
                 root: ../
                 paths:
@@ -116,6 +114,7 @@ jobs:
                 command: |
                     TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
                     docker build -f Dockerfile-dapp . \
+                    --build-arg version=$CIRCLE_SHA1 \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1 \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:test \
@@ -141,6 +140,7 @@ jobs:
                 command: |
                     TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
                     docker build -f Dockerfile-dapp . \
+                    --build-arg version=$CIRCLE_SHA1 \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG \
                     -t gcr.io/$GOOGLE_PROJECT_ID/dapp:$TAG-$CIRCLE_SHA1
             - deploy:
