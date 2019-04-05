@@ -13,7 +13,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Buttons", module)
+storiesOf("Pattern Library / Buttons", module)
   .addDecorator(StoryRouter())
   .add("Button", () => {
     return (
