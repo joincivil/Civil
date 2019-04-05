@@ -1,2722 +1,624 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots Hero Homepage 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-kEmuub jASloE",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-bbkauy wLPqs",
-        },
-        "children": Array [
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-kEmuub bhIhsI"
+    >
+      <div
+        className="sc-bbkauy wLPqs"
+      >
+        <h2
+          className="sc-fihHvN nUCQf"
+        >
+          The Civil Registry
+        </h2>
+        <div
+          className="sc-ghsgMZ jIElql"
+        >
+          <p>
+            A community-driven space for curating quality journalism.
+          </p>
+          <p>
+            Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform.
+             
+            <a
+              href="#learn-more"
+              target="_blank"
+            >
+              Learn how
+            </a>
+            .
+          </p>
+        </div>
+        <div
+          className="sc-dznXNo bzdRKk"
+        >
+          <a
+            className="sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
+            href="#buy-tokens"
+            size="SMALL"
+            theme={
+              Object {
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
+              }
+            }
+          >
+            Join as a member
+          </a>
+          <a
+            className="sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
+            href="#apply"
+            size="SMALL"
+            theme={
+              Object {
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
+              }
+            }
+          >
+            Join as a newsroom
+          </a>
+        </div>
+        <div
+          className="sc-ciodno dxGFOY"
+        >
+          Explore The Civil Registry
+          <div>
+            <svg
+              height="10"
+              viewBox="0 0 12 8"
+              width="18"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z"
+                fill="#FFFFFF"
+                fillRule="evenodd"
+                opacity="0.86"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "attribs": Object {
-              "class": "sc-fihHvN nUCQf",
-            },
-            "children": Array [
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
               Object {
-                "data": "The Civil Registry",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "h2",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
-                "class": "sc-ghsgMZ jIElql",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "A community-driven space for curating quality journalism.",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {},
-                    "children": Array [
-                      Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ".",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": Object {
-                            "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-                Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                      "next": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {
-                        "href": "#learn-more",
-                        "target": "_blank",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Learn how",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                    },
-                    Object {
-                      "data": ".",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {},
-                    "children": Array [
-                      Object {
-                        "data": "A community-driven space for curating quality journalism.",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
-                  "class": "sc-dznXNo bzdRKk",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#buy-tokens",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Join as a member",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                        "href": "#apply",
-                        "theme": "[object Object]",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Join as a newsroom",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "theme": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "theme": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#apply",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Join as a newsroom",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                        "href": "#buy-tokens",
-                        "theme": "[object Object]",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Join as a member",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "theme": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "theme": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-ciodno dxGFOY",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Explore The Civil Registry",
-                      "next": Object {
-                        "attribs": Object {},
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "height": "10",
-                              "viewBox": "0 0 12 8",
-                              "width": "18",
-                              "xmlns": "http://www.w3.org/2000/svg",
-                            },
-                            "children": Array [
-                              Object {
-                                "attribs": Object {
-                                  "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                                  "fill": "#FFFFFF",
-                                  "fill-rule": "evenodd",
-                                  "opacity": "0.86",
-                                },
-                                "children": Array [],
-                                "name": "path",
-                                "namespace": "http://www.w3.org/2000/svg",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "d": undefined,
-                                  "fill": undefined,
-                                  "fill-rule": undefined,
-                                  "opacity": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "d": undefined,
-                                  "fill": undefined,
-                                  "fill-rule": undefined,
-                                  "opacity": undefined,
-                                },
-                              },
-                            ],
-                            "name": "svg",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "height": undefined,
-                              "viewBox": undefined,
-                              "width": undefined,
-                              "xmlns": "http://www.w3.org/2000/xmlns/",
-                            },
-                            "x-attribsPrefix": Object {
-                              "height": undefined,
-                              "viewBox": undefined,
-                              "width": undefined,
-                              "xmlns": "",
-                            },
-                          },
-                        ],
-                        "name": "div",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {},
-                        "x-attribsPrefix": Object {},
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {},
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "height": "10",
-                            "viewBox": "0 0 12 8",
-                            "width": "18",
-                            "xmlns": "http://www.w3.org/2000/svg",
-                          },
-                          "children": Array [
-                            Object {
-                              "attribs": Object {
-                                "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                                "fill": "#FFFFFF",
-                                "fill-rule": "evenodd",
-                                "opacity": "0.86",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                                "opacity": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                                "opacity": undefined,
-                              },
-                            },
-                          ],
-                          "name": "svg",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "http://www.w3.org/2000/xmlns/",
-                          },
-                          "x-attribsPrefix": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "",
-                          },
-                        },
-                      ],
-                      "name": "div",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Explore The Civil Registry",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {},
-                      "x-attribsPrefix": Object {},
-                    },
-                  ],
-                  "name": "div",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          Object {
-            "attribs": Object {
-              "class": "sc-ghsgMZ jIElql",
-            },
-            "children": Array [
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Hero
+          </h1>
+          <h2
+            style={
               Object {
-                "attribs": Object {},
-                "children": Array [
-                  Object {
-                    "data": "A community-driven space for curating quality journalism.",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "p",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                      "next": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {
-                        "href": "#learn-more",
-                        "target": "_blank",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Learn how",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                    },
-                    Object {
-                      "data": ".",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {},
-                "x-attribsPrefix": Object {},
-              },
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Homepage
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
               Object {
-                "attribs": Object {},
-                "children": Array [
-                  Object {
-                    "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                    "next": Object {
-                      "attribs": Object {
-                        "href": "#learn-more",
-                        "target": "_blank",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Learn how",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                  Object {
-                    "attribs": Object {
-                      "href": "#learn-more",
-                      "target": "_blank",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Learn how",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "data": ".",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "text",
-                    },
-                    "parent": [Circular],
-                    "prev": Object {
-                      "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "href": undefined,
-                      "target": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "href": undefined,
-                      "target": undefined,
-                    },
-                  },
-                  Object {
-                    "data": ".",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "href": "#learn-more",
-                        "target": "_blank",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Learn how",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                    },
-                    "type": "text",
-                  },
-                ],
-                "name": "p",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "A community-driven space for curating quality journalism.",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {},
-                "x-attribsPrefix": Object {},
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
-                "class": "sc-dznXNo bzdRKk",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#buy-tokens",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Join as a member",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#apply",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Join as a newsroom",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#apply",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Join as a newsroom",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#buy-tokens",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Join as a member",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": Object {
-                "attribs": Object {
-                  "class": "sc-ciodno dxGFOY",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Explore The Civil Registry",
-                    "next": Object {
-                      "attribs": Object {},
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "height": "10",
-                            "viewBox": "0 0 12 8",
-                            "width": "18",
-                            "xmlns": "http://www.w3.org/2000/svg",
-                          },
-                          "children": Array [
-                            Object {
-                              "attribs": Object {
-                                "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                                "fill": "#FFFFFF",
-                                "fill-rule": "evenodd",
-                                "opacity": "0.86",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                                "opacity": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                                "opacity": undefined,
-                              },
-                            },
-                          ],
-                          "name": "svg",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "http://www.w3.org/2000/xmlns/",
-                          },
-                          "x-attribsPrefix": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "",
-                          },
-                        },
-                      ],
-                      "name": "div",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {},
-                      "x-attribsPrefix": Object {},
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                  Object {
-                    "attribs": Object {},
-                    "children": Array [
-                      Object {
-                        "attribs": Object {
-                          "height": "10",
-                          "viewBox": "0 0 12 8",
-                          "width": "18",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                              "fill": "#FFFFFF",
-                              "fill-rule": "evenodd",
-                              "opacity": "0.86",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                              "opacity": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                              "opacity": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                    ],
-                    "name": "div",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "data": "Explore The Civil Registry",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": [Circular],
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-fihHvN nUCQf",
-              },
-              "children": Array [
-                Object {
-                  "data": "The Civil Registry",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "h2",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          Object {
-            "attribs": Object {
-              "class": "sc-dznXNo bzdRKk",
-            },
-            "children": Array [
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                  "href": "#buy-tokens",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
                   Object {
-                    "data": "Join as a member",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#apply",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
                     Object {
-                      "data": "Join as a newsroom",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
-                },
-              },
+                      "color": "#444",
+                    }
+                  }
+                >
+                  &lt;
+                  StoryRouter
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      story
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#170",
+                            }
+                          }
+                        >
+                          anonymous
+                        </span>
+                        }
+                      </span>
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      links
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#444",
+                            }
+                          }
+                        >
+                          null
+                        </span>
+                        }
+                      </span>
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      routerProps
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#444",
+                            }
+                          }
+                        >
+                          null
+                        </span>
+                        }
+                      </span>
+                    </span>
+                     
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#444",
+                    }
+                  }
+                >
+                  /&gt;
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                  "href": "#apply",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Join as a newsroom",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#buy-tokens",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Join as a member",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "theme": undefined,
-                },
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
-                "class": "sc-ciodno dxGFOY",
-              },
-              "children": Array [
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
                 Object {
-                  "data": "Explore The Civil Registry",
-                  "next": Object {
-                    "attribs": Object {},
-                    "children": Array [
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              StoryRouter
+              " Component
+            </h3>
+            <table>
+              <thead>
+                <tr>
+                  <th
+                    style={
                       Object {
-                        "attribs": Object {
-                          "height": "10",
-                          "viewBox": "0 0 12 8",
-                          "width": "18",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                              "fill": "#FFFFFF",
-                              "fill-rule": "evenodd",
-                              "opacity": "0.86",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                              "opacity": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                              "opacity": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                    ],
-                    "name": "div",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-                Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "height": "10",
-                        "viewBox": "0 0 12 8",
-                        "width": "18",
-                        "xmlns": "http://www.w3.org/2000/svg",
-                      },
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                            "fill": "#FFFFFF",
-                            "fill-rule": "evenodd",
-                            "opacity": "0.86",
-                          },
-                          "children": Array [],
-                          "name": "path",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                            "opacity": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                            "opacity": undefined,
-                          },
-                        },
-                      ],
-                      "name": "svg",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "http://www.w3.org/2000/xmlns/",
-                      },
-                      "x-attribsPrefix": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "",
-                      },
-                    },
-                  ],
-                  "name": "div",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "data": "Explore The Civil Registry",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-ghsgMZ jIElql",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "A community-driven space for curating quality journalism.",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {},
-                    "children": Array [
+                        "textAlign": "left",
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    property
+                  </th>
+                  <th
+                    style={
                       Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ".",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
+                        "textAlign": "left",
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    propType
+                  </th>
+                  <th
+                    style={
                       Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
+                        "textAlign": "left",
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    required
+                  </th>
+                  <th
+                    style={
                       Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": Object {
-                            "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-                Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                      "next": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {
-                        "href": "#learn-more",
-                        "target": "_blank",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Learn how",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "text",
-                      },
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "href": undefined,
-                        "target": undefined,
-                      },
-                    },
-                    Object {
-                      "data": ".",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
-                      "type": "text",
-                    },
-                  ],
-                  "name": "p",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {},
-                    "children": Array [
+                        "textAlign": "left",
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    default
+                  </th>
+                  <th
+                    style={
                       Object {
-                        "data": "A community-driven space for curating quality journalism.",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
-                  "class": "sc-fihHvN nUCQf",
-                },
-                "children": Array [
-                  Object {
-                    "data": "The Civil Registry",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "h2",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-          Object {
-            "attribs": Object {
-              "class": "sc-ciodno dxGFOY",
-            },
-            "children": Array [
-              Object {
-                "data": "Explore The Civil Registry",
-                "next": Object {
-                  "attribs": Object {},
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "height": "10",
-                        "viewBox": "0 0 12 8",
-                        "width": "18",
-                        "xmlns": "http://www.w3.org/2000/svg",
-                      },
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                            "fill": "#FFFFFF",
-                            "fill-rule": "evenodd",
-                            "opacity": "0.86",
-                          },
-                          "children": Array [],
-                          "name": "path",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                            "opacity": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                            "opacity": undefined,
-                          },
-                        },
-                      ],
-                      "name": "svg",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "http://www.w3.org/2000/xmlns/",
-                      },
-                      "x-attribsPrefix": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "",
-                      },
-                    },
-                  ],
-                  "name": "div",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {},
-                  "x-attribsPrefix": Object {},
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-              Object {
-                "attribs": Object {},
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "height": "10",
-                      "viewBox": "0 0 12 8",
-                      "width": "18",
-                      "xmlns": "http://www.w3.org/2000/svg",
-                    },
-                    "children": Array [
+                        "textAlign": "left",
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    style={
                       Object {
-                        "attribs": Object {
-                          "d": "M10.824.412L6 5.457 1.068.412 0 1.4l6 6 6-6z",
-                          "fill": "#FFFFFF",
-                          "fill-rule": "evenodd",
-                          "opacity": "0.86",
-                        },
-                        "children": Array [],
-                        "name": "path",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                          "opacity": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                          "opacity": undefined,
-                        },
-                      },
-                    ],
-                    "name": "svg",
-                    "namespace": "http://www.w3.org/2000/svg",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "http://www.w3.org/2000/xmlns/",
-                    },
-                    "x-attribsPrefix": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "",
-                    },
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "data": "Explore The Civil Registry",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {},
-                "x-attribsPrefix": Object {},
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-dznXNo bzdRKk",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#buy-tokens",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Join as a member",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#apply",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    story
+                  </td>
+                  <td
+                    style={
                       Object {
-                        "data": "Join as a newsroom",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-                Object {
-                  "attribs": Object {
-                    "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                    "href": "#apply",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Join as a newsroom",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-ekulBa geZwNn sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq",
-                      "href": "#buy-tokens",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    <span>
+                      func
+                    </span>
+                  </td>
+                  <td
+                    style={
                       Object {
-                        "data": "Join as a member",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "theme": undefined,
-                  },
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": Object {
-                "attribs": Object {
-                  "class": "sc-ghsgMZ jIElql",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {},
-                    "children": Array [
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    yes
+                  </td>
+                  <td
+                    style={
                       Object {
-                        "data": "A community-driven space for curating quality journalism.",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {},
-                      "children": Array [
-                        Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": Object {
-                            "attribs": Object {
-                              "href": "#learn-more",
-                              "target": "_blank",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Learn how",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "a",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": Object {
-                              "data": ".",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": [Circular],
-                              "type": "text",
-                            },
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "href": undefined,
-                              "target": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "href": undefined,
-                              "target": undefined,
-                            },
-                          },
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ".",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
-                          "parent": [Circular],
-                          "prev": Object {
-                            "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "attribs": Object {
-                              "href": "#learn-more",
-                              "target": "_blank",
-                            },
-                            "children": Array [
-                              Object {
-                                "data": "Learn how",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "text",
-                              },
-                            ],
-                            "name": "a",
-                            "namespace": "http://www.w3.org/1999/xhtml",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": Object {
-                              "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                              "next": [Circular],
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "href": undefined,
-                              "target": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "href": undefined,
-                              "target": undefined,
-                            },
-                          },
-                          "type": "text",
-                        },
-                      ],
-                      "name": "p",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {},
-                      "x-attribsPrefix": Object {},
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                  Object {
-                    "attribs": Object {},
-                    "children": Array [
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    -
+                  </td>
+                  <td
+                    style={
                       Object {
-                        "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                        "next": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": Object {
-                            "data": ".",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "text",
-                          },
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  />
+                </tr>
+                <tr>
+                  <td
+                    style={
                       Object {
-                        "attribs": Object {
-                          "href": "#learn-more",
-                          "target": "_blank",
-                        },
-                        "children": Array [
-                          Object {
-                            "data": "Learn how",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                        ],
-                        "name": "a",
-                        "namespace": "http://www.w3.org/1999/xhtml",
-                        "next": Object {
-                          "data": ".",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "text",
-                        },
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "href": undefined,
-                          "target": undefined,
-                        },
-                      },
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    links
+                  </td>
+                  <td
+                    style={
                       Object {
-                        "data": ".",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "attribs": Object {
-                            "href": "#learn-more",
-                            "target": "_blank",
-                          },
-                          "children": Array [
-                            Object {
-                              "data": "Learn how",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "text",
-                            },
-                          ],
-                          "name": "a",
-                          "namespace": "http://www.w3.org/1999/xhtml",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": Object {
-                            "data": "Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform. ",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "href": undefined,
-                            "target": undefined,
-                          },
-                        },
-                        "type": "text",
-                      },
-                    ],
-                    "name": "p",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {},
-                      "children": Array [
-                        Object {
-                          "data": "A community-driven space for curating quality journalism.",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "p",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {},
-                      "x-attribsPrefix": Object {},
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {},
-                    "x-attribsPrefix": Object {},
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": [Circular],
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-fihHvN nUCQf",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "The Civil Registry",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "h2",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    <span>
+                      object
+                    </span>
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    -
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    -
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  />
+                </tr>
+                <tr>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    routerProps
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    <span>
+                      object
+                    </span>
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    -
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  >
+                    -
+                  </td>
+                  <td
+                    style={
+                      Object {
+                        "paddingRight": 10,
+                        "verticalAlign": "top",
+                      }
+                    }
+                  />
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

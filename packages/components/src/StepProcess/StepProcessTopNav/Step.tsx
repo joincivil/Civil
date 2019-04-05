@@ -147,9 +147,9 @@ export class Step extends React.Component<StepTopNavProps, StepState> {
 
   public componentDidMount(): void {
     if (this.props.setStartPosition) {
-      this.props.setStartPosition(this.dot!.offsetLeft);
+      this.props.setStartPosition(this.dot ? this.dot!.offsetLeft : 0);
     }
-    this.setState({ dotPosition: this.dot!.offsetLeft });
+    this.setState({ dotPosition: this.dot ? this.dot!.offsetLeft : 0 });
   }
 
   public render(): JSX.Element {
