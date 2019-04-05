@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
 import config from "./helpers/config";
+import { ErrorBoundry } from "./components/errors/ErrorBoundry";
 
 import { injectGlobal } from "styled-components";
 import { colors, fonts, CivilContext, ICivilContext, buildCivilContext } from "@joincivil/components";
@@ -37,17 +38,19 @@ export class App extends React.Component {
   }
   public render(): JSX.Element {
     return (
-      <ApolloProvider client={client}>
-        <ConnectedRouter history={history}>
-          <CivilContext.Provider value={this.civilContext}>
-            <>
-              <GlobalNav />
-              <Main />
-              <Footer />
-            </>
-          </CivilContext.Provider>
-        </ConnectedRouter>
-      </ApolloProvider>
+      <ErrorBoundry>
+        <ApolloProvider client={client}>
+          <ConnectedRouter history={history}>
+            <CivilContext.Provider value={this.civilContext}>
+              <>
+                <GlobalNav />
+                <Main />
+                <Footer />
+              </>
+            </CivilContext.Provider>
+          </ConnectedRouter>
+        </ApolloProvider>
+      </ErrorBoundry>
     );
   }
 }

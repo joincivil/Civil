@@ -71,7 +71,7 @@ const noop = () => {
   console.log("noop");
 };
 
-storiesOf("Listing Details Phase Card", module)
+storiesOf("Registry / Listing / Listing Details Phase Card", module)
   .addDecorator(StoryRouter())
   .add("In Application", () => {
     return (

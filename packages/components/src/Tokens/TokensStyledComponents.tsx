@@ -311,7 +311,7 @@ export const TokenBuyIntro = styled.div`
 `;
 
 export const TokenAirswapSection = styled.div`
-  padding: 0 30px;
+  padding: 15px 30px 0 30px;
   text-align: center;
 
   button {

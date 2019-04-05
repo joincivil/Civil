@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { Notice, NoticeTypes } from "./index";
 
-storiesOf("Notice", module)
+storiesOf("Pattern Library / Notices", module)
   .add("Info", () => {
     return <Notice type={NoticeTypes.INFO}>This is an info notice</Notice>;
   })

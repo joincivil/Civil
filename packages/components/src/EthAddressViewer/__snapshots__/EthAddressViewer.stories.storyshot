@@ -1,1354 +1,927 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots EthAddress Viewer EthAddress Viewer 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-jklikK djIozx",
-    },
-    "children": Array [
+exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] = `
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-fyjhYU cqYAzU",
-        },
-        "children": Array [
-          Object {
-            "attribs": Object {
-              "class": "sc-ugnQR jBPifm",
-            },
-            "children": Array [
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-jklikK djIozx"
+    >
+      <div
+        className="sc-fyjhYU cqYAzU"
+      >
+        <div
+          className="sc-ugnQR jBPifm"
+        >
+          CVL Token Contract Address
+        </div>
+        <div
+          className="sc-eIHaNI jtdOrv"
+        >
+          <div
+            className="sc-eTpRJs hILEQd"
+          >
+            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
+          </div>
+          <button
+            className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
+            onClick={[Function]}
+            size="SMALL"
+            theme={
               Object {
-                "data": "CVL Token Contract Address",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "text",
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": Object {
-              "attribs": Object {
-                "class": "sc-eIHaNI jtdOrv",
-              },
-              "children": Array [
-                Object {
-                  "attribs": Object {
-                    "class": "sc-eTpRJs hILEQd",
-                  },
-                  "children": Array [
+                "primaryButtonBackground": "#2B56FF",
+                "primaryButtonColor": "#FFFFFF",
+                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+                "primaryButtonDisabledColor": "#FFFFFF",
+                "primaryButtonFontWeight": "normal",
+                "primaryButtonHoverBackground": "#4066FF",
+                "primaryButtonTextTransform": "uppercase",
+                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+              }
+            }
+            type="button"
+          >
+            Copy
+          </button>
+          <a
+            className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
+            href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
+            size="SMALL"
+            target="_blank"
+            theme={
+              Object {
+                "invertedButtonBackground": "#FFFFFF",
+                "invertedButtonColor": "#2B56FF",
+              }
+            }
+          >
+            Etherscan 
+            <svg
+              height="11"
+              viewBox="0 0 11 11"
+              width="11"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
+                fill="#2B56FF"
+                fillRule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Common / Ethereum / EthAddress Viewer
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            EthAddress Viewer
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
                     Object {
-                      "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "div",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                      "theme": "[object Object]",
-                      "type": "button",
-                    },
-                    "children": Array [
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
                       Object {
-                        "data": "Copy",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "button",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": Object {
-                      "attribs": Object {
-                        "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                        "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                        "target": "_blank",
-                        "theme": "[object Object]",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "Etherscan ",
-                          "next": Object {
-                            "attribs": Object {
-                              "height": "11",
-                              "viewBox": "0 0 11 11",
-                              "width": "11",
-                              "xmlns": "http://www.w3.org/2000/svg",
-                            },
-                            "children": Array [
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    EthAddressViewer
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        address
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
                               Object {
-                                "attribs": Object {
-                                  "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                                  "fill": "#2B56FF",
-                                  "fill-rule": "evenodd",
-                                },
-                                "children": Array [],
-                                "name": "path",
-                                "namespace": "http://www.w3.org/2000/svg",
-                                "next": null,
-                                "parent": [Circular],
-                                "prev": null,
-                                "type": "tag",
-                                "x-attribsNamespace": Object {
-                                  "d": undefined,
-                                  "fill": undefined,
-                                  "fill-rule": undefined,
-                                },
-                                "x-attribsPrefix": Object {
-                                  "d": undefined,
-                                  "fill": undefined,
-                                  "fill-rule": undefined,
-                                },
-                              },
-                            ],
-                            "name": "svg",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": [Circular],
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "height": undefined,
-                              "viewBox": undefined,
-                              "width": undefined,
-                              "xmlns": "http://www.w3.org/2000/xmlns/",
-                            },
-                            "x-attribsPrefix": Object {
-                              "height": undefined,
-                              "viewBox": undefined,
-                              "width": undefined,
-                              "xmlns": "",
-                            },
-                          },
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        Object {
-                          "attribs": Object {
-                            "height": "11",
-                            "viewBox": "0 0 11 11",
-                            "width": "11",
-                            "xmlns": "http://www.w3.org/2000/svg",
-                          },
-                          "children": Array [
-                            Object {
-                              "attribs": Object {
-                                "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                                "fill": "#2B56FF",
-                                "fill-rule": "evenodd",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                            },
-                          ],
-                          "name": "svg",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": Object {
-                            "data": "Etherscan ",
-                            "next": [Circular],
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "text",
-                          },
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "http://www.w3.org/2000/xmlns/",
-                          },
-                          "x-attribsPrefix": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "",
-                          },
-                        },
-                      ],
-                      "name": "a",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "target": undefined,
-                        "theme": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                        "href": undefined,
-                        "target": undefined,
-                        "theme": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "theme": undefined,
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "theme": undefined,
-                      "type": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0…
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        displayName
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            CVL Token Contract Address
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        etherscanBaseURL
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            https://rinkeby.etherscan.io
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
                 Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                    "theme": "[object Object]",
-                    "type": "button",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Copy",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "button",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                      "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                      "target": "_blank",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Etherscan ",
-                        "next": Object {
-                          "attribs": Object {
-                            "height": "11",
-                            "viewBox": "0 0 11 11",
-                            "width": "11",
-                            "xmlns": "http://www.w3.org/2000/svg",
-                          },
-                          "children": Array [
-                            Object {
-                              "attribs": Object {
-                                "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                                "fill": "#2B56FF",
-                                "fill-rule": "evenodd",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                            },
-                          ],
-                          "name": "svg",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "http://www.w3.org/2000/xmlns/",
-                          },
-                          "x-attribsPrefix": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "",
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      Object {
-                        "attribs": Object {
-                          "height": "11",
-                          "viewBox": "0 0 11 11",
-                          "width": "11",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                              "fill": "#2B56FF",
-                              "fill-rule": "evenodd",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Etherscan ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-eTpRJs hILEQd",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "div",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                },
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
                 Object {
-                  "attribs": Object {
-                    "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                    "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                    "target": "_blank",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Etherscan ",
-                      "next": Object {
-                        "attribs": Object {
-                          "height": "11",
-                          "viewBox": "0 0 11 11",
-                          "width": "11",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                              "fill": "#2B56FF",
-                              "fill-rule": "evenodd",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {
-                        "height": "11",
-                        "viewBox": "0 0 11 11",
-                        "width": "11",
-                        "xmlns": "http://www.w3.org/2000/svg",
-                      },
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                            "fill": "#2B56FF",
-                            "fill-rule": "evenodd",
-                          },
-                          "children": Array [],
-                          "name": "path",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                        },
-                      ],
-                      "name": "svg",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Etherscan ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "http://www.w3.org/2000/xmlns/",
-                      },
-                      "x-attribsPrefix": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "",
-                      },
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                      "theme": "[object Object]",
-                      "type": "button",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Copy",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "button",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "class": "sc-eTpRJs hILEQd",
-                      },
-                      "children": Array [
-                        Object {
-                          "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                      ],
-                      "name": "div",
-                      "namespace": "http://www.w3.org/1999/xhtml",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "class": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "class": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "theme": undefined,
-                      "type": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "theme": undefined,
-                      "type": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": null,
-              "parent": [Circular],
-              "prev": [Circular],
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              EthAddressViewer
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots EthAddress Viewer EthAddress Viewer 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-jklikK djIozx"
+    >
+      <div
+        className="sc-fyjhYU cqYAzU"
+      >
+        <div
+          className="sc-ugnQR jBPifm"
+        >
+          CVL Token Contract Address
+        </div>
+        <div
+          className="sc-eIHaNI jtdOrv"
+        >
+          <div
+            className="sc-eTpRJs hILEQd"
+          >
+            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
+          </div>
+          <button
+            className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
+            onClick={[Function]}
+            size="SMALL"
+            theme={
+              Object {
+                "primaryButtonBackground": "#2B56FF",
+                "primaryButtonColor": "#FFFFFF",
+                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+                "primaryButtonDisabledColor": "#FFFFFF",
+                "primaryButtonFontWeight": "normal",
+                "primaryButtonHoverBackground": "#4066FF",
+                "primaryButtonTextTransform": "uppercase",
+                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+              }
+            }
+            type="button"
+          >
+            Copy
+          </button>
+          <a
+            className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
+            href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
+            size="SMALL"
+            target="_blank"
+            theme={
+              Object {
+                "invertedButtonBackground": "#FFFFFF",
+                "invertedButtonColor": "#2B56FF",
+              }
+            }
+          >
+            Etherscan 
+            <svg
+              height="11"
+              viewBox="0 0 11 11"
+              width="11"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
+                fill="#2B56FF"
+                fillRule="evenodd"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "attribs": Object {
-              "class": "sc-eIHaNI jtdOrv",
-            },
-            "children": Array [
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-eTpRJs hILEQd",
-                },
-                "children": Array [
-                  Object {
-                    "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "div",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                    "theme": "[object Object]",
-                    "type": "button",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Copy",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "button",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": Object {
-                    "attribs": Object {
-                      "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                      "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                      "target": "_blank",
-                      "theme": "[object Object]",
-                    },
-                    "children": Array [
-                      Object {
-                        "data": "Etherscan ",
-                        "next": Object {
-                          "attribs": Object {
-                            "height": "11",
-                            "viewBox": "0 0 11 11",
-                            "width": "11",
-                            "xmlns": "http://www.w3.org/2000/svg",
-                          },
-                          "children": Array [
-                            Object {
-                              "attribs": Object {
-                                "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                                "fill": "#2B56FF",
-                                "fill-rule": "evenodd",
-                              },
-                              "children": Array [],
-                              "name": "path",
-                              "namespace": "http://www.w3.org/2000/svg",
-                              "next": null,
-                              "parent": [Circular],
-                              "prev": null,
-                              "type": "tag",
-                              "x-attribsNamespace": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                              "x-attribsPrefix": Object {
-                                "d": undefined,
-                                "fill": undefined,
-                                "fill-rule": undefined,
-                              },
-                            },
-                          ],
-                          "name": "svg",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": [Circular],
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "http://www.w3.org/2000/xmlns/",
-                          },
-                          "x-attribsPrefix": Object {
-                            "height": undefined,
-                            "viewBox": undefined,
-                            "width": undefined,
-                            "xmlns": "",
-                          },
-                        },
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      Object {
-                        "attribs": Object {
-                          "height": "11",
-                          "viewBox": "0 0 11 11",
-                          "width": "11",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                              "fill": "#2B56FF",
-                              "fill-rule": "evenodd",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": Object {
-                          "data": "Etherscan ",
-                          "next": [Circular],
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "text",
-                        },
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                    ],
-                    "name": "a",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": [Circular],
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                      "href": undefined,
-                      "target": undefined,
-                      "theme": undefined,
-                    },
-                  },
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                },
-              },
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            EthAddress Viewer
+          </h1>
+          <h2
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                  "theme": "[object Object]",
-                  "type": "button",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Copy",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                ],
-                "name": "button",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": Object {
-                  "attribs": Object {
-                    "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                    "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                    "target": "_blank",
-                    "theme": "[object Object]",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "Etherscan ",
-                      "next": Object {
-                        "attribs": Object {
-                          "height": "11",
-                          "viewBox": "0 0 11 11",
-                          "width": "11",
-                          "xmlns": "http://www.w3.org/2000/svg",
-                        },
-                        "children": Array [
-                          Object {
-                            "attribs": Object {
-                              "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                              "fill": "#2B56FF",
-                              "fill-rule": "evenodd",
-                            },
-                            "children": Array [],
-                            "name": "path",
-                            "namespace": "http://www.w3.org/2000/svg",
-                            "next": null,
-                            "parent": [Circular],
-                            "prev": null,
-                            "type": "tag",
-                            "x-attribsNamespace": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                            "x-attribsPrefix": Object {
-                              "d": undefined,
-                              "fill": undefined,
-                              "fill-rule": undefined,
-                            },
-                          },
-                        ],
-                        "name": "svg",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "http://www.w3.org/2000/xmlns/",
-                        },
-                        "x-attribsPrefix": Object {
-                          "height": undefined,
-                          "viewBox": undefined,
-                          "width": undefined,
-                          "xmlns": "",
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    Object {
-                      "attribs": Object {
-                        "height": "11",
-                        "viewBox": "0 0 11 11",
-                        "width": "11",
-                        "xmlns": "http://www.w3.org/2000/svg",
-                      },
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                            "fill": "#2B56FF",
-                            "fill-rule": "evenodd",
-                          },
-                          "children": Array [],
-                          "name": "path",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                        },
-                      ],
-                      "name": "svg",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "data": "Etherscan ",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "http://www.w3.org/2000/xmlns/",
-                      },
-                      "x-attribsPrefix": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "",
-                      },
-                    },
-                  ],
-                  "name": "a",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": [Circular],
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "href": undefined,
-                    "target": undefined,
-                    "theme": undefined,
-                  },
-                },
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-eTpRJs hILEQd",
-                  },
-                  "children": Array [
-                    Object {
-                      "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "div",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "theme": undefined,
-                  "type": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "theme": undefined,
-                  "type": undefined,
-                },
-              },
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            EthAddress Viewer
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
               Object {
-                "attribs": Object {
-                  "class": "sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq",
-                  "href": "https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1",
-                  "target": "_blank",
-                  "theme": "[object Object]",
-                },
-                "children": Array [
-                  Object {
-                    "data": "Etherscan ",
-                    "next": Object {
-                      "attribs": Object {
-                        "height": "11",
-                        "viewBox": "0 0 11 11",
-                        "width": "11",
-                        "xmlns": "http://www.w3.org/2000/svg",
-                      },
-                      "children": Array [
-                        Object {
-                          "attribs": Object {
-                            "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                            "fill": "#2B56FF",
-                            "fill-rule": "evenodd",
-                          },
-                          "children": Array [],
-                          "name": "path",
-                          "namespace": "http://www.w3.org/2000/svg",
-                          "next": null,
-                          "parent": [Circular],
-                          "prev": null,
-                          "type": "tag",
-                          "x-attribsNamespace": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                          "x-attribsPrefix": Object {
-                            "d": undefined,
-                            "fill": undefined,
-                            "fill-rule": undefined,
-                          },
-                        },
-                      ],
-                      "name": "svg",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "http://www.w3.org/2000/xmlns/",
-                      },
-                      "x-attribsPrefix": Object {
-                        "height": undefined,
-                        "viewBox": undefined,
-                        "width": undefined,
-                        "xmlns": "",
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "text",
-                  },
-                  Object {
-                    "attribs": Object {
-                      "height": "11",
-                      "viewBox": "0 0 11 11",
-                      "width": "11",
-                      "xmlns": "http://www.w3.org/2000/svg",
-                    },
-                    "children": Array [
-                      Object {
-                        "attribs": Object {
-                          "d": "m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z",
-                          "fill": "#2B56FF",
-                          "fill-rule": "evenodd",
-                        },
-                        "children": Array [],
-                        "name": "path",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                        },
-                      },
-                    ],
-                    "name": "svg",
-                    "namespace": "http://www.w3.org/2000/svg",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "data": "Etherscan ",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "http://www.w3.org/2000/xmlns/",
-                    },
-                    "x-attribsPrefix": Object {
-                      "height": undefined,
-                      "viewBox": undefined,
-                      "width": undefined,
-                      "xmlns": "",
-                    },
-                  },
-                ],
-                "name": "a",
-                "namespace": "http://www.w3.org/1999/xhtml",
-                "next": null,
-                "parent": [Circular],
-                "prev": Object {
-                  "attribs": Object {
-                    "class": "sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX",
-                    "theme": "[object Object]",
-                    "type": "button",
-                  },
-                  "children": Array [
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
                     Object {
-                      "data": "Copy",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "text",
-                    },
-                  ],
-                  "name": "button",
-                  "namespace": "http://www.w3.org/1999/xhtml",
-                  "next": [Circular],
-                  "parent": [Circular],
-                  "prev": Object {
-                    "attribs": Object {
-                      "class": "sc-eTpRJs hILEQd",
-                    },
-                    "children": Array [
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
                       Object {
-                        "data": "0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "text",
-                      },
-                    ],
-                    "name": "div",
-                    "namespace": "http://www.w3.org/1999/xhtml",
-                    "next": [Circular],
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "class": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "class": undefined,
-                    },
-                  },
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "class": undefined,
-                    "theme": undefined,
-                    "type": undefined,
-                  },
-                },
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "class": undefined,
-                  "href": undefined,
-                  "target": undefined,
-                  "theme": undefined,
-                },
-              },
-            ],
-            "name": "div",
-            "namespace": "http://www.w3.org/1999/xhtml",
-            "next": null,
-            "parent": [Circular],
-            "prev": Object {
-              "attribs": Object {
-                "class": "sc-ugnQR jBPifm",
-              },
-              "children": Array [
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    EthAddressViewer
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        address
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0…
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        displayName
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            CVL Token Contract Address
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        etherscanBaseURL
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            https://rinkeby.etherscan.io
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
                 Object {
-                  "data": "CVL Token Contract Address",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "text",
-                },
-              ],
-              "name": "div",
-              "namespace": "http://www.w3.org/1999/xhtml",
-              "next": [Circular],
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "class": undefined,
-              },
-              "x-attribsPrefix": Object {
-                "class": undefined,
-              },
-            },
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "class": undefined,
-            },
-            "x-attribsPrefix": Object {
-              "class": undefined,
-            },
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              EthAddressViewer
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

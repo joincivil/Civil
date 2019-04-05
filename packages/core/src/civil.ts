@@ -269,4 +269,8 @@ export class Civil {
   public async getGasPrice(): Promise<BigNumber> {
     return this.ethApi.getGasPrice();
   }
+
+  public async accountBalance(account: EthAddress): Promise<number> {
+    return this.ethApi.accountBalace(account);
+  }
 }

@@ -6,7 +6,7 @@ import { Button, SecondaryButton } from "../../Button";
 import { StepProcessTopNav } from "./StepProcessTopNav";
 import { Step, RenderButtonsArgs } from "./Step";
 
-storiesOf("StepProcessTopNav", module)
+storiesOf("Common / Steps / Step Process (with buttons)", module)
   .add("StepProcessTopNav step 1", () => {
     return (
       <StepProcessTopNav>
@@ -15,7 +15,7 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <Button onClick={args.goNext}>got to next</Button>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -28,8 +28,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -41,8 +41,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -54,8 +54,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -67,8 +67,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -80,8 +80,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -93,7 +93,7 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
               </>
             );
           }}
@@ -219,7 +219,7 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <Button onClick={args.goNext}>got to next</Button>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -262,8 +262,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -305,8 +305,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -318,8 +318,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -331,8 +331,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -344,8 +344,8 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
-                <Button onClick={args.goNext}>got to next</Button>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
+                <Button onClick={() => args.goNext()}>got to next</Button>
               </>
             );
           }}
@@ -357,7 +357,7 @@ storiesOf("StepProcessTopNav", module)
           renderButtons={(args: RenderButtonsArgs): JSX.Element => {
             return (
               <>
-                <SecondaryButton onClick={args.goPrevious}>got to previous</SecondaryButton>
+                <SecondaryButton onClick={() => args.goPrevious()}>got to previous</SecondaryButton>
               </>
             );
           }}

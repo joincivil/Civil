@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CurrencyCalcCVL, CurrencyConverterSection } from "../../CurrencyConverter";
+import { CurrencyConverterSection } from "../../CurrencyConverter";
 import { CivilContext, ICivilContext } from "../../context";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
 import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
@@ -12,6 +12,7 @@ export interface UniswapBuyProps {
 }
 export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
+  private isMounted = true;
   constructor(props: UniswapBuyProps) {
     super(props);
     this.state = {};
@@ -23,6 +24,10 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     if (prevProps.ethToSpend !== this.props.ethToSpend) {
       await this.updatePrice();
     }
+  }
+
+  public componentWillUnmount(): void {
+    this.isMounted = false;
   }
 
   public render(): JSX.Element {
@@ -43,15 +48,13 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
 
     return (
       <CurrencyConverterSection>
-        <CurrencyCalcCVL>
-          <TokenPurchaseSummary
-            mode="buy"
-            currencyCode="CVL"
-            pricePer={pricePerCVL}
-            totalTokens={cvl}
-            totalPrice={pricePerCVL * cvl}
-          />
-        </CurrencyCalcCVL>
+        <TokenPurchaseSummary
+          mode="buy"
+          currencyCode="CVL"
+          pricePer={pricePerCVL}
+          totalTokens={cvl}
+          totalPrice={pricePerCVL * cvl}
+        />
         <div>
           <EthereumTransactionButton
             modalHeading={`Confirm in Metamask to complete your purchase of ${cvl} CVL`}
@@ -71,7 +74,9 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     const weiToSpend = uniswap.parseEther(this.props.ethToSpend.toString());
     const result = await uniswap.quoteETHToCVL(weiToSpend);
 
-    this.setState({ cvlToReceive: result });
+    if (this.isMounted) {
+      this.setState({ cvlToReceive: result });
+    }
   }
 
   private async buyCVL(): Promise<EthereumTransactionInfo> {

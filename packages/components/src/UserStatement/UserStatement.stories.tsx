@@ -18,7 +18,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("User Statement Forms", module)
+storiesOf("Registry / User Statement Forms", module)
   .addDecorator(StoryRouter())
   .add("Submit Challenge Statement", () => {
     const updateStatementValue = (name: string, value: any) => {

@@ -57,7 +57,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("SVG Icons", module)
+storiesOf("Pattern Library / icons / SVG Icons", module)
   .add("ApplicationInProgressIcon", () => {
     return (
       <Container>

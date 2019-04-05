@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Loading Indicator", module)
+storiesOf("Pattern Library / Loading / Loading Indicator", module)
   .add("Default Size (32px x 32px)", () => {
     return (
       <Container>

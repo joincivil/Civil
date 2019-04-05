@@ -16,7 +16,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Listing History Event", module)
+storiesOf("Registry / Listing / Listing History Event", module)
   .addDecorator(StoryRouter())
   .add("Default", () => {
     const props = {

@@ -1,825 +1,2657 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Storyshots Notice Alert 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-bvTASY hRvbHG",
-      "type": "2",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-koErNt hwIUZX",
-        },
-        "children": Array [],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
-            "class": "sc-gJqsIT huVgDW",
-          },
-          "children": Array [
-            Object {
-              "data": "This is an alert notice",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY hRvbHG"
+      type={2}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an alert notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-gJqsIT huVgDW",
-        },
-        "children": Array [
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "data": "This is an alert notice",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-koErNt hwIUZX",
-          },
-          "children": Array [],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Notice
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Alert
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            2
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an alert notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Notice Attention 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-bvTASY gGbwMN",
-      "type": "3",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-koErNt hwIUZX",
-        },
-        "children": Array [],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
-            "class": "sc-gJqsIT huVgDW",
-          },
-          "children": Array [
-            Object {
-              "data": "This is an attention notice",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY gGbwMN"
+      type={3}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an attention notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-gJqsIT huVgDW",
-        },
-        "children": Array [
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "data": "This is an attention notice",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-koErNt hwIUZX",
-          },
-          "children": Array [],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Notice
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Attention
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            3
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an attention notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Notice Error 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-bvTASY dJdlbe",
-      "type": "1",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-koErNt hwIUZX",
-        },
-        "children": Array [
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY dJdlbe"
+      type={1}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      >
+        <svg
+          height="28"
+          viewBox="0 0 28 28"
+          width="28"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+            transform="translate(-2, -2)"
+          >
+            <polygon
+              points="0 0 32 0 32 32 0 32"
+            />
+            <path
+              d="M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z"
+              fill="#F2524A"
+              fillRule="nonzero"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an error notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "attribs": Object {
-              "height": "28",
-              "viewBox": "0 0 28 28",
-              "width": "28",
-              "xmlns": "http://www.w3.org/2000/svg",
-            },
-            "children": Array [
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
               Object {
-                "attribs": Object {
-                  "fill": "none",
-                  "fill-rule": "evenodd",
-                  "stroke": "none",
-                  "stroke-width": "1",
-                  "transform": "translate(-2, -2)",
-                },
-                "children": Array [
-                  Object {
-                    "attribs": Object {
-                      "points": "0 0 32 0 32 32 0 32",
-                    },
-                    "children": Array [],
-                    "name": "polygon",
-                    "namespace": "http://www.w3.org/2000/svg",
-                    "next": Object {
-                      "attribs": Object {
-                        "d": "M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z",
-                        "fill": "#F2524A",
-                        "fill-rule": "nonzero",
-                      },
-                      "children": Array [],
-                      "name": "path",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": [Circular],
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "d": undefined,
-                        "fill": undefined,
-                        "fill-rule": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "d": undefined,
-                        "fill": undefined,
-                        "fill-rule": undefined,
-                      },
-                    },
-                    "parent": [Circular],
-                    "prev": null,
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "points": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "points": undefined,
-                    },
-                  },
-                  Object {
-                    "attribs": Object {
-                      "d": "M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z",
-                      "fill": "#F2524A",
-                      "fill-rule": "nonzero",
-                    },
-                    "children": Array [],
-                    "name": "path",
-                    "namespace": "http://www.w3.org/2000/svg",
-                    "next": null,
-                    "parent": [Circular],
-                    "prev": Object {
-                      "attribs": Object {
-                        "points": "0 0 32 0 32 32 0 32",
-                      },
-                      "children": Array [],
-                      "name": "polygon",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": [Circular],
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "points": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "points": undefined,
-                      },
-                    },
-                    "type": "tag",
-                    "x-attribsNamespace": Object {
-                      "d": undefined,
-                      "fill": undefined,
-                      "fill-rule": undefined,
-                    },
-                    "x-attribsPrefix": Object {
-                      "d": undefined,
-                      "fill": undefined,
-                      "fill-rule": undefined,
-                    },
-                  },
-                ],
-                "name": "g",
-                "namespace": "http://www.w3.org/2000/svg",
-                "next": null,
-                "parent": [Circular],
-                "prev": null,
-                "type": "tag",
-                "x-attribsNamespace": Object {
-                  "fill": undefined,
-                  "fill-rule": undefined,
-                  "stroke": undefined,
-                  "stroke-width": undefined,
-                  "transform": undefined,
-                },
-                "x-attribsPrefix": Object {
-                  "fill": undefined,
-                  "fill-rule": undefined,
-                  "stroke": undefined,
-                  "stroke-width": undefined,
-                  "transform": undefined,
-                },
-              },
-            ],
-            "name": "svg",
-            "namespace": "http://www.w3.org/2000/svg",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "tag",
-            "x-attribsNamespace": Object {
-              "height": undefined,
-              "viewBox": undefined,
-              "width": undefined,
-              "xmlns": "http://www.w3.org/2000/xmlns/",
-            },
-            "x-attribsPrefix": Object {
-              "height": undefined,
-              "viewBox": undefined,
-              "width": undefined,
-              "xmlns": "",
-            },
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
-            "class": "sc-gJqsIT huVgDW",
-          },
-          "children": Array [
-            Object {
-              "data": "This is an error notice",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-      Object {
-        "attribs": Object {
-          "class": "sc-gJqsIT huVgDW",
-        },
-        "children": Array [
-          Object {
-            "data": "This is an error notice",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-koErNt hwIUZX",
-          },
-          "children": Array [
-            Object {
-              "attribs": Object {
-                "height": "28",
-                "viewBox": "0 0 28 28",
-                "width": "28",
-                "xmlns": "http://www.w3.org/2000/svg",
-              },
-              "children": Array [
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Notice
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Error
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            1
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an error notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
                 Object {
-                  "attribs": Object {
-                    "fill": "none",
-                    "fill-rule": "evenodd",
-                    "stroke": "none",
-                    "stroke-width": "1",
-                    "transform": "translate(-2, -2)",
-                  },
-                  "children": Array [
-                    Object {
-                      "attribs": Object {
-                        "points": "0 0 32 0 32 32 0 32",
-                      },
-                      "children": Array [],
-                      "name": "polygon",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": Object {
-                        "attribs": Object {
-                          "d": "M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z",
-                          "fill": "#F2524A",
-                          "fill-rule": "nonzero",
-                        },
-                        "children": Array [],
-                        "name": "path",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": null,
-                        "parent": [Circular],
-                        "prev": [Circular],
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "d": undefined,
-                          "fill": undefined,
-                          "fill-rule": undefined,
-                        },
-                      },
-                      "parent": [Circular],
-                      "prev": null,
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "points": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "points": undefined,
-                      },
-                    },
-                    Object {
-                      "attribs": Object {
-                        "d": "M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z",
-                        "fill": "#F2524A",
-                        "fill-rule": "nonzero",
-                      },
-                      "children": Array [],
-                      "name": "path",
-                      "namespace": "http://www.w3.org/2000/svg",
-                      "next": null,
-                      "parent": [Circular],
-                      "prev": Object {
-                        "attribs": Object {
-                          "points": "0 0 32 0 32 32 0 32",
-                        },
-                        "children": Array [],
-                        "name": "polygon",
-                        "namespace": "http://www.w3.org/2000/svg",
-                        "next": [Circular],
-                        "parent": [Circular],
-                        "prev": null,
-                        "type": "tag",
-                        "x-attribsNamespace": Object {
-                          "points": undefined,
-                        },
-                        "x-attribsPrefix": Object {
-                          "points": undefined,
-                        },
-                      },
-                      "type": "tag",
-                      "x-attribsNamespace": Object {
-                        "d": undefined,
-                        "fill": undefined,
-                        "fill-rule": undefined,
-                      },
-                      "x-attribsPrefix": Object {
-                        "d": undefined,
-                        "fill": undefined,
-                        "fill-rule": undefined,
-                      },
-                    },
-                  ],
-                  "name": "g",
-                  "namespace": "http://www.w3.org/2000/svg",
-                  "next": null,
-                  "parent": [Circular],
-                  "prev": null,
-                  "type": "tag",
-                  "x-attribsNamespace": Object {
-                    "fill": undefined,
-                    "fill-rule": undefined,
-                    "stroke": undefined,
-                    "stroke-width": undefined,
-                    "transform": undefined,
-                  },
-                  "x-attribsPrefix": Object {
-                    "fill": undefined,
-                    "fill-rule": undefined,
-                    "stroke": undefined,
-                    "stroke-width": undefined,
-                    "transform": undefined,
-                  },
-                },
-              ],
-              "name": "svg",
-              "namespace": "http://www.w3.org/2000/svg",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "tag",
-              "x-attribsNamespace": Object {
-                "height": undefined,
-                "viewBox": undefined,
-                "width": undefined,
-                "xmlns": "http://www.w3.org/2000/xmlns/",
-              },
-              "x-attribsPrefix": Object {
-                "height": undefined,
-                "viewBox": undefined,
-                "width": undefined,
-                "xmlns": "",
-              },
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;
 
 exports[`Storyshots Notice Info 1`] = `
-initialize {
-  "0": Object {
-    "attribs": Object {
-      "class": "sc-bvTASY cGxXMa",
-      "type": "0",
-    },
-    "children": Array [
+<div>
+  <div
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-koErNt hwIUZX",
-        },
-        "children": Array [],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": Object {
-          "attribs": Object {
-            "class": "sc-gJqsIT huVgDW",
-          },
-          "children": Array [
-            Object {
-              "data": "This is an info notice",
-              "next": null,
-              "parent": [Circular],
-              "prev": null,
-              "type": "text",
-            },
-          ],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": null,
-          "parent": [Circular],
-          "prev": [Circular],
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "parent": [Circular],
-        "prev": null,
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY cGxXMa"
+      type={0}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an info notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
       Object {
-        "attribs": Object {
-          "class": "sc-gJqsIT huVgDW",
-        },
-        "children": Array [
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
           Object {
-            "data": "This is an info notice",
-            "next": null,
-            "parent": [Circular],
-            "prev": null,
-            "type": "text",
-          },
-        ],
-        "name": "div",
-        "namespace": "http://www.w3.org/1999/xhtml",
-        "next": null,
-        "parent": [Circular],
-        "prev": Object {
-          "attribs": Object {
-            "class": "sc-koErNt hwIUZX",
-          },
-          "children": Array [],
-          "name": "div",
-          "namespace": "http://www.w3.org/1999/xhtml",
-          "next": [Circular],
-          "parent": [Circular],
-          "prev": null,
-          "type": "tag",
-          "x-attribsNamespace": Object {
-            "class": undefined,
-          },
-          "x-attribsPrefix": Object {
-            "class": undefined,
-          },
-        },
-        "type": "tag",
-        "x-attribsNamespace": Object {
-          "class": undefined,
-        },
-        "x-attribsPrefix": Object {
-          "class": undefined,
-        },
-      },
-    ],
-    "name": "div",
-    "namespace": "http://www.w3.org/1999/xhtml",
-    "next": null,
-    "parent": null,
-    "prev": null,
-    "root": Object {
-      "attribs": Object {},
-      "children": Array [
-        [Circular],
-      ],
-      "name": "root",
-      "namespace": "http://www.w3.org/1999/xhtml",
-      "next": null,
-      "parent": null,
-      "prev": null,
-      "type": "root",
-      "x-attribsNamespace": Object {},
-      "x-attribsPrefix": Object {},
-    },
-    "type": "tag",
-    "x-attribsNamespace": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-    "x-attribsPrefix": Object {
-      "class": undefined,
-      "type": undefined,
-    },
-  },
-  "_root": [Circular],
-  "length": 1,
-  "options": Object {
-    "decodeEntities": true,
-    "normalizeWhitespace": false,
-    "withDomLvl1": true,
-    "xml": false,
-  },
-}
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Notice
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Info
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            0
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an info notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Notices Alert 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY hRvbHG"
+      type={2}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an alert notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Notices
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Alert
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            2
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an alert notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Notices Attention 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY gGbwMN"
+      type={3}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an attention notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Notices
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Attention
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            3
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an attention notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Notices Error 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY dJdlbe"
+      type={1}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      >
+        <svg
+          height="28"
+          viewBox="0 0 28 28"
+          width="28"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+            transform="translate(-2, -2)"
+          >
+            <polygon
+              points="0 0 32 0 32 32 0 32"
+            />
+            <path
+              d="M16,2.66666667 C8.64,2.66666667 2.66666667,8.64 2.66666667,16 C2.66666667,23.36 8.64,29.3333333 16,29.3333333 C23.36,29.3333333 29.3333333,23.36 29.3333333,16 C29.3333333,8.64 23.36,2.66666667 16,2.66666667 Z M17.3333333,22.6666667 L14.6666667,22.6666667 L14.6666667,20 L17.3333333,20 L17.3333333,22.6666667 Z M17.3333333,17.3333333 L14.6666667,17.3333333 L14.6666667,9.33333333 L17.3333333,9.33333333 L17.3333333,17.3333333 Z"
+              fill="#F2524A"
+              fillRule="nonzero"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an error notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Notices
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Error
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            1
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an error notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Notices Info 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bvTASY cGxXMa"
+      type={0}
+    >
+      <div
+        className="sc-koErNt hwIUZX"
+      />
+      <div
+        className="sc-gJqsIT huVgDW"
+      >
+        This is an info notice
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Notices
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Info
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Notice
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        type
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            0
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    This is an info notice
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Notice
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Notice
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 `;

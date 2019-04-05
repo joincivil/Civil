@@ -10,6 +10,7 @@ import { Button, buttonSizes } from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { getCharterQuery } from "../queries";
 import { SaveAddressMutation, SaveTxMutation } from "../mutations";
+import { CivilContext, CivilContextValue } from "../CivilContext";
 
 export interface SmartContractProps {
   currentStep: number;
@@ -69,7 +70,11 @@ export class SmartContract extends React.Component<SmartContractProps> {
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
-      <UnderstandingEth />,
+      <CivilContext.Consumer>
+        {(value: CivilContextValue) => {
+          return <UnderstandingEth civil={value.civil} />;
+        }}
+      </CivilContext.Consumer>,
       <Mutation
         mutation={SaveTxMutation}
         refetchQueries={[
