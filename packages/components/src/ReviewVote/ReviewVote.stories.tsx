@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Review Vote", module).add("Review Vote Modal", () => {
+storiesOf("Registry / Review Vote", module).add("Review Vote Modal", () => {
   const handleClose = () => {
     console.log("Closed the  modal");
   };

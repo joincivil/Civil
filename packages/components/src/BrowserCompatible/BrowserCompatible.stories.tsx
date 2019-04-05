@@ -3,7 +3,7 @@ import * as React from "react";
 import StoryRouter from "storybook-react-router";
 import { BrowserCompatible } from "./BrowserCompatible";
 
-storiesOf("Browser Compatible Message", module)
+storiesOf("Common / Browser Compatible Message", module)
   .addDecorator(StoryRouter())
   .add("Browser Compatible", () => {
     return <BrowserCompatible />;

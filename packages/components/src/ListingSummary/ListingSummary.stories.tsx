@@ -81,7 +81,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Listing Summary", module)
+storiesOf("Registry / Listing / Listing Summary", module)
   .addDecorator(StoryRouter())
   .add("Card", () => {
     const newsroom = newsrooms[0];

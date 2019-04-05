@@ -26,7 +26,7 @@ class ControlComponent extends React.Component<ControlProps, any> {
   };
 }
 
-storiesOf("Inputs", module)
+storiesOf("Pattern Library / Inputs", module)
   .add("Text Input", () => {
     return (
       <ControlComponent>

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   max-width: 500px;
 `;
 
-storiesOf("Collapsable", module)
+storiesOf("Pattern Library / Collapsable", module)
   .add("open", () => {
     return (
       <Wrapper>

@@ -32,7 +32,6 @@ const mapStateToProps = (
 ): CreateNewsroomProps & CreateNewsroomReduxProps => {
   const { networkName } = state;
   const { user } = state.networkDependent;
-
   return {
     ...ownProps,
     networkName,

@@ -36,7 +36,7 @@ const mocks = {
   },
 };
 
-storiesOf("Currency Converter", module)
+storiesOf("Common / Currency / Currency Converter", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,

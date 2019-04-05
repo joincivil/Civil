@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{childre
 const now = Date.now() / 1000;
 const oneDay = 86400;
 
-storiesOf("Application Phase Countdown Timer", module)
+storiesOf("Registry / Application Phase Countdown Timer", module)
   .add("Text Timers", () => {
     const eightDaysFromNow = now + oneDay * 8;
 

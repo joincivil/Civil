@@ -19,7 +19,7 @@ const noop = () => {
   return;
 };
 
-storiesOf("Parameterizer", module).add("Create Proposal", () => {
+storiesOf("Registry / Parameterizer", module).add("Create Proposal", () => {
   return (
     <Container>
       {process.env.NODE_ENV !== "test" && (

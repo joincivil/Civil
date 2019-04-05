@@ -20,6 +20,7 @@ export interface ListingChallengeStatementProps {
   listingAddress: string;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
+  showCharterTab(): void;
 }
 
 export interface ListingChallengeStatementReduxProps {
@@ -123,8 +124,12 @@ class ListingChallengeStatement extends React.Component<
       <StyledChallengeStatementComponent>
         <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
         <p>
-          Should this newsroom stay on the Civil Registry? Read the challenger’s statement below and vote with your CVL
-          tokens.
+          Review the{" "}
+          <a href="#charter" onClick={this.props.showCharterTab}>
+            Newsroom's Charter
+          </a>{" "}
+          and the Challenger's statement below. Then, evaluate the Newsroom based on the Civil Constitution before
+          casting a vote with your Civil tokens. tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
         <StyledChallengeStatementSection>

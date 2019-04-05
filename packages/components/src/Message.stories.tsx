@@ -14,7 +14,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Messages", module).add("Info Message", () => {
+storiesOf("Pattern Library / Notices / Messages (deprecate this?)", module).add("Info Message", () => {
   return (
     <Container>
       <InfoMessage>

@@ -17,7 +17,7 @@ const Container: React.FunctionComponent = ({ children }) => (
   </StyledDiv>
 );
 
-storiesOf("Modal", module)
+storiesOf("Pattern Library / Modals", module)
   .add("Modal", () => {
     return (
       <Container>

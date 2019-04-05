@@ -7,7 +7,7 @@ const onAuthenticationContinue = (): void => {
   return;
 };
 
-storiesOf("Account/VerifyToken", module)
+storiesOf("Common / Auth / VerifyToken", module)
   .add("Loading", () => {
     return (
       <AuthEmailVerify

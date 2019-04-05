@@ -52,7 +52,7 @@ const tutorial = {
   continueBtnText: "Continue to topic 2",
 };
 
-storiesOf("Tutorial", module)
+storiesOf("Common / Tutorial", module)
   .add("Tutorial Topic Intro", () => {
     return (
       <TutorialTopicIntro

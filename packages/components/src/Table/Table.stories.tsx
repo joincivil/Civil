@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
 
 const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Table", module).add("Default", () => {
+storiesOf("Pattern Library / Table", module).add("Default", () => {
   return (
     <Container>
       <Table width="100%">
