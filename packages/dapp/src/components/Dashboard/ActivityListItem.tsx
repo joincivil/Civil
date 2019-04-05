@@ -225,7 +225,8 @@ class ActivityListItemComponent extends React.Component<
 
     // This is a listing
     if (!userChallengeData && listingAddress) {
-      const manageNewsroomUrl = formatRoute(routes.NEWSROOM_MANAGEMENT, { newsroomAddress: this.props.listingAddress });
+      // @TODO/tobek When we release the post-application newsroom manager we should fix NEWSROOM_MANAGEMENT route and point this to that, but for now just send them to APPLY_TO_REGISTRY
+      const manageNewsroomUrl = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
       return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
     }
 
