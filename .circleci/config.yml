@@ -23,7 +23,9 @@ jobs:
                     - node_modules
             - run:
                 name: Building
-                command: yarn build
+                command:  |
+                    export REACT_APP_APP_VERSION=$CIRCLE_SHA1
+                    yarn build
             - persist_to_workspace:
                 root: ../
                 paths:
