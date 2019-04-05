@@ -29,7 +29,7 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
 
     return (
       <>
-        <Notice type={NoticeTypes.ERROR}>
+        <Notice type={NoticeTypes.ALERT}>
           <TokenBuyText />
         </Notice>
         <TokenAirswapSection>
