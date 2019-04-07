@@ -48,7 +48,7 @@
     "sort-by": "^1.2.0",
     "store": "^2.0.12",
     "styled-components": "^3.2.5",
-    "web3-providers-ws": "1.0.0-beta.33"
+    "web3-providers-ws": "1.0.0-beta.37"
   },
   "resolutions": {
     "styled-components": "3.2.5"
