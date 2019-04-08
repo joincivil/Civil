@@ -11,13 +11,13 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-bkypNX duKihh"
+      className="sc-kUQWMX HLNkz"
     >
       <div
-        className="sc-exdmVY bKLsjw"
+        className="sc-fHlXLc cmCbum"
       >
         <div
-          className="sc-bsVVwV cCijHS"
+          className="sc-evWYkj gXgENv"
         >
           <svg
             height="24"
@@ -39,9 +39,9 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
-          className="sc-kbGplQ fKrzJv"
+          className="sc-idjmjb kwASjp"
         >
-          Receive real-time email alerts when a new event occurs on the registry, allowing you maximum time to take actions. You can track events such as new applications, challenges, when voting begins and end and more.
+          Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
         <div
           className="sc-kpOJdX iUaKKN"
@@ -90,7 +90,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
-          className="sc-kbGplQ fKrzJv"
+          className="sc-idjmjb kwASjp"
         >
           <b>
             Follow us on twitter for alerts
@@ -472,10 +472,10 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-bkypNX duKihh"
+      className="sc-kUQWMX HLNkz"
     >
       <div
-        className="sc-evWYkj eMFmpj sc-exdmVY bKLsjw"
+        className="sc-iKpIOp kvABdQ sc-fHlXLc cmCbum"
       >
         <svg
           height="36"
@@ -497,17 +497,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
-          className="sc-bsVVwV cCijHS"
+          className="sc-evWYkj gXgENv"
         >
           Thanks for signing up!
         </div>
         <p
-          className="sc-kbGplQ fKrzJv"
+          className="sc-idjmjb kwASjp"
         >
           Please check your email to confirm your subscription.
         </p>
         <p
-          className="sc-kbGplQ fKrzJv"
+          className="sc-idjmjb kwASjp"
         >
           <b>
             Follow us on twitter for alerts
