@@ -12,6 +12,7 @@ import config from "./helpers/config";
 Sentry.init({
   dsn: config.SENTRY_DSN,
   environment: config.ENVIRONMENT,
+  release: config.APP_VERSION,
 });
 
 ReactDOM.render(
