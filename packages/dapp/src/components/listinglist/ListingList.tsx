@@ -34,7 +34,6 @@ class ListingList extends React.Component<ListingListOwnProps> {
         {this.props.listings &&
           this.props.listings.sort(sortNewsroomByAlphaNameAscending).map(l => {
             index++;
-            console.log(l);
             return (
               <ListingListItem
                 listingAddress={l!.listing.address}
