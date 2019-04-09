@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     }
   >
     <div
-      className="sc-dcmekm bXxVSc"
+      className="sc-eghKGU deGcap"
     >
       <div>
         <div
@@ -603,7 +603,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     }
   >
     <div
-      className="sc-dcmekm bXxVSc"
+      className="sc-eghKGU deGcap"
     >
       <div>
         <div
@@ -1461,7 +1461,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Rejected 1`] = `
     }
   >
     <div
-      className="sc-dcmekm bXxVSc"
+      className="sc-eghKGU deGcap"
     >
       <div />
     </div>

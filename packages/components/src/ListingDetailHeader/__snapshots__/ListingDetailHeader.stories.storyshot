@@ -11,20 +11,20 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
     }
   >
     <div
-      className="sc-eqGige eheXNi"
+      className="sc-fepxGN gYvIj"
     >
       <div>
         <div
-          className="sc-dxZgTM fXsHAc"
+          className="sc-iFMziU cpqDNH"
         >
           <div
-            className="sc-iomxrj ioMaXz"
+            className="sc-keVrkP lnLtsZ"
           >
             <div
-              className="sc-fHxwqH ksifzd"
+              className="sc-fyjhYU kHNTK"
             >
               <figure
-                className="sc-dvCyap bKalQc"
+                className="sc-gVLVqr kAgpAZ"
               />
               <div>
                 <div
@@ -33,12 +33,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
                   Submit Vote
                 </div>
                 <h1
-                  className="sc-bFADNz jJIsdv"
+                  className="sc-dyGzUR mUkSc"
                 >
                   The Civil Times
                 </h1>
                 <button
-                  className="sc-keVrkP fLjvEX sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
+                  className="sc-exkUMo efQgrU sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
                   onClick={[Function]}
                   theme={
                     Object {
@@ -54,18 +54,18 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
                   Ethereum Info
                 </button>
                 <p
-                  className="sc-cqpYsc BZHxk"
+                  className="sc-drKuOJ btECXA"
                 >
                   Civil is the decentralized marketplace for sustainable journalism.
                 </p>
                 <div
-                  className="sc-dyGzUR oRPOg"
+                  className="sc-cmjSyW humTek"
                 >
                   <div
-                    className="sc-drKuOJ LlFhY"
+                    className="sc-sdtwF dCjkyv"
                   >
                     <a
-                      className="sc-gVLVqr kFWalM sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
+                      className="sc-kcDeIU jllTag sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -741,20 +741,20 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
     }
   >
     <div
-      className="sc-eqGige eheXNi"
+      className="sc-fepxGN gYvIj"
     >
       <div>
         <div
-          className="sc-dxZgTM fXsHAc"
+          className="sc-iFMziU cpqDNH"
         >
           <div
-            className="sc-iomxrj ioMaXz"
+            className="sc-keVrkP lnLtsZ"
           >
             <div
-              className="sc-fHxwqH ksifzd"
+              className="sc-fyjhYU kHNTK"
             >
               <figure
-                className="sc-dvCyap bKalQc"
+                className="sc-gVLVqr kAgpAZ"
               />
               <div>
                 <div
@@ -763,12 +763,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
                   Awaiting Approval
                 </div>
                 <h1
-                  className="sc-bFADNz jJIsdv"
+                  className="sc-dyGzUR mUkSc"
                 >
                   The Civil Times
                 </h1>
                 <button
-                  className="sc-keVrkP fLjvEX sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
+                  className="sc-exkUMo efQgrU sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
                   onClick={[Function]}
                   theme={
                     Object {
@@ -784,18 +784,18 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
                   Ethereum Info
                 </button>
                 <p
-                  className="sc-cqpYsc BZHxk"
+                  className="sc-drKuOJ btECXA"
                 >
                   Civil is the decentralized marketplace for sustainable journalism.
                 </p>
                 <div
-                  className="sc-dyGzUR oRPOg"
+                  className="sc-cmjSyW humTek"
                 >
                   <div
-                    className="sc-drKuOJ LlFhY"
+                    className="sc-sdtwF dCjkyv"
                   >
                     <a
-                      className="sc-gVLVqr kFWalM sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
+                      className="sc-kcDeIU jllTag sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -1471,29 +1471,29 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
     }
   >
     <div
-      className="sc-eqGige eheXNi"
+      className="sc-fepxGN gYvIj"
     >
       <div>
         <div
-          className="sc-dxZgTM fXsHAc"
+          className="sc-iFMziU cpqDNH"
         >
           <div
-            className="sc-iomxrj ioMaXz"
+            className="sc-keVrkP lnLtsZ"
           >
             <div
-              className="sc-fHxwqH ksifzd"
+              className="sc-fyjhYU kHNTK"
             >
               <figure
-                className="sc-dvCyap bKalQc"
+                className="sc-gVLVqr kAgpAZ"
               />
               <div>
                 <h1
-                  className="sc-bFADNz jJIsdv"
+                  className="sc-dyGzUR mUkSc"
                 >
                   The Civil Times
                 </h1>
                 <button
-                  className="sc-keVrkP fLjvEX sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
+                  className="sc-exkUMo efQgrU sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
                   onClick={[Function]}
                   theme={
                     Object {
@@ -1509,18 +1509,18 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
                   Ethereum Info
                 </button>
                 <p
-                  className="sc-cqpYsc BZHxk"
+                  className="sc-drKuOJ btECXA"
                 >
                   Civil is the decentralized marketplace for sustainable journalism.
                 </p>
                 <div
-                  className="sc-dyGzUR oRPOg"
+                  className="sc-cmjSyW humTek"
                 >
                   <div
-                    className="sc-drKuOJ LlFhY"
+                    className="sc-sdtwF dCjkyv"
                   >
                     <a
-                      className="sc-gVLVqr kFWalM sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
+                      className="sc-kcDeIU jllTag sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -2214,20 +2214,20 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
     }
   >
     <div
-      className="sc-eqGige eheXNi"
+      className="sc-fepxGN gYvIj"
     >
       <div>
         <div
-          className="sc-dxZgTM fXsHAc"
+          className="sc-iFMziU cpqDNH"
         >
           <div
-            className="sc-iomxrj ioMaXz"
+            className="sc-keVrkP lnLtsZ"
           >
             <div
-              className="sc-fHxwqH ksifzd"
+              className="sc-fyjhYU kHNTK"
             >
               <figure
-                className="sc-dvCyap bKalQc"
+                className="sc-gVLVqr kAgpAZ"
               />
               <div>
                 <div
@@ -2236,12 +2236,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
                   Confirm Vote
                 </div>
                 <h1
-                  className="sc-bFADNz jJIsdv"
+                  className="sc-dyGzUR mUkSc"
                 >
                   The Civil Times
                 </h1>
                 <button
-                  className="sc-keVrkP fLjvEX sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
+                  className="sc-exkUMo efQgrU sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
                   onClick={[Function]}
                   theme={
                     Object {
@@ -2257,18 +2257,18 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
                   Ethereum Info
                 </button>
                 <p
-                  className="sc-cqpYsc BZHxk"
+                  className="sc-drKuOJ btECXA"
                 >
                   Civil is the decentralized marketplace for sustainable journalism.
                 </p>
                 <div
-                  className="sc-dyGzUR oRPOg"
+                  className="sc-cmjSyW humTek"
                 >
                   <div
-                    className="sc-drKuOJ LlFhY"
+                    className="sc-sdtwF dCjkyv"
                   >
                     <a
-                      className="sc-gVLVqr kFWalM sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
+                      className="sc-kcDeIU jllTag sc-hSdWYo jhPlkS sc-hMqMXs dxbbGc"
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"

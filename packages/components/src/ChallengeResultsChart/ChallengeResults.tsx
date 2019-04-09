@@ -5,9 +5,9 @@ import { ChallengeResultsProps } from "./types";
 import {
   VoteTypeSummary,
   VoteTypeSummaryContainer,
-  VotesPerTokenContainer,
-  VotesPerTokenCount,
   VotesPerTokenTotal,
+  TotalVotesLabelContainer,
+  TotalVotesCount,
   StyledExplainerText,
 } from "./styledComponents";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
@@ -29,17 +29,33 @@ const ExplainerText: React.FunctionComponent<ChallengeResultsProps> = props => {
 
   if (props.didChallengeSucceed) {
     if (props.isAppealChallenge) {
-      explainerText = "The Civil Community voted to uphold the Civil Council's decision.";
+      explainerText = (
+        <>
+          The Civil Community <b>voted to uphold</b> the Civil Council's decision.
+        </>
+      );
     } else {
-      explainerText =
-        "The Civil Community voted to reject this newsroom, on the grounds that it is in violation of the Civil Constitution.";
+      explainerText = (
+        <>
+          The Civil Community <b>voted to reject this newsroom</b> on the grounds that it is in violation of the Civil
+          Constitution.
+        </>
+      );
     }
   } else {
     if (props.isAppealChallenge) {
-      explainerText = "The Civil Community voted to overturn The Civil Council's decision.";
+      explainerText = (
+        <>
+          The Civil Community <b>voted to overturn</b> The Civil Council's decision.
+        </>
+      );
     } else {
-      explainerText =
-        "The Civil Community voted to accept this newsroom, on the grounds that it adheres to the Civil Constitution.";
+      explainerText = (
+        <>
+          The Civil Community <b>voted to accept this newsroom</b> on the grounds that it adheres to the Civil
+          Constitution.
+        </>
+      );
     }
   }
   return <StyledExplainerText>{explainerText}</StyledExplainerText>;
@@ -76,10 +92,10 @@ const ChallengeResultsInner: React.FunctionComponent<ChallengeResultsProps> = pr
 
       <VoteTypeSummaryContainer>
         <VoteTypeSummary>
-          <VotesPerTokenContainer>
+          <TotalVotesLabelContainer>
             <VotesPerTokenTotal>Total Votes</VotesPerTokenTotal>
-            <VotesPerTokenCount>{props.totalVotes}</VotesPerTokenCount>
-          </VotesPerTokenContainer>
+          </TotalVotesLabelContainer>
+          <TotalVotesCount>{props.totalVotes}</TotalVotesCount>
         </VoteTypeSummary>
       </VoteTypeSummaryContainer>
     </>

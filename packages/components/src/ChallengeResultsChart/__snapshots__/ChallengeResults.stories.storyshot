@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] = `
+exports[`Storyshots Registry Challenge Results Chart 1`] = `
 <div>
   <div
     style={
@@ -11,70 +11,181 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
-      className="sc-bCQtTp juLMaA"
+      className="sc-eIvgmF jQKEzm"
     >
-      <div
-        className="sc-eTpRJs hVCsQg"
-      >
-        <div
-          className="sc-dxZgTM jbANuz"
+      <div>
+        <h4
+          className="sc-fHxwqH kyWMcX sc-fONwsr dNhyim"
         >
-          CVL Token Contract Address
-        </div>
+          Challenge Results
+        </h4>
+        <p
+          className="sc-jrIrqw tmAOo"
+        >
+          The Civil Community 
+          <b>
+            voted to accept this newsroom
+          </b>
+           on the grounds that it adheres to the Civil Constitution.
+        </p>
         <div
-          className="sc-iomxrj dKLhzH"
+          className="sc-bEjcJn aKSWj"
         >
           <div
-            className="sc-dvCyap hxktgs"
+            className="sc-ePZHVD eKoHBv"
           >
-            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
-          </div>
-          <button
-            className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
-            onClick={[Function]}
-            size="SMALL"
-            theme={
-              Object {
-                "primaryButtonBackground": "#2B56FF",
-                "primaryButtonColor": "#FFFFFF",
-                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-                "primaryButtonDisabledColor": "#FFFFFF",
-                "primaryButtonFontWeight": "normal",
-                "primaryButtonHoverBackground": "#4066FF",
-                "primaryButtonTextTransform": "uppercase",
-                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-              }
-            }
-            type="button"
-          >
-            Copy
-          </button>
-          <a
-            className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-            href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
-            size="SMALL"
-            target="_blank"
-            theme={
-              Object {
-                "invertedButtonBackground": "#FFFFFF",
-                "invertedButtonColor": "#2B56FF",
-              }
-            }
-          >
-            Etherscan 
-            <svg
-              height="11"
-              viewBox="0 0 11 11"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              className="sc-gpHHfC ctuKDp"
             >
-              <path
-                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
-                fill="#2B56FF"
-                fillRule="evenodd"
-              />
-            </svg>
-          </a>
+              <div
+                className="sc-eXNvrr hashAC"
+              >
+                <svg
+                  height="14"
+                  viewBox="0 0 20 20"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    transform="translate(1 1)"
+                  >
+                    <circle
+                      className="svg-stroke"
+                      cx="9"
+                      cy="9"
+                      r="8.25"
+                      stroke="#29cb42"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      className="svg-fill"
+                      d="m12.6 5-5.13 5.17-2.07-2.08-1.4 1.41 3.47 3.5 6.53-6.59z"
+                      fill="#29cb42"
+                      fillRule="nonzero"
+                    />
+                  </g>
+                </svg>
+                 Accept
+              </div>
+            </div>
+            <div
+              className="sc-likbZx biPRmX"
+            >
+              <div
+                className="sc-eKZiaR dmuwbC"
+              >
+                73
+                %
+              </div>
+              <div
+                className="sc-drMfKT irbanv"
+              >
+                <div
+                  className="sc-fgfRvd MtQbE"
+                >
+                  <div
+                    className="sc-hIVACf chiayl"
+                    color="#30E8BD"
+                  />
+                </div>
+                <div
+                  className="sc-kQsIoO kJdbGv"
+                >
+                  73000
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-bEjcJn aKSWj"
+        >
+          <div
+            className="sc-ePZHVD eKoHBv"
+          >
+            <div
+              className="sc-gpHHfC ctuKDp"
+            >
+              <div
+                className="sc-eXNvrr hnXuYd"
+              >
+                <svg
+                  height="14"
+                  viewBox="0 0 20 20"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    transform="translate(1 1)"
+                  >
+                    <path
+                      d="m0 0h18v18h-18z"
+                    />
+                    <path
+                      className="svg-fill"
+                      d="m9 0c-4.968 0-9 4.032-9 9s4.032 9 9 9 9-4.032 9-9-4.032-9-9-9zm0 16.2c-3.978 0-7.2-3.222-7.2-7.2 0-1.665.567-3.195 1.521-4.41l10.089 10.089c-1.215.954-2.745 1.521-4.41 1.521zm5.679-2.79-10.089-10.089c1.215-.954 2.745-1.521 4.41-1.521 3.978 0 7.2 3.222 7.2 7.2 0 1.665-.567 3.195-1.521 4.41z"
+                      fill="#f2524a"
+                      fillRule="nonzero"
+                    />
+                  </g>
+                </svg>
+                 Reject
+              </div>
+            </div>
+            <div
+              className="sc-likbZx biPRmX"
+            >
+              <div
+                className="sc-eKZiaR dmuwbC"
+              >
+                27
+                %
+              </div>
+              <div
+                className="sc-drMfKT irbanv"
+              >
+                <div
+                  className="sc-fgfRvd MtQbE"
+                >
+                  <div
+                    className="sc-hIVACf dxcaUY"
+                    color="#FF0C1A"
+                  />
+                </div>
+                <div
+                  className="sc-kQsIoO kJdbGv"
+                >
+                  27000
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-bEjcJn aKSWj"
+        >
+          <div
+            className="sc-ePZHVD eKoHBv"
+          >
+            <div
+              className="sc-gVyKpa fzbEzh"
+            >
+              <div
+                className="sc-cpmKsF ivssvG sc-eXNvrr hnXuYd"
+              >
+                Total Votes
+              </div>
+            </div>
+            <div
+              className="sc-gPzReC bQKGqX"
+            >
+              100000
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -178,7 +289,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            Common / Ethereum / EthAddress Viewer
+            Registry
           </h1>
           <h2
             style={
@@ -190,7 +301,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            EthAddress Viewer
+            Challenge Results Chart
           </h2>
         </div>
         
@@ -269,15 +380,18 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                     }
                   >
                     &lt;
-                    EthAddressViewer
+                    ChallengeResults
                   </span>
                   <span>
                     <span>
-                       
+                      <span>
+                        <br />
+                          
+                      </span>
                       <span
                         style={Object {}}
                       >
-                        address
+                        totalVotes
                       </span>
                       <span>
                         =
@@ -293,18 +407,21 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                               }
                             }
                           >
-                            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0…
+                            100000
                           </span>
                           "
                         </span>
                       </span>
                     </span>
                     <span>
-                       
+                      <span>
+                        <br />
+                          
+                      </span>
                       <span
                         style={Object {}}
                       >
-                        displayName
+                        votesFor
                       </span>
                       <span>
                         =
@@ -320,18 +437,21 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                               }
                             }
                           >
-                            CVL Token Contract Address
+                            73000
                           </span>
                           "
                         </span>
                       </span>
                     </span>
                     <span>
-                       
+                      <span>
+                        <br />
+                          
+                      </span>
                       <span
                         style={Object {}}
                       >
-                        etherscanBaseURL
+                        votesAgainst
                       </span>
                       <span>
                         =
@@ -347,12 +467,101 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                               }
                             }
                           >
-                            https://rinkeby.etherscan.io
+                            27000
                           </span>
                           "
                         </span>
                       </span>
-                       
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        percentFor
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            73
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        percentAgainst
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            27
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        didChallengeSucceed
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            false
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      <br />
                     </span>
                   </span>
                   <span
@@ -433,7 +642,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              Container
+              ChallengeResults
               " Component
             </h3>
             <small>
@@ -449,7 +658,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              EthAddressViewer
+              Container
               " Component
             </h3>
             <small>

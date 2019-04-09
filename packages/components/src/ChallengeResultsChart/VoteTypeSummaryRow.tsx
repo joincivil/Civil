@@ -6,6 +6,7 @@ import {
   VotesPerTokenCount,
   BreakdownBarContainer,
   BreakdownBarPercentageLabel,
+  BreakdownBarTotalContainer,
   BreakdownBarTotal,
   BreakdownBarPercentage,
 } from "./styledComponents";
@@ -19,16 +20,19 @@ export const VoteTypeSummaryRow: React.FunctionComponent<VoteTypeSummaryRowProps
     <VoteTypeSummary>
       <VotesPerTokenContainer>
         <VotesPerTokenVote vote={props.voteType}>{voteTypeLabel[props.voteType]}</VotesPerTokenVote>
-        <VotesPerTokenCount>{props.votesCount}</VotesPerTokenCount>
       </VotesPerTokenContainer>
 
       <BreakdownBarContainer>
         <BreakdownBarPercentageLabel>
           {props.votesPercent && (props.votesPercent.indexOf("NaN") < 0 ? props.votesPercent : "0")}%
         </BreakdownBarPercentageLabel>
-        <BreakdownBarTotal>
-          <BreakdownBarPercentage vote={props.voteType} percentage={props.votesPercent} color={color} />
-        </BreakdownBarTotal>
+
+        <BreakdownBarTotalContainer>
+          <BreakdownBarTotal>
+            <BreakdownBarPercentage vote={props.voteType} percentage={props.votesPercent} color={color} />
+          </BreakdownBarTotal>
+          <VotesPerTokenCount>{props.votesCount}</VotesPerTokenCount>
+        </BreakdownBarTotalContainer>
       </BreakdownBarContainer>
     </VoteTypeSummary>
   );
