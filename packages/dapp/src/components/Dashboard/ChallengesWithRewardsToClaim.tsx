@@ -5,6 +5,9 @@ import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 
 import {
+  Tabs,
+  Tab,
+  StyledDashboardSubTab,
   ClaimRewardsDescriptionText,
   ModalContent,
   StyledDashboardActivityDescription,
@@ -14,7 +17,13 @@ import {
 import { multiClaimRewards } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
-import { ChallengesToProcess, StyledBatchButtonContainer, getChallengesToProcess, getSalts } from "./DashboardActivity";
+import {
+  ChallengesToProcess,
+  StyledBatchButtonContainer,
+  getChallengesToProcess,
+  getSalts,
+  StyledTabsComponent,
+} from "./DashboardActivity";
 import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
 
 enum TransactionTypes {
@@ -80,12 +89,13 @@ class ChallengesWithRewardsToClaim extends React.Component<
   }
 
   public componentWillUnmount(): void {
-    this.setState(() => ({ challengesToClaim: {} }));
+    this.resetChallengesToMultiClaim();
   }
 
   public render(): JSX.Element {
     const isClaimRewardsButtonDisabled = this.isEmpty(this.state.challengesToClaim);
     const transactions = this.getTransactions();
+    const { resetChallengesToMultiClaim } = this;
 
     return (
       <>
@@ -93,28 +103,45 @@ class ChallengesWithRewardsToClaim extends React.Component<
           <ClaimRewardsDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-          ))}
+        <Tabs
+          TabComponent={StyledDashboardSubTab}
+          TabsNavComponent={StyledTabsComponent}
+          onActiveTabChange={resetChallengesToMultiClaim}
+        >
+          <Tab title="Listing Challenges">
+            <>
+              {this.props.challenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
+                ))}
 
-        {this.props.appealChallenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemClaimReward key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-          ))}
-
-        {this.props.proposalChallenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemClaimReward
-              key={c}
-              isProposalChallenge={true}
-              challengeID={c!}
-              toggleSelect={this.setChallengesToMultiClaim}
-            />
-          ))}
+              {this.props.appealChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemClaimReward
+                    key={c}
+                    appealChallengeID={c!}
+                    toggleSelect={this.setChallengesToMultiClaim}
+                  />
+                ))}
+            </>
+          </Tab>
+          <Tab title="Parameter Proposal Challenges">
+            <>
+              {this.props.proposalChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemClaimReward
+                    key={c}
+                    isProposalChallenge={true}
+                    challengeID={c!}
+                    toggleSelect={this.setChallengesToMultiClaim}
+                  />
+                ))}
+            </>
+          </Tab>
+        </Tabs>
 
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal
@@ -181,6 +208,10 @@ class ChallengesWithRewardsToClaim extends React.Component<
         challengesToClaim: { ...newChallengesToClaim },
       }));
     }
+  };
+
+  private resetChallengesToMultiClaim = (): void => {
+    this.setState(() => ({ challengesToClaim: {} }));
   };
 
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
