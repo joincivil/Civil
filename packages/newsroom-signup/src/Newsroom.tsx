@@ -1,4 +1,6 @@
 import * as qs from "querystring";
+import { BigNumber } from "bignumber.js";
+import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
   colors,
@@ -130,6 +132,7 @@ export interface NewsroomReduxProps extends NewsroomExternalProps {
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
   charterUri?: string;
+  waitingOnGrant?: boolean;
 }
 
 export interface NewsroomGqlProps {
@@ -179,8 +182,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     state: NewsroomComponentState,
   ): NewsroomComponentState | null {
     const decidedWhetherToApply = typeof props.grantRequested === "boolean";
-    const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && decidedWhetherToApply) {
+    if (state.currentStep === STEP.PROFILE_GRANT && !props.waitingOnGrant && decidedWhetherToApply) {
+      // Either they didn't apply but were waiting here before we released second part of flow, or they did apply and a decision has now been made on their grant, so move them to the next step.
       return {
         ...state,
         currentStep: state.currentStep + 1,
@@ -308,7 +311,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
-          grantApproved={this.props.grantApproved}
+          waitingOnGrant={this.props.waitingOnGrant}
           charter={this.props.charter}
           updateCharter={this.updateCharter}
         />
@@ -378,8 +381,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       currentStep = this.props.forceStep;
     }
 
-    if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
-      // Waiting on grant
+    if (this.props.waitingOnGrant) {
       currentStep = STEP.PROFILE_GRANT;
     }
 
@@ -408,14 +410,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   private getDisabled(section: SECTION): () => boolean {
-    // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
     const functions = {
       [SECTION.PROFILE]: () => {
         return false;
       },
       [SECTION.CONTRACT]: () => {
-        const waitingOnGrant = !!this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
-        return typeof this.props.grantRequested !== "boolean" || waitingOnGrant;
+        return typeof this.props.grantRequested !== "boolean" || !!this.props.waitingOnGrant;
       },
       [SECTION.TUTORIAL]: () => {
         return !this.props.newsroomAddress;
@@ -440,8 +440,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     let newStep = SECTION_STARTS[newSection]; // Go to first step in that section
     if (newSection === SECTION.PROFILE) {
-      if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
-        newStep = STEP.PROFILE_GRANT; // Waiting on grant
+      if (this.props.waitingOnGrant) {
+        newStep = STEP.PROFILE_GRANT;
       } else {
         newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
       }
@@ -506,11 +506,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomReduxProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
+  const { user, parameters } = (state as any).networkDependent;
+
+  let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
+  if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
+    const userBalance = new BigNumber(user.account.balance);
+    const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
+    const hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
+    waitingOnGrant = waitingOnGrant && !hasMinDeposit;
+  }
+
   return {
     ...ownProps,
+    waitingOnGrant,
     newsroom: newsroom.newsroom,
     charter: newsroom.charter || {},
   };
