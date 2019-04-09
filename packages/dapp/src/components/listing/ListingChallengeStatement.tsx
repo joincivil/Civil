@@ -126,7 +126,7 @@ class ListingChallengeStatement extends React.Component<
             Newsroom's Charter
           </a>{" "}
           and the Challenger's statement below. Then, evaluate the Newsroom based on the Civil Constitution before
-          casting a vote with your Civil tokens..
+          casting a vote with your Civil tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
         <StyledChallengeStatementSection>
