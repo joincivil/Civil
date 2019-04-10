@@ -1,9 +1,13 @@
 import * as React from "react";
-import { CurrencyConvertedBox, CurrencyCode } from "./CurrencyConverterStyledComponents";
+import { CurrencyConvertedBox, CurrencyCode, CurrencyErrorMsg } from "./CurrencyConverterStyledComponents";
+import { WarningIcon } from "../icons";
+import { colors } from "../styleConstants";
 
 export interface CurrencyConvertedProps {
   currencyCode?: string | JSX.Element;
   currentPrice?: number;
+  errorMsg?: string;
+  getError?: boolean;
 }
 
 export interface CurrencyConvertedStates {
@@ -19,11 +23,24 @@ export class CurrencyConverted extends React.Component<CurrencyConvertedProps, C
   }
 
   public render(): JSX.Element {
+    console.log(this.props.getError);
     return (
-      <CurrencyConvertedBox>
-        {this.props.currentPrice}
-        <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
-      </CurrencyConvertedBox>
+      <>
+        <CurrencyConvertedBox>
+          {this.props.currentPrice}
+          <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
+        </CurrencyConvertedBox>
+        {this.props.getError && this.renderErrorMsg(this.props.errorMsg || "Error")}
+      </>
     );
   }
+
+  private renderErrorMsg = (errorMsg: string) => {
+    return (
+      <CurrencyErrorMsg>
+        <WarningIcon color={colors.accent.CIVIL_RED} height={15} width={15} />
+        <p>{errorMsg}</p>
+      </CurrencyErrorMsg>
+    );
+  };
 }
