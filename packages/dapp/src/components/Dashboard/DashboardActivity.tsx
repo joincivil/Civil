@@ -112,7 +112,7 @@ export interface DashboardActivityState {
   fromBalanceType: number;
 }
 
-const StyledTabsComponent = styled.div`
+export const StyledTabsComponent = styled.div`
   margin-left: 26px;
 `;
 

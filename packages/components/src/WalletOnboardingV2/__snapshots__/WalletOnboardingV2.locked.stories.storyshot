@@ -11,31 +11,31 @@ exports[`Storyshots Common / Wallet Onboarding V2/Locked Locked 1`] = `
     }
   >
     <div
-      className="sc-dPNhBE bqDHjE"
+      className="sc-cbMPqi kleslB"
     >
       <div
-        className="sc-imDfJI edEocJ"
+        className="sc-geAPOV gZZGjK"
       >
         <h2
-          className="sc-iIHjhz glzLDW"
+          className="sc-dKEPtC ifgmSc"
         >
           Can we switch to a different browser?
         </h2>
         <p
-          className="sc-PLyBE mDfkC sc-isBZXS kOBrnw"
+          className="sc-izvnbC heZoKg sc-dvpmds iBCiBb"
         >
           Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
         </p>
         <p
-          className="sc-PLyBE mDfkC sc-isBZXS kOBrnw"
+          className="sc-izvnbC heZoKg sc-dvpmds iBCiBb"
         >
           In the meantime, please…
         </p>
         <div
-          className="sc-DNdyV dfgEGN"
+          className="sc-PLyBE cwLzMt"
         >
           <a
-            className="sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-dPNhBE bEuFVM sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
             href="https://www.google.com/chrome/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -47,7 +47,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Locked Locked 1`] = `
             }
           >
             <img
-              className="sc-hAnkBK iUVeCr"
+              className="sc-bJTOcE bzlFKu"
               src={
                 Object {
                   "0": "t",
@@ -71,7 +71,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Locked Locked 1`] = `
             Get Google Chrome
           </a>
           <a
-            className="sc-geAPOV BScmy sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-dPNhBE bEuFVM sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
             href="https://www.mozilla.org/en-US/firefox/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -83,7 +83,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Locked Locked 1`] = `
             }
           >
             <img
-              className="sc-hAnkBK iUVeCr"
+              className="sc-bJTOcE bzlFKu"
               src={
                 Object {
                   "0": "t",
@@ -108,16 +108,16 @@ exports[`Storyshots Common / Wallet Onboarding V2/Locked Locked 1`] = `
           </a>
         </div>
         <p
-          className="sc-dvpmds jpkOAK sc-dKEPtC epMKLN"
+          className="sc-jHXLhC QTGuD sc-dwztqd dyoYrM"
         >
           <a
-            className="sc-bJTOcE cgJIwr"
+            className="sc-kkwfeq gHvceh"
             href="mailto:support@civil.co"
           >
             Contact Us
           </a>
           <a
-            className="sc-bJTOcE cgJIwr"
+            className="sc-kkwfeq gHvceh"
             href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
             target="_blank"
           >
