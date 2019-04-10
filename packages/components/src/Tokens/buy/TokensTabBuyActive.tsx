@@ -37,7 +37,6 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
             <TokenAirswapFoundationText />
             <PaddedSection>
               <UsdEthConverter
-                errorMsg={"Error"}
                 onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
               />
             </PaddedSection>
