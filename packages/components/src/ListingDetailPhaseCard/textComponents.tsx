@@ -88,7 +88,7 @@ export const RevealVoteCalloutCopyText: React.FunctionComponent<RevealVoteCallou
     Civil does not store your vote information. It is stored in the{" "}
     <a href={props.votingSmartContractFaqURL} target="_blank">
       voting smart contract
-    </a>. Please confirm your vote below.
+    </a>. For your convenience, it is also stored in your browser cache. Please confirm your vote below.
   </>
 );
 
