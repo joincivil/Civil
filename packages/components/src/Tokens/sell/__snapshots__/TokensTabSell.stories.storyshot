@@ -11,7 +11,7 @@ exports[`Storyshots Storefront / Sell Tab Coming Soon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT bdckUx"
+      className="sc-kRCAcj fBKPTb"
     />
   </div>
   <button
@@ -550,13 +550,13 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT bdckUx"
+      className="sc-kRCAcj fBKPTb"
     >
       <p>
         You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible to sell them here.
       </p>
       <div
-        className="sc-ePAWwb hqDZV"
+        className="sc-dpiBDp jRjNBo"
       >
         <h4>
           <svg
@@ -590,7 +590,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
           . And that’s it.
         </p>
         <a
-          className="sc-hDgvsY gdSJll sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-fYAFcb kxFBNi sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           href="/dashboard/tasks/transfer-voting-tokens"
           onClick={[Function]}
           theme={
@@ -1141,17 +1141,17 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT bdckUx"
+      className="sc-kRCAcj fBKPTb"
     >
       <div
-        className="sc-kDhYZr jdTuch"
+        className="sc-jRhVzh fZbqJU"
         type={0}
       >
         <div
-          className="sc-sPYgB dSGhkR"
+          className="sc-iHhHRJ sgZVf"
         />
         <div
-          className="sc-dHIava lffsGT"
+          className="sc-kqlzXE jXvqor"
         >
           notes for storybooks: if you are actually trying to buy you might have troubles. make sure the storefrontEthPrice graphql mock gets updated to the current price.
         </div>
@@ -1694,7 +1694,7 @@ exports[`Storyshots Storefront / Sell Tab Uniswap 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT bdckUx"
+      className="sc-kRCAcj fBKPTb"
     >
       <div>
         <div>

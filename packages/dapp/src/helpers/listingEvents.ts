@@ -7,7 +7,7 @@ import {
   WrappedAppealChallengeID,
   WrappedPropID,
 } from "@joincivil/core";
-import { addNewsroom } from "@joincivil/newsroom-signup";
+import { addNewsroom, setNewsroomMultisigAddress } from "@joincivil/newsroom-signup";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { BigNumber } from "bignumber.js";
 import { Dispatch } from "react-redux";
@@ -260,6 +260,8 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   const wrapper = await newsroom.getNewsroomWrapper();
   dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
   if (user && wrapper.data.owners.includes(user)) {
+    const multiSigAddr = await newsroom.getMultisigAddress();
+    dispatch(setNewsroomMultisigAddress(address, multiSigAddr || ""));
     dispatch(addUserNewsroom(address));
   }
 }

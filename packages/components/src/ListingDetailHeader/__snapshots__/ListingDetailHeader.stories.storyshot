@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
     }
   >
     <div
-      className="sc-fepxGN gYvIj"
+      className="sc-fVHxE imMKVh"
     >
       <div>
         <div
@@ -741,7 +741,7 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
     }
   >
     <div
-      className="sc-fepxGN gYvIj"
+      className="sc-fVHxE imMKVh"
     >
       <div>
         <div
@@ -1471,7 +1471,7 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
     }
   >
     <div
-      className="sc-fepxGN gYvIj"
+      className="sc-fVHxE imMKVh"
     >
       <div>
         <div
@@ -2214,7 +2214,7 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
     }
   >
     <div
-      className="sc-fepxGN gYvIj"
+      className="sc-fVHxE imMKVh"
     >
       <div>
         <div

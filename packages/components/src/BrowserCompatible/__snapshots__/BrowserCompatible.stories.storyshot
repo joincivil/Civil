@@ -11,28 +11,28 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
-      className="sc-geAPOV gZZGjK"
+      className="sc-iLVFha dioJWy"
     >
       <h2
-        className="sc-dKEPtC ifgmSc"
+        className="sc-clBsIJ fFEaCp"
       >
         Can we switch to a different browser?
       </h2>
       <p
-        className="sc-izvnbC heZoKg sc-dvpmds iBCiBb"
+        className="sc-dlyikq bbHlTe sc-eqPNPO jWVXSY"
       >
         Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
       </p>
       <p
-        className="sc-izvnbC heZoKg sc-dvpmds iBCiBb"
+        className="sc-dlyikq bbHlTe sc-eqPNPO jWVXSY"
       >
         In the meantime, please…
       </p>
       <div
-        className="sc-PLyBE cwLzMt"
+        className="sc-jtHxuu gObrCg"
       >
         <a
-          className="sc-dPNhBE bEuFVM sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+          className="sc-blIhvV ojbHn sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-bJTOcE bzlFKu"
+            className="sc-cgzHhG UXnyb"
             src={
               Object {
                 "0": "t",
@@ -68,7 +68,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           Get Google Chrome
         </a>
         <a
-          className="sc-dPNhBE bEuFVM sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+          className="sc-blIhvV ojbHn sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -80,7 +80,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-bJTOcE bzlFKu"
+            className="sc-cgzHhG UXnyb"
             src={
               Object {
                 "0": "t",
@@ -105,16 +105,16 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         </a>
       </div>
       <p
-        className="sc-jHXLhC QTGuD sc-dwztqd dyoYrM"
+        className="sc-fdQOMr dJGDul sc-ileJJU bhGsLQ"
       >
         <a
-          className="sc-kkwfeq gHvceh"
+          className="sc-bYTsla hXluDU"
           href="mailto:support@civil.co"
         >
           Contact Us
         </a>
         <a
-          className="sc-kkwfeq gHvceh"
+          className="sc-bYTsla hXluDU"
           href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
           target="_blank"
         >

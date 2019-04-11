@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Progress Bar Ti
     }
   >
     <div
-      className="sc-jvjHmY cKaBKb"
+      className="sc-jEdsij jPrPgw"
     />
   </div>
   <button
@@ -259,7 +259,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Text Timers 1`]
     }
   >
     <div
-      className="sc-jvjHmY cKaBKb"
+      className="sc-jEdsij jPrPgw"
     />
   </div>
   <button
@@ -507,7 +507,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Two Phase Progr
     }
   >
     <div
-      className="sc-jvjHmY cKaBKb"
+      className="sc-jEdsij jPrPgw"
     />
   </div>
   <button

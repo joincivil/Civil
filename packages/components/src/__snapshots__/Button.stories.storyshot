@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
     }
   >
     <div
-      className="sc-rzOft isGZwk"
+      className="sc-fepxGN deTQlo"
     >
       <button
         className="sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
@@ -610,7 +610,7 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
     }
   >
     <div
-      className="sc-rzOft isGZwk"
+      className="sc-fepxGN deTQlo"
     >
       <button
         className="sc-hSdWYo jhPlkS sc-hMqMXs fSKkRg"
@@ -1165,7 +1165,7 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
     }
   >
     <div
-      className="sc-rzOft isGZwk"
+      className="sc-fepxGN deTQlo"
     >
       <button
         className="sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
@@ -1717,7 +1717,7 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
     }
   >
     <div
-      className="sc-rzOft isGZwk"
+      className="sc-fepxGN deTQlo"
     >
       <button
         className="sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
@@ -2272,7 +2272,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
     }
   >
     <div
-      className="sc-rzOft isGZwk"
+      className="sc-fepxGN deTQlo"
     >
       <button
         className="sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"

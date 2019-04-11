@@ -47,7 +47,7 @@ import {
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
 
-import ActivityList from "./ActivityList";
+import NewsroomsList from "./NewsroomsList";
 import MyTasks from "./MyTasks";
 import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
@@ -215,12 +215,12 @@ class DashboardActivity extends React.Component<
               data.nrsignupNewsroom &&
               data.nrsignupNewsroom.newsroomAddress &&
               Set([data.nrsignupNewsroom.newsroomAddress]);
-            return <ActivityList listings={newsrooms} />;
+            return <NewsroomsList listings={newsrooms} />;
           }}
         </Query>
       );
     } else {
-      return <ActivityList listings={this.props.currentUserNewsrooms} />;
+      return <NewsroomsList listings={this.props.currentUserNewsrooms} />;
     }
   };
 
