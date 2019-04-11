@@ -23,7 +23,6 @@ export class CurrencyConverted extends React.Component<CurrencyConvertedProps, C
   }
 
   public render(): JSX.Element {
-    console.log(this.props.getError);
     return (
       <>
         <CurrencyConvertedBox>
