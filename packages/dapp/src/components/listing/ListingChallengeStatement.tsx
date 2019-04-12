@@ -32,9 +32,6 @@ export interface ListingChallengeStatementReduxProps {
 class ListingChallengeStatement extends React.Component<
   ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>
 > {
-  constructor(props: ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>) {
-    super(props);
-  }
   public async componentDidMount(): Promise<void> {
     await this.getContents();
   }
@@ -84,7 +81,7 @@ class ListingChallengeStatement extends React.Component<
     });
     return (
       <StyledChallengeStatementComponent>
-        <ListingTabHeading>The Civil Council is reviewing a requested appeal.</ListingTabHeading>
+        <ListingTabHeading>An appeal to the Civil Council has been requested.</ListingTabHeading>
         <p>Should the Civil Council overturn this challenge result?</p>
         <ListingTabHeading>Appeal Statement</ListingTabHeading>
         <StyledChallengeStatementSection>
@@ -129,7 +126,7 @@ class ListingChallengeStatement extends React.Component<
             Newsroom's Charter
           </a>{" "}
           and the Challenger's statement below. Then, evaluate the Newsroom based on the Civil Constitution before
-          casting a vote with your Civil tokens. tokens.
+          casting a vote with your Civil tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
         <StyledChallengeStatementSection>

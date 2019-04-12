@@ -30,8 +30,9 @@ export const EmailSignup: React.FunctionComponent<EmailSignupProps> = props => {
       </StyledEmailSignupTitle>
 
       <StyledEmailSignupCopy>
-        Receive real-time email alerts when a new event occurs on the registry, allowing you maximum time to take
-        actions. You can track events such as new applications, challenges, when voting begins and end and more.
+        Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new
+        applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum
+        time to make decisions about how you will participate in Civil's governance.
       </StyledEmailSignupCopy>
 
       <InputGroup

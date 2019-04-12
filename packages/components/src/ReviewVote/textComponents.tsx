@@ -49,8 +49,8 @@ export const ReviewVoteDecisionText: React.FunctionComponent<ReviewVoteDecisionT
   const voteText = props.voteOption === "0" ? <RemoveActionText /> : <WhitelistActionText />;
   return (
     <>
-      I voted for {props.newsroomName || "this newsroom"} to be <b>{voteText}</b>{" "}
-      {props.voteOption === "0" ? "from" : "in"} the Civil Registry
+      I voted to <b>{voteText}</b> {props.newsroomName || "this newsroom"} {props.voteOption === "0" ? "from" : "in"}{" "}
+      the Civil Registry
     </>
   );
 };

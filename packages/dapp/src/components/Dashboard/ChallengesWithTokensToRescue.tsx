@@ -5,6 +5,9 @@ import BigNumber from "bignumber.js";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 
 import {
+  Tabs,
+  Tab,
+  StyledDashboardSubTab,
   RescueTokensDescriptionText,
   ModalContent,
   StyledDashboardActivityDescription,
@@ -14,7 +17,12 @@ import {
 import { rescueTokensInMultiplePolls } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
-import { ChallengesToProcess, StyledBatchButtonContainer, getChallengesToProcess } from "./DashboardActivity";
+import {
+  ChallengesToProcess,
+  StyledBatchButtonContainer,
+  getChallengesToProcess,
+  StyledTabsComponent,
+} from "./DashboardActivity";
 import ActivityListItemRescueTokens from "./ActivityListItemRescueTokens";
 
 enum TransactionTypes {
@@ -71,24 +79,22 @@ class ChallengesWithTokensToRescue extends React.Component<
   ChallengesWithTokensToRescueProps & InjectedTransactionStatusModalProps,
   ChallengesWithTokensToRescueState
 > {
-  constructor(props: ChallengesWithTokensToRescueProps & InjectedTransactionStatusModalProps) {
-    super(props);
-    this.state = {
-      challengesToRescue: {},
-    };
-  }
+  public state = {
+    challengesToRescue: {},
+  };
 
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
   }
 
   public componentWillUnmount(): void {
-    this.setState(() => ({ challengesToRescue: {} }));
+    this.resetChallengesToMultiRescue();
   }
 
   public render(): JSX.Element {
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
+    const { resetChallengesToMultiRescue } = this;
 
     return (
       <>
@@ -96,32 +102,49 @@ class ChallengesWithTokensToRescue extends React.Component<
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemRescueTokens key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
-          ))}
+        <Tabs
+          TabComponent={StyledDashboardSubTab}
+          TabsNavComponent={StyledTabsComponent}
+          onActiveTabChange={resetChallengesToMultiRescue}
+        >
+          <Tab title="Listing Challenges">
+            <>
+              {this.props.challenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemRescueTokens
+                    key={c}
+                    challengeID={c!}
+                    toggleSelect={this.setChallengesToMultiRescue}
+                  />
+                ))}
 
-        {this.props.appealChallenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemRescueTokens
-              key={c}
-              appealChallengeID={c!}
-              toggleSelect={this.setChallengesToMultiRescue}
-            />
-          ))}
-
-        {this.props.proposalChallenges
-          .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-          .map((c: string) => (
-            <ActivityListItemRescueTokens
-              key={c}
-              isProposalChallenge={true}
-              challengeID={c!}
-              toggleSelect={this.setChallengesToMultiRescue}
-            />
-          ))}
+              {this.props.appealChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemRescueTokens
+                    key={c}
+                    appealChallengeID={c!}
+                    toggleSelect={this.setChallengesToMultiRescue}
+                  />
+                ))}
+            </>
+          </Tab>
+          <Tab title="Parameter Proposal Challenges">
+            <>
+              {this.props.proposalChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => (
+                  <ActivityListItemRescueTokens
+                    key={c}
+                    isProposalChallenge={true}
+                    challengeID={c!}
+                    toggleSelect={this.setChallengesToMultiRescue}
+                  />
+                ))}
+            </>
+          </Tab>
+        </Tabs>
 
         <StyledBatchButtonContainer>
           <TransactionButtonNoModal
@@ -188,6 +211,10 @@ class ChallengesWithTokensToRescue extends React.Component<
         challengesToRescue: { ...newChallengesToRescue },
       }));
     }
+  };
+
+  private resetChallengesToMultiRescue = (): void => {
+    this.setState(() => ({ challengesToRescue: {} }));
   };
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
