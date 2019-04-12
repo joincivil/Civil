@@ -3,45 +3,44 @@ import AddToCalendar from "react-add-to-calendar";
 import { EthAddress } from "@joincivil/core";
 import { saltToWords, getFormattedEthAddress, getLocalDateTimeStrings, padString } from "@joincivil/utils";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
-import { buttonSizes, InvertedButton } from "../Button";
-import { TransactionButton } from "../TransactionButton";
+import { buttonSizes, CancelButton } from "../Button";
+import { TransactionButtonNoModal } from "../TransactionButton";
+import { QuestionToolTip } from "../QuestionToolTip";
+import { Checkbox, CheckboxSizes } from "../input/Checkbox";
+import { MetaMaskLogoButton } from "../";
 import {
   ReviewVoteHeaderTitleText,
-  ReviewVoteHeaderCopyText,
   ReviewVoteCopyText,
   SaltLabelText,
   ReviewVoteDepositedCVLLabelText,
   ReviewVoteMyAddressLabelText,
-  ConfirmVotesHeaderText,
-  ConfirmVotesSaveSaltCopyText,
-  WriteItDownText,
-  TakeAScreenShotText,
-  PrintThisText,
-  EmailYourselfText,
+  ConfirmVotesLabelText,
   TransactionButtonText,
+  SaltPhraseToolTipText,
+  TransactionFinePrintText,
+  SaveSaltCheckboxLabelText,
 } from "../ReviewVote/textComponents";
 import {
   ModalOuter,
   ModalContent,
-  StyledReviewVoteHeader,
   StyledReviewVoteHeaderTitle,
-  StyledReviewVoteHeaderCopy,
   StyledReviewVoteContent,
   StyledReviewVoteContentCopy,
-  StyledReviewVoteContentGrid,
   StyledReviewVoteDetails,
-  StyledReviewVoteDates,
   MetaRow,
+  MetaRowSalt,
   MetaItemLabel,
   MetaItemLabelSalt,
   MetaItemValue,
   MetaItemValueUser,
   MetaItemValueSalt,
-  StyledReviewVoteDatesHeader,
-  StyledReviewVoteDatesRange,
+  MetaItemValueTwoCol,
+  StyledAddToCalendarContainer,
+  StyledConfirmVoteDateRange,
   StyledAddToCalendar,
-  StyledDateAction,
   StyledButtonContainer,
+  StyledTransactionFinePrint,
+  StyledDidSaveSaltContainer,
 } from "../ReviewVote/styledComponents";
 
 export interface ChallengeProposalReviewVoteProps extends FullScreenModalProps {
@@ -56,8 +55,14 @@ export interface ChallengeProposalReviewVoteProps extends FullScreenModalProps {
   revealEndDate: number;
   transactions: any[];
   modalContentComponents?: any;
+  gasFaqURL: string;
+  votingContractFaqURL: string;
   handleClose(): void;
   postExecuteTransactions?(): void;
+}
+
+interface ReviewVoteState {
+  didSaveSalt: boolean;
 }
 
 function printThis(): void {
@@ -125,110 +130,131 @@ const AddRevealPhaseToCalendar: React.FunctionComponent<ChallengeProposalReviewV
   );
 };
 
-export const ChallengeProposalReviewVote: React.FunctionComponent<ChallengeProposalReviewVoteProps> = props => {
-  return (
-    <FullScreenModal open={props.open || false}>
-      <ModalOuter>
-        <ModalContent>
-          <StyledReviewVoteHeader>
+export class ChallengeProposalReviewVote extends React.Component<ChallengeProposalReviewVoteProps, ReviewVoteState> {
+  public state = {
+    didSaveSalt: false,
+  };
+
+  public render(): JSX.Element {
+    const {
+      open,
+      votingContractFaqURL,
+      challengeID,
+      salt,
+      commitEndDate,
+      revealEndDate,
+      voteOption,
+      parameterName,
+      numTokens,
+      userAccount,
+      transactions,
+      postExecuteTransactions,
+      handleClose,
+      gasFaqURL,
+    } = this.props;
+
+    const { didSaveSalt } = this.state;
+
+    return (
+      <FullScreenModal open={open || false}>
+        <ModalOuter>
+          <ModalContent>
             <StyledReviewVoteHeaderTitle>
               <ReviewVoteHeaderTitleText />
             </StyledReviewVoteHeaderTitle>
-            <StyledReviewVoteHeaderCopy>
-              <ReviewVoteHeaderCopyText />
-            </StyledReviewVoteHeaderCopy>
-          </StyledReviewVoteHeader>
-
-          <StyledReviewVoteContent>
             <StyledReviewVoteContentCopy>
-              <ReviewVoteCopyText />
+              <ReviewVoteCopyText handlePrintClick={printThis} votingContractFaqURL={votingContractFaqURL} />
             </StyledReviewVoteContentCopy>
 
-            <StyledReviewVoteContentGrid>
-              <StyledReviewVoteDetails>
-                <MetaRow>
-                  <MetaItemLabelSalt>
-                    <SaltLabelText />
-                  </MetaItemLabelSalt>
+            <StyledReviewVoteContent>
+              <div>
+                <StyledReviewVoteDetails>
+                  <MetaRowSalt>
+                    <MetaItemLabelSalt>
+                      <SaltLabelText challengeID={challengeID} />
+                      <QuestionToolTip explainerText={<SaltPhraseToolTipText />} positionBottom={true} />
+                    </MetaItemLabelSalt>
 
-                  <MetaItemValueSalt>{getSaltyWords(props.salt)}</MetaItemValueSalt>
-                </MetaRow>
-                <MetaRow>
-                  <MetaItemLabel>Challenge ID {props.challengeID}</MetaItemLabel>
+                    <MetaItemValueSalt>{getSaltyWords(salt)}</MetaItemValueSalt>
+                  </MetaRowSalt>
 
-                  <MetaItemValue>
-                    I voted for {props.parameterName} to {props.voteOption === "0" ? "remain the same" : "change"} on
-                    the Civil Registry\n\n
-                  </MetaItemValue>
-                </MetaRow>
-                <MetaRow>
-                  <MetaItemLabel>
-                    <ReviewVoteDepositedCVLLabelText />
-                  </MetaItemLabel>
+                  <MetaRow>
+                    <MetaItemLabel>
+                      <ConfirmVotesLabelText />
+                    </MetaItemLabel>
 
-                  <MetaItemValue>{props.numTokens}</MetaItemValue>
-                </MetaRow>
+                    <MetaItemValueTwoCol>
+                      <StyledConfirmVoteDateRange>
+                        {getReadableRevealDateRange(commitEndDate, revealEndDate)}
+                      </StyledConfirmVoteDateRange>
 
-                <MetaRow>
-                  <MetaItemLabel>
-                    <ReviewVoteMyAddressLabelText />
-                  </MetaItemLabel>
+                      <StyledAddToCalendarContainer>
+                        <AddRevealPhaseToCalendar {...this.props} />
+                        <p>Remember to set event to Private</p>
+                      </StyledAddToCalendarContainer>
+                    </MetaItemValueTwoCol>
+                  </MetaRow>
 
-                  <MetaItemValueUser>
-                    {props.userAccount && getFormattedEthAddress(props.userAccount)}
-                  </MetaItemValueUser>
-                </MetaRow>
-              </StyledReviewVoteDetails>
+                  <MetaRow>
+                    <MetaItemLabel>Challenge ID {challengeID}</MetaItemLabel>
 
-              <StyledReviewVoteDates>
-                <StyledReviewVoteDatesHeader>
-                  <ConfirmVotesHeaderText />
-                </StyledReviewVoteDatesHeader>
+                    <MetaItemValue>
+                      I voted for {parameterName} to {voteOption === "0" ? "remain the same" : "change"} on the Civil
+                      Registry\n\n
+                    </MetaItemValue>
+                  </MetaRow>
+                  <MetaRow>
+                    <MetaItemLabel>
+                      <ReviewVoteDepositedCVLLabelText />
+                    </MetaItemLabel>
 
-                <StyledReviewVoteDatesRange>
-                  {getReadableRevealDateRange(props.commitEndDate, props.revealEndDate)}
-                </StyledReviewVoteDatesRange>
+                    <MetaItemValue>{numTokens}</MetaItemValue>
+                  </MetaRow>
 
-                <AddRevealPhaseToCalendar {...props} />
+                  <MetaRow>
+                    <MetaItemLabel>
+                      <ReviewVoteMyAddressLabelText />
+                    </MetaItemLabel>
 
-                <p>
-                  <ConfirmVotesSaveSaltCopyText />
-                </p>
+                    <MetaItemValueUser>{userAccount && getFormattedEthAddress(userAccount)}</MetaItemValueUser>
+                  </MetaRow>
+                </StyledReviewVoteDetails>
+              </div>
 
-                <ol>
-                  <li>
-                    <WriteItDownText />
-                  </li>
-                  <li>
-                    <TakeAScreenShotText />
-                  </li>
-                  <li onClick={printThis}>
-                    <StyledDateAction>
-                      <PrintThisText />
-                    </StyledDateAction>
-                  </li>
-                  <li>
-                    <EmailYourselfText />
-                  </li>
-                </ol>
-              </StyledReviewVoteDates>
-            </StyledReviewVoteContentGrid>
+              <StyledDidSaveSaltContainer>
+                <div>
+                  <Checkbox size={CheckboxSizes.SMALL} checked={didSaveSalt} onClick={this.toggleHasSavedSalt} />
+                </div>
+                <div>
+                  <SaveSaltCheckboxLabelText />
+                </div>
+              </StyledDidSaveSaltContainer>
 
-            <StyledButtonContainer>
-              <InvertedButton size={buttonSizes.MEDIUM} onClick={props.handleClose}>
-                Cancel
-              </InvertedButton>
-              <TransactionButton
-                transactions={props.transactions}
-                modalContentComponents={props.modalContentComponents}
-                postExecuteTransactions={props.postExecuteTransactions}
-              >
-                <TransactionButtonText />
-              </TransactionButton>
-            </StyledButtonContainer>
-          </StyledReviewVoteContent>
-        </ModalContent>
-      </ModalOuter>
-    </FullScreenModal>
-  );
-};
+              <StyledButtonContainer>
+                <TransactionButtonNoModal
+                  transactions={transactions}
+                  postExecuteTransactions={postExecuteTransactions}
+                  Button={MetaMaskLogoButton}
+                  disabled={!didSaveSalt}
+                >
+                  <TransactionButtonText />
+                </TransactionButtonNoModal>
+                <CancelButton size={buttonSizes.SMALL} onClick={handleClose}>
+                  Cancel
+                </CancelButton>
+              </StyledButtonContainer>
+
+              <StyledTransactionFinePrint>
+                <TransactionFinePrintText gasFaqURL={gasFaqURL} />
+              </StyledTransactionFinePrint>
+            </StyledReviewVoteContent>
+          </ModalContent>
+        </ModalOuter>
+      </FullScreenModal>
+    );
+  }
+
+  private toggleHasSavedSalt = (): void => {
+    this.setState({ didSaveSalt: !this.state.didSaveSalt });
+  };
+}

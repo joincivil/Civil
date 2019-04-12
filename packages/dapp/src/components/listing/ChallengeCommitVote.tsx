@@ -199,6 +199,8 @@ class ChallengeCommitVote extends React.Component<
       revealEndDate: challenge.poll.revealEndDate.toNumber(),
       transactions: this.getTransactions(),
       handleClose: this.closeReviewVoteModal,
+      gasFaqURL: links.FAQ_GAS,
+      votingContractFaqURL: links.FAQ_WHAT_IS_PLCR_CONTRACT,
     };
 
     return <ReviewVote {...props} />;

@@ -30,6 +30,8 @@ storiesOf("Registry / Review Vote", module).add("Review Vote Modal", () => {
     commitEndDate: 1533916728,
     revealEndDate: 1533917128,
     transactions: [],
+    votingContractFaqURL: "#voting-contract-faq",
+    gasFaqURL: "#gas-faq",
     handleClose,
   };
 
