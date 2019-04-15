@@ -152,7 +152,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
   }
 
   private renderRevealVote = (): JSX.Element => {
-    if (!this.props.userHasCommittedVote) {
+    if (this.props.userHasCommittedVote === false) {
       return (
         <>
           <FormHeader>

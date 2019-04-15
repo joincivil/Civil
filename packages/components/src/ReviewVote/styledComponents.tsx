@@ -11,26 +11,26 @@ export const ModalOuter = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  padding: 32px 0 156px;
+  padding: 100px 0 156px;
   width: 800px;
-`;
 
-export const StyledReviewVoteHeader = styled.div`
-  background: ${colors.accent.CIVIL_GRAY_4};
-  border-top: 6px solid ${colors.accent.CIVIL_BLUE};
-  padding: 27px 42px;
+  a {
+    border-bottom: transparent 1px solid;
+    color: ${colors.accent.CIVIL_BLUE};
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a:hover {
+    border-bottom-color: ${colors.accent.CIVIL_BLUE};
+  }
 `;
 
 export const StyledReviewVoteHeaderTitle = styled.h2`
-  font-family: ${fonts.SERIF};
-  font-size: 32px;
-  line-height: 40px;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: -0.17px;
   margin: 0 0 2px;
-`;
-
-export const StyledReviewVoteHeaderCopy = styled.p`
-  font-size: 14px;
-  line-height: 33px;
 `;
 
 export const StyledReviewVoteContent = styled.div`
@@ -39,20 +39,19 @@ export const StyledReviewVoteContent = styled.div`
 
 export const StyledReviewVoteContentCopy = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 14px;
-  line-height: 20px;
-  padding: 0 65px;
-  margin: 17px 0 32px;
-`;
+  font-size: 16px;
+  line-height: 26px;
+  margin: 12px 0 30px;
 
-export const StyledReviewVoteContentGrid = styled.div`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  display: flex;
-  padding: 0 0 32px;
-  margin: 0 0 38px;
+  span {
+    border-bottom: transparent 1px solid;
+    color: ${colors.accent.CIVIL_BLUE};
+    cursor: pointer;
+    text-decoration: none;
+  }
 
-  & > div {
-    width: 50%;
+  span:hover {
+    border-bottom-color: ${colors.accent.CIVIL_BLUE};
   }
 `;
 
@@ -62,30 +61,19 @@ export const StyledReviewVoteDetails = styled.div`
   padding: 33px 30px;
 `;
 
-export const StyledReviewVoteDates = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 14px;
-  line-height: 20px;
-  padding-left: 63px;
-
-  p {
-    margin: 40px 0 12px;
-  }
-
-  ol {
-    margin: 0;
-    padding: 0 0 0 16px;
-  }
-
-  li {
-    margin: 0 0 10px;
-  }
+export const MetaRowSalt = styled.div`
+  background: ${colors.accent.CIVIL_TEAL_FADED};
+  margin: -33px -30px 24px;
+  padding: 33px 30px;
 `;
 
 export const MetaRow = styled.div`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding: 0 0 19px;
-  margin: 0 0 19px;
+  margin: 0 0 18px;
+
+  & ~ & {
+    border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    padding: 19px 0 0;
+  }
 `;
 
 export const MetaItemLabel = styled.div`
@@ -98,12 +86,35 @@ export const MetaItemLabel = styled.div`
 `;
 
 export const MetaItemLabelSalt = styled(MetaItemLabel)`
-  text-align: center;
+  color: ${colors.primary.BLACK}
+  font-size: 18px;
+  line-height: 21px;
+  margin-bottom: 10px;
 `;
 
 export const MetaItemValue = styled.div`
-  font-size: 18px;
   line-height: 33px;
+`;
+
+export const MetaItemValueTwoCol = styled(MetaItemValue)`
+  display: flex;
+  font-size: 18px;
+  justify-content: space-between;
+`;
+
+export const StyledConfirmVoteDateRange = styled.div`
+  width: 50%;
+`;
+
+export const StyledAddToCalendarContainer = styled.div`
+  width: 207px;
+
+  p {
+    color: ${colors.primary.CIVIL_GRAY_1};
+    font-size: 12px;
+    line-height: 15px;
+    margin: 6px 0 0;
+  }
 `;
 
 export const MetaItemValueUser = styled(MetaItemValue)`
@@ -111,25 +122,12 @@ export const MetaItemValueUser = styled(MetaItemValue)`
 `;
 
 export const MetaItemValueSalt = styled.div`
-  background: ${colors.accent.CIVIL_TEAL_FADED};
+  background: ${colors.basic.WHITE};
   font-family: ${fonts.MONOSPACE};
-  font-size: 20px;
-  line-height: 35px;
-  padding: 10px 0;
-  text-align: center;
-`;
-
-export const StyledReviewVoteDatesHeader = styled.div`
   font-size: 21px;
-  font-weight: bold;
-  line-height: 25px;
-  margin: 0 0 15px;
-`;
-
-export const StyledReviewVoteDatesRange = styled.div`
-  font-weight: 18px;
-  line-height: 33px;
-  margin: 0 0 16px;
+  line-height: 14px;
+  padding: 10px 27px;
+  text-align: center;
 `;
 
 export const StyledAddToCalendar = styled.div`
@@ -138,8 +136,8 @@ export const StyledAddToCalendar = styled.div`
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
     position: relative;
     display: inline-block;
-    margin: 0 auto;
-    width: 175px;
+    margin: 0 auto 6px;
+    white-space: nowrap;
   }
 
   .react-add-to-calendar__wrapper {
@@ -148,14 +146,17 @@ export const StyledAddToCalendar = styled.div`
   }
 
   .react-add-to-calendar__button {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #aab9d4;
-    border-radius: 3px;
-    color: #000;
+    background-color: ${colors.basic.WHITE};
+    border: 1px solid ${colors.accent.CIVIL_BLUE_VERY_FADED};
+    border-radius: 0px;
+    font-weight: bold;
+    color: ${colors.accent.CIVIL_BLUE};
+    font-size: 14px;
+    line-height: 17px;
+    padding: 15px 35px;
 
     .react-add-to-calendar--light {
-      background-color: #fff;
+      background-color: ${colors.basic.WHITE};
     }
   }
 
@@ -171,7 +172,7 @@ export const StyledAddToCalendar = styled.div`
 
   .react-add-to-calendar__dropdown {
     position: absolute;
-    top: 30px;
+    top: 42px;
     left: 1px;
     width: 93%;
     padding: 5px 0 5px 8px;
@@ -189,6 +190,7 @@ export const StyledAddToCalendar = styled.div`
         padding: 0 0 5px;
 
         a {
+          font-size: 14px;
           text-decoration: none;
 
           &:hover {
@@ -204,13 +206,35 @@ export const StyledAddToCalendar = styled.div`
   }
 `;
 
-export const StyledDateAction = styled.span`
-  color: ${colors.accent.CIVIL_BLUE};
-  cursor: pointer;
-`;
-
 export const StyledButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  text-align: right;
+
+  & > button {
+    margin-left: 10px;
+  }
+`;
+
+export const StyledDidSaveSaltContainer = styled.div`
+  display: flex;
+  font-size: 15px;
+  letter-spacing: -0.1px;
+  line-height: 26px;
+  padding: 0 30px;
+  margin: 58px 0 51px;
+
+  & > div + div {
+    margin: -8px 0 0 8px;
+  }
+`;
+
+export const StyledTransactionFinePrint = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 16px;
   margin-bottom: 150px;
+  text-align: right;
 `;

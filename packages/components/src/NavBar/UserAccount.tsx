@@ -75,7 +75,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
         } else if (civilUser && enableEthereum && !userEthAddress) {
           return (
             <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
-              Enable Ethereum
+              Connect Wallet
             </LogInButton>
           );
         }

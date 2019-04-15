@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-bkypNX jcKRMl"
     >
       <div>
         <div
@@ -496,7 +496,7 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-bkypNX jcKRMl"
     >
       <div>
         <div
@@ -990,7 +990,7 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-bkypNX jcKRMl"
     >
       <div>
         <div
@@ -1457,7 +1457,7 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-bkypNX jcKRMl"
     >
       <div>
         <div
@@ -1467,7 +1467,7 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
           Hello
            
           <div
-            className="sc-kBzFSH dTIEdb"
+            className="sc-bjPkoM eWHOcJ"
             open={false}
           />
         </div>
@@ -1967,7 +1967,7 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-bkypNX jcKRMl"
     >
       <div>
         <div
