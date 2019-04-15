@@ -1,9 +1,10 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../../styleConstants";
+import { colors, fonts, mediaQueries } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
 import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
 import * as iconError from "../../images/icons/ico-error-red@2x.png";
+import { urlConstants as links } from "@joincivil/utils";
 
 import {
   AuthTextFooter,
@@ -73,8 +74,11 @@ export const FooterTextCentered = styled.div`
 export const AuthOuterWrapperContainer = styled.div`
   display: flex;
   justify-content: center;
-  /* TODO(jorgelo): Should we make this responsive? */
   width: 700px;
+
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
 
 export const AuthOuterWrapper: React.FunctionComponent = ({ children }) => (
@@ -88,13 +92,16 @@ export const AuthOuterWrapper: React.FunctionComponent = ({ children }) => (
 export const AuthWrapper: React.FunctionComponent = ({ children }) => (
   <AuthOuterWrapper>
     <AuthInnerWrapper>{children}</AuthInnerWrapper>
-    {/* // TODO(jorgelo): Confirm this is the final link and move this to src/helpers/config.ts */}
-    <AuthFooterTerms textEl={<AuthTextFooter />} benefitsUrl={"https://civil.co/become-a-member"} />
+    <AuthFooterTerms textEl={<AuthTextFooter />} />
   </AuthOuterWrapper>
 );
 
 export const AuthInnerWrapper = styled.div`
-  margin: 71px 115px 0 115px;
+  margin: 71px 115px 0;
+
+  ${mediaQueries.MOBILE} {
+    margin: 71px 15px 0;
+  }
 `;
 
 export const AuthPageFooterLink = styled.div`
@@ -116,13 +123,12 @@ export const BenefitsLink = styled(AuthPageFooterLink)`
 
 export interface AuthFooterTermsProps {
   textEl: JSX.Element;
-  benefitsUrl: string;
 }
-export const AuthFooterTerms: React.FunctionComponent<AuthFooterTermsProps> = ({ textEl, benefitsUrl }) => (
+export const AuthFooterTerms: React.FunctionComponent<AuthFooterTermsProps> = ({ textEl }) => (
   <AuthFooterContainer>
     {textEl}
     <BenefitsLink>
-      <a href={benefitsUrl} target="_blank">
+      <a href={links.BECOME_A_MEMBER} target="_blank">
         Read more about those benefits.
       </a>
     </BenefitsLink>
