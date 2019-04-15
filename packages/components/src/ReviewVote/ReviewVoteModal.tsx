@@ -58,8 +58,6 @@ export interface ReviewVoteProps extends FullScreenModalProps {
   revealEndDate: number;
   transactions: any[];
   modalContentComponents?: any;
-  gasFaqURL: string;
-  votingContractFaqURL: string;
   handleClose(): void;
   postExecuteTransactions?(): void;
 }
@@ -141,7 +139,6 @@ export class ReviewVote extends React.Component<ReviewVoteProps, ReviewVoteState
   public render(): JSX.Element {
     const {
       open,
-      votingContractFaqURL,
       challengeID,
       salt,
       commitEndDate,
@@ -154,7 +151,6 @@ export class ReviewVote extends React.Component<ReviewVoteProps, ReviewVoteState
       transactions,
       postExecuteTransactions,
       handleClose,
-      gasFaqURL,
     } = this.props;
 
     const { didSaveSalt } = this.state;
@@ -167,7 +163,7 @@ export class ReviewVote extends React.Component<ReviewVoteProps, ReviewVoteState
               <ReviewVoteHeaderTitleText />
             </StyledReviewVoteHeaderTitle>
             <StyledReviewVoteContentCopy>
-              <ReviewVoteCopyText handlePrintClick={printThis} votingContractFaqURL={votingContractFaqURL} />
+              <ReviewVoteCopyText handlePrintClick={printThis} />
             </StyledReviewVoteContentCopy>
 
             <StyledReviewVoteContent>
@@ -252,7 +248,7 @@ export class ReviewVote extends React.Component<ReviewVoteProps, ReviewVoteState
               </StyledButtonContainer>
 
               <StyledTransactionFinePrint>
-                <TransactionFinePrintText gasFaqURL={gasFaqURL} />
+                <TransactionFinePrintText />
               </StyledTransactionFinePrint>
             </StyledReviewVoteContent>
           </ModalContent>

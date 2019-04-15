@@ -12,7 +12,6 @@ import {
   ModalUnorderedList,
   ModalListItem,
 } from "@joincivil/components";
-import { urlConstants as links } from "@joincivil/utils";
 
 import { approveVotingRightsForCommit, commitVote } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -147,8 +146,6 @@ class ChallengeProposalCommitVote extends React.Component<
       transactions: this.getTransactions(),
       postExecuteTransactions: this.closeReviewModalAndChallengeDrawer,
       handleClose: this.closeReviewVoteModal,
-      gasFaqURL: links.FAQ_GAS,
-      votingContractFaqURL: links.FAQ_WHAT_IS_PLCR_CONTRACT,
     };
 
     return <ChallengeProposalReviewVote {...props} />;

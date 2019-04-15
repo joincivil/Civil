@@ -55,8 +55,6 @@ export interface ChallengeProposalReviewVoteProps extends FullScreenModalProps {
   revealEndDate: number;
   transactions: any[];
   modalContentComponents?: any;
-  gasFaqURL: string;
-  votingContractFaqURL: string;
   handleClose(): void;
   postExecuteTransactions?(): void;
 }
@@ -138,7 +136,6 @@ export class ChallengeProposalReviewVote extends React.Component<ChallengePropos
   public render(): JSX.Element {
     const {
       open,
-      votingContractFaqURL,
       challengeID,
       salt,
       commitEndDate,
@@ -150,7 +147,6 @@ export class ChallengeProposalReviewVote extends React.Component<ChallengePropos
       transactions,
       postExecuteTransactions,
       handleClose,
-      gasFaqURL,
     } = this.props;
 
     const { didSaveSalt } = this.state;
@@ -163,7 +159,7 @@ export class ChallengeProposalReviewVote extends React.Component<ChallengePropos
               <ReviewVoteHeaderTitleText />
             </StyledReviewVoteHeaderTitle>
             <StyledReviewVoteContentCopy>
-              <ReviewVoteCopyText handlePrintClick={printThis} votingContractFaqURL={votingContractFaqURL} />
+              <ReviewVoteCopyText handlePrintClick={printThis} />
             </StyledReviewVoteContentCopy>
 
             <StyledReviewVoteContent>
@@ -245,7 +241,7 @@ export class ChallengeProposalReviewVote extends React.Component<ChallengePropos
               </StyledButtonContainer>
 
               <StyledTransactionFinePrint>
-                <TransactionFinePrintText gasFaqURL={gasFaqURL} />
+                <TransactionFinePrintText />
               </StyledTransactionFinePrint>
             </StyledReviewVoteContent>
           </ModalContent>

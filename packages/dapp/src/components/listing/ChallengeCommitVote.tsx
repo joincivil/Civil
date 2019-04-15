@@ -14,7 +14,7 @@ import {
   PhaseWithExpiryProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
@@ -151,7 +151,6 @@ class ChallengeCommitVote extends React.Component<
       voteOption: this.state.voteOption,
       numTokens: this.state.numTokens,
       key: this.state.key,
-      faqURL: links.FAQ_VOTING_SECTION,
     };
 
     return (
@@ -199,8 +198,6 @@ class ChallengeCommitVote extends React.Component<
       revealEndDate: challenge.poll.revealEndDate.toNumber(),
       transactions: this.getTransactions(),
       handleClose: this.closeReviewVoteModal,
-      gasFaqURL: links.FAQ_GAS,
-      votingContractFaqURL: links.FAQ_WHAT_IS_PLCR_CONTRACT,
     };
 
     return <ReviewVote {...props} />;

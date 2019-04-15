@@ -1,4 +1,6 @@
 import * as React from "react";
+import { urlConstants as links } from "@joincivil/utils";
+
 import {
   WhitelistActionText,
   RemoveActionText,
@@ -12,7 +14,6 @@ export const ReviewVoteHeaderTitleText: React.FunctionComponent = props => {
 };
 
 export interface ReviewVoteCopyTextProps {
-  votingContractFaqURL: string;
   handlePrintClick(): void;
 }
 
@@ -21,7 +22,7 @@ export const ReviewVoteCopyText: React.FunctionComponent<ReviewVoteCopyTextProps
     <>
       <p>
         Civil does not store your voting information; it is stored in a{" "}
-        <a href={props.votingContractFaqURL} target="_blank">
+        <a href={links.FAQ_WHAT_IS_PLCR_CONTRACT} target="_blank">
           voting smart contract
         </a>.
       </p>
@@ -109,16 +110,12 @@ export const SaltPhraseToolTipText: React.FunctionComponent = props => {
   );
 };
 
-export interface TransactionFinePrintTextProps {
-  gasFaqURL: string;
-}
-
-export const TransactionFinePrintText: React.FunctionComponent<TransactionFinePrintTextProps> = props => {
+export const TransactionFinePrintText: React.FunctionComponent = props => {
   return (
     <>
       This will open a new window asking to confirm and process your transaction. A small transaction fee will be added
       for all votes. This fee does not go to the Civil Media Company.{" "}
-      <a href={props.gasFaqURL} target="_blank">
+      <a href={links.FAQ_GAS} target="_blank">
         Learn more
       </a>.
     </>
