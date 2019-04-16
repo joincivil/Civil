@@ -19,10 +19,14 @@ import {
   HollowGreenCheck,
   ClipLoader,
   QuestionToolTip,
+  Notice,
+  NoticeTypes,
+  GrantSubmitIcon,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
 export interface PurchaseTokensExternalProps extends RouteComponentProps {
+  grantApproved?: boolean;
   navigate(go: 1 | -1): void;
 }
 export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
@@ -182,6 +186,12 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
             standards as the network, and its reach, grows.
           </OBSmallParagraph>
         </OBCollapsable>
+
+        {this.props.grantApproved && (
+          <Notice type={NoticeTypes.FOUNDATION_ACTION} icon={<GrantSubmitIcon width={48} height={48} />}>
+            Civil tokens (CVL) were received from your Token Grant.
+          </Notice>
+        )}
 
         {this.renderButtons()}
       </>
