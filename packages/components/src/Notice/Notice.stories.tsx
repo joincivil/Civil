@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import styled from "styled-components";
 import * as React from "react";
 import { Notice, NoticeTypes } from "./index";
+import { GrantSubmitIcon } from "../icons";
 
 const Container = styled.div`
   > div {
@@ -29,4 +30,12 @@ storiesOf("Pattern Library / Notices", module)
   })
   .add("Attention", () => {
     return <Notice type={NoticeTypes.ATTENTION}>This is an attention notice</Notice>;
+  })
+  .add("foundation action", () => {
+    return (
+      <Notice type={NoticeTypes.FOUNDATION_ACTION} icon={<GrantSubmitIcon width={48} height={48} />}>
+        {" "}
+        This is a foundation action notice
+      </Notice>
+    );
   });

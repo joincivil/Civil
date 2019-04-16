@@ -48,3 +48,4 @@ export * from "./WarningIcon";
 export * from "./WaitForApply";
 export * from "./Info";
 export * from "./logos";
+export * from "./GrantSubmitIcon";
