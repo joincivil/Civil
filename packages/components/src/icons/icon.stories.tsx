@@ -24,6 +24,7 @@ import {
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
+  GrantSubmitIcon,
   HamburgerIcon,
   HollowGreenCheck,
   HollowRedNoGood,
@@ -209,6 +210,13 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <GreenCheckMark />
+      </Container>
+    );
+  })
+  .add("GrantSubmitIcon", () => {
+    return (
+      <Container>
+        <GrantSubmitIcon />
       </Container>
     );
   })

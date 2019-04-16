@@ -330,7 +330,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
         <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
-        <PurchaseTokens navigate={this.navigate} />
+        <PurchaseTokens navigate={this.navigate} grantApproved={this.props.grantApproved} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
         <ApplyToTCR

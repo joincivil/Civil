@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     }
   >
     <div
-      className="sc-jTqLGJ fJGDHt"
+      className="sc-dtmqqe jcbxmd"
     >
       <div>
         <div
@@ -25,7 +25,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
               className="sc-bAeIUo kscUCY"
             >
               <div
-                className="sc-iujRgT cfFiAO"
+                className="sc-iujRgT QtQUy"
               >
                 <figure
                   className="sc-fYiAbW kBrJxG"
@@ -603,7 +603,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     }
   >
     <div
-      className="sc-jTqLGJ fJGDHt"
+      className="sc-dtmqqe jcbxmd"
     >
       <div>
         <div
@@ -621,7 +621,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -673,7 +673,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -725,7 +725,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -777,7 +777,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -829,7 +829,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -881,7 +881,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   className="sc-bAeIUo kscUCY"
                 >
                   <div
-                    className="sc-iujRgT cfFiAO"
+                    className="sc-iujRgT QtQUy"
                   >
                     <figure
                       className="sc-fYiAbW kBrJxG"
@@ -1461,7 +1461,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Rejected 1`] = `
     }
   >
     <div
-      className="sc-jTqLGJ fJGDHt"
+      className="sc-dtmqqe jcbxmd"
     >
       <div />
     </div>

@@ -208,6 +208,8 @@ class AppealChallengeCommitVote extends React.Component<
       transactions,
       postExecuteTransactions: this.closeReviewVoteModal,
       handleClose: this.closeReviewVoteModal,
+      gasFaqURL: links.FAQ_GAS,
+      votingContractFaqURL: links.FAQ_WHAT_IS_PLCR_CONTRACT,
     };
 
     return <ReviewVote {...props} />;

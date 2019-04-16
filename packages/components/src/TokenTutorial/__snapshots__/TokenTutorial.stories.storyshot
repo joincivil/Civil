@@ -11,16 +11,16 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
     }
   >
     <div
-      className="sc-fdqjUm gOWLBa"
+      className="sc-gJTSre ffnsFG"
     >
       <div
-        className="sc-eVrGFk JadOj"
+        className="sc-kbdWBx jMFizo"
       >
         <h2>
           Choose a topic below to get started
         </h2>
         <div
-          className="sc-iNovjJ cGjVuw"
+          className="sc-eVrGFk hEKxVt"
         >
           <svg
             height="18"
@@ -46,13 +46,13 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </div>
       </div>
       <div
-        className="sc-kyCyAI hGRrRR"
+        className="sc-iNovjJ cpDbjt"
       >
         <p>
           If you’ve read the Civil Constitution and FAQ, skip to the quiz.
         </p>
         <button
-          className="sc-fEVUGC fqCBjG sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-kyCyAI jSFFye sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           onClick={[Function]}
           theme={
             Object {
@@ -66,10 +66,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-dchYKM jHJvgy"
+        className="sc-fEVUGC fUbOSr"
       >
         <button
-          className="sc-dhVevo ynqPv sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-jLrYHE bjYoXT sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -81,7 +81,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-jLrYHE hzNjWa"
+            className="sc-dchYKM jzBvn"
           >
             <div>
               <svg
@@ -128,7 +128,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-fqCOlO gmlHsk"
+            className="sc-dhVevo icYWQH"
           >
             You have 
             4
@@ -136,19 +136,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-BOulX hCbfJi"
+              className="sc-fqCOlO etMsLN"
             >
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <b>
                 0
@@ -160,10 +160,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-dchYKM jHJvgy"
+        className="sc-fEVUGC fUbOSr"
       >
         <button
-          className="sc-dhVevo kXcxTc sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg disabled"
+          className="sc-jLrYHE chVwZP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -175,7 +175,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-jLrYHE hzNjWa"
+            className="sc-dchYKM jzBvn"
           >
             <div>
               <svg
@@ -225,7 +225,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-fqCOlO gmlHsk"
+            className="sc-dhVevo icYWQH"
           >
             You have 
             4
@@ -233,19 +233,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-BOulX hCbfJi"
+              className="sc-fqCOlO etMsLN"
             >
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <b>
                 0
@@ -257,10 +257,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-dchYKM jHJvgy"
+        className="sc-fEVUGC fUbOSr"
       >
         <button
-          className="sc-dhVevo kXcxTc sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg disabled"
+          className="sc-jLrYHE chVwZP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -272,7 +272,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-jLrYHE hzNjWa"
+            className="sc-dchYKM jzBvn"
           >
             <div>
               <svg
@@ -329,7 +329,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-fqCOlO gmlHsk"
+            className="sc-dhVevo icYWQH"
           >
             You have 
             4
@@ -337,19 +337,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-BOulX hCbfJi"
+              className="sc-fqCOlO etMsLN"
             >
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <div
-                className="sc-hAcydR cfiDpB"
+                className="sc-BOulX eCbBkm"
               />
               <b>
                 0
