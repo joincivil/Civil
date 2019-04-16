@@ -13,6 +13,7 @@ export * from "./CvlToken";
 export * from "./ClockIcon";
 export * from "./CloseXIcon";
 export * from "./CommitVoteSuccessIcon";
+export * from "./DashboardNewsroomApplicationIcon";
 export * from "./DisclosureArrowIcon";
 export * from "./DropdownArrow";
 export * from "./ErrorIcon";
