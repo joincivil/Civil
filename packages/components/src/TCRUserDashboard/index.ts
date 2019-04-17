@@ -12,3 +12,4 @@ export * from "./DashboardTextComponents";
 export * from "./DashboardTransferTokenForm";
 export * from "./DashboardTutorialWarning";
 export * from "./DashboardNewsroom";
+export * from "./NoNewsrooms";

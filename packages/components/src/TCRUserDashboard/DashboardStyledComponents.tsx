@@ -524,3 +524,33 @@ export const StyledCVLLabel = styled.span`
   letter-spacing: -0.07px;
   line-height: 15px;
 `;
+
+// No Content
+export const StyledDashboardNoContent = styled.div`
+  padding: 60px 0 0;
+  text-align: center;
+`;
+
+export const StyledDashboardNoContentHdr = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.14px;
+  line-height: 33px;
+  margin: 17px 0 2px;
+`;
+
+export const StyledDashboardNoContentCopy = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 30px;
+  margin: 0 0 24px;
+`;
+
+export const StyledDashboardNoContentButtonContainer = styled.div`
+  ${InvertedButton} {
+    font-size: 13px;
+    line-height: 14px;
+    padding: 14px 0;
+  }
+`;
