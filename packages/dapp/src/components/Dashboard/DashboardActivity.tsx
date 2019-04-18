@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Set } from "immutable";
+import { Set, Map } from "immutable";
 import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
@@ -24,6 +24,7 @@ import {
   DashboardTransferTokenForm,
   DashboardTutorialWarning,
   BalanceType,
+  NoNewsrooms,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
@@ -57,7 +58,6 @@ import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenC
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import LoadingMsg from "../utility/LoadingMsg";
-import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 const TABS: TDashboardTab[] = [
   dashboardTabs.TASKS,
@@ -127,6 +127,7 @@ const NEWSROOMS_QUERY = gql`
   query {
     nrsignupNewsroom {
       newsroomAddress
+      tcrApplyTx
     }
   }
 `;
@@ -209,13 +210,22 @@ class DashboardActivity extends React.Component<
               return <LoadingMsg />;
             }
             if (error) {
-              return <ErrorLoadingDataMsg />;
+              return <NoNewsrooms />;
             }
-            const newsrooms =
-              data.nrsignupNewsroom &&
-              data.nrsignupNewsroom.newsroomAddress &&
-              Set([data.nrsignupNewsroom.newsroomAddress]);
-            return <NewsroomsList listings={newsrooms} />;
+
+            let newsrooms;
+            let newsroomsApplicationProgressData;
+            if (data.nrsignupNewsroom && data.nrsignupNewsroom.newsroomAddress) {
+              newsrooms = Set([data.nrsignupNewsroom.newsroomAddress]);
+              newsroomsApplicationProgressData = new Map();
+              newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+                data.nrsignupNewsroom.newsroomAddress,
+                data.nrsignupNewsroom,
+              );
+            }
+            return (
+              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
+            );
           }}
         </Query>
       );

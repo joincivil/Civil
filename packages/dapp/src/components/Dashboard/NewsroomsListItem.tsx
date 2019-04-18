@@ -1,7 +1,10 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { connect } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
+import { NoNewsrooms } from "@joincivil/components";
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   LISTING_QUERY,
@@ -15,8 +18,16 @@ import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 import NewsroomsListItemComponent from "./NewsroomsListItemComponent";
 
+interface ApplicationProgressData {
+  newsroomAddress: EthAddress;
+  tcrApplyTx?: string;
+  grantRequested?: boolean;
+  grantGranted?: boolean;
+}
+
 interface NewsroomListItemOwnProps {
   listingAddress: EthAddress;
+  applicationProgressData?: ApplicationProgressData;
 }
 
 interface NewsroomListItemReduxProps {
@@ -55,7 +66,15 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
 };
 
 const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps & NewsroomListItemReduxProps> = props => {
-  const { listingAddress, useGraphQL } = props;
+  const { listingAddress, applicationProgressData, useGraphQL } = props;
+
+  if (applicationProgressData) {
+    const { tcrApplyTx } = applicationProgressData;
+    if (!tcrApplyTx || !tcrApplyTx.length) {
+      return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)} />;
+    }
+  }
+
   if (useGraphQL) {
     return <NewsroomsListItemGraphQL listingAddress={listingAddress} />;
   }

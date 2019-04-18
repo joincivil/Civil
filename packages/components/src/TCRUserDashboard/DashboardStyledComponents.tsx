@@ -527,8 +527,10 @@ export const StyledCVLLabel = styled.span`
 
 // No Content
 export const StyledDashboardNoContent = styled.div`
+  margin: 0 auto;
   padding: 60px 0 0;
   text-align: center;
+  max-width: 485px;
 `;
 
 export const StyledDashboardNoContentHdr = styled.div`
@@ -550,7 +552,11 @@ export const StyledDashboardNoContentCopy = styled.div`
 export const StyledDashboardNoContentButtonContainer = styled.div`
   ${InvertedButton} {
     font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
     line-height: 14px;
     padding: 14px 0;
+    text-transform: none;
+    width: 236px;
   }
 `;

@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApplicationInProgressIco
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -339,7 +339,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApprovedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -673,7 +673,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height={24}
@@ -1011,7 +1011,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexPanelIcon 1`
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -1356,7 +1356,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="24"
@@ -1704,7 +1704,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignPanelIcon 1`]
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="20"
@@ -2048,7 +2048,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BellIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="24"
@@ -2381,7 +2381,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BookreaderIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="70"
@@ -2810,7 +2810,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BrainIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="74"
@@ -3289,7 +3289,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="33"
@@ -3646,7 +3646,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = 
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="20"
@@ -3987,7 +3987,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ClockIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -4323,7 +4323,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CloseXIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="42"
@@ -4651,7 +4651,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="100"
@@ -4992,6 +4992,445 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
 </div>
 `;
 
+exports[`Storyshots Pattern Library / icons / SVG Icons DashboardNewsroomApplicationIcon 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-grYksN CvMHp"
+    >
+      <svg
+        height="34"
+        version="1.1"
+        viewBox="0 0 34 34"
+        width="34"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <rect
+            height="875"
+            width="760"
+            x="518"
+            y="148"
+          />
+          <filter
+            filterUnits="objectBoundingBox"
+            height="101.4%"
+            width="101.6%"
+            x="-0.8%"
+            y="-0.7%"
+          >
+            <feOffset
+              dx="0"
+              dy="0"
+              in="SourceAlpha"
+              result="shadowOffsetOuter1"
+            />
+            <feGaussianBlur
+              in="shadowOffsetOuter1"
+              result="shadowBlurOuter1"
+              stdDeviation="2"
+            />
+            <feComposite
+              in="shadowBlurOuter1"
+              in2="SourceAlpha"
+              operator="out"
+              result="shadowBlurOuter1"
+            />
+            <feColorMatrix
+              in="shadowBlurOuter1"
+              type="matrix"
+              values="0 0 0 0 0.768627451   0 0 0 0 0.760784314   0 0 0 0 0.752941176  0 0 0 1 0"
+            />
+          </filter>
+        </defs>
+        <g
+          fill="none"
+          fillRule="evenodd"
+          stroke="none"
+          strokeWidth="1"
+        >
+          <g
+            transform="translate(-887.000000, -288.000000)"
+          >
+            <rect
+              fill="#FFFFFF"
+              height="1352"
+              width="1440"
+              x="0"
+              y="0"
+            />
+            <polygon
+              fill="#2B56FF"
+              fillOpacity="0.06"
+              points="0 67 1440 67 1440 664 0 664"
+            />
+            <g>
+              <use
+                fill="black"
+                fillOpacity="1"
+                filter="url(#filter-2)"
+              />
+              <rect
+                fillRule="evenodd"
+                height="874"
+                stroke="#E9E9EA"
+                width="759"
+                x="518.5"
+                y="148.5"
+              />
+            </g>
+            <g
+              transform="translate(662.000000, 281.000000)"
+            >
+              <g
+                transform="translate(225.000000, 7.000000)"
+              >
+                <path
+                  d="M0,0 L26,0 L26,27 L0,27 L0,0 Z M3,3 L3,24 L23,24 L23,3 L3,3 Z"
+                  fill="#2B56FF"
+                />
+                <path
+                  d="M6,6 L20,6 L20,13 L6,13 L6,6 Z M8,8 L8,11 L18,11 L18,8 L8,8 Z"
+                  fill="#2B56FF"
+                />
+                <polygon
+                  fill="#2B56FF"
+                  points="6 14.95 20 14.95 20 16.95 6 16.95"
+                />
+                <polygon
+                  fill="#2B56FF"
+                  points="6 18.85 20 18.85 20 20.85 6 20.85"
+                />
+                <g
+                  transform="translate(16.000000, 15.950000)"
+                >
+                  <circle
+                    cx="9.2607145"
+                    cy="9.2607145"
+                    fill="#2B56FF"
+                    fillRule="nonzero"
+                    r="8.2607145"
+                  />
+                  <path
+                    d="M9.9,4.5 L8.1,4.5 L8.1,8.1 L4.5,8.1 L4.5,9.9 L8.1,9.9 L8.1,13.5 L9.9,13.5 L9.9,9.9 L13.5,9.9 L13.5,8.1 L9.9,8.1 L9.9,4.5 L9.9,4.5 Z M9,0 C4.05,0 0,4.05 0,9 C0,13.95 4.05,18 9,18 C13.95,18 18,13.95 18,9 C18,4.05 13.95,0 9,0 L9,0 Z M9,16.2 C5.04,16.2 1.8,12.96 1.8,9 C1.8,5.04 5.04,1.8 9,1.8 C12.96,1.8 16.2,5.04 16.2,9 C16.2,12.96 12.96,16.2 9,16.2 L9,16.2 Z"
+                    fill="#FFFFFF"
+                  />
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / icons / SVG Icons
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            DashboardNewsroomApplicationIcon
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    DashboardNewsroomApplicationIcon
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              DashboardNewsroomApplicationIcon
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] = `
 <div>
   <div
@@ -5003,7 +5442,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] 
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="12"
@@ -5340,7 +5779,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DropdownArrow 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="5"
@@ -5668,7 +6107,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="28"
@@ -6004,7 +6443,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExamIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="70"
@@ -6451,7 +6890,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExchangeArrowsIcon 1`] =
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="14"
@@ -6789,7 +7228,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExpandDownArrow 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="12"
@@ -7118,7 +7557,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         className="sc-kafWEX iCzvJu"
@@ -7448,7 +7887,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GrantSubmitIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="82"
@@ -7798,7 +8237,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GreenCheckMark 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="26"
@@ -8133,7 +8572,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HamburgerIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="42"
@@ -8461,7 +8900,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowGreenCheck 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="20"
@@ -8804,7 +9243,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowRedNoGood 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="20"
@@ -9142,7 +9581,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons InfoNotification 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="28"
@@ -9481,7 +9920,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons LockOpenIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -9814,7 +10253,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <img
         className="sc-cmTdod kcwOOi"
@@ -10152,7 +10591,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <img
         className="sc-cmTdod kcwOOi"
@@ -10490,7 +10929,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NetworkIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="44"
@@ -10820,7 +11259,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NorthEastArrow 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="11"
@@ -11148,7 +11587,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons OctopusErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="73"
@@ -11487,7 +11926,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RegistryEmptyIcon 1`] = 
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="155"
@@ -11857,7 +12296,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RejectedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="18"
@@ -12184,7 +12623,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RequestAppealSuccessIcon
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="100"
@@ -12601,7 +13040,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RevealVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="100"
@@ -12962,7 +13401,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ReviewIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="24"
@@ -13298,7 +13737,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons SubmitChallengeSuccessIc
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="100"
@@ -13742,7 +14181,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TokenWalletIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="21"
@@ -14075,7 +14514,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TrendsIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="48"
@@ -14415,7 +14854,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         className="sc-btzYZH eNcUGn"
@@ -14745,7 +15184,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons VerifyIdentityIcon 1`] =
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="22"
@@ -15086,7 +15525,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WaitForApply 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="54"
@@ -15420,7 +15859,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
     }
   >
     <div
-      className="sc-bUqnYt jFtJcH"
+      className="sc-grYksN CvMHp"
     >
       <svg
         height="28"
