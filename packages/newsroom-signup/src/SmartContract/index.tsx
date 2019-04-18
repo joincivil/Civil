@@ -24,16 +24,6 @@ export interface SmartContractProps {
   updateCharter(charter: Partial<CharterData>): void;
 }
 
-const ContinueButton = styled(Button)`
-  margin: 45px auto;
-  font-weight: bold;
-`;
-
-const ContinueButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
 export class SmartContract extends React.Component<SmartContractProps> {
   public getDisabled(index: number): () => boolean {
     const functions = [
@@ -55,16 +45,6 @@ export class SmartContract extends React.Component<SmartContractProps> {
   }
 
   public renderButtons(): JSX.Element | void {
-    if (this.props.currentStep === 0) {
-      return (
-        <ContinueButtonContainer>
-          <ContinueButton onClick={() => this.props.navigate(1)} size={buttonSizes.MEDIUM_WIDE}>
-            Continue
-          </ContinueButton>
-        </ContinueButtonContainer>
-      );
-    }
-
     return <NextBack navigate={this.props.navigate} nextDisabled={this.getDisabled(this.props.currentStep)} />;
   }
   public renderCurrentStep(): JSX.Element {

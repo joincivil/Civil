@@ -453,11 +453,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.setState({ currentStep: newStep });
   };
   private navigate = (go: 1 | -1): void => {
-    const newStep = this.state.currentStep + go;
+    let newStep = this.state.currentStep + go;
     this.saveStep(newStep);
     if (newStep === STEP.APPLIED) {
       // Dummy step we don't actually update view for, but need to send to API.
       return;
+    } else if (newStep === STEP.PROFILE_GRANT && !this.props.waitingOnGrant) {
+      newStep += go; // skip the step and go one further in the requested direction
     }
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.setState({ currentStep: newStep });
