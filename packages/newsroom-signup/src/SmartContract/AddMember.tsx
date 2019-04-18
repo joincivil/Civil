@@ -420,7 +420,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
         {
           requireBeforeTransaction: noPremodal
             ? undefined
-            : () => {
+            : async () => {
                 this.setState({ removingOwner: true });
                 return this.requireBeforeTransaction();
               },
@@ -448,7 +448,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
         {
           requireBeforeTransaction: noPremodal
             ? undefined
-            : () => {
+            : async () => {
                 this.setState({ removingEditor: true });
                 return this.requireBeforeTransaction();
               },
