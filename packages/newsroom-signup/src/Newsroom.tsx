@@ -29,6 +29,7 @@ import {
   fetchConstitution,
   navigateStep,
   reachedNewStep,
+  analyticsEvent,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
@@ -150,7 +151,7 @@ export interface NewsroomGqlProps {
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
-export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps;
+export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps & DispatchProp<any>;
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
@@ -166,7 +167,7 @@ const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
 `;
 
-class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
+class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponentState> {
   public static defaultProps = {
     theme: {
       ...DEFAULT_BUTTON_THEME,
@@ -184,6 +185,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     const decidedWhetherToApply = typeof props.grantRequested === "boolean";
     if (state.currentStep === STEP.PROFILE_GRANT && !props.waitingOnGrant && decidedWhetherToApply) {
       // Either they didn't apply but were waiting here before we released second part of flow, or they did apply and a decision has now been made on their grant, so move them to the next step.
+      props.dispatch!(
+        analyticsEvent({
+          action: "Auto advancing past grant step",
+          label: props.charter && props.charter.name,
+          value: props.grantRequested ? 1 : 0,
+        }),
+      );
       return {
         ...state,
         currentStep: state.currentStep + 1,
@@ -264,7 +272,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.saveStep(this.props.savedStep, true); // lazy way to update `lastSeen` - can't bear to make another separate mutation
   }
 
-  public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
+  public async componentDidUpdate(prevProps: NewsroomProps): Promise<void> {
     if (this.props.newsroomAddress && !prevProps.newsroomAddress) {
       await this.hydrateNewsroom(this.props.newsroomAddress);
     }
@@ -382,6 +390,23 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     }
 
     if (this.props.waitingOnGrant) {
+      // We've run out of fields in GA event so need to use numeric "value" to pass this info in:
+      let grantInfo;
+      if (this.props.grantApproved === true) {
+        grantInfo = 1;
+      } else if (this.props.grantApproved === false) {
+        grantInfo = 2;
+      } else {
+        grantInfo = 0;
+      }
+
+      this.props.dispatch!(
+        analyticsEvent({
+          action: "Pushed back to grant step",
+          label: this.props.charter && this.props.charter.name,
+          value: grantInfo,
+        }),
+      );
       currentStep = STEP.PROFILE_GRANT;
     }
 
@@ -511,7 +536,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
-  const { user, parameters } = (state as any).networkDependent;
+  const { user, parameters } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
   let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
   if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {

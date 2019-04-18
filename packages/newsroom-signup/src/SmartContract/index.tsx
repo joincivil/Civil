@@ -1,12 +1,10 @@
 import * as React from "react";
-import styled from "styled-components";
 import { EthAddress, CharterData, TxHash } from "@joincivil/core";
 import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
 import { CreateNewsroomContract } from "./CreateNewsroomContract";
 import { AddMembersToContract } from "./AddMembersToContract";
-import { Button, buttonSizes } from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { getCharterQuery } from "../queries";
 import { SaveAddressMutation, SaveTxMutation } from "../mutations";

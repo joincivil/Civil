@@ -15,6 +15,13 @@ export const newsroomSignupAnalyticsEvents = {
     };
   }),
 
+  [analyticsActions.EVENT]: trackEvent((action: any) => {
+    return {
+      category: "Newsroom Signup",
+      ...action.event,
+    };
+  }),
+
   [analyticsActions.APPLICATION_SUBMITTED]: trackEvent((action: any) => {
     return {
       category: "Newsroom Signup",
