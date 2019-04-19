@@ -8,9 +8,9 @@ import {
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
 } from "../ApplicationPhaseStatusLabels";
-import { ListingSummaryComponentProps } from "./types";
+import { ListingChallengeStatusProps } from "./types";
 
-const ListingPhaseLabel: React.FunctionComponent<ListingSummaryComponentProps> = props => {
+const ListingPhaseLabel: React.FunctionComponent<ListingChallengeStatusProps> = props => {
   const {
     isInApplication,
     inChallengeCommitVotePhase,
