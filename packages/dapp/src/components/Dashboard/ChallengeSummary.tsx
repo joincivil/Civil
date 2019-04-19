@@ -112,18 +112,14 @@ const AppealSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = pro
   const { appeal, challengeState } = props;
   const { didChallengeOriginallySucceed, canRequestAppeal, isAwaitingAppealJudgement } = challengeState;
 
+  let councilDecision;
   let currentNewsroomStatusPastTense;
   if (appeal && appeal.appealGranted) {
-    currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "approved" : "rejected";
-  } else if (!isAwaitingAppealJudgement) {
-    currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "rejected" : "approved";
-  }
-
-  let councilDecision;
-  if (appeal && appeal.appealGranted) {
     councilDecision = "overturn";
+    currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "approved" : "rejected";
   } else if (appeal && !isAwaitingAppealJudgement) {
     councilDecision = "uphold";
+    currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "rejected" : "approved";
   }
 
   if (!councilDecision || canRequestAppeal) {
