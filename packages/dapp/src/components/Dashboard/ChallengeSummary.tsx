@@ -110,16 +110,21 @@ const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksItemSubCo
 
 const AppealSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const { appeal, challengeState } = props;
-  const { didChallengeOriginallySucceed } = challengeState;
+  const { didChallengeOriginallySucceed, canRequestAppeal, isAwaitingAppealJudgement } = challengeState;
 
+  let councilDecision;
   let currentNewsroomStatusPastTense;
   if (appeal && appeal.appealGranted) {
+    councilDecision = "overturn";
     currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "approved" : "rejected";
-  } else {
+  } else if (appeal && !isAwaitingAppealJudgement) {
+    councilDecision = "uphold";
     currentNewsroomStatusPastTense = didChallengeOriginallySucceed ? "rejected" : "approved";
   }
 
-  const councilDecision = appeal && appeal.appealGranted ? "overturn" : "uphold";
+  if (!councilDecision || canRequestAppeal) {
+    return <></>;
+  }
 
   return (
     <StyledDashbaordActvityItemSectionOuter>
