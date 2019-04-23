@@ -2,7 +2,8 @@ import * as React from "react";
 import styled from "styled-components";
 import { buttonSizes, InvertedButton } from "../Button";
 import { CharterData } from "@joincivil/core";
-import { SmallNewsroomLogo } from "../ListingSummary/styledComponents";
+import { SmallNewsroomIcon } from "../ListingSummary/styledComponents";
+import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 import {
   StyledDashboardActivityItem,
   StyledDashboardActivityItemDetails,
@@ -40,7 +41,17 @@ export const DashboardActivityItem: React.FunctionComponent<DashboardActivityIte
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        {props.charter && props.charter.logoUrl && <SmallNewsroomLogo src={props.charter.logoUrl} />}
+        {props.charter &&
+          props.charter.logoUrl && (
+            <SmallNewsroomIcon>
+              <img
+                src={props.charter.logoUrl}
+                onError={e => {
+                  (e.target as any).src = defaultNewsroomImgUrl;
+                }}
+              />
+            </SmallNewsroomIcon>
+          )}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>

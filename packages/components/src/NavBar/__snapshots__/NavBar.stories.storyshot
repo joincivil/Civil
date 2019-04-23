@@ -11,16 +11,16 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
     }
   >
     <div
-      className="sc-fKGOjr liDMhN"
+      className="sc-iBmynh ebUrFI"
     >
       <div
-        className="sc-jvEmr keqqbB"
+        className="sc-fKGOjr wsgGD"
       >
         <div
-          className="sc-chAAoq dzduYx"
+          className="sc-hycgNl ljTtgW"
         >
           <div
-            className="sc-hycgNl jHFxzF"
+            className="sc-jvEmr dypyNe"
           >
             <a
               href="https://civil.co"
@@ -42,13 +42,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-fCPvlr iwEcUI"
+            className="sc-dphlzf eNTlez"
           >
             <div
-              className="sc-kAdXeD gjdbJn"
+              className="sc-cfWELz uTiLO"
             >
               <span
-                className="sc-hCaUpS gdtErQ"
+                className="sc-kAdXeD bnUgQT"
               >
                 <a
                   href="/registry"
@@ -57,11 +57,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-bvTASY ktieON"
+                  className="sc-hCaUpS cjVnvl"
                 />
               </span>
               <div
-                className="sc-koErNt CYxnm"
+                className="sc-bvTASY eHLYvs"
               >
                 <a
                   href="/registry"
@@ -100,7 +100,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-gAmQfK buRbiS"
+            className="sc-fCPvlr ipwUvw"
           >
             <div
               onClick={[Function]}
@@ -120,11 +120,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-hAXbOi gkoyHd"
+            className="sc-gAmQfK kXmdRt"
           />
         </div>
         <div
-          className="sc-dTLGrV hoAfxx"
+          className="sc-chAAoq ekWUJL"
         >
           <a
             href="/#auth"
@@ -133,7 +133,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Log In
           </a>
           <a
-            className="sc-cgHJcJ khdQNY sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
+            className="sc-dRCTWM eFPxPR sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
             href="#buy-tokens"
             size="SMALL"
             theme={
@@ -149,7 +149,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Join as a member
           </a>
           <a
-            className="sc-cgHJcJ khdQNY sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
+            className="sc-dRCTWM eFPxPR sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
             href="#apply"
             size="SMALL"
             theme={
@@ -704,7 +704,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-gJqsIT ftnsmM"
+      className="sc-koErNt loEygQ"
     >
       Please Switch To Rinkeby Testnet
     </div>
