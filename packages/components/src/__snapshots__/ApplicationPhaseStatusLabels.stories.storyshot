@@ -11,12 +11,18 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
     }
   >
     <div
-      className="sc-fxMfqs igpLhh"
+      className="sc-OnmeF dufyOC"
     >
       <div
         className="sc-esOvli gVXqWV sc-iuJeZd hHelJB"
       >
         Awaiting Approval
+      </div>
+      <br />
+      <div
+        className="sc-esOvli gVXqWV sc-iuJeZd hHelJB"
+      >
+        Awaiting Request to Appeal
       </div>
       <br />
       <div
@@ -41,12 +47,6 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
         className="sc-cLQEGU fYfYbT sc-iuJeZd hHelJB"
       >
         Confirm Vote
-      </div>
-      <br />
-      <div
-        className="sc-cmthru bKKzdz sc-iuJeZd hHelJB"
-      >
-        Requesting Appeal
       </div>
       <br />
       <div
@@ -247,6 +247,64 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
                   >
                     &lt;
                     AwaitingApprovalStatusLabel
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    br
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    AwaitingAppealRequestLabel
                   </span>
                   <span />
                   <span
@@ -536,64 +594,6 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
                     }
                   >
                     &lt;
-                    RequestingAppealStatusLabel
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    br
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
                     ReadyToCompleteStatusLabel
                   </span>
                   <span />
@@ -691,6 +691,22 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
               }
             >
               "
+              AwaitingAppealRequestLabel
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
               AwaitingApprovalStatusLabel
               " Component
             </h3>
@@ -756,22 +772,6 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
             >
               "
               ReadyToCompleteStatusLabel
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              RequestingAppealStatusLabel
               " Component
             </h3>
             <small>

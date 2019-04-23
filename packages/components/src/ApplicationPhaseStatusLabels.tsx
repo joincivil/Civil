@@ -43,7 +43,7 @@ export const AwaitingApprovalStatusLabel: React.FunctionComponent = props => {
 };
 
 export const AwaitingAppealRequestLabel: React.FunctionComponent = props => {
-  return <StyledAwaitingAppealStatuslabel>Requesting Appeal</StyledAwaitingAppealStatuslabel>;
+  return <StyledAwaitingStatuslabel>Awaiting Request to Appeal</StyledAwaitingStatuslabel>;
 };
 
 export const AwaitingDecisionStatusLabel: React.FunctionComponent = props => {
@@ -60,10 +60,6 @@ export const CommitVoteStatusLabel: React.FunctionComponent = props => {
 
 export const RevealVoteStatusLabel: React.FunctionComponent = props => {
   return <StyledRevealVoteStatus>Confirm Vote</StyledRevealVoteStatus>;
-};
-
-export const RequestingAppealStatusLabel: React.FunctionComponent = props => {
-  return <StyledAwaitingAppealStatuslabel>Requesting Appeal</StyledAwaitingAppealStatuslabel>;
 };
 
 export const ReadyToCompleteStatusLabel: React.FunctionComponent = props => {

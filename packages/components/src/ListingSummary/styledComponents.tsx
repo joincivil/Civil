@@ -60,7 +60,7 @@ export const StyledListingSummary: StyledComponentClass<StyledListingSummaryProp
 export const StyledListingSummaryTop = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   display: flex;
-  height: 140px;
+  height: 190px;
   padding: 0 22px 25px;
 `;
 

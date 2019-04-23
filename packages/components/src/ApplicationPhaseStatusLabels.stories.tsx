@@ -3,11 +3,11 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   AwaitingApprovalStatusLabel,
+  AwaitingAppealRequestLabel,
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
-  RequestingAppealStatusLabel,
   ReadyToCompleteStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
@@ -25,6 +25,8 @@ storiesOf("Registry / Application Status Labels", module).add("Labels", () => {
     <Container>
       <AwaitingApprovalStatusLabel />
       <br />
+      <AwaitingAppealRequestLabel />
+      <br />
       <AwaitingDecisionStatusLabel />
       <br />
       <AwaitingAppealChallengeStatusLabel />
@@ -32,8 +34,6 @@ storiesOf("Registry / Application Status Labels", module).add("Labels", () => {
       <CommitVoteStatusLabel />
       <br />
       <RevealVoteStatusLabel />
-      <br />
-      <RequestingAppealStatusLabel />
       <br />
       <ReadyToCompleteStatusLabel />
     </Container>

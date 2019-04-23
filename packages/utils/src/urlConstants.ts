@@ -44,6 +44,7 @@ export const urlConstants = {
     "/hc/en-us/articles/360024853311-What-is-the-Civil-Registry-community-vetting-process-for-a-Newsroom-",
   FAQ_CAN_REJECTED_NEWSROOMS_REAPPLY:
     FAQ_BASE_URL + "/hc/en-us/articles/360024545152-Can-rejected-Newsrooms-re-apply-to-the-Civil-Registry-",
+  FAQ_GAS: FAQ_BASE_URL + "/hc/en-us/articles/360016788791-What-is-Gas-",
   FAQ_GRANT: FAQ_BASE_URL + "/hc/en-us/articles/360021942132-Civil-Foundation-Token-Grant",
   FAQ_HOW_TO_CHALLENGE: FAQ_BASE_URL + "/hc/en-us/articles/360024546932-How-do-I-challenge-a-Newsroom-",
   FAQ_HOW_TO_VOTE: FAQ_BASE_URL + "/hc/en-us/articles/360024855271-How-do-I-vote-in-a-challenge-",

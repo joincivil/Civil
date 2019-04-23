@@ -22,7 +22,7 @@ import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "../reducers";
 import { getUserObject } from "../utils";
 import { UserData } from "../types";
-import { addAndHydrateEditor, addAndHydrateOwner } from "../actionCreators";
+import { addAndHydrateEditor, addAndHydrateOwner, fetchNewsroom, removeEditor } from "../actionCreators";
 
 export interface AddMemberProps {
   civil: Civil;
@@ -32,14 +32,18 @@ export interface AddMemberProps {
   memberAddress?: EthAddress;
   charter: Partial<CharterData>;
   role?: memberTypes;
+  hasBothRoles?: boolean;
   avatarUrl?: string;
   isOnContract?: boolean;
+  profileWalletAddress?: EthAddress;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
 export interface AddMemberState extends TransactionButtonModalFlowState {
   selectedState: { label: string; value: memberTypes };
   walletAddress: EthAddress;
+  removingOwner?: boolean;
+  removingEditor?: boolean;
 }
 
 export interface ValueOption {
@@ -86,6 +90,10 @@ const SectionWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+`;
+
+const RemoveButtonWrapper = styled.div`
+  margin-top: 15px;
 `;
 
 const StyledDisplayName = styled(MemberDisplayName)`
@@ -191,19 +199,41 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.completeModalOpen) {
       return null;
     }
-    const message =
-      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
-        ? "A Civil Member has been added to the newsroom smart contract!"
-        : "A Civil Officer has been added to the newsroom smart contract!";
+    const removing = this.state.removingEditor || this.state.removingOwner;
+    let message = "";
+    let role;
+    if (this.state.removingEditor) {
+      role = memberTypes.CIVIL_MEMBER;
+      message = "A Civil Member has been removed from the newsroom smart contract!";
+    } else if (this.state.removingOwner) {
+      role = memberTypes.CIVIL_OFFICER;
+      message = "A Civil Officer has been removed from the newsroom smart contract!";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_MEMBER) {
+      role = memberTypes.CIVIL_MEMBER;
+      message = "A Civil Member has been added to the newsroom smart contract!";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
+      role = memberTypes.CIVIL_OFFICER;
+      message = "A Civil Officer has been added to the newsroom smart contract!";
+    }
 
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          The transaction has completed and the {this.state.selectedState.label} was added. You can keep adding officers
-          and members to your newsroom smart contract or continue to the next step to create your Registry profile.
+          The transaction has completed and the {role === memberTypes.CIVIL_MEMBER ? "Civil Member" : "Civil Officer"}{" "}
+          was {removing ? "removed" : "added"}. You can keep adding officers and members to your newsroom smart contract
+          or continue to the next step to create your Registry profile.
         </p>
-        <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ completeModalOpen: false })}>
+        <Button
+          size={buttonSizes.MEDIUM_WIDE}
+          onClick={() => {
+            this.setState({
+              completeModalOpen: false,
+              removingEditor: false,
+              removingOwner: false,
+            });
+          }}
+        >
           OK
         </Button>
       </Modal>
@@ -214,10 +244,18 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.isPreTransactionModalOpen) {
       return null;
     }
-    const message =
-      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
-        ? "Open MetaMask to add Civil Member"
-        : "Open MetaMask to add Civil Officer";
+
+    let message = "";
+    if (this.state.removingEditor) {
+      message = "Open MetaMask to remove Civil Member";
+    } else if (this.state.removingOwner) {
+      message = "Open MetaMask to remove Civil Officer";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_MEMBER) {
+      message = "Open MetaMask to add Civil Member";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
+      message = "Open MetaMask to add Civil Officer";
+    }
+
     return (
       <MetaMaskModal
         waiting={false}
@@ -233,10 +271,18 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.modalOpen) {
       return null;
     }
-    const message =
-      this.state.selectedState.value === memberTypes.CIVIL_MEMBER
-        ? "A Civil Member is being added to your newsroom smart contract"
-        : "A Civil Officer is being added to your newsroom smart contract";
+
+    let message = "";
+    if (this.state.removingEditor) {
+      message = "A Civil Member is being removed from your newsroom smart contract";
+    } else if (this.state.removingOwner) {
+      message = "A Civil Officer is being removed from your newsroom smart contract";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_MEMBER) {
+      message = "A Civil Member is being added to your newsroom smart contract";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
+      message = "A Civil Officer is being added to your newsroom smart contract";
+    }
+
     return (
       <Modal textAlign="left">
         <h2>{message}</h2>
@@ -256,12 +302,22 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     if (!this.state.metaMaskRejectionModal) {
       return null;
     }
-    const addEditor = this.state.selectedState.value === memberTypes.CIVIL_MEMBER;
-    const message = addEditor ? "Your new Civil Member was not added" : "Your new Civil Officer was not added";
 
-    const denialMessage = addEditor
-      ? "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet."
-      : "To add a new Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
+    let message = "";
+    let denialMessage = "";
+    if (this.state.removingEditor) {
+      denialMessage = "To remove a Civil Member, you need to confirm the transaction in your MetaMask wallet.";
+      message = "Your Civil Member was not removed";
+    } else if (this.state.removingOwner) {
+      denialMessage = "To remove a Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
+      message = "Your Civil Officer was not removed";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_MEMBER) {
+      denialMessage = "To add a new Civil Member, you need to confirm the transaction in your MetaMask wallet.";
+      message = "Your new Civil Member was not added";
+    } else if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
+      denialMessage = "To add a new Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
+      message = "Your new Civil Officer was not added";
+    }
 
     return (
       <MetaMaskModal
@@ -302,6 +358,20 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
     );
   }
 
+  public renderRemoveButton(): JSX.Element | null {
+    const isMe = this.props.profileWalletAddress && this.props.profileWalletAddress === this.props.memberAddress;
+    if (!this.props.isOnContract || isMe) {
+      return null;
+    }
+    return (
+      <RemoveButtonWrapper>
+        <TransactionButtonNoModal Button={TransactionButtonInner} transactions={this.getRemoveTransactions(false)}>
+          Remove Role
+        </TransactionButtonNoModal>
+      </RemoveButtonWrapper>
+    );
+  }
+
   public render(): JSX.Element {
     let thirdSection = null;
     if (this.props.memberAddress && this.state.selectedState.value !== memberTypes.NONE) {
@@ -332,6 +402,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
             />
           </SectionWrapper>
           <SectionWrapper>{thirdSection}</SectionWrapper>
+          <SectionWrapper>{this.renderRemoveButton()}</SectionWrapper>
           {this.renderAddAddress()}
         </StyledLi>
         {this.renderPreMetamMask()}
@@ -342,6 +413,66 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
       </>
     );
   }
+
+  private getRemoveTransactions = (noPremodal: boolean) => {
+    if (this.props.role === memberTypes.CIVIL_OFFICER) {
+      return [
+        {
+          requireBeforeTransaction: noPremodal
+            ? undefined
+            : async () => {
+                this.setState({ removingOwner: true });
+                return this.requireBeforeTransaction();
+              },
+          transaction: async () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.props.newsroom.removeOwner(this.props.memberAddress!);
+          },
+          postTransaction: () => {
+            this.setState({
+              modalOpen: false,
+              completeModalOpen: true,
+            });
+            this.props.dispatch!(fetchNewsroom(this.props.newsroom.address));
+          },
+          handleTransactionHash: this.handleTransactionHash,
+          handleTransactionError: this.handleTransactionError,
+        },
+      ];
+    } else {
+      return [
+        {
+          requireBeforeTransaction: noPremodal
+            ? undefined
+            : async () => {
+                this.setState({ removingEditor: true });
+                return this.requireBeforeTransaction();
+              },
+          transaction: async () => {
+            this.setState({
+              metaMaskRejectionModal: false,
+              isWaitingTransactionModalOpen: true,
+              isPreTransactionModalOpen: false,
+            });
+            return this.props.newsroom.removeRole(this.props.memberAddress!, NewsroomRoles.Editor);
+          },
+          postTransaction: () => {
+            this.setState({
+              modalOpen: false,
+              completeModalOpen: true,
+            });
+            this.props.dispatch!(removeEditor(this.props.newsroom.address, this.props.memberAddress!));
+          },
+          handleTransactionHash: this.handleTransactionHash,
+          handleTransactionError: this.handleTransactionError,
+        },
+      ];
+    }
+  };
 
   private getTransaction = (noPreModal: boolean) => {
     if (this.state.selectedState.value === memberTypes.CIVIL_OFFICER) {
@@ -354,7 +485,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
               isWaitingTransactionModalOpen: true,
               isPreTransactionModalOpen: false,
             });
-            return this.props.newsroom.addOwner(this.props.memberAddress);
+            return this.props.newsroom.addOwner(this.props.memberAddress!);
           },
           postTransaction: () => {
             this.props.dispatch!(addAndHydrateOwner(this.props.newsroom.address, this.props.memberAddress!));
@@ -377,7 +508,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
               isWaitingTransactionModalOpen: true,
               isPreTransactionModalOpen: false,
             });
-            return this.props.newsroom.addRole(this.props.memberAddress, NewsroomRoles.Editor);
+            return this.props.newsroom.addRole(this.props.memberAddress!, NewsroomRoles.Editor);
           },
           postTransaction: () => {
             this.props.dispatch!(addAndHydrateEditor(this.props.newsroom.address, this.props.memberAddress!));

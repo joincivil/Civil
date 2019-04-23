@@ -68,7 +68,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
               <StyledAuthButtonContainer>
                 <p>Enable Ethereum to view Your Civil Registry Dashboard</p>
                 <Button onClick={() => (window as any).ethereum.enable()} size={buttonSizes.SMALL}>
-                  Enable Ethereum
+                  Connect Wallet
                 </Button>
               </StyledAuthButtonContainer>
             );

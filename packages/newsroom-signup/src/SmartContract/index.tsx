@@ -114,6 +114,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
         charter={this.props.charter!}
         newsroom={this.props.newsroom}
         updateCharter={this.props.updateCharter}
+        profileWalletAddress={this.props.profileWalletAddress}
       />,
     ];
     return steps[this.props.currentStep];
