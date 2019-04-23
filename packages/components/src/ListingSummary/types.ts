@@ -1,16 +1,6 @@
 import { EthAddress, AppealData, CharterData } from "@joincivil/core";
 
-export interface ListingSummaryComponentProps {
-  listingAddress?: EthAddress;
-  name?: string;
-  charter?: CharterData;
-  listingDetailURL?: string;
-  challengeID?: string;
-  challengeStatementSummary?: string;
-  appeal?: AppealData;
-  appealRequested?: boolean;
-  appealGranted?: boolean;
-  appealStatementSummary?: string;
+export interface ListingChallengeStatusProps {
   isInApplication?: boolean;
   canBeChallenged?: boolean;
   canBeWhitelisted?: boolean;
@@ -29,6 +19,19 @@ export interface ListingSummaryComponentProps {
   isWhitelisted?: boolean;
   isUnderChallenge?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
+}
+
+export interface ListingSummaryComponentProps extends ListingChallengeStatusProps {
+  listingAddress?: EthAddress;
+  name?: string;
+  charter?: CharterData;
+  listingDetailURL?: string;
+  challengeID?: string;
+  challengeStatementSummary?: string;
+  appeal?: AppealData;
+  appealRequested?: boolean;
+  appealGranted?: boolean;
+  appealStatementSummary?: string;
   whitelistedTimestamp?: number;
   appExpiry?: number;
   commitEndDate?: number;

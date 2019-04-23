@@ -5,14 +5,7 @@ import { CharterData } from "@joincivil/core";
 import { NorthEastArrow, TwitterIcon, FacebookIcon } from "../icons";
 import { buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
-import {
-  AwaitingApprovalStatusLabel,
-  CommitVoteStatusLabel,
-  RevealVoteStatusLabel,
-  ReadyToCompleteStatusLabel,
-  AwaitingDecisionStatusLabel,
-  AwaitingAppealChallengeStatusLabel,
-} from "../ApplicationPhaseStatusLabels";
+import ListingPhaseLabel from "../ListingSummary/ListingPhaseLabel";
 import { colors } from "../styleConstants";
 
 import {
@@ -91,7 +84,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
           <StyledContentRow>
             <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
             <div>
-              {this.renderPhaseLabel()}
+              <ListingPhaseLabel {...this.props} />
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
 
@@ -160,25 +153,4 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
       </StyledRegistryLinkContainer>
     );
   }
-
-  private renderPhaseLabel = (): JSX.Element | undefined => {
-    if (this.props.isInApplication) {
-      return <AwaitingApprovalStatusLabel />;
-    } else if (this.props.inChallengeCommitVotePhase || this.props.isInAppealChallengeCommitPhase) {
-      return <CommitVoteStatusLabel />;
-    } else if (this.props.inChallengeRevealPhase || this.props.isInAppealChallengeRevealPhase) {
-      return <RevealVoteStatusLabel />;
-    } else if (
-      this.props.canBeWhitelisted ||
-      this.props.canResolveChallenge ||
-      this.props.canListingAppealChallengeBeResolved
-    ) {
-      return <ReadyToCompleteStatusLabel />;
-    } else if (this.props.isAwaitingAppealJudgement) {
-      return <AwaitingDecisionStatusLabel />;
-    } else if (this.props.isAwaitingAppealChallenge) {
-      return <AwaitingAppealChallengeStatusLabel />;
-    }
-    return;
-  };
 }
