@@ -3,6 +3,7 @@ import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { AuthenticatedRoute } from "@joincivil/components";
 import { AuthEthConnected } from "./Eth";
 import { AuthLogin } from "./Login";
+import { AuthLogout } from "./AuthLogout";
 import { AuthSignup } from "./Signup";
 import { AuthCheckEmail } from "./CheckEmail";
 import { AuthVerifyToken } from "./VerifyToken";
@@ -43,6 +44,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
         <Switch>
           {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
+          <Route path={`/auth/logout`} exact component={AuthLogout} />
 
           {/* Add Wallet */}
           <AuthenticatedRoute
