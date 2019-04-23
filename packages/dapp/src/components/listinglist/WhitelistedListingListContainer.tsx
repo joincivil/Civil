@@ -23,8 +23,8 @@ export interface WhitelistedListingsListContainerReduxProps {
 }
 
 const LISTINGS_QUERY = gql`
-  query Listings($whitelistedOnly: Boolean!, $cursor: String) {
-    tcrListings(whitelistedOnly: $whitelistedOnly, first: 12, after: $cursor) {
+  query Listings($whitelistedOnly: Boolean!, $sortBy: ListingSort, $cursor: String) {
+    tcrListings(whitelistedOnly: $whitelistedOnly, sortBy: $sortBy, first: 12, after: $cursor) {
       edges {
         node {
           ...ListingFragment
@@ -48,7 +48,7 @@ const LoadMoreContainer = styled.div`
 const WhitelistedListingListContainer = (props: WhitelistedListingsListContainerReduxProps) => {
   if (props.useGraphQL) {
     return (
-      <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true }}>
+      <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true, sortBy: "NAME" }}>
         {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
           if (loading) {
             return <LoadingMsg />;
