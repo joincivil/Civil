@@ -7,6 +7,7 @@ import { buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
 import ListingPhaseLabel from "../ListingSummary/ListingPhaseLabel";
 import { colors } from "../styleConstants";
+import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 
 import {
   ListingDetailOuter,
@@ -57,12 +58,9 @@ export interface ListingDetailHeaderState {
 }
 
 export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps, ListingDetailHeaderState> {
-  constructor(props: ListingDetailHeaderProps) {
-    super(props);
-    this.state = {
-      isEthereumInfoVisible: false,
-    };
-  }
+  public state = {
+    isEthereumInfoVisible: false,
+  };
 
   public render(): JSX.Element {
     let newsroomDescription = "";
@@ -82,7 +80,18 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
           {this.renderRegistryLink()}
 
           <StyledContentRow>
-            <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
+            <StyledNewsroomIcon>
+              {logoURL && (
+                <StyledNewsroomLogo>
+                  <img
+                    src={logoURL}
+                    onError={e => {
+                      (e.target as any).src = defaultNewsroomImgUrl;
+                    }}
+                  />
+                </StyledNewsroomLogo>
+              )}
+            </StyledNewsroomIcon>
             <div>
               <ListingPhaseLabel {...this.props} />
 

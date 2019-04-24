@@ -11,31 +11,31 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
     }
   >
     <div
-      className="sc-izvnbC glAZCu"
+      className="sc-kkwfeq emJuMn"
     >
       <div
-        className="sc-DNdyV gDuQJl"
+        className="sc-hAnkBK cHnUeE"
       >
         <h2
-          className="sc-isBZXS fyOESt"
+          className="sc-jHZirH xFhTc"
         >
           Can we switch to a different browser?
         </h2>
         <p
-          className="sc-kkwfeq iLdAHQ sc-dBAPYN loWVKK"
+          className="sc-dPNhBE iInBVL sc-dKEPtC gIUJWU"
         >
           Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
         </p>
         <p
-          className="sc-kkwfeq iLdAHQ sc-dBAPYN loWVKK"
+          className="sc-dPNhBE iInBVL sc-dKEPtC gIUJWU"
         >
           In the meantime, please…
         </p>
         <div
-          className="sc-bJTOcE ekgNfA"
+          className="sc-geAPOV bBYVaV"
         >
           <a
-            className="sc-PLyBE evpDMw sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-bJTOcE cXYAsD sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
             href="https://www.google.com/chrome/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -47,7 +47,7 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
             }
           >
             <img
-              className="sc-geAPOV SnXGd"
+              className="sc-DNdyV faWdOv"
               src={
                 Object {
                   "0": "t",
@@ -71,7 +71,7 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
             Get Google Chrome
           </a>
           <a
-            className="sc-PLyBE evpDMw sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-bJTOcE cXYAsD sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
             href="https://www.mozilla.org/en-US/firefox/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -83,7 +83,7 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
             }
           >
             <img
-              className="sc-geAPOV SnXGd"
+              className="sc-DNdyV faWdOv"
               src={
                 Object {
                   "0": "t",
@@ -108,16 +108,16 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
           </a>
         </div>
         <p
-          className="sc-fgrSAo bwDbMg sc-dvpmds hbXpB"
+          className="sc-dwztqd cufeKh sc-dBAPYN iMcmWT"
         >
           <a
-            className="sc-dPNhBE eQSTEy"
+            className="sc-PLyBE kiQjrp"
             href="mailto:support@civil.co"
           >
             Contact Us
           </a>
           <a
-            className="sc-dPNhBE eQSTEy"
+            className="sc-PLyBE kiQjrp"
             href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
             target="_blank"
           >
