@@ -23,8 +23,8 @@ export interface RejectedListingsListContainerReduxProps {
   useGraphQL: boolean;
 }
 const LISTINGS_QUERY = gql`
-  query Listings($rejectedOnly: Boolean!, $cursor: String) {
-    tcrListings(rejectedOnly: $rejectedOnly, first: 12, after: $cursor) {
+  query Listings($rejectedOnly: Boolean!, $sortBy: ListingSort, $cursor: String) {
+    tcrListings(rejectedOnly: $rejectedOnly, sortBy: $sortBy, first: 12, after: $cursor) {
       edges {
         node {
           ...ListingFragment
@@ -49,7 +49,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
   public render(): JSX.Element {
     if (this.props.useGraphQL) {
       return (
-        <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true }}>
+        <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true, sortBy: "NAME" }}>
           {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
             if (loading) {
               return <LoadingMsg />;

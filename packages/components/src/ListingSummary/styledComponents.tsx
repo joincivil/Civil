@@ -163,24 +163,26 @@ export const NewsroomIcon = styled.figure`
   height: 80px;
   margin: 0 17px 0 0;
   min-width: 80px;
+
+  img {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    object-fit: contain;
+    background: ${colors.basic.WHITE};
+  }
 `;
 
-export const NewsroomLogo = styled.img`
-  width: 80px;
-  height: 80px;
-  min-width: 80px;
-  min-height: 80px;
-  object-fit: contain;
-  background: ${colors.basic.WHITE};
-`;
-
-export const SmallNewsroomLogo = styled.img`
-  width: 52px;
-  height: 52px;
-  min-width: 52px;
-  min-height: 52px;
-  object-fit: contain;
-  background: ${colors.basic.WHITE};
+export const SmallNewsroomIcon = styled.span`
+  img {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
+    object-fit: contain;
+    background: ${colors.basic.WHITE};
+  }
 `;
 
 export const MetaRow = styled.div`
