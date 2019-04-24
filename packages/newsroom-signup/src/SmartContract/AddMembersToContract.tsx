@@ -8,7 +8,7 @@ import {
   fonts,
   colors,
 } from "@joincivil/components";
-import { CharterData } from "@joincivil/core";
+import { CharterData, EthAddress } from "@joincivil/core";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import { AddMember } from "./AddMember";
@@ -38,6 +38,7 @@ const MemberUlLabel = styled.div`
 export interface AddMembersToContractProps {
   charter: Partial<CharterData>;
   newsroom: any;
+  profileWalletAddress?: EthAddress;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -101,6 +102,7 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
                           memberAddress={member.ethAddress}
                           updateCharter={this.props.updateCharter}
                           charter={this.props.charter}
+                          profileWalletAddress={this.props.profileWalletAddress}
                         />
                       );
                     })}

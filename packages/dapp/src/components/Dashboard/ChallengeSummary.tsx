@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
+import { doesChallengeHaveAppeal } from "@joincivil/core";
 import {
   UserVotingSummary,
   CHALLENGE_RESULTS_VOTE_TYPES,
@@ -339,7 +340,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
 };
 
 const DashboardItemChallengeDetails: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
-  const { appeal, appealChallenge, challenge } = props;
+  const { appealChallenge, challenge } = props;
 
   if (!challenge) {
     return <></>;
@@ -351,7 +352,7 @@ const DashboardItemChallengeDetails: React.FunctionComponent<MyTasksItemSubCompo
 
       {<ChallengeSummary {...props} />}
 
-      {appeal && <AppealSummary {...props} />}
+      {doesChallengeHaveAppeal(challenge.challenge) && <AppealSummary {...props} />}
 
       {appealChallenge && <AppealChallengeSummary {...props} />}
     </>

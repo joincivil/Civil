@@ -1,4 +1,6 @@
 import * as qs from "querystring";
+import { BigNumber } from "bignumber.js";
+import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
   colors,
@@ -27,6 +29,7 @@ import {
   fetchConstitution,
   navigateStep,
   reachedNewStep,
+  analyticsEvent,
 } from "./actionCreators";
 import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
@@ -130,6 +133,7 @@ export interface NewsroomReduxProps extends NewsroomExternalProps {
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
   charterUri?: string;
+  waitingOnGrant?: boolean;
 }
 
 export interface NewsroomGqlProps {
@@ -147,7 +151,7 @@ export interface NewsroomGqlProps {
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
-export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps;
+export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps & DispatchProp<any>;
 
 export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
@@ -163,7 +167,7 @@ const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
 `;
 
-class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any>, NewsroomComponentState> {
+class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponentState> {
   public static defaultProps = {
     theme: {
       ...DEFAULT_BUTTON_THEME,
@@ -179,8 +183,15 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     state: NewsroomComponentState,
   ): NewsroomComponentState | null {
     const decidedWhetherToApply = typeof props.grantRequested === "boolean";
-    const waitingOnGrant = props.grantRequested && typeof props.grantApproved !== "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !waitingOnGrant && decidedWhetherToApply) {
+    if (state.currentStep === STEP.PROFILE_GRANT && !props.waitingOnGrant && decidedWhetherToApply) {
+      // Either they didn't apply but were waiting here before we released second part of flow, or they did apply and a decision has now been made on their grant, so move them to the next step.
+      props.dispatch!(
+        analyticsEvent({
+          action: "Auto advancing past grant step",
+          label: props.charter && props.charter.name,
+          value: props.grantRequested ? 1 : 0,
+        }),
+      );
       return {
         ...state,
         currentStep: state.currentStep + 1,
@@ -261,7 +272,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.saveStep(this.props.savedStep, true); // lazy way to update `lastSeen` - can't bear to make another separate mutation
   }
 
-  public async componentDidUpdate(prevProps: NewsroomProps & DispatchProp<any>): Promise<void> {
+  public async componentDidUpdate(prevProps: NewsroomProps): Promise<void> {
     if (this.props.newsroomAddress && !prevProps.newsroomAddress) {
       await this.hydrateNewsroom(this.props.newsroomAddress);
     }
@@ -308,7 +319,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
-          grantApproved={this.props.grantApproved}
+          waitingOnGrant={this.props.waitingOnGrant}
           charter={this.props.charter}
           updateCharter={this.updateCharter}
         />
@@ -378,8 +389,24 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
       currentStep = this.props.forceStep;
     }
 
-    if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
-      // Waiting on grant
+    if (this.props.waitingOnGrant) {
+      // We've run out of fields in GA event so need to use numeric "value" to pass this info in:
+      let grantInfo;
+      if (this.props.grantApproved === true) {
+        grantInfo = 1;
+      } else if (this.props.grantApproved === false) {
+        grantInfo = 2;
+      } else {
+        grantInfo = 0;
+      }
+
+      this.props.dispatch!(
+        analyticsEvent({
+          action: "Pushed back to grant step",
+          label: this.props.charter && this.props.charter.name,
+          value: grantInfo,
+        }),
+      );
       currentStep = STEP.PROFILE_GRANT;
     }
 
@@ -408,14 +435,12 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   private getDisabled(section: SECTION): () => boolean {
-    // @TODO/tobek Setting everything to enabled for now for testing, but we should work these out.
     const functions = {
       [SECTION.PROFILE]: () => {
         return false;
       },
       [SECTION.CONTRACT]: () => {
-        const waitingOnGrant = !!this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
-        return typeof this.props.grantRequested !== "boolean" || waitingOnGrant;
+        return typeof this.props.grantRequested !== "boolean" || !!this.props.waitingOnGrant;
       },
       [SECTION.TUTORIAL]: () => {
         return !this.props.newsroomAddress;
@@ -440,8 +465,8 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
 
     let newStep = SECTION_STARTS[newSection]; // Go to first step in that section
     if (newSection === SECTION.PROFILE) {
-      if (this.props.grantRequested && typeof this.props.grantApproved !== "boolean") {
-        newStep = STEP.PROFILE_GRANT; // Waiting on grant
+      if (this.props.waitingOnGrant) {
+        newStep = STEP.PROFILE_GRANT;
       } else {
         newStep = STEP.PROFILE_SO_FAR; // For this section, makes more sense to go to "your profile so far" step
       }
@@ -453,11 +478,13 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     this.setState({ currentStep: newStep });
   };
   private navigate = (go: 1 | -1): void => {
-    const newStep = this.state.currentStep + go;
+    let newStep = this.state.currentStep + go;
     this.saveStep(newStep);
     if (newStep === STEP.APPLIED) {
       // Dummy step we don't actually update view for, but need to send to API.
       return;
+    } else if (newStep === STEP.PROFILE_GRANT && !this.props.waitingOnGrant) {
+      newStep += go; // skip the step and go one further in the requested direction
     }
     document.documentElement.scrollTop = document.body.scrollTop = 0;
     this.setState({ currentStep: newStep });
@@ -506,11 +533,22 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomExternalProps): NewsroomReduxProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
+  const { user, parameters } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
+
+  let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
+  if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
+    const userBalance = new BigNumber(user.account.balance);
+    const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
+    const hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
+    waitingOnGrant = waitingOnGrant && !hasMinDeposit;
+  }
+
   return {
     ...ownProps,
+    waitingOnGrant,
     newsroom: newsroom.newsroom,
     charter: newsroom.charter || {},
   };

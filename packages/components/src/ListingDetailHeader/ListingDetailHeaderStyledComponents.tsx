@@ -36,13 +36,15 @@ export const StyledNewsroomIcon = styled.figure`
   }
 `;
 
-export const StyledNewsroomLogo = styled.img`
-  height: 130px;
-  min-width: 130px;
-  min-height: 130px;
-  object-fit: contain;
-  width: 130px;
-  background: ${colors.basic.WHITE};
+export const StyledNewsroomLogo = styled.span`
+  img {
+    height: 130px;
+    min-width: 130px;
+    min-height: 130px;
+    object-fit: contain;
+    width: 130px;
+    background: ${colors.basic.WHITE};
+  }
 `;
 
 export const StyledEthereumInfoToggle: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
