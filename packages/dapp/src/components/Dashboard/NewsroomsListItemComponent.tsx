@@ -88,7 +88,7 @@ class NewsroomsListItemListingRedux extends React.Component<
         case canBeWhitelisted ||
           canResolveChallenge ||
           canListingAppealBeResolved ||
-          canListingAppealChallengeBeResolved: // can whitelist?
+          canListingAppealChallengeBeResolved:
           inProgressPhaseDisplayName = "Ready To Update";
           break;
 
@@ -129,7 +129,7 @@ class NewsroomsListItemListingRedux extends React.Component<
       const newsroomData = newsroom.wrapper.data;
 
       const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
-      const editNewsroomURL = routes.APPLY_TO_REGISTRY;
+      const editNewsroomURL = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
 
       let newsroomMultiSigBalance = "0.00";
       if (newsroom.multisigBalance) {
