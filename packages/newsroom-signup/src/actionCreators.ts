@@ -49,6 +49,7 @@ export enum listingActions {
 }
 
 export enum analyticsActions {
+  EVENT = "EVENT",
   NAVIGATE_STEP = "NAVIGATE_STEP",
   REACHED_NEW_STEP = "REACHED_NEW_STEP",
   APPLICATION_SUBMITTED = "APPLICATION_SUBMITTED",
@@ -454,5 +455,17 @@ export const reachedNewStep = (step: number): AnyAction => {
   return {
     type: analyticsActions.REACHED_NEW_STEP,
     step,
+  };
+};
+
+export const analyticsEvent = (event: {
+  category?: string;
+  action: string;
+  label?: string;
+  value?: number;
+}): AnyAction => {
+  return {
+    type: analyticsActions.EVENT,
+    event,
   };
 };

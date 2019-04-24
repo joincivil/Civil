@@ -17,7 +17,7 @@ export interface NewsroomProfileProps {
   currentStep: number;
   charter: Partial<CharterData>;
   grantRequested?: boolean;
-  grantApproved?: boolean;
+  waitingOnGrant?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
   navigate(go: 1 | -1): void;
 }
@@ -61,8 +61,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return false;
       },
       () => {
-        const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
-        return waitingOnGrant || this.props.grantRequested === null;
+        return this.props.waitingOnGrant || typeof this.props.grantRequested !== "boolean";
       },
     ];
 
@@ -86,8 +85,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   }
 
   public renderButtons(): JSX.Element | null {
-    const waitingOnGrant = this.props.grantRequested && typeof this.props.grantApproved !== "boolean";
-    if (!this.state.showButtons || waitingOnGrant) {
+    if (!this.state.showButtons || this.props.waitingOnGrant) {
       return null;
     }
     return (
