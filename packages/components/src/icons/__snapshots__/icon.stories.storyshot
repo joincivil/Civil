@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApplicationInProgressIco
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -339,7 +339,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApprovedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -673,7 +673,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height={24}
@@ -1011,7 +1011,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexPanelIcon 1`
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -1356,7 +1356,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="24"
@@ -1704,7 +1704,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignPanelIcon 1`]
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="20"
@@ -2048,7 +2048,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BellIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="24"
@@ -2381,7 +2381,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BookreaderIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="70"
@@ -2810,7 +2810,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BrainIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="74"
@@ -3289,7 +3289,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="33"
@@ -3646,7 +3646,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = 
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="20"
@@ -3987,7 +3987,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ClockIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -4323,7 +4323,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CloseXIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="42"
@@ -4651,7 +4651,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="100"
@@ -5003,7 +5003,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] 
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="12"
@@ -5340,7 +5340,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DropdownArrow 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="5"
@@ -5668,7 +5668,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="28"
@@ -6004,7 +6004,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExamIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="70"
@@ -6451,7 +6451,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExchangeArrowsIcon 1`] =
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="14"
@@ -6789,7 +6789,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExpandDownArrow 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="12"
@@ -7118,7 +7118,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         className="sc-kafWEX iCzvJu"
@@ -7448,7 +7448,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GrantSubmitIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="82"
@@ -7798,7 +7798,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GreenCheckMark 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="26"
@@ -8133,7 +8133,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HamburgerIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="42"
@@ -8461,7 +8461,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowGreenCheck 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="20"
@@ -8804,7 +8804,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowRedNoGood 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="20"
@@ -9142,7 +9142,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons InfoNotification 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="28"
@@ -9481,7 +9481,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons LockOpenIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -9814,7 +9814,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <img
         className="sc-cmTdod kcwOOi"
@@ -10152,7 +10152,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <img
         className="sc-cmTdod kcwOOi"
@@ -10490,7 +10490,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NetworkIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="44"
@@ -10820,7 +10820,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NorthEastArrow 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="11"
@@ -11148,7 +11148,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons OctopusErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="73"
@@ -11487,7 +11487,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RegistryEmptyIcon 1`] = 
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="155"
@@ -11857,7 +11857,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RejectedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="18"
@@ -12184,7 +12184,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RequestAppealSuccessIcon
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="100"
@@ -12601,7 +12601,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RevealVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="100"
@@ -12962,7 +12962,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ReviewIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="24"
@@ -13298,7 +13298,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons SubmitChallengeSuccessIc
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="100"
@@ -13742,7 +13742,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TokenWalletIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="21"
@@ -14075,7 +14075,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TrendsIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="48"
@@ -14415,7 +14415,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         className="sc-btzYZH eNcUGn"
@@ -14745,7 +14745,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons VerifyIdentityIcon 1`] =
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="22"
@@ -15086,7 +15086,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WaitForApply 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="54"
@@ -15420,7 +15420,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
     }
   >
     <div
-      className="sc-jwJjzT TTWdn"
+      className="sc-jRnjsG ggyYyd"
     >
       <svg
         height="28"
