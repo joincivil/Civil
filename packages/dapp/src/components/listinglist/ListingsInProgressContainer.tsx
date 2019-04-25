@@ -43,8 +43,8 @@ export interface ListingsInProgressState {
   increment: number;
 }
 const LISTINGS_QUERY = gql`
-  query($activeChallenge: Boolean!, $currentApplication: Boolean!) {
-    listings(activeChallenge: $activeChallenge, currentApplication: $currentApplication) {
+  query($activeChallenge: Boolean!, $currentApplication: Boolean!, $sortBy: ListingSort) {
+    listings(activeChallenge: $activeChallenge, currentApplication: $currentApplication, sortBy: $sortBy) {
       ...ListingFragment
     }
   }
@@ -63,7 +63,7 @@ class ListingsInProgressContainer extends React.Component<
       return (
         <Query
           query={LISTINGS_QUERY}
-          variables={{ activeChallenge: true, currentApplication: true }}
+          variables={{ activeChallenge: true, currentApplication: true, sortBy: "NAME" }}
           pollInterval={30000}
         >
           {({ loading, error, data }: any): JSX.Element => {
