@@ -11,7 +11,7 @@ exports[`Storyshots Storefront / Sell Tab Coming Soon 1`] = `
     }
   >
     <div
-      className="sc-wRHdD kdZZUV"
+      className="sc-gOhSNZ jNUuFS"
     />
   </div>
   <button
@@ -550,13 +550,13 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
     }
   >
     <div
-      className="sc-wRHdD kdZZUV"
+      className="sc-gOhSNZ jNUuFS"
     >
       <p>
         You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible to sell them here.
       </p>
       <div
-        className="sc-gCKARq dgBdID"
+        className="sc-fjdPjP jHxmDV"
       >
         <h4>
           <svg
@@ -590,7 +590,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
           . And that’s it.
         </p>
         <a
-          className="sc-iysEgW fvPEaP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-fxgLge gZccvA sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           href="/dashboard/tasks/transfer-voting-tokens"
           onClick={[Function]}
           theme={
@@ -1141,7 +1141,7 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
     }
   >
     <div
-      className="sc-wRHdD kdZZUV"
+      className="sc-gOhSNZ jNUuFS"
     >
       <div
         className="sc-gJqsIT bdLJqT"
@@ -1694,7 +1694,7 @@ exports[`Storyshots Storefront / Sell Tab Uniswap 1`] = `
     }
   >
     <div
-      className="sc-wRHdD kdZZUV"
+      className="sc-gOhSNZ jNUuFS"
     >
       <div>
         <div>

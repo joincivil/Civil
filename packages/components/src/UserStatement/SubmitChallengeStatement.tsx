@@ -1,8 +1,10 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, SecondaryButton } from "../Button";
+import { buttonSizes, CancelButton } from "../Button";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import { MetaMaskLogoButton } from "../";
+import { Checkbox, CheckboxSizes } from "../input/Checkbox";
 import {
   StyledErrorMessage,
   StyledUserStatementHeaderOuter,
@@ -22,12 +24,12 @@ import {
   SectionForm,
   SectionFormHeader,
   SectionFormCopyHelper,
+  SectionConfirmChallenge,
   StyledTextareaContainer,
   SectionDeposit,
   StyledDepositLabel,
   StyledDepositAmount,
   SectionActions,
-  PullRight,
 } from "./styledComponents";
 
 export interface SubmitChallengeStatementProps {
@@ -48,6 +50,7 @@ export interface SubmitChallengeStatementState {
   summaryValue: string;
   citeConstitutionValue: any;
   detailsValue: any;
+  didConfirmChallenge: boolean;
 }
 
 const SUMMARY_MAX_LENGTH = 120;
@@ -56,14 +59,12 @@ export class SubmitChallengeStatement extends React.Component<
   SubmitChallengeStatementProps,
   SubmitChallengeStatementState
 > {
-  constructor(props: SubmitChallengeStatementProps) {
-    super(props);
-    this.state = {
-      summaryValue: "",
-      citeConstitutionValue: RichTextEditor.createEmptyValue(),
-      detailsValue: RichTextEditor.createEmptyValue(),
-    };
-  }
+  public state = {
+    summaryValue: "",
+    citeConstitutionValue: RichTextEditor.createEmptyValue(),
+    detailsValue: RichTextEditor.createEmptyValue(),
+    didConfirmChallenge: false,
+  };
 
   public render(): JSX.Element {
     return (
@@ -148,24 +149,39 @@ export class SubmitChallengeStatement extends React.Component<
               <StyledDepositAmount>{this.props.minDeposit}</StyledDepositAmount>
             </SectionDeposit>
 
+            <SectionConfirmChallenge>
+              <div>
+                <Checkbox
+                  size={CheckboxSizes.SMALL}
+                  checked={this.state.didConfirmChallenge}
+                  onClick={this.toggleDidConfirmChallenge}
+                />
+              </div>
+              <div>
+                I understand that once I confirm this challenge, I can not withdraw it, and that I communicated my
+                concerns with Newsroom.
+              </div>
+            </SectionConfirmChallenge>
+
             <SectionActions>
               <div>
-                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
-                  Cancel
-                </SecondaryButton>
-              </div>
-
-              <PullRight>
                 <TransactionButtonNoModal
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
+                  Button={MetaMaskLogoButton}
                   disabled={this.isFormInvalid()}
                 >
                   Confirm and Deposit CVL
                 </TransactionButtonNoModal>
 
                 <SectionFormCopyHelper>{this.renderHelperMessage()}</SectionFormCopyHelper>
-              </PullRight>
+              </div>
+
+              <div>
+                <CancelButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
+                  Cancel
+                </CancelButton>
+              </div>
             </SectionActions>
           </StyledUserStatementBody>
         </StyledUserStatementBodyOuter>
@@ -174,12 +190,18 @@ export class SubmitChallengeStatement extends React.Component<
   }
 
   private isFormInvalid = (): boolean => {
-    const { summaryValue, citeConstitutionValue, detailsValue } = this.state;
+    const { summaryValue, citeConstitutionValue, detailsValue, didConfirmChallenge } = this.state;
     const citeConstitution = document.createElement("div");
     citeConstitution.innerHTML = citeConstitutionValue.toString("html");
     const details = document.createElement("div");
     details.innerHTML = detailsValue.toString("html");
-    return !summaryValue || !summaryValue.length || !citeConstitution.innerText.length || !details.innerText.length;
+    return (
+      !summaryValue ||
+      !summaryValue.length ||
+      !citeConstitution.innerText.length ||
+      !details.innerText.length ||
+      !didConfirmChallenge
+    );
   };
 
   private renderHelperMessage = (): JSX.Element => {
@@ -203,5 +225,9 @@ export class SubmitChallengeStatement extends React.Component<
   private handleDetailsValueChange = (detailsValue: any) => {
     this.setState({ detailsValue });
     this.props.updateStatementValue("details", detailsValue);
+  };
+
+  private toggleDidConfirmChallenge = (): void => {
+    this.setState({ didConfirmChallenge: !this.state.didConfirmChallenge });
   };
 }

@@ -11,13 +11,13 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-izfUZz iREQDa"
+      className="sc-eqGige jBAsba"
     >
       <div
-        className="sc-evWYkj bvbYGs"
+        className="sc-idjmjb edbFgZ"
       >
         <div
-          className="sc-kbGplQ aMUNC"
+          className="sc-exdmVY ldoUDW"
         >
           <svg
             height="24"
@@ -39,7 +39,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
-          className="sc-exdmVY dsQRiG"
+          className="sc-evWYkj IkJOW"
         >
           Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
@@ -90,7 +90,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
-          className="sc-exdmVY dsQRiG"
+          className="sc-evWYkj IkJOW"
         >
           <b>
             Follow us on twitter for alerts
@@ -472,10 +472,10 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-izfUZz iREQDa"
+      className="sc-eqGige jBAsba"
     >
       <div
-        className="sc-idjmjb kEFrLn sc-evWYkj bvbYGs"
+        className="sc-fHlXLc jJzHNn sc-idjmjb edbFgZ"
       >
         <svg
           height="36"
@@ -497,17 +497,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
-          className="sc-kbGplQ aMUNC"
+          className="sc-exdmVY ldoUDW"
         >
           Thanks for signing up!
         </div>
         <p
-          className="sc-exdmVY dsQRiG"
+          className="sc-evWYkj IkJOW"
         >
           Please check your email to confirm your subscription.
         </p>
         <p
-          className="sc-exdmVY dsQRiG"
+          className="sc-evWYkj IkJOW"
         >
           <b>
             Follow us on twitter for alerts

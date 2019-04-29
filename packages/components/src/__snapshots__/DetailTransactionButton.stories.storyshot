@@ -11,7 +11,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-izfUZz dHgyRw"
     />
   </div>
   <button
@@ -259,7 +259,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
-      className="sc-jklikK iLQOaA"
+      className="sc-izfUZz dHgyRw"
     />
   </div>
   <button

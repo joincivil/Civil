@@ -11,23 +11,23 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
     }
   >
     <div
-      className="sc-gtXRHa jgpuGe"
+      className="sc-fyjYeE fUYUgc"
     >
       <div>
         <div
-          className="sc-ePAWwb gguTDU"
+          className="sc-fObBmV fuALqD"
         >
           <ul
             className="sc-dHmInP keHGRN"
           >
             <li
-              className="sc-fjdPjP cJeRqB"
+              className="sc-ePAWwb fxshGr"
               onClick={[Function]}
             >
               Buy
             </li>
             <li
-              className="sc-fjdPjP cRVEsf"
+              className="sc-ePAWwb doiGUd"
               onClick={[Function]}
             >
               Sell
@@ -54,7 +54,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
         </div>
         <div>
           <div
-            className="sc-fYAFcb jBnCdc"
+            className="sc-kAKrxA eNzQhn"
           >
             <div
               className="sc-gJqsIT itmRji"
@@ -92,10 +92,10 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
               </div>
             </div>
             <div
-              className="sc-lhLRcH gGnIN"
+              className="sc-jMtzgO huExqa"
             >
               <div
-                className="sc-lhLRcH gGnIN"
+                className="sc-jMtzgO huExqa"
               >
                 <h3>
                   Contribute to the Civil Foundation
@@ -116,7 +116,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   <div />
                 </div>
                 <div
-                  className="sc-MKjYC jUNmrS"
+                  className="sc-bQduHL lbuFTb"
                 >
                   <span>
                     You are 
@@ -148,7 +148,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   Buy CVL from Civil Media Company in Airswap
                 </button>
                 <div
-                  className="sc-ldcLGC dBJhFQ"
+                  className="sc-hXhGGG gNmfNk"
                 >
                   By clicking buy to purchase Civil tokens, you agree to the
                    
@@ -702,13 +702,13 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
     }
   >
     <div
-      className="sc-gtXRHa jgpuGe"
+      className="sc-fyjYeE fUYUgc"
     >
       <div
-        className="sc-cANqwJ eKmGwz"
+        className="sc-clWJBl fWycZh"
       >
         <div
-          className="sc-clWJBl crGdIA"
+          className="sc-jGkVzM dqDLCj"
           step="active"
         >
           <svg
@@ -736,7 +736,7 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
           Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)
         </p>
         <a
-          className="sc-jMvuUo RcNtJ sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+          className="sc-iysEgW fvPEaP sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
           href="/auth/wallet"
           onClick={[Function]}
           theme={
@@ -1293,10 +1293,10 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
     }
   >
     <div
-      className="sc-gtXRHa jgpuGe"
+      className="sc-fyjYeE fUYUgc"
     >
       <div
-        className="sc-kvkilB cwviUJ"
+        className="sc-cANqwJ dEdRiT"
       >
         <h3>
           Take the Civil Tutorial
@@ -1306,11 +1306,11 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
         </p>
       </div>
       <div
-        className="sc-cANqwJ eKmGwz"
+        className="sc-clWJBl fWycZh"
         step="active"
       >
         <div
-          className="sc-clWJBl crGdIA"
+          className="sc-jGkVzM dqDLCj"
           step="active"
         >
           <svg
@@ -1349,7 +1349,7 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
           It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry. You will be able to answer the questions again.
         </p>
         <button
-          className="sc-jMvuUo RcNtJ sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+          className="sc-iysEgW fvPEaP sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
           onClick={[Function]}
           theme={
             Object {

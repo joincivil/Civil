@@ -2,9 +2,13 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
+import styled from "styled-components";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
+  colors,
   InsufficientCVLForChallenge,
+  Modal,
+  ModalHeading,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
@@ -12,6 +16,9 @@ import {
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
   SubmitChallengeSuccessIcon,
+  Button,
+  InvertedButton,
+  buttonSizes,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, urlConstants as links } from "@joincivil/utils";
 
@@ -51,6 +58,7 @@ interface SubmitChallengeState {
   challengeStatementCiteConstitutionValue?: any;
   challengeStatementDetailsValue?: any;
   challengeStatementUri?: string;
+  isConfirmModalVisible: boolean;
 }
 
 enum TransactionTypes {
@@ -112,10 +120,44 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
+const StyledConfirmModalContent = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0 0 10px;
+`;
+
+const StyledConfirmModalButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+
+  ${InvertedButton}, ${Button} {
+    border-width: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    margin: 0 15px;
+    padding: 14px 0 15px;
+    text-align: center;
+    text-transform: none;
+    width: 203px;
+  }
+`;
+
 class SubmitChallengeComponent extends React.Component<
   SubmitChallengeProps & SubmitChallengeReduxProps & InjectedTransactionStatusModalProps,
   SubmitChallengeState
 > {
+  public state = {
+    challengeStatementSummaryValue: undefined,
+    challengeStatementCiteConstitutionValue: undefined,
+    challengeStatementDetailsValue: undefined,
+    challengeStatementUri: undefined,
+    isConfirmModalVisible: true,
+  };
+
   public componentWillMount(): void {
     const transactionSuccessContent = this.getTransactionSuccessContent();
     this.props.setTransactions(this.getTransactions());
@@ -155,9 +197,32 @@ class SubmitChallengeComponent extends React.Component<
         {isInsufficientBalance &&
           minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="/tokens" />}
         <SubmitChallengeStatementComponent {...props} />
+        {this.state.isConfirmModalVisible && this.renderConfirmationModal()}
       </>
     );
   }
+
+  private renderConfirmationModal = (): JSX.Element => {
+    return (
+      <Modal width={558}>
+        <ModalHeading>Something to keep in mind</ModalHeading>
+        <StyledConfirmModalContent>Once a challenge is issued, it cannot be withdrawn.</StyledConfirmModalContent>
+        <StyledConfirmModalContent>
+          Before challenging a Newsroom, consider addressing your converns with the Newsroom directly in the Discussion
+          section.
+        </StyledConfirmModalContent>
+
+        <StyledConfirmModalButtons>
+          <InvertedButton size={buttonSizes.MEDIUM} onClick={this.closeConfirmationModalAndCancel}>
+            Cancel
+          </InvertedButton>
+          <Button size={buttonSizes.MEDIUM} onClick={this.closeConfirmationModal}>
+            I understand
+          </Button>
+        </StyledConfirmModalButtons>
+      </Modal>
+    );
+  };
 
   private getTransactions = (): any[] => {
     return [
@@ -260,6 +325,14 @@ class SubmitChallengeComponent extends React.Component<
     const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
     this.props.closeAllModals();
     this.props.history.push(listingURI);
+  };
+
+  private closeConfirmationModal = (): void => {
+    this.setState({ isConfirmModalVisible: false });
+  };
+
+  private closeConfirmationModalAndCancel = (): void => {
+    this.setState({ isConfirmModalVisible: false }, this.redirectToListingPage);
   };
 
   // Transactions
