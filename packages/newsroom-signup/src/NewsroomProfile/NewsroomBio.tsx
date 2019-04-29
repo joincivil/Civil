@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 import {
-  colors,
   StepProps,
   QuestionToolTip,
   OBCollapsable,
@@ -20,6 +19,7 @@ import {
   FormRowItem,
   HelperText,
   StyledTextInput,
+  StyledImageToData,
   StyledTextareaInput,
   StepSectionCounter,
 } from "../styledComponents";
@@ -31,10 +31,7 @@ export interface NewsroomBioProps extends StepProps {
 }
 
 const LogoFormWrap = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  margin-top: -4px;
-
+  margin-bottom: 7px;
   small {
     background: white;
     padding: 5px 5px 5px 10px;
@@ -44,29 +41,25 @@ const LogoFormWrap = styled.div`
     z-index: 1;
   }
 `;
+
 const LogoImgWrap = styled.div`
-  margin-left: 36px;
   position: relative;
-  width: 100px;
+  width: 338px;
 `;
+
 const LogoImg = styled.img`
-  position: absolute;
-  width: 100px;
+  width: 338px;
   height: auto;
-  top: -50%;
-`;
-const LogoHelperText = styled(HelperText)`
-  margin: -16px 0 12px;
-`;
-const ImageHelperLink = styled(HelperText)`
-  color: ${colors.accent.CIVIL_BLUE};
-  float: right;
-  margin: 0;
 `;
 
 const NewsroomURLInput = styled(StyledTextInput)`
   max-width: 400px;
 `;
+
+const NewsroomLogoURLInput = styled(StyledImageToData)`
+  max-width: 400px;
+`;
+
 const TaglineTextarea = styled(StyledTextareaInput)`
   height: 80px;
   margin: -4px 0 0;
@@ -104,32 +97,11 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
             <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />
           </div>
           <div>
-            <FormSubhead>
-              Newsroom Logo
-              <QuestionToolTip explainerText={"You need to add a URL to a logo or image."} />
-            </FormSubhead>
+            <FormSubhead>Newsroom Logo</FormSubhead>
             <LogoFormWrap>
-              <NewsroomURLInput
-                noLabel
-                name="logoUrl"
-                value={charter.logoUrl || ""}
-                onChange={this.charterInputChange}
-                invalid={this.invalidUrlInput(charter.logoUrl)}
-                invalidMessage={"Invalid URL"}
-              />
               <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
+              <NewsroomLogoURLInput onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)} />
             </LogoFormWrap>
-            <div style={{ maxWidth: 400 }}>
-              <ImageHelperLink>
-                <a
-                  href="https://cvlconsensys.zendesk.com/hc/en-us/articles/360022147751-How-do-I-add-a-logo-or-image-to-my-newsroom-profile-"
-                  target="_blank"
-                >
-                  How to upload an image
-                </a>
-              </ImageHelperLink>
-              <LogoHelperText>Needs to be an image URL</LogoHelperText>
-            </div>
           </div>
 
           <div>
