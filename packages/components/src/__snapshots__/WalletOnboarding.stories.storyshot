@@ -11,7 +11,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <h4
         className="sc-EHOje gTvBKb"
@@ -28,29 +28,29 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         Your WordPress user profile wallet address does not match your MetaMask wallet address
       </p>
       <p
-        className="sc-dPPMrM ihhYkU"
+        className="sc-imDfJI bFfDJS"
       >
         Profile wallet address
       </p>
       <span
-        className="sc-fdQOMr bNcOfV"
+        className="sc-cNnxps rCvMZ"
       >
         0x123abc00000000000000000000000000000x123abc
       </span>
        
       <p
-        className="sc-dPPMrM ihhYkU"
+        className="sc-imDfJI bFfDJS"
       >
         Connected wallet address
       </p>
       <div
-        className="sc-hZSUBg bRiJVV"
+        className="sc-iuJeZd kCQGq"
       >
         <div
-          className="sc-cMhqgX kIcmrJ"
+          className="sc-esOvli fXLgCi"
         >
           <img
-            className="sc-cmTdod kcwOOi"
+            className="sc-btzYZH fUmjIQ"
             src={
               Object {
                 "0": "t",
@@ -76,7 +76,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
       </div>
        
       <div
-        className="sc-cNnxps geAPQh"
+        className="sc-jWxkHr bBekit"
       >
         <button
           className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
@@ -533,7 +533,7 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <h4
         className="sc-EHOje gTvBKb"
@@ -541,18 +541,18 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
         Wallet Connected
       </h4>
       <p
-        className="sc-dPPMrM ihhYkU"
+        className="sc-imDfJI bFfDJS"
       >
         Your wallet address
       </p>
       <div
-        className="sc-hZSUBg bRiJVV"
+        className="sc-iuJeZd kCQGq"
       >
         <div
-          className="sc-cMhqgX kIcmrJ"
+          className="sc-esOvli fXLgCi"
         >
           <img
-            className="sc-cmTdod kcwOOi"
+            className="sc-btzYZH fUmjIQ"
             src={
               Object {
                 "0": "t",
@@ -946,10 +946,10 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <img
-        className="sc-imDfJI bWDJvR"
+        className="sc-DNdyV fGXcGD"
         src={
           Object {
             "0": "t",
@@ -989,7 +989,7 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
       </p>
       <p>
         <button
-          className="sc-ileJJU hWvJIW sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fdQOMr igHlBf sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1359,7 +1359,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <h4
         className="sc-EHOje gTvBKb"
@@ -1377,7 +1377,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
         </a>
          
         <img
-          className="sc-jWxkHr bcrTdX sc-cmTdod kcwOOi"
+          className="sc-hAnkBK ielSdv sc-btzYZH fUmjIQ"
           src={
             Object {
               "0": "t",
@@ -1429,7 +1429,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
           Open MetaMask.io
            
           <span
-            className="sc-fAJaQT jMUtzb"
+            className="sc-dPPMrM dWQZYB"
           >
             <svg
               height="11"
@@ -1866,7 +1866,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <h4
         className="sc-EHOje gTvBKb"
@@ -1878,7 +1878,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       </p>
       <p>
         <button
-          className="sc-ileJJU hWvJIW sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fdQOMr igHlBf sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1901,7 +1901,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       <p>
         If you do not see the MetaMask popup, please click the 
         <img
-          className="sc-jWxkHr bcrTdX sc-cmTdod kcwOOi"
+          className="sc-hAnkBK ielSdv sc-btzYZH fUmjIQ"
           src={
             Object {
               "0": "t",
@@ -2274,7 +2274,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <h4
         className="sc-EHOje gTvBKb"
@@ -2285,18 +2285,18 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.
       </p>
       <p
-        className="sc-dPPMrM ihhYkU"
+        className="sc-imDfJI bFfDJS"
       >
         Your wallet address
       </p>
       <div
-        className="sc-hZSUBg bRiJVV"
+        className="sc-iuJeZd kCQGq"
       >
         <div
-          className="sc-cMhqgX kIcmrJ"
+          className="sc-esOvli fXLgCi"
         >
           <img
-            className="sc-cmTdod kcwOOi"
+            className="sc-btzYZH fUmjIQ"
             src={
               Object {
                 "0": "t",
@@ -2322,7 +2322,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
       </div>
        
       <div
-        className="sc-cNnxps geAPQh"
+        className="sc-jWxkHr bBekit"
       >
         <button
           className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
@@ -2740,10 +2740,10 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
     }
   >
     <div
-      className="sc-eqPNPO kuJMot"
+      className="sc-jotlie cbTlro"
     >
       <img
-        className="sc-imDfJI bWDJvR"
+        className="sc-DNdyV fGXcGD"
         src={
           Object {
             "0": "t",
@@ -2784,7 +2784,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
          
         to switch networks in MetaMask 
         <img
-          className="sc-jWxkHr bcrTdX sc-cmTdod kcwOOi"
+          className="sc-hAnkBK ielSdv sc-btzYZH fUmjIQ"
           src={
             Object {
               "0": "t",
@@ -2811,7 +2811,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
       </p>
       <p>
         <button
-          className="sc-ileJJU hWvJIW sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fdQOMr igHlBf sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

@@ -11,11 +11,11 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-      className="sc-bkypNX jcKRMl"
+      className="sc-izfUZz dHgyRw"
     >
       <div>
         <div
-          className="sc-hXRMBi bifNjO"
+          className="sc-iQNlJl hSunJd"
           onClick={[Function]}
         >
           <h3>
@@ -23,12 +23,12 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
           </h3>
            
           <div
-            className="sc-gwVKww dXoiYZ"
+            className="sc-epnACN geNAjr"
             open={false}
           />
         </div>
         <div
-          className="sc-eTuwsz bYeKWZ"
+          className="sc-hXRMBi dgFUIb"
           height={null}
           open={false}
         >
@@ -496,11 +496,11 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-      className="sc-bkypNX jcKRMl"
+      className="sc-izfUZz dHgyRw"
     >
       <div>
         <div
-          className="sc-hXRMBi bifNjO"
+          className="sc-iQNlJl hSunJd"
           onClick={[Function]}
         >
           <h3>
@@ -508,13 +508,13 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
           </h3>
            
           <div
-            className="sc-gwVKww flGTPs"
+            className="sc-epnACN fcJrdi"
             disabled={true}
             open={false}
           />
         </div>
         <div
-          className="sc-eTuwsz bYeKWZ"
+          className="sc-hXRMBi dgFUIb"
           height={null}
           open={false}
         >
@@ -990,11 +990,11 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-      className="sc-bkypNX jcKRMl"
+      className="sc-izfUZz dHgyRw"
     >
       <div>
         <div
-          className="sc-hXRMBi bifNjO"
+          className="sc-iQNlJl hSunJd"
           onClick={[Function]}
         >
           <h3>
@@ -1002,12 +1002,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
           </h3>
            
           <div
-            className="sc-gwVKww DVgGR"
+            className="sc-epnACN bTibBg"
             open={true}
           />
         </div>
         <div
-          className="sc-eTuwsz eNIsan"
+          className="sc-hXRMBi hEGpML"
           height={null}
           open={true}
         >
@@ -1457,22 +1457,22 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-      className="sc-bkypNX jcKRMl"
+      className="sc-izfUZz dHgyRw"
     >
       <div>
         <div
-          className="sc-hXRMBi bifNjO"
+          className="sc-iQNlJl hSunJd"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-bjPkoM eWHOcJ"
+            className="sc-jEdsij duavpc"
             open={false}
           />
         </div>
         <div
-          className="sc-eTuwsz bYeKWZ"
+          className="sc-hXRMBi dgFUIb"
           height={null}
           open={false}
         >
@@ -1967,22 +1967,22 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-      className="sc-bkypNX jcKRMl"
+      className="sc-izfUZz dHgyRw"
     >
       <div>
         <div
-          className="sc-hXRMBi bifNjO"
+          className="sc-iQNlJl hSunJd"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-gwVKww dXoiYZ"
+            className="sc-epnACN geNAjr"
             open={false}
           />
         </div>
         <div
-          className="sc-eTuwsz bYeKWZ"
+          className="sc-hXRMBi dgFUIb"
           height={null}
           open={false}
         >
