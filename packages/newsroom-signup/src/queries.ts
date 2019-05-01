@@ -17,6 +17,7 @@ export const getCharterQuery = gql`
       grantRequested
       grantApproved
       newsroomDeployTx
+      tcrApplyTx
       newsroomAddress
       charter {
         name
