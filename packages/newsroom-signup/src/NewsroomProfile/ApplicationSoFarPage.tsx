@@ -70,16 +70,15 @@ const TwoSpanner = styled.div`
   grid-column: span 2;
 `;
 
-const LogoSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const QuestionContainer = styled.div`
   padding: 20px 0;
   ${Label} {
     margin-bottom: 10px;
   }
+`;
+
+const StyledAvatarWrap = styled(AvatarWrap)`
+  margin: 5px 10px;
 `;
 
 export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPageProps> {
@@ -110,15 +109,12 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
                 <Value>{this.props.charter.newsroomUrl}</Value>
               </div>
               <TwoSpanner>
-                <LogoSection>
-                  <div>
-                    <Label>Newsroom Logo</Label>
-                    <Value>{this.props.charter.logoUrl}</Value>
-                  </div>
-                  <AvatarWrap>
+                <div>
+                  <Label>Newsroom Logo</Label>
+                  <StyledAvatarWrap>
                     {this.props.charter.logoUrl ? <AvatarImg src={this.props.charter.logoUrl} /> : noAvatar}
-                  </AvatarWrap>
-                </LogoSection>
+                  </StyledAvatarWrap>
+                </div>
               </TwoSpanner>
               <TwoSpanner>
                 <Label>Tagline</Label>

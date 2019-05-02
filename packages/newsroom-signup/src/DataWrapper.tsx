@@ -51,6 +51,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                 let grantApproved: boolean;
                 let newsroomDeployTx: string;
                 let newsroomAddress: EthAddress;
+                let tcrApplyTx: string;
                 if (charterData && charterData.nrsignupNewsroom) {
                   if (charterData.nrsignupNewsroom.charter) {
                     persistedCharter = charterData.nrsignupNewsroom.charter;
@@ -59,6 +60,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                   grantApproved = charterData.nrsignupNewsroom.grantApproved;
                   newsroomDeployTx = charterData.nrsignupNewsroom.newsroomDeployTx;
                   newsroomAddress = charterData.nrsignupNewsroom.newsroomAddress;
+                  tcrApplyTx = charterData.nrsignupNewsroom.tcrApplyTx;
                 }
 
                 return (
@@ -90,6 +92,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                                     grantApproved,
                                     newsroomDeployTx,
                                     newsroomAddress,
+                                    tcrApplyTx,
                                     profileWalletAddress: userData.currentUser.ethAddress,
                                     savedStep: userData.currentUser.nrStep || 0,
                                     furthestStep: userData.currentUser.nrFurthestStep || 0,
