@@ -1,10 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
+import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription, colors } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { FormSection, FormSubhead, StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { charterQuestions, questionsCopy } from "../constants";
+import { urlConstants } from "@joincivil/utils";
 
 export interface CharterQuestionsProps extends StepProps {
   charter: Partial<CharterData>;
@@ -13,6 +14,16 @@ export interface CharterQuestionsProps extends StepProps {
 
 const Textarea = styled(TextareaInput)`
   height: 140px;
+`;
+
+const MoreQuestionsBox = styled.div`
+  padding: 15px 25px;
+  font-size: 13px;
+  text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-bottom: 30px;
+  margin-top: 20px;
 `;
 
 export class CharterQuestions extends React.Component<CharterQuestionsProps> {
@@ -25,12 +36,24 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
       <>
         <OBSectionHeader>Let’s write your Newsroom Charter</OBSectionHeader>
         <OBSectionDescription>
-          Your Charter is an outline of your Newsroom's journalistic mission and purpose.
+          Your Charter is an outline of your Newsroom's journalistic mission and purpose. It helps the Civil community
+          discover and learn more about your newsroom. It's one of the first things the community views about your
+          organization.
         </OBSectionDescription>
         <LearnMoreButton />
         <StyledHr />
         <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
-
+        <MoreQuestionsBox>
+          Have any questions?{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_BEST_PRACTICES}>
+            Read the Civil Foundation's best practices on creating great charters.
+          </a>
+          <br />
+          You can also view{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_EXAMPLE}>
+            a sample charter.
+          </a>
+        </MoreQuestionsBox>
         <FormSection>
           <FormSubhead>{questionsCopy[charterQuestions.PURPOSE]}</FormSubhead>
           <Textarea

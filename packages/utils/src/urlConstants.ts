@@ -58,4 +58,6 @@ export const urlConstants = {
   FAQ_WHAT_IS_PLCR_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",
   FAQ_WHAT_IS_PUBLIC_WALLET_ADDRESS: FAQ_BASE_URL + "/hc/en-us/articles/360016566312-What-is-a-public-wallet-address-",
   FAQ_WALLETS: FAQ_BASE_URL + "/hc/en-us/sections/360003838452-Wallets",
+  FAQ_CHARTER_EXAMPLE: FAQ_BASE_URL + "/hc/en-us/articles/360017689911-What-is-a-Charter-",
+  FAQ_CHARTER_BEST_PRACTICES: "https://blog.joincivil.com/creating-great-charters-6b37cbca47c3",
 };
