@@ -131,6 +131,39 @@ const NEWSROOMS_QUERY = gql`
   }
 `;
 
+const USER_CHALLENGE_DATA_QUERY = gql`
+  query($userAddress: String!) {
+    allChallenges: userChallengeData(userAddr: $userAddress) {
+      pollID,
+      pollType,
+      userDidReveal,
+      didUserCollect,
+      didUserRescue,
+      didCollectAmount,
+      isVoterWinner,
+      pollIsPassed,
+      choice,
+      numTokens,
+      parentChallengeID,
+    },
+    challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal:true) {
+      pollID,
+      pollType,
+      parentChallengeID,
+    }
+    challengesWithRewards: userChallengeData(userAddr: $userAddress, canUserCollect: true) {
+      pollID,
+      pollType,
+      salt,
+      voterReward,
+    }
+    challengesToRescue: userChallengeData(userAddr: $userAddress, canUserRescue: true) {
+      pollID,
+      pollType,
+    }
+  }
+`;
+
 // We're storing which challenges to multi-claim in the state of this component, because
 // the user can select which rewards to batch
 // @TODO(jon: Clean this up. Maybe this gets put into redux, or we create a more
@@ -276,124 +309,143 @@ class DashboardActivity extends React.Component<
   };
 
   private renderUserVotes = (): JSX.Element => {
-    const {
-      allChallengesWithAvailableActions,
-      userChallengesWithUnclaimedRewards,
-      allChallengesWithUnrevealedVotes,
-      userChallengesWithRescueTokens,
-      userAppealChallengesWithRescueTokens,
-      userAppealChallengesWithUnclaimedRewards,
-      proposalChallengesWithAvailableActions,
-      proposalChallengesWithUnrevealedVotes,
-      proposalChallengesWithUnclaimedRewards,
-      proposalChallengesWithRescueTokens,
-    } = this.props;
-    const allVotesTabTitle = (
-      <AllChallengesDashboardTabTitle
-        count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
-      />
-    );
-    const revealVoteTabTitle = (
-      <RevealVoteDashboardTabTitle
-        count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
-      />
-    );
-    const claimRewardsTabTitle = (
-      <ClaimRewardsDashboardTabTitle
-        count={
-          userChallengesWithUnclaimedRewards!.count() +
-          userAppealChallengesWithUnclaimedRewards!.count() +
-          proposalChallengesWithUnclaimedRewards!.count()
-        }
-      />
-    );
-    const rescueTokensTabTitle = (
-      <RescueTokensDashboardTabTitle
-        count={
-          userChallengesWithRescueTokens!.count() +
-          userAppealChallengesWithRescueTokens!.count() +
-          proposalChallengesWithRescueTokens!.count()
-        }
-      />
-    );
-    const balance = getFormattedTokenBalance(this.props.balance);
-    const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
-    const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
-    const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
+    if (this.props.useGraphQL) {
+      return (
+        <Query query={USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
+          {({ loading, error, data }: any): JSX.Element => {
+            if (loading && !data) {
+              return <LoadingMsg />;
+            }
+            if (error) {
+              return <ErrorLoadingDataMsg />;
+            }
+            console.log("user challenge data", data);
+            return <>Got the data!</>
+          }}
+        </Query>
+      );
 
-    return (
-      <>
-        <Tabs
-          TabComponent={StyledDashboardSubTab}
-          TabsNavComponent={StyledTabsComponent}
-          activeIndex={this.state.activeSubTabIndex}
-          onActiveTabChange={this.setActiveSubTabIndex}
-        >
-          <Tab title={allVotesTabTitle}>
-            <MyTasks
-              challenges={allChallengesWithAvailableActions}
-              proposalChallenges={proposalChallengesWithAvailableActions}
-              showClaimRewardsTab={() => {
-                this.showClaimRewardsTab();
-              }}
-              showRescueTokensTab={() => {
-                this.showRescueTokensTab();
-              }}
-            />
-          </Tab>
-          <Tab title={revealVoteTabTitle}>
-            <MyTasks
-              challenges={allChallengesWithUnrevealedVotes}
-              proposalChallenges={proposalChallengesWithUnrevealedVotes}
-              showClaimRewardsTab={() => {
-                this.showClaimRewardsTab();
-              }}
-              showRescueTokensTab={() => {
-                this.showRescueTokensTab();
-              }}
-            />
-          </Tab>
-          <Tab title={claimRewardsTabTitle}>
-            <ChallengesWithRewardsToClaim
-              challenges={userChallengesWithUnclaimedRewards}
-              appealChallenges={userAppealChallengesWithUnclaimedRewards}
-              proposalChallenges={proposalChallengesWithUnclaimedRewards}
-              onMobileTransactionClick={this.showNoMobileTransactionsModal}
-            />
-          </Tab>
-          <Tab title={rescueTokensTabTitle}>
-            <ChallengesWithTokensToRescue
-              challenges={userChallengesWithRescueTokens}
-              appealChallenges={userAppealChallengesWithRescueTokens}
-              proposalChallenges={proposalChallengesWithRescueTokens}
-              onMobileTransactionClick={this.showNoMobileTransactionsModal}
-            />
-          </Tab>
-          <Tab title={<SubTabReclaimTokensText />}>
-            <>
-              {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
+    } else {
+      const {
+        allChallengesWithAvailableActions,
+        userChallengesWithUnclaimedRewards,
+        allChallengesWithUnrevealedVotes,
+        userChallengesWithRescueTokens,
+        userAppealChallengesWithRescueTokens,
+        userAppealChallengesWithUnclaimedRewards,
+        proposalChallengesWithAvailableActions,
+        proposalChallengesWithUnrevealedVotes,
+        proposalChallengesWithUnclaimedRewards,
+        proposalChallengesWithRescueTokens,
+      } = this.props;
 
-              {isCivilianWhitelist ? (
-                <DashboardTransferTokenForm
-                  renderTransferBalance={this.renderTransferBalance}
-                  cvlAvailableBalance={balance}
-                  cvlVotingBalance={votingBalance}
-                >
-                  {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
-                    <DepositTokens />
-                  ) : (
-                    <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-                  )}
-                </DashboardTransferTokenForm>
-              ) : (
-                <DashboardTutorialWarning />
-              )}
-            </>
-          </Tab>
-        </Tabs>
-        {this.renderNoMobileTransactions()}
-      </>
-    );
+      const allVotesTabTitle = (
+        <AllChallengesDashboardTabTitle
+          count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
+        />
+      );
+      const revealVoteTabTitle = (
+        <RevealVoteDashboardTabTitle
+          count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
+        />
+      );
+      const claimRewardsTabTitle = (
+        <ClaimRewardsDashboardTabTitle
+          count={
+            userChallengesWithUnclaimedRewards!.count() +
+            userAppealChallengesWithUnclaimedRewards!.count() +
+            proposalChallengesWithUnclaimedRewards!.count()
+          }
+        />
+      );
+      const rescueTokensTabTitle = (
+        <RescueTokensDashboardTabTitle
+          count={
+            userChallengesWithRescueTokens!.count() +
+            userAppealChallengesWithRescueTokens!.count() +
+            proposalChallengesWithRescueTokens!.count()
+          }
+        />
+      );
+      const balance = getFormattedTokenBalance(this.props.balance);
+      const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
+      const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
+      const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
+
+      return (
+        <>
+          <Tabs
+            TabComponent={StyledDashboardSubTab}
+            TabsNavComponent={StyledTabsComponent}
+            activeIndex={this.state.activeSubTabIndex}
+            onActiveTabChange={this.setActiveSubTabIndex}
+          >
+            <Tab title={allVotesTabTitle}>
+              <MyTasks
+                challenges={allChallengesWithAvailableActions}
+                proposalChallenges={proposalChallengesWithAvailableActions}
+                showClaimRewardsTab={() => {
+                  this.showClaimRewardsTab();
+                }}
+                showRescueTokensTab={() => {
+                  this.showRescueTokensTab();
+                }}
+              />
+            </Tab>
+            <Tab title={revealVoteTabTitle}>
+              <MyTasks
+                challenges={allChallengesWithUnrevealedVotes}
+                proposalChallenges={proposalChallengesWithUnrevealedVotes}
+                showClaimRewardsTab={() => {
+                  this.showClaimRewardsTab();
+                }}
+                showRescueTokensTab={() => {
+                  this.showRescueTokensTab();
+                }}
+              />
+            </Tab>
+            <Tab title={claimRewardsTabTitle}>
+              <ChallengesWithRewardsToClaim
+                challenges={userChallengesWithUnclaimedRewards}
+                appealChallenges={userAppealChallengesWithUnclaimedRewards}
+                proposalChallenges={proposalChallengesWithUnclaimedRewards}
+                onMobileTransactionClick={this.showNoMobileTransactionsModal}
+              />
+            </Tab>
+            <Tab title={rescueTokensTabTitle}>
+              <ChallengesWithTokensToRescue
+                challenges={userChallengesWithRescueTokens}
+                appealChallenges={userAppealChallengesWithRescueTokens}
+                proposalChallenges={proposalChallengesWithRescueTokens}
+                onMobileTransactionClick={this.showNoMobileTransactionsModal}
+              />
+            </Tab>
+            <Tab title={<SubTabReclaimTokensText />}>
+              <>
+                {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
+
+                {isCivilianWhitelist ? (
+                  <DashboardTransferTokenForm
+                    renderTransferBalance={this.renderTransferBalance}
+                    cvlAvailableBalance={balance}
+                    cvlVotingBalance={votingBalance}
+                  >
+                    {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
+                      <DepositTokens />
+                    ) : (
+                      <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
+                    )}
+                  </DashboardTransferTokenForm>
+                ) : (
+                  <DashboardTutorialWarning />
+                )}
+              </>
+            </Tab>
+          </Tabs>
+          {this.renderNoMobileTransactions()}
+        </>
+      );
+    }
   };
 
   private renderTransferBalance = (value: number) => {
