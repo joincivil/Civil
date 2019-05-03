@@ -42,7 +42,7 @@ import {
 } from "../../selectors";
 
 import ActivityList from "./ActivityList";
-import MyTasks from "./MyTasks";
+import MyTasksList from "./MyTasksList";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import TransferCivilTokens from "./TransferCivilTokens";
@@ -401,7 +401,7 @@ class DashboardActivity extends React.Component<
               />
             </Tab>
             <Tab title={<SubTabReclaimTokensText />}>
-              <TransferCivilTokens />
+              <TransferCivilTokens showNoMobileTransactionsModal={this.showNoMobileTransactionsModal} />
             </Tab>
           </Tabs>
           {this.renderNoMobileTransactions()}
