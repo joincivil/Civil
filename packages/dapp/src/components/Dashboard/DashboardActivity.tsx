@@ -19,13 +19,7 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   StyledDashboardActivityDescription,
-  Notice,
-  NoticeTypes,
-  DashboardTransferTokenForm,
-  DashboardTutorialWarning,
-  BalanceType,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -49,11 +43,9 @@ import {
 
 import ActivityList from "./ActivityList";
 import MyTasks from "./MyTasks";
-import ReclaimTokens from "./ReclaimTokens";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
-import DepositTokens from "./DepositTokens";
-import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
+import TransferCivilTokens from "./TransferCivilTokens";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import LoadingMsg from "../utility/LoadingMsg";
@@ -96,8 +88,6 @@ export interface DashboardActivityReduxProps {
   proposalChallengesWithUnclaimedRewards?: Set<string>;
   proposalChallengesWithRescueTokens?: Set<string>;
   userAccount: EthAddress;
-  balance: BigNumber;
-  votingBalance: BigNumber;
   useGraphQL: boolean;
 }
 
@@ -109,7 +99,6 @@ export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
-  fromBalanceType: number;
 }
 
 export const StyledTabsComponent = styled.div`
@@ -199,15 +188,11 @@ class DashboardActivity extends React.Component<
   DashboardActivityProps & DashboardActivityReduxProps,
   DashboardActivityState
 > {
-  constructor(props: DashboardActivityProps & DashboardActivityReduxProps) {
-    super(props);
-    this.state = {
-      isNoMobileTransactionVisible: false,
-      activeTabIndex: 0,
-      activeSubTabIndex: 0,
-      fromBalanceType: 0,
-    };
-  }
+  public state = {
+    isNoMobileTransactionVisible: false,
+    activeTabIndex: 0,
+    activeSubTabIndex: 0,
+  };
 
   public componentWillMount(): void {
     const { activeDashboardTab, activeDashboardSubTab } = this.props.match.params;
@@ -338,7 +323,6 @@ class DashboardActivity extends React.Component<
         proposalChallengesWithUnclaimedRewards,
         proposalChallengesWithRescueTokens,
       } = this.props;
-
       const allVotesTabTitle = (
         <AllChallengesDashboardTabTitle
           count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
@@ -367,10 +351,6 @@ class DashboardActivity extends React.Component<
           }
         />
       );
-      const balance = getFormattedTokenBalance(this.props.balance);
-      const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
-      const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
-      const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
 
       return (
         <>
@@ -421,35 +401,13 @@ class DashboardActivity extends React.Component<
               />
             </Tab>
             <Tab title={<SubTabReclaimTokensText />}>
-              <>
-                {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
-
-                {isCivilianWhitelist ? (
-                  <DashboardTransferTokenForm
-                    renderTransferBalance={this.renderTransferBalance}
-                    cvlAvailableBalance={balance}
-                    cvlVotingBalance={votingBalance}
-                  >
-                    {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
-                      <DepositTokens />
-                    ) : (
-                      <ReclaimTokens onMobileTransactionClick={this.showNoMobileTransactionsModal} />
-                    )}
-                  </DashboardTransferTokenForm>
-                ) : (
-                  <DashboardTutorialWarning />
-                )}
-              </>
+              <TransferCivilTokens />
             </Tab>
           </Tabs>
           {this.renderNoMobileTransactions()}
         </>
       );
     }
-  };
-
-  private renderTransferBalance = (value: number) => {
-    this.setState({ fromBalanceType: value });
   };
 
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
@@ -487,17 +445,6 @@ class DashboardActivity extends React.Component<
   private hideNoMobileTransactionsModal = (): void => {
     this.setState({ isNoMobileTransactionVisible: false });
   };
-
-  private renderTransferTokensMsg(): JSX.Element {
-    return (
-      <StyledDashboardActivityDescription noBorder={true}>
-        <Notice type={NoticeTypes.ERROR}>
-          Unlock your account by transfering at least 50% of your <b>available tokens</b> into your{" "}
-          <b>voting balance</b>. Unlocking your account allow you to sell Civil tokens.
-        </Notice>
-      </StyledDashboardActivityDescription>
-    );
-  }
 
   private renderNoMobileTransactions(): JSX.Element {
     if (this.state.isNoMobileTransactionVisible) {
@@ -555,15 +502,6 @@ const mapStateToProps = (
   const userAppealChallengesWithRescueTokens = getUserAppealChallengesWithRescueTokens(state);
   const proposalChallengesWithRescueTokens = getProposalChallengesWithRescueTokens(state);
 
-  let balance = new BigNumber(0);
-  if (user.account && user.account.balance) {
-    balance = user.account.balance;
-  }
-  let votingBalance = new BigNumber(0);
-  if (user.account && user.account.votingBalance) {
-    votingBalance = user.account.votingBalance;
-  }
-
   return {
     allChallengesWithAvailableActions,
     currentUserNewsrooms,
@@ -579,8 +517,6 @@ const mapStateToProps = (
     proposalChallengesWithUnclaimedRewards,
     proposalChallengesWithRescueTokens,
     userAccount: user.account.account,
-    balance,
-    votingBalance,
     useGraphQL,
     ...ownProps,
   };

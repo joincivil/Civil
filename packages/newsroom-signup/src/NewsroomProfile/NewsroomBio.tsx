@@ -31,7 +31,7 @@ export interface NewsroomBioProps extends StepProps {
 }
 
 const LogoFormWrap = styled.div`
-  margin-bottom: 7px;
+  margin-bottom: 15px;
   small {
     background: white;
     padding: 5px 5px 5px 10px;
