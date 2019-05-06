@@ -34,7 +34,7 @@ const AppealDecisionText: React.FunctionComponent<AppealDecisionTextProps> = pro
 };
 
 const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
-  const { appeal, appealChallenge, appealChallengeState, challengeState } = props;
+  const { challenge, appeal, appealChallenge, appealChallengeState, challengeState } = props;
 
   if (!challengeState) {
     return <></>;
@@ -92,7 +92,7 @@ const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksItemSubCo
       );
       break;
 
-    case isResolved && !!appeal:
+    case isResolved && doesChallengeHaveAppeal(challenge!.challenge):
       explanation = (
         <p>
           The Civil Council {currentNewsroomStatusPastTense} this newsroom via the appeal process, {councilDecision}ing

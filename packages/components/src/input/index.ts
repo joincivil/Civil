@@ -7,3 +7,4 @@ export * from "./SaltInput";
 export * from "./SlideCheckbox";
 export * from "./Checkbox";
 export * from "./InputWithButton";
+export * from "./ImageFileToDataUri";

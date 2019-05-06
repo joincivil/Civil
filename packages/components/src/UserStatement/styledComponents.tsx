@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
+import { CancelButton } from "../Button";
 
 import { colors, fonts } from "../styleConstants";
 
@@ -149,13 +150,34 @@ export const StyledDepositAmount = styled(StyledDepositLabel)`
 
 export const SectionActions = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
   padding: 50px 0 120px;
+
+  ${CancelButton} {
+    font-size: 13px;
+    line-height: 14px;
+    margin: 6px 27px 0 0;
+    text-transform: none;
+  }
 
   & ${SectionFormCopyHelper} {
     margin-top: 18px;
     max-width: 305px;
     text-align: left;
+  }
+`;
+
+export const SectionConfirmChallenge = styled.div`
+  display: flex;
+  font-size: 15px;
+  letter-spacing: -0.1px;
+  line-height: 26px;
+  padding: 32px 0 0;
+  margin: 0 0 56px;
+
+  & > div + div {
+    margin: -8px 0 0 12px;
   }
 `;
 

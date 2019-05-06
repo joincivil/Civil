@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Listing / Listing History Event Default 1`] = `
     }
   >
     <div
-      className="sc-wRHdD dENyMF"
+      className="sc-jRnjsG hyUlwN"
     />
   </div>
   <button
@@ -550,7 +550,7 @@ exports[`Storyshots Registry / Listing / Listing History Event History Events Ti
     }
   >
     <div
-      className="sc-wRHdD dENyMF"
+      className="sc-jRnjsG hyUlwN"
     />
   </div>
   <button

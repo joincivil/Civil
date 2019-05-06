@@ -29,3 +29,9 @@ export const saveStepsMutation = gql`
     nrsignupUpdateSteps(input: $input)
   }
 `;
+
+export const saveApplyTxMutation = gql`
+  mutation($input: String!) {
+    nrsignupSaveNewsroomApplyTxHash(txHash: $input)
+  }
+`;

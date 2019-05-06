@@ -1,7 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { OBCollapsable, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
-
+import { Mutation, MutationFunc } from "react-apollo";
+import { saveApplyTxMutation } from "../mutations";
+import { getCharterQuery } from "../queries";
 import { ApplyToTCRStepOwnProps, ApplyToTCRStepReduxProps } from "./index";
 import TransferToMultisig, { TransferPostTransactionProp } from "./TransferToMultisig";
 import ApplyToTCRForm, { ApplyPostTransactionProp } from "./ApplyToTCRForm";
@@ -37,14 +39,27 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
         <AboutApplicationButton />
 
         {this.renderTransferSection()}
-
-        <ApplyToTCRForm
-          newsroomAddress={address!}
-          minDeposit={minDeposit}
-          multisigAddress={multisigAddress!}
-          multisigHasMinDeposit={multisigHasMinDeposit}
-          postApplyToTCR={postApplyToTCR}
-        />
+        <Mutation
+          mutation={saveApplyTxMutation}
+          refetchQueries={[
+            {
+              query: getCharterQuery,
+            },
+          ]}
+        >
+          {(saveTxHash: MutationFunc) => {
+            return (
+              <ApplyToTCRForm
+                newsroomAddress={address!}
+                minDeposit={minDeposit}
+                multisigAddress={multisigAddress!}
+                multisigHasMinDeposit={multisigHasMinDeposit}
+                postApplyToTCR={postApplyToTCR}
+                saveTxHash={saveTxHash}
+              />
+            );
+          }}
+        </Mutation>
       </>
     );
   }

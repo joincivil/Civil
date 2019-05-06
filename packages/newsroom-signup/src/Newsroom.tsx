@@ -140,6 +140,7 @@ export interface NewsroomGqlProps {
   newsroomAddress?: string;
   grantRequested?: boolean;
   grantApproved?: boolean;
+  tcrApplyTx?: string;
   newsroomDeployTx?: EthAddress;
   profileWalletAddress?: EthAddress;
   persistedCharter?: Partial<CharterData>;
@@ -258,6 +259,11 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
       if (!this.props.newsroomAddress && this.props.newsroomDeployTx) {
         const newsroom = await this.props.civil.newsroomFromFactoryTxHashUntrusted(this.props.newsroomDeployTx);
         await this.props.saveAddress({ variables: { input: newsroom.address } });
+      }
+      // if they left before the apply step happened and they are stuck on 12
+      if (this.props.tcrApplyTx && this.props.savedStep === STEP.APPLY) {
+        await this.props.civil.awaitReceipt(this.props.tcrApplyTx);
+        this.navigate(1);
       }
 
       const tcr = await this.props.civil.tcrSingletonTrusted();

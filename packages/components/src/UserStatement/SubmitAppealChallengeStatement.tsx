@@ -1,8 +1,9 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, SecondaryButton } from "../Button";
+import { buttonSizes, CancelButton } from "../Button";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import { MetaMaskLogoButton } from "../";
 import {
   StyledUserStatementHeaderOuter,
   StyledUserStatementHeader,
@@ -26,7 +27,6 @@ import {
   StyledDepositLabel,
   StyledDepositAmount,
   SectionActions,
-  PullRight,
 } from "./styledComponents";
 
 export interface SubmitAppealChallengeStatementProps {
@@ -131,13 +131,8 @@ export class SubmitAppealChallengeStatement extends React.Component<
 
             <SectionActions>
               <div>
-                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
-                  Cancel
-                </SecondaryButton>
-              </div>
-
-              <PullRight>
                 <TransactionButtonNoModal
+                  Button={MetaMaskLogoButton}
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
                   disabled={this.isFormInvalid()}
@@ -148,7 +143,13 @@ export class SubmitAppealChallengeStatement extends React.Component<
                 <SectionFormCopyHelper>
                   This will pop up a separate MetaMask window to confirm your transactions.
                 </SectionFormCopyHelper>
-              </PullRight>
+              </div>
+
+              <div>
+                <CancelButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
+                  Cancel
+                </CancelButton>
+              </div>
             </SectionActions>
           </StyledUserStatementBody>
         </StyledUserStatementBodyOuter>
