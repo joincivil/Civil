@@ -1,4 +1,5 @@
 import { ListingWrapper, NewsroomWrapper, ChallengeData, AppealData, AppealChallengeData } from "@joincivil/core";
+import { Set } from "immutable";
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
@@ -206,4 +207,25 @@ export function transformGraphQLDataIntoAppealChallenge(
   } else {
     return undefined;
   }
+}
+
+export function transformGraphQLDataIntoDashboardChallengesSet(
+  queryUserChallengeData: any[],
+): Set<string> {
+  let allChallenges = Set<string>();
+  if (queryUserChallengeData) {
+    const challengeIDs = queryUserChallengeData.filter((challengeData) => {
+      return challengeData.pollType === "CHALLENGE";
+    }).map((challengeData) => {
+      return challengeData.pollID;
+    });
+    const appealChallengeParentChallengeIDs = queryUserChallengeData.filter((challengeData) => {
+      return challengeData.pollType === "APPEAL_CHALLENGE";
+    }).map((challengeData) => {
+      return challengeData.parentChallengeID;
+    });
+
+    allChallenges = allChallenges.union(challengeIDs, appealChallengeParentChallengeIDs);
+  }
+  return allChallenges;
 }

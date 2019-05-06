@@ -8,14 +8,9 @@ import {
   Tabs,
   Tab,
   DashboardActivity as DashboardActivityComponent,
-  AllChallengesDashboardTabTitle,
-  RevealVoteDashboardTabTitle,
-  ClaimRewardsDashboardTabTitle,
-  RescueTokensDashboardTabTitle,
   ChallengesStakedDashboardTabTitle,
   ChallengesCompletedDashboardTabTitle,
   StyledDashboardSubTab,
-  SubTabReclaimTokensText,
   Modal,
   ProgressModalContentMobileUnsupported,
   StyledDashboardActivityDescription,
@@ -40,12 +35,13 @@ import {
   getProposalChallengesWithRescueTokens,
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
+import {
+  transformGraphQLDataIntoDashboardChallengesSet,
+} from "../../helpers/queryTransformations";
 
-import ActivityList from "./ActivityList";
+import MyTasks from "./MyTasks";
 import MyTasksList from "./MyTasksList";
-import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
-import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
-import TransferCivilTokens from "./TransferCivilTokens";
+import ActivityList from "./ActivityList";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import LoadingMsg from "../utility/LoadingMsg";
@@ -209,13 +205,16 @@ class DashboardActivity extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <DashboardActivityComponent
-        userVotes={this.renderUserVotes()}
-        userNewsrooms={this.renderUserNewsrooms()}
-        userChallenges={this.renderUserChallenges()}
-        activeIndex={this.state.activeTabIndex}
-        onTabChange={this.setActiveTabIndex}
-      />
+      <>
+        <DashboardActivityComponent
+          userVotes={this.renderUserVotes()}
+          userNewsrooms={this.renderUserNewsrooms()}
+          userChallenges={this.renderUserChallenges()}
+          activeIndex={this.state.activeTabIndex}
+          onTabChange={this.setActiveTabIndex}
+        />
+        {this.renderNoMobileTransactions()}
+      </>
     );
   }
   private renderUserNewsrooms = (): JSX.Element => {
@@ -262,7 +261,7 @@ class DashboardActivity extends React.Component<
               <StyledDashboardActivityDescription>
                 Summary of completed challenges you voted in
               </StyledDashboardActivityDescription>
-              <MyTasks
+              <MyTasksList
                 challenges={allCompletedChallengesVotedOn}
                 showClaimRewardsTab={() => {
                   this.showClaimRewardsTab();
@@ -288,7 +287,6 @@ class DashboardActivity extends React.Component<
             </>
           </Tab>
         </Tabs>
-        {this.renderNoMobileTransactions()}
       </>
     );
   };
@@ -304,8 +302,33 @@ class DashboardActivity extends React.Component<
             if (error) {
               return <ErrorLoadingDataMsg />;
             }
-            console.log("user challenge data", data);
-            return <>Got the data!</>
+            if (data) {
+              const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
+              const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(data.challengesToReveal);
+              const userChallengesWithUnclaimedRewards = transformGraphQLDataIntoDashboardChallengesSet(data.challengesWithRewards);
+              const userChallengesWithRescueTokens = transformGraphQLDataIntoDashboardChallengesSet(data.challengesToRescue);
+              console.log("user challenge data", allChallengesWithAvailableActions.toArray(), userChallengesWithUnclaimedRewards, allChallengesWithUnrevealedVotes, userChallengesWithRescueTokens);
+
+              const myTasksProps = {
+                allChallengesWithAvailableActions,
+                allChallengesWithUnrevealedVotes,
+                userChallengesWithUnclaimedRewards,
+                userChallengesWithRescueTokens,
+                userAppealChallengesWithRescueTokens: Set<string>(),
+                userAppealChallengesWithUnclaimedRewards: Set<string>(),
+                proposalChallengesWithAvailableActions: Set<string>(),
+                proposalChallengesWithUnrevealedVotes: Set<string>(),
+                proposalChallengesWithUnclaimedRewards: Set<string>(),
+                proposalChallengesWithRescueTokens: Set<string>(),
+                activeSubTabIndex: this.state.activeSubTabIndex,
+                setActiveSubTabIndex: this.setActiveSubTabIndex,
+                showClaimRewardsTab: this.showClaimRewardsTab,
+                showRescueTokensTab: this.showRescueTokensTab,
+                showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+              };
+              return <MyTasks {...myTasksProps} />
+            }
+            return <></>;
           }}
         </Query>
       );
@@ -313,8 +336,8 @@ class DashboardActivity extends React.Component<
     } else {
       const {
         allChallengesWithAvailableActions,
-        userChallengesWithUnclaimedRewards,
         allChallengesWithUnrevealedVotes,
+        userChallengesWithUnclaimedRewards,
         userChallengesWithRescueTokens,
         userAppealChallengesWithRescueTokens,
         userAppealChallengesWithUnclaimedRewards,
@@ -323,90 +346,25 @@ class DashboardActivity extends React.Component<
         proposalChallengesWithUnclaimedRewards,
         proposalChallengesWithRescueTokens,
       } = this.props;
-      const allVotesTabTitle = (
-        <AllChallengesDashboardTabTitle
-          count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
-        />
-      );
-      const revealVoteTabTitle = (
-        <RevealVoteDashboardTabTitle
-          count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
-        />
-      );
-      const claimRewardsTabTitle = (
-        <ClaimRewardsDashboardTabTitle
-          count={
-            userChallengesWithUnclaimedRewards!.count() +
-            userAppealChallengesWithUnclaimedRewards!.count() +
-            proposalChallengesWithUnclaimedRewards!.count()
-          }
-        />
-      );
-      const rescueTokensTabTitle = (
-        <RescueTokensDashboardTabTitle
-          count={
-            userChallengesWithRescueTokens!.count() +
-            userAppealChallengesWithRescueTokens!.count() +
-            proposalChallengesWithRescueTokens!.count()
-          }
-        />
-      );
 
-      return (
-        <>
-          <Tabs
-            TabComponent={StyledDashboardSubTab}
-            TabsNavComponent={StyledTabsComponent}
-            activeIndex={this.state.activeSubTabIndex}
-            onActiveTabChange={this.setActiveSubTabIndex}
-          >
-            <Tab title={allVotesTabTitle}>
-              <MyTasks
-                challenges={allChallengesWithAvailableActions}
-                proposalChallenges={proposalChallengesWithAvailableActions}
-                showClaimRewardsTab={() => {
-                  this.showClaimRewardsTab();
-                }}
-                showRescueTokensTab={() => {
-                  this.showRescueTokensTab();
-                }}
-              />
-            </Tab>
-            <Tab title={revealVoteTabTitle}>
-              <MyTasks
-                challenges={allChallengesWithUnrevealedVotes}
-                proposalChallenges={proposalChallengesWithUnrevealedVotes}
-                showClaimRewardsTab={() => {
-                  this.showClaimRewardsTab();
-                }}
-                showRescueTokensTab={() => {
-                  this.showRescueTokensTab();
-                }}
-              />
-            </Tab>
-            <Tab title={claimRewardsTabTitle}>
-              <ChallengesWithRewardsToClaim
-                challenges={userChallengesWithUnclaimedRewards}
-                appealChallenges={userAppealChallengesWithUnclaimedRewards}
-                proposalChallenges={proposalChallengesWithUnclaimedRewards}
-                onMobileTransactionClick={this.showNoMobileTransactionsModal}
-              />
-            </Tab>
-            <Tab title={rescueTokensTabTitle}>
-              <ChallengesWithTokensToRescue
-                challenges={userChallengesWithRescueTokens}
-                appealChallenges={userAppealChallengesWithRescueTokens}
-                proposalChallenges={proposalChallengesWithRescueTokens}
-                onMobileTransactionClick={this.showNoMobileTransactionsModal}
-              />
-            </Tab>
-            <Tab title={<SubTabReclaimTokensText />}>
-              <TransferCivilTokens showNoMobileTransactionsModal={this.showNoMobileTransactionsModal} />
-            </Tab>
-          </Tabs>
-          {this.renderNoMobileTransactions()}
-        </>
-      );
+      const myTasksProps = {
+        allChallengesWithAvailableActions,
+        allChallengesWithUnrevealedVotes,
+        userChallengesWithUnclaimedRewards,
+        userChallengesWithRescueTokens,
+        userAppealChallengesWithRescueTokens,
+        userAppealChallengesWithUnclaimedRewards,
+        proposalChallengesWithAvailableActions,
+        proposalChallengesWithUnrevealedVotes,
+        proposalChallengesWithUnclaimedRewards,
+        proposalChallengesWithRescueTokens,
+        activeSubTabIndex: this.state.activeSubTabIndex,
+        setActiveSubTabIndex: this.setActiveSubTabIndex,
+        showClaimRewardsTab: this.showClaimRewardsTab,
+        showRescueTokensTab: this.showRescueTokensTab,
+        showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+      };
+      return <MyTasks {...myTasksProps} />
     }
   };
 
