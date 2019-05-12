@@ -34,16 +34,23 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
     let isRescueTokensVisible;
     let isClaimedRewardVisible;
     if (userChallengeData) {
+      console.log("there is userChallengeData: ", userChallengeData);
       const challenge = this.props.challenge;
       const appealChallenge = this.props.appealChallenge;
       if (challenge) {
         isWinner = isUserWinner(challenge, userChallengeData);
+        console.log("challenge isWinner: ", isWinner);
         isClaimRewardsVisible = canUserCollectReward(challenge, userChallengeData);
+        console.log("challenge isClaimRewardsVisible: ", isClaimRewardsVisible);
         isRescueTokensVisible = canRescueTokens(challenge, userChallengeData);
+        console.log("challenge isRescueTokensVisible: ", isRescueTokensVisible);
       } else if (appealChallenge) {
         isWinner = isUserAppealChallengeWinner(appealChallenge, userChallengeData);
-        isClaimedRewardVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
+        console.log("appeal challenge isWinner: ", isWinner);
+        isClaimRewardsVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
+        console.log("appeal challenge isClaimRewardsVisible: ", isClaimRewardsVisible);
         isRescueTokensVisible = canRescueAppealChallengeTokens(appealChallenge, userChallengeData);
+        console.log("appeal challenge isRescueTokensVisible: ", isRescueTokensVisible);
       }
       isClaimedRewardVisible = userChallengeData.didCollectAmount;
     }
