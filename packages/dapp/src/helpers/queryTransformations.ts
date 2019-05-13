@@ -110,6 +110,48 @@ export const CHALLENGE_QUERY = gql`
   ${CHALLENGE_FRAGMENT}
 `;
 
+export const USER_CHALLENGE_DATA_QUERY = gql`
+  query($userAddr: String!, $pollID: Int!) {
+    userChallengeData(userAddr: $userAddr, pollID: $pollID) {
+      pollID
+      pollRevealDate
+      pollType
+      userDidCommit
+      userDidReveal
+      didUserCollect
+      didUserRescue
+      didCollectAmount
+      isVoterWinner
+      pollIsPassed
+      salt
+      choice
+      numTokens
+      voterReward
+      parentChallengeID
+    }
+  }
+`;
+
+export function transformGraphQLDataIntoSpecificUserChallenge(userChallenge: any): UserChallengeData {
+  if (userChallenge && userChallenge.userChallengeData && userChallenge.userChallengeData.length > 0) {
+    const userData = userChallenge.userChallengeData[0];
+    return {
+      didUserCommit: userData.userDidCommit,
+      didUserReveal: userData.userDidReveal,
+      didUserCollect: userData.didUserCollect,
+      didUserRescue: userData.didUserRescue,
+      didCollectAmount: userData.didCollectAmount,
+      isVoterWinner: userData.isVoterWinner,
+      salt: userData.salt,
+      choice: userData.choice,
+      numTokens: userData.numTokens,
+      voterReward: userData.voterReward,
+    };
+  } else {
+    return {};
+  }
+}
+
 export function transformGraphQLDataIntoNewsroom(listing: any, listingAddress: string): NewsroomWrapper {
   return {
     address: listingAddress,

@@ -42,7 +42,7 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
         isRescueTokensVisible = canRescueTokens(challenge, userChallengeData);
       } else if (appealChallenge) {
         isWinner = isUserAppealChallengeWinner(appealChallenge, userChallengeData);
-        isClaimedRewardVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
+        isClaimRewardsVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
         isRescueTokensVisible = canRescueAppealChallengeTokens(appealChallenge, userChallengeData);
       }
       isClaimedRewardVisible = userChallengeData.didCollectAmount;
