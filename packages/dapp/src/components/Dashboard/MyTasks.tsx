@@ -122,6 +122,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             challenges={userChallengesWithUnclaimedRewards}
             appealChallenges={userAppealChallengesWithUnclaimedRewards}
             proposalChallenges={proposalChallengesWithUnclaimedRewards}
+            userChallengeData={userChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
         </Tab>

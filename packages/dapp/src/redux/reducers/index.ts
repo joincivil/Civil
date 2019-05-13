@@ -98,7 +98,7 @@ export interface State {
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<string, ContentData>;
-  contentFetched: Set<EthContentHeader>;
+  contentFetched: Map<string, EthContentHeader>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;

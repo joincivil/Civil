@@ -24,7 +24,8 @@ import {
   getSalts,
   StyledTabsComponent,
 } from "./DashboardActivity";
-import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
+// import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
+import ClaimRewardsItem from "./ClaimRewardsItem";
 
 enum TransactionTypes {
   MULTI_CLAIM_REWARDS = "MULTI_CLAIM_REWARDS",
@@ -66,6 +67,7 @@ export interface ChallengesWithRewardsToClaimProps {
   challenges: any;
   appealChallenges: any;
   proposalChallenges: any;
+  userChallengeData?: any;
   onMobileTransactionClick?(): any;
 }
 
@@ -93,6 +95,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
     const isClaimRewardsButtonDisabled = this.isEmpty(this.state.challengesToClaim);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiClaim } = this;
+    const { userChallengeData: allUserChallengeData } = this.props;
 
     return (
       <>
@@ -109,19 +112,28 @@ class ChallengesWithRewardsToClaim extends React.Component<
             <>
               {this.props.challenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return <ClaimRewardsItem key={c} challengeID={c!} queryUserChallengeData={userChallengeData} toggleSelect={this.setChallengesToMultiClaim} />
+                })}
 
               {this.props.appealChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemClaimReward
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return <ClaimRewardsItem
                     key={c}
                     appealChallengeID={c!}
+                    queryUserChallengeData={userChallengeData}
                     toggleSelect={this.setChallengesToMultiClaim}
                   />
-                ))}
+                })}
             </>
           </Tab>
           <Tab title="Parameter Proposal Challenges">
@@ -129,7 +141,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
               {this.props.proposalChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
                 .map((c: string) => (
-                  <ActivityListItemClaimReward
+                  <ClaimRewardsItem
                     key={c}
                     isProposalChallenge={true}
                     challengeID={c!}

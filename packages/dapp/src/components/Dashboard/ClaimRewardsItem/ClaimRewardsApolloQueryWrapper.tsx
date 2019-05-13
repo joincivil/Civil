@@ -14,9 +14,15 @@ import { ClaimRewardsItemOwnProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 
 const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps > = props => {
-  const { challengeID, queryUserChallengeData, queryUserAppealChallengeData } = props;
+  const { challengeID, appealChallengeID, queryUserChallengeData, queryUserAppealChallengeData } = props;
+  const challengeIDArg = challengeID || appealChallengeID;
+  if (!challengeIDArg) {
+    console.log("missing challenge id", props);
+    return <></>;
+  }
+
   return (
-    <Query query={CHALLENGE_QUERY} variables={{ challengeID }}>
+    <Query query={CHALLENGE_QUERY} variables={{ challengeID: challengeIDArg }}>
       {({ loading, error, data: graphQLChallengeData }: any) => {
         if (error || loading || !graphQLChallengeData) {
           return <></>;
@@ -36,7 +42,7 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
               );
               const challenge = transformGraphQLDataIntoChallenge(graphQLChallengeData.challenge);
               const listing = transformGraphQLDataIntoListing(listingData.listing, listingAddress);
-              const newsroom = transformGraphQLDataIntoNewsroom(listingData.listing, listingAddress);
+              const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(listingData.listing, listingAddress) };
 
               let appealUserChallengeData;
               if (queryUserAppealChallengeData) {
@@ -55,8 +61,6 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
 
               const viewProps = {
                 challengeID,
-                listingAddress,
-                newsroom,
                 challenge: wrappedChallenge,
                 userChallengeData,
                 unclaimedRewardAmount,
@@ -66,7 +70,7 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
                 return <ProposalClaimRewardsViewComponent {...viewProps} />;
               }
 
-              return <ClaimRewardsViewComponent {...viewProps} />;
+              return <ClaimRewardsViewComponent {...viewProps} listingAddress={listingAddress} newsroom={newsroom} />;
             }}
           </Query>
         );

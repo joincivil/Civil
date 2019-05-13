@@ -20,7 +20,7 @@ export const ClaimRewardsViewComponent: React.FunctionComponent<ClaimRewardsItem
     challengeID,
     appealChallengeID,
     salt,
-    numTokens: unclaimedRewardAmount!,
+    numTokens: unclaimedRewardAmount.toString()!,
     toggleSelect,
   };
 
@@ -47,7 +47,7 @@ export const ProposalClaimRewardsViewComponent: React.FunctionComponent<ClaimRew
     title,
     challengeID,
     salt,
-    numTokens: unclaimedRewardAmount!,
+    numTokens: unclaimedRewardAmount.toString()!,
     toggleSelect,
   };
 

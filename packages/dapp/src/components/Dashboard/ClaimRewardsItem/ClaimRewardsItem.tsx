@@ -1,8 +1,9 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { State } from "../../../redux/reducers";
 import { ClaimRewardsItemOwnProps } from "./types";
 import ClaimRewardsItemApolloQueryWrapper from "./ClaimRewardsApolloQueryWrapper";
-import ClaimRewardsItemReduxWrapper from "./ClaimRewardsItemReduxWrapper";
+import { ClaimRewardsItemReduxWrapper, ClaimRewardsProposalItemReduxWrapper } from "./ClaimRewardsItemReduxWrapper";
 
 interface ClaimRewardsItemWrapperReduxProps {
   useGraphQL?: boolean;
@@ -36,12 +37,16 @@ const ClaimRewardsItemWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps 
     );
   }
 
+  if (isProposalChallenge) {
+    return <ClaimRewardsProposalItemReduxWrapper {...viewProps} />;
+  }
+
   return <ClaimRewardsItemReduxWrapper {...viewProps} />;
 };
 
 const mapStateToPropsClaimRewardsItemWrapper = (
   state: State,
-  ownProps: ActivityListItemClaimRewardOwnProps,
+  ownProps: ClaimRewardsItemOwnProps,
 ): ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps => {
   const { useGraphQL } = state;
   return { useGraphQL,  ...ownProps };

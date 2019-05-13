@@ -12,7 +12,7 @@ export interface ClaimRewardsItemOwnProps {
 
 export interface ClaimRewardsViewComponentProps {
   listingAddress?: string;
-  newsroom?: NewsroomWrapper;
+  newsroom?: any;
   userChallengeData?: UserChallengeData;
   unclaimedRewardAmount: string;
 }
