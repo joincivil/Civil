@@ -49,13 +49,11 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
     }
 
     return (
-      <>
-        <ApplyToTCR
-          {...this.props}
-          postTransfer={this.hydrateNewsroomMultisigBalance}
-          postApplyToTCR={this.postApplyToTCR}
-        />
-      </>
+      <ApplyToTCR
+        {...this.props}
+        postTransfer={this.hydrateNewsroomMultisigBalance}
+        postApplyToTCR={this.postApplyToTCR}
+      />
     );
   }
 

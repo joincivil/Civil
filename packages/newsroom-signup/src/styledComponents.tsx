@@ -12,10 +12,12 @@ import {
   ToolTipProps,
   TransactionPopUpWarning as _TransactionPopUpWarning,
   DetailTransactionButtonProps,
+  ImageFileToDataUri,
+  ImageFileToDataUriProps,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
-import styled, { StyledComponentClass } from "styled-components";
+import styled, { StyledComponentClass, css } from "styled-components";
 
 export const FormSection = styled.div`
   padding-top: 10px;
@@ -105,7 +107,7 @@ export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(But
   }
 `;
 
-export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(TextInput)`
+const textInputStyles = css`
   position: relative;
   small {
     position: absolute;
@@ -114,6 +116,14 @@ export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(Tex
     right: 15px;
     text-align: right;
   }
+`;
+
+export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(TextInput)`
+  ${textInputStyles};
+`;
+
+export const StyledImageToData: StyledComponentClass<ImageFileToDataUriProps, any> = styled(ImageFileToDataUri)`
+  ${textInputStyles};
 `;
 
 export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled(TextareaInput)`

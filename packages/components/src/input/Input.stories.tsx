@@ -4,7 +4,7 @@ import { TextInput, HeaderInput, CurrencyInput, TextareaInput } from "./Input";
 import { InputGroup } from "./InputGroup";
 import { RadioInput, RadioButton } from "./RadioInput";
 import { CurrencyInputWithButton, TextInputWithButton } from "./InputWithButton";
-
+import { ImageFileToDataUri } from "./ImageFileToDataUri";
 type changeCallback = (name: string, value: any) => any;
 interface ControlProps {
   children(state: any, onChange: changeCallback): React.ReactNode;
@@ -140,6 +140,16 @@ storiesOf("Pattern Library / Inputs", module)
             onButtonClick={() => console.log("CurrencyInputWithButton button was clicked")}
           />
         )}
+      </ControlComponent>
+    );
+  })
+
+  .add("image file to data uri", () => {
+    return (
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => {
+          return <ImageFileToDataUri onChange={(dataUri: string) => onChange("name", dataUri)} />;
+        }}
       </ControlComponent>
     );
   });
