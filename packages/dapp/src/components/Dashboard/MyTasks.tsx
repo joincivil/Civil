@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Set } from "immutable";
+import { Map, Set } from "immutable";
 
 import MyTasksList from "./MyTasksList";
 
@@ -32,6 +32,8 @@ export interface MyTasksProps {
   proposalChallengesWithUnrevealedVotes?: Set<string>;
   proposalChallengesWithUnclaimedRewards?: Set<string>;
   proposalChallengesWithRescueTokens?: Set<string>;
+  userChallengeData?: Map<string, any>;
+  challengeToAppealChallengeMap?: Map<string, string>;
   activeSubTabIndex: number;
   setActiveSubTabIndex(): void;
   showClaimRewardsTab(): void;
@@ -56,9 +58,9 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     showClaimRewardsTab,
     showRescueTokensTab,
     showNoMobileTransactionsModal,
+    userChallengeData,
+    challengeToAppealChallengeMap,
   } = props;
-
-  console.log(allChallengesWithAvailableActions);
 
   const allVotesTabTitle = (
     <AllChallengesDashboardTabTitle
@@ -101,6 +103,8 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
           <MyTasksList
             challenges={allChallengesWithAvailableActions}
             proposalChallenges={proposalChallengesWithAvailableActions}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
           />

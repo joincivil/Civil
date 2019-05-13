@@ -15,7 +15,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
-import { WinningChallengeResults } from "./WinningChallengeResults";
+import WinningChallengeResults from "./WinningChallengeResults";
 import { MyTasksProposalItemSubComponentProps } from "./MyTasksProposalItem";
 
 const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {

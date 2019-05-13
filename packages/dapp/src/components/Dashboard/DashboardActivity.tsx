@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Set } from "immutable";
+import { Map, Set } from "immutable";
 import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
 import { EthAddress } from "@joincivil/core";
@@ -35,9 +35,7 @@ import {
   getProposalChallengesWithRescueTokens,
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
-import {
-  transformGraphQLDataIntoDashboardChallengesSet,
-} from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoDashboardChallengesSet } from "../../helpers/queryTransformations";
 
 import MyTasks from "./MyTasks";
 import MyTasksList from "./MyTasksList";
@@ -119,32 +117,33 @@ const NEWSROOMS_QUERY = gql`
 const USER_CHALLENGE_DATA_QUERY = gql`
   query($userAddress: String!) {
     allChallenges: userChallengeData(userAddr: $userAddress) {
-      pollID,
-      pollType,
-      userDidReveal,
-      didUserCollect,
-      didUserRescue,
-      didCollectAmount,
-      isVoterWinner,
-      pollIsPassed,
-      choice,
-      numTokens,
-      parentChallengeID,
-    },
-    challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal:true) {
-      pollID,
-      pollType,
-      parentChallengeID,
+      pollID
+      pollType
+      userDidReveal
+      userDidCommit
+      didUserCollect
+      didUserRescue
+      didCollectAmount
+      isVoterWinner
+      pollIsPassed
+      choice
+      numTokens
+      parentChallengeID
+    }
+    challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
+      pollID
+      pollType
+      parentChallengeID
     }
     challengesWithRewards: userChallengeData(userAddr: $userAddress, canUserCollect: true) {
-      pollID,
-      pollType,
-      salt,
-      voterReward,
+      pollID
+      pollType
+      salt
+      voterReward
     }
     challengesToRescue: userChallengeData(userAddr: $userAddress, canUserRescue: true) {
-      pollID,
-      pollType,
+      pollID
+      pollType
     }
   }
 `;
@@ -275,7 +274,7 @@ class DashboardActivity extends React.Component<
           <Tab title={stakedChallengesTitle}>
             <>
               <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
-              <MyTasks
+              <MyTasksList
                 challenges={currentUserChallengesStarted}
                 showClaimRewardsTab={() => {
                   this.showClaimRewardsTab();
@@ -296,43 +295,73 @@ class DashboardActivity extends React.Component<
       return (
         <Query query={USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
           {({ loading, error, data }: any): JSX.Element => {
-            if (loading && !data) {
-              return <LoadingMsg />;
-            }
             if (error) {
               return <ErrorLoadingDataMsg />;
             }
+            if (loading || !data) {
+              return <LoadingMsg />;
+            }
             if (data) {
-              const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
-              const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(data.challengesToReveal);
-              const userChallengesWithUnclaimedRewards = transformGraphQLDataIntoDashboardChallengesSet(data.challengesWithRewards);
-              const userChallengesWithRescueTokens = transformGraphQLDataIntoDashboardChallengesSet(data.challengesToRescue);
-              console.log("user challenge data", allChallengesWithAvailableActions.toArray(), userChallengesWithUnclaimedRewards, allChallengesWithUnrevealedVotes, userChallengesWithRescueTokens);
+              const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
+                data.allChallenges,
+              );
+              const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
+                data.challengesToReveal,
+              );
+              const userChallengesWithUnclaimedRewards = transformGraphQLDataIntoDashboardChallengesSet(
+                data.challengesWithRewards,
+              );
+              const userChallengesWithRescueTokens = transformGraphQLDataIntoDashboardChallengesSet(
+                data.challengesToRescue,
+              );
+
+              // console.log(data.allChallenges);
+              // console.log("user challenge data", allChallengesWithAvailableActions.toArray(), userChallengesWithUnclaimedRewards, allChallengesWithUnrevealedVotes, userChallengesWithRescueTokens);
+
+              const {
+                proposalChallengesWithAvailableActions,
+                proposalChallengesWithUnrevealedVotes,
+                proposalChallengesWithUnclaimedRewards,
+                proposalChallengesWithRescueTokens,
+              } = this.props;
+
+              let userChallengeDataMap = Map<string, any>();
+              let challengeToAppealChallengeMap = Map<string, string>();
+              data.allChallenges.forEach((challengeData: any) => {
+                userChallengeDataMap = userChallengeDataMap.set(challengeData.pollID, challengeData);
+                if (challengeData.pollType === "APPEAL_CHALLENGE") {
+                  challengeToAppealChallengeMap = challengeToAppealChallengeMap.set(
+                    challengeData.parentChallengeID,
+                    challengeData.pollID,
+                  );
+                }
+              });
 
               const myTasksProps = {
+                userChallengeData: userChallengeDataMap,
+                challengeToAppealChallengeMap,
                 allChallengesWithAvailableActions,
                 allChallengesWithUnrevealedVotes,
                 userChallengesWithUnclaimedRewards,
                 userChallengesWithRescueTokens,
                 userAppealChallengesWithRescueTokens: Set<string>(),
                 userAppealChallengesWithUnclaimedRewards: Set<string>(),
-                proposalChallengesWithAvailableActions: Set<string>(),
-                proposalChallengesWithUnrevealedVotes: Set<string>(),
-                proposalChallengesWithUnclaimedRewards: Set<string>(),
-                proposalChallengesWithRescueTokens: Set<string>(),
+                proposalChallengesWithAvailableActions,
+                proposalChallengesWithUnrevealedVotes,
+                proposalChallengesWithUnclaimedRewards,
+                proposalChallengesWithRescueTokens,
                 activeSubTabIndex: this.state.activeSubTabIndex,
                 setActiveSubTabIndex: this.setActiveSubTabIndex,
                 showClaimRewardsTab: this.showClaimRewardsTab,
                 showRescueTokensTab: this.showRescueTokensTab,
                 showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
               };
-              return <MyTasks {...myTasksProps} />
+              return <MyTasks {...myTasksProps} />;
             }
-            return <></>;
+            return <LoadingMsg />;
           }}
         </Query>
       );
-
     } else {
       const {
         allChallengesWithAvailableActions,
@@ -364,7 +393,7 @@ class DashboardActivity extends React.Component<
         showRescueTokensTab: this.showRescueTokensTab,
         showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
       };
-      return <MyTasks {...myTasksProps} />
+      return <MyTasks {...myTasksProps} />;
     }
   };
 

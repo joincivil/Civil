@@ -1,4 +1,14 @@
-import { ListingWrapper, NewsroomWrapper, ChallengeData, AppealData, AppealChallengeData } from "@joincivil/core";
+import {
+  ListingWrapper,
+  NewsroomWrapper,
+  ChallengeData,
+  PollData,
+  AppealData,
+  AppealChallengeData,
+  UserChallengeData,
+  isInCommitStage,
+  isInRevealStage,
+} from "@joincivil/core";
 import { Set } from "immutable";
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
@@ -143,8 +153,23 @@ export function transformGraphQLDataIntoPrevChallengeID(queryChallengeData: any)
   }
 }
 
+function transfromGraphQLDataIntoPoll(queryPollData: any): PollData | undefined {
+  if (queryPollData) {
+    return {
+      commitEndDate: new BigNumber(queryPollData.commitEndDate),
+      revealEndDate: new BigNumber(queryPollData.revealEndDate),
+      voteQuorum: new BigNumber(queryPollData.voteQuorum),
+      votesFor: new BigNumber(queryPollData.votesFor),
+      votesAgainst: new BigNumber(queryPollData.votesAgainst),
+    };
+  }
+  return undefined;
+}
+
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
+    const pollData = transfromGraphQLDataIntoPoll(queryChallengeData.poll);
+
     return {
       challengeStatementURI: queryChallengeData.statement,
       rewardPool: new BigNumber(queryChallengeData.rewardPool),
@@ -152,13 +177,7 @@ export function transformGraphQLDataIntoChallenge(queryChallengeData: any): Chal
       resolved: queryChallengeData.resolved,
       stake: new BigNumber(queryChallengeData.stake),
       totalTokens: new BigNumber(queryChallengeData.totalTokens),
-      poll: {
-        commitEndDate: new BigNumber(queryChallengeData.poll.commitEndDate),
-        revealEndDate: new BigNumber(queryChallengeData.poll.revealEndDate),
-        voteQuorum: new BigNumber(queryChallengeData.poll.voteQuorum),
-        votesFor: new BigNumber(queryChallengeData.poll.votesFor),
-        votesAgainst: new BigNumber(queryChallengeData.poll.votesAgainst),
-      },
+      poll: pollData!,
       requestAppealExpiry: new BigNumber(queryChallengeData.requestAppealExpiry),
       appeal: transformGraphQLDataIntoAppeal(queryChallengeData.appeal),
     };
@@ -209,23 +228,83 @@ export function transformGraphQLDataIntoAppealChallenge(
   }
 }
 
-export function transformGraphQLDataIntoDashboardChallengesSet(
-  queryUserChallengeData: any[],
-): Set<string> {
+export function transformGraphQLDataIntoDashboardChallengesSet(queryUserChallengeData: any[]): Set<string> {
   let allChallenges = Set<string>();
   if (queryUserChallengeData) {
-    const challengeIDs = queryUserChallengeData.filter((challengeData) => {
-      return challengeData.pollType === "CHALLENGE";
-    }).map((challengeData) => {
-      return challengeData.pollID;
-    });
-    const appealChallengeParentChallengeIDs = queryUserChallengeData.filter((challengeData) => {
-      return challengeData.pollType === "APPEAL_CHALLENGE";
-    }).map((challengeData) => {
-      return challengeData.parentChallengeID;
-    });
+    const challengeIDs = queryUserChallengeData
+      .filter(challengeData => {
+        return challengeData.pollType === "CHALLENGE";
+      })
+      .map(challengeData => {
+        return challengeData.pollID;
+      });
+    const appealChallengeParentChallengeIDs = queryUserChallengeData
+      .filter(challengeData => {
+        return challengeData.pollType === "APPEAL_CHALLENGE";
+      })
+      .map(challengeData => {
+        return challengeData.parentChallengeID;
+      });
 
     allChallenges = allChallenges.union(challengeIDs, appealChallengeParentChallengeIDs);
   }
   return allChallenges;
+}
+
+export function transfromGraphQLDataIntoUserChallengeData(
+  queryUserChallengeData: any,
+  challenge: ChallengeData,
+): UserChallengeData | undefined {
+  if (queryUserChallengeData) {
+    const {
+      userDidCommit: didUserCommit,
+      userDidReveal: didUserReveal,
+      didUserCollect,
+      didUserRescue,
+      didCollectAmount,
+      isVoterWinner,
+      pollIsPassed,
+      salt,
+      numTokens,
+      choice,
+      voterReward,
+    } = queryUserChallengeData;
+
+    let canUserReveal;
+    let canUserCollect;
+    let canUserRescue;
+
+    const pollData = transfromGraphQLDataIntoPoll(challenge.poll);
+    if (challenge.resolved) {
+      canUserCollect = isVoterWinner && !didUserCollect;
+      if (pollData) {
+        canUserRescue = !didUserReveal && !didUserRescue && !isInCommitStage(pollData) && !isInRevealStage(pollData);
+      }
+    } else if (pollData) {
+      canUserReveal = didUserCommit && !didUserReveal && isInRevealStage(pollData);
+    }
+
+    const userChallengeData = {
+      didUserCommit,
+      didUserReveal,
+      didUserCollect,
+      didUserRescue,
+      didCollectAmount,
+
+      canUserReveal,
+      canUserCollect,
+      canUserRescue,
+
+      isVoterWinner,
+      pollIsPassed,
+      salt,
+      numTokens: new BigNumber(numTokens),
+      choice: new BigNumber(choice),
+      voterReward: new BigNumber(voterReward || 0),
+    };
+
+    return userChallengeData;
+  }
+
+  return undefined;
 }

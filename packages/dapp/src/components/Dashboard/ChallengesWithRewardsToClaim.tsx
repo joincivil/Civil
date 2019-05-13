@@ -77,12 +77,9 @@ class ChallengesWithRewardsToClaim extends React.Component<
   ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps,
   ChallengesWithRewardsToClaimState
 > {
-  constructor(props: ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps) {
-    super(props);
-    this.state = {
-      challengesToClaim: {},
-    };
-  }
+  public state = {
+    challengesToClaim: {},
+  };
 
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
