@@ -22,13 +22,11 @@ export function isInRevealStage(pollData: PollData): boolean {
  */
 export function isVotePassed(pollData: PollData): boolean {
   if (isInCommitStage(pollData) || isInRevealStage(pollData)) {
-    console.log("still is one of stages.");
     return false;
   }
   const votesFor = pollData.votesFor.toNumber();
   const votesAgainst = pollData.votesAgainst.toNumber();
   const votesForTimes100 = votesFor * 100;
   const quorum = pollData.voteQuorum.toNumber();
-  // cons
   return votesForTimes100 > quorum * (votesFor + votesAgainst);
 }

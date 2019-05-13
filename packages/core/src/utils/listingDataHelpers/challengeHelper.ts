@@ -90,28 +90,21 @@ export function canCollectRewardOrRescue(challengeData: ChallengeData): boolean 
 export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData): boolean {
   if (challengeData.appeal) {
     if (challengeData.appeal.appealGranted) {
-      console.log("appeal granted");
       if (challengeData.appeal.appealChallenge) {
-        console.log("appeal challenged. appealChallenge: ", challengeData.appeal.appealChallenge);
         const isVotePassed2 = isVotePassed(challengeData.appeal.appealChallenge.poll);
-        console.log("isVotePassed: ", isVotePassed2);
         if (isVotePassed2) {
           return false;
         }
       }
-      console.log("isoverturned return true 1");
       return true;
     }
   }
-  console.log("isoverturned return false 1");
   return false;
 }
 
 export function isUserWinner(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
   if (challengeData.resolved && userChallengeData.didUserReveal) {
-    console.log("is resolved and revealed.");
     const isOverturned = isOriginalChallengeVoteOverturned(challengeData);
-    console.log("isOverturned: ", isOverturned);
     const isWinner = userChallengeData.isVoterWinner;
     return (isWinner && !isOverturned) || (!isWinner && isOverturned);
   }
@@ -119,15 +112,7 @@ export function isUserWinner(challengeData: ChallengeData, userChallengeData: Us
 }
 
 export function canUserCollectReward(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
-  console.log("canUserCollectReward challengeData: ", challengeData);
-  console.log("canUserCollectReward userChallengeData: ", userChallengeData);
-  const isWinner = isUserWinner(challengeData, userChallengeData);
-  const didCollect = userChallengeData.didUserCollect;
-
-  console.log("canUserCollectReward isWinner: ", isWinner);
-  console.log("canUserCollectReward didCollect: ", didCollect);
-  return isWinner && !didCollect;
-  // return isUserWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
+  return isUserWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
 }
 
 export function canRescueTokens(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
