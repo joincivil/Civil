@@ -1,5 +1,6 @@
 import * as React from "react";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import { ClaimRewardsItemOwnProps, ClaimRewardsViewComponentProps, ProposalClaimRewardsComponentProps } from "./types";
 
 export const ClaimRewardsViewComponent: React.FunctionComponent<ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps> = props => {
@@ -20,7 +21,7 @@ export const ClaimRewardsViewComponent: React.FunctionComponent<ClaimRewardsItem
     challengeID,
     appealChallengeID,
     salt,
-    numTokens: unclaimedRewardAmount.toString()!,
+    numTokens: getFormattedTokenBalance(unclaimedRewardAmount!),
     toggleSelect,
   };
 
@@ -47,7 +48,7 @@ export const ProposalClaimRewardsViewComponent: React.FunctionComponent<ClaimRew
     title,
     challengeID,
     salt,
-    numTokens: unclaimedRewardAmount.toString()!,
+    numTokens: getFormattedTokenBalance(unclaimedRewardAmount!),
     toggleSelect,
   };
 

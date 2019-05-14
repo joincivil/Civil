@@ -270,6 +270,7 @@ export function transformGraphQLDataIntoAppealChallenge(
   }
 }
 
+// Includes all challenges the user has particiapted in and parent challenges for all appeal challenges the user participated in
 export function transformGraphQLDataIntoDashboardChallengesSet(queryUserChallengeData: any[]): Set<string> {
   let allChallenges = Set<string>();
   if (queryUserChallengeData) {
@@ -293,12 +294,37 @@ export function transformGraphQLDataIntoDashboardChallengesSet(queryUserChalleng
   return allChallenges;
 }
 
+function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollType: string): Set<string> {
+  const challengeIDs = queryUserChallengeData
+    .filter(challengeData => {
+      return challengeData.pollType === pollType;
+    })
+    .map(challengeData => {
+      return challengeData.pollID;
+    });
+  return Set<string>(challengeIDs);
+}
+
+enum USER_CHALLENGE_DATA_POLL_TYPES {
+  CHALLENGE = "CHALLENGE",
+  APPEAL_CHALLENGE = "APPEAL_CHALLENGE",
+  PROPOSAL_CHALLENGE = "PROPOSAL_CHALLENGE",
+};
+
+export function transformGraphQLDataIntoDashboardChallengesAndAppealChallengesSet(queryUserChallengeData: any[]): [Set<string>, Set<string>, Set<string>] {
+  const challengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.CHALLENGE);
+  const appealChallengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.APPEAL_CHALLENGE);
+  const proposalChallengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.PROPOSAL_CHALLENGE);
+  return [challengeIDs, appealChallengeIDs, proposalChallengeIDs];
+}
+
 export function transfromGraphQLDataIntoUserChallengeData(
   queryUserChallengeData: any,
   challenge: ChallengeData,
 ): UserChallengeData | undefined {
   if (queryUserChallengeData) {
     const {
+      pollID,
       userDidCommit: didUserCommit,
       userDidReveal: didUserReveal,
       didUserCollect,
@@ -310,6 +336,7 @@ export function transfromGraphQLDataIntoUserChallengeData(
       numTokens,
       choice,
       voterReward,
+      pollType,
     } = queryUserChallengeData;
 
     let canUserReveal;

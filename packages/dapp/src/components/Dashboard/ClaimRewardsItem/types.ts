@@ -14,13 +14,13 @@ export interface ClaimRewardsViewComponentProps {
   listingAddress?: string;
   newsroom?: any;
   userChallengeData?: UserChallengeData;
-  unclaimedRewardAmount: string;
+  unclaimedRewardAmount: BigNumber;
 }
 
 export interface ProposalClaimRewardsComponentProps {
   proposal?: any;
   proposalUserChallengeData?: UserChallengeData;
-  unclaimedRewardAmount: string;
+  unclaimedRewardAmount: BigNumber;
   challenge?: any;
   challengeDataRequestStatus?: any;
 }

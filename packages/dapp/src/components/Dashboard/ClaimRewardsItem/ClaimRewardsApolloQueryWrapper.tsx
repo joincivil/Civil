@@ -14,7 +14,7 @@ import { ClaimRewardsItemOwnProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 
 const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps > = props => {
-  const { challengeID, appealChallengeID, queryUserChallengeData, queryUserAppealChallengeData } = props;
+  const { challengeID, appealChallengeID, queryUserChallengeData, queryUserAppealChallengeData, toggleSelect } = props;
   const challengeIDArg = challengeID || appealChallengeID;
   if (!challengeIDArg) {
     console.log("missing challenge id", props);
@@ -64,6 +64,7 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
                 challenge: wrappedChallenge,
                 userChallengeData,
                 unclaimedRewardAmount,
+                toggleSelect,
               };
 
               if (props.isProposalChallenge) {

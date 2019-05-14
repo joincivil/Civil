@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { BigNumber } from "bignumber.js";
 
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
@@ -101,11 +102,7 @@ const makeChallengeMapStateToProps = () => {
 
     const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
 
-    const unclaimedRewardAmountBN = userChallengeData && userChallengeData.voterReward;
-    let unclaimedRewardAmount = "";
-    if (unclaimedRewardAmountBN) {
-      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
-    }
+    const unclaimedRewardAmount = userChallengeData && userChallengeData.voterReward || new BigNumber(0);
     let challengeDataRequestStatus;
     if (ownProps.challengeID) {
       challengeDataRequestStatus = challengesFetching.get(ownProps.challengeID as string);
@@ -138,11 +135,7 @@ const makeProposalMapStateToProps = () => {
     const proposal = getProposalByChallengeID(state, ownProps);
     const challenge = getParameterProposalChallenge(state, ownProps);
     const proposalUserChallengeData = getUserProposalChallengeData(state, ownProps);
-    const unclaimedRewardAmountBN = proposalUserChallengeData && proposalUserChallengeData.voterReward;
-    let unclaimedRewardAmount = "";
-    if (unclaimedRewardAmountBN) {
-      unclaimedRewardAmount = getFormattedTokenBalance(unclaimedRewardAmountBN);
-    }
+    const unclaimedRewardAmount = proposalUserChallengeData && proposalUserChallengeData.voterReward || new BigNumber(0);
     let challengeDataRequestStatus;
     if (ownProps.challengeID) {
       challengeDataRequestStatus = parameterProposalChallengesFetching.get(ownProps.challengeID as string);
