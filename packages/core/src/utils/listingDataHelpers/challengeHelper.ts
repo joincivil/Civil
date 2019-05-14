@@ -1,4 +1,5 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
+import { didAppealChallengeSucceed } from "./appealChallengeHelper";
 import { is0x0Address } from "@joincivil/utils";
 import { ChallengeData, UserChallengeData } from "../../types";
 
@@ -37,27 +38,27 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
 }
 
 /**
+ * Checks if the originally Challenge succeeded, without taking appeal / appeal challenge into consideration
+ * @param challengeData the ChallengeData to check
+ */
+export function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
+  return !isVotePassed(challengeData.poll);
+}
+
+/**
  * Checks if a Challenge succeeded
  * @param challengeData the ChallengeData to check
  */
 export function didChallengeSucceed(challengeData: ChallengeData): boolean {
   if (challengeData.appeal && challengeData.appeal.appealGranted) {
-    if (challengeData.appeal.appealChallenge && isVotePassed(challengeData.appeal.appealChallenge.poll)) {
-      return isVotePassed(challengeData.poll);
+    if (challengeData.appeal.appealChallenge && didAppealChallengeSucceed(challengeData.appeal.appealChallenge)) {
+      return didChallengeOriginallySucceed(challengeData);
     } else {
-      return !isVotePassed(challengeData.poll);
+      return !didChallengeOriginallySucceed(challengeData);
     }
   } else {
-    return isVotePassed(challengeData.poll);
+    return didChallengeOriginallySucceed(challengeData);
   }
-}
-
-/**
- * Checks if the originally Challenge succeeded, without taking appeal / appeal challenge into consideration
- * @param challengeData the ChallengeData to check
- */
-export function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
-  return isVotePassed(challengeData.poll);
 }
 
 /**
