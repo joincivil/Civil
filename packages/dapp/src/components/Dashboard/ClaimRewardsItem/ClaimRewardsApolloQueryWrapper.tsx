@@ -14,10 +14,9 @@ import { ClaimRewardsItemOwnProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 
 const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps > = props => {
-  const { challengeID, appealChallengeID, queryUserChallengeData, queryUserAppealChallengeData, toggleSelect } = props;
+  const { challengeID, appealChallengeID, queryUserChallengeData, queryUserAppealChallengeData, toggleSelect, isProposalChallenge } = props;
   const challengeIDArg = challengeID || appealChallengeID;
   if (!challengeIDArg) {
-    console.log("missing challenge id", props);
     return <></>;
   }
 
@@ -41,8 +40,6 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
                 graphQLChallengeData.challenge,
               );
               const challenge = transformGraphQLDataIntoChallenge(graphQLChallengeData.challenge);
-              const listing = transformGraphQLDataIntoListing(listingData.listing, listingAddress);
-              const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(listingData.listing, listingAddress) };
 
               let appealUserChallengeData;
               if (queryUserAppealChallengeData) {
@@ -52,25 +49,22 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
                 );
               }
 
-              const wrappedChallenge = {
-                listingAddress,
-                challengeID: new BigNumber(props.challengeID!),
-                challenge,
-              };
               const unclaimedRewardAmount = userChallengeData!.voterReward;
 
               const viewProps = {
                 challengeID,
-                challenge: wrappedChallenge,
+                appealChallengeID,
                 userChallengeData,
                 unclaimedRewardAmount,
                 toggleSelect,
               };
 
-              if (props.isProposalChallenge) {
+              if (isProposalChallenge) {
                 return <ProposalClaimRewardsViewComponent {...viewProps} />;
               }
 
+              const listing = transformGraphQLDataIntoListing(listingData.listing, listingAddress);
+              const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(listingData.listing, listingAddress) };
               return <ClaimRewardsViewComponent {...viewProps} listingAddress={listingAddress} newsroom={newsroom} />;
             }}
           </Query>

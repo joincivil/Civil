@@ -24,7 +24,6 @@ import {
   getSalts,
   StyledTabsComponent,
 } from "./DashboardActivity";
-// import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
 import ClaimRewardsItem from "./ClaimRewardsItem";
 
 enum TransactionTypes {
@@ -140,14 +139,19 @@ class ChallengesWithRewardsToClaim extends React.Component<
             <>
               {this.props.proposalChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ClaimRewardsItem
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return <ClaimRewardsItem
                     key={c}
                     isProposalChallenge={true}
                     challengeID={c!}
+                    queryUserChallengeData={userChallengeData}
                     toggleSelect={this.setChallengesToMultiClaim}
                   />
-                ))}
+                })}
             </>
           </Tab>
         </Tabs>

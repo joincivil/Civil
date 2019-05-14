@@ -35,7 +35,7 @@ import {
   getProposalChallengesWithRescueTokens,
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
-import { transformGraphQLDataIntoDashboardChallengesSet, transformGraphQLDataIntoDashboardChallengesAndAppealChallengesSet } from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoDashboardChallengesSet, transformGraphQLDataIntoDashboardChallengesByTypeSets } from "../../helpers/queryTransformations";
 
 import MyTasks from "./MyTasks";
 import MyTasksList from "./MyTasksList";
@@ -85,7 +85,7 @@ export interface DashboardActivityReduxProps {
   useGraphQL: boolean;
 }
 
-export interface ChallengesToProcess {
+interface ChallengesToProcess {
   [index: string]: [boolean, BigNumber];
 }
 
@@ -309,15 +309,15 @@ class DashboardActivity extends React.Component<
               const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
                 data.challengesToReveal,
               );
-              const allChallengesWithUnclaimedRewards: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesAndAppealChallengesSet(
+              const allChallengesWithUnclaimedRewards: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesByTypeSets(
                 data.challengesWithRewards,
               );
-              const allChallengesWithRescueTokens: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesAndAppealChallengesSet(
+              const allChallengesWithRescueTokens: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesByTypeSets(
                 data.challengesToRescue,
               );
 
               // console.log(data.allChallenges);
-              // console.log("user challenge data", allChallengesWithAvailableActions.toArray(), userChallengesWithUnclaimedRewards, allChallengesWithUnrevealedVotes, userChallengesWithRescueTokens);
+              // console.log("user challenge data", allChallengesWithAvailableActions.toArray(), allChallengesWithUnrevealedVotes, allChallengesWithUnclaimedRewards, allChallengesWithRescueTokens);
 
               // TODO(am9u): wire up proposal all and unrevealed actions to graphql
               const {
