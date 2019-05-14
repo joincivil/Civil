@@ -140,12 +140,12 @@ export function transformGraphQLDataIntoSpecificUserChallenge(userChallenge: any
       didUserReveal: userData.userDidReveal,
       didUserCollect: userData.didUserCollect,
       didUserRescue: userData.didUserRescue,
-      didCollectAmount: userData.didCollectAmount,
+      didCollectAmount: new BigNumber(userData.didCollectAmount),
       isVoterWinner: userData.isVoterWinner,
       salt: userData.salt,
-      choice: userData.choice,
-      numTokens: userData.numTokens,
-      voterReward: userData.voterReward,
+      choice: new BigNumber(userData.choice),
+      numTokens: new BigNumber(userData.numTokens),
+      voterReward: new BigNumber(userData.voterReward),
     };
   } else {
     return {};
