@@ -36,8 +36,10 @@ import {
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
 import {
+  USER_CHALLENGE_DATA_POLL_TYPES,
   transformGraphQLDataIntoDashboardChallengesSet,
   transformGraphQLDataIntoDashboardChallengesByTypeSets,
+  getUserChallengeDataSetByPollType,
 } from "../../helpers/queryTransformations";
 
 import MyTasks from "./MyTasks";
@@ -309,22 +311,30 @@ class DashboardActivity extends React.Component<
               const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
                 data.allChallenges,
               );
+              const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
+                data.allChallenges,
+                USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+              );
+
               const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
                 data.challengesToReveal,
               );
+              const proposalChallengesWithUnrevealedVotes = getUserChallengeDataSetByPollType(
+                data.challengesToReveal,
+                USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+              );
+
               const allChallengesWithUnclaimedRewards: [
                 Set<string>,
                 Set<string>,
                 Set<string>
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
+
               const allChallengesWithRescueTokens: [
                 Set<string>,
                 Set<string>,
                 Set<string>
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
-
-              // TODO(am9u): wire up proposal all and unrevealed actions to graphql
-              const { proposalChallengesWithAvailableActions, proposalChallengesWithUnrevealedVotes } = this.props;
 
               let userChallengeDataMap = Map<string, any>();
               let challengeToAppealChallengeMap = Map<string, string>();
@@ -342,22 +352,23 @@ class DashboardActivity extends React.Component<
                 userChallengeData: userChallengeDataMap,
                 challengeToAppealChallengeMap,
                 allChallengesWithAvailableActions,
+                proposalChallengesWithAvailableActions,
                 allChallengesWithUnrevealedVotes,
+                proposalChallengesWithUnrevealedVotes,
                 userChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[0],
                 userAppealChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[1],
                 proposalChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[2],
                 userChallengesWithRescueTokens: allChallengesWithRescueTokens[0],
                 userAppealChallengesWithRescueTokens: allChallengesWithRescueTokens[1],
                 proposalChallengesWithRescueTokens: allChallengesWithRescueTokens[2],
-                proposalChallengesWithAvailableActions,
-                proposalChallengesWithUnrevealedVotes,
                 activeSubTabIndex: this.state.activeSubTabIndex,
                 setActiveSubTabIndex: this.setActiveSubTabIndex,
                 showClaimRewardsTab: this.showClaimRewardsTab,
                 showRescueTokensTab: this.showRescueTokensTab,
                 showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
               };
-              return <MyTasks {...myTasksProps} />;
+
+              return <MyTasks {...myTasksProps} useGraphQL={true} />;
             }
             return <LoadingMsg />;
           }}
@@ -394,7 +405,7 @@ class DashboardActivity extends React.Component<
         showRescueTokensTab: this.showRescueTokensTab,
         showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
       };
-      return <MyTasks {...myTasksProps} />;
+      return <MyTasks {...myTasksProps} useGraphQL={false} />;
     }
   };
 

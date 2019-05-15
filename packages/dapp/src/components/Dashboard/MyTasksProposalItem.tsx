@@ -22,6 +22,7 @@ import DashboardProposalItemChallengeDetails from "./ProposalChallengeSummary";
 export interface MyTasksProposalItemOwnProps {
   challengeID?: string;
   userChallengeData?: UserChallengeData;
+  useGraphQL?: boolean;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }

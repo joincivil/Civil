@@ -41,8 +41,8 @@ class RescueTokensItemReduxWrapperComponent extends React.Component<
 
   private ensureListingAndNewsroomData = async (): Promise<void> => {
     const { newsroom, challengeID, challenge, challengeDataRequestStatus, dispatch } = this.props;
-    if (newsroom) {
-      dispatch!(await getContent(newsroom.data.charterHeader!));
+    if (newsroom && newsroom.data && newsroom.data.charterHeader) {
+      dispatch!(await getContent(newsroom.data.charterHeader));
     }
     if (challengeID && !challenge && !challengeDataRequestStatus) {
       dispatch!(fetchAndAddChallengeData(challengeID! as string));

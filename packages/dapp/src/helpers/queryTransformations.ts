@@ -294,7 +294,7 @@ export function transformGraphQLDataIntoDashboardChallengesSet(queryUserChalleng
   return allChallenges;
 }
 
-function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollType: string): Set<string> {
+export function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollType: string): Set<string> {
   const challengeIDs = queryUserChallengeData
     .filter(challengeData => {
       return challengeData.pollType === pollType;
@@ -305,7 +305,7 @@ function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollTy
   return Set<string>(challengeIDs);
 }
 
-enum USER_CHALLENGE_DATA_POLL_TYPES {
+export enum USER_CHALLENGE_DATA_POLL_TYPES {
   CHALLENGE = "CHALLENGE",
   APPEAL_CHALLENGE = "APPEAL_CHALLENGE",
   PARAMETER_PROPOSAL_CHALLENGE = "PARAMETER_PROPOSAL_CHALLENGE",
@@ -367,6 +367,7 @@ export function transfromGraphQLDataIntoUserChallengeData(
       didUserReveal,
       didUserCollect,
       didUserRescue,
+      // didCollectAmount: new BigNumber(didCollectAmount || 0),
       didCollectAmount,
 
       canUserReveal,

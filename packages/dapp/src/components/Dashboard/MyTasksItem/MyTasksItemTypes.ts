@@ -15,6 +15,7 @@ export interface MyTasksItemOwnProps {
   challengeID?: string;
   queryUserChallengeData?: UserChallengeData;
   queryUserAppealChallengeData?: UserChallengeData;
+  useGraphQL?: boolean;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }

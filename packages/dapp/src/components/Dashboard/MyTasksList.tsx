@@ -8,12 +8,13 @@ export interface MyTasksOwnProps {
   proposalChallenges?: Set<string>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
+  useGraphQL?: boolean;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
 }
 
 const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
-  const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap } = props;
+  const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap, useGraphQL } = props;
   return (
     <>
       {props.challenges &&
@@ -36,6 +37,7 @@ const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
               challengeID={c!}
               queryUserChallengeData={userChallengeData}
               queryUserAppealChallengeData={appealChallengeUserData}
+              useGraphQL={useGraphQL}
               showClaimRewardsTab={() => {
                 props.showClaimRewardsTab();
               }}
@@ -56,6 +58,7 @@ const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
               key={c}
               challengeID={c!}
               userChallengeData={userChallengeData}
+              useGraphQL={useGraphQL}
               showClaimRewardsTab={() => {
                 props.showClaimRewardsTab();
               }}
