@@ -35,7 +35,10 @@ import {
   getProposalChallengesWithRescueTokens,
   getProposalChallengesWithUnclaimedRewards,
 } from "../../selectors";
-import { transformGraphQLDataIntoDashboardChallengesSet, transformGraphQLDataIntoDashboardChallengesByTypeSets } from "../../helpers/queryTransformations";
+import {
+  transformGraphQLDataIntoDashboardChallengesSet,
+  transformGraphQLDataIntoDashboardChallengesByTypeSets,
+} from "../../helpers/queryTransformations";
 
 import MyTasks from "./MyTasks";
 import MyTasksList from "./MyTasksList";
@@ -128,7 +131,7 @@ const USER_CHALLENGE_DATA_QUERY = gql`
       pollIsPassed
       choice
       numTokens
-      voterReward,
+      voterReward
       parentChallengeID
     }
     challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
@@ -309,21 +312,22 @@ class DashboardActivity extends React.Component<
               const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
                 data.challengesToReveal,
               );
-              const allChallengesWithUnclaimedRewards: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesByTypeSets(
-                data.challengesWithRewards,
-              );
-              const allChallengesWithRescueTokens: [Set<string>, Set<string>, Set<string>] = transformGraphQLDataIntoDashboardChallengesByTypeSets(
-                data.challengesToRescue,
-              );
+              const allChallengesWithUnclaimedRewards: [
+                Set<string>,
+                Set<string>,
+                Set<string>
+              ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
+              const allChallengesWithRescueTokens: [
+                Set<string>,
+                Set<string>,
+                Set<string>
+              ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
 
               // console.log(data.allChallenges);
               // console.log("user challenge data", allChallengesWithAvailableActions.toArray(), allChallengesWithUnrevealedVotes, allChallengesWithUnclaimedRewards, allChallengesWithRescueTokens);
 
               // TODO(am9u): wire up proposal all and unrevealed actions to graphql
-              const {
-                proposalChallengesWithAvailableActions,
-                proposalChallengesWithUnrevealedVotes,
-              } = this.props;
+              const { proposalChallengesWithAvailableActions, proposalChallengesWithUnrevealedVotes } = this.props;
 
               let userChallengeDataMap = Map<string, any>();
               let challengeToAppealChallengeMap = Map<string, string>();

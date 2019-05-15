@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "bignumber.js";
 
 import { State } from "../../../redux/reducers";
 import {
@@ -17,16 +16,16 @@ import {
 import { getContent } from "../../../redux/actionCreators/newsrooms";
 import { fetchAndAddChallengeData } from "../../../redux/actionCreators/challenges";
 import { fetchAndAddParameterProposalChallengeData } from "../../../redux/actionCreators/parameterizer";
-import { ClaimRewardsItemOwnProps, ClaimRewardsViewComponentProps, ProposalClaimRewardsComponentProps } from "./types";
-import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
+import { RescueTokensItemOwnProps, RescueTokensViewComponentProps, ProposalRescueTokensComponentProps } from "./types";
+import { RescueTokensViewComponent, ProposalRescueTokensViewComponent } from "./RescueTokensViewComponents";
 
-interface ClaimRewardsChallengeProp {
+interface RescueTokensChallengeProp {
   challenge?: any;
   challengeDataRequestStatus?: any;
 }
 
-class ClaimRewardsItemReduxWrapperComponent extends React.Component<
-  ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps & ClaimRewardsChallengeProp & DispatchProp<any>
+class RescueTokensItemReduxWrapperComponent extends React.Component<
+  RescueTokensItemOwnProps & RescueTokensViewComponentProps & RescueTokensChallengeProp & DispatchProp<any>
 > {
   public async componentDidMount(): Promise<void> {
     await this.ensureListingAndNewsroomData();
@@ -37,7 +36,7 @@ class ClaimRewardsItemReduxWrapperComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    return <ClaimRewardsViewComponent {...this.props} />;
+    return <RescueTokensViewComponent {...this.props} />;
   }
 
   private ensureListingAndNewsroomData = async (): Promise<void> => {
@@ -51,8 +50,8 @@ class ClaimRewardsItemReduxWrapperComponent extends React.Component<
   };
 }
 
-class ClaimRewardsProposalItemReduxWrapperComponent extends React.Component<
-  ClaimRewardsItemOwnProps & ProposalClaimRewardsComponentProps & ClaimRewardsChallengeProp & DispatchProp<any>
+class RescueTokensProposalItemReduxWrapperComponent extends React.Component<
+  RescueTokensItemOwnProps & ProposalRescueTokensComponentProps & RescueTokensChallengeProp & DispatchProp<any>
 > {
   public async componentDidMount(): Promise<void> {
     await this.ensureProposalData();
@@ -63,7 +62,7 @@ class ClaimRewardsProposalItemReduxWrapperComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    return <ProposalClaimRewardsViewComponent {...this.props} />;
+    return <ProposalRescueTokensViewComponent {...this.props} />;
   }
 
   private ensureProposalData = async (): Promise<void> => {
@@ -83,8 +82,8 @@ const makeChallengeMapStateToProps = () => {
 
   const mapStateToProps = (
     state: State,
-    ownProps: ClaimRewardsItemOwnProps,
-  ): ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps & ClaimRewardsChallengeProp => {
+    ownProps: RescueTokensItemOwnProps,
+  ): RescueTokensItemOwnProps & RescueTokensViewComponentProps & RescueTokensChallengeProp => {
     const { challengesFetching } = state.networkDependent;
     const { newsrooms } = state;
 
@@ -104,7 +103,6 @@ const makeChallengeMapStateToProps = () => {
 
     const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
 
-    const unclaimedRewardAmount = (userChallengeData && userChallengeData.voterReward) || new BigNumber(0);
     let challengeDataRequestStatus;
     if (ownProps.challengeID) {
       challengeDataRequestStatus = challengesFetching.get(ownProps.challengeID as string);
@@ -116,7 +114,6 @@ const makeChallengeMapStateToProps = () => {
       challenge,
       challengeDataRequestStatus,
       userChallengeData,
-      unclaimedRewardAmount,
       ...ownProps,
     };
   };
@@ -131,13 +128,12 @@ const makeProposalMapStateToProps = () => {
 
   const mapStateToProps = (
     state: State,
-    ownProps: ClaimRewardsItemOwnProps,
-  ): ClaimRewardsItemOwnProps & ProposalClaimRewardsComponentProps & ClaimRewardsChallengeProp => {
+    ownProps: RescueTokensItemOwnProps,
+  ): RescueTokensItemOwnProps & ProposalRescueTokensComponentProps & RescueTokensChallengeProp => {
     const { parameterProposalChallengesFetching } = state.networkDependent;
     const proposal = getProposalByChallengeID(state, ownProps);
     const challenge = getParameterProposalChallenge(state, ownProps);
     const userChallengeData = getUserProposalChallengeData(state, ownProps);
-    const unclaimedRewardAmount = (userChallengeData && userChallengeData.voterReward) || new BigNumber(0);
     let challengeDataRequestStatus;
     if (ownProps.challengeID) {
       challengeDataRequestStatus = parameterProposalChallengesFetching.get(ownProps.challengeID as string);
@@ -148,7 +144,6 @@ const makeProposalMapStateToProps = () => {
       challenge,
       challengeDataRequestStatus,
       userChallengeData,
-      unclaimedRewardAmount,
       ...ownProps,
     };
   };
@@ -156,10 +151,10 @@ const makeProposalMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export const ClaimRewardsProposalItemReduxWrapper = connect(makeProposalMapStateToProps)(
-  ClaimRewardsProposalItemReduxWrapperComponent,
+export const RescueTokensProposalItemReduxWrapper = connect(makeProposalMapStateToProps)(
+  RescueTokensProposalItemReduxWrapperComponent,
 );
 
-export const ClaimRewardsItemReduxWrapper = connect(makeChallengeMapStateToProps)(
-  ClaimRewardsItemReduxWrapperComponent,
+export const RescueTokensItemReduxWrapper = connect(makeChallengeMapStateToProps)(
+  RescueTokensItemReduxWrapperComponent,
 );

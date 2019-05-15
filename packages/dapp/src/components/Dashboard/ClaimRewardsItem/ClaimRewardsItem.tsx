@@ -9,7 +9,9 @@ interface ClaimRewardsItemWrapperReduxProps {
   useGraphQL?: boolean;
 }
 
-const ClaimRewardsItemWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps> = props => {
+const ClaimRewardsItemWrapper: React.FunctionComponent<
+  ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps
+> = props => {
   const {
     challengeID,
     appealChallengeID,
@@ -49,7 +51,7 @@ const mapStateToPropsClaimRewardsItemWrapper = (
   ownProps: ClaimRewardsItemOwnProps,
 ): ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps => {
   const { useGraphQL } = state;
-  return { useGraphQL,  ...ownProps };
+  return { useGraphQL, ...ownProps };
 };
 
 export default connect(mapStateToPropsClaimRewardsItemWrapper)(ClaimRewardsItemWrapper);

@@ -7,17 +7,11 @@ import {
   transformGraphQLDataIntoNewsroom,
   transfromGraphQLDataIntoUserChallengeData,
 } from "../../../helpers/queryTransformations";
-import { ClaimRewardsItemOwnProps } from "./types";
-import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
+import { RescueTokensItemOwnProps } from "./types";
+import { RescueTokensViewComponent, ProposalRescueTokensViewComponent } from "./RescueTokensViewComponents";
 
-const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps> = props => {
-  const {
-    challengeID,
-    appealChallengeID,
-    queryUserChallengeData,
-    toggleSelect,
-    isProposalChallenge,
-  } = props;
+const RescueTokensItemApolloQueryWrapper: React.FunctionComponent<RescueTokensItemOwnProps> = props => {
+  const { challengeID, appealChallengeID, queryUserChallengeData, toggleSelect, isProposalChallenge } = props;
   const challengeIDArg = challengeID || appealChallengeID;
   if (!challengeIDArg) {
     return <></>;
@@ -43,22 +37,19 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
                 graphQLChallengeData.challenge,
               );
 
-              const unclaimedRewardAmount = userChallengeData!.voterReward;
-
               const viewProps = {
                 challengeID,
                 appealChallengeID,
                 userChallengeData,
-                unclaimedRewardAmount,
                 toggleSelect,
               };
 
               if (isProposalChallenge) {
-                return <ProposalClaimRewardsViewComponent {...viewProps} />;
+                return <ProposalRescueTokensViewComponent {...viewProps} />;
               }
 
               const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(listingData.listing, listingAddress) };
-              return <ClaimRewardsViewComponent {...viewProps} listingAddress={listingAddress} newsroom={newsroom} />;
+              return <RescueTokensViewComponent {...viewProps} listingAddress={listingAddress} newsroom={newsroom} />;
             }}
           </Query>
         );
@@ -67,4 +58,4 @@ const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsIt
   );
 };
 
-export default ClaimRewardsItemApolloQueryWrapper;
+export default RescueTokensItemApolloQueryWrapper;

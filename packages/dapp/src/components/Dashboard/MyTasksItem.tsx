@@ -185,7 +185,7 @@ const MyTasksItemApolloQueryWrapper: React.FunctionComponent<
               if (newsroom.wrapper && newsroom.wrapper.data.charterHeader) {
                 charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
                 if (!charter) {
-                  getCharterContent(newsroom.wrapper.data.charterHeader);
+                  void getCharterContent(newsroom.wrapper.data.charterHeader);
                 }
               }
 
@@ -306,7 +306,9 @@ interface MyTasksItemWrapperReduxProps {
   getCharterContent(charterHeader: EthContentHeader): Promise<void>;
 }
 
-const MyTasksItemWrapper: React.FunctionComponent<MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>> = props => {
+const MyTasksItemWrapper: React.FunctionComponent<
+  MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>
+> = props => {
   const {
     useGraphQL,
     challengeID,
@@ -327,7 +329,9 @@ const MyTasksItemWrapper: React.FunctionComponent<MyTasksItemOwnProps & MyTasksI
     content,
   };
 
-  const getCharterContent = async (charterHeader: EthContentHeader) => { dispatch!(await getContent(charterHeader)) };
+  const getCharterContent = async (charterHeader: EthContentHeader) => {
+    dispatch!(await getContent(charterHeader));
+  };
 
   if (useGraphQL) {
     return (

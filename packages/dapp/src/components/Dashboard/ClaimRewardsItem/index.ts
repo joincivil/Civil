@@ -1,1 +1,1 @@
-export  { default } from "./ClaimRewardsItem";
+export { default } from "./ClaimRewardsItem";

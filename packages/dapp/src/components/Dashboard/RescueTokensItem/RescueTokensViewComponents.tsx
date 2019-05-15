@@ -1,12 +1,11 @@
 import * as React from "react";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
-import { ClaimRewardsItemOwnProps, ClaimRewardsViewComponentProps, ProposalClaimRewardsComponentProps } from "./types";
+import { RescueTokensItemOwnProps, RescueTokensViewComponentProps, ProposalRescueTokensComponentProps } from "./types";
 
-export const ClaimRewardsViewComponent: React.FunctionComponent<
-  ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps
+export const RescueTokensViewComponent: React.FunctionComponent<
+  RescueTokensItemOwnProps & RescueTokensViewComponentProps
 > = props => {
-  const { challengeID, appealChallengeID, toggleSelect, newsroom, userChallengeData, unclaimedRewardAmount } = props;
+  const { challengeID, appealChallengeID, toggleSelect, newsroom, userChallengeData } = props;
   let salt;
   if (userChallengeData) {
     salt = userChallengeData.salt;
@@ -23,17 +22,17 @@ export const ClaimRewardsViewComponent: React.FunctionComponent<
     challengeID,
     appealChallengeID,
     salt,
-    numTokens: getFormattedTokenBalance(unclaimedRewardAmount!),
     toggleSelect,
   };
 
   return <DashboardActivitySelectableItem {...viewProps} />;
 };
 
-export const ProposalClaimRewardsViewComponent: React.FunctionComponent<
-  ClaimRewardsItemOwnProps & ProposalClaimRewardsComponentProps
+export const ProposalRescueTokensViewComponent: React.FunctionComponent<
+  RescueTokensItemOwnProps & ProposalRescueTokensComponentProps
 > = props => {
-  const { proposal, challengeID, unclaimedRewardAmount, userChallengeData, toggleSelect } = props;
+  const { proposal, challengeID, userChallengeData, toggleSelect } = props;
+
   let salt;
   if (userChallengeData) {
     salt = userChallengeData.salt;
@@ -48,7 +47,6 @@ export const ProposalClaimRewardsViewComponent: React.FunctionComponent<
     title,
     challengeID,
     salt,
-    numTokens: getFormattedTokenBalance(unclaimedRewardAmount!),
     toggleSelect,
   };
 

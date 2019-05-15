@@ -309,12 +309,23 @@ enum USER_CHALLENGE_DATA_POLL_TYPES {
   CHALLENGE = "CHALLENGE",
   APPEAL_CHALLENGE = "APPEAL_CHALLENGE",
   PARAMETER_PROPOSAL_CHALLENGE = "PARAMETER_PROPOSAL_CHALLENGE",
-};
+}
 
-export function transformGraphQLDataIntoDashboardChallengesByTypeSets(queryUserChallengeData: any[]): [Set<string>, Set<string>, Set<string>] {
-  const challengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.CHALLENGE);
-  const appealChallengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.APPEAL_CHALLENGE);
-  const proposalChallengeIDs = getUserChallengeDataSetByPollType(queryUserChallengeData, USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE);
+export function transformGraphQLDataIntoDashboardChallengesByTypeSets(
+  queryUserChallengeData: any[],
+): [Set<string>, Set<string>, Set<string>] {
+  const challengeIDs = getUserChallengeDataSetByPollType(
+    queryUserChallengeData,
+    USER_CHALLENGE_DATA_POLL_TYPES.CHALLENGE,
+  );
+  const appealChallengeIDs = getUserChallengeDataSetByPollType(
+    queryUserChallengeData,
+    USER_CHALLENGE_DATA_POLL_TYPES.APPEAL_CHALLENGE,
+  );
+  const proposalChallengeIDs = getUserChallengeDataSetByPollType(
+    queryUserChallengeData,
+    USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+  );
   return [challengeIDs, appealChallengeIDs, proposalChallengeIDs];
 }
 
@@ -324,7 +335,6 @@ export function transfromGraphQLDataIntoUserChallengeData(
 ): UserChallengeData | undefined {
   if (queryUserChallengeData) {
     const {
-      pollID,
       userDidCommit: didUserCommit,
       userDidReveal: didUserReveal,
       didUserCollect,
@@ -336,7 +346,6 @@ export function transfromGraphQLDataIntoUserChallengeData(
       numTokens,
       choice,
       voterReward,
-      pollType,
     } = queryUserChallengeData;
 
     let canUserReveal;

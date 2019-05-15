@@ -116,7 +116,14 @@ class ChallengesWithRewardsToClaim extends React.Component<
                   if (allUserChallengeData) {
                     userChallengeData = allUserChallengeData.get(c!);
                   }
-                  return <ClaimRewardsItem key={c} challengeID={c!} queryUserChallengeData={userChallengeData} toggleSelect={this.setChallengesToMultiClaim} />
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
                 })}
 
               {this.props.appealChallenges
@@ -126,12 +133,14 @@ class ChallengesWithRewardsToClaim extends React.Component<
                   if (allUserChallengeData) {
                     userChallengeData = allUserChallengeData.get(c!);
                   }
-                  return <ClaimRewardsItem
-                    key={c}
-                    appealChallengeID={c!}
-                    queryUserChallengeData={userChallengeData}
-                    toggleSelect={this.setChallengesToMultiClaim}
-                  />
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      appealChallengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
                 })}
             </>
           </Tab>
@@ -144,13 +153,15 @@ class ChallengesWithRewardsToClaim extends React.Component<
                   if (allUserChallengeData) {
                     userChallengeData = allUserChallengeData.get(c!);
                   }
-                  return <ClaimRewardsItem
-                    key={c}
-                    isProposalChallenge={true}
-                    challengeID={c!}
-                    queryUserChallengeData={userChallengeData}
-                    toggleSelect={this.setChallengesToMultiClaim}
-                  />
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      isProposalChallenge={true}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
                 })}
             </>
           </Tab>
