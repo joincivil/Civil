@@ -117,7 +117,7 @@ const NEWSROOMS_QUERY = gql`
   }
 `;
 
-const USER_CHALLENGE_DATA_QUERY = gql`
+const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
   query($userAddress: String!) {
     allChallenges: userChallengeData(userAddr: $userAddress) {
       pollID
@@ -297,7 +297,7 @@ class DashboardActivity extends React.Component<
   private renderUserVotes = (): JSX.Element => {
     if (this.props.useGraphQL) {
       return (
-        <Query query={USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
+        <Query query={DASHBOARD_USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
           {({ loading, error, data }: any): JSX.Element => {
             if (error) {
               return <ErrorLoadingDataMsg />;
@@ -322,9 +322,6 @@ class DashboardActivity extends React.Component<
                 Set<string>,
                 Set<string>
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
-
-              // console.log(data.allChallenges);
-              // console.log("user challenge data", allChallengesWithAvailableActions.toArray(), allChallengesWithUnrevealedVotes, allChallengesWithUnclaimedRewards, allChallengesWithRescueTokens);
 
               // TODO(am9u): wire up proposal all and unrevealed actions to graphql
               const { proposalChallengesWithAvailableActions, proposalChallengesWithUnrevealedVotes } = this.props;
