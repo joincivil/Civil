@@ -1,10 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { BigNumber } from "bignumber.js";
-import {
-  CharterData,
-  WrappedChallengeData,
-} from "@joincivil/core";
+import { CharterData, WrappedChallengeData } from "@joincivil/core";
 
 import {
   CHALLENGE_QUERY,
@@ -14,17 +11,22 @@ import {
   transformGraphQLDataIntoChallenge,
   transfromGraphQLDataIntoUserChallengeData,
 } from "../../../helpers/queryTransformations";
-import {
-  getChallengeState,
-  getAppealChallengeState,
-} from "../../../selectors";
+import { getChallengeState, getAppealChallengeState } from "../../../selectors";
 
 import MyTasksItemComponent from "./MyTasksItemComponent";
 
 const MyTasksItemApolloQueryWrapper: React.FunctionComponent<
   MyTasksItemOwnProps & MyTasksItemWrapperReduxProps
 > = props => {
-  const { challengeID, queryUserChallengeData, queryUserAppealChallengeData, content, getCharterContent } = props;
+  const {
+    challengeID,
+    queryUserChallengeData,
+    queryUserAppealChallengeData,
+    content,
+    getCharterContent,
+    showClaimRewardsTab,
+    showRescueTokensTab,
+  } = props;
   return (
     <Query query={CHALLENGE_QUERY} variables={{ challengeID }}>
       {({ loading, error, data: graphQLChallengeData }: any) => {
@@ -102,6 +104,8 @@ const MyTasksItemApolloQueryWrapper: React.FunctionComponent<
                 appealChallenge,
                 appealChallengeState,
                 appealUserChallengeData,
+                showClaimRewardsTab,
+                showRescueTokensTab,
               };
 
               return <MyTasksItemComponent {...viewProps} />;

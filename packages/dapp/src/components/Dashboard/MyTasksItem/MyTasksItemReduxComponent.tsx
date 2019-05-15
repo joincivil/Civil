@@ -1,10 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 
-import {
-  CharterData,
-  WrappedChallengeData,
-} from "@joincivil/core";
+import { CharterData } from "@joincivil/core";
 
 import { State } from "../../../redux/reducers";
 import { ListingWrapperWithExpiry } from "../../../redux/reducers/listings";
@@ -49,7 +46,10 @@ const makeMapStateToProps = () => {
   const getUserChallengeData = makeGetUserChallengeData();
   const getUserAppealChallengeData = makeGetUserAppealChallengeData();
 
-  const mapStateToProps = (state: State, ownProps: MyTasksItemOwnProps): MyTasksItemOwnProps & MyTasksItemReduxProps => {
+  const mapStateToProps = (
+    state: State,
+    ownProps: MyTasksItemOwnProps,
+  ): MyTasksItemOwnProps & MyTasksItemReduxProps => {
     const { newsrooms } = state;
     const { user, content, listings, listingsFetching } = state.networkDependent;
     const userAcct = user && user.account.account;

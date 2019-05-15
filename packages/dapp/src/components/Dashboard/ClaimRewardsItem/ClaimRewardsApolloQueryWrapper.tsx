@@ -11,13 +11,7 @@ import { ClaimRewardsItemOwnProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 
 const ClaimRewardsItemApolloQueryWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps> = props => {
-  const {
-    challengeID,
-    appealChallengeID,
-    queryUserChallengeData,
-    toggleSelect,
-    isProposalChallenge,
-  } = props;
+  const { challengeID, appealChallengeID, queryUserChallengeData, toggleSelect, isProposalChallenge } = props;
   const challengeIDArg = challengeID || appealChallengeID;
   if (!challengeIDArg) {
     return <></>;

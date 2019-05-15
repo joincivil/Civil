@@ -1,8 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import {
-  EthContentHeader,
-} from "@joincivil/core";
+import { EthContentHeader } from "@joincivil/core";
 
 import { State } from "../../../redux/reducers";
 import { getContent } from "../../../redux/actionCreators/newsrooms";
