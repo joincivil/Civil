@@ -92,10 +92,7 @@ export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData):
   if (challengeData.appeal) {
     if (challengeData.appeal.appealGranted) {
       if (challengeData.appeal.appealChallenge) {
-        const isVotePassed2 = isVotePassed(challengeData.appeal.appealChallenge.poll);
-        if (isVotePassed2) {
-          return false;
-        }
+        return !isVotePassed(challengeData.appeal.appealChallenge.poll);
       }
       return true;
     }
