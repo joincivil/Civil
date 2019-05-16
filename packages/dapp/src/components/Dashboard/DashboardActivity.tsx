@@ -132,6 +132,7 @@ const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
       isVoterWinner
       pollIsPassed
       choice
+      salt,
       numTokens
       voterReward
       parentChallengeID
