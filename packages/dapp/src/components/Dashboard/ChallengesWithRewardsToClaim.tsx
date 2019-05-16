@@ -67,6 +67,7 @@ export interface ChallengesWithRewardsToClaimProps {
   appealChallenges: any;
   proposalChallenges: any;
   userChallengeData?: any;
+  refetchUserChallengeData?(): void;
   onMobileTransactionClick?(): any;
 }
 
@@ -205,6 +206,10 @@ class ChallengesWithRewardsToClaim extends React.Component<
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: true,
           });
+
+          if (this.props.refetchUserChallengeData) {
+            this.props.refetchUserChallengeData();
+          }
         },
         handleTransactionError: this.props.handleTransactionError,
       },

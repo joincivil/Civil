@@ -367,8 +367,7 @@ export function transfromGraphQLDataIntoUserChallengeData(
       didUserReveal,
       didUserCollect,
       didUserRescue,
-      // didCollectAmount: new BigNumber(didCollectAmount || 0),
-      didCollectAmount,
+      didCollectAmount: new BigNumber(didCollectAmount || 0),
 
       canUserReveal,
       canUserCollect,

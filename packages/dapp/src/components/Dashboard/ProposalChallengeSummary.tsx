@@ -16,9 +16,14 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import WinningChallengeResults from "./WinningChallengeResults";
-import { MyTasksProposalItemSubComponentProps } from "./MyTasksProposalItem";
+import {
+  MyTasksProposalItemOwnProps,
+  MyTasksProposalItemReduxProps,
+} from "./MyTasksProposalItem/MyTasksProposalItemTypes";
 
-const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
+const CurrentChallengeStateExplanation: React.FunctionComponent<
+  MyTasksProposalItemOwnProps & MyTasksProposalItemReduxProps
+> = props => {
   const { challenge } = props;
 
   if (!challenge) {
@@ -40,14 +45,16 @@ const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksProposalI
   return explanation;
 };
 
-const ChallengeSummary: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
-  const { challengeID, challenge, proposalUserChallengeData, showClaimRewardsTab, showRescueTokensTab } = props;
+const ChallengeSummary: React.FunctionComponent<
+  MyTasksProposalItemOwnProps & MyTasksProposalItemReduxProps
+> = props => {
+  const { challengeID, challenge, userChallengeData, showClaimRewardsTab, showRescueTokensTab } = props;
 
-  if (!proposalUserChallengeData || !challenge) {
+  if (!userChallengeData || !challenge) {
     return <></>;
   }
 
-  const { canUserCollect, canUserRescue, choice, numTokens } = proposalUserChallengeData;
+  const { canUserCollect, canUserRescue, choice, numTokens } = userChallengeData;
 
   let userVotingSummary;
 
@@ -78,7 +85,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksProposalItemSubComponentP
   }
 
   const buttonProps = {
-    ...proposalUserChallengeData,
+    ...userChallengeData,
     propDetailURL: "/parameterizer",
     onClick: onCTAButtonClick,
   };
@@ -92,7 +99,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksProposalItemSubComponentP
           <StyledDashbaordActvityItemSection>
             <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
             <StyledDashbaordActvityItemSectionInner>
-              <WinningChallengeResults challengeID={challengeID} isProposalChallenge={true} />
+              <WinningChallengeResults challengeID={challengeID} challenge={challenge} isProposalChallenge={true} />
             </StyledDashbaordActvityItemSectionInner>
           </StyledDashbaordActvityItemSection>
         </StyledChallengeSummarySection>
@@ -106,7 +113,9 @@ const ChallengeSummary: React.FunctionComponent<MyTasksProposalItemSubComponentP
   );
 };
 
-const DashboardProposalItemChallengeDetails: React.FunctionComponent<MyTasksProposalItemSubComponentProps> = props => {
+const DashboardProposalItemChallengeDetails: React.FunctionComponent<
+  MyTasksProposalItemOwnProps & MyTasksProposalItemReduxProps
+> = props => {
   const { challenge } = props;
 
   if (!challenge) {

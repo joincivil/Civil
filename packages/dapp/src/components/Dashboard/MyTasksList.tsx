@@ -3,18 +3,24 @@ import { Map, Set } from "immutable";
 import MyTasksItem from "./MyTasksItem";
 import MyTasksProposalItem from "./MyTasksProposalItem";
 
-export interface MyTasksOwnProps {
+export interface MyTasksListOwnProps {
   challenges?: Set<string>;
   proposalChallenges?: Set<string>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
   useGraphQL?: boolean;
+  refetchUserChallengeData?(): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
 }
 
-const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
-  const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap, useGraphQL } = props;
+const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
+  const {
+    userChallengeData: allUserChallengeData,
+    challengeToAppealChallengeMap,
+    useGraphQL,
+    refetchUserChallengeData,
+  } = props;
   return (
     <>
       {props.challenges &&
@@ -38,6 +44,7 @@ const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
               queryUserChallengeData={userChallengeData}
               queryUserAppealChallengeData={appealChallengeUserData}
               useGraphQL={useGraphQL}
+              refetchUserChallengeData={refetchUserChallengeData}
               showClaimRewardsTab={() => {
                 props.showClaimRewardsTab();
               }}
@@ -57,8 +64,9 @@ const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
             <MyTasksProposalItem
               key={c}
               challengeID={c!}
-              userChallengeData={userChallengeData}
+              queryUserChallengeData={userChallengeData}
               useGraphQL={useGraphQL}
+              refetchUserChallengeData={refetchUserChallengeData}
               showClaimRewardsTab={() => {
                 props.showClaimRewardsTab();
               }}
@@ -72,4 +80,4 @@ const MyTasks: React.FunctionComponent<MyTasksOwnProps> = props => {
   );
 };
 
-export default MyTasks;
+export default MyTasksList;

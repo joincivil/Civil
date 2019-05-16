@@ -69,6 +69,7 @@ export interface ChallengesWithTokensToRescueProps {
   appealChallenges: any;
   proposalChallenges: any;
   userChallengeData?: any;
+  refetchUserChallengeData?(): void;
   onMobileTransactionClick?(): any;
 }
 
@@ -216,6 +217,9 @@ class ChallengesWithTokensToRescue extends React.Component<
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: true,
           });
+          if (this.props.refetchUserChallengeData) {
+            this.props.refetchUserChallengeData();
+          }
         },
         handleTransactionError: this.props.handleTransactionError,
       },

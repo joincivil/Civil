@@ -36,10 +36,11 @@ export interface MyTasksProps {
   challengeToAppealChallengeMap?: Map<string, string>;
   activeSubTabIndex: number;
   useGraphQL?: boolean;
-  setActiveSubTabIndex(): void;
+  setActiveSubTabIndex(activeSubIndex: number): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
   showNoMobileTransactionsModal(): void;
+  refetchUserChallengeData?(): void;
 }
 
 const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
@@ -62,6 +63,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     userChallengeData,
     challengeToAppealChallengeMap,
     useGraphQL,
+    refetchUserChallengeData,
   } = props;
 
   const allVotesTabTitle = (
@@ -108,6 +110,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             userChallengeData={userChallengeData}
             challengeToAppealChallengeMap={challengeToAppealChallengeMap}
             useGraphQL={useGraphQL}
+            refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
           />
@@ -119,6 +122,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             userChallengeData={userChallengeData}
             challengeToAppealChallengeMap={challengeToAppealChallengeMap}
             useGraphQL={useGraphQL}
+            refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
           />
@@ -129,6 +133,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             appealChallenges={userAppealChallengesWithUnclaimedRewards}
             proposalChallenges={proposalChallengesWithUnclaimedRewards}
             userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
         </Tab>
@@ -138,6 +143,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             appealChallenges={userAppealChallengesWithRescueTokens}
             proposalChallenges={proposalChallengesWithRescueTokens}
             userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
         </Tab>
