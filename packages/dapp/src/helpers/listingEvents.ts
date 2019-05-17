@@ -76,9 +76,9 @@ export function clearListingSubscriptions(): any {
   setTimeoutTimeouts.clear();
 }
 
-let challengeSubscription: Subscription;
-let newChallengeActionsSubscription: Subscription;
-let challengeStartedSubscription: Subscription;
+let challengeSubscription: Subscription | undefined;
+let newChallengeActionsSubscription: Subscription | undefined;
+let challengeStartedSubscription: Subscription | undefined;
 let allChallengeIDs: Set<string> = new Set();
 let allAppealChallengeIDs: Set<string> = new Set();
 let appealChallengesToChallengeIDs: Map<string, string> = new Map();
@@ -251,6 +251,29 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     dispatch(addChallenge(wrappedChallenge));
     dispatch(addUserChallengeStarted(challengeId.toString(), user));
   });
+}
+
+export function clearChallengeSubscriptions(): any {
+  if (currentListingSubscriptions) {
+    currentListingSubscriptions.unsubscribe();
+    currentListingSubscriptions = undefined;
+  }
+  if (initialListingSubscriptions) {
+    initialListingSubscriptions.unsubscribe();
+    initialListingSubscriptions = undefined;
+  }
+  if (challengeSubscription) {
+    challengeSubscription.unsubscribe();
+    challengeSubscription = undefined;
+  }
+  if (newChallengeActionsSubscription) {
+    newChallengeActionsSubscription.unsubscribe();
+    newChallengeActionsSubscription = undefined;
+  }
+  if (challengeStartedSubscription) {
+    challengeStartedSubscription.unsubscribe();
+    challengeStartedSubscription = undefined;
+  }
 }
 
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
