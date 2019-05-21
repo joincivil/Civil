@@ -35,7 +35,7 @@
     "apollo-link-context": "^1.0.12",
     "apollo-link-error": "^1.1.5",
     "apollo-link-http": "^1.5.9",
-    "bignumber.js": "~5.0.0",
+    "bignumber.js": "~8.1.1",
     "detect-browser": "^4.1.0",
     "eth-sig-util": "^1.4.2",
     "ethereumjs-abi": "^0.6.5",
