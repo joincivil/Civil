@@ -23,7 +23,7 @@ import {
   getChallengesToProcess,
   StyledTabsComponent,
 } from "./DashboardActivity";
-import ActivityListItemRescueTokens from "./ActivityListItemRescueTokens";
+import RescueTokensItem from "./RescueTokensItem";
 
 enum TransactionTypes {
   MULTI_RESCUE_TOKENS = "MULTI_RESCUE_TOKENS",
@@ -68,6 +68,8 @@ export interface ChallengesWithTokensToRescueProps {
   challenges: any;
   appealChallenges: any;
   proposalChallenges: any;
+  userChallengeData?: any;
+  refetchUserChallengeData?(): void;
   onMobileTransactionClick?(): any;
 }
 
@@ -95,6 +97,7 @@ class ChallengesWithTokensToRescue extends React.Component<
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiRescue } = this;
+    const { userChallengeData: allUserChallengeData } = this.props;
 
     return (
       <>
@@ -111,37 +114,58 @@ class ChallengesWithTokensToRescue extends React.Component<
             <>
               {this.props.challenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemRescueTokens
-                    key={c}
-                    challengeID={c!}
-                    toggleSelect={this.setChallengesToMultiRescue}
-                  />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
 
               {this.props.appealChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemRescueTokens
-                    key={c}
-                    appealChallengeID={c!}
-                    toggleSelect={this.setChallengesToMultiRescue}
-                  />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      appealChallengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
             </>
           </Tab>
           <Tab title="Parameter Proposal Challenges">
             <>
               {this.props.proposalChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemRescueTokens
-                    key={c}
-                    isProposalChallenge={true}
-                    challengeID={c!}
-                    toggleSelect={this.setChallengesToMultiRescue}
-                  />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      isProposalChallenge={true}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
             </>
           </Tab>
         </Tabs>
@@ -193,6 +217,9 @@ class ChallengesWithTokensToRescue extends React.Component<
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: true,
           });
+          if (this.props.refetchUserChallengeData) {
+            this.props.refetchUserChallengeData();
+          }
         },
         handleTransactionError: this.props.handleTransactionError,
       },

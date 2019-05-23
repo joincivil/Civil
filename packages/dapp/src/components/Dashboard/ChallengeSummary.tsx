@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 import { doesChallengeHaveAppeal } from "@joincivil/core";
 import {
+  colors,
   UserVotingSummary,
   CHALLENGE_RESULTS_VOTE_TYPES,
   StyledDashbaordActvityItemSection,
@@ -16,13 +18,21 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
-import { WinningChallengeResults } from "./WinningChallengeResults";
+import WinningChallengeResults from "./WinningChallengeResults";
 import { MyTasksItemSubComponentProps } from "./MyTasksItem";
 
 interface AppealDecisionTextProps {
   currentNewsroomStatusPastTense: string;
   councilDecision: string;
 }
+
+const StyledPartialChallengeResultsExplanation = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_2};
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 30px;
+  margin: 17px 0;
+`;
 
 const AppealDecisionText: React.FunctionComponent<AppealDecisionTextProps> = props => {
   return (
@@ -221,7 +231,11 @@ const AppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentPro
           <StyledDashbaordActvityItemSection>
             <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
             <StyledDashbaordActvityItemSectionInner>
-              <WinningChallengeResults appealChallengeID={appealChallengeID} displayExplanation={true} />
+              <WinningChallengeResults
+                appealChallengeID={appealChallengeID}
+                appealChallenge={appealChallenge}
+                displayExplanation={true}
+              />
             </StyledDashbaordActvityItemSectionInner>
           </StyledDashbaordActvityItemSection>
         </StyledChallengeSummarySection>
@@ -235,9 +249,7 @@ const AppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentPro
 
   return (
     <>
-      {appealChallenge && (
-        <StyledDashboardActivityItemSubTitle>Appeal Challenge #{appealChallengeID}</StyledDashboardActivityItemSubTitle>
-      )}
+      <StyledDashboardActivityItemSubTitle>Appeal Challenge #{appealChallengeID}</StyledDashboardActivityItemSubTitle>
       {appealWinningChallengeResults}
     </>
   );
@@ -246,6 +258,7 @@ const AppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentPro
 const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = props => {
   const {
     challengeID,
+    challenge,
     challengeState,
     userChallengeData,
     showClaimRewardsTab,
@@ -264,6 +277,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
     canRequestAppeal,
     isAppealChallengeInCommitStage,
     isAppealChallengeInRevealStage,
+    didChallengeOriginallySucceed,
   } = challengeState;
 
   let userVotingSummary;
@@ -277,6 +291,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
     const { didUserReveal, choice, numTokens } = userChallengeData;
     let userVotingSummaryContent;
     let userChoice;
+
     if (didUserReveal) {
       if (choice) {
         userChoice =
@@ -288,12 +303,20 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
     } else {
       userVotingSummaryContent = <>You did not reveal your vote</>;
     }
+
     userVotingSummary = (
       <StyledDashbaordActvityItemSection>
         <StyledDashbaordActvityItemHeader>Your Voting Summary</StyledDashbaordActvityItemHeader>
         <StyledDashbaordActvityItemSectionInner>{userVotingSummaryContent}</StyledDashbaordActvityItemSectionInner>
       </StyledDashbaordActvityItemSection>
     );
+  }
+
+  let explanation;
+  if (didChallengeOriginallySucceed) {
+    explanation = "The Civil Community voted to reject this Newsroom from The Civil Registry.";
+  } else {
+    explanation = "The Civil Community voted to accept this Newsroom to The Civil Registry.";
   }
 
   const { canUserCollect, canUserRescue } = userChallengeData!;
@@ -321,8 +344,12 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
           <StyledDashbaordActvityItemSection>
             <StyledDashbaordActvityItemHeader>Community Voting Summary</StyledDashbaordActvityItemHeader>
             <StyledDashbaordActvityItemSectionInner>
+              {displayChallengeResultsExplanation && (
+                <StyledPartialChallengeResultsExplanation>{explanation}</StyledPartialChallengeResultsExplanation>
+              )}
               <WinningChallengeResults
                 challengeID={challengeID}
+                challenge={challenge}
                 displayExplanation={displayChallengeResultsExplanation}
               />
             </StyledDashbaordActvityItemSectionInner>
