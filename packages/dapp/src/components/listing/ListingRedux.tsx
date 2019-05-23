@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
 
-import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
 import {
   Tabs,
   Tab,
@@ -33,6 +33,7 @@ export interface ListingPageComponentProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
+  charterRevisions?: Map<number, StorageHeader>;
 }
 
 export interface ListingReduxProps {
@@ -45,6 +46,8 @@ export interface ListingReduxProps {
   listingDataRequestStatus?: any;
   listingPhaseState?: any;
   charter?: CharterData;
+  charterRevisionId?: number;
+  charterRevision?: StorageHeader;
   parameters: any;
   govtParameters: any;
   network: string;
@@ -72,6 +75,12 @@ class ListingPageComponent extends React.Component<
     if (this.props.newsroom) {
       this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
     }
+    if (this.props.listing && this.props.listing.data.challenge) {
+      this.props.dispatch!(await getBareContent(this.props.listing.data.challenge.challengeStatementURI!));
+    }
+    if (this.props.charterRevision && !this.props.charter) {
+      this.props.dispatch!(await getContent(this.props.charterRevision));
+    }
   }
 
   public async componentDidMount(): Promise<void> {
@@ -93,8 +102,7 @@ class ListingPageComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const listing = this.props.listing;
-    const newsroom = this.props.newsroom;
+    const { listing, newsroom, listingPhaseState, charterRevisionId, charterRevisions } = this.props;
     const listingExistsAsNewsroom = listing && newsroom;
 
     if (!listingExistsAsNewsroom) {
@@ -133,9 +141,11 @@ class ListingPageComponent extends React.Component<
               <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
-                    listing={this.props.listing!}
-                    newsroom={this.props.newsroom!}
-                    charter={this.props.charter}
+                    listing={listing!}
+                    newsroom={newsroom!}
+                    charterRevisionId={charterRevisionId}
+                    charterRevisions={charterRevisions}
+                    isListingUnderChallenge={listingPhaseState.isUnderChallenge}
                   />
                 </ListingTabContent>
               </Tab>
@@ -204,12 +214,38 @@ const makeMapStateToProps = () => {
     if (ownProps.listingAddress) {
       listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
     }
-    let charter;
-    if (newsroom && newsroom.data.charterHeader) {
-      charter = content.get(newsroom.data.charterHeader.uri) as CharterData;
-    }
     const expiry = getListingExpiry(state, ownProps);
     const listingPhaseState = getListingPhaseState(ownProps.listing);
+
+    let charter;
+    let charterUri;
+    let charterRevisionId =
+      newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader.revisionId;
+    let charterRevision;
+    if (
+      listingPhaseState &&
+      listingPhaseState.isUnderChallenge &&
+      ownProps.listing &&
+      ownProps.listing.data.challenge
+    ) {
+      const challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+      if (challengeStatement && (challengeStatement as any).charterRevisionId !== undefined) {
+        charterRevisionId = (challengeStatement as any).charterRevisionId;
+      }
+      if (ownProps.charterRevisions) {
+        charterRevision = ownProps.charterRevisions.get(charterRevisionId!);
+        if (charterRevision) {
+          charter = content.get(charterRevision.uri) as CharterData;
+        }
+      }
+    } else {
+      if (newsroom && newsroom.data.charterHeader) {
+        charterUri = newsroom.data.charterHeader.uri;
+        charter = content.get(charterUri) as CharterData;
+        charterRevisionId = newsroom.data.charterHeader.revisionId;
+      }
+    }
+
     return {
       ...ownProps,
       network,
@@ -221,6 +257,8 @@ const makeMapStateToProps = () => {
       parameters,
       govtParameters,
       charter,
+      charterRevisionId,
+      charterRevision,
       useGraphQL,
       loadingFinished,
     };

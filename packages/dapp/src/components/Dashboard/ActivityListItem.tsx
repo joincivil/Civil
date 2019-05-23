@@ -3,9 +3,10 @@ import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
+import styled from "styled-components";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
+import { DashboardActivityItem, PHASE_TYPE_NAMES, colors, ErrorIcon } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { routes } from "../../constants";
@@ -22,6 +23,14 @@ import WinningChallengeResults from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+
+const StyledWarningText = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -9px 0;
+  }
+`;
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
@@ -226,8 +235,20 @@ class ActivityListItemComponent extends React.Component<
     // This is a listing
     if (!userChallengeData && listingAddress) {
       // @TODO/tobek When we release the post-application newsroom manager we should fix NEWSROOM_MANAGEMENT route and point this to that, but for now just send them to APPLY_TO_REGISTRY
-      const manageNewsroomUrl = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
-      return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
+      if (listingPhaseState) {
+        if (listingPhaseState.isUnderChallenge) {
+          return [
+            "View",
+            <StyledWarningText>
+              <ErrorIcon width={16} height={16} /> Your charter is locked until the challenge period has ended.
+            </StyledWarningText>,
+          ];
+        } else {
+          const manageNewsroomUrl = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
+          return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
+        }
+      }
+      return ["View", undefined];
     }
 
     return ["View", undefined];

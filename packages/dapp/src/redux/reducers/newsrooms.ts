@@ -1,7 +1,7 @@
 import { Set, Map } from "immutable";
 import { AnyAction } from "redux";
 import { newsroomActions } from "../actionCreators/newsrooms";
-import { StorageHeader, ContentData } from "@joincivil/core";
+import { EthAddress, StorageHeader, EthContentHeader, ContentData } from "@joincivil/core";
 
 export function currentUserNewsrooms(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {
@@ -32,6 +32,23 @@ export function content(
   switch (action.type) {
     case newsroomActions.ADD_CONTENT:
       return state.set(action.data.header.uri, action.data.content);
+    default:
+      return state;
+  }
+}
+
+export function charterRevisions(
+  state: Map<EthAddress, Map<number, EthContentHeader>> = Map<EthAddress, Map<number, EthContentHeader>>(),
+  action: AnyAction,
+): Map<EthAddress, Map<number, EthContentHeader>> {
+  switch (action.type) {
+    case newsroomActions.ADD_CHARTER_REVISION:
+      const { address, revisionId, header } = action.data;
+      let newsroomContentRevisions = state.get(address);
+      if (!newsroomContentRevisions) {
+        newsroomContentRevisions = Map<number, EthContentHeader>();
+      }
+      return state.set(address, newsroomContentRevisions.set(revisionId, header));
     default:
       return state;
   }

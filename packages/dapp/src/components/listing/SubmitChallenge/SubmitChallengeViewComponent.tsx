@@ -1,18 +1,17 @@
 import * as React from "react";
 import { compose } from "redux";
-import { connect } from "react-redux";
+import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   colors,
-  InsufficientCVLForChallenge,
   Modal,
   ModalHeading,
   ModalContent,
   ModalUnorderedList,
   ModalListItem,
-  SnackBar,
   SubmitChallengeStatement as SubmitChallengeStatementComponent,
   SubmitChallengeStatementProps,
   SubmitChallengeSuccessIcon,
@@ -22,44 +21,48 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, urlConstants as links } from "@joincivil/utils";
 
-import { routes } from "../../constants";
-import { getCivil } from "../../helpers/civilInstance";
-import { approveForChallenge, publishContent, challengeListingWithUri } from "../../apis/civilTCR";
-import { State } from "../../redux/reducers";
+import { State } from "../../../redux/reducers";
+import { getCivil } from "../../../helpers/civilInstance";
+import { routes } from "../../../constants";
+import ScrollToTopOnMount from "../../utility/ScrollToTop";
+import { approveForChallenge, publishContent, challengeListingWithUri } from "../../../apis/civilTCR";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
   TransactionStatusModalContentMap,
-} from "../utility/TransactionStatusModalsHOC";
-import ScrollToTopOnMount from "../utility/ScrollToTop";
+} from "../../utility/TransactionStatusModalsHOC";
+import {
+  SubmitChallengeProps,
+  SubmitChallengeReduxProps,
+  SubmitChallengeReduxParametersProps,
+} from "./SubmitChallengeTypes";
+import InsufficientBalanceSnackBar from "./InsufficientBalanceSnackBar";
 
-export interface SubmitChallengePageProps {
-  match: any;
-  history?: any;
-}
+const StyledConfirmModalContent = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 16px;
+  line-height: 26px;
+  margin: 0 0 10px;
+`;
 
-interface SubmitChallengeProps {
-  history?: any;
-  listingAddress: EthAddress;
-  listingURI: string;
-  governanceGuideURI: string;
-}
+const StyledConfirmModalButtons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
 
-interface SubmitChallengeReduxProps {
-  newsroomName: string;
-  minDeposit: string;
-  commitStageLen: string;
-  revealStageLen: string;
-  isInsufficientBalance: boolean;
-}
-
-interface SubmitChallengeState {
-  challengeStatementSummaryValue?: string;
-  challengeStatementCiteConstitutionValue?: any;
-  challengeStatementDetailsValue?: any;
-  challengeStatementUri?: string;
-  isConfirmModalVisible: boolean;
-}
+  ${InvertedButton}, ${Button} {
+    border-width: 1px;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    margin: 0 15px;
+    padding: 14px 0 15px;
+    text-align: center;
+    text-transform: none;
+    width: 203px;
+  }
+`;
 
 enum TransactionTypes {
   APPROVE_FOR_CHALLENGE = "APPROVE_FOR_CHALLENGE",
@@ -120,34 +123,20 @@ const transactionStatusModalConfig = {
   transactionErrorContent,
 };
 
-const StyledConfirmModalContent = styled.p`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 16px;
-  line-height: 26px;
-  margin: 0 0 10px;
-`;
-
-const StyledConfirmModalButtons = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px 0 0;
-
-  ${InvertedButton}, ${Button} {
-    border-width: 1px;
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: 0.2px;
-    line-height: 14px;
-    margin: 0 15px;
-    padding: 14px 0 15px;
-    text-align: center;
-    text-transform: none;
-    width: 203px;
-  }
-`;
+interface SubmitChallengeState {
+  challengeStatementSummaryValue?: string;
+  challengeStatementCiteConstitutionValue?: any;
+  challengeStatementDetailsValue?: any;
+  challengeStatementUri?: string;
+  isConfirmModalVisible: boolean;
+}
 
 class SubmitChallengeComponent extends React.Component<
-  SubmitChallengeProps & SubmitChallengeReduxProps & InjectedTransactionStatusModalProps,
+  SubmitChallengeProps &
+    SubmitChallengeReduxProps &
+    SubmitChallengeReduxParametersProps &
+    InjectedTransactionStatusModalProps &
+    DispatchProp<any>,
   SubmitChallengeState
 > {
   public state = {
@@ -293,8 +282,6 @@ class SubmitChallengeComponent extends React.Component<
         </>,
         <>
           <ModalContent>
-            This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
-            {this.props.commitStageLen} to commit their secret votes, and {this.props.revealStageLen} to confirm their
             vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting
             period.
           </ModalContent>
@@ -342,10 +329,13 @@ class SubmitChallengeComponent extends React.Component<
       challengeStatementCiteConstitutionValue,
       challengeStatementDetailsValue,
     } = this.state;
+    const { charterRevisionId } = this.props;
+
     const jsonToSave = {
       summary: challengeStatementSummaryValue,
-      citeConstitution: challengeStatementCiteConstitutionValue.toString("html"),
-      details: challengeStatementDetailsValue.toString("html"),
+      citeConstitution: (challengeStatementCiteConstitutionValue as any).toString("html"),
+      details: (challengeStatementDetailsValue as any).toString("html"),
+      charterRevisionId,
     };
     return publishContent(JSON.stringify(jsonToSave));
   };
@@ -355,18 +345,11 @@ class SubmitChallengeComponent extends React.Component<
   };
 }
 
+// TODO(jon): Move `mapStateToProps` to `SubmitChallengeReduxContainer` and remove `connect` invocation once Parameters are queryable from GraphQL
 const mapStateToProps = (
   state: State,
-  ownProps: SubmitChallengeProps,
-): SubmitChallengeProps & SubmitChallengeReduxProps => {
-  const { newsrooms } = state;
-  const newsroom = newsrooms.get(ownProps.listingAddress);
-
-  let newsroomName = "";
-  if (newsroom) {
-    newsroomName = newsroom.wrapper.data.name;
-  }
-
+  ownProps: SubmitChallengeProps & SubmitChallengeReduxProps,
+): SubmitChallengeProps & SubmitChallengeReduxParametersProps => {
   const { parameters, user } = state.networkDependent;
 
   let minDeposit = "";
@@ -395,7 +378,6 @@ const mapStateToProps = (
   }
 
   return {
-    newsroomName,
     minDeposit,
     commitStageLen,
     revealStageLen,
@@ -404,35 +386,6 @@ const mapStateToProps = (
   };
 };
 
-interface InsufficientBalanceSnackBarProps {
-  buyCVLURL: string;
-  minDeposit: string;
-}
-
-const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
-  return (
-    <SnackBar>
-      <InsufficientCVLForChallenge minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
-    </SnackBar>
-  );
-};
-
-const SubmitChallenge = compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
+export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
   SubmitChallengeComponent,
 ) as React.ComponentClass<SubmitChallengeProps>;
-
-const SubmitChallengePage = (props: SubmitChallengePageProps) => {
-  const listingAddress = props.match.params.listingAddress;
-  const listingURI = formatRoute(routes.LISTING, { listingAddress });
-  const governanceGuideURI = links.FAQ_REGISTRY;
-  return (
-    <SubmitChallenge
-      listingAddress={listingAddress}
-      listingURI={listingURI}
-      governanceGuideURI={governanceGuideURI}
-      history={props.history}
-    />
-  );
-};
-
-export default SubmitChallengePage;
