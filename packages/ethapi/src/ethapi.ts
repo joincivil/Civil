@@ -12,7 +12,7 @@ import {
   Hex,
   TxDataAll,
   TxHash,
-} from "../../typescript-types/build";
+} from "@joincivil/typescript-types";
 import { AbiDecoder } from "./abidecoder";
 import { requireAccount } from "./helpers";
 
