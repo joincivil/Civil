@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import config from "../../helpers/config";
+// import config from "../../helpers/config";
 
 class ListingDiscourse extends React.Component {
   constructor(props: {}) {
@@ -9,25 +9,21 @@ class ListingDiscourse extends React.Component {
   }
 
   public async componentDidMount(): Promise<void> {
-    const discourseUrl = config.DISCOURSE_URL;
-    const tag = document.createElement("script");
-    tag.async = true;
-    tag.src = discourseUrl + "/static/embed.js";
-
-    const handleCallback = () => {
-      const node = ReactDOM.findDOMNode(this);
-      // @ts-ignore
-      window.Coral.Talk.render(node, {
-        talk: discourseUrl,
-      });
+    (window as any).DiscourseEmbed = {
+      discourseUrl: "https://community.civil.co/",
+      topicId: 13,
     };
 
-    tag.onload = handleCallback;
+    const { discourseUrl } = (window as any).DiscourseEmbed;
+    const tag = document.createElement("script");
+    tag.async = true;
+    tag.src = discourseUrl + "javascripts/embed.js";
+
     document.getElementsByTagName("body")[0].appendChild(tag);
   }
 
   public render(): JSX.Element {
-    return <div />;
+    return <div id="discourse-comments" />;
   }
 }
 
