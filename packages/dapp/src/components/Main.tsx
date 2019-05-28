@@ -17,7 +17,6 @@ import {
   initializeConstitution,
   initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
-import { initializeChallengeSubscriptions } from "../helpers/listingEvents";
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { initializeContractAddresses } from "../helpers/contractAddresses";
@@ -115,7 +114,6 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
         const votingBalance = await voting.getNumVotingRights(account);
         this.props.dispatch!(addUser(account, balance, votingBalance));
         await initializeTokenSubscriptions(this.props.dispatch!, account);
-        await initializeChallengeSubscriptions(this.props.dispatch!, account);
       } catch (err) {
         if (err.message === CivilErrors.UnsupportedNetwork) {
           this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));

@@ -10,6 +10,7 @@ export enum challengeActions {
   ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA = "ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA",
   ADD_USER_CHALLENGE_STARTED = "ADD_USER_CHALLENGE_STARTED",
   ADD_GRANT_APPEAL_TX = "ADD_GRANT_APPEAL_TX",
+  CLEAR_ALL_CHALLENGES_DATA = "CLEAR_ALL_CHALLENGES_DATA",
   FETCH_CHALLENGE_DATA = "FETCH_CHALLENGE_DATA",
   FETCH_CHALLENGE_DATA_COMPLETE = "FETCH_CHALLENGE_DATA_COMPLETE",
   FETCH_CHALLENGE_DATA_IN_PROGRESS = "FETCH_CHALLENGE_DATA_IN_PROGRESS",
@@ -55,6 +56,12 @@ export const addUserAppealChallengeData = (
   return {
     type: challengeActions.ADD_OR_UPDATE_USER_APPEAL_CHALLENGE_DATA,
     data: { challengeID, user, userChallengeData },
+  };
+};
+
+export const clearAllChallengesData = (): AnyAction => {
+  return {
+    type: challengeActions.CLEAR_ALL_CHALLENGES_DATA,
   };
 };
 

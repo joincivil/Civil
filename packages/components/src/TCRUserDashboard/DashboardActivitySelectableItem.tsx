@@ -40,7 +40,7 @@ export const DashboardActivitySelectableItem: React.FunctionComponent<DashboardA
         {props.children}
       </StyledDashboardActivityItemDetails>
 
-      <StyledNumTokensContainer>+{props.numTokens}</StyledNumTokensContainer>
+      {props.numTokens && <StyledNumTokensContainer>+{props.numTokens}</StyledNumTokensContainer>}
     </StyledDashboardActivityItem>
   );
 };
