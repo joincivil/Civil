@@ -68,8 +68,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
     let logoURL;
     const { charter, listingAddress, owner, etherscanBaseURL, ethInfoModalLearnMoreURL } = this.props;
     if (charter) {
-      // TODO(toby) remove legacy `desc` after transition
-      newsroomDescription = charter.tagline || (charter as any).desc;
+      newsroomDescription = charter.tagline;
       newsroomUrl = charter.newsroomUrl;
       logoURL = charter.logoUrl;
     }
