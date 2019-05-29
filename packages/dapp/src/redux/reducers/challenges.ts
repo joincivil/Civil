@@ -10,6 +10,8 @@ export function challenges(
   switch (action.type) {
     case challengeActions.ADD_OR_UPDATE_CHALLENGE:
       return state.set(action.data.challengeID.toString(), action.data);
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, WrappedChallengeData>();
     default:
       return state;
   }
@@ -22,6 +24,8 @@ export function appealChallengeIDsToChallengeIDs(
   switch (action.type) {
     case challengeActions.LINK_APPEAL_CHALLENGE_TO_CHALLENGE:
       return state.set(action.data.appealChallengeID.toString(), action.data.challengeID.toString());
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, string>();
     default:
       return state;
   }
@@ -57,6 +61,8 @@ export function challengesFetching(state: Map<string, any> = Map<string, any>(),
     case challengeActions.FETCH_CHALLENGE_DATA_COMPLETE:
     case challengeActions.FETCH_CHALLENGE_DATA_IN_PROGRESS:
       return state.set(action.data.challengeID, action.data);
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, any>();
     default:
       return state;
   }
@@ -73,6 +79,8 @@ export function challengesStartedByUser(
         userSet = Set<string>();
       }
       return state.set(action.data.user, userSet.add(action.data.challengeID));
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, Set<string>>();
     default:
       return state;
   }
@@ -89,6 +97,8 @@ export function challengesVotedOnByUser(
         userSet = Set<string>();
       }
       return state.set(action.data.user, userSet.add(action.data.challengeID));
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, Set<string>>();
     default:
       return state;
   }
@@ -107,6 +117,8 @@ export function challengeUserData(
         );
       }
       return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, Map<string, UserChallengeData>>();
     default:
       return state;
   }
@@ -125,6 +137,8 @@ export function appealChallengeUserData(
         );
       }
       return state.setIn([action.data.challengeID, action.data.user], action.data.userChallengeData);
+    case challengeActions.CLEAR_ALL_CHALLENGES_DATA:
+      return Map<string, Map<string, UserChallengeData>>();
     default:
       return state;
   }

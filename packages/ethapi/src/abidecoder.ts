@@ -12,7 +12,7 @@ import { isUndefined, padStart, startsWith } from "lodash";
 import * as Web3 from "web3";
 // TODO(ritave): Use ethereumjs-abi
 import * as SolidityCoder from "web3/lib/solidity/coder";
-import { AbiType, DecodedLogEntry, SolidityTypes } from "../../typescript-types/build";
+import { AbiType, DecodedLogEntry, SolidityTypes } from "@joincivil/typescript-types";
 
 const HEX_START = "0x";
 const ADDRESS_LENGTH_CHAR = 40;

@@ -13,12 +13,13 @@ export function currentUserNewsrooms(state: Set<string> = Set<string>(), action:
 }
 
 export function contentFetched(
-  state: Set<StorageHeader> = Set<StorageHeader>(),
+  state: Map<string, StorageHeader> = Map<string, StorageHeader>(),
   action: AnyAction,
-): Set<StorageHeader> {
+): Map<string, StorageHeader> {
   switch (action.type) {
     case newsroomActions.FETCH_CONTENT:
-      return state.add(action.data);
+      const key = action.data.uri;
+      return state.set(key, action.data);
     default:
       return state;
   }
