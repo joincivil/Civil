@@ -115,9 +115,15 @@ contract("Registry With Appeals", accounts => {
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
       await voting.revealVote(pollID, 1, 420, { from: voter });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
+      const [rewardPool] = await registry.challenges(pollID);
+      console.log("rewardPool before appeal: " + rewardPool);
       await expect(registry.requestAppeal(newsroomAddress, "", { from: applicant })).to.eventually.be.fulfilled(
         "Should allow appeal if challenge is won by applicant",
       );
+      await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
+      await registry.updateStatus(newsroomAddress);
+      const [rewardPool2] = await registry.challenges(pollID);
+      console.log("rewardPool after appeal: " + rewardPool2);
     });
 
     it("should allow a listing to request appeal after going through process before and being denied", async () => {

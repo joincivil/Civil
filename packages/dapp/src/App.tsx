@@ -28,6 +28,7 @@ injectGlobal`
 console.log("using config:", config);
 
 const client = getApolloClient();
+console.log("client: ", client);
 export class App extends React.Component {
   private civilContext: ICivilContext;
   public constructor(props: any) {

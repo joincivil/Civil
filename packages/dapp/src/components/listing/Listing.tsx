@@ -18,6 +18,8 @@ import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import ListingReduxContainer from "./ListingReduxContainer";
 import ListingRedux from "./ListingRedux";
 
+import { getTCR, getCivil } from "../../helpers/civilInstance";
+import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 export interface ListingPageProps {
   match: any;
   listingAddress: EthAddress;

@@ -14,6 +14,7 @@ export enum routes {
   PARAMETERIZER = "/parameterizer",
   APPLY_TO_REGISTRY = "/apply-to-registry/:action?",
   GOVERNMENT = "/government",
+  DELEGATES = "/delegates",
   DASHBOARD = "/dashboard/:activeDashboardTab/:activeDashboardSubTab?",
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",

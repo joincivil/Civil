@@ -3,14 +3,16 @@ import "../installed_contracts/PLCRVoting.sol";
 import "../zeppelin-solidity/token/ERC20/IERC20.sol";
 import "../zeppelin-solidity/math/SafeMath.sol";
 import "../zeppelin-solidity/ownership/Ownable.sol";
+import "./CivilTCR.sol";
 
 contract Delegate is Ownable {
   using SafeMath for uint;
   IERC20 public token;
   PLCRVoting public voting;
+  CivilTCR public tcr;
   string public charter;
 
-  mapping(address => uint) deposits;
+  mapping(address => uint) public deposits;
   uint public totalDeposits;
 
   struct ExitingDeposit {
@@ -18,13 +20,15 @@ contract Delegate is Ownable {
     uint releaseTime;
   }
   
-  mapping(address => ExitingDeposit) exitingDeposits;
+  mapping(address => ExitingDeposit) public exitingDeposits;
   uint public latestWithdrawalExitTime = 0;
 
-  constructor(IERC20 _token, PLCRVoting _voting, string _charter) Ownable() public {
+  constructor(IERC20 _token, PLCRVoting _voting, CivilTCR _tcr, string _charter, address owner) Ownable() public {
     token = _token;
     voting = _voting;
+    tcr = _tcr;
     charter = _charter;
+    transferOwnership(owner);
   }
 
   function deposit(uint numTokens) public {
@@ -44,11 +48,11 @@ contract Delegate is Ownable {
     exitingDeposits[msg.sender].releaseTime = latestWithdrawalExitTime;
   }
 
-  function finishWithdrawal() public {
+  function finishWithdrawal() public {  
     uint numTokens = exitingDeposits[msg.sender].numTokens;
     require(exitingDeposits[msg.sender].releaseTime < now);
-
-    require(token.transferFrom(this, msg.sender, numTokens));
+    voting.withdrawVotingRights(numTokens);
+    require(token.transfer(msg.sender, numTokens));
     delete exitingDeposits[msg.sender];
   }
 
@@ -66,5 +70,14 @@ contract Delegate is Ownable {
 
   function rescueTokens(uint _pollID) public {
     voting.rescueTokens(_pollID);
+  }
+
+  function claimReward(uint _challengeID, uint _salt) public onlyOwner {
+    tcr.claimReward(_challengeID, _salt);
+  }
+
+  function withdrawCVL() public onlyOwner {
+    uint balance = token.balanceOf(this);
+    token.transfer(msg.sender, balance);
   }
 }

@@ -41,6 +41,7 @@ import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
+import Delegates from "./delegates/Delegates";
 
 export interface MainReduxProps {
   network: string;
@@ -164,6 +165,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path={routes.CREATE_NEWSROOM} component={CreateNewsroom} />
             <Route path={routes.APPLY_TO_REGISTRY} component={SignUpNewsroom} />
             <Route path={routes.GOVERNMENT} component={Government} />
+            <Route path={routes.DELEGATES} component={Delegates} />
             <Redirect
               exact
               path={routes.DASHBOARD_ROOT}

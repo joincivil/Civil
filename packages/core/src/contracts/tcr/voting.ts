@@ -82,6 +82,17 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     return this.instance._VoteRevealedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
   }
 
+  public pollVotesRevealed(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    challengeID?: BigNumber,
+    toBlock?: number,
+  ): Observable<DecodedLogEntryEvent<CivilPLCRVoting.Args._VoteRevealed, CivilPLCRVoting.Events._VoteRevealed>> {
+    return this.instance._VoteRevealedStream({ pollID: challengeID }, { fromBlock, toBlock }).map(e => {
+      // console.log("vote revealed - user: " + e.args.voter + " - tokens: " + e.args.numTokens);
+      return e;
+    });
+  }
+
   /**
    * An unending stream of all pollIDs of polls the user has rescued votes on
    * @param fromBlock Starting block in history for events concerning new polls

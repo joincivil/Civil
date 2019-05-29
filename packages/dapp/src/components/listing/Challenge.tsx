@@ -11,6 +11,8 @@ import { State } from "../../redux/reducers";
 import ChallengeDetailContainer from "./ChallengeDetail";
 import { CHALLENGE_QUERY, transformGraphQLDataIntoChallenge } from "../../helpers/queryTransformations";
 
+import { getTCR } from "../../helpers/civilInstance";
+
 const StyledPageOuter = styled.div`
   margin: 0 auto;
   width: 1200px;
@@ -38,6 +40,7 @@ class ChallengePage extends React.Component<ChallengePageProps> {
     const listingAddress = this.props.match.params.listingAddress;
     const listingURL = formatRoute(routes.LISTING, { listingAddress });
     const challengeID = new BigNumber(this.props.match.params.challengeID);
+
     if (!this.props.useGraphQL) {
       return (
         <StyledPageOuter>
@@ -69,6 +72,9 @@ class ChallengePage extends React.Component<ChallengePageProps> {
               challengeID,
               challenge: transformGraphQLDataIntoChallenge(data.challenge)!,
             };
+
+            console.log("challengeID: ", challengeID);
+
             return (
               <StyledPageOuter>
                 <StyledBackLink>

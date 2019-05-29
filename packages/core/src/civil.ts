@@ -1,5 +1,12 @@
-import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
-import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
+import {
+  currentNetwork,
+  detectProvider,
+  EthApi,
+  ProviderBackport,
+  Web310Provider,
+  currentAccount,
+} from "@joincivil/ethapi";
+import { EthAddress, EthSignedMessage, TxHash, DecodedLogEntryEvent, Uri } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
 import * as Debug from "debug";
@@ -13,6 +20,8 @@ import { Newsroom } from "./contracts/newsroom";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
+import { Delegate } from "./contracts/delegate";
+import { DelegateFactory } from "./contracts/generated/events";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -186,6 +195,24 @@ export class Civil {
    */
   public async newsroomAtUntrusted(address: EthAddress): Promise<Newsroom> {
     return Newsroom.atUntrusted(this.ethApi, this.contentProvider, address);
+  }
+
+  public delegateAtUntrusted(address: EthAddress): Delegate {
+    return Delegate.atUntrusted(this.ethApi, address);
+  }
+
+  public async delegatesCreated(): Promise<
+    Observable<DecodedLogEntryEvent<DelegateFactory.Args._DelegateCreated, DelegateFactory.Events>>
+  > {
+    return Delegate.delegatesCreated(this.ethApi);
+  }
+
+  public async createDelegate(charterUri: Uri = ""): Promise<TwoStepEthTransaction<Delegate>> {
+    return Delegate.deployTrusted(this.ethApi, charterUri);
+  }
+
+  public async currentAccount(): Promise<EthAddress | undefined> {
+    return currentAccount(this.ethApi);
   }
 
   /**

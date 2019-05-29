@@ -25,7 +25,7 @@
   },
   "config": {
     "multisigGlob": "@(Newsroom|CVLToken|CivilTCR)",
-    "contractsGlob": "@(CivilTCR|CivilPLCRVoting|CivilParameterizer|CVLToken|EventStorage|Government|MultiSigWallet|Newsroom|NewsroomFactory|CivilTokenController|CreateNewsroomInGroup|NoOpTokenController)"
+    "contractsGlob": "@(CivilTCR|CivilPLCRVoting|CivilParameterizer|CVLToken|EventStorage|Government|MultiSigWallet|Newsroom|NewsroomFactory|CivilTokenController|CreateNewsroomInGroup|NoOpTokenController|DelegateFactory|Delegate)"
   },
   "author": "The Civil Media Company",
   "bugs": {

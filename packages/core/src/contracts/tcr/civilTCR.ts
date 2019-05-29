@@ -27,7 +27,7 @@ import {
 } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
-import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
+import { CivilTCRContract, CivilTCR as CivilTCR2 } from "../generated/wrappers/civil_t_c_r";
 import { MultisigProxyTransaction } from "../multisig/basemultisigproxy";
 import { Challenge } from "./challenge";
 import { Council } from "./council";
@@ -36,7 +36,7 @@ import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
-import { TxDataAll } from "@joincivil/typescript-types";
+import { TxDataAll, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 
 const debug = Debug("civil:tcr");
@@ -520,6 +520,18 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     toBlock?: number,
   ): Observable<BigNumber> {
     return this.instance._RewardClaimedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.challengeID);
+  }
+
+  public challengeRewardsCollected(
+    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    challengeID?: BigNumber,
+    toBlock?: number,
+  ): Observable<DecodedLogEntryEvent<CivilTCR2.Args._RewardClaimed, CivilTCR2.Events._RewardClaimed>> {
+    // console.log("setup stream");
+    return this.instance._RewardClaimedStream({ challengeID }, { fromBlock, toBlock }).map(e => {
+      // console.log("reward collected - user: " + e.args.voter + " - reward: " + e.args.reward.toString());
+      return e;
+    });
   }
 
   //#endregion
