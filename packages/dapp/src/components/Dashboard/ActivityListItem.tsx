@@ -18,7 +18,7 @@ import {
   makeGetUserChallengeData,
   getChallengeState,
 } from "../../selectors";
-import { WinningChallengeResults } from "./WinningChallengeResults";
+import WinningChallengeResults from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";

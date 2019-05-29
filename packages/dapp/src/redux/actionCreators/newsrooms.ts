@@ -35,7 +35,7 @@ export const fetchContent = (header: StorageHeader): AnyAction => {
 export const getContent = (header: StorageHeader): any => {
   return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
     const contentFetched = getState().networkDependent.contentFetched;
-    if (!contentFetched.has(header)) {
+    if (!contentFetched.has(header.uri)) {
       dispatch(fetchContent(header));
       await getIPFSContent(header, dispatch);
     }
@@ -45,7 +45,7 @@ export const getContent = (header: StorageHeader): any => {
 export const getBareContent = (uri: string): any => {
   return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
     const contentFetched = getState().networkDependent.contentFetched;
-    if (!contentFetched.has({ uri })) {
+    if (!contentFetched.has(uri)) {
       await getIPFSContent({ uri }, dispatch);
       dispatch(fetchContent({ uri }));
     }
