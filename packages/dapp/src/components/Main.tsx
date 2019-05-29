@@ -42,7 +42,8 @@ import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
-import Boost from "./Boost/Boost";
+import BoostPage from "./Boosts/Boost";
+import BoostFeedPage from "./Boosts/BoostFeed";
 
 export interface MainReduxProps {
   network: string;
@@ -176,9 +177,10 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
               })}
             />
             <Route path={routes.DASHBOARD} component={Dashboard} />
-            <Route path={routes.AUTH} component={AuthRouter} />>
+            <Route path={routes.AUTH} component={AuthRouter} />
             <Route path={routes.TOKEN_STOREFRONT} component={Tokens} />
-            <Route path={routes.BOOST_FEED} component={Boost} />
+            <Route path={routes.BOOST} component={BoostPage} />
+            <Route path={routes.BOOST_FEED} component={BoostFeedPage} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />
           </Switch>

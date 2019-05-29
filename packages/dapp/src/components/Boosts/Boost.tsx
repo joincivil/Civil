@@ -5,11 +5,11 @@ import { BoostHeaderWrapper, BoostHeader, BoostWrapper } from "./BoostStyledComp
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 
-export interface BoostFeedProps {
+export interface BoostPageProps {
   network: string;
 }
 
-class BoostFeed extends React.Component<BoostFeedProps> {
+class BoostPage extends React.Component<BoostPageProps> {
   public render(): JSX.Element {
     return (
       <>
@@ -18,16 +18,16 @@ class BoostFeed extends React.Component<BoostFeedProps> {
         <BoostHeaderWrapper>
           <BoostHeader>Civil Boost</BoostHeader>
         </BoostHeaderWrapper>
-        <BoostWrapper>This is a Boost. This is another Boost.</BoostWrapper>
+        <BoostWrapper>This is a Boost.</BoostWrapper>
       </>
     );
   }
 }
 
-const mapStateToProps = (state: State): BoostFeedProps => {
+const mapStateToProps = (state: State): BoostPageProps => {
   const { network } = state;
 
   return { network };
 };
 
-export default connect(mapStateToProps)(BoostFeed);
+export default connect(mapStateToProps)(BoostPage);
