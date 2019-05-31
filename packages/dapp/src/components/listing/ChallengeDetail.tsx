@@ -232,8 +232,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     const canShowAppealChallengeRewardsFrom =
       didUserCommit(userAppealChallengeData) && this.props.challenge.appeal!.appealChallenge!.resolved;
 
-    console.log(inCommitPhase, userChallengeData);
-
     return (
       <>
         {inCommitPhase && this.renderCommitStage(userChallengeData)}
