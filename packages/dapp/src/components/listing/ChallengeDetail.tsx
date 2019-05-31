@@ -167,6 +167,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     };
 
     if (this.props.useGraphQL) {
+      if (!this.props.user) {
+        return this.renderAllStages(renderState, {});
+      }
+
       return (
         <Query
           query={USER_CHALLENGE_DATA_QUERY}
@@ -227,6 +231,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     const canShowRewardsForm = didUserCommit(userChallengeData) && this.props.challenge.resolved;
     const canShowAppealChallengeRewardsFrom =
       didUserCommit(userAppealChallengeData) && this.props.challenge.appeal!.appealChallenge!.resolved;
+
+    console.log(inCommitPhase, userChallengeData);
 
     return (
       <>
