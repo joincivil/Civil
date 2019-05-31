@@ -156,6 +156,7 @@ const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & Listing
     const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
       connectLatestChallengeSucceededResults,
     )(ListingSummaryRejectedComponent);
+    // console.log(listingViewProps, props);
     return <ListingSummaryRejected {...listingViewProps} />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
