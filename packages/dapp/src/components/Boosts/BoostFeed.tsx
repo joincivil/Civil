@@ -2,7 +2,7 @@ import * as React from "react";
 import { BoostHeaderWrapper, BoostHeader, BoostWrapper, BoostIntro, BoostFeedWrapper } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-// import { BoostFeed } from "@joincivil/civil-sdk";
+import { BoostFeed } from "@joincivil/civil-sdk";
 
 class BoostFeedPage extends React.Component {
   public render(): JSX.Element {
@@ -20,7 +20,9 @@ class BoostFeedPage extends React.Component {
             description of what the newsroom wants to accomplish, what the costs are, and exactly what the outcome will
             be. Good reporting costs money, and the Civil community wants to help make it happen.
           </BoostIntro>
-          <BoostFeedWrapper>{/* <BoostFeed /> */}</BoostFeedWrapper>
+          <BoostFeedWrapper>
+            <BoostFeed />
+          </BoostFeedWrapper>
         </BoostWrapper>
       </>
     );
