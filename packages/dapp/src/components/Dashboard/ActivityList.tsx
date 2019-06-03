@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
 import BigNumber from "bignumber.js";
-import { Boost } from "@joincivil/civil-sdk";
 import { ChallengeActivityListItem, ActivityListItem } from "./ActivityListItem";
 
 export interface ActivityListOwnProps {
@@ -24,7 +23,6 @@ const ActivityList: React.FunctionComponent<ActivityListOwnProps> = props => {
           return (
             <>
               <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />
-              <Boost open={false} boostId={""} />
             </>
           );
         })}
