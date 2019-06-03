@@ -22,6 +22,10 @@ export class ProviderBackport implements Web3.Provider {
   }
 
   public sendAsync(payload: Web3.JSONRPCRequestPayload, callback: Web3.JSONRPCErrorCallback): void {
-    this.implementation.send(payload, callback);
+    const { implementation } = this;
+    // Check if websocket connection is open (readyState === 1) before sending. Otherwise calling `send` indiscriminately can cause a too much recursion error
+    if (implementation && (implementation as any).connection && (implementation as any).connection.readyState === 1) {
+      this.implementation.send(payload, callback);
+    }
   }
 }
