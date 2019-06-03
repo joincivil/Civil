@@ -111,7 +111,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
 
               <AppealDecisionDetail
                 appealGranted={this.props.appealGranted}
-                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+                appealGrantedStatementURI={this.props.appealGrantedStatementURI}
               />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
