@@ -1,8 +1,9 @@
 import * as React from "react";
-import { BoostHeaderWrapper, BoostHeader, BoostWrapper, BoostIntro, BoostFeedWrapper } from "./BoostStyledComponents";
+import { BoostHeaderWrapper, BoostHeader, BoostWrapper, BoostIntro, ComingSoonText } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { BoostFeed } from "@joincivil/civil-sdk";
+import { FeatureFlag } from "@joincivil/components";
 
 class BoostFeedPage extends React.Component {
   public render(): JSX.Element {
@@ -10,20 +11,24 @@ class BoostFeedPage extends React.Component {
       <>
         <Helmet title="Civil Boost - The Civil Registry" />
         <ScrollToTopOnMount />
-        <BoostHeaderWrapper>
-          <BoostHeader>Civil Boost</BoostHeader>
-        </BoostHeaderWrapper>
-        <BoostWrapper>
-          <BoostIntro>
-            Boosts are mini-fundraisers. Newsrooms can use them to let their audience know about what they would like to
-            do, and let their fans help them do it. The best boosts are smallish and short-term, with a concrete
-            description of what the newsroom wants to accomplish, what the costs are, and exactly what the outcome will
-            be. Good reporting costs money, and the Civil community wants to help make it happen.
-          </BoostIntro>
-          <BoostFeedWrapper>
+        <FeatureFlag feature={"boost"} replacement={<ComingSoonText />}>
+          <BoostHeaderWrapper>
+            <BoostHeader>
+              <h1>Civil Boost</h1>
+            </BoostHeader>
+          </BoostHeaderWrapper>
+          <BoostWrapper>
+            <BoostIntro>
+              <p>
+                Newsrooms around the world need your help to fund and start new projects. These Newsrooms are setting up
+                Boosts to help in get the word out with what they want to do and let their supporters and fans, like
+                you, help them do it. Support these newsrooms by funding their Boosts to help hit their goals. Good
+                reporting costs money, and the Civil community is making it happen.
+              </p>
+            </BoostIntro>
             <BoostFeed />
-          </BoostFeedWrapper>
-        </BoostWrapper>
+          </BoostWrapper>
+        </FeatureFlag>
       </>
     );
   }
