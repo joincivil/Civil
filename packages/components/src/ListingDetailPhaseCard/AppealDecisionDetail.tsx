@@ -12,7 +12,7 @@ export interface AppealDecisionDetailProps {
   appealGranted?: boolean;
   collapsable?: boolean;
   open?: boolean;
-  appealGrantedStatementUri?: string;
+  appealGrantedStatementURI?: string;
 }
 
 const StyledInner = styled.div`
@@ -29,7 +29,7 @@ const AppealDecisionDetailInner: React.FunctionComponent<AppealDecisionDetailPro
       </FormCopy>
 
       {props.appealGranted && (
-        <InvertedButton href={props.appealGrantedStatementUri} size={buttonSizes.MEDIUM_WIDE}>
+        <InvertedButton href={props.appealGrantedStatementURI} size={buttonSizes.MEDIUM_WIDE}>
           Read about this decision
         </InvertedButton>
       )}

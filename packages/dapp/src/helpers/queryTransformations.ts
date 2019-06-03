@@ -239,7 +239,7 @@ export function transformGraphQLDataIntoAppeal(queryAppealData: any): AppealData
       appealChallengeID: new BigNumber(queryAppealData.appealChallengeID),
       appealChallenge: transformGraphQLDataIntoAppealChallenge(queryAppealData.appealChallenge),
       appealStatementURI: queryAppealData.statement,
-      appealGrantedStatementURI: queryAppealData.appealGranted,
+      appealGrantedStatementURI: queryAppealData.appealGrantedStatementURI,
     };
   } else {
     return undefined;
