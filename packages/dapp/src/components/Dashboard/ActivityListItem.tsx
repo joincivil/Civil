@@ -3,6 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
+import { BoostForm } from "@joincivil/civil-sdk";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
@@ -93,7 +94,22 @@ class ActivityListItemComponent extends React.Component<
         toggleSelect: this.props.toggleSelect,
       };
 
-      return <DashboardActivityItem {...props}>{this.renderActivityDetails()}</DashboardActivityItem>;
+      return (
+        <DashboardActivityItem {...props}>
+          {this.renderActivityDetails()}
+
+          {/*@TODO/tobek Only show if user is owner of newsroom, only show if newsroom is on registry, etc.*/}
+          <BoostForm
+            loading={!charter}
+            newsroomAddress={newsroom.address}
+            newsroomName={newsroomData.name}
+            newsroomListingUrl={`${document.location.origin}/listing/${newsroom.address}`}
+            newsroomWallet={newsroom.wrapper.data.owners[0]}
+            newsroomUrl={charter && charter.newsroomUrl}
+            newsroomTagline={charter && charter.tagline}
+          />
+        </DashboardActivityItem>
+      );
     } else {
       return <></>;
     }

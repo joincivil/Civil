@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Set } from "immutable";
 import BigNumber from "bignumber.js";
-import { BoostFeed } from "@joincivil/civil-sdk";
 import { ChallengeActivityListItem, ActivityListItem } from "./ActivityListItem";
 
 export interface ActivityListOwnProps {
@@ -18,15 +17,10 @@ const ActivityList: React.FunctionComponent<ActivityListOwnProps> = props => {
   const ActivityListItemComponent = props.ActivityListItemComponent || ChallengeActivityListItem;
   return (
     <>
-      <BoostFeed />
       {props.listings &&
         props.listings.map(l => {
           index++;
-          return (
-            <>
-              <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />
-            </>
-          );
+          return <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
         })}
       {!props.resolvedChallenges &&
         props.challenges &&
