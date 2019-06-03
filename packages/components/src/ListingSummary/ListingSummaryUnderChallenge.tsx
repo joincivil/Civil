@@ -20,9 +20,9 @@ export interface ListingSummaryUnderChallengeComponentProps
 export const ListingSummaryUnderChallengeComponent: React.FunctionComponent<
   ListingSummaryUnderChallengeComponentProps
 > = props => {
-  const { appeal, appealRequested } = props;
+  const { doesChallengeHaveAppeal, isAwaitingAppealJudgement } = props;
 
-  const hasTopPadding = !appeal && !appealRequested;
+  const hasTopPadding = !doesChallengeHaveAppeal && !isAwaitingAppealJudgement;
 
   return (
     <ListingSummaryBase {...props}>

@@ -5,6 +5,8 @@ import {
   didChallengeSucceed as getDidChallengeSucceed,
   didAppealChallengeSucceed as getDidAppealChallengeSucceed,
   didChallengeOriginallySucceed as getDidChallengeOriginallySucceed,
+  doesChallengeHaveAppeal as getDoesChallengeHaveAppeal,
+  isAppealAwaitingJudgment,
 } from "@joincivil/core";
 import { ChallengeResultsProps } from "@joincivil/components";
 
@@ -46,11 +48,15 @@ export const getChallengeResultsProps = (challengeData: ChallengeData): Challeng
   const baseChallengeResults = getBaseChallengeResults(challengeData);
   const didChallengeSucceed = getDidChallengeSucceed(challengeData);
   const didChallengeOriginallySucceed = getDidChallengeOriginallySucceed(challengeData);
+  const doesChallengeHaveAppeal = getDoesChallengeHaveAppeal(challengeData);
+  const isAwaitingAppealJudgement = challengeData.appeal && isAppealAwaitingJudgment(challengeData.appeal);
 
   return {
     ...(baseChallengeResults as ChallengeResultsProps),
     didChallengeSucceed,
     didChallengeOriginallySucceed,
+    doesChallengeHaveAppeal,
+    isAwaitingAppealJudgement,
   };
 };
 

@@ -167,6 +167,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     };
 
     if (this.props.useGraphQL) {
+      if (!this.props.user) {
+        return this.renderAllStages(renderState, {});
+      }
+
       return (
         <Query
           query={USER_CHALLENGE_DATA_QUERY}
