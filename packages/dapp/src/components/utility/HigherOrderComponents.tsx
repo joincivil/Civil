@@ -22,7 +22,7 @@ import {
 import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
-import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
+import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
@@ -50,6 +50,7 @@ export interface ChallengeContainerReduxProps {
   appealChallengeData?: AppealChallengeData;
   proposalChallengeData?: ParamPropChallengeData;
   challengeDataRequestStatus?: any;
+  challengeState?: any;
   dispensationPct?: any;
   user: EthAddress;
 }
@@ -359,12 +360,17 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         challengeData = challenges.get(challengeID.toString());
         challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
       }
+      let challengeState;
+      if (challengeData) {
+        challengeState = getChallengeState(challengeData);
+      }
       const userAcct = user.account;
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
       return Object.assign({}, ownProps, {
         challengeData,
+        challengeState,
         challengeID,
         challengeDataRequestStatus,
         user: userAcct.account,
@@ -391,12 +397,24 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
       const challengeResultsProps = getChallengeResultsProps(
         this.props.challengeData && (this.props.challengeData as any).challenge,
       ) as ChallengeResultsProps;
+      const { challengeState } = this.props;
+
+      let doesChallengeHaveAppeal;
+      let isAwaitingAppealJudgement;
+      if (challengeState) {
+        doesChallengeHaveAppeal = challengeState.doesChallengeHaveAppeal;
+        isAwaitingAppealJudgement = challengeState.isAwaitingAppealJudgement;
+      }
 
       let appealPhaseProps = {};
       if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
+        const { appeal } = this.props.challengeData.challenge;
         appealPhaseProps = {
+          appeal,
           appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
           appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
+          doesChallengeHaveAppeal,
+          isAwaitingAppealJudgement,
         };
       }
       let appealChallengePhaseProps = {};
