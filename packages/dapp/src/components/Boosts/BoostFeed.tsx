@@ -1,15 +1,10 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../../redux/reducers";
 import { BoostHeaderWrapper, BoostHeader, BoostWrapper, BoostIntro, BoostFeedWrapper } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+// import { BoostFeed } from "@joincivil/civil-sdk";
 
-export interface BoostFeedPageProps {
-  network: string;
-}
-
-class BoostFeedPage extends React.Component<BoostFeedPageProps> {
+class BoostFeedPage extends React.Component {
   public render(): JSX.Element {
     return (
       <>
@@ -25,19 +20,11 @@ class BoostFeedPage extends React.Component<BoostFeedPageProps> {
             description of what the newsroom wants to accomplish, what the costs are, and exactly what the outcome will
             be. Good reporting costs money, and the Civil community wants to help make it happen.
           </BoostIntro>
-          <BoostFeedWrapper>
-            This is a Boost. This is a Boost. This is a Boost.
-          </BoostFeedWrapper>
+          <BoostFeedWrapper>{/* <BoostFeed /> */}</BoostFeedWrapper>
         </BoostWrapper>
       </>
     );
   }
 }
 
-const mapStateToProps = (state: State): BoostFeedPageProps => {
-  const { network } = state;
-
-  return { network };
-};
-
-export default connect(mapStateToProps)(BoostFeedPage);
+export default BoostFeedPage;

@@ -4,9 +4,11 @@ import { State } from "../../redux/reducers";
 import { BoostHeaderWrapper, BoostHeader, BoostWrapper } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+// import { Boost } from "@joincivil/civil-sdk";
 
 export interface BoostPageProps {
-  network: string;
+  match: any;
+  boostId: string;
 }
 
 class BoostPage extends React.Component<BoostPageProps> {
@@ -18,16 +20,17 @@ class BoostPage extends React.Component<BoostPageProps> {
         <BoostHeaderWrapper>
           <BoostHeader>Civil Boost</BoostHeader>
         </BoostHeaderWrapper>
-        <BoostWrapper>This is a Boost.</BoostWrapper>
+        <BoostWrapper>{/* <Boost open={true} boostId={this.props.boostId} />*/}</BoostWrapper>
       </>
     );
   }
 }
 
-const mapStateToProps = (state: State): BoostPageProps => {
-  const { network } = state;
-
-  return { network };
+const mapStateToProps = (state: State, ownProps: BoostPageProps): BoostPageProps => {
+  return {
+    ...ownProps,
+    boostId: ownProps.match.params.boostId,
+  };
 };
 
 export default connect(mapStateToProps)(BoostPage);
