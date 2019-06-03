@@ -47,7 +47,7 @@ export const AwaitingAppealRequestLabel: React.FunctionComponent = props => {
 };
 
 export const AwaitingDecisionStatusLabel: React.FunctionComponent = props => {
-  return <StyledAwaitingStatuslabel>Awaiting Decision</StyledAwaitingStatuslabel>;
+  return <StyledAwaitingStatuslabel>Awaiting Council Decision</StyledAwaitingStatuslabel>;
 };
 
 export const AwaitingAppealChallengeStatusLabel: React.FunctionComponent = props => {

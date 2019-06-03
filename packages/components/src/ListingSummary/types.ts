@@ -10,6 +10,7 @@ export interface ListingChallengeStatusProps {
   didChallengeSucceed?: boolean;
   didChallengeOriginallySucceed?: boolean;
   canResolveChallenge?: boolean;
+  doesChallengeHaveAppeal?: boolean;
   isAwaitingAppealJudgement?: boolean;
   isAwaitingAppealChallenge?: boolean;
   canListingAppealBeResolved?: boolean;
