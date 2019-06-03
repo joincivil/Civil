@@ -20,11 +20,7 @@ const ActivityList: React.FunctionComponent<ActivityListOwnProps> = props => {
       {props.listings &&
         props.listings.map(l => {
           index++;
-          return (
-            <>
-              <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />
-            </>
-          );
+          return <ActivityListItem key={l} listingAddress={l!} even={index % 2 === 0} />;
         })}
       {!props.resolvedChallenges &&
         props.challenges &&
