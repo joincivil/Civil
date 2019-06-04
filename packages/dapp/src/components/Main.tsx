@@ -20,29 +20,39 @@ import {
 import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { initializeContractAddresses } from "../helpers/contractAddresses";
-import { Tokens } from "./Tokens";
-import ContractAddresses from "./ContractAddresses";
-import CreateNewsroom from "./CreateNewsroom";
-import SignUpNewsroom from "./SignUpNewsroom";
-import { Dashboard } from "./Dashboard";
-import ChallengePage from "./listing/Challenge";
-import Listing from "./listing/Listing";
-import Listings from "./listinglist/Listings";
-import NewsroomManagementV1 from "./newsroom/NewsroomManagement";
-import NewsroomManagement from "./newsroom/NewsroomManagementV2";
-import Parameterizer from "./Parameterizer";
-import Government from "./council/Government";
-import SubmitChallengePage from "./listing/SubmitChallenge";
-import SubmitAppealChallengePage from "./listing/SubmitAppealChallenge";
-import RequestAppealPage from "./listing/RequestAppeal";
-import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
-import BoostPage from "./Boosts/Boost";
-import BoostFeedPage from "./Boosts/BoostFeed";
+import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+
+// PAGES
+const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
+const Listing = React.lazy(async () => import("./listing/Listing"));
+const Listings = React.lazy(async () => import("./listinglist/Listings"));
+const NewsroomManagementV1 = React.lazy(async () => import("./newsroom/NewsroomManagement"));
+const NewsroomManagement = React.lazy(async () => import("./newsroom/NewsroomManagementV2"));
+const Parameterizer = React.lazy(async () => import("./Parameterizer"));
+const Government = React.lazy(async () => import("./council/Government"));
+const SubmitChallengePage = React.lazy(async () => import("./listing/SubmitChallenge"));
+const SubmitAppealChallengePage = React.lazy(async () => import("./listing/SubmitAppealChallenge"));
+const RequestAppealPage = React.lazy(async () => import("./listing/RequestAppeal"));
+const ContractAddresses = React.lazy(async () => import("./ContractAddresses"));
+const CreateNewsroom = React.lazy(async () => import("./CreateNewsroom"));
+const SignUpNewsroom = React.lazy(async () => import("./SignUpNewsroom"));
+const StorefrontPage = React.lazy(async () => import("./Tokens/StorefrontPage"));
+const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage"));
+const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
+const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
+
+function AsyncComponent(Component: React.LazyExoticComponent<any>): any {
+  return (props: any) => (
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Component {...props} />
+    </React.Suspense>
+  );
+}
 
 export interface MainReduxProps {
   network: string;
@@ -153,19 +163,19 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
                 subListingType: registrySubListingTypes.IN_APPLICATION,
               })}
             />
-            <Route path={routes.REGISTRY_HOME} component={Listings} />
-            <Route path={routes.CONTRACT_ADDRESSES} component={ContractAddresses} />
-            <Route path={routes.CHALLENGE} component={ChallengePage} />
-            <Route path={routes.SUBMIT_CHALLENGE} component={SubmitChallengePage} />
-            <Route path={routes.SUBMIT_APPEAL_CHALLENGE} component={SubmitAppealChallengePage} />
-            <Route path={routes.REQUEST_APPEAL} component={RequestAppealPage} />
-            <Route path={routes.LISTING} component={Listing} />
-            <Route path={routes.NEWSROOM_MANAGEMENT} component={NewsroomManagement} />
-            <Route path={routes.NEWSROOM_MANAGEMENT_V1} component={NewsroomManagementV1} />
-            <Route path={routes.PARAMETERIZER} component={Parameterizer} />
-            <Route path={routes.CREATE_NEWSROOM} component={CreateNewsroom} />
-            <Route path={routes.APPLY_TO_REGISTRY} component={SignUpNewsroom} />
-            <Route path={routes.GOVERNMENT} component={Government} />
+            <Route path={routes.REGISTRY_HOME} component={AsyncComponent(Listings)} />
+            <Route path={routes.CONTRACT_ADDRESSES} component={AsyncComponent(ContractAddresses)} />
+            <Route path={routes.CHALLENGE} component={AsyncComponent(ChallengePage)} />
+            <Route path={routes.SUBMIT_CHALLENGE} component={AsyncComponent(SubmitChallengePage)} />
+            <Route path={routes.SUBMIT_APPEAL_CHALLENGE} component={AsyncComponent(SubmitAppealChallengePage)} />
+            <Route path={routes.REQUEST_APPEAL} component={AsyncComponent(RequestAppealPage)} />
+            <Route path={routes.LISTING} component={AsyncComponent(Listing)} />
+            <Route path={routes.NEWSROOM_MANAGEMENT} component={AsyncComponent(NewsroomManagement)} />
+            <Route path={routes.NEWSROOM_MANAGEMENT_V1} component={AsyncComponent(NewsroomManagementV1)} />
+            <Route path={routes.PARAMETERIZER} component={AsyncComponent(Parameterizer)} />
+            <Route path={routes.CREATE_NEWSROOM} component={AsyncComponent(CreateNewsroom)} />
+            <Route path={routes.APPLY_TO_REGISTRY} component={AsyncComponent(SignUpNewsroom)} />
+            <Route path={routes.GOVERNMENT} component={AsyncComponent(Government)} />
             <Redirect
               exact
               path={routes.DASHBOARD_ROOT}
@@ -174,11 +184,11 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
                 activeDashboardSubTab: dashboardSubTabs.TASKS_ALL,
               })}
             />
-            <Route path={routes.DASHBOARD} component={Dashboard} />
-            <Route path={routes.AUTH} component={AuthRouter} />
-            <Route path={routes.TOKEN_STOREFRONT} component={Tokens} />
-            <Route path={routes.BOOST} component={BoostPage} />
-            <Route path={routes.BOOST_FEED} component={BoostFeedPage} />
+            <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
+            <Route path={routes.AUTH} component={AuthRouter} />>
+            <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
+            <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
+            <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />
           </Switch>
