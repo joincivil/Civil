@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
+import { BoostForm } from "@joincivil/civil-sdk";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag, colors, ErrorIcon } from "@joincivil/components";
