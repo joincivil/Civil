@@ -73,6 +73,7 @@ const StyledCharterRevisionsHeader = styled.div`
     font-weight: bold;
     padding: 0 12px;
     text-transform: none;
+    white-space: nowrap;
   }
 
   & ${DropdownItem} {
@@ -93,11 +94,13 @@ const CharterTimestamp = styled.p`
   && {
     font-size: 14px;
     font-style: italic;
+    line-height: 16px;
   }
 `;
 
 const CharterLockedText = styled.span`
   color: ${colors.accent.CIVIL_RED};
+  display: block;
 `;
 
 const CharterTextAdded = styled.span`
@@ -134,7 +137,7 @@ class ListingCharter extends React.Component<
 
     if (prevState.selectedCharterRevisionId !== selectedCharterRevisionId && charterRevisions) {
       const charterRevision = charterRevisions.get(selectedCharterRevisionId!);
-      if (charterRevision) {
+      if (charterRevision && charterRevision.uri) {
         dispatch!(await getContent(charterRevision as StorageHeader));
       }
     }
@@ -142,7 +145,7 @@ class ListingCharter extends React.Component<
     if (isDiffModeEnabled && selectedCharterRevisionId && charterRevisions) {
       const prevCharterRevisionId = selectedCharterRevisionId - 1;
       const prevCharterRevision = charterRevisions.get(prevCharterRevisionId);
-      if (prevCharterRevision) {
+      if (prevCharterRevision && prevCharterRevision.uri) {
         dispatch!(await getContent(prevCharterRevision as StorageHeader));
       }
     }
@@ -236,13 +239,28 @@ class ListingCharter extends React.Component<
     return charterTimestamp;
   }
 
+  private isViewingFirstRevision(): boolean {
+    const { charterRevisions } = this.props;
+    const { selectedCharterRevisionId } = this.state;
+    let viewingFirstRevision = false;
+
+    if (charterRevisions) {
+      const revisionIdsSeq = charterRevisions!.keySeq().toIndexedSeq();
+      if (selectedCharterRevisionId !== undefined) {
+        viewingFirstRevision = revisionIdsSeq.indexOf(selectedCharterRevisionId) === 0;
+      }
+    }
+
+    return viewingFirstRevision;
+  }
+
   private renderCharterRevisionHeader(): JSX.Element {
-    const { selectedCharterRevisionId, isDiffModeEnabled } = this.state;
+    const { isDiffModeEnabled } = this.state;
     if (isDiffModeEnabled) {
       const charter = this.getSelectedCharterContent();
       const prevCharter = this.getSelectedPreviousCharterContent();
 
-      if (!charter || (!prevCharter && selectedCharterRevisionId !== 0)) {
+      if (!charter) {
         return <></>;
       }
 
@@ -269,10 +287,10 @@ class ListingCharter extends React.Component<
   }
 
   private renderCharterField(charterField: string, prevCharterField?: string): JSX.Element {
-    const { selectedCharterRevisionId, isDiffModeEnabled } = this.state;
+    const { isDiffModeEnabled } = this.state;
     let out = <></>;
 
-    if (isDiffModeEnabled && (prevCharterField || selectedCharterRevisionId === 0)) {
+    if (isDiffModeEnabled && (prevCharterField || this.isViewingFirstRevision())) {
       const diff = diffSentences(prevCharterField || "", charterField);
       out = (
         <>
@@ -311,14 +329,13 @@ class ListingCharter extends React.Component<
   }
 
   private renderDiffSummary(charterMission: any, prevCharterMission: any): JSX.Element {
-    const { selectedCharterRevisionId } = this.state;
     if (charterMission && prevCharterMission) {
       const diffsSummary = Object.keys(charterMission).map(key => {
         if (prevCharterMission && !prevCharterMission[key]) {
           return [0, 0];
         }
         const fieldDiff = diffSentences(
-          selectedCharterRevisionId !== 0 ? prevCharterMission[key] : "",
+          !this.isViewingFirstRevision() ? prevCharterMission[key] : "",
           charterMission[key],
         );
         const added = fieldDiff.filter(part => part.added).length;
@@ -344,18 +361,19 @@ class ListingCharter extends React.Component<
   }
 
   private renderSelectedCharterRevisionTimestamp(): JSX.Element {
-    const { isListingUnderChallenge } = this.props;
+    const { isListingUnderChallenge, charterRevisionId: frozenCharterRevisionId } = this.props;
     let out = <></>;
 
     const charterTimestamp = this.getSelectedCharterTimestamp();
 
     if (charterTimestamp) {
-      if (isListingUnderChallenge) {
+      if (isListingUnderChallenge && frozenCharterRevisionId) {
         out = (
           <CharterTimestamp>
             <CharterLockedText>
-              Charteris locked on the revision from {charterTimestamp[0]} {charterTimestamp[1]}
-            </CharterLockedText>
+              Charter is locked on the revision from {charterTimestamp[0]} {charterTimestamp[1]}
+            </CharterLockedText>{" "}
+            while under challenge.
           </CharterTimestamp>
         );
       } else {
@@ -375,7 +393,7 @@ class ListingCharter extends React.Component<
     const { isDiffModeEnabled } = this.state;
 
     let selectedRevisionLabel = "";
-    if (charterRevisions && charterRevisions!.size > 1) {
+    if (charterRevisions) {
       if (isDiffModeEnabled) {
         const charterTimestamp = this.getSelectedCharterTimestamp();
         if (charterTimestamp) {

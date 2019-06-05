@@ -16,7 +16,7 @@ import { urlConstants as links } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
-import { getContent } from "../../redux/actionCreators/newsrooms";
+import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import LoadingMsg from "../utility/LoadingMsg";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import EmailSignup from "./EmailSignup";

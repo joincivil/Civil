@@ -442,7 +442,9 @@ export function transformGraphQLDataIntoCharterRevisions(
       timestamp,
     };
 
-    contentRevisions = contentRevisions.set(revisionId, charterRevisionHeader);
+    if (uri) {
+      contentRevisions = contentRevisions.set(revisionId, charterRevisionHeader);
+    }
   });
 
   return contentRevisions;

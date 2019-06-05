@@ -108,7 +108,6 @@ class ListingChallengeStatement extends React.Component<
         console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
       }
     }
-    console.log("challenge statement", parsed);
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
       ? sanitizeHtml(parsed.citeConstitution, {

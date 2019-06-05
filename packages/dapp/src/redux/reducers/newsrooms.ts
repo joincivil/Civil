@@ -48,7 +48,10 @@ export function charterRevisions(
       if (!newsroomContentRevisions) {
         newsroomContentRevisions = Map<number, EthContentHeader>();
       }
-      return state.set(address, newsroomContentRevisions.set(revisionId, header));
+      if (header.uri) {
+        return state.set(address, newsroomContentRevisions.set(revisionId, header));
+      }
+      return state;
     default:
       return state;
   }
