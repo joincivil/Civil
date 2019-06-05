@@ -18,6 +18,8 @@ export enum routes {
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",
   TOKEN_STOREFRONT = "/tokens",
+  BOOST_FEED = "/boosts",
+  BOOST = "/boosts/:boostId",
 }
 
 export enum registryListingTypes {
