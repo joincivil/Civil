@@ -10,7 +10,13 @@ export const ErrorIcon: React.FunctionComponent<ErrorIconProps> = props => {
   const height = (props.height || 28).toString();
   const width = (props.width || 28).toString();
   return (
-    <svg className={props.className} height={height} viewBox="0 0 28 28" width={width} xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={props.className}
+      height={height}
+      viewBox="0 0 28 28"
+      width={width}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g fill="none" fillRule="evenodd">
         <path d="m0 0h28v28h-28z" />
         <path

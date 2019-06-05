@@ -6,7 +6,7 @@ import BigNumber from "bignumber.js";
 import styled from "styled-components";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItem, PHASE_TYPE_NAMES, colors, ErrorIcon } from "@joincivil/components";
+import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag, colors, ErrorIcon } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { routes } from "../../constants";
@@ -102,7 +102,24 @@ class ActivityListItemComponent extends React.Component<
         toggleSelect: this.props.toggleSelect,
       };
 
-      return <DashboardActivityItem {...props}>{this.renderActivityDetails()}</DashboardActivityItem>;
+      return (
+        <DashboardActivityItem {...props}>
+          {this.renderActivityDetails()}
+
+          <FeatureFlag feature="boosts-mvp">
+            {/*@TODO/tobek Only show if user is owner of newsroom, only show if newsroom is on registry, etc.*/}
+            <BoostForm
+              loading={!charter}
+              newsroomAddress={newsroom.address}
+              newsroomName={newsroomData.name}
+              newsroomListingUrl={`${document.location.origin}/listing/${newsroom.address}`}
+              newsroomWallet={newsroom.wrapper.data.owners[0]}
+              newsroomUrl={charter && charter.newsroomUrl}
+              newsroomTagline={charter && charter.tagline}
+            />
+          </FeatureFlag>
+        </DashboardActivityItem>
+      );
     } else {
       return <></>;
     }
