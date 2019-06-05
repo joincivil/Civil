@@ -11,7 +11,7 @@ class BoostFeedPage extends React.Component {
       <>
         <Helmet title="Civil Boost - The Civil Registry" />
         <ScrollToTopOnMount />
-        <FeatureFlag feature={"boost"} replacement={<ComingSoonText />}>
+        <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostHeaderWrapper>
             <BoostHeader>
               <h1>Civil Boost</h1>
