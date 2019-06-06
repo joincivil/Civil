@@ -1865,10 +1865,10 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.4.1.tgz#bc1c5594175f709ce03f6d54eae2068108bbd2d0"
-  integrity sha512-z8E9qriyqA8BlHyJv3WpEdX8E5NfEoA5fMr2A07HVFdoTtNizWHLPnvGY7Myr+t1NUxOU8/fRO0y3TVCCblsQQ==
+"@joincivil/civil-sdk@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.4.2.tgz#81977dc774b21f0a16425f5bf29e624b4874dbbe"
+  integrity sha512-3nUxxIHRSkds5T/FY14OIJ6KtruRcIWBC1+N+Wg5HM3kSCF6sjE6YoUOxc7DeV224wZ1GmKAY5u2MJ0h4bRlkQ==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
@@ -18854,7 +18854,7 @@ style-loader@0.23.1, style-loader@^0.23.1:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
-styled-components@3.2.5, styled-components@^3.2.3, styled-components@^3.2.5:
+styled-components@^3.2.3, styled-components@^3.2.5:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.2.5.tgz#b5d5d7d618ab240ff10602b5ca5886b8db3d0a0d"
   integrity sha1-tdXX1hirJA/xBgK1yliGuNs9Cg0=
@@ -21228,4 +21228,3 @@ zen-observable-ts@^0.8.13:
 zen-observable@^0.8.0:
   version "0.8.9"
   resolved "https://registry.yarnpkg.com/zen-observable/-/zen-observable-0.8.9.tgz#0475c760ff0eda046bbdfa4dc3f95d392807ac53"
-  
