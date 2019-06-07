@@ -24,6 +24,7 @@ class ListingReduxContainer extends React.Component<
         listingAddress={this.props.listingAddress}
         listing={this.props.listing}
         newsroom={this.props.newsroom}
+        charterRevisions={this.props.charterRevisions}
       />
     );
   }
