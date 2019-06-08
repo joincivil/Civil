@@ -27,7 +27,7 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance, enableEthereum, createEthereum, joinAsMemberUrl, applyURL } = props;
+  const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
 
   return (
     <LoadUser>
@@ -75,20 +75,12 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
               {child}
             </>
           );
-        } else if (civilUser && !userEthAddress) {
-          if (enableEthereum) {
-            return (
-              <LogInButton onClick={enableEthereum} size={buttonSizes.SMALL}>
-                Connect Wallet
-              </LogInButton>
-            );
-          } else {
-            return (
-              <LogInButton onClick={createEthereum} size={buttonSizes.SMALL}>
-                Connect Wallet
-              </LogInButton>
-            );
-          }
+        } else if (civilUser && enableEthereum && !userEthAddress) {
+          return (
+            <LogInButton onClick={enableEthereum} size={buttonSizes.SMALL}>
+              Connect Wallet
+            </LogInButton>
+          );
         }
 
         let memberBtnProps: any = { href: joinAsMemberUrl };

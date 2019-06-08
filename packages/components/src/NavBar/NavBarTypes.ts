@@ -9,7 +9,6 @@ export interface NavAuthenticationProps {
   joinAsMemberUrl: string;
   applyURL: string;
   enableEthereum?(): void;
-  createEthereum?(): void;
 }
 
 export interface NavDrawerProps {
