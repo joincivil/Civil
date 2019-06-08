@@ -82,7 +82,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     const civil = getCivil();
     civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
     civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
-    civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
+    // civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
@@ -92,7 +92,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       this.props.dispatch!(disableGraphQL());
     }
 
-    await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
+    // await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
     try {
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
@@ -115,29 +115,29 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     this.props.dispatch!(setNetworkName(networkName));
   };
 
-  public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
-    if (account && account !== this.state.prevAccount) {
-      try {
-        this.setState({ prevAccount: account });
-        const tcr = await civil.tcrSingletonTrusted();
-        const token = await tcr.getToken();
-        const voting = await tcr.getVoting();
-        const balance = await token.getBalance(account);
-        const votingBalance = await voting.getNumVotingRights(account);
-        this.props.dispatch!(addUser(account, balance, votingBalance));
-        await initializeTokenSubscriptions(this.props.dispatch!, account);
-      } catch (err) {
-        if (err.message === CivilErrors.UnsupportedNetwork) {
-          this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
-          console.error("Unsupported network when trying to set-up user");
-        } else {
-          throw err;
-        }
-      }
-    } else {
-      this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
-    }
-  };
+  // public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
+  //   if (account && account !== this.state.prevAccount) {
+  //     try {
+  //       this.setState({ prevAccount: account });
+  //       const tcr = await civil.tcrSingletonTrusted();
+  //       const token = await tcr.getToken();
+  //       const voting = await tcr.getVoting();
+  //       const balance = await token.getBalance(account);
+  //       const votingBalance = await voting.getNumVotingRights(account);
+  //       this.props.dispatch!(addUser(account, balance, votingBalance));
+  //       await initializeTokenSubscriptions(this.props.dispatch!, account);
+  //     } catch (err) {
+  //       if (err.message === CivilErrors.UnsupportedNetwork) {
+  //         this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
+  //         console.error("Unsupported network when trying to set-up user");
+  //       } else {
+  //         throw err;
+  //       }
+  //     }
+  //   } else {
+  //     this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
+  //   }
+  // };
 
   public render(): JSX.Element {
     const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));

@@ -9,12 +9,15 @@ import { EthApi } from "./ethapi";
 const debug = Debug("civil:ethapi:helpers");
 
 export function detectProvider(): Web3.Provider | undefined {
+  console.log("detect provider.");
   // Try to use the window's injected provider
   if (hasInjectedProvider()) {
+    console.log("has injected provider");
     debug("Using injected web3 provider");
     const injectedWeb3: Web3 = (window as any).web3;
     return injectedWeb3.currentProvider;
   }
+  console.log("no injected provider");
   return undefined;
 }
 

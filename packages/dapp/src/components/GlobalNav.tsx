@@ -1,9 +1,9 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links, CivilErrors } from "@joincivil/utils";
 import { Set } from "immutable";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress, Civil } from "@joincivil/core";
 import {
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
@@ -12,6 +12,10 @@ import {
 } from "../selectors";
 import { NavBar, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
+import { setReadWriteProvider, getCivil } from "../helpers/civilInstance";
+import { addUser } from "../redux/actionCreators/userAccount";
+import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
+import BigNumber from "bignumber.js";
 
 export interface NavBarProps {
   balance: string;
@@ -25,48 +29,85 @@ export interface NavBarProps {
   useGraphQL: boolean;
 }
 
-const GlobalNavComponent = (props: NavBarProps & DispatchProp<any>) => {
-  const {
-    balance,
-    votingBalance,
-    userAccount,
-    userChallengesWithUnrevealedVotes,
-    userChallengesWithUnclaimedRewards,
-    currentUserChallengesStarted,
-    currentUserChallengesVotedOn,
-    useGraphQL,
-  } = props;
+class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>, {}> {
+  public render(): JSX.Element {
+    const {
+      balance,
+      votingBalance,
+      userAccount,
+      userChallengesWithUnrevealedVotes,
+      userChallengesWithUnclaimedRewards,
+      currentUserChallengesStarted,
+      currentUserChallengesVotedOn,
+      useGraphQL,
+    } = this.props;
 
-  const navBarViewProps: NavProps = {
-    balance,
-    votingBalance,
-    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
-    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
-    userChallengesStartedCount: currentUserChallengesStarted.count(),
-    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    useGraphQL,
-    authenticationURL: "/auth/login",
-    buyCvlUrl: "/tokens",
-    joinAsMemberUrl: "https://civil.co/become-a-member",
-    applyURL: links.APPLY,
-    onLoadingPrefToggled: async (): Promise<any> => {
-      props.dispatch!(await toggleUseGraphQL());
-    },
-  };
-
-  if ((window as any).ethereum) {
-    navBarViewProps.enableEthereum = () => {
-      (window as any).ethereum.enable();
+    const navBarViewProps: NavProps = {
+      balance,
+      votingBalance,
+      userEthAddress: userAccount && getFormattedEthAddress(userAccount),
+      userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
+      userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
+      userChallengesStartedCount: currentUserChallengesStarted.count(),
+      userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
+      useGraphQL,
+      authenticationURL: "/auth/login",
+      buyCvlUrl: "/tokens",
+      joinAsMemberUrl: "https://civil.co/become-a-member",
+      applyURL: links.APPLY,
+      onLoadingPrefToggled: async (): Promise<any> => {
+        this.props.dispatch!(await toggleUseGraphQL());
+      },
     };
+
+    // if ((window as any).ethereum) {
+    //   navBarViewProps.enableEthereum = () => {
+    //     (window as any).ethereum.enable();
+    //   };
+    // } else {
+    //   navBarViewProps.createEthereum = () => {
+
+    //   }
+    // }
+    navBarViewProps.enableEthereum = () => {
+      setReadWriteProvider();
+      console.log("ethereum?: ", (window as any).ethereum);
+      const civil = getCivil();
+      civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
+    };
+
+    return (
+      <>
+        <NavBar {...navBarViewProps} />
+      </>
+    );
   }
 
-  return (
-    <>
-      <NavBar {...navBarViewProps} />
-    </>
-  );
-};
+  public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
+    console.log("on account updated.");
+    if (account /* && account !== this.state.prevAccount*/) {
+      try {
+        this.setState({ prevAccount: account });
+        const tcr = await civil.tcrSingletonTrusted();
+        const token = await tcr.getToken();
+        const voting = await tcr.getVoting();
+        const balance = await token.getBalance(account);
+        const votingBalance = await voting.getNumVotingRights(account);
+        this.props.dispatch!(addUser(account, balance, votingBalance));
+        await initializeTokenSubscriptions(this.props.dispatch!, account);
+      } catch (err) {
+        if (err.message === CivilErrors.UnsupportedNetwork) {
+          this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
+          console.error("Unsupported network when trying to set-up user");
+        } else {
+          throw err;
+        }
+      }
+    } else {
+      this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
+    }
+  };
+}
 
 const mapStateToProps = (state: State): NavBarProps => {
   const { network, useGraphQL } = state;

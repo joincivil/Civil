@@ -5,6 +5,7 @@ import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
 import * as Web3 from "web3";
+import Portis from "@portis/web3";
 import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { IPFSProvider } from "./content/ipfsprovider";
@@ -13,6 +14,7 @@ import { Newsroom } from "./contracts/newsroom";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
+import { Exception } from "handlebars";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -56,13 +58,7 @@ export class Civil {
         provider = opts.web3Provider as Web3.Provider;
       }
     } else {
-      const detectedProvider = detectProvider();
-      if (detectedProvider) {
-        provider = detectedProvider;
-      } else {
-        provider = new Web3.providers.HttpProvider("http://localhost:8545");
-        debug("No web3 provider provided or found injected, defaulting to localhost RPC");
-      }
+      throw Exception("must pass provider");
     }
     this.ethApi = new EthApi(provider, Object.values<Artifact>(artifacts).map(a => a.abi));
 
