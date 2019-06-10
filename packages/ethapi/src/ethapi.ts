@@ -63,6 +63,7 @@ export class EthApi {
 
   public set currentProvider(provider: Web3.Provider) {
     // TODO(ritave): Cancel any pending calls to the previous provider
+    console.log("setting new provider", provider);
     this.web3 = new Web3(provider);
   }
 

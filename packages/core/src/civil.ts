@@ -273,4 +273,8 @@ export class Civil {
   public async accountBalance(account: EthAddress): Promise<number> {
     return this.ethApi.accountBalace(account);
   }
+
+  public getEthAPI(): EthApi {
+    return this.ethApi;
+  }
 }

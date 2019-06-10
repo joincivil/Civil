@@ -174,12 +174,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
                 {this.renderEmailInput()}
                 {isNewUser && this.renderCheckboxes()}
                 <ConfirmButtonContainer>
-                  <Button
-                    size={buttonSizes.SMALL_WIDE}
-                    textTransform={"none"}
-                    disabled={isButtonDisabled}
-                    type={"submit"}
-                  >
+                  <Button size={buttonSizes.SMALL_WIDE} disabled={isButtonDisabled} type={"submit"}>
                     Confirm
                   </Button>
                 </ConfirmButtonContainer>

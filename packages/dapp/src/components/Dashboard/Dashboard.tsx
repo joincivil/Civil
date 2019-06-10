@@ -52,6 +52,8 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
             return null;
           }
 
+          console.log("hey", civilUser, props);
+
           if (civilUser && props.userAccount) {
             return (
               <>
@@ -63,7 +65,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
                 </StyledDashboardActivityContainer>
               </>
             );
-          } else if (civilUser && (window as any).ethereum) {
+          } else if (civilUser) {
             return (
               <StyledAuthButtonContainer>
                 <p>Enable Ethereum to view Your Civil Registry Dashboard</p>
@@ -90,6 +92,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
 
 const mapStateToProps = (state: State, ownProps: DashboardProps): DashboardProps & DashboardReduxProps => {
   const { user } = state.networkDependent;
+  console.log("dashboard mapStateToProps", user, user.account, user.account.account);
   const userAccount = user && user.account && user.account.account;
 
   return {

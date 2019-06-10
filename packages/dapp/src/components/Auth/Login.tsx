@@ -8,6 +8,8 @@ import {
 } from "@joincivil/components";
 import { Link } from "react-router-dom";
 
+import { LoginEth } from "./LoginEth";
+
 export interface AuthLoginProps {
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
@@ -15,6 +17,7 @@ export interface AuthLoginProps {
 export const AuthLogin: React.FunctionComponent<AuthLoginProps> = props => {
   return (
     <AuthWrapper>
+      <LoginEth />
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}

@@ -36,7 +36,9 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           return null;
         }
 
-        if (civilUser && userEthAddress) {
+        console.log("BAR", { civilUser, enableEthereum });
+
+        if (civilUser) {
           const userAccountElRef = React.createRef<HTMLDivElement>();
           let child;
 
@@ -94,7 +96,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
             <NavLink to={props.authenticationURL}>Log In</NavLink>
 
             <NavBarButton size={buttonSizes.SMALL} {...memberBtnProps}>
-              Join as a member
+              Join as a member!
             </NavBarButton>
 
             <NavBarButton size={buttonSizes.SMALL} {...applyBtnProps}>

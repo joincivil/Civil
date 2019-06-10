@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { buttonSizes } from "../Button";
+import { buttonSizes, Button, InvertedButton } from "../Button";
 
 import { LoadUser } from "../Account";
 import { QuestionToolTip } from "../QuestionToolTip";
@@ -135,6 +135,11 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
             </NavDrawerRowLabel>
             <NavDrawerPill>{userChallengesVotedOnCount || 0}</NavDrawerPill>
           </NavDrawerRow>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <Button to={"/auth/logout"} size={buttonSizes.SMALL}>
+            Logout
+          </Button>
         </NavDrawerSection>
       </StyledNavDrawer>
     );

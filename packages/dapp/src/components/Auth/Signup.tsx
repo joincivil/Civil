@@ -6,6 +6,7 @@ import {
   AuthWrapper,
   AuthTextCreateAccount,
 } from "@joincivil/components";
+import { PortisSignup } from "./PortisSignup";
 import { Link } from "react-router-dom";
 
 export interface AuthSignupProps {
@@ -15,6 +16,7 @@ export interface AuthSignupProps {
 export const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
   return (
     <AuthWrapper>
+      <PortisSignup />
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}
