@@ -44,6 +44,7 @@ const SignUpNewsroom = React.lazy(async () => import("./SignUpNewsroom"));
 const StorefrontPage = React.lazy(async () => import("./Tokens/StorefrontPage"));
 const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage"));
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
+const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
 
 function AsyncComponent(Component: React.LazyExoticComponent<any>): any {
@@ -188,6 +189,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path={routes.AUTH} component={AuthRouter} />>
             <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
             <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
+            <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
             <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />
