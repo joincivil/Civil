@@ -136,7 +136,7 @@ class ActivityListItemComponent extends React.Component<
             <p>Accepted into Registry</p>
           </>
         );
-      } else if (!isRejected && !isInApplication && !isUnderChallenge) {
+      } else if (isRejected && !isInApplication && !isUnderChallenge) {
         return (
           <>
             <p>Rejected from Registry</p>
