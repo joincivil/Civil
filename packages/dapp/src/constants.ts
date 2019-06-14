@@ -19,6 +19,7 @@ export enum routes {
   AUTH = "/auth",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
+  BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
 }
 
