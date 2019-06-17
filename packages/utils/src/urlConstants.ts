@@ -52,7 +52,7 @@ export const urlConstants = {
   FAQ_HOW_TO_SETUP_METAMASK: FAQ_BASE_URL + "/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-",
   FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS:
     FAQ_BASE_URL + "/hc/en-us/articles/360024545012-How-do-I-update-a-Newsroom-s-status-on-the-Civil-Registry-",
-  FAQ_SWITCH_NETWORKS: FAQ_BASE_URL + "articles/360017414812-How-do-I-switch-networks-in-MetaMask-",
+  FAQ_SWITCH_NETWORKS: FAQ_BASE_URL + "/hc/en-us/articles/360017414812-How-do-I-switch-networks-in-MetaMask-",
   FAQ_WHAT_IS_TUTORIAL: FAQ_BASE_URL + "/hc/en-us/articles/360021949732-What-is-the-Civil-Tutorial-",
   FAQ_WHAT_IS_SMART_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360016463832-What-is-a-newsroom-smart-contract-",
   FAQ_WHAT_IS_PLCR_CONTRACT: FAQ_BASE_URL + "/hc/en-us/articles/360024544932-What-is-Civil-s-voting-smart-contract-",

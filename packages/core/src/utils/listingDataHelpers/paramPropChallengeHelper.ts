@@ -23,7 +23,7 @@ export function isParamPropChallengeInRevealStage(challengeData: ParamPropChalle
  * @param challengeData the ParamPropChallengeData to check
  */
 export function didParamPropChallengeSucceed(challengeData: ParamPropChallengeData): boolean {
-  return isVotePassed(challengeData.poll);
+  return !isVotePassed(challengeData.poll);
 }
 
 export function canParamPropChallengeBeResolved(challengeData: ParamPropChallengeData): boolean {

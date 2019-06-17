@@ -48,7 +48,7 @@ export const AppealResolveCard: React.FunctionComponent<
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       <StyledListingDetailPhaseCardSection>

@@ -24,7 +24,7 @@ import {
   getSalts,
   StyledTabsComponent,
 } from "./DashboardActivity";
-import ActivityListItemClaimReward from "./ActivityListItemClaimReward";
+import ClaimRewardsItem from "./ClaimRewardsItem";
 
 enum TransactionTypes {
   MULTI_CLAIM_REWARDS = "MULTI_CLAIM_REWARDS",
@@ -66,6 +66,8 @@ export interface ChallengesWithRewardsToClaimProps {
   challenges: any;
   appealChallenges: any;
   proposalChallenges: any;
+  userChallengeData?: any;
+  refetchUserChallengeData?(): void;
   onMobileTransactionClick?(): any;
 }
 
@@ -77,12 +79,9 @@ class ChallengesWithRewardsToClaim extends React.Component<
   ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps,
   ChallengesWithRewardsToClaimState
 > {
-  constructor(props: ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps) {
-    super(props);
-    this.state = {
-      challengesToClaim: {},
-    };
-  }
+  public state = {
+    challengesToClaim: {},
+  };
 
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
@@ -96,6 +95,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
     const isClaimRewardsButtonDisabled = this.isEmpty(this.state.challengesToClaim);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiClaim } = this;
+    const { userChallengeData: allUserChallengeData } = this.props;
 
     return (
       <>
@@ -112,33 +112,58 @@ class ChallengesWithRewardsToClaim extends React.Component<
             <>
               {this.props.challenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemClaimReward key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiClaim} />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
+                })}
 
               {this.props.appealChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemClaimReward
-                    key={c}
-                    appealChallengeID={c!}
-                    toggleSelect={this.setChallengesToMultiClaim}
-                  />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      appealChallengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
+                })}
             </>
           </Tab>
           <Tab title="Parameter Proposal Challenges">
             <>
               {this.props.proposalChallenges
                 .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => (
-                  <ActivityListItemClaimReward
-                    key={c}
-                    isProposalChallenge={true}
-                    challengeID={c!}
-                    toggleSelect={this.setChallengesToMultiClaim}
-                  />
-                ))}
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <ClaimRewardsItem
+                      key={c}
+                      isProposalChallenge={true}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiClaim}
+                    />
+                  );
+                })}
             </>
           </Tab>
         </Tabs>
@@ -181,6 +206,10 @@ class ChallengesWithRewardsToClaim extends React.Component<
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: true,
           });
+
+          if (this.props.refetchUserChallengeData) {
+            this.props.refetchUserChallengeData();
+          }
         },
         handleTransactionError: this.props.handleTransactionError,
       },

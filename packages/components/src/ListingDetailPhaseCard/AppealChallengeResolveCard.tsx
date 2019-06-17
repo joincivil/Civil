@@ -71,7 +71,7 @@ export const AppealChallengeResolveCard: React.FunctionComponent<AppealChallenge
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       {showAppealChallenge && (

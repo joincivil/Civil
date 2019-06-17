@@ -20,7 +20,7 @@ import {
   linkAppealChallengeToChallenge,
 } from "../redux/actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
-import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
+import { addUserNewsroom, addContent, addCharterRevision } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 import { addUserProposalChallengeData } from "../redux/actionCreators/parameterizer";
 
@@ -28,6 +28,8 @@ const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 let initialListingSubscriptions: Subscription | undefined;
 let currentListingSubscriptions: Subscription | undefined;
+
+const allNewsroomContentRevisionsSubscriptions = new Map<EthAddress, Subscription>();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>, network: number): Promise<void> {
   const tcr = await getTCR();
@@ -76,9 +78,9 @@ export function clearListingSubscriptions(): any {
   setTimeoutTimeouts.clear();
 }
 
-let challengeSubscription: Subscription;
-let newChallengeActionsSubscription: Subscription;
-let challengeStartedSubscription: Subscription;
+let challengeSubscription: Subscription | undefined;
+let newChallengeActionsSubscription: Subscription | undefined;
+let challengeStartedSubscription: Subscription | undefined;
 let allChallengeIDs: Set<string> = new Set();
 let allAppealChallengeIDs: Set<string> = new Set();
 let appealChallengesToChallengeIDs: Map<string, string> = new Map();
@@ -253,6 +255,29 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   });
 }
 
+export function clearChallengeSubscriptions(): any {
+  if (currentListingSubscriptions) {
+    currentListingSubscriptions.unsubscribe();
+    currentListingSubscriptions = undefined;
+  }
+  if (initialListingSubscriptions) {
+    initialListingSubscriptions.unsubscribe();
+    initialListingSubscriptions = undefined;
+  }
+  if (challengeSubscription) {
+    challengeSubscription.unsubscribe();
+    challengeSubscription = undefined;
+  }
+  if (newChallengeActionsSubscription) {
+    newChallengeActionsSubscription.unsubscribe();
+    newChallengeActionsSubscription = undefined;
+  }
+  if (challengeStartedSubscription) {
+    challengeStartedSubscription.unsubscribe();
+    challengeStartedSubscription = undefined;
+  }
+}
+
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
   const user = await civil.accountStream.first().toPromise();
@@ -262,6 +287,13 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   if (user && wrapper.data.owners.includes(user)) {
     dispatch(addUserNewsroom(address));
   }
+
+  const newsroomCharterRevisionsSubscription = newsroom.revisions(0).subscribe(charterRevision => {
+    const { revisionId } = charterRevision;
+    dispatch(addCharterRevision(address, revisionId!, charterRevision));
+  });
+
+  allNewsroomContentRevisionsSubscriptions.set(address, newsroomCharterRevisionsSubscription);
 }
 
 async function delay(ms: number): Promise<any> {

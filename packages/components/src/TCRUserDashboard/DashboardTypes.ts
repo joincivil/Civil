@@ -51,7 +51,7 @@ export interface DashboardActivityProposalItemProps
 export interface DashboardActivitySelectableItemProps
   extends DashboardActivityItemBaseProps,
     DashboardActivityItemTitleProps {
-  numTokens: string;
+  numTokens?: string;
   challengeID?: string;
   appealChallengeID?: string;
   salt?: any;

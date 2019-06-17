@@ -39,7 +39,7 @@ export interface ActivityListItemRescueTokensReduxProps {
 
 export interface ProposalItemRescueTokensReduxProps {
   proposal?: any;
-  proposalUserChallengeData?: UserChallengeData;
+  userChallengeData?: UserChallengeData;
   rescueTokensAmount: string;
   challenge?: any;
   challengeDataRequestStatus?: any;
@@ -96,7 +96,7 @@ class ProposalRescueTokensComponent extends React.Component<
   ProposalItemRescueTokensComponentProps & DispatchProp<any>
 > {
   public render(): JSX.Element {
-    const { proposal, challenge, challengeDataRequestStatus, challengeID, proposalUserChallengeData } = this.props;
+    const { proposal, challenge, challengeDataRequestStatus, challengeID, userChallengeData } = this.props;
 
     if (!challenge && !challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
@@ -110,7 +110,7 @@ class ProposalRescueTokensComponent extends React.Component<
     const viewProps = {
       title,
       challengeID,
-      salt: proposalUserChallengeData && proposalUserChallengeData.salt,
+      salt: userChallengeData && userChallengeData.salt,
       numTokens: this.props.rescueTokensAmount!,
       toggleSelect: this.props.toggleSelect,
     };

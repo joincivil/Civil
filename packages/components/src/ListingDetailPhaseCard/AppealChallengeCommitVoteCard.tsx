@@ -107,7 +107,7 @@ export class AppealChallengeCommitVoteCard extends React.Component<
 
               <AppealDecisionDetail
                 appealGranted={this.props.appealGranted}
-                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+                appealGrantedStatementURI={this.props.appealGrantedStatementURI}
               />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
