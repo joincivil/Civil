@@ -67,6 +67,7 @@ storiesOf("Common / Currency / Currency Converter", module)
           currencyCodeFrom="CVL"
           currencyCodeTo="ETH"
           currencyLabelFrom="Enter CVL Amount"
+          currencyLabelTo="Converted ETH"
           onConversion={() => null}
           doConversion={async (from: number) => from * 2}
         />

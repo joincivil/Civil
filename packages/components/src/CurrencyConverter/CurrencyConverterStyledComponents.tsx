@@ -9,7 +9,7 @@ export const CurrencyConverterSection = styled.div`
 `;
 
 export const CurrencyConverterContain = styled.div`
-  align-items: flex-start;
+  align-items: flex-end;
   display: flex;
   justify-content: space-between;
 
@@ -69,7 +69,7 @@ export const CurrencyCode = styled.div`
 `;
 
 export const CurrencyIconContain = styled.div`
-  margin: 52px 16px 0 16px;
+  margin: 16px 16px 53px;
 `;
 
 export const CurrencyCalcCVL = styled.div`
