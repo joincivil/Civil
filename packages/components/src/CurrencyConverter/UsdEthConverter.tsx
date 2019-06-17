@@ -26,6 +26,8 @@ export const UsdEthConverter = (props: UsdEthConverterProps) => {
               currencyLabelFrom="Enter USD Amount"
               currencyCodeTo="ETH"
               currencyLabelTo="Amount of ETH"
+              errorMsg={"You don’t have enough ETH. Adjust the amount or buy more ETH. Check our FAQ to learn more."}
+              getError={true}
               doConversion={async (usdAmount: number) => convertToETH(usdAmount, data.storefrontEthPrice)}
               onConversion={(usdValue, ethValue) => props.onConversion(usdValue, ethValue)}
             />

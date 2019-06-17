@@ -9,7 +9,7 @@ export const CurrencyConverterSection = styled.div`
 `;
 
 export const CurrencyConverterContain = styled.div`
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
 
@@ -67,7 +67,7 @@ export const CurrencyCode = styled.div`
 `;
 
 export const CurrencyIconContain = styled.div`
-  margin: 16px;
+  margin: 52px 16px 0 16px;
 `;
 
 export const CurrencyCalcCVL = styled.div`
@@ -91,6 +91,26 @@ export const CurrencyCalcCVL = styled.div`
   p {
     font-size: 14px;
     line-height: 22px;
+    margin: 0;
+  }
+`;
+
+export const CurrencyErrorMsg = styled.div`
+  padding-left: 22px;
+  margin-top: 10px;
+  position: relative;
+
+  svg {
+    left: 0;
+    position: absolute;
+    top: 1px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_RED};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 12px;
+    line-height: 18px;
     margin: 0;
   }
 `;

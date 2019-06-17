@@ -16,6 +16,8 @@ export interface CurrencyConverterProps {
   currencyLabelFrom?: string | JSX.Element;
   currencyCodeTo: string;
   currencyLabelTo?: string | JSX.Element;
+  errorMsg?: string;
+  getError?: boolean;
   doConversion(fromValue: number): Promise<number>;
   onConversion(fromValue: number, toValue: number): void;
 }
@@ -55,7 +57,12 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
         </CurrencyIconContain>
         <CurrencyContain>
           <CurrencyLabel>{this.props.currencyLabelTo}</CurrencyLabel>
-          <CurrencyConverted currentPrice={this.state.toValue} currencyCode={this.props.currencyCodeTo} />
+          <CurrencyConverted
+            currentPrice={this.state.toValue}
+            currencyCode={this.props.currencyCodeTo}
+            errorMsg={this.props.errorMsg}
+            getError={this.props.getError}
+          />
         </CurrencyContain>
       </CurrencyConverterContain>
     );
