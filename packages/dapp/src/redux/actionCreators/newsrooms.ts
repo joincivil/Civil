@@ -6,6 +6,7 @@ export enum newsroomActions {
   ADD_USER_NEWSROOM = "ADD_USER_NEWSROOM",
   ADD_CONTENT = "ADD_CONTENT",
   FETCH_CONTENT = "FETCH_CONTENT",
+  ADD_CHARTER_REVISION = "ADD_CHARTER_REVISION",
 }
 
 export const addUserNewsroom = (address: EthAddress): AnyAction => {
@@ -21,6 +22,17 @@ export const addContent = (header: StorageHeader, content: ContentData): AnyActi
     data: {
       header,
       content,
+    },
+  };
+};
+
+export const addCharterRevision = (address: EthAddress, revisionId: number, header: StorageHeader) => {
+  return {
+    type: newsroomActions.ADD_CHARTER_REVISION,
+    data: {
+      address,
+      revisionId,
+      header,
     },
   };
 };

@@ -127,9 +127,14 @@ export const DropdownGroup = styled.ul`
 export interface DropdownItemProps {
   className?: string;
   children?: any;
+  onClick?(): void;
 }
-const DropdownItemComponent = ({ className, children }: DropdownItemProps) => {
-  return <li className={className}>{children}</li>;
+const DropdownItemComponent = ({ className, children, onClick }: DropdownItemProps) => {
+  return (
+    <li onClick={onClick} className={className}>
+      {children}
+    </li>
+  );
 };
 
 export const DropdownItem = styled(DropdownItemComponent)`

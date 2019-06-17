@@ -2,11 +2,21 @@ import * as React from "react";
 
 export interface ErrorIconProps {
   className?: string;
+  height?: number;
+  width?: number;
 }
 
 export const ErrorIcon: React.FunctionComponent<ErrorIconProps> = props => {
+  const height = (props.height || 28).toString();
+  const width = (props.width || 28).toString();
   return (
-    <svg className={props.className} height="28" viewBox="0 0 28 28" width="28" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={props.className}
+      height={height}
+      viewBox="0 0 28 28"
+      width={width}
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g fill="none" fillRule="evenodd">
         <path d="m0 0h28v28h-28z" />
         <path

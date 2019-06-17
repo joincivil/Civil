@@ -138,9 +138,25 @@ export function getFormattedParameterValue(parameterName: string, parameterValue
   return value;
 }
 
-export function renderPTagsFromLineBreaks(text: string): JSX.Element {
+export function renderPTagsFromLineBreaks(text: string, wrapperComponent?: any): JSX.Element {
   if (!text) {
     return <></>;
+  }
+  if (wrapperComponent) {
+    /* tslint:disable-next-line */
+    const LineWrapperComponent = wrapperComponent;
+    return (
+      <>
+        {text
+          .split("\n")
+          .filter(line => !!line)
+          .map((line, i) => (
+            <p key={i}>
+              <LineWrapperComponent>{line}</LineWrapperComponent>
+            </p>
+          ))}
+      </>
+    );
   }
   return (
     <>

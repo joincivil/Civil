@@ -93,7 +93,8 @@ const ApplyToTCRSuccess: React.FunctionComponent<ApplyToTCRSuccessProps> = props
         </FormRow>
         <FormRow>
           If a community member challenges your newsroom during the review period, you will get an email with
-          recommendations on next steps.
+          recommendations on next steps. Please note, if your newsroom is challenged, you will not be able to make any
+          edits to your profile or charter until the challenge period is over.
         </FormRow>
       </FormSection>
 

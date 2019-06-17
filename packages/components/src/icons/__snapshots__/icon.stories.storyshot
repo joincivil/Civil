@@ -15432,7 +15432,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
           fill="none"
           fillRule="evenodd"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
         >
           <g
             transform="translate(-40.000000, -20.000000)"
