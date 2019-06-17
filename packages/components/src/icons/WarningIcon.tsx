@@ -16,7 +16,7 @@ export const WarningIcon: React.FunctionComponent<WarningIconProps> = props => {
 
   return (
     <svg width={width} height={height} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
-      <g stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g transform="translate(-40.000000, -20.000000)">
           <g>
             <path

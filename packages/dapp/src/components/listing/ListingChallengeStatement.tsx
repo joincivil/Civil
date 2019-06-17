@@ -101,10 +101,12 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     let parsed = this.props.challengeStatement;
-    try {
-      parsed = JSON.parse(this.props.challengeStatement);
-    } catch (ex) {
-      console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
+    if (typeof parsed !== "object") {
+      try {
+        parsed = JSON.parse(this.props.challengeStatement);
+      } catch (ex) {
+        console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
+      }
     }
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
@@ -193,6 +195,7 @@ const mapToStateToProps = (
       challengeID: ownProps.listing!.data.challengeID,
     };
   }
+
   const { content } = state.networkDependent;
   let challengeStatement: any = "";
   let appealStatement: any = "";

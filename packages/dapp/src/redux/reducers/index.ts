@@ -70,7 +70,7 @@ import {
   ContentData,
   TxDataAll,
 } from "@joincivil/core";
-import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
+import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
 import {
   newsrooms,
   NewsroomState,
@@ -152,6 +152,7 @@ const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
   content,
   contentFetched,
+  charterRevisions,
   listings,
   listingsExtendedMetadata,
   listingsFetching,

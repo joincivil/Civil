@@ -65,7 +65,9 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               the principles of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>. If there are no challenges, this newsroom will be automatically approved. By applying to the{" "}
+              </a>. If there are no challenges, this newsroom will be automatically approved. If there is a challenge,
+              this newsroom will not be able to edit their charter or profile until after the challenge period is over.
+              By applying to the{" "}
               <a href={urlConstants.REGISTRY} target="_blank">
                 Civil Registry
               </a>, a newsroom is committing to uphold the values of the{" "}

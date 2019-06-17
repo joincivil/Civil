@@ -2,6 +2,7 @@ import {
   ListingWrapper,
   NewsroomWrapper,
   ChallengeData,
+  EthContentHeader,
   PollData,
   AppealData,
   AppealChallengeData,
@@ -9,7 +10,7 @@ import {
   isInCommitStage,
   isInRevealStage,
 } from "@joincivil/core";
-import { Set } from "immutable";
+import { Set, Map } from "immutable";
 import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
 import gql from "graphql-tag";
 
@@ -92,6 +93,17 @@ export const LISTING_FRAGMENT = gql`
   ${CHALLENGE_FRAGMENT}
 `;
 
+export const CONTENT_REVISION_FRAGMENT = gql`
+  fragment ContentRevisionFragment on ContentRevision {
+    listingAddress
+    editorAddress
+    contractContentId
+    contractRevisionId
+    revisionUri
+    revisionDate
+  }
+`;
+
 export const LISTING_QUERY = gql`
   query($addr: String!) {
     listing(addr: $addr) {
@@ -99,6 +111,28 @@ export const LISTING_QUERY = gql`
     }
   }
   ${LISTING_FRAGMENT}
+`;
+
+export const LISTING_WITH_CHARTER_REVISIONS_QUERY = gql`
+  query($addr: String!) {
+    listing(addr: $addr) {
+      ...ListingFragment
+    }
+    charterRevisions: articles(addr: $addr, contentID: 0) {
+      ...ContentRevisionFragment
+    }
+  }
+  ${LISTING_FRAGMENT}
+  ${CONTENT_REVISION_FRAGMENT}
+`;
+
+export const NEWSROOM_CHARTER_REVISIONS = gql`
+  query($addr: String!) {
+    charterRevisions: articles(addr: $addr, contentID: 0) {
+      ...ContentRevisionFragment
+    }
+  }
+  ${CONTENT_REVISION_FRAGMENT}
 `;
 
 export const CHALLENGE_QUERY = gql`
@@ -385,4 +419,33 @@ export function transfromGraphQLDataIntoUserChallengeData(
   }
 
   return undefined;
+}
+
+export function transformGraphQLDataIntoCharterRevisions(
+  queryCharterRevisionsData: any[],
+): Map<number, Partial<EthContentHeader>> {
+  let contentRevisions = Map<number, Partial<EthContentHeader>>();
+  queryCharterRevisionsData.forEach((queryCharterRevisionData: any) => {
+    const {
+      editorAddress: author,
+      contractContentId: contentId,
+      contractRevisionId: revisionId,
+      revisionUri: uri,
+      revisionDate: timestamp,
+    } = queryCharterRevisionData;
+
+    const charterRevisionHeader = {
+      author,
+      contentId,
+      revisionId,
+      uri,
+      timestamp,
+    };
+
+    if (uri) {
+      contentRevisions = contentRevisions.set(revisionId, charterRevisionHeader);
+    }
+  });
+
+  return contentRevisions;
 }
