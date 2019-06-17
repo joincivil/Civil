@@ -11,4 +11,4 @@ const DashboardActivityItemTitle: React.FunctionComponent<
   return <StyledDashboardActivityItemTitle>{titleChild}</StyledDashboardActivityItemTitle>;
 };
 
-export default DashboardActivityItemTitle;
+export default React.memo(DashboardActivityItemTitle);

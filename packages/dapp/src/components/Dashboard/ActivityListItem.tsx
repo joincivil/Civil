@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import BigNumber from "bignumber.js";
 import styled from "styled-components";
-import { BoostForm } from "@joincivil/civil-sdk";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag, colors, ErrorIcon } from "@joincivil/components";
@@ -84,7 +83,7 @@ class ActivityListItemComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState, charter } = this.props;
+    const { listingAddress: address, listing, newsroom, listingPhaseState, charter, userChallengeData } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       let listingDetailURL = `/listing/${address}`;
@@ -99,7 +98,7 @@ class ActivityListItemComponent extends React.Component<
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
         challengeID: this.props.challengeID,
-        salt: this.props.userChallengeData && this.props.userChallengeData.salt,
+        salt: userChallengeData && userChallengeData.salt,
         toggleSelect: this.props.toggleSelect,
       };
 
@@ -107,18 +106,12 @@ class ActivityListItemComponent extends React.Component<
         <DashboardActivityItem {...props}>
           {this.renderActivityDetails()}
 
-          <FeatureFlag feature="boosts-mvp">
-            {/*@TODO/tobek Only show if user is owner of newsroom, only show if newsroom is on registry, etc.*/}
-            <BoostForm
-              loading={!charter}
-              newsroomAddress={newsroom.address}
-              newsroomName={newsroomData.name}
-              newsroomListingUrl={`${document.location.origin}/listing/${newsroom.address}`}
-              newsroomWallet={newsroom.wrapper.data.owners[0]}
-              newsroomUrl={charter && charter.newsroomUrl}
-              newsroomTagline={charter && charter.tagline}
-            />
-          </FeatureFlag>
+          {!userChallengeData &&
+            address && (
+              <FeatureFlag feature="boosts-mvp">
+                <Link to={routes.BOOST_CREATE}>Launch Boost</Link>
+              </FeatureFlag>
+            )}
         </DashboardActivityItem>
       );
     } else {
@@ -152,7 +145,7 @@ class ActivityListItemComponent extends React.Component<
             <p>Accepted into Registry</p>
           </>
         );
-      } else if (!isRejected && !isInApplication && !isUnderChallenge) {
+      } else if (isRejected && !isInApplication && !isUnderChallenge) {
         return (
           <>
             <p>Rejected from Registry</p>

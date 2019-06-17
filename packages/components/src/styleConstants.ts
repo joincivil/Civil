@@ -31,6 +31,7 @@ export const colors = {
     CIVIL_GREEN: "#0D9D33",
     CIVIL_GREEN_1: "#29cb42",
     CIVIL_GREEN_2: "#ACF2BD",
+    CIVIL_PURPLE: "#9013FE",
   },
   basic: {
     WHITE: "#FFFFFF",
