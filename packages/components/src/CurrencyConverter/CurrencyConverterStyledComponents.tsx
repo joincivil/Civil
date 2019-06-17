@@ -19,6 +19,8 @@ export const CurrencyConverterContain = styled.div`
 `;
 
 export const CurrencyContain = styled.div`
+  padding-bottom: 35px;
+  position: relative;
   width: 285px;
 `;
 
@@ -96,9 +98,10 @@ export const CurrencyCalcCVL = styled.div`
 `;
 
 export const CurrencyErrorMsg = styled.div`
+  bottom: 0;
   padding-left: 22px;
-  margin-top: 10px;
-  position: relative;
+  position: absolute;
+  width: 100%;
 
   svg {
     left: 0;
@@ -110,7 +113,7 @@ export const CurrencyErrorMsg = styled.div`
     color: ${colors.accent.CIVIL_RED};
     font-family: ${fonts.SANS_SERIF};
     font-size: 12px;
-    line-height: 18px;
+    line-height: 15px;
     margin: 0;
   }
 `;

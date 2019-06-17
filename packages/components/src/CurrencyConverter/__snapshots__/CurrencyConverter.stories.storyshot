@@ -11,16 +11,16 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-      className="sc-eqGige ghRsLA"
+      className="sc-kUQWMX kKvGef"
     >
       <div>
         (exchange rate is 2x)
       </div>
       <div
-        className="sc-cIbcTr gVZZbd"
+        className="sc-cIbcTr kGpHYr"
       >
         <div
-          className="sc-hmyDHa boVbBO"
+          className="sc-hmyDHa ifJqSw"
         >
           <div
             className="sc-jTNJqp dYLKuW"
@@ -56,7 +56,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-iUpOdG cuUJdG"
+          className="sc-iUpOdG kxSUq"
         >
           <svg
             height="14"
@@ -82,13 +82,11 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-hmyDHa boVbBO"
+          className="sc-hmyDHa ifJqSw"
         >
           <div
             className="sc-jTNJqp dYLKuW"
-          >
-            Converted ETH
-          </div>
+          />
           <div
             className="sc-MKjYC laEXIf"
           >
@@ -493,36 +491,6 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                         <span
                           style={Object {}}
                         >
-                          currencyLabelTo
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Converted ETH
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
                           onConversion
                         </span>
                         <span>
@@ -731,16 +699,16 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-      className="sc-eqGige ghRsLA"
+      className="sc-kUQWMX kKvGef"
     >
       <div>
         (exchange rate is 0.5x)
       </div>
       <div
-        className="sc-cIbcTr gVZZbd"
+        className="sc-cIbcTr kGpHYr"
       >
         <div
-          className="sc-hmyDHa boVbBO"
+          className="sc-hmyDHa ifJqSw"
         >
           <div
             className="sc-jTNJqp dYLKuW"
@@ -776,7 +744,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-iUpOdG cuUJdG"
+          className="sc-iUpOdG kxSUq"
         >
           <svg
             height="14"
@@ -802,7 +770,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-hmyDHa boVbBO"
+          className="sc-hmyDHa ifJqSw"
         >
           <div
             className="sc-jTNJqp dYLKuW"
@@ -1233,6 +1201,17 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                             </span>
                             "
                           </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          displayErrorMsg
                         </span>
                       </span>
                       <span>
