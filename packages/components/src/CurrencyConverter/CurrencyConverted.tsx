@@ -29,7 +29,7 @@ export class CurrencyConverted extends React.Component<CurrencyConvertedProps, C
           {this.props.currentPrice}
           <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
         </CurrencyConvertedBox>
-        {(this.props.displayErrorMsg && this.props.enoughEthError) && this.renderErrorMsg()}
+        {this.props.displayErrorMsg && this.props.enoughEthError && this.renderErrorMsg()}
       </>
     );
   }
