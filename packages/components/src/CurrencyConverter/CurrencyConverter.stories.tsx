@@ -52,8 +52,7 @@ storiesOf("Common / Currency / Currency Converter", module)
           currencyCodeTo="ETH"
           currencyLabelFrom="Enter USD Amount"
           currencyLabelTo="Converted ETH"
-          errorMsg={"You don’t have enough ETH. Adjust the amount or buy more ETH. Check our FAQ to learn more."}
-          getError={true}
+          displayErrorMsg={true}
           onConversion={() => null}
           doConversion={async (from: number) => from * 2}
         />

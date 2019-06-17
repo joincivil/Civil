@@ -6,8 +6,8 @@ import { colors } from "../styleConstants";
 export interface CurrencyConvertedProps {
   currencyCode?: string | JSX.Element;
   currentPrice?: number;
-  errorMsg?: string;
-  getError?: boolean;
+  enoughEthError?: boolean;
+  displayErrorMsg?: boolean;
 }
 
 export interface CurrencyConvertedStates {
@@ -29,16 +29,16 @@ export class CurrencyConverted extends React.Component<CurrencyConvertedProps, C
           {this.props.currentPrice}
           <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
         </CurrencyConvertedBox>
-        {this.props.getError && this.renderErrorMsg(this.props.errorMsg || "Error")}
+        {(this.props.displayErrorMsg && this.props.enoughEthError) && this.renderErrorMsg()}
       </>
     );
   }
 
-  private renderErrorMsg = (errorMsg: string) => {
+  private renderErrorMsg = () => {
     return (
       <CurrencyErrorMsg>
         <WarningIcon color={colors.accent.CIVIL_RED} height={15} width={15} />
-        <p>{errorMsg}</p>
+        <p>You don’t have enough ETH in your wallet.</p>
       </CurrencyErrorMsg>
     );
   };
