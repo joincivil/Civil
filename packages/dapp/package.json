@@ -16,7 +16,7 @@
     "@sentry/browser": "^5.0.5",
     "@types/diff": "^4.0.2",
     "@types/highlight.js": "^9.12.2",
-    "@types/react-redux": "^5.0.19",
+    "@types/react-redux": "^7.1.0",
     "@types/redux": "^3.6.0",
     "@types/sanitize-html": "^1.14.0",
     "@types/storejs": "^2.0.2",
