@@ -91,12 +91,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    return (
-      <ApplicationUpdateStatus
-        listingAddress={this.props.listing!.address}
-        onMobileTransactionClick={this.showNoMobileTransactionsModal}
-      />
-    );
+    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />;
   };
 
   private renderCanResolve(): JSX.Element {

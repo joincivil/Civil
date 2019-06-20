@@ -19,13 +19,7 @@ export const InApplicationResolveCard: React.FunctionComponent<ListingDetailPhas
         <CTACopy>
           This application is complete. To update this Newsroom's status on the Civil Registry, please add to registry.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Add To Registry
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Add To Registry</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp faqURL={props.faqURL} />

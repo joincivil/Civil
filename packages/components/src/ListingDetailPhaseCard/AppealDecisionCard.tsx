@@ -10,8 +10,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   CTACopy,
 } from "./styledComponents";
 import { ChallangeCouncilToolTipText } from "./textComponents";
@@ -34,16 +32,9 @@ export const AppealDecisionCard: React.FunctionComponent<
     if (props.submitAppealChallengeURI) {
       return (
         <>
-          <StyledVisibleOnDesktop>
-            <Button size={buttonSizes.MEDIUM} to={props.submitAppealChallengeURI}>
-              Submit a Challenge
-            </Button>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <Button size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-              Submit a Challenge
-            </Button>
-          </StyledVisibleOnMobile>
+          <Button size={buttonSizes.MEDIUM} to={props.submitAppealChallengeURI}>
+            Submit a Challenge
+          </Button>
         </>
       );
     }

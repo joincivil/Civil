@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash, Civil } from "@joincivil/core";
 import { detectProvider } from "@joincivil/ethapi";
 import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
@@ -10,7 +9,6 @@ import {
   ProgressModalContentSuccess,
   ProgressModalContentError,
 } from "./ProgressModalContent";
-import { mediaQueries } from "./styleConstants";
 import { Subscription } from "rxjs";
 
 export interface TransactionButtonState {
@@ -45,28 +43,11 @@ export interface Transaction {
 export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
-  disabledOnMobile?: boolean;
   Button?: React.FunctionComponent<TransactionButtonInnerProps>;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
   onMobileClick?(): any;
 }
-
-const StyledVisibleOnDesktop = styled.div`
-  display: block;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
-`;
-
-const StyledVisibleOnMobile = styled.div`
-  display: none;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-`;
 
 export enum progressModalStates {
   IN_PROGRESS = "IN_PROGRESS",
@@ -157,70 +138,14 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
     }
   }
 
-  public async componentDidMount(): Promise<void> {
-    this.createEthereumSubscription();
-  }
-
-  public async componentWillUnmount(): Promise<void> {
-    this.unbscribeEthereum();
-  }
-
-  public createEthereumSubscription(): void {
-    this.unbscribeEthereum();
-    let subscription: Subscription | undefined;
-
-    const provider = detectProvider();
-    if (provider) {
-      const civil = new Civil({ web3Provider: provider });
-      if (civil) {
-        subscription = civil.accountStream.subscribe(currentAccount => this.setState({ currentAccount }));
-      }
-      this.setState({
-        ethereumUpdates: subscription,
-      });
-    }
-  }
-
-  public unbscribeEthereum(): void {
-    if (this.state.ethereumUpdates) {
-      this.state.ethereumUpdates.unsubscribe();
-    }
-  }
-
   public render(): JSX.Element {
     const ButtonComponent = this.props.Button || PrimaryTransactionButton;
-    const MobileButtonComponent = this.props.Button || Button;
 
     // Some responsive css trickery to
-    if (this.props.disabledOnMobile) {
-      return (
-        <>
-          <StyledVisibleOnDesktop>
-            {this.state.error}
-            <ButtonComponent
-              step={this.state.step}
-              onClick={this.onClick}
-              disabled={this.state.disableButton || !this.state.currentAccount}
-            >
-              {this.props.children}
-            </ButtonComponent>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <MobileButtonComponent onClick={this.onMobileClick}>{this.props.children}</MobileButtonComponent>
-          </StyledVisibleOnMobile>
-        </>
-      );
-    }
-
     return (
       <>
-        {!this.state.currentAccount && <span>In order to make transactions, you must be logged in on MetaMask</span>}
         {this.state.error}
-        <ButtonComponent
-          step={this.state.step}
-          onClick={this.onClick}
-          disabled={this.state.disableButton || !this.state.currentAccount}
-        >
+        <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
           {this.props.children}
         </ButtonComponent>
       </>
@@ -228,15 +153,35 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   private onClick = async () => {
-    if (this.props.preExecuteTransactions) {
-      setImmediate(() => this.props.preExecuteTransactions!());
-    }
-    return this.executeTransactions(this.props.transactions.slice().reverse());
-  };
+    const provider = detectProvider();
+    if (provider) {
+      // TODO: clean up web3 providers
+      await (window as any).ethereum.enable();
+      const civil = new Civil({ web3Provider: provider });
+      if (civil) {
+        const currentAccount = await civil.accountStream.first().toPromise();
+        if (currentAccount) {
+          this.setState({ currentAccount });
 
-  private onMobileClick = () => {
-    if (this.props.onMobileClick) {
-      this.props.onMobileClick();
+          if (this.props.preExecuteTransactions) {
+            setImmediate(() => this.props.preExecuteTransactions!());
+          }
+          return this.executeTransactions(this.props.transactions.slice().reverse());
+        } else {
+          this.setState({
+            error: "No Ethereum Account Found. You may need to install MetaMask and grant account access for this app.",
+          });
+        }
+      } else {
+        this.setState({
+          error: "No Ethereum Account Found. You may need to install MetaMask and grant account access for this app.",
+        });
+      }
+    } else {
+      this.setState({
+        error:
+          "No Ethereum Provider Found. You may need to install MetaMask or other Web3 wallet and grant account access for this app.",
+      });
     }
   };
 

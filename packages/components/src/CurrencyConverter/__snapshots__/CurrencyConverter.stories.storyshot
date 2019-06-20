@@ -11,24 +11,24 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-      className="sc-kUQWMX kKvGef"
+      className="sc-bkypNX jaIqIi"
     >
       <div>
         (exchange rate is 2x)
       </div>
       <div
-        className="sc-cIbcTr gVZZbd"
+        className="sc-cIwbeI eHlvnT"
       >
         <div
-          className="sc-hmyDHa ifJqSw"
+          className="sc-dUcZlc jtbHit"
         >
           <div
-            className="sc-jTNJqp dYLKuW"
+            className="sc-fdJbru fuOUdx"
           >
             Enter CVL Amount
           </div>
           <div
-            className="sc-fAfrNB jfMTvb"
+            className="sc-dYcyhn hFqXpg"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -56,7 +56,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-iUpOdG cSRuuz"
+          className="sc-jTNJqp dXQcmS"
         >
           <svg
             height="14"
@@ -82,19 +82,19 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-hmyDHa ifJqSw"
+          className="sc-dUcZlc jtbHit"
         >
           <div
-            className="sc-jTNJqp dYLKuW"
+            className="sc-fdJbru fuOUdx"
           >
             Converted ETH
           </div>
           <div
-            className="sc-MKjYC laEXIf"
+            className="sc-cIbcTr bUcQdt"
           >
             0
             <div
-              className="sc-bQduHL bXMSaJ"
+              className="sc-hmyDHa cxUlow"
             >
               ETH
             </div>
@@ -731,24 +731,24 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-      className="sc-kUQWMX kKvGef"
+      className="sc-bkypNX jaIqIi"
     >
       <div>
         (exchange rate is 0.5x)
       </div>
       <div
-        className="sc-cIbcTr gVZZbd"
+        className="sc-cIwbeI eHlvnT"
       >
         <div
-          className="sc-hmyDHa ifJqSw"
+          className="sc-dUcZlc jtbHit"
         >
           <div
-            className="sc-jTNJqp dYLKuW"
+            className="sc-fdJbru fuOUdx"
           >
             Enter USD Amount
           </div>
           <div
-            className="sc-fAfrNB jfMTvb"
+            className="sc-dYcyhn hFqXpg"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -776,7 +776,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-iUpOdG cSRuuz"
+          className="sc-jTNJqp dXQcmS"
         >
           <svg
             height="14"
@@ -802,19 +802,19 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-hmyDHa ifJqSw"
+          className="sc-dUcZlc jtbHit"
         >
           <div
-            className="sc-jTNJqp dYLKuW"
+            className="sc-fdJbru fuOUdx"
           >
             Converted ETH
           </div>
           <div
-            className="sc-MKjYC laEXIf"
+            className="sc-cIbcTr bUcQdt"
           >
             0
             <div
-              className="sc-bQduHL bXMSaJ"
+              className="sc-hmyDHa cxUlow"
             >
               ETH
             </div>

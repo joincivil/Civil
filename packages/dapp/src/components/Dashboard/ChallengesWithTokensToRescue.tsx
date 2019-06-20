@@ -171,12 +171,7 @@ class ChallengesWithTokensToRescue extends React.Component<
         </Tabs>
 
         <StyledBatchButtonContainer>
-          <TransactionButtonNoModal
-            disabled={isRescueTokensButtonDisabled}
-            transactions={transactions}
-            disabledOnMobile={true}
-            onMobileClick={this.props.onMobileTransactionClick}
-          >
+          <TransactionButtonNoModal disabled={isRescueTokensButtonDisabled} transactions={transactions}>
             Rescue Tokens
           </TransactionButtonNoModal>
         </StyledBatchButtonContainer>

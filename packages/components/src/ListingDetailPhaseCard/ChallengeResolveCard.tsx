@@ -55,13 +55,7 @@ export const ChallengeResolveCard: React.FunctionComponent<
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
           challenge.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Resolve Challenge
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp faqURL={props.faqURL} />

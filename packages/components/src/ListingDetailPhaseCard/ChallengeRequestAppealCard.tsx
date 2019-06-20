@@ -10,8 +10,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   CTACopy,
 } from "./styledComponents";
 import {
@@ -37,16 +35,9 @@ const RequestAppealButton: React.FunctionComponent<
   if (props.requestAppealURI) {
     return (
       <>
-        <StyledVisibleOnDesktop>
-          <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
-            Request an Appeal
-          </InvertedButton>
-        </StyledVisibleOnDesktop>
-        <StyledVisibleOnMobile>
-          <InvertedButton size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-            Request an Appeal
-          </InvertedButton>
-        </StyledVisibleOnMobile>
+        <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
+          Request an Appeal
+        </InvertedButton>
       </>
     );
   }
