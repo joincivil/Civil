@@ -109,8 +109,6 @@ class ReclaimTokensComponent extends React.Component<
             <TransactionButtonNoModal
               disabled={!!this.props.numUserChallengesWithRescueTokens}
               transactions={this.getTransactions()}
-              disabledOnMobile={true}
-              onMobileClick={this.props.onMobileTransactionClick}
             >
               Transfer
             </TransactionButtonNoModal>

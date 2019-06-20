@@ -22,12 +22,9 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
       <p>
         MetaMask will open a new window, and will require you to sign a message.
       </p>
-      <span>
-        In order to make transactions, you must be logged in on MetaMask
-      </span>
       
       <button
-        className="sc-iWadT bQpdyb sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+        className="sc-fATqzn fcLUC sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
         onClick={[Function]}
         size="MEDIUM_WIDE"
         theme={
@@ -45,7 +42,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
         type="button"
       >
         <div
-          className="sc-ZUflv gvTVML"
+          className="sc-jbWsrJ eHhPYq"
         >
           <img
             className="sc-btzYZH fUmjIQ"

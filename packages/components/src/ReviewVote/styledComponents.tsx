@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const ModalOuter = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const ModalOuter = styled.div`
 
 export const ModalContent = styled.div`
   padding: 100px 0 156px;
-  width: 800px;
+  max-width: 800px;
 
   a {
     border-bottom: transparent 1px solid;
@@ -24,6 +24,10 @@ export const ModalContent = styled.div`
   a:hover {
     border-bottom-color: ${colors.accent.CIVIL_BLUE};
   }
+  ${mediaQueries.MOBILE} {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 `;
 
 export const StyledReviewVoteHeaderTitle = styled.h2`
@@ -34,7 +38,7 @@ export const StyledReviewVoteHeaderTitle = styled.h2`
 `;
 
 export const StyledReviewVoteContent = styled.div`
-  width: 790px;
+  max-width: 790px;
 `;
 
 export const StyledReviewVoteContentCopy = styled.div`
