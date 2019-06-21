@@ -1698,13 +1698,18 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.8.0.tgz#fa8cc47f6df7f992c1d16a735ceaaf692bc372cf"
+"@joincivil/civil-sdk@^1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.8.5.tgz#93c8db2779ef9422a6085c2e8c91f3529ffcff71"
+  integrity sha512-r8lb0HXx1rfviDREt/pcwnvf/zVBhXwW5Lz03oTxTulglVACicvcmIEhY0PrChxCwdqSJx+SNf6Ze9rSCix/LA==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
     "@commitlint/config-conventional" "^7.5.0"
+    "@joincivil/components" "^1.8.0"
+    "@joincivil/core" "^4.8.0"
+    "@joincivil/ethapi" "^0.4.0"
+    "@joincivil/utils" "^1.9.0"
     "@svgr/webpack" "4.1.0"
     babel-core "7.0.0-bridge.0"
     babel-eslint "9.0.0"
@@ -1731,6 +1736,7 @@
     graphql-tag "^2.9.2"
     html-webpack-plugin "4.0.0-alpha.2"
     identity-obj-proxy "3.0.0"
+    ipfs-http-client "^29.1.1"
     jest "23.6.0"
     jest-pnp-resolver "1.0.2"
     jest-resolve "23.6.0"
