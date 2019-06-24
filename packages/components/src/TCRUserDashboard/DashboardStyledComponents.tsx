@@ -14,7 +14,7 @@ export const StyledUserActivity = styled.div`
   background-color: transparent;
 `;
 
-export const StyledUserActivityContent = styled.h3`
+export const StyledUserActivityContent = styled.div`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: none;
@@ -458,5 +458,115 @@ export const StyledTutorialPrompt = styled.div`
     letter-spacing: 0.3px;
     line-height: 14px;
     text-transform: none;
+  }
+`;
+
+// Newsroom tab
+export const StyledDashboardNewsroom = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  box-sizing: border-box;
+  padding: 25px 0;
+  margin: 0 25px;
+`;
+
+export const StyledDashboardNewsroomName = styled.div`
+  color: ${colors.primary.BLACK};
+  font-size: 24px;
+  line-height: 29px;
+`;
+
+export const StyledDashboardNewsroomSection = styled.div`
+  margin: 0 0 26px;
+
+  & ~ & {
+    border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    padding: 14px 0 0;
+  }
+`;
+
+export const StyledDashboardNewsroomHdr = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 18px;
+  line-height: 33px;
+`;
+
+export const StyledDashboardNewsroomSectionContentRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledDashboardNewsroomLinks = styled.div`
+  text-align: right;
+
+  a {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    margin: 0 0 20px;
+  }
+`;
+
+export const StyledWarningText = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -3px 0;
+  }
+`;
+
+export const StyledDashboardNewsroomTokensContainer = styled.div`
+  text-align: left;
+  width: 30%;
+`;
+
+export const StyledDashboardNewsroomTokensLabel = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 20px;
+  margin: 7px 0 0;
+`;
+
+export const StyledCVLLabel = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: -0.07px;
+  line-height: 15px;
+`;
+
+// No Content
+export const StyledDashboardNoContent = styled.div`
+  margin: 0 auto;
+  padding: 60px 0 0;
+  text-align: center;
+  max-width: 485px;
+`;
+
+export const StyledDashboardNoContentHdr = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.14px;
+  line-height: 33px;
+  margin: 17px 0 2px;
+`;
+
+export const StyledDashboardNoContentCopy = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 30px;
+  margin: 0 0 24px;
+`;
+
+export const StyledDashboardNoContentButtonContainer = styled.div`
+  ${InvertedButton} {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    padding: 14px 0;
+    text-transform: none;
+    width: 236px;
   }
 `;

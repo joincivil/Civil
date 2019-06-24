@@ -8,6 +8,7 @@ import {
   DashboardActivity as DashboardActivityComponent,
   Modal,
   ProgressModalContentMobileUnsupported,
+  NoNewsrooms,
 } from "@joincivil/components";
 
 import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
@@ -36,13 +37,12 @@ import {
   getUserChallengeDataSetByPollType,
 } from "../../helpers/queryTransformations";
 
+import NewsroomsList from "./NewsroomsList";
 import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
-import ActivityList from "./ActivityList";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import LoadingMsg from "../utility/LoadingMsg";
-import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 const TABS: TDashboardTab[] = [
   dashboardTabs.TASKS,
@@ -109,6 +109,7 @@ const NEWSROOMS_QUERY = gql`
   query {
     nrsignupNewsroom {
       newsroomAddress
+      tcrApplyTx
     }
   }
 `;
@@ -225,18 +226,27 @@ class DashboardActivity extends React.Component<
               return <LoadingMsg />;
             }
             if (error) {
-              return <ErrorLoadingDataMsg />;
+              return <NoNewsrooms />;
             }
-            const newsrooms =
-              data.nrsignupNewsroom &&
-              data.nrsignupNewsroom.newsroomAddress &&
-              Set([data.nrsignupNewsroom.newsroomAddress]);
-            return <ActivityList listings={newsrooms} />;
+
+            let newsrooms;
+            let newsroomsApplicationProgressData;
+            if (data.nrsignupNewsroom && data.nrsignupNewsroom.newsroomAddress) {
+              newsrooms = Set([data.nrsignupNewsroom.newsroomAddress]);
+              newsroomsApplicationProgressData = new Map();
+              newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+                data.nrsignupNewsroom.newsroomAddress,
+                data.nrsignupNewsroom,
+              );
+            }
+            return (
+              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
+            );
           }}
         </Query>
       );
     } else {
-      return <ActivityList listings={this.props.currentUserNewsrooms} />;
+      return <NewsroomsList listings={this.props.currentUserNewsrooms} />;
     }
   };
 
