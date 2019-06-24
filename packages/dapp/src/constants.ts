@@ -17,6 +17,7 @@ export enum routes {
   DASHBOARD = "/dashboard/:activeDashboardTab/:activeDashboardSubTab?",
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",
+  AUTH_SIGNUP = "/auth/signup",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",

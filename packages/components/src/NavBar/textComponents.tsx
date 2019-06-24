@@ -11,6 +11,11 @@ export const NavLinkContractAddressesText: React.FunctionComponent = props => <>
 
 export const NavLinkCreateNewsroomText: React.FunctionComponent = props => <>Apply to Registry</>;
 
+export const NavLinkBoostsText: React.FunctionComponent = props => <>Boosts</>;
+export const NavLinkBrowseBoostsText: React.FunctionComponent = props => <>Browse Boosts</>;
+export const NavLinkLaunchBoostText: React.FunctionComponent = props => <>Launch Boost</>;
+export const NavLinkMyBoostsText: React.FunctionComponent = props => <>My Boosts</>;
+
 export const NavLinkConstitutionText: React.FunctionComponent = props => <>Constitution</>;
 
 export const NavLinkFoundationText: React.FunctionComponent = props => <>Foundation</>;
