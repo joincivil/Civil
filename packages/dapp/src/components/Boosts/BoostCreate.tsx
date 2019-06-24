@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { compose, withApollo, WithApolloClient } from "react-apollo";
 import { Helmet } from "react-helmet";
@@ -72,6 +73,15 @@ class BoostCreatePage extends React.Component<
   }
 
   private renderCreateBoost(): JSX.Element {
+    if (!this.state.gqlLoading && !this.state.newsroomAddress) {
+      return (
+        <p>
+          Your have not yet created a newsroom. Please{" "}
+          <Link to={routes.APPLY_TO_REGISTRY}>create your newsroom application</Link> and then, once you have applied to
+          the registry and your newsroom has been approved, you can return to create a Boost.
+        </p>
+      );
+    }
     if (this.state.gqlLoading || !this.props.newsroom || !this.props.charter) {
       return <LoadingMsg />;
     }
@@ -104,7 +114,11 @@ class BoostCreatePage extends React.Component<
           query: NEWSROOMS_QUERY,
         })) as any;
         if (!result || !result.data || !result.data.nrsignupNewsroom || !result.data.nrsignupNewsroom.newsroomAddress) {
-          // @TODO/tobek No newsroom: tell user to make one
+          this.setState({
+            gqlLoading: false,
+            newsroomAddress: undefined,
+          });
+          return;
         }
         this.setState({
           gqlLoading: false,
@@ -138,7 +152,6 @@ const mapStateToProps = (state: State, ownProps: BoostCreatePageProps): BoostCre
     charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
   }
 
-  // @TODO/tobek Also load listing data so we can check if newsroom is whitelisted
   return {
     ...ownProps,
     useGraphQL,
@@ -156,4 +169,4 @@ export default (props: any) => (
     signupUrl={routes.AUTH_SIGNUP}
     render={() => <ComposedBoostCreatePage {...props} />}
   />
-)
+);
