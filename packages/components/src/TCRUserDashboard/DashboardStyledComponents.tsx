@@ -496,12 +496,22 @@ export const StyledDashboardNewsroomSectionContentRow = styled.div`
 `;
 
 export const StyledDashboardNewsroomLinks = styled.div`
+  text-align: right;
+
   a {
     display: block;
     font-size: 13px;
     letter-spacing: 0.2px;
     line-height: 14px;
     margin: 0 0 20px;
+  }
+`;
+
+export const StyledWarningText = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -3px 0;
   }
 `;
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { EthAddressViewer } from "../EthAddressViewer";
+import { ErrorIcon } from "../icons";
 
 import {
   StyledDashboardNewsroom,
@@ -14,6 +14,7 @@ import {
   StyledDashboardNewsroomTokensContainer,
   StyledDashboardNewsroomTokensLabel,
   StyledCVLLabel,
+  StyledWarningText,
 } from "./DashboardStyledComponents";
 
 export interface DashboardNewsroomProps {
@@ -27,6 +28,7 @@ export interface DashboardNewsroomProps {
   etherscanBaseURL: string;
   isAccepted?: boolean;
   isInProgress?: boolean;
+  isUnderChallenge?: boolean;
   isRejected?: boolean;
   acceptedDate?: string;
   inProgressPhaseDisplayName?: string;
@@ -81,6 +83,19 @@ const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNews
 const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStatusBase);
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
+  const { isUnderChallenge } = props;
+  const renderEditLink = () => {
+    if (isUnderChallenge) {
+      return (
+        <StyledWarningText>
+          <ErrorIcon width={16} height={16} /> Your charter is locked until the challenge period has ended.
+        </StyledWarningText>
+      );
+    }
+
+    return <Link to={props.editNewsroomURL}>Edit</Link>;
+  };
+
   return (
     <StyledDashboardNewsroom>
       <StyledDashboardNewsroomSection>
@@ -90,7 +105,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomLinks>
             <Link to={props.listingDetailURL}>View on Registry</Link>
 
-            <Link to={props.editNewsroomURL}>Edit</Link>
+            {renderEditLink()}
           </StyledDashboardNewsroomLinks>
         </StyledDashboardNewsroomSectionContentRow>
       </StyledDashboardNewsroomSection>

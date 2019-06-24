@@ -125,6 +125,7 @@ class NewsroomsListItemListingRedux extends React.Component<
       }
 
       return {
+        isUnderChallenge,
         isInProgress,
         inProgressPhaseDisplayName,
         inProgressPhaseDetails,
