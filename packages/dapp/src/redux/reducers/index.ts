@@ -70,7 +70,7 @@ import {
   ContentData,
   TxDataAll,
 } from "@joincivil/core";
-import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
+import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
 import {
   newsrooms,
   NewsroomState,
@@ -98,7 +98,7 @@ export interface State {
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<string, ContentData>;
-  contentFetched: Set<EthContentHeader>;
+  contentFetched: Map<string, EthContentHeader>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;
@@ -152,6 +152,7 @@ const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
   content,
   contentFetched,
+  charterRevisions,
   listings,
   listingsExtendedMetadata,
   listingsFetching,

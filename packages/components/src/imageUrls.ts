@@ -7,6 +7,7 @@ import * as metaMaskSignImgUrl from "./images/img-metamask-sign@2x.png";
 import * as applicationSavedImgUrl from "./images/img-application-saved@2x.png";
 import * as applicationSubmittedImgUrl from "./images/img-application-submitted@2x.png";
 import * as grantSubmittedImgUrl from "./images/img-grant-submitted@2x.png";
+import * as defaultNewsroomImgUrl from "./images/img-default-newsroom@2x.png";
 
 export {
   metaMaskNetworkSwitchImgUrl,
@@ -17,4 +18,5 @@ export {
   applicationSavedImgUrl,
   applicationSubmittedImgUrl,
   grantSubmittedImgUrl,
+  defaultNewsroomImgUrl,
 };

@@ -28,5 +28,5 @@ export function isVotePassed(pollData: PollData): boolean {
   const votesAgainst = pollData.votesAgainst.toNumber();
   const votesForTimes100 = votesFor * 100;
   const quorum = pollData.voteQuorum.toNumber();
-  return votesForTimes100 <= quorum * (votesFor + votesAgainst);
+  return votesForTimes100 > quorum * (votesFor + votesAgainst);
 }

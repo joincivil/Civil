@@ -86,7 +86,7 @@ export const PaypalDonate: React.FunctionComponent = () => (
 );
 
 export const TokenAccountInner = styled.div`
-  width: 1200px;
+  max-width: 1200px;
 `;
 
 export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
@@ -313,6 +313,10 @@ export const TokenBuyIntro = styled.div`
 export const TokenAirswapSection = styled.div`
   padding: 15px 30px 0 30px;
   text-align: center;
+  ${mediaQueries.MOBILE} {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 
   button {
     diplay: block;

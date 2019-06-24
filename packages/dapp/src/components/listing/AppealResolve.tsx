@@ -67,15 +67,17 @@ const transactionStatusModalConfig = {
 class AppealResolve extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
   public render(): JSX.Element {
     const transactions = this.getTransactions();
-    const appealGranted = this.props.appeal.appealGranted;
+    const { appeal, challengeID, onMobileTransactionClick } = this.props;
+    const appealGranted = appeal.appealGranted;
+    const appealGrantedStatementURI = appeal.appealGrantedStatementURI;
     return (
       <>
         <AppealResolveCard
-          challengeID={this.props.challengeID.toString()}
+          challengeID={challengeID.toString()}
           appealGranted={appealGranted}
-          appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
+          appealGrantedStatementURI={appealGrantedStatementURI}
           transactions={transactions}
-          onMobileTransactionClick={this.props.onMobileTransactionClick}
+          onMobileTransactionClick={onMobileTransactionClick}
           faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
         />
       </>

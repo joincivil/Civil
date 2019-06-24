@@ -6,9 +6,10 @@ import { NewsroomState } from "@joincivil/newsroom-signup";
 
 import { State } from "../../redux/reducers";
 import {
-  LISTING_QUERY,
+  LISTING_WITH_CHARTER_REVISIONS_QUERY,
   transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoListing,
+  transformGraphQLDataIntoCharterRevisions,
 } from "../../helpers/queryTransformations";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
@@ -37,23 +38,29 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
     const listingAddress = this.props.listingAddress;
     if (this.props.useGraphQl) {
       return (
-        <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
+        <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
-            if (loading) {
+            if (loading || !data) {
               return <LoadingMsg />;
             }
             if (error) {
               return <ErrorLoadingDataMsg />;
             }
-            if (!data.listing) {
+            if (!data.listing || !data.charterRevisions) {
               return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
             }
             const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
             const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
+            const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
             return (
               <>
                 <ScrollToTopOnMount />
-                <ListingRedux listingAddress={listingAddress} newsroom={newsroom} listing={listing} />
+                <ListingRedux
+                  listingAddress={listingAddress}
+                  newsroom={newsroom}
+                  listing={listing}
+                  charterRevisions={charterRevisions}
+                />
               </>
             );
           }}

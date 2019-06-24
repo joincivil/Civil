@@ -11,24 +11,24 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-      className="sc-fVHxE cXNviT"
+      className="sc-bWkBrx fNuqLw"
     >
       <div>
         (exchange rate is 2x)
       </div>
       <div
-        className="sc-klSiHT ipidql"
+        className="sc-gwZsXD CGKNR"
       >
         <div
-          className="sc-bWFPNQ gkCtTD"
+          className="sc-cKZAiZ hBqWWC"
         >
           <div
-            className="sc-cBOTKl daiKlK"
+            className="sc-jJkQYJ eJgmDt"
           >
             Enter CVL Amount
           </div>
           <div
-            className="sc-hkHFWD dsxBrf"
+            className="sc-kOnlKp fvHtAL"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -56,7 +56,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-feWbDf kPwHUp"
+          className="sc-cBOTKl xfOYH"
         >
           <svg
             height="14"
@@ -82,19 +82,19 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-bWFPNQ gkCtTD"
+          className="sc-cKZAiZ hBqWWC"
         >
           <div
-            className="sc-cBOTKl daiKlK"
+            className="sc-jJkQYJ eJgmDt"
           >
             Converted ETH
           </div>
           <div
-            className="sc-iUVpnZ inpotp"
+            className="sc-klSiHT hSwLNj"
           >
             0
             <div
-              className="sc-goFBvh gfsQJQ"
+              className="sc-bWFPNQ dFInnE"
             >
               ETH
             </div>
@@ -731,24 +731,24 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-      className="sc-fVHxE cXNviT"
+      className="sc-bWkBrx fNuqLw"
     >
       <div>
         (exchange rate is 0.5x)
       </div>
       <div
-        className="sc-klSiHT ipidql"
+        className="sc-gwZsXD CGKNR"
       >
         <div
-          className="sc-bWFPNQ gkCtTD"
+          className="sc-cKZAiZ hBqWWC"
         >
           <div
-            className="sc-cBOTKl daiKlK"
+            className="sc-jJkQYJ eJgmDt"
           >
             Enter USD Amount
           </div>
           <div
-            className="sc-hkHFWD dsxBrf"
+            className="sc-kOnlKp fvHtAL"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -776,7 +776,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </div>
         </div>
         <div
-          className="sc-feWbDf kPwHUp"
+          className="sc-cBOTKl xfOYH"
         >
           <svg
             height="14"
@@ -802,19 +802,19 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </svg>
         </div>
         <div
-          className="sc-bWFPNQ gkCtTD"
+          className="sc-cKZAiZ hBqWWC"
         >
           <div
-            className="sc-cBOTKl daiKlK"
+            className="sc-jJkQYJ eJgmDt"
           >
             Converted ETH
           </div>
           <div
-            className="sc-iUVpnZ inpotp"
+            className="sc-klSiHT hSwLNj"
           >
             0
             <div
-              className="sc-goFBvh gfsQJQ"
+              className="sc-bWFPNQ dFInnE"
             >
               ETH
             </div>
@@ -1233,6 +1233,17 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                             </span>
                             "
                           </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          displayErrorMsg
                         </span>
                       </span>
                       <span>

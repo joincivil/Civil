@@ -126,7 +126,7 @@ export const TokenAirswapFoundationText: React.FunctionComponent = props => (
   <>
     <h3>Contribute to the Civil Foundation</h3>
     <p>
-      Buy Civil tokens from The Civil Media Company and 100% net proceeds goes to the Civil Foundation for supporting
+      Buy Civil tokens from The Civil Media Company and 100% of net proceeds go to the Civil Foundation for supporting
       worthy journalism.{" "}
       <a href="https://medium.com/@kinsleyd/5e0ccdc918cc" target="_blank">
         Learn about our transparent pricing.

@@ -109,13 +109,17 @@ class RequestAppealComponent extends React.Component<
   RequestAppealProps & RequestAppealReduxProps & InjectedTransactionStatusModalProps,
   RequestAppealState
 > {
-  public componentWillMount(): void {
+  public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
     this.props.setTransactions(this.getTransactions());
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
+    // TODO: cleanup ethereum enabling
+    if ((window as any).ethereum) {
+      await (window as any).ethereum.enable();
+    }
   }
 
   public render(): JSX.Element {

@@ -35,6 +35,7 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
     const appealGranted = appeal.appealGranted;
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
     const phaseLength = this.props.parameters.challengeAppealLen;
+    const appealGrantedStatementURI = appeal.appealGrantedStatementURI;
 
     const submitAppealChallengeURI = formatRoute(routes.SUBMIT_APPEAL_CHALLENGE, {
       listingAddress: this.props.listingAddress,
@@ -45,6 +46,7 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
         endTime={endTime}
         phaseLength={phaseLength}
         challengeID={this.props.challengeID.toString()}
+        appealGrantedStatementURI={appealGrantedStatementURI}
         appealGranted={appealGranted}
         submitAppealChallengeURI={submitAppealChallengeURI}
         faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}

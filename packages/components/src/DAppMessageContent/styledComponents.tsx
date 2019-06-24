@@ -44,7 +44,7 @@ export const MetaMaskIcon = styled<MetaMaskIconProps>(MetaMaskSideIcon)`
   top: 3px;
 `;
 
-export const StyledLargeModalText = styled.p`
+export const StyledLargeModalText = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   font-size: 18px;
   line-height: 24px;

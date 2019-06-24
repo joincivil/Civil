@@ -5,11 +5,7 @@ import { NewsroomIcon, StyledListingSummaryTop, StyledListingSummaryNewsroomName
 import NewsroomTagline from "./NewsroomTagline";
 
 const NewsroomInfo: React.FunctionComponent<ListingSummaryComponentProps> = props => {
-  let description = "";
-  if (props.charter) {
-    // TODO(toby) remove legacy `desc` after transition
-    description = props.charter.tagline || (props.charter as any).desc;
-  }
+  const description = props.charter && props.charter.tagline;
   const logoURL = props.charter && props.charter.logoUrl;
 
   return (

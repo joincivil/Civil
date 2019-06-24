@@ -71,7 +71,7 @@ export const AppealChallengeResolveCard: React.FunctionComponent<AppealChallenge
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       {showAppealChallenge && (
@@ -93,13 +93,7 @@ export const AppealChallengeResolveCard: React.FunctionComponent<AppealChallenge
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this appeal
           challenge.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Resolve Appeal Challenge
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
       <NeedHelp faqURL={props.faqURL} />

@@ -15,8 +15,6 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -132,7 +130,7 @@ export class ChallengeRevealVoteCard extends React.Component<
   }
 
   private renderRevealVote = (): JSX.Element => {
-    if (this.props.userHasCommittedVote === false) {
+    if (!this.props.userHasCommittedVote) {
       return (
         <>
           <FormHeader>
@@ -163,16 +161,9 @@ export class ChallengeRevealVoteCard extends React.Component<
           <FormCopy>
             <RevealVoteCallToActionCopyText />
           </FormCopy>
-          <StyledVisibleOnDesktop>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnMobile>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            <RevealVoteButtonText />
+          </FullWidthButton>
         </>
       );
     }

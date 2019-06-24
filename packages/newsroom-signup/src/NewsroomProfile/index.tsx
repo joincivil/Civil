@@ -18,6 +18,7 @@ export interface NewsroomProfileProps {
   charter: Partial<CharterData>;
   grantRequested?: boolean;
   waitingOnGrant?: boolean;
+  completedGrantFlow?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
   navigate(go: 1 | -1): void;
 }
@@ -61,7 +62,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return false;
       },
       () => {
-        return this.props.waitingOnGrant || typeof this.props.grantRequested !== "boolean";
+        return !this.props.completedGrantFlow;
       },
     ];
 

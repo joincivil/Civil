@@ -134,6 +134,7 @@ export interface NewsroomReduxProps extends NewsroomExternalProps {
   userNotOnContract?: boolean;
   charterUri?: string;
   waitingOnGrant?: boolean;
+  completedGrantFlow?: boolean;
 }
 
 export interface NewsroomGqlProps {
@@ -183,9 +184,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
     props: NewsroomProps,
     state: NewsroomComponentState,
   ): NewsroomComponentState | null {
-    const decidedWhetherToApply = typeof props.grantRequested === "boolean";
-    if (state.currentStep === STEP.PROFILE_GRANT && !props.waitingOnGrant && decidedWhetherToApply) {
-      // Either they didn't apply but were waiting here before we released second part of flow, or they did apply and a decision has now been made on their grant, so move them to the next step.
+    if (state.currentStep === STEP.PROFILE_GRANT && props.completedGrantFlow) {
       props.dispatch!(
         analyticsEvent({
           action: "Auto advancing past grant step",
@@ -326,6 +325,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
           waitingOnGrant={this.props.waitingOnGrant}
+          completedGrantFlow={this.props.completedGrantFlow}
           charter={this.props.charter}
           updateCharter={this.updateCharter}
         />
@@ -446,7 +446,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         return false;
       },
       [SECTION.CONTRACT]: () => {
-        return typeof this.props.grantRequested !== "boolean" || !!this.props.waitingOnGrant;
+        return !this.props.completedGrantFlow;
       },
       [SECTION.TUTORIAL]: () => {
         return !this.props.newsroomAddress;
@@ -489,7 +489,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
     if (newStep === STEP.APPLIED) {
       // Dummy step we don't actually update view for, but need to send to API.
       return;
-    } else if (newStep === STEP.PROFILE_GRANT && !this.props.waitingOnGrant) {
+    } else if (newStep === STEP.PROFILE_GRANT && this.props.completedGrantFlow) {
       newStep += go; // skip the step and go one further in the requested direction
     }
     document.documentElement.scrollTop = document.body.scrollTop = 0;
@@ -544,17 +544,20 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   const { user, parameters } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
+  let hasMinDeposit;
   let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
   if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
     const userBalance = new BigNumber(user.account.balance);
     const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
-    const hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
+    hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
     waitingOnGrant = waitingOnGrant && !hasMinDeposit;
   }
+  const completedGrantFlow = hasMinDeposit || (typeof ownProps.grantRequested === "boolean" && !waitingOnGrant);
 
   return {
     ...ownProps,
     waitingOnGrant,
+    completedGrantFlow,
     newsroom: newsroom.newsroom,
     charter: newsroom.charter || {},
   };

@@ -868,6 +868,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
   const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
   const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
   const canRequestAppeal = challenge && getCanRequestAppeal(challenge);
+  const doesChallengeHaveAppeal = challenge && getDoesChallengeHaveAppeal(challenge);
   const isAwaitingAppealJudgement = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
   const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
   const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
@@ -890,6 +891,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
     canAppealBeResolved,
     didChallengeSucceed,
     didChallengeOriginallySucceed,
+    doesChallengeHaveAppeal,
     isAppealChallengeInCommitStage,
     isAppealChallengeInRevealStage,
   };

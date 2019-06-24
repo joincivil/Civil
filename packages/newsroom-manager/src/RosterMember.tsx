@@ -108,7 +108,7 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
               <Input name="name" value={user.rosterData.name || ""} onChange={this.rosterInputChange} />
             </FormRowItem>
             <FormRowItem>
-              <FormSubhead optional>Avatar URL</FormSubhead>
+              <FormSubhead optional>Avatar</FormSubhead>
               <Input
                 name="avatarUrl"
                 value={user.rosterData.avatarUrl || ""}

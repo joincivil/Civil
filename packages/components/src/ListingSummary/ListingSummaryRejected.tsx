@@ -11,9 +11,9 @@ import AppealJudgementBanner from "./AppealJudgementBanner";
 export const ListingSummaryRejectedComponent: React.FunctionComponent<
   ListingSummaryComponentProps & ChallengeResultsProps
 > = props => {
-  const { appeal, appealRequested } = props;
+  const { doesChallengeHaveAppeal, isAwaitingAppealJudgement } = props;
 
-  const hasTopPadding = !appeal && !appealRequested;
+  const hasTopPadding = !doesChallengeHaveAppeal && !isAwaitingAppealJudgement;
   return (
     <ListingSummaryBase {...props}>
       <StyledListingSummary hasTopPadding={hasTopPadding}>
