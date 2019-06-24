@@ -9,7 +9,7 @@ import { Set } from "immutable";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { CharterData, EthAddress } from "@joincivil/core";
 import { BoostForm } from "@joincivil/civil-sdk";
-import { FeatureFlag } from "@joincivil/components";
+import { FeatureFlag, AuthenticatedRoute } from "@joincivil/components";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -148,4 +148,12 @@ const mapStateToProps = (state: State, ownProps: BoostCreatePageProps): BoostCre
   };
 };
 
-export default compose(withApollo, connect(mapStateToProps))(BoostCreatePage);
+const ComposedBoostCreatePage = compose(withApollo, connect(mapStateToProps))(BoostCreatePage);
+
+export default (props: any) => (
+  <AuthenticatedRoute
+    redirectTo={routes.BOOST_CREATE}
+    signupUrl={routes.AUTH_SIGNUP}
+    render={() => <ComposedBoostCreatePage {...props} />}
+  />
+)
