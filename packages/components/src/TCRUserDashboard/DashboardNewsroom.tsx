@@ -35,7 +35,7 @@ export interface DashboardNewsroomProps {
   rejectedDate?: string;
 }
 
-const DashboardNewsroomRegistryStatus: React.FunctionComponent<DashboardNewsroomProps> = props => {
+const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   let statusDisplay;
   let statusDetails: string | JSX.Element = <></>;
 
@@ -78,7 +78,9 @@ const DashboardNewsroomRegistryStatus: React.FunctionComponent<DashboardNewsroom
   );
 };
 
-export const DashboardNewsroom: React.FunctionComponent<DashboardNewsroomProps> = props => {
+const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStatusBase);
+
+const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   return (
     <StyledDashboardNewsroom>
       <StyledDashboardNewsroomSection>
@@ -133,3 +135,5 @@ export const DashboardNewsroom: React.FunctionComponent<DashboardNewsroomProps> 
     </StyledDashboardNewsroom>
   );
 };
+
+export const DashboardNewsroom = React.memo(DashboardNewsroomBase);

@@ -4,7 +4,7 @@ import { formatRoute } from "react-router-named-routes";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
 import { DashboardNewsroom } from "@joincivil/components";
-import { getFormattedTokenBalance, getEtherscanBaseURL } from "@joincivil/utils";
+import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -66,14 +66,20 @@ class NewsroomsListItemListingRedux extends React.Component<
       } = listingPhaseState;
 
       if (isWhitelisted && !isUnderChallenge) {
+        let acceptedDate;
+
+        if (listing && listing.data.approvalDate) {
+          const dateParts = getLocalDateTimeStrings(listing.data.approvalDate.toNumber());
+          acceptedDate = `${dateParts[0]} ${dateParts[1]}`;
+        }
+
         return {
           isAccepted: true,
-          // acceptedDate: string;
+          acceptedDate,
         };
       } else if (isRejected && !isInApplication && !isUnderChallenge) {
         return {
           isRejected: true,
-          // rejectedDate: string;
         };
       }
 
