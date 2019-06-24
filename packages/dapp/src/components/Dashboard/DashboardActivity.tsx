@@ -8,12 +8,6 @@ import {
   DashboardActivity as DashboardActivityComponent,
   Modal,
   ProgressModalContentMobileUnsupported,
-  StyledDashboardActivityDescription,
-  Notice,
-  NoticeTypes,
-  DashboardTransferTokenForm,
-  DashboardTutorialWarning,
-  BalanceType,
   NoNewsrooms,
 } from "@joincivil/components";
 
