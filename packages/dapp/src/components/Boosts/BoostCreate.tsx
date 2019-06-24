@@ -6,20 +6,28 @@ import { compose, withApollo, WithApolloClient } from "react-apollo";
 import { Helmet } from "react-helmet";
 import gql from "graphql-tag";
 import { Set } from "immutable";
+import styled from "styled-components";
 
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { CharterData, EthAddress } from "@joincivil/core";
 import { BoostForm } from "@joincivil/civil-sdk";
-import { FeatureFlag, AuthenticatedRoute } from "@joincivil/components";
+import { FeatureFlag, AuthenticatedRoute, ErrorLoadingData } from "@joincivil/components";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import LoadingMsg from "../utility/LoadingMsg";
-import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import { addUserNewsroom, getContent } from "../../redux/actionCreators/newsrooms";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { ComingSoonText } from "./BoostStyledComponents";
+import { StyledInPageMsgContainer } from "../utility/styledComponents";
+
+const NoNewsroomMessage = styled.div`
+  font-size: 16px;
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 20px;
+`;
 
 const NEWSROOMS_QUERY = gql`
   query {
@@ -75,18 +83,25 @@ class BoostCreatePage extends React.Component<
   private renderCreateBoost(): JSX.Element {
     if (!this.state.gqlLoading && !this.state.newsroomAddress) {
       return (
-        <p>
-          Your have not yet created a newsroom. Please{" "}
-          <Link to={routes.APPLY_TO_REGISTRY}>create your newsroom application</Link> and then, once you have applied to
-          the registry and your newsroom has been approved, you can return to create a Boost.
-        </p>
+        <StyledInPageMsgContainer>
+          <NoNewsroomMessage>
+            Your have not yet created a newsroom. Please{" "}
+            <Link to={routes.APPLY_TO_REGISTRY}>create your newsroom application</Link> and then, once you have applied
+            to the registry and your newsroom has been approved, you can return to create a Boost.
+          </NoNewsroomMessage>
+        </StyledInPageMsgContainer>
+      );
+    }
+    if (this.state.gqlError) {
+      // useGraphQL flase to suppress "turn off graphql" message because that won't fix it here
+      return (
+        <StyledInPageMsgContainer>
+          <ErrorLoadingData useGraphQL={false} />
+        </StyledInPageMsgContainer>
       );
     }
     if (this.state.gqlLoading || !this.props.newsroom || !this.props.charter) {
       return <LoadingMsg />;
-    }
-    if (this.state.gqlError) {
-      return <ErrorLoadingDataMsg />;
     }
 
     const { newsroom, charter } = this.props;
@@ -108,12 +123,14 @@ class BoostCreatePage extends React.Component<
     if (this.props.useGraphQL && this.props.currentUserNewsrooms.isEmpty()) {
       this.setState({
         gqlLoading: true,
+        gqlError: null,
       });
       try {
         const result = (await this.props.client.query({
           query: NEWSROOMS_QUERY,
         })) as any;
         if (!result || !result.data || !result.data.nrsignupNewsroom || !result.data.nrsignupNewsroom.newsroomAddress) {
+          // This user hasn't created newsroom yet
           this.setState({
             gqlLoading: false,
             newsroomAddress: undefined,
@@ -126,7 +143,15 @@ class BoostCreatePage extends React.Component<
         });
         this.props.dispatch!(addUserNewsroom(result.data.nrsignupNewsroom.newsroomAddress));
       } catch (e) {
+        if (e.message.indexOf("No jsonb found") !== -1) {
+          // This user hasn't created newsroom yet
+          this.setState({
+            gqlLoading: false,
+            newsroomAddress: undefined,
+          });
+        }
         this.setState({
+          gqlLoading: false,
           gqlError: e,
         });
       }
