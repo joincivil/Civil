@@ -11,13 +11,13 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
     }
   >
     <div
-      className="sc-cbMPqi kleslB"
+      className="sc-fFTYTi dFgHZG"
     >
       <h2
-        className="sc-dKEPtC ifgmSc"
+        className="sc-eMRERa hlQhGn"
       >
         <svg
-          className="sc-RmnOB bqGdQc"
+          className="sc-dAOnuy fEaBsj"
           height="32"
           viewBox="0 0 20 20"
           width="32"
@@ -47,35 +47,35 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         Wallet Connected
       </h2>
       <p
-        className="sc-blIhvV eHzJWZ sc-dvpmds iBCiBb"
+        className="sc-RmnOB caugmn sc-ileJJU jDvgXQ"
       >
         Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil network so you can log in using your wallet.
       </p>
       <div
-        className="sc-jPPmml eNbaye"
+        className="sc-cSYcjD bwSQgn"
       >
         <p
-          className="sc-cgzHhG gEtByq"
+          className="sc-gQNndl isvrtm"
         >
           Public Wallet Address
         </p>
         <div
-          className="sc-bIKvTM iYfsxt"
+          className="sc-gjAXCV difjRi"
         >
           0xabc1230000000000000000000000000000abc123
         </div>
       </div>
       <p
-        className="sc-dNoQZL fdoUWk"
+        className="sc-dOkuiw bSAtPZ"
       >
         <span
-          className="sc-ileJJU hzTqJd"
+          className="sc-geAPOV gHmGVS"
         >
           Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase, username and password in a safe place. We can’t help you restore or regain access if you lose it.
         </span>
       </p>
       <div
-        className="sc-MYvYT eslMID"
+        className="sc-eQGPmX eaGlsV"
       >
         <button
           className="sc-kEYyzF bnmMlI sc-hMqMXs djbzrj"
@@ -100,85 +100,85 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </button>
       </div>
       <div
-        className="sc-eMRERa trxnc sc-cNQqM kKGjHf"
+        className="sc-hAnkBK iByXYj sc-jWxkHr crhQB"
       >
         <span
-          className="sc-eqPNPO bYyLDY"
+          className="sc-DNdyV eCenCS"
         >
           Using a different wallet?
         </span>
         <span
-          className="sc-ileJJU hzTqJd"
+          className="sc-geAPOV gHmGVS"
         >
           Make sure it's unlocked
           . You may need to refresh.
         </span>
       </div>
       <div
-        className="sc-bOCYYb ipJlqQ"
+        className="sc-cNnxps erploO"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-hXRMBi bifNjO"
           onClick={[Function]}
         >
           <h4
-            className="sc-iFUGim sBTzz"
+            className="sc-dPPMrM eJMhji"
           >
              What is a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-gwVKww dXoiYZ"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-eTuwsz bYeKWZ"
           height={null}
           open={false}
         >
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
-        className="sc-bOCYYb ipJlqQ"
+        className="sc-cNnxps erploO"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-hXRMBi bifNjO"
           onClick={[Function]}
         >
           <h4
-            className="sc-iFUGim sBTzz"
+            className="sc-dPPMrM eJMhji"
           >
              Why do I need a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-gwVKww dXoiYZ"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-eTuwsz bYeKWZ"
           height={null}
           open={false}
         >
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             Having a wallet is required. We recommend
              
@@ -192,12 +192,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
             to log in and manage your transactions.
           </p>
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -207,37 +207,37 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
-        className="sc-bOCYYb ipJlqQ"
+        className="sc-cNnxps erploO"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-hXRMBi bifNjO"
           onClick={[Function]}
         >
           <h4
-            className="sc-iFUGim sBTzz"
+            className="sc-dPPMrM eJMhji"
           >
              Need help setting up your wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-gwVKww dXoiYZ"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-eTuwsz bYeKWZ"
           height={null}
           open={false}
         >
           <p
-            className="sc-dwztqd dyoYrM"
+            className="sc-jotlie dkBdZE"
           >
             Head over to our
              
@@ -253,7 +253,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </div>
       </div>
       <p
-        className="sc-gQNndl eZYMCQ sc-dwztqd dyoYrM"
+        className="sc-dXLFzO dNWdub sc-jotlie dkBdZE"
       >
         Need more info before you start using a crypto wallet?
          
@@ -264,7 +264,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           Learn more in our support area
            
           <span
-            className="sc-iLVFha ezwGZB"
+            className="sc-gFXMyG flvEAj"
           >
             <svg
               height="11"

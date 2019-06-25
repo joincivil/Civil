@@ -16,6 +16,7 @@ import {
   CloseXIcon,
   CommitVoteSuccessIcon,
   CvlToken,
+  DashboardNewsroomApplicationIcon,
   DisclosureArrowIcon,
   DropdownArrow,
   ErrorIcon,
@@ -154,6 +155,13 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <CvlToken />
+      </Container>
+    );
+  })
+  .add("DashboardNewsroomApplicationIcon", () => {
+    return (
+      <Container>
+        <DashboardNewsroomApplicationIcon />
       </Container>
     );
   })

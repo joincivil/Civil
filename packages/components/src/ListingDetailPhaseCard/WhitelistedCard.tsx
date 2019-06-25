@@ -9,8 +9,6 @@ import {
   MetaItemValue,
   MetaItemLabel,
   CTACopy,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
 } from "./styledComponents";
 import { WhitelistedNewroomsDisplayNameText, WhitelistedNewroomsToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
@@ -61,16 +59,9 @@ const renderSubmitChallengeButton: React.FunctionComponent<
   if (props.submitChallengeURI) {
     return (
       <>
-        <StyledVisibleOnDesktop>
-          <InvertedButton size={buttonSizes.MEDIUM} to={props.submitChallengeURI}>
-            Submit a Challenge
-          </InvertedButton>
-        </StyledVisibleOnDesktop>
-        <StyledVisibleOnMobile>
-          <InvertedButton size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-            Submit a Challenge
-          </InvertedButton>
-        </StyledVisibleOnMobile>
+        <InvertedButton size={buttonSizes.MEDIUM} to={props.submitChallengeURI}>
+          Submit a Challenge
+        </InvertedButton>
       </>
     );
   }

@@ -52,6 +52,7 @@ storiesOf("Common / Currency / Currency Converter", module)
           currencyCodeTo="ETH"
           currencyLabelFrom="Enter USD Amount"
           currencyLabelTo="Converted ETH"
+          displayErrorMsg={true}
           onConversion={() => null}
           doConversion={async (from: number) => from * 2}
         />

@@ -1,13 +1,15 @@
 import * as React from "react";
-
+import { WrappedChallengeData } from "@joincivil/core";
 import { PHASE_TYPE_NAMES } from "@joincivil/components";
 
-import { ActivityListItemOwnProps, ActivityListItemReduxProps } from "./MyTasksItem";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 
-const TaskItemPhaseCountdown: React.FunctionComponent<
-  ActivityListItemOwnProps & ActivityListItemReduxProps
-> = props => {
+export interface TaskItemPhaseCountdownProps {
+  challenge?: WrappedChallengeData;
+  challengeState?: any;
+}
+
+const TaskItemPhaseCountdown: React.FunctionComponent<TaskItemPhaseCountdownProps> = props => {
   const { challenge, challengeState } = props;
 
   let phaseCountdown = <></>;

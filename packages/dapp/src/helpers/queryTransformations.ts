@@ -11,7 +11,7 @@ import {
   isInRevealStage,
 } from "@joincivil/core";
 import { Set, Map } from "immutable";
-import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
+import BigNumber from "bignumber.js";
 import gql from "graphql-tag";
 
 export const CHALLENGE_FRAGMENT = gql`

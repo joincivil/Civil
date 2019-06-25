@@ -1698,14 +1698,18 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.7.0.tgz#1d8c18e94fa305194e37ec4308dbe8f4a4cc179e"
-  integrity sha512-Mlau7ssDPdoZgXqQubRf4QJ0f5yG4YuSCtlo2CruePYyEKJDDMqeYRac7Gc+2fifsjJhDWT10AbVNWPyTPVsrg==
+"@joincivil/civil-sdk@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.9.0.tgz#46762fc5857a3e311ab4996bb997b52c30ad0ace"
+  integrity sha512-YmipuwZd3Ff7kmIIp+O2YEA7noNd/OItYZQ5Q5VEKHlUmZ38RQAiud7miggqWeS0tVLKgkXw6A9cXsn7FFBKmw==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
     "@commitlint/config-conventional" "^7.5.0"
+    "@joincivil/components" "^1.8.0"
+    "@joincivil/core" "^4.8.0"
+    "@joincivil/ethapi" "^0.4.0"
+    "@joincivil/utils" "^1.9.0"
     "@svgr/webpack" "4.1.0"
     babel-core "7.0.0-bridge.0"
     babel-eslint "9.0.0"
@@ -1732,6 +1736,7 @@
     graphql-tag "^2.9.2"
     html-webpack-plugin "4.0.0-alpha.2"
     identity-obj-proxy "3.0.0"
+    ipfs-http-client "^29.1.1"
     jest "23.6.0"
     jest-pnp-resolver "1.0.2"
     jest-resolve "23.6.0"
@@ -2877,6 +2882,10 @@
 "@types/debug@0.0.30", "@types/debug@^0.0.30":
   version "0.0.30"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-0.0.30.tgz#dc1e40f7af3b9c815013a7860e6252f6352a84df"
+
+"@types/diff@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-4.0.2.tgz#2e9bb89f9acc3ab0108f0f3dc4dbdcf2fff8a99c"
 
 "@types/enzyme@^3.1.9":
   version "3.1.14"
@@ -7361,6 +7370,10 @@ diff@3.3.1:
 diff@3.5.0, diff@^3.2.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.5.0.tgz#800c0dd1e0a8bfbc95835c202ad220fe317e5a12"
+
+diff@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.1.tgz#0c667cb467ebbb5cea7f14f135cc2dba7780a8ff"
 
 diffie-hellman@^5.0.0:
   version "5.0.3"

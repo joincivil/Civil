@@ -169,12 +169,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
         </Tabs>
 
         <StyledBatchButtonContainer>
-          <TransactionButtonNoModal
-            disabled={isClaimRewardsButtonDisabled}
-            transactions={transactions}
-            disabledOnMobile={true}
-            onMobileClick={this.props.onMobileTransactionClick}
-          >
+          <TransactionButtonNoModal disabled={isClaimRewardsButtonDisabled} transactions={transactions}>
             Claim Rewards
           </TransactionButtonNoModal>
         </StyledBatchButtonContainer>

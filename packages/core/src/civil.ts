@@ -1,4 +1,12 @@
-import { currentNetwork, detectProvider, EthApi, ProviderBackport, Web310Provider } from "@joincivil/ethapi";
+import {
+  currentNetwork,
+  detectProvider,
+  EthApi,
+  ProviderBackport,
+  Web310Provider,
+  toWei,
+  EthereumUnits,
+} from "@joincivil/ethapi";
 import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import BigNumber from "bignumber.js";
@@ -13,6 +21,7 @@ import { Newsroom } from "./contracts/newsroom";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
+import { createTwoStepSimple } from "./contracts/utils/contracts";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -272,5 +281,10 @@ export class Civil {
 
   public async accountBalance(account: EthAddress): Promise<number> {
     return this.ethApi.accountBalace(account);
+  }
+
+  public async simplePayment(recipient: EthAddress, amountInETH: BigNumber): Promise<TwoStepEthTransaction> {
+    const wei = toWei(amountInETH, EthereumUnits.ether);
+    return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: recipient, value: wei }));
   }
 }

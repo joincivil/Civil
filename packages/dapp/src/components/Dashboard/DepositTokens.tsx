@@ -122,13 +122,7 @@ class DepositTokensComponent extends React.Component<
         </StyledTransferTokenFormElement>
 
         <FormGroup>
-          <TransactionButtonNoModal
-            transactions={this.getTransactions()}
-            disabledOnMobile={true}
-            onMobileClick={this.props.onMobileTransactionClick}
-          >
-            Transfer
-          </TransactionButtonNoModal>
+          <TransactionButtonNoModal transactions={this.getTransactions()}>Transfer</TransactionButtonNoModal>
         </FormGroup>
       </>
     );

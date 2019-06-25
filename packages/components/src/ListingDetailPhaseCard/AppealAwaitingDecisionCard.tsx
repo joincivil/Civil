@@ -48,13 +48,7 @@ const GrantAppealButton: React.FunctionComponent<AppealAwaitingDecisionCardProps
     <div>
       {!props.txIdToConfirm && <TextInput name="uri" value={props.uriValue} onChange={props.onChange} />}
 
-      <TransactionButtonNoModal
-        transactions={props.transactions!}
-        disabledOnMobile={true}
-        onMobileClick={props.onMobileTransactionClick}
-      >
-        {text}
-      </TransactionButtonNoModal>
+      <TransactionButtonNoModal transactions={props.transactions!}>{text}</TransactionButtonNoModal>
     </div>
   );
 };
