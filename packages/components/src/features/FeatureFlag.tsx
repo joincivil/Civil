@@ -3,17 +3,23 @@ import { CivilContext, ICivilContext } from "../context";
 
 export interface FeatureFlagProps {
   feature: string;
-  replacement?: JSX.Element;
+  replacement?: JSX.Element
+  replacementComponent?: React.ComponentType;
   children: any;
 }
 export class FeatureFlag extends React.Component<FeatureFlagProps> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
 
   public render(): JSX.Element {
-    if (this.context.features.featureEnabled(this.props.feature)) {
-      return <>{this.props.children}</>;
+    const { feature, children, replacement, replacementComponent } = this.props;
+
+    if (this.context.features.featureEnabled(feature)) {
+      return <>{children}</>;
+    } else if (replacementComponent) {
+      const Replacement = replacementComponent;
+      return <Replacement />;
     } else {
-      return <>{this.props.replacement}</>;
+      return <>{replacement}</>;
     }
   }
 }
