@@ -21,7 +21,7 @@ export const CurrencyConverterContain = styled.div`
 export const CurrencyContain = styled.div`
   padding-bottom: 35px;
   position: relative;
-  width: 285px;
+  width: 225px;
 `;
 
 export const CurrencyLabel = styled.div`
@@ -34,7 +34,7 @@ export const StyledCurrencyInputWithButton = styled.div`
   & > div {
     font-size: 15px;
     line-height: 24px;
-    padding: 15px 20px;
+    padding: 12px 15px;
   }
 
   input {
@@ -52,7 +52,7 @@ export const CurrencyConvertedBox = styled.div`
   border-radius: 3px;
   font-size: 15px;
   line-height: 24px;
-  padding: 15px 53px 15px 20px;
+  padding: 12px 53px 12px 12px;
   position: relative;
   width: 100%;
 `;

@@ -20,7 +20,8 @@ class BoostPage extends React.Component<BoostPageProps> {
         <ScrollToTopOnMount />
         <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostWrapper>
-            <Boost open={true} boostId={this.props.boostId} />
+            {/* TODO(sruddy) check if user is boost owner */}
+            <Boost open={true} boostId={this.props.boostId} boostOwner={false} />
           </BoostWrapper>
         </FeatureFlag>
       </>
