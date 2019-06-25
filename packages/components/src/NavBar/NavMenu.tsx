@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import { FeatureFlag } from "../features/FeatureFlag";
 import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuContainer, StyledNavMenuResponsiveContainer, StyledMobileNavMenu } from "./styledComponents";
 import {
@@ -8,6 +9,9 @@ import {
   NavLinkRegistryHomeText,
   NavLinkParameterizerText,
   NavLinkContractAddressesText,
+  NavLinkBoostsText,
+  NavLinkBrowseBoostsText,
+  NavLinkLaunchBoostText,
   NavLinkConstitutionText,
   NavLinkFoundationText,
   NavLinkFaqText,
@@ -44,6 +48,23 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
+      <FeatureFlag feature={"boosts-mvp"}>
+        <NavDropDown
+          label={
+            <NavLink to="/boosts" {...mobileOnClickProp}>
+              <NavLinkBoostsText />
+            </NavLink>
+          }
+        >
+          <NavLink to="/boosts" {...mobileOnClickProp}>
+            <NavLinkBrowseBoostsText />
+          </NavLink>
+          <NavLink to="/launch-boost" {...mobileOnClickProp}>
+            <NavLinkLaunchBoostText />
+          </NavLink>
+          {/* @TODO/tobek "My Boosts" here if signed in? */}
+        </NavDropDown>
+      </FeatureFlag>
       <NavLink href="https://civil.co/constitution/">
         <NavLinkConstitutionText />
       </NavLink>
