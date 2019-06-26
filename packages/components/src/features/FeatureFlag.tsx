@@ -3,7 +3,7 @@ import { CivilContext, ICivilContext } from "../context";
 
 export interface FeatureFlagProps {
   feature: string;
-  replacement?: JSX.Element
+  replacement?: JSX.Element;
   replacementComponent?: React.ComponentType;
   children: any;
 }
