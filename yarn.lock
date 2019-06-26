@@ -1698,10 +1698,9 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.9.0.tgz#46762fc5857a3e311ab4996bb997b52c30ad0ace"
-  integrity sha512-YmipuwZd3Ff7kmIIp+O2YEA7noNd/OItYZQ5Q5VEKHlUmZ38RQAiud7miggqWeS0tVLKgkXw6A9cXsn7FFBKmw==
+"@joincivil/civil-sdk@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.10.0.tgz#02a0e11578a9889a9660351456dd8dbc5af2c7ba"
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
@@ -1755,6 +1754,7 @@
     react-dev-utils "^8.0.0"
     react-dom "^16.8.4"
     resolve "1.10.0"
+    rxjs-compat "^6.5.2"
     sass-loader "7.1.0"
     source-map-explorer "^1.8.0"
     style-loader "0.23.1"
@@ -16799,6 +16799,10 @@ rustbn.js@~0.1.1:
 rustbn.js@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/rustbn.js/-/rustbn.js-0.2.0.tgz#8082cb886e707155fd1cb6f23bd591ab8d55d0ca"
+
+rxjs-compat@^6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/rxjs-compat/-/rxjs-compat-6.5.2.tgz#e469070adf6260bdad195e9d4a39f444ae28b458"
 
 rxjs@^5.5.6, rxjs@^5.5.7:
   version "5.5.12"
