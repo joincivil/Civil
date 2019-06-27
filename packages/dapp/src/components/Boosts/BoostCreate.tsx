@@ -11,12 +11,11 @@ import styled from "styled-components";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { CharterData, EthAddress } from "@joincivil/core";
 import { BoostForm } from "@joincivil/civil-sdk";
-import { FeatureFlag, AuthenticatedRoute, ErrorLoadingData } from "@joincivil/components";
+import { FeatureFlag, AuthenticatedRoute, ErrorLoadingData, LoadingMessage } from "@joincivil/components";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import LoadingMsg from "../utility/LoadingMsg";
 import { addUserNewsroom, getContent } from "../../redux/actionCreators/newsrooms";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { ComingSoonText } from "./BoostStyledComponents";
@@ -101,7 +100,7 @@ class BoostCreatePage extends React.Component<
       );
     }
     if (this.state.gqlLoading || !this.props.newsroom || !this.props.charter) {
-      return <LoadingMsg />;
+      return <LoadingMessage />;
     }
 
     const { newsroom, charter } = this.props;

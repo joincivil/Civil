@@ -24,7 +24,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
       </p>
       
       <button
-        className="sc-eTyWNx bNTruQ sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+        className="sc-bsVVwV brdapj sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
         onClick={[Function]}
         size="MEDIUM_WIDE"
         theme={
@@ -42,10 +42,10 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
         type="button"
       >
         <div
-          className="sc-ccXozh bfmZGy"
+          className="sc-kbGplQ lcdooM"
         >
           <img
-            className="sc-btzYZH fUmjIQ"
+            className="sc-bYSBpT fsvMUD"
             src={
               Object {
                 "0": "t",

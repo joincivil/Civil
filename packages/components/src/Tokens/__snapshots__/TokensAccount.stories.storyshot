@@ -11,30 +11,30 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
     }
   >
     <div
-      className="sc-ccbnFN dbrGcB"
+      className="sc-hSmEHG cFndye"
     >
       <div>
         <div
-          className="sc-ihiiSJ hznDYj"
+          className="sc-fdqjUm hxrLRa"
         >
           <ul
-            className="sc-kcbnda cysjgn"
+            className="sc-dHmInP keHGRN"
           >
             <li
-              className="sc-cXHFlN czAqPH"
+              className="sc-gJTSre dQYbEc"
               onClick={[Function]}
             >
               Buy
             </li>
             <li
-              className="sc-cXHFlN dzVWMD"
+              className="sc-gJTSre eJOgcv"
               onClick={[Function]}
             >
               Sell
             </li>
           </ul>
           <div
-            className="sc-dREXXX ckVtzt"
+            className="sc-hcmgZB iQLERe"
             onClick={[Function]}
           >
             <svg
@@ -54,17 +54,17 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
         </div>
         <div>
           <div
-            className="sc-gCKARq eWxUSF"
+            className="sc-ePAWwb ghPNbI"
           >
             <div
-              className="sc-kqlzXE jnlmiZ"
+              className="sc-lnrBVv doNicZ"
               type={2}
             >
               <div
-                className="sc-OxbzP dQPJKz"
+                className="sc-bYnzgO dwonkg"
               />
               <div
-                className="sc-lnrBVv iiZhWk"
+                className="sc-cPuPxo iIDmZA"
               >
                 <p>
                   To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't have enough ETH, you can buy ETH on 
@@ -92,10 +92,10 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
               </div>
             </div>
             <div
-              className="sc-ePAWwb fAcEiL"
+              className="sc-ldcLGC fjLdse"
             >
               <div
-                className="sc-ePAWwb fAcEiL"
+                className="sc-ldcLGC fjLdse"
               >
                 <h3>
                   Contribute to the Civil Foundation
@@ -116,7 +116,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   <div />
                 </div>
                 <div
-                  className="sc-iUVpnZ dXAxTp"
+                  className="sc-feWbDf gXcurd"
                 >
                   <span>
                     You are 
@@ -148,7 +148,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   Buy CVL from Civil Media Company in Airswap
                 </button>
                 <div
-                  className="sc-fdqjUm iNFqsE"
+                  className="sc-eAyhxF gOOcLq"
                 >
                   By clicking buy to purchase Civil tokens, you agree to the
                    
@@ -702,13 +702,13 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
     }
   >
     <div
-      className="sc-ccbnFN dbrGcB"
+      className="sc-hSmEHG cFndye"
     >
       <div
-        className="sc-gohEOc jSlXjR"
+        className="sc-bvCTgw dyQuDP"
       >
         <div
-          className="sc-gKLXLV kaFSjg"
+          className="sc-gCKARq sfhyM"
           step="active"
         >
           <svg
@@ -736,7 +736,7 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
           Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)
         </p>
         <a
-          className="sc-kAKrxA DtzTa sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+          className="sc-jMtzgO uQsCl sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
           href="/auth/wallet"
           onClick={[Function]}
           theme={
@@ -1293,10 +1293,10 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
     }
   >
     <div
-      className="sc-ccbnFN dbrGcB"
+      className="sc-hSmEHG cFndye"
     >
       <div
-        className="sc-ijhsb cXUQUQ"
+        className="sc-gKLXLV LAFDj"
       >
         <h3>
           Take the Civil Tutorial
@@ -1306,11 +1306,11 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
         </p>
       </div>
       <div
-        className="sc-gohEOc jSlXjR"
+        className="sc-bvCTgw dyQuDP"
         step="active"
       >
         <div
-          className="sc-gKLXLV kaFSjg"
+          className="sc-gCKARq sfhyM"
           step="active"
         >
           <svg
@@ -1349,7 +1349,7 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
           It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry. You will be able to answer the questions again.
         </p>
         <button
-          className="sc-kAKrxA DtzTa sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+          className="sc-jMtzgO uQsCl sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
           onClick={[Function]}
           theme={
             Object {

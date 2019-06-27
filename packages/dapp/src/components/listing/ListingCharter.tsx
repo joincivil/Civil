@@ -13,6 +13,7 @@ import {
   Dropdown,
   DropdownGroup,
   DropdownItem,
+  LoadingMessage,
 } from "@joincivil/components";
 import {
   ListingWrapper,
@@ -23,7 +24,6 @@ import {
   ContentData,
 } from "@joincivil/core";
 import { renderPTagsFromLineBreaks, getLocalDateTimeStrings } from "@joincivil/utils";
-import LoadingMsg from "../utility/LoadingMsg";
 import { State } from "../../redux/reducers";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 import ListingCharterRosterMember from "./ListingCharterRosterMember";
@@ -157,7 +157,7 @@ class ListingCharter extends React.Component<
     const prevCharter = this.getSelectedPreviousCharterContent();
 
     if (!charter || !listing || !listing.data) {
-      return <LoadingMsg />;
+      return <LoadingMessage />;
     }
 
     if (typeof charter !== "object" || !charter.mission || !charter.roster) {

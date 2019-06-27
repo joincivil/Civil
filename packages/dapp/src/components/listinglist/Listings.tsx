@@ -13,12 +13,12 @@ import {
   ApprovedNewsroomsTabText,
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
+  LoadingMessage,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
-import LoadingMsg from "../utility/LoadingMsg";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { StyledPageContent } from "../utility/styledComponents";
 
@@ -59,7 +59,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             learnMoreURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
           />
         </Hero>
-        {!this.props.loadingFinished && <LoadingMsg />}
+        {!this.props.loadingFinished && <LoadingMessage />}
         {this.props.loadingFinished && (
           <Tabs
             activeIndex={activeIndex}
