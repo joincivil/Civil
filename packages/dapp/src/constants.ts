@@ -22,6 +22,7 @@ export enum routes {
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
+  BOOST_EDIT = "/boosts/:boostId/edit",
 }
 
 export enum registryListingTypes {

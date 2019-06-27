@@ -10,18 +10,18 @@ import { FeatureFlag } from "@joincivil/components";
 export interface BoostPageProps {
   match: any;
   boostId: string;
+  editMode?: boolean;
 }
 
 class BoostPage extends React.Component<BoostPageProps> {
   public render(): JSX.Element {
     return (
       <>
-        <Helmet title="Civil Boost - The Civil Registry" />
+        <Helmet title={(this.props.editMode ? "Edit " : "") + "Civil Boost - The Civil Registry"} />
         <ScrollToTopOnMount />
         <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostWrapper>
-            {/* TODO(sruddy) check if user is boost owner */}
-            <Boost open={true} boostId={this.props.boostId} boostOwner={false} />
+            <Boost open={true} boostId={this.props.boostId} editMode={this.props.editMode} />
           </BoostWrapper>
         </FeatureFlag>
       </>
