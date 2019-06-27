@@ -44,7 +44,7 @@ const StyledLinkContainer = styled.div`
 
 // CoralTalk aka to-be-depreacted comments widget
 const CoralTalk: React.FunctionComponent = props => {
-  const containerEl = React.createRef<HTMLDivElement>();
+  const containerEl = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const discourseUrl = config.DISCOURSE_URL;
