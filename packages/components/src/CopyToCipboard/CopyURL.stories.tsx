@@ -1,0 +1,7 @@
+import { storiesOf } from "@storybook/react";
+import * as React from "react";
+import { CopyURL } from "./CopyURL";
+
+storiesOf("Copy", module).add("Copy URL", () => {
+  return <CopyURL copyText={"Copy the URL to open in your own wallet"} />;
+});
