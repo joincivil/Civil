@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/ethapi",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "An abstraction of Ethereum communication",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/joincivil/Civil",
   "dependencies": {
-    "@joincivil/typescript-types": "^1.4.0",
-    "@joincivil/utils": "^1.9.0",
+    "@joincivil/typescript-types": "^1.4.1",
+    "@joincivil/utils": "^1.9.1",
     "bignumber.js": "^5.0.0",
     "debug": "^4.1.0",
     "ethereumjs-util": "^5.2.0",
