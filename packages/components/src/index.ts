@@ -9,6 +9,7 @@ export * from "./Heading";
 export * from "./Message";
 export * from "./styleConstants";
 export * from "./LoadingIndicator";
+export * from "./LoadingMessage";
 export * from "./Modal";
 export * from "./ModalContent";
 export * from "./StepProcess";

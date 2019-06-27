@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Button, ListingSummaryApprovedComponent } from "@joincivil/components";
+import { Button, ListingSummaryApprovedComponent, LoadingMessage } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import WhitelistedListingListRedux from "./WhitelistedListingListRedux";
@@ -15,7 +15,6 @@ import {
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import { WhitelistedTabDescription } from "./TabDescriptions";
 import styled from "styled-components";
 export interface WhitelistedListingsListContainerReduxProps {
@@ -51,7 +50,7 @@ const WhitelistedListingListContainer = (props: WhitelistedListingsListContainer
       <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true, sortBy: "NAME" }}>
         {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
           if (loading) {
-            return <LoadingMsg />;
+            return <LoadingMessage />;
           }
           if (error) {
             return <ErrorLoadingDataMsg />;

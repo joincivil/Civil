@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
+import { LoadingMessage } from "@joincivil/components";
 import { LISTING_QUERY, transformGraphQLDataIntoNewsroom } from "../../../helpers/queryTransformations";
-import LoadingMsg from "../../utility/LoadingMsg";
 import ErrorLoadingDataMsg from "../../utility/ErrorLoadingData";
 
 import { SubmitChallengeProps } from "./SubmitChallengeTypes";
@@ -16,7 +16,7 @@ const SubmitChallengeGraphQLApolloContainer: React.FunctionComponent<SubmitChall
           return <ErrorLoadingDataMsg />;
         }
         if (loading || !data) {
-          return <LoadingMsg />;
+          return <LoadingMessage />;
         }
 
         const newsroom = transformGraphQLDataIntoNewsroom(data.listing, listingAddress);
