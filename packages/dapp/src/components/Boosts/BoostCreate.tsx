@@ -107,11 +107,13 @@ class BoostCreatePage extends React.Component<
     const listingRoute = formatRoute(routes.LISTING, { listingAddress: newsroom.address });
     return (
       <BoostForm
+        newsroomData={{
+          name: charter.name,
+          url: charter && charter.newsroomUrl,
+          owner: newsroom.wrapper.data.owners[0],
+        }}
         newsroomAddress={newsroom.address}
-        newsroomName={charter.name}
         newsroomListingUrl={`${document.location.origin}${listingRoute}`}
-        newsroomWallet={newsroom.wrapper.data.owners[0]}
-        newsroomUrl={charter && charter.newsroomUrl}
         newsroomTagline={charter && charter.tagline}
         newsroomLogoUrl={charter && charter.logoUrl}
       />

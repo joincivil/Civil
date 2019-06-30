@@ -285,6 +285,9 @@ export class Civil {
 
   public async simplePayment(recipient: EthAddress, amountInETH: BigNumber): Promise<TwoStepEthTransaction> {
     const wei = toWei(amountInETH, EthereumUnits.ether);
-    return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: recipient, value: wei }));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.ethApi.sendTransaction({ to: recipient, value: wei, gas: 26000 }),
+    );
   }
 }
