@@ -76,12 +76,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
         </CurrencyIconContain>
         <CurrencyContain>
           <CurrencyLabel>{this.props.currencyLabelTo}</CurrencyLabel>
-          <CurrencyConverted
-            currentPrice={this.state.toValue}
-            currencyCode={this.props.currencyCodeTo}
-            enoughEthError={this.state.enoughEthError}
-            displayErrorMsg={this.props.displayErrorMsg}
-          />
+          <CurrencyConverted currentPrice={this.state.toValue} currencyCode={this.props.currencyCodeTo} />
         </CurrencyContain>
 
         {this.props.displayErrorMsg && this.state.enoughEthError && this.renderErrorMsg()}

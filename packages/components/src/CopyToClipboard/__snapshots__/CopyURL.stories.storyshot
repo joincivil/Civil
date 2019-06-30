@@ -10,19 +10,23 @@ exports[`Storyshots Common / Copy Copy URL 1`] = `
       }
     }
   >
-    <button
-      className="sc-rzOft fTlxPP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
-      onClick={[Function]}
-      theme={
-        Object {
-          "invertedButtonBackground": "#FFFFFF",
-          "invertedButtonColor": "#2B56FF",
-        }
-      }
-      type="button"
+    <div
+      className="sc-jTqLGJ swKiT"
     >
-      Copy the URL to open in your own wallet
-    </button>
+      <button
+        className="sc-rzOft fTlxPP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+        onClick={[Function]}
+        theme={
+          Object {
+            "invertedButtonBackground": "#FFFFFF",
+            "invertedButtonColor": "#2B56FF",
+          }
+        }
+        type="button"
+      >
+        Copy the URL to open in your own wallet
+      </button>
+    </div>
   </div>
   <button
     className="info__show-button"
@@ -168,63 +172,114 @@ exports[`Storyshots Common / Copy Copy URL 1`] = `
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  CopyURL
-                </span>
-                <span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    CopyURL
+                  </span>
                   <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      copyText
-                    </span>
                     <span>
-                      =
+                       
                       <span
                         style={Object {}}
                       >
-                        "
-                        <span
-                          style={
-                            Object {
-                              "color": "#22a",
-                              "wordBreak": "break-word",
-                            }
-                          }
-                        >
-                          Copy the URL to open in your own wallet
-                        </span>
-                        "
+                        copyText
                       </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            Copy the URL to open in your own wallet
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
                     </span>
-                     
                   </span>
-                </span>
-                <span
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -274,6 +329,22 @@ exports[`Storyshots Common / Copy Copy URL 1`] = `
             >
               "
               CopyURL
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
               " Component
             </h3>
             <small>

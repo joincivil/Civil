@@ -1467,7 +1467,7 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
           Hello
            
           <div
-            className="sc-hzOKmB grNdvP"
+            className="sc-dzVpKk gbHstz"
             open={false}
           />
         </div>
