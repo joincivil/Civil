@@ -17,18 +17,18 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
         (exchange rate is 2x)
       </div>
       <div
-        className="sc-kOnlKp dgTaPT"
+        className="sc-kOnlKp lfzYQe"
       >
         <div
           className="sc-klSiHT fGlRTd"
         >
-          <div
+          <label
             className="sc-bWFPNQ PStFH"
           >
             Enter CVL Amount
-          </div>
+          </label>
           <div
-            className="sc-cBOTKl hSArHs"
+            className="sc-cBOTKl dldvyo"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -84,11 +84,11 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
         <div
           className="sc-klSiHT fGlRTd"
         >
-          <div
+          <label
             className="sc-bWFPNQ PStFH"
           >
             Converted ETH
-          </div>
+          </label>
           <div
             className="sc-hkHFWD kFhPlA"
           >
@@ -741,18 +741,18 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
         (exchange rate is 0.5x)
       </div>
       <div
-        className="sc-kOnlKp dgTaPT"
+        className="sc-kOnlKp lfzYQe"
       >
         <div
           className="sc-klSiHT fGlRTd"
         >
-          <div
+          <label
             className="sc-bWFPNQ PStFH"
           >
             Enter USD Amount
-          </div>
+          </label>
           <div
-            className="sc-cBOTKl hSArHs"
+            className="sc-cBOTKl dldvyo"
           >
             <div
               className="sc-iRbamj dUGcDR"
@@ -808,11 +808,11 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
         <div
           className="sc-klSiHT fGlRTd"
         >
-          <div
+          <label
             className="sc-bWFPNQ PStFH"
           >
             Converted ETH
-          </div>
+          </label>
           <div
             className="sc-hkHFWD kFhPlA"
           >

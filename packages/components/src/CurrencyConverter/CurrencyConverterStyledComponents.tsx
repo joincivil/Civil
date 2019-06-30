@@ -13,6 +13,7 @@ export const CurrencyConverterContain = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+  width: 100%;
 
   * {
     box-sizing: border-box;
@@ -25,7 +26,7 @@ export const CurrencyContain = styled.div`
   width: 45%;
 `;
 
-export const CurrencyLabel = styled.div`
+export const CurrencyLabel = styled.label`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 14px;
   line-height: 32px;
@@ -49,9 +50,10 @@ export const StyledCurrencyInputWithButton = styled.div`
   & > div > div + div {
     font-size: 14px;
     line-height: 17px;
+    right: 30px;
 
     ${mediaQueries.MOBILE} {
-      right: 28px;
+      right: 25px;
     }
   }
 `;
