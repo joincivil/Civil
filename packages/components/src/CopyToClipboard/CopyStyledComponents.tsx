@@ -9,9 +9,11 @@ export const CopyBtn: StyledComponentClass<ButtonProps, "button"> = styled(Inver
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.3px;
+  padding: 0;
   text-transform: none;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: transparent;
     color: ${colors.accent.CIVIL_BLUE};
     text-decoration: underline;

@@ -27,10 +27,10 @@ export class CopyURL extends React.Component<CopyURLProps, CopyURLStates> {
       );
     }
 
-    return <CopyBtn onClick={() => this.copyUrl}>{this.props.copyText || "Copy the URL"}</CopyBtn>;
+    return <CopyBtn onClick={(ev: any) => this.copyToClipBoard()}>{this.props.copyText || "Copy the URL"}</CopyBtn>;
   }
 
-  private copyUrl = () => {
+  private copyToClipBoard = () => {
     const textArea = document.createElement("textarea");
     const currentURL = window.location.href;
     textArea.innerText = currentURL.replace(/ /g, "");
