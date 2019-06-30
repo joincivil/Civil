@@ -4,13 +4,15 @@ import {
   CurrencyContain,
   CurrencyLabel,
   StyledCurrencyInputWithButton,
+  CurrencyErrorMsg,
   CurrencyIconContain,
 } from "./CurrencyConverterStyledComponents";
-import { ExchangeArrowsIcon } from "../icons";
+import { ExchangeArrowsIcon, WarningIcon } from "../icons";
 import { CurrencyConverted } from "./CurrencyConverted";
 import { CurrencyInputWithoutButton } from "../input";
 import { debounce } from "lodash";
 import { CivilContext, ICivilContext } from "../context";
+import { colors } from "../styleConstants";
 
 export interface CurrencyConverterProps {
   currencyCodeFrom: string;
@@ -81,6 +83,8 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
             displayErrorMsg={this.props.displayErrorMsg}
           />
         </CurrencyContain>
+
+        {this.props.displayErrorMsg && this.state.enoughEthError && this.renderErrorMsg()}
       </CurrencyConverterContain>
     );
   }
@@ -96,4 +100,13 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
     this.setState(nextState);
     this.props.onConversion(nextState.fromValue, nextState.toValue);
   }
+
+  private renderErrorMsg = () => {
+    return (
+      <CurrencyErrorMsg>
+        <WarningIcon color={colors.accent.CIVIL_RED} height={15} width={15} />
+        <p>You don’t have enough ETH in your wallet.</p>
+      </CurrencyErrorMsg>
+    );
+  };
 }

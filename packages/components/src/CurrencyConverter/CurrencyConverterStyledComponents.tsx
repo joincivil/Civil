@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const CurrencyConverterSection = styled.div`
   font-family: ${fonts.SANS_SERIF};
@@ -12,6 +12,7 @@ export const CurrencyConverterContain = styled.div`
   align-items: flex-end;
   display: flex;
   justify-content: space-between;
+  position: relative;
 
   * {
     box-sizing: border-box;
@@ -19,9 +20,9 @@ export const CurrencyConverterContain = styled.div`
 `;
 
 export const CurrencyContain = styled.div`
+  max-width: 250px;
   padding-bottom: 35px;
-  position: relative;
-  width: 225px;
+  width: 45%;
 `;
 
 export const CurrencyLabel = styled.div`
@@ -35,6 +36,10 @@ export const StyledCurrencyInputWithButton = styled.div`
     font-size: 15px;
     line-height: 24px;
     padding: 12px 15px;
+
+    ${mediaQueries.MOBILE} {
+      padding: 10px;
+    }
   }
 
   input {
@@ -44,6 +49,10 @@ export const StyledCurrencyInputWithButton = styled.div`
   & > div > div + div {
     font-size: 14px;
     line-height: 17px;
+
+    ${mediaQueries.MOBILE} {
+      right: 28px;
+    }
   }
 `;
 
@@ -54,6 +63,15 @@ export const CurrencyConvertedBox = styled.div`
   line-height: 24px;
   padding: 12px 53px 12px 12px;
   position: relative;
+  width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    padding: 10px 53px 10px 10px;
+  }
+`;
+
+export const CurrencyConvertedPrice = styled.div`
+  overflow: hidden;
   width: 100%;
 `;
 
@@ -70,6 +88,10 @@ export const CurrencyCode = styled.div`
 
 export const CurrencyIconContain = styled.div`
   margin: 16px 16px 53px;
+
+  ${mediaQueries.MOBILE} {
+    margin: 10px 10px 53px;
+  }
 `;
 
 export const CurrencyCalcCVL = styled.div`
@@ -98,15 +120,19 @@ export const CurrencyCalcCVL = styled.div`
 `;
 
 export const CurrencyErrorMsg = styled.div`
-  bottom: 0;
+  bottom: 10px;
   padding-left: 22px;
   position: absolute;
   width: 100%;
 
+  ${mediaQueries.MOBILE} {
+    bottom: 0;
+  }
+
   svg {
     left: 0;
     position: absolute;
-    top: 1px;
+    top: 0;
   }
 
   p {
