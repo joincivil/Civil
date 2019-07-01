@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/typescript-types",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Types used in multiple Civil packages",
   "main": "build/index.js",
   "types": "build/index.d.ts",
