@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] = `
+exports[`Storyshots Common / Copy Copy URL 1`] = `
 <div>
   <div
     style={
@@ -11,72 +11,21 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
-      className="sc-jRnjsG bXGmNV"
+      className="sc-jTqLGJ swKiT"
     >
-      <div
-        className="sc-eIHaNI iAmJJB"
+      <button
+        className="sc-rzOft fTlxPP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+        onClick={[Function]}
+        theme={
+          Object {
+            "invertedButtonBackground": "#FFFFFF",
+            "invertedButtonColor": "#2B56FF",
+          }
+        }
+        type="button"
       >
-        <div
-          className="sc-eTpRJs cJnDTw"
-        >
-          CVL Token Contract Address
-        </div>
-        <div
-          className="sc-dxZgTM SAbLp"
-        >
-          <div
-            className="sc-iomxrj iJTTef"
-          >
-            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
-          </div>
-          <button
-            className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
-            onClick={[Function]}
-            size="SMALL"
-            theme={
-              Object {
-                "primaryButtonBackground": "#2B56FF",
-                "primaryButtonColor": "#FFFFFF",
-                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-                "primaryButtonDisabledColor": "#FFFFFF",
-                "primaryButtonFontWeight": "normal",
-                "primaryButtonHoverBackground": "#4066FF",
-                "primaryButtonTextTransform": "uppercase",
-                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-              }
-            }
-            type="button"
-          >
-            Copy
-          </button>
-          <a
-            className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-            href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
-            size="SMALL"
-            target="_blank"
-            theme={
-              Object {
-                "invertedButtonBackground": "#FFFFFF",
-                "invertedButtonColor": "#2B56FF",
-              }
-            }
-          >
-            Etherscan 
-            <svg
-              height="11"
-              viewBox="0 0 11 11"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
-                fill="#2B56FF"
-                fillRule="evenodd"
-              />
-            </svg>
-          </a>
-        </div>
-      </div>
+        Copy the URL to open in your own wallet
+      </button>
     </div>
   </div>
   <button
@@ -178,7 +127,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            Common / Ethereum / EthAddress Viewer
+            Common / Copy
           </h1>
           <h2
             style={
@@ -190,7 +139,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            EthAddress Viewer
+            Copy URL
           </h2>
         </div>
         
@@ -240,7 +189,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                     }
                   >
                     &lt;
-                    Container
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -269,7 +218,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                     }
                   >
                     &lt;
-                    EthAddressViewer
+                    CopyURL
                   </span>
                   <span>
                     <span>
@@ -277,7 +226,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                       <span
                         style={Object {}}
                       >
-                        address
+                        copyText
                       </span>
                       <span>
                         =
@@ -293,61 +242,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                               }
                             }
                           >
-                            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0…
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        displayName
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            CVL Token Contract Address
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        etherscanBaseURL
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            https://rinkeby.etherscan.io
+                            Copy the URL to open in your own wallet
                           </span>
                           "
                         </span>
@@ -381,7 +276,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                     }
                   >
                     &lt;/
-                    Container
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -433,7 +328,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              Container
+              CopyURL
               " Component
             </h3>
             <small>
@@ -449,7 +344,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              EthAddressViewer
+              styled.div
               " Component
             </h3>
             <small>
