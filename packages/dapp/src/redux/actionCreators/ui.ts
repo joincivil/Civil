@@ -16,6 +16,7 @@ export enum uiActions {
   TOGGLE_USE_GRAPH_QL = "TOGGLE_USE_GRAPH_QL",
   DISABLE_GRAPHL_QL = "DISABLE_GRAPH_QL",
   TRIED_TO_ENABLE_GRAPH_QL_ON_UNSUPPORTED_NETWORK = "TRIED_TO_ENABLE_GRAPH_QL_ON_UNSUPPORTED_NETWORK",
+  APPEND_LOG = "APPEND_LOG",
 }
 
 export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
@@ -76,5 +77,12 @@ export const triedToEnableGraphQL = (): AnyAction => {
 export const toggleUseGraphQLSimple = (): AnyAction => {
   return {
     type: uiActions.TOGGLE_USE_GRAPH_QL,
+  };
+};
+
+export const appendLog = (log: string): AnyAction => {
+  return {
+    type: uiActions.APPEND_LOG,
+    data: log,
   };
 };

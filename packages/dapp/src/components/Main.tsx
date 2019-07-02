@@ -25,7 +25,8 @@ import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
-import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+import { initialize, disableGraphQL, appendLog } from "../redux/actionCreators/ui";
+import ViewLog from "./ViewLog";
 
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
@@ -68,6 +69,21 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     super(props);
     this.state = {
       prevAccount: "",
+    };
+    const prevLog = console.log;
+    console.log = (words: any) => {
+      if (words) {
+        this.props.dispatch!(appendLog(words));
+      }
+      prevLog(words);
+    };
+
+    const prevError = console.error;
+    console.error = (words: any) => {
+      if (words) {
+        this.props.dispatch!(appendLog("ERROR: " + words));
+      }
+      prevError(words);
     };
   }
 
@@ -192,6 +208,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
             <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
             <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
+            <Route path={routes.LOG} component={ViewLog} />
             {/* TODO(jorgelo): Better 404 */}
             <Route path="*" render={() => <h1>404</h1>} />
           </Switch>

@@ -48,6 +48,9 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
+      <FeatureFlag feature={"log"}>
+        <NavLink to="/log">log</NavLink>
+      </FeatureFlag>
       <FeatureFlag feature={"boosts-mvp"}>
         <NavDropDown
           label={

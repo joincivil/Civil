@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { uiActions } from "../actionCreators/ui";
-import { Map } from "immutable";
+import { Map, List } from "immutable";
 
 export function ui(state: Map<string, any> = Map<string, any>(), action: AnyAction): Map<string, any> {
   switch (action.type) {
@@ -17,6 +17,15 @@ export function useGraphQL(state: boolean = true, action: AnyAction): boolean {
       return !state;
     case uiActions.DISABLE_GRAPHL_QL:
       return false;
+    default:
+      return state;
+  }
+}
+
+export function log(state: List<string> = List<string>(), action: AnyAction): List<string> {
+  switch (action.type) {
+    case uiActions.APPEND_LOG:
+      return state.push(action.data);
     default:
       return state;
   }

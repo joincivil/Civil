@@ -56,7 +56,7 @@ import {
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
-import { ui, useGraphQL } from "./ui";
+import { ui, useGraphQL, log } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, List, Map } from "immutable";
 import {
@@ -87,6 +87,7 @@ export interface State {
   network: string;
   networkName: string;
   ui: Map<string, any>;
+  log: List<string>;
   useGraphQL: boolean;
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
@@ -222,5 +223,6 @@ export default (history: any) =>
     network,
     networkName,
     ui,
+    log,
     useGraphQL,
   });
