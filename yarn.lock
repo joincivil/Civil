@@ -1766,16 +1766,16 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.12.1":
-  version "1.12.1"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.12.1.tgz#e18ce0ae5e487ff59e2ecbffa352e2bf205fdfaf"
+"@joincivil/civil-sdk@^1.13.0":
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.13.0.tgz#5020ee4293e00ef1d9df5a58b7f5671d60f6a80a"
+  integrity sha512-WFCZPDJU6FTd0OckiLaNrgu1tzfx6z7Y5R1SMCh0AvIJDjcHQsUC4NLgEU12I6Tw1OfJvQIbe65HmPdS8wKO0A==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
     "@commitlint/config-conventional" "^7.5.0"
-    "@joincivil/components" "^1.9.1"
-    "@joincivil/core" "^4.8.2"
-    "@joincivil/ethapi" "^0.4.2"
+    "@joincivil/components" "^1.9.2"
+    "@joincivil/core" "^4.8.3"
     "@joincivil/utils" "^1.9.2"
     "@svgr/webpack" "4.1.0"
     babel-core "7.0.0-bridge.0"
