@@ -1,6 +1,6 @@
 import { Civil, EthAddress } from "@joincivil/core";
 import { CivilErrors, setNetworkValue } from "@joincivil/utils";
-import { StyledMainContainer } from "@joincivil/components";
+import { StyledMainContainer, CivilContext, ICivilContext } from "@joincivil/components";
 import BigNumber from "bignumber.js";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
@@ -65,6 +65,7 @@ export interface MainState {
 }
 
 class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>, MainState> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
   constructor(props: MainReduxProps & DispatchProp<any> & RouteComponentProps<any>) {
     super(props);
     this.state = {
