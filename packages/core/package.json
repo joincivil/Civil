@@ -5,7 +5,7 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "build": "echo no-op",
+    "build": "run-s generate tsc build:copyArtifacts",
     "build:copyArtifacts": "copyfiles -u 2 './src/artifacts/**/*.json' ./build/src/artifacts",
     "build:watch": "tsc -w",
     "lint": "tslint --project ./",
@@ -20,6 +20,7 @@
     "generate:events": "node ../dev-utils/build/scripts/generate-from-files/bin.js '../artifacts/v1/'\"${npm_package_config_contractsGlob}\"'.json' 'src/templates/events.handlebars' 'src/contracts/generated/events.ts'",
     "generate:multisig": "abi-gen --abis '../artifacts/v1/'\"${npm_package_config_multisigGlob}\"'.json' --template 'src/templates/contract/multisigproxy.handlebars' --partials 'src/templates/contract/partials/**/*.handlebars' --output 'src/contracts/generated/multisig'",
     "tsc": "tsc",
+    "prepublishOnly": "run-s build lint",
     "clean": "rimraf build/ src/contracts/generated/*"
   },
   "config": {
