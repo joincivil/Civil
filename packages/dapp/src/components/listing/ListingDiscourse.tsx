@@ -5,11 +5,10 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 
 import { EthAddress } from "@joincivil/core";
-import { colors, FeatureFlag } from "@joincivil/components";
+import { colors, FeatureFlag, LoadingMsg } from "@joincivil/components";
 
 import config from "../../helpers/config";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 export interface ListingDiscourseProps {
