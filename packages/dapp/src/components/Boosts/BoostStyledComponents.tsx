@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, mediaQueries } from "@joincivil/components";
+import { colors, fonts, mediaQueries } from "@joincivil/components";
 
 export const ComingSoonText: React.FunctionComponent = props => <ComingSoon>Coming soon!</ComingSoon>;
 
@@ -15,6 +15,7 @@ export const BoostHeaderWrapper = styled.div`
 `;
 
 export const BoostHeader = styled.div`
+  font-family: ${fonts.SANS_SERIF}
   margin: 0 auto;
   max-width: 900px;
   position: relative;
