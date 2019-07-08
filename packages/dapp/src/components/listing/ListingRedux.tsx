@@ -162,7 +162,7 @@ class ListingPageComponent extends React.Component<
                     to adhere to our <a href={links.CODE_OF_CONDUCT}>code of conduct</a>. If you have questions, please{" "}
                     <a href={links.CONTACT}>contact us</a>.
                   </p>
-                  <ListingDiscourse />
+                  <ListingDiscourse listingAddress={this.props.listingAddress} network={this.props.network} />
                 </ListingTabContent>
               </Tab>
 
