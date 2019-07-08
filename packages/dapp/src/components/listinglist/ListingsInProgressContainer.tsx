@@ -25,8 +25,8 @@ import {
   getNextTimerExpiry,
   NewsroomListing,
 } from "@joincivil/core";
+import { LoadingMessage } from "@joincivil/components";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import ListingsInProgress from "./ListingsInProgress";
 
 export interface ListingsInProgressProps {
@@ -68,7 +68,7 @@ class ListingsInProgressContainer extends React.Component<
         >
           {({ loading, error, data }: any): JSX.Element => {
             if (loading && !data) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (error) {
               return <ErrorLoadingDataMsg />;

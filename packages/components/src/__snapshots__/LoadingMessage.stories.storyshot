@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
+exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32px x 32px), custom text 1`] = `
 <div>
   <div
     style={
@@ -10,59 +10,76 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
       }
     }
   >
-    <h2
-      className="sc-gzVnrw hwklMf"
-    >
-      Email Address Confirmed!
-    </h2>
     <div
-      className="sc-dnqmqq eFaQQc sc-htoDjs hbgsSJ"
+      className="sc-jgwFWF bCEtoK"
     >
-      Thanks for confirming your email address.
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "center",
-        }
-      }
-    >
-      <div>
-        <div
-          className="sc-bCQtTp dbMwgN sc-kUQWMX jbJHIl"
-        />
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "center",
-        }
-      }
-    >
-      <div>
-        <button
-          className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
+      <div
+        className="sc-eqIVtm cpvyEn"
+      >
+        <svg
+          fill="#30E8BD"
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Continue
-        </button>
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(8 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(16 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.3"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(24 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.6"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+        </svg>
+        <p
+          className="sc-fAjcbJ beTSky"
+        >
+          Please wait while we load all the stuff.
+        </p>
       </div>
     </div>
   </div>
@@ -165,7 +182,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
               }
             }
           >
-            Common / Auth / VerifyToken
+            Pattern Library / Loading / Loading Message
           </h1>
           <h2
             style={
@@ -177,7 +194,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
               }
             }
           >
-            Complete
+            Default size (32px x 32px), custom text
           </h2>
         </div>
         
@@ -210,96 +227,125 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  AuthEmailVerify
-                </span>
-                <span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      hasVerified
-                    </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
                   </span>
-                  <span>
-                     
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
                     <span
-                      style={Object {}}
-                    >
-                      errorMessage
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#444",
-                            }
-                          }
-                        >
-                          null
-                        </span>
+                      style={
+                        Object {
+                          "color": "#444",
                         }
-                      </span>
-                    </span>
-                  </span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
+                      }
                     >
-                      onAuthenticationContinue
+                      &lt;
+                      LoadingMessage
                     </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#170",
-                            }
-                          }
-                        >
-                          onAuthenticationContinue
-                        </span>
+                    <span />
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
                         }
-                      </span>
+                      }
+                    >
+                      &gt;
                     </span>
-                     
-                  </span>
-                </span>
-                <span
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      Please wait while we load all the stuff.
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      LoadingMessage
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -348,7 +394,23 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
               }
             >
               "
-              AuthEmailVerify
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              LoadingMessage
               " Component
             </h3>
             <small>
@@ -362,7 +424,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
 </div>
 `;
 
-exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
+exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32px x 32px), default text 1`] = `
 <div>
   <div
     style={
@@ -372,17 +434,77 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
       }
     }
   >
-    <h2
-      className="sc-gzVnrw hwklMf"
-    >
-      Uh oh.
-    </h2>
     <div
-      className="sc-dnqmqq eFaQQc sc-htoDjs hbgsSJ"
+      className="sc-jgwFWF bCEtoK"
     >
-      <strong>
-        Error is bad
-      </strong>
+      <div
+        className="sc-eqIVtm cpvyEn"
+      >
+        <svg
+          fill="#30E8BD"
+          height="32"
+          viewBox="0 0 32 32"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(8 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(16 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.3"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="16"
+            r="0"
+            transform="translate(24 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.6"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 4; 0; 0"
+            />
+          </circle>
+        </svg>
+        <p
+          className="sc-fAjcbJ beTSky"
+        >
+          Loading
+        </p>
+      </div>
     </div>
   </div>
   <button
@@ -484,7 +606,7 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
               }
             }
           >
-            Common / Auth / VerifyToken
+            Pattern Library / Loading / Loading Message
           </h1>
           <h2
             style={
@@ -496,7 +618,7 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
               }
             }
           >
-            Error
+            Default size (32px x 32px), default text
           </h2>
         </div>
         
@@ -529,97 +651,85 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  AuthEmailVerify
-                </span>
-                <span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      hasVerified
-                    </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
                   </span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      errorMessage
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        "
-                        <span
-                          style={
-                            Object {
-                              "color": "#22a",
-                              "wordBreak": "break-word",
-                            }
-                          }
-                        >
-                          Error is bad
-                        </span>
-                        "
-                      </span>
-                    </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
                   </span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      onAuthenticationContinue
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#170",
-                            }
-                          }
-                        >
-                          onAuthenticationContinue
-                        </span>
-                        }
-                      </span>
-                    </span>
-                     
-                  </span>
-                </span>
-                <span
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    LoadingMessage
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -668,7 +778,23 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
               }
             >
               "
-              AuthEmailVerify
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              LoadingMessage
               " Component
             </h3>
             <small>
@@ -682,7 +808,7 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
 </div>
 `;
 
-exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
+exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined size (100px x 100px), default text 1`] = `
 <div>
   <div
     style={
@@ -692,54 +818,76 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
       }
     }
   >
-    <h2
-      className="sc-gzVnrw hwklMf"
-    >
-      Confirming your email address...
-    </h2>
     <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "center",
-        }
-      }
+      className="sc-jgwFWF bCEtoK"
     >
-      <div>
-        <div
-          className="sc-bCQtTp dbMwgN sc-kUQWMX jbJHIl"
-        />
-      </div>
-    </div>
-    <div
-      style={
-        Object {
-          "display": "flex",
-          "justifyContent": "center",
-        }
-      }
-    >
-      <div>
-        <button
-          className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
+      <div
+        className="sc-eqIVtm cpvyEn"
+      >
+        <svg
+          fill="#30E8BD"
+          height="100"
+          viewBox="0 0 100 100"
+          width="100"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          Continue
-        </button>
+          <circle
+            cx="0"
+            cy="50"
+            r="0"
+            transform="translate(25 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 12; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="50"
+            r="0"
+            transform="translate(50 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.3"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 12; 0; 0"
+            />
+          </circle>
+          <circle
+            cx="0"
+            cy="50"
+            r="0"
+            transform="translate(75 0)"
+          >
+            <animate
+              attributeName="r"
+              begin="0.6"
+              calcMode="spline"
+              dur="1.2s"
+              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
+              keyTimes="0;0.2;0.7;1"
+              repeatCount="indefinite"
+              values="0; 12; 0; 0"
+            />
+          </circle>
+        </svg>
+        <p
+          className="sc-fAjcbJ beTSky"
+        >
+          Loading
+        </p>
       </div>
     </div>
   </div>
@@ -842,7 +990,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
               }
             }
           >
-            Common / Auth / VerifyToken
+            Pattern Library / Loading / Loading Message
           </h1>
           <h2
             style={
@@ -854,7 +1002,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
               }
             }
           >
-            Loading
+            Prop-defined size (100px x 100px), default text
           </h2>
         </div>
         
@@ -887,114 +1035,113 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  AuthEmailVerify
-                </span>
-                <span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      hasVerified
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#a11",
-                            }
-                          }
-                        >
-                          false
-                        </span>
-                        }
-                      </span>
-                    </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
                   </span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      errorMessage
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#444",
-                            }
-                          }
-                        >
-                          null
-                        </span>
-                        }
-                      </span>
-                    </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
                   </span>
-                  <span>
-                     
-                    <span
-                      style={Object {}}
-                    >
-                      onAuthenticationContinue
-                    </span>
-                    <span>
-                      =
-                      <span
-                        style={Object {}}
-                      >
-                        {
-                        <span
-                          style={
-                            Object {
-                              "color": "#170",
-                            }
-                          }
-                        >
-                          onAuthenticationContinue
-                        </span>
-                        }
-                      </span>
-                    </span>
-                     
-                  </span>
-                </span>
-                <span
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    LoadingMessage
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        height
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            100
+                          </span>
+                          }
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -1043,7 +1190,23 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
               }
             >
               "
-              AuthEmailVerify
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              LoadingMessage
               " Component
             </h3>
             <small>

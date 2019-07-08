@@ -6,6 +6,7 @@ import {
   Web310Provider,
   toWei,
   EthereumUnits,
+  requireAccount,
 } from "@joincivil/ethapi";
 import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
@@ -285,6 +286,10 @@ export class Civil {
 
   public async simplePayment(recipient: EthAddress, amountInETH: BigNumber): Promise<TwoStepEthTransaction> {
     const wei = toWei(amountInETH, EthereumUnits.ether);
-    return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: recipient, value: wei }));
+    const account = await requireAccount(this.ethApi).toPromise();
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.ethApi.sendTransaction({ from: account, to: recipient, value: wei, gas: 26000 }),
+    );
   }
 }

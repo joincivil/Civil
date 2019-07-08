@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`] = `
+exports[`Storyshots Common / Copy Copy URL 1`] = `
 <div>
   <div
     style={
@@ -10,47 +10,22 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
       }
     }
   >
-    <div>
-      <div
-        className="sc-frDJqD bLtYCk"
+    <div
+      className="sc-jTqLGJ swKiT"
+    >
+      <button
+        className="sc-rzOft fTlxPP sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+        onClick={[Function]}
+        theme={
+          Object {
+            "invertedButtonBackground": "#FFFFFF",
+            "invertedButtonColor": "#2B56FF",
+          }
+        }
+        type="button"
       >
-        <div
-          className="sc-kvZOFW joWHtb"
-        >
-          <h4
-            className="sc-hmzhuo dXguyj"
-          >
-            Step 1
-          </h4>
-          <p>
-             this is a step 
-          </p>
-        </div>
-        <div
-          className="sc-kvZOFW fiRziX"
-        >
-          <h4
-            className="sc-hmzhuo dXguyj"
-          >
-            Step 2
-          </h4>
-          <p>
-             this is another step 
-          </p>
-        </div>
-        <div
-          className="sc-kvZOFW bvLTKS"
-        >
-          <h4
-            className="sc-hmzhuo dXguyj"
-          >
-            Step 3
-          </h4>
-          <p>
-             this is another step 
-          </p>
-        </div>
-      </div>
+        Copy the URL to open in your own wallet
+      </button>
     </div>
   </div>
   <button
@@ -152,7 +127,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
               }
             }
           >
-            Common / Steps / Step Process (deprecated?)
+            Common / Copy
           </h1>
           <h2
             style={
@@ -164,7 +139,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
               }
             }
           >
-            Step Process
+            Copy URL
           </h2>
         </div>
         
@@ -214,7 +189,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
                     }
                   >
                     &lt;
-                    div
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -227,143 +202,63 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
                     &gt;
                   </span>
                 </div>
-                <div>
-                  <div
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
                     style={
                       Object {
-                        "paddingLeft": 33,
-                        "paddingRight": 3,
+                        "color": "#444",
                       }
                     }
                   >
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &lt;
-                      StepProcess
+                    &lt;
+                    CopyURL
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        copyText
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            Copy the URL to open in your own wallet
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
                     </span>
-                    <span />
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &gt;
-                    </span>
-                  </div>
-                  <div
+                  </span>
+                  <span
                     style={
                       Object {
-                        "paddingLeft": 48,
-                        "paddingRight": 3,
+                        "color": "#444",
                       }
                     }
                   >
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &lt;
-                      Step1
-                    </span>
-                    <span />
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      /&gt;
-                    </span>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "paddingLeft": 48,
-                        "paddingRight": 3,
-                      }
-                    }
-                  >
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &lt;
-                      Step2
-                    </span>
-                    <span />
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      /&gt;
-                    </span>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "paddingLeft": 48,
-                        "paddingRight": 3,
-                      }
-                    }
-                  >
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &lt;
-                      Step3
-                    </span>
-                    <span />
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      /&gt;
-                    </span>
-                  </div>
-                  <div
-                    style={
-                      Object {
-                        "paddingLeft": 33,
-                        "paddingRight": 3,
-                      }
-                    }
-                  >
-                    <span
-                      style={
-                        Object {
-                          "color": "#444",
-                        }
-                      }
-                    >
-                      &lt;/
-                      StepProcess
-                      &gt;
-                    </span>
-                  </div>
+                    /&gt;
+                  </span>
                 </div>
                 <div
                   style={
@@ -381,7 +276,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
                     }
                   >
                     &lt;/
-                    div
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -433,7 +328,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
               }
             >
               "
-              Step1
+              CopyURL
               " Component
             </h3>
             <small>
@@ -449,39 +344,7 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
               }
             >
               "
-              Step2
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              Step3
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StepProcess
+              styled.div
               " Component
             </h3>
             <small>

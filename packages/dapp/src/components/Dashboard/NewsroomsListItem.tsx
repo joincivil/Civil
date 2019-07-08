@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
-import { NoNewsrooms } from "@joincivil/components";
+import { NoNewsrooms, LoadingMessage } from "@joincivil/components";
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
@@ -13,7 +13,6 @@ import {
 } from "../../helpers/queryTransformations";
 
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 import NewsroomsListItemComponent from "./NewsroomsListItemComponent";
@@ -40,7 +39,7 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
     <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
       {({ loading, error, data }: any): JSX.Element => {
         if (loading) {
-          return <LoadingMsg />;
+          return <LoadingMessage />;
         }
         if (error) {
           return <ErrorLoadingDataMsg />;

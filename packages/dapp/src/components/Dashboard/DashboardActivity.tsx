@@ -9,6 +9,7 @@ import {
   Modal,
   ProgressModalContentMobileUnsupported,
   NoNewsrooms,
+  LoadingMessage,
 } from "@joincivil/components";
 
 import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
@@ -42,7 +43,6 @@ import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import LoadingMsg from "../utility/LoadingMsg";
 
 const TABS: TDashboardTab[] = [
   dashboardTabs.TASKS,
@@ -223,7 +223,7 @@ class DashboardActivity extends React.Component<
         <Query query={NEWSROOMS_QUERY}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading && !data) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (error) {
               return <NoNewsrooms />;
@@ -259,7 +259,7 @@ class DashboardActivity extends React.Component<
               return <ErrorLoadingDataMsg />;
             }
             if (loading || !data) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (data) {
               const allCompletedChallengesVotedOn = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
@@ -297,7 +297,7 @@ class DashboardActivity extends React.Component<
 
               return <MyChallenges {...myTasksViewProps} useGraphQL={true} />;
             }
-            return <LoadingMsg />;
+            return <LoadingMessage />;
           }}
         </Query>
       );
@@ -336,7 +336,7 @@ class DashboardActivity extends React.Component<
               return <ErrorLoadingDataMsg />;
             }
             if (loading || !data) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (data) {
               const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
@@ -402,7 +402,7 @@ class DashboardActivity extends React.Component<
 
               return <MyTasks {...myTasksProps} useGraphQL={true} />;
             }
-            return <LoadingMsg />;
+            return <LoadingMessage />;
           }}
         </Query>
       );
