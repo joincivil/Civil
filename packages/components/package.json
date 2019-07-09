@@ -76,6 +76,7 @@
     "react-async-script": "^1.0.0",
     "react-docgen-typescript-loader": "^3.1.0",
     "react-dropzone": "^10.1.4",
+    "react-helmet": "^5.2.0",
     "react-router-dom": "^4.3.1",
     "react-rte": "^0.16.1",
     "rxjs": "^5.5.6",
