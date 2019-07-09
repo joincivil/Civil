@@ -110,7 +110,7 @@ class BoostCreatePage extends React.Component<
         newsroomData={{
           name: charter.name,
           url: charter && charter.newsroomUrl,
-          owner: newsroom.wrapper.data.owners[0],
+          owner: newsroom.multisigAddress,
         }}
         newsroomAddress={newsroom.address}
         newsroomListingUrl={`${document.location.origin}${listingRoute}`}
