@@ -22,6 +22,7 @@ export const BoostHeader = styled.div`
 
   h1 {
     color: ${colors.accent.CIVIL_GRAY_0};
+    font-family: ${fonts.SANS_SERIF};
     font-size: 36px;
     font-weight: bold;
     line-height: 49px;
