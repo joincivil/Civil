@@ -18,6 +18,7 @@ export enum routes {
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",
   AUTH_SIGNUP = "/auth/signup",
+  AUTH_LOGIN = "/auth/login",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",

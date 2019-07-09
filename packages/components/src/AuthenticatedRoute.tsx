@@ -7,7 +7,7 @@ import { Query } from "react-apollo";
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
   onlyAllowUnauthenticated?: boolean;
-  signupUrl: string;
+  authUrl: string;
 }
 
 const userQuery = gql`
@@ -25,7 +25,7 @@ const userQuery = gql`
 export const AuthenticatedRoute = ({
   render,
   redirectTo,
-  signupUrl,
+  authUrl,
   onlyAllowUnauthenticated = false,
   ...otherProps
 }: AuthenticatedRouteProps) => {
@@ -40,7 +40,7 @@ export const AuthenticatedRoute = ({
     }
   } else {
     if (!hasAuthToken) {
-      return <Redirect to={signupUrl} />;
+      return <Redirect to={authUrl} />;
     }
   }
 

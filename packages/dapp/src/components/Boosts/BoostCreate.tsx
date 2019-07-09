@@ -192,7 +192,7 @@ const ComposedBoostCreatePage = compose(withApollo, connect(mapStateToProps))(Bo
 export default (props: any) => (
   <AuthenticatedRoute
     redirectTo={routes.BOOST_CREATE}
-    signupUrl={routes.AUTH_SIGNUP}
+    authUrl={routes.AUTH_LOGIN}
     render={() => <ComposedBoostCreatePage {...props} />}
   />
 );
