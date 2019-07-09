@@ -1766,17 +1766,16 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.13.1":
-  version "1.13.1"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.13.1.tgz#38b2acd5e3def410486bc441a343390721fdbf68"
-  integrity sha512-MFffC1XQOg1VLUau2Gcjlj4ACXUXGbZlJfeKD1mGT1QduF726BNVopNjdQ29ObBylCRMRxyVzvMQhqiaIECh5w==
+"@joincivil/civil-sdk@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.15.0.tgz#ad1183bc1c04aa80f270d351364746923d712bb0"
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
     "@commitlint/config-conventional" "^7.5.0"
-    "@joincivil/components" "^1.9.3"
-    "@joincivil/core" "^4.8.4"
-    "@joincivil/utils" "^1.9.2"
+    "@joincivil/components" "^1.9.4"
+    "@joincivil/core" "^4.8.5"
+    "@joincivil/utils" "^1.9.5"
     "@svgr/webpack" "4.1.0"
     babel-core "7.0.0-bridge.0"
     babel-eslint "9.0.0"
@@ -18290,7 +18289,6 @@ style-loader@0.23.1, style-loader@^0.23.1:
 styled-components@^3.2.3, styled-components@^3.2.5:
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-3.2.5.tgz#b5d5d7d618ab240ff10602b5ca5886b8db3d0a0d"
-  integrity sha1-tdXX1hirJA/xBgK1yliGuNs9Cg0=
   dependencies:
     buffer "^5.0.3"
     css-to-react-native "^2.0.3"
