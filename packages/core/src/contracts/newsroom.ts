@@ -328,7 +328,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     eth: BigNumber,
     to: EthAddress,
   ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
-    const wei = toWei(eth, EthereumUnits.ether);
+    const wei = this.ethApi.toBigNumber(toWei(eth, EthereumUnits.ether));
     const address = await this.multisigProxy.getMultisigAddress();
     const multisig = await Multisig.atUntrusted(this.ethApi, address!);
     return multisig.submitTransaction(to, wei, "");
