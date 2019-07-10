@@ -117,6 +117,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
   };
 
   public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
+    console.log("account updated. newAccount: ", account);
     if (account && account !== this.state.prevAccount) {
       try {
         this.setState({ prevAccount: account });
