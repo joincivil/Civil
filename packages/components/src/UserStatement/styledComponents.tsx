@@ -2,7 +2,7 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { CancelButton } from "../Button";
 
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const StyledUserStatementHeaderOuter = styled.div`
   background: ${colors.primary.BLACK};
@@ -18,7 +18,11 @@ export const StyledUserStatementHeader = styled.div`
   box-sizing: content-box;
   font-family: ${fonts.SANS_SERIF};
   padding: 36px 123px;
-  width: 675px;
+  max-width: 675px;
+  ${mediaQueries.MOBILE} {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 `;
 
 export const StatementHeaderHeading = styled.h2`
@@ -77,6 +81,10 @@ export const StyledLink = styled.a`
 export const StyledUserStatementBodyOuter = styled.div`
   display: flex;
   justify-content: center;
+  ${mediaQueries.MOBILE} {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 `;
 
 export const StyledUserStatementBody = styled.div`
@@ -178,6 +186,10 @@ export const SectionConfirmChallenge = styled.div`
 
   & > div + div {
     margin: -8px 0 0 12px;
+  }
+  ${mediaQueries.MOBILE} {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 

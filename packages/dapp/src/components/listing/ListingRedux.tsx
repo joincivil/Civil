@@ -10,6 +10,7 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
+  LoadingMessage,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
@@ -17,8 +18,6 @@ import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
-import LoadingMsg from "../utility/LoadingMsg";
-import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
@@ -163,7 +162,7 @@ class ListingPageComponent extends React.Component<
                     to adhere to our <a href={links.CODE_OF_CONDUCT}>code of conduct</a>. If you have questions, please{" "}
                     <a href={links.CONTACT}>contact us</a>.
                   </p>
-                  <ListingDiscourse />
+                  <ListingDiscourse listingAddress={this.props.listingAddress} network={this.props.network} />
                 </ListingTabContent>
               </Tab>
 
@@ -190,7 +189,7 @@ class ListingPageComponent extends React.Component<
 
   private renderLoadingOrListingNotFound(): JSX.Element {
     if (!this.props.loadingFinished && !this.props.useGraphQL) {
-      return <LoadingMsg />;
+      return <LoadingMessage />;
     }
     return <ErrorNotFoundMsg>We could not find this Newsroom Listing</ErrorNotFoundMsg>;
   }

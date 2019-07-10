@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CurrencyConvertedBox, CurrencyCode } from "./CurrencyConverterStyledComponents";
+import { CurrencyConvertedBox, CurrencyCode, CurrencyConvertedPrice } from "./CurrencyConverterStyledComponents";
 
 export interface CurrencyConvertedProps {
   currencyCode?: string | JSX.Element;
@@ -20,10 +20,12 @@ export class CurrencyConverted extends React.Component<CurrencyConvertedProps, C
 
   public render(): JSX.Element {
     return (
-      <CurrencyConvertedBox>
-        {this.props.currentPrice}
-        <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
-      </CurrencyConvertedBox>
+      <>
+        <CurrencyConvertedBox>
+          <CurrencyConvertedPrice>{this.props.currentPrice}</CurrencyConvertedPrice>
+          <CurrencyCode>{this.props.currencyCode}</CurrencyCode>
+        </CurrencyConvertedBox>
+      </>
     );
   }
 }

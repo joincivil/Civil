@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const CurrencyConverterSection = styled.div`
   font-family: ${fonts.SANS_SERIF};
@@ -12,6 +12,8 @@ export const CurrencyConverterContain = styled.div`
   align-items: flex-end;
   display: flex;
   justify-content: space-between;
+  position: relative;
+  width: 100%;
 
   * {
     box-sizing: border-box;
@@ -19,10 +21,12 @@ export const CurrencyConverterContain = styled.div`
 `;
 
 export const CurrencyContain = styled.div`
-  width: 285px;
+  max-width: 250px;
+  padding-bottom: 35px;
+  width: 45%;
 `;
 
-export const CurrencyLabel = styled.div`
+export const CurrencyLabel = styled.label`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 14px;
   line-height: 32px;
@@ -32,7 +36,11 @@ export const StyledCurrencyInputWithButton = styled.div`
   & > div {
     font-size: 15px;
     line-height: 24px;
-    padding: 15px 20px;
+    padding: 12px 15px;
+
+    ${mediaQueries.MOBILE} {
+      padding: 10px;
+    }
   }
 
   input {
@@ -42,6 +50,11 @@ export const StyledCurrencyInputWithButton = styled.div`
   & > div > div + div {
     font-size: 14px;
     line-height: 17px;
+    right: 30px;
+
+    ${mediaQueries.MOBILE} {
+      right: 25px;
+    }
   }
 `;
 
@@ -50,8 +63,17 @@ export const CurrencyConvertedBox = styled.div`
   border-radius: 3px;
   font-size: 15px;
   line-height: 24px;
-  padding: 15px 53px 15px 20px;
+  padding: 12px 53px 12px 12px;
   position: relative;
+  width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    padding: 10px 53px 10px 10px;
+  }
+`;
+
+export const CurrencyConvertedPrice = styled.div`
+  overflow: hidden;
   width: 100%;
 `;
 
@@ -67,7 +89,11 @@ export const CurrencyCode = styled.div`
 `;
 
 export const CurrencyIconContain = styled.div`
-  margin: 16px;
+  margin: 16px 16px 53px;
+
+  ${mediaQueries.MOBILE} {
+    margin: 10px 10px 53px;
+  }
 `;
 
 export const CurrencyCalcCVL = styled.div`
@@ -91,6 +117,31 @@ export const CurrencyCalcCVL = styled.div`
   p {
     font-size: 14px;
     line-height: 22px;
+    margin: 0;
+  }
+`;
+
+export const CurrencyErrorMsg = styled.div`
+  bottom: 10px;
+  padding-left: 22px;
+  position: absolute;
+  width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    bottom: 0;
+  }
+
+  svg {
+    left: 0;
+    position: absolute;
+    top: 0;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_RED};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 12px;
+    line-height: 15px;
     margin: 0;
   }
 `;

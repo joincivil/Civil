@@ -17,8 +17,6 @@ import {
   StyledCardBack,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -183,16 +181,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
           <FormCopy>
             <RevealVoteCallToActionCopyText />
           </FormCopy>
-          <StyledVisibleOnDesktop>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnMobile>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            <RevealVoteButtonText />
+          </FullWidthButton>
         </>
       );
     }

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Button, ListingSummaryRejectedComponent } from "@joincivil/components";
+import { Button, ListingSummaryRejectedComponent, LoadingMessage } from "@joincivil/components";
 import ListingList from "./ListingList";
 import { State } from "../../redux/reducers";
 import RejectedListingListRedux from "./RejectedListingListRedux";
@@ -14,7 +14,6 @@ import {
   transformGraphQLDataIntoNewsroom,
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import { NewsroomListing } from "@joincivil/core";
 import { RejectedTabDescription } from "./TabDescriptions";
 import styled from "styled-components";
@@ -52,7 +51,7 @@ class RejectedListingListContainer extends React.Component<RejectedListingsListC
         <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true, sortBy: "NAME" }}>
           {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
             if (loading) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (error) {
               return <ErrorLoadingDataMsg />;

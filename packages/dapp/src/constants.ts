@@ -17,10 +17,13 @@ export enum routes {
   DASHBOARD = "/dashboard/:activeDashboardTab/:activeDashboardSubTab?",
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",
+  AUTH_SIGNUP = "/auth/signup",
+  AUTH_LOGIN = "/auth/login",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
+  BOOST_EDIT = "/boosts/:boostId/edit",
 }
 
 export enum registryListingTypes {

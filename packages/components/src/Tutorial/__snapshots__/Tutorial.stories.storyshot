@@ -11,21 +11,21 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
     }
   >
     <div
-      className="sc-fEVUGC iYfUaE"
+      className="sc-csSMhA gPrxdN"
     >
       <div
-        className="sc-dchYKM jwMvlV"
+        className="sc-bscRGj JACUt"
       >
         <div
-          className="sc-jLrYHE bMVwwh"
+          className="sc-hlELIx gUdDts"
         />
       </div>
     </div>
     <div
-      className="sc-fqCOlO fGXmdB"
+      className="sc-eGXxtx eJWGCd"
     >
       <div
-        className="sc-BOulX byXKWd"
+        className="sc-eetwQk fhnjFN"
       >
         <h2>
           What is Civil?
@@ -42,13 +42,13 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
       </div>
     </div>
     <div
-      className="sc-gcJTYu fOHDIt"
+      className="sc-fdJbru KSrUq"
     >
       <div
-        className="sc-iBfVdv nNmsE"
+        className="sc-dYcyhn cVFoiB"
       >
         <button
-          className="sc-csSMhA JfjVF sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-jTNJqp koLXeH sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           onClick={[Function]}
           theme={
             Object {
@@ -61,7 +61,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
           Back
         </button>
         <button
-          className="sc-eklfrZ giOmWA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+          className="sc-hmyDHa faztxA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
           onClick={[Function]}
           theme={
             Object {
@@ -474,34 +474,34 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
     }
   >
     <div
-      className="sc-fEVUGC iYfUaE"
+      className="sc-csSMhA gPrxdN"
     >
       <div
-        className="sc-dchYKM jwMvlV"
+        className="sc-bscRGj JACUt"
       >
         <div
-          className="sc-dhVevo cGpck"
+          className="sc-erOsFi ifLTul"
         >
           1
            of 
           3
         </div>
         <div
-          className="sc-jLrYHE bMVwwh"
+          className="sc-hlELIx gUdDts"
         />
       </div>
     </div>
     <div
-      className="sc-fqCOlO fGXmdB"
+      className="sc-eGXxtx eJWGCd"
     >
       <h2
-        className="sc-hlELIx eKKGSq"
+        className="sc-MKjYC htGXnI"
       >
         Quiz: 
         Quiz: Considerations before buying tokens
       </h2>
       <h3
-        className="sc-erOsFi kXvJNf"
+        className="sc-bQduHL fendAl"
       >
         <span>
           1
@@ -515,7 +515,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
         >
           <div>
             <div
-              className="sc-dUcZlc huOORW"
+              className="sc-gwZsXD czqdhj"
             >
               <input
                 name="topic1-1"
@@ -524,7 +524,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 1"
               />
               <button
-                className="sc-fdJbru dDWWWt sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+                className="sc-cKZAiZ blysWs sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -538,13 +538,13 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 type="button"
               >
                 <div
-                  className="sc-cIwbeI cAkQJZ"
+                  className="sc-hgeeVt ftVOvz"
                 />
                 Option 1
               </button>
             </div>
             <div
-              className="sc-dUcZlc huOORW"
+              className="sc-gwZsXD czqdhj"
             >
               <input
                 name="topic1-1"
@@ -553,7 +553,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 2"
               />
               <button
-                className="sc-fdJbru dDWWWt sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+                className="sc-cKZAiZ blysWs sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -567,13 +567,13 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 type="button"
               >
                 <div
-                  className="sc-cIwbeI cAkQJZ"
+                  className="sc-hgeeVt ftVOvz"
                 />
                 Option 2
               </button>
             </div>
             <div
-              className="sc-dUcZlc huOORW"
+              className="sc-gwZsXD czqdhj"
             >
               <input
                 name="topic1-1"
@@ -582,7 +582,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 3"
               />
               <button
-                className="sc-fdJbru dDWWWt sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+                className="sc-cKZAiZ blysWs sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -596,7 +596,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 type="button"
               >
                 <div
-                  className="sc-cIwbeI cAkQJZ"
+                  className="sc-hgeeVt ftVOvz"
                 />
                 Option 3
               </button>
@@ -606,13 +606,13 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
       </div>
     </div>
     <div
-      className="sc-gcJTYu fOHDIt"
+      className="sc-fdJbru KSrUq"
     >
       <div
-        className="sc-iBfVdv nNmsE"
+        className="sc-dYcyhn cVFoiB"
       >
         <button
-          className="sc-csSMhA JfjVF sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+          className="sc-jTNJqp koLXeH sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
           onClick={[Function]}
           theme={
             Object {
@@ -625,7 +625,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
           Back to Tutorial
         </button>
         <button
-          className="sc-eklfrZ giOmWA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII disabled"
+          className="sc-hmyDHa faztxA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -1264,7 +1264,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Completed 1`] = `
     }
   >
     <div
-      className="sc-fqCOlO iipmOw"
+      className="sc-eGXxtx jhyhUe"
     >
       <svg
         height="50"
@@ -1294,17 +1294,17 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Completed 1`] = `
         </g>
       </svg>
       <p
-        className="sc-eGXxtx ciRtgt"
+        className="sc-iUpOdG eZEzAN"
       >
         Nice! You’ve completed Topic 1
       </p>
       <p
-        className="sc-eetwQk kMqyBf"
+        className="sc-kGeDwz gnmMSo"
       >
         Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.
       </p>
       <button
-        className="sc-eklfrZ giOmWA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+        className="sc-hmyDHa faztxA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
         onClick={[Function]}
         theme={
           Object {
@@ -1748,26 +1748,26 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
     }
   >
     <div
-      className="sc-fEVUGC iYfUaE"
+      className="sc-csSMhA gPrxdN"
     >
       <div
-        className="sc-dchYKM jwMvlV"
+        className="sc-bscRGj JACUt"
       >
         <div
-          className="sc-jLrYHE jSVrPl"
+          className="sc-hlELIx dClwzZ"
         />
       </div>
     </div>
     <div
-      className="sc-fqCOlO fGXmdB"
+      className="sc-eGXxtx eJWGCd"
     >
       <div
-        className="sc-hAcydR iTbZyR"
+        className="sc-cIwbeI dIZfDS"
       >
         Topic 1: How to use Civil tokens
       </div>
       <div
-        className="sc-eomEcv eiwSSp"
+        className="sc-dUcZlc eQaaCI"
       >
         <p>
           <b>
@@ -1789,14 +1789,14 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
       </div>
     </div>
     <div
-      className="sc-gcJTYu fOHDIt"
+      className="sc-fdJbru KSrUq"
     >
       <div
-        className="sc-iBfVdv dZpBMZ"
+        className="sc-dYcyhn frZwEy"
       >
         <div>
           <button
-            className="sc-bscRGj bEpSFt sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
+            className="sc-fAfrNB fqRexW sc-kkGfuU hYLHhU sc-hMqMXs fSKkRg"
             onClick={[Function]}
             theme={
               Object {
@@ -1809,7 +1809,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
             Skip to the quiz
           </button>
           <button
-            className="sc-eklfrZ giOmWA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
+            className="sc-hmyDHa faztxA sc-kEYyzF bnmMlI sc-hMqMXs gXdhII"
             onClick={[Function]}
             theme={
               Object {

@@ -1,4 +1,4 @@
-import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
+import { currentAccount, EthApi, requireAccount, EthereumUnits, toWei } from "@joincivil/ethapi";
 import {
   CivilErrors,
   estimateRawHex,
@@ -317,6 +317,21 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async getMultisigAddress(): Promise<EthAddress | undefined> {
     return this.multisigProxy.getMultisigAddress();
+  }
+
+  /**
+   * Transfers ETH from multisig to a given address
+   * @param eth Amount to transfer, in ether
+   * @param to Address to transfer to
+   */
+  public async transferEthFromMultisig(
+    eth: BigNumber,
+    to: EthAddress,
+  ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
+    const wei = this.ethApi.toBigNumber(toWei(eth, EthereumUnits.ether));
+    const address = await this.multisigProxy.getMultisigAddress();
+    const multisig = await Multisig.atUntrusted(this.ethApi, address!);
+    return multisig.submitTransaction(to, wei, "");
   }
 
   /**

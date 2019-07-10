@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Query } from "react-apollo";
 import { EthAddress, ListingWrapper } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
+import { LoadingMessage } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
 import {
@@ -13,7 +14,6 @@ import {
 } from "../../helpers/queryTransformations";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import LoadingMsg from "../utility/LoadingMsg";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 import ListingReduxContainer from "./ListingReduxContainer";
@@ -41,7 +41,7 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
         <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading || !data) {
-              return <LoadingMsg />;
+              return <LoadingMessage />;
             }
             if (error) {
               return <ErrorLoadingDataMsg />;

@@ -47,10 +47,10 @@ const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
 const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
 
-function AsyncComponent(Component: React.LazyExoticComponent<any>): any {
+function AsyncComponent(Component: React.LazyExoticComponent<any>, extraProps?: any): any {
   return (props: any) => (
     <React.Suspense fallback={<div>Loading...</div>}>
-      <Component {...props} />
+      <Component {...props} {...extraProps} />
     </React.Suspense>
   );
 }
@@ -188,6 +188,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
             <Route path={routes.AUTH} component={AuthRouter} />>
             <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
+            <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
             <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
             <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
             <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />

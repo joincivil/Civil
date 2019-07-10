@@ -5,8 +5,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
   CTACopy,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
 } from "./styledComponents";
 import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
@@ -50,16 +48,9 @@ export class InApplicationCard extends React.Component<
     if (this.props.submitChallengeURI) {
       return (
         <>
-          <StyledVisibleOnDesktop>
-            <InvertedButton size={buttonSizes.MEDIUM} to={this.props.submitChallengeURI}>
-              Submit a Challenge
-            </InvertedButton>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              Submit a Challenge
-            </InvertedButton>
-          </StyledVisibleOnMobile>
+          <InvertedButton size={buttonSizes.MEDIUM} to={this.props.submitChallengeURI}>
+            Submit a Challenge
+          </InvertedButton>
         </>
       );
     }
