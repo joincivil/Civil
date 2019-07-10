@@ -9,7 +9,6 @@ export enum routes {
   REQUEST_APPEAL = "/listing/:listingAddress/request-appeal",
   CHALLENGE = "/listing/:listingAddress/challenge/:challengeID",
   CREATE_NEWSROOM = "/create-newsroom",
-  NEWSROOM_MANAGEMENT = "/mgmt/:newsroomAddress",
   NEWSROOM_MANAGEMENT_V1 = "/mgmt-v1/:newsroomAddress",
   PARAMETERIZER = "/parameterizer",
   APPLY_TO_REGISTRY = "/apply-to-registry/:action?",
