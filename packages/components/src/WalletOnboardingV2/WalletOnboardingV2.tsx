@@ -2,13 +2,7 @@ import * as React from "react";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import {
-  ethereumEnable,
-  isWalletOnboarded,
-  getApolloClient,
-  isBrowserCompatible,
-  urlConstants as links,
-} from "@joincivil/utils";
+import { isWalletOnboarded, getApolloClient, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -216,7 +210,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
   }
 
   public async componentDidMount(): Promise<void> {
-    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
+    this.enableEthereum();
   }
 
   public render(): JSX.Element | null {
@@ -298,13 +292,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
             <InstructionsButtonWrap>
-              <MetaMaskLogoButton
-                onClick={async () => {
-                  this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
-                }}
-              >
-                Open MetaMask
-              </MetaMaskLogoButton>
+              <MetaMaskLogoButton onClick={this.enableEthereum}>Open MetaMask</MetaMaskLogoButton>
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskConnectImgUrl} />
@@ -567,6 +555,19 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         console.error("Failed to send welcome email:", error);
       }
     }
+  };
+
+  private enableEthereum = async (): Promise<void> => {
+    const { civil } = this.props;
+    let isEthereumEnabled = false;
+    if (civil && civil.currentProvider) {
+      try {
+        isEthereumEnabled = (civil.currentProvider as any).enable && (await (civil.currentProvider as any).enable());
+      } catch (err) {
+        isEthereumEnabled = false;
+      }
+    }
+    this.setState({ metamaskEnabled: isEthereumEnabled });
   };
 
   private onboardingComplete = () => {

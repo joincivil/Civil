@@ -3,9 +3,16 @@ import styled, { StyledComponentClass } from "styled-components";
 import { BigNumber } from "bignumber.js";
 import { connect } from "react-redux";
 import { Set } from "immutable";
-import { Table, Tr, Td, ParameterizerTd, StyledTableAccentText, mediaQueries } from "@joincivil/components";
+import {
+  CivilContext,
+  Table,
+  Tr,
+  Td,
+  ParameterizerTd,
+  StyledTableAccentText,
+  mediaQueries,
+} from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import { makeGetProposalsByParameterName, makeGetGovtProposalsByParameterName } from "../../selectors";
 import { Proposal } from "./Proposal";
@@ -31,6 +38,8 @@ export interface ParameterReduxProps {
 }
 
 class ParameterComponent extends React.Component<ParameterProps & ParameterReduxProps> {
+  public static contextType = CivilContext;
+
   public render(): JSX.Element {
     return (
       <Tr>
@@ -83,7 +92,7 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
   };
 
   private getFormattedValue = (parameterValue: BigNumber): string => {
-    const civil = getCivil();
+    const { civil } = this.context;
     return getFormattedParameterValue(this.props.parameterName, civil.toBigNumber(parameterValue.toString()));
   };
 }

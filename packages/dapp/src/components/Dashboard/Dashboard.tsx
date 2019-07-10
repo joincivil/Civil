@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/core";
-import { UserDashboardHeader, LoadUser, Button, buttonSizes } from "@joincivil/components";
+import { buttonSizes, Button, CivilContext, UserDashboardHeader, LoadUser } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
@@ -42,6 +42,15 @@ export interface DashboardReduxProps {
 }
 
 const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
+  const { civil } = React.useContext(CivilContext);
+
+  let enableEthereum: () => void | undefined;
+  if (civil && civil.currentProvider && (civil.currentProvider as any).enable) {
+    enableEthereum = () => {
+      (civil.currentProvider as any).enable();
+    };
+  }
+
   return (
     <>
       <Helmet title="My Dashboard - The Civil Registry" />
@@ -63,11 +72,11 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
                 </StyledDashboardActivityContainer>
               </>
             );
-          } else if (civilUser && (window as any).ethereum) {
+          } else if (civilUser && enableEthereum) {
             return (
               <StyledAuthButtonContainer>
                 <p>Enable Ethereum to view Your Civil Registry Dashboard</p>
-                <Button onClick={() => (window as any).ethereum.enable()} size={buttonSizes.SMALL}>
+                <Button onClick={enableEthereum} size={buttonSizes.SMALL}>
                   Connect Wallet
                 </Button>
               </StyledAuthButtonContainer>

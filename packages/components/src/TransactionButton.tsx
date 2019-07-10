@@ -1,8 +1,8 @@
 import * as React from "react";
 import { TwoStepEthTransaction, TxHash, Civil } from "@joincivil/core";
-import { detectProvider } from "@joincivil/ethapi";
 import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
+import { CivilContext, ICivilContext } from "./context";
 import { Modal } from "./Modal";
 import {
   ProgressModalContentInProgress,
@@ -122,6 +122,8 @@ export const DarkTransactionButton: React.FunctionComponent<TransactionButtonInn
 };
 
 export class TransactionButtonNoModal extends React.Component<TransactionButtonProps, TransactionButtonState> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+
   constructor(props: TransactionButtonProps) {
     super(props);
     this.state = {
@@ -153,25 +155,20 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   private onClick = async () => {
-    const provider = detectProvider();
-    if (provider) {
-      // TODO: clean up web3 providers
-      await (window as any).ethereum.enable();
-      const civil = new Civil({ web3Provider: provider });
-      if (civil) {
-        const currentAccount = await civil.accountStream.first().toPromise();
-        if (currentAccount) {
-          this.setState({ currentAccount });
+    const { civil } = this.context;
 
-          if (this.props.preExecuteTransactions) {
-            setImmediate(() => this.props.preExecuteTransactions!());
-          }
-          return this.executeTransactions(this.props.transactions.slice().reverse());
-        } else {
-          this.setState({
-            error: "No Ethereum Account Found. You may need to install MetaMask and grant account access for this app.",
-          });
+    if (civil && civil.currentProvider) {
+      if (civil.currentProvider.enable) {
+        await civil.currentProvider.enable();
+      }
+      const currentAccount = await civil.accountStream.first().toPromise();
+      if (currentAccount) {
+        this.setState({ currentAccount });
+
+        if (this.props.preExecuteTransactions) {
+          setImmediate(() => this.props.preExecuteTransactions!());
         }
+        return this.executeTransactions(this.props.transactions.slice().reverse());
       } else {
         this.setState({
           error: "No Ethereum Account Found. You may need to install MetaMask and grant account access for this app.",
@@ -180,7 +177,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
     } else {
       this.setState({
         error:
-          "No Ethereum Provider Found. You may need to install MetaMask or other Web3 wallet and grant account access for this app.",
+          "No Ethereum Provider Found. You may need to install MetaMask or another Web3 wallet and grant account access for this app.",
       });
     }
   };
