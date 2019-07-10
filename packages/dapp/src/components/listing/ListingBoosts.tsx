@@ -1,9 +1,8 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../../redux/reducers";
 import { ListingTabIntro } from "./styledComponents";
 import { BoostFeed } from "@joincivil/civil-sdk";
 import { FeatureFlag } from "@joincivil/components";
+import { urlConstants } from "@joincivil/utils";
 import { ComingSoonText } from "../Boosts/BoostStyledComponents";
 
 export interface ListingBoostsProps {
@@ -17,10 +16,13 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
     return (
       <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
         <ListingTabIntro>
-          Boosts are mini-fundraisers. Newsrooms can use them to let their audience know about what they would like to
-          do, and let their fans help them do it. The best boosts are smallish and short-term, with a concrete
-          description of what the newsroom wants to accomplish, what the costs are, and exactly what the outcome will
-          be. Good reporting costs money, and the Civil community wants to help make it happen.
+          Newsrooms around the world need your help to fund and start new projects. These Newsrooms are setting up
+          Boosts to help in get the word out with what they want to do and let their supporters and fans, like you, help
+          them do it. Support these newsrooms by funding their Boosts to help hit their goals. Good reporting costs
+          money, and the Civil community is making it happen.{" "}
+          <a href={urlConstants.FAQ_BOOSTS} target="_blank">
+            Learn More &gt;
+          </a>
         </ListingTabIntro>
         <BoostFeed search={search} />
       </FeatureFlag>
@@ -28,10 +30,4 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingBoostsProps) => {
-  return {
-    ...ownProps,
-  };
-};
-
-export default connect(mapToStateToProps)(ListingBoosts);
+export default ListingBoosts;
