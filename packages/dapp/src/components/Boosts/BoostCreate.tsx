@@ -84,7 +84,7 @@ class BoostCreatePage extends React.Component<
       return (
         <StyledInPageMsgContainer>
           <NoNewsroomMessage>
-            Your have not yet created a newsroom. Please{" "}
+            You have not yet created a newsroom. Please{" "}
             <Link to={routes.APPLY_TO_REGISTRY}>create your newsroom application</Link> and then, once you have applied
             to the registry and your newsroom has been approved, you can return to create a Boost.
           </NoNewsroomMessage>
@@ -110,7 +110,7 @@ class BoostCreatePage extends React.Component<
         newsroomData={{
           name: charter.name,
           url: charter && charter.newsroomUrl,
-          owner: newsroom.wrapper.data.owners[0],
+          owner: newsroom.multisigAddress,
         }}
         newsroomAddress={newsroom.address}
         newsroomListingUrl={`${document.location.origin}${listingRoute}`}
@@ -192,7 +192,7 @@ const ComposedBoostCreatePage = compose(withApollo, connect(mapStateToProps))(Bo
 export default (props: any) => (
   <AuthenticatedRoute
     redirectTo={routes.BOOST_CREATE}
-    signupUrl={routes.AUTH_SIGNUP}
+    authUrl={routes.AUTH_LOGIN}
     render={() => <ComposedBoostCreatePage {...props} />}
   />
 );

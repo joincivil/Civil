@@ -1766,16 +1766,17 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.15.1":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.15.1.tgz#23f2060ad71800f3874851712f8b21c003b59b8b"
+"@joincivil/civil-sdk@^1.16.2":
+  version "1.16.2"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.16.2.tgz#630abf8c5a07a9e60b0478e5028f65ce32751a3e"
+  integrity sha512-Yo4fe2xe05ncd0V/OqrnrvXvUQ4pNukNbXKdtxOEidG5rB9MvcQszYYuh71BZChsry4V2Ncwiaq+RsEP1Lcatw==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
     "@commitlint/config-conventional" "^7.5.0"
-    "@joincivil/components" "^1.9.4"
-    "@joincivil/core" "^4.8.5"
-    "@joincivil/utils" "^1.9.5"
+    "@joincivil/components" "^1.9.5"
+    "@joincivil/core" "^4.8.6"
+    "@joincivil/utils" "^1.9.6"
     "@svgr/webpack" "4.1.0"
     babel-core "7.0.0-bridge.0"
     babel-eslint "9.0.0"
@@ -1820,6 +1821,7 @@
     react-app-polyfill "^0.2.2"
     react-dev-utils "^8.0.0"
     react-dom "^16.8.4"
+    react-router "^4.3.1"
     resolve "1.10.0"
     rxjs-compat "^6.5.2"
     sass-loader "7.1.0"
