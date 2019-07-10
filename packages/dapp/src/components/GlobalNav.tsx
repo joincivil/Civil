@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { NavBar, NavProps } from "@joincivil/components";
+import { CivilContext, NavBar, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
@@ -25,7 +25,9 @@ export interface NavBarProps {
   useGraphQL: boolean;
 }
 
-const GlobalNavComponent = (props: NavBarProps & DispatchProp<any>) => {
+const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any>> = props => {
+  const { civil } = React.useContext(CivilContext);
+
   const {
     balance,
     votingBalance,
@@ -55,9 +57,9 @@ const GlobalNavComponent = (props: NavBarProps & DispatchProp<any>) => {
     },
   };
 
-  if ((window as any).ethereum) {
+  if (civil && civil.currentProvider && (civil.currentProvider as any).enable) {
     navBarViewProps.enableEthereum = () => {
-      (window as any).ethereum.enable();
+      (civil.currentProvider as any).enable();
     };
   }
 

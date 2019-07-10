@@ -2,8 +2,7 @@ import * as React from "react";
 import { BigNumber } from "bignumber.js";
 import { ParamProposalState } from "@joincivil/core";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
-import { getCivil } from "../../helpers/civilInstance";
+import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
 
 import { StyledHiddenOnMobile } from "./Parameter";
 
@@ -15,6 +14,8 @@ export interface ProposalProps {
 }
 
 export class Proposal extends React.Component<ProposalProps> {
+  public static contextType = CivilContext;
+
   public render(): JSX.Element {
     return (
       <Tr>
@@ -139,7 +140,7 @@ export class Proposal extends React.Component<ProposalProps> {
   };
 
   private getFormattedValue = (parameterValue: BigNumber): string => {
-    const civil = getCivil();
+    const { civil } = this.context;
     return getFormattedParameterValue(this.props.parameterName, civil.toBigNumber(parameterValue.toString()));
   };
 }

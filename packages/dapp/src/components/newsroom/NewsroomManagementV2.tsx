@@ -1,7 +1,7 @@
 import * as React from "react";
+import { CivilContext } from "@joincivil/components";
 import { ethereumEnable } from "@joincivil/utils";
 import { Newsroom } from "@joincivil/newsroom-manager";
-import { getCivil } from "../../helpers/civilInstance";
 
 export interface NewsroomManagementProps {
   match: any;
@@ -12,6 +12,8 @@ export interface NewsroomManagementState {
 }
 
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
+  public static contextType = CivilContext;
+
   constructor(props: NewsroomManagementProps) {
     super(props);
     this.state = {};
@@ -21,7 +23,7 @@ export default class NewsroomManagement extends React.Component<NewsroomManageme
     this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
   }
   public render(): JSX.Element {
-    const civil = getCivil();
+    const { civil } = this.context;
     return (
       <Newsroom
         civil={civil}
