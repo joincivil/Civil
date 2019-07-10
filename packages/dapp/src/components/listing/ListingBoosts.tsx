@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { State } from "../../redux/reducers";
 import { ListingTabIntro } from "./styledComponents";
 import { BoostFeed } from "@joincivil/civil-sdk";
+import { FeatureFlag } from "@joincivil/components";
+import { ComingSoonText } from "../Boosts/BoostStyledComponents";
 
 export interface ListingBoostsProps {
   listingAddress: string;
@@ -13,7 +15,7 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
     const search = { postType: "boost", channelID: this.props.listingAddress };
 
     return (
-      <>
+      <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
         <ListingTabIntro>
           Boosts are mini-fundraisers. Newsrooms can use them to let their audience know about what they would like to
           do, and let their fans help them do it. The best boosts are smallish and short-term, with a concrete
@@ -21,7 +23,7 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
           be. Good reporting costs money, and the Civil community wants to help make it happen.
         </ListingTabIntro>
         <BoostFeed search={search} />
-      </>
+      </FeatureFlag>
     );
   }
 }
