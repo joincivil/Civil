@@ -22,6 +22,7 @@ import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
+import ListingBoosts from "./ListingBoosts";
 import ListingHeader from "./ListingHeader";
 import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
@@ -169,6 +170,12 @@ class ListingPageComponent extends React.Component<
               <Tab title="History">
                 <ListingTabContent>
                   <ListingHistory listingAddress={this.props.listingAddress} />
+                </ListingTabContent>
+              </Tab>
+
+              <Tab title="Boosts">
+                <ListingTabContent>
+                  <ListingBoosts listingAddress={this.props.listingAddress} />
                 </ListingTabContent>
               </Tab>
 
