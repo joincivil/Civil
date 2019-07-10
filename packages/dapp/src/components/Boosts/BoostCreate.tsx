@@ -84,7 +84,7 @@ class BoostCreatePage extends React.Component<
       return (
         <StyledInPageMsgContainer>
           <NoNewsroomMessage>
-            Your have not yet created a newsroom. Please{" "}
+            You have not yet created a newsroom. Please{" "}
             <Link to={routes.APPLY_TO_REGISTRY}>create your newsroom application</Link> and then, once you have applied
             to the registry and your newsroom has been approved, you can return to create a Boost.
           </NoNewsroomMessage>
