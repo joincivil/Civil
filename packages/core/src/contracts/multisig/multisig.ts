@@ -116,7 +116,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param ethers How many ethers to send
    */
   public async transferEther(ethers: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = toWei(ethers, EthereumUnits.ether);
+    const wei = this.ethApi.toBigNumber(toWei(ethers, EthereumUnits.ether));
     return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: this.address, value: wei }));
   }
 

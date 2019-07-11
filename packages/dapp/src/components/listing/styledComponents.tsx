@@ -28,3 +28,9 @@ export const ListingTabContent = styled.div`
     line-height: inherit;
   }
 `;
+
+export const ListingTabIntro = styled.p`
+  font-size: 18px;
+  line-height: 33px;
+  margin: 0 0 40px;
+`;

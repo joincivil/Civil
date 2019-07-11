@@ -36,7 +36,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     const routeProps = {
       redirectTo: TOKEN_HOME,
-      signupUrl: "/auth/signup",
+      authUrl: "/auth/signup",
     };
 
     return (
@@ -55,7 +55,6 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
           <AuthenticatedRoute
             {...routeProps}
             onlyAllowUnauthenticated
-            redirectTo={TOKEN_HOME}
             path={`${match.path}/`}
             render={() => (
               <>
