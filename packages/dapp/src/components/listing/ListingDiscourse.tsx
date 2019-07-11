@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 
 import { EthAddress } from "@joincivil/core";
-import { colors, FeatureFlag, LoadingMsg } from "@joincivil/components";
+import { colors, FeatureFlag, LoadingMessage } from "@joincivil/components";
 
 import config from "../../helpers/config";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
@@ -115,7 +115,7 @@ const ListingDiscourse: React.FunctionComponent<ListingDiscourseProps> = props =
       <Query query={discourseTopicIDQuery} variables={{ addr: props.listingAddress }}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading) {
-            return <LoadingMsg />;
+            return <LoadingMessage />;
           }
           if (error) {
             return <ErrorLoadingDataMsg />;
