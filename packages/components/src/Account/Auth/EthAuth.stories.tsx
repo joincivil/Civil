@@ -3,6 +3,7 @@ import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
+import { CivilContext, ICivilContext, buildCivilContext } from "../../context";
 import { AccountEthAuth } from "../";
 
 const typeDefs = `
@@ -68,12 +69,15 @@ storiesOf("Common / Auth / ETH", module)
     }),
   )
   .add("AccountEthAuth", () => {
+    const civilContext = buildCivilContext(civil);
+
     return (
-      <AccountEthAuth
-        civil={civil!}
-        onAuthenticated={() => {
-          alert("authenticated successfully");
-        }}
-      />
+      <CivilContext.Provider value={civilContext}>
+        <AccountEthAuth
+          onAuthenticated={() => {
+            alert("authenticated successfully");
+          }}
+        />
+      </CivilContext.Provider>
     );
   });
