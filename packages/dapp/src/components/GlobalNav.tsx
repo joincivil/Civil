@@ -57,9 +57,9 @@ const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any
     },
   };
 
-  if (civil && civil.currentProvider && (civil.currentProvider as any).enable) {
-    navBarViewProps.enableEthereum = () => {
-      (civil.currentProvider as any).enable();
+  if (civil && civil.currentProvider) {
+    navBarViewProps.enableEthereum = async () => {
+      await civil.currentProviderEnable();
     };
   }
 

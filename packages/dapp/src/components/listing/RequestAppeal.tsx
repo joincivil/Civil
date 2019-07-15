@@ -121,8 +121,8 @@ class RequestAppealComponent extends React.Component<
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
 
     const { civil } = this.context;
-    if (civil.currentProvider && civil.currentProvider.enable) {
-      await civil.currentProvider.enable();
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
     }
   }
 

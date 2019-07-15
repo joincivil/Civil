@@ -88,6 +88,18 @@ export class Civil {
     return this.ethApi.signMessage(message, account);
   }
 
+  public async currentProviderEnable(): Promise<boolean | EthAddress[]> {
+    if (this.ethApi.currentProvider && (this.ethApi.currentProvider as any).enable) {
+      try {
+        return await (this.ethApi.currentProvider as any).enable();
+      } catch (e) {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
   /**
    * @returns Currently default user account used, undefined if none unlocked/found
    */

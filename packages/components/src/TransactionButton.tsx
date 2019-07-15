@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TwoStepEthTransaction, TxHash, Civil } from "@joincivil/core";
+import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { CivilContext, ICivilContext } from "./context";
@@ -158,9 +158,8 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
     const { civil } = this.context;
 
     if (civil && civil.currentProvider) {
-      if (civil.currentProvider.enable) {
-        await civil.currentProvider.enable();
-      }
+      await civil.currentProviderEnable();
+
       const currentAccount = await civil.accountStream.first().toPromise();
       if (currentAccount) {
         this.setState({ currentAccount });

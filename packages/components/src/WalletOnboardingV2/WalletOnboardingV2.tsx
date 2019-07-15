@@ -210,7 +210,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
   }
 
   public async componentDidMount(): Promise<void> {
-    this.enableEthereum();
+    await this.enableEthereum();
   }
 
   public render(): JSX.Element | null {
@@ -367,11 +367,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will require you to sign a message.</p>
             <InstructionsButtonWrap>
-              <AccountEthAuth
-                civil={this.props.civil!}
-                onAuthenticated={async () => this.ethAddressSaved(true)}
-                buttonOnly={true}
-              />
+              <AccountEthAuth onAuthenticated={async () => this.ethAddressSaved(true)} buttonOnly={true} />
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskSignImgUrl} />
@@ -399,7 +395,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <p>Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.</p>
             <InstructionsButtonWrap>
               <AccountEthAuth
-                civil={this.props.civil!}
                 onAuthenticated={async () => this.ethAddressSaved()}
                 buttonOnly={true}
                 buttonText={"Update Profile"}
@@ -561,11 +556,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     const { civil } = this.props;
     let isEthereumEnabled = false;
     if (civil && civil.currentProvider) {
-      try {
-        isEthereumEnabled = (civil.currentProvider as any).enable && (await (civil.currentProvider as any).enable());
-      } catch (err) {
-        isEthereumEnabled = false;
-      }
+      isEthereumEnabled = !!(await civil.currentProviderEnable());
     }
     this.setState({ metamaskEnabled: isEthereumEnabled });
   };
