@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Mutation, MutationFunc } from "react-apollo";
-import { Civil, EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import {
   Transaction,
@@ -12,9 +12,9 @@ import {
   ModalHeading,
   metaMaskSignImgUrl,
 } from "../../";
+import { CivilContext, ICivilContext } from "../../context";
 
 export interface AccountEthAuthProps {
-  civil: Civil;
   buttonText?: string;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
@@ -40,6 +40,8 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+
   private _isMounted?: boolean;
 
   constructor(props: AccountEthAuthProps) {
@@ -162,12 +164,14 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
   }
 
   private signTransactions = (userSetEthAddress: MutationFunc): Transaction[] => {
+    const { civil } = this.context;
+
     return [
       {
         transaction: async (): Promise<EthSignedMessage> => {
           this.setState({ isWaitingSignatureOpen: true, isSignRejectionOpen: false, errorMessage: undefined });
           const message = "I control this address @ " + new Date().toISOString();
-          return this.props.civil!.signMessage(message);
+          return civil!.signMessage(message);
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           try {

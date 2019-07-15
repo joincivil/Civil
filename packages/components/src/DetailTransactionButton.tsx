@@ -3,6 +3,7 @@ import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
 import styled, { StyledComponentClass } from "styled-components";
+import { CivilContext, ICivilContext } from "./context";
 import {
   TransactionButton,
   Transaction,
@@ -13,7 +14,6 @@ import { fonts, colors } from "./styleConstants";
 import { QuestionToolTip } from "./QuestionToolTip";
 
 export interface DetailTransactionButtonProps {
-  civil?: Civil;
   transactions: Transaction[];
   estimateFunctions?: Array<(...args: any[]) => Promise<number>>;
   requiredNetwork?: string;
@@ -89,6 +89,8 @@ export class DetailTransactionButton extends React.Component<
   DetailTransactionButtonProps,
   DetailTransactionButtonState
 > {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+
   constructor(props: DetailTransactionButtonProps) {
     super(props);
     this.state = {
@@ -105,17 +107,19 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async divinePrice(estimateFunctions?: Array<() => Promise<number>>): Promise<void> {
+    const { civil } = this.context;
+
     if (!this.isDisabled() && estimateFunctions && estimateFunctions.length) {
       try {
         const gas = (await Promise.all(estimateFunctions.map(async item => item()))).reduce(
           (acc: number, item: number) => acc + item,
           0,
         );
-        const gasPrice = await this.props.civil!.getGasPrice();
+        const gasPrice = await civil.getGasPrice();
         this.setState({
           price: gasPrice
             .times(gas)
-            .div(this.props.civil!.toBigNumber(10).pow(18))
+            .div(civil.toBigNumber(10).pow(18))
             .toNumber(),
           priceFailed: false,
         });
@@ -128,7 +132,9 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    this.createEthereumSubscription(this.props.civil);
+    const { civil } = this.context;
+
+    this.createEthereumSubscription(civil);
     await this.divinePrice(this.props.estimateFunctions);
   }
 
@@ -178,9 +184,10 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public isDisabled(): boolean {
+    const { civil } = this.context;
     const onRequiredNetwork =
       !this.props.requiredNetwork || this.props.requiredNetwork.includes(this.state.currentNetwork);
-    return this.props.disabled || !this.props.civil || !this.state.currentAccount || !onRequiredNetwork;
+    return this.props.disabled || !civil || !this.state.currentAccount || !onRequiredNetwork;
   }
 
   public renderNoMetaMask(): JSX.Element {
@@ -248,7 +255,8 @@ export class DetailTransactionButton extends React.Component<
   }
 
   public renderDetails(): JSX.Element {
-    if (!this.props.civil) {
+    const { civil } = this.context;
+    if (!civil) {
       return this.renderNoMetaMask();
     } else if (!this.state.currentAccount) {
       return this.renderMetaMaskLocked();

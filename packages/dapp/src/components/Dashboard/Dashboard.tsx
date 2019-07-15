@@ -45,9 +45,9 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
   const { civil } = React.useContext(CivilContext);
 
   let enableEthereum: () => void | undefined;
-  if (civil && civil.currentProvider && (civil.currentProvider as any).enable) {
-    enableEthereum = () => {
-      (civil.currentProvider as any).enable();
+  if (civil && civil.currentProvider) {
+    enableEthereum = async () => {
+      await civil.currentProviderEnable();
     };
   }
 
