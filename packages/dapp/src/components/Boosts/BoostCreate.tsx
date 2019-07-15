@@ -121,7 +121,13 @@ class BoostCreatePage extends React.Component<
   }
 
   private async fetchNewsroomAddress(): Promise<void> {
-    if (this.props.useGraphQL && this.props.currentUserNewsrooms.isEmpty()) {
+    const newsroomAddress = this.props.currentUserNewsrooms.first();
+    if (newsroomAddress) {
+      // No need to repeat GQL query if we already have newsroom populated from redux
+      this.setState({
+        newsroomAddress,
+      });
+    } else if (this.props.useGraphQL && !newsroomAddress) {
       this.setState({
         gqlLoading: true,
         gqlError: null,
