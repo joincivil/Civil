@@ -54,13 +54,6 @@ const mocks = {
   },
 };
 
-let civil: Civil | undefined;
-try {
-  civil = new Civil();
-} catch (error) {
-  civil = undefined;
-}
-
 storiesOf("Common / Auth / ETH", module)
   .addDecorator(
     apolloStorybookDecorator({
@@ -69,6 +62,13 @@ storiesOf("Common / Auth / ETH", module)
     }),
   )
   .add("AccountEthAuth", () => {
+    let civil: Civil | undefined;
+    try {
+      civil = new Civil();
+    } catch (error) {
+      civil = undefined;
+    }
+
     const civilContext = buildCivilContext(civil);
 
     return (
