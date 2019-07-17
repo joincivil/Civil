@@ -1320,7 +1320,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                         <span
                           style={Object {}}
                         >
-                          notEnoughEthError
+                          onNotEnoughEthError
                         </span>
                         <span>
                           =
@@ -1335,7 +1335,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                                 }
                               }
                             >
-                              notEnoughEthError
+                              onNotEnoughEthError
                             </span>
                             }
                           </span>

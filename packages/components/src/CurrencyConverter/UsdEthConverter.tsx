@@ -10,7 +10,7 @@ const ethPriceQuery = gql`
 `;
 
 export interface UsdEthConverterProps {
-  notEnoughEthError?(): void;
+  onNotEnoughEthError?(error: boolean): void;
   onConversion(usdValue: number, ethValue: number): void;
 }
 export const UsdEthConverter = (props: UsdEthConverterProps) => {
@@ -30,7 +30,7 @@ export const UsdEthConverter = (props: UsdEthConverterProps) => {
               displayErrorMsg={true}
               doConversion={async (usdAmount: number) => convertToETH(usdAmount, data.storefrontEthPrice)}
               onConversion={(usdValue, ethValue) => props.onConversion(usdValue, ethValue)}
-              notEnoughEthError={props.notEnoughEthError}
+              onNotEnoughEthError={props.onNotEnoughEthError}
             />
           </>
         );
