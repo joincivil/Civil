@@ -55,6 +55,7 @@ storiesOf("Common / Currency / Currency Converter", module)
           displayErrorMsg={true}
           onConversion={() => null}
           doConversion={async (from: number) => from * 2}
+          notEnoughEthError={() => console.log("error")}
         />
       </Container>
     );
