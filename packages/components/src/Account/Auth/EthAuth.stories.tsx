@@ -1,10 +1,19 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
+import styled, { StyledComponentClass } from "styled-components";
 import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { CivilContext, ICivilContext, buildCivilContext } from "../../context";
 import { AccountEthAuth } from "../";
+
+export const Container = styled.div`
+  align-items: center;
+  diplay: flex;
+  justifiy-content: center;
+  width: 100%;
+  max-width: 720px;
+`;
 
 const typeDefs = `
   type User {
@@ -60,6 +69,7 @@ try {
 } catch (error) {
   civil = undefined;
 }
+const civilContext = buildCivilContext(civil);
 
 storiesOf("Common / Auth / ETH", module)
   .addDecorator(
@@ -69,15 +79,15 @@ storiesOf("Common / Auth / ETH", module)
     }),
   )
   .add("AccountEthAuth", () => {
-    const civilContext = buildCivilContext(civil);
-
     return (
-      <CivilContext.Provider value={civilContext}>
-        <AccountEthAuth
-          onAuthenticated={() => {
-            alert("authenticated successfully");
-          }}
-        />
-      </CivilContext.Provider>
+      <Container>
+        <CivilContext.Provider value={civilContext}>
+          <AccountEthAuth
+            onAuthenticated={() => {
+              alert("authenticated successfully");
+            }}
+          />
+        </CivilContext.Provider>
+      </Container>
     );
   });
