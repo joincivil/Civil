@@ -20,7 +20,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
     </p>
     <div>
       <p>
-        MetaMask will open a new window, and will require you to sign a message.
+        Your crypto wallet will open a new window, and will require you to sign a message.
       </p>
       
       <button
