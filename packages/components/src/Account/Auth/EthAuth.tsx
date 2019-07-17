@@ -63,7 +63,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         </p>
 
         <div>
-          <p>MetaMask will open a new window, and will require you to sign a message.</p>
+          <p>Your crypto wallet will open a new window, and will require you to sign a message.</p>
           {this.renderTransactionUI()}
           <img src={metaMaskSignImgUrl} />
         </div>
