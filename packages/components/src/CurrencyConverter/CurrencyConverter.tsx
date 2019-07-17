@@ -104,7 +104,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
     if (this.props.notEnoughEthError) {
       this.props.notEnoughEthError();
     }
-  }
+  };
 
   private renderErrorMsg = () => {
     return (
