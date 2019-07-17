@@ -1311,6 +1311,35 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                             }
                           </span>
                         </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          onNotEnoughEthError
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onNotEnoughEthError
+                            </span>
+                            }
+                          </span>
+                        </span>
                         <br />
                       </span>
                     </span>
