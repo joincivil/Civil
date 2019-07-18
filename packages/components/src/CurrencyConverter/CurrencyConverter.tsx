@@ -22,6 +22,7 @@ export interface CurrencyConverterProps {
   displayErrorMsg?: boolean;
   doConversion(fromValue: number): Promise<number>;
   onConversion(fromValue: number, toValue: number): void;
+  onNotEnoughEthError?(error: boolean): void;
 }
 
 export interface CurrencyConverterState {
@@ -91,10 +92,17 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
     }
     const toValue = await this.props.doConversion(fromValue);
     const enoughEthError = toValue > this.state.balance ? true : false;
+    this.onNotEnoughEthError(enoughEthError);
     const nextState = { fromValue, toValue, enoughEthError };
     this.setState(nextState);
     this.props.onConversion(nextState.fromValue, nextState.toValue);
   }
+
+  private onNotEnoughEthError = (error: boolean) => {
+    if (this.props.onNotEnoughEthError) {
+      this.props.onNotEnoughEthError(error);
+    }
+  };
 
   private renderErrorMsg = () => {
     return (
