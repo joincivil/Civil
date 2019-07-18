@@ -4,7 +4,6 @@ import apolloStorybookDecorator from "apollo-storybook-react";
 import styled, { StyledComponentClass } from "styled-components";
 import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { CivilContext, ICivilContext, buildCivilContext } from "../../context";
 import { AccountEthAuth } from "../";
 
 export const Container = styled.div`
@@ -69,7 +68,6 @@ try {
 } catch (error) {
   civil = undefined;
 }
-const civilContext = buildCivilContext(civil);
 
 storiesOf("Common / Auth / ETH", module)
   .addDecorator(
@@ -81,13 +79,12 @@ storiesOf("Common / Auth / ETH", module)
   .add("AccountEthAuth Component", () => {
     return (
       <Container>
-        <CivilContext.Provider value={civilContext}>
-          <AccountEthAuth
-            onAuthenticated={() => {
-              alert("authenticated successfully");
-            }}
-          />
-        </CivilContext.Provider>
+        <AccountEthAuth
+          civil={civil!}
+          onAuthenticated={() => {
+            alert("authenticated successfully");
+          }}
+        />
       </Container>
     );
   });
