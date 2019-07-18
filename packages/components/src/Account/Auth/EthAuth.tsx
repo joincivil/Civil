@@ -1,7 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Mutation, MutationFunc } from "react-apollo";
-import { EthAddress } from "@joincivil/core";
+import { Civil, EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import {
   Transaction,
@@ -15,6 +15,7 @@ import {
 import { CivilContext, ICivilContext } from "../../context";
 
 export interface AccountEthAuthProps {
+  civil?: Civil;
   buttonText?: string;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
@@ -164,7 +165,10 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
   }
 
   private signTransactions = (userSetEthAddress: MutationFunc): Transaction[] => {
-    const { civil } = this.context;
+    let { civil } = this.context;
+    if (this.props.civil) {
+      civil = this.props.civil;
+    }
 
     return [
       {
