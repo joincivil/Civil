@@ -5,12 +5,10 @@ import {
   BoostWrapper,
   BoostIntro,
   BoostLearnMore,
-  ComingSoonText,
 } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { BoostFeed } from "@joincivil/civil-sdk";
-import { FeatureFlag } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 
 class BoostFeedPage extends React.Component {
@@ -19,7 +17,6 @@ class BoostFeedPage extends React.Component {
       <>
         <Helmet title="Civil Boost - The Civil Registry" />
         <ScrollToTopOnMount />
-        <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostHeaderWrapper>
             <BoostHeader>
               <h1>Boosts: support the work that journalists do.</h1>
@@ -37,7 +34,6 @@ class BoostFeedPage extends React.Component {
           <BoostWrapper>
             <BoostFeed />
           </BoostWrapper>
-        </FeatureFlag>
       </>
     );
   }
