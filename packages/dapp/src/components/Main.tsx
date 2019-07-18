@@ -189,6 +189,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
             <Route path={routes.AUTH} component={AuthRouter} />>
             <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
             <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
+            <Route path={routes.BOOST_PAYMENT} component={AsyncComponent(BoostPage, { payment: true })} />
             <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
             <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
             <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
