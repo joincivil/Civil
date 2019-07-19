@@ -1,17 +1,27 @@
 import * as React from "react";
 import { ListingTabIntro } from "./styledComponents";
 import { BoostFeed } from "@joincivil/civil-sdk";
-import { FeatureFlag } from "@joincivil/components";
+import { FeatureFlag, LoadingMessage } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 import { ComingSoonText } from "../Boosts/BoostStyledComponents";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
 
 export interface ListingBoostsProps {
   listingAddress: string;
 }
 
+const CHANNEL_QUERY = gql`
+  query Channel($contractAddress: String!) {
+    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+      id
+    }
+  }
+`;
+
 class ListingBoosts extends React.Component<ListingBoostsProps> {
   public render(): JSX.Element {
-    const search = { postType: "boost", channelID: this.props.listingAddress };
+    const contractAddress = this.props.listingAddress;
 
     return (
       <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
@@ -24,7 +34,20 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
             Learn More &gt;
           </a>
         </ListingTabIntro>
-        <BoostFeed search={search} />
+        <Query query={CHANNEL_QUERY} variables={{ contractAddress }}>
+          {({ loading: channelLoading, error: channelError, data: channelData }) => {
+            if (channelLoading) {
+              return <LoadingMessage>Loading Boosts</LoadingMessage>;
+            } else if (channelError || !channelData || !channelData.channelsGetByNewsroomAddress) {
+              console.error("error loading channel data. error:", channelError, "data:", channelData);
+              return "Error loading Boosts.";
+            }
+
+            const search = { postType: "boost", channelID: channelData.channelsGetByNewsroomAddress.id };
+
+            return <BoostFeed search={search} />;
+          }}
+        </Query>
       </FeatureFlag>
     );
   }
