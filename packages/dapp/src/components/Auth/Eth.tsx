@@ -53,4 +53,6 @@ const mapStateToProps = (state: State, ownProps: AuthEthProps): AuthEthProps & A
   };
 };
 
-export const AuthEthConnected = connect(mapStateToProps)(AuthEth);
+const AuthEthConnected = connect(mapStateToProps)(AuthEth);
+
+export default AuthEthConnected;

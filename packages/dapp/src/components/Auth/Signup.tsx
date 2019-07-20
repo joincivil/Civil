@@ -12,7 +12,7 @@ export interface AuthSignupProps {
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
-export const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
+const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
   return (
     <AuthWrapper>
       <AccountEmailAuth
@@ -30,3 +30,5 @@ export const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
     </AuthWrapper>
   );
 };
+
+export default AuthSignup;

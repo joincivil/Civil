@@ -5,7 +5,7 @@ import { ViewDetailsButtonText } from "./textComponents";
 
 const SummaryActionButton: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   return (
-    <InvertedButton size={buttonSizes.SMALL} to={props.listingDetailURL}>
+    <InvertedButton size={buttonSizes.SMALL}>
       <ButtonText {...props} />
     </InvertedButton>
   );

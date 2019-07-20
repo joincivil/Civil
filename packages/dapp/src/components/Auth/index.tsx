@@ -1,22 +1,29 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
 import { AuthenticatedRoute } from "@joincivil/components";
-import { AuthEthConnected } from "./Eth";
-import { AuthLogin } from "./Login";
-import { AuthLogout } from "./AuthLogout";
-import { AuthSignup } from "./Signup";
-import { AuthCheckEmail } from "./CheckEmail";
-import { AuthVerifyToken } from "./VerifyToken";
+import AsyncComponent from "../utility/AsyncComponent";
 import * as qs from "querystring";
+import { routes } from "../../constants";
 
-const TOKEN_HOME = "/tokens";
-export const WALLET_HOME = "/auth/wallet";
+const AuthLogin = React.lazy(async () => import("./Login"));
+const AuthWeb3Login = React.lazy(async () => import("./AuthWeb3Login"));
+const AuthWeb3Signup = React.lazy(async () => import("./AuthWeb3Signup"));
+const AuthEthConnected = React.lazy(async () => import("./Eth"));
+const AuthSignup = React.lazy(async () => import("./Signup"));
+const AuthCheckEmail = React.lazy(async () => import("./CheckEmail"));
+const AuthVerifyToken = React.lazy(async () => import("./VerifyToken"));
+const AuthLogout = React.lazy(async () => import("./AuthLogout"));
 
-export interface AuthVerifyTokenRouteParams {
+interface AuthVerifyTokenRouteParams {
   token: string;
 }
 
+interface AuthenticatedRedirectRouteParams {
+  next?: string;
+}
+
 const TOKEN_PARAM = "jwt";
+const REDIRECT_PARAM = "next";
 
 function getTokenFromSearch(search: string): string | undefined {
   try {
@@ -30,13 +37,25 @@ function getTokenFromSearch(search: string): string | undefined {
   }
 }
 
+function getRedirectFromString(search: string): string | undefined {
+  try {
+    // Needs substr since search includes the ?
+    const parsed = qs.parse(search.substr(1));
+
+    return parsed[REDIRECT_PARAM] as string;
+  } catch (err) {
+    console.error("Error parsing query:", err);
+    return undefined;
+  }
+}
+
 export class AuthRouter extends React.Component<RouteComponentProps> {
   public render(): JSX.Element {
     const { match } = this.props;
 
     const routeProps = {
-      redirectTo: TOKEN_HOME,
-      authUrl: "/auth/signup",
+      redirectTo: routes.TOKEN_STOREFRONT,
+      authUrl: routes.AUTH_SIGNUP,
     };
 
     return (
@@ -44,13 +63,13 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
         <Switch>
           {/* TODO(jorgelo): Add a 404 */}
           {/* Login Routes */}
-          <Route path={`/auth/logout`} exact component={AuthLogout} />
+          <Route path={routes.AUTH_LOGOUT} exact component={AsyncComponent(AuthLogout)} />
 
           {/* Add Wallet */}
           <AuthenticatedRoute
-            path={WALLET_HOME}
+            path={routes.WALLET_HOME}
             {...routeProps}
-            render={() => <AuthEthConnected onAuthentication={this.handleOnAddWallet} />}
+            render={AsyncComponent(AuthEthConnected, { onAuthentication: this.handleOnAddWallet })}
           />
           <AuthenticatedRoute
             {...routeProps}
@@ -59,65 +78,83 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
             render={() => (
               <>
                 <Route
+                  path={`${match.path}/login/web3`}
+                  exact
+                  render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
+                    let onAuthenticationContinue = this.handleOnAuthenticationContinue;
+                    const redirect = getRedirectFromString(props.location.search);
+                    if (redirect) {
+                      onAuthenticationContinue = () => this.handleOnAuthenticationContinue(false, redirect);
+                    }
+                    return AsyncComponent(AuthWeb3Login)({ onAuthenticationContinue });
+                  }}
+                />
+                <Route
                   path={`${match.path}/login`}
                   exact
-                  render={() => <AuthLogin onEmailSend={this.handleAuthEmail} />}
+                  render={AsyncComponent(AuthLogin, { onEmailSend: this.handleAuthEmail })}
                 />
                 <Route
                   path={`${match.path}/login/check-email`}
-                  render={(props: RouteComponentProps) => (
-                    <AuthCheckEmail
-                      isNewUser={false}
-                      emailAddress={props.location!.state.emailAddress}
-                      onSendAgain={() => this.handleOnSendAgain(false)}
-                    />
-                  )}
+                  render={(props: RouteComponentProps) => {
+                    return AsyncComponent(AuthCheckEmail)({
+                      isNewUser: false,
+                      emailAddress: props.location!.state.emailAddress,
+                      onSendAgain: () => this.handleOnSendAgain(false),
+                    });
+                  }}
                 />
                 <Route
                   path={`${match.path}/login/verify-token`}
                   exact
                   render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
                     const token = getTokenFromSearch(props.location.search);
-
-                    return (
-                      <AuthVerifyToken
-                        token={token}
-                        isNewUser={false}
-                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      />
-                    );
+                    return AsyncComponent(AuthVerifyToken)({
+                      token,
+                      isNewUser: false,
+                      onAuthenticationContinue: this.handleOnAuthenticationContinue,
+                    });
                   }}
                 />
                 {/* SignUp Routes */}
                 <Route
+                  path={`${match.path}/signup/web3`}
+                  exact
+                  render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
+                    let onAuthenticationContinue = this.handleOnAuthenticationContinue;
+                    const redirect = getRedirectFromString(props.location.search);
+                    if (redirect) {
+                      onAuthenticationContinue = () => this.handleOnAuthenticationContinue(false, redirect);
+                    }
+                    return AsyncComponent(AuthWeb3Signup)({ onAuthenticationContinue });
+                  }}
+                />
+                <Route
                   path={`${match.path}/signup`}
                   exact
-                  render={() => <AuthSignup onEmailSend={this.handleAuthEmail} />}
+                  render={AsyncComponent(AuthSignup, { onEmailSend: this.handleAuthEmail })}
                 />
                 <Route
                   path={`${match.path}/signup/check-email`}
                   exact
-                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => (
-                    <AuthCheckEmail
-                      isNewUser={true}
-                      emailAddress={props.location!.state.emailAddress}
-                      onSendAgain={() => this.handleOnSendAgain(true)}
-                    />
-                  )}
+                  render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
+                    return AsyncComponent(AuthCheckEmail)({
+                      isNewUser: true,
+                      emailAddress: props.location!.state.emailAddress,
+                      onSendAgain: () => this.handleOnSendAgain(true),
+                    });
+                  }}
                 />
                 <Route
                   path={`${match.path}/signup/verify-token`}
                   exact
                   render={(props: RouteComponentProps<AuthVerifyTokenRouteParams>) => {
                     const token = getTokenFromSearch(props.location.search);
-
-                    return (
-                      <AuthVerifyToken
-                        token={token}
-                        isNewUser={true}
-                        onAuthenticationContinue={this.handleOnAuthenticationContinue}
-                      />
-                    );
+                    return AsyncComponent(AuthVerifyToken)({
+                      token,
+                      isNewUser: true,
+                      onAuthenticationContinue: this.handleOnAuthenticationContinue,
+                    });
                   }}
                 />
               </>
@@ -142,11 +179,11 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     });
   };
 
-  public handleOnAuthenticationContinue = (isNewUser: boolean): void => {
+  public handleOnAuthenticationContinue = (isNewUser: boolean, redirectUrl?: string): void => {
     const { history } = this.props;
 
     history.push({
-      pathname: TOKEN_HOME,
+      pathname: redirectUrl || routes.TOKEN_STOREFRONT,
       state: {},
     });
   };
@@ -155,7 +192,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
     const { history } = this.props;
 
     history.push({
-      pathname: TOKEN_HOME,
+      pathname: routes.TOKEN_STOREFRONT,
       state: {},
     });
   };

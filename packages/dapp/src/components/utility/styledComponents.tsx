@@ -7,6 +7,10 @@ export const StyledPageContent = styled.div`
   max-width: 1200px;
 `;
 
+export const StyledPageContentWithPadding = styled(StyledPageContent)`
+  padding-top: 50px;
+`;
+
 export const StyledListingCopy = styled.div`
   font-size: 18px;
   letter-spacing: -0.17px;

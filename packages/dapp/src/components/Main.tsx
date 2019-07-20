@@ -26,6 +26,7 @@ import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+import AsyncComponent from "./utility/AsyncComponent";
 
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
@@ -44,14 +45,6 @@ const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage")
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
 const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
-
-function AsyncComponent(Component: React.LazyExoticComponent<any>, extraProps?: any): any {
-  return (props: any) => (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Component {...props} {...extraProps} />
-    </React.Suspense>
-  );
-}
 
 export interface MainReduxProps {
   network: string;
