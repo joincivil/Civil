@@ -23,6 +23,7 @@ import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
+import { CVLToken } from "./contracts/tcr/cvltoken";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -210,6 +211,10 @@ export class Civil {
 
   public async councilSingletonTrusted(): Promise<Council> {
     return Council.singleton(this.ethApi);
+  }
+
+  public async cvlTokenSingletonTrusted(multisigAddress?: EthAddress): Promise<CVLToken> {
+    return CVLToken.singletonTrusted(this.ethApi, multisigAddress);
   }
 
   /**
