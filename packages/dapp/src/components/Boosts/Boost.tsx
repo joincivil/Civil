@@ -11,6 +11,8 @@ export interface BoostPageProps {
   match: any;
   boostId: string;
   editMode?: boolean;
+  history: any;
+  payment?: boolean;
 }
 
 class BoostPage extends React.Component<BoostPageProps> {
@@ -21,7 +23,13 @@ class BoostPage extends React.Component<BoostPageProps> {
         <ScrollToTopOnMount />
         <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostWrapper>
-            <Boost open={true} boostId={this.props.boostId} editMode={this.props.editMode} />
+            <Boost
+              open={true}
+              boostId={this.props.boostId}
+              editMode={this.props.editMode}
+              history={this.props.history}
+              payment={this.props.payment}
+            />
           </BoostWrapper>
         </FeatureFlag>
       </>

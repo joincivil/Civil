@@ -15,6 +15,7 @@ export const BoostHeaderWrapper = styled.div`
 `;
 
 export const BoostHeader = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   margin: 0 auto;
   max-width: 900px;
   position: relative;

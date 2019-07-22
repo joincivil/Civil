@@ -161,6 +161,12 @@ export async function exitListing(address: EthAddress, multisigAddress?: EthAddr
   return tcr.exitListing(address);
 }
 
+export async function withdrawTokensFromMultisig(multisigAddress?: EthAddress): Promise<TwoStepEthTransaction> {
+  const civil = getCivil();
+  const token = await civil.cvlTokenSingletonTrusted(multisigAddress);
+  return token.transferToSelf(ensureWeb3BigNumber(await token.getBalance(multisigAddress)));
+}
+
 export async function updateStatus(address: EthAddress): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrusted();
