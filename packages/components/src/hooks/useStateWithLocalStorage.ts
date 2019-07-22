@@ -11,68 +11,90 @@ window.addEventListener(
     if (handler) {
       handler(updatedValue);
     }
+    ev.stopPropagation();
   },
   false,
 );
 
-// window.addEventListener(CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM, (ev) => {
-//   const { key: updatedKey, value: updatedValue } = (ev as any).detail;
-//   const handler = storageKeys[`${updatedKey}::${CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM}`];
-//   if (typeof handler === "function") {
-//     console.log("single event handler, do the thing");
-//     handler(updatedValue);
-//   }
-// }, false);
+window.addEventListener(
+  CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM,
+  ev => {
+    const { key: updatedKey, value: updatedValue } = (ev as any).detail;
+    const handler = storageKeys[`${updatedKey}::${CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM}`];
+    if (typeof handler === "function") {
+      handler(updatedValue);
+    }
+    ev.stopPropagation();
+  },
+  false,
+);
 
-export default function useStateWithLocalStorage(key: string): [any, React.Dispatch<any>] {
-  const [value, setValue] = React.useState(() => {
-    const item = fetchItem(key);
-    return item;
+function areValuesEqual(prevValue: any, newValue: any): boolean {
+  if (typeof prevValue === "object" && typeof newValue === "object") {
+    let isEqual = prevValue === newValue;
+
+    if (!isEqual) {
+      const prevValueKeys = Object.keys(prevValue);
+      const newValueKeys = Object.keys(newValue);
+
+      if (prevValueKeys.length !== newValueKeys.length) {
+        isEqual = false;
+      } else {
+        isEqual = true;
+        for (const k of prevValueKeys) {
+          if (prevValue[k] !== newValue[k]) {
+            isEqual = false;
+            break;
+          }
+        }
+      }
+
+      return isEqual;
+    }
+  }
+
+  return prevValue === newValue;
+}
+
+export default function useStateWithLocalStorage(key: string, defaultValue?: any): [any, React.Dispatch<any>] {
+  const [value, setStateValue] = React.useState(() => {
+    try {
+      const item = fetchItem(key);
+      return item;
+    } catch (err) {
+      return defaultValue;
+    }
   });
 
-  React.useEffect(
-    () => {
-      if (typeof value === "undefined") {
-        console.log("removing");
-        removeItem(key);
-      } else {
-        setItem(key, value);
-      }
-    },
-    [value],
-  );
-
-  /*
   const setValue = (newValue: any, skipLocalStorageUpdate?: boolean): void => {
-    console.log("check vals", newValue, value, skipLocalStorageUpdate);
     setStateValue(newValue);
     if (!skipLocalStorageUpdate) {
-      console.log("put state value into localstorage", key, newValue);
-      if (typeof value === "undefined") {
+      if (typeof value === "undefined" || value === null) {
         removeItem(key);
       } else {
         setItem(key, newValue);
       }
-    } else {
-      console.log("skip put state value into localstorage", key, newValue);
     }
   };
-   */
+
+  const refreshValueFromLocalStorage = (): void => {
+    try {
+      const item = fetchItem(key);
+      setStateValue(item);
+    } catch (err) {
+      throw new Error(`Error refreshing state value from localStorage, key=${key}`);
+    }
+  };
 
   storageKeys[`${key}::${CIVIL_LOCAL_STORAGE_EVENTS.SET_ITEM}`] = (updatedValue: any): void => {
-    if (updatedValue !== value) {
-      console.log("setValue()", updatedValue);
-      setValue(updatedValue);
+    if (!areValuesEqual(value, updatedValue)) {
+      setStateValue(updatedValue);
     }
   };
 
-  /*
   storageKeys[`${key}::${CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM}`] = (updatedValue: any): void => {
-    const newValue = fetchItem(key);
-    setValue(newValue, true);
-    console.log("setValue() refreshed from localStorage", newValue, true);
+    refreshValueFromLocalStorage();
   };
-   */
 
   return [value, setValue];
 }

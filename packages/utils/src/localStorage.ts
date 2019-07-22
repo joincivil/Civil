@@ -41,18 +41,16 @@ export function removeItem(key: string): void {
   }
 }
 
-/*
-// TODO: Broadcast updated localstorage update event to other windows
-let numUpdates = 0;
-window.addEventListener("storage", (ev) => {
-  if (ev.storageArea === localStorage && numUpdates < 1) {
-    console.log("local storage change from another document", ev);
+window.addEventListener("storage", ev => {
+  if (ev.storageArea === localStorage) {
     const { key } = ev;
     if (key) {
-      const value = fetchItem(key);
-      createAndDispatchLocalStorageEvent(CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM, { key, value });
-      numUpdates++;
+      try {
+        const value = fetchItem(key);
+        createAndDispatchLocalStorageEvent(CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM, { key, value });
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 });
- */

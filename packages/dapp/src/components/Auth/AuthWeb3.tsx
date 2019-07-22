@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
-import { EthAddress } from "@joincivil/core";
+import { Civil, EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { setApolloSession, getCurrentUserQuery } from "@joincivil/utils";
+import { setApolloSession, clearApolloSession, getCurrentUserQuery } from "@joincivil/utils";
 import {
   CivilContext,
   ICivilContext,
@@ -29,6 +29,23 @@ export interface AuthWeb3State {
   errorMessage?: string;
   isWaitingSignatureOpen?: boolean;
   isSignRejectionOpen?: boolean;
+  userAddress?: EthAddress;
+}
+
+// TODO(jon): This is a simple function to handle the auth behavior.
+// We should probably abstract this into a AuthManager class?
+function loginUser(civil: Civil, sessionData: any, currAccount?: EthAddress): void {
+  setApolloSession(sessionData);
+
+  const logoutUser = (account?: EthAddress) => {
+    if (!account || account !== currAccount) {
+
+      // TODO(jon): Should we display some type of message/modal/toaster to the user that indicates they've been signed out?
+      clearApolloSession();
+    }
+  };
+
+  civil.accountStream.subscribe(logoutUser);
 }
 
 class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
@@ -67,11 +84,14 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   }
 
   private renderTransactionUI(): JSX.Element {
+    const { civil } = this.context;
+    const { userAddress } = this.state;
+
     return (
       <Mutation
         mutation={this.props.authMutation}
         refetchQueries={({ data: { authWeb3 } }) => {
-          setApolloSession(authWeb3);
+          loginUser(civil, authWeb3, userAddress);
           return [{ query: getCurrentUserQuery }];
         }}
       >
@@ -157,6 +177,7 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           try {
             delete sig.rawMessage; // gql endpoint doesn't want this and errors out
+            this.setState({ userAddress: sig.signer });
 
             const res = await authWeb3Mutate({
               variables: {
@@ -165,12 +186,10 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
             });
 
             if (res && res.data && res.data.authWeb3) {
-              console.log(this.props);
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
               if (this.props.onAuthenticationContinue) {
-                console.log("auth continue");
                 this.props.onAuthenticationContinue();
               }
               if (this._isMounted) {
@@ -210,6 +229,7 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
       errorMessage: undefined,
     });
   };
+
 }
 
 export default AuthWeb3;
