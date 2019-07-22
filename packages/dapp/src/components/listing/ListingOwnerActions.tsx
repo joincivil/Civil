@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { TransactionButton, CommitVoteSuccessIcon, ModalUnorderedList, ModalListItem } from "@joincivil/components";
+import { TransactionButton } from "@joincivil/components";
 import { exitListing, withdrawTokensFromMultisig } from "../../apis/civilTCR";
 import { ViewModuleHeader } from "../utility/ViewModules";
 import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from "../utility/TransactionStatusModalsHOC";
