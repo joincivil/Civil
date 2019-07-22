@@ -29,6 +29,16 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     return new CVLToken(web3wrapper, instance, multisigProxy, tokenController);
   }
 
+  public static async singletonTrusted(web3wrapper: EthApi, multisigAddress?: EthAddress): Promise<CVLToken> {
+    const instance = (await CVLTokenContract.singletonTrusted(web3wrapper))!;
+    const multisigProxy = await CVLTokenMultisigProxy.create(web3wrapper, instance, multisigAddress);
+    const tokenController = await CivilTokenControllerContract.singletonTrusted(web3wrapper);
+    if (!tokenController) {
+      throw new Error(CivilErrors.UnsupportedNetwork);
+    }
+    return new CVLToken(web3wrapper, instance, multisigProxy, tokenController);
+  }
+
   /** If instantiated with `multisigAddress` undefined, proxy will send transactions directly to the contract instance. */
   private multisigProxy: CVLTokenMultisigProxy;
   private tokenController: CivilTokenControllerContract;
@@ -120,6 +130,11 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
    * @param numTokens number of tokens to send
    */
   public async transfer(recipient: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
+    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens);
+  }
+
+  public async transferToSelf(numTokens: BigNumber): Promise<MultisigProxyTransaction> {
+    const recipient = await requireAccount(this.ethApi).toPromise();
     return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens);
   }
 
