@@ -4,7 +4,7 @@
   "homepage": "/",
   "private": false,
   "dependencies": {
-    "@joincivil/civil-sdk": "^1.16.7",
+    "@joincivil/civil-sdk": "^1.16.10",
     "@joincivil/components": "^1.9.7",
     "@joincivil/core": "^4.8.8",
     "@joincivil/ethapi": "^0.4.8",
