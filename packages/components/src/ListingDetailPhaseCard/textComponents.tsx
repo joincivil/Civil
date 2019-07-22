@@ -143,6 +143,8 @@ export const NewApplicationDisplayNameText: React.FunctionComponent = props => <
 
 export const RejectedNewroomDisplayNameText: React.FunctionComponent = props => <>Rejected Newsroom</>;
 
+export const WithdrawnNewroomDisplayNameText: React.FunctionComponent = props => <>Withdrawn Newsroom</>;
+
 export const WhitelistedNewroomsDisplayNameText: React.FunctionComponent = props => <>Approved Newsroom</>;
 
 // Tooltips
@@ -208,6 +210,15 @@ export const RejectedNewsroomsToolTipText: React.FunctionComponent = props => {
         Constitution.
       </p>
       <p>Rejected Newsrooms may reapply to the Civil Registry at any time.</p>
+    </>
+  );
+};
+
+export const WithdrawnNewsroomsToolTipText: React.FunctionComponent = props => {
+  return (
+    <>
+      <p>This Newsroom has been withdrawn from the registry by its owner.</p>
+      <p>Withdrawn Newsrooms may reapply to the Civil Registry at any time.</p>
     </>
   );
 };

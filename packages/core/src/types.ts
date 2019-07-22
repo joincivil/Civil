@@ -149,6 +149,8 @@ export interface ListingData {
   prevChallengeID?: BigNumber;
   prevChallenge?: ChallengeData;
   approvalDate?: BigNumber;
+  lastGovState?: string;
+  lastUpdatedDate?: BigNumber;
 }
 
 export interface PollData {
