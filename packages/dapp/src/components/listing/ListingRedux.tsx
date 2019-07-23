@@ -129,6 +129,7 @@ class ListingPageComponent extends React.Component<
               newsroom={this.props.newsroom!}
               expiry={this.props.expiry}
               listingPhaseState={this.props.listingPhaseState}
+              listingLastGovState={this.props.listing!.data.lastGovState}
               parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
               constitutionURI={links.CONSTITUTION}
