@@ -16,6 +16,7 @@ import {
   StyledCVLLabel,
   StyledWarningText,
 } from "./DashboardStyledComponents";
+import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
@@ -146,6 +147,9 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           displayName="Newsroom Smart Contract Address"
           etherscanBaseURL={props.etherscanBaseURL}
         />
+      </StyledDashboardNewsroomSection>
+      <StyledDashboardNewsroomSection>
+        <DashboardNewsroomStripeConnect newsroomAddress={props.newsroomAddress} />
       </StyledDashboardNewsroomSection>
     </StyledDashboardNewsroom>
   );
