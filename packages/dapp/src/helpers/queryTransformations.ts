@@ -304,20 +304,72 @@ export function transformGraphQLDataIntoAppealChallenge(
   }
 }
 
+function mapPollIDsForUserChallengeDataQuerySet(challengeDataQuerySet: any): number[] | undefined {
+  let pollIDs;
+
+  if (challengeDataQuerySet) {
+    pollIDs = challengeDataQuerySet.map((challenge: any): number => challenge.pollID);
+  }
+
+  return pollIDs;
+}
+
+function userChallengeDataFilter(
+  userChallengeData: any,
+  pollType: string,
+  filterAvailableActions?: boolean,
+  queryChallengesToReveal?: any[],
+  queryChallengesToRescue?: any[],
+): boolean {
+  const isChallenge = userChallengeData.pollType === pollType;
+  if (!filterAvailableActions) {
+    return isChallenge;
+  }
+
+  const { pollID, didUserCollect, isVoterWinner } = userChallengeData;
+
+  const challengesToReveal = mapPollIDsForUserChallengeDataQuerySet(queryChallengesToReveal);
+  const challengesToRescue = mapPollIDsForUserChallengeDataQuerySet(queryChallengesToRescue);
+
+  // canUserCollect can be derived from just user challenge data, so we don't need to look up the pollID in the graphql response for challengesWithRewards
+  const canUserCollect = isVoterWinner && !didUserCollect;
+  const canUserRescue = challengesToRescue && challengesToRescue.includes(pollID);
+  const canUserReveal = challengesToReveal && challengesToReveal.includes(pollID);
+
+  return isChallenge && (!!canUserCollect || !!canUserRescue || !!canUserReveal);
+}
+
 // Includes all challenges the user has particiapted in and parent challenges for all appeal challenges the user participated in
-export function transformGraphQLDataIntoDashboardChallengesSet(queryUserChallengeData: any[]): Set<string> {
+export function transformGraphQLDataIntoDashboardChallengesSet(
+  queryUserChallengeData: any[],
+  filterAvailableActions?: boolean,
+  queryChallengesToReveal?: any[],
+  queryChallengesToRescue?: any[],
+): Set<string> {
   let allChallenges = Set<string>();
   if (queryUserChallengeData) {
     const challengeIDs = queryUserChallengeData
       .filter(challengeData => {
-        return challengeData.pollType === "CHALLENGE";
+        return userChallengeDataFilter(
+          challengeData,
+          "CHALLENGE",
+          filterAvailableActions,
+          queryChallengesToReveal,
+          queryChallengesToRescue,
+        );
       })
       .map(challengeData => {
         return challengeData.pollID;
       });
     const appealChallengeParentChallengeIDs = queryUserChallengeData
       .filter(challengeData => {
-        return challengeData.pollType === "APPEAL_CHALLENGE";
+        return userChallengeDataFilter(
+          challengeData,
+          "APPEAL_CHALLENGE",
+          filterAvailableActions,
+          queryChallengesToReveal,
+          queryChallengesToRescue,
+        );
       })
       .map(challengeData => {
         return challengeData.parentChallengeID;
