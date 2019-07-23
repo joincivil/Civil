@@ -23,6 +23,7 @@ import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
+import BigNumber from "bignumber.js";
 
 const StyledContainer = styled.div`
   margin: 0 0 80px;
@@ -130,19 +131,21 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderWithdrawn(): JSX.Element {
-    const lastUpdatedDate = new Date(this.props.listing.data.lastUpdatedDate.mul(1000).toNumber());
-    return <WithdrawnCard listingRemovedTimestamp={lastUpdatedDate} />;
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
+    return <WithdrawnCard listingRemovedTimestamp={lastUpdatedDateAsDate} />;
   }
 
   private renderRejected(): JSX.Element {
     const data = this.props.listing.data;
-    const lastUpdatedDate = new Date(this.props.listing.data.lastUpdatedDate.mul(1000).toNumber());
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
     if (!data.prevChallenge) {
       const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
         connectLatestChallengeSucceededResults,
       )(RejectedCardComponent);
 
-      return <RejectedCard listingAddress={this.props.listing.address} listingRemovedDate={lastUpdatedDate} />;
+      return <RejectedCard listingAddress={this.props.listing.address} listingRemovedDate={lastUpdatedDateAsDate} />;
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
       let appealChallengeResultsProps;
@@ -172,7 +175,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           {...appealProps}
           {...appealChallengeResultsProps}
           {...appealChallengePhaseProps}
-          listingRemovedDate={lastUpdatedDate}
+          listingRemovedDate={lastUpdatedDateAsDate}
         />
       );
     }

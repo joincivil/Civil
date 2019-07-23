@@ -184,7 +184,7 @@ class ListingPageComponent extends React.Component<
                 this.props.listing && (
                   <Tab title="Owner Actions">
                     <ListingTabContent>
-                      <ListingOwnerActions listing={this.props.listing} />
+                      <ListingOwnerActions listing={this.props.listing} newsroom={this.props.newsroom!} />
                     </ListingTabContent>
                   </Tab>
                 )) || <></>}
