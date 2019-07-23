@@ -127,6 +127,7 @@ export interface NewsroomWrapper {
 
 export interface NewsroomData {
   name: string;
+  owner: EthAddress;
   owners: EthAddress[];
   charterHeader?: EthContentHeader;
 }

@@ -1,20 +1,15 @@
 import * as React from "react";
-import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash, NewsroomWrapper } from "@joincivil/core";
 import { TransactionButton } from "@joincivil/components";
 import { exitListing, withdrawTokensFromMultisig } from "../../apis/civilTCR";
 import { ViewModuleHeader } from "../utility/ViewModules";
 import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from "../utility/TransactionStatusModalsHOC";
 import { ModalContent } from "@joincivil/components/build/ReviewVote/styledComponents";
 import { compose } from "redux";
-
-export interface ListingOwnerActionsProps {
-  listing: ListingWrapper;
-}
-
-export interface OwnerListingViewProps {
-  listingAddress: EthAddress;
-  listing: ListingWrapper;
-}
+import { getCivil } from "../../helpers/civilInstance";
+import BigNumber from "bignumber.js";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { Subscription } from "rxjs";
 
 enum TransactionTypes {
   EXIT_LISTING = "EXIT_LISTING",
@@ -27,20 +22,25 @@ const transactionLabels = {
 };
 
 const multiStepTransactionLabels = {
-  [TransactionTypes.EXIT_LISTING]: "1 of 2",
-  [TransactionTypes.WITHDRAW_TOKENS]: "2 of 2",
+  [TransactionTypes.EXIT_LISTING]: "1 of 1",
+  [TransactionTypes.WITHDRAW_TOKENS]: "1 of 1",
 };
 
 const transactionSuccessContent = {
-  [TransactionTypes.EXIT_LISTING]: [undefined, undefined],
-  [TransactionTypes.WITHDRAW_TOKENS]: [
+  [TransactionTypes.EXIT_LISTING]: [
     <>
       <div>Your newsroom has exited the registry</div>
     </>,
     <>
-      <ModalContent>
-        Your newsroom has exited from the registry and your CVL tokens have been withdrawn to your personal wallet.
-      </ModalContent>
+      <ModalContent>Your newsroom has exited from the registry. You may now withdraw your CVL tokens.</ModalContent>
+    </>,
+  ],
+  [TransactionTypes.WITHDRAW_TOKENS]: [
+    <>
+      <div>You have withdrawn your CVL tokens</div>
+    </>,
+    <>
+      <ModalContent>Your CVL tokens have been withdrawn to your personal wallet.</ModalContent>
     </>,
   ],
 };
@@ -108,8 +108,36 @@ class ExitListing extends React.Component<OwnerListingViewProps & InjectedTransa
                 isTransactionProgressModalOpen: true,
               });
             },
+            postTransaction: () => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+            },
             handleTransactionError: this.props.handleTransactionError,
           },
+        ]}
+      >
+        Exit Listing
+      </TransactionButton>
+    );
+  }
+
+  private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return exitListing(this.props.listingAddress, this.props.listing.data.owner);
+  };
+}
+
+class WithdrawTokens extends React.Component<OwnerListingViewProps & InjectedTransactionStatusModalProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <TransactionButton
+        transactions={[
           {
             transaction: async () => {
               this.props.updateTransactionStatusModalsState({
@@ -137,21 +165,59 @@ class ExitListing extends React.Component<OwnerListingViewProps & InjectedTransa
           },
         ]}
       >
-        Exit Listing
+        Withdraw Tokens
       </TransactionButton>
     );
   }
 
-  private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return exitListing(this.props.listingAddress, this.props.listing.data.owner);
-  };
-
   private withdrawTokensFromMultisig = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return withdrawTokensFromMultisig(this.props.listing.data.owner);
+    return withdrawTokensFromMultisig(this.props.newsroom.data.owner);
   };
 }
 
-class ListingOwnerActions extends React.Component<ListingOwnerActionsProps & InjectedTransactionStatusModalProps> {
+export interface ListingOwnerActionsProps {
+  listing: ListingWrapper;
+  newsroom: NewsroomWrapper;
+}
+
+export interface ListingOwnerActionsState {
+  cvlBalance: BigNumber;
+  tokenBalanceSubscription?: Subscription;
+}
+
+export interface OwnerListingViewProps {
+  listingAddress: EthAddress;
+  listing: ListingWrapper;
+}
+
+class ListingOwnerActions extends React.Component<
+  ListingOwnerActionsProps & InjectedTransactionStatusModalProps,
+  ListingOwnerActionsState
+> {
+  constructor(props: ListingOwnerActionsProps & InjectedTransactionStatusModalProps) {
+    super(props);
+    this.state = {
+      cvlBalance: new BigNumber(0),
+    };
+  }
+
+  public async componentDidMount(): Promise<void> {
+    const civil = getCivil();
+    const cvl = await civil.cvlTokenSingletonTrusted();
+    const ownerCVLBalance = await cvl.getBalance(this.props.newsroom.data.owner);
+    this.setState({ cvlBalance: ownerCVLBalance });
+    const subscription = await cvl.balanceUpdate("latest", this.props.newsroom.data.owner).subscribe(balance => {
+      this.setState({ cvlBalance: balance });
+    });
+    this.setState({ tokenBalanceSubscription: subscription });
+  }
+
+  public componentWillUnmount(): void {
+    if (this.state.tokenBalanceSubscription) {
+      this.state.tokenBalanceSubscription.unsubscribe();
+    }
+  }
+
   public render(): JSX.Element {
     const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
     return (
@@ -161,11 +227,20 @@ class ListingOwnerActions extends React.Component<ListingOwnerActionsProps & Inj
         {canExitListing && (
           <>
             <p>
-              To remove your newsroom from the registry, and withdraw your tokens to your wallet, click the button
-              below. If you choose to rejoin the registry, you will have to re-apply. There will be 2 transactions to
-              complete this action.{" "}
+              To remove your newsroom from the registry, click the button below. If you choose to rejoin the registry,
+              you will have to re-apply. Once this transaction has completed, you can withdraw your CVL tokens from your
+              newsroom wallet by clicking "Withdraw Tokens" below.
             </p>
             <ExitListing listingAddress={this.props.listing.address} {...this.props} />
+          </>
+        )}
+        <p>Newsroom Wallet CVL Balance: {getFormattedTokenBalance(this.state.cvlBalance)}</p>
+        {this.state.cvlBalance.greaterThan(0) && (
+          <>
+            <p>
+              To withdraw your CVL tokens from your newsroom wallet into your personal wallet, click the button below.
+            </p>
+            <WithdrawTokens listingAddress={this.props.listing.address} {...this.props} />
           </>
         )}
       </>
