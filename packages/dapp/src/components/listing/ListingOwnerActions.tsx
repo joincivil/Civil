@@ -1,134 +1,127 @@
 import * as React from "react";
-import BigNumber from "bignumber.js";
-import { EthAddress, ListingWrapper, TwoStepEthTransaction } from "@joincivil/core";
-import { TransactionButton, InputGroup } from "@joincivil/components";
-import { approve, depositTokens, exitListing, withdrawTokens } from "../../apis/civilTCR";
-import { StyledFormContainer, FormGroup } from "../utility/FormElements";
+import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash, NewsroomWrapper } from "@joincivil/core";
+import { TransactionButton } from "@joincivil/components";
+import { exitListing, withdrawTokensFromMultisig } from "../../apis/civilTCR";
 import { ViewModuleHeader } from "../utility/ViewModules";
+import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from "../utility/TransactionStatusModalsHOC";
+import { ModalContent } from "@joincivil/components/build/ReviewVote/styledComponents";
+import { compose } from "redux";
+import { getCivil } from "../../helpers/civilInstance";
+import BigNumber from "bignumber.js";
+import { getFormattedTokenBalance } from "@joincivil/utils";
+import { Subscription } from "rxjs";
 
-export interface ListingOwnerActionsProps {
-  listing: ListingWrapper;
+enum TransactionTypes {
+  EXIT_LISTING = "EXIT_LISTING",
+  WITHDRAW_TOKENS = "WITHDRAW_TOKENS",
 }
 
-export interface OwnerListingViewProps {
-  listingAddress: EthAddress;
-  listing: ListingWrapper;
-}
+const transactionLabels = {
+  [TransactionTypes.EXIT_LISTING]: "Withdraw from Registry",
+  [TransactionTypes.WITHDRAW_TOKENS]: "Withdraw CVL from Newsroom Wallet",
+};
 
-export interface DepositTokensState {
-  numTokens?: string;
-}
+const multiStepTransactionLabels = {
+  [TransactionTypes.EXIT_LISTING]: "1 of 1",
+  [TransactionTypes.WITHDRAW_TOKENS]: "1 of 1",
+};
 
-export interface WithdrawTokensState {
-  numTokens?: string;
-  isWithdrawalAmountValid?: boolean;
-}
+const transactionSuccessContent = {
+  [TransactionTypes.EXIT_LISTING]: [
+    <>
+      <div>Your newsroom has exited the registry</div>
+    </>,
+    <>
+      <ModalContent>Your newsroom has exited from the registry. You may now withdraw your CVL tokens.</ModalContent>
+    </>,
+  ],
+  [TransactionTypes.WITHDRAW_TOKENS]: [
+    <>
+      <div>You have withdrawn your CVL tokens</div>
+    </>,
+    <>
+      <ModalContent>Your CVL tokens have been withdrawn to your personal wallet.</ModalContent>
+    </>,
+  ],
+};
 
-class DepositTokens extends React.Component<OwnerListingViewProps, DepositTokensState> {
+const transactionRejectionContent = {
+  [TransactionTypes.EXIT_LISTING]: [
+    "Your newsroom has not exited the registry",
+    "To exit the registry, you need to confirm the transaction in your MetaMask wallet",
+  ],
+  [TransactionTypes.WITHDRAW_TOKENS]: [
+    "Your tokens have not been withdrawn",
+    "To withdraw your tokens, you need to confirm the transaction in your MetaMask wallet.",
+  ],
+};
+
+const transactionErrorContent = {
+  [TransactionTypes.EXIT_LISTING]: [
+    "The was an problem with exiting the registry",
+    <>
+      <ModalContent>
+        Please retry your transaction. You can contact Customer Support if you continue to have issues.
+      </ModalContent>
+    </>,
+  ],
+  [TransactionTypes.WITHDRAW_TOKENS]: [
+    "The was an problem with withdrawing your tokens",
+    <>
+      <ModalContent>
+        Please retry your transaction. You can contact Customer Support if you continue to have issues.
+      </ModalContent>
+    </>,
+  ],
+};
+
+const transactionStatusModalConfig = {
+  transactionLabels,
+  multiStepTransactionLabels,
+  transactionSuccessContent,
+  transactionRejectionContent,
+  transactionErrorContent,
+};
+
+class ExitListing extends React.Component<OwnerListingViewProps & InjectedTransactionStatusModalProps> {
   constructor(props: any) {
     super(props);
   }
 
   public render(): JSX.Element {
     return (
-      <>
-        <ViewModuleHeader>Deposit Additional Tokens</ViewModuleHeader>
-        <FormGroup>
-          <InputGroup
-            name="numTokens"
-            prepend="CVL"
-            label="Amount of tokens to Deposit"
-            onChange={this.updateViewState}
-          />
-        </FormGroup>
-
-        <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.approveDeposit }, { transaction: this.deposit }]}>
-            Deposit
-          </TransactionButton>
-        </FormGroup>
-      </>
+      <TransactionButton
+        transactions={[
+          {
+            transaction: async () => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: true,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: false,
+                transactionType: TransactionTypes.EXIT_LISTING,
+              });
+              return this.exitListing();
+            },
+            handleTransactionHash: (txHash: TxHash) => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
+              });
+            },
+            postTransaction: () => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+            },
+            handleTransactionError: this.props.handleTransactionError,
+          },
+        ]}
+      >
+        Exit Listing
+      </TransactionButton>
     );
-  }
-
-  private approveDeposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approve(numTokens, this.props.listing.data.owner);
-  };
-
-  private deposit = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return depositTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
-  };
-
-  private updateViewState = (name: string, value: string): void => {
-    const newState = {};
-    newState[name] = value;
-    this.setState(newState);
-  };
-}
-
-class WithdrawTokens extends React.Component<OwnerListingViewProps, WithdrawTokensState> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      numTokens: "0",
-      isWithdrawalAmountValid: true,
-    };
-  }
-
-  public render(): JSX.Element {
-    return (
-      <StyledFormContainer>
-        <h3>Withdraw Unstaked Tokens</h3>
-        <FormGroup>
-          <InputGroup
-            name="numTokens"
-            prepend="CVL"
-            label="Amount of tokens to withdraw"
-            onChange={this.updateViewState}
-          />
-        </FormGroup>
-
-        <FormGroup>
-          <TransactionButton transactions={[{ transaction: this.withdraw }]}>Withdraw</TransactionButton>
-        </FormGroup>
-      </StyledFormContainer>
-    );
-  }
-
-  // @TODO(jon): Add this validation check back in
-  // {!this.state.isWithdrawalAmountValid && (
-  //   <FormValidationMessage children="Please enter a valid withdrawal amount" />
-  // )}
-  // private validateWithdrawalAmount = (event: any): void => {
-  //   const val: number = parseInt(event.target.value, 10);
-  //   const isWithdrawalAmountValid: boolean =
-  //     !!Number.isInteger(val) && val > 0 && val <= this.props.listing.data.unstakedDeposit.toNumber();
-  //   this.setState({ isWithdrawalAmountValid });
-  // };
-
-  private withdraw = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return withdrawTokens(this.props.listingAddress, numTokens, this.props.listing.data.owner);
-  };
-
-  // @TODO(jon): I know this is gross and not very DRY, but this will be refactored
-  // when we have Redux and a canonical store for the app
-  private updateViewState = (name: string, value: string): void => {
-    const newState = {};
-    newState[name] = value;
-    this.setState(newState);
-  };
-}
-
-class ExitListing extends React.Component<OwnerListingViewProps> {
-  constructor(props: any) {
-    super(props);
-  }
-
-  public render(): JSX.Element {
-    return <TransactionButton transactions={[{ transaction: this.exitListing }]}>Exit Listing</TransactionButton>;
   }
 
   private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
@@ -136,17 +129,125 @@ class ExitListing extends React.Component<OwnerListingViewProps> {
   };
 }
 
-export default class ListingOwnerActions extends React.Component<ListingOwnerActionsProps> {
+class WithdrawTokens extends React.Component<OwnerListingViewProps & InjectedTransactionStatusModalProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <TransactionButton
+        transactions={[
+          {
+            transaction: async () => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: true,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: false,
+                transactionType: TransactionTypes.WITHDRAW_TOKENS,
+              });
+              return this.withdrawTokensFromMultisig();
+            },
+            handleTransactionHash: (txHash: TxHash) => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: true,
+              });
+            },
+            postTransaction: () => {
+              this.props.updateTransactionStatusModalsState({
+                isWaitingTransactionModalOpen: false,
+                isTransactionProgressModalOpen: false,
+                isTransactionSuccessModalOpen: true,
+              });
+            },
+            handleTransactionError: this.props.handleTransactionError,
+          },
+        ]}
+      >
+        Withdraw Tokens
+      </TransactionButton>
+    );
+  }
+
+  private withdrawTokensFromMultisig = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    return withdrawTokensFromMultisig(this.props.newsroom.data.owner);
+  };
+}
+
+export interface ListingOwnerActionsProps {
+  listing: ListingWrapper;
+  newsroom: NewsroomWrapper;
+}
+
+export interface ListingOwnerActionsState {
+  cvlBalance: BigNumber;
+  tokenBalanceSubscription?: Subscription;
+}
+
+export interface OwnerListingViewProps {
+  listingAddress: EthAddress;
+  listing: ListingWrapper;
+}
+
+class ListingOwnerActions extends React.Component<
+  ListingOwnerActionsProps & InjectedTransactionStatusModalProps,
+  ListingOwnerActionsState
+> {
+  constructor(props: ListingOwnerActionsProps & InjectedTransactionStatusModalProps) {
+    super(props);
+    this.state = {
+      cvlBalance: new BigNumber(0),
+    };
+  }
+
+  public async componentDidMount(): Promise<void> {
+    const civil = getCivil();
+    const cvl = await civil.cvlTokenSingletonTrusted();
+    const ownerCVLBalance = await cvl.getBalance(this.props.newsroom.data.owner);
+    this.setState({ cvlBalance: ownerCVLBalance });
+    const subscription = await cvl.balanceUpdate("latest", this.props.newsroom.data.owner).subscribe(balance => {
+      this.setState({ cvlBalance: balance });
+    });
+    this.setState({ tokenBalanceSubscription: subscription });
+  }
+
+  public componentWillUnmount(): void {
+    if (this.state.tokenBalanceSubscription) {
+      this.state.tokenBalanceSubscription.unsubscribe();
+    }
+  }
+
   public render(): JSX.Element {
     const canExitListing = this.props.listing.data.isWhitelisted && !this.props.listing.data.challenge;
     return (
       <>
         <ViewModuleHeader>Owner Actions</ViewModuleHeader>
-        <p>As an Owner of this listing, you can manage your balance and listing here</p>
-        <DepositTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
-        <WithdrawTokens listing={this.props.listing} listingAddress={this.props.listing.address} />
-        {canExitListing && <ExitListing listingAddress={this.props.listing.address} listing={this.props.listing} />}
+        <p>As an Owner of this listing, you can manage your listing here</p>
+        {canExitListing && (
+          <>
+            <p>
+              To remove your newsroom from the registry, click the button below. If you choose to rejoin the registry,
+              you will have to re-apply. Once this transaction has completed, you can withdraw your CVL tokens from your
+              newsroom wallet by clicking "Withdraw Tokens" below.
+            </p>
+            <ExitListing listingAddress={this.props.listing.address} {...this.props} />
+          </>
+        )}
+        <p>Newsroom Wallet CVL Balance: {getFormattedTokenBalance(this.state.cvlBalance)}</p>
+        {this.state.cvlBalance.greaterThan(0) && (
+          <>
+            <p>
+              To withdraw your CVL tokens from your newsroom wallet into your personal wallet, click the button below.
+            </p>
+            <WithdrawTokens listingAddress={this.props.listing.address} {...this.props} />
+          </>
+        )}
       </>
     );
   }
 }
+
+export default compose<React.ComponentClass<ListingOwnerActionsProps>>(
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(ListingOwnerActions);

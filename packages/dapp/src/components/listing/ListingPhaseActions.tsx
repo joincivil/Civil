@@ -12,6 +12,7 @@ import {
   AppealChallengePhaseProps,
   AppealDecisionProps,
   ChallengePhaseProps,
+  WithdrawnCard,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
@@ -22,6 +23,7 @@ import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
+import BigNumber from "bignumber.js";
 
 const StyledContainer = styled.div`
   margin: 0 0 80px;
@@ -35,6 +37,7 @@ export interface ListingPhaseActionsProps {
   govtParameters: any;
   constitutionURI?: string;
   listingPhaseState: any;
+  listingLastGovState?: string;
 }
 
 export interface ListingPhaseActionsState {
@@ -49,6 +52,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
   public render(): JSX.Element {
     const listing = this.props.listing;
+    const lastGovState = this.props.listingLastGovState;
     const {
       isInApplication,
       isWhitelisted,
@@ -57,37 +61,41 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       canResolveChallenge,
     } = this.props.listingPhaseState;
     const challenge = this.props.listing.data.challenge;
-    return (
-      <>
-        {isWhitelisted && (!challenge || challenge.resolved) && this.renderApplicationWhitelisted()}
-        {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
-        {isInApplication && this.renderApplicationPhase()}
-        {listing.data && (
-          <StyledContainer>
-            {canBeWhitelisted && this.renderCanWhitelist()}
-            {canResolveChallenge && this.renderCanResolve()}
+    if (lastGovState && lastGovState === "GovernanceStateListingWithdrawn") {
+      return <>{this.renderWithdrawn()}</>;
+    } else {
+      return (
+        <>
+          {isWhitelisted && (!challenge || challenge.resolved) && this.renderApplicationWhitelisted()}
+          {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
+          {isInApplication && this.renderApplicationPhase()}
+          {listing.data && (
+            <StyledContainer>
+              {canBeWhitelisted && this.renderCanWhitelist()}
+              {canResolveChallenge && this.renderCanResolve()}
 
-            {listing.data.challenge &&
-              !listing.data.challenge.resolved &&
-              !canResolveChallenge && (
-                <ChallengeDetailContainer
-                  challengeID={this.props.listing.data.challengeID}
-                  listingAddress={this.props.listing.address}
-                  newsroom={this.props.newsroom}
-                  challengeData={{
-                    listingAddress: this.props.listing.address,
-                    challengeID: this.props.listing.data.challengeID,
-                    challenge: this.props.listing.data.challenge!,
-                  }}
-                  onMobileTransactionClick={this.showNoMobileTransactionsModal}
-                />
-              )}
-          </StyledContainer>
-        )}
+              {listing.data.challenge &&
+                !listing.data.challenge.resolved &&
+                !canResolveChallenge && (
+                  <ChallengeDetailContainer
+                    challengeID={this.props.listing.data.challengeID}
+                    listingAddress={this.props.listing.address}
+                    newsroom={this.props.newsroom}
+                    challengeData={{
+                      listingAddress: this.props.listing.address,
+                      challengeID: this.props.listing.data.challengeID,
+                      challenge: this.props.listing.data.challenge!,
+                    }}
+                    onMobileTransactionClick={this.showNoMobileTransactionsModal}
+                  />
+                )}
+            </StyledContainer>
+          )}
 
-        {this.renderNoMobileTransactions()}
-      </>
-    );
+          {this.renderNoMobileTransactions()}
+        </>
+      );
+    }
   }
 
   private renderCanWhitelist = (): JSX.Element => {
@@ -122,14 +130,22 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     );
   }
 
+  private renderWithdrawn(): JSX.Element {
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
+    return <WithdrawnCard listingRemovedTimestamp={lastUpdatedDateAsDate} />;
+  }
+
   private renderRejected(): JSX.Element {
-    const data = this.props.listing!.data!;
+    const data = this.props.listing.data;
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
     if (!data.prevChallenge) {
       const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
         connectLatestChallengeSucceededResults,
       )(RejectedCardComponent);
 
-      return <RejectedCard listingAddress={this.props.listing.address} />;
+      return <RejectedCard listingAddress={this.props.listing.address} listingRemovedDate={lastUpdatedDateAsDate} />;
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
       let appealChallengeResultsProps;
@@ -159,6 +175,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           {...appealProps}
           {...appealChallengeResultsProps}
           {...appealChallengePhaseProps}
+          listingRemovedDate={lastUpdatedDateAsDate}
         />
       );
     }

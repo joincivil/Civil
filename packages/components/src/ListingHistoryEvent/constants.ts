@@ -5,11 +5,11 @@ export enum ListingEventTitles {
   CHALLENGE = "Newsroom Challenged",
   CHALLENGE_FAILED = "Challenge Failed",
   CHALLENGE_SUCCEEDED = "Challenge Succeeded",
-  REJECTED = "Newsroom Rejected from Civil Registry",
+  REJECTED = "Newsroom Removed from Civil Registry",
   WHITELISTED = "Newsroom Whitelisted to Civil Registry",
   DEPOSIT = "Newsroom Deposited CVL to Listing",
   WITHDRAWAL = "Newsroom Withdrew CVL from Listing",
-  LISTING_WITHDRAWN = "Listing Withdrawn from Civil Registry",
+  LISTING_WITHDRAWN = "Listing Withdrawn from Civil Registry by owner",
   TOUCH_AND_REMOVED = "Listing Removed from Civil Registry",
   GRANTED_APPEAL_CHALLENGED = "The Appeal Granted by the Council has been Challenged",
 }

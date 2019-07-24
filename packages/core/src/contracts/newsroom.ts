@@ -283,10 +283,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public async getNewsroomData(): Promise<NewsroomData> {
     const name = await this.getName();
+    const owner = await this.instance.owner.callAsync();
     const owners = await this.owners();
     const charterHeader = await this.getCharterHeader();
     return {
       name,
+      owner,
       owners,
       charterHeader,
     };

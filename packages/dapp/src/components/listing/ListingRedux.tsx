@@ -129,6 +129,7 @@ class ListingPageComponent extends React.Component<
               newsroom={this.props.newsroom!}
               expiry={this.props.expiry}
               listingPhaseState={this.props.listingPhaseState}
+              listingLastGovState={this.props.listing!.data.lastGovState}
               parameters={this.props.parameters}
               govtParameters={this.props.govtParameters}
               constitutionURI={links.CONSTITUTION}
@@ -183,7 +184,7 @@ class ListingPageComponent extends React.Component<
                 this.props.listing && (
                   <Tab title="Owner Actions">
                     <ListingTabContent>
-                      <ListingOwnerActions listing={this.props.listing} />
+                      <ListingOwnerActions listing={this.props.listing} newsroom={this.props.newsroom!} />
                     </ListingTabContent>
                   </Tab>
                 )) || <></>}

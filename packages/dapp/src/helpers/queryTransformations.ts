@@ -70,6 +70,7 @@ export const LISTING_FRAGMENT = gql`
     contractAddress
     whitelisted
     lastGovState
+    lastUpdatedDate
     charter {
       uri
       contentID
@@ -218,6 +219,8 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
       prevChallengeID: transformGraphQLDataIntoPrevChallengeID(listing.prevChallenge),
       prevChallenge: transformGraphQLDataIntoChallenge(listing.prevChallenge),
       approvalDate: listing.approvalDate ? new BigNumber(listing.approvalDate) : new BigNumber(0),
+      lastGovState: listing.lastGovState,
+      lastUpdatedDate: listing.lastUpdatedDate ? new BigNumber(listing.lastUpdatedDate) : new BigNumber(0),
     },
   };
 }

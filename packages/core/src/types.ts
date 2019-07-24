@@ -127,6 +127,7 @@ export interface NewsroomWrapper {
 
 export interface NewsroomData {
   name: string;
+  owner: EthAddress;
   owners: EthAddress[];
   charterHeader?: EthContentHeader;
 }
@@ -149,6 +150,8 @@ export interface ListingData {
   prevChallengeID?: BigNumber;
   prevChallenge?: ChallengeData;
   approvalDate?: BigNumber;
+  lastGovState?: string;
+  lastUpdatedDate?: BigNumber;
 }
 
 export interface PollData {
