@@ -25,6 +25,7 @@ export enum routes {
   BOOST = "/boosts/:boostId",
   BOOST_EDIT = "/boosts/:boostId/edit",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
+  CHANNEL_ADMIN = "/admin/:reference",
 }
 
 export enum registryListingTypes {
