@@ -1,9 +1,14 @@
 import * as React from "react";
 import * as qs from "querystring";
-import { Query, Mutation, MutationFunc } from "react-apollo";
+import { withApollo, WithApolloClient } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 
+import {
+  withNewsroomChannel,
+  WithNewsroomChannelInjectedProps,
+  CHANNEL_BY_NEWSROOM_QUERY,
+} from "../WithNewsroomChannelHOC";
 import { StyledDashboardNewsroomHdr, StyledDashboardLoadingMessage } from "./DashboardStyledComponents";
 import { ErrorIcon, NorthEastArrow } from "../icons";
 import { colors } from "../styleConstants";
@@ -47,29 +52,26 @@ export interface StripeOauthParams {
   error_description?: string;
 }
 
-export interface DashboardNewsroomStripeConnectProps {
-  newsroomAddress?: string;
+export interface DashboardNewsroomStripeConnectOwnProps {
+  newsroomAddress: string;
 }
 export interface DashboardNewsroomStripeConnectState {
+  connectingStripe?: boolean;
   connectStripeError?: any;
 }
+export type DashboardNewsroomStripeConnectProps = WithApolloClient<
+  DashboardNewsroomStripeConnectOwnProps & WithNewsroomChannelInjectedProps
+>;
 
-const CHANNEL_QUERY = gql`
-  query Channel($contractAddress: String!) {
-    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+export const CHANNEL_CONNECT_STRIPE_MUTATION = gql`
+  mutation($input: ChannelsConnectStripeInput!) {
+    channelsConnectStripe(input: $input) {
       id
     }
   }
 `;
-// @TODO/tobek add `isStripeConnected` to query when that's deployed
 
-export const CHANNEL_CONNECT_STRIPE_MUTATION = gql`
-  mutation($input: ChannelsConnectStripeInput!) {
-    channelsConnectStripe(input: $input)
-  }
-`;
-
-export class DashboardNewsroomStripeConnect extends React.Component<
+export class DashboardNewsroomStripeConnectComponent extends React.Component<
   DashboardNewsroomStripeConnectProps,
   DashboardNewsroomStripeConnectState
 > {
@@ -79,6 +81,30 @@ export class DashboardNewsroomStripeConnect extends React.Component<
     super(props);
     this.state = {};
     this.qsParams = qs.parse(document.location.search.substr(1));
+  }
+
+  public async componentDidMount(): Promise<void> {
+    if (this.qsParams.code) {
+      try {
+        this.setState({ connectingStripe: true });
+        await this.props.client.mutate({
+          mutation: CHANNEL_CONNECT_STRIPE_MUTATION,
+          variables: { input: { channelID: this.props.channelData.id, oauthCode: this.qsParams.code } },
+          refetchQueries: [
+            {
+              query: CHANNEL_BY_NEWSROOM_QUERY,
+              variables: {
+                contractAddress: this.props.newsroomAddress,
+              },
+            },
+          ],
+        });
+        this.setState({ connectingStripe: false });
+      } catch (err) {
+        console.error("error running channelsConnectStripe mutation:", err);
+        this.setState({ connectStripeError: err });
+      }
+    }
   }
 
   public render(): JSX.Element {
@@ -95,92 +121,81 @@ export class DashboardNewsroomStripeConnect extends React.Component<
 
         <StripeContainer>
           <StripeLogo src={stripeLogo} />
-
-          <Query query={CHANNEL_QUERY} variables={{ contractAddress: this.props.newsroomAddress }}>
-            {({ loading, error, data }) => {
-              if (loading) {
-                return <StyledDashboardLoadingMessage>Connecting to Stripe</StyledDashboardLoadingMessage>;
-              } else if (error || !data || !data.channelsGetByNewsroomAddress) {
-                console.error(
-                  "error loading channel data for",
-                  this.props.newsroomAddress,
-                  " error:",
-                  error,
-                  "data:",
-                  data,
-                );
-                return (
-                  <>
-                    <ErrorIcon width={16} height={16} /> Sorry, there was an error loading your newsroom's Stripe
-                    account details. Please try again later.
-                  </>
-                );
-              }
-
-              const channelData = data.channelsGetByNewsroomAddress;
-              if (channelData.isStripeConnected) {
-                return (
-                  <>
-                    <p>You are currently accepting credit cards through your connected Stripe account.</p>
-                    <InvertedButton size={buttonSizes.SMALL} href="https://dashboard.stripe.com" target="_blank">
-                      Go to Your Stripe Account <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
-                    </InvertedButton>
-                  </>
-                );
-              } else if (this.state.connectStripeError) {
-                console.error("error running channelsConnectStripe mutation:", this.state.connectStripeError);
-                return (
-                  <>
-                    <ErrorIcon width={16} height={16} /> Sorry, there was an error connecting your newsroom to your
-                    Stripe account. Please try again later.
-                  </>
-                );
-              } else if (this.qsParams.code) {
-                return (
-                  <Mutation
-                    mutation={CHANNEL_CONNECT_STRIPE_MUTATION}
-                    refetchQueries={[
-                      {
-                        query: CHANNEL_QUERY,
-                      },
-                    ]}
-                    variables={{ input: { channelID: channelData.id, oauthCode: this.qsParams.code } }}
-                  >
-                    {(connectStripe: MutationFunc) => {
-                      // When this mutation has completed, because of the `refetchQueries` prop above, we should get `isStripeConnected` true and state will change away from this loading state automatically.
-                      // @TODO/tobek This is being called dozens of times a second while it's erroring, check that this is no longer the case when the mutation has been deployed.
-                      connectStripe().catch(err => this.setState({ connectStripeError: err }));
-                      return (
-                        <StyledDashboardLoadingMessage>Connecting your Stripe account</StyledDashboardLoadingMessage>
-                      );
-                    }}
-                  </Mutation>
-                );
-              } else {
-                return (
-                  <>
-                    <p>
-                      Allows you to accept credit card payments for your Boosts. Stripe fees will apply. The Boost
-                      amounts sent by supporters will go directly into your connected Stripe account. Civil will not
-                      keep or hold any of your proceeds.
-                    </p>
-                    {this.qsParams.error && (
-                      <p>
-                        <ErrorIcon width={16} height={16} /> Error connecting your Stripe account: {this.qsParams.error}:{" "}
-                        {this.qsParams.error_description}. Please try again.
-                      </p>
-                    )}
-                    {/*@TODO/toby Our stripe client ID (which should be different on production) should be in some config, but we don't have any config for components package, would have to pass in from dapp via prop or add to civil context.*/}
-                    <p>
-                      <StripeConnectButtonLink href="https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_BzqgUsw7tnnCpVaoQ157mrxtuCdN7h2q&scope=read_write&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard%2Fnewsrooms" />
-                    </p>
-                  </>
-                );
-              }
-            }}
-          </Query>
+          {this.renderBody()}
         </StripeContainer>
       </>
     );
   }
+
+  private renderBody(): JSX.Element {
+    if (!this.props.channelData.currentUserIsAdmin) {
+      return (
+        <>
+          {/*@TODO/tobek When we have a flow for updating newsroom channel admins, add it here*/}
+          <ErrorIcon width={16} height={16} /> You are not an admin for this Newsroom, so you cannot edit its Stripe
+          settings. Please contact an admin to be added.
+        </>
+      );
+    } else if (!this.state.connectingStripe && this.props.channelData.isStripeConnected) {
+      const justConnected = this.qsParams.code;
+      return (
+        <>
+          <p>
+            {justConnected ? "Connection successful! You are now" : "You are currently"} accepting credit cards through
+            your connected Stripe account.
+          </p>
+          <p>
+            <InvertedButton size={buttonSizes.SMALL} href="https://dashboard.stripe.com" target="_blank">
+              Go to Your Stripe Dashboard<NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+            </InvertedButton>
+          </p>
+          {!justConnected && this.renderStripeConnectButton("Connect a different Stripe account")}
+        </>
+      );
+    } else if (this.state.connectStripeError) {
+      return (
+        <>
+          <p>
+            <ErrorIcon width={16} height={16} /> Sorry, there was an error connecting your Newsroom to your Stripe
+            account:{" "}
+            <code>{JSON.stringify(this.state.connectStripeError.message || this.state.connectStripeError)}</code>.
+            Please try again.
+          </p>
+          {this.renderStripeConnectButton()}
+        </>
+      );
+    } else if (this.state.connectingStripe || this.qsParams.code) {
+      return <StyledDashboardLoadingMessage>Connecting your Stripe account</StyledDashboardLoadingMessage>;
+    } else if (this.qsParams.error) {
+      return (
+        <>
+          <p>
+            <ErrorIcon width={16} height={16} /> Error connecting your Stripe account: {this.qsParams.error}:{" "}
+            {this.qsParams.error_description}. Please try again.
+          </p>
+          {this.renderStripeConnectButton()}
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p>
+            Allows you to accept credit card payments for your Boosts. Stripe fees will apply. The Boost amounts sent by
+            supporters will go directly into your connected Stripe account. Civil will not keep or hold any of your
+            proceeds.
+          </p>
+          {this.renderStripeConnectButton()}
+        </>
+      );
+    }
+  }
+
+  private renderStripeConnectButton(linkText?: string): JSX.Element {
+    // @TODO/toby Our stripe client ID (which should be different on production) should be in some config, but we don't have any config for components package, would have to pass in from dapp via prop or add to civil context.
+    const url =
+      "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_BzqgUsw7tnnCpVaoQ157mrxtuCdN7h2q&scope=read_write&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard%2Fnewsrooms";
+    return <p>{linkText ? <a href={url}>{linkText}</a> : <StripeConnectButtonLink href={url} />}</p>;
+  }
 }
+
+export const DashboardNewsroomStripeConnect = withApollo(withNewsroomChannel(DashboardNewsroomStripeConnectComponent));
