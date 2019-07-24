@@ -10,8 +10,8 @@
 import BigNumber from "bignumber.js";
 import { isUndefined, padStart, startsWith } from "lodash";
 import * as Web3 from "web3";
-// TODO(ritave): Use ethereumjs-abi
-import * as SolidityCoder from "web3/lib/solidity/coder";
+// tslint:disable-next-line
+const web3EthAbi = require("web3-eth-abi");
 import { AbiType, DecodedLogEntry, SolidityTypes } from "@joincivil/typescript-types";
 
 const HEX_START = "0x";
@@ -51,7 +51,7 @@ export class AbiDecoder {
 
     const nonIndexedInputs = event.inputs.filter(input => !input.indexed);
     const dataTypes = nonIndexedInputs.map(input => input.type);
-    const decodedData = SolidityCoder.decodeParams(dataTypes, logData.slice("0x".length));
+    const decodedData = web3EthAbi.decodeParams(dataTypes, logData.slice("0x".length));
 
     event.inputs.forEach((param: Web3.EventParameter) => {
       // Indexed parameters are stored in topics. Non-indexed ones in decodedData

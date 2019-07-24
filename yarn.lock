@@ -3086,7 +3086,7 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/bn.js@4.11.5":
+"@types/bn.js@*", "@types/bn.js@4.11.5":
   version "4.11.5"
   resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-4.11.5.tgz#40e36197433f78f807524ec623afcf0169ac81dc"
   dependencies:
@@ -3346,6 +3346,11 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.2.tgz#e13182e1b69871a422d7863e11a4a6f5b814a4bd"
 
+"@types/underscore@*":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.9.2.tgz#2c4f7743287218f5c2d9a83db3806672aa48530d"
+  integrity sha512-KgOKTAD+9X+qvZnB5S1+onqKc4E+PZ+T6CM/NA5ohRPLHJXb+yCJMVf8pWOnvuBuKFNUAJW8N97IA6lba6mZGg==
+
 "@types/underscore@^1.8.6":
   version "1.8.9"
   resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.8.9.tgz#fef41f800cd23db1b4f262ddefe49cd952d82323"
@@ -3368,6 +3373,19 @@
     "@types/node" "*"
     "@types/unist" "*"
     "@types/vfile-message" "*"
+
+"@types/web3-eth-abi@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/web3-eth-abi/-/web3-eth-abi-1.0.0.tgz#a3ddedfeea160e589980f771ce77cab5754e2956"
+  integrity sha512-q9TQgqZtolSNQWPdv9cYqTGlLnTs0RvGv0arP+vrDwmBRMEV0hrQ3Pu7fG/6NTR/48Ni4TvfbQDsI/LbKvB4NQ==
+
+"@types/web3@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@types/web3/-/web3-1.0.19.tgz#46b85d91d398ded9ab7c85a5dd57cb33ac558924"
+  integrity sha512-fhZ9DyvDYDwHZUp5/STa9XW2re0E8GxoioYJ4pEUZ13YHpApSagixj7IAdoYH5uAK+UalGq6Ml8LYzmgRA/q+A==
+  dependencies:
+    "@types/bn.js" "*"
+    "@types/underscore" "*"
 
 "@types/webpack-env@*":
   version "1.13.6"
@@ -19880,7 +19898,7 @@ web3-eth-abi@1.0.0-beta.36, web3-eth-abi@^1.0.0-beta.24:
     underscore "1.8.3"
     web3-utils "1.0.0-beta.36"
 
-web3-eth-abi@1.2.0:
+web3-eth-abi@1.2.0, web3-eth-abi@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/web3-eth-abi/-/web3-eth-abi-1.2.0.tgz#26b22261756ffbb3363bc37c1a6f5143bebb6469"
   integrity sha512-FDuPq/tFeMg/D/f7cNSmvVYkMYb1z379gUUzSL8ZFtZrdHPkezq+lq/TmWmbCOMLYNXlhGJBzjGdLXRS4Upprg==
