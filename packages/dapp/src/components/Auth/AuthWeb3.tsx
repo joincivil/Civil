@@ -39,7 +39,6 @@ function loginUser(civil: Civil, sessionData: any, currAccount?: EthAddress): vo
 
   const logoutUser = (account?: EthAddress) => {
     if (!account || account !== currAccount) {
-
       // TODO(jon): Should we display some type of message/modal/toaster to the user that indicates they've been signed out?
       clearApolloSession();
     }
@@ -229,7 +228,6 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
       errorMessage: undefined,
     });
   };
-
 }
 
 export default AuthWeb3;
