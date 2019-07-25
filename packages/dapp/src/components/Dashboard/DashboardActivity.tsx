@@ -341,6 +341,9 @@ class DashboardActivity extends React.Component<
             if (data) {
               const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
                 data.allChallenges,
+                true,
+                data.challengesToReveal,
+                data.challengesToRescue,
               );
               const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
                 data.allChallenges,

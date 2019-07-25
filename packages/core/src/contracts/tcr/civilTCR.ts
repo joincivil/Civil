@@ -608,10 +608,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             isVoterWinner = await this.voting.isVoterWinner(appealChallengeID, user);
             canUserCollect = isVoterWinner && !didUserCollect;
           } else {
-            didUserRescue =
-              !(await this.voting.canRescueTokens(user, appealChallengeID)) &&
-              !(await isInCommitStage(pollData)) &&
-              !(await isInRevealStage(pollData));
+            didUserRescue = !(await this.voting.canRescueTokens(user, appealChallengeID));
           }
         } else {
           canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
@@ -690,10 +687,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             }
             canUserCollect = isVoterWinner && !didUserCollect;
           } else {
-            didUserRescue =
-              !(await this.voting.canRescueTokens(user, challengeID)) &&
-              !(await isInCommitStage(pollData)) &&
-              !(await isInRevealStage(pollData));
+            didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
           }
         } else {
           canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
