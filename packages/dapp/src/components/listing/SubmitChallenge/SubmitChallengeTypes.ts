@@ -1,4 +1,5 @@
 import { EthAddress } from "@joincivil/core";
+import { BigNumber } from "bignumber.js";
 
 export interface SubmitChallengeProps {
   history?: any;
@@ -13,8 +14,8 @@ export interface SubmitChallengeReduxProps {
 }
 
 export interface SubmitChallengeReduxParametersProps {
-  minDeposit: string;
-  commitStageLen: string;
-  revealStageLen: string;
-  isInsufficientBalance: boolean;
+  minDeposit: BigNumber;
+  commitStageLen: BigNumber;
+  revealStageLen: BigNumber;
+  balance: BigNumber;
 }

@@ -9,6 +9,7 @@ import {
   colors,
   fonts,
   mediaQueries,
+  CivilContext,
   Table,
   Tr,
   Th,
@@ -42,7 +43,6 @@ import {
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 
-import { getCivil } from "../../helpers/civilInstance";
 import { State } from "../../redux/reducers";
 import ListingDiscourse from "../listing/ListingDiscourse";
 import { getIsMemberOfAppellate } from "../../selectors";
@@ -187,6 +187,8 @@ export interface ParameterizerPageState {
 }
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>, ParameterizerPageState> {
+  public static contextType = CivilContext;
+
   constructor(props: ParameterizerPageProps & DispatchProp<any>) {
     super(props);
 
@@ -198,7 +200,8 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   }
 
   public render(): JSX.Element {
-    const civil = getCivil();
+    const { civil } = this.context;
+
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(
@@ -318,7 +321,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   }
 
   private renderCreateProposal = (): JSX.Element => {
-    const civil = getCivil();
+    const { civil } = this.context;
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(
@@ -391,7 +394,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   };
 
   private renderChallengeProposal = (): JSX.Element => {
-    const civil = getCivil();
+    const { civil } = this.context;
     const proposalMinDeposit =
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(

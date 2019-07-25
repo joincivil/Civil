@@ -3,13 +3,12 @@ import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
-import { DashboardNewsroom } from "@joincivil/components";
+import { CivilContext, DashboardNewsroom } from "@joincivil/components";
 import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import { getChallengeByListingAddress, getListingPhaseState, makeGetListing, getChallengeState } from "../../selectors";
-import { getCivil } from "../../helpers/civilInstance";
 
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
@@ -35,6 +34,8 @@ export interface NewsroomsListItemReduxProps {
 class NewsroomsListItemListingRedux extends React.Component<
   NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>
 > {
+  public static contextType = CivilContext;
+
   public async componentDidUpdate(): Promise<void> {
     await this.hydrateData();
   }
@@ -165,16 +166,16 @@ class NewsroomsListItemListingRedux extends React.Component<
 
   private hydrateData = async (): Promise<void> => {
     const { listing, listingDataRequestStatus, listingAddress, newsroom, charter, newsroomCharterHeader } = this.props;
+    const { civil } = this.context;
+
     if (!listing && !listingDataRequestStatus) {
       this.props.dispatch!(fetchAndAddListingData(listingAddress!));
     }
     if (newsroom) {
-      const civil = getCivil();
       if (newsroom.multisigAddress) {
         this.props.dispatch!(await getNewsroomMultisigBalance(listingAddress!, newsroom.multisigAddress, civil));
       }
     } else if (charter) {
-      const civil = getCivil();
       this.props.dispatch!(await getNewsroom(listingAddress!, civil, charter));
     }
     if (newsroomCharterHeader && !charter) {
