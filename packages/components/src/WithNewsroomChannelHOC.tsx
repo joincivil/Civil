@@ -36,7 +36,6 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
 ) => {
   return class ComponentWithNewsroomChannel extends React.Component<WithNewsroomChannelOuterProps & TOriginalProps> {
     public render(): JSX.Element {
-      console.log("rendering HOC", this.props.newsroomAddress);
       return (
         <Query query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.props.newsroomAddress }}>
           {({ loading, error, data }) => {

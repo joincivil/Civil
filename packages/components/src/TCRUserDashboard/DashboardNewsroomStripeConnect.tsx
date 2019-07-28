@@ -4,6 +4,7 @@ import { withApollo, WithApolloClient } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components";
 
+import { CivilContext, ICivilContext } from "../context/CivilContext";
 import {
   withNewsroomChannel,
   WithNewsroomChannelInjectedProps,
@@ -75,6 +76,8 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
   DashboardNewsroomStripeConnectProps,
   DashboardNewsroomStripeConnectState
 > {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public context!: React.ContextType<typeof CivilContext>;
   private qsParams: StripeOauthParams;
 
   constructor(props: DashboardNewsroomStripeConnectProps) {
@@ -191,10 +194,12 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
   }
 
   private renderStripeConnectButton(linkText?: string): JSX.Element {
-    // @TODO/toby Our stripe client ID (which should be different on production) should be in some config, but we don't have any config for components package, would have to pass in from dapp via prop or add to civil context.
-    const url =
-      "https://connect.stripe.com/oauth/authorize?response_type=code&client_id=ca_BzqgUsw7tnnCpVaoQ157mrxtuCdN7h2q&scope=read_write&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdashboard%2Fnewsrooms";
-    return <p>{linkText ? <a href={url}>{linkText}</a> : <StripeConnectButtonLink href={url} />}</p>;
+    // @TODO/toby Remove `stripe-admin` feature flag query string param when launched
+    const redirectUrl = `${document.location.origin}/dashboard/newsrooms?feature-flag=stripe-admin`;
+    const oauthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${
+      this.context.config.STRIPE_CLIENT_ID
+    }&scope=read_write&redirect_uri=${encodeURIComponent(redirectUrl)}`;
+    return <p>{linkText ? <a href={oauthUrl}>{linkText}</a> : <StripeConnectButtonLink href={oauthUrl} />}</p>;
   }
 }
 

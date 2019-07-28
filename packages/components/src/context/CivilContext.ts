@@ -6,14 +6,22 @@ export interface ICivilContext {
   uniswap: UniswapService;
   features: FeatureFlagService;
   network: number;
+  /** See `packages/dapp/src/helpers/config.ts` */
+  config: any;
   setCivil(civil: Civil): void;
   waitForTx(txHash: string): Promise<void>;
 }
 
-export function buildCivilContext(civil?: Civil, defaultNetwork?: string, featureFlags?: string[]): ICivilContext {
+export function buildCivilContext(
+  civil?: Civil,
+  defaultNetwork?: string,
+  featureFlags?: string[],
+  config?: any,
+): ICivilContext {
   const ctx: any = {};
   ctx.civil = civil;
   ctx.features = new FeatureFlagService(featureFlags);
+  ctx.config = config || {};
 
   const { provider, signer, network }: EthersProviderResult = makeEthersProvider(defaultNetwork!);
   try {

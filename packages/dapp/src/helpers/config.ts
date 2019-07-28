@@ -10,6 +10,7 @@ export interface ConfigType {
   INFURA_APP_KEY?: string;
   FEATURE_FLAGS?: string;
   SENTRY_DSN?: string;
+  STRIPE_CLIENT_ID?: string;
   APP_VERSION?: string;
 }
 
@@ -25,6 +26,7 @@ const defaultConfig: ConfigType = {
   INFURA_APP_KEY: process.env.REACT_APP_INFURA_APP_KEY,
   FEATURE_FLAGS: process.env.REACT_APP_FEATURE_FLAGS,
   SENTRY_DSN: process.env.REACT_APP_SENTRY_DSN,
+  STRIPE_CLIENT_ID: process.env.REACT_APP_STRIPE_CLIENT_ID,
   APP_VERSION: process.env.REACT_APP_APP_VERSION,
 };
 
