@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { EthAddressViewer } from "../EthAddressViewer";
 import { ErrorIcon } from "../icons";
 
+import { FeatureFlag } from "../features";
 import {
   StyledDashboardNewsroom,
   StyledDashboardNewsroomName,
@@ -16,6 +17,7 @@ import {
   StyledCVLLabel,
   StyledWarningText,
 } from "./DashboardStyledComponents";
+import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
@@ -147,6 +149,11 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           etherscanBaseURL={props.etherscanBaseURL}
         />
       </StyledDashboardNewsroomSection>
+      <FeatureFlag feature={"stripe-admin"}>
+        <StyledDashboardNewsroomSection>
+          <DashboardNewsroomStripeConnect newsroomAddress={props.newsroomAddress} />
+        </StyledDashboardNewsroomSection>
+      </FeatureFlag>
     </StyledDashboardNewsroom>
   );
 };

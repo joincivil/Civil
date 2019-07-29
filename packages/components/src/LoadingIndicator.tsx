@@ -2,6 +2,7 @@ import * as React from "react";
 import { colors } from "./styleConstants";
 
 export interface LoadingIndicatorProps {
+  className?: string;
   height?: string | number;
   width?: string | number;
 }
@@ -43,6 +44,7 @@ export const LoadingIndicator: React.FunctionComponent<LoadingIndicatorProps> = 
       width={width}
       height={height}
       fill={colors.accent.CIVIL_TEAL}
+      className={props.className}
     >
       <circle transform={getCircleTranslate(0)} cx="0" cy={getCenterY()} r="0">
         <animate

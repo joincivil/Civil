@@ -72,6 +72,7 @@ const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps & Newsr
     if (!tcrApplyTx || !tcrApplyTx.length) {
       return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)} />;
     }
+    // @TODO/tobek This check assumes that if no tcrApplyTx then user hasn't applied, but with new fast pass method this field won't exist. Ensure this is reworked during newsroom channel refactoring updates.
   }
 
   if (useGraphQL) {
