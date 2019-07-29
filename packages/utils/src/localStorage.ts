@@ -41,16 +41,22 @@ export function removeItem(key: string): void {
   }
 }
 
-window.addEventListener("storage", ev => {
-  if (ev.storageArea === localStorage) {
-    const { key } = ev;
-    if (key) {
-      try {
-        const value = fetchItem(key);
-        createAndDispatchLocalStorageEvent(CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM, { key, value });
-      } catch (err) {
-        console.error(err);
+let isBroadcasting = false;
+export function startLocalStorageUpdateBroadcast(): void {
+  if (window && !isBroadcasting) {
+    isBroadcasting = true;
+    window.addEventListener("storage", ev => {
+      if (ev.storageArea === localStorage) {
+        const { key } = ev;
+        if (key) {
+          try {
+            const value = fetchItem(key);
+            createAndDispatchLocalStorageEvent(CIVIL_LOCAL_STORAGE_EVENTS.UPDATE_ITEM, { key, value });
+          } catch (err) {
+            console.error(err);
+          }
+        }
       }
-    }
+    });
   }
-});
+}

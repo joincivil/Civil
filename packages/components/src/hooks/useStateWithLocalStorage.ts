@@ -1,5 +1,11 @@
 import * as React from "react";
-import { fetchItem, setItem, removeItem, CIVIL_LOCAL_STORAGE_EVENTS } from "@joincivil/utils";
+import {
+  fetchItem,
+  setItem,
+  removeItem,
+  startLocalStorageUpdateBroadcast,
+  CIVIL_LOCAL_STORAGE_EVENTS,
+} from "@joincivil/utils";
 
 const storageKeys: any = {};
 
@@ -28,6 +34,8 @@ window.addEventListener(
   },
   false,
 );
+
+startLocalStorageUpdateBroadcast();
 
 function areValuesEqual(prevValue: any, newValue: any): boolean {
   if (typeof prevValue === "object" && typeof newValue === "object") {
