@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Redirect } from "react-router";
+import { StyledPageContentWithPadding } from "../utility/styledComponents";
 
 import { clearApolloSession } from "@joincivil/utils";
 
-export const AuthLogout = () => {
+const AuthLogout = () => {
   const [loggedOut, setLoggedOut] = React.useState(false);
   React.useEffect(() => {
     setTimeout(() => {
@@ -12,5 +13,7 @@ export const AuthLogout = () => {
     }, 500);
   }, []);
 
-  return loggedOut ? <Redirect to="/" /> : <div>Logging out...</div>;
+  return loggedOut ? <Redirect to="/" /> : <StyledPageContentWithPadding>Logging out...</StyledPageContentWithPadding>;
 };
+
+export default AuthLogout;

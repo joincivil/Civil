@@ -76,7 +76,7 @@ storiesOf("Common / Auth / ETH", module)
       mocks,
     }),
   )
-  .add("AccountEthAuth", () => {
+  .add("AccountEthAuth Component", () => {
     return (
       <Container>
         <AccountEthAuth

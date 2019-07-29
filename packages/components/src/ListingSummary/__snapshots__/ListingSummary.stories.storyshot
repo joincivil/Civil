@@ -46,10 +46,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
               <div
                 className="sc-eLExRp eTggQe"
               >
-                <a
+                <button
                   className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                  href="/listing/0x0a"
-                  onClick={[Function]}
                   size="SMALL"
                   theme={
                     Object {
@@ -57,9 +55,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
                       "invertedButtonColor": "#2B56FF",
                     }
                   }
+                  type="button"
                 >
                   View Details
-                </a>
+                </button>
               </div>
             </div>
           </a>
@@ -642,10 +641,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0a"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -653,9 +650,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>
@@ -694,10 +692,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0b"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -705,9 +701,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>
@@ -746,10 +743,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0c"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -757,9 +752,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>
@@ -798,10 +794,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0d"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -809,9 +803,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>
@@ -850,10 +845,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0e"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -861,9 +854,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>
@@ -902,10 +896,8 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                   <div
                     className="sc-eLExRp eTggQe"
                   >
-                    <a
+                    <button
                       className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-                      href="/listing/0x0f"
-                      onClick={[Function]}
                       size="SMALL"
                       theme={
                         Object {
@@ -913,9 +905,10 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                           "invertedButtonColor": "#2B56FF",
                         }
                       }
+                      type="button"
                     >
                       View Details
-                    </a>
+                    </button>
                   </div>
                 </div>
               </a>

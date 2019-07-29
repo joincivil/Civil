@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
+exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
 <div>
   <div
     style={
@@ -207,7 +207,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth 1`] = `
               }
             }
           >
-            AccountEthAuth
+            AccountEthAuth Component
           </h2>
         </div>
         
