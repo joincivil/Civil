@@ -34,7 +34,7 @@ export class App extends React.Component {
     super(props);
     const civil = getCivil();
     const featureFlags = config.FEATURE_FLAGS ? config.FEATURE_FLAGS.split(",") : [];
-    this.civilContext = buildCivilContext(civil, config.DEFAULT_ETHEREUM_NETWORK, featureFlags);
+    this.civilContext = buildCivilContext(civil, config.DEFAULT_ETHEREUM_NETWORK, featureFlags, config);
   }
   public render(): JSX.Element {
     return (

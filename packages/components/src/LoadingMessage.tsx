@@ -18,7 +18,7 @@ const Message = styled.p`
 export const LoadingMessage: React.FunctionComponent<LoadingIndicatorProps> = props => {
   const defaultCopy = "Loading";
   return (
-    <Wrapper>
+    <Wrapper className={props.className}>
       <LoadingIndicator width={props.width} height={props.height} />
       <Message>{props.children || defaultCopy}</Message>
     </Wrapper>

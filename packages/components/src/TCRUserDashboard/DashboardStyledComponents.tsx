@@ -2,6 +2,8 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
+import { LoadingMessage } from "../LoadingMessage";
+import { LoadingIndicatorProps } from "../LoadingIndicator";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
 
@@ -568,5 +570,13 @@ export const StyledDashboardNoContentButtonContainer = styled.div`
     padding: 14px 0;
     text-transform: none;
     width: 236px;
+  }
+`;
+
+// @ts-ignore: Looks like `React.FunctionComponent` type (which `LoadingMessage` is) doesn't play nicely with `styled` typings
+export const StyledDashboardLoadingMessage: StyledComponentClass<LoadingIndicatorProps, "div"> = styled(LoadingMessage)`
+  padding-top: 0;
+  p {
+    margin-top: 18px;
   }
 `;
