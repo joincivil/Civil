@@ -242,10 +242,9 @@ export class NewsroomUserComponent extends React.Component<
             <Address>{this.props.address}</Address>
           </div>
           <ButtonWrapper>
-            {this.props.address !== this.props.profileWalletAddress &&
-              !this.props.readOnly && (
-                <TransactionButtonNoModal transactions={this.getTransaction()} Button={TransactionButtonInner} />
-              )}
+            {this.props.address !== this.props.profileWalletAddress && !this.props.readOnly && (
+              <TransactionButtonNoModal transactions={this.getTransaction()} Button={TransactionButtonInner} />
+            )}
           </ButtonWrapper>
         </Wrapper>
         {this.renderProgressModal()}

@@ -166,6 +166,7 @@ const mapStateToProps = (state: State): ReclaimTokenReduxProps => {
   };
 };
 
-export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  ReclaimTokensComponent,
-) as React.ComponentClass<ReclaimTokenProps>;
+export default compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(ReclaimTokensComponent) as React.ComponentClass<ReclaimTokenProps>;

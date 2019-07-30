@@ -66,7 +66,10 @@ interface AppealRevealCardKeyState {
 
 const AppealChallengeRevealVoteCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealChallengeRevealVoteCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealChallengeRevealVoteCardComponent);
 
 class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,

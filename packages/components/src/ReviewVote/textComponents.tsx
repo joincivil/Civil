@@ -24,7 +24,8 @@ export const ReviewVoteCopyText: React.FunctionComponent<ReviewVoteCopyTextProps
         Civil does not store your voting information; it is stored in a{" "}
         <a href={links.FAQ_WHAT_IS_PLCR_CONTRACT} target="_blank">
           voting smart contract
-        </a>.
+        </a>
+        .
       </p>
 
       <p>
@@ -117,7 +118,8 @@ export const TransactionFinePrintText: React.FunctionComponent = props => {
       for all votes. This fee does not go to the Civil Media Company.{" "}
       <a href={links.FAQ_GAS} target="_blank">
         Learn more
-      </a>.
+      </a>
+      .
     </>
   );
 };

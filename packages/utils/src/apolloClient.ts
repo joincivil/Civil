@@ -116,9 +116,8 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
 
   const createOmitTypenameLink = new ApolloLink((operation, forward) => {
     if (operation.variables) {
-      operation.variables = JSON.parse(
-        JSON.stringify(operation.variables),
-        (key, value) => (key === "__typename" ? undefined : value),
+      operation.variables = JSON.parse(JSON.stringify(operation.variables), (key, value) =>
+        key === "__typename" ? undefined : value,
       );
     }
     return forward ? forward(operation) : null;

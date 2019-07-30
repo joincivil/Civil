@@ -62,11 +62,11 @@ Run `yarn build` or explicitly `yarn generate` to create them in the `src/contra
 
 #### Adding new smart-contracts
 
-* [ ] Write new or change some smart-contracts in [`@joincivil/contracts`](../contracts)
-* [ ] Add migration files and build.
-* [ ] Run `yarn ganache` in the root to make migrations
-* [ ] `cp ../contracts/build/artifacts/MyContract.json ./src/artifacts/` (merge manually if deployed on Rinkeby or Mainnet)
-* [ ] Run `yarn generate`
-* [ ] Enjoy automatically generated code
+- [ ] Write new or change some smart-contracts in [`@joincivil/contracts`](../contracts)
+- [ ] Add migration files and build.
+- [ ] Run `yarn ganache` in the root to make migrations
+- [ ] `cp ../contracts/build/artifacts/MyContract.json ./src/artifacts/` (merge manually if deployed on Rinkeby or Mainnet)
+- [ ] Run `yarn generate`
+- [ ] Enjoy automatically generated code
 
 The templates for code generation can be found [`src/templates/`](./src/templates).

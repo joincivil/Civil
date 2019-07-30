@@ -66,10 +66,12 @@ export class InputSelectElement extends React.Component<InputSelectElementProps>
   public render(): JSX.Element {
     return (
       <select name={this.props.name} value={this.props.value} onChange={this.onChange}>
-        {this.props.options.map((option: string): JSX.Element => {
-          const optionData = [option, option];
-          return <InputSelectOptionElement option={optionData as [string, string]} key={option} />;
-        })}
+        {this.props.options.map(
+          (option: string): JSX.Element => {
+            const optionData = [option, option];
+            return <InputSelectOptionElement option={optionData as [string, string]} key={option} />;
+          },
+        )}
       </select>
     );
   }

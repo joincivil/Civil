@@ -458,8 +458,8 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <OBNoteHeading>Using a different wallet?</OBNoteHeading>
           <OBNoteText>
             Make sure it's unlocked
-            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}
-            . You may need to refresh.
+            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}. You
+            may need to refresh.
           </OBNoteText>
         </OBNoteContainer>
 

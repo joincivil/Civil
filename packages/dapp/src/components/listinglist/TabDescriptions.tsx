@@ -8,7 +8,8 @@ export const WhitelistedTabDescription: React.FunctionComponent = props => (
     <a href={links.CONSTITUTION}>Civil Constitution</a>, and Newsrooms are subject to Civil's{" "}
     <a href={links.FAQ_COMMUNITY_VETTING_PROCESS} target="_blank">
       community vetting process
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -19,7 +20,8 @@ export const RejectedTabDescription: React.FunctionComponent = props => (
     any time.{" "}
     <a href={links.FAQ_CAN_REJECTED_NEWSROOMS_REAPPLY} target="_blank">
       Learn how
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -30,7 +32,8 @@ export const NewApplicationsTabDescription: React.FunctionComponent = props => (
     Constitution, you may challenge them at any time.{" "}
     <a href={links.FAQ_HOW_TO_CHALLENGE} target="_blank">
       Learn how
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -41,7 +44,8 @@ export const UnderChallengeTabDescription: React.FunctionComponent = props => (
     Registry and potentially earn Civil tokens when you vote.{" "}
     <a href={links.FAQ_HOW_TO_VOTE} target="_blank">
       Learn how
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -52,7 +56,8 @@ export const UnderAppealTabDescription: React.FunctionComponent = props => (
     Council’s decision, you will have a chance to challenge it.{" "}
     <a href={links.FAQ_HOW_TO_APPEAL} target="_blank">
       Learn how
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -63,7 +68,8 @@ export const UnderAppealChallengeTabDescription: React.FunctionComponent = props
     and potentially earn Civil tokens when you vote.{" "}
     <a href={links.FAQ_HOW_TO_VOTE} target="_blank">
       Learn how
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );
 
@@ -73,6 +79,7 @@ export const ReadyToUpdateTabDescription: React.FunctionComponent = props => (
     update the Newsroom's status.{" "}
     <a href={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS} target="_blank">
       Learn more
-    </a>.
+    </a>
+    .
   </StyledListingCopy>
 );

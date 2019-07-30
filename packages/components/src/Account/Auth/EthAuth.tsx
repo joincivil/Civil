@@ -154,9 +154,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
     return (
       <MetaMaskModal
         alert={true}
-        bodyText={`Something went wrong when authenticating and saving your wallet address (${
-          this.state.errorMessage
-        }). Please try again later.`}
+        bodyText={`Something went wrong when authenticating and saving your wallet address (${this.state.errorMessage}). Please try again later.`}
         cancelTransaction={this.cancelTransaction}
       >
         <ModalHeading>Failed to save your wallet address</ModalHeading>

@@ -163,7 +163,9 @@ export function renderPTagsFromLineBreaks(text: string, wrapperComponent?: any):
       {text
         .split("\n")
         .filter(line => !!line)
-        .map((line, i) => <p key={i}>{line}</p>)}
+        .map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
     </>
   );
 }

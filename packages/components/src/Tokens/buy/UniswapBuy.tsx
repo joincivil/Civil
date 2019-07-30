@@ -43,7 +43,7 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     if (ethToSpend === 0) {
       pricePerCVL = 0;
     } else {
-      pricePerCVL = ethExchangeRate * ethToSpend / cvl;
+      pricePerCVL = (ethExchangeRate * ethToSpend) / cvl;
     }
 
     return (

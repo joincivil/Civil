@@ -180,14 +180,13 @@ class ListingPageComponent extends React.Component<
                 </ListingTabContent>
               </Tab>
 
-              {(this.props.isUserNewsroomOwner &&
-                this.props.listing && (
-                  <Tab title="Owner Actions">
-                    <ListingTabContent>
-                      <ListingOwnerActions listing={this.props.listing} newsroom={this.props.newsroom!} />
-                    </ListingTabContent>
-                  </Tab>
-                )) || <></>}
+              {(this.props.isUserNewsroomOwner && this.props.listing && (
+                <Tab title="Owner Actions">
+                  <ListingTabContent>
+                    <ListingOwnerActions listing={this.props.listing} newsroom={this.props.newsroom!} />
+                  </ListingTabContent>
+                </Tab>
+              )) || <></>}
             </Tabs>
           </StyledLeftContentWell>
         </StyledContentRow>
