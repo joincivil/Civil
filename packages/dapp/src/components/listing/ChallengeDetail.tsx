@@ -71,7 +71,10 @@ const withChallengeResults = (
         ChallengeContainerProps &
         RequestAppealProps
     >
-  >(connectChallengeResults, connectChallengePhase)(WrappedComponent);
+  >(
+    connectChallengeResults,
+    connectChallengePhase,
+  )(WrappedComponent);
 };
 
 const StyledChallengeResults = styled.div`

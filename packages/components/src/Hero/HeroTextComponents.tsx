@@ -10,7 +10,8 @@ export const HeroCopyText: React.FunctionComponent<HomepageHeroProps> = props =>
       Use Civil tokens to apply, challenge and vote on which newsrooms can publish on the Civil platform.{" "}
       <a href={props.learnMoreURL} target="_blank">
         Learn how
-      </a>.
+      </a>
+      .
     </p>
   </>
 );

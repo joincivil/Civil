@@ -74,21 +74,19 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
               {canBeWhitelisted && this.renderCanWhitelist()}
               {canResolveChallenge && this.renderCanResolve()}
 
-              {listing.data.challenge &&
-                !listing.data.challenge.resolved &&
-                !canResolveChallenge && (
-                  <ChallengeDetailContainer
-                    challengeID={this.props.listing.data.challengeID}
-                    listingAddress={this.props.listing.address}
-                    newsroom={this.props.newsroom}
-                    challengeData={{
-                      listingAddress: this.props.listing.address,
-                      challengeID: this.props.listing.data.challengeID,
-                      challenge: this.props.listing.data.challenge!,
-                    }}
-                    onMobileTransactionClick={this.showNoMobileTransactionsModal}
-                  />
-                )}
+              {listing.data.challenge && !listing.data.challenge.resolved && !canResolveChallenge && (
+                <ChallengeDetailContainer
+                  challengeID={this.props.listing.data.challengeID}
+                  listingAddress={this.props.listing.address}
+                  newsroom={this.props.newsroom}
+                  challengeData={{
+                    listingAddress: this.props.listing.address,
+                    challengeID: this.props.listing.data.challengeID,
+                    challenge: this.props.listing.data.challenge!,
+                  }}
+                  onMobileTransactionClick={this.showNoMobileTransactionsModal}
+                />
+              )}
             </StyledContainer>
           )}
 

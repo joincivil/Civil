@@ -27,7 +27,10 @@ const AppealDecisionCard = compose<
       ChallengeContainerProps &
       AppealDecisionProps
   >
->(connectChallengeResults, connectChallengePhase)(AppealDecisionCardComponent);
+>(
+  connectChallengeResults,
+  connectChallengePhase,
+)(AppealDecisionCardComponent);
 
 class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
   public render(): JSX.Element {

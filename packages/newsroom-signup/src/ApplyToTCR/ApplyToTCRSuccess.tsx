@@ -82,7 +82,8 @@ const ApplyToTCRSuccess: React.FunctionComponent<ApplyToTCRSuccessProps> = props
               Your newsroom review period ends on{" "}
               <b>
                 {applicationEndDateTime[0]} at {applicationEndDateTime[1]}
-              </b>.
+              </b>
+              .
             </p>
 
             <p>Please check your emails during that time to keep tabs on your newsroom's progress.</p>

@@ -59,9 +59,10 @@ export interface ChallengeResolveProps extends ChallengeContainerProps {
   onMobileTransactionClick(): any;
 }
 
-const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResults)(
-  ChallengeResolveCardComponent,
-) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
+const ChallengeResolveCard = compose(
+  connectChallengePhase,
+  connectChallengeResults,
+)(ChallengeResolveCardComponent) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
 
 // A container for the Challenge Resolve Card component
 class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedTransactionStatusModalProps> {

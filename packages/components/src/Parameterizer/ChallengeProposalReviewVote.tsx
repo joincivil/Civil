@@ -78,9 +78,7 @@ function getSaltyWords(salt?: string): string {
 function getReadableRevealDateRange(commitEndDate: number, revealEndDate: number): string {
   const revealStartDateTime = getLocalDateTimeStrings(commitEndDate + 1);
   const revealEndDateTime = getLocalDateTimeStrings(revealEndDate);
-  return `From ${revealStartDateTime[0]} at ${revealStartDateTime[1]} to ${revealEndDateTime[0]} at ${
-    revealEndDateTime[1]
-  }`;
+  return `From ${revealStartDateTime[0]} at ${revealStartDateTime[1]} to ${revealEndDateTime[0]} at ${revealEndDateTime[1]}`;
 }
 
 function getCalendarEventDateTime(seconds: number | Date): string {

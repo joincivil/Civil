@@ -128,7 +128,8 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           open={false}
           header={
             <SectionHeaders>
-              <SectionHeaderCheck />Roster
+              <SectionHeaderCheck />
+              Roster
             </SectionHeaders>
           }
         >
@@ -143,7 +144,8 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           open={false}
           header={
             <SectionHeaders>
-              <SectionHeaderCheck />Charter
+              <SectionHeaderCheck />
+              Charter
             </SectionHeaders>
           }
         >
@@ -174,7 +176,8 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           open={false}
           header={
             <SectionHeaders>
-              <SectionHeaderCheck />Civil Constitution
+              <SectionHeaderCheck />
+              Civil Constitution
             </SectionHeaders>
           }
         >

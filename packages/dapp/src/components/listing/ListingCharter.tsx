@@ -186,7 +186,9 @@ class ListingCharter extends React.Component<
         </Mission>
 
         <CharterHeading>Team</CharterHeading>
-        {charter.roster.map((rosterMember, i) => <ListingCharterRosterMember key={i} member={rosterMember} />)}
+        {charter.roster.map((rosterMember, i) => (
+          <ListingCharterRosterMember key={i} member={rosterMember} />
+        ))}
 
         <VisitNewsroomWrapper>
           <Button size={buttonSizes.MEDIUM_WIDE} href={charter.newsroomUrl} target="_blank">

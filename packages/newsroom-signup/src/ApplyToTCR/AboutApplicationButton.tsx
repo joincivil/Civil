@@ -41,15 +41,18 @@ export class AboutApplicationButton extends React.Component {
               principles of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>. If there are no challenges, this newsroom will be automatically approved. If there is a challenge,
-              this newsroom will not be able to edit their charter or profile until after the challenge period is over.
-              By applying to the{" "}
+              </a>
+              . If there are no challenges, this newsroom will be automatically approved. If there is a challenge, this
+              newsroom will not be able to edit their charter or profile until after the challenge period is over. By
+              applying to the{" "}
               <a href={urlConstants.REGISTRY} target="_blank">
                 Civil Registry
-              </a>, newsroom is committed to upholding the values of the{" "}
+              </a>
+              , newsroom is committed to upholding the values of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>.
+              </a>
+              .
             </Paragraph>
             <Paragraph>
               The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
@@ -57,7 +60,8 @@ export class AboutApplicationButton extends React.Component {
               phases{" "}
               <a href={urlConstants.FAQ_COMMUNITY_VETTING_PROCESS} target="_blank">
                 here
-              </a>.
+              </a>
+              .
             </Paragraph>
 
             <InvertedButton size={buttonSizes.SMALL} target="_blank" href={urlConstants.FAQ_HOME}>

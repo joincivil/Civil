@@ -106,12 +106,11 @@ class ActivityListItemComponent extends React.Component<
         <DashboardActivityItem {...props}>
           {this.renderActivityDetails()}
 
-          {!userChallengeData &&
-            address && (
-              <FeatureFlag feature="boosts-mvp">
-                <Link to={routes.BOOST_CREATE}>Launch Boost</Link>
-              </FeatureFlag>
-            )}
+          {!userChallengeData && address && (
+            <FeatureFlag feature="boosts-mvp">
+              <Link to={routes.BOOST_CREATE}>Launch Boost</Link>
+            </FeatureFlag>
+          )}
         </DashboardActivityItem>
       );
     } else {

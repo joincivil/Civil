@@ -47,7 +47,8 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no new applications at this time",
     copy: (
       <>
-        Join the community-approved ethical Newsrooms on Civil<br />
+        Join the community-approved ethical Newsrooms on Civil
+        <br />
         <Button to="/apply-to-registry" size={buttonSizes.SMALL}>
           Apply to Registry
         </Button>

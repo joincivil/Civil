@@ -31,7 +31,7 @@ export const LoadingIndicator: React.FunctionComponent<LoadingIndicatorProps> = 
     return `0; ${circleR}; 0; 0`;
   };
   const getCircleOffsetX = (circleNum: number): string => {
-    return Math.floor(parseInt(width as string, 10) / 4 * circleNum).toString();
+    return Math.floor((parseInt(width as string, 10) / 4) * circleNum).toString();
   };
   const getCircleTranslate = (circleNum: number): string => {
     const translateX = getCircleOffsetX(circleNum + 1);
