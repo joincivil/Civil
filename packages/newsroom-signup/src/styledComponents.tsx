@@ -221,11 +221,12 @@ export const NextBackButtonContainer = styled.div`
 export interface NextBackProps {
   backHidden?: boolean;
   nextHidden?: boolean;
+  top?: boolean;
   navigate(go: 1 | -1): void;
   nextDisabled?(): boolean;
 }
 export const NextBack: React.FunctionComponent<NextBackProps> = (props: NextBackProps) => (
-  <NextBackButtonContainer style={{ marginTop: 64 }}>
+  <NextBackButtonContainer style={{ margin: props.top ? "0 0 32px" : "64px 0 0" }}>
     {!props.backHidden ? (
       <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => props.navigate(-1)}>
         Back
