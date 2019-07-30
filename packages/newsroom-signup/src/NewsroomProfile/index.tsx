@@ -1,6 +1,7 @@
 import * as React from "react";
 import { NextBack } from "../styledComponents";
 import { CharterData, EthAddress } from "@joincivil/core";
+import { STEP } from "../Newsroom";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
@@ -15,6 +16,7 @@ export interface NewsroomProfileState {
 export interface NewsroomProfileProps {
   profileWalletAddress?: EthAddress;
   currentStep: number;
+  furthestStep: STEP;
   charter: Partial<CharterData>;
   grantRequested?: boolean;
   waitingOnGrant?: boolean;
@@ -85,12 +87,13 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
     return steps[this.props.currentStep];
   }
 
-  public renderButtons(): JSX.Element | null {
+  public renderButtons(top?: boolean): JSX.Element | null {
     if (!this.state.showButtons || this.props.waitingOnGrant) {
       return null;
     }
     return (
       <NextBack
+        top={top}
         navigate={this.props.navigate}
         backHidden={this.props.currentStep === 0}
         nextDisabled={this.getDisabled(this.props.currentStep)}
@@ -101,6 +104,9 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
   public render(): JSX.Element {
     return (
       <>
+        {/*Bit ugly, but people always having issues figuring out how to navigate back to make changes, so once they've gotten this far, show navigation at the top as well:*/}
+        {this.props.furthestStep >= STEP.PROFILE_SO_FAR && this.renderButtons(true)}
+
         {this.renderCurrentStep()}
         {this.renderButtons()}
       </>
