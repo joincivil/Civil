@@ -69,7 +69,9 @@ storiesOf("Pattern Library / Buttons", module)
   .add("MetaMaskLogoButton", () => {
     return (
       <Container>
-        <MetaMaskLogoButton onClick={(ev: any) => console.log("You clicked me!")}>MetaMaskLogo Transaction Button</MetaMaskLogoButton>
+        <MetaMaskLogoButton onClick={(ev: any) => console.log("You clicked me!")}>
+          MetaMaskLogo Transaction Button
+        </MetaMaskLogoButton>
       </Container>
     );
   })
