@@ -8,7 +8,7 @@ import {
   ICivilContext,
   Transaction,
   TransactionButtonNoModal,
-  MetaMaskLogoButton,
+  CardTransactionButton,
   ManagerSectionHeading,
   MetaMaskModal,
   ModalHeading,
@@ -19,7 +19,7 @@ export interface AuthWeb3Props {
   authMutation: any;
   messagePrefix: string;
   header?: JSX.Element | string;
-  buttonText?: string;
+  buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
   onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
@@ -100,9 +100,9 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
               transactions={this.signTransactions(authWeb3Mutate)}
               Button={props => {
                 return (
-                  <MetaMaskLogoButton onClick={props.onClick}>
+                  <CardTransactionButton onClick={props.onClick}>
                     {this.props.buttonText || "Open MetaMask"}
-                  </MetaMaskLogoButton>
+                  </CardTransactionButton>
                 );
               }}
             />
