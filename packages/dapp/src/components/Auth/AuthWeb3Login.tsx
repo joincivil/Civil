@@ -1,65 +1,29 @@
-import * as React from "react";
 import gql from "graphql-tag";
+import * as React from "react";
 import { Helmet } from "react-helmet";
+import styled from "styled-components";
+import { Dropdown, MetaMaskFrontIcon } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
+
+import { routes } from "../../constants";
+import { StyledPageContentWithPadding } from "../utility/styledComponents";
+import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
+import { StyledAuthAltOption, StyledAuthHeader } from "./authStyledComponents";
 import AuthWeb3 from "./AuthWeb3";
 
-import { StyledPageContentWithPadding } from "../utility/styledComponents";
-import styled from "styled-components";
-import { colors, MetaMaskFrontIcon } from "@joincivil/components";
-
-const StyledAuthServiceIconContainer = styled.div`
+const StyledAuthLogin = styled.div`
   align-items: center;
   display: flex;
-  background: ${colors.accent.CIVIL_GRAY_5};
-  border-radius: 50%;
-  height: 60px;
-  justify-content: center;
-  margin-right: 15px;
-  width: 60px;
+  flex-direction: column;
+  max-width: 311px;
 `;
 
-const StyledAuthServiceBody = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 18px;
-`;
-
-const StyledAuthServiceHeader = styled.h4`
-  color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 26px;
-  margin: 0 0 13px;
-`;
-
-const StyledEthereumAuthContent = styled.div`
-  align-items: center;
-  display: flex;
-`;
-
-const StyledCardTransactionButtonContainer = styled.div`
-  width: 311px;
-
-  &:hover {
-    ${StyledAuthServiceHeader} {
-      color: ${colors.accent.CIVIL_BLUE};
-    }
-  }
-`;
-
-const ethereumLoginContent: JSX.Element = (
-  <StyledEthereumAuthContent>
-    <StyledAuthServiceIconContainer>
-      <MetaMaskFrontIcon height="30px" width="30px" />
-    </StyledAuthServiceIconContainer>
-
-    <StyledAuthServiceBody>
-      <StyledAuthServiceHeader>Log in with Ethereum</StyledAuthServiceHeader>
-      Use any Ethereum wallet like MetaMask to log in.
-    </StyledAuthServiceBody>
-  </StyledEthereumAuthContent>
+const ethereumLoginButtonContent: JSX.Element = (
+  <AuthButtonContent
+    image={<MetaMaskFrontIcon height="36px" width="36px" />}
+    header="Log in with Ethereum"
+    content="Use any Ethereum wallet like MetaMask to log in."
+  />
 );
 
 const authLoginEthMutation = gql`
@@ -77,22 +41,52 @@ export interface AuthWeb3LoginProps {
   onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
 }
 
-const AuthWeb3Login: React.FunctionComponent<AuthWeb3LoginProps> = props => {
-  return (
-    <StyledPageContentWithPadding>
-      <Helmet title={`Login - The Civil Registry`} />
+export interface AuthLoginDropdownProps {
+  target?: JSX.Element;
+}
 
+export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps> = props => {
+  return (
+    <StyledAuthLogin>
       <StyledCardTransactionButtonContainer>
         <AuthWeb3
           authMutation={authLoginEthMutation}
           messagePrefix="Log in to Civil"
-          buttonText={ethereumLoginContent}
-          buttonOnly={true}
+          buttonText={ethereumLoginButtonContent}
+          onAuthenticationContinue={props.onAuthenticationContinue}
           {...props}
         />
       </StyledCardTransactionButtonContainer>
+
+      <StyledAuthAltOption>
+        Not a Civil member? <a href={routes.AUTH_SIGNUP_WEB3}>Sign up to join</a>
+      </StyledAuthAltOption>
+    </StyledAuthLogin>
+  );
+};
+
+export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps & AuthLoginDropdownProps> = props => {
+  const target = props.target || <>Login</>;
+  return (
+    <Dropdown target={target}>
+      <div>
+        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
+        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+      </div>
+    </Dropdown>
+  );
+};
+
+const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => {
+  return (
+    <StyledPageContentWithPadding centerContent={true}>
+      <Helmet title={`Login - The Civil Registry`} />
+      <div>
+        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
+        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+      </div>
     </StyledPageContentWithPadding>
   );
 };
 
-export default AuthWeb3Login;
+export default AuthWeb3LoginPage;

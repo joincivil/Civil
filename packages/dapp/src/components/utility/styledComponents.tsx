@@ -2,8 +2,21 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { mediaQueries } from "@joincivil/components";
 
-export const StyledPageContent = styled.div`
-  margin: 0 auto;
+export interface StyledPageContentProps {
+  centerContent?: boolean;
+}
+
+export const StyledPageContent: StyledComponentClass<StyledPageContentProps, "div"> = styled<
+  StyledPageContentProps,
+  "div"
+>("div")`
+  ${props =>
+    !props.centerContent
+      ? ""
+      : `
+    display: flex;
+    justify-content: center;
+  `} margin: 0 auto;
   max-width: 1200px;
 `;
 

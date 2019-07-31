@@ -9,6 +9,7 @@ export {
   AuthInnerWrapper,
   AuthPageFooterLink,
   AuthFooterTerms,
+  AuthFooterContainer,
   AuthWrapper,
 } from "./Auth/AuthStyledComponents";
 

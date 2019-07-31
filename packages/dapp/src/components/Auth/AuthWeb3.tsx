@@ -9,11 +9,9 @@ import {
   Transaction,
   TransactionButtonNoModal,
   CardTransactionButton,
-  ManagerSectionHeading,
   MetaMaskModal,
   ModalHeading,
 } from "@joincivil/components";
-import { StyledPageContentWithPadding } from "../utility/styledComponents";
 
 export interface AuthWeb3Props {
   authMutation: any;
@@ -57,24 +55,6 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     this.state = {};
   }
 
-  public render(): JSX.Element {
-    if (this.props.buttonOnly) {
-      return this.renderTransactionUI();
-    }
-
-    const header = this.props.header || <>Log into Civil with your crypto wallet</>;
-
-    return (
-      <StyledPageContentWithPadding>
-        <ManagerSectionHeading>{header}</ManagerSectionHeading>
-        <div>
-          <p>MetaMask will open a new window, and will require you to sign a message.</p>
-          {this.renderTransactionUI()}
-        </div>
-      </StyledPageContentWithPadding>
-    );
-  }
-
   public componentDidMount(): void {
     this._isMounted = true;
   }
@@ -82,7 +62,7 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     this._isMounted = false;
   }
 
-  private renderTransactionUI(): JSX.Element {
+  public render(): JSX.Element {
     const { civil } = this.context;
     const { userAddress } = this.state;
 
