@@ -203,8 +203,9 @@ class SubmitChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          minDeposit && <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />}
+        {isInsufficientBalance && minDeposit && (
+          <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
+        )}
         <SubmitChallengeStatementComponent {...props} />
         {this.state.isConfirmModalVisible && this.renderConfirmationModal()}
       </>
@@ -394,6 +395,7 @@ const mapStateToProps = (
   };
 };
 
-export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  SubmitChallengeComponent,
-) as React.ComponentClass<SubmitChallengeProps>;
+export default compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(SubmitChallengeComponent) as React.ComponentClass<SubmitChallengeProps>;

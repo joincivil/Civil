@@ -4,7 +4,7 @@ The content number 0 is created automatically and it's use is reserved for the N
 
 Roles that are currently supported are:
 
-* "editor" -> which can publish content, update revisions and add/remove more editors
+- "editor" -> which can publish content, update revisions and add/remove more editors
 
 To post cryptographicaly pre-approved content on the Newsroom, the author's signature must be included and
 "Signed"-suffix functions used. Here are the steps to generate authors signature:

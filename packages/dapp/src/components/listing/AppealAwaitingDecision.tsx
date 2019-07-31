@@ -63,7 +63,10 @@ const transactionStatusModalConfig = {
 
 const AppealAwaitingDecisionCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealAwaitingDecisionCardComponent);
 
 interface AwaitingAppealDecisionState {
   uriValue: string;

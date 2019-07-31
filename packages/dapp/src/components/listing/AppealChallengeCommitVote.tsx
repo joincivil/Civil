@@ -102,7 +102,10 @@ interface AppealCommitCardKeyState {
 
 const AppealChallengeCommitVoteCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeCommitVoteCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealChallengeCommitVoteCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealChallengeCommitVoteCardComponent);
 
 class AppealChallengeCommitVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,

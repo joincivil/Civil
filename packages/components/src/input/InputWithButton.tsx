@@ -81,14 +81,13 @@ class InputContainer extends React.Component<InputContainerProps, InputWithButto
     return (
       <StyledTextInputButton {...this.state}>
         {this.props.children(this.state.isFocused, this.setFocused, this.setUnfocused, this.setInputRef)}
-        {this.props.buttonText &&
-          this.state.isFocused && (
-            <StyledButtonContainer>
-              <InvertedButton size={buttonSizes.SMALL} onClick={this.handleButtonClick} inputRef={this.setButtonRef}>
-                {this.props.buttonText}
-              </InvertedButton>
-            </StyledButtonContainer>
-          )}
+        {this.props.buttonText && this.state.isFocused && (
+          <StyledButtonContainer>
+            <InvertedButton size={buttonSizes.SMALL} onClick={this.handleButtonClick} inputRef={this.setButtonRef}>
+              {this.props.buttonText}
+            </InvertedButton>
+          </StyledButtonContainer>
+        )}
         {!this.state.isFocused && this.props.icon && <StyledIcon>{this.props.icon}</StyledIcon>}
       </StyledTextInputButton>
     );

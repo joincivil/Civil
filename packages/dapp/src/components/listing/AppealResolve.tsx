@@ -24,7 +24,10 @@ const AppealResolveCard = compose<
   React.ComponentType<
     ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeContainerProps & AppealDecisionProps
   >
->(connectChallengeResults, connectChallengePhase)(AppealResolveCardComponent);
+>(
+  connectChallengeResults,
+  connectChallengePhase,
+)(AppealResolveCardComponent);
 
 enum TransactionTypes {
   RESOLVE_APPEAL = "RESOLVE_APPEAL",

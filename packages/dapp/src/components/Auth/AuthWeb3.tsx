@@ -133,9 +133,7 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     return (
       <MetaMaskModal
         alert={true}
-        bodyText={`Something went wrong when authenticating your wallet address (${
-          this.state.errorMessage
-        }). Please try again later.`}
+        bodyText={`Something went wrong when authenticating your wallet address (${this.state.errorMessage}). Please try again later.`}
         cancelTransaction={this.cancelTransaction}
       >
         <ModalHeading>Failed to save your wallet address</ModalHeading>

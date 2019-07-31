@@ -31,7 +31,8 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               journalistic practices as outlined in the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>.
+              </a>
+              .
             </Paragraph>
 
             <SectionHeader>Civil Tokens</SectionHeader>
@@ -65,15 +66,18 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               the principles of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>. If there are no challenges, this newsroom will be automatically approved. If there is a challenge,
-              this newsroom will not be able to edit their charter or profile until after the challenge period is over.
-              By applying to the{" "}
+              </a>
+              . If there are no challenges, this newsroom will be automatically approved. If there is a challenge, this
+              newsroom will not be able to edit their charter or profile until after the challenge period is over. By
+              applying to the{" "}
               <a href={urlConstants.REGISTRY} target="_blank">
                 Civil Registry
-              </a>, a newsroom is committing to uphold the values of the{" "}
+              </a>
+              , a newsroom is committing to uphold the values of the{" "}
               <a href={urlConstants.CONSTITUTION} target="_blank">
                 Civil Constitution
-              </a>.
+              </a>
+              .
             </Paragraph>
             <Paragraph>
               The Registry is designed with checks and balances in place to ensure that all voices and perspectives have
@@ -81,7 +85,8 @@ export class LearnMoreButton extends React.Component<LearnMoreButtonProps> {
               phases{" "}
               <a href={urlConstants.FAQ_COMMUNITY_VETTING_PROCESS} target="_blank">
                 here
-              </a>.
+              </a>
+              .
             </Paragraph>
 
             <InvertedButton size={buttonSizes.SMALL} target="_blank" href={urlConstants.FAQ_HOME}>

@@ -161,12 +161,15 @@ export class CreateNewsroomContractComponent extends React.Component<
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          You have confirmed the transaction in MetaMask{!this.props.newsroomAddress &&
-            ", and now computers around the world are learning about your newsroom contract"}.
+          You have confirmed the transaction in MetaMask
+          {!this.props.newsroomAddress &&
+            ", and now computers around the world are learning about your newsroom contract"}
+          .
         </p>
         <p>
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-          transaction is processing.<br />
+          transaction is processing.
+          <br />
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -307,7 +310,8 @@ export class CreateNewsroomContractComponent extends React.Component<
           <Label>Newsroom Contract Address</Label>
           <AddressWithCopyButton address={this.props.newsroomAddress || ""} />
           <StepDescription>
-            Your newsroom contract address is like the byline of your newsroom on the Ethereum blockchain.<strong>
+            Your newsroom contract address is like the byline of your newsroom on the Ethereum blockchain.
+            <strong>
               {" "}
               CVL or ETH cannot be sent to this contract address. If funds are sent to this address, you will lose your
               cryptocurrency and the Civil Media Company can not help you to retrieve it.

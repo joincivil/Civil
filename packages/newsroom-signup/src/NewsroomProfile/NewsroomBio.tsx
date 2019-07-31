@@ -85,7 +85,8 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
           </OBSmallParagraph>
         </OBCollapsable>
         <OBSmallParagraph>
-          To create your Newsroom Registry Profile, you will complete 4 steps:<br />
+          To create your Newsroom Registry Profile, you will complete 4 steps:
+          <br />
           Newsroom Details, Roster, Charter, and Signing.
         </OBSmallParagraph>
         <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>

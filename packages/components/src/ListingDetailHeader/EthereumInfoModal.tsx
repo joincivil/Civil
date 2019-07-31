@@ -55,7 +55,8 @@ const EthereumInfoModal: React.FunctionComponent<EthereumInfoModalProps> = props
             Media Company can not help you to retrieve it.{" "}
             <a href={props.ethInfoModalLearnMoreURL} target="_blank">
               Learn more
-            </a>.
+            </a>
+            .
           </p>
         </StyledEthereumAddressDescription>
       </StyledEthereumInfoModalInner>

@@ -39,8 +39,10 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
       <ComingSoon>
         <h3>Coming Soon...</h3>
         <p>
-          We appreciate your patience while we are testing this feature.<br />If you need help or have questions, please
-          contact our support team at <a href="mailto:support@civil.co">support@civil.co</a>.
+          We appreciate your patience while we are testing this feature.
+          <br />
+          If you need help or have questions, please contact our support team at{" "}
+          <a href="mailto:support@civil.co">support@civil.co</a>.
         </p>
       </ComingSoon>
     );

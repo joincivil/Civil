@@ -12,6 +12,7 @@
     "coverage": "lerna run coverage --parallel",
     "coverage:submit": "lcov-result-merger 'packages/*/coverage/lcov.info' | coveralls",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
+    "prettier:package": "[ $PACKAGE ] && prettier --config .prettierrc.yaml --write --list-different ./packages/$PACKAGE'/**/*.{ts,tsx,json,md}' || echo 'Specify a package name as environment variable to run prettier on just that package, e.g. `PACKAGE=dapp yarn prettier:package`'",
     "clean": "lerna run clean --parallel",
     "test": "lerna run test --stream --sort",
     "lerna:run": "lerna run",
@@ -35,6 +36,6 @@
     "lerna": "^3.15.0",
     "ncp": "^2.0.0",
     "npm-run-all": ">=4.1.5",
-    "prettier": "1.12.1"
+    "prettier": "1.18.2"
   }
 }
