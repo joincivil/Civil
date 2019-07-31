@@ -114,25 +114,25 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
     <StyledPageContentWithPadding centerContent={true}>
       <Helmet title={`Sign up - The Civil Registry`} />
       <div>
-        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <StyledAuthHeaderCopy>Sign up to create an account</StyledAuthHeaderCopy>
-
         {(() => {
           if (isWalletOnboardingVisible) {
             return <WalletOnboardingV2 />;
           }
           return (
-            <AuthWeb3SignupComponent
-              onAuthenticationContinue={props.onAuthenticationContinue}
-              showWalletOnboarding={showWalletOnboarding}
-            />
+            <>
+              <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
+              <StyledAuthHeaderCopy>Sign up to create an account</StyledAuthHeaderCopy>
+              <AuthWeb3SignupComponent
+                onAuthenticationContinue={props.onAuthenticationContinue}
+                showWalletOnboarding={showWalletOnboarding}
+              />
+              <StyledAuthFooterContainer>
+                By signing up with MetaMask or other Ethereum wallets, you accept Civil’s{" "}
+                <a href={links.TERMS}>Terms of Use</a> and <a href={links.PRIVACY_POLICY}>Privacy Policy</a>.
+              </StyledAuthFooterContainer>
+            </>
           );
         })()}
-
-        <StyledAuthFooterContainer>
-          By signing up with MetaMask or other Ethereum wallets, you accept Civil’s{" "}
-          <a href={links.TERMS}>Terms of Use</a> and <a href={links.PRIVACY_POLICY}>Privacy Policy</a>.
-        </StyledAuthFooterContainer>
       </div>
     </StyledPageContentWithPadding>
   );
