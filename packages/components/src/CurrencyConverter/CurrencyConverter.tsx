@@ -20,6 +20,7 @@ export interface CurrencyConverterProps {
   currencyCodeTo: string;
   currencyLabelTo?: string | JSX.Element;
   displayErrorMsg?: boolean;
+  fromValue?: string;
   doConversion(fromValue: number): Promise<number>;
   onConversion(fromValue: number, toValue: number): void;
   onNotEnoughEthError?(error: boolean): void;
@@ -57,6 +58,10 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
         });
       }
     }
+
+    if (this.props.fromValue) {
+      this.handleConversionDebounced(this.props.fromValue)
+    }
   }
 
   public render(): JSX.Element {
@@ -69,6 +74,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
               name="Convert currency"
               icon={<>{this.props.currencyCodeFrom}</>}
               onChange={async (_, amount) => this.handleConversionDebounced(amount)}
+              value={this.props.fromValue}
             />
           </StyledCurrencyInputWithButton>
         </CurrencyContain>
