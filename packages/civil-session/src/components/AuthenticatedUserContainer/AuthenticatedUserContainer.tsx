@@ -1,18 +1,20 @@
+import { useStateWithLocalStorage } from "@joincivil/components";
 import * as React from "react";
-import { getApolloSessionKey, getCurrentUserQuery } from "@joincivil/utils";
 import { Query } from "react-apollo";
-import useStateWithLocalStorage from "../hooks/useStateWithLocalStorage";
 
-export interface LoadUserChildrenProps {
+import { getApolloSessionKey } from "../../utils/apolloClient";
+import { getCurrentUserQuery } from "../../utils/queries";
+
+export interface AuthenticatedUserContainerChildrenProps {
   user: any;
   loading: boolean;
 }
 
-export interface LoadUserProps {
-  children(props: LoadUserChildrenProps): any;
+export interface AuthenticatedUserContainerProps {
+  children(props: AuthenticatedUserContainerChildrenProps): any;
 }
 
-export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
+export const AuthenticatedUserContainer: React.FunctionComponent<AuthenticatedUserContainerProps> = props => {
   const apolloSessionKey = getApolloSessionKey();
   const [auth] = useStateWithLocalStorage(apolloSessionKey);
 

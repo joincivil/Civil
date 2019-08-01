@@ -1,0 +1,27 @@
+{
+  "name": "@joincivil/civil-session",
+  "version": "1.0.0",
+  "description": "React components and helper methods for managing Civil user sessions",
+  "main": "build/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "yarn clean && tsc",
+    "build:watch": "yarn clean && tsc -w",
+    "lint": "tslint --project ./",
+    "clean": "rimraf build/"
+  },
+  "dependencies": {
+    "@joincivil/components": "^1.9.7",
+    "@joincivil/utils": "^1.9.8",
+    "apollo-boost": "^0.4.3",
+    "graphql": "^14.4.2",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.24"
+  }
+}

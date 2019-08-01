@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "build/",
+    "declarationDir": "build/",
+    "jsx": "react",
+    "lib": ["dom", "es2017"]
+  },
+  "include": ["./src/**/*.ts", "./test/**/*.ts"]
+}

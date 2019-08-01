@@ -1,8 +1,8 @@
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { buttonSizes } from "../Button";
 
-import { LoadUser } from "../Account";
+import { buttonSizes } from "../Button";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 import {
@@ -183,7 +183,7 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
 
 const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
   return (
-    <LoadUser>
+    <AuthenticatedUserContainer>
       {({ loading, user: civilUser }) => {
         if (loading || !civilUser || !props.userEthAddress) {
           return null;
@@ -191,7 +191,7 @@ const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
 
         return <NavDrawerBucketComponent {...props} />;
       }}
-    </LoadUser>
+    </AuthenticatedUserContainer>
   );
 };
 

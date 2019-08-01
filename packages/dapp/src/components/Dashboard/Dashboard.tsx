@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/core";
-import { buttonSizes, Button, CivilContext, UserDashboardHeader, LoadUser } from "@joincivil/components";
+import { buttonSizes, Button, CivilContext, UserDashboardHeader } from "@joincivil/components";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
 
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
@@ -55,7 +56,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
     <>
       <Helmet title="My Dashboard - The Civil Registry" />
       <ScrollToTopOnMount />
-      <LoadUser>
+      <AuthenticatedUserContainer>
         {({ loading, user: civilUser }) => {
           if (loading) {
             return null;
@@ -92,7 +93,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
             </StyledAuthButtonContainer>
           );
         }}
-      </LoadUser>
+      </AuthenticatedUserContainer>
     </>
   );
 };

@@ -2,7 +2,6 @@ export * from "./Auth/VerifyToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
-export * from "./LoadUser";
 
 export {
   AuthOuterWrapper,

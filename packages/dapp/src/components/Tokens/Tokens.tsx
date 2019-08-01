@@ -2,7 +2,8 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
-import { UserTokenAccount, LoadUser } from "@joincivil/components";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
+import { UserTokenAccount } from "@joincivil/components";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 export interface TokensProps {
@@ -18,7 +19,7 @@ export const TokensComponent = ({ network }: TokensProps) => {
     <>
       <Helmet title="Token Account - The Civil Registry" />
       <ScrollToTopOnMount />
-      <LoadUser>
+      <AuthenticatedUserContainer>
         {({ loading, user }) => {
           if (loading) {
             // TODO(jorgelo): Should we have a loading state here?
@@ -35,7 +36,7 @@ export const TokensComponent = ({ network }: TokensProps) => {
             />
           );
         }}
-      </LoadUser>
+      </AuthenticatedUserContainer>
     </>
   );
 };

@@ -16,6 +16,7 @@
     "test": "echo \"add tests please\""
   },
   "dependencies": {
+    "@joincivil/civil-session": "^1.0.0",
     "@joincivil/components": "^1.9.7",
     "@joincivil/core": "^4.8.8",
     "@joincivil/ethapi": "^0.4.8",

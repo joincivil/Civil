@@ -11,7 +11,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     }
   >
     <div
-      className="sc-wENpt IjMEy"
+      className="sc-jwyaWI dfjWOm"
     >
       <div>
         <div
@@ -602,7 +602,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     }
   >
     <div
-      className="sc-wENpt IjMEy"
+      className="sc-jwyaWI dfjWOm"
     >
       <div>
         <div
@@ -1454,7 +1454,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Rejected 1`] = `
     }
   >
     <div
-      className="sc-wENpt IjMEy"
+      className="sc-jwyaWI dfjWOm"
     >
       <div />
     </div>

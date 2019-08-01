@@ -1,5 +1,6 @@
 export * from "./containers";
 export * from "./context";
+export { default as useStateWithLocalStorage } from "./hooks/useStateWithLocalStorage";
 export * from "./input";
 export * from "./Account";
 export * from "./Button";

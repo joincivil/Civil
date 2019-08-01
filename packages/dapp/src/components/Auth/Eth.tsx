@@ -1,6 +1,7 @@
 import * as React from "react";
-import { AuthOuterWrapper, CivilContext, WalletOnboardingV2, LoadUser } from "@joincivil/components";
+import { AuthOuterWrapper, CivilContext, WalletOnboardingV2 } from "@joincivil/components";
 import { connect, DispatchProp } from "react-redux";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
 import { EthAddress } from "@joincivil/core";
 import { State } from "../../redux/reducers";
 
@@ -22,7 +23,7 @@ const AuthEth: React.FunctionComponent<AuthEthProps & AuthEthReduxProps & Dispat
 
   return (
     <AuthOuterWrapper>
-      <LoadUser>
+      <AuthenticatedUserContainer>
         {({ loading, user }) => {
           if (loading) {
             return null;
@@ -39,7 +40,7 @@ const AuthEth: React.FunctionComponent<AuthEthProps & AuthEthReduxProps & Dispat
             />
           );
         }}
-      </LoadUser>
+      </AuthenticatedUserContainer>
     </AuthOuterWrapper>
   );
 };

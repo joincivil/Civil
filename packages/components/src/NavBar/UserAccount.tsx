@@ -1,7 +1,7 @@
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
 import * as React from "react";
 
 import { buttonSizes } from "../Button";
-import { LoadUser } from "../Account";
 import { CvlToken } from "../icons/CvlToken";
 
 import { NavLink } from "./NavLink";
@@ -30,7 +30,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
   const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
 
   return (
-    <LoadUser>
+    <AuthenticatedUserContainer>
       {({ loading, user: civilUser }) => {
         if (loading) {
           return null;
@@ -103,7 +103,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           </>
         );
       }}
-    </LoadUser>
+    </AuthenticatedUserContainer>
   );
 };
 

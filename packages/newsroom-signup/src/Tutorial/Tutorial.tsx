@@ -1,12 +1,6 @@
 import * as React from "react";
-import {
-  LoadUser,
-  OBSectionHeader,
-  OBSectionDescription,
-  fonts,
-  colors,
-  CivilTutorialIcon,
-} from "@joincivil/components";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session";
+import { OBSectionHeader, OBSectionDescription, fonts, colors, CivilTutorialIcon } from "@joincivil/components";
 import { TutorialModal, LaunchTutorialBtn } from "./TutorialModal";
 import { NextBack } from "../styledComponents";
 import styled from "styled-components";
@@ -78,7 +72,7 @@ export class Tutorial extends React.Component<TutorialProps> {
             It should take you under 20 minutes to complete. If at any point you answer incorrectly, don’t worry. You
             will be able to answer the questions again.
           </p>
-          <LoadUser>
+          <AuthenticatedUserContainer>
             {({ loading, user }) => {
               return (
                 <>
@@ -92,7 +86,7 @@ export class Tutorial extends React.Component<TutorialProps> {
                 </>
               );
             }}
-          </LoadUser>
+          </AuthenticatedUserContainer>
         </TutorialSectionStyled>
       </>
     );
