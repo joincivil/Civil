@@ -5,7 +5,7 @@ import {
   removeItem,
   startLocalStorageUpdateBroadcast,
   CIVIL_LOCAL_STORAGE_EVENTS,
-} from "@joincivil/utils";
+} from "../localStorage";
 
 const storageKeys: any = {};
 
@@ -64,7 +64,7 @@ function areValuesEqual(prevValue: any, newValue: any): boolean {
   return prevValue === newValue;
 }
 
-export default function useStateWithLocalStorage(key: string, defaultValue?: any): [any, React.Dispatch<any>] {
+export function useStateWithLocalStorage(key: string, defaultValue?: any): [any, React.Dispatch<any>] {
   const [value, setStateValue] = React.useState(() => {
     try {
       const item = fetchItem(key);

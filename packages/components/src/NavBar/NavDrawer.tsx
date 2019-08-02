@@ -1,4 +1,4 @@
-import { AuthenticatedUserContainer } from "@joincivil/civil-session";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session/src/components/AuthenticatedUserContainer";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
@@ -36,7 +36,10 @@ import {
 import { LoadingPrefToggle } from "./LoadingPrefToggle";
 import { NavUserAccountProps, NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
 
-export interface NavDrawerProps extends NavDrawerBaseProps, NavUserAccountProps {
+export interface NavDrawerProps extends NavDrawerBaseProps {
+  balance: string;
+  userEthAddress?: string;
+  votingBalance: string;
   userAccountElRef?: any;
   handleOutsideClick(): void;
 }
@@ -151,7 +154,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
   };
 }
 
-class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
+export class NavUserDrawer extends React.Component<NavDrawerProps> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -180,19 +183,3 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
     this.props.handleOutsideClick();
   };
 }
-
-const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
-  return (
-    <AuthenticatedUserContainer>
-      {({ loading, user: civilUser }) => {
-        if (loading || !civilUser || !props.userEthAddress) {
-          return null;
-        }
-
-        return <NavDrawerBucketComponent {...props} />;
-      }}
-    </AuthenticatedUserContainer>
-  );
-};
-
-export default NavDrawer;

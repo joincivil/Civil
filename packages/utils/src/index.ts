@@ -12,3 +12,4 @@ export * from "./salt";
 export * from "./viewHelpers";
 export * from "./etherscan";
 export * from "./urlConstants";
+export * from "./hooks/useStateWithLocalStorage";

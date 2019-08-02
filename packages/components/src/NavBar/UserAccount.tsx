@@ -1,4 +1,4 @@
-import { AuthenticatedUserContainer } from "@joincivil/civil-session";
+import { AuthenticatedUserContainer } from "@joincivil/civil-session/src/components/AuthenticatedUserContainer";
 import * as React from "react";
 
 import { buttonSizes } from "../Button";
@@ -26,85 +26,61 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
   toggleDrawer(): void;
 }
 
-const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
+export interface NavUserAccount {
+  balance: string;
+  isUserDrawerOpen: boolean;
+  userEthAddress: string;
+  votingBalance: string;
+  toggleDrawer(): void;
+}
+
+export const NavUserAccount: React.FunctionComponent<NavUserAccount> = props => {
+  const { balance, isUserDrawerOpen, toggleDrawer, userEthAddress, votingBalance } = props;
+  const userAccountElRef = React.createRef<HTMLDivElement>();
+  let child;
+
+  if (props.children) {
+    child = React.cloneElement(props.children as React.ReactElement, {
+      userAccountElRef,
+    });
+  }
 
   return (
-    <AuthenticatedUserContainer>
-      {({ loading, user: civilUser }) => {
-        if (loading) {
-          return null;
-        }
+    <>
+      <StyledVisibleIfLoggedInLink>
+        <NavLink to="/dashboard">
+          <NavLinkDashboardText />
+        </NavLink>
+      </StyledVisibleIfLoggedInLink>
+      <div ref={userAccountElRef}>
+        <NavUser onClick={toggleDrawer}>
+          <CvlContainer>
+            <CvlToken />
+            <BalancesContainer>
+              <UserCvlBalance>{balance}</UserCvlBalance>
+              <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
+            </BalancesContainer>
+            <AvatarContainer>
+              <UserAvatar />
+              <Arrow isOpen={isUserDrawerOpen} />
+            </AvatarContainer>
+          </CvlContainer>
+        </NavUser>
+      </div>
 
-        if (civilUser && userEthAddress) {
-          const userAccountElRef = React.createRef<HTMLDivElement>();
-          let child;
-
-          if (props.children) {
-            child = React.cloneElement(props.children as React.ReactElement, {
-              userAccountElRef,
-            });
-          }
-
-          return (
-            <>
-              <StyledVisibleIfLoggedInLink>
-                <NavLink to="/dashboard">
-                  <NavLinkDashboardText />
-                </NavLink>
-              </StyledVisibleIfLoggedInLink>
-              <div ref={userAccountElRef}>
-                <NavUser onClick={ev => props.toggleDrawer()}>
-                  <CvlContainer>
-                    <CvlToken />
-                    <BalancesContainer>
-                      <UserCvlBalance>{balance}</UserCvlBalance>
-                      <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
-                    </BalancesContainer>
-                    <AvatarContainer>
-                      <UserAvatar />
-                      <Arrow isOpen={props.isUserDrawerOpen} />
-                    </AvatarContainer>
-                  </CvlContainer>
-                </NavUser>
-              </div>
-
-              {child}
-            </>
-          );
-        } else if (civilUser && enableEthereum && !userEthAddress) {
-          return (
-            <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
-              Connect Wallet
-            </LogInButton>
-          );
-        }
-
-        let memberBtnProps: any = { href: joinAsMemberUrl };
-        if (joinAsMemberUrl.charAt(0) === "/") {
-          memberBtnProps = { to: joinAsMemberUrl };
-        }
-        let applyBtnProps: any = { href: applyURL };
-        if (applyURL.charAt(0) === "/") {
-          applyBtnProps = { to: applyURL };
-        }
-
-        return (
-          <>
-            <NavLink to={props.authenticationURL}>Log In</NavLink>
-
-            <NavBarButton size={buttonSizes.SMALL} {...memberBtnProps}>
-              Join as a member
-            </NavBarButton>
-
-            <NavBarButton size={buttonSizes.SMALL} {...applyBtnProps}>
-              Join as a newsroom
-            </NavBarButton>
-          </>
-        );
-      }}
-    </AuthenticatedUserContainer>
+      {child}
+    </>
   );
 };
 
-export default UserAccount;
+export interface NavLoginButton {
+  onClick(): Promise<void> | void;
+}
+
+export const NavLoginButton: React.FunctionComponent<NavLoginButton> = props => {
+  return (
+    <LogInButton onClick={props.onClick} size={buttonSizes.SMALL}>
+      Connect Wallet
+    </LogInButton>
+  );
+};

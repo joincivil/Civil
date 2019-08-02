@@ -1,4 +1,4 @@
-import { useStateWithLocalStorage } from "@joincivil/components";
+import { useStateWithLocalStorage } from "@joincivil/utils";
 import * as React from "react";
 import { Query } from "react-apollo";
 

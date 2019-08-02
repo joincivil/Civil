@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { CivilContext, NavBar, NavProps } from "@joincivil/components";
+import { CivilContext, NavBar, NavUserAccount, NavUserDrawer, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
@@ -28,6 +28,16 @@ export interface NavBarProps {
 const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any>> = props => {
   const { civil } = React.useContext(CivilContext);
 
+  const [isUserDrawerOpen, setIsUserDrawerOpen] = React.useState(false);
+
+  const toggleDrawer = () => {
+    setIsUserDrawerOpen(!isUserDrawerOpen);
+  };
+
+  const hideDrawer = () => {
+    setIsUserDrawerOpen(false);
+  };
+
   const {
     balance,
     votingBalance,
@@ -39,33 +49,42 @@ const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any
     useGraphQL,
   } = props;
 
-  const navBarViewProps: NavProps = {
-    balance,
-    votingBalance,
-    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
-    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
-    userChallengesStartedCount: currentUserChallengesStarted.count(),
-    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    useGraphQL,
-    authenticationURL: "/auth/login",
-    buyCvlUrl: "/tokens",
-    joinAsMemberUrl: "https://civil.co/become-a-member",
-    applyURL: links.APPLY,
-    onLoadingPrefToggled: async (): Promise<any> => {
-      props.dispatch!(await toggleUseGraphQL());
-    },
+  const userEthAddress = userAccount && getFormattedEthAddress(userAccount);
+  const onLoadingPrefToggled = async (): Promise<any> => {
+    props.dispatch!(await toggleUseGraphQL());
   };
-
+  let enableEthereum;
   if (civil && civil.currentProvider) {
-    navBarViewProps.enableEthereum = async () => {
+    enableEthereum = async () => {
       await civil.currentProviderEnable();
     };
   }
 
+  const userAccountEl = (
+    <NavUserAccount
+      balance={balance}
+      votingBalance={votingBalance}
+      userEthAddress={userEthAddress}
+      userRevealVotesCount={userChallengesWithUnrevealedVotes!.count()}
+      userClaimRewardsCount={userChallengesWithUnclaimedRewards!.count()}
+      userChallengesStartedCount={currentUserChallengesStarted.count()}
+      userChallengesVotedOnCount={currentUserChallengesVotedOn.count()}
+      useGraphQL={useGraphQL}
+      authenticationURL={"/auth/login"}
+      buyCvlUrl={"/tokens"}
+      joinAsMemberUrl={"https://civil.co/become-a-member"}
+      applyURL={links.APPLY}
+      onLoadingPrefToggled={onLoadingPrefToggled}
+      enableEthereum={enableEthereum}
+      toggleDrawer={toggleDrawer}
+    >
+      <NavUserDrawer handleOutsideClick={hideDrawer} />
+    </NavUserAccount>
+  );
+
   return (
     <>
-      <NavBar {...navBarViewProps} />
+      <NavBar userAccountEl={userAccountEl} />
     </>
   );
 };

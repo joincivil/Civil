@@ -2,6 +2,7 @@ export interface NavUserAccountProps {
   balance: string;
   userEthAddress?: string;
   votingBalance: string;
+  isAuthenticated: boolean;
 }
 
 export interface NavAuthenticationProps {
