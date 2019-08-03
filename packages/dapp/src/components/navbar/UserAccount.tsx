@@ -41,7 +41,7 @@ const UserAccount: React.FunctionComponent<UserAccountProps> = props => {
           let child;
 
           if (props.children) {
-            child = React.cloneElement(props.children as React.ReactElement, {
+            child = React.cloneElement(children as React.ReactElement, {
               userAccountElRef,
             });
           }
@@ -53,11 +53,15 @@ const UserAccount: React.FunctionComponent<UserAccountProps> = props => {
               isUserDrawerOpen={isUserDrawerOpen}
               toggleDrawer={toggleDrawer}
             >
-              {isUserDrawerOpen && children}
+              {isUserDrawerOpen && child}
             </NavUserAccount>
           );
         } else if (civilUser && enableEthereum && !userEthAddress) {
-          return <NavLogInButton onClick={enableEthereum}>Connect Wallet</NavLogInButton>;
+          return (
+            <NavLogInButton onClick={enableEthereum} size={buttonSizes.SMALL}>
+              Connect Wallet
+            </NavLogInButton>
+          );
         }
 
         let memberBtnProps: any = { href: joinAsMemberUrl };
@@ -71,7 +75,7 @@ const UserAccount: React.FunctionComponent<UserAccountProps> = props => {
 
         return (
           <>
-            <NavLink to={props.authenticationURL}>Log In</NavLink>
+            <NavLink to={authenticationURL}>Log In</NavLink>
 
             <NavBarButton size={buttonSizes.SMALL} {...memberBtnProps}>
               Join as a member

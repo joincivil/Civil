@@ -33,7 +33,7 @@ import {
   NavDrawerLoadingPrefText,
 } from "./textComponents";
 import { LoadingPrefToggle } from "./LoadingPrefToggle";
-import { NavUserAccountProps, NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
+import { NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
 
 export interface NavDrawerProps extends NavDrawerBaseProps {
   balance: string;

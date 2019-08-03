@@ -12,7 +12,6 @@ import {
   UserAvatar,
   BalancesContainer,
   LogInButton,
-  NavBarButton,
   NavUser,
   StyledVisibleIfLoggedInLink,
   UserCvlBalance,
@@ -28,13 +27,12 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 export interface NavUserAccount {
   balance?: string;
   isUserDrawerOpen: boolean;
-  userEthAddress?: string;
   votingBalance?: string;
   toggleDrawer(): void;
 }
 
 export const NavUserAccount: React.FunctionComponent<NavUserAccount> = props => {
-  const { balance, isUserDrawerOpen, toggleDrawer, userEthAddress, votingBalance } = props;
+  const { balance, isUserDrawerOpen, toggleDrawer, votingBalance } = props;
   const userAccountElRef = React.createRef<HTMLDivElement>();
   let child;
 

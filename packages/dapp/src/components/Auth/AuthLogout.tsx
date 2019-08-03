@@ -2,15 +2,14 @@ import * as React from "react";
 import { Redirect } from "react-router";
 import { StyledPageContentWithPadding } from "../utility/styledComponents";
 
-import { clearApolloSession } from "@joincivil/utils";
+import { clearCivilSession } from "@joincivil/civil-session";
 
 const AuthLogout = () => {
   const [loggedOut, setLoggedOut] = React.useState(false);
   React.useEffect(() => {
-    setTimeout(() => {
-      clearApolloSession();
+    clearCivilSession().then(() => {
       setLoggedOut(true);
-    }, 500);
+    });
   }, []);
 
   return loggedOut ? <Redirect to="/" /> : <StyledPageContentWithPadding>Logging out...</StyledPageContentWithPadding>;

@@ -22,9 +22,16 @@ export function setApolloSession(session: IAuthLoginResponse): void {
   setItem(sessionKey, session);
 }
 
-export function clearApolloSession(): void {
+export async function clearApolloSession(): Promise<void> {
   const sessionKey = getApolloSessionKey();
-  removeItem(sessionKey);
+  return new Promise((resolve, reject) => {
+    try {
+      removeItem(sessionKey);
+      resolve();
+    } catch (err) {
+      reject();
+    }
+  });
 }
 
 export function getNetwork(): number {

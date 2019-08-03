@@ -13,15 +13,21 @@
   },
   "dependencies": {
     "@joincivil/components": "^1.9.7",
+    "@joincivil/core": "^4.8.8",
+    "@joincivil/ethapi": "^0.4.8",
+    "@joincivil/typescript-types": "^1.4.8",
     "@joincivil/utils": "^1.9.8",
     "apollo-boost": "^0.4.3",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
-    "react": "^16.8.6",
+    "react": "^16.8",
     "react-apollo": "^2.5.8",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
-    "@types/react": "^16.8.24"
+    "@types/react": "^16.8",
+    "@types/react-dom": "^16.8",
+    "typescript": "^3.4.1"
   }
 }

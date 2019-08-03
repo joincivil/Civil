@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { CivilContext, NavBar, NavUserDrawer, NavProps } from "@joincivil/components";
+import { CivilContext, NavBar, NavUserDrawer } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 import UserAccount from "./navbar/UserAccount";
 
