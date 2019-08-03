@@ -1,4 +1,3 @@
-import { AuthenticatedUserContainer } from "@joincivil/civil-session/src/components/AuthenticatedUserContainer";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 

@@ -1,4 +1,3 @@
-import { AuthenticatedUserContainer } from "@joincivil/civil-session/src/components/AuthenticatedUserContainer";
 import * as React from "react";
 
 import { buttonSizes } from "../Button";
@@ -27,10 +26,10 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 export interface NavUserAccount {
-  balance: string;
+  balance?: string;
   isUserDrawerOpen: boolean;
-  userEthAddress: string;
-  votingBalance: string;
+  userEthAddress?: string;
+  votingBalance?: string;
   toggleDrawer(): void;
 }
 

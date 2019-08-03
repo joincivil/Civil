@@ -5,7 +5,7 @@ import {
   removeItem,
   startLocalStorageUpdateBroadcast,
   CIVIL_LOCAL_STORAGE_EVENTS,
-} from "../localStorage";
+} from "@joincivil/utils";
 
 const storageKeys: any = {};
 

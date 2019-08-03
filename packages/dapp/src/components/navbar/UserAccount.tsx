@@ -47,7 +47,12 @@ const UserAccount: React.FunctionComponent<UserAccountProps> = props => {
           }
 
           return (
-            <NavUserAccount balance={balance} votingBalance={votingBalance} isUserDrawerOpen={isUserDrawerOpen}>
+            <NavUserAccount
+              balance={balance}
+              votingBalance={votingBalance}
+              isUserDrawerOpen={isUserDrawerOpen}
+              toggleDrawer={toggleDrawer}
+            >
               {isUserDrawerOpen && children}
             </NavUserAccount>
           );

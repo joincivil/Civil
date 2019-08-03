@@ -10,8 +10,9 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { CivilContext, NavBar, NavUserAccount, NavUserDrawer, NavProps } from "@joincivil/components";
+import { CivilContext, NavBar, NavUserDrawer, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
+import UserAccount from "./navbar/UserAccount";
 
 export interface NavBarProps {
   balance: string;
@@ -61,25 +62,31 @@ const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any
   }
 
   const userAccountEl = (
-    <NavUserAccount
+    <UserAccount
       balance={balance}
       votingBalance={votingBalance}
       userEthAddress={userEthAddress}
-      userRevealVotesCount={userChallengesWithUnrevealedVotes!.count()}
-      userClaimRewardsCount={userChallengesWithUnclaimedRewards!.count()}
-      userChallengesStartedCount={currentUserChallengesStarted.count()}
-      userChallengesVotedOnCount={currentUserChallengesVotedOn.count()}
-      useGraphQL={useGraphQL}
       authenticationURL={"/auth/login"}
-      buyCvlUrl={"/tokens"}
       joinAsMemberUrl={"https://civil.co/become-a-member"}
       applyURL={links.APPLY}
-      onLoadingPrefToggled={onLoadingPrefToggled}
       enableEthereum={enableEthereum}
+      isUserDrawerOpen={isUserDrawerOpen}
       toggleDrawer={toggleDrawer}
     >
-      <NavUserDrawer handleOutsideClick={hideDrawer} />
-    </NavUserAccount>
+      <NavUserDrawer
+        balance={balance}
+        votingBalance={votingBalance}
+        userEthAddress={userEthAddress}
+        userRevealVotesCount={userChallengesWithUnrevealedVotes!.count()}
+        userClaimRewardsCount={userChallengesWithUnclaimedRewards!.count()}
+        userChallengesStartedCount={currentUserChallengesStarted.count()}
+        userChallengesVotedOnCount={currentUserChallengesVotedOn.count()}
+        useGraphQL={useGraphQL}
+        buyCvlUrl={"/tokens"}
+        onLoadingPrefToggled={onLoadingPrefToggled}
+        handleOutsideClick={hideDrawer}
+      />
+    </UserAccount>
   );
 
   return (
