@@ -1,6 +1,6 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { setApolloSession, getApolloClient } from "@joincivil/utils";
+import { useApolloClient } from "@apollo/react-hooks";
 import { AuthLoginResponse } from "..";
 import { AuthEmailVerify } from "./AuthStyledComponents";
 
@@ -28,6 +28,7 @@ export interface AccountVerifyTokenProps {
   isNewUser: boolean;
   token: string;
   ethAuthNextExt?: boolean;
+  onTokenVerification(authInfo: any): void;
   onAuthenticationContinue(isNewUser: boolean): void;
 }
 
@@ -51,10 +52,10 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public handleTokenVerification = async (): Promise<void> => {
-    const { isNewUser } = this.props;
+    const { isNewUser, onTokenVerification } = this.props;
     const token = this.props.token;
 
-    const client = getApolloClient();
+    const client = useApolloClient();
 
     const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
     const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
@@ -71,7 +72,7 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
         this.setState({ errorMessage, hasVerified: true });
       } else {
         const authResponse: AuthLoginResponse = data[resultKey];
-        setApolloSession(authResponse);
+        onTokenVerification(authResponse);
 
         this.setState({ errorMessage: undefined, hasVerified: true });
       }

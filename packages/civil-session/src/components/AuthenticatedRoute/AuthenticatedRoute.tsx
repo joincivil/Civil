@@ -1,7 +1,10 @@
 import * as React from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
-import { getCurrentUserQuery, getApolloSession } from "@joincivil/utils";
+import { useStateWithLocalStorage } from "@joincivil/components";
 import { Query } from "react-apollo";
+
+import { getApolloSessionKey } from "../../utils/apolloClient";
+import { getCurrentUserQuery } from "../../utils/queries";
 
 export interface AuthenticatedRouteProps extends RouteProps {
   redirectTo: string;
@@ -16,7 +19,8 @@ export const AuthenticatedRoute = ({
   onlyAllowUnauthenticated = false,
   ...otherProps
 }: AuthenticatedRouteProps) => {
-  const auth = getApolloSession();
+  const apolloSessionKey = getApolloSessionKey();
+  const [auth] = useStateWithLocalStorage(apolloSessionKey);
 
   const hasAuthToken = !!auth && !!auth.token;
 

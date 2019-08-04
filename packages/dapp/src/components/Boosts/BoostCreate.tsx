@@ -10,8 +10,9 @@ import styled from "styled-components";
 
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { CharterData, EthAddress } from "@joincivil/core";
+import { AuthenticatedRoute } from "@joincivil/civil-session";
 import { BoostForm } from "@joincivil/civil-sdk";
-import { FeatureFlag, AuthenticatedRoute, ErrorLoadingData, LoadingMessage } from "@joincivil/components";
+import { FeatureFlag, ErrorLoadingData, LoadingMessage } from "@joincivil/components";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";

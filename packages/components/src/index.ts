@@ -61,7 +61,6 @@ export * from "./DAppMessageContent";
 export * from "./EmailSignup";
 export * from "./Tokens";
 export * from "./ExecuteOnMount";
-export * from "./AuthenticatedRoute";
 export * from "./EthAddressViewer";
 export * from "./TokenTutorial";
 export * from "./Tutorial";

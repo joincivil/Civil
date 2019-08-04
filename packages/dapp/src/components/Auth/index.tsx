@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Route, Switch, RouteComponentProps } from "react-router-dom";
-import { AuthenticatedRoute } from "@joincivil/components";
+import { AuthenticatedRoute } from "@joincivil/civil-session";
 import AsyncComponent from "../utility/AsyncComponent";
 import * as qs from "querystring";
 import { routes } from "../../constants";

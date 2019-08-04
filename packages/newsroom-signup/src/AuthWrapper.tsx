@@ -13,11 +13,9 @@ import {
   PageHeadingTextCentered,
   PageSubHeadingCentered,
 } from "@joincivil/components";
-import { isLoggedIn } from "@joincivil/utils";
+import { setCivilAuthenticatedSession, AuthenticatedUserContainer } from "@joincivil/civil-session";
 
 export interface AuthWrapperState {
-  loading: boolean;
-  loggedIn: boolean;
   magicEmailSent?: string;
   showTokenVerified?: boolean;
 }
@@ -62,65 +60,55 @@ const Footer: React.FunctionComponent = () => (
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
   constructor(props: RouteComponentProps) {
     super(props);
-    this.state = {
-      loading: true,
-      loggedIn: false,
-    };
-  }
-
-  public async componentDidMount(): Promise<void> {
-    this.setState(
-      {
-        loggedIn: await isLoggedIn(),
-      },
-      () => {
-        this.setState({
-          loading: false,
-        });
-      },
-    );
   }
 
   public render(): JSX.Element {
-    if (this.state.loggedIn) {
-      return <>{this.props.children}</>;
-    }
-
-    if (this.state.loading) {
-      return <>Loading...</>;
-    }
-
     const token = qs.parse(this.props.location.search.substr(1)).jwt as string;
     const isNewUser = this.props.match.params.action !== "login";
 
-    if (token || this.state.showTokenVerified) {
-      return (
-        <Wrapper>
-          <AccountVerifyToken
-            isNewUser={isNewUser}
-            token={token!}
-            onAuthenticationContinue={this.onAuthenticationContinue}
-            ethAuthNextExt={isNewUser}
-          />
-        </Wrapper>
-      );
-    }
+    return (
+      <AuthenticatedUserContainer>
+        {({ loading, user: civilUser }) => {
+          if (loading) {
+            return <>Loading...</>;
+          }
 
-    if (this.state.magicEmailSent) {
-      return (
-        <Wrapper>
-          <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
-          <AccountEmailSent
-            isNewUser={isNewUser}
-            emailAddress={this.state.magicEmailSent}
-            onSendAgain={this.sendAgain}
-          />
-          {isNewUser && <Footer />}
-        </Wrapper>
-      );
-    }
+          if (!civilUser) {
+            if (token || this.state.showTokenVerified) {
+              return (
+                <Wrapper>
+                  <AccountVerifyToken
+                    isNewUser={isNewUser}
+                    token={token!}
+                    onTokenVerification={setCivilAuthenticatedSession}
+                    onAuthenticationContinue={this.onAuthenticationContinue}
+                    ethAuthNextExt={isNewUser}
+                  />
+                </Wrapper>
+              );
+            }
 
-    return this.renderSignupLogin(isNewUser);
+            if (this.state.magicEmailSent) {
+              return (
+                <Wrapper>
+                  <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
+                  <AccountEmailSent
+                    isNewUser={isNewUser}
+                    emailAddress={this.state.magicEmailSent}
+                    onSendAgain={this.sendAgain}
+                  />
+                  {isNewUser && <Footer />}
+                </Wrapper>
+              );
+            }
+
+            return this.renderSignupLogin(isNewUser);
+          }
+
+          return <>{this.props.children}</>;
+        }}
+      </AuthenticatedUserContainer>
+    );
   }
 
   private renderSignupLogin(isNewUser: boolean): JSX.Element {

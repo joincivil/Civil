@@ -2,12 +2,12 @@ import * as React from "react";
 import { Redirect } from "react-router";
 import { StyledPageContentWithPadding } from "../utility/styledComponents";
 
-import { clearCivilSession } from "@joincivil/civil-session";
+import { clearCivilAuthenticatedSession } from "@joincivil/civil-session";
 
 const AuthLogout = () => {
   const [loggedOut, setLoggedOut] = React.useState(false);
   React.useEffect(() => {
-    clearCivilSession().then(() => {
+    clearCivilAuthenticatedSession().then(() => {
       setLoggedOut(true);
     });
   }, []);

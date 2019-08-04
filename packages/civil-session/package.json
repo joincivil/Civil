@@ -18,16 +18,23 @@
     "@joincivil/typescript-types": "^1.4.8",
     "@joincivil/utils": "^1.9.8",
     "apollo-boost": "^0.4.3",
+    "apollo-cache-inmemory": "^1.6.2",
+    "apollo-client": "^2.6.3",
+    "apollo-link": "^1.2.12",
+    "apollo-link-context": "^1.0.18",
+    "apollo-link-error": "^1.1.11",
     "graphql": "^14.4.2",
     "graphql-tag": "^2.10.1",
     "react": "^16.8",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8",
+    "react-router-dom": "^5.0.1",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "@types/react": "^16.8",
     "@types/react-dom": "^16.8",
+    "@types/react-router-dom": "^4.3.4",
     "typescript": "^3.4.1"
   }
 }

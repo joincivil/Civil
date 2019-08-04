@@ -1,8 +1,9 @@
+import { useApolloClient } from "@apollo/react-hooks";
 import * as React from "react";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { isWalletOnboarded, getApolloClient, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
+import { isWalletOnboarded, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -540,7 +541,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     this.setState({ showWalletConnected: true });
 
     if (firstAddressSave && this.props.authApplicationType === AuthApplicationEnum.NEWSROOM) {
-      const client = getApolloClient();
+      const client = useApolloClient();
 
       const { error } = await client.mutate({
         mutation: sendNewsroomWelcomeEmailMutation,

@@ -20,7 +20,7 @@ export const getCurrentUserQuery = gql`
   }
 `;
 
-export const setCurrentUserQuery = gql`
+export const setCurrentUserMutation = gql`
   mutation SetCurrentUser($input: UserUpdateInput!) {
     userUpdate(input: $input) {
       uid

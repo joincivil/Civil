@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AccountVerifyToken, AuthWrapper } from "@joincivil/components";
 import { RouteComponentProps, Redirect } from "react-router-dom";
+import { setCivilAuthenticatedSession } from "@joincivil/civil-session";
 
 export interface AuthVerifyTokenProps extends Partial<RouteComponentProps> {
   isNewUser: boolean;
@@ -21,7 +22,12 @@ const AuthVerifyToken: React.FunctionComponent<AuthVerifyTokenProps> = ({
 
   return (
     <AuthWrapper>
-      <AccountVerifyToken isNewUser={isNewUser} token={token} onAuthenticationContinue={onAuthenticationContinue} />
+      <AccountVerifyToken
+        isNewUser={isNewUser}
+        token={token}
+        onAuthenticationContinue={onAuthenticationContinue}
+        onTokenVerification={setCivilAuthenticatedSession}
+      />
     </AuthWrapper>
   );
 };

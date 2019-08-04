@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { MetaMaskFrontIcon, AuthFooterContainer, WalletOnboardingV2, CardClickable } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 import { hasInjectedProvider } from "@joincivil/ethapi";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { authSignupEthMutation } from "../../utils/queries";
 
