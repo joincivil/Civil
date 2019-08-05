@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { Prompt } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
 import { EthAddress, CharterData, NewsroomInstance } from "@joincivil/core";
@@ -32,6 +33,7 @@ export interface NewsroomManagerExternalProps {
   newsroomAddress: EthAddress;
   publishedCharter: Partial<CharterData>;
   theme?: ButtonTheme;
+  setPreventNav(dirty: boolean | string): void;
 }
 
 export interface NewsroomManagerReduxProps {
@@ -80,6 +82,8 @@ const SaveButtonWrapper = styled.div`
   margin: 8px auto 0;
 `;
 
+const DEFAULT_DIRTY_MESSAGE = "Are you sure you want to leave this page? Your changes have not been saved.";
+
 class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, NewsroomManagerState> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
   public static defaultProps: Partial<NewsroomManagerProps> = {
@@ -103,10 +107,17 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
       throw Error("NewsroomManagerComponent: civil instance not yet instantiated in context");
     }
 
+    window.addEventListener("beforeunload", this.unsavedWarning);
+
     this.context.civil.currentProviderEnable().then(() => this.setState({ web3Enabled: true }));
     await this.props.dispatch!(
       getNewsroom(this.props.newsroomAddress, this.context.civil!, this.props.publishedCharter),
     );
+  }
+
+  public componentWillUnmount(): void {
+    // Remove "are you sure you want to leave?" prompt.
+    window.removeEventListener("beforeunload", this.unsavedWarning);
   }
 
   public render(): JSX.Element {
@@ -127,6 +138,8 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
+          <Prompt when={!!this.unsavedWarning()} message={DEFAULT_DIRTY_MESSAGE} />
+
           <p>
             {this.state.saving ? (
               <>
@@ -149,11 +162,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
               <StyledHeader>Newsroom Details</StyledHeader>
               <NewsroomBio editMode={true} charter={this.props.charter} updateCharter={this.updateCharter} />
               <StyledHeader>Roster</StyledHeader>
-              <AddRosterMember
-                editMode={true}
-                charter={this.props.charter}
-                updateCharter={this.updateCharter}
-              />
+              <AddRosterMember editMode={true} charter={this.props.charter} updateCharter={this.updateCharter} />
               <StyledHeader>Charter</StyledHeader>
               <CharterQuestions editMode={true} charter={this.props.charter} updateCharter={this.updateCharter} />
             </>
@@ -192,6 +201,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
 
   private updateCharter = (charter: Partial<CharterData>) => {
     if (!this.state.dirty) {
+      this.props.setPreventNav(DEFAULT_DIRTY_MESSAGE);
       this.setState({ dirty: true });
     }
     this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, true));
@@ -203,13 +213,26 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
   private discardChanges = () => {
     this.updateCharter(this.state.lastSavedCharter || this.props.publishedCharter);
     this.setState({ editMode: false, dirty: false });
+    this.props.setPreventNav(false);
   };
 
   private saveInProgress = () => {
     this.setState({ editMode: false, saving: true });
+    this.props.setPreventNav(false);
   };
   private saveComplete = () => {
     this.setState({ dirty: false, saving: false, lastSavedCharter: { ...this.props.charter } });
+  };
+
+  private unsavedWarning = (event?: BeforeUnloadEvent): boolean | undefined => {
+    if (this.state.dirty && !this.state.saving) {
+      if (event) {
+        event.preventDefault(); // specification
+        event.returnValue = ""; // some Chrome
+      }
+      return true; // what most browsers actually use
+    }
+    return undefined;
   };
 }
 
