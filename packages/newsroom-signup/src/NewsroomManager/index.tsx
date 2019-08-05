@@ -46,6 +46,7 @@ export interface NewsroomManagerReduxProps {
 export type NewsroomManagerProps = NewsroomManagerExternalProps & NewsroomManagerReduxProps & DispatchProp<any>;
 
 export interface NewsroomManagerState {
+  web3Enabled: boolean; // @TODO This state logic should be lifted to something dapp-wide
   editMode?: boolean;
   dirty?: boolean;
   saving?: boolean;
@@ -89,7 +90,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
 
   constructor(props: NewsroomManagerProps) {
     super(props);
-    this.state = {};
+    this.state = { web3Enabled: false };
   }
 
   public async componentDidMount(): Promise<void> {
@@ -101,6 +102,8 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
       // Pretty certain this will have been instantiated by the time this component is mounted, but if that's ever not the case I want to catch it!
       throw Error("NewsroomManagerComponent: civil instance not yet instantiated in context");
     }
+
+    this.context.civil.currentProviderEnable().then(() => this.setState({ web3Enabled: true }));
     await this.props.dispatch!(
       getNewsroom(this.props.newsroomAddress, this.context.civil!, this.props.publishedCharter),
     );
@@ -109,6 +112,17 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
   public render(): JSX.Element {
     if (!this.props.charter) {
       return <LoadingMessage>Loading charter</LoadingMessage>;
+    }
+    if (!this.state.web3Enabled) {
+      // @TODO This logic should be lifted to something dapp-wide, and with a less hacky UI of course
+      return (
+        <LoadingMessage>
+          Please connect your Ethereum wallet.
+          <div>
+            <img src={metaMaskLoginImgUrl} style={{ width: 255, marginTop: 8 }} />
+          </div>
+        </LoadingMessage>
+      );
     }
     return (
       <ThemeProvider theme={this.props.theme}>
