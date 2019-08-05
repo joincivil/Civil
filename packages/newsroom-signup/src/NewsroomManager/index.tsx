@@ -17,11 +17,7 @@ import {
 } from "@joincivil/components";
 
 import { StateWithNewsroom } from "../reducers";
-import {
-  getNewsroom,
-  updateCharter,
-  // analyticsEvent,
-} from "../actionCreators";
+import { getNewsroom, updateCharter } from "../actionCreators";
 import { Wrapper, DEFAULT_THEME } from "../styledComponents";
 import { RepublishCharterNotice } from "../RepublishCharterNotice";
 import { NewsroomBio } from "../NewsroomProfile/NewsroomBio";
@@ -39,10 +35,6 @@ export interface NewsroomManagerExternalProps {
 export interface NewsroomManagerReduxProps {
   charter?: Partial<CharterData>;
   newsroom?: NewsroomInstance;
-  // userIsOwner?: boolean;
-  // userIsEditor?: boolean;
-  // userNotOnContract?: boolean;
-  // @TODO/tobek Ensure whitelisted or else send to apply to registry
 }
 
 export type NewsroomManagerProps = NewsroomManagerExternalProps & NewsroomManagerReduxProps & DispatchProp<any>;
@@ -242,7 +234,6 @@ const mapStateToProps = (
 ): NewsroomManagerReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress);
-  // const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
   return {
     ...ownProps,
