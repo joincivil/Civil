@@ -38,6 +38,7 @@ export interface Transaction {
   postTransaction?(result: any, txHash?: TxHash): any;
   handleTransactionError?(err: any, txHash?: TxHash): any;
   handleTransactionHash?(txhash?: TxHash): void;
+  onTransactionError?(err: any, txHash?: TxHash): any; // function passed in here does not "handle" the tx error, but might do something extra with it (such as log an error)
 }
 
 export interface TransactionButtonProps {
@@ -227,6 +228,9 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
         if (currTransaction.handleTransactionError) {
           setImmediate(() => currTransaction.handleTransactionError!(err, txHash));
+        }
+        if (currTransaction.onTransactionError) {
+          setImmediate(() => currTransaction.onTransactionError!(err, txHash));
         }
       }
     } else if (this.props.postExecuteTransactions) {

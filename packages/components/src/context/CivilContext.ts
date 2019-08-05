@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Civil, UniswapService, makeEthersProvider, EthersProviderResult, FeatureFlagService } from "@joincivil/core";
+import { DispatchProp } from "react-redux";
 
 export interface ICivilContext {
   civil?: Civil;
@@ -10,6 +11,8 @@ export interface ICivilContext {
   config: any;
   setCivil(civil: Civil): void;
   waitForTx(txHash: string): Promise<void>;
+  fireAnalyticsEvent(category: string, event: string, label: string, value: number): void;
+  setAnalyticsEvent(fire: any): void;
 }
 
 export function buildCivilContext(
@@ -17,6 +20,7 @@ export function buildCivilContext(
   defaultNetwork?: string,
   featureFlags?: string[],
   config?: any,
+  setAnalyticsEvent?: (fire: any) => void,
 ): ICivilContext {
   const ctx: any = {};
   ctx.civil = civil;
@@ -36,6 +40,10 @@ export function buildCivilContext(
   };
 
   ctx.waitForTx = async (txHash: string) => provider.waitForTransaction(txHash);
+
+  ctx.setAnalyticsEvent = (fire: any): void => {
+    ctx.fireAnalyticsEvent = fire;
+  };
 
   return ctx;
 }
