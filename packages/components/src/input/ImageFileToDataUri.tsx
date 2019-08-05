@@ -10,8 +10,8 @@ export interface ImageFileToDataUriState {
 }
 
 export interface ImageFileToDataUriProps {
-  onChange(dataUri: string): void;
   buttonText?: string;
+  onChange(dataUri: string): void;
 }
 
 const DropArea = styled.div`

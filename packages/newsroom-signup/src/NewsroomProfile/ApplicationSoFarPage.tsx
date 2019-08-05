@@ -15,6 +15,8 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 
 export interface ApplicationSoFarPageProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
 }
 
 const Collapsable = styled(OBCollapsable)`
@@ -84,11 +86,8 @@ const StyledAvatarWrap = styled(AvatarWrap)`
 export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPageProps> {
   public render(): JSX.Element {
     return (
-      <div>
-        <OBSectionHeader>Here’s your Registry Profile so far</OBSectionHeader>
-        <OBSectionDescription>
-          Please review your newsroom Registry Profile. Keep in mind that this is a public document.
-        </OBSectionDescription>
+      <>
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <Collapsable
           open={true}
           header={
@@ -125,7 +124,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -141,7 +140,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -173,7 +172,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -185,9 +184,21 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
             I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution.
           </CollapsableInner>
         </Collapsable>
-      </div>
+      </>
     );
   }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Here’s your Registry Profile so far</OBSectionHeader>
+        <OBSectionDescription>
+          Please review your newsroom Registry Profile. Keep in mind that this is a public document.
+        </OBSectionDescription>
+      </>
+    );
+  }
+
   private renderSocial = (): JSX.Element | null => {
     if (!this.props.charter.socialUrls) {
       return null;

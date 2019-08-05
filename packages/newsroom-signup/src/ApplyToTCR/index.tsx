@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "bignumber.js";
-import { Civil, EthAddress, ListingWrapper, isInApplicationPhase } from "@joincivil/core";
+import { Civil, EthAddress, ListingWrapper, isInApplicationPhase, NewsroomInstance } from "@joincivil/core";
 import { Parameters, getFormattedParameterValue } from "@joincivil/utils";
 import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
@@ -10,7 +10,7 @@ import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
-  newsroom: any;
+  newsroom: NewsroomInstance;
   civil?: Civil;
   navigate(go: 1 | -1): void;
 }
@@ -69,7 +69,9 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
   private hydrateNewsroomMultisigBalance = async (): Promise<void> => {
     if (this.props.address && this.props.newsroom && this.props.civil) {
       const multisigAddress = await this.props.newsroom.getMultisigAddress();
-      await this.props.dispatch!(getNewsroomMultisigBalance(this.props.address, multisigAddress, this.props.civil));
+      if (multisigAddress) {
+        await this.props.dispatch!(getNewsroomMultisigBalance(this.props.address, multisigAddress, this.props.civil));
+      }
     }
   };
 
