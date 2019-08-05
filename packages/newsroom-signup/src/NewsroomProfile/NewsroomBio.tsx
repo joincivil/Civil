@@ -44,11 +44,11 @@ const LogoFormWrap = styled.div`
 
 const LogoImgWrap = styled.div`
   position: relative;
-  width: 338px;
+  max-width: 130px;
 `;
 
 const LogoImg = styled.img`
-  width: 338px;
+  max-width: 130px;
   height: auto;
 `;
 
@@ -101,7 +101,7 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
             <FormSubhead>Newsroom Logo</FormSubhead>
             <LogoFormWrap>
               <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
-              <NewsroomLogoURLInput onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)} />
+              <NewsroomLogoURLInput onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)} buttonText={charter.logoUrl ? "Change Image" : "Add Image"} />
             </LogoFormWrap>
           </div>
 

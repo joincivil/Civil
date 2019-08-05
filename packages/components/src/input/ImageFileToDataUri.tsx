@@ -11,6 +11,7 @@ export interface ImageFileToDataUriState {
 
 export interface ImageFileToDataUriProps {
   onChange(dataUri: string): void;
+  buttonText?: string;
 }
 
 const DropArea = styled.div`
@@ -73,7 +74,7 @@ export class ImageFileToDataUri extends React.Component<ImageFileToDataUriProps,
       <>
         <InvertedButton size={buttonSizes.SMALL} onClick={() => this.setState({ modalOpen: true })}>
           {" "}
-          Add Image{" "}
+          {this.props.buttonText || "Add Image"}{" "}
         </InvertedButton>
         {this.renderModal()}
       </>
