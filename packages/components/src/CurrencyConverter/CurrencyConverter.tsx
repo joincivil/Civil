@@ -60,7 +60,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
     }
 
     if (this.props.fromValue) {
-      this.handleConversionDebounced(this.props.fromValue)
+      await this.handleConversionDebounced(this.props.fromValue);
     }
   }
 
