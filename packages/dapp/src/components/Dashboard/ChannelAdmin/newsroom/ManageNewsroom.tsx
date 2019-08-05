@@ -65,6 +65,8 @@ export const ManageNewsroom = (props: any) => {
     id: props.channelID,
   };
 
+  const [preventNav, setPreventNav] = React.useState<boolean | string>(false);
+
   return (
     <Query<ManageQueryData, ManageQueryVariables> query={ManageQuery} variables={variables}>
       {({ loading, data, error }) => {
@@ -90,9 +92,9 @@ export const ManageNewsroom = (props: any) => {
 
         return (
           <div>
-            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge}>
+            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge} preventTabChange={preventNav} onActiveTabChange={() => setPreventNav(false)}>
               <Tab title={"Home"}>
-                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} />
+                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} setPreventNav={setPreventNav} />
               </Tab>
               <Tab title={"Launch Boost"}>
                 <BoostForm
