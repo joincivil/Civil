@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { CharterData, Civil, IPFSProvider, TxHash } from "@joincivil/core";
+import { CharterData, Civil, IPFSProvider, TxHash, NewsroomInstance } from "@joincivil/core";
 import {
   Notice,
   NoticeTypes,
@@ -22,7 +22,7 @@ import { CivilContext, CivilContextValue } from "./CivilContext";
 export interface RepublishCharterNoticeProps {
   civil: Civil;
   charter: Partial<CharterData>;
-  newsroom: any;
+  newsroom: NewsroomInstance;
 }
 
 export interface RepublishCharterNoticeState extends TransactionButtonModalFlowState {
@@ -172,8 +172,10 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
         <p>You have confirmed the transaction in MetaMask.</p>
         <p>
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-          transaction is processing.
+          transaction is processing, but please note that changes won't be reflected until the transaction has
+          completed.
         </p>
+        <p>If you remain on this page, you will be alerted when the transaction has been completed.</p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
         </Button>
@@ -212,7 +214,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
             isWaitingTransactionModalOpen: true,
             isPreTransactionModalOpen: false,
           });
-          return this.props.newsroom.updateRevisionURIAndHash(0, this.state.contentURI, this.state.contentHash);
+          return this.props.newsroom.updateRevisionURIAndHash(0, this.state.contentURI!, this.state.contentHash!);
         },
         postTransaction: () => {
           this.setState({

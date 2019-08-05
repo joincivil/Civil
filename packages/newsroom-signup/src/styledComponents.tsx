@@ -1,6 +1,8 @@
 import {
   colors,
   fonts,
+  DEFAULT_BUTTON_THEME,
+  DEFAULT_CHECKBOX_THEME,
   buttonSizes,
   Button,
   BorderlessButton,
@@ -18,6 +20,20 @@ import {
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass, css } from "styled-components";
+
+export const DEFAULT_THEME = {
+  ...DEFAULT_BUTTON_THEME,
+  ...DEFAULT_CHECKBOX_THEME,
+  primaryButtonTextTransform: "none",
+  primaryButtonFontWeight: "bold",
+  borderlessButtonSize: "14px",
+};
+
+export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+  max-width: 720px;
+  margin: auto;
+  font-size: 14px;
+`;
 
 export const FormSection = styled.div`
   padding-top: 10px;

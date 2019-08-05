@@ -9,6 +9,8 @@ import { urlConstants } from "@joincivil/utils";
 
 export interface CharterQuestionsProps extends StepProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -34,26 +36,7 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Let’s write your Newsroom Charter</OBSectionHeader>
-        <OBSectionDescription>
-          Your Charter is an outline of your Newsroom's journalistic mission and purpose. It helps the Civil community
-          discover and learn more about your newsroom. It's one of the first things the community views about your
-          organization.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <StyledHr />
-        <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
-        <MoreQuestionsBox>
-          Have any questions?{" "}
-          <a target="_blank" href={urlConstants.FAQ_CHARTER_BEST_PRACTICES}>
-            Read the Civil Foundation's best practices on creating great charters.
-          </a>
-          <br />
-          You can also view{" "}
-          <a target="_blank" href={urlConstants.FAQ_CHARTER_EXAMPLE}>
-            a sample charter.
-          </a>
-        </MoreQuestionsBox>
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
           <FormSubhead>{questionsCopy[charterQuestions.PURPOSE]}</FormSubhead>
           <Textarea
@@ -90,6 +73,33 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
             onChange={this.missionInputChange}
           />
         </FormSection>
+      </>
+    );
+  }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Let’s write your Newsroom Charter</OBSectionHeader>
+        <OBSectionDescription>
+          Your Charter is an outline of your Newsroom's journalistic mission and purpose. It helps the Civil community
+          discover and learn more about your newsroom. It's one of the first things the community views about your
+          organization.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <StyledHr />
+        <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
+        <MoreQuestionsBox>
+          Have any questions?{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_BEST_PRACTICES}>
+            Read the Civil Foundation's best practices on creating great charters.
+          </a>
+          <br />
+          You can also view{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_EXAMPLE}>
+            a sample charter.
+          </a>
+        </MoreQuestionsBox>
       </>
     );
   }

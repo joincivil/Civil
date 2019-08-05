@@ -8,10 +8,8 @@ import {
   StepNoButtons,
   WalletOnboardingV2,
   AuthApplicationEnum,
-  DEFAULT_BUTTON_THEME,
-  DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
-import { Civil, EthAddress, CharterData } from "@joincivil/core";
+import { Civil, EthAddress, CharterData, NewsroomInstance } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
@@ -42,6 +40,7 @@ import { RepublishCharterNotice } from "./RepublishCharterNotice";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
+import { Wrapper, DEFAULT_THEME } from "./styledComponents";
 import { MutationFunc } from "react-apollo";
 
 enum SECTION {
@@ -128,7 +127,7 @@ export interface NewsroomExternalProps {
 export interface NewsroomReduxProps extends NewsroomExternalProps {
   charter: Partial<CharterData>;
   name?: string;
-  newsroom?: any;
+  newsroom?: NewsroomInstance;
   userIsOwner?: boolean;
   userIsEditor?: boolean;
   userNotOnContract?: boolean;
@@ -159,25 +158,13 @@ export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
-export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
-  max-width: 720px;
-  margin: auto;
-  font-size: 14px;
-`;
-
 const ErrorP = styled.p`
   color: ${colors.accent.CIVIL_RED};
 `;
 
 class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponentState> {
   public static defaultProps = {
-    theme: {
-      ...DEFAULT_BUTTON_THEME,
-      ...DEFAULT_CHECKBOX_THEME,
-      primaryButtonTextTransform: "none",
-      primaryButtonFontWeight: "bold",
-      borderlessButtonSize: "14px",
-    },
+    theme: DEFAULT_THEME,
   };
 
   public static getDerivedStateFromProps(
@@ -322,6 +309,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         <NewsroomProfile
           profileWalletAddress={this.props.profileWalletAddress}
           currentStep={this.state.currentStep - SECTION_STARTS[SECTION.PROFILE]}
+          furthestStep={this.props.furthestStep}
           navigate={this.navigate}
           grantRequested={this.props.grantRequested}
           waitingOnGrant={this.props.waitingOnGrant}
@@ -352,7 +340,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
         <ApplyToTCR
           navigate={this.navigate}
-          newsroom={this.props.newsroom}
+          newsroom={this.props.newsroom!}
           address={this.props.newsroomAddress}
           civil={this.props.civil}
         />
@@ -436,7 +424,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
     }
 
     return (
-      <RepublishCharterNotice civil={this.props.civil!} charter={this.props.charter} newsroom={this.props.newsroom} />
+      <RepublishCharterNotice civil={this.props.civil!} charter={this.props.charter} newsroom={this.props.newsroom!} />
     );
   }
 
