@@ -27,6 +27,7 @@ import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import AsyncComponent from "./utility/AsyncComponent";
+import { analyticsEvent } from "../redux/actionCreators/analytics";
 
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
@@ -78,6 +79,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
     civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
     civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
+    this.context.setAnalyticsEvent(this.fireAnalyticsEvent);
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
@@ -194,6 +196,10 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       </StyledMainContainer>
     );
   }
+
+  private fireAnalyticsEvent = (category: string, action: string, label: string, value: number): void => {
+    this.props.dispatch!(analyticsEvent({ category, action, label, value }));
+  };
 }
 
 const mapStateToProps = (state: State): MainReduxProps => {
