@@ -3,7 +3,17 @@ import { connect, DispatchProp } from "react-redux";
 import styled, { ThemeProvider } from "styled-components";
 
 import { EthAddress, CharterData, NewsroomInstance } from "@joincivil/core";
-import { ButtonTheme, CivilContext, ICivilContext, OBSectionHeader, colors } from "@joincivil/components";
+import {
+  ButtonTheme,
+  CivilContext,
+  ICivilContext,
+  OBSectionHeader,
+  colors,
+  MetaMaskLogoButton,
+  LoadingMessage,
+  LoadingIndicator,
+  metaMaskLoginImgUrl,
+} from "@joincivil/components";
 
 import { StateWithNewsroom } from "../reducers";
 import {
@@ -38,6 +48,8 @@ export type NewsroomManagerProps = NewsroomManagerExternalProps & NewsroomManage
 export interface NewsroomManagerState {
   editMode?: boolean;
   dirty?: boolean;
+  saving?: boolean;
+  lastSavedCharter?: Partial<CharterData>;
 }
 
 const StyledHeader = styled(OBSectionHeader)`
@@ -46,6 +58,25 @@ const StyledHeader = styled(OBSectionHeader)`
   padding-top: 24px;
   margin-top: 25px;
   text-align: left;
+`;
+
+const SaveNoticeWrapper = styled.div`
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+`;
+const SaveNotice = styled(RepublishCharterNotice)`
+  font-size: 14px;
+  line-height: 18px;
+  margin: 0;
+  max-width: 900px;
+  margin: auto;
+`;
+const SaveButtonWrapper = styled.div`
+  display: inline-block;
+  margin: 8px auto 0;
 `;
 
 class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, NewsroomManagerState> {
@@ -77,29 +108,27 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
 
   public render(): JSX.Element {
     if (!this.props.charter) {
-      return <>Loading charter...</>;
+      return <LoadingMessage>Loading charter</LoadingMessage>;
     }
     return (
       <ThemeProvider theme={this.props.theme}>
         <Wrapper>
           <p>
-            <a
-              href="javascript:void 0"
-              onClick={() => {
-                this.setState({ editMode: !this.state.editMode, dirty: false });
-              }}
-            >
-              {this.state.editMode ? "Discard Changes" : "Edit >>"}
-            </a>
+            {this.state.saving ? (
+              <>
+                Saving <LoadingIndicator inline={true} />
+              </>
+            ) : (
+              <a
+                href="javascript:void 0"
+                onClick={() => (this.state.editMode ? this.discardChanges() : this.enableEditMode())}
+              >
+                {this.state.editMode ? "Discard Changes" : "Edit >>"}
+              </a>
+            )}
           </p>
 
-          {this.state.dirty && this.props.newsroom && (
-            <RepublishCharterNotice
-              civil={this.context.civil!}
-              charter={this.props.charter}
-              newsroom={this.props.newsroom}
-            />
-          )}
+          {this.renderSaveNotice()}
 
           {this.state.editMode ? (
             <>
@@ -110,7 +139,6 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
                 editMode={true}
                 charter={this.props.charter}
                 updateCharter={this.updateCharter}
-                profileWalletAddress={"@TODO/tobek"}
               />
               <StyledHeader>Charter</StyledHeader>
               <CharterQuestions editMode={true} charter={this.props.charter} updateCharter={this.updateCharter} />
@@ -123,11 +151,51 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
     );
   }
 
+  private renderSaveNotice = (): JSX.Element | null => {
+    if (!this.state.dirty || !this.props.charter || !this.props.newsroom) {
+      return null;
+    }
+    return (
+      <SaveNoticeWrapper>
+        <SaveNotice
+          civil={this.context.civil!}
+          charter={this.props.charter}
+          newsroom={this.props.newsroom}
+          introCopy={
+            "Once you have finished making changes you must save them. This will open your wallet to process the transaction. You are republishing your charter alongside your newsroom smart contract"
+          }
+          transactionButtonComponent={props => (
+            <SaveButtonWrapper>
+              <MetaMaskLogoButton onClick={props.onClick}>Save Changes</MetaMaskLogoButton>
+            </SaveButtonWrapper>
+          )}
+          onTxStart={this.saveInProgress}
+          onTxComplete={this.saveComplete}
+        />
+      </SaveNoticeWrapper>
+    );
+  };
+
   private updateCharter = (charter: Partial<CharterData>) => {
     if (!this.state.dirty) {
       this.setState({ dirty: true });
     }
     this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, true));
+  };
+
+  private enableEditMode = () => {
+    this.setState({ editMode: true });
+  };
+  private discardChanges = () => {
+    this.updateCharter(this.state.lastSavedCharter || this.props.publishedCharter);
+    this.setState({ editMode: false, dirty: false });
+  };
+
+  private saveInProgress = () => {
+    this.setState({ editMode: false, saving: true });
+  };
+  private saveComplete = () => {
+    this.setState({ dirty: false, saving: false, lastSavedCharter: { ...this.props.charter } });
   };
 }
 
@@ -137,10 +205,7 @@ const mapStateToProps = (
 ): NewsroomManagerReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress);
-  const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
-
-  console.log("newsroom", newsroom);
-  console.log("user", user);
+  // const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
   return {
     ...ownProps,

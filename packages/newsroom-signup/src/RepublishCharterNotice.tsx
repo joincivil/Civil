@@ -7,6 +7,7 @@ import {
   Transaction,
   TransactionButtonModalFlowState,
   TransactionButtonNoModal,
+  TransactionButtonInnerProps,
   MetaMaskModal,
   ModalHeading,
   Modal,
@@ -23,6 +24,11 @@ export interface RepublishCharterNoticeProps {
   civil: Civil;
   charter: Partial<CharterData>;
   newsroom: NewsroomInstance;
+  className?: string;
+  introCopy?: JSX.Element | string;
+  onTxStart?(): void;
+  onTxComplete?(): void;
+  transactionButtonComponent?(props: TransactionButtonInnerProps): JSX.Element;
 }
 
 export interface RepublishCharterNoticeState extends TransactionButtonModalFlowState {
@@ -62,28 +68,14 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
 
   public render(): JSX.Element {
     return (
-      <Wrapper type={NoticeTypes.ALERT}>
-        <strong>Note:</strong> Your charter has already been published alongside your newsroom smart contract. If you
-        wish to make any changes, please use the back/next buttons below to navigate between sections. Once you have
-        completed any changes, make sure to republish your charter.{" "}
+      <Wrapper className={this.props.className} type={NoticeTypes.ALERT}>
+        {this.renderIntroCopy()}{" "}
         <CivilContext.Consumer>
           {(value: CivilContextValue) => {
             return (
               <TransactionButtonNoModal
                 transactions={this.getTransactions(value.civil!)}
-                Button={props => {
-                  if (props.disabled) {
-                    return <Loader size={12} />;
-                  }
-                  return (
-                    <RepublishLink onClick={props.onClick}>
-                      Republish your charter{" "}
-                      <IconWrap>
-                        <MetaMaskSideIcon />
-                      </IconWrap>
-                    </RepublishLink>
-                  );
-                }}
+                Button={this.renderTransactionButtonComponent}
               />
             );
           }}
@@ -187,10 +179,14 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     if (!this.state.isTransactionSuccessModalOpen) {
       return null;
     }
-    const onClick = () =>
+    const onClick = () => {
       this.setState({
         isTransactionSuccessModalOpen: false,
       });
+      if (this.props.onTxComplete) {
+        this.props.onTxComplete();
+      }
+    };
 
     return (
       <Modal textAlign="left">
@@ -202,6 +198,35 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
       </Modal>
     );
   }
+
+  private renderIntroCopy(): JSX.Element {
+    if (this.props.introCopy) {
+      return <>{this.props.introCopy}</>;
+    }
+    return (
+      <>
+        <strong>Note:</strong> Your charter has already been published alongside your newsroom smart contract. If you
+        wish to make any changes, please use the back/next buttons below to navigate between sections. Once you have
+        completed any changes, make sure to republish your charter.
+      </>
+    );
+  }
+  private renderTransactionButtonComponent = (props: TransactionButtonInnerProps): JSX.Element => {
+    if (props.disabled) {
+      return <Loader size={12} />;
+    }
+    if (this.props.transactionButtonComponent) {
+      return this.props.transactionButtonComponent(props);
+    }
+    return (
+      <RepublishLink onClick={props.onClick}>
+        Republish your charter{" "}
+        <IconWrap>
+          <MetaMaskSideIcon />
+        </IconWrap>
+      </RepublishLink>
+    );
+  };
 
   private getTransactions = (civil: Civil, noPreModal?: boolean): Transaction[] => {
     return [
@@ -227,6 +252,9 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
             modalOpen: true,
             isWaitingTransactionModalOpen: false,
           });
+          if (this.props.onTxStart) {
+            this.props.onTxStart();
+          }
         },
         handleTransactionError: this.handleTransactionError,
       },
