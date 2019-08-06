@@ -92,9 +92,18 @@ export const ManageNewsroom = (props: any) => {
 
         return (
           <div>
-            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge} preventTabChange={preventNav} onActiveTabChange={() => setPreventNav(false)}>
+            <Tabs
+              TabsNavComponent={StyledTabNav}
+              TabComponent={StyledTabLarge}
+              preventTabChange={preventNav}
+              onActiveTabChange={() => setPreventNav(false)}
+            >
               <Tab title={"Home"}>
-                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} setPreventNav={setPreventNav} />
+                <NewsroomManager
+                  newsroomAddress={newsroom.contractAddress}
+                  publishedCharter={charter}
+                  setPreventNav={setPreventNav}
+                />
               </Tab>
               <Tab title={"Launch Boost"}>
                 <BoostForm
