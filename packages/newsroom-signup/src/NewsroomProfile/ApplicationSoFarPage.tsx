@@ -82,6 +82,14 @@ const QuestionContainer = styled.div`
 const StyledAvatarWrap = styled(AvatarWrap)`
   margin: 5px 10px;
 `;
+const NewsroomLogoWrap = styled(StyledAvatarWrap)`
+  height: 130px;
+  width: 130px;
+`;
+const NewsroomLogo = styled(AvatarImg)`
+  border-radius: 0;
+  object-fit: contain;
+`;
 
 export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPageProps> {
   public render(): JSX.Element {
@@ -110,9 +118,9 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
               <TwoSpanner>
                 <div>
                   <Label>Newsroom Logo</Label>
-                  <StyledAvatarWrap>
-                    {this.props.charter.logoUrl ? <AvatarImg src={this.props.charter.logoUrl} /> : noAvatar}
-                  </StyledAvatarWrap>
+                  <NewsroomLogoWrap>
+                    {this.props.charter.logoUrl ? <NewsroomLogo src={this.props.charter.logoUrl} /> : noAvatar}
+                  </NewsroomLogoWrap>
                 </div>
               </TwoSpanner>
               <TwoSpanner>
