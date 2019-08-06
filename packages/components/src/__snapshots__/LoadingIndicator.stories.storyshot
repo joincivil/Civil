@@ -17,6 +17,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Default Size (
         <svg
           fill="#30E8BD"
           height="32"
+          style={
+            Object {
+              "verticalAlign": undefined,
+            }
+          }
           viewBox="0 0 32 32"
           width="32"
           xmlns="http://www.w3.org/2000/svg"
@@ -394,6 +399,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Prop-defined s
         <svg
           fill="#30E8BD"
           height="100"
+          style={
+            Object {
+              "verticalAlign": undefined,
+            }
+          }
           viewBox="0 0 100 100"
           width="100"
           xmlns="http://www.w3.org/2000/svg"

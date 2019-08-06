@@ -11,6 +11,7 @@ export interface ConfigType {
   FEATURE_FLAGS?: string;
   SENTRY_DSN?: string;
   STRIPE_CLIENT_ID?: string;
+  STRIPE_API_KEY?: string;
   APP_VERSION?: string;
 }
 
@@ -27,6 +28,7 @@ const defaultConfig: ConfigType = {
   FEATURE_FLAGS: process.env.REACT_APP_FEATURE_FLAGS,
   SENTRY_DSN: process.env.REACT_APP_SENTRY_DSN,
   STRIPE_CLIENT_ID: process.env.REACT_APP_STRIPE_CLIENT_ID,
+  STRIPE_API_KEY: process.env.REACT_APP_STRIPE_API_KEY,
   APP_VERSION: process.env.REACT_APP_APP_VERSION,
 };
 

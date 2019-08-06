@@ -361,13 +361,13 @@ class DashboardActivity extends React.Component<
               const allChallengesWithUnclaimedRewards: [
                 Set<string>,
                 Set<string>,
-                Set<string>
+                Set<string>,
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
 
               const allChallengesWithRescueTokens: [
                 Set<string>,
                 Set<string>,
-                Set<string>
+                Set<string>,
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
 
               let userChallengeDataMap = Map<string, any>();

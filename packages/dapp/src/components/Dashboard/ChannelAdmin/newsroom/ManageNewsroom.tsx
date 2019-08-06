@@ -2,7 +2,9 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { BoostForm } from "@joincivil/civil-sdk";
-import { Tabs, StyledTabLarge, StyledTabNav, Tab } from "@joincivil/components";
+import { EthAddress, CharterData } from "@joincivil/core";
+import { Tabs, StyledTabLarge, StyledTabNav, Tab, LoadingMessage } from "@joincivil/components";
+import { NewsroomManager } from "@joincivil/newsroom-signup";
 
 const ManageQuery = gql`
   query($id: String!) {
@@ -14,27 +16,72 @@ const ManageQuery = gql`
         charter {
           name
           newsroomUrl
-          tagline
           logoUrl
+          tagline
+          mission {
+            purpose
+            structure
+            revenue
+            encumbrances
+            miscellaneous
+          }
+          socialUrls {
+            twitter
+            facebook
+          }
+          roster {
+            name
+            role
+            bio
+            ethAddress
+            avatarUrl
+            signature
+            socialUrls {
+              twitter
+              facebook
+            }
+          }
         }
       }
     }
   }
 `;
+interface ManageQueryData {
+  channelsGetByID: {
+    id: string;
+    newsroom: {
+      contractAddress: EthAddress;
+      multisigAddress: EthAddress;
+      charter: Partial<CharterData>;
+    };
+  };
+}
+interface ManageQueryVariables {
+  id: string;
+}
 
 export const ManageNewsroom = (props: any) => {
   const variables = {
     id: props.channelID,
   };
 
+  const [preventNav, setPreventNav] = React.useState<boolean | string>(false);
+
   return (
-    <Query query={ManageQuery} variables={variables}>
+    <Query<ManageQueryData, ManageQueryVariables> query={ManageQuery} variables={variables}>
       {({ loading, data, error }) => {
         if (loading) {
-          return null;
-        }
-        if (error) {
-          return <div>error</div>;
+          return <LoadingMessage>Loading your Newsroom</LoadingMessage>;
+        } else if (error) {
+          console.error("error querying channelsGetByID:", error);
+          return (
+            <div>
+              Error loading newsroom: <code>{error.message || JSON.stringify(error)}</code>
+            </div>
+          );
+        } else if (!data) {
+          console.error("error querying channelsGetByID: no data returned");
+          return <div>Error loading newsroom: no newsroom data returned</div>;
         }
 
         const newsroom = data.channelsGetByID.newsroom;
@@ -45,8 +92,10 @@ export const ManageNewsroom = (props: any) => {
 
         return (
           <div>
-            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge}>
-              <Tab title={"Home"}>Home</Tab>
+            <Tabs TabsNavComponent={StyledTabNav} TabComponent={StyledTabLarge} preventTabChange={preventNav} onActiveTabChange={() => setPreventNav(false)}>
+              <Tab title={"Home"}>
+                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} setPreventNav={setPreventNav} />
+              </Tab>
               <Tab title={"Launch Boost"}>
                 <BoostForm
                   channelID={data.channelsGetByID.id}

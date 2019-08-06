@@ -149,7 +149,8 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
           </p>
           <p>
             <InvertedButton size={buttonSizes.SMALL} href="https://dashboard.stripe.com" target="_blank">
-              Go to Your Stripe Dashboard<NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+              Go to Your Stripe Dashboard
+              <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
             </InvertedButton>
           </p>
           {!justConnected && this.renderStripeConnectButton("Connect a different Stripe account")}

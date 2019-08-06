@@ -122,9 +122,7 @@ export const StyledTabLarge = styled.li`
     ${(props: TabComponentProps) =>
       props.isResponsiveAndVisible
         ? `
-    box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_3}, inset 0 1px 0 0 ${
-            colors.accent.CIVIL_GRAY_3
-          }, 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_0};
+    box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_3}, inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_3}, 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_0};
     `
         : ""} &:last-of-type {
       margin: 0;

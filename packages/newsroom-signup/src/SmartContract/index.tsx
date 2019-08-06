@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EthAddress, CharterData, TxHash } from "@joincivil/core";
+import { EthAddress, CharterData, TxHash, NewsroomInstance } from "@joincivil/core";
 import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";
@@ -17,7 +17,7 @@ export interface SmartContractProps {
   userIsOwner?: boolean;
   newsroomAddress?: EthAddress;
   newsroomDeployTxHash?: TxHash;
-  newsroom?: any;
+  newsroom?: NewsroomInstance;
   navigate(go: 1 | -1): void;
   updateCharter(charter: Partial<CharterData>): void;
 }

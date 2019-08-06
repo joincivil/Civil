@@ -25,7 +25,8 @@ export const TokenConnectWalletText: React.FunctionComponent = props => (
 
 export const TokenConnectWalletCompletedText: React.FunctionComponent = props => (
   <h3>
-    <HollowGreenCheck />Wallet Connected
+    <HollowGreenCheck />
+    Wallet Connected
   </h3>
 );
 
@@ -92,7 +93,8 @@ export const TokenQuizBtnText: React.FunctionComponent = props => <>Start the Ci
 
 export const TokenQuizCompletedText: React.FunctionComponent = props => (
   <h3>
-    <HollowGreenCheck />Civil Tutorial Completed
+    <HollowGreenCheck />
+    Civil Tutorial Completed
   </h3>
 );
 
@@ -173,7 +175,9 @@ export const TokenBuyCompleteText: React.FunctionComponent = props => (
       <Link to="/dashboard/tasks/transfer-voting-tokens" target="_blank">
         Dashboard
       </Link>{" "}
-      to see your purchased CVL in the Available Balance.<br />To learn how to add Civil tokens in your MetaMask wallet,{" "}
+      to see your purchased CVL in the Available Balance.
+      <br />
+      To learn how to add Civil tokens in your MetaMask wallet,{" "}
       <a href={links.FAQ_HOME} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
       </a>
@@ -218,7 +222,8 @@ export const TokenSellCompleteText: React.FunctionComponent = props => (
       to see your CVL balance in the Available Balance. To learn how to sell ETH for USD,{" "}
       <a href={links.FAQ_HOME} target="_blank">
         go to our FAQ <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
-      </a>.
+      </a>
+      .
     </p>
   </>
 );
@@ -226,7 +231,8 @@ export const TokenSellCompleteText: React.FunctionComponent = props => (
 export const TokenUnlockText: React.FunctionComponent = props => (
   <>
     <h4>
-      <LockOpenIcon />Unlock Tokens
+      <LockOpenIcon />
+      Unlock Tokens
     </h4>
     <p>
       All first-time token purchasers must unlock their tokens by participating in community votes and the general

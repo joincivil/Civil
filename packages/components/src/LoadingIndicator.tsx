@@ -3,6 +3,7 @@ import { colors } from "./styleConstants";
 
 export interface LoadingIndicatorProps {
   className?: string;
+  inline?: boolean;
   height?: string | number;
   width?: string | number;
 }
@@ -31,7 +32,7 @@ export const LoadingIndicator: React.FunctionComponent<LoadingIndicatorProps> = 
     return `0; ${circleR}; 0; 0`;
   };
   const getCircleOffsetX = (circleNum: number): string => {
-    return Math.floor(parseInt(width as string, 10) / 4 * circleNum).toString();
+    return Math.floor((parseInt(width as string, 10) / 4) * circleNum).toString();
   };
   const getCircleTranslate = (circleNum: number): string => {
     const translateX = getCircleOffsetX(circleNum + 1);
@@ -45,6 +46,7 @@ export const LoadingIndicator: React.FunctionComponent<LoadingIndicatorProps> = 
       height={height}
       fill={colors.accent.CIVIL_TEAL}
       className={props.className}
+      style={{ verticalAlign: props.inline ? "middle" : undefined }}
     >
       <circle transform={getCircleTranslate(0)} cx="0" cy={getCenterY()} r="0">
         <animate

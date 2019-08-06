@@ -152,7 +152,8 @@ export const Topic2Tutorial2: React.FunctionComponent = props => (
       purchase via a cryptocurrency exchange such as{" "}
       <a href="https://www.coinbase.com/" target="_blank">
         Coinbase
-      </a>.
+      </a>
+      .
     </p>
     <p>
       When sending a transaction, a gas limit is set. You are able to set the gas fee manually, but you must set this
@@ -188,7 +189,8 @@ export const Topic2Tutorial3: React.FunctionComponent = props => (
       You’ll need an Ethereum wallet-enabled browser such as{" "}
       <a href="https://www.google.com/chrome/" target="_blank">
         Chrome
-      </a>,{" "}
+      </a>
+      ,{" "}
       <a href="https://brave.com/" target="_blank">
         Brave
       </a>{" "}
@@ -215,7 +217,8 @@ export const Topic2Tutorial4: React.FunctionComponent = props => (
       well-known hardware wallets is the brand{" "}
       <a href="https://trezor.io/" target="_blank">
         Trezor
-      </a>.
+      </a>
+      .
     </p>
     <p>
       <i>
@@ -359,7 +362,8 @@ export const Topic3Tutorial2: React.FunctionComponent = props => (
       to{" "}
       <a href="https://civil.co/our-team/" target="_blank">
         learn more about the project team at Civil
-      </a>.
+      </a>
+      .
     </p>
   </>
 );

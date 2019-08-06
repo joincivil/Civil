@@ -66,7 +66,10 @@ export interface ChallengeResolveProps extends ChallengeContainerProps {
 
 const AppealChallengeResolveCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeResolveCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealChallengeResolveCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealChallengeResolveCardComponent);
 
 // A container for the Challenge Resolve Card component
 class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps & InjectedTransactionStatusModalProps> {

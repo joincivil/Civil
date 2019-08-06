@@ -175,8 +175,9 @@ class SubmitAppealChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar appealFee={displayAppealFee!} buyCVLURL="/tokens" />}
+        {isInsufficientBalance && appealFee && (
+          <InsufficientBalanceSnackBar appealFee={displayAppealFee!} buyCVLURL="/tokens" />
+        )}
         <SubmitAppealChallengeStatementComponent {...props} />
       </>
     );
@@ -265,9 +266,8 @@ class SubmitAppealChallengeComponent extends React.Component<
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
             {this.props.challengeAppealCommitLen} to commit their secret votes, and{" "}
             {this.props.challengeAppealRevealLen} to confirm their vote. To prevent decision bias, all votes will be
-            hidden using a secret phrase, until the end of the voting. Only a supermajority ({
-              this.props.appealVotePercentage
-            }) from the community can overturn the Civil Council's decision.
+            hidden using a secret phrase, until the end of the voting. Only a supermajority (
+            {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
           </ModalContent>
           <ModalContent>
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge

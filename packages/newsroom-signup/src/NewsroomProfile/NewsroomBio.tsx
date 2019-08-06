@@ -27,6 +27,8 @@ import { LearnMoreButton } from "./LearnMoreButton";
 
 export interface NewsroomBioProps extends StepProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -44,11 +46,11 @@ const LogoFormWrap = styled.div`
 
 const LogoImgWrap = styled.div`
   position: relative;
-  width: 338px;
+  max-width: 130px;
 `;
 
 const LogoImg = styled.img`
-  width: 338px;
+  max-width: 130px;
   height: auto;
 `;
 
@@ -70,28 +72,14 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
     const charter = this.props.charter;
     return (
       <>
-        <OBSectionHeader>Create your Newsroom Registry profile</OBSectionHeader>
-        <OBSectionDescription>
-          Civil is based on transparency so we ask you to provide the following information to the best of your ability.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <OBCollapsable
-          open={false}
-          header={<OBCollapsableHeader> Where will this profile be viewable?</OBCollapsableHeader>}
-        >
-          <OBSmallParagraph>
-            The information provided will help the Civil network assess your newsrooms compliance with the Civil
-            Constitution and may be the basis for a challenge if warranted
-          </OBSmallParagraph>
-        </OBCollapsable>
-        <OBSmallParagraph>
-          To create your Newsroom Registry Profile, you will complete 4 steps:<br />
-          Newsroom Details, Roster, Charter, and Signing.
-        </OBSmallParagraph>
-        <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
-          <FormTitle>First, tell us about your Newsroom</FormTitle>
-          <OBSmallParagraph>Enter your newsroom details below.</OBSmallParagraph>
+          {!this.props.editMode && (
+            <>
+              <FormTitle>First, tell us about your Newsroom</FormTitle>
+              <OBSmallParagraph>Enter your newsroom details below.</OBSmallParagraph>
+            </>
+          )}
           <div>
             <FormSubhead>Newsroom Name</FormSubhead>
             <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />
@@ -100,7 +88,10 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
             <FormSubhead>Newsroom Logo</FormSubhead>
             <LogoFormWrap>
               <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
-              <NewsroomLogoURLInput onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)} />
+              <NewsroomLogoURLInput
+                onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)}
+                buttonText={charter.logoUrl ? "Change Image" : "Add Image"}
+              />
             </LogoFormWrap>
           </div>
 
@@ -156,8 +147,35 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
               </div>
             </FormRowItem>
           </FormRow>
-          <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
+          {!this.props.editMode && <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>}
         </FormSection>
+      </>
+    );
+  }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Create your Newsroom Registry profile</OBSectionHeader>
+        <OBSectionDescription>
+          Civil is based on transparency so we ask you to provide the following information to the best of your ability.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <OBCollapsable
+          open={false}
+          header={<OBCollapsableHeader> Where will this profile be viewable?</OBCollapsableHeader>}
+        >
+          <OBSmallParagraph>
+            The information provided will help the Civil network assess your newsrooms compliance with the Civil
+            Constitution and may be the basis for a challenge if warranted
+          </OBSmallParagraph>
+        </OBCollapsable>
+        <OBSmallParagraph>
+          To create your Newsroom Registry Profile, you will complete 4 steps:
+          <br />
+          Newsroom Details, Roster, Charter, and Signing.
+        </OBSmallParagraph>
+        <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
       </>
     );
   }

@@ -193,7 +193,10 @@ const mapStateToProps = (state: State, ownProps: BoostCreatePageProps): BoostCre
   };
 };
 
-const ComposedBoostCreatePage = compose(withApollo, connect(mapStateToProps))(BoostCreatePage);
+const ComposedBoostCreatePage = compose(
+  withApollo,
+  connect(mapStateToProps),
+)(BoostCreatePage);
 
 export default (props: any) => (
   <AuthenticatedRoute

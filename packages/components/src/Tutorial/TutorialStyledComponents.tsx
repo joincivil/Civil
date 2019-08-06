@@ -27,7 +27,7 @@ export const TutorialProgressBarActive = styled.div`
   background-color: ${colors.accent.CIVIL_BLUE};
   border-radius: 3px;
   height: 6px;
-  width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
+  width: ${(props: TutorialProgressBarProps) => ((props.activeSlide / props.totalSlides) * 100).toString()}%;
 `;
 
 export const TutorialProgressBarSlideCount = styled.div`
@@ -35,7 +35,9 @@ export const TutorialProgressBarSlideCount = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: bold;
-  left: calc(${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}% - 25px);
+  left: calc(
+    ${(props: TutorialProgressBarProps) => ((props.activeSlide / props.totalSlides) * 100).toString()}% - 25px
+  );
   position: absolute;
   text-align: center;
   top: -20px;
@@ -111,8 +113,8 @@ export const TutorialFooterFull = styled.div`
     props.questionResult === "correct"
       ? "rgba(41,203,66,0.2)"
       : props.questionResult === "incorrect"
-        ? "#FFE6E8"
-        : colors.accent.CIVIL_GRAY_4};
+      ? "#FFE6E8"
+      : colors.accent.CIVIL_GRAY_4};
   bottom: 0;
   display: flex;
   justify-content: center;

@@ -25,9 +25,11 @@ class ContentViewerComponent extends React.Component<ContentInternalViewerProps 
     return (
       <div>
         <h2> Content </h2>
-        {content.map((item: Map<number, RevisionAndJson>, index: number): JSX.Element => (
-          <ContentItem key={index} content={item} />
-        ))}
+        {content.map(
+          (item: Map<number, RevisionAndJson>, index: number): JSX.Element => (
+            <ContentItem key={index} content={item} />
+          ),
+        )}
       </div>
     );
   }
