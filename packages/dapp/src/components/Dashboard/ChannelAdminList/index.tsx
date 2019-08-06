@@ -13,6 +13,7 @@ const channelMemberQuery = gql`
         role
         channel {
           id
+          channelType
           newsroom {
             contractAddress
             name
@@ -58,21 +59,23 @@ export const ChannelAdminList = (props: any) => {
         if (loading) {
           return <></>;
         }
-        return data.currentUser.channels.map((channelMember: any) => {
-          const link = `/admin/${channelMember.channel.id}`;
-          const newsroom = channelMember.channel.newsroom;
-          return (
-            <ChannelListItem key={channelMember.channel.id}>
-              <Link to={link}>
-                <img src={channelMember.channel.newsroom.charter.logoUrl} />
-                {newsroom.name}
-              </Link>
-              <Button to={link} size={buttonSizes.SMALL}>
-                Manage
-              </Button>
-            </ChannelListItem>
-          );
-        });
+        return data.currentUser.channels
+          .filter((channelMember: any) => channelMember.channel.channelType === "newsroom")
+          .map((channelMember: any) => {
+            const link = `/admin/${channelMember.channel.id}`;
+            const newsroom = channelMember.channel.newsroom;
+            return (
+              <ChannelListItem key={channelMember.channel.id}>
+                <Link to={link}>
+                  <img src={channelMember.channel.newsroom.charter.logoUrl} />
+                  {newsroom.name}
+                </Link>
+                <Button to={link} size={buttonSizes.SMALL}>
+                  Manage
+                </Button>
+              </ChannelListItem>
+            );
+          });
       }}
     </Query>
   );
