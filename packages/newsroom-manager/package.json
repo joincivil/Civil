@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/newsroom-manager",
-  "version": "1.8.9",
+  "version": "1.8.10",
   "description": "ui for managing a newsroom contract",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -16,8 +16,8 @@
     "test": "echo \"add tests please\""
   },
   "dependencies": {
-    "@joincivil/components": "^1.9.8",
-    "@joincivil/core": "^4.8.9",
+    "@joincivil/components": "^1.9.9",
+    "@joincivil/core": "^4.8.10",
     "@joincivil/ethapi": "^0.4.9",
     "@joincivil/utils": "^1.9.9",
     "@types/react": "^16.8.10",
