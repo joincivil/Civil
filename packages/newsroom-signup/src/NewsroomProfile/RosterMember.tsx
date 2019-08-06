@@ -61,6 +61,7 @@ const ImageCropper = styled.div`
   width: 72px;
   height: 72px;
   position: relative;
+  object-fit: cover;
   overflow: hidden;
   border-radius: 50%;
 `;

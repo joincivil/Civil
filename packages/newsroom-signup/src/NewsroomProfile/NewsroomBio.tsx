@@ -50,8 +50,9 @@ const LogoImgWrap = styled.div`
 `;
 
 const LogoImg = styled.img`
-  max-width: 130px;
-  height: auto;
+  height: 130px;
+  object-fit: contain;
+  width: 130px;
 `;
 
 const NewsroomURLInput = styled(StyledTextInput)`
@@ -85,7 +86,14 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
             <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />
           </div>
           <div>
-            <FormSubhead>Newsroom Logo</FormSubhead>
+            <FormSubhead>
+              Newsroom Logo
+              <QuestionToolTip
+                explainerText={
+                  "Minimum recommended size 260x260px, maximum file size 1MB. Image will be constrained to a square."
+                }
+              />
+            </FormSubhead>
             <LogoFormWrap>
               <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
               <NewsroomLogoURLInput

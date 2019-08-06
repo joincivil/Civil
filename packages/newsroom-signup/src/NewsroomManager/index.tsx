@@ -142,7 +142,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
                 href="javascript:void 0"
                 onClick={() => (this.state.editMode ? this.discardChanges() : this.enableEditMode())}
               >
-                {this.state.editMode ? "Discard Changes" : "Edit >>"}
+                {this.state.editMode ? (this.state.dirty ? "Discard Changes" : "Cancel") : "Edit >>"}
               </a>
             )}
           </p>
