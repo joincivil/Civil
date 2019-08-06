@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/components",
-  "version": "1.9.7",
+  "version": "1.9.8",
   "description": "React components for Civil",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -21,7 +21,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
-    "@joincivil/typescript-types": "^1.4.8",
+    "@joincivil/typescript-types": "^1.4.9",
     "@storybook/addon-actions": "^5.0.6",
     "@storybook/addon-info": "^5.0.6",
     "@storybook/addon-storyshots": "^5.0.6",
@@ -63,9 +63,9 @@
     "react-dom": "^16.8"
   },
   "dependencies": {
-    "@joincivil/core": "^4.8.8",
-    "@joincivil/ethapi": "^0.4.8",
-    "@joincivil/utils": "^1.9.8",
+    "@joincivil/core": "^4.8.9",
+    "@joincivil/ethapi": "^0.4.9",
+    "@joincivil/utils": "^1.9.9",
     "apollo-storybook-react": "^0.1.8",
     "classnames": "^2.2.5",
     "graphql-tag": "^2.10.0",
