@@ -40,7 +40,7 @@
   "license": "LGPL-2.1",
   "devDependencies": {
     "@0xproject/sol-cov": "^2.0.0",
-    "@0xproject/subproviders": "^1.0.0",
+    "@0xproject/subproviders": "^2.0.7",
     "@joincivil/dev-utils": "^1.6.9",
     "@joincivil/doxity": "^0.0.1",
     "@joincivil/ethapi": "^0.4.9",
