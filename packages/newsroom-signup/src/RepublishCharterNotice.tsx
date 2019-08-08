@@ -98,7 +98,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
       <Modal textAlign="center">
         <LoadingIndicator height={100} width={150} />
         <ModalHeading>Saving charter to IPFS</ModalHeading>
-        <p>First we are saving your charter to IPFS. This can take a moment. Please don't close this tab.</p>
+        <p>First we are saving your newsroom charter to IPFS. This can take a moment. Please don't close this tab.</p>
       </Modal>
     );
   }
