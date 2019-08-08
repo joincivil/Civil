@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import { Map, Set } from "immutable";
 import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
@@ -12,7 +13,7 @@ import {
   LoadingMessage,
 } from "@joincivil/components";
 
-import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
+import { routes, dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
@@ -108,6 +109,9 @@ export const StyledBatchButtonContainer = styled.div`
 const NEWSROOMS_QUERY = gql`
   query {
     nrsignupNewsroom {
+      charter {
+        name
+      }
       newsroomAddress
       tcrApplyTx
     }
@@ -225,19 +229,30 @@ class DashboardActivity extends React.Component<
             if (loading && !data) {
               return <LoadingMessage />;
             }
-            if (error) {
+            if (error || (data && !data.nrsignupNewsroom)) {
               return <NoNewsrooms />;
             }
 
             let newsrooms;
             let newsroomsApplicationProgressData;
-            if (data.nrsignupNewsroom && data.nrsignupNewsroom.newsroomAddress) {
+            if (data.nrsignupNewsroom.newsroomAddress) {
               newsrooms = Set([data.nrsignupNewsroom.newsroomAddress]);
               newsroomsApplicationProgressData = new Map();
               newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
                 data.nrsignupNewsroom.newsroomAddress,
                 data.nrsignupNewsroom,
               );
+            }
+            if (!newsrooms) {
+              if (data.nrsignupNewsroom.charter) {
+                return (
+                  <NoNewsrooms
+                    hasInProgressApplication={true}
+                    applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)}
+                  />
+                );
+              }
+              return <NoNewsrooms />;
             }
             return (
               <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
