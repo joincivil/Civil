@@ -39,6 +39,7 @@ import {
   getUserChallengeDataSetByPollType,
 } from "../../helpers/queryTransformations";
 
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import NewsroomsList from "./NewsroomsList";
 import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
@@ -222,6 +223,7 @@ class DashboardActivity extends React.Component<
   }
 
   private renderUserNewsrooms = (): JSX.Element => {
+    const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
     if (this.props.useGraphQL) {
       return (
         <Query query={NEWSROOMS_QUERY}>
@@ -230,7 +232,7 @@ class DashboardActivity extends React.Component<
               return <LoadingMessage />;
             }
             if (error || (data && !data.nrsignupNewsroom)) {
-              return <NoNewsrooms />;
+              return <NoNewsrooms applyToRegistryURL={registryUrl} />;
             }
 
             let newsrooms;
@@ -245,14 +247,9 @@ class DashboardActivity extends React.Component<
             }
             if (!newsrooms) {
               if (data.nrsignupNewsroom.charter) {
-                return (
-                  <NoNewsrooms
-                    hasInProgressApplication={true}
-                    applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)}
-                  />
-                );
+                return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />;
               }
-              return <NoNewsrooms />;
+              return <NoNewsrooms applyToRegistryURL={registryUrl} />;
             }
             return (
               <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
