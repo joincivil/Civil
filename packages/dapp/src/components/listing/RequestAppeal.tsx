@@ -138,7 +138,7 @@ class RequestAppealComponent extends React.Component<
       civil.toBigNumber(judgeAppealLen),
     );
     const balance = civil.toBigNumber(balanceBN);
-    const isInsufficientBalance = balance.lt(civil.toBigNumber(GovernmentParameters.appealFee));
+    const isInsufficientBalance = balance.lt(civil.toBigNumber(appealFee));
 
     const props: RequestAppealStatementProps = {
       listingURI,
@@ -155,9 +155,8 @@ class RequestAppealComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance && appealFee && (
-          <InsufficientBalanceSnackBar minDeposit={displayAppealFee} buyCVLURL="/tokens" />
-        )}
+        {isInsufficientBalance &&
+          appealFee && <InsufficientBalanceSnackBar minDeposit={displayAppealFee} buyCVLURL="/tokens" />}
         <RequestAppealStatementComponent {...props} />
       </>
     );
@@ -321,10 +320,9 @@ const mapStateToProps = (state: State, ownProps: RequestAppealProps): RequestApp
   };
 };
 
-const RequestAppeal = compose(
-  connect(mapStateToProps),
-  hasTransactionStatusModals(transactionStatusModalConfig),
-)(RequestAppealComponent) as React.ComponentClass<RequestAppealProps>;
+const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
+  RequestAppealComponent,
+) as React.ComponentClass<RequestAppealProps>;
 
 const RequestAppealPage = (props: RequestAppealPageProps) => {
   const listingAddress = props.match.params.listingAddress;
