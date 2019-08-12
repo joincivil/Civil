@@ -3,7 +3,15 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { BoostForm } from "@joincivil/civil-sdk";
 import { EthAddress, CharterData } from "@joincivil/core";
-import { Tabs, StyledTabLarge, StyledTabNav, Tab, LoadingMessage } from "@joincivil/components";
+import {
+  Tabs,
+  StyledTabLarge,
+  StyledTabNav,
+  Tab,
+  LoadingMessage,
+  withNewsroomChannel,
+  NewsroomChannelInjectedProps,
+} from "@joincivil/components";
 import { NewsroomManager } from "@joincivil/newsroom-signup";
 
 const ManageQuery = gql`
@@ -60,9 +68,15 @@ interface ManageQueryVariables {
   id: string;
 }
 
-export const ManageNewsroom = (props: any) => {
+export interface ManageNewsroomOwnProps {
+  newsroomAddress: string;
+}
+
+const ManageNewsroomComponent: React.FunctionComponent<
+  ManageNewsroomOwnProps & NewsroomChannelInjectedProps
+> = props => {
   const variables = {
-    id: props.channelID,
+    id: props.channelData.id,
   };
 
   const [preventNav, setPreventNav] = React.useState<boolean | string>(false);
@@ -127,3 +141,5 @@ export const ManageNewsroom = (props: any) => {
     </Query>
   );
 };
+
+export const ManageNewsroom = withNewsroomChannel(ManageNewsroomComponent);

@@ -137,7 +137,7 @@ class NewsroomsListItemListingRedux extends React.Component<
       const newsroomData = newsroom.wrapper.data;
 
       const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
-      const editNewsroomURL = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
+      const manageNewsroomURL = formatRoute(routes.MANAGE_NEWSROOM, { newsroomAddress: listingAddress });
 
       let newsroomMultiSigBalance = "0.00";
       if (newsroom.multisigBalance) {
@@ -153,7 +153,7 @@ class NewsroomsListItemListingRedux extends React.Component<
         newsroomMultiSigAddress: newsroom.multisigAddress,
         newsroomMultiSigBalance,
         listingDetailURL,
-        editNewsroomURL,
+        manageNewsroomURL,
         newsroomDeposit: getFormattedTokenBalance(listing.data.unstakedDeposit, true),
         etherscanBaseURL,
       };
