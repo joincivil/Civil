@@ -41,6 +41,7 @@ import {
 
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import NewsroomsList from "./NewsroomsList";
+import WithNewsroomChannelAdminList from "./ChannelAdmin/WithNewsroomChannelAdminList";
 import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
 import { Query } from "react-apollo";
@@ -107,7 +108,7 @@ export const StyledBatchButtonContainer = styled.div`
   padding: 12px 0 36px;
 `;
 
-const NEWSROOMS_QUERY = gql`
+const NRSIGNUP_NEWSROOMS_QUERY = gql`
   query {
     nrsignupNewsroom {
       charter {
@@ -223,42 +224,61 @@ class DashboardActivity extends React.Component<
   }
 
   private renderUserNewsrooms = (): JSX.Element => {
+    return (
+      <WithNewsroomChannelAdminList>
+        {({ newsroomAddresses }) => this.renderWithNrsignupNewsrooms(newsroomAddresses)}
+      </WithNewsroomChannelAdminList>
+    );
+  };
+
+  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>): JSX.Element => {
     const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
     if (this.props.useGraphQL) {
       return (
-        <Query query={NEWSROOMS_QUERY}>
+        <Query query={NRSIGNUP_NEWSROOMS_QUERY}>
           {({ loading, error, data }: any): JSX.Element => {
-            if (loading && !data) {
+            if (loading) {
               return <LoadingMessage />;
             }
-            if (error || (data && !data.nrsignupNewsroom)) {
+            if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
               return <NoNewsrooms applyToRegistryURL={registryUrl} />;
             }
 
-            let newsrooms;
+            let newsrooms = channelNewsrooms;
+
             let newsroomsApplicationProgressData;
-            if (data.nrsignupNewsroom.newsroomAddress) {
-              newsrooms = Set([data.nrsignupNewsroom.newsroomAddress]);
-              newsroomsApplicationProgressData = new Map();
-              newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
-                data.nrsignupNewsroom.newsroomAddress,
-                data.nrsignupNewsroom,
-              );
-            }
-            if (!newsrooms) {
-              if (data.nrsignupNewsroom.charter) {
-                return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />;
+            let hasAppInProgress;
+            if (data && data.nrsignupNewsroom) {
+              if (data.nrsignupNewsroom.newsroomAddress) {
+                newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
+                newsroomsApplicationProgressData = Map<EthAddress, any>();
+                newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+                  data.nrsignupNewsroom.newsroomAddress,
+                  data.nrsignupNewsroom,
+                );
+              } else if (data.nrsignupNewsroom.charter) {
+                hasAppInProgress = true;
               }
-              return <NoNewsrooms applyToRegistryURL={registryUrl} />;
             }
+
+            if (!newsrooms.size) {
+              return <NoNewsrooms hasInProgressApplication={hasAppInProgress} applyToRegistryURL={registryUrl} />;
+            }
+
             return (
-              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
+              <>
+                <NewsroomsList
+                  listings={newsrooms}
+                  newsroomsApplicationProgressData={newsroomsApplicationProgressData}
+                />
+                {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
+              </>
             );
           }}
         </Query>
       );
     } else {
-      return <NewsroomsList listings={this.props.currentUserNewsrooms} />;
+      return <NewsroomsList listings={this.props.currentUserNewsrooms.union(channelNewsrooms)} />;
     }
   };
 

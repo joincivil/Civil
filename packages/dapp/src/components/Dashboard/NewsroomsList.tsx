@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Set, Map } from "immutable";
 import NewsroomsListItem from "./NewsroomsListItem";
-import { ChannelAdminList } from "./ChannelAdminList";
-import { FeatureFlag } from "@joincivil/components";
 
 export interface NewsroomsListOwnProps {
   listings?: Set<string>;
@@ -21,9 +19,6 @@ const NewsroomsList: React.FunctionComponent<NewsroomsListOwnProps> = props => {
           }
           return <NewsroomsListItem key={l} listingAddress={l!} applicationProgressData={applicationProgressData} />;
         })}
-      <FeatureFlag feature="newsroom-channels">
-        <ChannelAdminList />
-      </FeatureFlag>
     </>
   );
 };
