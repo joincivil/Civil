@@ -41,7 +41,7 @@ import {
 
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import NewsroomsList from "./NewsroomsList";
-import WithNewsroomChannelAdminList from "./ChannelAdmin/WithNewsroomChannelAdminList";
+import WithNewsroomChannelAdminList from "./ManageNewsroom/WithNewsroomChannelAdminList";
 import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
 import { Query } from "react-apollo";

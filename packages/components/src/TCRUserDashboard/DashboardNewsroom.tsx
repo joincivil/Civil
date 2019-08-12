@@ -22,12 +22,12 @@ import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect
 export interface DashboardNewsroomProps {
   newsroomName: string;
   newsroomAddress: string;
-  newsroomMultiSigAddress: string;
-  newsroomMultiSigBalance: string;
   listingDetailURL: string;
-  editNewsroomURL: string;
+  manageNewsroomURL: string;
   newsroomDeposit: string;
   etherscanBaseURL: string;
+  newsroomMultiSigBalance: string;
+  newsroomMultiSigAddress?: string;
   isAccepted?: boolean;
   isInProgress?: boolean;
   isUnderChallenge?: boolean;
@@ -95,7 +95,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       );
     }
 
-    return <Link to={props.editNewsroomURL}>Edit</Link>;
+    return <Link to={props.manageNewsroomURL}>Manage Newsroom &gt;</Link>;
   };
 
   return (
@@ -105,7 +105,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomName>{props.newsroomName}</StyledDashboardNewsroomName>
 
           <StyledDashboardNewsroomLinks>
-            <Link to={props.listingDetailURL}>View on Registry</Link>
+            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
 
             {renderEditLink()}
           </StyledDashboardNewsroomLinks>
@@ -137,11 +137,13 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       </StyledDashboardNewsroomSection>
 
       <StyledDashboardNewsroomSection>
-        <EthAddressViewer
-          address={props.newsroomMultiSigAddress}
-          displayName="Newsroom Public Wallet Address"
-          etherscanBaseURL={props.etherscanBaseURL}
-        />
+        {props.newsroomMultiSigAddress && (
+          <EthAddressViewer
+            address={props.newsroomMultiSigAddress}
+            displayName="Newsroom Public Wallet Address"
+            etherscanBaseURL={props.etherscanBaseURL}
+          />
+        )}
 
         <EthAddressViewer
           address={props.newsroomAddress}

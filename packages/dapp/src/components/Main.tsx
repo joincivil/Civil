@@ -46,7 +46,9 @@ const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage")
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
 const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
-const ChannelAdminPage = React.lazy(async () => import("./Dashboard/ChannelAdmin/ChannelAdminPage"));
+const ManageNewsroomChannelPage = React.lazy(async () =>
+  import("./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
+);
 
 export interface MainReduxProps {
   network: string;
@@ -180,7 +182,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
               })}
             />
             <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
-            <Route path={routes.CHANNEL_ADMIN} component={AsyncComponent(ChannelAdminPage)} />
+            <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
             <Route path={routes.AUTH} component={AuthRouter} />>
             <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
             <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
