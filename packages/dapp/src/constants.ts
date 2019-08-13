@@ -29,7 +29,7 @@ export enum routes {
   BOOST_EDIT = "/boosts/:boostId/edit",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
   CHANNEL_ADMIN = "/admin/:reference",
-  MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress",
+  MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",
 }
 
 export enum registryListingTypes {

@@ -29,7 +29,6 @@ export interface NewsroomManagerExternalProps {
   newsroomAddress: EthAddress;
   publishedCharter: Partial<CharterData>;
   theme?: ButtonTheme;
-  setPreventNav(dirty: boolean | string): void;
 }
 
 export interface NewsroomManagerReduxProps {
@@ -40,7 +39,7 @@ export interface NewsroomManagerReduxProps {
 export type NewsroomManagerProps = NewsroomManagerExternalProps & NewsroomManagerReduxProps & DispatchProp<any>;
 
 export interface NewsroomManagerState {
-  web3Enabled: boolean; // @TODO This state logic should be lifted to something dapp-wide
+  web3Enabled: boolean; // @TODO This state logic should be lifted to something dapp-wide, or reuse the wallet onboarding component
   editMode?: boolean;
   dirty?: boolean;
   saving?: boolean;
@@ -117,10 +116,10 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
       return <LoadingMessage>Loading charter</LoadingMessage>;
     }
     if (!this.state.web3Enabled) {
-      // @TODO This logic should be lifted to something dapp-wide, and with a less hacky UI of course
+      // @TODO This logic should be lifted to something dapp-wide, and with a less hacky UI of course - or reuse wallet onboarding component
       return (
         <LoadingMessage>
-          Please connect your Ethereum wallet.
+          <p>Connecting to your Ethereum wallet</p>
           <div>
             <img src={metaMaskLoginImgUrl} style={{ width: 255, marginTop: 8 }} />
           </div>
@@ -142,7 +141,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
                 href="javascript:void 0"
                 onClick={() => (this.state.editMode ? this.discardChanges() : this.enableEditMode())}
               >
-                {this.state.editMode ? (this.state.dirty ? "Discard Changes" : "Cancel") : "Edit >>"}
+                {this.state.editMode ? (this.state.dirty ? "Discard Changes" : "Cancel") : "Edit >"}
               </a>
             )}
           </p>
@@ -193,7 +192,6 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
 
   private updateCharter = (charter: Partial<CharterData>) => {
     if (!this.state.dirty) {
-      this.props.setPreventNav(DEFAULT_DIRTY_MESSAGE);
       this.setState({ dirty: true });
     }
     this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, true));
@@ -205,12 +203,10 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
   private discardChanges = () => {
     this.updateCharter(this.state.lastSavedCharter || this.props.publishedCharter);
     this.setState({ editMode: false, dirty: false });
-    this.props.setPreventNav(false);
   };
 
   private saveInProgress = () => {
     this.setState({ editMode: false, saving: true });
-    this.props.setPreventNav(false);
   };
   private saveComplete = () => {
     this.setState({ dirty: false, saving: false, lastSavedCharter: { ...this.props.charter } });
