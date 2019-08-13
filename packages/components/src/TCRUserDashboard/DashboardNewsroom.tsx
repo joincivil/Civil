@@ -1,8 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import { ErrorIcon } from "../icons";
 
+import { Button, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
 import {
   StyledDashboardNewsroom,
@@ -150,6 +152,28 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           etherscanBaseURL={props.etherscanBaseURL}
         />
       </StyledDashboardNewsroomSection>
+
+      <StyledDashboardNewsroomSection>
+        <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
+        <p>
+          Connect with the Civil community eager to fund your newsroom projects.{" "}
+          <a href={urlConstants.FAQ_BOOSTS} target="_blank">
+            Learn more
+          </a>
+        </p>
+        {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
+        <p>
+          <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
+            Launch Boost
+          </Button>
+        </p>
+        <p>
+          {/*@TODO Ideally we could link directly to that tab, see CIVIL-1021*/}
+          View your current Boosts on the "Boosts" tab on{" "}
+          <Link to={props.listingDetailURL}>your newsroom's Registry listing</Link>.
+        </p>
+      </StyledDashboardNewsroomSection>
+
       <FeatureFlag feature={"stripe-admin"}>
         <StyledDashboardNewsroomSection>
           <DashboardNewsroomStripeConnect newsroomAddress={props.newsroomAddress} />

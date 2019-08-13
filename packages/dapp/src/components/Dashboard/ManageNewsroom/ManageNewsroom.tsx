@@ -15,6 +15,7 @@ import {
   NewsroomChannelInjectedProps,
 } from "@joincivil/components";
 import { NewsroomManager } from "@joincivil/newsroom-signup";
+import { routes } from "../../../constants";
 
 const ManageQuery = gql`
   query($id: String!) {
@@ -71,9 +72,9 @@ interface ManageQueryVariables {
 }
 
 export interface ManageParams {
-  activeTab?: "home" | "launch-boost";
+  activeTab?: "edit-charter" | "launch-boost";
 }
-const TABS = ["home", "launch-boost"];
+const TABS = ["edit-charter", "launch-boost"];
 
 export interface ManageNewsroomOwnProps extends RouteComponentProps<ManageParams> {
   newsroomAddress: string;
@@ -85,7 +86,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
   // Load tab from path:
   const [activeTabIndex, setActiveTabIndex] = React.useState<number>(0);
   React.useEffect(() => {
-    const activeTab = props.match.params.activeTab || "home";
+    const activeTab = props.match.params.activeTab || "edit-charter";
     if (TABS[activeTabIndex] !== activeTab) {
       setActiveTabIndex(TABS.indexOf(activeTab));
     }
@@ -104,13 +105,13 @@ const ManageNewsroomComponent: React.FunctionComponent<
         } else if (error) {
           console.error("error querying channelsGetByID:", error);
           return (
-            <div>
+            <>
               Error loading newsroom: <code>{error.message || JSON.stringify(error)}</code>
-            </div>
+            </>
           );
         } else if (!data) {
           console.error("error querying channelsGetByID: no data returned");
-          return <div>Error loading newsroom: no newsroom data returned</div>;
+          return <>Error loading newsroom: no newsroom data returned</>;
         }
 
         const newsroom = data.channelsGetByID.newsroom;
@@ -120,7 +121,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
         const charter = data.channelsGetByID.newsroom.charter;
 
         return (
-          <div>
+          <>
             <Tabs
               TabsNavComponent={StyledTabNav}
               TabComponent={StyledTabLarge}
@@ -131,7 +132,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
                 );
               }}
             >
-              <Tab title={"Home"}>
+              <Tab title={"Edit Charter"}>
                 <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} />
               </Tab>
               <Tab title={"Launch Boost"}>
@@ -150,7 +151,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
                 />
               </Tab>
             </Tabs>
-          </div>
+          </>
         );
       }}
     </Query>
