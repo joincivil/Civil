@@ -155,8 +155,9 @@ class RequestAppealComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar minDeposit={displayAppealFee} buyCVLURL="/tokens" />}
+        {isInsufficientBalance && appealFee && (
+          <InsufficientBalanceSnackBar minDeposit={displayAppealFee} buyCVLURL="/tokens" />
+        )}
         <RequestAppealStatementComponent {...props} />
       </>
     );
@@ -320,9 +321,10 @@ const mapStateToProps = (state: State, ownProps: RequestAppealProps): RequestApp
   };
 };
 
-const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  RequestAppealComponent,
-) as React.ComponentClass<RequestAppealProps>;
+const RequestAppeal = compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(RequestAppealComponent) as React.ComponentClass<RequestAppealProps>;
 
 const RequestAppealPage = (props: RequestAppealPageProps) => {
   const listingAddress = props.match.params.listingAddress;

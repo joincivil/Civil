@@ -105,9 +105,8 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomName>{props.newsroomName}</StyledDashboardNewsroomName>
 
           <StyledDashboardNewsroomLinks>
-            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
-
             {renderEditLink()}
+            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
           </StyledDashboardNewsroomLinks>
         </StyledDashboardNewsroomSectionContentRow>
       </StyledDashboardNewsroomSection>

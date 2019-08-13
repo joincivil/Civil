@@ -1,5 +1,7 @@
 import * as React from "react";
 import gql from "graphql-tag";
+import { withRouter, RouteComponentProps } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import { Query } from "react-apollo";
 import { BoostForm } from "@joincivil/civil-sdk";
 import { EthAddress, CharterData } from "@joincivil/core";
@@ -68,21 +70,34 @@ interface ManageQueryVariables {
   id: string;
 }
 
-export interface ManageNewsroomOwnProps {
+export interface ManageParams {
+  activeTab?: "home" | "launch-boost";
+}
+const TABS = ["home", "launch-boost"];
+
+export interface ManageNewsroomOwnProps extends RouteComponentProps<ManageParams> {
   newsroomAddress: string;
 }
 
 const ManageNewsroomComponent: React.FunctionComponent<
   ManageNewsroomOwnProps & NewsroomChannelInjectedProps
 > = props => {
-  const variables = {
-    id: props.channelData.id,
-  };
-
-  const [preventNav, setPreventNav] = React.useState<boolean | string>(false);
+  // Load tab from path:
+  const [activeTabIndex, setActiveTabIndex] = React.useState<number>(0);
+  React.useEffect(() => {
+    const activeTab = props.match.params.activeTab || "home";
+    if (TABS[activeTabIndex] !== activeTab) {
+      setActiveTabIndex(TABS.indexOf(activeTab));
+    }
+  }, [props.match.params.activeTab]);
 
   return (
-    <Query<ManageQueryData, ManageQueryVariables> query={ManageQuery} variables={variables}>
+    <Query<ManageQueryData, ManageQueryVariables>
+      query={ManageQuery}
+      variables={{
+        id: props.channelData.id,
+      }}
+    >
       {({ loading, data, error }) => {
         if (loading) {
           return <LoadingMessage>Loading your Newsroom</LoadingMessage>;
@@ -109,15 +124,15 @@ const ManageNewsroomComponent: React.FunctionComponent<
             <Tabs
               TabsNavComponent={StyledTabNav}
               TabComponent={StyledTabLarge}
-              preventTabChange={preventNav}
-              onActiveTabChange={() => setPreventNav(false)}
+              activeIndex={activeTabIndex}
+              onActiveTabChange={(tab: number) => {
+                props.history.push(
+                  formatRoute(props.match.path, { newsroomAddress: props.newsroomAddress, activeTab: TABS[tab] }),
+                );
+              }}
             >
               <Tab title={"Home"}>
-                <NewsroomManager
-                  newsroomAddress={newsroom.contractAddress}
-                  publishedCharter={charter}
-                  setPreventNav={setPreventNav}
-                />
+                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} />
               </Tab>
               <Tab title={"Launch Boost"}>
                 <BoostForm
@@ -142,4 +157,4 @@ const ManageNewsroomComponent: React.FunctionComponent<
   );
 };
 
-export const ManageNewsroom = withNewsroomChannel(ManageNewsroomComponent);
+export const ManageNewsroom = withRouter(withNewsroomChannel(ManageNewsroomComponent));
