@@ -115,9 +115,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
         }
 
         const newsroom = data.channelsGetByID.newsroom;
-
-        const listingRoute = "#fixme";
-
+        const listingRoute = formatRoute(routes.LISTING, { listingAddress: props.newsroomAddress });
         const charter = data.channelsGetByID.newsroom.charter;
 
         return (
