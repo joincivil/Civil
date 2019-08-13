@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
+import { Link } from "react-router-dom";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
 import { CivilContext, DashboardNewsroom } from "@joincivil/components";
@@ -86,6 +87,7 @@ class NewsroomsListItemListingRedux extends React.Component<
 
       const isInProgress = true;
       let inProgressPhaseDisplayName = "";
+      let inProgressPhaseDetails;
 
       switch (true) {
         case isInApplication:
@@ -97,6 +99,11 @@ class NewsroomsListItemListingRedux extends React.Component<
           canListingAppealBeResolved ||
           canListingAppealChallengeBeResolved:
           inProgressPhaseDisplayName = "Ready To Update";
+          inProgressPhaseDetails = (
+            <Link to={formatRoute(routes.LISTING, { listingAddress })}>
+              Please update your newsroom on the Registry
+            </Link>
+          );
           break;
 
         case inChallengeCommitVotePhase || inChallengeRevealPhase || isAwaitingAppealRequest:
@@ -112,7 +119,6 @@ class NewsroomsListItemListingRedux extends React.Component<
           break;
       }
 
-      let inProgressPhaseDetails;
       if (
         inChallengeCommitVotePhase ||
         inChallengeRevealPhase ||
