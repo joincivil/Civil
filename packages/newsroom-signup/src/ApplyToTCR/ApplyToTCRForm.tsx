@@ -4,7 +4,6 @@ import { BigNumber } from "bignumber.js";
 import { EthAddress, TxHash } from "@joincivil/core";
 import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import { QuestionToolTip, OBSmallParagraph, TransactionButtonNoModal, ModalContent } from "@joincivil/components";
-import { MutationFunc } from "react-apollo";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import {
   FormSection,
@@ -79,7 +78,7 @@ export interface ApplyToTCRFormProps {
   newsroomAddress: EthAddress;
   multisigAddress: EthAddress;
   multisigHasMinDeposit: boolean;
-  saveTxHash: MutationFunc;
+  saveTxHash(txHash: EthAddress): Promise<any>;
 }
 
 export interface ApplyPostTransactionProp {
@@ -187,7 +186,7 @@ const ApplyToTCRForm: React.FunctionComponent<
               return tcr.apply(newsroomAddress!, value.civil!.toBigNumber(minDeposit), "");
             },
             handleTransactionHash: async (txHash: TxHash) => {
-              await props.saveTxHash({ variables: { input: txHash } });
+              await props.saveTxHash(txHash);
               props.updateTransactionStatusModalsState({
                 isWaitingTransactionModalOpen: false,
                 isTransactionProgressModalOpen: true,
