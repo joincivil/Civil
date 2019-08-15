@@ -12,11 +12,14 @@ export interface NewsroomChannelData {
 }
 
 export interface WithNewsroomChannelOuterProps {
+  newsroomAddress?: string;
+  newsroomContractAddress?: string;
+}
+export interface WithNewsroomChannelState {
   newsroomAddress: string;
 }
 
 export interface NewsroomChannelInjectedProps {
-  newsroomAddress: string;
   channelData: NewsroomChannelData;
 }
 
@@ -38,14 +41,27 @@ export const CREATE_NEWSROOM_CHANNEL_MUTATION = gql`
   }
 `;
 
-/** Usage: The component returned by this HOC will require the `newsroomAddress` prop and will pass `channelData` to the wrapped component, or instead will show loading or error states as necessary. If the newsroom channel does not yet exist, it will attempt to create it. */
+/** Usage: The component returned by this HOC will require the `newsroomAddress` or `newsroomContractAddress` prop and will pass `channelData` to the wrapped component, or instead will show loading or error states as necessary. If the newsroom channel does not yet exist, it will attempt to create it. */
 export const withNewsroomChannel = <TOriginalProps extends {}>(
   WrappedComponent: React.ComponentType<TOriginalProps & NewsroomChannelInjectedProps>,
 ) => {
-  return class ComponentWithNewsroomChannel extends React.Component<WithNewsroomChannelOuterProps & TOriginalProps> {
+  return class ComponentWithNewsroomChannel extends React.Component<
+    WithNewsroomChannelOuterProps & TOriginalProps,
+    WithNewsroomChannelState
+  > {
+    constructor(props: WithNewsroomChannelOuterProps & TOriginalProps) {
+      super(props);
+      const newsroomAddress = this.props.newsroomAddress || this.props.newsroomContractAddress;
+      if (!newsroomAddress || typeof newsroomAddress !== "string") {
+        throw Error("Must supply `newsroomAddress` or `newsroomContractAddress` prop.");
+      }
+      this.state = {
+        newsroomAddress,
+      };
+    }
     public render(): JSX.Element {
       return (
-        <Query query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.props.newsroomAddress }}>
+        <Query query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.state.newsroomAddress }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <LoadingMessage>Loading</LoadingMessage>;
@@ -54,7 +70,7 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
             } else if (error || !data || !data.channelsGetByNewsroomAddress) {
               console.error(
                 "error loading channel data for",
-                this.props.newsroomAddress,
+                this.state.newsroomAddress,
                 " error:",
                 error,
                 "data:",
@@ -75,14 +91,14 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
       return (
         <Mutation
           mutation={CREATE_NEWSROOM_CHANNEL_MUTATION}
-          variables={{ newsroomContractAddress: this.props.newsroomAddress }}
+          variables={{ newsroomContractAddress: this.state.newsroomAddress }}
           refetchQueries={[
-            { query: CHANNEL_BY_NEWSROOM_QUERY, variables: { contractAddress: this.props.newsroomAddress } },
+            { query: CHANNEL_BY_NEWSROOM_QUERY, variables: { contractAddress: this.state.newsroomAddress } },
           ]}
         >
           {(createChannel, { data, error, called }) => {
             if (!called && !error) {
-              console.warn("Channel doesn't exist for newsroom", this.props.newsroomAddress, "attempting to create...");
+              console.warn("Channel doesn't exist for newsroom", this.state.newsroomAddress, "attempting to create...");
               createChannel().catch(() => {});
             }
             if (error || !data || !data.channelsCreateNewsroomChannel) {
