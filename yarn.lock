@@ -1766,9 +1766,9 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.21.0":
-  version "1.21.0"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.21.0.tgz#992b0535b5820184f056b70fd7a8dd62613d0c86"
+"@joincivil/civil-sdk@^1.21.1":
+  version "1.21.1"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.21.1.tgz#d3761dcf89aec9f32bfb893ddee0d30115ddcca7"
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
