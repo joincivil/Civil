@@ -41,17 +41,16 @@ export const DashboardActivityItem: React.FunctionComponent<DashboardActivityIte
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        {props.charter &&
-          props.charter.logoUrl && (
-            <SmallNewsroomIcon>
-              <img
-                src={props.charter.logoUrl}
-                onError={e => {
-                  (e.target as any).src = defaultNewsroomImgUrl;
-                }}
-              />
-            </SmallNewsroomIcon>
-          )}
+        {props.charter && props.charter.logoUrl && (
+          <SmallNewsroomIcon>
+            <img
+              src={props.charter.logoUrl}
+              onError={e => {
+                (e.target as any).src = defaultNewsroomImgUrl;
+              }}
+            />
+          </SmallNewsroomIcon>
+        )}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>

@@ -1,6 +1,6 @@
 {
   "name": "@joincivil/newsroom-signup",
-  "version": "1.8.8",
+  "version": "1.8.11",
   "description": "ui for managing a newsroom contract",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -16,10 +16,10 @@
     "test": "echo \"add tests please\""
   },
   "dependencies": {
-    "@joincivil/components": "^1.9.7",
-    "@joincivil/core": "^4.8.8",
-    "@joincivil/ethapi": "^0.4.8",
-    "@joincivil/utils": "^1.9.8",
+    "@joincivil/components": "^1.9.10",
+    "@joincivil/core": "^4.8.11",
+    "@joincivil/ethapi": "^0.4.9",
+    "@joincivil/utils": "^1.9.9",
     "bignumber.js": "~5.0.0",
     "ethereumjs-util": "^5.2.0",
     "graphql-tag": "^2.9.2",
@@ -31,7 +31,7 @@
     "sanitize-html": "^1.20.0"
   },
   "devDependencies": {
-    "@joincivil/typescript-types": "^1.4.8",
+    "@joincivil/typescript-types": "^1.4.9",
     "@redux-beacon/google-analytics": "^1.2.0",
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",

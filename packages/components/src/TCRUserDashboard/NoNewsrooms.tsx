@@ -12,7 +12,7 @@ import {
 } from "./DashboardStyledComponents";
 
 export interface NoNewsroomsProps {
-  hasInProgressApplication: boolean;
+  hasInProgressApplication?: boolean;
   applyToRegistryURL: string;
 }
 

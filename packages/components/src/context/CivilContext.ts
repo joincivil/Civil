@@ -6,14 +6,25 @@ export interface ICivilContext {
   uniswap: UniswapService;
   features: FeatureFlagService;
   network: number;
+  /** See `packages/dapp/src/helpers/config.ts` */
+  config: any;
   setCivil(civil: Civil): void;
   waitForTx(txHash: string): Promise<void>;
+  fireAnalyticsEvent(category: string, event: string, label: string, value: number): void;
+  setAnalyticsEvent(fire: any): void;
 }
 
-export function buildCivilContext(civil?: Civil, defaultNetwork?: string, featureFlags?: string[]): ICivilContext {
+export function buildCivilContext(
+  civil?: Civil,
+  defaultNetwork?: string,
+  featureFlags?: string[],
+  config?: any,
+  setAnalyticsEvent?: (fire: any) => void,
+): ICivilContext {
   const ctx: any = {};
   ctx.civil = civil;
   ctx.features = new FeatureFlagService(featureFlags);
+  ctx.config = config || {};
 
   const { provider, signer, network }: EthersProviderResult = makeEthersProvider(defaultNetwork!);
   try {
@@ -28,6 +39,10 @@ export function buildCivilContext(civil?: Civil, defaultNetwork?: string, featur
   };
 
   ctx.waitForTx = async (txHash: string) => provider.waitForTransaction(txHash);
+
+  ctx.setAnalyticsEvent = (fire: any): void => {
+    ctx.fireAnalyticsEvent = fire;
+  };
 
   return ctx;
 }

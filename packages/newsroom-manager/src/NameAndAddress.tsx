@@ -100,12 +100,13 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          You have confirmed the transaction in MetaMask{!this.props.address &&
-            ", and now computers around the world are learning about your newsroom contract"}.
+          You have confirmed the transaction in MetaMask
+          {!this.props.address && ", and now computers around the world are learning about your newsroom contract"}.
         </p>
         <p>
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-          transaction is processing.<br />
+          transaction is processing.
+          <br />
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -266,7 +267,8 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             </p>
             <p>
               Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-              transaction is processing.<br />
+              transaction is processing.
+              <br />
               <ViewTransactionLink txHash={this.props.txHash!} network={value.requiredNetwork} />
             </p>
           </PendingWrapper>

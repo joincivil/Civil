@@ -9,7 +9,6 @@ export enum routes {
   REQUEST_APPEAL = "/listing/:listingAddress/request-appeal",
   CHALLENGE = "/listing/:listingAddress/challenge/:challengeID",
   CREATE_NEWSROOM = "/create-newsroom",
-  NEWSROOM_MANAGEMENT = "/mgmt/:newsroomAddress",
   NEWSROOM_MANAGEMENT_V1 = "/mgmt-v1/:newsroomAddress",
   PARAMETERIZER = "/parameterizer",
   APPLY_TO_REGISTRY = "/apply-to-registry/:action?",
@@ -18,13 +17,19 @@ export enum routes {
   DASHBOARD_ROOT = "/dashboard",
   AUTH = "/auth",
   AUTH_SIGNUP = "/auth/signup",
+  AUTH_SIGNUP_WEB3 = "/auth/signup/web3",
   AUTH_LOGIN = "/auth/login",
+  AUTH_LOGIN_WEB3 = "/auth/login/web3",
+  AUTH_LOGOUT = "/auth/logout",
+  WALLET_HOME = "/auth/wallet",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
   BOOST_EDIT = "/boosts/:boostId/edit",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
+  CHANNEL_ADMIN = "/admin/:reference",
+  MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",
 }
 
 export enum registryListingTypes {

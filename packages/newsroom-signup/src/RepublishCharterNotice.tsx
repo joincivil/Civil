@@ -1,12 +1,13 @@
 import * as React from "react";
 import styled from "styled-components";
-import { CharterData, Civil, IPFSProvider, TxHash } from "@joincivil/core";
+import { CharterData, Civil, IPFSProvider, TxHash, NewsroomInstance } from "@joincivil/core";
 import {
   Notice,
   NoticeTypes,
   Transaction,
   TransactionButtonModalFlowState,
   TransactionButtonNoModal,
+  TransactionButtonInnerProps,
   MetaMaskModal,
   ModalHeading,
   Modal,
@@ -22,7 +23,12 @@ import { CivilContext, CivilContextValue } from "./CivilContext";
 export interface RepublishCharterNoticeProps {
   civil: Civil;
   charter: Partial<CharterData>;
-  newsroom: any;
+  newsroom: NewsroomInstance;
+  className?: string;
+  introCopy?: JSX.Element | string;
+  onTxStart?(): void;
+  onTxComplete?(): void;
+  transactionButtonComponent?(props: TransactionButtonInnerProps): JSX.Element;
 }
 
 export interface RepublishCharterNoticeState extends TransactionButtonModalFlowState {
@@ -62,28 +68,14 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
 
   public render(): JSX.Element {
     return (
-      <Wrapper type={NoticeTypes.ALERT}>
-        <strong>Note:</strong> Your charter has already been published alongside your newsroom smart contract. If you
-        wish to make any changes, please use the back/next buttons below to navigate between sections. Once you have
-        completed any changes, make sure to republish your charter.{" "}
+      <Wrapper className={this.props.className} type={NoticeTypes.ALERT}>
+        {this.renderIntroCopy()}{" "}
         <CivilContext.Consumer>
           {(value: CivilContextValue) => {
             return (
               <TransactionButtonNoModal
                 transactions={this.getTransactions(value.civil!)}
-                Button={props => {
-                  if (props.disabled) {
-                    return <Loader size={12} />;
-                  }
-                  return (
-                    <RepublishLink onClick={props.onClick}>
-                      Republish your charter{" "}
-                      <IconWrap>
-                        <MetaMaskSideIcon />
-                      </IconWrap>
-                    </RepublishLink>
-                  );
-                }}
+                Button={this.renderTransactionButtonComponent}
               />
             );
           }}
@@ -106,7 +98,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
       <Modal textAlign="center">
         <LoadingIndicator height={100} width={150} />
         <ModalHeading>Saving charter to IPFS</ModalHeading>
-        <p>First we are saving your charter to IPFS. This can take a moment. Please don't close this tab.</p>
+        <p>First we are saving your newsroom charter to IPFS. This can take a moment. Please don't close this tab.</p>
       </Modal>
     );
   }
@@ -172,8 +164,10 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
         <p>You have confirmed the transaction in MetaMask.</p>
         <p>
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-          transaction is processing.
+          transaction is processing, but please note that changes won't be reflected until the transaction has
+          completed.
         </p>
+        <p>If you remain on this page, you will be alerted when the transaction has been completed.</p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
         </Button>
@@ -185,10 +179,14 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     if (!this.state.isTransactionSuccessModalOpen) {
       return null;
     }
-    const onClick = () =>
+    const onClick = () => {
       this.setState({
         isTransactionSuccessModalOpen: false,
       });
+      if (this.props.onTxComplete) {
+        this.props.onTxComplete();
+      }
+    };
 
     return (
       <Modal textAlign="left">
@@ -201,6 +199,35 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     );
   }
 
+  private renderIntroCopy(): JSX.Element {
+    if (this.props.introCopy) {
+      return <>{this.props.introCopy}</>;
+    }
+    return (
+      <>
+        <strong>Note:</strong> Your charter has already been published alongside your newsroom smart contract. If you
+        wish to make any changes, please use the back/next buttons below to navigate between sections. Once you have
+        completed any changes, make sure to republish your charter.
+      </>
+    );
+  }
+  private renderTransactionButtonComponent = (props: TransactionButtonInnerProps): JSX.Element => {
+    if (props.disabled) {
+      return <Loader size={12} />;
+    }
+    if (this.props.transactionButtonComponent) {
+      return this.props.transactionButtonComponent(props);
+    }
+    return (
+      <RepublishLink onClick={props.onClick}>
+        Republish your charter{" "}
+        <IconWrap>
+          <MetaMaskSideIcon />
+        </IconWrap>
+      </RepublishLink>
+    );
+  };
+
   private getTransactions = (civil: Civil, noPreModal?: boolean): Transaction[] => {
     return [
       {
@@ -212,7 +239,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
             isWaitingTransactionModalOpen: true,
             isPreTransactionModalOpen: false,
           });
-          return this.props.newsroom.updateRevisionURIAndHash(0, this.state.contentURI, this.state.contentHash);
+          return this.props.newsroom.updateRevisionURIAndHash(0, this.state.contentURI!, this.state.contentHash!);
         },
         postTransaction: () => {
           this.setState({
@@ -225,6 +252,9 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
             modalOpen: true,
             isWaitingTransactionModalOpen: false,
           });
+          if (this.props.onTxStart) {
+            this.props.onTxStart();
+          }
         },
         handleTransactionError: this.handleTransactionError,
       },

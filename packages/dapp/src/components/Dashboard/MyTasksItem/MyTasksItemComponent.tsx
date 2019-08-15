@@ -38,14 +38,13 @@ const MyTasksItemComponent: React.FunctionComponent<MyTasksItemOwnProps & MyTask
       return (
         <DashboardActivityItemTask {...viewProps}>
           <MyTasksItemPhaseCountdown {...props} />
-          {!inCommitPhase &&
-            !inRevealPhase && (
-              <DashboardItemChallengeResults
-                listingDetailURL={listingDetailURL}
-                viewDetailURL={viewDetailURL}
-                {...props}
-              />
-            )}
+          {!inCommitPhase && !inRevealPhase && (
+            <DashboardItemChallengeResults
+              listingDetailURL={listingDetailURL}
+              viewDetailURL={viewDetailURL}
+              {...props}
+            />
+          )}
         </DashboardActivityItemTask>
       );
     }

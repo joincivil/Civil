@@ -2,8 +2,10 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
+import BigNumber from "bignumber.js";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
+  CivilContext,
   InsufficientCVLForAppealChallenge,
   ModalContent,
   ModalUnorderedList,
@@ -16,7 +18,6 @@ import {
 import { getFormattedParameterValue, Parameters, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { getCivil } from "../../helpers/civilInstance";
 import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
@@ -40,11 +41,11 @@ interface SubmitAppealChallengeProps {
 
 interface SubmitAppealChallengeReduxProps {
   newsroomName: string;
-  appealFee: string;
-  challengeAppealCommitLen: string;
-  challengeAppealRevealLen: string;
-  appealVotePercentage: string;
-  isInsufficientBalance: boolean;
+  appealFee: BigNumber;
+  challengeAppealCommitLen: BigNumber;
+  challengeAppealRevealLen: BigNumber;
+  appealVotePercentage: BigNumber;
+  balance: BigNumber;
 }
 
 interface SubmitAppealChallengeState {
@@ -111,6 +112,8 @@ class SubmitAppealChallengeComponent extends React.Component<
   SubmitAppealChallengeProps & SubmitAppealChallengeReduxProps & InjectedTransactionStatusModalProps,
   SubmitAppealChallengeState
 > {
+  public static contextType = CivilContext;
+
   public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
     this.props.setTransactions(this.getTransactions());
@@ -118,9 +121,10 @@ class SubmitAppealChallengeComponent extends React.Component<
       transactionSuccessContent,
     });
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
-    // TODO: cleanup ethereum enabling
-    if ((window as any).ethereum) {
-      await (window as any).ethereum.enable();
+
+    const { civil } = this.context;
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
     }
   }
 
@@ -133,17 +137,36 @@ class SubmitAppealChallengeComponent extends React.Component<
       challengeAppealCommitLen,
       challengeAppealRevealLen,
       appealVotePercentage,
-      isInsufficientBalance,
+      balance: balanceBN,
     } = this.props;
+
+    const { civil } = this.context;
+    const displayChallengeAppealCommitLen = getFormattedParameterValue(
+      Parameters.challengeAppealCommitLen,
+      civil.toBigNumber(challengeAppealCommitLen),
+    );
+    const displayChallengeAppealRevealLen = getFormattedParameterValue(
+      Parameters.challengeAppealRevealLen,
+      civil.toBigNumber(challengeAppealRevealLen),
+    );
+
+    const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, civil.toBigNumber(appealFee));
+    const displayAppealVotePercentage = getFormattedParameterValue(
+      GovernmentParameters.appealVotePercentage,
+      civil.toBigNumber(appealVotePercentage),
+    );
+
+    const balance = civil.toBigNumber(balanceBN);
+    const isInsufficientBalance = balance.lt(civil.toBigNumber(GovernmentParameters.appealFee));
 
     const props: SubmitAppealChallengeStatementProps = {
       listingURI,
       newsroomName,
       governanceGuideURI,
-      appealFee,
-      challengeAppealCommitLen,
-      challengeAppealRevealLen,
-      appealVotePercentage,
+      appealFee: displayAppealFee,
+      challengeAppealCommitLen: displayChallengeAppealCommitLen,
+      challengeAppealRevealLen: displayChallengeAppealRevealLen,
+      appealVotePercentage: displayAppealVotePercentage,
       updateStatementValue: this.updateStatement,
       transactions: this.getTransactions(),
       postExecuteTransactions: this.onSubmitAppealChallengeSuccess,
@@ -152,8 +175,9 @@ class SubmitAppealChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar appealFee={appealFee!} buyCVLURL="/tokens" />}
+        {isInsufficientBalance && appealFee && (
+          <InsufficientBalanceSnackBar appealFee={displayAppealFee!} buyCVLURL="/tokens" />
+        )}
         <SubmitAppealChallengeStatementComponent {...props} />
       </>
     );
@@ -242,9 +266,8 @@ class SubmitAppealChallengeComponent extends React.Component<
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
             {this.props.challengeAppealCommitLen} to commit their secret votes, and{" "}
             {this.props.challengeAppealRevealLen} to confirm their vote. To prevent decision bias, all votes will be
-            hidden using a secret phrase, until the end of the voting. Only a supermajority ({
-              this.props.appealVotePercentage
-            }) from the community can overturn the Civil Council's decision.
+            hidden using a secret phrase, until the end of the voting. Only a supermajority (
+            {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
           </ModalContent>
           <ModalContent>
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
@@ -304,36 +327,21 @@ const mapStateToProps = (
 
   const { parameters, govtParameters, user } = state.networkDependent;
 
-  let appealFee = "";
-  let challengeAppealCommitLen = "";
-  let challengeAppealRevealLen = "";
-  let appealVotePercentage = "";
-  const civil = getCivil();
+  let appealFee = new BigNumber(0);
+  let challengeAppealCommitLen = new BigNumber(0);
+  let challengeAppealRevealLen = new BigNumber(0);
+  let appealVotePercentage = new BigNumber(0);
   if (parameters && Object.keys(parameters).length) {
-    challengeAppealCommitLen = getFormattedParameterValue(
-      Parameters.challengeAppealCommitLen,
-      civil.toBigNumber(parameters[Parameters.challengeAppealCommitLen]),
-    );
-    challengeAppealRevealLen = getFormattedParameterValue(
-      Parameters.challengeAppealRevealLen,
-      civil.toBigNumber(parameters[Parameters.challengeAppealRevealLen]),
-    );
+    challengeAppealCommitLen = parameters[Parameters.challengeAppealCommitLen];
+    challengeAppealRevealLen = parameters[Parameters.challengeAppealRevealLen];
   }
   if (govtParameters && Object.keys(govtParameters).length) {
-    appealFee = getFormattedParameterValue(
-      GovernmentParameters.appealFee,
-      civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]),
-    );
-    appealVotePercentage = getFormattedParameterValue(
-      GovernmentParameters.appealVotePercentage,
-      civil.toBigNumber(govtParameters[GovernmentParameters.appealVotePercentage]),
-    );
+    appealFee = govtParameters[GovernmentParameters.appealFee];
+    appealVotePercentage = govtParameters[GovernmentParameters.appealVotePercentage];
   }
-  let balance;
-  let isInsufficientBalance = false;
+  let balance = new BigNumber(0);
   if (user) {
-    balance = civil.toBigNumber(user.account.balance);
-    isInsufficientBalance = balance.lt(civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]));
+    balance = user.account.balance;
   }
 
   return {
@@ -342,7 +350,7 @@ const mapStateToProps = (
     challengeAppealCommitLen,
     challengeAppealRevealLen,
     appealVotePercentage,
-    isInsufficientBalance,
+    balance,
     ...ownProps,
   };
 };

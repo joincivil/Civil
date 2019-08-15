@@ -92,7 +92,8 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
             Gas fee for each transaction on Ethereum. You can learn more about Airswap{" "}
             <a href="https://www.airswap.io/" target="_blank">
               here
-            </a>.
+            </a>
+            .
           </p>
           <p>
             You’ll be able to purchase Civil tokens (CVL) using Ethereum (ETH) in Airswap. Airswap will open its own

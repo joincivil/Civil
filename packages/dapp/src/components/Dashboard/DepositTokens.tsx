@@ -203,6 +203,7 @@ const mapStateToProps = (state: State): DepositTokenReduxProps => {
   };
 };
 
-export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  DepositTokensComponent,
-) as React.ComponentClass<DepositTokensProps>;
+export default compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(DepositTokensComponent) as React.ComponentClass<DepositTokensProps>;

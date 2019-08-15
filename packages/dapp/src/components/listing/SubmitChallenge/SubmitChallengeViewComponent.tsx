@@ -3,10 +3,12 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
+import BigNumber from "bignumber.js";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   colors,
+  CivilContext,
   Modal,
   ModalHeading,
   ModalContent,
@@ -22,7 +24,6 @@ import {
 import { getFormattedParameterValue, Parameters, urlConstants as links } from "@joincivil/utils";
 
 import { State } from "../../../redux/reducers";
-import { getCivil } from "../../../helpers/civilInstance";
 import { routes } from "../../../constants";
 import ScrollToTopOnMount from "../../utility/ScrollToTop";
 import { approveForChallenge, publishContent, challengeListingWithUri } from "../../../apis/civilTCR";
@@ -139,6 +140,8 @@ class SubmitChallengeComponent extends React.Component<
     DispatchProp<any>,
   SubmitChallengeState
 > {
+  public static contextType = CivilContext;
+
   public state = {
     challengeStatementSummaryValue: undefined,
     challengeStatementCiteConstitutionValue: undefined,
@@ -154,9 +157,10 @@ class SubmitChallengeComponent extends React.Component<
       transactionSuccessContent,
     });
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
-    // TODO: cleanup ethereum enabling
-    if ((window as any).ethereum) {
-      await (window as any).ethereum.enable();
+
+    const { civil } = this.context;
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
     }
   }
 
@@ -168,17 +172,29 @@ class SubmitChallengeComponent extends React.Component<
       minDeposit,
       commitStageLen,
       revealStageLen,
-      isInsufficientBalance,
+      balance: balanceBN,
     } = this.props;
+
+    const { civil } = this.context;
+    const displayMinDeposit = getFormattedParameterValue(Parameters.minDeposit, civil.toBigNumber(minDeposit));
+    const displayCommitStageLen = getFormattedParameterValue(
+      Parameters.commitStageLen,
+      civil.toBigNumber(commitStageLen),
+    );
+    const displayRevealStageLen = getFormattedParameterValue(
+      Parameters.revealStageLen,
+      civil.toBigNumber(revealStageLen),
+    );
+    const isInsufficientBalance = balanceBN.lt(minDeposit);
 
     const props: SubmitChallengeStatementProps = {
       listingURI,
       newsroomName,
       constitutionURI: links.CONSTITUTION,
       governanceGuideURI,
-      minDeposit,
-      commitStageLen,
-      revealStageLen,
+      minDeposit: displayMinDeposit,
+      commitStageLen: displayCommitStageLen,
+      revealStageLen: displayRevealStageLen,
       updateStatementValue: this.updateStatement,
       transactions: this.getTransactions(),
       postExecuteTransactions: this.onSubmitChallengeSuccess,
@@ -187,8 +203,9 @@ class SubmitChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          minDeposit && <InsufficientBalanceSnackBar minDeposit={minDeposit!} buyCVLURL="/tokens" />}
+        {isInsufficientBalance && minDeposit && (
+          <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
+        )}
         <SubmitChallengeStatementComponent {...props} />
         {this.state.isConfirmModalVisible && this.renderConfirmationModal()}
       </>
@@ -356,40 +373,29 @@ const mapStateToProps = (
 ): SubmitChallengeProps & SubmitChallengeReduxParametersProps => {
   const { parameters, user } = state.networkDependent;
 
-  let minDeposit = "";
-  let commitStageLen = "";
-  let revealStageLen = "";
-  const civil = getCivil();
+  let minDeposit = new BigNumber(0);
+  let commitStageLen = new BigNumber(0);
+  let revealStageLen = new BigNumber(0);
   if (parameters && Object.keys(parameters).length) {
-    minDeposit = getFormattedParameterValue(
-      Parameters.minDeposit,
-      civil.toBigNumber(parameters[Parameters.minDeposit]),
-    );
-    commitStageLen = getFormattedParameterValue(
-      Parameters.commitStageLen,
-      civil.toBigNumber(parameters[Parameters.commitStageLen]),
-    );
-    revealStageLen = getFormattedParameterValue(
-      Parameters.revealStageLen,
-      civil.toBigNumber(parameters[Parameters.revealStageLen]),
-    );
+    minDeposit = parameters[Parameters.minDeposit];
+    commitStageLen = parameters[Parameters.commitStageLen];
+    revealStageLen = parameters[Parameters.revealStageLen];
   }
   let balance;
-  let isInsufficientBalance = false;
   if (user && user.account && user.account.balance) {
-    balance = civil.toBigNumber(user.account.balance);
-    isInsufficientBalance = balance.lt(civil.toBigNumber(parameters[Parameters.minDeposit]));
+    balance = user.account.balance;
   }
 
   return {
     minDeposit,
     commitStageLen,
     revealStageLen,
-    isInsufficientBalance,
+    balance,
     ...ownProps,
   };
 };
 
-export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  SubmitChallengeComponent,
-) as React.ComponentClass<SubmitChallengeProps>;
+export default compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(SubmitChallengeComponent) as React.ComponentClass<SubmitChallengeProps>;

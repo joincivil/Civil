@@ -34,7 +34,7 @@ interface NewsroomListItemReduxProps {
 }
 
 const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps> = props => {
-  const { listingAddress } = props;
+  const { listingAddress, applicationProgressData } = props;
   return (
     <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
       {({ loading, error, data }: any): JSX.Element => {
@@ -42,9 +42,22 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
           return <LoadingMessage />;
         }
         if (error) {
+          console.error("Error querying listing", error);
           return <ErrorLoadingDataMsg />;
         }
         if (!data.listing) {
+          if (applicationProgressData) {
+            const { tcrApplyTx } = applicationProgressData;
+            if (!tcrApplyTx || !tcrApplyTx.length) {
+              return (
+                <NoNewsrooms
+                  hasInProgressApplication={true}
+                  applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)}
+                />
+              );
+            }
+          }
+          console.error("Error querying listing: no listing returned");
           return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
         }
         const listing = transformGraphQLDataIntoListing(data.listing, listingAddress);
@@ -67,15 +80,10 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
 const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps & NewsroomListItemReduxProps> = props => {
   const { listingAddress, applicationProgressData, useGraphQL } = props;
 
-  if (applicationProgressData) {
-    const { tcrApplyTx } = applicationProgressData;
-    if (!tcrApplyTx || !tcrApplyTx.length) {
-      return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)} />;
-    }
-  }
-
   if (useGraphQL) {
-    return <NewsroomsListItemGraphQL listingAddress={listingAddress} />;
+    return (
+      <NewsroomsListItemGraphQL listingAddress={listingAddress} applicationProgressData={applicationProgressData} />
+    );
   }
 
   return <NewsroomsListItemComponent listingAddress={listingAddress} />;

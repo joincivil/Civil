@@ -1,6 +1,7 @@
 import * as React from "react";
-import { getApolloSession, getCurrentUserQuery } from "@joincivil/utils";
+import { getApolloSessionKey, getCurrentUserQuery } from "@joincivil/utils";
 import { Query } from "react-apollo";
+import useStateWithLocalStorage from "../hooks/useStateWithLocalStorage";
 
 export interface LoadUserChildrenProps {
   user: any;
@@ -12,7 +13,8 @@ export interface LoadUserProps {
 }
 
 export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
-  const auth = getApolloSession();
+  const apolloSessionKey = getApolloSessionKey();
+  const [auth] = useStateWithLocalStorage(apolloSessionKey);
 
   const renderFunction = props.children;
   const hasAuthToken = auth && auth.token;

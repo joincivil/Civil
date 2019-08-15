@@ -85,9 +85,8 @@ export class SubmitAppealChallengeStatement extends React.Component<
             <CopySmall>
               After a challenge is submitted, the CVL token-holding community will have have{" "}
               <strong>{this.props.challengeAppealCommitLen} to commit their votes</strong>, followed by{" "}
-              <strong>{this.props.challengeAppealRevealLen} to confirm their votes.</strong> Only a supermajority ({
-                this.props.appealVotePercentage
-              }) from the community can overturn the Civil Council's decision.
+              <strong>{this.props.challengeAppealRevealLen} to confirm their votes.</strong> Only a supermajority (
+              {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
             </CopySmall>
           </StyledUserStatementHeader>
         </StyledUserStatementHeaderOuter>

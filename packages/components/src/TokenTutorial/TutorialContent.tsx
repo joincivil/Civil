@@ -167,14 +167,14 @@ export const TutorialContent = [
           },
           {
             text:
-              "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
+              "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless of whether it fails or succeeds.",
           },
           {
             text: "I don’t know what gas is.",
           },
         ],
         answer:
-          "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless if it fails or succeeds.",
+          "The gas is not returned to Sally, but is paid to miners who must validate and execute the transaction regardless of whether it fails or succeeds.",
       },
       {
         question: "What is the best way to store your seed phrase to ensure the security of your account?",

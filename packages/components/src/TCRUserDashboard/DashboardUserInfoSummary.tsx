@@ -20,14 +20,14 @@ export interface DashboardUserInfoSummaryProps {
   userAccount: string;
   balance: string;
   votingBalance: string;
-  challengesWonTotalCvl: string;
-  rewardsEarned: string;
+  challengesWonTotalCvl?: string;
+  rewardsEarned?: string;
   buyCvlUrl: string;
   applyURL: string;
 }
 
 export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) => {
-  const { buyCvlUrl, applyURL } = props;
+  const { buyCvlUrl, applyURL, challengesWonTotalCvl, rewardsEarned } = props;
 
   let buyBtnProps: any = { href: buyCvlUrl };
   if (buyCvlUrl.charAt(0) === "/") {
@@ -64,21 +64,29 @@ export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) =
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <StyledUserInfoSectionLabel>
-          <ChallengesWonLabelText />
-        </StyledUserInfoSectionLabel>
-        <StyledUserInfoSectionValue>
-          <strong>{props.challengesWonTotalCvl}</strong>
-        </StyledUserInfoSectionValue>
+        {challengesWonTotalCvl && (
+          <>
+            <StyledUserInfoSectionLabel>
+              <ChallengesWonLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{challengesWonTotalCvl}</strong>
+            </StyledUserInfoSectionValue>
+          </>
+        )}
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <StyledUserInfoSectionLabel>
-          <RewardsClaimedLabelText />
-        </StyledUserInfoSectionLabel>
-        <StyledUserInfoSectionValue>
-          <strong>{props.rewardsEarned}</strong>
-        </StyledUserInfoSectionValue>
+        {rewardsEarned && (
+          <>
+            <StyledUserInfoSectionLabel>
+              <RewardsClaimedLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{rewardsEarned}</strong>
+            </StyledUserInfoSectionValue>
+          </>
+        )}
       </StyledUserInfoSection>
 
       <StyledUserInfoButtonSection>

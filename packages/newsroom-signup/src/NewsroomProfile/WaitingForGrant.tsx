@@ -80,14 +80,16 @@ export class WaitingForGrant extends React.Component {
           After that there's three more steps before your Registry Application is complete —{" "}
           <a href={urlConstants.FAQ_WHAT_IS_SMART_CONTRACT} target="_blank">
             Newsroom Smart Contract
-          </a>,{" "}
+          </a>
+          ,{" "}
           <a href={urlConstants.FAQ_WHAT_IS_TUTORIAL} target="_blank">
             Civil Tutorial
           </a>{" "}
           and{" "}
           <a href={urlConstants.FAQ_APPLICATION_DEPOSIT} target="_blank">
             Application Deposit
-          </a>. While you wait for the Grant request to be reviewed, we suggest you review these items to familiarize
+          </a>
+          . While you wait for the Grant request to be reviewed, we suggest you review these items to familiarize
           yourself with the Civil ecosystem.
         </AddendaText>
         <AddendaText>
@@ -97,7 +99,8 @@ export class WaitingForGrant extends React.Component {
           about the grant process and if you have any questions, contact{" "}
           <a href={urlConstants.EMAIL_MAILTO} target="_blank">
             support
-          </a>.
+          </a>
+          .
         </AddendaText>
       </Wrapper>
     );

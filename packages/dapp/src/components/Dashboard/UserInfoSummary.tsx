@@ -10,9 +10,16 @@ import { State } from "../../redux/reducers";
 import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 
 const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
+  const { useGraphQL } = state;
   const { user } = state.networkDependent;
-  const userTotalClaimedRewards = getUserTotalClaimedRewards(state) as BigNumber;
-  const challengesWonTotalCvl = getChallengesWonTotalCvl(state) as BigNumber;
+
+  let rewardsEarned;
+  let challengesWonTotalCvl;
+
+  if (!useGraphQL) {
+    rewardsEarned = getFormattedTokenBalance(getUserTotalClaimedRewards(state) as BigNumber);
+    challengesWonTotalCvl = getFormattedTokenBalance(getChallengesWonTotalCvl(state) as BigNumber);
+  }
 
   let balance = "";
   if (user.account && user.account.balance) {
@@ -33,8 +40,8 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     userAccount,
     balance,
     votingBalance,
-    challengesWonTotalCvl: getFormattedTokenBalance(challengesWonTotalCvl),
-    rewardsEarned: getFormattedTokenBalance(userTotalClaimedRewards),
+    challengesWonTotalCvl,
+    rewardsEarned,
     buyCvlUrl: "/tokens",
     applyURL: links.APPLY,
   };

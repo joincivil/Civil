@@ -1,5 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import { Map, Set } from "immutable";
 import styled, { StyledComponentClass } from "styled-components";
 import BigNumber from "bignumber.js";
@@ -12,7 +13,7 @@ import {
   LoadingMessage,
 } from "@joincivil/components";
 
-import { dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
+import { routes, dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   getUserChallengesWithUnclaimedRewards,
@@ -38,7 +39,9 @@ import {
   getUserChallengeDataSetByPollType,
 } from "../../helpers/queryTransformations";
 
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import NewsroomsList from "./NewsroomsList";
+import WithNewsroomChannelAdminList from "./ManageNewsroom/WithNewsroomChannelAdminList";
 import MyTasks from "./MyTasks";
 import MyChallenges from "./MyChallenges";
 import { Query } from "react-apollo";
@@ -105,9 +108,12 @@ export const StyledBatchButtonContainer = styled.div`
   padding: 12px 0 36px;
 `;
 
-const NEWSROOMS_QUERY = gql`
+const NRSIGNUP_NEWSROOMS_QUERY = gql`
   query {
     nrsignupNewsroom {
+      charter {
+        name
+      }
       newsroomAddress
       tcrApplyTx
     }
@@ -218,35 +224,61 @@ class DashboardActivity extends React.Component<
   }
 
   private renderUserNewsrooms = (): JSX.Element => {
+    return (
+      <WithNewsroomChannelAdminList>
+        {({ newsroomAddresses }) => this.renderWithNrsignupNewsrooms(newsroomAddresses)}
+      </WithNewsroomChannelAdminList>
+    );
+  };
+
+  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>): JSX.Element => {
+    const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
     if (this.props.useGraphQL) {
       return (
-        <Query query={NEWSROOMS_QUERY}>
+        <Query query={NRSIGNUP_NEWSROOMS_QUERY}>
           {({ loading, error, data }: any): JSX.Element => {
-            if (loading && !data) {
+            if (loading) {
               return <LoadingMessage />;
             }
-            if (error) {
-              return <NoNewsrooms />;
+            if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
+              return <NoNewsrooms applyToRegistryURL={registryUrl} />;
             }
 
-            let newsrooms;
+            let newsrooms = channelNewsrooms;
+
             let newsroomsApplicationProgressData;
-            if (data.nrsignupNewsroom && data.nrsignupNewsroom.newsroomAddress) {
-              newsrooms = Set([data.nrsignupNewsroom.newsroomAddress]);
-              newsroomsApplicationProgressData = new Map();
-              newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
-                data.nrsignupNewsroom.newsroomAddress,
-                data.nrsignupNewsroom,
-              );
+            let hasAppInProgress;
+            if (data && data.nrsignupNewsroom) {
+              if (data.nrsignupNewsroom.newsroomAddress) {
+                newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
+                newsroomsApplicationProgressData = Map<EthAddress, any>();
+                newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+                  data.nrsignupNewsroom.newsroomAddress,
+                  data.nrsignupNewsroom,
+                );
+              } else if (data.nrsignupNewsroom.charter) {
+                hasAppInProgress = true;
+              }
             }
+
+            if (!newsrooms.size) {
+              return <NoNewsrooms hasInProgressApplication={hasAppInProgress} applyToRegistryURL={registryUrl} />;
+            }
+
             return (
-              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
+              <>
+                <NewsroomsList
+                  listings={newsrooms}
+                  newsroomsApplicationProgressData={newsroomsApplicationProgressData}
+                />
+                {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
+              </>
             );
           }}
         </Query>
       );
     } else {
-      return <NewsroomsList listings={this.props.currentUserNewsrooms} />;
+      return <NewsroomsList listings={this.props.currentUserNewsrooms.union(channelNewsrooms)} />;
     }
   };
 
@@ -341,6 +373,9 @@ class DashboardActivity extends React.Component<
             if (data) {
               const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
                 data.allChallenges,
+                true,
+                data.challengesToReveal,
+                data.challengesToRescue,
               );
               const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
                 data.allChallenges,
@@ -358,13 +393,13 @@ class DashboardActivity extends React.Component<
               const allChallengesWithUnclaimedRewards: [
                 Set<string>,
                 Set<string>,
-                Set<string>
+                Set<string>,
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
 
               const allChallengesWithRescueTokens: [
                 Set<string>,
                 Set<string>,
-                Set<string>
+                Set<string>,
               ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
 
               let userChallengeDataMap = Map<string, any>();

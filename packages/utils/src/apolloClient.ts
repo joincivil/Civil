@@ -18,19 +18,24 @@ let client: ApolloClient<NormalizedCacheObject>;
 const SESSION_KEY = "apollo_session";
 const NETWORK_KEY = "network";
 
-export function getApolloSession(): AuthLoginResponse | null {
+export function getApolloSessionKey(): string {
   const network = getNetwork();
-  return fetchItem(SESSION_KEY + "-" + network);
+  return `${SESSION_KEY}-${network}`;
+}
+
+export function getApolloSession(): AuthLoginResponse | null {
+  const sessionKey = getApolloSessionKey();
+  return fetchItem(sessionKey);
 }
 
 export function setApolloSession(session: AuthLoginResponse): void {
-  const network = getNetwork();
-  setItem(SESSION_KEY + "-" + network, session);
+  const sessionKey = getApolloSessionKey();
+  setItem(sessionKey, session);
 }
 
 export function clearApolloSession(): void {
-  const network = getNetwork();
-  removeItem(SESSION_KEY + "-" + network);
+  const sessionKey = getApolloSessionKey();
+  removeItem(sessionKey);
 }
 
 export function getNetwork(): number {
@@ -111,9 +116,8 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
 
   const createOmitTypenameLink = new ApolloLink((operation, forward) => {
     if (operation.variables) {
-      operation.variables = JSON.parse(
-        JSON.stringify(operation.variables),
-        (key, value) => (key === "__typename" ? undefined : value),
+      operation.variables = JSON.parse(JSON.stringify(operation.variables), (key, value) =>
+        key === "__typename" ? undefined : value,
       );
     }
     return forward ? forward(operation) : null;

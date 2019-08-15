@@ -64,7 +64,8 @@ export class WaitingAfterSkip extends React.Component {
           If you have any questions, you can contact{" "}
           <a href="mailto:support@civil.co" target="_blank">
             support
-          </a>.
+          </a>
+          .
         </AddendaText>
       </Wrapper>
     );

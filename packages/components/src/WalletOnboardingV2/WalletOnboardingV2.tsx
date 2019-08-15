@@ -2,13 +2,7 @@ import * as React from "react";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import {
-  ethereumEnable,
-  isWalletOnboarded,
-  getApolloClient,
-  isBrowserCompatible,
-  urlConstants as links,
-} from "@joincivil/utils";
+import { isWalletOnboarded, getApolloClient, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -216,7 +210,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
   }
 
   public async componentDidMount(): Promise<void> {
-    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
+    await this.enableEthereum();
   }
 
   public render(): JSX.Element | null {
@@ -298,13 +292,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
             <InstructionsButtonWrap>
-              <MetaMaskLogoButton
-                onClick={async () => {
-                  this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
-                }}
-              >
-                Open MetaMask
-              </MetaMaskLogoButton>
+              <MetaMaskLogoButton onClick={this.enableEthereum}>Open MetaMask</MetaMaskLogoButton>
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskConnectImgUrl} />
@@ -379,11 +367,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will require you to sign a message.</p>
             <InstructionsButtonWrap>
-              <AccountEthAuth
-                civil={this.props.civil!}
-                onAuthenticated={async () => this.ethAddressSaved(true)}
-                buttonOnly={true}
-              />
+              <AccountEthAuth onAuthenticated={async () => this.ethAddressSaved(true)} buttonOnly={true} />
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskSignImgUrl} />
@@ -411,7 +395,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <p>Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.</p>
             <InstructionsButtonWrap>
               <AccountEthAuth
-                civil={this.props.civil!}
                 onAuthenticated={async () => this.ethAddressSaved()}
                 buttonOnly={true}
                 buttonText={"Update Profile"}
@@ -475,8 +458,8 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <OBNoteHeading>Using a different wallet?</OBNoteHeading>
           <OBNoteText>
             Make sure it's unlocked
-            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}
-            . You may need to refresh.
+            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}. You
+            may need to refresh.
           </OBNoteText>
         </OBNoteContainer>
 
@@ -567,6 +550,15 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         console.error("Failed to send welcome email:", error);
       }
     }
+  };
+
+  private enableEthereum = async (): Promise<void> => {
+    const { civil } = this.props;
+    let isEthereumEnabled = false;
+    if (civil && civil.currentProvider) {
+      isEthereumEnabled = !!(await civil.currentProviderEnable());
+    }
+    this.setState({ metamaskEnabled: isEthereumEnabled });
   };
 
   private onboardingComplete = () => {

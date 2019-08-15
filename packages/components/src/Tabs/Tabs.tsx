@@ -14,6 +14,8 @@ export interface TabsProps {
   TabsNavComponent?: any;
   TabsNavBefore?: React.ReactElement;
   TabsNavAfter?: React.ReactElement;
+  /** Set to `true` to prevent tab change silently. If set to a string, on tab change attempt string will be passed to `window.confirm`: if user hits "cancel" tab change will be prevented. */
+  preventTabChange?: boolean | string;
   onActiveTabChange?(activeIndex: number): void;
 }
 
@@ -87,6 +89,13 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
   }
 
   private handleClick = (index: number) => {
+    if (
+      this.props.preventTabChange &&
+      (this.props.preventTabChange === true || !window.confirm(this.props.preventTabChange))
+    ) {
+      return;
+    }
+
     this.setState({ activeIndex: index });
     if (this.props.onActiveTabChange) {
       this.props.onActiveTabChange(index);

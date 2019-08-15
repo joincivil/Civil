@@ -13,13 +13,15 @@ export class ContentItem extends React.Component<ContentItemProps> {
     return (
       <div>
         <h3>{content[0].revision.contentId || "charter"}</h3>
-        {content.map((item: RevisionAndJson): JSX.Element => {
-          return (
-            <div key={item.revision.revisionId}>
-              <Revision {...item} />
-            </div>
-          );
-        })}
+        {content.map(
+          (item: RevisionAndJson): JSX.Element => {
+            return (
+              <div key={item.revision.revisionId}>
+                <Revision {...item} />
+              </div>
+            );
+          },
+        )}
       </div>
     );
   }

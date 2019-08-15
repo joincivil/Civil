@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Route, RouteProps, Redirect } from "react-router-dom";
-import { getApolloSession } from "@joincivil/utils";
-import gql from "graphql-tag";
+import { getCurrentUserQuery, getApolloSession } from "@joincivil/utils";
 import { Query } from "react-apollo";
 
 export interface AuthenticatedRouteProps extends RouteProps {
@@ -9,18 +8,6 @@ export interface AuthenticatedRouteProps extends RouteProps {
   onlyAllowUnauthenticated?: boolean;
   authUrl: string;
 }
-
-const userQuery = gql`
-  query {
-    currentUser {
-      uid
-      email
-      ethAddress
-      quizPayload
-      quizStatus
-    }
-  }
-`;
 
 export const AuthenticatedRoute = ({
   render,
@@ -62,7 +49,7 @@ export const AuthenticatedRoute = ({
 
   return (
     <Route {...otherProps}>
-      <Query query={userQuery}>
+      <Query query={getCurrentUserQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return null;

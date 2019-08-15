@@ -8,7 +8,7 @@ export interface AuthVerifyTokenProps extends Partial<RouteComponentProps> {
   onAuthenticationContinue(isNewUser: boolean): void;
 }
 
-export const AuthVerifyToken: React.FunctionComponent<AuthVerifyTokenProps> = ({
+const AuthVerifyToken: React.FunctionComponent<AuthVerifyTokenProps> = ({
   token,
   onAuthenticationContinue,
   isNewUser,
@@ -25,3 +25,5 @@ export const AuthVerifyToken: React.FunctionComponent<AuthVerifyTokenProps> = ({
     </AuthWrapper>
   );
 };
+
+export default AuthVerifyToken;

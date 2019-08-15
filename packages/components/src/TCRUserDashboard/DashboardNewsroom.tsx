@@ -1,8 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import { ErrorIcon } from "../icons";
 
+import { Button, buttonSizes } from "../Button";
+import { FeatureFlag } from "../features";
 import {
   StyledDashboardNewsroom,
   StyledDashboardNewsroomName,
@@ -16,16 +19,17 @@ import {
   StyledCVLLabel,
   StyledWarningText,
 } from "./DashboardStyledComponents";
+import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
   newsroomAddress: string;
-  newsroomMultiSigAddress: string;
-  newsroomMultiSigBalance: string;
   listingDetailURL: string;
-  editNewsroomURL: string;
+  manageNewsroomURL: string;
   newsroomDeposit: string;
   etherscanBaseURL: string;
+  newsroomMultiSigBalance: string;
+  newsroomMultiSigAddress?: string;
   isAccepted?: boolean;
   isInProgress?: boolean;
   isUnderChallenge?: boolean;
@@ -93,7 +97,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       );
     }
 
-    return <Link to={props.editNewsroomURL}>Edit</Link>;
+    return <Link to={props.manageNewsroomURL}>Manage Newsroom &gt;</Link>;
   };
 
   return (
@@ -103,9 +107,8 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomName>{props.newsroomName}</StyledDashboardNewsroomName>
 
           <StyledDashboardNewsroomLinks>
-            <Link to={props.listingDetailURL}>View on Registry</Link>
-
             {renderEditLink()}
+            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
           </StyledDashboardNewsroomLinks>
         </StyledDashboardNewsroomSectionContentRow>
       </StyledDashboardNewsroomSection>
@@ -135,11 +138,13 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       </StyledDashboardNewsroomSection>
 
       <StyledDashboardNewsroomSection>
-        <EthAddressViewer
-          address={props.newsroomMultiSigAddress}
-          displayName="Newsroom Public Wallet Address"
-          etherscanBaseURL={props.etherscanBaseURL}
-        />
+        {props.newsroomMultiSigAddress && (
+          <EthAddressViewer
+            address={props.newsroomMultiSigAddress}
+            displayName="Newsroom Public Wallet Address"
+            etherscanBaseURL={props.etherscanBaseURL}
+          />
+        )}
 
         <EthAddressViewer
           address={props.newsroomAddress}
@@ -147,6 +152,33 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           etherscanBaseURL={props.etherscanBaseURL}
         />
       </StyledDashboardNewsroomSection>
+
+      <StyledDashboardNewsroomSection>
+        <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
+        <p>
+          Connect with the Civil community eager to fund your newsroom projects.{" "}
+          <a href={urlConstants.FAQ_BOOSTS} target="_blank">
+            Learn more
+          </a>
+        </p>
+        {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
+        <p>
+          <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
+            Launch Boost
+          </Button>
+        </p>
+        <p>
+          {/*@TODO Ideally we could link directly to that tab, see CIVIL-1021*/}
+          View your current Boosts on the "Boosts" tab on{" "}
+          <Link to={props.listingDetailURL}>your newsroom's Registry listing</Link>.
+        </p>
+      </StyledDashboardNewsroomSection>
+
+      <FeatureFlag feature={"stripe-admin"}>
+        <StyledDashboardNewsroomSection>
+          <DashboardNewsroomStripeConnect newsroomAddress={props.newsroomAddress} />
+        </StyledDashboardNewsroomSection>
+      </FeatureFlag>
     </StyledDashboardNewsroom>
   );
 };

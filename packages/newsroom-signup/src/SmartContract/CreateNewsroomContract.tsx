@@ -18,6 +18,7 @@ import {
   colors,
   GasEstimate,
   ClipLoader,
+  LoadingIndicator,
 } from "@joincivil/components";
 import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
@@ -48,6 +49,7 @@ const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 export interface NameAndAddressState extends TransactionButtonModalFlowState {
   collapsableOpen: boolean;
+  isIpfsModalOpen?: boolean;
   contentHash?: string;
   contentURI?: string;
 }
@@ -161,12 +163,15 @@ export class CreateNewsroomContractComponent extends React.Component<
       <Modal textAlign="left">
         <h2>{message}</h2>
         <p>
-          You have confirmed the transaction in MetaMask{!this.props.newsroomAddress &&
-            ", and now computers around the world are learning about your newsroom contract"}.
+          You have confirmed the transaction in MetaMask
+          {!this.props.newsroomAddress &&
+            ", and now computers around the world are learning about your newsroom contract"}
+          .
         </p>
         <p>
           Note: this could take a while depending on Ethereum network traffic. You can close this window while the
-          transaction is processing.<br />
+          transaction is processing.
+          <br />
         </p>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={() => this.setState({ modalOpen: false })}>
           OK
@@ -183,6 +188,19 @@ export class CreateNewsroomContractComponent extends React.Component<
       <Success>
         <GreenCheckMark />
       </Success>
+    );
+  }
+
+  public renderIpfsModal(): JSX.Element | null {
+    if (!this.state.isIpfsModalOpen) {
+      return null;
+    }
+    return (
+      <Modal textAlign="center">
+        <LoadingIndicator height={100} width={150} />
+        <ModalHeading>Saving charter to IPFS</ModalHeading>
+        <p>First we are saving your newsroom charter to IPFS. This can take a moment. Please don't close this tab.</p>
+      </Modal>
     );
   }
 
@@ -307,7 +325,8 @@ export class CreateNewsroomContractComponent extends React.Component<
           <Label>Newsroom Contract Address</Label>
           <AddressWithCopyButton address={this.props.newsroomAddress || ""} />
           <StepDescription>
-            Your newsroom contract address is like the byline of your newsroom on the Ethereum blockchain.<strong>
+            Your newsroom contract address is like the byline of your newsroom on the Ethereum blockchain.
+            <strong>
               {" "}
               CVL or ETH cannot be sent to this contract address. If funds are sent to this address, you will lose your
               cryptocurrency and the Civil Media Company can not help you to retrieve it.
@@ -360,6 +379,7 @@ export class CreateNewsroomContractComponent extends React.Component<
         <AboutSmartContractsButton />
         <Divider />
         {body}
+        {this.renderIpfsModal()}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
@@ -381,6 +401,7 @@ export class CreateNewsroomContractComponent extends React.Component<
           requireBeforeTransaction,
           transaction: async () => {
             this.setState({
+              isIpfsModalOpen: false,
               metaMaskRejectionModal: false,
               isWaitingTransactionModalOpen: true,
               isPreTransactionModalOpen: false,
@@ -466,6 +487,9 @@ export class CreateNewsroomContractComponent extends React.Component<
   };
 
   private beforeCreateNewsroom = async (noPreModal?: boolean): Promise<any> => {
+    this.setState({
+      isIpfsModalOpen: true,
+    });
     const ipfsProvider = new IPFSProvider();
     const ipfsObject = await ipfsProvider.put(JSON.stringify(this.props.charter));
     this.setState({
