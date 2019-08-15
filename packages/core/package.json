@@ -50,7 +50,7 @@
     "@joincivil/artifacts": "^1.1.9",
     "@joincivil/ethapi": "^0.4.9",
     "@joincivil/utils": "^1.9.9",
-    "bignumber.js": "~5.0.0",
+    "bignumber.js": "~9.0.0",
     "debug": "^4.1.0",
     "ethereumjs-util": "^5.2.0",
     "ethers": "^4.0.27",
