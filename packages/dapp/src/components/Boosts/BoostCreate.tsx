@@ -20,6 +20,10 @@ import { addUserNewsroom, getContent } from "../../redux/actionCreators/newsroom
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { ComingSoonText } from "./BoostStyledComponents";
 import { StyledInPageMsgContainer } from "../utility/styledComponents";
+import {
+  newsroomChannelAdminQuery,
+  newsroomChannelsFromQueryData,
+} from "../Dashboard/ManageNewsroom/WithNewsroomChannelAdminList";
 
 const NoNewsroomMessage = styled.div`
   font-size: 16px;
@@ -47,6 +51,7 @@ export interface BoostCreatePageState {
   newsroomAddress?: EthAddress;
   gqlLoading?: boolean;
   gqlError?: any;
+  multipleNewsrooms?: boolean;
 }
 
 class BoostCreatePage extends React.Component<
@@ -90,17 +95,27 @@ class BoostCreatePage extends React.Component<
           </NoNewsroomMessage>
         </StyledInPageMsgContainer>
       );
-    }
-    if (this.state.gqlError) {
+    } else if (this.state.gqlError) {
       // useGraphQL flase to suppress "turn off graphql" message because that won't fix it here
       return (
         <StyledInPageMsgContainer>
           <ErrorLoadingData useGraphQL={false} />
         </StyledInPageMsgContainer>
       );
-    }
-    if (this.state.gqlLoading || !this.props.newsroom || !this.props.charter) {
+    } else if (this.state.gqlLoading || !this.props.newsroom || !this.props.charter) {
       return <LoadingMessage />;
+    } else if (this.state.multipleNewsrooms) {
+      return (
+        <StyledInPageMsgContainer>
+          <p>
+            You have multiple newsrooms connected to your account. Please go to{" "}
+            <Link to={formatRoute(routes.DASHBOARD, { activeDashboardTab: "newsrooms" })}>
+              your newsrooms dashboard
+            </Link>{" "}
+            to select a specific newsroom and launch a boost from there.
+          </p>
+        </StyledInPageMsgContainer>
+      );
     }
 
     const { newsroom, charter } = this.props;
@@ -121,47 +136,67 @@ class BoostCreatePage extends React.Component<
   }
 
   private async fetchNewsroomAddress(): Promise<void> {
-    const newsroomAddress = this.props.currentUserNewsrooms.first();
-    if (newsroomAddress) {
-      // No need to repeat GQL query if we already have newsroom populated from redux
-      this.setState({
-        newsroomAddress,
-      });
-    } else if (this.props.useGraphQL && !newsroomAddress) {
-      this.setState({
-        gqlLoading: true,
-        gqlError: null,
-      });
+    let newsroomAddress: string | undefined;
+
+    this.setState({
+      gqlLoading: true,
+      gqlError: null,
+    });
+    try {
+      newsroomAddress = await this.getNewsroomAddressFromChannels();
+    } catch (e) {
+      console.error("Failed to fetch newsroom channels from graphql:", e);
+      // but this doesn't really matter, we can fall through to other sources of user newsrooms below
+    }
+
+    if (!newsroomAddress) {
+      newsroomAddress = this.props.currentUserNewsrooms.first();
+    }
+
+    if (!newsroomAddress) {
       try {
         const result = (await this.props.client.query({
           query: NEWSROOMS_QUERY,
         })) as any;
-        if (!result || !result.data || !result.data.nrsignupNewsroom || !result.data.nrsignupNewsroom.newsroomAddress) {
-          // This user hasn't created newsroom yet
-          this.setState({
-            gqlLoading: false,
-            newsroomAddress: undefined,
-          });
-          return;
+        if (result && result.data && result.data.nrsignupNewsroom && result.data.nrsignupNewsroom.newsroomAddress) {
+          newsroomAddress = result.data.nrsignupNewsroom.newsroomAddress;
         }
-        this.setState({
-          gqlLoading: false,
-          newsroomAddress: result.data.nrsignupNewsroom.newsroomAddress,
-        });
-        this.props.dispatch!(addUserNewsroom(result.data.nrsignupNewsroom.newsroomAddress));
       } catch (e) {
         if (e.message.indexOf("No jsonb found") !== -1) {
           // This user hasn't created newsroom yet
+        } else {
+          console.error("Failed to fetch newsroom address from graphql:", e);
           this.setState({
             gqlLoading: false,
-            newsroomAddress: undefined,
+            gqlError: e,
           });
+          return;
         }
-        this.setState({
-          gqlLoading: false,
-          gqlError: e,
-        });
       }
+    }
+
+    if (newsroomAddress) {
+      this.props.dispatch!(addUserNewsroom(newsroomAddress));
+    }
+    this.setState({
+      newsroomAddress,
+      gqlLoading: false,
+    });
+  }
+
+  private async getNewsroomAddressFromChannels(): Promise<EthAddress | undefined> {
+    const result = (await this.props.client.query({
+      query: newsroomChannelAdminQuery,
+    })) as any;
+    const newsroomAddresses = newsroomChannelsFromQueryData(result && result.data);
+
+    if (newsroomAddresses.length === 1) {
+      return newsroomAddresses[0];
+    } else if (newsroomAddresses.length > 1) {
+      this.setState({ multipleNewsrooms: true });
+      return undefined;
+    } else {
+      return undefined;
     }
   }
 

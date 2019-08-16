@@ -6,7 +6,7 @@ import { EthAddress } from "@joincivil/core";
 import { LoadingMessage } from "@joincivil/components";
 import gql from "graphql-tag";
 
-const newsroomChannelAdminQuery = gql`
+export const newsroomChannelAdminQuery = gql`
   query {
     currentUser {
       uid
@@ -33,6 +33,16 @@ export interface WithNewsroomChannelAdminListProps {
   children(props: { newsroomAddresses: Set<EthAddress> }): any;
 }
 
+export function newsroomChannelsFromQueryData(data?: any): EthAddress[] {
+  if (data && data.currentUser && data.currentUser.channels && data.currentUser.channels.filter) {
+    return data.currentUser.channels
+      .filter((channelMember: any) => channelMember.channel.channelType === "newsroom")
+      .map((channelMember: any) => channelMember.channel.newsroom.contractAddress);
+  } else {
+    return [];
+  }
+}
+
 export default (props: WithNewsroomChannelAdminListProps) => {
   return (
     <Query query={newsroomChannelAdminQuery}>
@@ -43,13 +53,8 @@ export default (props: WithNewsroomChannelAdminListProps) => {
         if (error) {
           console.error("Error loading current user channels:", error);
         }
-        let newsroomAddresses = [];
-        if (data && data.currentUser && data.currentUser.channels) {
-          newsroomAddresses = data.currentUser.channels
-            .filter((channelMember: any) => channelMember.channel.channelType === "newsroom")
-            .map((channelMember: any) => channelMember.channel.newsroom.contractAddress);
-        }
 
+        const newsroomAddresses = newsroomChannelsFromQueryData(data);
         return props.children({ newsroomAddresses: Set(newsroomAddresses) });
       }}
     </Query>
