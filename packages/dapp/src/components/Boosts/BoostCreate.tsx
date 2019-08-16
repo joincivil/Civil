@@ -127,7 +127,7 @@ class BoostCreatePage extends React.Component<
           url: charter && charter.newsroomUrl,
           owner: newsroom.multisigAddress,
         }}
-        newsroomAddress={newsroom.address}
+        newsroomContractAddress={newsroom.address}
         newsroomListingUrl={`${document.location.origin}${listingRoute}`}
         newsroomTagline={charter && charter.tagline}
         newsroomLogoUrl={charter && charter.logoUrl}
