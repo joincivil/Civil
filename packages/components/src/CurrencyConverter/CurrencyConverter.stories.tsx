@@ -48,6 +48,7 @@ storiesOf("Common / Currency / Currency Converter", module)
       <Container>
         <div>(exchange rate is 0.5x)</div>
         <CurrencyConverter
+          fromValue="3"
           currencyCodeFrom="USD"
           currencyCodeTo="ETH"
           currencyLabelFrom="Enter USD Amount"

@@ -16,7 +16,12 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
   profileWalletAddress?: EthAddress;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
+  setButtonVisibility?(visibility: boolean): void;
+}
+export interface AddRosterMemberDefaultProps {
   setButtonVisibility(visibility: boolean): void;
 }
 
@@ -54,8 +59,14 @@ const RemoveButton = styled(BorderlessButton)`
   margin-left: auto;
 `;
 
-export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRosterMemberState> {
-  constructor(props: AddRosterMemberProps) {
+export class AddRosterMember extends React.Component<
+  AddRosterMemberProps & AddRosterMemberDefaultProps,
+  AddRosterMemberState
+> {
+  public static defaultProps: AddRosterMemberDefaultProps = {
+    setButtonVisibility: (vis: boolean) => {},
+  };
+  constructor(props: AddRosterMemberProps & AddRosterMemberDefaultProps) {
     super(props);
     this.state = {
       editingMember: null,
@@ -65,17 +76,17 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
-        <OBSectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
-          Registry Profile.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <StyledHr />
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
-          <LowerHeader>Newsroom Roster</LowerHeader>
-          <LowerDescription>Add yourself, in addition to any staff or team members to your roster.</LowerDescription>
-          <StyledCounter>Step 2 of 4: Roster</StyledCounter>
+          {!this.props.editMode && (
+            <>
+              <LowerHeader>Newsroom Roster</LowerHeader>
+              <LowerDescription>
+                Add yourself, in addition to any staff or team members to your roster.
+              </LowerDescription>
+              <StyledCounter>Step 2 of 4: Roster</StyledCounter>
+            </>
+          )}
           {this.state.editingMember ? (
             <RosterMember
               user={{ rosterData: this.state.editingMember }}
@@ -108,6 +119,20 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
             </InvertedButton>
           )}
         </FormSection>
+      </>
+    );
+  }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
+        <OBSectionDescription>
+          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
+          Registry Profile.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <StyledHr />
       </>
     );
   }

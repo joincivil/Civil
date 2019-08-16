@@ -27,6 +27,7 @@ import { State } from "../redux/reducers";
 import { supportedNetworks } from "../helpers/networkHelpers";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import AsyncComponent from "./utility/AsyncComponent";
+import { analyticsEvent } from "../redux/actionCreators/analytics";
 
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
@@ -45,7 +46,9 @@ const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage")
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
 const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
-const ChannelAdminPage = React.lazy(async () => import("./Dashboard/ChannelAdmin/ChannelAdminPage"));
+const ManageNewsroomChannelPage = React.lazy(async () =>
+  import("./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
+);
 
 export interface MainReduxProps {
   network: string;
@@ -78,6 +81,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
     civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
     civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
+    this.context.setAnalyticsEvent(this.fireAnalyticsEvent);
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
@@ -178,7 +182,7 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
               })}
             />
             <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
-            <Route path={routes.CHANNEL_ADMIN} component={AsyncComponent(ChannelAdminPage)} />
+            <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
             <Route path={routes.AUTH} component={AuthRouter} />>
             <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
             <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
@@ -194,6 +198,10 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       </StyledMainContainer>
     );
   }
+
+  private fireAnalyticsEvent = (category: string, action: string, label: string, value: number): void => {
+    this.props.dispatch!(analyticsEvent({ category, action, label, value }));
+  };
 }
 
 const mapStateToProps = (state: State): MainReduxProps => {

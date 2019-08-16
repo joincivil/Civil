@@ -18,6 +18,7 @@ import {
   colors,
   GasEstimate,
   ClipLoader,
+  LoadingIndicator,
 } from "@joincivil/components";
 import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
@@ -48,6 +49,7 @@ const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 export interface NameAndAddressState extends TransactionButtonModalFlowState {
   collapsableOpen: boolean;
+  isIpfsModalOpen?: boolean;
   contentHash?: string;
   contentURI?: string;
 }
@@ -186,6 +188,19 @@ export class CreateNewsroomContractComponent extends React.Component<
       <Success>
         <GreenCheckMark />
       </Success>
+    );
+  }
+
+  public renderIpfsModal(): JSX.Element | null {
+    if (!this.state.isIpfsModalOpen) {
+      return null;
+    }
+    return (
+      <Modal textAlign="center">
+        <LoadingIndicator height={100} width={150} />
+        <ModalHeading>Saving charter to IPFS</ModalHeading>
+        <p>First we are saving your newsroom charter to IPFS. This can take a moment. Please don't close this tab.</p>
+      </Modal>
     );
   }
 
@@ -364,6 +379,7 @@ export class CreateNewsroomContractComponent extends React.Component<
         <AboutSmartContractsButton />
         <Divider />
         {body}
+        {this.renderIpfsModal()}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
@@ -385,6 +401,7 @@ export class CreateNewsroomContractComponent extends React.Component<
           requireBeforeTransaction,
           transaction: async () => {
             this.setState({
+              isIpfsModalOpen: false,
               metaMaskRejectionModal: false,
               isWaitingTransactionModalOpen: true,
               isPreTransactionModalOpen: false,
@@ -470,6 +487,9 @@ export class CreateNewsroomContractComponent extends React.Component<
   };
 
   private beforeCreateNewsroom = async (noPreModal?: boolean): Promise<any> => {
+    this.setState({
+      isIpfsModalOpen: true,
+    });
     const ipfsProvider = new IPFSProvider();
     const ipfsObject = await ipfsProvider.put(JSON.stringify(this.props.charter));
     this.setState({

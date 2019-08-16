@@ -138,7 +138,7 @@ class RequestAppealComponent extends React.Component<
       civil.toBigNumber(judgeAppealLen),
     );
     const balance = civil.toBigNumber(balanceBN);
-    const isInsufficientBalance = balance.lt(civil.toBigNumber(GovernmentParameters.appealFee));
+    const isInsufficientBalance = balance.lt(civil.toBigNumber(appealFee));
 
     const props: RequestAppealStatementProps = {
       listingURI,

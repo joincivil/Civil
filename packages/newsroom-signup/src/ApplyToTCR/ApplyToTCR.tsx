@@ -1,6 +1,11 @@
 import * as React from "react";
 import styled from "styled-components";
-import { OBCollapsable, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
+import {
+  OBCollapsable,
+  OBSectionHeader,
+  OBSectionDescription,
+  CREATE_NEWSROOM_CHANNEL_MUTATION,
+} from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { saveApplyTxMutation } from "../mutations";
 import { getCharterQuery } from "../queries";
@@ -49,14 +54,25 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
         >
           {(saveTxHash: MutationFunc) => {
             return (
-              <ApplyToTCRForm
-                newsroomAddress={address!}
-                minDeposit={minDeposit}
-                multisigAddress={multisigAddress!}
-                multisigHasMinDeposit={multisigHasMinDeposit}
-                postApplyToTCR={postApplyToTCR}
-                saveTxHash={saveTxHash}
-              />
+              <Mutation mutation={CREATE_NEWSROOM_CHANNEL_MUTATION}>
+                {(createChannel: MutationFunc) => {
+                  return (
+                    <ApplyToTCRForm
+                      newsroomAddress={address!}
+                      minDeposit={minDeposit}
+                      multisigAddress={multisigAddress!}
+                      multisigHasMinDeposit={multisigHasMinDeposit}
+                      postApplyToTCR={postApplyToTCR}
+                      saveTxHash={async txHash => {
+                        await Promise.all([
+                          saveTxHash({ variables: { input: txHash } }),
+                          createChannel({ variables: { newsroomContractAddress: address! } }),
+                        ]);
+                      }}
+                    />
+                  );
+                }}
+              </Mutation>
             );
           }}
         </Mutation>

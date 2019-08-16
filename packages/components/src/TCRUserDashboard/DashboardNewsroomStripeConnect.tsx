@@ -7,7 +7,7 @@ import styled from "styled-components";
 import { CivilContext, ICivilContext } from "../context/CivilContext";
 import {
   withNewsroomChannel,
-  WithNewsroomChannelInjectedProps,
+  NewsroomChannelInjectedProps,
   CHANNEL_BY_NEWSROOM_QUERY,
 } from "../WithNewsroomChannelHOC";
 import { StyledDashboardNewsroomHdr, StyledDashboardLoadingMessage } from "./DashboardStyledComponents";
@@ -61,7 +61,7 @@ export interface DashboardNewsroomStripeConnectState {
   connectStripeError?: any;
 }
 export type DashboardNewsroomStripeConnectProps = WithApolloClient<
-  DashboardNewsroomStripeConnectOwnProps & WithNewsroomChannelInjectedProps
+  DashboardNewsroomStripeConnectOwnProps & NewsroomChannelInjectedProps
 >;
 
 export const CHANNEL_CONNECT_STRIPE_MUTATION = gql`

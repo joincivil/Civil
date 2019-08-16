@@ -61,6 +61,7 @@ const ImageCropper = styled.div`
   width: 72px;
   height: 72px;
   position: relative;
+  object-fit: cover;
   overflow: hidden;
   border-radius: 50%;
 `;
@@ -101,7 +102,10 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
           <FormSubhead>Name</FormSubhead>
           <Input name="name" value={user.rosterData.name || ""} onChange={this.rosterInputChange} />
           <FormSubhead optional>Avatar URL</FormSubhead>
-          <StyledImageToData onChange={(dataUri: string) => this.rosterInputChange("avatarUrl", dataUri)} />
+          <StyledImageToData
+            onChange={(dataUri: string) => this.rosterInputChange("avatarUrl", dataUri)}
+            buttonText={user.rosterData.avatarUrl ? "Change Image" : "Add Image"}
+          />
           <FormSubhead>Role</FormSubhead>
           <Input name="role" value={user.rosterData.role} onChange={this.rosterInputChange} />
 

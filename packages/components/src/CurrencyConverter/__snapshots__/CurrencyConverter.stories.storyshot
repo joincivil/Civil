@@ -769,6 +769,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                   onFocus={[Function]}
                   step="0.01"
                   type="number"
+                  value="3"
                 />
               </div>
               <div
@@ -1123,6 +1124,36 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                       CurrencyConverter
                     </span>
                     <span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          fromValue
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              3
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
                       <span>
                         <span>
                           <br />

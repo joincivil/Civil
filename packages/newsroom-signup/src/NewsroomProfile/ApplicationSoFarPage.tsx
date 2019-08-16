@@ -15,6 +15,8 @@ import { RosterMemberListItem } from "./RosterMemberListItem";
 
 export interface ApplicationSoFarPageProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
 }
 
 const Collapsable = styled(OBCollapsable)`
@@ -80,15 +82,20 @@ const QuestionContainer = styled.div`
 const StyledAvatarWrap = styled(AvatarWrap)`
   margin: 5px 10px;
 `;
+const NewsroomLogoWrap = styled(StyledAvatarWrap)`
+  height: 130px;
+  width: 130px;
+`;
+const NewsroomLogo = styled(AvatarImg)`
+  border-radius: 0;
+  object-fit: contain;
+`;
 
 export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPageProps> {
   public render(): JSX.Element {
     return (
-      <div>
-        <OBSectionHeader>Here’s your Registry Profile so far</OBSectionHeader>
-        <OBSectionDescription>
-          Please review your newsroom Registry Profile. Keep in mind that this is a public document.
-        </OBSectionDescription>
+      <>
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <Collapsable
           open={true}
           header={
@@ -111,9 +118,9 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
               <TwoSpanner>
                 <div>
                   <Label>Newsroom Logo</Label>
-                  <StyledAvatarWrap>
-                    {this.props.charter.logoUrl ? <AvatarImg src={this.props.charter.logoUrl} /> : noAvatar}
-                  </StyledAvatarWrap>
+                  <NewsroomLogoWrap>
+                    {this.props.charter.logoUrl ? <NewsroomLogo src={this.props.charter.logoUrl} /> : noAvatar}
+                  </NewsroomLogoWrap>
                 </div>
               </TwoSpanner>
               <TwoSpanner>
@@ -125,7 +132,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -141,7 +148,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -173,7 +180,7 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
           </CollapsableInner>
         </Collapsable>
         <Collapsable
-          open={false}
+          open={true}
           header={
             <SectionHeaders>
               <SectionHeaderCheck />
@@ -185,9 +192,21 @@ export class ApplicationSoFarPage extends React.Component<ApplicationSoFarPagePr
             I agree to abide by the Civil Community's ethical principles as described in the Civil Constitution.
           </CollapsableInner>
         </Collapsable>
-      </div>
+      </>
     );
   }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Here’s your Registry Profile so far</OBSectionHeader>
+        <OBSectionDescription>
+          Please review your newsroom Registry Profile. Keep in mind that this is a public document.
+        </OBSectionDescription>
+      </>
+    );
+  }
+
   private renderSocial = (): JSX.Element | null => {
     if (!this.props.charter.socialUrls) {
       return null;

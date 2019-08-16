@@ -104,6 +104,7 @@ export const StyledUserInfoSectionValue = styled.div`
 export const StyledUserInfoSection = styled.div`
   display: flex;
   margin: 24px 0;
+  min-height: 30px;
   justify-content: space-between;
 
   ${StyledUserInfoSectionLabel} {

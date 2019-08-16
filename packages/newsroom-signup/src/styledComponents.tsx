@@ -1,6 +1,8 @@
 import {
   colors,
   fonts,
+  DEFAULT_BUTTON_THEME,
+  DEFAULT_CHECKBOX_THEME,
   buttonSizes,
   Button,
   BorderlessButton,
@@ -18,6 +20,20 @@ import {
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
 import styled, { StyledComponentClass, css } from "styled-components";
+
+export const DEFAULT_THEME = {
+  ...DEFAULT_BUTTON_THEME,
+  ...DEFAULT_CHECKBOX_THEME,
+  primaryButtonTextTransform: "none",
+  primaryButtonFontWeight: "bold",
+  borderlessButtonSize: "14px",
+};
+
+export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+  max-width: 720px;
+  margin: auto;
+  font-size: 14px;
+`;
 
 export const FormSection = styled.div`
   padding-top: 10px;
@@ -173,6 +189,7 @@ export const AvatarImg = styled.img`
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  object-fit: cover;
 `;
 
 export const _NoAvatar = styled.div`
@@ -221,11 +238,12 @@ export const NextBackButtonContainer = styled.div`
 export interface NextBackProps {
   backHidden?: boolean;
   nextHidden?: boolean;
+  top?: boolean;
   navigate(go: 1 | -1): void;
   nextDisabled?(): boolean;
 }
 export const NextBack: React.FunctionComponent<NextBackProps> = (props: NextBackProps) => (
-  <NextBackButtonContainer style={{ marginTop: 64 }}>
+  <NextBackButtonContainer style={{ margin: props.top ? "0 0 32px" : "64px 0 0" }}>
     {!props.backHidden ? (
       <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => props.navigate(-1)}>
         Back

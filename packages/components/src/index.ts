@@ -71,3 +71,4 @@ export * from "./GasEstimate";
 export * from "./features";
 export * from "./CopyToClipboard";
 export * from "./HelmetHelper";
+export * from "./WithNewsroomChannelHOC";
