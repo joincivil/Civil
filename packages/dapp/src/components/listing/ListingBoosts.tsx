@@ -1,14 +1,16 @@
 import * as React from "react";
 import { ListingTabIntro } from "./styledComponents";
 import { BoostFeed } from "@joincivil/civil-sdk";
-import { FeatureFlag, LoadingMessage } from "@joincivil/components";
+import { FeatureFlag, LoadingMessage, DisclosureArrowIcon } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 import { ComingSoonText } from "../Boosts/BoostStyledComponents";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
+import { NewsroomWrapper } from "@joincivil/core";
 
 export interface ListingBoostsProps {
   listingAddress: string;
+  newsroom?: NewsroomWrapper;
 }
 
 const CHANNEL_QUERY = gql`
@@ -31,7 +33,7 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
           them do it. Support these newsrooms by funding their Boosts to help hit their goals. Good reporting costs
           money, and the Civil community is making it happen.{" "}
           <a href={urlConstants.FAQ_BOOSTS} target="_blank">
-            Learn More &gt;
+            Learn More <DisclosureArrowIcon />
           </a>
         </ListingTabIntro>
         <Query query={CHANNEL_QUERY} variables={{ contractAddress }}>
@@ -40,7 +42,24 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
               return <LoadingMessage>Loading Boosts</LoadingMessage>;
             } else if (channelError || !channelData || !channelData.channelsGetByNewsroomAddress) {
               console.error("error loading channel data. error:", channelError, "data:", channelData);
-              return "Error loading Boosts.";
+              if (this.props.newsroom) {
+                return (
+                  <>
+                    {this.props.newsroom.data.name} has not created any Boosts.{" "}
+                    <a href="/boosts">
+                      View all Boosts <DisclosureArrowIcon />
+                    </a>
+                  </>
+                );
+              }
+              return (
+                <>
+                  There are no Boosts associated with this newsroom.{" "}
+                  <a href="/boosts">
+                    View all Boosts <DisclosureArrowIcon />
+                  </a>
+                </>
+              );
             }
 
             const search = { postType: "boost", channelID: channelData.channelsGetByNewsroomAddress.id };

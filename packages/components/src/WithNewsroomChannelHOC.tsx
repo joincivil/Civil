@@ -9,6 +9,15 @@ export interface NewsroomChannelData {
   id: string;
   currentUserIsAdmin: boolean;
   isStripeConnected: boolean;
+  newsroom: {
+    multisigAddress: string;
+    charter: {
+      name: string;
+      tagline: string;
+      logoUrl: string;
+      newsroomUrl: string;
+    };
+  };
 }
 
 export interface WithNewsroomChannelOuterProps {
@@ -29,6 +38,15 @@ export const CHANNEL_BY_NEWSROOM_QUERY = gql`
       id
       currentUserIsAdmin
       isStripeConnected
+      newsroom {
+        multisigAddress
+        charter {
+          name
+          tagline
+          logoUrl
+          newsroomUrl
+        }
+      }
     }
   }
 `;

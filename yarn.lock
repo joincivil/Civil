@@ -1766,10 +1766,10 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/yargs" "^12.0.9"
 
-"@joincivil/civil-sdk@^1.21.3":
-  version "1.21.3"
-  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.21.3.tgz#65d966df1ec3995a29d0fe638223f7e9e43be0f9"
-  integrity sha512-c4eKMhuqaFWrmupC0xsK5VFxFvzt5sK0YQTQZHGGjX4vIAXSzRVgML/LSNF6kv8C0b0QOR8oeOcZxKYr6/pepg==
+"@joincivil/civil-sdk@^1.21.4":
+  version "1.21.4"
+  resolved "https://registry.yarnpkg.com/@joincivil/civil-sdk/-/civil-sdk-1.21.4.tgz#bd7350911fb9961ef32c9745bc6b9c7a44d687c4"
+  integrity sha512-UAqR40IJr1QDUMaROSD3Kf5voMgQgEyEo8tjcO/zNxjTc0sSc8wGVfavKxh9kOQ3KFzLmSFV105G7TzfkimFGQ==
   dependencies:
     "@babel/core" "7.2.2"
     "@commitlint/cli" "^7.5.2"
