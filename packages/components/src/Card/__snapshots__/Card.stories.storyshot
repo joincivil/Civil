@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] = `
+exports[`Storyshots Pattern Library / Cards Clickable Card 1`] = `
 <div>
   <div
     style={
@@ -11,71 +11,13 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
-      className="sc-kRCAcj kOIqWf"
+      className="sc-jRnjsG bTwhnA"
     >
       <div
-        className="sc-dxZgTM iIhJmF"
+        className="sc-fBuWsC idPNmw sc-jhAzac cADCKd"
+        onClick={[Function]}
       >
-        <div
-          className="sc-iomxrj ikfnFG"
-        >
-          CVL Token Contract Address
-        </div>
-        <div
-          className="sc-dvCyap dEOdFA"
-        >
-          <div
-            className="sc-iFMziU hGKDmF"
-          >
-            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
-          </div>
-          <button
-            className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
-            onClick={[Function]}
-            size="SMALL"
-            theme={
-              Object {
-                "primaryButtonBackground": "#2B56FF",
-                "primaryButtonColor": "#FFFFFF",
-                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-                "primaryButtonDisabledColor": "#FFFFFF",
-                "primaryButtonFontWeight": "normal",
-                "primaryButtonHoverBackground": "#4066FF",
-                "primaryButtonTextTransform": "uppercase",
-                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-              }
-            }
-            type="button"
-          >
-            Copy
-          </button>
-          <a
-            className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
-            href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
-            size="SMALL"
-            target="_blank"
-            theme={
-              Object {
-                "invertedButtonBackground": "#FFFFFF",
-                "invertedButtonColor": "#2B56FF",
-              }
-            }
-          >
-            Etherscan 
-            <svg
-              height="11"
-              viewBox="0 0 11 11"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
-                fill="#2B56FF"
-                fillRule="evenodd"
-              />
-            </svg>
-          </a>
-        </div>
+        I am a basic clickable card.
       </div>
     </div>
   </div>
@@ -178,7 +120,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            Common / Ethereum / EthAddress Viewer
+            Pattern Library / Cards
           </h1>
           <h2
             style={
@@ -190,7 +132,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             }
           >
-            EthAddress Viewer
+            Clickable Card
           </h2>
         </div>
         
@@ -253,117 +195,102 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
                     &gt;
                   </span>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
+                <div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    &lt;
-                    EthAddressViewer
-                  </span>
-                  <span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      CardClickable
+                    </span>
                     <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        address
-                      </span>
                       <span>
-                        =
+                         
                         <span
                           style={Object {}}
                         >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0…
-                          </span>
-                          "
+                          onClick
                         </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              handleClick
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
                       </span>
                     </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        displayName
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            CVL Token Contract Address
-                          </span>
-                          "
-                        </span>
-                      </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
                     </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        etherscanBaseURL
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            https://rinkeby.etherscan.io
-                          </span>
-                          "
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
+                  </div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    /&gt;
-                  </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      I am a basic clickable card.
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      CardClickable
+                      &gt;
+                    </span>
+                  </div>
                 </div>
                 <div
                   style={
@@ -433,7 +360,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              Container
+              CardClickable
               " Component
             </h3>
             <small>
@@ -449,7 +376,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
               }
             >
               "
-              EthAddressViewer
+              Container
               " Component
             </h3>
             <small>
