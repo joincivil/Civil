@@ -36,8 +36,10 @@ export interface WithNewsroomChannelAdminListProps {
 export function newsroomChannelsFromQueryData(data?: any): EthAddress[] {
   if (data && data.currentUser && data.currentUser.channels && data.currentUser.channels.filter) {
     return data.currentUser.channels
-      .filter((channelMember: any) => channelMember.channel.channelType === "newsroom")
-      .map((channelMember: any) => channelMember.channel.newsroom.contractAddress);
+      .filter(
+        (memberChannel: any) => memberChannel.role === "admin" && memberChannel.channel.channelType === "newsroom",
+      )
+      .map((memberChannel: any) => memberChannel.channel.newsroom.contractAddress);
   } else {
     return [];
   }
