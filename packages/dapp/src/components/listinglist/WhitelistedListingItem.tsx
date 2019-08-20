@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { State } from "../../redux/reducers";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps, ListingItemBaseComponent } from "./ListingListItem";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface WhitelistedCardProps {
   approvalDate?: BigNumber;

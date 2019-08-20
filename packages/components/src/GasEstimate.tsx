@@ -46,7 +46,7 @@ export class GasEstimate extends React.Component<GasEstimateProps, GasEstimateSt
         const gasPrice = await this.props.civil!.getGasPrice();
         this.setState({
           price: gasPrice
-            .times(gas)
+            .mul(this.props.civil!.toBigNumber(gas))
             .div(this.props.civil!.toBigNumber(10).pow(18))
             .toNumber(),
           priceFailed: false,

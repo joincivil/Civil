@@ -58,7 +58,7 @@ export class SaltInput extends React.Component<SaltInputProps, SaltInputState> {
     try {
       const saltNum = wordsToSalt(onlyLetters);
       nextState.isValid = true;
-      onChange(name, saltNum.toFixed());
+      onChange(name, saltNum.toString());
     } catch (err) {
       nextState.isValid = false;
       onChange(name, "");

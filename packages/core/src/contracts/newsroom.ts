@@ -1,4 +1,4 @@
-import { currentAccount, EthApi, requireAccount, EthereumUnits, toWei } from "@joincivil/ethapi";
+import { currentAccount, EthApi, requireAccount } from "@joincivil/ethapi";
 import {
   CivilErrors,
   estimateRawHex,
@@ -12,11 +12,12 @@ import {
   promisify,
   recoverSigner,
 } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
-import { Transaction, TransactionReceipt } from "web3";
+import { Transaction, Tx as TransactionConfig, Tx as SendOptions } from "web3/eth/types";
+import { TransactionReceipt } from "web3/types";
 import * as zlib from "zlib";
 import { ContentProvider } from "../content/contentprovider";
 import {
@@ -34,8 +35,6 @@ import {
   RevisionId,
   StorageHeader,
   TwoStepEthTransaction,
-  TxData,
-  TxDataAll,
   TxHash,
   Uri,
 } from "../types";
@@ -61,10 +60,14 @@ const deflate = promisify<Buffer>(zlib.deflate);
 const debug = Debug("civil:newsroom");
 
 const findContentId = (receipt: CivilTransactionReceipt) =>
-  findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).args.contentId.toNumber();
+  new BigNumber(
+    findEventOrThrow<Events.Logs.ContentPublished>(receipt, Events.Events.ContentPublished).returnValues.contentId,
+  ).toNumber();
 
 const findRevisionId = (receipt: CivilTransactionReceipt) =>
-  findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).args.revisionId.toNumber();
+  new BigNumber(
+    findEventOrThrow<Events.Logs.RevisionUpdated>(receipt, Events.Events.RevisionUpdated).returnValues.revisionId,
+  ).toNumber();
 
 /**
  * A Newsroom can be thought of an organizational unit with a sole goal of providing content
@@ -91,7 +94,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
     const account = await requireAccount(ethApi).toPromise();
-    const txData: TxData = { from: account };
+    const txData: any = { from: account };
 
     const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
@@ -132,9 +135,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       throw new Error("No Newsroom created during deployment through factory");
     }
 
-    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
+    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.returnValues.instantiation);
     const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
-    return new Newsroom(ethApi, contentProvider, contract, multisigProxy);
+    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    return new Newsroom(ethApi, contentProvider, contract, multisigProxy, defaultBlock);
   }
 
   public static async estimateDeployTrusted(
@@ -144,7 +148,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     charterHash: string = "",
   ): Promise<number> {
     const account = await requireAccount(ethApi).toPromise();
-    const txData: TxData = { from: account };
+    const txData: TransactionConfig = { from: account };
     const factory = await CreateNewsroomInGroupContract.singletonTrusted(ethApi);
     if (!factory) {
       throw new Error(CivilErrors.UnsupportedNetwork);
@@ -169,7 +173,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     if ((charterUri.length === 0) !== (charterHash.length === 0)) {
       throw new Error("Both charter URI and Hash need to be set, or both empty");
     }
-    const txData: TxData = { from: await currentAccount(ethApi) };
+    const from = await currentAccount(ethApi);
+    const txData: SendOptions = { from: from! };
     return createTwoStepTransaction(
       ethApi,
       await NewsroomContract.deployTrusted.sendTransactionAsync(ethApi, newsroomName, charterUri, charterHash, txData),
@@ -184,7 +189,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   ): Promise<Newsroom> {
     const instance = NewsroomContract.atUntrusted(ethApi, address);
     const multisigProxy = await NewsroomMultisigProxy.create(ethApi, instance);
-    return new Newsroom(ethApi, contentProvider, instance, multisigProxy);
+    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    return new Newsroom(ethApi, contentProvider, instance, multisigProxy, defaultBlock);
   }
 
   public static async recoverArchiveTx(tx: Transaction): Promise<string> {
@@ -202,8 +208,9 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentProvider: ContentProvider,
     instance: NewsroomContract,
     multisigProxy: NewsroomMultisigProxy,
+    defaultBlock: number,
   ) {
-    super(ethApi, instance);
+    super(ethApi, instance, defaultBlock);
     this.contentProvider = contentProvider;
     this.multisigProxy = multisigProxy;
   }
@@ -212,8 +219,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   //#region streams
   public editors(): Observable<EthAddress> {
     return this.instance
-      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
-      .map(e => e.args.grantee)
+      .RoleAddedStream({ role: NewsroomRoles.Editor }, { fromBlock: this.defaultBlock })
+      .map(e => e.returnValues.grantee)
       .concatFilter(async e => this.isEditor(e));
   }
 
@@ -223,12 +230,10 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" for only new events
    * @returns Metadata about the content from Ethereum. Use [[resolveContent]] to get actual contents
    */
-  public content(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<EthContentHeader> {
+  public content(fromBlock: number = this.defaultBlock): Observable<EthContentHeader> {
     return this.instance
       .ContentPublishedStream({}, { fromBlock })
-      .map(e => e.args.contentId)
+      .map(e => new BigNumber(e.returnValues.contentId))
       .concatMap(this.loadContentHeader.bind(this));
   }
 
@@ -241,11 +246,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    */
   public revisions(
     contentId?: number | BigNumber | undefined,
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    fromBlock: number = this.defaultBlock,
   ): Observable<EthContentHeader> {
     const myContentId = contentId ? this.ethApi.toBigNumber(contentId) : undefined;
     return this.instance.RevisionUpdatedStream({ contentId: myContentId }, { fromBlock }).concatMap(async e => {
-      const contentHeader = await this.loadContentHeader(e.args.contentId, e.args.revisionId);
+      const contentHeader = await this.loadContentHeader(
+        new BigNumber(e.returnValues.contentId),
+        new BigNumber(e.returnValues.revisionId),
+      );
       return {
         blockNumber: e.blockNumber,
         transactionHash: e.transactionHash,
@@ -260,8 +268,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    *                  Set to "latest" to only listen for new events
    * @returns Name history of this Newsroom
    */
-  public nameChanges(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<string> {
-    return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.args.newName);
+  public nameChanges(fromBlock: number = this.defaultBlock): Observable<string> {
+    return this.instance.NameChangedStream({}, { fromBlock }).map(e => e.returnValues.newName);
   }
   //#endregion
 
@@ -330,7 +338,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     eth: BigNumber,
     to: EthAddress,
   ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
-    const wei = this.ethApi.toBigNumber(toWei(eth, EthereumUnits.ether));
+    const wei = eth.mul(new BigNumber(1e18));
+    // const wei = this.ethApi.toBigNumber(toWei(ethBN, EthereumUnits.ether));
     const address = await this.multisigProxy.getMultisigAddress();
     const multisig = await Multisig.atUntrusted(this.ethApi, address!);
     return multisig.submitTransaction(to, wei, "");
@@ -382,12 +391,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     return this.instance.hasRole.callAsync(who, NewsroomRoles.Editor);
   }
 
-  public async getArticleHeader(articleId: number | BigNumber): Promise<EthContentHeader> {
+  public async getArticleHeader(articleId: BigNumber): Promise<EthContentHeader> {
     return this.loadContentHeader(articleId);
   }
 
   public async getCharterHeader(): Promise<EthContentHeader> {
-    return this.getArticleHeader(0);
+    return this.getArticleHeader(new BigNumber(0));
   }
 
   /**
@@ -395,7 +404,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @throws {CivilErrors.MalformedCharter} Charter data is malformed.
    */
   public async getCharter(): Promise<CharterContent | undefined> {
-    const charterData = await this.loadArticle(0);
+    const charterData = await this.loadArticle(new BigNumber(0));
     if (!charterData) {
       return charterData;
     }
@@ -417,7 +426,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesess both Ethereum network as well as the active ContentProvider
    * @param articleId Id of the article that you want to read
    */
-  public async loadArticle(articleId: number | BigNumber): Promise<NewsroomContent | undefined> {
+  public async loadArticle(articleId: BigNumber): Promise<NewsroomContent | undefined> {
     const header = await this.loadContentHeader(articleId);
     if (header.contentHash && !is0x0Hash(header.contentHash)) {
       return this.resolveContent(header);
@@ -449,21 +458,20 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * Accesses the Ethereum network and loads basic metatadata about the content
    * @param articleId Id of the article whose metadata you need
    */
-  public async loadContentHeader(
-    contentId: number | BigNumber,
-    revisionId?: number | BigNumber,
-  ): Promise<EthContentHeader> {
+  public async loadContentHeader(contentId: BigNumber, revisionId?: number | BigNumber): Promise<EthContentHeader> {
     let revision = revisionId;
     if (!revision) {
-      revision = (await this.instance.revisionCount.callAsync(this.ethApi.toBigNumber(contentId))).sub(1);
+      revision = new BigNumber(await this.instance.revisionCount.callAsync(new BigNumber(contentId).toString())).sub(
+        new BigNumber(1).toString(),
+      );
     }
     const myContentId = this.ethApi.toBigNumber(contentId);
     let contentHash: string;
     let uri: string;
-    let timestamp: BigNumber;
+    let timestamp: string;
     let author: EthAddress;
     let signature: string;
-    let myRevisionId: BigNumber | undefined;
+    let myRevisionId: string | undefined;
     if (revision) {
       myRevisionId = this.ethApi.toBigNumber(revision);
       [contentHash, uri, timestamp, author, signature] = await this.instance.getRevision.callAsync(
@@ -471,12 +479,14 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         myRevisionId!,
       );
     } else {
-      [contentHash, uri, timestamp, author, signature] = await this.instance.getContent.callAsync(myContentId);
+      [contentHash, uri, timestamp, author, signature] = await this.instance.getContent.callAsync(
+        myContentId.toNumber(),
+      );
     }
     return {
       contentId: myContentId.toNumber(),
-      revisionId: myRevisionId ? myRevisionId.toNumber() : 0,
-      timestamp: new Date(timestamp.toNumber() * 1000),
+      revisionId: myRevisionId ? new BigNumber(myRevisionId).toNumber() : 0,
+      timestamp: new Date(parseInt(timestamp, 10) * 1000),
       uri,
       contentHash,
       author,
@@ -559,10 +569,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const myContentId = this.ethApi.toBigNumber(contentId);
     const myRevisionId = this.ethApi.toBigNumber(revisionId);
     return this.instance
-      .RevisionUpdatedStream(
-        { contentId: myContentId, revisionId: myRevisionId },
-        { fromBlock: getDefaultFromBlock(this.ethApi.network()) },
-      )
+      .RevisionUpdatedStream({ contentId: myContentId, revisionId: myRevisionId }, { fromBlock: this.defaultBlock })
       .concatMap(async item => {
         const transaction = await this.ethApi.getTransaction(item.transactionHash);
         return Newsroom.recoverArchiveTx(transaction);
@@ -631,7 +638,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
-  public async estimateFromDataMultiSig(data: TxDataAll, content?: any): Promise<number> {
+  public async estimateFromDataMultiSig(data: TransactionConfig, content?: any): Promise<number> {
     const address = await this.multisigProxy.getMultisigAddress();
     const contract = await Multisig.atUntrusted(this.ethApi, address!);
     const baseGas = await contract.estimateTransaction(address!, this.ethApi.toBigNumber(0), data.data!);
@@ -647,6 +654,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const buffer = await deflate(revision);
     const hex = bufferToHex(buffer);
+    // @ts-ignore
+    // TODO(dankins): ignoring typescript error, make sure this works
     const length = bufferToHex(setLengthLeft(toBuffer(dataLength), 8));
     const extra = hex.substr(2) + length.substr(2);
     return estimateRawHex(extra);
@@ -718,10 +727,12 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     }
   }
 
-  public async addArchiveToMultisig(data: TxDataAll, hex: string, gas: number): Promise<TxDataAll> {
+  public async addArchiveToMultisig(data: TransactionConfig, hex: string, gas: number): Promise<TransactionConfig> {
     const multiSigAddress = await this.multisigProxy.getMultisigAddress();
     const contract = await Multisig.atUntrusted(this.ethApi, multiSigAddress!);
     const multiSigTxData = await contract.getRawTransaction(this.address, this.ethApi.toBigNumber(0), data.data!);
+    // @ts-ignore
+    // TODO(dankins): ignoring typescript error, make sure this works
     const length = bufferToHex(setLengthLeft(toBuffer(multiSigTxData.data!.length), 8));
     const extra = hex.substr(2) + length.substr(2);
     multiSigTxData.gas = gas;
@@ -746,7 +757,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     } else {
       await this.requireEditor();
       const txData = await this.instance.publishContent.getRaw("self-tx:1.0", hash, author, signature, { gas });
+
+      // @ts-ignore
+      // TODO(dankins): ignoring typescript error, make sure this works
       const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
+
+      // @ts-ignore
+      // TODO(dankins): ignoring typescript error, make sure this works
       const extra = hex.substr(2) + length.substr(2);
       txData.data = txData.data + extra;
       txData.gas = gas;
@@ -783,6 +800,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
         signature,
         { gas },
       );
+      // @ts-ignore
+      // TODO(dankins): ignoring typescript error, make sure this works
       const length = bufferToHex(setLengthLeft(toBuffer(txData.data!.length), 8));
       const extra = hex.substr(2) + length.substr(2);
       txData.data = txData.data + extra;
@@ -896,7 +915,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     revisionId: RevisionId,
     signedData: ApprovedRevision,
   ): Promise<TwoStepEthTransaction<CivilTransactionReceipt | MultisigTransaction>> {
-    const contentHeader = await this.loadContentHeader(contentId, revisionId);
+    const contentHeader = await this.loadContentHeader(new BigNumber(contentId), revisionId);
     this.verifyApprovedRevision(contentHeader, signedData);
     if (!is0x0Address(contentHeader.author) && contentHeader.author !== signedData.author) {
       throw new Error(CivilErrors.MalformedParams);

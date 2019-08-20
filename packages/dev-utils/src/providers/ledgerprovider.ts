@@ -1,10 +1,9 @@
 import {
   LedgerEthereumClientFactoryAsync,
   NonceTrackerSubprovider,
-  Provider,
   RPCSubprovider,
   Web3ProviderEngine,
-} from "@0xproject/subproviders";
+} from "@0x/subproviders";
 import { FilteredLedgerProvider } from "./filteraccountsprovider";
 import FiltersSubprovider = require("web3-provider-engine/subproviders/filters");
 
@@ -16,7 +15,7 @@ export interface LedgerProviderConfig {
   baseDerivationPath?: string;
 }
 
-export function ledgerProvider(config: LedgerProviderConfig): Provider {
+export function ledgerProvider(config: LedgerProviderConfig): any {
   const engine = new Web3ProviderEngine();
   engine.addProvider(
     new FilteredLedgerProvider({

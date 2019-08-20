@@ -54,7 +54,7 @@ export class ApplyToTCRComponent extends React.Component<ApplyToTCRProps> {
                             const minDeposit = await parameterizer.getParameterValue("minDeposit");
                             const token = await tcr.getToken();
                             const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddr);
-                            if (approvedTokens.lessThan(minDeposit)) {
+                            if (approvedTokens.lt(minDeposit)) {
                               return token.approveSpender(tcr.address, minDeposit);
                             }
                             return;

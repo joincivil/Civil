@@ -1,19 +1,8 @@
-import {
-  currentNetwork,
-  detectProvider,
-  EthApi,
-  ProviderBackport,
-  Web310Provider,
-  toWei,
-  EthereumUnits,
-  requireAccount,
-} from "@joincivil/ethapi";
-import { EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
+import { currentNetwork, detectProvider, EthApi, requireAccount, Provider } from "@joincivil/ethapi";
+import { BigNumber, EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
-import * as Web3 from "web3";
 import { CivilTransactionReceipt, FallbackProvider, TwoStepEthTransaction } from ".";
 import { ContentProvider, ContentProviderCreator } from "./content/contentprovider";
 import { IPFSProvider } from "./content/ipfsprovider";
@@ -24,12 +13,13 @@ import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
 import { CVLToken } from "./contracts/tcr/cvltoken";
+import Web3 = require("web3");
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
 
 export interface CivilOptions {
-  web3Provider?: Web3.Provider | Web310Provider;
+  web3Provider?: Provider;
   ContentProvider?: ContentProviderCreator;
   debug?: true;
 }
@@ -59,13 +49,9 @@ export class Civil {
       debug('Enabled debug for "civil:*" namespace');
     }
 
-    let provider: Web3.Provider;
+    let provider: Provider;
     if (opts.web3Provider) {
-      if (!(opts.web3Provider as any).sendAsync) {
-        provider = new ProviderBackport(opts.web3Provider as Web310Provider);
-      } else {
-        provider = opts.web3Provider as Web3.Provider;
-      }
+      provider = opts.web3Provider;
     } else {
       const detectedProvider = detectProvider();
       if (detectedProvider) {
@@ -83,6 +69,12 @@ export class Civil {
 
   public toBigNumber(num: number | string | BigNumber): any {
     return this.ethApi.toBigNumber(num);
+  }
+  public toWei(num: number): BigNumber {
+    return this.ethApi.toWei(num);
+  }
+  public toChecksumAddress(address: string): any {
+    return this.ethApi.toChecksumAddress(address);
   }
 
   public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
@@ -119,7 +111,7 @@ export class Civil {
   /**
    * Returns the current provider that is used by all things Civil in the Core
    */
-  public get currentProvider(): Web3.Provider {
+  public get currentProvider(): Provider {
     return this.ethApi.currentProvider;
   }
 
@@ -129,7 +121,7 @@ export class Civil {
    * This may invalidate any Ethereum calls in transit or event listening
    * @param web3Provider The new provider that shall replace the old one
    */
-  public set currentProvider(web3Provider: Web3.Provider) {
+  public set currentProvider(web3Provider: Provider) {
     this.ethApi.currentProvider = web3Provider;
   }
 
@@ -302,7 +294,7 @@ export class Civil {
   }
 
   public async simplePayment(recipient: EthAddress, amountInETH: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = this.ethApi.toBigNumber(toWei(amountInETH, EthereumUnits.ether));
+    const wei = this.ethApi.toBigNumber(this.ethApi.toWei(amountInETH.toNumber()));
     const account = await requireAccount(this.ethApi).toPromise();
     return createTwoStepSimple(
       this.ethApi,

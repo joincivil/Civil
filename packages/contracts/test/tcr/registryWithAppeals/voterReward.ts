@@ -1,12 +1,16 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
+import { REVERTED_CALL } from "../../utils/constants";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
+
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("Function: voterReward", () => {
@@ -35,20 +39,17 @@ contract("Registry", accounts => {
       await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
-      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
+      await voting.revealVote(pollID, "0", "42", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);
 
-      expect(await registry.voterReward(voterAlice, pollID, "42")).to.be.bignumber.equal(
-        0,
-        "should have returned false since voter commit hash does not match winning hash for salt",
-      );
+      expect(registry.voterReward(voterAlice, pollID, "42")).to.eventually.be.rejectedWith(REVERTED_CALL);
     });
 
     it(
@@ -64,12 +65,12 @@ contract("Registry", accounts => {
         await utils.commitVote(voting, pollID, "1", "30", "32", voterBob);
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
-        await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
-        await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
+        await voting.revealVote(pollID, "0", "42", { from: voterAlice });
+        await voting.revealVote(pollID, "1", "32", { from: voterBob });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
         const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
         await utils.advanceEvmTime(waitTime);
 
@@ -79,7 +80,8 @@ contract("Registry", accounts => {
         const bobReward = await registry.voterReward(voterBob, pollID, "32");
         const expectedBobReward = utils
           .toBaseTenBigNumber(utils.paramConfig.minDeposit)
-          .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100));
+          .mul(new BN(utils.paramConfig.dispensationPct))
+          .div(new BN(100));
 
         expect(bobReward).to.be.bignumber.equal(expectedBobReward, "voterReward did not match expected reward");
       },
@@ -95,29 +97,27 @@ contract("Registry", accounts => {
       await utils.commitVote(voting, pollID, "1", "30", "32", voterBob);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
-      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
-      await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
+      await voting.revealVote(pollID, "0", "42", { from: voterAlice });
+      await voting.revealVote(pollID, "1", "32", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
       const waitTime = utils.paramConfig.judgeAppealPhaseLength + 1;
       await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);
 
-      // Claim reward
-      expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.bignumber.equal(
-        0,
-        "minority voter should not have any reward since appeal not granted",
-      );
-
       const aliceReward = await registry.voterReward(voterAlice, pollID, "42");
       const expectedAliceReward = utils
         .toBaseTenBigNumber(utils.paramConfig.minDeposit)
-        .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100))
-        .add(utils.toBaseTenBigNumber(utils.paramConfig.appealFeeAmount).div(2));
+        .mul(new BN(utils.paramConfig.dispensationPct))
+        .div(new BN(100))
+        .add(utils.toBaseTenBigNumber(utils.paramConfig.appealFeeAmount).div(new BN(2)));
 
       expect(aliceReward).to.be.bignumber.equal(expectedAliceReward, "voterReward did not match expected reward");
+
+      // Claim reward
+      expect(registry.voterReward(voterBob, pollID, "32")).to.eventually.be.rejectedWith(REVERTED_CALL);
     });
   });
 });

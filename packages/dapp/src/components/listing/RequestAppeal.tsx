@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   CivilContext,
@@ -131,14 +131,10 @@ class RequestAppealComponent extends React.Component<
 
     const { listingURI, newsroomName, governanceGuideURI, appealFee, judgeAppealLen, balance: balanceBN } = this.props;
 
-    const { civil } = this.context;
-    const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, civil.toBigNumber(appealFee));
-    const displayJudgeAppealLen = getFormattedParameterValue(
-      GovernmentParameters.judgeAppealLen,
-      civil.toBigNumber(judgeAppealLen),
-    );
-    const balance = civil.toBigNumber(balanceBN);
-    const isInsufficientBalance = balance.lt(civil.toBigNumber(appealFee));
+    const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, appealFee);
+    const displayJudgeAppealLen = getFormattedParameterValue(GovernmentParameters.judgeAppealLen, judgeAppealLen);
+    const balance = balanceBN === undefined ? new BigNumber(0) : balanceBN;
+    const isInsufficientBalance = balance.lt(appealFee);
 
     const props: RequestAppealStatementProps = {
       listingURI,

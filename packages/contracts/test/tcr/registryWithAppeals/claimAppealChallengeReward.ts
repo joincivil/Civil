@@ -1,14 +1,16 @@
 import { configureChai } from "@joincivil/dev-utils";
-import { BigNumber } from "bignumber.js";
 import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("CVLToken");
 utils.configureProviders(PLCRVoting, Token);
 configureChai(chai);
 const expect = chai.expect;
+
+const ZERO_DATA = "0x";
 
 contract("Registry with Appeals", accounts => {
   describe("Function: claimAppealChallengeReward", () => {
@@ -31,7 +33,7 @@ contract("Registry with Appeals", accounts => {
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -41,8 +43,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "500", "1337", voterBob);
@@ -58,7 +60,7 @@ contract("Registry with Appeals", accounts => {
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved that had no votes", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -68,8 +70,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       await utils.challengeAppealAndGetPollID(newsroomAddress, challenger2, registry);
 
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
@@ -86,7 +88,7 @@ contract("Registry with Appeals", accounts => {
         challenger2BalanceBefore,
         "appealer should not have gained money from losing",
       );
-      const expected = appealerBalanceBefore.add(utils.paramConfig.appealFeeAmount * 2);
+      const expected = appealerBalanceBefore.add(new BN(utils.paramConfig.appealFeeAmount).mul(new BN(2)));
 
       expect(appealerBalanceAfter).to.be.bignumber.equal(
         expected,
@@ -95,7 +97,7 @@ contract("Registry with Appeals", accounts => {
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved with different amount of votes in each", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -105,8 +107,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "50", "1337", voterBob);
@@ -121,16 +123,16 @@ contract("Registry with Appeals", accounts => {
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
-      const reward = new BigNumber(100)
-        .sub(new BigNumber(utils.paramConfig.appealSupermajorityPercentage))
-        .mul(new BigNumber(utils.paramConfig.appealFeeAmount))
-        .div(new BigNumber(100));
+      const reward = new BN(100)
+        .sub(new BN(utils.paramConfig.appealSupermajorityPercentage))
+        .mul(new BN(utils.paramConfig.appealFeeAmount))
+        .div(new BN(100));
       const expectedEndingBalance = balanceBeforeClaiming.add(reward);
       expect(expectedEndingBalance).to.be.bignumber.equal(balanceAfterClaiming);
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved with different amount of votes in each", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -140,8 +142,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "0", "50", "1337", voterBob);
@@ -156,16 +158,16 @@ contract("Registry with Appeals", accounts => {
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
-      const reward = new BigNumber(100)
-        .sub(new BigNumber(utils.paramConfig.appealSupermajorityPercentage))
-        .mul(new BigNumber(utils.paramConfig.appealFeeAmount))
-        .div(new BigNumber(100));
+      const reward = new BN(100)
+        .sub(new BN(utils.paramConfig.appealSupermajorityPercentage))
+        .mul(new BN(utils.paramConfig.appealFeeAmount))
+        .div(new BN(100));
       const expectedEndingBalance = balanceBeforeClaiming.add(reward);
       expect(expectedEndingBalance).to.be.bignumber.equal(balanceAfterClaiming);
     });
 
     it("should transfer the correct number of tokens once an appeal challenge has been resolved with different amount of votes in each challenge and 2 voters each", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -177,8 +179,8 @@ contract("Registry with Appeals", accounts => {
       await voting.revealVote(pollID, "0", "123", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
       await utils.commitVote(voting, appealChallengePollID, "1", "50", "1337", voterBob);
@@ -195,11 +197,22 @@ contract("Registry with Appeals", accounts => {
         "should have allowed voter in appeal challenge poll to claim reward after appeal challenge resolved",
       );
       const balanceAfterClaiming = await token.balanceOf(voterBob);
-      const reward = new BigNumber(100)
-        .sub(new BigNumber(utils.paramConfig.appealSupermajorityPercentage))
-        .mul(new BigNumber(utils.paramConfig.appealFeeAmount))
-        .div(new BigNumber(100))
-        .mul(new BigNumber(50).div(new BigNumber(500)));
+
+      const appealAmount = new BN(utils.paramConfig.appealFeeAmount);
+      const superMajorityPercent = new BN(utils.paramConfig.appealSupermajorityPercentage);
+      const hundred = new BN(100);
+
+      const reward = hundred
+        .sub(superMajorityPercent)
+        .mul(appealAmount)
+        .div(hundred)
+        .div(new BN(10));
+
+      // const reward = new BN(100)
+      //   .sub()
+      //   .mul(new BN(utils.paramConfig.appealFeeAmount))
+      //   .div(new BN(100))
+      //   .mul(new BN(50).div(new BN(500)));
       const expectedEndingBalance = balanceBeforeClaiming.add(reward);
       expect(expectedEndingBalance).to.be.bignumber.equal(balanceAfterClaiming);
     });

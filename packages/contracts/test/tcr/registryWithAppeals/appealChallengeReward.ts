@@ -7,6 +7,7 @@ const expect = chai.expect;
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
+const ZERO_DATA = "0x";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: determineAppealChallengeReward", () => {
@@ -28,12 +29,12 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if the challenge been issued and voting has ended with no votes", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+      await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength);
@@ -46,12 +47,12 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if the challenge been issued and voting has ended with a few votes", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+      await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const pollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 

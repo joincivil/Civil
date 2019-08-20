@@ -1,53 +1,58 @@
 /*
- * This file is auto-generated using abi-gen. Any changes will be reverted
- */
+* This file is auto-generated using abi-gen. Any changes will be reverted
+*/
 
 // Needed for the promisifed events, some contracts don't have events
 // tslint:disable:no-unused-variable
-import BigNumber from "bignumber.js";
-import { Observable } from "rxjs";
 import { DecodedLogEntryEvent, DecodedLogEntry, DecodedTransactionReceipt } from "@joincivil/typescript-types";
 // tslint:enable:no-unused-variable
 import "rxjs/add/operator/distinctUntilChanged";
-import * as Web3 from "web3";
-import { bindNestedAll, promisify, isDefined, CivilErrors } from "@joincivil/utils";
+
+import Contract from "web3/eth/contract";
+import {Tx as TransactionConfig, Tx as SendOptions} from "web3/eth/types";
+
+import { bindNestedAll, isDefined, CivilErrors } from "@joincivil/utils";
 import * as Debug from "debug";
 
-import { EthAddress, TxData, TxDataAll, TxHash } from "../../../types";
+import { EthAddress, TxHash } from "../../../types";
 import { streamifyEvent } from "../../../contracts/utils/contracts";
 import { EthApi, currentNetwork } from "@joincivil/ethapi";
 import { BaseContract } from "../../basecontract";
 import { artifacts } from "../artifacts";
 
+
+// hack(dankins): abi-gen things these are bignumber.js, but they are actually returned as strings
+// https://github.com/0xProject/0x-monorepo/blob/development/packages/abi-gen/src/utils.ts#L64
+type BigNumber = string;
+
 const debug = Debug("civil:contracts:{{contractName}}Contract");
-
 export class {{contractName}}Contract extends BaseContract {
-  // tslint:disable:member-ordering
-  {{> constructor}}
+// tslint:disable:member-ordering
+{{> constructor}}
 
-  // tslint:disable:variable-name
+// tslint:disable:variable-name
 {{#each methods}}
-  {{#this.constant}}
-  {{> call contractName=../contractName}}
-  {{/this.constant}}
-  {{^this.constant}}
-  {{> tx contractName=../contractName}}
-  {{/this.constant}}
+{{#this.constant}}
+{{> call contractName=../contractName}}
+{{/this.constant}}
+{{^this.constant}}
+{{> tx contractName=../contractName}}
+{{/this.constant}}
 
 {{/each}}
 {{#each events}}
-  {{> event contractName=../contractName}}
+{{> event contractName=../contractName}}
 
 {{/each}}
-  // tslint:enable:variable-name
+// tslint:enable:variable-name
 
-  private constructor(instance: Web3.ContractInstance) {
-    super(instance);
-    // Call methods access this instance while being in a sub-object, we're rebinding what
-    // "this" means for everything in this class, this also requires "noImplicitThis" to be false
-    bindNestedAll(this, ["constructor", "instance", "defaults"]);
-  }
-  // tslint:enable:member-ordering
+private constructor(instance: Contract, ethApi: EthApi) {
+super(instance, ethApi);
+// Call methods access this instance while being in a sub-object, we're rebinding what
+// "this" means for everything in this class, this also requires "noImplicitThis" to be false
+bindNestedAll(this, ["constructor", "instance", "defaults", "ethApi"]);
+}
+// tslint:enable:member-ordering
 }
 
 {{> event_types }}

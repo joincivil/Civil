@@ -1,6 +1,6 @@
 /* global artifacts */
-
 import { approveEverything, config, inTesting } from "./utils";
+import { BN } from "bn.js";
 
 const Token = artifacts.require("CVLToken");
 const DLL = artifacts.require("DLL");
@@ -20,21 +20,21 @@ module.exports = (deployer: any, network: string, accounts: string[]) => {
     // const estimate = web3.eth.estimateGas({ data: Parameterizer.bytecode });
     // console.log("Parameterizer gas cost estimate: " + estimate);
     await deployer.deploy(Parameterizer, tokenAddress, PLCRVoting.address, [
-      parameterizerConfig.minDeposit,
-      parameterizerConfig.pMinDeposit,
-      parameterizerConfig.applyStageLength,
-      parameterizerConfig.pApplyStageLength,
-      parameterizerConfig.commitStageLength,
-      parameterizerConfig.pCommitStageLength,
-      parameterizerConfig.revealStageLength,
-      parameterizerConfig.pRevealStageLength,
-      parameterizerConfig.dispensationPct,
-      parameterizerConfig.pDispensationPct,
-      parameterizerConfig.voteQuorum,
-      parameterizerConfig.pVoteQuorum,
-      parameterizerConfig.challengeAppealLength,
-      parameterizerConfig.appealChallengeCommitStageLength,
-      parameterizerConfig.appealChallengeRevealStageLength,
+      new BN(parameterizerConfig.minDeposit),
+      new BN(parameterizerConfig.pMinDeposit),
+      new BN(parameterizerConfig.applyStageLength),
+      new BN(parameterizerConfig.pApplyStageLength),
+      new BN(parameterizerConfig.commitStageLength),
+      new BN(parameterizerConfig.pCommitStageLength),
+      new BN(parameterizerConfig.revealStageLength),
+      new BN(parameterizerConfig.pRevealStageLength),
+      new BN(parameterizerConfig.dispensationPct),
+      new BN(parameterizerConfig.pDispensationPct),
+      new BN(parameterizerConfig.voteQuorum),
+      new BN(parameterizerConfig.pVoteQuorum),
+      new BN(parameterizerConfig.challengeAppealLength),
+      new BN(parameterizerConfig.appealChallengeCommitStageLength),
+      new BN(parameterizerConfig.appealChallengeRevealStageLength),
     ]);
 
     if (inTesting(network)) {

@@ -1,18 +1,19 @@
 import { EthAddress } from "@joincivil/typescript-types";
 import { CivilErrors, isDefined } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import BigNumber = require("bn.js");
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
-import * as Web3 from "web3";
-import { EthApi } from "./ethapi";
+import Web3 = require("web3");
+import { EthApi, Provider } from "./ethapi";
 
 const debug = Debug("civil:ethapi:helpers");
 
-export function detectProvider(): Web3.Provider | undefined {
+export function detectProvider(): Provider | undefined {
   // Try to use the window's injected provider
   if (hasInjectedProvider()) {
     debug("Using injected web3 provider");
     const injectedWeb3: Web3 = (window as any).web3;
+    // @ts-ignore
     return injectedWeb3.currentProvider;
   }
   return undefined;
@@ -47,12 +48,12 @@ export function toWei(value: string | BigNumber | number, unit: EthereumUnits | 
     unitValue = unit;
   }
   const unitPower = new BigNumber(unitValue);
-  return new BigNumber(value).times(unitPower);
+  return new BigNumber(value).mul(unitPower);
 }
 
 export function fromWei(value: string | BigNumber | number, unit: EthereumUnits | string): BigNumber {
   const unitPower = new BigNumber(EthereumUnits[unit as any]);
-  return new BigNumber(value).dividedBy(unitPower);
+  return new BigNumber(value).div(unitPower);
 }
 
 export enum EthereumUnits {

@@ -1,4 +1,4 @@
-declare module "bn.js";
+// declare module "bn.js";
 declare module "ipfs-http-client";
 
 declare module "*.json" {

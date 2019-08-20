@@ -51,9 +51,11 @@ const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & L
   const mapListingAddressToNewsroomListing = (listingAddresses: Set<string>) => {
     return listingAddresses
       .map(l => {
+        const newsroom = newsrooms.get(l!);
+        const listing = listings.get(l!);
         return {
-          newsroom: newsrooms.get(l!).wrapper,
-          listing: listings.get(l!).listing,
+          newsroom: newsroom && newsroom.wrapper,
+          listing: listing && listing.listing,
         };
       })
       .toSet();

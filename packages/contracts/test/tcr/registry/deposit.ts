@@ -8,6 +8,7 @@ const expect = chai.expect;
 
 const Token = artifacts.require("CVLToken");
 utils.configureProviders(Token);
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("Function: deposit", () => {
@@ -52,7 +53,7 @@ contract("Registry", accounts => {
     });
 
     it("should increase a deposit for a pending application", async () => {
-      await registry.apply(listing14, minDeposit, "", { from: applicant });
+      await registry.apply(listing14, minDeposit, ZERO_DATA, { from: applicant });
 
       await registry.deposit(listing14, incAmount, { from: applicant });
 
@@ -69,7 +70,7 @@ contract("Registry", accounts => {
       const [, , , originalDeposit] = await registry.listings(listing15);
 
       // challenge, then increase deposit
-      await registry.challenge(listing15, "", { from: challenger });
+      await registry.challenge(listing15, ZERO_DATA, { from: challenger });
       await registry.deposit(listing15, incAmount, { from: applicant });
 
       const [, , , afterIncDeposit] = await registry.listings(listing15);

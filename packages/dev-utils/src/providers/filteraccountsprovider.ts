@@ -1,4 +1,4 @@
-import { LedgerSubprovider, LedgerSubproviderConfigs } from "@0xproject/subproviders";
+import { LedgerSubprovider, LedgerSubproviderConfigs } from "@0x/subproviders";
 
 export interface FilteredConfigs extends LedgerSubproviderConfigs {
   accountId?: number;

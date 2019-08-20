@@ -2,7 +2,8 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "outDir": "build/",
-    "declarationDir": "build/"
+    "declarationDir": "build/",
+    "typeRoots": ["./node_modules/@types", "./types/"]
   },
   "include": ["./doc/**/*.ts", "./src/**/*.ts", "./test/**/*.ts"]
 }

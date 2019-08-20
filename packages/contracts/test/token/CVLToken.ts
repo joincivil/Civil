@@ -1,6 +1,6 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
-import { BigNumber } from "bignumber.js";
+import { BN } from "bn.js";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -13,7 +13,7 @@ contract("CVLToken", accounts => {
   let noOpController;
   let civilTokenController: any;
   let token: any;
-  const totalSupply = new BigNumber(1000);
+  const totalSupply = new BN(1000);
   beforeEach(async () => {
     noOpController = await NoOpTokenController.new();
     civilTokenController = await CivilTokenController.new();

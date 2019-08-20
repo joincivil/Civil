@@ -1,29 +1,30 @@
 /* global artifacts */
 
-import BN from "bignumber.js";
 import { config } from "./utils";
 import { MAIN_NETWORK } from "./utils/consts";
+import { BN } from "bn.js";
 
 const MessagesAndCodes = artifacts.require("MessagesAndCodes");
 const CivilTokenController = artifacts.require("CivilTokenController");
 const NoOpTokenController = artifacts.require("NoOpTokenController");
 const Token = artifacts.require("CVLToken");
 
-const BASE_10 = 10;
-
 module.exports = (deployer: any, network: string, accounts: string[]) => {
-  const totalSupply = new BN("100000000000000000000000000", BASE_10);
+  const totalSupply = new BN("100000000000000000000000000");
   const decimals = "18";
 
   async function giveTokensTo(addresses: string[], originalCount: number): Promise<boolean> {
     const token = await Token.deployed();
     const user = addresses[0];
-    let allocation;
-    allocation = 50000000000000000000000;
-    console.log("give " + allocation + " tokens to: " + user);
+    const allocation = new BN("50000000000000000000000");
+    console.log("give " + allocation.toString() + " tokens to: " + user);
     await token.transfer(user, allocation);
     if (network === "ganache" && !accounts.includes(user)) {
-      web3.eth.sendTransaction({ from: accounts[0], to: user, value: web3.toWei(1, "ether") });
+      await web3.eth.sendTransaction({
+        from: accounts[0],
+        to: user,
+        value: new BN(web3.utils.toWei("1", "ether")),
+      });
     }
 
     if (addresses.length === 1) {

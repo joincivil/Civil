@@ -1,8 +1,10 @@
 import * as chaiAsPromised from "chai-as-promised";
-import * as chaiBignumber from "chai-bignumber";
 import * as dirtyChai from "dirty-chai";
-import * as Web3 from "web3";
-import { DecodedLogEntry } from "@joincivil/typescript-types";
+import chaiBignumber from "./bignumber-chai";
+
+import Web3 = require("web3");
+
+import { TransactionReceipt, Log } from "web3/types";
 
 export function configureChai(chai: any): void {
   chai.config.includeStack = true;
@@ -12,30 +14,24 @@ export function configureChai(chai: any): void {
 }
 
 // TODO(ritave): Create a mock provider
-export function dummyWeb3Provider(): Web3.Provider {
+export function dummyWeb3Provider(): any {
   return new Web3.providers.HttpProvider("http://localhost:8545");
 }
 
 // TODO(ritave): Duplicated code, use web3wrapper's rpc
-export async function rpc(
-  provider: Web3.Provider,
-  method: string,
-  ...params: any[]
-): Promise<Web3.JSONRPCResponsePayload> {
-  return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
-    provider.sendAsync(
+export async function rpc(provider: any, method: string, ...params: any[]): Promise<any> {
+  // return provider.send(method, params);
+  return new Promise((resolve, reject) => {
+    provider.send(
       {
-        id: new Date().getSeconds(),
+        id: new Date().getMilliseconds(),
         jsonrpc: "2.0",
         method,
         params,
       },
-      (err, result) => {
+      (err: Error, result: any) => {
         if (err) {
           return reject(err);
-        }
-        if ((result as any).error) {
-          return reject((result as any).error);
         }
         return resolve(result);
       },
@@ -48,12 +44,14 @@ export async function advanceEvmTime(time: number): Promise<void> {
   await rpc(web3.currentProvider, "evm_mine");
 }
 
-export function getParamFromTxEvent<T>(tx: Web3.TransactionReceipt, param: string, event: string): T {
-  const eventAny = tx.logs.find(log => (log as DecodedLogEntry).event === event);
+export function getParamFromTxEvent<T>(tx: TransactionReceipt, param: string, event: string): T {
+  // @ts-ignore event exists in the log, this is a lie
+  const eventAny = tx.logs!.find(e => e.event === event);
   if (eventAny === undefined) {
     throw new Error("No event found with name: " + event);
   }
-  const foundEvent = eventAny as DecodedLogEntry;
+  const foundEvent = eventAny as Log;
+  // @ts-ignore
   const paramAny = foundEvent.args[param];
   if (paramAny === undefined) {
     throw new Error("No param found with name: " + param + " in event: " + event);

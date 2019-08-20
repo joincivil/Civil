@@ -1,7 +1,7 @@
 import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 import { toAlphabet, fromAlphabet, words, wordsToSalt, saltToWords, randomSalt } from "../src/salt";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 configureChai(chai);
 
@@ -17,13 +17,13 @@ describe("utils/salt", () => {
       "84804387",
       "95738974259872498524379",
       "957389742598724985243799573897425987249852437995738974259872498524379",
-      new BigNumber(2048).pow(10),
+      new BigNumber(2048).pow(new BigNumber(10)),
     ];
     for (const num of testNumbers) {
       const tn = typeof num === "string" ? new BigNumber(num) : num;
       const asWords = toAlphabet(tn, words);
       const asNum = fromAlphabet(asWords, words);
-      expect(tn.toFixed()).equal(asNum.toFixed());
+      expect(tn.toString()).equal(asNum.toString());
     }
   });
   it("Converts words to salt string", async () => {
@@ -32,12 +32,12 @@ describe("utils/salt", () => {
       ["life   peasant", "2657290"],
       ["life peasant   ", "2657290"],
       ["     life peasant  ", "2657290"],
-      [" abandon abandon ability", new BigNumber(2048).pow(2).toFixed()],
+      [" abandon abandon ability", new BigNumber(2048).pow(new BigNumber(2)).toString()],
     ];
     for (const [ws, salt] of strs) {
       const s = wordsToSalt(ws);
       const ts = new BigNumber(salt);
-      expect(s.toFixed()).equal(ts.toFixed());
+      expect(s.toString()).equal(ts.toString());
     }
   });
   it("Converts salt to words", async () => {
@@ -45,7 +45,7 @@ describe("utils/salt", () => {
       ["life peasant", "2657290"],
       ["fashion", "666"],
       ["angry electric feed farm", "5715147216967"],
-      ["abandon abandon ability", new BigNumber(2048).pow(2).toFixed()],
+      ["abandon abandon ability", new BigNumber(2048).pow(new BigNumber(2)).toString()],
     ];
     for (const [ws, salt] of strs) {
       const tw = saltToWords(salt).join(" ");
@@ -65,8 +65,10 @@ describe("utils/salt", () => {
       const salt = randomSalt(cnt);
       const wrds = saltToWords(salt);
 
+      console.log("ok", wrds, cnt);
       expect(wrds.length).equal(cnt);
-      expect(salt.toFixed()).equal(wordsToSalt(wrds).toFixed());
+      console.log("ok");
+      expect(salt.toString()).equal(wordsToSalt(wrds).toString());
     }
   });
 });

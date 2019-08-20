@@ -1,7 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("CVLToken.sol");
@@ -87,14 +87,17 @@ contract("Parameterizer", accounts => {
         );
 
         const proposerFinalBalance = await token.balanceOf(proposer);
-        const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
+        const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit));
         expect(proposerFinalBalance).to.be.bignumber.equal(
           proposerExpected,
           "The challenge loser's token balance is not as expected",
         );
 
         const challengerFinalBalance = await token.balanceOf.call(challenger);
-        const winnings = utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
+        const winnings = utils.multiplyByPercentage(
+          new BN(utils.paramConfig.pMinDeposit),
+          utils.paramConfig.pDispensationPct,
+        );
         const challengerExpected = challengerStartingBalance.add(winnings);
         expect(challengerFinalBalance).to.be.bignumber.equal(
           challengerExpected,

@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Helmet } from "react-helmet";
 
 import { ParamProposalState } from "@joincivil/core";

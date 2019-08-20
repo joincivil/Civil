@@ -34,12 +34,14 @@
   "homepage": "https://github.com/joincivil/Civil",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/abi-gen": "^1.0.13",
+    "@0x/abi-gen": "^3.1.2",
     "@joincivil/dev-utils": "^1.6.9",
     "@joincivil/tslint-rules": "^2.7.1",
     "@joincivil/typescript-types": "^1.4.9",
     "@types/debug": "0.0.30",
     "@types/underscore": "^1.8.6",
+    "@types/ethereumjs-util": "^5.2.0",
+    "@types/web3": "^1.0.19",
     "copyfiles": "^2.1.0",
     "npm-run-all": ">=4.1.5",
     "rimraf": "^2.6.2",
@@ -47,9 +49,9 @@
     "typescript": "^3.4.1"
   },
   "dependencies": {
-    "@joincivil/artifacts": "^1.1.9",
-    "@joincivil/ethapi": "^0.4.9",
-    "@joincivil/utils": "^1.9.9",
+    "@joincivil/artifacts": "^1.1.8",
+    "@joincivil/ethapi": "^0.4.8",
+    "@joincivil/utils": "^1.9.8",
     "bignumber.js": "~5.0.0",
     "debug": "^4.1.0",
     "ethereumjs-util": "^5.2.0",
@@ -57,6 +59,6 @@
     "events": "^3.0.0",
     "ipfs-http-client": "^29.1.1",
     "rxjs": "^5.5.6",
-    "web3": "^0.20.3"
+    "web3": "^1.2.1"
   }
 }

@@ -2,7 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   CivilContext,

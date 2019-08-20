@@ -1,5 +1,5 @@
 import * as qs from "querystring";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
@@ -537,7 +537,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
   if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
     const userBalance = new BigNumber(user.account.balance);
     const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
-    hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
+    hasMinDeposit = userBalance.gte(minDeposit);
     waitingOnGrant = waitingOnGrant && !hasMinDeposit;
   }
   const completedGrantFlow = hasMinDeposit || (typeof ownProps.grantRequested === "boolean" && !waitingOnGrant);

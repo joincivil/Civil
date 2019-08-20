@@ -30,7 +30,7 @@ const WhitelistedListingListRedux = (props: WhitelistedListingsListReduxReduxPro
     return (
       <>
         <WhitelistedTabDescription />
-        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />;
+        <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
       </>
     );
   }

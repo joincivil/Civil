@@ -7,6 +7,7 @@ import {
   canAppealChallengeBeResolved,
 } from "./appealChallengeHelper";
 import { is0x0Address } from "@joincivil/utils";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Gets the next expiration timer for the given listing, return 0 if not in an expiration timer stage
@@ -48,7 +49,7 @@ export function isInApplicationPhase(listingData: ListingData): boolean {
     return false;
   }
 
-  if (!listingData.challengeID.isZero() || listingData.isWhitelisted) {
+  if (!new BigNumber(listingData.challengeID).isZero() || listingData.isWhitelisted) {
     return false;
   }
 
@@ -74,15 +75,15 @@ export function canListingBeChallenged(listingData: ListingData): boolean {
  * @param listingData the ListingData to check
  */
 export function canBeWhitelisted(listingData: ListingData): boolean {
-  if (listingData.appExpiry.isZero()) {
+  if (new BigNumber(listingData.appExpiry).isZero()) {
     return false;
   }
   if (listingData.isWhitelisted) {
     return false;
   }
   // if expiry time has passed
-  if (new Date(listingData.appExpiry.toNumber() * 1000) < new Date()) {
-    return listingData.challengeID.isZero();
+  if (new Date(new BigNumber(listingData.appExpiry).toNumber() * 1000) < new Date()) {
+    return new BigNumber(listingData.challengeID).isZero();
   }
 
   return false;

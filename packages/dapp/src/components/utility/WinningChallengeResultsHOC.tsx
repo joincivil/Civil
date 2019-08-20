@@ -25,6 +25,8 @@ import {
   ChallengeContainerReduxProps,
 } from "./HigherOrderComponents";
 
+import { BigNumber } from "@joincivil/typescript-types";
+
 import { getAppealChallenge, getProposalChallengeByChallengeID } from "../../selectors";
 
 export interface WinningChallengeResultsProps {
@@ -63,15 +65,15 @@ export const getChallengeViewProps = (challenge: ChallengeData) => {
     votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
     votesPercent = challenge.poll.votesAgainst
       .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+      .mul(new BigNumber(100))
+      .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
     votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
     votesPercent = challenge.poll.votesFor
       .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+      .mul(new BigNumber(100))
+      .toString();
   }
   return { voteType, votesCount, votesPercent };
 };
@@ -88,15 +90,15 @@ export const getAppealChallengeViewProps = (appealChallenge: AppealChallengeData
     votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
     votesPercent = appealChallenge.poll.votesAgainst
       .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+      .mul(new BigNumber(100))
+      .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
     votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
     votesPercent = appealChallenge.poll.votesFor
       .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+      .mul(new BigNumber(100))
+      .toString();
   }
   return { voteType, votesCount, votesPercent };
 };
@@ -151,16 +153,16 @@ export const connectWinningChallengeResults = <
       votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
       votesPercent = challenge.poll.votesAgainst
         .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+        .mul(new BN(100))
+        .toString();
     } else {
       explanation = "The Civil Community voted to accept this proposal to The Civil Registry Parameters.";
       voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
       votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
       votesPercent = challenge.poll.votesFor
         .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+        .mul(new BN(100))
+        .toString();
     }
 
     const viewProps = { voteType, votesCount, votesPercent };

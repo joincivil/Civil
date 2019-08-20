@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TxHash } from "@joincivil/core";
 import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import { QuestionToolTip, OBSmallParagraph, TransactionButtonNoModal, ModalContent } from "@joincivil/components";
@@ -161,7 +161,7 @@ const ApplyToTCRForm: React.FunctionComponent<
               const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
               const token = await tcr.getToken();
               const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress);
-              if (approvedTokens.lessThan(minDeposit!)) {
+              if (approvedTokens.lt(minDeposit!)) {
                 return token.approveSpender(tcr.address, value.civil!.toBigNumber(minDeposit!));
               }
               return;
