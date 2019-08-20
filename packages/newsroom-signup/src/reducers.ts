@@ -1,6 +1,6 @@
 import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { NewsroomWrapper, EthAddress, CharterData, ListingWrapper } from "@joincivil/core";
 import {
   newsroomActions,

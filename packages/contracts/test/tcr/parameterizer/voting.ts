@@ -1,10 +1,11 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
+const ZERO_DATA = "0x";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -13,7 +14,7 @@ contract("PLCRVoting", accounts => {
   describe("Function: commitVote", () => {
     const [applicant, challenger, voter, applicant2] = accounts;
     const listingAddress1 = "0x1a5cdcFBA600e0c669795e0B65c344D5A37a4d5A";
-    const listingAddress2 = "0x2a5cdcFBA600e0c669795e0B65c344D5A37a4d5A";
+    const listingAddress2 = "0x2a5cDcfBa600e0c669795e0B65C344d5a37A4D5A";
     let registry: any;
     let voting: any;
 
@@ -24,14 +25,14 @@ contract("PLCRVoting", accounts => {
     });
 
     it("should correctly update DLL state", async () => {
-      const minDeposit = new BN(utils.paramConfig.minDeposit, 10);
+      const minDeposit = new BN(utils.paramConfig.minDeposit);
 
-      await registry.apply(listingAddress1, minDeposit, "", { from: applicant });
-      await registry.apply(listingAddress2, minDeposit, "", { from: applicant2 });
+      await registry.apply(listingAddress1, minDeposit, ZERO_DATA, { from: applicant });
+      await registry.apply(listingAddress2, minDeposit, ZERO_DATA, { from: applicant2 });
 
-      const firstChallengeReceipt = await registry.challenge(listingAddress1, "", { from: challenger });
+      const firstChallengeReceipt = await registry.challenge(listingAddress1, ZERO_DATA, { from: challenger });
       const firstPollID = firstChallengeReceipt.logs[0].args.challengeID;
-      const secondChallengeReceipt = await registry.challenge(listingAddress2, "", { from: challenger });
+      const secondChallengeReceipt = await registry.challenge(listingAddress2, ZERO_DATA, { from: challenger });
       const secondPollID = secondChallengeReceipt.logs[0].args.challengeID;
 
       await utils.commitVote(voting, firstPollID, "1", "7", "420", voter);

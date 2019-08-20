@@ -1,6 +1,6 @@
 import { EthApi } from "@joincivil/ethapi";
 import { getDefaultFromBlock } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { ChallengeData, EthAddress } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Appeal } from "./appeal";
@@ -24,12 +24,14 @@ export class Challenge {
   public async getChallengeData(): Promise<ChallengeData> {
     const resolvedVoting = await this.voting;
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
-      this.challengeId,
+      this.challengeId.toString(),
     );
     const challengeStatementURI = await this.getChallengeURI();
 
     const poll = await resolvedVoting.getPoll(this.challengeId);
-    const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(this.challengeId);
+    const requestAppealExpiry = await this.tcrInstance.challengeRequestAppealExpiries.callAsync(
+      this.challengeId.toString(),
+    );
 
     let listingAddress = this.listingAddress;
     if (!listingAddress) {
@@ -40,30 +42,36 @@ export class Challenge {
 
     return {
       challengeStatementURI,
-      rewardPool,
+      rewardPool: new BigNumber(rewardPool),
       challenger,
       resolved,
-      stake,
-      totalTokens,
+      stake: new BigNumber(stake),
+      totalTokens: new BigNumber(totalTokens),
       poll,
-      requestAppealExpiry,
+      requestAppealExpiry: new BigNumber(requestAppealExpiry),
       appeal,
     };
   }
 
   public async getListingIdForChallenge(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      ._ChallengeStream(
+        { challengeID: this.challengeId },
+        { fromBlock: getDefaultFromBlock(await this.ethApi.network()) },
+      )
       .first()
       .toPromise();
-    return challengeEvent.args.listingAddress;
+    return challengeEvent.returnValues.listingAddress;
   }
 
   private async getChallengeURI(): Promise<EthAddress> {
     const challengeEvent = await this.tcrInstance
-      ._ChallengeStream({ challengeID: this.challengeId }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      ._ChallengeStream(
+        { challengeID: this.challengeId },
+        { fromBlock: getDefaultFromBlock(await this.ethApi.network()) },
+      )
       .first()
       .toPromise();
-    return challengeEvent.args.data;
+    return challengeEvent.returnValues.data;
   }
 }

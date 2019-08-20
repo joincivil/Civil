@@ -4,7 +4,7 @@ import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { StyledFormContainer, FormGroup, InputElement, InputSelectElement } from "../utility/FormElements";
 import { updateGovernmentParameter } from "../../apis/civilTCR";
 import { TwoStepEthTransaction } from "@joincivil/core";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface GovernmentReparameterizationProps {
   paramKeys: string[];

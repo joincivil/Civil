@@ -8,7 +8,7 @@ import {
   EthAddress,
   UserChallengeData,
 } from "@joincivil/core";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import AppealChallengeCommitVote from "./AppealChallengeCommitVote";
 import AppealChallengeRevealVote from "./AppealChallengeRevealVote";
 import AppealChallengeResolve from "./AppealChallengeResolve";

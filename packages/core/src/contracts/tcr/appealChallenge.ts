@@ -1,5 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { AppealChallengeData } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
@@ -24,17 +24,17 @@ export class AppealChallenge {
   public async getAppealChallengeData(): Promise<AppealChallengeData> {
     const resolvedVoting = await this.voting;
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.tcrInstance.challenges.callAsync(
-      this.challengeId,
+      this.challengeId.toString(),
     );
     const poll = await resolvedVoting.getPoll(this.challengeId);
     const appealChallengeStatementURI = await this.getAppealChallengeURI();
 
     return {
-      rewardPool,
+      rewardPool: new BigNumber(rewardPool),
       challenger,
       resolved,
-      stake,
-      totalTokens,
+      stake: new BigNumber(stake),
+      totalTokens: new BigNumber(totalTokens),
       poll,
       appealChallengeStatementURI,
     };
@@ -47,11 +47,11 @@ export class AppealChallenge {
       const appealChallengeMadeEvent = await this.tcrInstance
         ._GrantedAppealChallengedStream(
           { challengeID: this.challengeId },
-          { fromBlock: getDefaultFromBlock(this.ethApi.network()), toBlock: currentBlock },
+          { fromBlock: getDefaultFromBlock(await this.ethApi.network()), toBlock: currentBlock },
         )
         .first()
         .toPromise();
-      return appealChallengeMadeEvent.args.data;
+      return appealChallengeMadeEvent.returnValues.data;
     } catch (e) {
       debug(`Getting ChallengeAppealURI failed for ChallengeID: ${this.challengeId}`, e);
       return;

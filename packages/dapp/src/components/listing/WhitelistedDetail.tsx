@@ -10,7 +10,7 @@ import { State } from "../../redux/reducers";
 import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
-import BigNumber from "@joincivil/ethapi/node_modules/bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;

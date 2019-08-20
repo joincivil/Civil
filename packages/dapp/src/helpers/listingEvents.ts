@@ -9,7 +9,7 @@ import {
 } from "@joincivil/core";
 import { addNewsroom, setNewsroomMultisigAddress } from "@joincivil/newsroom-signup";
 import { getDefaultFromBlock } from "@joincivil/utils";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Dispatch } from "react-redux";
 import { Subscription, Observable } from "rxjs";
 import {
@@ -283,7 +283,7 @@ export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress):
   const user = await civil.accountStream.first().toPromise();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
-  dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
+  dispatch(addNewsroom({ wrapper, address: civil.toChecksumAddress(wrapper.address), newsroom }));
   if (user && wrapper.data.owners.includes(user)) {
     const multiSigAddr = await newsroom.getMultisigAddress();
     dispatch(setNewsroomMultisigAddress(address, multiSigAddr || ""));

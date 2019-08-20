@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   ChallengeCommitVoteCard as ChallengeCommitVoteCardComponent,

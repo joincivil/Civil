@@ -1,13 +1,15 @@
 import { advanceEvmTime } from "@joincivil/dev-utils";
 import { DecodedLogEntry } from "@joincivil/typescript-types";
 import { getVoteSaltHash } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
 import * as fs from "fs";
 import { promisify } from "util";
 // We're just using types from web3
-// tslint:disable-next-line:no-implicit-dependencies
-import * as Web3 from "web3";
+import Web3 = require("web3");
 import ethApi from "./getethapi";
+import { TransactionReceipt } from "web3/types";
+import { Block, Transaction } from "web3/eth/types";
+
+import { BN } from "bn.js";
 
 // advanceEvmTime was moved to dev-utils
 // We would need to update ALL the tests, this is a workaround
@@ -52,21 +54,21 @@ export function getReceiptValue(receipt: any, arg: any): any {
 export async function getBlockTimestamp(): Promise<any> {
   const blockNumberPromise = promisify<number>(web3.eth.getBlockNumber.bind(web3.eth));
   const blockNumber = await blockNumberPromise();
-  const getBlock = promisify<number, Web3.BlockWithoutTransactionData>(web3.eth.getBlock.bind(web3.eth));
+  const getBlock = promisify<number, Block>(web3.eth.getBlock.bind(web3.eth));
   return (await getBlock(blockNumber)).timestamp;
 }
 
-export async function timestampFromTx(web3: Web3, tx: Web3.Transaction | Web3.TransactionReceipt): Promise<number> {
+export async function timestampFromTx(web3: Web3, tx: Transaction | TransactionReceipt): Promise<number> {
   if (tx.blockNumber === null) {
     throw new Error("Transaction not yet mined");
   }
-  const getBlock = promisify<number, Web3.BlockWithoutTransactionData>(web3.eth.getBlock.bind(web3.eth));
-  return (await getBlock(tx.blockNumber)).timestamp;
+
+  return (await web3.eth.getBlock(tx.blockNumber)).timestamp as number;
 }
 
 export async function proposeReparamAndGetPropID(
   propName: string,
-  propValue: BigNumber,
+  propValue: BN,
   parameterizer: any,
   account: string,
 ): Promise<any> {
@@ -75,12 +77,12 @@ export async function proposeReparamAndGetPropID(
 }
 
 export async function challengeAndGetPollID(listing: string, account: string, registry: any): Promise<string> {
-  const receipt = await registry.challenge(listing, "", { from: account });
+  const receipt = await registry.challenge(listing, "0x", { from: account });
   return receipt.logs[0].args.challengeID;
 }
 
 export async function challengeAppealAndGetPollID(listing: string, account: string, registry: any): Promise<string> {
-  const receipt = await registry.challengeGrantedAppeal(listing, "", { from: account });
+  const receipt = await registry.challengeGrantedAppeal(listing, "0x", { from: account });
   return receipt.logs[0].args.appealChallengeID;
 }
 
@@ -101,7 +103,7 @@ export async function simpleSuccessfulChallenge(
   salt: string = "123",
 ): Promise<string> {
   const votingAddress = await registry.voting();
-  const voting = PLCRVoting.at(votingAddress);
+  const voting = await PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
   await commitVote(voting, pollID, "0", "100", salt, voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
@@ -118,7 +120,7 @@ export async function simpleUnsuccessfulChallenge(
   salt: string = "420",
 ): Promise<string> {
   const votingAddress = await registry.voting();
-  const voting = PLCRVoting.at(votingAddress);
+  const voting = await PLCRVoting.at(votingAddress);
   const pollID = await challengeAndGetPollID(listing, challenger, registry);
   await commitVote(voting, pollID, "1", "100", salt, voter);
   await advanceEvmTime(paramConfig.commitStageLength + 1);
@@ -135,7 +137,7 @@ export async function simpleSuccessfulAppealChallenge(
   salt: string = "123",
 ): Promise<string> {
   const votingAddress = await registry.voting();
-  const voting = PLCRVoting.at(votingAddress);
+  const voting = await PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
   await commitVote(voting, pollID, "1", "100", salt, voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
@@ -152,7 +154,7 @@ export async function simpleUnsuccessfulAppealChallenge(
   salt: string = "420",
 ): Promise<string> {
   const votingAddress = await registry.voting();
-  const voting = PLCRVoting.at(votingAddress);
+  const voting = await PLCRVoting.at(votingAddress);
   const pollID = await challengeAppealAndGetPollID(listing, challenger, registry);
   await commitVote(voting, pollID, "0", "100", salt, voter);
   await advanceEvmTime(paramConfig.appealChallengeCommitStageLength + 1);
@@ -163,39 +165,46 @@ export async function simpleUnsuccessfulAppealChallenge(
 
 export async function addToWhitelist(
   listingAddress: string,
-  deposit: BigNumber,
+  deposit: BN,
   account: string,
   registry: any,
 ): Promise<void> {
-  await registry.apply(listingAddress, deposit, "", { from: account });
+  await registry.apply(listingAddress, deposit, "0x", { from: account });
   await advanceEvmTime(paramConfig.applyStageLength + 1);
   await registry.updateStatus(listingAddress, { from: account });
 }
 
-export function getChallengeReward(): BigNumber {
-  const reward = paramConfig.minDeposit - paramConfig.minDeposit * (1 - paramConfig.dispensationPct / 100);
-  return new BigNumber(reward);
+export function getChallengeReward(): BN {
+  const reward = new BN(100)
+    .sub(new BN(paramConfig.dispensationPct))
+    .mul(new BN(paramConfig.minDeposit))
+    .div(new BN(100));
+
+  return reward;
 }
 
-export function getAppealChallengeReward(): BigNumber {
-  const reward =
-    paramConfig.appealFeeAmount -
-    paramConfig.appealFeeAmount * (1 - paramConfig.appealChallengeVoteDispensationPct / 100);
-  return new BigNumber(reward);
+export function getAppealChallengeReward(): BN {
+  const fee = new BN(paramConfig.appealFeeAmount);
+  const reward = new BN(100)
+    .sub(new BN(paramConfig.appealChallengeVoteDispensationPct))
+    .mul(fee)
+    .div(new BN(100));
+
+  return fee.sub(reward);
 }
 
-export function getTotalVoterReward(): BigNumber {
-  const totalVoterReward = new BigNumber(paramConfig.minDeposit).sub(getChallengeReward());
+export function getTotalVoterReward(): BN {
+  const totalVoterReward = new BN(paramConfig.minDeposit).sub(getChallengeReward());
   return totalVoterReward;
 }
 
-export function getTotalAppealChallengeVoterReward(): BigNumber {
-  const totalVoterReward = new BigNumber(paramConfig.appealFeeAmount).sub(getAppealChallengeReward());
+export function getTotalAppealChallengeVoterReward(): BN {
+  const totalVoterReward = new BN(paramConfig.appealFeeAmount).sub(getAppealChallengeReward());
   return totalVoterReward;
 }
 
-export function toBaseTenBigNumber(p: number): BigNumber {
-  return new BigNumber(p.toString(10), 10);
+export function toBaseTenBigNumber(p: number): BN {
+  return new BN(p.toString(10));
 }
 
 export async function commitVote(
@@ -213,29 +222,25 @@ export async function commitVote(
   await voting.commitVote(pollID, hash, tokensArg, prevPollID, { from: voter });
 }
 
-export function divideAndGetWei(numerator: number, denominator: number): BigNumber {
-  const weiNumerator = web3.toWei(new BigNumber(numerator), "gwei");
-  return weiNumerator.div(new BigNumber(denominator));
+export function divideAndGetWei(numerator: number | BN, denominator: number): BN {
+  const weiNumerator = new BN(web3.utils.toWei(numerator.toString(), "gwei"));
+  return weiNumerator.div(new BN(denominator));
 }
 
-export function multiplyFromWei(x: number, weiBN: BigNumber): BigNumber {
-  const weiProduct = new BigNumber(x).mul(weiBN);
-  return new BigNumber(web3.fromWei(weiProduct, "gwei"));
+export function multiplyFromWei(x: number | BN, weiBN: BN): BN {
+  const xBN = typeof x === "number" ? new BN(x) : x;
+  const weiProduct = xBN.mul(weiBN);
+  return new BN(web3.utils.fromWei(weiProduct.toString(), "gwei"));
 }
 
-export function multiplyByPercentage(x: number, y: number, z: number = 100): BigNumber {
+export function multiplyByPercentage(x: number | BN, y: number | BN, z: number = 100): BN {
   const weiQuotient = divideAndGetWei(y, z);
   return multiplyFromWei(x, weiQuotient);
 }
 
-async function giveTokensTo(
-  totalSupply: BigNumber,
-  addresses: string[],
-  accounts: string[],
-  token: any,
-): Promise<boolean> {
+async function giveTokensTo(totalSupply: BN, addresses: string[], accounts: string[], token: any): Promise<boolean> {
   const user = addresses[0];
-  const allocation = totalSupply.div(new BigNumber(accounts.length, 10));
+  const allocation = totalSupply.div(new BN(accounts.length));
   await token.transfer(user, allocation);
 
   if (addresses.length === 1) {
@@ -244,7 +249,7 @@ async function giveTokensTo(
   return giveTokensTo(totalSupply, addresses.slice(1), accounts, token);
 }
 
-async function createAndDistributeToken(totalSupply: BigNumber, decimals: string, addresses: string[]): Promise<any> {
+async function createAndDistributeToken(totalSupply: BN, decimals: string, addresses: string[]): Promise<any> {
   const controller = await NoOpTokenController.new();
   const token = await Token.new(totalSupply, "TestCoin", decimals, "TEST", controller.address);
   await giveTokensTo(totalSupply, addresses, addresses, token);
@@ -303,7 +308,7 @@ async function createTestCivilTCRInstance(
     parameterizerConfig.judgeAppealPhaseLength,
     parameterizerConfig.appealSupermajorityPercentage,
     parameterizerConfig.appealChallengeVoteDispensationPct,
-    parameterizerConfig.govtPDeposit,
+    0,
     parameterizerConfig.govtPCommitStageLength,
     parameterizerConfig.govtPRevealStageLength,
     parameterizerConfig.constitutionHash,
@@ -317,7 +322,7 @@ async function createTestCivilTCRInstance(
 }
 
 async function createTestTokenInstance(accounts: string[]): Promise<any> {
-  return createAndDistributeToken(new BigNumber("1000000000000000000000000"), "18", accounts);
+  return createAndDistributeToken(new BN("1000000000000000000000000"), "18", accounts);
 }
 
 async function createTestPLCRInstance(token: any, telemetry: any, accounts: string[]): Promise<any> {
@@ -402,7 +407,7 @@ export async function createAllCivilTCRInstance(accounts: string[], appellateEnt
 }
 
 export async function createDummyNewsrom(from?: string): Promise<any> {
-  return Newsroom.new("Fake newsroom name", "http://fakenewsroomcharter.com", web3.sha3(), { from });
+  return Newsroom.new("Fake newsroom name", "http://fakenewsroomcharter.com", web3.utils.sha3("hello"), { from });
 }
 
 export function configureProviders(...contracts: any[]): void {

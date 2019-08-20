@@ -1,6 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { REVERTED_CALL } from "../../utils/constants";
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
@@ -21,7 +22,7 @@ contract("PLCRVoting", accounts => {
     });
 
     it("should return false if poll does not exists.", async () => {
-      await expect(voting.didCommit(voterAlice, 123)).to.eventually.be.false();
+      await expect(voting.didCommit(voterAlice, 123)).to.eventually.be.rejectedWith(REVERTED_CALL);
     });
 
     it("should return false before vote committed", async () => {

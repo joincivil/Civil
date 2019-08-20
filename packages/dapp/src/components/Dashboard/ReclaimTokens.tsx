@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Set } from "immutable";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {

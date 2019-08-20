@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { ParamProposalState } from "@joincivil/core";
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";

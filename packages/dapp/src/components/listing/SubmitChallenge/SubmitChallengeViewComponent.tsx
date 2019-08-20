@@ -3,7 +3,7 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -235,9 +235,11 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   private getTransactions = (): any[] => {
+    console.log("getTransactions");
     return [
       {
         transaction: async () => {
+          console.log("getTransactions", approveForChallenge);
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,

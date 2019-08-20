@@ -1,5 +1,6 @@
 {
   "name": "@joincivil/ethapi",
+  "homepage": "https://github.com/joincivil/Civil",
   "version": "0.4.9",
   "description": "An abstraction of Ethereum communication",
   "main": "build/index.js",
@@ -13,6 +14,8 @@
   "author": "The Civil Media Company",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@types/web3": "^1.0.19",
+    "@joincivil/typescript-types": "^1.4.8",
     "@types/debug": "^0.0.30",
     "@types/lodash": "^4.14.99",
     "typescript": "^3.4.1"
@@ -20,15 +23,20 @@
   "bugs": {
     "url": "https://github.com/joincivil/Civil/issues"
   },
-  "homepage": "https://github.com/joincivil/Civil",
   "dependencies": {
-    "@joincivil/typescript-types": "^1.4.9",
     "@joincivil/utils": "^1.9.9",
-    "bignumber.js": "^5.0.0",
+    "bn.js": "4.11.6",
     "debug": "^4.1.0",
+    "ethereumjs-abi": "^0.6.7",
     "ethereumjs-util": "^5.2.0",
     "lodash": "^4.17.10",
     "rxjs": "^5.5.6",
-    "web3": "^0.20.3"
+    "web3": "^1.2.1",
+    "web3-core": "^1.2.1",
+    "web3-eth": "^1.2.1",
+    "web3-eth-abi": "^1.2.1",
+    "web3-eth-contract": "^1.2.1",
+    "web3-providers": "^1.0.0-beta.55",
+    "web3-utils": "^1.2.1"
   }
 }

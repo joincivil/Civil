@@ -1,8 +1,8 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
 import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("CVLToken");
@@ -10,6 +10,8 @@ utils.configureProviders(Parameterizer, Token);
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
+const hundred = new BN(100);
 
 contract("Registry", accounts => {
   describe("Function: challenge", () => {
@@ -36,7 +38,7 @@ contract("Registry", accounts => {
     it("should successfully challenge an application", async () => {
       const challengerStartingBalance = await token.balanceOf.call(challenger);
 
-      await registry.apply(listing3, minDeposit, "", { from: applicant });
+      await registry.apply(listing3, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, listing3, challenger, voter);
       await registry.updateStatus(listing3);
 
@@ -45,7 +47,10 @@ contract("Registry", accounts => {
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
       const expectedFinalBalance = challengerStartingBalance.add(
-        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))),
+        hundred
+          .sub(new BN(utils.paramConfig.dispensationPct))
+          .mul(minDeposit)
+          .div(hundred),
       );
       expect(challengerFinalBalance).to.be.bignumber.equal(
         expectedFinalBalance,
@@ -54,17 +59,17 @@ contract("Registry", accounts => {
     });
 
     it("should fail if challenge is already in progress", async () => {
-      await registry.apply(listing3, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing3, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       await utils.challengeAndGetPollID(listing3, challenger, registry);
-      await expect(registry.challenge(listing3, "", { from: challenger })).to.eventually.be.rejectedWith(
+      await expect(registry.challenge(listing3, ZERO_DATA, { from: challenger })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have allowed user to challenge listing currently undergoing a challenge",
       );
     });
 
     it("should fail if challenger has not approved registry as spender of token", async () => {
-      await registry.apply(listing3, utils.paramConfig.minDeposit, "", { from: applicant });
-      await expect(registry.challenge(listing3, "", { from: unapproved })).to.eventually.be.rejectedWith(
+      await registry.apply(listing3, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
+      await expect(registry.challenge(listing3, ZERO_DATA, { from: unapproved })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have allowed challenge if challenger has not approved registry as spender of token",
       );
@@ -82,7 +87,10 @@ contract("Registry", accounts => {
 
       const challengerFinalBalance = await token.balanceOf.call(challenger);
       const expectedFinalBalance = challengerStartingBalance.add(
-        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))),
+        hundred
+          .sub(new BN(utils.paramConfig.dispensationPct))
+          .mul(minDeposit)
+          .div(hundred),
       );
       expect(challengerFinalBalance).to.be.bignumber.equal(
         expectedFinalBalance,
@@ -91,7 +99,7 @@ contract("Registry", accounts => {
     });
 
     it("should unsuccessfully challenge an application", async () => {
-      await registry.apply(listing5, minDeposit, "", { from: applicant });
+      await registry.apply(listing5, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleUnsuccessfulChallenge(registry, listing5, challenger, voter);
       await registry.updateStatus(listing5);
 
@@ -99,7 +107,10 @@ contract("Registry", accounts => {
       expect(isWhitelisted).to.be.true("An application which should have succeeded failed");
 
       const expectedUnstakedDeposit = minDeposit.add(
-        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))),
+        hundred
+          .sub(new BN(utils.paramConfig.dispensationPct))
+          .mul(minDeposit)
+          .div(hundred),
       );
       expect(unstakedDeposit).to.be.bignumber.equal(
         expectedUnstakedDeposit,
@@ -116,7 +127,10 @@ contract("Registry", accounts => {
       expect(isWhitelisted).to.be.true("An application which should have succeeded failed");
 
       const expectedUnstakedDeposit = minDeposit.add(
-        minDeposit.mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(utils.toBaseTenBigNumber(100))),
+        hundred
+          .sub(new BN(utils.paramConfig.dispensationPct))
+          .mul(minDeposit)
+          .div(hundred),
       );
       expect(unstakedDeposit).to.be.bignumber.equal(
         expectedUnstakedDeposit,
@@ -125,7 +139,7 @@ contract("Registry", accounts => {
     });
 
     it("should touch-and-remove a listing with a depost below the current minimum", async () => {
-      const newMinDeposit = minDeposit.add(1);
+      const newMinDeposit = minDeposit.add(new BN(1));
 
       const applicantStartingBal = await token.balanceOf(applicant);
 
@@ -139,7 +153,7 @@ contract("Registry", accounts => {
       await parameterizer.processProposal(propID);
 
       const challengerStartingBal = await token.balanceOf(challenger);
-      await registry.challenge(listing7, "", { from: challenger });
+      await registry.challenge(listing7, ZERO_DATA, { from: challenger });
 
       const [, isWhitelisted] = await registry.listings(listing7);
       expect(isWhitelisted).to.be.false("Listing was not removed");

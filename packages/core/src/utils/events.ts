@@ -5,6 +5,6 @@ import { TimestampedEvent } from "../types";
 export function createTimestampedEvent<T extends DecodedLogEntryEvent>(ethApi: EthApi, event: T): TimestampedEvent<T> {
   // tslint:disable-next-line
   return Object.assign({}, event, {
-    timestamp: async () => (await ethApi.getBlock(event.blockNumber!)).timestamp,
+    timestamp: async () => (await ethApi.getBlock(event.blockNumber!)).timestamp as number,
   });
 }

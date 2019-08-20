@@ -1,5 +1,5 @@
 import { EthAddress } from "@joincivil/core";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface SubmitChallengeProps {
   history?: any;

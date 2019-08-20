@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { createSelector } from "reselect";
 import { Set, Map, List } from "immutable";
 import {

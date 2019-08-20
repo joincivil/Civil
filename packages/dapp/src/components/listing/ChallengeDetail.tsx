@@ -3,7 +3,7 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import {
   canRequestAppeal,
   doesChallengeHaveAppeal,
@@ -13,7 +13,6 @@ import {
   NewsroomWrapper,
   WrappedChallengeData,
   didUserCommit,
-  TxDataAll,
 } from "@joincivil/core";
 import {
   ChallengeRequestAppealCard,

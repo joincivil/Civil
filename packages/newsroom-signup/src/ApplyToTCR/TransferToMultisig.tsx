@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TxHash } from "@joincivil/core";
 import {
   OBCollapsable,
@@ -80,7 +80,7 @@ const TransferToMultisigComponent: React.FunctionComponent<
 > = props => {
   const transformFormLeftColWidth = "126px";
   const { minDeposit, userBalance, multisigBalance, transactions } = props;
-  const tokenAmountToTransfer = minDeposit.minus(multisigBalance);
+  const tokenAmountToTransfer = minDeposit.sub(multisigBalance);
 
   return (
     <OBCollapsable
@@ -146,7 +146,7 @@ const TransferToMultisig: React.FunctionComponent<
     <CivilContext.Consumer>
       {(value: CivilContextValue) => {
         const { multisigAddress, minDeposit, multisigBalance, postTransfer } = props;
-        const tokenAmountToTransfer = minDeposit.minus(multisigBalance);
+        const tokenAmountToTransfer = minDeposit.sub(multisigBalance);
         const transactions = [
           {
             transaction: async () => {

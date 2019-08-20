@@ -1,28 +1,35 @@
-import BigNumber from "bignumber.js";
-import * as Web3 from "web3";
+import { Log, TransactionReceipt } from "web3/types";
+
+// make sure that typescript-types/ethers is using the same version as web3's abi-encoder ether
+import { utils } from "ethers";
+
+export type BigNumber = utils.BigNumber;
+export const BigNumber = utils.BigNumber;
+export const bigNumberify = utils.bigNumberify;
+
+import { ABIDefinition as AbiItem } from "web3/eth/abi";
+
+// this isn't exported: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/web3/eth/contract.d.ts#L6
+export interface ContractOptions {
+  address?: string;
+  jsonInterface?: AbiItem[];
+  data?: string;
+  from?: string;
+  gasPrice?: string;
+  gas?: number;
+}
 
 export interface DecodedLogBase<A, E extends string> {
   event: E;
+  returnValues: A;
   args: A;
 }
 
-export interface DecodedLogEntry<A = any, E extends string = string> extends Web3.LogEntry, DecodedLogBase<A, E> {}
+export interface DecodedLogEntry<A = any, E extends string = string> extends Log, DecodedLogBase<A, E> {}
 
-export interface DecodedLogEntryEvent<A = any, E extends string = string>
-  extends DecodedLogBase<A, E>,
-    Web3.LogEntryEvent {}
+export interface DecodedLogEntryEvent<A = any, E extends string = string> extends DecodedLogBase<A, E>, Log {}
 
-export interface DecodedTransactionReceipt<L extends Web3.LogEntry = Web3.LogEntry> {
-  blockHash: string;
-  blockNumber: number;
-  transactionHash: string;
-  transactionIndex: number;
-  from: string;
-  to: string;
-  status: null | string | 0 | 1;
-  cumulativeGasUsed: number;
-  gasUsed: number;
-  contractAddress: string | null;
+export interface DecodedTransactionReceipt<L extends Log = Log> extends TransactionReceipt {
   logs: L[];
 }
 
@@ -53,32 +60,6 @@ export interface EthSignedMessage extends EthSignedMessageRecovery {
   // Recovery value + 27
   v: Hex;
   signer: EthAddress;
-}
-
-export interface TxDataBase {
-  gas?: number | string | BigNumber;
-  gasPrice?: number | string | BigNumber;
-  nonce?: number;
-  data?: string;
-}
-
-export interface TxData extends TxDataBase {
-  from?: EthAddress;
-}
-
-export interface TxDataPayable extends TxData {
-  value: number | string | BigNumber;
-}
-
-export interface TxDataAll extends Partial<TxDataPayable> {
-  to?: EthAddress;
-}
-
-export interface TransactionObject extends TxDataBase {
-  from: EthAddress;
-  value?: number | string | BigNumber;
-  to?: EthAddress;
-  data?: string;
 }
 
 export type Bytes32 = string;

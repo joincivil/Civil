@@ -7,7 +7,7 @@ import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from 
 import { ModalContent } from "@joincivil/components/build/ReviewVote/styledComponents";
 import { compose } from "redux";
 import { getCivil } from "../../helpers/civilInstance";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
 

@@ -21,7 +21,6 @@
     "@types/sanitize-html": "^1.14.0",
     "@types/storejs": "^2.0.2",
     "apollo-boost": "^0.1.16",
-    "bignumber.js": "~5.0.0",
     "connected-react-router": "^6.3.1",
     "diff": "^4.0.1",
     "graphql": "^14.0.2",
@@ -51,14 +50,15 @@
     "sort-by": "^1.2.0",
     "store": "^2.0.12",
     "styled-components": "^3.2.5",
-    "web3-providers-ws": "1.0.0-beta.33"
+    "web3-providers-http": "^1.2.1",
+    "web3-providers-ws": "^1.2.1"
   },
   "resolutions": {
     "styled-components": "3.2.5"
   },
   "scripts": {
     "start": "react-app-rewired --max_old_space_size=4096 start",
-    "build": "react-app-rewired --max_old_space_size=4096 build",
+    "build": "CI=false react-app-rewired --max_old_space_size=4096 build",
     "test": "echo \"no tests\"",
     "eject": "react-scripts eject",
     "lint": "tslint --project ./",

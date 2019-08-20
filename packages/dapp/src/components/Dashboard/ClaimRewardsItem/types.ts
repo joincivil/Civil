@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { UserChallengeData } from "@joincivil/core";
 
 export interface ClaimRewardsItemOwnProps {

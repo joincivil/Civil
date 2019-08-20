@@ -1,7 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
-import { BigNumber } from "bignumber.js";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const Government = artifacts.require("Government");
 const PLCRVoting = artifacts.require("PLCRVoting");
@@ -25,7 +25,7 @@ contract("Government", accounts => {
     it("judgeAppealLen value should be same as in config after deployment", async () => {
       const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
-        new BigNumber(utils.paramConfig.judgeAppealPhaseLength),
+        new BN(utils.paramConfig.judgeAppealPhaseLength),
         "judgeAppealLen was not equal to value in config immediately after deployment",
       );
     });
@@ -41,7 +41,7 @@ contract("Government", accounts => {
       await government.processProposal(propID, { from: nobody });
       const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
-        new BigNumber(100),
+        new BN(100),
         "judgeAppealLen was not equal to value it was set to",
       );
     });

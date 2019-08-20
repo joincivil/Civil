@@ -39,28 +39,25 @@
   "author": "The Civil Media Company",
   "license": "LGPL-2.1",
   "devDependencies": {
-    "@0xproject/sol-cov": "^2.0.0",
-    "@0xproject/subproviders": "^1.0.0",
     "@joincivil/dev-utils": "^1.6.9",
     "@joincivil/doxity": "^0.0.1",
     "@joincivil/ethapi": "^0.4.9",
     "@joincivil/tslint-rules": "^2.7.1",
     "@joincivil/typescript-types": "^1.4.9",
     "@joincivil/utils": "^1.9.9",
-    "@ledgerhq/hw-app-eth": "^4.24.0",
     "@types/chai": "^4.0.10",
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.12.0",
     "@types/underscore": "^1.8.6",
-    "bignumber.js": "~5.0.0",
+    "@types/web3": "^1.0.19",
+    "bn.js": "^4.11.8",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
-    "chai-bignumber": "^2.0.2",
     "dirty-chai": "^2.0.1",
-    "ethereumjs-abi": "^0.6.5",
     "ethereumjs-util": "^5.2.0",
+    "ethers": "^4.0.33",
     "glob": "^7.1.2",
     "istanbul": "^0.4.5",
     "mkdirp": "^0.5.1",
@@ -68,14 +65,17 @@
     "rimraf": "^2.6.2",
     "solium": "github:duaraghav8/Solium#develop",
     "solium-plugin-security": "^0.1.1",
-    "truffle": "~4.1.7",
-    "truffle-hdwallet-provider": "^0.0.6",
+    "truffle": "~5.0.29",
+    "truffle-hdwallet-provider": "^1.0.15",
     "tslint": "^5.9.1",
     "typescript": "^3.4.1",
-    "web3": "^0.20.3",
-    "web3-provider-engine": "^14.0.6"
+    "web3": "^1.2.1",
+    "web3-core": "^1.2.1",
+    "web3-eth": "^1.2.1",
+    "web3-provider-engine": "^14.0.6",
+    "web3-providers-http": "^1.2.1"
   },
-  "peerDependencies": {
-    "@ledgerhq/hw-transport-node-hid": "^4.24.0"
+  "dependencies": {
+    "chai-bignumber": "^3.0.0"
   }
 }

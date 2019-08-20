@@ -13,6 +13,11 @@ Sentry.init({
   dsn: config.SENTRY_DSN,
   environment: config.ENVIRONMENT,
   release: config.APP_VERSION,
+  integrations(integrations: any[]): any[] {
+    return integrations.filter(
+      integration => integration.name !== "Breadcrumbs" || config.ENVIRONMENT === "production",
+    );
+  },
 });
 
 ReactDOM.render(

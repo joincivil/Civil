@@ -1,13 +1,14 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
 import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 configureChai(chai);
 const expect = chai.expect;
 const Parameterizer = artifacts.require("CivilParameterizer");
 utils.configureProviders(Parameterizer);
+const ZERO_DATA = "0x";
 
 contract("AddressRegistry", accounts => {
   describe("Function: apply", () => {
@@ -20,11 +21,11 @@ contract("AddressRegistry", accounts => {
     beforeEach(async () => {
       registry = await utils.createAllTestAddressRegistryInstance(accounts);
       const parameterizerAddr = await registry.parameterizer();
-      parameterizer = Parameterizer.at(parameterizerAddr);
+      parameterizer = await Parameterizer.at(parameterizerAddr);
     });
 
     it("should allow a new listing to apply", async () => {
-      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(listing1);
 
       // check that Application is initialized correctly
@@ -36,7 +37,7 @@ contract("AddressRegistry", accounts => {
 
     it("should fail if applicant has not approved registry as spender of token", async () => {
       await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: unapproved }),
+        registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: unapproved }),
       ).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have allowed applicant to apply if they have not approved registry as spender",
@@ -44,22 +45,21 @@ contract("AddressRegistry", accounts => {
     });
 
     it("should fail if deposit is less than minimum required", async () => {
-      const deposit = new BN(utils.paramConfig.minDeposit).sub(1);
-      await expect(registry.apply(listing1, deposit.toString(), "", { from: applicant })).to.eventually.be.rejectedWith(
-        REVERTED,
-        "should not have allowed application with deposit less than minimum",
-      );
+      const deposit = new BN(utils.paramConfig.minDeposit).sub(new BN(1));
+      await expect(
+        registry.apply(listing1, deposit.toString(), ZERO_DATA, { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED, "should not have allowed application with deposit less than minimum");
     });
 
     it("should not allow a listing to apply which has a pending application", async () => {
-      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+        registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
-      await registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
       await registry.updateStatus(listing1);
       const [, isWhitelisted] = await registry.listings(listing1);
@@ -69,7 +69,7 @@ contract("AddressRegistry", accounts => {
     it("should not allow a listing to apply which is already listed", async () => {
       await utils.addToWhitelist(listing1, utils.paramConfig.minDeposit, applicant, registry);
       await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+        registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
 
@@ -77,10 +77,10 @@ contract("AddressRegistry", accounts => {
       // calculate an applyStageLen which when added to the current block time will be greater
       // than 2^256 - 1
       const blockTimestamp = await utils.getBlockTimestamp();
-      const maxEVMuint = new BN("2").pow(256).minus(1);
-      const applyStageLen = maxEVMuint.minus(blockTimestamp).plus("1");
+      const maxEVMuint = new BN(2).pow(new BN(256)).sub(new BN(1));
+      const applyStageLen = maxEVMuint.sub(new BN(blockTimestamp)).add(new BN(1));
 
-      const receipt = await parameterizer.proposeReparameterization("applyStageLen", applyStageLen.toString(10), {
+      const receipt = await parameterizer.proposeReparameterization("applyStageLen", applyStageLen.toString(), {
         from: proposer,
       });
       const { propID } = receipt.logs[0].args;
@@ -97,7 +97,7 @@ contract("AddressRegistry", accounts => {
       );
 
       await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+        registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
       ).to.eventually.be.rejected("should not have allowed applicant to apply if application expiry would overflow");
     });
   });

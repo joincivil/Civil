@@ -7,6 +7,7 @@ utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("Function: claimReward", () => {
@@ -23,7 +24,7 @@ contract("Registry", accounts => {
     });
 
     it("should transfer the correct number of tokens once a challenge has been resolved", async () => {
-      await registry.apply(listing8, minDeposit, "", { from: applicant });
+      await registry.apply(listing8, minDeposit, ZERO_DATA, { from: applicant });
 
       const pollID = await utils.challengeAndGetPollID(listing8, challenger, registry);
 

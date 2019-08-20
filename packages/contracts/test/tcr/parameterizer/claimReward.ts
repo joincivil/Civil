@@ -3,6 +3,8 @@ import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
 
+import { BN } from "bn.js";
+
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 const Token = artifacts.require("CVLToken.sol");
 utils.configureProviders(PLCRVoting, Token);
@@ -50,11 +52,8 @@ contract("Parameterizer", accounts => {
       const voterAliceFinalBalance = await token.balanceOf.call(voterAlice);
       const voterAliceExpected = voterAliceStartingBalance.add(
         utils.multiplyByPercentage(
-          utils.paramConfig.pMinDeposit,
-          utils
-            .toBaseTenBigNumber(100)
-            .sub(utils.toBaseTenBigNumber(utils.paramConfig.pDispensationPct))
-            .toNumber(),
+          new BN(utils.paramConfig.pMinDeposit),
+          utils.toBaseTenBigNumber(100).sub(utils.toBaseTenBigNumber(utils.paramConfig.pDispensationPct)),
         ),
       );
       expect(voterAliceFinalBalance).to.be.bignumber.equal(voterAliceExpected);
@@ -88,9 +87,8 @@ contract("Parameterizer", accounts => {
       await voting.withdrawVotingRights("20", { from: voterBob });
 
       // TODO: do better than approximately.
-      expect(voterBobReward.toNumber(10)).to.be.closeTo(
-        voterAliceReward.mul(utils.toBaseTenBigNumber(2)).toNumber(10),
-        2,
+      expect(voterBobReward.sub(new BN(2))).to.bignumber.equal(
+        voterAliceReward.mul(utils.toBaseTenBigNumber(2)),
         "Rewards were not properly distributed between voters",
       );
       // TODO: add asserts for final balances

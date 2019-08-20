@@ -5,10 +5,12 @@ import { BaseContract } from "./basecontract";
 export class BaseWrapper<InstanceType extends BaseContract> {
   protected instance: InstanceType;
   protected ethApi: EthApi;
+  protected defaultBlock: number;
 
-  constructor(ethApi: EthApi, instance: InstanceType) {
+  constructor(ethApi: EthApi, instance: InstanceType, defaultBlock: number) {
     this.instance = instance;
     this.ethApi = ethApi;
+    this.defaultBlock = defaultBlock;
   }
 
   /**

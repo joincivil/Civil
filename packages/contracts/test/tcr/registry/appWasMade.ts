@@ -5,6 +5,7 @@ import * as utils from "../../utils/contractutils";
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
 
 contract("AddressRegistry", accounts => {
   describe("Function: appWasMade", () => {
@@ -21,7 +22,7 @@ contract("AddressRegistry", accounts => {
 
     it("should return true if applicationExpiry was previously initialized", async () => {
       // Apply
-      await registry.apply(listing2, minDeposit, "", { from: applicant });
+      await registry.apply(listing2, minDeposit, ZERO_DATA, { from: applicant });
       const result = await registry.appWasMade(listing2);
       expect(result).to.be.true("should have returned true for the applied listing");
 

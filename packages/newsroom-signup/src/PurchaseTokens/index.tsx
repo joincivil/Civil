@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as qs from "querystring";
 import styled from "styled-components";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { connect } from "react-redux";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
@@ -217,7 +217,7 @@ const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps): Pur
     ...ownProps,
     userCvlBalance: userBalance,
     minDeposit,
-    hasMinDeposit: userBalance.greaterThanOrEqualTo(minDeposit),
+    hasMinDeposit: userBalance.gte(minDeposit),
   };
 };
 

@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Map } from "immutable";
 import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml, is0x0Address } from "@joincivil/utils";

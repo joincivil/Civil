@@ -9,6 +9,8 @@ const expect = chai.expect;
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
 
+const ZERO_DATA = "0x";
+
 contract("Registry With Appeals", accounts => {
   describe("Function: challengeGrantedAppeal", () => {
     const [JAB, applicant, challenger, voter, challenger2] = accounts;
@@ -36,23 +38,23 @@ contract("Registry With Appeals", accounts => {
 
       it("should fail if no application has been made", async () => {
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(REVERTED, "Should not have allowed grant appeal on non-existent application");
       });
 
       it("should fail if application is in progress", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(REVERTED, "Should not have allowed grant appeal on application in progress");
       });
 
       it("should fail if challenge is in progress", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed grant appeal on application with challenge in progress",
@@ -60,7 +62,7 @@ contract("Registry With Appeals", accounts => {
 
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed grant appeal on application with challenge in progress",
@@ -68,7 +70,7 @@ contract("Registry With Appeals", accounts => {
 
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed grant appeal on application with challenge not yet resolved",
@@ -76,12 +78,12 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should fail if challenge is lost and status is updated, but appeal not requested", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with failed challenge that has been processed",
@@ -89,12 +91,12 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should fail if challenge is lost, status is updated, and request phase has ended", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
         await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength + 1);
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed grant appeal on application with failed challenge that has been processed",
@@ -102,25 +104,25 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should fail if challenge is won by applicant, no appeal requested", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
         const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
         await utils.commitVote(voting, pollID, "1", "10", "420", voter);
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
         await voting.revealVote(pollID, 1, 420, { from: voter });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(REVERTED, "Should not allow grant appeal if challenge is won by applicant");
       });
 
       it("should fail if challenge is lost and appeal requested, but not granted", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with failed challenge that has been processed",
@@ -128,47 +130,47 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should succeed if challenge is lost, appeal requested, and granted", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.fulfilled(
           "Should have allowed appeal on application with challenge that has been appeal and had that appeal granted",
         );
       });
 
       it("should fail if try to challenge granted appeal while one already active", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.fulfilled("Should have allowed 1st challenge on granted appeal");
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(REVERTED, "Should have rejected 2nd challenge on granted appeal");
       });
 
       it("should fail if challenge is lost, appeal requested, and granted, but challenger has not approved registry as token spender", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: unapproved }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: unapproved }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with challenge that has been appeal and had that appeal granted if challenger has not approved registry as token spender",
@@ -176,31 +178,31 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should succeed if challenge is lost, appeal requested, and granted, when appeal challenged by different challenger", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger2 }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger2 }),
         ).to.eventually.be.fulfilled(
           "Should have allowed appeal on application with challenge that has been appeal and had that appeal granted",
         );
       });
 
       it("should fail if challenge is lost, appeal requested, granted, but challenge appeal phase has ended", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
         await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with challenge that has been appeal and had that appeal granted",
@@ -208,16 +210,16 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should fail if challenge is lost, appeal requested, granted, but challenge appeal phase has ended when appeal challenged by different challenger", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-        await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+        await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
         await utils.advanceEvmTime(utils.paramConfig.challengeAppealLength + 1);
 
         await expect(
-          registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger }),
+          registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "Should not have allowed appeal on application with challenge that has been appeal and had that appeal granted",
