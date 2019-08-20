@@ -1,5 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import {
   AppealDecisionCard as AppealDecisionCardComponent,
   ListingDetailPhaseCardComponentProps,
@@ -7,7 +8,9 @@ import {
   ChallengePhaseProps,
   AppealDecisionProps,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 
+import { routes } from "../../constants";
 import {
   ChallengeContainerProps,
   connectChallengePhase,
@@ -24,7 +27,10 @@ const AppealDecisionCard = compose<
       ChallengeContainerProps &
       AppealDecisionProps
   >
->(connectChallengeResults, connectChallengePhase)(AppealDecisionCardComponent);
+>(
+  connectChallengeResults,
+  connectChallengePhase,
+)(AppealDecisionCardComponent);
 
 class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
   public render(): JSX.Element {
@@ -32,16 +38,21 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
     const appealGranted = appeal.appealGranted;
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
     const phaseLength = this.props.parameters.challengeAppealLen;
+    const appealGrantedStatementURI = appeal.appealGrantedStatementURI;
 
-    const submitAppealChallengeURI = `/listing/${this.props.listingAddress}/submit-appeal-challenge`;
+    const submitAppealChallengeURI = formatRoute(routes.SUBMIT_APPEAL_CHALLENGE, {
+      listingAddress: this.props.listingAddress,
+    });
 
     return (
       <AppealDecisionCard
         endTime={endTime}
         phaseLength={phaseLength}
         challengeID={this.props.challengeID.toString()}
+        appealGrantedStatementURI={appealGrantedStatementURI}
         appealGranted={appealGranted}
         submitAppealChallengeURI={submitAppealChallengeURI}
+        faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
       />
     );

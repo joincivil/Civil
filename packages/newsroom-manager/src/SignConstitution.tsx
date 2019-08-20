@@ -332,17 +332,22 @@ class SignConstitutionComponent extends React.Component<
 
           let uri;
           let contentHash;
-          if (this.props.ipfs) {
-            const files = await this.props.ipfs!.add(toBuffer(charter), {
-              hash: "keccak-256",
-              pin: true,
-            });
-            contentHash = hashContent(charter);
-            uri = `ipfs://${files[0].path}`;
-          } else {
-            const header = await civil.publishContent(charter, { hash: "keccak-256" });
-            uri = header.uri;
-            contentHash = header.contentHash;
+          try {
+            if (this.props.ipfs) {
+              const files = await this.props.ipfs!.add(toBuffer(charter), {
+                hash: "keccak-256",
+                pin: true,
+              });
+              contentHash = hashContent(charter);
+              uri = `ipfs://${files[0].path}`;
+            } else {
+              const header = await civil.publishContent(charter, { hash: "keccak-256" });
+              uri = header.uri;
+              contentHash = header.contentHash;
+            }
+          } catch (e) {
+            console.error("Failed to publish charter to IPFS", e);
+            throw Error("Failed to publish charter to IPFS: " + ((e || {}).message || e));
           }
           return this.props.newsroom.updateRevisionURIAndHash(0, uri, contentHash);
         },

@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { AddressInput } from "./AddressInput";
 
-storiesOf("AddressInput", module)
+storiesOf("Pattern Library / inputs / AddressInput", module)
   .add("valid", () => {
     return (
       <AddressInput

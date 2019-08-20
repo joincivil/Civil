@@ -1,4 +1,5 @@
 import {
+  BigNumber,
   Bytes32,
   DecodedLogEntryEvent,
   DecodedTransactionReceipt,
@@ -6,24 +7,13 @@ import {
   Hex,
   TxHash,
 } from "@joincivil/typescript-types";
-import BigNumber from "bignumber.js";
 import { CivilLogs } from "./contracts/generated/events";
 
 // For backwards compatibillity
-export {
-  Bytes32,
-  DecodedTransactionReceipt,
-  EthAddress,
-  Hex,
-  TxData,
-  TxDataAll,
-  TxDataBase,
-  TxDataPayable,
-  TxHash,
-  Uri,
-} from "@joincivil/typescript-types";
+export { Bytes32, DecodedTransactionReceipt, EthAddress, Hex, Uri } from "@joincivil/typescript-types";
 export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
 
+export type TxHash = string;
 export type ContentData = string | object;
 export type ContentId = number;
 export type RevisionId = ContentId;
@@ -127,6 +117,7 @@ export interface NewsroomWrapper {
 
 export interface NewsroomData {
   name: string;
+  owner: EthAddress;
   owners: EthAddress[];
   charterHeader?: EthContentHeader;
 }
@@ -148,6 +139,9 @@ export interface ListingData {
   challenge?: ChallengeData;
   prevChallengeID?: BigNumber;
   prevChallenge?: ChallengeData;
+  approvalDate?: BigNumber;
+  lastGovState?: string;
+  lastUpdatedDate?: BigNumber;
 }
 
 export interface PollData {
@@ -259,6 +253,31 @@ export interface ParamPropChallengeData {
   stake: BigNumber;
   totalTokens: BigNumber;
   poll: PollData;
+}
+
+export interface PollIDWithBlockNum {
+  pollID: BigNumber;
+  blockNum: number;
+}
+
+export interface AppealChallengeChallengeID {
+  appealChallengeID: BigNumber;
+  challengeID: BigNumber;
+}
+
+export interface WrappedChallengeID {
+  listingAddress: EthAddress;
+  challengeID: BigNumber;
+}
+
+export interface WrappedAppealChallengeID {
+  listingAddress: EthAddress;
+  appealChallengeToChallengeID: AppealChallengeChallengeID;
+}
+
+export interface WrappedPropID {
+  propID: string;
+  challengeID: BigNumber;
 }
 
 // tslint:disable-next-line

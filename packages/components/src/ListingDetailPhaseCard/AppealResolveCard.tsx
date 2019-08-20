@@ -13,7 +13,7 @@ import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
-export const AppealResolveCard: React.StatelessComponent<
+export const AppealResolveCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & AppealDecisionProps & ChallengeResultsProps
 > = props => {
   return (
@@ -48,24 +48,18 @@ export const AppealResolveCard: React.StatelessComponent<
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       <StyledListingDetailPhaseCardSection>
         <CTACopy>
-          This challenge is complete. To update this Newsroom's status on the Civil Registry, please{" "}
-          <a href="#">resolve this appeal</a>.
+          This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
+          appeal.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Resolve Appeal
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

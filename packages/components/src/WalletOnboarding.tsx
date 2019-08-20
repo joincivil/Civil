@@ -110,7 +110,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
             <MetaMaskIcon /> to manage your transactions.{" "}
             <a href={this.props.helpUrl} target="_blank">
               Read this FAQ
-            </a>.
+            </a>
+            .
           </p>
           <p>
             <Button size={buttonSizes.MEDIUM_WIDE} href="https://metamask.io/" target="_blank">
@@ -153,7 +154,8 @@ export class WalletOnboarding extends React.Component<WalletOnboardingProps, Wal
               Make sure it's unlocked and connected to the {this.props.requiredNetworkNiceName}, and then{" "}
               <a href="javascript:void(0)" onClick={() => window.location.reload()}>
                 refresh this page
-              </a>.
+              </a>
+              .
             </span>
           </p>
         </Wrapper>

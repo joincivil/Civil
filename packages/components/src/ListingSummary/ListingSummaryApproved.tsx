@@ -16,7 +16,7 @@ export interface ListingSummaryApprovedComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export const ListingSummaryApprovedComponent: React.SFC<ListingSummaryApprovedComponentProps> = props => {
+export const ListingSummaryApprovedComponent: React.FunctionComponent<ListingSummaryApprovedComponentProps> = props => {
   const { challengeID, canListingAppealBeResolved, canListingAppealChallengeBeResolved } = props;
 
   let banner;

@@ -2,17 +2,30 @@ import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
+import { LoadingMessage } from "../LoadingMessage";
+import { LoadingIndicatorProps } from "../LoadingIndicator";
 import { Button, InvertedButton } from "../Button";
+import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
+
+export const DashboardStylesNoticeContainer = styled.div`
+  padding: 24px;
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+`;
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
 `;
 
-export const StyledUserActivityContent = styled.h3`
+export const StyledUserActivityContent = styled.div`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: none;
   min-height: 400px;
+`;
+
+export const StyledDashboardTabsContainer = styled.div`
+  background: ${colors.accent.CIVIL_GRAY_4};
+  padding: 25px 28px 13px;
 `;
 
 export const StyledDashboardTab = styled.li`
@@ -43,9 +56,17 @@ export const StyledDashboardSubTab = styled(StyledTab)`
   }
 `;
 
-export const StyledDashboardActivityDescription = styled.div`
+export interface StyledDashboardActivityDescriptionProps {
+  noBorder?: boolean;
+}
+
+export const StyledDashboardActivityDescription = styled<StyledDashboardActivityDescriptionProps, "div">("div")`
+  ${props =>
+    props.noBorder
+      ? ""
+      : `
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  font-size: 21px;
+  `} font-size: 21px;
   font-weight: 300;
   line-height: 28px;
   letter-spacing: -0.14px;
@@ -56,18 +77,6 @@ export const StyledUserInfo = styled.div`
   width: 277px;
 `;
 
-export const StyledUserInfoSection = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 24px 0;
-
-  & ${Button} {
-    text-align: center;
-    width: 100%;
-  }
-`;
-
-// '80' is a hexidecimal number that equals  0.5 alpha
 export const StyledUserInfoSectionLabel = styled.div`
   color: ${colors.accent.CIVIL_GRAY_2};
   font-size: 12px;
@@ -89,6 +98,29 @@ export const StyledUserInfoSectionValue = styled.div`
     font-size: 18px;
     font-weight: bold;
     line-height: 21px;
+  }
+`;
+
+export const StyledUserInfoSection = styled.div`
+  display: flex;
+  margin: 24px 0;
+  min-height: 30px;
+  justify-content: space-between;
+
+  ${StyledUserInfoSectionLabel} {
+    width: 40%;
+  }
+`;
+
+export const StyledUserInfoButtonSection = styled.div`
+  margin: 24px 0;
+
+  & ${Button}, & ${InvertedButton} {
+    margin: 0 0 19px;
+    padding: 14px 0;
+    text-align: center;
+    text-transfrom: none;
+    width: 100%;
   }
 `;
 
@@ -219,4 +251,333 @@ export const StyledNumTokensContainer = styled.div`
   line-height: 18px;
   padding: 15px 0 0;
   text-align: right;
+`;
+
+// Transfer Tokens
+
+export const StyledTransferTokenTitle = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  text-align: center;
+  margin: 0 0 40px;
+
+  h3 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0 0 10px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0;
+  }
+`;
+
+export const StyledTransferTokenForm = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 400;
+  margin: 0 auto 45px;
+  padding: 35px;
+`;
+
+export const StyledTransferTokenFormGroup = styled.div`
+  margin: 0 auto;
+  max-width: 460px;
+
+  ${Dropdown} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+    border-radius: 3px;
+    font-size: 15px;
+    margin-top 5px;
+
+    & > div:nth-child(2) > div {
+      border-top: none;
+      box-shadow: none;
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      max-width: unset;
+
+      :before,
+      :after {
+        display: none;
+      }
+    }
+
+    ${DropdownGroup} {
+      li {
+        border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    ${DropdownItem} {
+      padding: 0;
+
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 17px 50px 17px 15px;
+        width: 100%;
+      }
+    }
+  }
+
+  ${InputBase} {
+    margin-bottom: 3px;
+    position: relative;
+
+    > input,
+    > textarea {
+      border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+      border-radius: 3px;
+      padding: 15px;
+    }
+
+    > input:focus,
+    > textarea:focus {
+      border: 1px solid ${colors.accent.CIVIL_BLUE};
+    }
+  }
+
+  label {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+  }
+
+  ${InputIcon} {
+    background-color: ${colors.basic.WHITE};
+    left: calc(100% - 50px);
+    position: absolute;
+    top: 42px;
+    z-index: 2;
+  }
+`;
+
+export const StyledTransferTokenFormElement = styled.div`
+  margin-bottom: 25px;
+`;
+
+export const StyledInputLabel = styled.label`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 14px;
+`;
+
+export const StyledTransferTokenTip = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 18px;
+`;
+
+export const StyledTransferTokenDropdown = styled.div`
+  padding: 17px 50px 17px 15px;
+  position: relative;
+`;
+
+export const StyledTransferTokenBalance = styled.div`
+  display: flex;
+  font-size: 15px;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const StyledDropdownArrow = styled.div`
+  align-items: center;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  display: flex;
+  justify-content: center;
+  padding: 12px 15px 12px 14px;
+  position: absolute;
+  right: 0;
+  top: calc(50% - 14px);
+`;
+
+export const StyledFromBalance = styled.div`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  border-radius: 3px;
+  margin-top 5px;
+  padding: 17px 15px;
+`;
+
+export const StyledTutorialWarning = styled.div`
+  font-weight: 400;
+  padding: 35px;
+`;
+
+export const StyledWarningBox = styled.div`
+  background-color: ${colors.accent.CIVIL_RED_ULTRA_FADED};
+  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
+  border-radius: 3px;
+  font-family: ${fonts.SANS_SERIF};
+  margin-bottom: 40px;
+  padding: 20px;
+  text-align: center;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 32px;
+    margin: 0;
+
+    svg {
+      vertical-align: text-bottom;
+    }
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0 0 15px;
+  }
+`;
+
+export const StyledTutorialPrompt = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  text-align: left;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.12px;
+    line-height: 33px;
+    margin: 0;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 15px;
+  }
+
+  ${Button} {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    line-height: 14px;
+    text-transform: none;
+  }
+`;
+
+// Newsroom tab
+export const StyledDashboardNewsroom = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  box-sizing: border-box;
+  padding: 25px 0;
+  margin: 0 25px;
+`;
+
+export const StyledDashboardNewsroomName = styled.div`
+  color: ${colors.primary.BLACK};
+  font-size: 24px;
+  line-height: 29px;
+`;
+
+export const StyledDashboardNewsroomSection = styled.div`
+  margin: 0 0 26px;
+
+  & ~ & {
+    border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    padding: 14px 0 0;
+  }
+`;
+
+export const StyledDashboardNewsroomHdr = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 18px;
+  line-height: 33px;
+`;
+
+export const StyledDashboardNewsroomSectionContentRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const StyledDashboardNewsroomLinks = styled.div`
+  text-align: right;
+
+  a {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    margin: 0 0 20px;
+  }
+`;
+
+export const StyledWarningText = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -3px 0;
+  }
+`;
+
+export const StyledDashboardNewsroomTokensContainer = styled.div`
+  text-align: left;
+  width: 30%;
+`;
+
+export const StyledDashboardNewsroomTokensLabel = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 20px;
+  margin: 7px 0 0;
+`;
+
+export const StyledCVLLabel = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: -0.07px;
+  line-height: 15px;
+`;
+
+// No Content
+export const StyledDashboardNoContent = styled.div`
+  margin: 0 auto;
+  padding: 60px 0 0;
+  text-align: center;
+  max-width: 485px;
+`;
+
+export const StyledDashboardNoContentHdr = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: -0.14px;
+  line-height: 33px;
+  margin: 17px 0 2px;
+`;
+
+export const StyledDashboardNoContentCopy = styled.div`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 30px;
+  margin: 0 0 24px;
+`;
+
+export const StyledDashboardNoContentButtonContainer = styled.div`
+  ${InvertedButton} {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.2px;
+    line-height: 14px;
+    padding: 14px 0;
+    text-transform: none;
+    width: 236px;
+  }
+`;
+
+// @ts-ignore: Looks like `React.FunctionComponent` type (which `LoadingMessage` is) doesn't play nicely with `styled` typings
+export const StyledDashboardLoadingMessage: StyledComponentClass<LoadingIndicatorProps, "div"> = styled(LoadingMessage)`
+  padding-top: 0;
+  p {
+    margin-top: 18px;
+  }
 `;

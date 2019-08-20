@@ -70,7 +70,7 @@ const StyledNetwork = styled.div`
   }
 `;
 
-const ContractAddressItem: React.SFC<ContractAddressItemProps> = props => {
+const ContractAddressItem: React.FunctionComponent<ContractAddressItemProps> = props => {
   const { address, ...rest } = props;
   if (!address) {
     return null;
@@ -78,7 +78,7 @@ const ContractAddressItem: React.SFC<ContractAddressItemProps> = props => {
   return <EthAddressViewer address={getFormattedEthAddress(address)} {...rest} />;
 };
 
-const ContractAddresses: React.SFC<ContractAddressesReduxProps> = props => {
+const ContractAddresses = (props: ContractAddressesReduxProps) => {
   const { contractAddresses } = props;
   const addressesToDisplay: Array<[string, string]> = [
     ["CVL Token Contract Address", ContractAddressKeys.TOKEN_ADDRESS],
@@ -90,9 +90,7 @@ const ContractAddresses: React.SFC<ContractAddressesReduxProps> = props => {
 
   return (
     <StyledMainContainer>
-      <Helmet>
-        <title>Contract Addresses - The Civil Registry</title>
-      </Helmet>
+      <Helmet title="Contract Addresses - The Civil Registry" />
       <StyledContent>
         <StyledHeader>
           <StyledNetwork>{formattedNetworkNames[props.network]}</StyledNetwork>

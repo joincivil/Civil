@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -13,7 +13,7 @@ import {
   ModalListItem,
 } from "@joincivil/components";
 
-import { approveVotingRights, commitVote } from "../../apis/civilTCR";
+import { approveVotingRightsForCommit, commitVote } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
@@ -227,7 +227,7 @@ class ChallengeProposalCommitVote extends React.Component<
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRights(numTokens);
+    return approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {

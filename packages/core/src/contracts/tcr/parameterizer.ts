@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Observable } from "rxjs";
 import * as Debug from "debug";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
@@ -12,6 +12,7 @@ import {
   PollID,
   ParamPropChallengeData,
   UserChallengeData,
+  WrappedPropID,
 } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
@@ -40,6 +41,10 @@ export const enum Parameters {
   challengeAppealRevealLen = "challengeAppealRevealLen",
 }
 
+function extractPropID(e: any): string {
+  return e.returnValues.propID;
+}
+
 /**
  * The Parameterizer is where we store and update values associated with "parameters", variables
  * needed for logic of the Registry.
@@ -52,18 +57,21 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       debug("Smart-contract wrapper for Parameterizer returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Parameterizer(ethApi, instance, await Voting.singleton(ethApi));
+    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    return new Parameterizer(ethApi, instance, await Voting.singleton(ethApi), defaultBlock);
   }
 
   public static async atUntrusted(web3wrapper: EthApi, address: EthAddress): Promise<Parameterizer> {
     const instance = CivilParameterizerContract.atUntrusted(web3wrapper, address);
-    return new Parameterizer(web3wrapper, instance, await Voting.singleton(web3wrapper));
+    const defaultBlock = getDefaultFromBlock(await web3wrapper.network());
+    return new Parameterizer(web3wrapper, instance, await Voting.singleton(web3wrapper), defaultBlock);
   }
 
   private voting: Voting;
-  private constructor(ethApi: EthApi, instance: CivilParameterizerContract, voting: Voting) {
-    super(ethApi, instance);
+  private constructor(ethApi: EthApi, instance: CivilParameterizerContract, voting: Voting, defaultBlock: number) {
+    super(ethApi, instance, defaultBlock);
     this.voting = voting;
+    this.defaultBlock = defaultBlock;
   }
 
   /**
@@ -107,12 +115,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals propIDs
    */
-  public propIDsInApplicationPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsInApplicationPhase(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(extractPropID)
       .concatFilter(async propID => this.isPropInUnchallengedApplicationPhase(propID));
   }
 
@@ -122,12 +128,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInChallengeCommitPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsInChallengeCommitPhase(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(extractPropID)
       .concatFilter(async propID => this.isPropInChallengeCommitPhase(propID));
   }
 
@@ -137,19 +141,15 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInChallengeRevealPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsInChallengeRevealPhase(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(extractPropID)
       .concatFilter(async propID => this.isPropInChallengeRevealPhase(propID));
   }
 
-  public propIDsInChallenge(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
-    return this.instance._NewChallengeStream({}, { fromBlock }).map(e => e.args.propID);
+  public propIDsInChallenge(fromBlock: number = this.defaultBlock): Observable<string> {
+    return this.instance._NewChallengeStream({}, { fromBlock }).map(extractPropID);
   }
 
   /**
@@ -159,17 +159,15 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsToProcess(fromBlock: number = this.defaultBlock): Observable<string> {
     const applicationsToProcess = this.instance
       ._ReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(extractPropID)
       .concatFilter(async propID => this.isPropInUnchallengedApplicationUpdatePhase(propID));
 
     const challengesToResolve = this.instance
       ._NewChallengeStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(extractPropID)
       .concatFilter(async propID => this.isPropInChallengeResolvePhase(propID));
 
     return Observable.merge(applicationsToProcess, challengesToResolve).distinct();
@@ -181,14 +179,11 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns pollIDs for proposals that have been challenged and resolved
    */
-  public pollIDsForResolvedChallenges(
-    propID: string,
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<PollID> {
+  public pollIDsForResolvedChallenges(propID: string, fromBlock: number = this.defaultBlock): Observable<PollID> {
     return this.instance
       ._NewChallengeStream({ propID }, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
-      .map(e => e.args.challengeID);
+      .concatFilter(async e => this.isChallengeResolved(new BigNumber(e.returnValues.challengeID)))
+      .map(e => new BigNumber(e.returnValues.challengeID));
   }
 
   /**
@@ -197,13 +192,20 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that have been challenged and resolved
    */
-  public propIDsForResolvedChallenges(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<EthAddress> {
+  public propIDsForResolvedChallenges(fromBlock: number = this.defaultBlock): Observable<EthAddress> {
     return this.instance
       ._NewChallengeStream({}, { fromBlock })
-      .concatFilter(async e => this.isChallengeResolved(e.args.challengeID))
-      .map(e => e.args.propID);
+      .concatFilter(async e => this.isChallengeResolved(new BigNumber(e.returnValues.challengeID)))
+      .map(extractPropID);
+  }
+
+  public allProposalChallengeIDsEver(): Observable<WrappedPropID> {
+    return this.instance._NewChallengeStream({}, { fromBlock: this.defaultBlock }).map(e => {
+      return {
+        propID: extractPropID(e),
+        challengeID: new BigNumber(e.returnValues.challengeID),
+      };
+    });
   }
 
   /**
@@ -221,7 +223,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.ethApi,
-      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue),
+      await this.instance.proposeReparameterization.sendTransactionAsync(paramName, newValue.toString()),
     );
   }
 
@@ -251,7 +253,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param salt Salt for user's vote on specified challenge
    */
   public async claimReward(challengeID: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
-    return createTwoStepSimple(this.ethApi, await this.instance.claimReward.sendTransactionAsync(challengeID, salt));
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.instance.claimReward.sendTransactionAsync(challengeID.toString(), salt.toString()),
+    );
   }
 
   /**
@@ -267,8 +272,8 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     return {
       propID,
       paramName: name,
-      proposedValue: value,
-      pollID: challengeID,
+      proposedValue: new BigNumber(value),
+      pollID: new BigNumber(challengeID),
     };
   }
 
@@ -283,7 +288,9 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.voterReward.callAsync(who, challengeID, salt);
+    return this.instance.voterReward
+      .callAsync(who, challengeID.toString(), salt.toString())
+      .then(e => new BigNumber(e));
   }
 
   /**
@@ -291,7 +298,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param parameter key of parameter to check
    */
   public async getParameterValue(parameter: string): Promise<BigNumber> {
-    return this.instance.get.callAsync(parameter);
+    return this.instance.get.callAsync(parameter).then(e => new BigNumber(e));
   }
 
   /**
@@ -300,7 +307,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    */
   public async getChallengeID(parameter: string): Promise<BigNumber> {
     const [, challengeID] = await this.instance.proposals.callAsync(parameter);
-    return challengeID;
+    return new BigNumber(challengeID);
   }
 
   /**
@@ -309,18 +316,18 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    */
   public async getChallengeData(challengeID: BigNumber): Promise<ParamPropChallengeData> {
     const [rewardPool, challenger, resolved, stake, totalTokens] = await this.instance.challenges.callAsync(
-      challengeID,
+      challengeID.toString(),
     );
 
     const voting = await this.getVoting();
     const poll = await voting.getPoll(challengeID);
 
     return {
-      rewardPool,
+      rewardPool: new BigNumber(rewardPool),
       challenger,
       resolved,
-      stake,
-      totalTokens,
+      stake: new BigNumber(stake),
+      totalTokens: new BigNumber(totalTokens),
       poll,
     };
   }
@@ -334,11 +341,11 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       return false;
     }
     const [appExpiry, challengeID] = await this.instance.proposals.callAsync(propID);
-    if (!challengeID.isZero()) {
+    if (!new BigNumber(challengeID).isZero()) {
       return false;
     }
 
-    const appExpiryDate = new Date(appExpiry.toNumber() * 1000);
+    const appExpiryDate = new Date(new BigNumber(appExpiry).toNumber() * 1000);
 
     if (appExpiryDate < new Date()) {
       return false;
@@ -357,11 +364,11 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       return false;
     }
     const [appExpiry, challengeID] = await this.instance.proposals.callAsync(propID);
-    if (!challengeID.isZero()) {
+    if (!new BigNumber(challengeID).isZero()) {
       return false;
     }
 
-    const appExpiryDate = new Date(appExpiry.toNumber() * 1000);
+    const appExpiryDate = new Date(new BigNumber(appExpiry).toNumber() * 1000);
     if (appExpiryDate > new Date()) {
       return false;
     }
@@ -378,12 +385,12 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       return false;
     }
     const [, challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isCommitPeriodActive(challengeID);
+    return voting.isCommitPeriodActive(new BigNumber(challengeID));
   }
 
   /**
@@ -395,12 +402,12 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       return false;
     }
     const [, challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isRevealPeriodActive(challengeID);
+    return voting.isRevealPeriodActive(new BigNumber(challengeID));
   }
 
   /**
@@ -412,12 +419,12 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       return false;
     }
     const [, challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.hasPollEnded(challengeID);
+    return voting.hasPollEnded(new BigNumber(challengeID));
   }
 
   /**
@@ -425,7 +432,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    * @param propID ID of poll (challenge) to check
    */
   public async isChallengeResolved(pollID: BigNumber): Promise<boolean> {
-    const [, , resolved] = await this.instance.challenges.callAsync(pollID);
+    const [, , resolved] = await this.instance.challenges.callAsync(pollID.toString());
     return resolved;
   }
 
@@ -477,7 +484,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    */
   public async getPropProcessBy(propID: string): Promise<Date> {
     const [, , , , , expiryTimestamp] = await this.instance.proposals.callAsync(propID);
-    return new Date(expiryTimestamp.toNumber() * 1000);
+    return new Date(new BigNumber(expiryTimestamp).toNumber() * 1000);
   }
 
   /**
@@ -486,7 +493,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    */
   public async getPropApplicationExpiryTimestamp(propID: string): Promise<BigNumber> {
     const [appExpiry] = await this.instance.proposals.callAsync(propID);
-    return appExpiry;
+    return new BigNumber(appExpiry);
   }
 
   /**
@@ -504,7 +511,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
    */
   public async getPropValue(propID: string): Promise<BigNumber> {
     const [, , , , , , value] = await this.instance.proposals.callAsync(propID);
-    return value;
+    return new BigNumber(value);
   }
 
   public async getUserProposalChallengeData(propChallengeID: BigNumber, user: EthAddress): Promise<UserChallengeData> {
@@ -514,11 +521,11 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     let didUserRescue = false;
     let didCollectAmount;
     let isVoterWinner;
-    let salt;
+    let salt: string;
     let numTokens;
     let choice;
     let voterReward;
-    const [, , resolved] = await this.instance.challenges.callAsync(propChallengeID);
+    const [, , resolved] = await this.instance.challenges.callAsync(propChallengeID.toString());
     const pollData = await this.voting.getPoll(propChallengeID);
     let canUserReveal;
     let canUserRescue;
@@ -530,10 +537,10 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
         if (resolved) {
           if (didUserReveal) {
             const reveal = await this.voting.getRevealedVoteEvent(propChallengeID, user);
-            salt = reveal!.args.salt;
-            numTokens = reveal!.args.numTokens;
-            choice = reveal!.args.choice;
-            didUserCollect = await this.instance.tokenClaims.callAsync(propChallengeID, user);
+            salt = reveal!.returnValues.salt;
+            numTokens = reveal!.returnValues.numTokens;
+            choice = reveal!.returnValues.choice;
+            didUserCollect = await this.instance.tokenClaims.callAsync(propChallengeID.toString(), user);
             isVoterWinner = await this.voting.isVoterWinner(propChallengeID, user);
             canUserCollect = isVoterWinner && !didUserCollect;
           } else {
@@ -555,7 +562,7 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
     }
 
     if (isVoterWinner && !didUserCollect) {
-      voterReward = await this.voterReward(propChallengeID, salt as BigNumber, user);
+      voterReward = await this.voterReward(propChallengeID, new BigNumber(salt!), user);
     }
 
     return {
@@ -568,18 +575,18 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
       canUserRescue,
       didCollectAmount,
       isVoterWinner,
-      salt,
-      numTokens,
-      choice,
+      salt: new BigNumber(salt!),
+      numTokens: new BigNumber(numTokens as string),
+      choice: new BigNumber(choice as string),
       voterReward,
     };
   }
 
   public async getRewardClaimed(challengeID: BigNumber, user: EthAddress): Promise<BigNumber> {
     const reward = await this.instance
-      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+      ._RewardClaimedStream({ challengeID, voter: user }, { fromBlock: this.defaultBlock })
       .first()
       .toPromise();
-    return reward.args.reward;
+    return new BigNumber(reward.returnValues.reward);
   }
 }

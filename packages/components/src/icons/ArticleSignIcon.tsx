@@ -5,7 +5,7 @@ export interface ArticleSignIconProps {
   size?: number;
 }
 
-export const ArticleSignIcon: React.SFC<ArticleSignIconProps> = props => {
+export const ArticleSignIcon: React.FunctionComponent<ArticleSignIconProps> = props => {
   const color = props.color || "#444";
   const size = (props.size || 24).toString();
 

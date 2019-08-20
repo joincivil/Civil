@@ -19,6 +19,10 @@ const ModalP = styled.p`
   font-size: 16px;
   color: #5f5f5f;
   line-height: 26px;
+
+  && {
+    margin: 16px 0;
+  }
 `;
 
 const HalfPWrapper = styled.div`
@@ -101,7 +105,7 @@ export interface MetaMaskModalProps {
   startTransaction?(): void;
 }
 
-export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props => {
+export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props => {
   let buttonSection;
   if (props.ipfsPost) {
   } else if (props.alert) {
@@ -160,11 +164,11 @@ export const MetaMaskModal: React.StatelessComponent<MetaMaskModalProps> = props
     ) : (
       <ModalP>
         This transaction needs to be confirmed in your wallet. MetaMask will open a new window for you to confirm. If
-        you don't see it, please click the MetaMask{" "}
+        you don't see it, please click the MetaMask icon{" "}
         <ImgWrapperSmall>
           <MetaMaskSideIcon />
         </ImgWrapperSmall>{" "}
-        in the browser bar.
+        in your browser bar.
       </ModalP>
     );
   }

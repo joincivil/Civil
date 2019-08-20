@@ -15,7 +15,7 @@ export interface ListingSummaryAppealChallengeResultsProps
 
 import { StyledChallengeResultsHeader, ChallengeResultsContain } from "./styledComponents";
 
-const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props => {
+const ChallengeResults: React.FunctionComponent<ListingSummaryChallengeResultsProps> = props => {
   const {
     canBeWhitelisted,
     canResolveChallenge,
@@ -72,7 +72,7 @@ const ChallengeResults: React.SFC<ListingSummaryChallengeResultsProps> = props =
   );
 };
 
-export const AppealChallengeResults: React.SFC<ListingSummaryAppealChallengeResultsProps> = props => {
+export const AppealChallengeResults: React.FunctionComponent<ListingSummaryAppealChallengeResultsProps> = props => {
   const {
     canListingAppealChallengeBeResolved,
     appealChallengeID,

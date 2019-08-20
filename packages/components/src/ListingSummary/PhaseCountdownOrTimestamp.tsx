@@ -8,7 +8,7 @@ import { ListingSummaryComponentProps } from "./types";
 import { MetaRow, MetaItemValue, MetaItemLabel } from "./styledComponents";
 import { ApplicationPhaseEndedLabelText, ApprovedLabelText, ChallengeEndedLabelText } from "./textComponents";
 
-const PhaseCountdown: React.SFC<ListingSummaryComponentProps> = props => {
+const PhaseCountdown: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   let expiry: number | undefined;
   const {
     isInApplication,
@@ -63,9 +63,9 @@ const PhaseCountdown: React.SFC<ListingSummaryComponentProps> = props => {
 /**
  * Renders a human-readable timestamp for phases that have no expiry
  */
-const Timestamp: React.SFC<ListingSummaryComponentProps> = props => {
+const Timestamp: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   let timestamp: number = 0;
-  let LabelTextComponent: React.SFC = () => <></>;
+  let LabelTextComponent: React.FunctionComponent = () => <></>;
 
   const {
     canBeWhitelisted,
@@ -117,7 +117,7 @@ const Timestamp: React.SFC<ListingSummaryComponentProps> = props => {
   );
 };
 
-const PhaseCountdownOrTimestamp: React.SFC<ListingSummaryComponentProps> = props => {
+const PhaseCountdownOrTimestamp: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   const {
     isInApplication,
     inChallengeCommitVotePhase,

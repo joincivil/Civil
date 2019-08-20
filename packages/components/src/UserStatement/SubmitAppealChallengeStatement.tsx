@@ -1,8 +1,9 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, SecondaryButton } from "../Button";
+import { buttonSizes, CancelButton } from "../Button";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import { MetaMaskLogoButton } from "../";
 import {
   StyledUserStatementHeaderOuter,
   StyledUserStatementHeader,
@@ -26,7 +27,6 @@ import {
   StyledDepositLabel,
   StyledDepositAmount,
   SectionActions,
-  PullRight,
 } from "./styledComponents";
 
 export interface SubmitAppealChallengeStatementProps {
@@ -68,15 +68,15 @@ export class SubmitAppealChallengeStatement extends React.Component<
       <>
         <StyledUserStatementHeaderOuter>
           <StyledUserStatementHeader>
-            <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
+            <StatementHeaderHeading>Challenge Granted Appeal</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
-              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}
-              <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
+              A deposit of <strong>{this.props.appealFee} tokens</strong> is required to challenge a granted appeal.
+              Read our <StyledLink href={this.props.governanceGuideURI}>governance guide</StyledLink> before you begin.
             </CopyLarge>
             <StyledOl>
               <StyledLi>
-                <StyledLiContent>State reasons for your challenge</StyledLiContent>
+                <StyledLiContent>State reasons for your challenge of the granted appeal</StyledLiContent>
               </StyledLi>
               <StyledLi>
                 <StyledLiContent>Deposit CVL tokens to challenge</StyledLiContent>
@@ -85,9 +85,8 @@ export class SubmitAppealChallengeStatement extends React.Component<
             <CopySmall>
               After a challenge is submitted, the CVL token-holding community will have have{" "}
               <strong>{this.props.challengeAppealCommitLen} to commit their votes</strong>, followed by{" "}
-              <strong>{this.props.challengeAppealRevealLen} to confirm their votes.</strong> Only a supermajority ({
-                this.props.appealVotePercentage
-              }) from the community can overturn the Civil Council's decision.
+              <strong>{this.props.challengeAppealRevealLen} to confirm their votes.</strong> Only a supermajority (
+              {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
             </CopySmall>
           </StyledUserStatementHeader>
         </StyledUserStatementHeaderOuter>
@@ -131,13 +130,8 @@ export class SubmitAppealChallengeStatement extends React.Component<
 
             <SectionActions>
               <div>
-                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
-                  Cancel
-                </SecondaryButton>
-              </div>
-
-              <PullRight>
                 <TransactionButtonNoModal
+                  Button={MetaMaskLogoButton}
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
                   disabled={this.isFormInvalid()}
@@ -148,7 +142,13 @@ export class SubmitAppealChallengeStatement extends React.Component<
                 <SectionFormCopyHelper>
                   This will pop up a separate MetaMask window to confirm your transactions.
                 </SectionFormCopyHelper>
-              </PullRight>
+              </div>
+
+              <div>
+                <CancelButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
+                  Cancel
+                </CancelButton>
+              </div>
             </SectionActions>
           </StyledUserStatementBody>
         </StyledUserStatementBodyOuter>

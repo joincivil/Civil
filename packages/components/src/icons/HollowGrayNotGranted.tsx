@@ -7,7 +7,7 @@ export interface HollowGrayNotGrantedProps {
   width?: number;
 }
 
-export const HollowGrayNotGranted: React.SFC<HollowGrayNotGrantedProps> = props => {
+export const HollowGrayNotGranted: React.FunctionComponent<HollowGrayNotGrantedProps> = props => {
   const color = props.color || colors.accent.CIVIL_GRAY_4;
   const width = (props.width || 20).toString();
   const height = (props.height || 20).toString();

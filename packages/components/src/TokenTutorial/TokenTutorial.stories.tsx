@@ -1,6 +1,5 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import { TokenTutorial } from "./TokenTutorial";
 import { TokenTutorialLanding } from "./TokenTutorialLanding";
 
 import apolloStorybookDecorator from "apollo-storybook-react";
@@ -40,16 +39,13 @@ const mocks = {
   },
 };
 
-storiesOf("Token Tutorial", module)
+storiesOf("Storefront / Token Tutorial", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
       mocks,
     }),
   )
-  .add("Token Tutorial", () => {
-    return <TokenTutorial handleClose={onClickFunc} />;
-  })
   .add("Tutorial Landing", () => {
-    return <TokenTutorialLanding quizPayload={{}} handleClose={onClickFunc} isQuizStarted={true} />;
+    return <TokenTutorialLanding quizPayload={{}} handleClose={onClickFunc} />;
   });

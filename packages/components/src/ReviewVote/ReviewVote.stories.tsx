@@ -8,13 +8,13 @@ const StyledDiv = styled.div`
   width: 600px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("Review Vote", module).add("Review Vote Modal", () => {
+storiesOf("Registry / Review Vote", module).add("Review Vote Modal", () => {
   const handleClose = () => {
     console.log("Closed the  modal");
   };

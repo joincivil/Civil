@@ -3,11 +3,11 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   AwaitingApprovalStatusLabel,
+  AwaitingAppealRequestLabel,
   AwaitingDecisionStatusLabel,
   AwaitingAppealChallengeStatusLabel,
   CommitVoteStatusLabel,
   RevealVoteStatusLabel,
-  RequestingAppealStatusLabel,
   ReadyToCompleteStatusLabel,
 } from "./ApplicationPhaseStatusLabels";
 
@@ -18,12 +18,14 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Application Status Labels", module).add("Labels", () => {
+storiesOf("Registry / Application Status Labels", module).add("Labels", () => {
   return (
     <Container>
       <AwaitingApprovalStatusLabel />
+      <br />
+      <AwaitingAppealRequestLabel />
       <br />
       <AwaitingDecisionStatusLabel />
       <br />
@@ -32,8 +34,6 @@ storiesOf("Application Status Labels", module).add("Labels", () => {
       <CommitVoteStatusLabel />
       <br />
       <RevealVoteStatusLabel />
-      <br />
-      <RequestingAppealStatusLabel />
       <br />
       <ReadyToCompleteStatusLabel />
     </Container>

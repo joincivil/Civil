@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { EthApi } from "@joincivil/ethapi";
 import { getDefaultFromBlock } from "@joincivil/utils";
@@ -27,14 +27,18 @@ export class Appeal {
       appealGranted,
       appealOpenToChallengeExpiry,
       appealChallengeID,
-    ] = await this.tcrInstance.appeals.callAsync(this.challengeId);
+    ] = await this.tcrInstance.appeals.callAsync(this.challengeId.toString());
     let appealChallenge;
-    if (!appealChallengeID.isZero()) {
-      const appealChallengeInstance = new AppealChallenge(this.ethApi, this.tcrInstance, appealChallengeID);
+    if (!new BigNumber(appealChallengeID).isZero()) {
+      const appealChallengeInstance = new AppealChallenge(
+        this.ethApi,
+        this.tcrInstance,
+        new BigNumber(appealChallengeID),
+      );
       appealChallenge = await appealChallengeInstance.getAppealChallengeData();
     }
     let appealStatementURI;
-    if (!appealPhaseExpiry.isZero()) {
+    if (!new BigNumber(appealPhaseExpiry).isZero()) {
       appealStatementURI = await this.getAppealURI();
     }
     let appealGrantedStatementURI;
@@ -43,11 +47,11 @@ export class Appeal {
     }
     return {
       requester,
-      appealFeePaid,
-      appealPhaseExpiry,
+      appealFeePaid: new BigNumber(appealFeePaid),
+      appealPhaseExpiry: new BigNumber(appealPhaseExpiry),
       appealGranted,
-      appealOpenToChallengeExpiry,
-      appealChallengeID,
+      appealOpenToChallengeExpiry: new BigNumber(appealOpenToChallengeExpiry),
+      appealChallengeID: new BigNumber(appealChallengeID),
       appealChallenge,
       appealStatementURI,
       appealGrantedStatementURI,
@@ -61,11 +65,11 @@ export class Appeal {
       const appealRequestedEvent = await this.tcrInstance
         ._AppealRequestedStream(
           { challengeID: this.challengeId },
-          { fromBlock: getDefaultFromBlock(this.ethApi.network()), toBlock: currentBlock },
+          { fromBlock: getDefaultFromBlock(await this.ethApi.network()), toBlock: currentBlock },
         )
         .first()
         .toPromise();
-      return appealRequestedEvent.args.data;
+      return appealRequestedEvent.returnValues.data;
     } catch (e) {
       debug(`Getting AppealURI failed for ChallengeID: ${this.challengeId}`, e);
       return;
@@ -79,11 +83,11 @@ export class Appeal {
       const appealGrantedEvent = await this.tcrInstance
         ._AppealGrantedStream(
           { challengeID: this.challengeId },
-          { fromBlock: getDefaultFromBlock(this.ethApi.network()), toBlock: currentBlock },
+          { fromBlock: getDefaultFromBlock(await this.ethApi.network()), toBlock: currentBlock },
         )
         .first()
         .toPromise();
-      return appealGrantedEvent.args.data;
+      return appealGrantedEvent.returnValues.data;
     } catch (e) {
       debug(`Getting GrantedAppealURI failed for ChallengeID: ${this.challengeId}`, e);
       return;

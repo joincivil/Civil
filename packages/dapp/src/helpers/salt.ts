@@ -1,6 +1,6 @@
 import * as store from "store";
 import { randomSalt } from "@joincivil/utils";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress } from "@joincivil/core";
 const SALT_WORD_LENGTH = 4;
 
@@ -12,7 +12,7 @@ export function fetchSalt(
   if (!user) {
     return undefined;
   }
-  const key = `salt:${challengeId.toFixed()}:${user}`;
+  const key = `salt:${challengeId.toString()}:${user}`;
 
   // See if we have it saved first.
   if (!forceRefresh) {
@@ -23,7 +23,7 @@ export function fetchSalt(
     }
   }
 
-  const salt = randomSalt(SALT_WORD_LENGTH).toFixed();
+  const salt = randomSalt(SALT_WORD_LENGTH).toString();
 
   store.set(key, salt);
 

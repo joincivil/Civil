@@ -1,10 +1,27 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
-import { colors, mediaQueries } from "@joincivil/components";
+import { mediaQueries } from "@joincivil/components";
 
-export const StyledPageContent = styled.div`
-  margin: 0 auto;
+export interface StyledPageContentProps {
+  centerContent?: boolean;
+}
+
+export const StyledPageContent: StyledComponentClass<StyledPageContentProps, "div"> = styled<
+  StyledPageContentProps,
+  "div"
+>("div")`
+  ${props =>
+    !props.centerContent
+      ? ""
+      : `
+    display: flex;
+    justify-content: center;
+  `} margin: 0 auto;
   max-width: 1200px;
+`;
+
+export const StyledPageContentWithPadding = styled(StyledPageContent)`
+  padding-top: 50px;
 `;
 
 export const StyledListingCopy = styled.div`
@@ -22,11 +39,4 @@ export const StyledListingCopy = styled.div`
 export const StyledInPageMsgContainer = styled.div`
   padding-top: 100px;
   text-align: center;
-`;
-
-export const StyledMsgLargeCopy = styled.p`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-size: 18px;
-  line-height: 24px;
-  margin: 40px 0 0;
 `;

@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as qs from "querystring";
 import styled from "styled-components";
 import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import {
@@ -7,7 +8,6 @@ import {
   AccountVerifyToken,
   AuthApplicationEnum,
   AuthPageFooterLink,
-  AuthFooterTerms,
   OBSectionTitle,
   OBSectionDescription,
   PageHeadingTextCentered,
@@ -24,8 +24,9 @@ export interface AuthWrapperState {
 
 export interface AuthParams {
   action?: "login" | "signup";
-  token?: string;
 }
+
+const BASE_PATH = "/apply-to-registry";
 
 const Wrapper = styled.div`
   margin: 70px auto 0 auto;
@@ -40,16 +41,22 @@ const BodyText = styled(PageHeadingTextCentered)`
   margin-bottom: 12px;
 `;
 
-const Footer: React.SFC = () => (
-  <AuthFooterTerms
-    textEl={
-      <BodyText>
-        By joining Civil, you will become part of a community of high quality news publishers. Your content will be
-        featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
-      </BodyText>
-    }
-    benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
-  />
+const FooterLink = styled(AuthPageFooterLink)`
+  font-size: 13px;
+`;
+
+const Footer: React.FunctionComponent = () => (
+  <></>
+  // @TODO/toby Re-enable footer when foundation launches this page
+  // <AuthFooterTerms
+  //   textEl={
+  //     <BodyText>
+  //       By joining Civil, you will become part of a community of high quality news publishers. Your content will be
+  //       featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
+  //     </BodyText>
+  //   }
+  //   benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
+  // />
 );
 
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
@@ -83,7 +90,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
       return <>Loading...</>;
     }
 
-    const token = this.props.match.params.token;
+    const token = qs.parse(this.props.location.search.substr(1)).jwt as string;
     const isNewUser = this.props.match.params.action !== "login";
 
     if (token || this.state.showTokenVerified) {
@@ -141,15 +148,17 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
             applicationType={AuthApplicationEnum.NEWSROOM}
             isNewUser={isNewUser}
             onEmailSend={this.onEmailSend}
+            loginPath={`${BASE_PATH}/login`}
+            signupPath={`${BASE_PATH}/signup`}
           />
 
-          <AuthPageFooterLink>
+          <FooterLink>
             {isNewUser ? (
-              <Link to="/apply-to-registry/login">Already have an account?</Link>
+              <Link to={`${BASE_PATH}/login`}>Already have an account?</Link>
             ) : (
-              <Link to="/apply-to-registry/signup">← Back to create an account</Link>
+              <Link to={`${BASE_PATH}/signup`}>← Back to create an account</Link>
             )}
-          </AuthPageFooterLink>
+          </FooterLink>
         </SignupLoginInnerWrap>
 
         {isNewUser && <Footer />}
@@ -164,9 +173,9 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
   };
 
   private onAuthenticationContinue = (isNewUser: boolean) => {
-    // Remove e.g. /signup/[token] from path
+    // Remove e.g. /signup?jwt=[token] from path
     this.props.history.replace({
-      pathname: "/apply-to-registry",
+      pathname: BASE_PATH,
     });
 
     // @TODO/tobek Once token verification is handled better (flushing apollo cache so that client uses auth header) we can jump straight to "logged in" state. For now we have to refresh, and on refresh we'll be in the logged in state.

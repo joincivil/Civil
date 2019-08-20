@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { EthApi } from "@joincivil/ethapi";
@@ -12,11 +12,11 @@ export class MultisigTransaction {
     instance: MultiSigWalletContract,
     id: number,
   ): Promise<MultisigTransaction> {
-    const data = await instance.transactions.callAsync(ethApi.toBigNumber(id));
+    const data = await instance.transactions.callAsync(ethApi.toBigNumber(id).toString());
 
     return new MultisigTransaction(ethApi, instance, id, {
       destination: data[0],
-      value: data[1],
+      value: new BigNumber(data[1]),
       data: data[2],
       executed: data[3],
     });
@@ -55,7 +55,7 @@ export class MultisigTransaction {
    * This is a sugar function, which is the same as the one in the main Multisig wrapper
    */
   public async requiredConfirmations(): Promise<number> {
-    return (await this.instance.required.callAsync()).toNumber();
+    return new BigNumber(await this.instance.required.callAsync()).toNumber();
   }
 
   /**

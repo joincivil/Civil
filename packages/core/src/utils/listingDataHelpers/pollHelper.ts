@@ -1,11 +1,12 @@
 import { PollData } from "../../types";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Checks if a Poll is in the Commit stage
  * @param pollData the PollData to check
  */
 export function isInCommitStage(pollData: PollData): boolean {
-  return pollData.commitEndDate.toNumber() > Date.now() / 1000;
+  return parseInt(pollData.commitEndDate.toString(), 10) > Date.now() / 1000;
 }
 
 /**
@@ -13,7 +14,7 @@ export function isInCommitStage(pollData: PollData): boolean {
  * @param pollData the PollData to check
  */
 export function isInRevealStage(pollData: PollData): boolean {
-  return !isInCommitStage(pollData) && pollData.revealEndDate.toNumber() > Date.now() / 1000;
+  return !isInCommitStage(pollData) && parseInt(pollData.revealEndDate.toString(), 10) > Date.now() / 1000;
 }
 
 /**
@@ -24,9 +25,11 @@ export function isVotePassed(pollData: PollData): boolean {
   if (isInCommitStage(pollData) || isInRevealStage(pollData)) {
     return false;
   }
-  const votesFor = pollData.votesFor.toNumber();
-  const votesAgainst = pollData.votesAgainst.toNumber();
-  const votesForTimes100 = votesFor * 100;
-  const quorum = pollData.voteQuorum.toNumber();
-  return votesForTimes100 <= quorum * (votesFor + votesAgainst);
+  const votesFor = new BigNumber(pollData.votesFor);
+  const votesAgainst = new BigNumber(pollData.votesAgainst);
+  // @ts-ignore
+  // 100 should be `new BN` but  ethers ethers/web3 bn.js are not compatible
+  const votesForTimes100 = votesFor.mul(new BigNumber(100));
+  const quorum = new BigNumber(pollData.voteQuorum);
+  return votesForTimes100.gt(quorum.mul(votesFor.add(votesAgainst)));
 }

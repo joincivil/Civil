@@ -1,7 +1,8 @@
 import * as React from "react";
 import gql from "graphql-tag";
+import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
-import { ethereumEnable, isWalletOnboarded, getApolloClient } from "@joincivil/utils";
+import { isWalletOnboarded, getApolloClient, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
 import { Civil, EthAddress } from "@joincivil/core";
 import {
   colors,
@@ -32,7 +33,7 @@ import {
   AuthApplicationEnum,
 } from "../";
 import { AccountEthAuth } from "../Account/";
-import styled from "styled-components";
+import { BrowserCompatible } from "../BrowserCompatible";
 
 export interface WalletOnboardingV2Props {
   civil?: Civil;
@@ -40,8 +41,6 @@ export interface WalletOnboardingV2Props {
   requiredNetworkNiceName?: string;
   metamaskWalletAddress?: EthAddress;
   profileWalletAddress?: EthAddress;
-  helpUrl?: string;
-  helpUrlBase?: string;
   authApplicationType?: AuthApplicationEnum;
   onOnboardingComplete?(): void;
 }
@@ -211,7 +210,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
   }
 
   public async componentDidMount(): Promise<void> {
-    this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
+    await this.enableEthereum();
   }
 
   public render(): JSX.Element | null {
@@ -223,7 +222,9 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
       }
     }
 
-    if (!hasInjectedProvider()) {
+    if (!isBrowserCompatible()) {
+      return this.renderBrowserIncompatible();
+    } else if (!hasInjectedProvider()) {
       return this.renderNoProvider();
     } else if (!this.state.metamaskEnabled) {
       return this.renderNotEnabled();
@@ -242,12 +243,20 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     return null;
   }
 
+  private renderBrowserIncompatible(): JSX.Element {
+    return (
+      <Wrapper>
+        <BrowserCompatible />
+      </Wrapper>
+    );
+  }
+
   private renderNoProvider(): JSX.Element {
     return (
       <Wrapper>
         <OBSectionTitle>Connect your crypto wallet</OBSectionTitle>
         <IntroText>
-          To log in into your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using
+          To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using
           MetaMask.
         </IntroText>
         <GetMetaMaskBox>
@@ -283,13 +292,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will ask you connect Civil to MetaMask to grant access.</p>
             <InstructionsButtonWrap>
-              <MetaMaskLogoButton
-                onClick={async () => {
-                  this.setState({ metamaskEnabled: !!(await ethereumEnable()) });
-                }}
-              >
-                Open MetaMask
-              </MetaMaskLogoButton>
+              <MetaMaskLogoButton onClick={this.enableEthereum}>Open MetaMask</MetaMaskLogoButton>
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskConnectImgUrl} />
@@ -364,11 +367,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <InstructionsText>
             <p>MetaMask will open a new window, and will require you to sign a message.</p>
             <InstructionsButtonWrap>
-              <AccountEthAuth
-                civil={this.props.civil!}
-                onAuthenticated={async () => this.ethAddressSaved(true)}
-                buttonOnly={true}
-              />
+              <AccountEthAuth onAuthenticated={async () => this.ethAddressSaved(true)} buttonOnly={true} />
             </InstructionsButtonWrap>
           </InstructionsText>
           <InstructionsImage src={metaMaskSignImgUrl} />
@@ -396,7 +395,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
             <p>Open MetaMask to sign a message to authenticate your MetaMask address and save it to your profile.</p>
             <InstructionsButtonWrap>
               <AccountEthAuth
-                civil={this.props.civil!}
                 onAuthenticated={async () => this.ethAddressSaved()}
                 buttonOnly={true}
                 buttonText={"Update Profile"}
@@ -460,8 +458,8 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
           <OBNoteHeading>Using a different wallet?</OBNoteHeading>
           <OBNoteText>
             Make sure it's unlocked
-            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}
-            . You may need to refresh.
+            {this.props.requiredNetworkNiceName && " and connected to the " + this.props.requiredNetworkNiceName}. You
+            may need to refresh.
           </OBNoteText>
         </OBNoteContainer>
 
@@ -518,7 +516,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         >
           <OBSmallParagraph>
             Head over to our{" "}
-            <a href="#@TODO/toby FAQ link" target="_blank">
+            <a href={links.FAQ_HOW_TO_SETUP_METAMASK} target="_blank">
               FAQ guide
             </a>{" "}
             on how to install a MetaMask wallet.
@@ -527,7 +525,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
 
         <GetMetaMaskMoreHelp>
           Need more info before you start using a crypto wallet?{" "}
-          <a href="#@TODO/toby FAQ link" target="_blank">
+          <a href={links.FAQ_WALLETS} target="_blank">
             Learn more in our support area{" "}
             <ArrowWrap>
               <NorthEastArrow />
@@ -552,6 +550,15 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         console.error("Failed to send welcome email:", error);
       }
     }
+  };
+
+  private enableEthereum = async (): Promise<void> => {
+    const { civil } = this.props;
+    let isEthereumEnabled = false;
+    if (civil && civil.currentProvider) {
+      isEthereumEnabled = !!(await civil.currentProviderEnable());
+    }
+    this.setState({ metamaskEnabled: isEthereumEnabled });
   };
 
   private onboardingComplete = () => {

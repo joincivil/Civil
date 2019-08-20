@@ -10,8 +10,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   CTACopy,
 } from "./styledComponents";
 import { ChallangeCouncilToolTipText } from "./textComponents";
@@ -23,7 +21,7 @@ import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChar
 import NeedHelp from "./NeedHelp";
 import { AppealDecisionDetail } from "./AppealDecisionDetail";
 
-export const AppealDecisionCard: React.SFC<
+export const AppealDecisionCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &
@@ -34,16 +32,9 @@ export const AppealDecisionCard: React.SFC<
     if (props.submitAppealChallengeURI) {
       return (
         <>
-          <StyledVisibleOnDesktop>
-            <Button size={buttonSizes.MEDIUM} to={props.submitAppealChallengeURI}>
-              Submit a Challenge
-            </Button>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <Button size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-              Submit a Challenge
-            </Button>
-          </StyledVisibleOnMobile>
+          <Button size={buttonSizes.MEDIUM} to={props.submitAppealChallengeURI}>
+            Submit a Challenge
+          </Button>
         </>
       );
     }
@@ -90,7 +81,7 @@ export const AppealDecisionCard: React.SFC<
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       <StyledListingDetailPhaseCardSection>
@@ -102,7 +93,7 @@ export const AppealDecisionCard: React.SFC<
         {renderSubmitChallengeButton()}
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

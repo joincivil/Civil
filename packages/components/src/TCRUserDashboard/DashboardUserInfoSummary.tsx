@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   StyledUserInfo,
   StyledUserInfoSection,
+  StyledUserInfoButtonSection,
   StyledUserInfoSectionLabel,
   StyledUserInfoSectionValue,
   StyledUserAddress,
@@ -13,18 +14,30 @@ import {
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
 } from "./DashboardTextComponents";
-import { Button, buttonSizes } from "../Button";
+import { Button, InvertedButton, buttonSizes } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {
   userAccount: string;
   balance: string;
   votingBalance: string;
-  challengesWonTotalCvl: string;
-  rewardsEarned: string;
-  buyCVLURL: string;
+  challengesWonTotalCvl?: string;
+  rewardsEarned?: string;
+  buyCvlUrl: string;
+  applyURL: string;
 }
 
-export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInfoSummaryProps> = props => {
+export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) => {
+  const { buyCvlUrl, applyURL, challengesWonTotalCvl, rewardsEarned } = props;
+
+  let buyBtnProps: any = { href: buyCvlUrl };
+  if (buyCvlUrl.charAt(0) === "/") {
+    buyBtnProps = { to: buyCvlUrl };
+  }
+  let applyBtnProps: any = { href: applyURL };
+  if (applyURL.charAt(0) === "/") {
+    applyBtnProps = { to: applyURL };
+  }
+
   return (
     <StyledUserInfo>
       <StyledUserInfoSectionLabel>
@@ -51,28 +64,40 @@ export const DashboardUserInfoSummary: React.StatelessComponent<DashboardUserInf
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <StyledUserInfoSectionLabel>
-          <ChallengesWonLabelText />
-        </StyledUserInfoSectionLabel>
-        <StyledUserInfoSectionValue>
-          <strong>{props.challengesWonTotalCvl}</strong>
-        </StyledUserInfoSectionValue>
+        {challengesWonTotalCvl && (
+          <>
+            <StyledUserInfoSectionLabel>
+              <ChallengesWonLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{challengesWonTotalCvl}</strong>
+            </StyledUserInfoSectionValue>
+          </>
+        )}
       </StyledUserInfoSection>
 
       <StyledUserInfoSection>
-        <StyledUserInfoSectionLabel>
-          <RewardsClaimedLabelText />
-        </StyledUserInfoSectionLabel>
-        <StyledUserInfoSectionValue>
-          <strong>{props.rewardsEarned}</strong>
-        </StyledUserInfoSectionValue>
+        {rewardsEarned && (
+          <>
+            <StyledUserInfoSectionLabel>
+              <RewardsClaimedLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{rewardsEarned}</strong>
+            </StyledUserInfoSectionValue>
+          </>
+        )}
       </StyledUserInfoSection>
 
-      <StyledUserInfoSection>
-        <Button size={buttonSizes.MEDIUM_WIDE} href={props.buyCVLURL} target="_blank">
-          Buy CVL Tokens
+      <StyledUserInfoButtonSection>
+        <Button size={buttonSizes.MEDIUM_WIDE} {...buyBtnProps}>
+          Buy or Sell Civil Tokens
         </Button>
-      </StyledUserInfoSection>
+
+        <InvertedButton size={buttonSizes.MEDIUM_WIDE} {...applyBtnProps}>
+          Join as a newsroom
+        </InvertedButton>
+      </StyledUserInfoButtonSection>
     </StyledUserInfo>
   );
 };

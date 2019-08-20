@@ -3,15 +3,15 @@ import { buttonSizes, InvertedButton } from "../Button";
 import { ListingSummaryComponentProps } from "./types";
 import { ViewDetailsButtonText } from "./textComponents";
 
-const SummaryActionButton: React.SFC<ListingSummaryComponentProps> = props => {
+const SummaryActionButton: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   return (
-    <InvertedButton size={buttonSizes.SMALL} to={props.listingDetailURL}>
+    <InvertedButton size={buttonSizes.SMALL}>
       <ButtonText {...props} />
     </InvertedButton>
   );
 };
 
-const ButtonText: React.SFC<ListingSummaryComponentProps> = props => {
+const ButtonText: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   return <ViewDetailsButtonText />;
 };
 

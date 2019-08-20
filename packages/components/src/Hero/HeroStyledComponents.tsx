@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
+import { DarkButton, ButtonProps } from "../Button";
 import { HeroProps } from "./Hero";
 
 export const HeroOuter = styled.div`
@@ -40,6 +41,7 @@ export const StyledHeroCopy = styled.div`
   font-size: 18px;
   letter-spacing: -0.12px;
   line-height: 33px;
+  margin: 0 0 40px;
   text-align: center;
 
   p {
@@ -49,6 +51,26 @@ export const StyledHeroCopy = styled.div`
   a {
     color: ${colors.basic.WHITE};
     border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  }
+`;
+
+export const StyledButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const CTAButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+  border: 2px solid ${colors.basic.WHITE};
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-left: 30px;
+  text-align: center;
+  width: 180px;
+
+  &:hover {
+    background: ${colors.basic.WHITE};
+    color: ${colors.primary.BLACK};
   }
 `;
 

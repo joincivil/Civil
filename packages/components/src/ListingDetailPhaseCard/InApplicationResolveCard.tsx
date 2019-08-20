@@ -7,8 +7,9 @@ import {
   CTACopy,
 } from "./styledComponents";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import NeedHelp from "./NeedHelp";
 
-export const InApplicationResolveCard: React.SFC<ListingDetailPhaseCardComponentProps> = props => {
+export const InApplicationResolveCard: React.FunctionComponent<ListingDetailPhaseCardComponentProps> = props => {
   return (
     <StyledListingDetailPhaseCardContainer>
       <StyledListingDetailPhaseCardSection>
@@ -18,14 +19,10 @@ export const InApplicationResolveCard: React.SFC<ListingDetailPhaseCardComponent
         <CTACopy>
           This application is complete. To update this Newsroom's status on the Civil Registry, please add to registry.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Add To Registry
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Add To Registry</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

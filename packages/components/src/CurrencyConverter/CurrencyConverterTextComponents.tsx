@@ -5,7 +5,7 @@ export interface CurrencyCVLTextProps {
   totalPrice: number;
 }
 
-export const CurrencyCVLPriceText: React.SFC<CurrencyCVLTextProps> = props => (
+export const CurrencyCVLPriceText: React.FunctionComponent<CurrencyCVLTextProps> = props => (
   <>
     <span>You are buying</span>
     <h4>{props.totalPrice} CVL</h4>

@@ -5,7 +5,7 @@ import { MetaRow, MetaItem, MetaItemValue, MetaItemValueEthAddress, MetaItemLabe
 import { RewardPoolToolTipText, DepositsToolTipText } from "./textComponents";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-export const ChallengePhaseDetail: React.StatelessComponent<ChallengePhaseProps> = props => {
+export const ChallengePhaseDetail: React.FunctionComponent<ChallengePhaseProps> = props => {
   return (
     <>
       <MetaRow>

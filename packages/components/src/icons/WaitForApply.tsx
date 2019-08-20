@@ -6,7 +6,7 @@ export interface WaitForApplyProps {
   width?: string;
 }
 
-export const WaitForApply: React.SFC<WaitForApplyProps> = props => {
+export const WaitForApply: React.FunctionComponent<WaitForApplyProps> = props => {
   const width = props.width || "54";
   const height = props.height || "54";
 

@@ -1,12 +1,24 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { App } from "./App";
-import { createStore, applyMiddleware } from "redux";
-import reducers from "./redux/reducers";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
+import * as Sentry from "@sentry/browser";
 
-const store = createStore(reducers, applyMiddleware(thunk));
+import { App } from "./App";
+import { Provider } from "react-redux";
+
+import { store } from "./redux/store";
+
+import config from "./helpers/config";
+
+Sentry.init({
+  dsn: config.SENTRY_DSN,
+  environment: config.ENVIRONMENT,
+  release: config.APP_VERSION,
+  integrations(integrations: any[]): any[] {
+    return integrations.filter(
+      integration => integration.name !== "Breadcrumbs" || config.ENVIRONMENT === "production",
+    );
+  },
+});
 
 ReactDOM.render(
   <Provider store={store}>

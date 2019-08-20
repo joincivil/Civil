@@ -14,7 +14,12 @@ import {
   InsufficientCVLForAppealChallengeText,
 } from "./textComponents";
 
-export const InsufficientCVL: React.SFC<BuyCVLButtonProps> = props => {
+export const InsufficientCVL: React.FunctionComponent<BuyCVLButtonProps> = props => {
+  const { buyCVLURL } = props;
+  let buyBtnProps: any = { href: buyCVLURL };
+  if (buyCVLURL.charAt(0) === "/") {
+    buyBtnProps = { to: buyCVLURL };
+  }
   return (
     <StyledMessageWithIconContainer>
       <StyledMessageIconContainer>
@@ -23,7 +28,7 @@ export const InsufficientCVL: React.SFC<BuyCVLButtonProps> = props => {
       <StyledErrorMessage>{props.children}</StyledErrorMessage>
       {props.buyCVLURL && (
         <StyledBuyCVLButtonContainer>
-          <InvertedButton href={props.buyCVLURL} size={buttonSizes.MEDIUM}>
+          <InvertedButton {...buyBtnProps} size={buttonSizes.MEDIUM}>
             Buy CVL
           </InvertedButton>
         </StyledBuyCVLButtonContainer>
@@ -32,7 +37,7 @@ export const InsufficientCVL: React.SFC<BuyCVLButtonProps> = props => {
   );
 };
 
-export const InsufficientCVLForChallenge: React.SFC<InsufficientCVLProps & BuyCVLButtonProps> = props => {
+export const InsufficientCVLForChallenge: React.FunctionComponent<InsufficientCVLProps & BuyCVLButtonProps> = props => {
   return (
     <InsufficientCVL buyCVLURL={props.buyCVLURL}>
       <InsufficientCVLForChallengeText minDeposit={props.minDeposit} />
@@ -40,7 +45,7 @@ export const InsufficientCVLForChallenge: React.SFC<InsufficientCVLProps & BuyCV
   );
 };
 
-export const InsufficientCVLForAppeal: React.SFC<InsufficientCVLProps & BuyCVLButtonProps> = props => {
+export const InsufficientCVLForAppeal: React.FunctionComponent<InsufficientCVLProps & BuyCVLButtonProps> = props => {
   return (
     <InsufficientCVL buyCVLURL={props.buyCVLURL}>
       <InsufficientCVLForAppealText appealFee={props.appealFee} />
@@ -48,7 +53,9 @@ export const InsufficientCVLForAppeal: React.SFC<InsufficientCVLProps & BuyCVLBu
   );
 };
 
-export const InsufficientCVLForAppealChallenge: React.SFC<InsufficientCVLProps & BuyCVLButtonProps> = props => {
+export const InsufficientCVLForAppealChallenge: React.FunctionComponent<
+  InsufficientCVLProps & BuyCVLButtonProps
+> = props => {
   return (
     <InsufficientCVL buyCVLURL={props.buyCVLURL}>
       <InsufficientCVLForAppealChallengeText appealFee={props.appealFee} />

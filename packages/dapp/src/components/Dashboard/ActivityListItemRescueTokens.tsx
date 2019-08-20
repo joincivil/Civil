@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
@@ -17,6 +17,7 @@ import {
   makeGetParameterProposalChallenge,
   getAppealChallengeParentChallenge,
   makeGetUserProposalChallengeData,
+  makeGetProposalByChallengeID,
 } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
@@ -37,7 +38,8 @@ export interface ActivityListItemRescueTokensReduxProps {
 }
 
 export interface ProposalItemRescueTokensReduxProps {
-  proposalUserChallengeData?: UserChallengeData;
+  proposal?: any;
+  userChallengeData?: UserChallengeData;
   rescueTokensAmount: string;
   challenge?: any;
   challengeDataRequestStatus?: any;
@@ -94,16 +96,21 @@ class ProposalRescueTokensComponent extends React.Component<
   ProposalItemRescueTokensComponentProps & DispatchProp<any>
 > {
   public render(): JSX.Element {
-    const { challenge, challengeDataRequestStatus, challengeID, proposalUserChallengeData } = this.props;
+    const { proposal, challenge, challengeDataRequestStatus, challengeID, userChallengeData } = this.props;
 
     if (!challenge && !challengeDataRequestStatus) {
       this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
     }
 
+    let title = "Parameter Proposal Challenge";
+    if (proposal) {
+      title = `${title}: ${proposal.paramName} = ${proposal.propValue}`;
+    }
+
     const viewProps = {
-      title: `Parameter Proposal Challenge`,
+      title,
       challengeID,
-      salt: proposalUserChallengeData && proposalUserChallengeData.salt,
+      salt: userChallengeData && userChallengeData.salt,
       numTokens: this.props.rescueTokensAmount!,
       toggleSelect: this.props.toggleSelect,
     };
@@ -169,12 +176,14 @@ const makeChallengeMapStateToProps = () => {
 const makeProposalMapStateToProps = () => {
   const getUserProposalChallengeData = makeGetUserProposalChallengeData();
   const getParameterProposalChallenge = makeGetParameterProposalChallenge();
+  const getProposalByChallengeID = makeGetProposalByChallengeID();
 
   const mapStateToProps = (
     state: State,
     ownProps: ActivityListItemRescueTokensOwnProps,
   ): ProposalItemRescueTokensComponentProps => {
     const { parameterProposalChallengesFetching } = state.networkDependent;
+    const proposal = getProposalByChallengeID(state, ownProps);
     const challenge = getParameterProposalChallenge(state, ownProps);
     const proposalUserChallengeData = getUserProposalChallengeData(state, ownProps);
     const rescueTokensAmountBN = proposalUserChallengeData && proposalUserChallengeData.numTokens;
@@ -188,6 +197,7 @@ const makeProposalMapStateToProps = () => {
     }
 
     return {
+      proposal,
       challenge,
       challengeDataRequestStatus,
       proposalUserChallengeData,
@@ -203,7 +213,7 @@ const ProposalRescueTokens = connect(makeProposalMapStateToProps)(ProposalRescue
 
 const ActivityListItemRescueTokens = connect(makeChallengeMapStateToProps)(ActivityListItemRescueTokensComponent);
 
-const RescueTokens: React.SFC<ActivityListItemRescueTokensOwnProps> = props => {
+const RescueTokens: React.FunctionComponent<ActivityListItemRescueTokensOwnProps> = props => {
   if (props.isProposalChallenge) {
     return <ProposalRescueTokens {...props} />;
   }

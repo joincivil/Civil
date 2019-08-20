@@ -11,7 +11,7 @@ try {
   civil = undefined;
 }
 
-storiesOf("Wallet Onboarding V2/Save Address", module)
+storiesOf("Common / Wallet Onboarding V2 / Save Address", module)
   .addDecorator(apolloDecorator)
   .add("Save address to Civil account", () => {
     return <WalletOnboardingV2 metamaskWalletAddress="0xabc1230000000000000000000000000000abc123" civil={civil} />;

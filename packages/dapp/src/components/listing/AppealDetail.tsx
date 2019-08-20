@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { AppealData, ChallengeData, EthAddress, NewsroomWrapper, UserChallengeData } from "@joincivil/core";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import AppealAwaitingDecision from "./AppealAwaitingDecision";
 import AppealResolve from "./AppealResolve";
@@ -45,24 +45,23 @@ class AppealDetail extends React.Component<AppealDetailProps> {
           !isAwaitingAppealChallenge &&
           this.renderAwaitingAppealDecision()}
         {isAwaitingAppealChallenge && this.renderChallengeAppealStage()}
-        {appeal.appealChallenge &&
-          !appeal.appealChallenge.resolved && (
-            <AppealChallengeDetail
-              listingAddress={this.props.listingAddress}
-              challengeID={this.props.challengeID}
-              challenge={this.props.challenge}
-              appeal={this.props.appeal}
-              appealChallengeID={appeal.appealChallengeID}
-              appealChallenge={appeal.appealChallenge}
-              userAppealChallengeData={this.props.userAppealChallengeData}
-              parameters={this.props.parameters}
-              govtParameters={this.props.govtParameters}
-              balance={this.props.balance}
-              votingBalance={this.props.votingBalance}
-              user={this.props.user}
-              onMobileTransactionClick={this.props.onMobileTransactionClick}
-            />
-          )}
+        {appeal.appealChallenge && !appeal.appealChallenge.resolved && (
+          <AppealChallengeDetail
+            listingAddress={this.props.listingAddress}
+            challengeID={this.props.challengeID}
+            challenge={this.props.challenge}
+            appeal={this.props.appeal}
+            appealChallengeID={appeal.appealChallengeID}
+            appealChallenge={appeal.appealChallenge}
+            userAppealChallengeData={this.props.userAppealChallengeData}
+            parameters={this.props.parameters}
+            govtParameters={this.props.govtParameters}
+            balance={this.props.balance}
+            votingBalance={this.props.votingBalance}
+            user={this.props.user}
+            onMobileTransactionClick={this.props.onMobileTransactionClick}
+          />
+        )}
         {canAppealBeResolved && !appeal.appealChallenge && this.renderCanResolve()}
       </StyledDiv>
     );

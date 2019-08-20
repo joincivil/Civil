@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   AppealChallengeRevealVoteCard as AppealChallengeRevealVoteCardComponent,
@@ -10,7 +10,7 @@ import {
   ModalListItem,
   RevealVoteSuccessIcon,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings, Parameters } from "@joincivil/utils";
+import { getLocalDateTimeStrings, Parameters, urlConstants as links } from "@joincivil/utils";
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
@@ -66,7 +66,10 @@ interface AppealRevealCardKeyState {
 
 const AppealChallengeRevealVoteCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealChallengeRevealVoteCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealChallengeRevealVoteCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealChallengeRevealVoteCardComponent);
 
 class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
@@ -123,7 +126,9 @@ class AppealChallengeRevealVote extends React.Component<
           appealGranted={this.props.appeal.appealGranted}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           appealGrantedStatementURI={this.props.appeal.appealGrantedStatementURI}
+          votingSmartContractFaqURL={links.FAQ_WHAT_IS_PLCR_CONTRACT}
           key={this.state.key}
+          faqURL={links.FAQ_VOTING_SECTION}
         />
       </>
     );

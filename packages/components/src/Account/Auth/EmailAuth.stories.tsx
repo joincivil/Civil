@@ -64,7 +64,7 @@ const mocks = {
   },
 };
 
-storiesOf("Email Signup Flow", module)
+storiesOf("Common / Auth / Email Signup Flow", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
@@ -80,6 +80,8 @@ storiesOf("Email Signup Flow", module)
         onEmailSend={() => {
           console.log("Sent");
         }}
+        signupPath=""
+        loginPath=""
       />
     );
   });

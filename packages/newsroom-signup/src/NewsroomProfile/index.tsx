@@ -1,35 +1,35 @@
 import * as React from "react";
-import styled from "styled-components";
-import { colors, BorderlessButton, Button, buttonSizes } from "@joincivil/components";
-import { CharterData } from "@joincivil/core";
+import { NextBack } from "../styledComponents";
+import { CharterData, EthAddress } from "@joincivil/core";
+import { STEP } from "../Newsroom";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";
 import { CharterQuestions } from "./CharterQuestions";
 import { SignConstitution } from "./SignConstitution";
 import { ApplicationSoFarPage } from "./ApplicationSoFarPage";
+import { GrantApplication } from "./GrantApplication";
 
 export interface NewsroomProfileState {
-  currentStep: number;
+  showButtons: boolean;
 }
 
 export interface NewsroomProfileProps {
+  profileWalletAddress?: EthAddress;
+  currentStep: number;
+  furthestStep: STEP;
   charter: Partial<CharterData>;
+  grantRequested?: boolean;
+  waitingOnGrant?: boolean;
+  completedGrantFlow?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
-  goNext?(): void;
+  navigate(go: 1 | -1): void;
 }
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding-top: 24px;
-`;
 
 export class NewsroomProfile extends React.Component<NewsroomProfileProps, NewsroomProfileState> {
   constructor(props: NewsroomProfileProps) {
     super(props);
     this.state = {
-      currentStep: 0,
+      showButtons: true,
     };
   }
   public getDisabled(index: number): () => boolean {
@@ -61,49 +61,59 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
         return !(this.props.charter.signatures && this.props.charter.signatures.length);
       },
       () => {
-        return true;
+        return false;
+      },
+      () => {
+        return !this.props.completedGrantFlow;
       },
     ];
+
     return functions[index];
   }
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <NewsroomBio charter={this.props.charter} updateCharter={this.props.updateCharter} />,
-      <AddRosterMember charter={this.props.charter} updateCharter={this.props.updateCharter} />,
+      <AddRosterMember
+        charter={this.props.charter}
+        updateCharter={this.props.updateCharter}
+        setButtonVisibility={this.setButtonVisibility}
+        profileWalletAddress={this.props.profileWalletAddress}
+      />,
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
+      <GrantApplication />,
     ];
-    return steps[this.state.currentStep];
+    return steps[this.props.currentStep];
   }
-  public goNext(): void {
-    this.setState({ currentStep: this.state.currentStep + 1 });
+
+  public renderButtons(top?: boolean): JSX.Element | null {
+    if (!this.state.showButtons || this.props.waitingOnGrant) {
+      return null;
+    }
+    return (
+      <NextBack
+        top={top}
+        navigate={this.props.navigate}
+        backHidden={this.props.currentStep === 0}
+        nextDisabled={this.getDisabled(this.props.currentStep)}
+      />
+    );
   }
-  public goBack(): void {
-    this.setState({ currentStep: this.state.currentStep - 1 });
-  }
+
   public render(): JSX.Element {
     return (
       <>
+        {/*Bit ugly, but people always having issues figuring out how to navigate back to make changes, so once they've gotten this far, show navigation at the top as well:*/}
+        {this.props.furthestStep >= STEP.PROFILE_SO_FAR && this.renderButtons(true)}
+
         {this.renderCurrentStep()}
-        <ButtonContainer>
-          {this.state.currentStep > 0 ? (
-            <BorderlessButton size={buttonSizes.MEDIUM_WIDE} onClick={() => this.goBack()}>
-              Back
-            </BorderlessButton>
-          ) : (
-            <div />
-          )}
-          <Button
-            disabled={this.getDisabled(this.state.currentStep)()}
-            width={220}
-            size={buttonSizes.MEDIUM_WIDE}
-            onClick={() => this.goNext()}
-          >
-            Next
-          </Button>
-        </ButtonContainer>
+        {this.renderButtons()}
       </>
     );
   }
+
+  private setButtonVisibility = (visible: boolean) => {
+    this.setState({ showButtons: visible });
+  };
 }

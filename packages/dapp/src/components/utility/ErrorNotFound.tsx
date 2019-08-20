@@ -5,7 +5,7 @@ import { ErrorNotFound } from "@joincivil/components";
 
 import { StyledInPageMsgContainer } from "./styledComponents";
 
-const ErrorNotFoundMsg: React.SFC = props => {
+const ErrorNotFoundMsg: React.FunctionComponent = props => {
   const defaultCopy = "We could not find the page you were looking for.";
   return (
     <StyledInPageMsgContainer>

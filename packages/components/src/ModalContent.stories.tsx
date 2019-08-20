@@ -7,13 +7,13 @@ const StyledDiv = styled.div`
   display: flex;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("ModalContent", module).add("content", () => {
+storiesOf("Pattern Library / Modals", module).add("content", () => {
   return (
     <Container>
       <ModalHeading>I'm a Heading</ModalHeading>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const NetworkIcon: React.SFC = props => {
+export const NetworkIcon: React.FunctionComponent = props => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="44" viewBox="0 0 48 44">
       <g fill={colors.accent.CIVIL_BLUE}>

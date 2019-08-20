@@ -51,8 +51,8 @@ contract("NewsroomFactory", accounts => {
   ): Promise<{ newsroom: any; multisig: any }> {
     const receipt = await instance.create(name, SOME_URI, SOME_HASH, owners, required);
     return {
-      newsroom: Newsroom.at(createdContract(instance, receipt)),
-      multisig: MultiSigWallet.at(createdContract(multisigFactoryInstance, receipt)),
+      newsroom: await Newsroom.at(createdContract(instance, receipt)),
+      multisig: await MultiSigWallet.at(createdContract(multisigFactoryInstance, receipt)),
     };
   }
 

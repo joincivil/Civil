@@ -4,7 +4,7 @@ import { EthAddress } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
 import { getNewsroom } from "../../apis/civilTCR";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface NewsroomDetailState {
   name: string;

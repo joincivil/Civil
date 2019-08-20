@@ -13,7 +13,7 @@ export const questionsCopy = {
   [charterQuestions.REVENUE]:
     "What are your Newsroom's current or planned revenue sources? e.g. membership, subscriptions, advertising, sponsored content",
   [charterQuestions.ENCUMBRANCES]:
-    "Do you have any conflicts of interests that may impact your editorial independence? e.g. advocacy organization, commercial interests, corporate ownership",
+    "Do you have any conflicts of interest that may impact your editorial independence? e.g. advocacy organization, commercial interests, corporate ownership",
   [charterQuestions.MISCELLANEOUS]:
     "Is there anything else the Civil community should know about your Newsroom to support its inclusion on the Registry?",
 };

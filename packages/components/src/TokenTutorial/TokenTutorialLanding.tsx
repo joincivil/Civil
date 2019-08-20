@@ -7,6 +7,7 @@ import {
   TakeQuizBtn,
   TutorialTopic,
   LaunchTopic,
+  LaunchTopicTop,
   TopicProgress,
   TutorialLandingProgressBars,
   TutorialLandingProgressBar,
@@ -24,7 +25,6 @@ import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
 import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialLandingProps {
-  isQuizStarted: boolean;
   quizPayload: {};
   handleClose(): void;
 }
@@ -34,15 +34,24 @@ export interface TokenTutorialLandingStates {
   tutorialActive: boolean;
   skipTutorial: boolean;
   activeSection: string;
+  quizSlide: number;
 }
 
 export class TokenTutorialLanding extends React.Component<TokenTutorialLandingProps, TokenTutorialLandingStates> {
   public constructor(props: any) {
     super(props);
-    this.state = { activeTutorialIdx: 0, tutorialActive: false, skipTutorial: false, activeSection: "intro" };
+    this.state = {
+      activeTutorialIdx: 0,
+      tutorialActive: false,
+      skipTutorial: false,
+      activeSection: "intro",
+      quizSlide: 0,
+    };
   }
 
   public render(): JSX.Element {
+    let activeTopic = 0;
+
     if (this.state.tutorialActive) {
       return (
         <TokenTutorialQuiz
@@ -52,6 +61,7 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
           activeSection={this.state.activeSection}
           handleClose={this.props.handleClose}
           handleSaveQuizState={this.saveQuizState}
+          quizSlide={this.state.quizSlide}
         />
       );
     }
@@ -68,41 +78,47 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
         <TutorialSkipSection>
           <TutorialSkipText />
-          <TakeQuizBtn onClick={() => this.skipTutorial()}>
-            {this.props.isQuizStarted ? "Continue" : "Take the quiz"}
-          </TakeQuizBtn>
+          <TakeQuizBtn onClick={() => this.skipTutorial()}>Take the quiz</TakeQuizBtn>
         </TutorialSkipSection>
 
         {TutorialContent.map((topic, idx) => {
-          const { lastSlideIdx } = this.getTopicStatus(this.props.quizPayload, topic);
+          // lastSlideIdx is the index number, lastSlideNumber is the visible question number
+          const { lastSlideIdx, isComplete, isStarted } = this.getTopicStatus(this.props.quizPayload, topic);
+          const lastSlideNumber = lastSlideIdx + 1;
+          const nextQuestionNumber = isStarted ? lastSlideNumber : 0;
 
-          // TODO(jorgelo): What do we do when isComplete is true (this means that this topic has been completed)
-          // TODO(jorgelo): lastSlideIdx is the last slide that was completed correctly. Should we jump the user to that last slide?
+          if (isComplete) {
+            activeTopic++;
+          }
+
+          const topicDisabled = activeTopic !== idx;
 
           return (
             <TutorialTopic key={idx}>
-              <LaunchTopic onClick={() => this.openTutorial(idx)}>
-                <div>
-                  {topic.icon}
-                  <h3>{topic.name}</h3>
-                  <p>{topic.description}</p>
-                </div>
-                <DisclosureArrowIcon />
+              <LaunchTopic onClick={() => this.openTutorial(idx, nextQuestionNumber)} disabled={topicDisabled}>
+                <LaunchTopicTop>
+                  <div>
+                    {topic.icon}
+                    <h3>{topic.name}</h3>
+                    <p>{topic.description}</p>
+                  </div>
+                  <DisclosureArrowIcon />
+                </LaunchTopicTop>
+                <TopicProgress>
+                  <TutorialProgressText questions={topic.questions.length - nextQuestionNumber} />
+                  <TutorialLandingProgressBars>
+                    {topic.questions.map((question, questionIdx) => {
+                      if (isStarted && questionIdx <= lastSlideIdx) {
+                        return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
+                      }
+                      return <TutorialLandingProgressBar key={questionIdx} />;
+                    })}
+                    <b>
+                      {nextQuestionNumber}/{topic.questions.length}
+                    </b>
+                  </TutorialLandingProgressBars>
+                </TopicProgress>
               </LaunchTopic>
-              <TopicProgress>
-                <TutorialProgressText questions={topic.questions.length - lastSlideIdx} />
-                <TutorialLandingProgressBars>
-                  {topic.questions.map((question, questionIdx) => {
-                    if (lastSlideIdx > 0 && questionIdx <= lastSlideIdx) {
-                      return <TutorialLandingProgressBar key={questionIdx} completed={true} />;
-                    }
-                    return <TutorialLandingProgressBar key={questionIdx} />;
-                  })}
-                  <b>
-                    {lastSlideIdx}/{topic.questions.length}
-                  </b>
-                </TutorialLandingProgressBars>
-              </TopicProgress>
             </TutorialTopic>
           );
         })}
@@ -115,42 +131,46 @@ export class TokenTutorialLanding extends React.Component<TokenTutorialLandingPr
 
     if (isComplete) {
       // This bad boy loops through all the current topics and checks to see if any topic has not been completed. If complete set the quizStatus.
-      let allQuizesComplete: boolean = true;
+      let allQuizzesComplete: boolean = true;
 
       TutorialContent.forEach(t => {
-        if (!allQuizesComplete) {
+        if (!allQuizzesComplete) {
           return;
         }
 
         if (t.quizId === topic) {
-          allQuizesComplete = isComplete;
+          allQuizzesComplete = isComplete;
           return;
         }
 
-        allQuizesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
+        allQuizzesComplete = (quizPayload as any)[t.quizId] && (quizPayload as any)[t.quizId].isComplete;
       });
-      updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizesComplete ? "complete" : undefined);
+      updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } }, allQuizzesComplete ? "complete" : undefined);
     } else {
       updateQuizPayload({ [topic]: { isComplete, lastSlideIdx } });
     }
   };
 
-  private getTopicStatus(quizPayload: any, topic: any): { isComplete: boolean; lastSlideIdx: number } {
+  private getTopicStatus(
+    quizPayload: any,
+    topic: any,
+  ): { isComplete: boolean; lastSlideIdx: number; isStarted: boolean } {
     if (!quizPayload || !quizPayload[topic.quizId]) {
-      return { isComplete: false, lastSlideIdx: 0 };
+      return { isComplete: false, lastSlideIdx: 0, isStarted: false };
     }
 
     const isComplete = quizPayload[topic.quizId].isComplete || false;
     const lastSlideIdx = quizPayload[topic.quizId].lastSlideIdx || 0;
 
-    return { isComplete, lastSlideIdx };
+    return { isComplete, lastSlideIdx, isStarted: true };
   }
 
+  // Take the quiz straight thru without reading the tutorial
   private skipTutorial = () => {
     this.setState({ activeTutorialIdx: 0, tutorialActive: true, skipTutorial: true, activeSection: "quiz" });
   };
 
-  private openTutorial = (idx: number) => {
-    this.setState({ activeTutorialIdx: idx, tutorialActive: true });
+  private openTutorial = (topicNumber: number, lastSlideNumber: number) => {
+    this.setState({ activeTutorialIdx: topicNumber, tutorialActive: true, quizSlide: lastSlideNumber });
   };
 }

@@ -1,0 +1,673 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Registry Challenge Results Chart 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-bjPkoM khShYx"
+    >
+      <div>
+        <h4
+          className="sc-cEvuZC cSOMjM sc-hmXxxW feJmWW"
+        >
+          Challenge Results
+        </h4>
+        <p
+          className="sc-hjRWVT eGnaZE"
+        >
+          The Civil Community 
+          <b>
+            voted to accept this newsroom
+          </b>
+           on the grounds that it adheres to the Civil Constitution.
+        </p>
+        <div
+          className="sc-ePZHVD hhGsMn"
+        >
+          <div
+            className="sc-likbZx gwUtkk"
+          >
+            <div
+              className="sc-gVyKpa jYJFkV"
+            >
+              <div
+                className="sc-cpmKsF xIvGi"
+              >
+                <svg
+                  height="14"
+                  viewBox="0 0 20 20"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    transform="translate(1 1)"
+                  >
+                    <circle
+                      className="svg-stroke"
+                      cx="9"
+                      cy="9"
+                      r="8.25"
+                      stroke="#29cb42"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      className="svg-fill"
+                      d="m12.6 5-5.13 5.17-2.07-2.08-1.4 1.41 3.47 3.5 6.53-6.59z"
+                      fill="#29cb42"
+                      fillRule="nonzero"
+                    />
+                  </g>
+                </svg>
+                 Accept
+              </div>
+            </div>
+            <div
+              className="sc-eKZiaR dbjEBL"
+            >
+              <div
+                className="sc-drMfKT ihDCSr"
+              >
+                73
+                %
+              </div>
+              <div
+                className="sc-fgfRvd gYepeo"
+              >
+                <div
+                  className="sc-hIVACf eKfPww"
+                >
+                  <div
+                    className="sc-gpHHfC cxyYMR"
+                    color="#30E8BD"
+                  />
+                </div>
+                <div
+                  className="sc-gPzReC lnCPfx"
+                >
+                  73000
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-ePZHVD hhGsMn"
+        >
+          <div
+            className="sc-likbZx gwUtkk"
+          >
+            <div
+              className="sc-gVyKpa jYJFkV"
+            >
+              <div
+                className="sc-cpmKsF hTaIZu"
+              >
+                <svg
+                  height="14"
+                  viewBox="0 0 20 20"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                    fillRule="evenodd"
+                    transform="translate(1 1)"
+                  >
+                    <path
+                      d="m0 0h18v18h-18z"
+                    />
+                    <path
+                      className="svg-fill"
+                      d="m9 0c-4.968 0-9 4.032-9 9s4.032 9 9 9 9-4.032 9-9-4.032-9-9-9zm0 16.2c-3.978 0-7.2-3.222-7.2-7.2 0-1.665.567-3.195 1.521-4.41l10.089 10.089c-1.215.954-2.745 1.521-4.41 1.521zm5.679-2.79-10.089-10.089c1.215-.954 2.745-1.521 4.41-1.521 3.978 0 7.2 3.222 7.2 7.2 0 1.665-.567 3.195-1.521 4.41z"
+                      fill="#f2524a"
+                      fillRule="nonzero"
+                    />
+                  </g>
+                </svg>
+                 Reject
+              </div>
+            </div>
+            <div
+              className="sc-eKZiaR dbjEBL"
+            >
+              <div
+                className="sc-drMfKT ihDCSr"
+              >
+                27
+                %
+              </div>
+              <div
+                className="sc-fgfRvd gYepeo"
+              >
+                <div
+                  className="sc-hIVACf eKfPww"
+                >
+                  <div
+                    className="sc-gpHHfC eaNxJl"
+                    color="#FF0C1A"
+                  />
+                </div>
+                <div
+                  className="sc-gPzReC lnCPfx"
+                >
+                  27000
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-ePZHVD hhGsMn"
+        >
+          <div
+            className="sc-likbZx gwUtkk"
+          >
+            <div
+              className="sc-eXNvrr eIYtZd"
+            >
+              <div
+                className="sc-kQsIoO gDgHLQ sc-cpmKsF hTaIZu"
+              >
+                Total Votes
+              </div>
+            </div>
+            <div
+              className="sc-jrIrqw dVyVMK"
+            >
+              100000
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "left": 0,
+        "overflow": "auto",
+        "padding": "0 40px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Registry
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Challenge Results Chart
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    ChallengeResults
+                  </span>
+                  <span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        totalVotes
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            100000
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        votesFor
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            73000
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        votesAgainst
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            27000
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        percentFor
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            73
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        percentAgainst
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            27
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
+                        didChallengeSucceed
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            false
+                          </span>
+                          }
+                        </span>
+                      </span>
+                      <br />
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              ChallengeResults
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

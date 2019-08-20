@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 
-import { SmallNewsroomLogo } from "../ListingSummary/styledComponents";
+import { SmallNewsroomIcon } from "../ListingSummary/styledComponents";
+import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 
 import { DashboardActivityItemProps } from "./DashboardTypes";
 import {
@@ -11,12 +12,21 @@ import {
 } from "./DashboardStyledComponents";
 import DashboardActivityItemTitle from "./DashboardActivityItemTitle";
 
-export const DashboardActivityItemTask: React.SFC<DashboardActivityItemProps> = props => {
+export const DashboardActivityItemTask: React.FunctionComponent<DashboardActivityItemProps> = props => {
   const { logoUrl } = props;
   return (
     <StyledDashboardActivityItem>
       <StyledDashboardActivityItemIcon>
-        {logoUrl && <SmallNewsroomLogo src={logoUrl} />}
+        {logoUrl && (
+          <SmallNewsroomIcon>
+            <img
+              src={logoUrl}
+              onError={e => {
+                (e.target as any).src = defaultNewsroomImgUrl;
+              }}
+            />
+          </SmallNewsroomIcon>
+        )}
       </StyledDashboardActivityItemIcon>
 
       <StyledDashboardActivityItemDetails>

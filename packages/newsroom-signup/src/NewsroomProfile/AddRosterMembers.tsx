@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { StyledHr, FormSection, StepSectionCounter } from "../styledComponents";
-import { CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { CharterData, RosterMember as RosterMemberInterface, EthAddress } from "@joincivil/core";
 import {
   InvertedButton,
   BorderlessButton,
@@ -10,17 +10,24 @@ import {
   OBSectionDescription,
 } from "@joincivil/components";
 import { RosterMember } from "./RosterMember";
-import { findIndex } from "lodash";
 import styled from "styled-components";
 import { RosterMemberListItem } from "./RosterMemberListItem";
 
 export interface AddRosterMemberProps {
   charter: Partial<CharterData>;
+  profileWalletAddress?: EthAddress;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
+  setButtonVisibility?(visibility: boolean): void;
+}
+export interface AddRosterMemberDefaultProps {
+  setButtonVisibility(visibility: boolean): void;
 }
 
 export interface AddRosterMemberState {
   editingMember: Partial<RosterMemberInterface> | null;
+  editingIndex: number;
 }
 
 const LowerHeader = styled(OBSectionHeader)`
@@ -42,27 +49,44 @@ const StyledUl = styled.ul`
   padding: 0;
 `;
 
-export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRosterMemberState> {
-  constructor(props: AddRosterMemberProps) {
+const ButtonSection = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 15px;
+`;
+
+const RemoveButton = styled(BorderlessButton)`
+  margin-left: auto;
+`;
+
+export class AddRosterMember extends React.Component<
+  AddRosterMemberProps & AddRosterMemberDefaultProps,
+  AddRosterMemberState
+> {
+  public static defaultProps: AddRosterMemberDefaultProps = {
+    setButtonVisibility: (vis: boolean) => {},
+  };
+  constructor(props: AddRosterMemberProps & AddRosterMemberDefaultProps) {
     super(props);
     this.state = {
       editingMember: null,
+      editingIndex: -1,
     };
   }
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
-        <OBSectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
-          Registry Profile.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <StyledHr />
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
-          <LowerHeader>Newsroom Roster</LowerHeader>
-          <LowerDescription>Add yourself, in addition to any staff or team members to your roster.</LowerDescription>
-          <StyledCounter>Step 2 of 4: Roster</StyledCounter>
+          {!this.props.editMode && (
+            <>
+              <LowerHeader>Newsroom Roster</LowerHeader>
+              <LowerDescription>
+                Add yourself, in addition to any staff or team members to your roster.
+              </LowerDescription>
+              <StyledCounter>Step 2 of 4: Roster</StyledCounter>
+            </>
+          )}
           {this.state.editingMember ? (
             <RosterMember
               user={{ rosterData: this.state.editingMember }}
@@ -76,17 +100,22 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
             </StyledUl>
           )}
           {this.state.editingMember ? (
-            <>
+            <ButtonSection>
               <InvertedButton size={buttonSizes.MEDIUM} onClick={this.saveRosterMember}>
                 Save
               </InvertedButton>
-              <BorderlessButton size={buttonSizes.MEDIUM} onClick={() => this.setState({ editingMember: null })}>
+              <BorderlessButton size={buttonSizes.MEDIUM} onClick={this.cancelEdit}>
                 Cancel
               </BorderlessButton>
-            </>
+              <RemoveButton size={buttonSizes.MEDIUM} onClick={this.removeRosterMember}>
+                Remove
+              </RemoveButton>
+            </ButtonSection>
           ) : (
             <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={this.addRosterMember}>
-              Add a profile
+              {this.props.charter.roster && this.props.charter.roster.length
+                ? "Add a profile"
+                : "Add yourself to roster"}
             </InvertedButton>
           )}
         </FormSection>
@@ -94,19 +123,56 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
     );
   }
 
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
+        <OBSectionDescription>
+          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
+          Registry Profile.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <StyledHr />
+      </>
+    );
+  }
+
   private addRosterMember = (e: any) => {
     e.preventDefault();
-    this.setState({ editingMember: {} });
+    this.props.setButtonVisibility(false);
+    const editingMember: Partial<RosterMemberInterface> = {};
+    if (!this.props.charter.roster || (this.props.charter.roster && this.props.charter.roster.length === 0)) {
+      editingMember.ethAddress = this.props.profileWalletAddress;
+    }
+    this.setState({ editingMember });
+  };
+
+  private cancelEdit = () => {
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null, editingIndex: -1 });
   };
 
   private rosterMemberUpdate = (newVal: Partial<RosterMemberInterface>): void => {
     this.setState({ editingMember: newVal });
   };
 
+  private removeRosterMember = () => {
+    const roster = (this.props.charter.roster || []).slice();
+    const memberIndex = this.state.editingIndex;
+    if (memberIndex >= 0) {
+      roster.splice(memberIndex, 1);
+      this.props.updateCharter({
+        ...this.props.charter,
+        roster,
+      });
+    }
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null, editingIndex: -1 });
+  };
+
   private saveRosterMember = () => {
     const roster = (this.props.charter.roster || []).slice();
-    const key = this.state.editingMember!.ethAddress ? "ethAddress" : "name";
-    const memberIndex = findIndex(roster, rosterMember => rosterMember[key] === this.state.editingMember![key]);
+    const memberIndex = this.state.editingIndex;
     if (memberIndex >= 0) {
       roster[memberIndex] = this.state.editingMember as RosterMemberInterface;
     } else {
@@ -117,11 +183,12 @@ export class AddRosterMember extends React.Component<AddRosterMemberProps, AddRo
       ...this.props.charter,
       roster,
     });
-
-    this.setState({ editingMember: null });
+    this.props.setButtonVisibility(true);
+    this.setState({ editingMember: null, editingIndex: -1 });
   };
 
   private editRosterMember = (index: number) => {
-    this.setState({ editingMember: this.props.charter.roster![index] });
+    this.props.setButtonVisibility(false);
+    this.setState({ editingMember: this.props.charter.roster![index], editingIndex: index });
   };
 }

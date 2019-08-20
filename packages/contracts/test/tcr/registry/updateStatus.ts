@@ -7,6 +7,7 @@ configureChai(chai);
 const expect = chai.expect;
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(PLCRVoting);
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("Function: updateStatus", () => {
@@ -38,8 +39,8 @@ contract("Registry", accounts => {
     });
 
     it("should whitelist 2 listings via updateStatuses if apply stage ended without a challenge for both", async () => {
-      await registry.apply(listing27, minDeposit, "", { from: applicant });
-      await registry.apply(listing28, minDeposit, "", { from: applicant });
+      await registry.apply(listing27, minDeposit, ZERO_DATA, { from: applicant });
+      await registry.apply(listing28, minDeposit, ZERO_DATA, { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
 
       await expect(registry.updateStatuses([listing27, listing28], { from: applicant })).to.eventually.be.fulfilled(
@@ -48,7 +49,7 @@ contract("Registry", accounts => {
     });
 
     it("should not whitelist a listing that is still pending an application", async () => {
-      await registry.apply(listing22, minDeposit, "", { from: applicant });
+      await registry.apply(listing22, minDeposit, ZERO_DATA, { from: applicant });
 
       await expect(registry.updateStatus(listing22, { from: applicant })).to.be.rejectedWith(
         REVERTED,
@@ -57,8 +58,8 @@ contract("Registry", accounts => {
     });
 
     it("should not whitelist a listing that is currently being challenged", async () => {
-      await registry.apply(listing23, minDeposit, "", { from: applicant });
-      await registry.challenge(listing23, "", { from: challenger });
+      await registry.apply(listing23, minDeposit, ZERO_DATA, { from: applicant });
+      await registry.challenge(listing23, ZERO_DATA, { from: challenger });
 
       await expect(registry.updateStatus(listing23)).to.eventually.be.rejectedWith(
         REVERTED,
@@ -67,7 +68,7 @@ contract("Registry", accounts => {
     });
 
     it("should not whitelist a listing that failed a challenge", async () => {
-      await registry.apply(listing24, minDeposit, "", { from: applicant });
+      await registry.apply(listing24, minDeposit, ZERO_DATA, { from: applicant });
       const pollID = await utils.challengeAndGetPollID(listing24, challenger, registry);
       await utils.commitVote(voting, pollID, "0", "100", "123", voter);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);

@@ -14,7 +14,7 @@ export interface EmailSignupProps {
   onSubmit(): void;
 }
 
-export const EmailSignup: React.SFC<EmailSignupProps> = props => {
+export const EmailSignup: React.FunctionComponent<EmailSignupProps> = props => {
   const SignUpButton = (
     <Button size={buttonSizes.SMALL} onClick={props.onSubmit}>
       {!!props.isRequestPending ? "Saving" : "Sign Up"}
@@ -30,8 +30,9 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
       </StyledEmailSignupTitle>
 
       <StyledEmailSignupCopy>
-        Receive real-time email alerts when a new event occurs on the registry, allowing you maximum time to take
-        actions. You can track events such as new applications, challenges, when voting begins and end and more.
+        Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new
+        applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum
+        time to make decisions about how you will participate in Civil's governance.
       </StyledEmailSignupCopy>
 
       <InputGroup
@@ -50,8 +51,8 @@ export const EmailSignup: React.SFC<EmailSignupProps> = props => {
       <StyledEmailSignupCopy>
         <b>
           Follow us on twitter for alerts{" "}
-          <a href="https://twitter.com/CivilTCRalerts" target="_blank">
-            @CivilTCRalerts
+          <a href="https://twitter.com/civil_alerts" target="_blank">
+            @Civil_Alerts
           </a>
         </b>
       </StyledEmailSignupCopy>

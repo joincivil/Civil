@@ -70,8 +70,15 @@ import {
   ContentData,
   TxDataAll,
 } from "@joincivil/core";
-import { currentUserNewsrooms, content, contentFetched } from "./newsrooms";
-import { newsrooms, NewsroomState, newsroomUi, newsroomUsers, newsroomGovernment } from "@joincivil/newsroom-signup";
+import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
+import {
+  newsrooms,
+  NewsroomState,
+  newsroomUi,
+  newsroomUsers,
+  newsroomGovernment,
+  grantApplication,
+} from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
 import { Subscription } from "rxjs";
 
@@ -85,12 +92,13 @@ export interface State {
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
   newsroomGovernment: Map<string, string>;
+  grantApplication: Map<string, boolean>;
 }
 
 export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<string, ContentData>;
-  contentFetched: Set<EthContentHeader>;
+  contentFetched: Map<string, EthContentHeader>;
   listings: Map<string, ListingWrapperWithExpiry>;
   listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
   listingsFetching: Map<string, any>;
@@ -144,6 +152,7 @@ const networkDependentReducers = combineReducers({
   currentUserNewsrooms,
   content,
   contentFetched,
+  charterRevisions,
   listings,
   listingsExtendedMetadata,
   listingsFetching,
@@ -199,15 +208,19 @@ const networkDependent = (state: any, action: AnyAction) => {
   }
   return networkDependentReducers(state, action);
 };
+import { connectRouter } from "connected-react-router";
 
-export default combineReducers({
-  newsrooms, // have to be top level because come from a package
-  newsroomUi,
-  newsroomUsers,
-  newsroomGovernment,
-  networkDependent,
-  network,
-  networkName,
-  ui,
-  useGraphQL,
-});
+export default (history: any) =>
+  combineReducers({
+    router: connectRouter(history),
+    newsrooms, // have to be top level because come from a package
+    newsroomUi,
+    newsroomUsers,
+    newsroomGovernment,
+    grantApplication,
+    networkDependent,
+    network,
+    networkName,
+    ui,
+    useGraphQL,
+  });

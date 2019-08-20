@@ -13,11 +13,12 @@ import {
   ApprovedNewsroomsTabText,
   ApplicationsInProgressTabText,
   RejectedNewsroomsTabText,
+  LoadingMessage,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
 import * as heroImgUrl from "../images/img-hero-listings.png";
-import LoadingMsg from "../utility/LoadingMsg";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { StyledPageContent } from "../utility/styledComponents";
 
@@ -48,14 +49,17 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
     if (listingType) {
       activeIndex = TABS.indexOf(listingType) || 0;
     }
-    const heroCtaButtonText = this.props.userAcct ? "Buy CVL" : "Sign Up | Log In";
     return (
       <>
         <ScrollToTopOnMount />
         <Hero backgroundImage={heroImgUrl}>
-          <HomepageHero ctaButtonURL="/tokens" ctaButtonText={heroCtaButtonText} learnMoreURL="#zendesk" />
+          <HomepageHero
+            applyURL={links.APPLY}
+            buyCvlUrl={links.BECOME_A_MEMBER}
+            learnMoreURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
+          />
         </Hero>
-        {!this.props.loadingFinished && <LoadingMsg />}
+        {!this.props.loadingFinished && <LoadingMessage />}
         {this.props.loadingFinished && (
           <Tabs
             activeIndex={activeIndex}
@@ -65,9 +69,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
           >
             <Tab title={<ApprovedNewsroomsTabText />}>
               <StyledPageContent>
-                <Helmet>
-                  <title>The Civil Registry - A community-driven space for curating quality journalism</title>
-                </Helmet>
+                <Helmet title="The Civil Registry - A community-driven space for curating quality journalism" />
                 <WhitelistedListingListContainer />
               </StyledPageContent>
             </Tab>
@@ -82,9 +84,7 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
             </Tab>
             <Tab title={<RejectedNewsroomsTabText />}>
               <StyledPageContent>
-                <Helmet>
-                  <title>Rejected Newsrooms - The Civil Registry</title>
-                </Helmet>
+                <Helmet title="Rejected Newsrooms - The Civil Registry" />
                 <RejectedListingListContainer />
               </StyledPageContent>
             </Tab>

@@ -8,7 +8,7 @@ export interface WrongNetworkProps {
   network: string;
 }
 
-const WrongNetwork: React.SFC<WrongNetworkProps> = props => {
+const WrongNetwork = (props: WrongNetworkProps) => {
   if (!isNetworkSupported(props.network)) {
     const supportedNetworkNames = getFormattedNetworkNames(supportedNetworks);
     let formattedSupportedNetworkNames;
@@ -20,9 +20,7 @@ const WrongNetwork: React.SFC<WrongNetworkProps> = props => {
     } else {
       formattedSupportedNetworkNames = supportedNetworkNames.join(" or ");
     }
-    return (
-      <WrongNetworkModal requiredNetworkNiceName={formattedSupportedNetworkNames} helpUrlBase="https://civil.co/" />
-    );
+    return <WrongNetworkModal requiredNetworkNiceName={formattedSupportedNetworkNames} />;
   }
 
   return <></>;

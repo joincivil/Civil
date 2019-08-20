@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
-storiesOf("QuestionToolTip", module).add("tooltip", () => {
+storiesOf("Pattern Library / Tooltips / QuestionToolTip", module).add("tooltip", () => {
   return (
     <Wrapper>
       <QuestionToolTip explainerText={"this is a tool tip"} />

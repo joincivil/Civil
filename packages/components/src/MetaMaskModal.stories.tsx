@@ -8,7 +8,7 @@ const func = () => {
   return;
 };
 
-storiesOf("MetaMaskModal", module)
+storiesOf("Common / Ethereum / MetaMaskModal", module)
   .add("preMetaMaskModal", () => {
     return process.env.NODE_ENV !== "test" ? (
       <MetaMaskModal cancelTransaction={func} startTransaction={func} waiting={false}>

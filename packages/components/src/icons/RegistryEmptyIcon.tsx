@@ -6,7 +6,7 @@ export interface RegistryEmptyProps {
   width?: number;
 }
 
-export const RegistryEmptyIcon: React.SFC<RegistryEmptyProps> = props => {
+export const RegistryEmptyIcon: React.FunctionComponent<RegistryEmptyProps> = props => {
   const width = (props.width || 350).toString();
   const height = (props.height || 155).toString();
 

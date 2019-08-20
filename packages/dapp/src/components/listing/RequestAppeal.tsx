@@ -1,8 +1,11 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
+  CivilContext,
   InsufficientCVLForAppeal,
   ModalContent,
   ModalUnorderedList,
@@ -12,8 +15,9 @@ import {
   RequestAppealSuccessIcon,
   SnackBar,
 } from "@joincivil/components";
-import { getFormattedParameterValue, GovernmentParameters } from "@joincivil/utils";
-import { getCivil } from "../../helpers/civilInstance";
+import { getFormattedParameterValue, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { approveForAppeal, publishContent, requestAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
@@ -37,10 +41,9 @@ interface RequestAppealProps {
 
 interface RequestAppealReduxProps {
   newsroomName: string;
-  constitutionURI: string;
-  appealFee: string;
-  judgeAppealLen: string;
-  isInsufficientBalance: boolean;
+  appealFee: BigNumber;
+  judgeAppealLen: BigNumber;
+  balance: BigNumber;
 }
 
 interface RequestAppealState {
@@ -107,35 +110,39 @@ class RequestAppealComponent extends React.Component<
   RequestAppealProps & RequestAppealReduxProps & InjectedTransactionStatusModalProps,
   RequestAppealState
 > {
-  public componentWillMount(): void {
+  public static contextType = CivilContext;
+
+  public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
     this.props.setTransactions(this.getTransactions());
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
+
+    const { civil } = this.context;
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
+    }
   }
 
   public render(): JSX.Element {
     const transactions = this.getTransactions();
 
-    const {
-      listingURI,
-      newsroomName,
-      constitutionURI,
-      governanceGuideURI,
-      appealFee,
-      judgeAppealLen,
-      isInsufficientBalance,
-    } = this.props;
+    const { listingURI, newsroomName, governanceGuideURI, appealFee, judgeAppealLen, balance: balanceBN } = this.props;
+
+    const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, appealFee);
+    const displayJudgeAppealLen = getFormattedParameterValue(GovernmentParameters.judgeAppealLen, judgeAppealLen);
+    const balance = balanceBN === undefined ? new BigNumber(0) : balanceBN;
+    const isInsufficientBalance = balance.lt(appealFee);
 
     const props: RequestAppealStatementProps = {
       listingURI,
       newsroomName,
-      constitutionURI,
+      constitutionURI: links.CONSTITUTION,
       governanceGuideURI,
-      appealFee,
-      judgeAppealLen,
+      appealFee: displayAppealFee,
+      judgeAppealLen: displayJudgeAppealLen,
       updateStatementValue: this.updateStatement,
       transactions,
       postExecuteTransactions: this.onSubmitAppealSuccess,
@@ -144,8 +151,9 @@ class RequestAppealComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar minDeposit={appealFee} buyCVLURL="https://civil.co" />}
+        {isInsufficientBalance && appealFee && (
+          <InsufficientBalanceSnackBar minDeposit={displayAppealFee} buyCVLURL="/tokens" />
+        )}
         <RequestAppealStatementComponent {...props} />
       </>
     );
@@ -245,8 +253,9 @@ class RequestAppealComponent extends React.Component<
   };
 
   private redirectToListingPage = (): void => {
+    const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
     this.props.closeAllModals();
-    this.props.history.push("/listing/" + this.props.listingAddress);
+    this.props.history.push(listingURI);
   };
 
   // Transactions
@@ -269,7 +278,7 @@ interface InsufficientBalanceSnackBarProps {
   minDeposit: string;
 }
 
-const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
   return (
     <SnackBar>
       <InsufficientCVLForAppeal minDeposit={props.minDeposit} buyCVLURL={props.buyCVLURL} />
@@ -286,47 +295,37 @@ const mapStateToProps = (state: State, ownProps: RequestAppealProps): RequestApp
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { govtParameters, constitution, user } = state.networkDependent;
-  const constitutionURI = constitution.get("uri") || "#";
+  const { govtParameters, user } = state.networkDependent;
 
-  let appealFee = "";
-  let judgeAppealLen = "";
-  const civil = getCivil();
+  let appealFee = new BigNumber(0);
+  let judgeAppealLen = new BigNumber(0);
   if (govtParameters && Object.keys(govtParameters).length) {
-    appealFee = getFormattedParameterValue(
-      GovernmentParameters.appealFee,
-      civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]),
-    );
-    judgeAppealLen = getFormattedParameterValue(
-      GovernmentParameters.judgeAppealLen,
-      civil.toBigNumber(govtParameters[GovernmentParameters.judgeAppealLen]),
-    );
+    appealFee = govtParameters[GovernmentParameters.appealFee];
+    judgeAppealLen = govtParameters[GovernmentParameters.judgeAppealLen];
   }
-  let isInsufficientBalance = false;
-  let balance;
+  let balance = new BigNumber(0);
   if (user) {
-    balance = civil.toBigNumber(user.account.balance);
-    isInsufficientBalance = balance.lt(civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]));
+    balance = user.account.balance;
   }
 
   return {
     newsroomName,
-    constitutionURI,
     appealFee,
     judgeAppealLen,
-    isInsufficientBalance,
+    balance,
     ...ownProps,
   };
 };
 
-const RequestAppeal = compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  RequestAppealComponent,
-) as React.ComponentClass<RequestAppealProps>;
+const RequestAppeal = compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(RequestAppealComponent) as React.ComponentClass<RequestAppealProps>;
 
-const RequestAppealPage: React.SFC<RequestAppealPageProps> = props => {
-  const listingAddress = props.match.params.listing;
-  const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = "https://civil.co";
+const RequestAppealPage = (props: RequestAppealPageProps) => {
+  const listingAddress = props.match.params.listingAddress;
+  const listingURI = formatRoute(routes.LISTING, { listingAddress });
+  const governanceGuideURI = links.FAQ_REGISTRY;
   return (
     <RequestAppeal
       listingAddress={listingAddress}

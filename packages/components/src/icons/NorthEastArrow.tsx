@@ -4,7 +4,7 @@ export interface NorthEastArrowProps {
   color?: string;
 }
 
-export const NorthEastArrow: React.SFC<NorthEastArrowProps> = props => {
+export const NorthEastArrow: React.FunctionComponent<NorthEastArrowProps> = props => {
   const color = props.color || "#23282d";
 
   return (

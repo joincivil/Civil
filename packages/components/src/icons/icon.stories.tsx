@@ -16,15 +16,20 @@ import {
   CloseXIcon,
   CommitVoteSuccessIcon,
   CvlToken,
+  DashboardNewsroomApplicationIcon,
   DisclosureArrowIcon,
+  DropdownArrow,
+  ErrorIcon,
   ExamIcon,
   ExchangeArrowsIcon,
   ExpandDownArrow,
   FacebookIcon,
   GreenCheckMark,
+  GrantSubmitIcon,
   HamburgerIcon,
   HollowGreenCheck,
   HollowRedNoGood,
+  InfoNotification,
   LockOpenIcon,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
@@ -35,6 +40,7 @@ import {
   RejectedNewsroomsIcon,
   RequestAppealSuccessIcon,
   RevealVoteSuccessIcon,
+  ReviewIcon,
   SubmitChallengeSuccessIcon,
   TokenWalletIcon,
   TrendsIcon,
@@ -51,9 +57,9 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("SVG Icons", module)
+storiesOf("Pattern Library / icons / SVG Icons", module)
   .add("ApplicationInProgressIcon", () => {
     return (
       <Container>
@@ -152,10 +158,31 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("DashboardNewsroomApplicationIcon", () => {
+    return (
+      <Container>
+        <DashboardNewsroomApplicationIcon />
+      </Container>
+    );
+  })
   .add("DisclosureArrowIcon", () => {
     return (
       <Container>
         <DisclosureArrowIcon />
+      </Container>
+    );
+  })
+  .add("DropdownArrow", () => {
+    return (
+      <Container>
+        <DropdownArrow />
+      </Container>
+    );
+  })
+  .add("ErrorIcon", () => {
+    return (
+      <Container>
+        <ErrorIcon />
       </Container>
     );
   })
@@ -194,6 +221,13 @@ storiesOf("SVG Icons", module)
       </Container>
     );
   })
+  .add("GrantSubmitIcon", () => {
+    return (
+      <Container>
+        <GrantSubmitIcon />
+      </Container>
+    );
+  })
   .add("HamburgerIcon", () => {
     return (
       <Container>
@@ -212,6 +246,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <HollowRedNoGood />
+      </Container>
+    );
+  })
+  .add("InfoNotification", () => {
+    return (
+      <Container>
+        <InfoNotification />
       </Container>
     );
   })
@@ -282,6 +323,13 @@ storiesOf("SVG Icons", module)
     return (
       <Container>
         <RevealVoteSuccessIcon />
+      </Container>
+    );
+  })
+  .add("ReviewIcon", () => {
+    return (
+      <Container>
+        <ReviewIcon />
       </Container>
     );
   })

@@ -380,19 +380,3 @@ export const StyledTextActionButton = styled.span`
   color: ${colors.accent.CIVIL_BLUE};
   cursor: pointer;
 `;
-
-export const StyledVisibleOnDesktop = styled.div`
-  display: block;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
-`;
-
-export const StyledVisibleOnMobile = styled.div`
-  display: none;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-`;

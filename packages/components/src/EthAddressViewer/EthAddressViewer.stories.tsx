@@ -10,9 +10,9 @@ const StyledDiv = styled.div`
   width: 690px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("EthAddress Viewer", module).add("EthAddress Viewer", () => {
+storiesOf("Common / Ethereum / EthAddress Viewer", module).add("EthAddress Viewer", () => {
   return (
     <Container>
       <EthAddressViewer

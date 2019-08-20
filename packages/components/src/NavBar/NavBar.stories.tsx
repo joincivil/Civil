@@ -12,19 +12,22 @@ const userClaimRewardsCount = 4;
 const userChallengesStartedCount = 2;
 const userChallengesVotedOnCount = 15;
 
-storiesOf("Nav Bar", module)
+storiesOf("Common / Nav / Nav Bar", module)
   .addDecorator(StoryRouter())
   .add("Global Nav", () => {
     return (
       <NavBar
         balance={balance}
         votingBalance={votingBalance}
-        userAccount={userAccount}
+        userEthAddress={userAccount}
+        authenticationURL="#auth"
         userRevealVotesCount={userRevealVotesCount}
         userClaimRewardsCount={userClaimRewardsCount}
         userChallengesStartedCount={userChallengesStartedCount}
         userChallengesVotedOnCount={userChallengesVotedOnCount}
-        buyCvlUrl="https://civil.co/cvl/"
+        joinAsMemberUrl="#buy-tokens"
+        buyCvlUrl="#become-member"
+        applyURL="#apply"
         useGraphQL={false}
         onLoadingPrefToggled={() => {
           console.log("thinged");

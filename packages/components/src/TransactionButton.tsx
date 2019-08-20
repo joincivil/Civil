@@ -1,21 +1,23 @@
 import * as React from "react";
-import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
+import { CivilContext, ICivilContext } from "./context";
 import { Modal } from "./Modal";
 import {
   ProgressModalContentInProgress,
   ProgressModalContentSuccess,
   ProgressModalContentError,
 } from "./ProgressModalContent";
-import { mediaQueries } from "./styleConstants";
+import { Subscription } from "rxjs";
 
 export interface TransactionButtonState {
   name: string;
   error: string;
   step: number;
   disableButton: boolean;
+  currentAccount?: EthAddress;
+  ethereumUpdates?: Subscription;
 }
 
 export interface TransactionButtonModalFlowState {
@@ -33,36 +35,20 @@ export interface Transaction {
   transaction(): Promise<TwoStepEthTransaction<any> | EthSignedMessage | void>;
   preTransaction?(): any;
   requireBeforeTransaction?(): Promise<any>;
-  postTransaction?(result: any): any;
-  handleTransactionError?(err: any): any;
+  postTransaction?(result: any, txHash?: TxHash): any;
+  handleTransactionError?(err: any, txHash?: TxHash): any;
   handleTransactionHash?(txhash?: TxHash): void;
+  onTransactionError?(err: any, txHash?: TxHash): any; // function passed in here does not "handle" the tx error, but might do something extra with it (such as log an error)
 }
 
 export interface TransactionButtonProps {
   transactions: Transaction[];
   disabled?: boolean;
-  disabledOnMobile?: boolean;
-  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
+  Button?: React.FunctionComponent<TransactionButtonInnerProps>;
   preExecuteTransactions?(): any;
   postExecuteTransactions?(): any;
   onMobileClick?(): any;
 }
-
-const StyledVisibleOnDesktop = styled.div`
-  display: block;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
-`;
-
-const StyledVisibleOnMobile = styled.div`
-  display: none;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-`;
 
 export enum progressModalStates {
   IN_PROGRESS = "IN_PROGRESS",
@@ -100,7 +86,7 @@ export interface TransactionButtonInnerProps {
   onClick(event?: any): void;
 }
 
-export const PrimaryTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const PrimaryTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -112,7 +98,7 @@ export const PrimaryTransactionButton: React.StatelessComponent<TransactionButto
   );
 };
 
-export const InvertedTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const InvertedTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -124,7 +110,7 @@ export const InvertedTransactionButton: React.StatelessComponent<TransactionButt
   );
 };
 
-export const DarkTransactionButton: React.StatelessComponent<TransactionButtonInnerProps> = (
+export const DarkTransactionButton: React.FunctionComponent<TransactionButtonInnerProps> = (
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
@@ -137,6 +123,8 @@ export const DarkTransactionButton: React.StatelessComponent<TransactionButtonIn
 };
 
 export class TransactionButtonNoModal extends React.Component<TransactionButtonProps, TransactionButtonState> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+
   constructor(props: TransactionButtonProps) {
     super(props);
     this.state = {
@@ -155,25 +143,8 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
   public render(): JSX.Element {
     const ButtonComponent = this.props.Button || PrimaryTransactionButton;
-    const MobileButtonComponent = this.props.Button || Button;
 
     // Some responsive css trickery to
-    if (this.props.disabledOnMobile) {
-      return (
-        <>
-          <StyledVisibleOnDesktop>
-            {this.state.error}
-            <ButtonComponent step={this.state.step} onClick={this.onClick} disabled={this.state.disableButton}>
-              {this.props.children}
-            </ButtonComponent>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <MobileButtonComponent onClick={this.onMobileClick}>{this.props.children}</MobileButtonComponent>
-          </StyledVisibleOnMobile>
-        </>
-      );
-    }
-
     return (
       <>
         {this.state.error}
@@ -185,15 +156,29 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
   }
 
   private onClick = async () => {
-    if (this.props.preExecuteTransactions) {
-      setImmediate(() => this.props.preExecuteTransactions!());
-    }
-    return this.executeTransactions(this.props.transactions.slice().reverse());
-  };
+    const { civil } = this.context;
 
-  private onMobileClick = () => {
-    if (this.props.onMobileClick) {
-      this.props.onMobileClick();
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
+
+      const currentAccount = await civil.accountStream.first().toPromise();
+      if (currentAccount) {
+        this.setState({ currentAccount });
+
+        if (this.props.preExecuteTransactions) {
+          setImmediate(() => this.props.preExecuteTransactions!());
+        }
+        return this.executeTransactions(this.props.transactions.slice().reverse());
+      } else {
+        this.setState({
+          error: "No Ethereum Account Found. You may need to install MetaMask and grant account access for this app.",
+        });
+      }
+    } else {
+      this.setState({
+        error:
+          "No Ethereum Provider Found. You may need to install MetaMask or another Web3 wallet and grant account access for this app.",
+      });
     }
   };
 
@@ -204,17 +189,19 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         setImmediate(() => currTransaction.preTransaction!());
       }
 
+      let txHash: TxHash | undefined;
       try {
         if (currTransaction.requireBeforeTransaction) {
           await currTransaction.requireBeforeTransaction();
         }
         this.setState({ step: 1, disableButton: true });
         const pending = await currTransaction.transaction();
+        txHash = pending && "txHash" in pending ? pending.txHash : undefined;
         this.setState({ step: 2 });
 
         if (currTransaction.handleTransactionHash && pending) {
           if ("txHash" in pending) {
-            currTransaction.handleTransactionHash(pending.txHash);
+            currTransaction.handleTransactionHash(txHash);
           } else {
             currTransaction.handleTransactionHash();
           }
@@ -231,7 +218,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
           }
 
           if (currTransaction.postTransaction) {
-            currTransaction.postTransaction!(receipt);
+            currTransaction.postTransaction(receipt, txHash);
           }
         }
 
@@ -240,7 +227,10 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
         this.setState({ step: 0, disableButton: false });
 
         if (currTransaction.handleTransactionError) {
-          setImmediate(() => currTransaction.handleTransactionError!(err));
+          setImmediate(() => currTransaction.handleTransactionError!(err, txHash));
+        }
+        if (currTransaction.onTransactionError) {
+          setImmediate(() => currTransaction.onTransactionError!(err, txHash));
         }
       }
     } else if (this.props.postExecuteTransactions) {
@@ -327,13 +317,13 @@ export class TransactionButton extends React.Component<
       DEFAULT_MODAL_COMPONENTS[this.state.progressModalState!];
     let modalContent: JSX.Element | undefined;
     if (modalContentSource) {
-      modalContent = React.cloneElement(modalContentSource as React.ReactElement<any>, {
+      modalContent = React.cloneElement(modalContentSource as React.ReactElement, {
         hideModal: this.hideProgressModal,
       });
     }
     if (modalComponent) {
       return React.cloneElement(
-        modalComponent as React.ReactElement<any>,
+        modalComponent as React.ReactElement,
         {
           visible: this.state.isProgressModalVisible,
         },

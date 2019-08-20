@@ -10,11 +10,11 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 const now = Date.now() / 1000;
 const oneDay = 86400;
 
-storiesOf("Application Phase Countdown Timer", module)
+storiesOf("Registry / Application Phase Countdown Timer", module)
   .add("Text Timers", () => {
     const eightDaysFromNow = now + oneDay * 8;
 

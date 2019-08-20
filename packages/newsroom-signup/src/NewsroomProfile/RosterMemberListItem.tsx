@@ -1,19 +1,13 @@
 import * as React from "react";
 import { RosterMember } from "@joincivil/core";
 import { colors, BorderlessButton, buttonSizes } from "@joincivil/components";
-import { FormSubhead, AvatarImg, AvatarWrap, noAvatar } from "../styledComponents";
+import { AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
 import styled from "styled-components";
 
 export interface RosterMemberListItemProps {
   member: RosterMember;
   edit?(): void;
 }
-
-const DisplayName = styled(FormSubhead)`
-  display: inline-block;
-  font-weight: bold;
-  margin: 0 10px 0 0;
-`;
 
 const Role = styled.span`
   color: #72777c;
@@ -39,7 +33,7 @@ export class RosterMemberListItem extends React.Component<RosterMemberListItemPr
         <AvatarWrap>
           {this.props.member.avatarUrl ? <AvatarImg src={this.props.member.avatarUrl} /> : noAvatar}
         </AvatarWrap>
-        <DisplayName>{this.props.member.name}</DisplayName>
+        <MemberDisplayName>{this.props.member.name}</MemberDisplayName>
         <Role>{this.props.member.role}</Role>
         {this.props.member.ethAddress && <code>{this.props.member.ethAddress}</code>}
         {!!this.props.edit && (

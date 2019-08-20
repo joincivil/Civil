@@ -2,8 +2,8 @@
   "nets": {
     "mainnet": {
       "paramDefaults": {
-        "minDeposit": 5000000000000000000000,
-        "pMinDeposit": 50000000000000000000000,
+        "minDeposit": "5000000000000000000000",
+        "pMinDeposit": "50000000000000000000000",
         "applyStageLength": 86400,
         "pApplyStageLength": 86400,
         "commitStageLength": 864000,
@@ -14,10 +14,10 @@
         "pDispensationPct": 50,
         "voteQuorum": 50,
         "pVoteQuorum": 50,
-        "appealFeeAmount": 5000000000000000000000,
+        "appealFeeAmount": "5000000000000000000000",
         "challengeAppealLength": 604800,
         "requestAppealPhaseLength": 259200,
-        "judgeAppealPhaseLength": 345600,
+        "judgeAppealPhaseLength": 1209600,
         "appealChallengeCommitStageLength": 864000,
         "appealChallengeRevealStageLength": 604800,
         "appealSupermajorityPercentage": 66,
@@ -32,8 +32,8 @@
     },
     "rinkeby": {
       "paramDefaults": {
-        "minDeposit": 100000000000000000000,
-        "pMinDeposit": 1000000000000000000000,
+        "minDeposit": "100000000000000000000",
+        "pMinDeposit": "1000000000000000000000",
         "applyStageLength": 86400,
         "pApplyStageLength": 86400,
         "commitStageLength": 86400,
@@ -64,8 +64,8 @@
     },
     "ganache": {
       "paramDefaults": {
-        "minDeposit": 100000000000000000000,
-        "pMinDeposit": 1000000000000000000000,
+        "minDeposit": "100000000000000000000",
+        "pMinDeposit": "1000000000000000000000",
         "applyStageLength": 120,
         "pApplyStageLength": 120,
         "commitStageLength": 120,
@@ -77,7 +77,7 @@
         "voteQuorum": 50,
         "pVoteQuorum": 50,
         "pProcessBy": 86400,
-        "appealFeeAmount": 100000000000000000000,
+        "appealFeeAmount": "100000000000000000000",
         "challengeAppealLength": 120,
         "requestAppealPhaseLength": 120,
         "judgeAppealPhaseLength": 345600,

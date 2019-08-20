@@ -1,8 +1,9 @@
 import * as React from "react";
 import RichTextEditor from "react-rte";
 import { TextareaInput } from "../input";
-import { buttonSizes, SecondaryButton } from "../Button";
+import { buttonSizes, CancelButton } from "../Button";
 import { TransactionButtonNoModal } from "../TransactionButton";
+import { MetaMaskLogoButton } from "../";
 import {
   StyledErrorMessage,
   StyledUserStatementHeaderOuter,
@@ -27,7 +28,6 @@ import {
   StyledDepositLabel,
   StyledDepositAmount,
   SectionActions,
-  PullRight,
 } from "./styledComponents";
 
 export interface RequestAppealStatementProps {
@@ -64,7 +64,7 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
       <>
         <StyledUserStatementHeaderOuter>
           <StyledUserStatementHeader>
-            <StatementHeaderHeading>Challenge Newsroom</StatementHeaderHeading>
+            <StatementHeaderHeading>Request Appeal</StatementHeaderHeading>
             <StatementHeaderNewsroomName>{this.props.newsroomName}</StatementHeaderNewsroomName>
             <CopyLarge>
               A deposit of <strong>{this.props.appealFee} tokens</strong> is required to request an appeal. Read our{" "}
@@ -124,13 +124,8 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
 
             <SectionActions>
               <div>
-                <SecondaryButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
-                  Cancel
-                </SecondaryButton>
-              </div>
-
-              <PullRight>
                 <TransactionButtonNoModal
+                  Button={MetaMaskLogoButton}
                   transactions={this.props.transactions}
                   postExecuteTransactions={this.props.postExecuteTransactions}
                   disabled={this.isFormInvalid()}
@@ -139,7 +134,13 @@ export class RequestAppealStatement extends React.Component<RequestAppealStateme
                 </TransactionButtonNoModal>
 
                 <SectionFormCopyHelper>{this.renderHelperMessage()}</SectionFormCopyHelper>
-              </PullRight>
+              </div>
+
+              <div>
+                <CancelButton size={buttonSizes.MEDIUM} to={this.props.listingURI}>
+                  Cancel
+                </CancelButton>
+              </div>
             </SectionActions>
           </StyledUserStatementBody>
         </StyledUserStatementBodyOuter>

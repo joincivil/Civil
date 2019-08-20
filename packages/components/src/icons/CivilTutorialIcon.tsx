@@ -5,7 +5,7 @@ export interface CivilTutorialIconProps {
   color?: string;
 }
 
-export const CivilTutorialIcon: React.SFC<CivilTutorialIconProps> = props => {
+export const CivilTutorialIcon: React.FunctionComponent<CivilTutorialIconProps> = props => {
   const color = props.color || colors.accent.CIVIL_BLUE;
 
   return (

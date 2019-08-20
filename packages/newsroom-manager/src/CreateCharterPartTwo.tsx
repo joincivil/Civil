@@ -48,8 +48,6 @@ class CreateCharterPartTwoComponent extends React.Component<CreateCharterPartTwo
         <FormSection>
           <FormTitle>Identify your newsroom's journalistic mission.</FormTitle>
 
-          <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
-
           <FormSubhead>Please describe your newsroom's mission or purpose.</FormSubhead>
           <Textarea
             name="purpose"

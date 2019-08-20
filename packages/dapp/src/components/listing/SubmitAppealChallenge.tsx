@@ -1,8 +1,11 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
+import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
+  CivilContext,
   InsufficientCVLForAppealChallenge,
   ModalContent,
   ModalUnorderedList,
@@ -12,8 +15,9 @@ import {
   SubmitAppealChallengeStatementProps,
   SubmitChallengeSuccessIcon,
 } from "@joincivil/components";
-import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
-import { getCivil } from "../../helpers/civilInstance";
+import { getFormattedParameterValue, Parameters, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
 import { State } from "../../redux/reducers";
 import {
@@ -37,12 +41,11 @@ interface SubmitAppealChallengeProps {
 
 interface SubmitAppealChallengeReduxProps {
   newsroomName: string;
-  constitutionURI: string;
-  appealFee: string;
-  challengeAppealCommitLen: string;
-  challengeAppealRevealLen: string;
-  appealVotePercentage: string;
-  isInsufficientBalance: boolean;
+  appealFee: BigNumber;
+  challengeAppealCommitLen: BigNumber;
+  challengeAppealRevealLen: BigNumber;
+  appealVotePercentage: BigNumber;
+  balance: BigNumber;
 }
 
 interface SubmitAppealChallengeState {
@@ -109,37 +112,61 @@ class SubmitAppealChallengeComponent extends React.Component<
   SubmitAppealChallengeProps & SubmitAppealChallengeReduxProps & InjectedTransactionStatusModalProps,
   SubmitAppealChallengeState
 > {
-  public componentWillMount(): void {
+  public static contextType = CivilContext;
+
+  public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
     this.props.setTransactions(this.getTransactions());
     this.props.setTransactionStatusModalConfig({
       transactionSuccessContent,
     });
     this.props.setHandleTransactionSuccessButtonClick(this.redirectToListingPage);
+
+    const { civil } = this.context;
+    if (civil && civil.currentProvider) {
+      await civil.currentProviderEnable();
+    }
   }
 
   public render(): JSX.Element {
     const {
       listingURI,
       newsroomName,
-      constitutionURI,
       governanceGuideURI,
       appealFee,
       challengeAppealCommitLen,
       challengeAppealRevealLen,
       appealVotePercentage,
-      isInsufficientBalance,
+      balance: balanceBN,
     } = this.props;
+
+    const { civil } = this.context;
+    const displayChallengeAppealCommitLen = getFormattedParameterValue(
+      Parameters.challengeAppealCommitLen,
+      civil.toBigNumber(challengeAppealCommitLen),
+    );
+    const displayChallengeAppealRevealLen = getFormattedParameterValue(
+      Parameters.challengeAppealRevealLen,
+      civil.toBigNumber(challengeAppealRevealLen),
+    );
+
+    const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, civil.toBigNumber(appealFee));
+    const displayAppealVotePercentage = getFormattedParameterValue(
+      GovernmentParameters.appealVotePercentage,
+      civil.toBigNumber(appealVotePercentage),
+    );
+
+    const balance = civil.toBigNumber(balanceBN);
+    const isInsufficientBalance = balance.lt(civil.toBigNumber(GovernmentParameters.appealFee));
 
     const props: SubmitAppealChallengeStatementProps = {
       listingURI,
       newsroomName,
-      constitutionURI,
       governanceGuideURI,
-      appealFee,
-      challengeAppealCommitLen,
-      challengeAppealRevealLen,
-      appealVotePercentage,
+      appealFee: displayAppealFee,
+      challengeAppealCommitLen: displayChallengeAppealCommitLen,
+      challengeAppealRevealLen: displayChallengeAppealRevealLen,
+      appealVotePercentage: displayAppealVotePercentage,
       updateStatementValue: this.updateStatement,
       transactions: this.getTransactions(),
       postExecuteTransactions: this.onSubmitAppealChallengeSuccess,
@@ -148,8 +175,9 @@ class SubmitAppealChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance &&
-          appealFee && <InsufficientBalanceSnackBar appealFee={appealFee!} buyCVLURL="https://civil.co" />}
+        {isInsufficientBalance && appealFee && (
+          <InsufficientBalanceSnackBar appealFee={displayAppealFee!} buyCVLURL="/tokens" />
+        )}
         <SubmitAppealChallengeStatementComponent {...props} />
       </>
     );
@@ -238,9 +266,8 @@ class SubmitAppealChallengeComponent extends React.Component<
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
             {this.props.challengeAppealCommitLen} to commit their secret votes, and{" "}
             {this.props.challengeAppealRevealLen} to confirm their vote. To prevent decision bias, all votes will be
-            hidden using a secret phrase, until the end of the voting. Only a supermajority ({
-              this.props.appealVotePercentage
-            }) from the community can overturn the Civil Council's decision.
+            hidden using a secret phrase, until the end of the voting. Only a supermajority (
+            {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
           </ModalContent>
           <ModalContent>
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
@@ -265,8 +292,9 @@ class SubmitAppealChallengeComponent extends React.Component<
   };
 
   private redirectToListingPage = (): void => {
+    const listingURI = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
     this.props.closeAllModals();
-    this.props.history.push("/listing/" + this.props.listingAddress);
+    this.props.history.push(listingURI);
   };
 
   // Transactions
@@ -297,49 +325,32 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, govtParameters, constitution, user } = state.networkDependent;
-  const constitutionURI = constitution.get("uri") || "#";
+  const { parameters, govtParameters, user } = state.networkDependent;
 
-  let appealFee = "";
-  let challengeAppealCommitLen = "";
-  let challengeAppealRevealLen = "";
-  let appealVotePercentage = "";
-  const civil = getCivil();
+  let appealFee = new BigNumber(0);
+  let challengeAppealCommitLen = new BigNumber(0);
+  let challengeAppealRevealLen = new BigNumber(0);
+  let appealVotePercentage = new BigNumber(0);
   if (parameters && Object.keys(parameters).length) {
-    challengeAppealCommitLen = getFormattedParameterValue(
-      Parameters.challengeAppealCommitLen,
-      civil.toBigNumber(parameters[Parameters.challengeAppealCommitLen]),
-    );
-    challengeAppealRevealLen = getFormattedParameterValue(
-      Parameters.challengeAppealRevealLen,
-      civil.toBigNumber(parameters[Parameters.challengeAppealRevealLen]),
-    );
+    challengeAppealCommitLen = parameters[Parameters.challengeAppealCommitLen];
+    challengeAppealRevealLen = parameters[Parameters.challengeAppealRevealLen];
   }
   if (govtParameters && Object.keys(govtParameters).length) {
-    appealFee = getFormattedParameterValue(
-      GovernmentParameters.appealFee,
-      civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]),
-    );
-    appealVotePercentage = getFormattedParameterValue(
-      GovernmentParameters.appealVotePercentage,
-      civil.toBigNumber(govtParameters[GovernmentParameters.appealVotePercentage]),
-    );
+    appealFee = govtParameters[GovernmentParameters.appealFee];
+    appealVotePercentage = govtParameters[GovernmentParameters.appealVotePercentage];
   }
-  let balance;
-  let isInsufficientBalance = false;
+  let balance = new BigNumber(0);
   if (user) {
-    balance = civil.toBigNumber(user.account.balance);
-    isInsufficientBalance = balance.lt(civil.toBigNumber(govtParameters[GovernmentParameters.appealFee]));
+    balance = user.account.balance;
   }
 
   return {
     newsroomName,
-    constitutionURI,
     appealFee,
     challengeAppealCommitLen,
     challengeAppealRevealLen,
     appealVotePercentage,
-    isInsufficientBalance,
+    balance,
     ...ownProps,
   };
 };
@@ -349,7 +360,7 @@ interface InsufficientBalanceSnackBarProps {
   appealFee: string;
 }
 
-const InsufficientBalanceSnackBar: React.SFC<InsufficientBalanceSnackBarProps> = props => {
+const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSnackBarProps> = props => {
   return (
     <SnackBar>
       <InsufficientCVLForAppealChallenge appealFee={props.appealFee} buyCVLURL={props.buyCVLURL} />
@@ -362,10 +373,10 @@ const SubmitAppealChallenge = compose(
   hasTransactionStatusModals(transactionStatusModalConfig),
 )(SubmitAppealChallengeComponent) as React.ComponentClass<SubmitAppealChallengeProps>;
 
-const SubmitAppealChallengePage: React.SFC<SubmitAppealChallengePageProps> = props => {
-  const listingAddress = props.match.params.listing;
-  const listingURI = `/listing/${listingAddress}`;
-  const governanceGuideURI = "https://civil.co";
+const SubmitAppealChallengePage = (props: SubmitAppealChallengePageProps) => {
+  const listingAddress = props.match.params.listingAddress;
+  const listingURI = formatRoute(routes.LISTING, { listingAddress });
+  const governanceGuideURI = links.FAQ_REGISTRY;
   return (
     <SubmitAppealChallenge
       listingAddress={listingAddress}

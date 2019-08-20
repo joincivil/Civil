@@ -14,7 +14,7 @@ import { ChallengeResults, ChallengeResultsProps } from "../ChallengeResultsChar
 import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-export const ChallengeResolveCard: React.StatelessComponent<
+export const ChallengeResolveCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & ChallengePhaseProps & ChallengeResultsProps
 > = props => {
   return (
@@ -55,16 +55,10 @@ export const ChallengeResolveCard: React.StatelessComponent<
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this
           challenge.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Resolve Challenge
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

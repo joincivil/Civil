@@ -8,13 +8,13 @@ const StyledDiv = styled.div`
   width: 600px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("Messages", module).add("Info Message", () => {
+storiesOf("Pattern Library / Notices / Messages (deprecate this?)", module).add("Info Message", () => {
   return (
     <Container>
       <InfoMessage>

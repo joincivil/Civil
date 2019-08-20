@@ -1,6 +1,8 @@
 import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
+import { didAppealChallengeSucceed } from "./appealChallengeHelper";
 import { is0x0Address } from "@joincivil/utils";
 import { ChallengeData, UserChallengeData } from "../../types";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Checks if a Challenge is in the Commit stage
@@ -31,24 +33,8 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
     if (doesChallengeHaveAppeal(challengeData)) {
       return false;
     } else {
-      return challengeData.requestAppealExpiry.toNumber() > Date.now() / 1000;
+      return new BigNumber(challengeData.requestAppealExpiry).toNumber() > Date.now() / 1000;
     }
-  }
-}
-
-/**
- * Checks if a Challenge succeeded
- * @param challengeData the ChallengeData to check
- */
-export function didChallengeSucceed(challengeData: ChallengeData): boolean {
-  if (challengeData.appeal && challengeData.appeal.appealGranted) {
-    if (challengeData.appeal.appealChallenge && isVotePassed(challengeData.appeal.appealChallenge.poll)) {
-      return isVotePassed(challengeData.poll);
-    } else {
-      return !isVotePassed(challengeData.poll);
-    }
-  } else {
-    return isVotePassed(challengeData.poll);
   }
 }
 
@@ -57,7 +43,23 @@ export function didChallengeSucceed(challengeData: ChallengeData): boolean {
  * @param challengeData the ChallengeData to check
  */
 export function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
-  return isVotePassed(challengeData.poll);
+  return !isVotePassed(challengeData.poll);
+}
+
+/**
+ * Checks if a Challenge succeeded
+ * @param challengeData the ChallengeData to check
+ */
+export function didChallengeSucceed(challengeData: ChallengeData): boolean {
+  if (challengeData.appeal && challengeData.appeal.appealGranted) {
+    if (challengeData.appeal.appealChallenge && didAppealChallengeSucceed(challengeData.appeal.appealChallenge)) {
+      return didChallengeOriginallySucceed(challengeData);
+    } else {
+      return !didChallengeOriginallySucceed(challengeData);
+    }
+  } else {
+    return didChallengeOriginallySucceed(challengeData);
+  }
 }
 
 /**
@@ -91,9 +93,7 @@ export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData):
   if (challengeData.appeal) {
     if (challengeData.appeal.appealGranted) {
       if (challengeData.appeal.appealChallenge) {
-        if (isVotePassed(challengeData.appeal.appealChallenge.poll)) {
-          return false;
-        }
+        return !isVotePassed(challengeData.appeal.appealChallenge.poll);
       }
       return true;
     }

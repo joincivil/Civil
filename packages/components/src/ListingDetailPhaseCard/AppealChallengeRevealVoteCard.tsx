@@ -17,8 +17,6 @@ import {
   StyledCardBack,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -77,9 +75,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
-                  displayLabel="Revealing votes"
+                  displayLabel="Confirm Vote Phase"
                   toolTipText={<ConfirmVoteToolTipText phaseLength={this.props.phaseLength} />}
-                  secondaryDisplayLabel="Accepting votes"
+                  secondaryDisplayLabel="Submit Vote Phase"
                   secondaryToolTipText={<CommitVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={1}
@@ -111,14 +109,14 @@ export class AppealChallengeRevealVoteCard extends React.Component<
 
               <AppealDecisionDetail
                 appealGranted={this.props.appealGranted}
-                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+                appealGrantedStatementURI={this.props.appealGrantedStatementURI}
               />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="REVEAL_VOTE">
                 {this.renderRevealVote()}
               </StyledListingDetailPhaseCardSection>
 
-              <NeedHelp />
+              <NeedHelp faqURL={this.props.faqURL} />
             </StyledListingDetailPhaseCardContainer>
           </StyledCardFront>
 
@@ -130,7 +128,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                 </StyledCardClose>
                 <FormHeader>Confirm Your Secret Vote for Appeal Challenge #{this.props.appealChallengeID}</FormHeader>
                 <FormCopy>
-                  <RevealVoteCalloutCopyText />
+                  <RevealVoteCalloutCopyText votingSmartContractFaqURL={this.props.votingSmartContractFaqURL} />
                 </FormCopy>
               </StyledListingDetailPhaseCardSection>
               <StyledListingDetailPhaseCardSection>
@@ -140,6 +138,8 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   voteOption={this.props.voteOption}
                   onInputChange={this.props.onInputChange}
                   transactions={this.props.transactions}
+                  votingSmartContractFaqURL={this.props.votingSmartContractFaqURL}
+                />
                 />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
@@ -150,7 +150,7 @@ export class AppealChallengeRevealVoteCard extends React.Component<
   }
 
   private renderRevealVote = (): JSX.Element => {
-    if (!this.props.userHasCommittedVote) {
+    if (this.props.userHasCommittedVote === false) {
       return (
         <>
           <FormHeader>
@@ -181,16 +181,9 @@ export class AppealChallengeRevealVoteCard extends React.Component<
           <FormCopy>
             <RevealVoteCallToActionCopyText />
           </FormCopy>
-          <StyledVisibleOnDesktop>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              <RevealVoteButtonText />
-            </FullWidthButton>
-          </StyledVisibleOnMobile>
+          <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+            <RevealVoteButtonText />
+          </FullWidthButton>
         </>
       );
     }

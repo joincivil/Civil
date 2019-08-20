@@ -8,6 +8,8 @@ utils.configureProviders(PLCRVoting);
 configureChai(chai);
 const expect = chai.expect;
 
+const ZERO_DATA = "0x";
+
 contract("Registry", accounts => {
   describe("Function: hasClaimedChallengeAppealTokens", () => {
     const [JAB, applicant, challenger, voterAlice, voterBob] = accounts;
@@ -28,7 +30,7 @@ contract("Registry", accounts => {
 
     it("should be false every time we check until appeal challenge reward is claimed", async () => {
       // Apply
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
 
       // Challenge
       const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
@@ -39,8 +41,8 @@ contract("Registry", accounts => {
       await voting.revealVote(pollID, "1", "420", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: voterBob });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: voterBob });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const appealChallengePollID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import {
   AppealAwaitingDecisionCard as AppealAwaitingDecisionCardComponent,
   AppealAwaitingDecisionCardProps,
@@ -63,7 +63,10 @@ const transactionStatusModalConfig = {
 
 const AppealAwaitingDecisionCard = compose<
   React.ComponentClass<ChallengeContainerProps & Partial<AppealAwaitingDecisionCardProps>>
->(connectChallengePhase, connectChallengeResults)(AppealAwaitingDecisionCardComponent);
+>(
+  connectChallengePhase,
+  connectChallengeResults,
+)(AppealAwaitingDecisionCardComponent);
 
 interface AwaitingAppealDecisionState {
   uriValue: string;
@@ -104,6 +107,7 @@ class AwaitingAppealDecision extends React.Component<
           onMobileTransactionClick={this.props.onMobileTransactionClick}
           uriValue={this.state.uriValue}
           onChange={this.onURIChange}
+          faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
         />
       </>
     );

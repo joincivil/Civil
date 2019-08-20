@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   ChallengeRevealVoteCard as ChallengeRevealVoteCardComponent,
@@ -13,7 +13,8 @@ import {
   ChallengePhaseProps,
   RevealVoteProps,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { getLocalDateTimeStrings, urlConstants as links } from "@joincivil/utils";
+
 import { revealVote } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
@@ -121,6 +122,8 @@ class ChallengeRevealVote extends React.Component<
           salt={this.state.salt}
           onInputChange={this.updateRevealVoteState}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
+          faqURL={links.FAQ_VOTING_SECTION}
+          votingSmartContractFaqURL={links.FAQ_WHAT_IS_PLCR_CONTRACT}
           userHasRevealedVote={userHasRevealedVote}
           userHasCommittedVote={userHasCommittedVote}
           transactions={transactions}

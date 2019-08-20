@@ -128,6 +128,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
         onMouseLeave={this.onMouseLeave}
         onMouseEnter={this.onMouseEnter}
         onClick={this.props.onClick}
+        className={this.props.className}
       >
         {tip}
         {hitBox}

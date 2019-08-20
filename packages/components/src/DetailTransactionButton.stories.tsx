@@ -22,7 +22,7 @@ const Wrapper = styled.div`
   max-width: 500px;
 `;
 
-storiesOf("DetailTransactionButton", module)
+storiesOf("Common / Ethereum / DetailTransactionButton", module)
   .add("detail transaction button", () => {
     return (
       <Wrapper>

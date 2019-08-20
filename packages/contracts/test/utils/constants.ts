@@ -1,4 +1,6 @@
 export const REVERTED = "revert";
+export const REVERTED_CALL = "Returned values aren't valid, did it run Out of Gas?";
+export const INVALID_ADDRESS = `invalid address (arg="author", coderType="address", value="0x0")`;
 export const events = {
   ACL_ROLE_ADDED: "RoleAdded",
   ACL_ROLE_REMOVED: "RoleRemoved",

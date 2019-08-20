@@ -28,7 +28,7 @@ export type AppealChallengeResolveCardProps = ListingDetailPhaseCardComponentPro
   AppealChallengePhaseProps &
   AppealChallengeResultsProps;
 
-export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardProps> = props => {
+export const AppealChallengeResolveCard: React.FunctionComponent<AppealChallengeResolveCardProps> = props => {
   const showAppealChallenge =
     props.appealChallengeTotalVotes &&
     props.appealChallengeVotesFor &&
@@ -71,7 +71,7 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
 
       <AppealDecisionDetail
         appealGranted={props.appealGranted}
-        appealGrantedStatementUri={props.appealGrantedStatementURI}
+        appealGrantedStatementURI={props.appealGrantedStatementURI}
       />
 
       {showAppealChallenge && (
@@ -93,16 +93,10 @@ export const AppealChallengeResolveCard: React.SFC<AppealChallengeResolveCardPro
           This challenge is complete. To update this Newsroom's status on the Civil Registry, please resolve this appeal
           challenge.
         </CTACopy>
-        <TransactionButtonNoModal
-          transactions={props.transactions!}
-          disabledOnMobile={true}
-          onMobileClick={props.onMobileTransactionClick}
-        >
-          Resolve Appeal Challenge
-        </TransactionButtonNoModal>
+        <TransactionButtonNoModal transactions={props.transactions!}>Resolve Appeal Challenge</TransactionButtonNoModal>
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

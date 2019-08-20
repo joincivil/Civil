@@ -1,12 +1,14 @@
 export const colors = {
   primary: {
     BLACK: "#000000",
+    CIVIL_GRAY_0: "#3F3C39",
     CIVIL_GRAY_1: "#5A5653",
     CIVIL_GRAY_2: "#7D7373",
     CIVIL_BLUE_1: "#2B56FF",
   },
   accent: {
     CIVIL_YELLOW: "#FFF120", // Civil-wide accent color
+    CIVIL_YELLOW_VERY_FADED: "#FFFDE9",
     CIVIL_BLUE: "#2B56FF",
     CIVIL_BLUE_FADED: "#4066FF", // accent color associated with Newsmakers; use on black
     CIVIL_BLUE_VERY_FADED: "rgba(43, 86, 255, 0.5)",
@@ -29,6 +31,7 @@ export const colors = {
     CIVIL_ORANGE: "#FFA716",
     CIVIL_GREEN: "#0D9D33",
     CIVIL_GREEN_1: "#29cb42",
+    CIVIL_GREEN_2: "#ACF2BD",
   },
   basic: {
     WHITE: "#FFFFFF",

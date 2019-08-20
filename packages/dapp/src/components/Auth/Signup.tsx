@@ -12,15 +12,16 @@ export interface AuthSignupProps {
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
-export const AuthSignup: React.SFC<AuthSignupProps> = props => {
+const AuthSignup: React.FunctionComponent<AuthSignupProps> = props => {
   return (
     <AuthWrapper>
-      <AuthTextCreateAccount />
-
       <AccountEmailAuth
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={true}
         onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
+        headerComponent={<AuthTextCreateAccount />}
+        loginPath="/auth/login"
+        signupPath="/auth/signup"
       />
 
       <AuthPageFooterLink>
@@ -29,3 +30,5 @@ export const AuthSignup: React.SFC<AuthSignupProps> = props => {
     </AuthWrapper>
   );
 };
+
+export default AuthSignup;

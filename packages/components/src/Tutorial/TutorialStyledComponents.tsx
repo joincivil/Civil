@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { Button, InvertedButton, ButtonProps } from "../Button";
+import { Button, InvertedButton, SecondaryButton, ButtonProps } from "../Button";
 
 export interface TutorialProgressBarProps {
   activeSlide: number;
@@ -27,7 +27,7 @@ export const TutorialProgressBarActive = styled.div`
   background-color: ${colors.accent.CIVIL_BLUE};
   border-radius: 3px;
   height: 6px;
-  width: ${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}%;
+  width: ${(props: TutorialProgressBarProps) => ((props.activeSlide / props.totalSlides) * 100).toString()}%;
 `;
 
 export const TutorialProgressBarSlideCount = styled.div`
@@ -35,7 +35,9 @@ export const TutorialProgressBarSlideCount = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: bold;
-  left: calc(${(props: TutorialProgressBarProps) => (props.activeSlide / props.totalSlides * 100).toString()}% - 25px);
+  left: calc(
+    ${(props: TutorialProgressBarProps) => ((props.activeSlide / props.totalSlides) * 100).toString()}% - 25px
+  );
   position: absolute;
   text-align: center;
   top: -20px;
@@ -111,8 +113,8 @@ export const TutorialFooterFull = styled.div`
     props.questionResult === "correct"
       ? "rgba(41,203,66,0.2)"
       : props.questionResult === "incorrect"
-        ? "#FFE6E8"
-        : colors.accent.CIVIL_GRAY_4};
+      ? "#FFE6E8"
+      : colors.accent.CIVIL_GRAY_4};
   bottom: 0;
   display: flex;
   justify-content: center;
@@ -182,10 +184,23 @@ export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = 
   width: 160px;
 `;
 
-export const TutorialSkipQuizIntro = styled.div`
-  right: 0;
-  position: absolute;
-  top: 75px;
+export const TutorialTextBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+  background-color: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  line-height: 14px;
+  padding: 12px;
+  text-transform: none;
+  width: 160px;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: underline;
+  }
 `;
 
 export const TutorialQuizName = styled.h2`
@@ -234,32 +249,59 @@ export const TutorialCompletedP = styled.p`
   margin: 30px 0 70px;
 `;
 
-export const TutorialOptionBox = styled.div`
-  border: 1px solid ${colors.accent.CIVIL_BLUE};
-  border-radius: 3px;
-  margin-bottom: 15px;
-  position: relative;
-  transition: background-color 0.2s ease;
+export const TutorialRadioBtnCircle = styled.div`
+  background-color: ${colors.basic.WHITE};
+  border: 1px solid ${colors.basic.WHITE};
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px ${colors.accent.CIVIL_GRAY_2};
+  height: 16px;
+  left: 22px;
+  position: absolute;
+  top: 16px;
+  width: 16px;
+`;
+
+export const TutorialRadioBtnContain = styled.div`
   width: 100%;
 
   input {
-    cursor: pointer;
-    left: 15px;
-    position: absolute;
-    top: 10px;
+    display: none;
   }
 
-  label {
+  input:checked + button {
+    background-color: ${colors.basic.WHITE};
+    border: 1px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.accent.CIVIL_GRAY_0};
-    cursor: pointer;
-    display: block;
-    font-family: ${fonts.SANS_SERIF};
-    font-size: 16px;
-    line-height: 26px;
-    padding: 8px 15px 8px 40px;
+
+    ${TutorialRadioBtnCircle} {
+      background-color: ${colors.accent.CIVIL_BLUE};
+      border: 1px solid ${colors.basic.WHITE};
+      box-shadow: 0 0 0 1px ${colors.accent.CIVIL_BLUE};
+    }
   }
+`;
+
+export const TutorialRadioBtn: StyledComponentClass<ButtonProps, "button"> = styled(SecondaryButton)`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 3px;
+  color: ${colors.accent.CIVIL_GRAY_0};
+  cursor: pointer;
+  display: block;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 26px;
+  margin-bottom: 15px;
+  padding: 12px 15px 12px 55px !important;
+  position: relative;
+  text-align: left;
+  text-transform: none;
+  transition: border-color 0.2s ease;
+  width: 100% !important;
 
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE_FADED_2};
+    background-color: ${colors.basic.WHITE};
+    border-color: ${colors.accent.CIVIL_BLUE};
+    color: ${colors.accent.CIVIL_GRAY_0};
   }
 `;

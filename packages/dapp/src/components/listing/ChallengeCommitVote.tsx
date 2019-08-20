@@ -1,6 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { formatRoute } from "react-router-named-routes";
+import { BigNumber } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   ChallengeCommitVoteCard as ChallengeCommitVoteCardComponent,
@@ -14,7 +15,9 @@ import {
   ChallengePhaseProps,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { commitVote, approveVotingRights } from "../../apis/civilTCR";
+
+import { routes } from "../../constants";
+import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
 import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
@@ -178,7 +181,8 @@ class ChallengeCommitVote extends React.Component<
     }
 
     const { challenge } = this.props;
-    const listingDetailURL = `https://${window.location.hostname}/listing/${this.props.listingAddress}`;
+    const relativeListingDetailURL = formatRoute(routes.LISTING, { listingAddress: this.props.listingAddress });
+    const listingDetailURL = `https://${window.location.hostname}${relativeListingDetailURL}`;
     const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const props: ReviewVoteProps = {
@@ -270,7 +274,7 @@ class ChallengeCommitVote extends React.Component<
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRights(numTokens);
+    return approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {

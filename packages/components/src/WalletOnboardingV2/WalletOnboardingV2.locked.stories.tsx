@@ -10,6 +10,6 @@ try {
   civil = undefined;
 }
 
-storiesOf("Wallet Onboarding V2/Locked", module).add("Locked", () => {
+storiesOf("Common / Wallet Onboarding V2/Locked", module).add("Locked", () => {
   return <WalletOnboardingV2 civil={civil} />;
 });

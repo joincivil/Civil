@@ -1,8 +1,7 @@
 import { configureChai, getParamFromTxEvent } from "@joincivil/dev-utils";
-import { promisify } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
 import * as chai from "chai";
 import { configureProviders } from "../utils/contractutils";
+import { BN } from "bn.js";
 
 const MultiSigWallet = artifacts.require("MultiSigWallet");
 configureProviders(MultiSigWallet);
@@ -15,8 +14,8 @@ const INCLUDE_PENDING = true;
 const EXCLUDE_EXECUTED = false;
 const INCLUDE_EXECUTED = true;
 
-const sendTransactionAsync = promisify(web3.eth.sendTransaction, web3.eth);
-const balanceAsync = promisify<BigNumber>(web3.eth.getBalance, web3.eth);
+const sendTransactionAsync = web3.eth.sendTransaction;
+const balanceAsync = web3.eth.getBalance;
 
 contract("MultiSigWallet", accounts => {
   let instance: any;
@@ -29,7 +28,7 @@ contract("MultiSigWallet", accounts => {
 
   describe("executeTransaction", () => {
     it("works after requirement change", async () => {
-      const DEPOSIT = 1000;
+      const DEPOSIT = new BN(1000);
 
       // Send money to the wallet contract
       await sendTransactionAsync({ to: instance.address, value: DEPOSIT, from: accounts[0] });
@@ -37,8 +36,8 @@ contract("MultiSigWallet", accounts => {
       expect(balance).to.be.bignumber.equal(DEPOSIT);
 
       // Add owner number 4
-      const addOwnerData = instance.contract.addOwner.getData(accounts[3]);
-      const txIdAddOwner = getParamFromTxEvent<BigNumber>(
+      const addOwnerData = instance.contract.methods.addOwner(accounts[3]).encodeABI();
+      const txIdAddOwner = getParamFromTxEvent<BN>(
         await instance.submitTransaction(instance.address, 0, addOwnerData, { from: accounts[0] }),
         "transactionId",
         "Submission",
@@ -51,7 +50,7 @@ contract("MultiSigWallet", accounts => {
 
       // Updated required threshold to 1
       const NEW_REQUIRED = 1;
-      const updateRequirementsData = instance.contract.changeRequirement.getData(NEW_REQUIRED);
+      const updateRequirementsData = instance.contract.methods.changeRequirement(NEW_REQUIRED).encodeABI();
       const txIdChangeRequirement = getParamFromTxEvent(
         await instance.submitTransaction(instance.address, 0, updateRequirementsData, { from: accounts[0] }),
         "transactionId",

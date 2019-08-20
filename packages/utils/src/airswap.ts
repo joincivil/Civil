@@ -7,7 +7,7 @@ export function getAirswapCvlAddress(network: string | number): string | undefin
   }
 
   const airswapCvlAddress: { [index: number]: string } = {
-    1: "",
+    1: "0x01FA555c97D7958Fa6f771f3BbD5CCD508f81e22",
     4: "0x3e39fa983abcd349d95aed608e798817397cf0d1",
   };
 

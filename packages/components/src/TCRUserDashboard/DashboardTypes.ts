@@ -28,7 +28,22 @@ export interface DashboardActivityItemCTAButtonProps {
   onClick?(): void;
 }
 
+export interface DashboardActivityItemProposalCTAButtonProps {
+  propDetailURL?: string;
+  canUserReveal?: boolean;
+  didUserCommit?: boolean;
+  didUserReveal?: boolean;
+  canUserCollect?: boolean;
+  canUserRescue?: boolean;
+  onClick?(): void;
+}
+
 export interface DashboardActivityItemProps
+  extends DashboardActivityItemBaseProps,
+    DashboardActivityItemLogo,
+    DashboardActivityItemTitleProps {}
+
+export interface DashboardActivityProposalItemProps
   extends DashboardActivityItemBaseProps,
     DashboardActivityItemLogo,
     DashboardActivityItemTitleProps {}
@@ -36,7 +51,7 @@ export interface DashboardActivityItemProps
 export interface DashboardActivitySelectableItemProps
   extends DashboardActivityItemBaseProps,
     DashboardActivityItemTitleProps {
-  numTokens: string;
+  numTokens?: string;
   challengeID?: string;
   appealChallengeID?: string;
   salt?: any;

@@ -10,7 +10,7 @@ try {
   civil = undefined;
 }
 
-storiesOf("Wallet Onboarding V2/No Provider", module).add("No Provider", () => {
+storiesOf("Common / Wallet Onboarding V2/No Provider", module).add("No Provider", () => {
   return (
     <WalletOnboardingV2
       metamaskWalletAddress="0xabc1230000000000000000000000000000abc123"

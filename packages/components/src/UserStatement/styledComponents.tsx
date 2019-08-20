@@ -1,7 +1,8 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
+import { CancelButton } from "../Button";
 
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const StyledUserStatementHeaderOuter = styled.div`
   background: ${colors.primary.BLACK};
@@ -17,7 +18,11 @@ export const StyledUserStatementHeader = styled.div`
   box-sizing: content-box;
   font-family: ${fonts.SANS_SERIF};
   padding: 36px 123px;
-  width: 675px;
+  max-width: 675px;
+  ${mediaQueries.MOBILE} {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 `;
 
 export const StatementHeaderHeading = styled.h2`
@@ -76,6 +81,10 @@ export const StyledLink = styled.a`
 export const StyledUserStatementBodyOuter = styled.div`
   display: flex;
   justify-content: center;
+  ${mediaQueries.MOBILE} {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
 `;
 
 export const StyledUserStatementBody = styled.div`
@@ -149,13 +158,38 @@ export const StyledDepositAmount = styled(StyledDepositLabel)`
 
 export const SectionActions = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
   padding: 50px 0 120px;
+
+  ${CancelButton} {
+    font-size: 13px;
+    line-height: 14px;
+    margin: 6px 27px 0 0;
+    text-transform: none;
+  }
 
   & ${SectionFormCopyHelper} {
     margin-top: 18px;
     max-width: 305px;
     text-align: left;
+  }
+`;
+
+export const SectionConfirmChallenge = styled.div`
+  display: flex;
+  font-size: 15px;
+  letter-spacing: -0.1px;
+  line-height: 26px;
+  padding: 32px 0 0;
+  margin: 0 0 56px;
+
+  & > div + div {
+    margin: -8px 0 0 12px;
+  }
+  ${mediaQueries.MOBILE} {
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 

@@ -10,8 +10,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseKicker,
   StyledPhaseDisplayName,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   CTACopy,
 } from "./styledComponents";
 import {
@@ -27,7 +25,7 @@ import { ChallengePhaseDetail } from "./ChallengePhaseDetail";
 import NeedHelp from "./NeedHelp";
 import { QuestionToolTip } from "../QuestionToolTip";
 
-const RequestAppealButton: React.SFC<
+const RequestAppealButton: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &
@@ -37,16 +35,9 @@ const RequestAppealButton: React.SFC<
   if (props.requestAppealURI) {
     return (
       <>
-        <StyledVisibleOnDesktop>
-          <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
-            Request an Appeal
-          </InvertedButton>
-        </StyledVisibleOnDesktop>
-        <StyledVisibleOnMobile>
-          <InvertedButton size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-            Request an Appeal
-          </InvertedButton>
-        </StyledVisibleOnMobile>
+        <InvertedButton size={buttonSizes.MEDIUM} to={props.requestAppealURI}>
+          Request an Appeal
+        </InvertedButton>
       </>
     );
   }
@@ -58,7 +49,7 @@ const RequestAppealButton: React.SFC<
   );
 };
 
-export const ChallengeRequestAppealCard: React.StatelessComponent<
+export const ChallengeRequestAppealCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps &
     PhaseWithExpiryProps &
     ChallengePhaseProps &
@@ -77,7 +68,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
           endTime={props.endTime}
           totalSeconds={props.phaseLength}
           displayLabel="Accepting Appeal Requests"
-          toolTipText={<RequestAppealToolTipText />}
+          toolTipText={<RequestAppealToolTipText phaseLength={props.phaseLength} />}
           flavorText="under challenge"
         />
       </StyledListingDetailPhaseCardSection>
@@ -109,7 +100,7 @@ export const ChallengeRequestAppealCard: React.StatelessComponent<
         <RequestAppealButton {...props} />
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

@@ -27,7 +27,7 @@ contract("Parameterizer", accounts => {
     });
 
     it("should false if no proposal exists for the provided propID", async () => {
-      const result = await parameterizer.propExists("666");
+      const result = await parameterizer.propExists("0x666");
       expect(result).to.be.false("should have been false cause i just made it up!");
     });
   });

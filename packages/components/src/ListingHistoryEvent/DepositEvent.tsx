@@ -7,7 +7,7 @@ export interface DepositEventProps extends ListingHistoryEventTimestampProps {
   deposit: string;
 }
 
-export const DepositEvent: React.StatelessComponent<DepositEventProps> = props => {
+export const DepositEvent: React.FunctionComponent<DepositEventProps> = props => {
   return (
     <ListingHistoryEvent title={ListingEventTitles.DEPOSIT} timestamp={props.timestamp}>
       <StyledEventCopy>

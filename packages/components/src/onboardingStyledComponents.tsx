@@ -1,6 +1,7 @@
-import { colors, fonts, Collapsable, CollapsableProps } from "./";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
+import { colors, fonts } from "./";
+import { Collapsable, CollapsableProps } from "./Collapsable";
 import styled, { StyledComponentClass } from "styled-components";
 
 export const OBSectionTitle = styled.h2`
@@ -32,6 +33,12 @@ export const OBSectionDescription = styled.p`
 `;
 
 export const OBSmallParagraph = styled.p`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 24px;
+`;
+export const OBSmallList = styled.ul`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;

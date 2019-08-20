@@ -4,3 +4,7 @@
 # This is needed because Solium has a problem with mixed line endings
 # and returns false positives
 * text=auto
+
+# Automatically collapses storyshot diffs in GitHub:
+*.storyshot linguist-generated
+

@@ -27,7 +27,7 @@ const StyledParameterizerTableCellInner = styled.div`
   }
 `;
 
-export const ParameterizerTd: React.SFC<TableCellProps> = props => {
+export const ParameterizerTd: React.FunctionComponent<TableCellProps> = props => {
   return (
     <Td StyledTableCellComponent={StyledParameterizerTableCell} {...props}>
       <StyledParameterizerTableCellInner {...props}>{props.children}</StyledParameterizerTableCellInner>

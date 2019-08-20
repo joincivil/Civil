@@ -5,6 +5,6 @@ export interface TokenAccountRequirementProps {
   step?: string;
 }
 
-export const UserTokenAccountRequirement: React.StatelessComponent<TokenAccountRequirementProps> = props => {
+export const UserTokenAccountRequirement: React.FunctionComponent<TokenAccountRequirementProps> = props => {
   return <TokenRequirement step={props.step}>{props.children}</TokenRequirement>;
 };

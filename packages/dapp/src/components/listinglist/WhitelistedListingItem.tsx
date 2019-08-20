@@ -3,14 +3,18 @@ import { connect } from "react-redux";
 import { State } from "../../redux/reducers";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingListItemOwnProps, ListingListItemReduxProps, ListingItemBaseComponent } from "./ListingListItem";
+import { BigNumber } from "@joincivil/typescript-types";
 
+export interface WhitelistedCardProps {
+  approvalDate?: BigNumber;
+}
 export interface WhitelistedCardReduxProps {
   whitelistedTimestamp?: number;
 }
 
-const WhitelistedListingItem: React.SFC<
-  ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardReduxProps
-> = props => {
+const WhitelistedListingItem = (
+  props: ListingListItemOwnProps & ListingListItemReduxProps & WhitelistedCardProps & WhitelistedCardReduxProps,
+) => {
   return <ListingItemBaseComponent {...props} whitelistedTimestamp={props.whitelistedTimestamp} />;
 };
 
@@ -19,9 +23,14 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = (
     state: State,
-    ownProps: ListingListItemOwnProps,
-  ): ListingListItemOwnProps & WhitelistedCardReduxProps => {
-    const whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
+    ownProps: ListingListItemOwnProps & WhitelistedCardProps,
+  ): ListingListItemOwnProps & WhitelistedCardProps & WhitelistedCardReduxProps => {
+    let whitelistedTimestamp;
+    if (ownProps.approvalDate) {
+      whitelistedTimestamp = ownProps.approvalDate.toNumber();
+    } else {
+      whitelistedTimestamp = getLatestWhitelistedTimestamp(state, ownProps);
+    }
     return {
       whitelistedTimestamp,
       ...ownProps,

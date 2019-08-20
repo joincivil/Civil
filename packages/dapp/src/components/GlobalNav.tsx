@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -10,7 +10,7 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { NavBar } from "@joincivil/components";
+import { CivilContext, NavBar, NavProps } from "@joincivil/components";
 import { toggleUseGraphQL } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
@@ -25,28 +25,47 @@ export interface NavBarProps {
   useGraphQL: boolean;
 }
 
-const GlobalNavComponent: React.SFC<NavBarProps & DispatchProp<any>> = props => {
+const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any>> = props => {
+  const { civil } = React.useContext(CivilContext);
+
+  const {
+    balance,
+    votingBalance,
+    userAccount,
+    userChallengesWithUnrevealedVotes,
+    userChallengesWithUnclaimedRewards,
+    currentUserChallengesStarted,
+    currentUserChallengesVotedOn,
+    useGraphQL,
+  } = props;
+
+  const navBarViewProps: NavProps = {
+    balance,
+    votingBalance,
+    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
+    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
+    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
+    userChallengesStartedCount: currentUserChallengesStarted.count(),
+    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
+    useGraphQL,
+    authenticationURL: "/auth/login",
+    buyCvlUrl: "/tokens",
+    joinAsMemberUrl: "https://civil.co/become-a-member",
+    applyURL: links.APPLY,
+    onLoadingPrefToggled: async (): Promise<any> => {
+      props.dispatch!(await toggleUseGraphQL());
+    },
+  };
+
+  if (civil && civil.currentProvider) {
+    navBarViewProps.enableEthereum = async () => {
+      await civil.currentProviderEnable();
+    };
+  }
+
   return (
     <>
-      <NavBar
-        balance={props.balance}
-        votingBalance={props.votingBalance}
-        userAccount={props.userAccount && getFormattedEthAddress(props.userAccount)}
-        buyCvlUrl="https://civil.co/cvl/"
-        userRevealVotesCount={props.userChallengesWithUnrevealedVotes!.count()}
-        userClaimRewardsCount={props.userChallengesWithUnclaimedRewards!.count()}
-        userChallengesStartedCount={props.currentUserChallengesStarted.count()}
-        userChallengesVotedOnCount={props.currentUserChallengesVotedOn.count()}
-        useGraphQL={props.useGraphQL}
-        onLogin={() => {
-          if ((window as any).ethereum) {
-            (window as any).ethereum.enable();
-          }
-        }}
-        onLoadingPrefToggled={async (): Promise<any> => {
-          props.dispatch!(await toggleUseGraphQL());
-        }}
-      />
+      <NavBar {...navBarViewProps} />
     </>
   );
 };

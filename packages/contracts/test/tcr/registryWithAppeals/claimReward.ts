@@ -2,6 +2,7 @@ import { configureChai } from "@joincivil/dev-utils";
 import * as chai from "chai";
 import { REVERTED } from "../../utils/constants";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 const Token = artifacts.require("CVLToken");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
@@ -9,6 +10,7 @@ utils.configureProviders(Token, PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
 
 contract("Registry with Appeals", accounts => {
   describe("Function: claimReward", () => {
@@ -33,7 +35,7 @@ contract("Registry with Appeals", accounts => {
 
     it("should transfer the correct number of tokens once a challenge has been resolved", async () => {
       // Apply
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
       const aliceStartingBalance = await token.balanceOf(voterAlice);
 
       // Challenge
@@ -194,18 +196,18 @@ contract("Registry with Appeals", accounts => {
       await utils.commitVote(voting, pollID, "0", "50", "42", voterAlice);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
-      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
+      await voting.revealVote(pollID, "0", "42", { from: voterAlice });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
       const waitTime = utils.paramConfig.challengeAppealLength + 1;
       await utils.advanceEvmTime(waitTime);
 
       await registry.updateStatus(newsroomAddress);
 
       // Claim reward
-      await expect(registry.claimReward(pollID, "42", { from: voterAlice })).to.be.rejectedWith(
+      await expect(registry.claimReward(pollID, new BN(42), { from: voterAlice })).to.be.rejectedWith(
         REVERTED,
         "should have reverted since voter commit hash does not match winning hash for salt",
       );
@@ -226,12 +228,12 @@ contract("Registry with Appeals", accounts => {
       await utils.commitVote(voting, pollID, "1", "30", "32", voterBob);
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
 
-      await voting.revealVote(pollID, "0", "42  ", { from: voterAlice });
-      await voting.revealVote(pollID, "1", "32  ", { from: voterBob });
+      await voting.revealVote(pollID, "0", "42", { from: voterAlice });
+      await voting.revealVote(pollID, "1", "32", { from: voterBob });
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
 
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const waitTime = utils.paramConfig.challengeAppealLength;
       await utils.advanceEvmTime(waitTime + 1);
@@ -247,13 +249,12 @@ contract("Registry with Appeals", accounts => {
       const bobEndingBalance = await token.balanceOf(voterBob);
 
       // starting balance + (minDeposit * dispensationPct)
-      const expectedBobEndingBalance = utils
-        .toBaseTenBigNumber(bobStartingBalance)
-        .add(
-          utils
-            .toBaseTenBigNumber(utils.paramConfig.minDeposit)
-            .mul(utils.toBaseTenBigNumber(utils.paramConfig.dispensationPct).div(100)),
-        );
+      const expectedBobEndingBalance = utils.toBaseTenBigNumber(bobStartingBalance).add(
+        utils
+          .toBaseTenBigNumber(utils.paramConfig.minDeposit)
+          .mul(new BN(utils.paramConfig.dispensationPct))
+          .div(new BN(100)),
+      );
 
       expect(bobEndingBalance).to.be.bignumber.equal(
         expectedBobEndingBalance,

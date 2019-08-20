@@ -1,11 +1,15 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
-import BigNumber from "bignumber.js";
+import { formatRoute } from "react-router-named-routes";
+import { BigNumber } from "@joincivil/typescript-types";
+import styled from "styled-components";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItem, PHASE_TYPE_NAMES } from "@joincivil/components";
+import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag, colors, ErrorIcon } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   getChallenge,
@@ -15,10 +19,18 @@ import {
   makeGetUserChallengeData,
   getChallengeState,
 } from "../../selectors";
-import { WinningChallengeResults } from "./WinningChallengeResults";
+import WinningChallengeResults from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+
+const StyledWarningText = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -9px 0;
+  }
+`;
 
 export interface ActivityListItemOwnProps {
   listingAddress?: string;
@@ -71,7 +83,7 @@ class ActivityListItemComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const { listingAddress: address, listing, newsroom, listingPhaseState, charter } = this.props;
+    const { listingAddress: address, listing, newsroom, listingPhaseState, charter, userChallengeData } = this.props;
     if (listing && listing.data && newsroom && listingPhaseState) {
       const newsroomData = newsroom.wrapper.data;
       let listingDetailURL = `/listing/${address}`;
@@ -86,11 +98,21 @@ class ActivityListItemComponent extends React.Component<
         buttonText: buttonTextTuple[0],
         buttonHelperText: buttonTextTuple[1],
         challengeID: this.props.challengeID,
-        salt: this.props.userChallengeData && this.props.userChallengeData.salt,
+        salt: userChallengeData && userChallengeData.salt,
         toggleSelect: this.props.toggleSelect,
       };
 
-      return <DashboardActivityItem {...props}>{this.renderActivityDetails()}</DashboardActivityItem>;
+      return (
+        <DashboardActivityItem {...props}>
+          {this.renderActivityDetails()}
+
+          {!userChallengeData && address && (
+            <FeatureFlag feature="boosts-mvp">
+              <Link to={routes.BOOST_CREATE}>Launch Boost</Link>
+            </FeatureFlag>
+          )}
+        </DashboardActivityItem>
+      );
     } else {
       return <></>;
     }
@@ -122,7 +144,7 @@ class ActivityListItemComponent extends React.Component<
             <p>Accepted into Registry</p>
           </>
         );
-      } else if (!isRejected && !isInApplication && !isUnderChallenge) {
+      } else if (isRejected && !isInApplication && !isUnderChallenge) {
         return (
           <>
             <p>Rejected from Registry</p>
@@ -222,8 +244,21 @@ class ActivityListItemComponent extends React.Component<
 
     // This is a listing
     if (!userChallengeData && listingAddress) {
-      const manageNewsroomUrl = `/mgmt-v1/${this.props.listingAddress}`;
-      return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
+      // @TODO/tobek When we release the post-application newsroom manager we should fix NEWSROOM_MANAGEMENT route and point this to that, but for now just send them to APPLY_TO_REGISTRY
+      if (listingPhaseState) {
+        if (listingPhaseState.isUnderChallenge) {
+          return [
+            "View",
+            <StyledWarningText>
+              <ErrorIcon width={16} height={16} /> Your charter is locked until the challenge period has ended.
+            </StyledWarningText>,
+          ];
+        } else {
+          const manageNewsroomUrl = formatRoute(routes.APPLY_TO_REGISTRY, { action: "manage" });
+          return ["View", <Link to={manageNewsroomUrl}>Manage Newsroom</Link>];
+        }
+      }
+      return ["View", undefined];
     }
 
     return ["View", undefined];

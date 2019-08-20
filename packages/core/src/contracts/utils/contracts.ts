@@ -1,18 +1,34 @@
 import { EthApi } from "@joincivil/ethapi";
 import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
-import { Observable } from "rxjs/Observable";
-import * as Web3 from "web3";
-import { CivilTransactionReceipt, EthAddress, TwoStepEthTransaction, TxDataBase, TxHash } from "../../types";
+import { Observable, Subscriber } from "rxjs";
+import { CivilTransactionReceipt, EthAddress, TwoStepEthTransaction, TxHash } from "../../types";
 import { artifacts } from "../generated/artifacts";
-import { Contract } from "../interfaces/contract";
 import { OwnableContract } from "../interfaces/ownable";
+import { Contract as IContract } from "../interfaces/contract";
+import { EventLog as EventData, TransactionReceipt, Log } from "web3/types";
+import { Tx as TransactionConfig } from "web3/eth/types";
+import Contract from "web3/eth/contract";
 
-export function findEvent<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T | undefined {
-  return tx.logs.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
+// https://github.com/ethereum/web3.js/blob/2.x/packages/web3-eth-contract/types/index.d.ts#L108
+export interface EventOptions {
+  filter?: {};
+  fromBlock?: number;
+  toBlock?: number | "latest" | "pending" | "genesis" | undefined;
+  topics?: any[];
 }
 
-export function findEventOrThrow<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T {
+export function findEvent<T extends DecodedLogEntry>(tx: TransactionReceipt, eventName: string): T | undefined {
+  if (tx.events && tx.events[eventName]) {
+    console.log("findEvent", tx.events[eventName]);
+    // TODO(dankins): ignoring typescript error, make sure this works
+    // @ts-ignore
+    return tx.events[eventName] as T | undefined;
+  }
+  // return tx.events!.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
+}
+
+export function findEventOrThrow<T extends DecodedLogEntry>(tx: TransactionReceipt, eventName: string): T {
   const event = findEvent<T>(tx, eventName);
   if (!event) {
     throw new Error(`Log with event == "${eventName}" not found`);
@@ -20,20 +36,23 @@ export function findEventOrThrow<T extends DecodedLogEntry>(tx: Web3.Transaction
   return event;
 }
 
-export function findEvents<T extends DecodedLogEntry>(tx: Web3.TransactionReceipt, eventName: string): T[] {
-  return tx.logs.filter(log => isDecodedLog(log) && log.event === eventName) as T[];
+export function findEvents<T extends DecodedLogEntry>(tx: TransactionReceipt, eventName: string): T[] {
+  return tx.logs!.filter(log => isDecodedLog(log) && log.event === eventName) as T[];
 }
 
-export function isContract<T extends Web3.ContractInstance>(what: any): what is T {
+export function isContract<T extends Contract>(what: any): what is T {
+  console.log("isContract", what);
+  // TODO(dankins): ignoring typescript error, make sure this works
+  // @ts-ignore
   return (what as T).abi !== undefined;
 }
 
-export function isOwnableContract(contract: Contract | OwnableContract): contract is OwnableContract {
+export function isOwnableContract(contract: IContract | OwnableContract): contract is OwnableContract {
   return (contract as OwnableContract).owner !== undefined;
 }
 
-export function isDecodedLog(what: Web3.LogEntry | DecodedLogEntry): what is DecodedLogEntry {
-  return typeof (what as any).event === "string" && isDefined((what as any).args);
+export function isDecodedLog(what: Log | EventData): what is DecodedLogEntry {
+  return typeof (what as any).event === "string" && isDefined(what as any);
 }
 
 export type TypedEventFilter<T> = { [P in keyof T]?: T[P] | Array<T[P]> };
@@ -45,43 +64,43 @@ export interface DecodedFilterResult<L extends DecodedLogEntryEvent> {
 }
 export type EventFunction<A, L extends DecodedLogEntryEvent<A>> = (
   paramFilters?: TypedEventFilter<A>,
-  filterObject?: Web3.FilterObject,
+  filterObject?: EventOptions,
   callback?: DecodedFilterCallback<L>,
 ) => DecodedFilterResult<L>;
 
 // TODO(ritave): Think how to solve race condition in filters, concat get/watch perhaps?
 export function streamifyEvent<A, L extends DecodedLogEntryEvent<A>>(
-  original: EventFunction<A, L>,
-): (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => Observable<L> {
-  return (paramFilters?: TypedEventFilter<A>, filterObject?: Web3.FilterObject) => {
-    return new Observable<L>(subscriber => {
-      const filter = original(paramFilters, filterObject);
-      // Finite stream of historic events
+  instance: Contract,
+  eventName: string,
+): (paramFilters?: TypedEventFilter<any>, filterObject?: EventOptions) => Observable<L> {
+  return (paramFilters?: TypedEventFilter<A>, filterObject?: EventOptions) => {
+    return new Observable<L>((subscriber: Subscriber<L>) => {
       if (filterObject && filterObject.toBlock) {
-        filter.get((err, logs) => {
-          if (err) {
-            return filter.stopWatching(() => subscriber.error(err));
-          }
-          for (const log of logs) {
-            subscriber.next(log);
-          }
-          filter.stopWatching(() => subscriber.complete());
-        });
+        instance
+          .getPastEvents(eventName, filterObject)
+          .then(logs => {
+            for (const log of logs) {
+              // @ts-ignore
+              subscriber.next(log);
+            }
+            subscriber.complete();
+          })
+          .catch(err => {
+            console.log("!!error toBlock", err);
+            subscriber.error(err);
+          });
       } else {
-        let errored = false;
-        // Unfinite stream of historic and future events
-        filter.watch((err: Error, event: L) => {
-          if (err) {
-            errored = true;
-            return filter.stopWatching(() => subscriber.error(err));
-          }
-          subscriber.next(event);
-        });
-        return () => {
-          if (!errored) {
-            filter.stopWatching(() => subscriber.complete());
-          }
-        };
+        // Infinite stream of historic and future events
+        const eventStream = instance.events[eventName](filterObject);
+        eventStream
+          .on("data", (event: any) => {
+            subscriber.next(event);
+          })
+          .on("error", (err: Error) => {
+            console.log("!!error", err);
+            subscriber.error(err);
+            subscriber.complete();
+          });
       }
     }).distinctUntilChanged((a, b) => {
       return a.blockNumber === b.blockNumber && a.logIndex === b.logIndex;
@@ -89,7 +108,7 @@ export function streamifyEvent<A, L extends DecodedLogEntryEvent<A>>(
   };
 }
 
-export function isTxData(data: any): data is TxDataBase {
+export function isTxData(data: any): data is TransactionConfig {
   return (
     data.gas !== undefined ||
     data.gasPrice !== undefined ||
@@ -115,6 +134,7 @@ export function createTwoStepTransaction<T>(
 export function createTwoStepSimple(ethApi: EthApi, txHash: TxHash): TwoStepEthTransaction {
   return {
     txHash,
+    // @ts-ignore
     awaitReceipt: ethApi.awaitReceipt.bind(ethApi, txHash),
   };
 }

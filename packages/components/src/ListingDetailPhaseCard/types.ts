@@ -6,6 +6,8 @@ export interface ListingDetailPhaseCardComponentProps {
   listingAddress?: EthAddress;
   transactions?: any[];
   constitutionURI?: string;
+  learnMoreURL?: string;
+  faqURL: string;
   onMobileTransactionClick?(): any;
 }
 
@@ -57,6 +59,7 @@ export interface CommitVoteProps extends VoteBaseProps {
 }
 
 export interface RevealVoteProps extends VoteBaseProps {
+  votingSmartContractFaqURL: string;
   transactions: any[];
 }
 

@@ -36,7 +36,7 @@ export class DropdownComponent extends React.Component<DropdownProps, DropdownSt
         <div onClick={ev => this.toggle()}>{this.props.target}</div>
         {this.state.open ? (
           <div ref={ref => this.setWrapperRef(ref)}>
-            <div>{this.props.children}</div>
+            <div onClick={ev => this.toggle()}>{this.props.children}</div>
           </div>
         ) : null}
       </div>
@@ -126,9 +126,15 @@ export const DropdownGroup = styled.ul`
 
 export interface DropdownItemProps {
   className?: string;
+  children?: any;
+  onClick?(): void;
 }
-const DropdownItemComponent: React.StatelessComponent<DropdownItemProps> = ({ className, children }) => {
-  return <li className={className}>{children}</li>;
+const DropdownItemComponent = ({ className, children, onClick }: DropdownItemProps) => {
+  return (
+    <li onClick={onClick} className={className}>
+      {children}
+    </li>
+  );
 };
 
 export const DropdownItem = styled(DropdownItemComponent)`
@@ -144,8 +150,9 @@ export const DropdownItem = styled(DropdownItemComponent)`
 export interface DropdownLinkProps {
   to: string;
   className?: string;
+  children?: any;
 }
-const DropdownLinkComponent: React.StatelessComponent<DropdownLinkProps> = ({ className, to, children }) => {
+const DropdownLinkComponent = ({ className, to, children }: DropdownLinkProps) => {
   return (
     <li className={className}>
       <Link to={to}>{children}</Link>

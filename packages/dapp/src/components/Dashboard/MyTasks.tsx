@@ -1,33 +1,158 @@
 import * as React from "react";
-import { Set } from "immutable";
-import MyTasksItem from "./MyTasksItem";
+import { Map, Set } from "immutable";
 
-export interface MyChallengesOwnProps {
-  challenges?: Set<string>;
+import MyTasksList from "./MyTasksList";
+
+import {
+  Tabs,
+  Tab,
+  AllChallengesDashboardTabTitle,
+  RevealVoteDashboardTabTitle,
+  ClaimRewardsDashboardTabTitle,
+  RescueTokensDashboardTabTitle,
+  StyledDashboardSubTab,
+  SubTabReclaimTokensText,
+} from "@joincivil/components";
+
+import { StyledTabsComponent } from "./DashboardActivity";
+import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
+import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
+import TransferCivilTokens from "./TransferCivilTokens";
+
+export interface MyTasksProps {
+  allChallengesWithAvailableActions: Set<string>;
+  allCompletedChallengesVotedOn: Set<string>;
+  currentUserChallengesStarted: Set<string>;
+  allChallengesWithUnrevealedVotes: Set<string>;
+  userChallengesWithUnclaimedRewards?: Set<string>;
+  userChallengesWithRescueTokens?: Set<string>;
+  userAppealChallengesWithUnclaimedRewards?: Set<string>;
+  userAppealChallengesWithRescueTokens?: Set<string>;
+  proposalChallengesWithAvailableActions?: Set<string>;
+  proposalChallengesWithUnrevealedVotes?: Set<string>;
+  proposalChallengesWithUnclaimedRewards?: Set<string>;
+  proposalChallengesWithRescueTokens?: Set<string>;
+  userChallengeData?: Map<string, any>;
+  challengeToAppealChallengeMap?: Map<string, string>;
+  activeSubTabIndex: number;
+  useGraphQL?: boolean;
+  setActiveSubTabIndex(activeSubIndex: number): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
+  showNoMobileTransactionsModal(): void;
+  refetchUserChallengeData?(): void;
 }
 
-const MyChallenges: React.SFC<MyChallengesOwnProps> = props => {
+const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
+  const {
+    allChallengesWithAvailableActions,
+    allChallengesWithUnrevealedVotes,
+    userChallengesWithUnclaimedRewards,
+    userChallengesWithRescueTokens,
+    userAppealChallengesWithRescueTokens,
+    userAppealChallengesWithUnclaimedRewards,
+    proposalChallengesWithAvailableActions,
+    proposalChallengesWithUnrevealedVotes,
+    proposalChallengesWithUnclaimedRewards,
+    proposalChallengesWithRescueTokens,
+    activeSubTabIndex,
+    setActiveSubTabIndex,
+    showClaimRewardsTab,
+    showRescueTokensTab,
+    showNoMobileTransactionsModal,
+    userChallengeData,
+    challengeToAppealChallengeMap,
+    useGraphQL,
+    refetchUserChallengeData,
+  } = props;
+
+  const allVotesTabTitle = (
+    <AllChallengesDashboardTabTitle
+      count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
+    />
+  );
+  const revealVoteTabTitle = (
+    <RevealVoteDashboardTabTitle
+      count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
+    />
+  );
+  const claimRewardsTabTitle = (
+    <ClaimRewardsDashboardTabTitle
+      count={
+        userChallengesWithUnclaimedRewards!.count() +
+        userAppealChallengesWithUnclaimedRewards!.count() +
+        proposalChallengesWithUnclaimedRewards!.count()
+      }
+    />
+  );
+  const rescueTokensTabTitle = (
+    <RescueTokensDashboardTabTitle
+      count={
+        userChallengesWithRescueTokens!.count() +
+        userAppealChallengesWithRescueTokens!.count() +
+        proposalChallengesWithRescueTokens!.count()
+      }
+    />
+  );
+
   return (
     <>
-      {props.challenges &&
-        props.challenges.map(c => {
-          return (
-            <MyTasksItem
-              key={c}
-              challengeID={c!}
-              showClaimRewardsTab={() => {
-                props.showClaimRewardsTab();
-              }}
-              showRescueTokensTab={() => {
-                props.showRescueTokensTab();
-              }}
-            />
-          );
-        })}
+      <Tabs
+        TabComponent={StyledDashboardSubTab}
+        TabsNavComponent={StyledTabsComponent}
+        activeIndex={activeSubTabIndex}
+        onActiveTabChange={setActiveSubTabIndex}
+      >
+        <Tab title={allVotesTabTitle}>
+          <MyTasksList
+            challenges={allChallengesWithAvailableActions}
+            proposalChallenges={proposalChallengesWithAvailableActions}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+            useGraphQL={useGraphQL}
+            refetchUserChallengeData={refetchUserChallengeData}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+          />
+        </Tab>
+        <Tab title={revealVoteTabTitle}>
+          <MyTasksList
+            challenges={allChallengesWithUnrevealedVotes}
+            proposalChallenges={proposalChallengesWithUnrevealedVotes}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+            useGraphQL={useGraphQL}
+            refetchUserChallengeData={refetchUserChallengeData}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+          />
+        </Tab>
+        <Tab title={claimRewardsTabTitle}>
+          <ChallengesWithRewardsToClaim
+            challenges={userChallengesWithUnclaimedRewards}
+            appealChallenges={userAppealChallengesWithUnclaimedRewards}
+            proposalChallenges={proposalChallengesWithUnclaimedRewards}
+            userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
+            onMobileTransactionClick={showNoMobileTransactionsModal}
+          />
+        </Tab>
+        <Tab title={rescueTokensTabTitle}>
+          <ChallengesWithTokensToRescue
+            challenges={userChallengesWithRescueTokens}
+            appealChallenges={userAppealChallengesWithRescueTokens}
+            proposalChallenges={proposalChallengesWithRescueTokens}
+            userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
+            onMobileTransactionClick={showNoMobileTransactionsModal}
+          />
+        </Tab>
+        <Tab title={<SubTabReclaimTokensText />}>
+          <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
+        </Tab>
+      </Tabs>
     </>
   );
 };
 
-export default MyChallenges;
+export default MyTasks;

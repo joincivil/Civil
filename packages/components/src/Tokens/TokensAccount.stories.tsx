@@ -42,7 +42,7 @@ export interface UserTokenAccountProgressProps {
   userAccount: string;
 }
 
-storiesOf("User Token Account", module)
+storiesOf("Storefront / User Token Account", module)
   .addDecorator(
     apolloStorybookDecorator({
       typeDefs,
@@ -57,12 +57,5 @@ storiesOf("User Token Account", module)
     return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
   })
   .add("Buy Section", () => {
-    return (
-      <UserTokenAccountBuy
-        step={"active"}
-        network={"4"}
-        foundationAddress={"0x..."}
-        faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
-      />
-    );
+    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />;
   });

@@ -20,7 +20,7 @@ interface StepCopyProps {
   step: string;
 }
 
-const StepCopy: React.SFC<StepCopyProps> = props => {
+const StepCopy: React.FunctionComponent<StepCopyProps> = props => {
   return (
     <StyledStepCopy>
       <StyledStepCopyNum>{props.step}</StyledStepCopyNum>

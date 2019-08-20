@@ -1,5 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import {
   AppealGrantedEvent,
   AppealRequestedEvent,
@@ -18,15 +19,16 @@ import {
   WithdrawalEvent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+
+import { routes } from "../../constants";
 import { ChallengeContainerProps, connectChallengeResults } from "../utility/HigherOrderComponents";
-import { BigNumber } from "bignumber.js";
 
 export interface ListingEventProps {
   event: any;
   listing: string;
 }
 
-const challengeCompletedEventContainer = (WrappedComponent: React.StatelessComponent<ChallengeCompletedEventProps>) => {
+const challengeCompletedEventContainer = (WrappedComponent: React.FunctionComponent<ChallengeCompletedEventProps>) => {
   return compose<React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>>(
     connectChallengeResults,
   )(WrappedComponent);
@@ -95,29 +97,29 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderWithdrawalEvent(wrappedEvent: any): JSX.Element {
-    const { withdrew } = wrappedEvent.args;
-    const bnDeposit = new BigNumber(withdrew);
-    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
+    const { withdrew } = wrappedEvent.returnValues;
+    const formattedDeposit = getFormattedTokenBalance(withdrew);
     return <WithdrawalEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderDepositEvent(wrappedEvent: any): JSX.Element {
-    const { added } = wrappedEvent.args;
-    const bnDeposit = new BigNumber(added);
-    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
+    const { added } = wrappedEvent.returnValues;
+    const formattedDeposit = getFormattedTokenBalance(added);
     return <DepositEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderApplicationEvent(wrappedEvent: any): JSX.Element {
-    const { deposit } = wrappedEvent.args;
-    const bnDeposit = new BigNumber(deposit);
-    const formattedDeposit = getFormattedTokenBalance(bnDeposit);
+    const { deposit } = wrappedEvent.returnValues;
+    const formattedDeposit = getFormattedTokenBalance(deposit);
     return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderChallengeEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID, challenger } = wrappedEvent.args;
-    const challengeURI = `/listing/${this.props.listing}/challenge/${challengeID.toString()}`;
+    const { challengeID, challenger } = wrappedEvent.returnValues;
+    const challengeURI = formatRoute(routes.CHALLENGE, {
+      listingAddress: this.props.listing,
+      challengeID: challengeID.toString(),
+    });
     return (
       <ChallengeEvent
         timestamp={(wrappedEvent as any).timestamp}
@@ -129,7 +131,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeFailedEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID } = wrappedEvent.args;
+    const { challengeID } = wrappedEvent.returnValues;
     const ChallengeFailedComponent = challengeCompletedEventContainer(
       ChallengeFailedEventComponent,
     ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
@@ -138,7 +140,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID } = wrappedEvent.args;
+    const { challengeID } = wrappedEvent.returnValues;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
     return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;

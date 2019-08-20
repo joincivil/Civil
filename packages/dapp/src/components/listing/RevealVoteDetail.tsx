@@ -3,7 +3,7 @@ import { TransactionButton } from "@joincivil/components";
 import { InputElement, StyledFormContainer, FormGroup } from "../utility/FormElements";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { revealVote } from "../../apis/civilTCR";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export interface RevealVoteDetailProps {
   challengeID: BigNumber;

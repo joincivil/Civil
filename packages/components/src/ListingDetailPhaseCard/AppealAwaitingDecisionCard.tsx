@@ -39,7 +39,7 @@ export type AppealAwaitingDecisionCardProps = ListingDetailPhaseCardComponentPro
   ChallengeResultsProps &
   AppealProps;
 
-const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+const GrantAppealButton: React.FunctionComponent<AppealAwaitingDecisionCardProps> = props => {
   let text = "Grant Appeal";
   if (props.txIdToConfirm) {
     text = "Confirm Appeal";
@@ -48,18 +48,12 @@ const GrantAppealButton: React.StatelessComponent<AppealAwaitingDecisionCardProp
     <div>
       {!props.txIdToConfirm && <TextInput name="uri" value={props.uriValue} onChange={props.onChange} />}
 
-      <TransactionButtonNoModal
-        transactions={props.transactions!}
-        disabledOnMobile={true}
-        onMobileClick={props.onMobileTransactionClick}
-      >
-        {text}
-      </TransactionButtonNoModal>
+      <TransactionButtonNoModal transactions={props.transactions!}>{text}</TransactionButtonNoModal>
     </div>
   );
 };
 
-export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaitingDecisionCardProps> = props => {
+export const AppealAwaitingDecisionCard: React.FunctionComponent<AppealAwaitingDecisionCardProps> = props => {
   const localDateTime = getLocalDateTimeStrings(props.endTime);
   return (
     <StyledListingDetailPhaseCardContainer>
@@ -122,7 +116,7 @@ export const AppealAwaitingDecisionCard: React.StatelessComponent<AppealAwaiting
         {props.transactions && <GrantAppealButton {...props} />}
       </StyledListingDetailPhaseCardSection>
 
-      <NeedHelp />
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };

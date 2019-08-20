@@ -12,14 +12,14 @@ export interface AppealDecisionDetailProps {
   appealGranted?: boolean;
   collapsable?: boolean;
   open?: boolean;
-  appealGrantedStatementUri?: string;
+  appealGrantedStatementURI?: string;
 }
 
 const StyledInner = styled.div`
   padding-top: 14px;
 `;
 
-const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props => {
+const AppealDecisionDetailInner: React.FunctionComponent<AppealDecisionDetailProps> = props => {
   const decisionText = props.appealGranted ? "granted" : "not granted";
   return (
     <StyledInner>
@@ -29,7 +29,7 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
       </FormCopy>
 
       {props.appealGranted && (
-        <InvertedButton href={props.appealGrantedStatementUri} size={buttonSizes.MEDIUM_WIDE}>
+        <InvertedButton href={props.appealGrantedStatementURI} size={buttonSizes.MEDIUM_WIDE}>
           Read about this decision
         </InvertedButton>
       )}
@@ -37,7 +37,7 @@ const AppealDecisionDetailInner: React.SFC<AppealDecisionDetailProps> = props =>
   );
 };
 
-export const AppealDecisionDetail: React.SFC<AppealDecisionDetailProps> = props => {
+export const AppealDecisionDetail: React.FunctionComponent<AppealDecisionDetailProps> = props => {
   const headerElement = (
     <StyledListingDetailPhaseCardSectionHeader>Civil Council Decision</StyledListingDetailPhaseCardSectionHeader>
   );

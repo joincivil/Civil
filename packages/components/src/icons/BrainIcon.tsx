@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const BrainIcon: React.SFC = props => {
+export const BrainIcon: React.FunctionComponent = props => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewBox="0 0 74 74">
       <g stroke="none" strokeWidth="1" fill={colors.primary.BLACK} fillRule="evenodd">

@@ -1,3 +1,4 @@
+import * as sanitizeHtml from "sanitize-html";
 import { EthAddress, Hex } from "@joincivil/typescript-types";
 import { soliditySha3 } from "./crypto";
 
@@ -39,7 +40,7 @@ export function prepareUserFriendlyNewsroomMessage(
 }
 
 export function prepareConstitutionSignMessage(newsroomName: string, constitutionHash: Hex): string {
-  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsrooom Name:\n${newsroomName}\n\nConstitution Hash:\n${constitutionHash}`;
+  return `By signing this message, I am agreeing on behalf of the Newsroom to abide by the Civil Community's ethical principles as described in the Civil Constitution.\n\nNewsroom Name:\n${newsroomName}\n\nConstitution Hash:\n${constitutionHash}`;
 }
 
 export function getDefaultFromBlock(network: number): number {
@@ -48,7 +49,7 @@ export function getDefaultFromBlock(network: number): number {
   // first Newsroom contract on that network
   const defaultFromBlocks: { [index: string]: number } = {
     1: 6904575,
-    4: 2848355,
+    4: 3689706,
     50: 0,
   };
   return defaultFromBlocks[network.toString()] || 0;
@@ -104,4 +105,14 @@ export enum GovernmentParameters {
 export function getInfuraUrlFromIpfs(ipfsUrl: string): string {
   const hash = ipfsUrl.split("://")[1];
   return `https://ipfs.infura.io/ipfs/${hash}`;
+}
+
+export function sanitizeConstitutionHtml(html: string): string {
+  return sanitizeHtml(html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["h2"]),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      h2: ["id"],
+    },
+  });
 }

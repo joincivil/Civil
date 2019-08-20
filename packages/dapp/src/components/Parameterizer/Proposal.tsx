@@ -1,9 +1,10 @@
 import * as React from "react";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { ParamProposalState } from "@joincivil/core";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
-import { getCivil } from "../../helpers/civilInstance";
+import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
+
+import { StyledHiddenOnMobile } from "./Parameter";
 
 export interface ProposalProps {
   proposal: any;
@@ -13,6 +14,8 @@ export interface ProposalProps {
 }
 
 export class Proposal extends React.Component<ProposalProps> {
+  public static contextType = CivilContext;
+
   public render(): JSX.Element {
     return (
       <Tr>
@@ -49,9 +52,11 @@ export class Proposal extends React.Component<ProposalProps> {
           <TextCountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
         </Td>
         <Td align="right">
-          <StyledTableAccentText strong>
-            <span onClick={this.onProposalAction}>Challenge Proposal</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onProposalAction}>Challenge Proposal</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </>
     );
@@ -64,9 +69,11 @@ export class Proposal extends React.Component<ProposalProps> {
           <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
         </Td>
         <Td align="right">
-          <StyledTableAccentText strong>
-            <span onClick={this.onProposalAction}>Update Parameter</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onProposalAction}>Update Parameter</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </>
     );
@@ -79,9 +86,11 @@ export class Proposal extends React.Component<ProposalProps> {
           <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
         </Td>
         <Td align="right">
-          <StyledTableAccentText strong>
-            <span onClick={this.onProposalAction}>Resolve Challenge</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onProposalAction}>Resolve Challenge</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </>
     );
@@ -94,9 +103,11 @@ export class Proposal extends React.Component<ProposalProps> {
           <TextCountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.valueOf() / 1000} />
         </Td>
         <Td align="right">
-          <StyledTableAccentText strong>
-            <span onClick={this.onProposalAction}>Commit Vote</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onProposalAction}>Commit Vote</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </>
     );
@@ -109,9 +120,11 @@ export class Proposal extends React.Component<ProposalProps> {
           <TextCountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.valueOf() / 1000} />
         </Td>
         <Td align="right">
-          <StyledTableAccentText strong>
-            <span onClick={this.onProposalAction}>Reveal Vote</span>
-          </StyledTableAccentText>
+          <StyledHiddenOnMobile>
+            <StyledTableAccentText strong>
+              <span onClick={this.onProposalAction}>Reveal Vote</span>
+            </StyledTableAccentText>
+          </StyledHiddenOnMobile>
         </Td>
       </>
     );
@@ -127,7 +140,7 @@ export class Proposal extends React.Component<ProposalProps> {
   };
 
   private getFormattedValue = (parameterValue: BigNumber): string => {
-    const civil = getCivil();
+    const { civil } = this.context;
     return getFormattedParameterValue(this.props.parameterName, civil.toBigNumber(parameterValue.toString()));
   };
 }

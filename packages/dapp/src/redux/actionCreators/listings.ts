@@ -6,7 +6,7 @@ import { Subscription } from "rxjs";
 import { getTCR } from "../../helpers/civilInstance";
 import { getNewsroom } from "../../helpers/listingEvents";
 import { addChallenge } from "./challenges";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
@@ -222,7 +222,7 @@ export const setupRejectedListingLatestChallengeSubscription = async (listingID:
         .latestChallengeSucceeded()
         .subscribe(async (event: TimestampedEvent<CivilTCR.LogEvents._ChallengeSucceeded> | undefined) => {
           if (!!event) {
-            const challengeID = (event as any).args.challengeID;
+            const challengeID = (event as any).returnValues.challengeID;
             dispatch(addOrUpdateListingLatestChallenge(listingID, challengeID));
           }
         });

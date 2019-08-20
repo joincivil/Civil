@@ -13,7 +13,9 @@ export interface ListingSummaryReadyToUpdateComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export const ListingSummaryReadyToUpdateComponent: React.SFC<ListingSummaryReadyToUpdateComponentProps> = props => {
+export const ListingSummaryReadyToUpdateComponent: React.FunctionComponent<
+  ListingSummaryReadyToUpdateComponentProps
+> = props => {
   return (
     <ListingSummaryBase {...props}>
       <StyledListingSummary>

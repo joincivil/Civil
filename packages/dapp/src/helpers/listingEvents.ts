@@ -1,7 +1,15 @@
-import { EthAddress, getNextTimerExpiry, ListingWrapper, StorageHeader } from "@joincivil/core";
-import { addNewsroom } from "@joincivil/newsroom-signup";
+import {
+  EthAddress,
+  getNextTimerExpiry,
+  ListingWrapper,
+  StorageHeader,
+  WrappedChallengeID,
+  WrappedAppealChallengeID,
+  WrappedPropID,
+} from "@joincivil/core";
+import { addNewsroom, setNewsroomMultisigAddress } from "@joincivil/newsroom-signup";
 import { getDefaultFromBlock } from "@joincivil/utils";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Dispatch } from "react-redux";
 import { Subscription, Observable } from "rxjs";
 import {
@@ -12,7 +20,7 @@ import {
   linkAppealChallengeToChallenge,
 } from "../redux/actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
-import { addUserNewsroom, addContent } from "../redux/actionCreators/newsrooms";
+import { addUserNewsroom, addContent, addCharterRevision } from "../redux/actionCreators/newsrooms";
 import { getCivil, getTCR } from "./civilInstance";
 import { addUserProposalChallengeData } from "../redux/actionCreators/parameterizer";
 
@@ -20,6 +28,8 @@ const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 let initialListingSubscriptions: Subscription | undefined;
 let currentListingSubscriptions: Subscription | undefined;
+
+const allNewsroomContentRevisionsSubscriptions = new Map<EthAddress, Subscription>();
 
 export async function initializeSubscriptions(dispatch: Dispatch<any>, network: number): Promise<void> {
   const tcr = await getTCR();
@@ -68,9 +78,96 @@ export function clearListingSubscriptions(): any {
   setTimeoutTimeouts.clear();
 }
 
-let challengeSubscription: Subscription;
-let newChallengeActionsSubscription: Subscription;
-let challengeStartedSubscription: Subscription;
+let challengeSubscription: Subscription | undefined;
+let newChallengeActionsSubscription: Subscription | undefined;
+let challengeStartedSubscription: Subscription | undefined;
+let allChallengeIDs: Set<string> = new Set();
+let allAppealChallengeIDs: Set<string> = new Set();
+let appealChallengesToChallengeIDs: Map<string, string> = new Map();
+let allUserPollIDs: Set<string> = new Set();
+let challengeIdsToListingAddresses: Map<string, string> = new Map();
+let allPropChallengeIDs: Set<string> = new Set();
+let propChallengeIDsToPropIDs: Map<string, string> = new Map();
+
+async function checkChallengeForUserPoll(
+  challengeId: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  if (allUserPollIDs.has(challengeId.toString())) {
+    await getChallenge(challengeId, dispatch, user);
+  }
+}
+
+async function checkAppealChallengeForUserPoll(
+  appealChallengeID: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  if (allUserPollIDs.has(appealChallengeID.toString())) {
+    await getAppealChallenge(appealChallengeID, dispatch, user);
+  }
+}
+
+async function checkPropChallengeIDForUserPoll(
+  propChallengeID: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  if (allUserPollIDs.has(propChallengeID.toString())) {
+    await getPropChallenge(propChallengeID, dispatch, user);
+  }
+}
+
+async function checkUserPollForChallengeType(
+  pollID: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  if (allChallengeIDs.has(pollID.toString())) {
+    await getChallenge(pollID, dispatch, user);
+  } else if (allAppealChallengeIDs.has(pollID.toString())) {
+    await getAppealChallenge(pollID, dispatch, user);
+  } else if (allPropChallengeIDs.has(pollID.toString())) {
+    await getPropChallenge(pollID, dispatch, user);
+  }
+}
+
+async function getChallenge(challengeId: BigNumber, dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
+  const tcr = await getTCR();
+  const listingAddress = challengeIdsToListingAddresses.get(challengeId.toString())!;
+  const wrappedChallenge = await tcr.getChallengeData(challengeId, listingAddress);
+  dispatch(addChallenge(wrappedChallenge));
+  const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
+  dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
+}
+
+async function getAppealChallenge(
+  appealChallengeID: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  const challengeId = new BigNumber(appealChallengesToChallengeIDs.get(appealChallengeID.toString())!);
+  const listingAddress = challengeIdsToListingAddresses.get(challengeId.toString())!;
+  const tcr = await getTCR();
+  const wrappedChallenge = await tcr.getChallengeData(challengeId, listingAddress);
+  dispatch(addChallenge(wrappedChallenge));
+  const challengeUserData = await tcr.getUserAppealChallengeData(appealChallengeID, user);
+  dispatch(addUserAppealChallengeData(appealChallengeID.toString(), user, challengeUserData));
+  dispatch(linkAppealChallengeToChallenge(appealChallengeID.toString(), challengeId.toString()));
+}
+
+async function getPropChallenge(
+  proposalChallengeID: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  const tcr = await getTCR();
+  const parameterizer = await tcr.getParameterizer();
+  const propChallengeUserData = await parameterizer.getUserProposalChallengeData(proposalChallengeID, user);
+  dispatch(addUserProposalChallengeData(proposalChallengeID.toString(), user, propChallengeUserData));
+}
+
 export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
   if (challengeSubscription) {
     challengeSubscription.unsubscribe();
@@ -82,32 +179,50 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     challengeStartedSubscription.unsubscribe();
   }
 
+  allChallengeIDs = new Set();
+  allAppealChallengeIDs = new Set();
+  appealChallengesToChallengeIDs = new Map();
+  allUserPollIDs = new Set();
+  challengeIdsToListingAddresses = new Map();
+  allPropChallengeIDs = new Set();
+  propChallengeIDsToPropIDs = new Map();
+
   const tcr = await getTCR();
   const civil = getCivil();
   const current = await civil.currentBlock();
+  const parameterizer = await tcr.getParameterizer();
+
+  tcr.allChallengeIDsEver().subscribe(async (wrappedChallengeID: WrappedChallengeID) => {
+    allChallengeIDs.add(wrappedChallengeID.challengeID.toString());
+    challengeIdsToListingAddresses.set(wrappedChallengeID.challengeID.toString(), wrappedChallengeID.listingAddress);
+    await checkChallengeForUserPoll(wrappedChallengeID.challengeID, dispatch, user);
+  });
+  tcr.allAppealChallengeIDsEver().subscribe(async (wrappedAppealChallengeID: WrappedAppealChallengeID) => {
+    allAppealChallengeIDs.add(wrappedAppealChallengeID.appealChallengeToChallengeID.appealChallengeID.toString());
+    appealChallengesToChallengeIDs.set(
+      wrappedAppealChallengeID.appealChallengeToChallengeID.appealChallengeID.toString(),
+      wrappedAppealChallengeID.appealChallengeToChallengeID.challengeID.toString(),
+    );
+    await checkAppealChallengeForUserPoll(
+      wrappedAppealChallengeID.appealChallengeToChallengeID.appealChallengeID,
+      dispatch,
+      user,
+    );
+  });
+  parameterizer.allProposalChallengeIDsEver().subscribe(async (wrappedPropID: WrappedPropID) => {
+    allPropChallengeIDs.add(wrappedPropID.challengeID.toString());
+    propChallengeIDsToPropIDs.set(wrappedPropID.challengeID.toString(), wrappedPropID.propID);
+    await checkPropChallengeIDForUserPoll(wrappedPropID.challengeID, dispatch, user);
+  });
+
+  // TODO: also add support for govt proposals
+
   challengeSubscription = tcr
     .getVoting()
     .votesCommitted(undefined, user)
     .subscribe(async (pollID: BigNumber) => {
-      const challengeId = await tcr.getChallengeIDForPollID(pollID);
-      if (!challengeId.isZero()) {
-        const wrappedChallenge = await tcr.getChallengeData(challengeId);
-        dispatch(addChallenge(wrappedChallenge));
-        const challengeUserData = await tcr.getUserChallengeData(challengeId, user);
-        dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
-
-        // if the challenge ID corresponds to an appeal challenge, get any user data for it
-        if (!pollID.equals(challengeId)) {
-          const appealChallengeUserData = await tcr.getUserAppealChallengeData(pollID, user);
-          dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
-          dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
-        }
-      } else {
-        const parameterizer = await tcr.getParameterizer();
-        const propChallengeUserData = await parameterizer.getUserProposalChallengeData(pollID, user);
-        dispatch(addUserProposalChallengeData(pollID.toString(), user, propChallengeUserData));
-      }
-      // TODO: also add support for govt proposals
+      allUserPollIDs.add(pollID.toString());
+      await checkUserPollForChallengeType(pollID, dispatch, user);
     });
 
   newChallengeActionsSubscription = Observable.merge(
@@ -127,7 +242,6 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
         dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
       }
     } else {
-      const parameterizer = await tcr.getParameterizer();
       const propChallengeUserData = await parameterizer.getUserProposalChallengeData(pollID, user);
       dispatch(addUserProposalChallengeData(pollID.toString(), user, propChallengeUserData));
     }
@@ -141,15 +255,47 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   });
 }
 
+export function clearChallengeSubscriptions(): any {
+  if (currentListingSubscriptions) {
+    currentListingSubscriptions.unsubscribe();
+    currentListingSubscriptions = undefined;
+  }
+  if (initialListingSubscriptions) {
+    initialListingSubscriptions.unsubscribe();
+    initialListingSubscriptions = undefined;
+  }
+  if (challengeSubscription) {
+    challengeSubscription.unsubscribe();
+    challengeSubscription = undefined;
+  }
+  if (newChallengeActionsSubscription) {
+    newChallengeActionsSubscription.unsubscribe();
+    newChallengeActionsSubscription = undefined;
+  }
+  if (challengeStartedSubscription) {
+    challengeStartedSubscription.unsubscribe();
+    challengeStartedSubscription = undefined;
+  }
+}
+
 export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
   const civil = getCivil();
   const user = await civil.accountStream.first().toPromise();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
-  dispatch(addNewsroom({ wrapper, address: wrapper.address, newsroom }));
+  dispatch(addNewsroom({ wrapper, address: civil.toChecksumAddress(wrapper.address), newsroom }));
   if (user && wrapper.data.owners.includes(user)) {
+    const multiSigAddr = await newsroom.getMultisigAddress();
+    dispatch(setNewsroomMultisigAddress(address, multiSigAddr || ""));
     dispatch(addUserNewsroom(address));
   }
+
+  const newsroomCharterRevisionsSubscription = newsroom.revisions(0).subscribe(charterRevision => {
+    const { revisionId } = charterRevision;
+    dispatch(addCharterRevision(address, revisionId!, charterRevision));
+  });
+
+  allNewsroomContentRevisionsSubscriptions.set(address, newsroomCharterRevisionsSubscription);
 }
 
 async function delay(ms: number): Promise<any> {

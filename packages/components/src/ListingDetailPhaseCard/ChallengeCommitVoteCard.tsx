@@ -15,8 +15,6 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -71,10 +69,10 @@ export class ChallengeCommitVoteCard extends React.Component<
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
-                  displayLabel="Accepting votes"
-                  toolTipText={<CommitVoteToolTipText />}
-                  secondaryDisplayLabel="Confirming Votes"
-                  secondaryToolTipText={<ConfirmVoteToolTipText />}
+                  displayLabel="Submit Vote Phase"
+                  toolTipText={<CommitVoteToolTipText phaseLength={this.props.phaseLength} />}
+                  secondaryDisplayLabel="Confirm Vote Phase"
+                  secondaryToolTipText={<ConfirmVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
                 />
@@ -94,19 +92,12 @@ export class ChallengeCommitVoteCard extends React.Component<
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
                 {this.renderCommitVoteCallout()}
 
-                <StyledVisibleOnDesktop>
-                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                    {this.renderCommitVoteButtonText()}
-                  </FullWidthButton>
-                </StyledVisibleOnDesktop>
-                <StyledVisibleOnMobile>
-                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-                    {this.renderCommitVoteButtonText()}
-                  </FullWidthButton>
-                </StyledVisibleOnMobile>
+                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                  {this.renderCommitVoteButtonText()}
+                </FullWidthButton>
               </StyledListingDetailPhaseCardSection>
 
-              <NeedHelp />
+              <NeedHelp faqURL={this.props.faqURL} />
             </StyledListingDetailPhaseCardContainer>
           </StyledCardFront>
 

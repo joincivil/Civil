@@ -1,25 +1,35 @@
-import { CivilErrors, delay, hashPersonalMessage, isBigNumber, promisify } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { CivilErrors, delay, hashPersonalMessage } from "@joincivil/utils";
 import * as Debug from "debug";
 import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs/Observable";
 import { ReplaySubject } from "rxjs/ReplaySubject";
-import * as Web3 from "web3";
 import {
+  ContractOptions,
+  BigNumber,
+  bigNumberify,
   DecodedTransactionReceipt,
   EthAddress,
   EthSignedMessage,
   Hex,
-  TxDataAll,
   TxHash,
-} from "../../typescript-types/build";
+} from "@joincivil/typescript-types";
+
 import { AbiDecoder } from "./abidecoder";
 import { requireAccount } from "./helpers";
+
+import Web3 = require("web3");
+import { Log, TransactionReceipt } from "web3/types";
+import Contract from "web3/eth/contract";
+import { Tx as TransactionConfig, Block, Transaction } from "web3/eth/types";
+import { ABIDefinition as AbiItem } from "web3/eth/abi";
+import { JsonRPCResponse } from "web3/providers";
+
+export type Provider = Web3["currentProvider"];
 
 const debug = Debug("civil:ethapi");
 
 export const DEFAULT_HTTP_NODE = "http://127.0.0.1:8545";
-const POLL_MILLISECONDS = 1000;
+const POLL_MILLISECONDS = 5000;
 
 export class EthApi {
   // Initialized for sure by the helper method setProvider used in constructor
@@ -30,7 +40,7 @@ export class EthApi {
   private rpcId: number = 10000; // HACK(ritave): Ids that shouldn't collide with web3, get rid of web3
 
   // TODO(ritave): Use abi decoding seperatly in just the generated smart-contracts
-  constructor(provider: Web3.Provider, abis: Web3.AbiDefinition[][]) {
+  constructor(provider: Provider, abis: any[][]) {
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(abis);
 
@@ -40,7 +50,7 @@ export class EthApi {
     // If all listeners stop listening - the polling stops
     // There is a cached version of the poll last result, which is invalidated after POLL_MILLISECONDS
     // FYI for dev: shareReplay doesn't unsubscribe properly
-    const lazyPoll = <T extends any>(method: string, map: (result: Web3.JSONRPCResponsePayload) => T): Observable<T> =>
+    const lazyPoll = <T extends any>(method: string, map: (result: any) => T): Observable<T> =>
       Observable.timer(0, POLL_MILLISECONDS)
         .exhaustMap(async _ => this.rpc(method)) // Waits for the last rpc request to finish before sending a new one
         .map(map)
@@ -48,21 +58,24 @@ export class EthApi {
         .refCount() // Stop polling if everybody unsubscribes
         .distinctUntilChanged();
 
-    this.networkObservable = lazyPoll("net_version", res => Number.parseInt(res.result, 10));
+    this.networkObservable = lazyPoll("net_version", res => {
+      return Number.parseInt(res as string, 10);
+    });
     this.accountObservable = lazyPoll("eth_accounts", res => {
-      const accounts = res.result as EthAddress[];
-      const account = accounts && accounts.length > 0 ? accounts[0] : undefined;
-      this.web3.eth.defaultAccount = account;
-      return account;
+      const accounts = res as EthAddress[];
+      const account = accounts && accounts.length > 0 ? accounts[0] : null;
+      this.web3.eth.defaultAccount = account!;
+      return account === null ? undefined : account;
     });
   }
 
-  public get currentProvider(): Web3.Provider {
+  public get currentProvider(): Web3["currentProvider"] {
     return this.web3.currentProvider;
   }
 
-  public set currentProvider(provider: Web3.Provider) {
+  public set currentProvider(provider: Web3["currentProvider"]) {
     // TODO(ritave): Cancel any pending calls to the previous provider
+    console.log("provider change");
     this.web3 = new Web3(provider);
   }
 
@@ -74,67 +87,101 @@ export class EthApi {
     return this.networkObservable;
   }
 
-  public network(): number {
-    return Number.parseInt(this.web3.currentProvider.networkVersion, 10);
+  public async network(): Promise<number> {
+    // @ts-ignore typescript types are wrong
+    // https://web3js.readthedocs.io/en/v1.2.1/web3-eth-net.html#getnetworktype
+    const network = await this.web3.eth.net.getNetworkType();
+
+    switch (network.toLowerCase()) {
+      case "main":
+        return 1;
+      case "rinkeby":
+        return 4;
+      case "unknown":
+        return 50;
+      default:
+        console.log("unrecognized network", network);
+        return 50;
+    }
+
+    // return Number.parseInt(this.web3.currentProvider.networkVersion, 10);
+  }
+
+  public async getAccount(): Promise<string | null> {
+    console.log("getAccount", this.web3.eth.defaultAccount);
+    // return requireAccount(this).toPromise()
+    return this.web3.eth.defaultAccount;
+  }
+
+  public async getGasPriceString(): Promise<string> {
+    // @ts-ignore @types/web3 are wrong - this really does return a string
+    // https://web3js.readthedocs.io/en/v1.2.1/web3-eth.html#getgasprice
+    return this.web3.eth.getGasPrice();
   }
 
   public async getGasPrice(): Promise<BigNumber> {
-    const gp = promisify<BigNumber>(this.web3.eth.getGasPrice.bind(this.web3.eth));
-    return gp();
+    return this.getGasPriceString().then(gp => new BigNumber(gp));
   }
 
-  public async getBlock(blockNumber: number | "latest" | "pending"): Promise<Web3.BlockWithoutTransactionData> {
-    // tslint:disable-next-line:no-unbound-method
-    const getBlockAsync = promisify<Web3.BlockWithoutTransactionData>(this.web3.eth.getBlock.bind(this.web3.eth));
-    return getBlockAsync(blockNumber);
+  public async getBlock(blockNumber: number | "latest" | "pending"): Promise<Block> {
+    return this.web3.eth.getBlock(blockNumber);
   }
 
   public async getLatestBlockNumber(): Promise<number> {
-    const blockNumberPromise = promisify<number>(this.web3.eth.getBlockNumber.bind(this.web3.eth.getBlockNumber));
-    return blockNumberPromise();
+    return this.web3.eth.getBlockNumber();
   }
 
   public async getConfirmations(startBlock: number): Promise<number> {
-    return (await this.getLatestBlockNumber()) - startBlock;
+    const block = await this.getLatestBlockNumber();
+    return block - startBlock;
   }
 
   public async getCode(address: EthAddress): Promise<string> {
-    const getCodeAsync = promisify<string>(this.web3.eth.getCode.bind(this.web3.eth));
-    return getCodeAsync(address);
+    return this.web3.eth.getCode(address);
   }
 
-  public async rpc(method: string, ...params: any[]): Promise<Web3.JSONRPCResponsePayload> {
+  public async rpc(method: string, ...params: any[]): Promise<any> {
     this.rpcId++;
-    return new Promise<Web3.JSONRPCResponsePayload>((resolve, reject) => {
-      this.currentProvider.sendAsync(
+    // use this for web3
+    // return this.currentProvider!.send(method, params);
+    return new Promise<JsonRPCResponse>((resolve, reject) => {
+      this.currentProvider!.send(
         {
           id: this.rpcId,
           jsonrpc: "2.0",
           method,
           params,
         },
-        (err, result) => {
+        // @ts-ignore typing on this is whacky
+        (err, res) => {
           if (err) {
-            return reject(err);
+            reject(err);
           }
-          if ((result as any).error) {
-            return reject((result as any).error);
+          if ((res as any).error) {
+            reject((res as any).error);
           }
-          return resolve(result);
+          resolve(res.result);
         },
       );
     });
   }
 
-  public async sendTransaction(txData: TxDataAll): Promise<TxHash> {
+  public async sendTransaction(txData: TransactionConfig): Promise<TxHash> {
+    // TOOD(dankins): handle rejection
     // tslint:disable-next-line:no-unbound-method
-    const sendTransactionAsync = promisify<TxHash>(this.web3.eth.sendTransaction, this.web3.eth);
-    return sendTransactionAsync(txData);
+    return new Promise((resolve, reject) => {
+      this.web3.eth
+        .sendTransaction(txData)
+        .once("transactionHash", hash => {
+          console.log("got a tx hash", hash);
+          resolve(hash);
+        })
+        .catch(reject);
+    });
   }
 
-  public async getTransaction(txHash: TxHash): Promise<Web3.Transaction> {
-    const getTransactionAsync = promisify<any>(this.web3.eth.getTransaction, this.web3.eth);
-    return getTransactionAsync(txHash);
+  public async getTransaction(txHash: TxHash): Promise<Transaction> {
+    return this.web3.eth.getTransaction(txHash);
   }
 
   public async signMessage(message: string, account?: EthAddress): Promise<EthSignedMessage> {
@@ -167,19 +214,49 @@ export class EthApi {
   }
 
   /**
+   * Converts an address to a web3 checksummed address
+   * @param address
+   */
+  public toChecksumAddress(address: string): string {
+    return this.web3.utils.toChecksumAddress(address);
+  }
+
+  /**
    * Converts a given number into a BigNumber instance
    * @param numberOrHexString
    */
-  public toBigNumber(numberOrHexString: number | string | Hex | BigNumber): any {
-    // This is a proxy method, for web3.toBigNumber, that exists
-    // to ensure that we're creating instances of BigNumber that are
-    // compatible with the version of web3 we're currently using. We
-    // can likely get rid of this (or modify it) if/when we switch to
-    // Web3 1.0.0 (or another modern version)
-    if (isBigNumber(numberOrHexString)) {
-      return this.web3.toBigNumber(numberOrHexString.toString());
+  public toBigNumber(amount: number | string | BigNumber): any {
+    if (typeof amount === "number") {
+      return bigNumberify(amount);
+    } else if (amount instanceof BigNumber) {
+      return amount;
+    } else if (typeof amount === "string" && amount.startsWith("<sub>")) {
+      console.log("found a weird bignumber:", amount);
+      return bigNumberify(0);
     }
-    return this.web3.toBigNumber(numberOrHexString as number | string);
+    console.log("toBigNumber", amount, typeof amount, amount.toString());
+    return bigNumberify(amount);
+  }
+  // public toBigNumber(numberOrHexString: number | string | BigNumber): any {
+  //   // @ts-ignore
+  //   // const rtn = this.web3.utils.toBN(numberOrHexString);
+  //   // @ts-ignore
+  //   // hack(dankins): this is to trick ethers.js into thinking this is a valid bignumber
+  //   // https://github.com/ethers-io/ethers.js/blob/master/src.ts/utils/bignumber.ts#L85
+  //   // rtn.toHexString = () => this.web3.utils.numberToHex(rtn);
+
+  //   return rtn;
+  // }
+
+  public toWei(amount: number): BigNumber {
+    const wei = this.web3.utils.toWei(amount.toString());
+    console.log("wei", wei);
+    return this.toBigNumber(wei);
+  }
+
+  public async accountBalace(account: EthAddress): Promise<number> {
+    const balance = await this.web3.eth.getBalance(account);
+    return parseFloat(this.web3.utils.fromWei(balance, "ether"));
   }
 
   /**
@@ -188,18 +265,21 @@ export class EthApi {
    * @param blockConfirmations Blockchain can get reorganized and the transaction can go to mempool,
    *                           wait for some for confirmations
    */
-  public async awaitReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
+  public async awaitReceipt<R extends DecodedTransactionReceipt | TransactionReceipt = TransactionReceipt>(
     txHash: TxHash,
-    blockConfirmations: number = this.network() === 50 ? 0 : 1, // wait till the api says the current block is confirmed
+    blockConfirmations: number = 1, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
+      console.log("awaitReceipt 1");
       const receipt = await this.getReceipt<R>(txHash);
       if (!receipt) {
+        console.log("no receipt yet");
         // TODO(ritave): Move to pending block parsing instead of polling
         await delay(POLL_MILLISECONDS);
         continue;
       }
 
+      console.log("got receipt", receipt);
       this.checkForEvmException(receipt);
       await this.awaitConfirmations(receipt.blockNumber, blockConfirmations);
       return receipt;
@@ -209,7 +289,9 @@ export class EthApi {
   public async awaitConfirmations(startblock: number, confirmations: number): Promise<void> {
     while (true) {
       const confirmationsSoFar = await this.getConfirmations(startblock);
+      console.log("confirmationsSoFar", confirmationsSoFar, confirmations);
       if (confirmationsSoFar >= confirmations) {
+        console.log("boom");
         return;
       } else {
         await delay(POLL_MILLISECONDS);
@@ -225,52 +307,48 @@ export class EthApi {
    * @param txHash Transaction hash for which the receipt is returned
    * @returns Null if the transaction is not yet inside the blockchain (still in mempool), decoded transaction otherwise
    */
-  public async getReceipt<R extends DecodedTransactionReceipt | Web3.TransactionReceipt = Web3.TransactionReceipt>(
+  public async getReceipt<R extends DecodedTransactionReceipt | TransactionReceipt = TransactionReceipt>(
     txHash: TxHash,
   ): Promise<R | null> {
-    // web3-typescript-typings have wrong type, the call can return null if still in mempool
-    // Fix: https://github.com/0xProject/0x.js/pull/338
-    // tslint:disable:no-unbound-method
-    const getTransactionReceipt = promisify<Web3.TransactionReceipt | null>(
-      this.web3.eth.getTransactionReceipt,
-      this.web3.eth,
-    );
-    // tslint:enable:no-unbound-method
-
-    const receipt = await getTransactionReceipt(txHash);
+    const receipt = await this.web3.eth.getTransactionReceipt(txHash);
     if (receipt) {
       return this.receiptToDecodedReceipt<R>(receipt);
     }
     return null;
   }
 
-  public getContractClass<T extends Web3.ContractInstance = any>(abi: Web3.AbiDefinition[]): Web3.Contract<T> {
-    return this.web3.eth.contract(abi);
+  public getContractClass(abi: AbiItem[], address?: string, options?: ContractOptions | undefined): Contract {
+    const contract = new this.web3.eth.Contract(abi, address, options);
+
+    if (!contract.options.address) {
+      contract.options.address = address!;
+    }
+    return contract;
   }
 
-  public async estimateGas(options: TxDataAll): Promise<number> {
-    // tslint:disable-next-line:no-unbound-method
-    const promisifed = promisify<number>(this.web3.eth.estimateGas, this.web3.eth);
-    return promisifed(options);
+  public async estimateGas(options: TransactionConfig): Promise<number> {
+    return this.web3.eth.estimateGas(options);
   }
 
-  private receiptToDecodedReceipt<R extends DecodedTransactionReceipt<any> | Web3.TransactionReceipt>(
-    receipt: Web3.TransactionReceipt,
+  private receiptToDecodedReceipt<R extends DecodedTransactionReceipt<any> | TransactionReceipt>(
+    receipt: TransactionReceipt,
   ): R {
-    receipt.logs = receipt.logs.map(log => this.abiDecoder.tryToDecodeLogOrNoop(log));
+    receipt.logs = receipt.logs!.map((log: Log) => this.abiDecoder.tryToDecodeLogOrNoop(log));
     return (receipt as any) as R;
   }
 
-  private checkForEvmException(receipt: Web3.TransactionReceipt): void {
+  private checkForEvmException(receipt: TransactionReceipt): void {
     // tslint:disable-next-line
     // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
     // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
+    console.log("checking receipt", receipt);
     if (receipt.status === null) {
       debug("Warning: Pre-Bizantium block, not supported");
       throw new Error(CivilErrors.EvmException);
     }
 
-    if (this.toBigNumber(receipt.status).isZero()) {
+    if (receipt.status === false) {
+      console.log("bad news bears");
       throw new Error(CivilErrors.EvmException);
     }
   }

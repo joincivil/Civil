@@ -1,6 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { compose } from "redux";
+import { formatRoute } from "react-router-named-routes";
 import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
 import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
@@ -10,6 +11,7 @@ import {
   ListingSummaryRejectedComponent,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
+import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
@@ -96,7 +98,7 @@ export const transformListingSummaryViewProps = (
   const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry.toNumber();
 
   const newsroomData = newsroom!.data;
-  const listingDetailURL = `/listing/${listingAddress}`;
+  const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
 
   let challengeResultsProps = {};
 
@@ -137,7 +139,7 @@ export const transformListingSummaryViewProps = (
   };
 };
 
-export const ListingItemBaseComponent: React.SFC<
+export const ListingItemBaseComponent: React.FunctionComponent<
   ListingListItemOwnProps & ListingListItemReduxProps & Partial<ListingSummaryComponentProps>
 > = props => {
   const ListingSummaryItem = props.ListingItemComponent || ListingSummaryComponent;
@@ -146,7 +148,7 @@ export const ListingItemBaseComponent: React.SFC<
   return <ListingSummaryItem {...listingViewProps} />;
 };
 
-const RejectedListing: React.StatelessComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
+const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & ListingListItemReduxProps> = props => {
   const { listing } = props;
   const listingViewProps = transformListingSummaryViewProps(props, true);
   const data = listing!.data!;
@@ -214,13 +216,14 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     const { listing, newsroom, listingPhaseState } = this.props;
     const listingExists = listing && listing.data && newsroom && listingPhaseState;
     const isWhitelisted = listingExists && listingPhaseState.isWhitelisted;
+    const approvalDate = listing && listing.data.approvalDate;
 
     return (
       <>
-        {isWhitelisted && <WhitelistedListingItem {...this.props} />}
-        {listingExists &&
-          !isWhitelisted &&
-          !listingPhaseState.isRejected && <ListingItemBaseComponent {...this.props} />}
+        {isWhitelisted && <WhitelistedListingItem {...this.props} approvalDate={approvalDate} />}
+        {listingExists && !isWhitelisted && !listingPhaseState.isRejected && (
+          <ListingItemBaseComponent {...this.props} />
+        )}
         {listingExists && listingPhaseState.isRejected && <RejectedListing {...this.props} />}
       </>
     );

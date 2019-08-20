@@ -35,12 +35,36 @@ export interface TutorialQuestionStates {
   checkAnswerDisabled: boolean;
   usersAnswerValue: string;
   usersAnswerResult: string;
+  resetQuestion: boolean;
 }
 
 export class TutorialQuestion extends React.Component<TutorialQuestionProps, TutorialQuestionStates> {
+  public static getDerivedStateFromProps(
+    props: TutorialQuestionProps,
+    state: TutorialQuestionStates,
+  ): TutorialQuestionStates {
+    if (state.resetQuestion) {
+      return {
+        checkAnswerDisabled: true,
+        usersAnswerValue: "",
+        usersAnswerResult: "",
+        resetQuestion: false,
+      };
+    }
+
+    return {
+      ...state,
+    };
+  }
+
   public constructor(props: any) {
     super(props);
-    this.state = { checkAnswerDisabled: true, usersAnswerValue: "", usersAnswerResult: "" };
+    this.state = {
+      checkAnswerDisabled: true,
+      usersAnswerValue: "",
+      usersAnswerResult: "",
+      resetQuestion: false,
+    };
   }
 
   public render(): JSX.Element {
@@ -64,7 +88,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
               onChange={this.enableCheckAnswerBtn}
             >
               {this.props.options.map((option, idx) => (
-                <TutorialRadio id={this.props.quizId + "-" + idx} value={option.text} key={idx}>
+                <TutorialRadio value={option.text} key={idx}>
                   {option.text}
                 </TutorialRadio>
               ))}
@@ -80,7 +104,7 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
                   <CorrectText />
                 </h3>
               </TutorialFooterLeft>
-              <TutorialBtn onClick={this.props.onClickNext}>Continue</TutorialBtn>
+              <TutorialBtn onClick={this.resetQuestion}>Continue</TutorialBtn>
             </>
           ) : this.state.usersAnswerResult === "incorrect" ? (
             <>
@@ -113,8 +137,8 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     );
   }
 
-  private enableCheckAnswerBtn = (ev: any) => {
-    this.setState({ checkAnswerDisabled: false, usersAnswerValue: ev.target.value });
+  private enableCheckAnswerBtn = (name: string, value: any) => {
+    this.setState({ checkAnswerDisabled: false, usersAnswerValue: value });
   };
 
   private checkAnswer = () => {
@@ -123,5 +147,16 @@ export class TutorialQuestion extends React.Component<TutorialQuestionProps, Tut
     } else {
       this.setState({ usersAnswerResult: "incorrect", checkAnswerDisabled: true });
     }
+  };
+
+  private resetQuestion = (event: any) => {
+    const radioButtons = Array.from(document.querySelectorAll("input[type=radio]"));
+    radioButtons.forEach(radio => {
+      const radioInput = radio as HTMLInputElement;
+      radioInput.checked = false;
+    });
+
+    this.props.onClickNext(event);
+    this.setState({ resetQuestion: true });
   };
 }

@@ -12,5 +12,6 @@ export * from "./AppealChallengeRevealVoteCard";
 export * from "./AppealChallengeResolveCard";
 export * from "./WhitelistedCard";
 export * from "./RejectedCard";
+export * from "./WithdrawnCard";
 export * from "./CompleteChallengeResults";
 export * from "./types";

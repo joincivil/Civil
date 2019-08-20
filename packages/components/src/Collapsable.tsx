@@ -58,11 +58,13 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
   }
 
   public componentDidMount(): void {
-    this.collapseArea!.addEventListener("transitionend", () => {
-      if (this.state.open) {
-        this.setState({ height: null });
-      }
-    });
+    if (this.collapseArea) {
+      this.collapseArea!.addEventListener("transitionend", () => {
+        if (this.state.open) {
+          this.setState({ height: null });
+        }
+      });
+    }
   }
 
   public componentWillReceiveProps(nextProps: CollapsableProps): void {

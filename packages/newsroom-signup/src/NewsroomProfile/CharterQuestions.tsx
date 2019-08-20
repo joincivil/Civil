@@ -1,18 +1,31 @@
 import * as React from "react";
 import styled from "styled-components";
-import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription } from "@joincivil/components";
+import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription, colors } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import { FormSection, FormSubhead, StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { charterQuestions, questionsCopy } from "../constants";
+import { urlConstants } from "@joincivil/utils";
 
 export interface CharterQuestionsProps extends StepProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
 const Textarea = styled(TextareaInput)`
   height: 140px;
+`;
+
+const MoreQuestionsBox = styled.div`
+  padding: 15px 25px;
+  font-size: 13px;
+  text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_2};
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-bottom: 30px;
+  margin-top: 20px;
 `;
 
 export class CharterQuestions extends React.Component<CharterQuestionsProps> {
@@ -23,18 +36,8 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
   public render(): JSX.Element {
     return (
       <>
-        <OBSectionHeader>Now, add your team to the Newsroom Roster</OBSectionHeader>
-        <OBSectionDescription>
-          Your newsroom roster is a list of journalists who are part of your newsroom. This is part of your public
-          Registry Profile.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <StyledHr />
-        <StepSectionCounter>Step 2 of 4: Roster</StepSectionCounter>
-
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
-          <p>Suggested length for answers: 250 words or about 2 paragraphs.</p>
-
           <FormSubhead>{questionsCopy[charterQuestions.PURPOSE]}</FormSubhead>
           <Textarea
             name={charterQuestions.PURPOSE}
@@ -70,6 +73,33 @@ export class CharterQuestions extends React.Component<CharterQuestionsProps> {
             onChange={this.missionInputChange}
           />
         </FormSection>
+      </>
+    );
+  }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Let’s write your Newsroom Charter</OBSectionHeader>
+        <OBSectionDescription>
+          Your Charter is an outline of your Newsroom's journalistic mission and purpose. It helps the Civil community
+          discover and learn more about your newsroom. It's one of the first things the community views about your
+          organization.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <StyledHr />
+        <StepSectionCounter>Step 3 of 4: Charter</StepSectionCounter>
+        <MoreQuestionsBox>
+          Have any questions?{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_BEST_PRACTICES}>
+            Read the Civil Foundation's best practices on creating great charters.
+          </a>
+          <br />
+          You can also view{" "}
+          <a target="_blank" href={urlConstants.FAQ_CHARTER_EXAMPLE}>
+            a sample charter.
+          </a>
+        </MoreQuestionsBox>
       </>
     );
   }

@@ -9,7 +9,7 @@ const StyledDiv = styled.div`
   width: 110pxpx;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
@@ -19,7 +19,7 @@ const noop = () => {
   return;
 };
 
-storiesOf("Parameterizer", module).add("Create Proposal", () => {
+storiesOf("Registry / Parameterizer", module).add("Create Proposal", () => {
   return (
     <Container>
       {process.env.NODE_ENV !== "test" && (

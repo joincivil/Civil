@@ -3,12 +3,12 @@ import { compose } from "redux";
 import { updateStatus } from "../../apis/civilTCR";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { InApplicationResolveCard, ModalContent } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ApplicationUpdateStatusProps {
   listingAddress: EthAddress;
-  onMobileTransactionClick(): any;
 }
 
 enum TransactionTypes {
@@ -55,7 +55,7 @@ class ApplicationUpdateStatus extends React.Component<
     return (
       <InApplicationResolveCard
         transactions={this.getTransactions()}
-        onMobileTransactionClick={this.props.onMobileTransactionClick}
+        faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
       />
     );
   }

@@ -25,7 +25,7 @@ export const RadioButtonDiv = styled.div`
     color: ${colors.basic.WHITE};
   }
 `;
-export const RadioButton: React.StatelessComponent<RadioButtonProps> = props => {
+export const RadioButton: React.FunctionComponent<RadioButtonProps> = props => {
   let input: any;
   const { onChange, children, name } = props;
   const clickHandler = () => {
@@ -53,6 +53,7 @@ export interface RadioInputProps {
   onChange?: any;
   inputRef?: any;
   className?: any;
+  children?: any;
 }
 
 const RadioDiv = styled.div`
@@ -62,11 +63,11 @@ const RadioDiv = styled.div`
     flex-wrap: wrap;
   }
 `;
-export const RadioInput: React.StatelessComponent<RadioInputProps> = props => {
+export const RadioInput = (props: RadioInputProps) => {
   const { defaultValue, onChange, label, name, inputRef, children } = props;
 
   const childrenWithProps = React.Children.map(children, (child: React.ReactChild) =>
-    React.cloneElement(child as React.ReactElement<any>, { name, onChange, defaultValue }),
+    React.cloneElement(child as React.ReactElement, { name, onChange, defaultValue }),
   );
 
   return (

@@ -11,7 +11,7 @@ export interface ContentWellProps {
 }
 
 export const StyledMainContainer = styled.div`
-  margin-top: 62px;
+  margin-top: 74px;
 
   ${mediaQueries.MOBILE} {
     margin-top: 52px;

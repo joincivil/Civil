@@ -8,7 +8,7 @@ export const VoteTypeSummaryContainer = styled.div`
   box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4};
   font-size: 14px;
   line-height: 17px;
-  padding: 14px 0;
+  padding: 14px 0 10px;
 `;
 
 export const VoteTypeSummary = styled.div`
@@ -18,19 +18,23 @@ export const VoteTypeSummary = styled.div`
 
 export const BreakdownBarContainer = styled.div`
   display: flex;
-  width: 50%;
+  width: 75%;
 `;
 
 export const BreakdownBarPercentageLabel = styled.div`
   font-weight: bold;
-  width: 50px;
+  width: 60px;
+`;
+
+export const BreakdownBarTotalContainer = styled.div`
+  margin-top: 4px;
+  width: 100%;
 `;
 
 export const BreakdownBarTotal = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_4};
   box-sizing: border-box;
   height: 8px;
-  margin-top: 4px;
   position: relative;
   width: 100%;
 `;
@@ -48,7 +52,14 @@ export const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">
 
 export const VotesPerTokenContainer = styled.div`
   display: flex;
-  width: 50%;
+  white-space: nowrap;
+  width: 25%;
+`;
+
+export const TotalVotesLabelContainer = styled.div`
+  display: flex;
+  white-space: nowrap;
+  width: 39%;
 `;
 
 export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
@@ -70,7 +81,16 @@ export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
   width: 95px;
 `;
 
-export const VotesPerTokenCount = styled.div``;
+export const VotesPerTokenCount = styled.div`
+  color: ${colors.primary.BLACK};
+  font-size: 12px;
+  line-height: 15px;
+  margin: 6px 0 0;
+`;
+
+export const TotalVotesCount = styled.div`
+  color: ${colors.primary.BLACK};
+`;
 
 export const StyledExplainerText = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};

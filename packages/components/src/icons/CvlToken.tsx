@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const CvlToken: React.SFC = props => {
+export const CvlToken: React.FunctionComponent = props => {
   const color = colors.basic.WHITE;
 
   return (

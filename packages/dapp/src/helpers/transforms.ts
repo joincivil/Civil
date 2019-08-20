@@ -5,8 +5,12 @@ import {
   didChallengeSucceed as getDidChallengeSucceed,
   didAppealChallengeSucceed as getDidAppealChallengeSucceed,
   didChallengeOriginallySucceed as getDidChallengeOriginallySucceed,
+  doesChallengeHaveAppeal as getDoesChallengeHaveAppeal,
+  isAppealAwaitingJudgment,
 } from "@joincivil/core";
 import { ChallengeResultsProps } from "@joincivil/components";
+
+import { BigNumber } from "@joincivil/typescript-types";
 
 const getBaseChallengeResults = (
   challengeData: ChallengeData | AppealChallengeData,
@@ -16,19 +20,26 @@ const getBaseChallengeResults = (
   let votesAgainst = "";
   let percentFor = "";
   let percentAgainst = "";
+  const zero = new BigNumber(0);
+  const hundred = new BigNumber(100);
 
   const totalVotesBN = challengeData.poll.votesAgainst.add(challengeData.poll.votesFor);
   totalVotes = getFormattedTokenBalance(totalVotesBN);
   votesFor = getFormattedTokenBalance(challengeData.poll.votesFor);
   votesAgainst = getFormattedTokenBalance(challengeData.poll.votesAgainst);
-  percentFor = challengeData.poll.votesFor
-    .div(totalVotesBN)
-    .mul(100)
-    .toFixed(0);
-  percentAgainst = challengeData.poll.votesAgainst
-    .div(totalVotesBN)
-    .mul(100)
-    .toFixed(0);
+  if (challengeData.poll.votesAgainst.eq(zero)) {
+    percentFor = "100";
+    percentAgainst = "0";
+  } else {
+    percentFor = challengeData.poll.votesFor
+      .div(totalVotesBN)
+      .mul(hundred)
+      .toString();
+    percentAgainst = challengeData.poll.votesAgainst
+      .div(totalVotesBN)
+      .mul(hundred)
+      .toString();
+  }
 
   return {
     totalVotes,
@@ -46,11 +57,15 @@ export const getChallengeResultsProps = (challengeData: ChallengeData): Challeng
   const baseChallengeResults = getBaseChallengeResults(challengeData);
   const didChallengeSucceed = getDidChallengeSucceed(challengeData);
   const didChallengeOriginallySucceed = getDidChallengeOriginallySucceed(challengeData);
+  const doesChallengeHaveAppeal = getDoesChallengeHaveAppeal(challengeData);
+  const isAwaitingAppealJudgement = challengeData.appeal && isAppealAwaitingJudgment(challengeData.appeal);
 
   return {
     ...(baseChallengeResults as ChallengeResultsProps),
     didChallengeSucceed,
     didChallengeOriginallySucceed,
+    doesChallengeHaveAppeal,
+    isAwaitingAppealJudgement,
   };
 };
 

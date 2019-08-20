@@ -19,6 +19,7 @@ import {
   FormRowItem,
   HelperText,
   StyledTextInput,
+  StyledImageToData,
   StyledTextareaInput,
   StepSectionCounter,
 } from "../styledComponents";
@@ -26,18 +27,42 @@ import { LearnMoreButton } from "./LearnMoreButton";
 
 export interface NewsroomBioProps extends StepProps {
   charter: Partial<CharterData>;
+  /** Onboarding complete, now just managing info, so remove onboarding copy. */
+  editMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
 const LogoFormWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: -4px;
+  margin-bottom: 15px;
+  small {
+    background: white;
+    padding: 5px 5px 5px 10px;
+    right: 5px;
+    top: 10px;
+    width: auto;
+    z-index: 1;
+  }
+`;
+
+const LogoImgWrap = styled.div`
+  position: relative;
+  max-width: 130px;
+`;
+
+const LogoImg = styled.img`
+  height: 130px;
+  object-fit: contain;
+  width: 130px;
 `;
 
 const NewsroomURLInput = styled(StyledTextInput)`
   max-width: 400px;
 `;
+
+const NewsroomLogoURLInput = styled(StyledImageToData)`
+  max-width: 400px;
+`;
+
 const TaglineTextarea = styled(StyledTextareaInput)`
   height: 80px;
   margin: -4px 0 0;
@@ -48,48 +73,34 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
     const charter = this.props.charter;
     return (
       <>
-        <OBSectionHeader>Create your Newsroom Registry profile</OBSectionHeader>
-        <OBSectionDescription>
-          Civil is based on transparency so we ask you to provide the following information to the best of your ability.
-        </OBSectionDescription>
-        <LearnMoreButton />
-        <OBCollapsable
-          open={false}
-          header={<OBCollapsableHeader> Where will this profile be viewable?</OBCollapsableHeader>}
-        >
-          <OBSmallParagraph>
-            The information provided will help the Civil network assess your newsrooms compliance with the Civil
-            Constitution and may be the basis for a challenge if warranted
-          </OBSmallParagraph>
-        </OBCollapsable>
-        <OBSmallParagraph>
-          To create your Newsroom Registry Profile, you will complete 4 steps:<br />
-          Newsroom Details, Roster, Charter, and Signing.
-        </OBSmallParagraph>
-        <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
+        {!this.props.editMode && this.renderOnboardingHeader()}
         <FormSection>
-          <FormTitle>First, tell us about your Newsroom</FormTitle>
-          <OBSmallParagraph>Enter your newsroom details below.</OBSmallParagraph>
+          {!this.props.editMode && (
+            <>
+              <FormTitle>First, tell us about your Newsroom</FormTitle>
+              <OBSmallParagraph>Enter your newsroom details below.</OBSmallParagraph>
+            </>
+          )}
           <div>
             <FormSubhead>Newsroom Name</FormSubhead>
             <NewsroomURLInput name="name" value={charter.name || ""} onChange={this.charterInputChange} />
           </div>
           <div>
             <FormSubhead>
-              Logo
-              <QuestionToolTip explainerText={"You need to add a URL to a logo or image."} />
+              Newsroom Logo
+              <QuestionToolTip
+                explainerText={
+                  "Minimum recommended size 260x260px, maximum file size 1MB. Image will be constrained to a square."
+                }
+              />
             </FormSubhead>
             <LogoFormWrap>
-              <NewsroomURLInput
-                noLabel
-                name="logoUrl"
-                value={charter.logoUrl || ""}
-                onChange={this.charterInputChange}
-                invalid={this.invalidUrlInput(charter.logoUrl)}
-                invalidMessage={"Invalid URL"}
+              <LogoImgWrap>{charter.logoUrl && <LogoImg src={charter.logoUrl} />}</LogoImgWrap>
+              <NewsroomLogoURLInput
+                onChange={(dataUri: string) => this.charterInputChange("logoUrl", dataUri)}
+                buttonText={charter.logoUrl ? "Change Image" : "Add Image"}
               />
             </LogoFormWrap>
-            <HelperText style={{ marginTop: 4 }}>Must be image URL</HelperText>
           </div>
 
           <div>
@@ -144,8 +155,35 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
               </div>
             </FormRowItem>
           </FormRow>
-          <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
+          {!this.props.editMode && <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>}
         </FormSection>
+      </>
+    );
+  }
+
+  private renderOnboardingHeader(): JSX.Element {
+    return (
+      <>
+        <OBSectionHeader>Create your Newsroom Registry profile</OBSectionHeader>
+        <OBSectionDescription>
+          Civil is based on transparency so we ask you to provide the following information to the best of your ability.
+        </OBSectionDescription>
+        <LearnMoreButton />
+        <OBCollapsable
+          open={false}
+          header={<OBCollapsableHeader> Where will this profile be viewable?</OBCollapsableHeader>}
+        >
+          <OBSmallParagraph>
+            The information provided will help the Civil network assess your newsrooms compliance with the Civil
+            Constitution and may be the basis for a challenge if warranted
+          </OBSmallParagraph>
+        </OBCollapsable>
+        <OBSmallParagraph>
+          To create your Newsroom Registry Profile, you will complete 4 steps:
+          <br />
+          Newsroom Details, Roster, Charter, and Signing.
+        </OBSmallParagraph>
+        <StepSectionCounter>Step 1 of 4: Details</StepSectionCounter>
       </>
     );
   }

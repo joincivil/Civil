@@ -5,15 +5,9 @@ import { CharterData } from "@joincivil/core";
 import { NorthEastArrow, TwitterIcon, FacebookIcon } from "../icons";
 import { buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
-import {
-  AwaitingApprovalStatusLabel,
-  CommitVoteStatusLabel,
-  RevealVoteStatusLabel,
-  ReadyToCompleteStatusLabel,
-  AwaitingDecisionStatusLabel,
-  AwaitingAppealChallengeStatusLabel,
-} from "../ApplicationPhaseStatusLabels";
+import ListingPhaseLabel from "../ListingSummary/ListingPhaseLabel";
 import { colors } from "../styleConstants";
+import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 
 import {
   ListingDetailOuter,
@@ -56,6 +50,7 @@ export interface ListingDetailHeaderProps {
   isInAppealChallengeCommitPhase?: boolean;
   isInAppealChallengeRevealPhase?: boolean;
   canListingAppealChallengeBeResolved?: boolean;
+  ethInfoModalLearnMoreURL: string;
 }
 
 export interface ListingDetailHeaderState {
@@ -63,21 +58,17 @@ export interface ListingDetailHeaderState {
 }
 
 export class ListingDetailHeader extends React.Component<ListingDetailHeaderProps, ListingDetailHeaderState> {
-  constructor(props: ListingDetailHeaderProps) {
-    super(props);
-    this.state = {
-      isEthereumInfoVisible: false,
-    };
-  }
+  public state = {
+    isEthereumInfoVisible: false,
+  };
 
   public render(): JSX.Element {
     let newsroomDescription = "";
     let newsroomUrl = "";
     let logoURL;
-    const { charter, listingAddress, owner, etherscanBaseURL } = this.props;
+    const { charter, listingAddress, owner, etherscanBaseURL, ethInfoModalLearnMoreURL } = this.props;
     if (charter) {
-      // TODO(toby) remove legacy `desc` after transition
-      newsroomDescription = charter.tagline || (charter as any).desc;
+      newsroomDescription = charter.tagline;
       newsroomUrl = charter.newsroomUrl;
       logoURL = charter.logoUrl;
     }
@@ -88,9 +79,20 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
           {this.renderRegistryLink()}
 
           <StyledContentRow>
-            <StyledNewsroomIcon>{logoURL && <StyledNewsroomLogo src={logoURL} />}</StyledNewsroomIcon>
+            <StyledNewsroomIcon>
+              {logoURL && (
+                <StyledNewsroomLogo>
+                  <img
+                    src={logoURL}
+                    onError={e => {
+                      (e.target as any).src = defaultNewsroomImgUrl;
+                    }}
+                  />
+                </StyledNewsroomLogo>
+              )}
+            </StyledNewsroomIcon>
             <div>
-              {this.renderPhaseLabel()}
+              <ListingPhaseLabel {...this.props} />
 
               <ListingDetailNewsroomName>{this.props.newsroomName}</ListingDetailNewsroomName>
 
@@ -103,6 +105,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
                   listingAddress={listingAddress}
                   owner={owner}
                   etherscanBaseURL={etherscanBaseURL}
+                  ethInfoModalLearnMoreURL={ethInfoModalLearnMoreURL}
                   handleCloseClick={this.toggleEthereumInfoDisplay}
                 />
               )}
@@ -112,12 +115,7 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
               <NewsroomLinks>
                 {newsroomUrl && (
                   <VisitNewsroomButtonWrap>
-                    <StyledListingURLButton
-                      onClick={this.toggleEthereumInfoDisplay}
-                      size={buttonSizes.MEDIUM_WIDE}
-                      href={newsroomUrl}
-                      target="_blank"
-                    >
+                    <StyledListingURLButton size={buttonSizes.MEDIUM_WIDE} href={newsroomUrl} target="_blank">
                       {newsroomUrl} <NorthEastArrow color={colors.basic.WHITE} />
                     </StyledListingURLButton>
                   </VisitNewsroomButtonWrap>
@@ -163,25 +161,4 @@ export class ListingDetailHeader extends React.Component<ListingDetailHeaderProp
       </StyledRegistryLinkContainer>
     );
   }
-
-  private renderPhaseLabel = (): JSX.Element | undefined => {
-    if (this.props.isInApplication) {
-      return <AwaitingApprovalStatusLabel />;
-    } else if (this.props.inChallengeCommitVotePhase || this.props.isInAppealChallengeCommitPhase) {
-      return <CommitVoteStatusLabel />;
-    } else if (this.props.inChallengeRevealPhase || this.props.isInAppealChallengeRevealPhase) {
-      return <RevealVoteStatusLabel />;
-    } else if (
-      this.props.canBeWhitelisted ||
-      this.props.canResolveChallenge ||
-      this.props.canListingAppealChallengeBeResolved
-    ) {
-      return <ReadyToCompleteStatusLabel />;
-    } else if (this.props.isAwaitingAppealJudgement) {
-      return <AwaitingDecisionStatusLabel />;
-    } else if (this.props.isAwaitingAppealChallenge) {
-      return <AwaitingAppealChallengeStatusLabel />;
-    }
-    return;
-  };
 }

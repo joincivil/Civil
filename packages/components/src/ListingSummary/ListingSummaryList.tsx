@@ -10,8 +10,8 @@ export interface ListingSummaryListProps {
 export class ListingSummaryList extends React.Component<ListingSummaryListProps> {
   public render(): JSX.Element {
     const listingViews = this.props.listings.map((listing: any) => (
-      <div>
-        <ListingSummaryComponent key={listing.address} {...listing} />
+      <div key={listing.listingAddress}>
+        <ListingSummaryComponent {...listing} />
       </div>
     ));
     return <StyledListingSummaryList>{listingViews}</StyledListingSummaryList>;

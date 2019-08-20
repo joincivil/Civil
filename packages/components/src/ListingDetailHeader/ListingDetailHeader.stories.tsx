@@ -11,7 +11,7 @@ const StyledDiv = styled.div`
   background-color: #fff;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
@@ -22,7 +22,7 @@ const charter = {
   newsroomUrl: "https://civil.co",
 };
 
-storiesOf("Listing Details Header", module)
+storiesOf("Registry / Listing / Listing Details Header", module)
   .add("No phase label", () => {
     const props: ListingDetailHeaderProps = {
       listingAddress: "0x0",
@@ -30,6 +30,7 @@ storiesOf("Listing Details Header", module)
       charter: charter as CharterData,
       owner: "0x0",
       etherscanBaseURL: "https://rinkeby.etherscan.io",
+      ethInfoModalLearnMoreURL: "#faq",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
       inChallengeCommitVotePhase: false,
@@ -49,6 +50,7 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       etherscanBaseURL: "https://rinkeby.etherscan.io",
+      ethInfoModalLearnMoreURL: "#faq",
       isInApplication: true,
       inChallengeCommitVotePhase: false,
       inChallengeRevealPhase: false,
@@ -67,6 +69,7 @@ storiesOf("Listing Details Header", module)
       owner: "0x0",
       unstakedDeposit: "100 CVL",
       etherscanBaseURL: "https://rinkeby.etherscan.io",
+      ethInfoModalLearnMoreURL: "#faq",
       isInApplication: false,
       inChallengeCommitVotePhase: true,
       inChallengeRevealPhase: false,
@@ -84,6 +87,7 @@ storiesOf("Listing Details Header", module)
       charter: charter as CharterData,
       owner: "0x0",
       etherscanBaseURL: "https://rinkeby.etherscan.io",
+      ethInfoModalLearnMoreURL: "#faq",
       unstakedDeposit: "100 CVL",
       isInApplication: false,
       inChallengeCommitVotePhase: false,

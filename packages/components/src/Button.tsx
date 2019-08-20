@@ -24,8 +24,10 @@ export interface ButtonProps {
   target?: string;
   fullWidth?: boolean;
   width?: number;
+  children?: any;
   // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
+  type?: "button" | "reset" | "submit" | undefined;
   onClick?(ev: any): void;
 }
 
@@ -124,10 +126,10 @@ const fontObject: { [index: string]: string } = {
   [buttonSizes.LARGE]: "24px",
 };
 
-export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
+export const ButtonComponent = (props: ButtonProps) => {
   const activeClass = props.active ? " active" : "";
   const disabledClass = props.disabled ? " disabled" : "";
-  const { children, className, onClick, disabled, to, href, target, inputRef } = props;
+  const { children, className, onClick, disabled, to, href, target, type, inputRef } = props;
 
   if (to) {
     return (
@@ -150,7 +152,7 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
       {...props}
       className={className + activeClass + disabledClass}
       onClick={onClick}
-      type="button"
+      type={type || "button"}
       disabled={disabled}
       ref={inputRef}
     >
@@ -162,17 +164,17 @@ export const ButtonComponent: React.StatelessComponent<ButtonProps> = props => {
 const BaseButton = styled(ButtonComponent)`
   text-decoration: none;
   border-radius: 2px;
-  padding: ${props => sizesObject[props.size || buttonSizes.LARGE]};
-  font-family: ${props => props.theme.sansSerifFont};
+  padding: ${(props: any) => sizesObject[props.size || buttonSizes.LARGE]};
+  font-family: ${(props: any) => props.theme.sansSerifFont};
   cursor: pointer;
   border: none;
-  letter-spacing: ${props => spacingObject[props.size || buttonSizes.LARGE]};
-  font-size: ${props => fontObject[props.size || buttonSizes.LARGE]};
+  letter-spacing: ${(props: any) => spacingObject[props.size || buttonSizes.LARGE]};
+  font-size: ${(props: any) => fontObject[props.size || buttonSizes.LARGE]};
   transition: background-color 500ms;
   outline: none;
   display: inline-block;
-  ${props => (props.width ? `width: ${props.width}px;` : "")};
-  ${props => (props.fullWidth ? "width: 100%;" : "")};
+  ${(props: any) => (props.width ? `width: ${props.width}px;` : "")};
+  ${(props: any) => (props.fullWidth ? "width: 100%;" : "")};
 `;
 
 export const Button = styled(BaseButton)`

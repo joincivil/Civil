@@ -12,6 +12,7 @@ export const StyledSnackBar = styled.div`
   position: fixed;
   top: 62px;
   width: 100%;
+  z-index: 99;
 `;
 
 export const StyledSnackBarContent = styled.div`

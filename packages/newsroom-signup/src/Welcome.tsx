@@ -34,15 +34,19 @@ export class Welcome extends React.Component<WelcomeProps> {
         </p>
 
         <p>
-          You'll need an Ethereum wallet-enabled browser (<a href="https://www.google.com/chrome/" target="_blank">
+          You'll need an Ethereum wallet-enabled browser (
+          <a href="https://www.google.com/chrome/" target="_blank">
             Chrome
-          </a>,{" "}
+          </a>
+          ,{" "}
           <a href="https://brave.com/" target="_blank">
             Brave
-          </a>, or{" "}
+          </a>
+          , or{" "}
           <a href="https://www.mozilla.org/firefox/" target="_blank">
             Firefox
-          </a>) with the{" "}
+          </a>
+          ) with the{" "}
           <a href="https://metamask.io/" target="_blank">
             MetaMask
           </a>{" "}
@@ -81,7 +85,8 @@ export class Welcome extends React.Component<WelcomeProps> {
           For full details about the Civil Newsroom Manager,{" "}
           <a href={this.props.helpUrl} target="_blank">
             visit our FAQ
-          </a>.{" "}
+          </a>
+          .{" "}
         </MoreDetails>
       </>
     );

@@ -75,13 +75,13 @@ const newsrooms = newsroomData.map((newsroom: ListingSummaryComponentProps) => {
   return { ...newsroom, listingDetailURL };
 });
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("Listing Summary", module)
+storiesOf("Registry / Listing / Listing Summary", module)
   .addDecorator(StoryRouter())
   .add("Card", () => {
     const newsroom = newsrooms[0];

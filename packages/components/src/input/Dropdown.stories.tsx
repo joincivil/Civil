@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { Dropdown, DropdownGroup, DropdownItem } from "./Dropdown";
 
-storiesOf("Dropdown", module).add("Dropdown", () => {
+storiesOf("Pattern Library / Dropdown", module).add("Dropdown", () => {
   return (
     <Dropdown position="left" target={<span>Click to Activate</span>}>
       <DropdownGroup>

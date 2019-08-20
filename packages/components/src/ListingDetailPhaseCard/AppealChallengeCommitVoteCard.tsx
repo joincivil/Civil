@@ -17,8 +17,6 @@ import {
   StyledCardClose,
   StyledCardFront,
   StyledCardBack,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
   FormHeader,
   FormCopy,
   FullWidthButton,
@@ -73,9 +71,9 @@ export class AppealChallengeCommitVoteCard extends React.Component<
                 <TwoPhaseProgressBarCountdownTimer
                   endTime={this.props.endTime}
                   totalSeconds={this.props.phaseLength}
-                  displayLabel="Accepting votes"
+                  displayLabel="Submit Vote Phase"
                   toolTipText={<CommitVoteToolTipText phaseLength={this.props.phaseLength} />}
-                  secondaryDisplayLabel="Revealing Votes"
+                  secondaryDisplayLabel="Confirm Vote Phase"
                   secondaryToolTipText={<ConfirmVoteToolTipText phaseLength={this.props.secondaryPhaseLength} />}
                   flavorText="under challenge"
                   activePhaseIndex={0}
@@ -107,24 +105,17 @@ export class AppealChallengeCommitVoteCard extends React.Component<
 
               <AppealDecisionDetail
                 appealGranted={this.props.appealGranted}
-                appealGrantedStatementUri={this.props.appealGrantedStatementURI}
+                appealGrantedStatementURI={this.props.appealGrantedStatementURI}
               />
 
               <StyledListingDetailPhaseCardSection bgAccentColor="COMMIT_VOTE">
                 {this.renderCommitVoteCallout()}
-                <StyledVisibleOnDesktop>
-                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
-                    {this.renderCommitVoteButtonText()}
-                  </FullWidthButton>
-                </StyledVisibleOnDesktop>
-                <StyledVisibleOnMobile>
-                  <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-                    {this.renderCommitVoteButtonText()}
-                  </FullWidthButton>
-                </StyledVisibleOnMobile>
+                <FullWidthButton size={buttonSizes.MEDIUM} onClick={this.swapFlipped}>
+                  {this.renderCommitVoteButtonText()}
+                </FullWidthButton>
               </StyledListingDetailPhaseCardSection>
 
-              <NeedHelp />
+              <NeedHelp faqURL={this.props.faqURL} />
             </StyledListingDetailPhaseCardContainer>
           </StyledCardFront>
 

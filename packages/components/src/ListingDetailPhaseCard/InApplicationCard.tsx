@@ -5,8 +5,6 @@ import {
   StyledListingDetailPhaseCardSection,
   StyledPhaseDisplayName,
   CTACopy,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
 } from "./styledComponents";
 import { NewApplicationDisplayNameText, NewApplicationToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
@@ -36,12 +34,12 @@ export class InApplicationCard extends React.Component<
           <CTACopy>
             If you believe this newsroom does not align with the{" "}
             <a href={this.props.constitutionURI}>Civil Constitution</a>, you may challenge this newsroom.{" "}
-            <a href="#zendesk/how-do-i-challenge">Learn More</a>.
+            <a href={this.props.learnMoreURL}>Learn More</a>.
           </CTACopy>
           {this.renderSubmitChallengeButton()}
         </StyledListingDetailPhaseCardSection>
 
-        <NeedHelp />
+        <NeedHelp faqURL={this.props.faqURL} />
       </StyledListingDetailPhaseCardContainer>
     );
   }
@@ -50,16 +48,9 @@ export class InApplicationCard extends React.Component<
     if (this.props.submitChallengeURI) {
       return (
         <>
-          <StyledVisibleOnDesktop>
-            <InvertedButton size={buttonSizes.MEDIUM} to={this.props.submitChallengeURI}>
-              Submit a Challenge
-            </InvertedButton>
-          </StyledVisibleOnDesktop>
-          <StyledVisibleOnMobile>
-            <InvertedButton size={buttonSizes.MEDIUM} onClick={this.props.onMobileTransactionClick}>
-              Submit a Challenge
-            </InvertedButton>
-          </StyledVisibleOnMobile>
+          <InvertedButton size={buttonSizes.MEDIUM} to={this.props.submitChallengeURI}>
+            Submit a Challenge
+          </InvertedButton>
         </>
       );
     }

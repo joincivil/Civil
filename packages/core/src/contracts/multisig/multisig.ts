@@ -1,17 +1,19 @@
-import { EthApi, EthereumUnits, requireAccount, toWei } from "@joincivil/ethapi";
+import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { CivilErrors } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Observable } from "rxjs";
-import { EthAddress, TwoStepEthTransaction, TxDataAll } from "../../types";
+import { EthAddress, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { MultiSigWallet, MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepSimple, createTwoStepTransaction, isDecodedLog } from "../utils/contracts";
 import { MultisigTransaction } from "./multisigtransaction";
+import { Tx as TransactionConfig } from "web3/eth/types";
+import { ethers } from "ethers";
 
 export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   public static atUntrusted(ethApi: EthApi, address: EthAddress): Multisig {
     const instance = MultiSigWalletContract.atUntrusted(ethApi, address);
-    return new Multisig(ethApi, instance);
+    return new Multisig(ethApi, instance, 0);
   }
 
   public static async deployTrusted(
@@ -21,13 +23,15 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   ): Promise<TwoStepEthTransaction<Multisig>> {
     return createTwoStepTransaction(
       ethApi,
-      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(ethApi, owners, ethApi.toBigNumber(required)),
-      receipt => new Multisig(ethApi, MultiSigWalletContract.atUntrusted(ethApi, receipt.contractAddress!)),
+      await MultiSigWalletContract.deployTrusted.sendTransactionAsync(ethApi, owners, ethApi.toBigNumber(required), {
+        from: "",
+      }),
+      receipt => new Multisig(ethApi, MultiSigWalletContract.atUntrusted(ethApi, receipt.contractAddress!), 0),
     );
   }
 
-  private constructor(ethApi: EthApi, instance: MultiSigWalletContract) {
-    super(ethApi, instance);
+  private constructor(ethApi: EthApi, instance: MultiSigWalletContract, defaultBlock: number) {
+    super(ethApi, instance, defaultBlock);
   }
 
   /**
@@ -51,7 +55,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * How many owners need to confirm a submited transaction before it's allowed to be executed
    */
   public async required(): Promise<number> {
-    return (await this.instance.required.callAsync()).toNumber();
+    return new BigNumber(await this.instance.required.callAsync()).toNumber();
   }
 
   /**
@@ -115,9 +119,12 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * Sends money from the current active account to the multisig wallet
    * @param ethers How many ethers to send
    */
-  public async transferEther(ethers: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = toWei(ethers, EthereumUnits.ether);
-    return createTwoStepSimple(this.ethApi, await this.ethApi.sendTransaction({ to: this.address, value: wei }));
+  public async transferEther(ether: BigNumber): Promise<TwoStepEthTransaction> {
+    const wei = ethers.utils.parseEther(ether.toString());
+    return createTwoStepSimple(
+      this.ethApi,
+      await this.ethApi.sendTransaction({ to: this.address, value: wei.toString() }),
+    );
   }
 
   /**
@@ -155,13 +162,15 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
   ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
     return createTwoStepTransaction(
       this.ethApi,
-      await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend, payload),
+      await this.instance.submitTransaction.sendTransactionAsync(address, weiToSend.toString(), payload),
       async receipt => {
         const event = receipt.logs.filter(isDecodedLog).find(log => log.event === MultiSigWallet.Events.Submission);
         if (!event) {
           throw new Error("No Submisison event found when adding transaction to Multisig");
         }
-        return this.transaction((event.args as MultiSigWallet.Args.Submission).transactionId.toNumber());
+        return this.transaction(
+          new BigNumber((event.returnValues as MultiSigWallet.Args.Submission).transactionId).toNumber(),
+        );
       },
     );
   }
@@ -175,17 +184,23 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
         if (!event) {
           throw new Error("No Confirmation event found when confirming transaction to Multisig");
         }
-        return this.transaction((event.args as MultiSigWallet.Args.Confirmation).transactionId.toNumber());
+        return this.transaction(
+          new BigNumber((event.returnValues as MultiSigWallet.Args.Confirmation).transactionId).toNumber(),
+        );
       },
     );
   }
 
   public async estimateTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<number> {
-    return this.instance.submitTransaction.estimateGasAsync(address, weiToSend, payload, {});
+    return this.instance.submitTransaction.estimateGasAsync(address, weiToSend.toString(), payload, {});
   }
 
-  public async getRawTransaction(address: EthAddress, weiToSend: BigNumber, payload: string): Promise<TxDataAll> {
-    return this.instance.submitTransaction.getRaw(address, weiToSend, payload, { gas: 0 });
+  public async getRawTransaction(
+    address: EthAddress,
+    weiToSend: BigNumber,
+    payload: string,
+  ): Promise<TransactionConfig> {
+    return this.instance.submitTransaction.getRaw(address, weiToSend.toString(), payload, { gas: 0 });
   }
 
   /**
@@ -193,10 +208,10 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
    * @param filters Change which transactions are counted.
    */
   public async transactionCount(filters: TransactionFilters = { pending: true }): Promise<number> {
-    return (await this.instance.getTransactionCount.callAsync(
-      filters.pending || false,
-      filters.executed || false,
-    )).toNumber();
+    return parseInt(
+      await this.instance.getTransactionCount.callAsync(filters.pending || false, filters.executed || false),
+      10,
+    );
   }
 
   // TODO(ritave): Support pagination
@@ -214,14 +229,17 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
     )
       .concatMap(async numTransactions =>
         this.instance.getTransactionIds.callAsync(
-          this.ethApi.toBigNumber(0),
-          this.ethApi.toBigNumber(numTransactions),
+          this.ethApi.toBigNumber(0).toString(),
+          this.ethApi.toBigNumber(numTransactions).toString(),
           filters.pending || false,
           filters.executed || false,
         ),
       )
       .concatMap(ids => Observable.from(ids))
-      .concatMap(async id => this.transaction(id.toNumber()));
+      .concatMap(async id => {
+        const bn = new BigNumber(id);
+        return this.transaction(bn.toNumber());
+      });
   }
 
   /**

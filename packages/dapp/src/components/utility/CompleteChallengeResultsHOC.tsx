@@ -23,7 +23,7 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
     | React.ComponentClass<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >
-    | React.StatelessComponent<
+    | React.FunctionComponent<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >,
 ) => {

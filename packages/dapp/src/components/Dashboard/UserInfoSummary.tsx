@@ -1,18 +1,25 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import {
   DashboardUserInfoSummary as DashboardUserInfoSummaryComponent,
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
-import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedEthAddress, getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { getUserTotalClaimedRewards, getChallengesWonTotalCvl } from "../../selectors";
 
 const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
+  const { useGraphQL } = state;
   const { user } = state.networkDependent;
-  const userTotalClaimedRewards = getUserTotalClaimedRewards(state) as BigNumber;
-  const challengesWonTotalCvl = getChallengesWonTotalCvl(state) as BigNumber;
+
+  let rewardsEarned;
+  let challengesWonTotalCvl;
+
+  if (!useGraphQL) {
+    rewardsEarned = getFormattedTokenBalance(getUserTotalClaimedRewards(state) as BigNumber);
+    challengesWonTotalCvl = getFormattedTokenBalance(getChallengesWonTotalCvl(state) as BigNumber);
+  }
 
   let balance = "";
   if (user.account && user.account.balance) {
@@ -33,9 +40,10 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     userAccount,
     balance,
     votingBalance,
-    challengesWonTotalCvl: getFormattedTokenBalance(challengesWonTotalCvl),
-    rewardsEarned: getFormattedTokenBalance(userTotalClaimedRewards),
-    buyCVLURL: "https://civil.co/cvl/",
+    challengesWonTotalCvl,
+    rewardsEarned,
+    buyCvlUrl: "/tokens",
+    applyURL: links.APPLY,
   };
 };
 

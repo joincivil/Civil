@@ -25,7 +25,7 @@ export enum PHASE_TYPE_NAMES {
   APPEAL_CHALLENGE_REVEAL_VOTE = "APPEAL_CHALLENGE_REVEAL_VOTE",
 }
 
-export const PHASE_TYPE_LABEL: { [index: string]: React.SFC } = {
+export const PHASE_TYPE_LABEL: { [index: string]: React.FunctionComponent } = {
   IN_APPLICATION: InApplicationPhaseLabelText,
   CHALLENGE_COMMIT_VOTE: ChallengeCommitVotePhaseLabelText,
   CHALLENGE_REVEAL_VOTE: ChallengeRevealVotePhaseLabelText,
@@ -36,7 +36,7 @@ export const PHASE_TYPE_LABEL: { [index: string]: React.SFC } = {
   APPEAL_CHALLENGE_REVEAL_VOTE: ChallengeRevealVotePhaseLabelText,
 };
 
-export const PHASE_TYPE_FLAVOR_TEXT: { [index: string]: React.SFC } = {
+export const PHASE_TYPE_FLAVOR_TEXT: { [index: string]: React.FunctionComponent } = {
   IN_APPLICATION: InApplicationFlavorText,
   CHALLENGE_COMMIT_VOTE: ChallengeCommitVoteFlavorText,
   CHALLENGE_REVEAL_VOTE: ChallengeRevealVoteFlavorText,

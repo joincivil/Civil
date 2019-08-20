@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { createSelector } from "reselect";
 import { Set, Map, List } from "immutable";
 import {
@@ -80,7 +80,7 @@ export const getChallengeUserData = (state: State) => state.networkDependent.cha
 
 export const getAppealChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
 
-export const getProposalChallengeUserData = (state: State) => state.networkDependent.appealChallengeUserData;
+export const getProposalChallengeUserData = (state: State) => state.networkDependent.proposalChallengeUserData;
 
 export const getChallengesVotedOnByAllUsers = (state: State) => state.networkDependent.challengesVotedOnByUser;
 
@@ -98,6 +98,8 @@ export const getParameterProposalChallenges = (state: State) => state.networkDep
 
 export const getParameterProposalChallengesFetching = (state: State) =>
   state.networkDependent.parameterProposalChallengesFetching;
+
+export const getProposalChallengesToPropIDs = (state: State) => state.networkDependent.proposalChallengesToPropIDs;
 
 export const getAppellateMembers = (state: State) => state.networkDependent.appellateMembers;
 
@@ -121,12 +123,15 @@ export const getIsUserNewsroomOwner = (newsroomWrapper?: NewsroomWrapper, user?:
   return newsroomWrapper.data.owners.includes(userAccount);
 };
 
-export const getIsMemberOfAppellate = createSelector([getAppellateMembers, getUser], (appellateMembers, user) => {
-  if (!appellateMembers || !user) {
-    return false;
-  }
-  return appellateMembers.includes(user.account.account);
-});
+export const getIsMemberOfAppellate = createSelector(
+  [getAppellateMembers, getUser],
+  (appellateMembers, user) => {
+    if (!appellateMembers || !user) {
+      return false;
+    }
+    return appellateMembers.includes(user.account.account);
+  },
+);
 
 export const getListingWrapper = (state: State, props: ListingContainerProps) => {
   if (!props.listingAddress) {
@@ -141,10 +146,13 @@ export const getListingWrapper = (state: State, props: ListingContainerProps) =>
 };
 
 export const makeGetListing = () => {
-  return createSelector([getListingWrapper], listingWrapper => {
-    const listing: ListingWrapper | undefined = listingWrapper ? listingWrapper.listing : undefined;
-    return listing;
-  });
+  return createSelector(
+    [getListingWrapper],
+    listingWrapper => {
+      const listing: ListingWrapper | undefined = listingWrapper ? listingWrapper.listing : undefined;
+      return listing;
+    },
+  );
 };
 
 export const getListingAddress = (state: State, props: ListingContainerProps) => {
@@ -189,28 +197,34 @@ export const getProposalIDProp = (state: State, props: ProposalContainerProps) =
   return propID;
 };
 
-export const getChallenge = createSelector([getChallenges, getChallengeID], (challenges, challengeID) => {
-  if (!challengeID) {
-    return;
-  }
-  const challenge: WrappedChallengeData = challenges.get(challengeID);
-  return challenge;
-});
+export const getChallenge = createSelector(
+  [getChallenges, getChallengeID],
+  (challenges, challengeID) => {
+    if (!challengeID) {
+      return;
+    }
+    const challenge: WrappedChallengeData = challenges.get(challengeID);
+    return challenge;
+  },
+);
 
-export const getAppealChallengeID = createSelector([getChallenge], challengeData => {
-  if (!challengeData) {
-    return;
-  }
+export const getAppealChallengeID = createSelector(
+  [getChallenge],
+  challengeData => {
+    if (!challengeData) {
+      return;
+    }
 
-  const appealChallengeID =
-    (challengeData &&
-      challengeData.challenge &&
-      challengeData.challenge.appeal &&
-      challengeData.challenge.appeal.appealChallengeID) ||
-    undefined;
+    const appealChallengeID =
+      (challengeData &&
+        challengeData.challenge &&
+        challengeData.challenge.appeal &&
+        challengeData.challenge.appeal.appealChallengeID) ||
+      undefined;
 
-  return appealChallengeID ? appealChallengeID.toString() : undefined;
-});
+    return appealChallengeID ? appealChallengeID.toString() : undefined;
+  },
+);
 
 export const makeGetAppealChallengeID = () => {
   return getAppealChallengeID;
@@ -303,13 +317,16 @@ export const getProposalChallengeUserDataMap = createSelector(
 );
 
 export const makeGetUserProposalChallengeData = () => {
-  return createSelector([getProposalChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
-    if (!challengeUserDataMap || !user) {
-      return;
-    }
-    const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
-    return userChallengeData;
-  });
+  return createSelector(
+    [getProposalChallengeUserDataMap, getUser],
+    (challengeUserDataMap, user) => {
+      if (!challengeUserDataMap || !user) {
+        return;
+      }
+      const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+      return userChallengeData;
+    },
+  );
 };
 
 export const getAppealChallengeUserDataMap = createSelector(
@@ -325,24 +342,30 @@ export const getAppealChallengeUserDataMap = createSelector(
 );
 
 export const makeGetUserChallengeData = () => {
-  return createSelector([getChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
-    if (!challengeUserDataMap || !user) {
-      return;
-    }
-    const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
-    return userChallengeData;
-  });
+  return createSelector(
+    [getChallengeUserDataMap, getUser],
+    (challengeUserDataMap, user) => {
+      if (!challengeUserDataMap || !user) {
+        return;
+      }
+      const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+      return userChallengeData;
+    },
+  );
 };
 
 export const makeGetUserAppealChallengeData = () => {
-  return createSelector([getAppealChallengeUserDataMap, getUser], (challengeUserDataMap, user) => {
-    if (!challengeUserDataMap || !user) {
-      return;
-    }
-    const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
+  return createSelector(
+    [getAppealChallengeUserDataMap, getUser],
+    (challengeUserDataMap, user) => {
+      if (!challengeUserDataMap || !user) {
+        return;
+      }
+      const userChallengeData: UserChallengeData = challengeUserDataMap.get(user.account.account);
 
-    return userChallengeData;
-  });
+      return userChallengeData;
+    },
+  );
 };
 
 export const getUserChallengesWithUnclaimedRewards = createSelector(
@@ -446,6 +469,27 @@ export const getUserAppealChallengesWithUnrevealedVotes = createSelector(
   },
 );
 
+export const getProposalChallengesWithUnrevealedVotes = createSelector(
+  [getProposalChallengeUserData, getUser],
+  (proposalChallengeUserData, user) => {
+    let challengeIDs = Set<string>();
+    if (proposalChallengeUserData && user && user.account) {
+      challengeIDs = proposalChallengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const { canUserReveal } = challengeData!.get(user.account.account);
+            return !!canUserReveal;
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengeIDs;
+  },
+);
+
 export const getChallengesForAppealChallengesWithUnrevealedVotes = createSelector(
   [getUserAppealChallengesWithUnrevealedVotes, getAppealChallengeIDsToChallengeIDs, getChallenges],
   (appealChallengeIDs, appealChallengeIDsToChallengeIDs) => {
@@ -468,7 +512,7 @@ export const getUserChallengesWithRescueTokens = createSelector(
   [getChallengeUserData, getUser],
   (challengeUserData, user) => {
     let challengeIDs = Set<string>();
-    if (challengeUserData && user && !user.account) {
+    if (challengeUserData && user && user.account) {
       challengeIDs = challengeUserData
         .filter((challengeData, challengeID, iter): boolean => {
           try {
@@ -643,6 +687,41 @@ export const getChallengesForAppealChallengesVotedOnByUserWithAvailableActions =
   },
 );
 
+export const getProposalChallengesWithAvailableActions = createSelector(
+  [getParameterProposalChallenges, getProposalChallengeUserData, getUser],
+  (challenges, challengeUserData, user) => {
+    let challengesVotedOnByUserWthAvailableActions = Set<string>();
+    if (challenges && challengeUserData && user && user.account) {
+      challengesVotedOnByUserWthAvailableActions = challengeUserData
+        .filter((challengeData, challengeID, iter): boolean => {
+          try {
+            const {
+              didUserCommit,
+              didUserReveal,
+              didUserRescue,
+              didUserCollect,
+              canUserRescue,
+              canUserCollect,
+            } = challengeData!.get(user.account.account);
+            const challenge = challenges.get(challengeID!);
+            return (
+              !!didUserCommit &&
+              (!didUserReveal ||
+                (canUserRescue && !didUserRescue) ||
+                (canUserCollect && !didUserCollect) ||
+                !challenge.resolved)
+            );
+          } catch (ex) {
+            return false;
+          }
+        })
+        .keySeq()
+        .toSet() as Set<string>;
+    }
+    return challengesVotedOnByUserWthAvailableActions;
+  },
+);
+
 export const getAppealChallengesVotedOnByUser = createSelector(
   [getAppealChallengeUserData, getUser],
   (appealChallengeUserData, user) => {
@@ -736,17 +815,19 @@ export const getChallengesWonTotalCvl = createSelector(
   (challengesWonByUser, challenges, parameters) => {
     const bnZero = new BigNumber(0);
     return challengesWonByUser
-      .map((challengeID, index, iter): BigNumber => {
-        const challenge = challenges.get(challengeID!);
-        if (!challenge) {
-          return bnZero;
-        }
-        const numToBN = (num: number) => {
-          return new BigNumber(num.toString(10), 10);
-        };
-        const dispensationPct = numToBN((parameters as any).dispensationPct).div(numToBN(100));
-        return challenge.challenge.stake.times(dispensationPct);
-      })
+      .map(
+        (challengeID, index, iter): BigNumber => {
+          const challenge = challenges.get(challengeID!);
+          if (!challenge) {
+            return bnZero;
+          }
+          const numToBN = (num: number) => {
+            return new BigNumber(num.toString(10), 10);
+          };
+          const dispensationPct = numToBN((parameters as any).dispensationPct).div(numToBN(100));
+          return challenge.challenge.stake.times(dispensationPct);
+        },
+      )
       .reduce((reduction, value, key, iter) => {
         return (reduction as BigNumber).add(value!);
       }, bnZero);
@@ -774,33 +855,42 @@ export const getChallengeByListingAddress = createSelector(
 );
 
 export const makeGetListingAddressByChallengeID = () => {
-  return createSelector([getChallenge, getListings], (challenge, listings) => {
-    let listingAddress;
+  return createSelector(
+    [getChallenge, getListings],
+    (challenge, listings) => {
+      let listingAddress;
 
-    if (challenge) {
-      listingAddress = challenge.listingAddress;
-    }
+      if (challenge) {
+        listingAddress = challenge.listingAddress;
+      }
 
-    return listingAddress;
-  });
+      return listingAddress;
+    },
+  );
 };
 
 export const makeGetListingAddressByAppealChallengeID = () => {
-  return createSelector([getAppealChallengeParentChallenge, getListings], (challenge, listings) => {
-    let listingAddress;
+  return createSelector(
+    [getAppealChallengeParentChallenge, getListings],
+    (challenge, listings) => {
+      let listingAddress;
 
-    if (challenge) {
-      listingAddress = challenge.listingAddress;
-    }
+      if (challenge) {
+        listingAddress = challenge.listingAddress;
+      }
 
-    return listingAddress;
-  });
+      return listingAddress;
+    },
+  );
 };
 
 export const makeGetListingExpiry = () => {
-  return createSelector([getListingWrapper], listingWrapper => {
-    return listingWrapper ? listingWrapper.expiry : undefined;
-  });
+  return createSelector(
+    [getListingWrapper],
+    listingWrapper => {
+      return listingWrapper ? listingWrapper.expiry : undefined;
+    },
+  );
 };
 
 export const getChallengeState = (challengeData: WrappedChallengeData) => {
@@ -810,6 +900,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
   const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
   const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
   const canRequestAppeal = challenge && getCanRequestAppeal(challenge);
+  const doesChallengeHaveAppeal = challenge && getDoesChallengeHaveAppeal(challenge);
   const isAwaitingAppealJudgement = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
   const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
   const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
@@ -832,6 +923,7 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
     canAppealBeResolved,
     didChallengeSucceed,
     didChallengeOriginallySucceed,
+    doesChallengeHaveAppeal,
     isAppealChallengeInCommitStage,
     isAppealChallengeInRevealStage,
   };
@@ -855,12 +947,15 @@ export const getAppealChallengeState = (challengeData: AppealChallengeData) => {
 };
 
 export const makeGetAppealChallengeState = () => {
-  return createSelector([getAppealChallenge], challengeData => {
-    if (!challengeData) {
-      return;
-    }
-    return getAppealChallengeState(challengeData);
-  });
+  return createSelector(
+    [getAppealChallenge],
+    challengeData => {
+      if (!challengeData) {
+        return;
+      }
+      return getAppealChallengeState(challengeData);
+    },
+  );
 };
 
 export const makeGetParameterProposalChallengeState = () => {
@@ -954,33 +1049,42 @@ export const getListingExtendedMetadata = (state: State, props: ListingContainer
 };
 
 export const makeGetLatestChallengeSucceededChallengeID = () => {
-  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
-    if (listingExtendedMetadata && listingExtendedMetadata.latestChallengeID) {
-      const { latestChallengeID } = listingExtendedMetadata;
-      return latestChallengeID;
-    }
-    return;
-  });
+  return createSelector(
+    [getListingExtendedMetadata],
+    listingExtendedMetadata => {
+      if (listingExtendedMetadata && listingExtendedMetadata.latestChallengeID) {
+        const { latestChallengeID } = listingExtendedMetadata;
+        return latestChallengeID;
+      }
+      return;
+    },
+  );
 };
 
 export const makeGetLatestListingRemovedTimestamp = () => {
-  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
-    if (listingExtendedMetadata && listingExtendedMetadata.listingRemovedTimestamp) {
-      const { listingRemovedTimestamp } = listingExtendedMetadata;
-      return listingRemovedTimestamp;
-    }
-    return;
-  });
+  return createSelector(
+    [getListingExtendedMetadata],
+    listingExtendedMetadata => {
+      if (listingExtendedMetadata && listingExtendedMetadata.listingRemovedTimestamp) {
+        const { listingRemovedTimestamp } = listingExtendedMetadata;
+        return listingRemovedTimestamp;
+      }
+      return;
+    },
+  );
 };
 
 export const makeGetLatestWhitelistedTimestamp = () => {
-  return createSelector([getListingExtendedMetadata], listingExtendedMetadata => {
-    if (listingExtendedMetadata && listingExtendedMetadata.whitelistedTimestamp) {
-      const { whitelistedTimestamp } = listingExtendedMetadata;
-      return whitelistedTimestamp;
-    }
-    return;
-  });
+  return createSelector(
+    [getListingExtendedMetadata],
+    listingExtendedMetadata => {
+      if (listingExtendedMetadata && listingExtendedMetadata.whitelistedTimestamp) {
+        const { whitelistedTimestamp } = listingExtendedMetadata;
+        return whitelistedTimestamp;
+      }
+      return;
+    },
+  );
 };
 
 export const getProposalParameterName = (state: State, props: ProposalParameterProps) => {
@@ -1004,8 +1108,8 @@ export const makeGetProposalsByParameterName = () => {
 };
 
 export const getProposalByPropID = createSelector(
-  [getParameterProposals, getChallenges, getProposalIDProp],
-  (parameterProposals, challenges, propID) => {
+  [getParameterProposals, getProposalIDProp],
+  (parameterProposals, propID) => {
     let proposal;
     if (parameterProposals && propID) {
       proposal = parameterProposals.get(propID);
@@ -1016,6 +1120,35 @@ export const getProposalByPropID = createSelector(
 
 export const makeGetProposalByPropID = () => {
   return getProposalByPropID;
+};
+
+export const getProposalChallengeByChallengeID = createSelector(
+  [getParameterProposalChallenges, getChallengeID],
+  (proposalChallenges, challengeID) => {
+    let challenge;
+    if (proposalChallenges && challengeID) {
+      challenge = proposalChallenges.get(challengeID);
+    }
+    return challenge;
+  },
+);
+
+export const getProposalByChallengeID = createSelector(
+  [getParameterProposals, getProposalChallengesToPropIDs, getChallengeID],
+  (parameterProposals, proposalChallengesToPropIDs, challengeID) => {
+    let proposal;
+    if (parameterProposals && proposalChallengesToPropIDs && challengeID) {
+      const propID = proposalChallengesToPropIDs.get(challengeID);
+      if (propID) {
+        proposal = parameterProposals.get(propID);
+      }
+    }
+    return proposal;
+  },
+);
+
+export const makeGetProposalByChallengeID = () => {
+  return getProposalByChallengeID;
 };
 
 export const makeGetGovtProposalsByParameterName = () => {
@@ -1034,22 +1167,28 @@ export const makeGetGovtProposalsByParameterName = () => {
 };
 
 export const makeGetParameterProposalChallenge = () => {
-  return createSelector([getParameterProposalChallenges, getChallengeID], (challenges, challengeID) => {
-    if (!challengeID) {
-      return;
-    }
-    const challenge: ParamPropChallengeData = challenges.get(challengeID);
-    return challenge;
-  });
+  return createSelector(
+    [getParameterProposalChallenges, getChallengeID],
+    (challenges, challengeID) => {
+      if (!challengeID) {
+        return;
+      }
+      const challenge: ParamPropChallengeData = challenges.get(challengeID);
+      return challenge;
+    },
+  );
 };
 
 export const makeGetParameterProposalChallengeRequestStatus = () => {
-  return createSelector([getParameterProposalChallengesFetching, getChallengeID], (challengesFetching, challengeID) => {
-    if (!challengeID) {
-      return;
-    }
-    const requestStatus: any = challengesFetching.get(challengeID);
-    return requestStatus;
-  });
+  return createSelector(
+    [getParameterProposalChallengesFetching, getChallengeID],
+    (challengesFetching, challengeID) => {
+      if (!challengeID) {
+        return;
+      }
+      const requestStatus: any = challengesFetching.get(challengeID);
+      return requestStatus;
+    },
+  );
 };
 // end memoized selectors

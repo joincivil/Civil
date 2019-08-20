@@ -1,6 +1,5 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/typescript-types";
-import { BigNumber } from "bignumber.js";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 import { Parameters, GovernmentParameters } from "./civilHelpers";
 
 // A collection of helper methods for user-facing views
@@ -49,10 +48,19 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
 }
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
-export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean): string {
+export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
   // TODO: get decimal places value from EIP20 wrapper
-  const formattedBalance = balance.div(1e18);
-  return `${formattedBalance.toFormat(2)} ${!!noCVLLabel ? "" : "CVL"}`;
+  let balanceNumber;
+  if (BigNumber.isBigNumber(balance)) {
+    balanceNumber = balance.div(new BigNumber(1e10)).toNumber();
+  } else {
+    // TODO(dankins): more hackery
+    // @ts-ignore
+    balanceNumber = new BigNumber(balance.toString()).div(new BigNumber(1e10)).toNumber();
+  }
+  const formattedBalance = Math.round(balanceNumber / 1e6) / 1e2;
+
+  return `${formattedBalance} ${!!noCVLLabel ? "" : "CVL"}`;
 }
 
 // Accepts a `seconds` or `Date` argument and returns a tuple containing
@@ -123,30 +131,49 @@ export const percentParams: string[] = [
   GovernmentParameters.appealChallengeVoteDispensationPct,
 ];
 
-export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber): string {
+export function getFormattedParameterValue(parameterName: string, parameterValue: BigNumber | number): string {
   let value = "";
+  const parameterValueBN = new BigNumber(parameterValue);
 
   if (amountParams.includes(parameterName)) {
-    value = getFormattedTokenBalance(parameterValue);
+    value = getFormattedTokenBalance(parameterValueBN);
   } else if (durationParams.includes(parameterName)) {
-    value = getReadableDuration(parameterValue.toNumber());
+    value = getReadableDuration(parameterValueBN.toNumber());
   } else if (percentParams.includes(parameterName)) {
-    value = `${parameterValue.toString()}%`;
+    value = `${parameterValueBN.toString()}%`;
   }
 
   return value;
 }
 
-export function renderPTagsFromLineBreaks(text: string): JSX.Element {
+export function renderPTagsFromLineBreaks(text: string, wrapperComponent?: any): JSX.Element {
   if (!text) {
     return <></>;
+  }
+  if (wrapperComponent) {
+    /* tslint:disable-next-line */
+    const LineWrapperComponent = wrapperComponent;
+    return (
+      <>
+        {text
+          .split("\n")
+          .filter(line => !!line)
+          .map((line, i) => (
+            <p key={i}>
+              <LineWrapperComponent>{line}</LineWrapperComponent>
+            </p>
+          ))}
+      </>
+    );
   }
   return (
     <>
       {text
         .split("\n")
         .filter(line => !!line)
-        .map((line, i) => <p key={i}>{line}</p>)}
+        .map((line, i) => (
+          <p key={i}>{line}</p>
+        ))}
     </>
   );
 }

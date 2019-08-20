@@ -7,6 +7,8 @@ const expect = chai.expect;
 
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 
+const ZERO_DATA = "0x";
+
 contract("Registry With Appeals", accounts => {
   describe("check appeal challenge vote outcomes", () => {
     const [JAB, applicant, challenger, voterTim, voterGregg] = accounts;
@@ -21,16 +23,16 @@ contract("Registry With Appeals", accounts => {
       testNewsroom = await utils.createDummyNewsrom(applicant);
       newsroomAddress = testNewsroom.address;
       const votingAddress = await registry.voting();
-      voting = PLCRVoting.at(votingAddress);
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     it("should be whitelisted if challenge succeeds, appeal granted, appeal challenge gets less than supermajority", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voterTim);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
-      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+      await registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger });
 
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeCommitStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.appealChallengeRevealStageLength + 1);
@@ -43,10 +45,10 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should be whitelisted if challenge succeeds, appeal granted, appeal challenge gets equal votes for and against", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voterTim);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const appealChallengeID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -65,10 +67,10 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should be whitelisted if challenge succeeds, appeal granted, appeal challenge gets supermajority against", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voterTim);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const appealChallengeID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 
@@ -87,10 +89,10 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should be rejected if challenge succeeds, appeal granted, appeal challenge gets supermajority in favor", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+      await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, newsroomAddress, challenger, voterTim);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
       const appealChallengeID = await utils.challengeAppealAndGetPollID(newsroomAddress, challenger, registry);
 

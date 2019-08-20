@@ -6,6 +6,7 @@ import {
   ChallengeResolveCard as ChallengeResolveCardComponent,
   ModalContent,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 
 import { updateStatus } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -58,9 +59,10 @@ export interface ChallengeResolveProps extends ChallengeContainerProps {
   onMobileTransactionClick(): any;
 }
 
-const ChallengeResolveCard = compose(connectChallengePhase, connectChallengeResults)(
-  ChallengeResolveCardComponent,
-) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
+const ChallengeResolveCard = compose(
+  connectChallengePhase,
+  connectChallengeResults,
+)(ChallengeResolveCardComponent) as React.ComponentClass<ChallengeResolveProps & ListingDetailPhaseCardComponentProps>;
 
 // A container for the Challenge Resolve Card component
 class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedTransactionStatusModalProps> {
@@ -77,6 +79,7 @@ class ChallengeResolve extends React.Component<ChallengeResolveProps & InjectedT
         challengeID={this.props.challengeID}
         transactions={transactions}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
+        faqURL={links.FAQ_HOW_TO_UPDATE_NEWSROOM_STATUS}
       />
     );
   }

@@ -3,6 +3,8 @@ import StoryRouter from "storybook-react-router";
 import * as React from "react";
 import styled from "styled-components";
 import { Button, SecondaryButton, DarkButton, InvertedButton, buttonSizes } from "./Button";
+import { MetaMaskLogoButton } from "./MetaMaskLogoButton";
+import { CardTransactionButton } from "./CardTransactionButton";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,9 +13,9 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
-storiesOf("Buttons", module)
+storiesOf("Pattern Library / Buttons", module)
   .addDecorator(StoryRouter())
   .add("Button", () => {
     return (
@@ -61,6 +63,23 @@ storiesOf("Buttons", module)
     return (
       <Container>
         <DarkButton>Dark Button</DarkButton>
+      </Container>
+    );
+  })
+  .add("MetaMaskLogoButton", () => {
+    return (
+      <Container>
+        <MetaMaskLogoButton onClick={(ev: any) => console.log("You clicked me!")}>
+          MetaMaskLogo Transaction Button
+        </MetaMaskLogoButton>
+      </Container>
+    );
+  })
+  .add("CardTransactionButton", () => {
+    return (
+      <Container>
+        <p>This is a Transaction Button styled as a Card, and can contain any markup</p>
+        <CardTransactionButton onClick={(ev: any) => console.log("You clicked me!")}>Transaction</CardTransactionButton>
       </Container>
     );
   });

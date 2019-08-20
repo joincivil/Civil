@@ -9,19 +9,18 @@ import {
   MetaItemValue,
   MetaItemLabel,
   CTACopy,
-  StyledVisibleOnDesktop,
-  StyledVisibleOnMobile,
 } from "./styledComponents";
 import { WhitelistedNewroomsDisplayNameText, WhitelistedNewroomsToolTipText } from "./textComponents";
 import { buttonSizes, InvertedButton } from "../Button";
 import { TransactionInvertedButton } from "../TransactionButton";
 import { QuestionToolTip } from "../QuestionToolTip";
+import NeedHelp from "./NeedHelp";
 
 export interface WhitelistedCardProps {
   whitelistedTimestamp?: number;
 }
 
-export const WhitelistedCard: React.StatelessComponent<
+export const WhitelistedCard: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
 > = props => {
   let displayDateTime;
@@ -48,26 +47,21 @@ export const WhitelistedCard: React.StatelessComponent<
         </CTACopy>
         {renderSubmitChallengeButton(props)}
       </StyledListingDetailPhaseCardSection>
+
+      <NeedHelp faqURL={props.faqURL} />
     </StyledListingDetailPhaseCardContainer>
   );
 };
 
-const renderSubmitChallengeButton: React.StatelessComponent<
+const renderSubmitChallengeButton: React.FunctionComponent<
   ListingDetailPhaseCardComponentProps & SubmitChallengeProps & WhitelistedCardProps
 > = props => {
   if (props.submitChallengeURI) {
     return (
       <>
-        <StyledVisibleOnDesktop>
-          <InvertedButton size={buttonSizes.MEDIUM} to={props.submitChallengeURI}>
-            Submit a Challenge
-          </InvertedButton>
-        </StyledVisibleOnDesktop>
-        <StyledVisibleOnMobile>
-          <InvertedButton size={buttonSizes.MEDIUM} onClick={props.onMobileTransactionClick}>
-            Submit a Challenge
-          </InvertedButton>
-        </StyledVisibleOnMobile>
+        <InvertedButton size={buttonSizes.MEDIUM} to={props.submitChallengeURI}>
+          Submit a Challenge
+        </InvertedButton>
       </>
     );
   }

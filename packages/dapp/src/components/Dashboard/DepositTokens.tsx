@@ -1,36 +1,42 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  StyledDashboardActivityDescription,
   TransactionButtonNoModal,
-  InputGroup,
   ModalContent,
+  ModalUnorderedList,
+  ModalListItem,
+  TransferTokenTipsText,
+  StyledTransferTokenFormElement,
+  CurrencyInput,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
-import { requestVotingRights } from "../../apis/civilTCR";
+import { toWei, approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { FormGroup } from "../utility/FormElements";
 
-const StyledContainer = styled.div`
-  padding: 0 24px;
-`;
-
 enum TransactionTypes {
+  APPROVE_VOTING_RIGHTS = "APPROVE_VOTING_RIGHTS",
   REQUEST_VOTING_RIGHTS = "REQUEST_VOTING_RIGHTS",
 }
 
 const transactionLabels = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "Approve Voting Rights",
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: "Transfer Available Tokens to your Voting Balance",
 };
 
+const multiStepTransactionLabels = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: "1 of 2",
+  [TransactionTypes.REQUEST_VOTING_RIGHTS]: "2 of 2",
+};
+
 const transactionSuccessContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [undefined, undefined],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "You have successfully transfered your voting tokens",
+    "You have successfully transferred your voting tokens",
     <ModalContent>
       Tokens in your Voting Balance can be used for voting on Challenges on The Civil Registry
     </ModalContent>,
@@ -38,21 +44,37 @@ const transactionSuccessContent = {
 };
 
 const transactionRejectionContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
+    "Your tokens were not transferred",
+    "Before transferring tokens, you need to confirm the approval of your voting token deposit in your MetaMask wallet.",
+  ],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "Your tokens were not transfered",
+    "Your tokens were not transferred",
     "To transfer your tokens, you need to confirm the transaction in your MetaMask wallet.",
   ],
 };
 
 const transactionErrorContent = {
+  [TransactionTypes.APPROVE_VOTING_RIGHTS]: [
+    "There was a problem with transferring your tokens",
+    <>
+      <ModalContent>Please check the following and retry your transaction</ModalContent>
+      <ModalUnorderedList>
+        <ModalListItem>
+          The number of tokens you are transferring with does not exceed your available balance.
+        </ModalListItem>
+      </ModalUnorderedList>
+    </>,
+  ],
   [TransactionTypes.REQUEST_VOTING_RIGHTS]: [
-    "The was an problem with transfering your tokens",
+    "There was a problem with transferring your tokens",
     <ModalContent>Please retry your transaction</ModalContent>,
   ],
 };
 
 const transactionStatusModalConfig = {
   transactionLabels,
+  multiStepTransactionLabels,
   transactionSuccessContent,
   transactionRejectionContent,
   transactionErrorContent,
@@ -88,43 +110,62 @@ class DepositTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StyledDashboardActivityDescription>
-          <p>Transfer your available balance tokens to your voting balance</p>
-        </StyledDashboardActivityDescription>
-        <StyledContainer>
-          <p>Available Tokens: {getFormattedTokenBalance(this.props.balance)}</p>
-          <FormGroup>
-            <InputGroup
-              name="numTokens"
-              prepend="CVL"
-              label="Amount of tokens to transfer"
-              onChange={this.updateViewState}
-            />
-          </FormGroup>
+        <StyledTransferTokenFormElement>
+          <CurrencyInput
+            label="Enter amount"
+            placeholder="0"
+            name="numTokens"
+            icon={<>CVL</>}
+            onChange={this.updateViewState}
+          />
+          <TransferTokenTipsText />
+        </StyledTransferTokenFormElement>
 
-          <FormGroup>
-            <TransactionButtonNoModal
-              transactions={this.getTransactions()}
-              disabledOnMobile={true}
-              onMobileClick={this.props.onMobileTransactionClick}
-            >
-              Transfer
-            </TransactionButtonNoModal>
-          </FormGroup>
-        </StyledContainer>
+        <FormGroup>
+          <TransactionButtonNoModal transactions={this.getTransactions()}>Transfer</TransactionButtonNoModal>
+        </FormGroup>
       </>
     );
   }
 
+  private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
+    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    console.log("approveVotingRights ", tokensWei.toString());
+    return approveVotingRightsForTransfer(tokensWei);
+  };
+
   private depositTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return requestVotingRights(numTokens);
+    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    console.log("depositTokens", tokensWei, tokensWei.toString());
+    return requestVotingRights(tokensWei);
   };
 
   private getTransactions = (): any[] => {
+    console.log("kick it");
     return [
       {
         transaction: async () => {
+          console.log("kick it updateTransactionStatusModalsState");
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: true,
+            isTransactionProgressModalOpen: false,
+            isTransactionSuccessModalOpen: false,
+            transactionType: TransactionTypes.APPROVE_VOTING_RIGHTS,
+          });
+          return this.approveVotingRights();
+        },
+        handleTransactionHash: (txHash: TxHash) => {
+          console.log("kick it handleTransactionHash");
+          this.props.updateTransactionStatusModalsState({
+            isWaitingTransactionModalOpen: false,
+            isTransactionProgressModalOpen: true,
+          });
+        },
+        handleTransactionError: this.props.handleTransactionError,
+      },
+      {
+        transaction: async () => {
+          console.log("kick it depositTokens");
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
@@ -168,6 +209,7 @@ const mapStateToProps = (state: State): DepositTokenReduxProps => {
   };
 };
 
-export default compose(connect(mapStateToProps), hasTransactionStatusModals(transactionStatusModalConfig))(
-  DepositTokensComponent,
-) as React.ComponentClass<DepositTokensProps>;
+export default compose(
+  connect(mapStateToProps),
+  hasTransactionStatusModals(transactionStatusModalConfig),
+)(DepositTokensComponent) as React.ComponentClass<DepositTokensProps>;

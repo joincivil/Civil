@@ -1,7 +1,13 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
-import { clearListingSubscriptions, initializeSubscriptions } from "../../helpers/listingEvents";
+import {
+  clearListingSubscriptions,
+  initializeSubscriptions,
+  clearChallengeSubscriptions,
+  initializeChallengeSubscriptions,
+} from "../../helpers/listingEvents";
 import { clearAllListingData } from "./listings";
+import { clearAllChallengesData } from "./challenges";
 import { isGraphQLSupportedOnNetwork } from "../../helpers/civilInstance";
 
 export enum uiActions {
@@ -22,8 +28,12 @@ export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
 
 export const initialize = async (): Promise<any> => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<undefined> => {
-    const { useGraphQL, network } = getState();
+    const { useGraphQL, network, user } = getState();
+    const account = user && user.account;
     if (!useGraphQL) {
+      if (account) {
+        await initializeChallengeSubscriptions(dispatch, account);
+      }
       await initializeSubscriptions(dispatch, network);
     }
     return undefined;
@@ -43,7 +53,9 @@ export const toggleUseGraphQL = async (): Promise<any> => {
       if (!useGraphQL) {
         // going to graphQL loading
         clearListingSubscriptions();
+        clearChallengeSubscriptions();
         dispatch(clearAllListingData());
+        dispatch(clearAllChallengesData());
       } else {
         // going to web3 loading
         await initializeSubscriptions(dispatch, network);

@@ -1,8 +1,21 @@
 import * as React from "react";
+import { formatRoute } from "react-router-named-routes";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
-import { getFormattedTokenBalance, getFormattedEthAddress, getEtherscanBaseURL } from "@joincivil/utils";
+import {
+  getFormattedTokenBalance,
+  getFormattedEthAddress,
+  getEtherscanBaseURL,
+  urlConstants as links,
+} from "@joincivil/utils";
 
+import {
+  routes,
+  TRegistryListingType,
+  TRegistrySubListingType,
+  registryListingTypes,
+  registrySubListingTypes,
+} from "../../constants";
 export interface ListingHeaderProps {
   newsroom: NewsroomWrapper;
   listing: ListingWrapper;
@@ -12,28 +25,36 @@ export interface ListingHeaderProps {
   charter?: CharterData;
 }
 
-function getRegistryURLData(listingPhaseState: any): [string, string] {
-  let urlArg = "";
+interface TRegistryURLDataParameters {
+  listingType?: TRegistryListingType;
+  subListingType?: TRegistrySubListingType;
+}
+
+function getRegistryURLData(listingPhaseState: any): [TRegistryURLDataParameters, string] {
+  let urlArg: TRegistryURLDataParameters = {};
   let label = "Registry";
 
   if (listingPhaseState.isWhitelisted) {
-    urlArg = "approved";
+    urlArg = { listingType: registryListingTypes.APPROVED };
     label = "Approved Newsrooms";
   } else if (listingPhaseState.isInApplication) {
-    urlArg = "in-progress/in-application";
+    urlArg = { listingType: registryListingTypes.IN_PROGRESS, subListingType: registrySubListingTypes.IN_APPLICATION };
     label = "Newsroom Applications";
   } else if (
     listingPhaseState.inChallengeCommitVotePhase ||
     listingPhaseState.inChallengeRevealPhase ||
     listingPhaseState.isAwaitingAppealRequest
   ) {
-    urlArg = "in-progress/under-challenge";
+    urlArg = { listingType: registryListingTypes.IN_PROGRESS, subListingType: registrySubListingTypes.UNDER_CHALLENGE };
     label = "Newsrooms Under Challenge";
   } else if (listingPhaseState.isAwaitingAppealJudgement || listingPhaseState.isAwaitingAppealChallenge) {
-    urlArg = "in-progress/under-appeal";
+    urlArg = { listingType: registryListingTypes.IN_PROGRESS, subListingType: registrySubListingTypes.UNDER_APPEAL };
     label = "Newsrooms Under Appeal";
   } else if (listingPhaseState.isInAppealChallengeRevealPhase || listingPhaseState.isInAppealChallengeCommitPhase) {
-    urlArg = "in-progress/under-appeal-challenge";
+    urlArg = {
+      listingType: registryListingTypes.IN_PROGRESS,
+      subListingType: registrySubListingTypes.UNDER_APPEAL_CHALLENGE,
+    };
     label = "Newsrooms Under Challenge";
   } else if (
     listingPhaseState.canBeWhitelisted ||
@@ -41,19 +62,18 @@ function getRegistryURLData(listingPhaseState: any): [string, string] {
     listingPhaseState.canListingAppealBeResolved ||
     listingPhaseState.canListingAppealChallengeBeResolved
   ) {
-    urlArg = "in-progress/ready-to-update";
+    urlArg = { listingType: registryListingTypes.IN_PROGRESS, subListingType: registrySubListingTypes.READY_TO_UPDATE };
     label = "Newsrooms Ready To Update";
   } else if (listingPhaseState.isRejected) {
-    urlArg = "rejected";
+    urlArg = { listingType: registryListingTypes.REJECTED };
     label = "Rejected Newsrooms";
   }
 
   return [urlArg, label];
 }
 
-const ListingHeader: React.SFC<ListingHeaderProps> = props => {
+const ListingHeader: React.FunctionComponent<ListingHeaderProps> = props => {
   const registryURLData = getRegistryURLData(props.listingPhaseState);
-  const registryURLParameter = registryURLData[0];
   const registryLinkText = registryURLData[1];
   const etherscanBaseURL = getEtherscanBaseURL(props.network);
 
@@ -63,7 +83,9 @@ const ListingHeader: React.SFC<ListingHeaderProps> = props => {
     charter: props.charter,
     owner: getFormattedEthAddress(props.listing.data.owner),
     etherscanBaseURL,
-    registryURL: `/registry/${registryURLParameter}`,
+    registryURL: formatRoute(routes.REGISTRY_HOME, registryURLData[0]),
+
+    ethInfoModalLearnMoreURL: links.FAQ_WHAT_IS_SMART_CONTRACT,
     registryLinkText,
     unstakedDeposit: getFormattedTokenBalance(props.listing.data.unstakedDeposit),
     ...props.listingPhaseState,

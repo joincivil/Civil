@@ -82,6 +82,7 @@ export interface CheckboxProps {
   checked: boolean;
   locked?: boolean;
   size?: CheckboxSizes;
+  id?: string;
   onClick(): void;
 }
 
@@ -89,12 +90,13 @@ export const Checkbox = (props: CheckboxProps) => {
   return (
     <Container locked={props.locked} size={props.size}>
       <input
-        onClick={() => {
+        onChange={() => {
           if (!props.locked) {
             props.onClick();
           }
         }}
         checked={props.checked}
+        id={props.id}
         type="checkbox"
       />
       <Box locked={props.locked} size={props.size} />

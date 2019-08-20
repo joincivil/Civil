@@ -1,7 +1,9 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
+import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
+import { BigNumber } from "@joincivil/typescript-types";
 import {
   canRequestAppeal,
   doesChallengeHaveAppeal,
@@ -11,7 +13,6 @@ import {
   NewsroomWrapper,
   WrappedChallengeData,
   didUserCommit,
-  TxDataAll,
 } from "@joincivil/core";
 import {
   ChallengeRequestAppealCard,
@@ -22,11 +23,14 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
+
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
 import ChallengeRevealVote from "./ChallengeRevealVote";
 import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
-import BigNumber from "bignumber.js";
+
+import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
   makeGetAppealChallengeState,
@@ -43,6 +47,11 @@ import {
   connectChallengePhase,
 } from "../utility/HigherOrderComponents";
 import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
+import { Query } from "react-apollo";
+import {
+  USER_CHALLENGE_DATA_QUERY,
+  transformGraphQLDataIntoSpecificUserChallenge,
+} from "../../helpers/queryTransformations";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -61,7 +70,10 @@ const withChallengeResults = (
         ChallengeContainerProps &
         RequestAppealProps
     >
-  >(connectChallengeResults, connectChallengePhase)(WrappedComponent);
+  >(
+    connectChallengeResults,
+    connectChallengePhase,
+  )(WrappedComponent);
 };
 
 const StyledChallengeResults = styled.div`
@@ -94,6 +106,7 @@ export interface ChallengeContainerReduxProps {
   txIdToConfirm?: number;
   grantAppealTxDataFetching?: boolean;
   grantAppealTxData?: TxDataAll;
+  useGraphQL: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -113,6 +126,7 @@ export interface ChallengeDetailProps {
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
+  useGraphQL: boolean;
   onMobileTransactionClick?(): any;
 }
 
@@ -139,31 +153,101 @@ export interface ProgressModalPropsState {
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
 class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
-    const { challenge, userChallengeData, userAppealChallengeData } = this.props;
+    const { challenge } = this.props;
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
     const appealExists = doesChallengeHaveAppeal(challenge);
     const canShowResult = challenge.resolved;
 
-    const canShowRewardsForm = didUserCommit(userChallengeData) && challenge.resolved;
-
-    const canShowAppealChallengeRewardsFrom =
-      didUserCommit(userAppealChallengeData) && challenge.appeal!.appealChallenge!.resolved;
     const inCanRequestAppeal = canRequestAppeal(challenge);
+
+    const renderState = {
+      inCommitPhase,
+      inRevealPhase,
+      inCanRequestAppeal,
+      canShowResult,
+      appealExists,
+    };
+
+    if (this.props.useGraphQL) {
+      if (!this.props.user) {
+        return this.renderAllStages(renderState, {});
+      }
+
+      return (
+        <Query
+          query={USER_CHALLENGE_DATA_QUERY}
+          variables={{ userAddr: this.props.user, pollID: this.props.challengeID.toString() }}
+          pollInterval={30000}
+        >
+          {({
+            loading: userChallengeLoading,
+            error: userChallengeError,
+            data: userChallengeData,
+          }: any): JSX.Element => {
+            if (userChallengeLoading || userChallengeError) {
+              return this.renderAllStages(renderState);
+            } else {
+              const userChallengeData2 = transformGraphQLDataIntoSpecificUserChallenge(userChallengeData);
+              if (challenge.appeal && challenge.appeal.appealChallenge) {
+                return (
+                  <Query
+                    query={USER_CHALLENGE_DATA_QUERY}
+                    variables={{ userAddr: this.props.user, pollID: challenge.appeal.appealChallengeID.toString() }}
+                    pollInterval={30000}
+                  >
+                    {({
+                      loading: userAppealChallengeLoading,
+                      error: userAppealChallengeError,
+                      data: userAppealChallengeData,
+                    }: any): JSX.Element => {
+                      if (userAppealChallengeLoading || userAppealChallengeError) {
+                        return this.renderAllStages(renderState, userChallengeData2);
+                      } else {
+                        const userAppealChallengeData2 = transformGraphQLDataIntoSpecificUserChallenge(
+                          userAppealChallengeData,
+                        );
+                        return this.renderAllStages(renderState, userChallengeData2, userAppealChallengeData2);
+                      }
+                    }}
+                  </Query>
+                );
+              } else {
+                return this.renderAllStages(renderState, userChallengeData2);
+              }
+            }
+          }}
+        </Query>
+      );
+    } else {
+      return this.renderAllStages(renderState);
+    }
+  }
+
+  private renderAllStages(
+    renderState: any,
+    userChallengeData?: UserChallengeData,
+    userAppealChallengeData?: UserChallengeData,
+  ): JSX.Element {
+    const { inCommitPhase, inRevealPhase, inCanRequestAppeal, canShowResult, appealExists } = renderState;
+
+    const canShowRewardsForm = didUserCommit(userChallengeData) && this.props.challenge.resolved;
+    const canShowAppealChallengeRewardsFrom =
+      didUserCommit(userAppealChallengeData) && this.props.challenge.appeal!.appealChallenge!.resolved;
 
     return (
       <>
-        {inCommitPhase && this.renderCommitStage()}
-        {inRevealPhase && this.renderRevealStage()}
+        {inCommitPhase && this.renderCommitStage(userChallengeData)}
+        {inRevealPhase && this.renderRevealStage(userChallengeData)}
         {inCanRequestAppeal && this.renderRequestAppealStage()}
         {canShowResult && this.renderVoteResult()}
-        {appealExists && this.renderAppeal()}
-        {canShowRewardsForm && !inCommitPhase && !inRevealPhase && this.renderRewardsDetail()}
-        {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail()}
+        {appealExists && this.renderAppeal(userAppealChallengeData)}
+        {canShowRewardsForm && !inCommitPhase && !inRevealPhase && this.renderRewardsDetail(userChallengeData)}
+        {canShowAppealChallengeRewardsFrom && this.renderAppealChallengeRewardsDetail(userAppealChallengeData)}
       </>
     );
   }
 
-  private renderAppeal(): JSX.Element {
+  private renderAppeal(userAppealChallengeData?: UserChallengeData): JSX.Element {
     const challenge = this.props.challenge;
     return (
       <AppealDetail
@@ -172,7 +256,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         appeal={challenge.appeal!}
         challengeID={this.props.challengeID}
         challenge={challenge}
-        userAppealChallengeData={this.props.userAppealChallengeData}
+        userAppealChallengeData={userAppealChallengeData || this.props.userAppealChallengeData}
         challengeState={this.props.challengeState}
         parameters={this.props.parameters}
         govtParameters={this.props.govtParameters}
@@ -186,12 +270,20 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     );
   }
 
-  private renderCommitStage(): JSX.Element | null {
-    return <ChallengeCommitVote {...this.props} />;
+  private renderCommitStage(userChallengeData?: UserChallengeData): JSX.Element | null {
+    if (userChallengeData) {
+      return <ChallengeCommitVote {...this.props} key={this.props.user} userChallengeData={userChallengeData} />;
+    } else {
+      return <ChallengeCommitVote {...this.props} key={this.props.user} />;
+    }
   }
 
-  private renderRevealStage(): JSX.Element | null {
-    return <ChallengeRevealVote {...this.props} key={this.props.user} />;
+  private renderRevealStage(userChallengeData?: UserChallengeData): JSX.Element | null {
+    if (userChallengeData) {
+      return <ChallengeRevealVote {...this.props} key={this.props.user} userChallengeData={userChallengeData} />;
+    } else {
+      return <ChallengeRevealVote {...this.props} key={this.props.user} />;
+    }
   }
 
   private renderRequestAppealStage(): JSX.Element {
@@ -199,7 +291,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     const endTime = challenge.requestAppealExpiry.toNumber();
     const phaseLength = this.props.govtParameters.requestAppealLen;
     const ChallengeRequestAppeal = withChallengeResults(ChallengeRequestAppealCard);
-    const requestAppealURI = `/listing/${this.props.listingAddress}/request-appeal`;
+    const requestAppealURI = formatRoute(routes.REQUEST_APPEAL, { listingAddress: this.props.listingAddress });
 
     return (
       <>
@@ -208,6 +300,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
           endTime={endTime}
           phaseLength={phaseLength}
           requestAppealURI={requestAppealURI}
+          faqURL={links.FAQ_COMMUNITY_VETTING_PROCESS}
           onMobileTransactionClick={this.props.onMobileTransactionClick}
         />
       </>
@@ -226,24 +319,24 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     );
   }
 
-  private renderRewardsDetail(): JSX.Element {
+  private renderRewardsDetail(userChallengeData?: UserChallengeData): JSX.Element {
     return (
       <ChallengeRewardsDetail
         challengeID={this.props.challengeID}
         challenge={this.props.challenge}
         user={this.props.user}
-        userChallengeData={this.props.userChallengeData}
+        userChallengeData={userChallengeData || this.props.userChallengeData}
       />
     );
   }
 
-  private renderAppealChallengeRewardsDetail(): JSX.Element {
+  private renderAppealChallengeRewardsDetail(userAppealChallengeData?: UserChallengeData): JSX.Element {
     return (
       <ChallengeRewardsDetail
         challengeID={this.props.challenge.appeal!.appealChallengeID}
         appealChallenge={this.props.challenge.appeal!.appealChallenge}
         user={this.props.user}
-        userChallengeData={this.props.userAppealChallengeData}
+        userChallengeData={userAppealChallengeData || this.props.userAppealChallengeData}
       />
     );
   }
@@ -287,6 +380,7 @@ class ChallengeContainer extends React.Component<
         isMemberOfAppellate={this.props.isMemberOfAppellate}
         txIdToConfirm={this.props.txIdToConfirm}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
+        useGraphQL={this.props.useGraphQL}
       />
     );
   }
@@ -316,6 +410,7 @@ const makeMapStateToProps = () => {
       grantAppealTxs,
       grantAppealTxsFetching,
     } = state.networkDependent;
+    const useGraphQL = state.useGraphQL;
     let txIdToConfirm;
     let challengeData = ownProps.challengeData;
     if (!challengeData) {
@@ -361,6 +456,7 @@ const makeMapStateToProps = () => {
       isMemberOfAppellate,
       txIdToConfirm,
       grantAppealTxDataFetching,
+      useGraphQL,
       ...ownProps,
     };
   };

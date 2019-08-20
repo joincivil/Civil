@@ -6,7 +6,7 @@ export interface TokenWalletIconProps {
   width?: number;
 }
 
-export const TokenWalletIcon: React.SFC<TokenWalletIconProps> = props => {
+export const TokenWalletIcon: React.FunctionComponent<TokenWalletIconProps> = props => {
   const width = (props.width || 24).toString();
   const height = (props.height || 21).toString();
 

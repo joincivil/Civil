@@ -17,10 +17,12 @@ export interface ListingSummaryUnderChallengeComponentProps
   extends ListingSummaryComponentProps,
     Partial<ChallengeResultsProps> {}
 
-export const ListingSummaryUnderChallengeComponent: React.SFC<ListingSummaryUnderChallengeComponentProps> = props => {
-  const { appeal, appealRequested } = props;
+export const ListingSummaryUnderChallengeComponent: React.FunctionComponent<
+  ListingSummaryUnderChallengeComponentProps
+> = props => {
+  const { doesChallengeHaveAppeal, isAwaitingAppealJudgement } = props;
 
-  const hasTopPadding = !appeal && !appealRequested;
+  const hasTopPadding = !doesChallengeHaveAppeal && !isAwaitingAppealJudgement;
 
   return (
     <ListingSummaryBase {...props}>

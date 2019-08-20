@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { Helmet } from "react-helmet";
 import { UserTokenAccount, LoadUser } from "@joincivil/components";
@@ -10,18 +9,14 @@ export interface TokensProps {
   network: string;
 }
 
-export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
-  // TODO:Sarah foundationAddress to @joincivil/utils
-
+export const TokensComponent = ({ network }: TokensProps) => {
   // TODO(jorgelo): Figure a way to pass these in here without busting typescript.
   const addWalletPath = "/auth/wallet";
   const signupPath = "/auth/signup";
 
   return (
     <>
-      <Helmet>
-        <title>Token Account - The Civil Registry</title>
-      </Helmet>
+      <Helmet title="Token Account - The Civil Registry" />
       <ScrollToTopOnMount />
       <LoadUser>
         {({ loading, user }) => {
@@ -32,8 +27,6 @@ export const TokensComponent: React.SFC<TokensProps> = ({ network }) => {
 
           return (
             <UserTokenAccount
-              supportEmailAddress={"support@civil.co"}
-              faqUrl={"https://cvlconsensys.zendesk.com/hc/en-us"}
               foundationAddress={"0xf1176B0aeb7914B5472B61c97A4CF0E0bcacB579"}
               network={network}
               user={user}

@@ -4,7 +4,7 @@ import { ApprovedNewsroomsIcon } from "../icons/ApprovedNewsroomsIcon";
 import { RejectedNewsroomsIcon } from "../icons/RejectedNewsroomsIcon";
 
 // Text for listings approved newsrooms tab
-export const ApprovedNewsroomsTabText: React.SFC = props => {
+export const ApprovedNewsroomsTabText: React.FunctionComponent = props => {
   return (
     <>
       <ApprovedNewsroomsIcon /> Approved Newsrooms
@@ -13,7 +13,7 @@ export const ApprovedNewsroomsTabText: React.SFC = props => {
 };
 
 // Text for listings applicaitons in progress tab
-export const ApplicationsInProgressTabText: React.SFC = props => {
+export const ApplicationsInProgressTabText: React.FunctionComponent = props => {
   return (
     <>
       <ApplicationInProgressIcon /> Newsrooms In Progress
@@ -22,7 +22,7 @@ export const ApplicationsInProgressTabText: React.SFC = props => {
 };
 
 // Text for listings rejected newsrooms tab
-export const RejectedNewsroomsTabText: React.SFC = props => {
+export const RejectedNewsroomsTabText: React.FunctionComponent = props => {
   return (
     <>
       <RejectedNewsroomsIcon /> Rejected Newsrooms
@@ -30,22 +30,22 @@ export const RejectedNewsroomsTabText: React.SFC = props => {
   );
 };
 
-export const TabNewApplicationsText: React.SFC = props => {
+export const TabNewApplicationsText: React.FunctionComponent = props => {
   return <>New Applications</>;
 };
 
-export const TabUnderChallengeText: React.SFC = props => {
+export const TabUnderChallengeText: React.FunctionComponent = props => {
   return <>Under Challenge</>;
 };
 
-export const TabAppealToCouncilText: React.SFC = props => {
+export const TabAppealToCouncilText: React.FunctionComponent = props => {
   return <>Under Appeal</>;
 };
 
-export const TabChallengeCouncilAppealText: React.SFC = props => {
+export const TabChallengeCouncilAppealText: React.FunctionComponent = props => {
   return <>Decision Challenged</>;
 };
 
-export const TabReadyToUpdateText: React.SFC = props => {
+export const TabReadyToUpdateText: React.FunctionComponent = props => {
   return <>Ready to Update</>;
 };

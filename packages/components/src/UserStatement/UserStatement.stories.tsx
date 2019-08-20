@@ -4,6 +4,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { SubmitChallengeStatement, SubmitChallengeStatementProps } from "./SubmitChallengeStatement";
 import { RequestAppealStatement, RequestAppealStatementProps } from "./RequestAppealStatement";
+import { SubmitAppealChallengeStatement, SubmitAppealChallengeStatementProps } from "./SubmitAppealChallengeStatement";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -12,13 +13,13 @@ const StyledDiv = styled.div`
   background-color: #fff;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("User Statement Forms", module)
+storiesOf("Registry / User Statement Forms", module)
   .addDecorator(StoryRouter())
   .add("Submit Challenge Statement", () => {
     const updateStatementValue = (name: string, value: any) => {
@@ -54,4 +55,23 @@ storiesOf("User Statement Forms", module)
     };
 
     return <Container>{process.env.NODE_ENV !== "test" && <RequestAppealStatement {...props} />}</Container>;
+  })
+  .add("Submit Appeal Challenge Statement", () => {
+    const updateStatementValue = (name: string, value: any) => {
+      console.log("update statement", name, value);
+    };
+    const props: SubmitAppealChallengeStatementProps = {
+      constitutionURI: "https://civil.co",
+      governanceGuideURI: "https://civil.co",
+      listingURI: "https://civil.co",
+      newsroomName: "The Sleeper Reporters",
+      appealFee: "100,000 CVL",
+      appealVotePercentage: "60%",
+      challengeAppealCommitLen: "10 days",
+      challengeAppealRevealLen: "7 days",
+      transactions: [],
+      updateStatementValue,
+    };
+
+    return <Container>{process.env.NODE_ENV !== "test" && <SubmitAppealChallengeStatement {...props} />}</Container>;
   });

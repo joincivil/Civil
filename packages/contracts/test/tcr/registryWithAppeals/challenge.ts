@@ -1,7 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
+import { BN } from "bn.js";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -9,6 +9,7 @@ const expect = chai.expect;
 const Parameterizer = artifacts.require("CivilParameterizer");
 const Token = artifacts.require("CVLToken");
 utils.configureProviders(Parameterizer, Token);
+const ZERO_DATA = "0x";
 
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
@@ -36,7 +37,7 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should touch-and-remove a listing with a depost below the current minimum", async () => {
-        const newMinDeposit = minDeposit.add(1);
+        const newMinDeposit = minDeposit.add(new BN(1));
 
         const applicantStartingBal = await token.balanceOf(applicant);
 
@@ -50,7 +51,7 @@ contract("Registry With Appeals", accounts => {
         await parameterizer.processProposal(propID);
 
         const challengerStartingBal = await token.balanceOf(challenger);
-        await registry.challenge(newsroomAddress, "", { from: challenger });
+        await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
 
         const [, isWhitelisted] = await registry.listings(newsroomAddress);
         expect(isWhitelisted).to.be.false("Listing was not removed");

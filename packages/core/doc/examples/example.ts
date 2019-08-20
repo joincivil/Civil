@@ -1,5 +1,9 @@
 // import * as process from "process";
 
+(() => {
+  console.log("done");
+})();
+
 // import { Civil } from "../../src";
 // import { NewsroomRoles } from "../../src/types";
 // import { InMemoryProvider } from "../../src/content/inmemoryprovider";

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const TrendsIcon: React.SFC = props => {
+export const TrendsIcon: React.FunctionComponent = props => {
   return (
     <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill={colors.accent.CIVIL_BLUE} fillRule="evenodd">

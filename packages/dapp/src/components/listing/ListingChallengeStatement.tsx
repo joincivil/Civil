@@ -20,6 +20,7 @@ export interface ListingChallengeStatementProps {
   listingAddress: string;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
+  showCharterTab(): void;
 }
 
 export interface ListingChallengeStatementReduxProps {
@@ -31,9 +32,6 @@ export interface ListingChallengeStatementReduxProps {
 class ListingChallengeStatement extends React.Component<
   ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>
 > {
-  constructor(props: ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>) {
-    super(props);
-  }
   public async componentDidMount(): Promise<void> {
     await this.getContents();
   }
@@ -83,7 +81,7 @@ class ListingChallengeStatement extends React.Component<
     });
     return (
       <StyledChallengeStatementComponent>
-        <ListingTabHeading>The Civil Council is reviewing a requested appeal.</ListingTabHeading>
+        <ListingTabHeading>An appeal to the Civil Council has been requested.</ListingTabHeading>
         <p>Should the Civil Council overturn this challenge result?</p>
         <ListingTabHeading>Appeal Statement</ListingTabHeading>
         <StyledChallengeStatementSection>
@@ -103,10 +101,12 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     let parsed = this.props.challengeStatement;
-    try {
-      parsed = JSON.parse(this.props.challengeStatement);
-    } catch (ex) {
-      console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
+    if (typeof parsed !== "object") {
+      try {
+        parsed = JSON.parse(this.props.challengeStatement);
+      } catch (ex) {
+        console.warn("unable to parse challenge statement, possibly already parsed. ex: ", ex);
+      }
     }
     const summary = parsed.summary || "";
     const cleanCiteConstitution = parsed.citeConstitution
@@ -123,8 +123,12 @@ class ListingChallengeStatement extends React.Component<
       <StyledChallengeStatementComponent>
         <ListingTabHeading>Newsroom listing is under challenge</ListingTabHeading>
         <p>
-          Should this newsroom stay on the Civil Registry? Read the challenger’s statement below and vote with your CVL
-          tokens.
+          Review the{" "}
+          <a href="#charter" onClick={this.props.showCharterTab}>
+            Newsroom's Charter
+          </a>{" "}
+          and the Challenger's statement below. Then, evaluate the Newsroom based on the Civil Constitution before
+          casting a vote with your Civil tokens.
         </p>
         <ListingTabHeading>Challenge Statement</ListingTabHeading>
         <StyledChallengeStatementSection>
@@ -191,6 +195,7 @@ const mapToStateToProps = (
       challengeID: ownProps.listing!.data.challengeID,
     };
   }
+
   const { content } = state.networkDependent;
   let challengeStatement: any = "";
   let appealStatement: any = "";

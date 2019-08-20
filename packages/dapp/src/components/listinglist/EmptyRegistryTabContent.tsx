@@ -38,7 +38,7 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no rejected newsrooms",
     copy: (
       <>
-        You can <Link to="/registry/in-progress/in-application">view new applications</Link> or{" "}
+        You can <Link to="/registry/in-progress/new-applications">view new applications</Link> or{" "}
         <Link to="/apply-to-registry">apply to join the Civil Registry</Link>
       </>
     ),
@@ -47,7 +47,8 @@ const EMPTY_REGISTRY_TAB_CONTENT: { [index: number]: EmptyRegistryTabContent } =
     header: "There are no new applications at this time",
     copy: (
       <>
-        Join the community-approved ethical Newsrooms on Civil<br />
+        Join the community-approved ethical Newsrooms on Civil
+        <br />
         <Button to="/apply-to-registry" size={buttonSizes.SMALL}>
           Apply to Registry
         </Button>
@@ -96,7 +97,7 @@ export interface EmptyRegistryTabContentProps {
   phaseTabType: number;
 }
 
-export const EmptyRegistryTabContentComponent: React.SFC<EmptyRegistryTabContentProps> = props => {
+export const EmptyRegistryTabContentComponent: React.FunctionComponent<EmptyRegistryTabContentProps> = props => {
   const tabContent = EMPTY_REGISTRY_TAB_CONTENT[props.phaseTabType];
   return (
     <StyledRegistryEmpty>

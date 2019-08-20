@@ -11,6 +11,8 @@ const ContractAddressRegistry = artifacts.require("ContractAddressRegistry");
 const PLCRVoting = artifacts.require("CivilPLCRVoting");
 utils.configureProviders(AddressRegistry, ContractAddressRegistry, PLCRVoting);
 
+const ZERO_DATA = "0x";
+
 contract("Registry With Appeals", accounts => {
   describe("Function: apply", () => {
     const [JAB, applicant, troll, challenger, voter] = accounts;
@@ -23,7 +25,7 @@ contract("Registry With Appeals", accounts => {
     beforeEach(async () => {
       registry = await utils.createAllCivilTCRInstance(accounts, JAB);
       const votingAddress = await registry.voting();
-      voting = PLCRVoting.at(votingAddress);
+      voting = await PLCRVoting.at(votingAddress);
     });
 
     describe("with real newsroom", () => {
@@ -36,7 +38,7 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should allow contract owner to apply on behalf of contract", async () => {
-        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
 
         // get struct from mapping
         const [applicationExpiry, whitelisted, owner, unstakedDeposit] = await registry.listings(newsroomAddress);
@@ -50,7 +52,7 @@ contract("Registry With Appeals", accounts => {
 
       it("should fail if applicant has not approved registry as spender of token", async () => {
         await expect(
-          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: unapproved }),
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, ZERO_DATA, { from: unapproved }),
         ).to.eventually.be.rejectedWith(
           REVERTED,
           "should not have allowed applicant to apply if they have not approved registry as spender",
@@ -58,14 +60,14 @@ contract("Registry With Appeals", accounts => {
       });
 
       it("should not allow a listing to apply which has a pending application", async () => {
-        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
         await expect(
-          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant }),
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
 
       it("should add a listing to the whitelist which went unchallenged in its application period", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.applyStageLength + 1);
         await registry.updateStatus(newsroomAddress);
         const [, whitelisted] = await registry.listings(newsroomAddress);
@@ -76,7 +78,7 @@ contract("Registry With Appeals", accounts => {
       it("should not allow a listing to apply which is already listed", async () => {
         await utils.addToWhitelist(newsroomAddress, minDeposit, applicant, registry);
         await expect(
-          registry.apply(newsroomAddress, minDeposit, "", { from: applicant }),
+          registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant }),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
 
@@ -84,13 +86,13 @@ contract("Registry With Appeals", accounts => {
         "should not allow a listing to re-apply after losing challenge, " +
           "not being granted appeal, not updating status",
         async () => {
-          await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-          await registry.challenge(newsroomAddress, "", { from: challenger });
+          await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
+          await registry.challenge(newsroomAddress, ZERO_DATA, { from: challenger });
           await utils.advanceEvmTime(utils.paramConfig.commitStageLength + utils.paramConfig.revealStageLength + 1);
-          await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+          await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
           await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
 
-          const applyTx = registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+          const applyTx = registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
           await expect(applyTx).to.eventually.be.rejectedWith(
             REVERTED,
             "should not have allowed new application after being denied appeal and not updating status",
@@ -99,19 +101,19 @@ contract("Registry With Appeals", accounts => {
       );
 
       it("should allow a listing to re-apply after losing challenge (challenge vote successful), not being granted appeal, updating status", async () => {
-        await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
+        await registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant });
         const pollID = await utils.challengeAndGetPollID(newsroomAddress, challenger, registry);
         await utils.commitVote(voting, pollID, "0", "100", "1234", voter);
         await utils.advanceEvmTime(utils.paramConfig.commitStageLength + 1);
         await voting.revealVote(pollID, "0", "1234", { from: voter });
         await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-        await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+        await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
         await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
         await registry.updateStatus(newsroomAddress);
 
-        await expect(registry.apply(newsroomAddress, minDeposit, "", { from: applicant })).to.eventually.be.fulfilled(
-          "should have allowed new application after being denied appeal",
-        );
+        await expect(
+          registry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant }),
+        ).to.eventually.be.fulfilled("should have allowed new application after being denied appeal");
       });
     });
 
@@ -126,30 +128,30 @@ contract("Registry With Appeals", accounts => {
 
       it("should not allow a non-contract owner to apply", async () => {
         await expect(
-          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, "", { from: applicant }),
+          registry.apply(newsroomAddress, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
 
       it("should prevent un-owned address from being listed when registry cast to ContractAddressRegistry", async () => {
         const parentRegistry = await ContractAddressRegistry.at(registry.address);
         await expect(
-          parentRegistry.apply(newsroomAddress, minDeposit, "", { from: applicant }),
+          parentRegistry.apply(newsroomAddress, minDeposit, ZERO_DATA, { from: applicant }),
         ).to.eventually.be.rejectedWith(REVERTED);
       });
     });
 
     it("should prevent non-contract address from being listed", async () => {
       await expect(
-        registry.apply(listing1, utils.paramConfig.minDeposit, "", { from: applicant }),
+        registry.apply(listing1, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant }),
       ).to.eventually.be.rejectedWith(REVERTED);
     });
 
     it("should prevent non-contract address from being listed when registry cast to AddressRegistry", async () => {
       const parentRegistry = await AddressRegistry.at(registry.address);
 
-      await expect(parentRegistry.apply(listing1, minDeposit, "", { from: applicant })).to.eventually.be.rejectedWith(
-        REVERTED,
-      );
+      await expect(
+        parentRegistry.apply(listing1, minDeposit, ZERO_DATA, { from: applicant }),
+      ).to.eventually.be.rejectedWith(REVERTED);
     });
   });
 });

@@ -1,10 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
-import ChallengeDetailContainer from "./ChallengeDetail";
-import ChallengeResolve from "./ChallengeResolve";
+import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import {
   InApplicationCard,
   RejectedCard as RejectedCardComponent,
@@ -14,10 +12,18 @@ import {
   AppealChallengePhaseProps,
   AppealDecisionProps,
   ChallengePhaseProps,
+  WithdrawnCard,
 } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
+
+import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import ChallengeDetailContainer from "./ChallengeDetail";
+import ChallengeResolve from "./ChallengeResolve";
+import { routes } from "../../constants";
 import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
+import { BigNumber } from "@joincivil/typescript-types";
 
 const StyledContainer = styled.div`
   margin: 0 0 80px;
@@ -31,6 +37,7 @@ export interface ListingPhaseActionsProps {
   govtParameters: any;
   constitutionURI?: string;
   listingPhaseState: any;
+  listingLastGovState?: string;
 }
 
 export interface ListingPhaseActionsState {
@@ -45,6 +52,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
   public render(): JSX.Element {
     const listing = this.props.listing;
+    const lastGovState = this.props.listingLastGovState;
     const {
       isInApplication,
       isWhitelisted,
@@ -53,19 +61,20 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       canResolveChallenge,
     } = this.props.listingPhaseState;
     const challenge = this.props.listing.data.challenge;
-    return (
-      <>
-        {isWhitelisted && (!challenge || challenge.resolved) && this.renderApplicationWhitelisted()}
-        {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
-        {isInApplication && this.renderApplicationPhase()}
-        {listing.data && (
-          <StyledContainer>
-            {canBeWhitelisted && this.renderCanWhitelist()}
-            {canResolveChallenge && this.renderCanResolve()}
+    if (lastGovState && lastGovState === "GovernanceStateListingWithdrawn") {
+      return <>{this.renderWithdrawn()}</>;
+    } else {
+      return (
+        <>
+          {isWhitelisted && (!challenge || challenge.resolved) && this.renderApplicationWhitelisted()}
+          {isRejected && (!challenge || challenge.resolved) && this.renderRejected()}
+          {isInApplication && this.renderApplicationPhase()}
+          {listing.data && (
+            <StyledContainer>
+              {canBeWhitelisted && this.renderCanWhitelist()}
+              {canResolveChallenge && this.renderCanResolve()}
 
-            {listing.data.challenge &&
-              !listing.data.challenge.resolved &&
-              !canResolveChallenge && (
+              {listing.data.challenge && !listing.data.challenge.resolved && !canResolveChallenge && (
                 <ChallengeDetailContainer
                   challengeID={this.props.listing.data.challengeID}
                   listingAddress={this.props.listing.address}
@@ -78,21 +87,17 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
                   onMobileTransactionClick={this.showNoMobileTransactionsModal}
                 />
               )}
-          </StyledContainer>
-        )}
+            </StyledContainer>
+          )}
 
-        {this.renderNoMobileTransactions()}
-      </>
-    );
+          {this.renderNoMobileTransactions()}
+        </>
+      );
+    }
   }
 
   private renderCanWhitelist = (): JSX.Element => {
-    return (
-      <ApplicationUpdateStatus
-        listingAddress={this.props.listing!.address}
-        onMobileTransactionClick={this.showNoMobileTransactionsModal}
-      />
-    );
+    return <ApplicationUpdateStatus listingAddress={this.props.listing!.address} />;
   };
 
   private renderCanResolve(): JSX.Element {
@@ -106,25 +111,39 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   }
 
   private renderApplicationWhitelisted(): JSX.Element {
+    let approvalDate;
+    if (this.props.listing.data.approvalDate) {
+      approvalDate = this.props.listing.data.approvalDate;
+    }
     return (
       <>
         <WhitelistedDetail
           listingAddress={this.props.listing.address}
           constitutionURI={this.props.constitutionURI}
+          faqURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
+          approvalDate={approvalDate}
         />
       </>
     );
   }
 
+  private renderWithdrawn(): JSX.Element {
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
+    return <WithdrawnCard listingRemovedTimestamp={lastUpdatedDateAsDate} />;
+  }
+
   private renderRejected(): JSX.Element {
-    const data = this.props.listing!.data!;
+    const data = this.props.listing.data;
+    const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
+    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
     if (!data.prevChallenge) {
       const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
         connectLatestChallengeSucceededResults,
       )(RejectedCardComponent);
 
-      return <RejectedCard listingAddress={this.props.listing.address} />;
+      return <RejectedCard listingAddress={this.props.listing.address} listingRemovedDate={lastUpdatedDateAsDate} />;
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
       let appealChallengeResultsProps;
@@ -148,11 +167,13 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
       }
       return (
         <RejectedCardComponent
+          faqURL={links.FAQ_REGISTRY}
           {...challengeProps}
           {...challengeResultsProps}
           {...appealProps}
           {...appealChallengeResultsProps}
           {...appealChallengePhaseProps}
+          listingRemovedDate={lastUpdatedDateAsDate}
         />
       );
     }
@@ -164,7 +185,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     if (!endTime || !phaseLength) {
       return null;
     }
-    const submitChallengeURI = `/listing/${this.props.listing.address}/submit-challenge`;
+    const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listing.address });
 
     return (
       <>
@@ -173,6 +194,8 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           phaseLength={phaseLength}
           submitChallengeURI={submitChallengeURI}
           constitutionURI={this.props.constitutionURI}
+          faqURL={links.FAQ_CHALLENGE_SECTION}
+          learnMoreURL={links.FAQ_REGISTRY}
           onMobileTransactionClick={this.showNoMobileTransactionsModal}
         />
       </>

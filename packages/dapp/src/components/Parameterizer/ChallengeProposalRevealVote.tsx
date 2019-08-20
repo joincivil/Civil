@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -10,7 +10,7 @@ import {
   ModalUnorderedList,
   ModalListItem,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings } from "@joincivil/utils";
+import { getLocalDateTimeStrings, urlConstants as links } from "@joincivil/utils";
 
 import { revealVote } from "../../apis/civilTCR";
 import {
@@ -91,6 +91,7 @@ class ChallengeProposalRevealVote extends React.Component<
       salt: this.state.salt,
       challengeID: this.props.challengeID.toString(),
       transactions: this.getTransactions(),
+      votingSmartContractFaqURL: links.FAQ_WHAT_IS_PLCR_CONTRACT,
       postExecuteTransactions: this.onRevealVoteSuccess,
     };
 

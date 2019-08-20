@@ -1,11 +1,10 @@
 import { AnyAction } from "redux";
 import { findIndex } from "lodash";
 import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
-import { getInfuraUrlFromIpfs } from "@joincivil/utils";
+import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { makeUserObject } from "./utils";
-import * as sanitizeHtml from "sanitize-html";
 
 export enum newsroomActions {
   ADD_NEWSROOM = "ADD_NEWSROOM",
@@ -287,7 +286,7 @@ export const fetchConstitution = (ipfsAddress: string): any => async (dispatch: 
   return dispatch({
     type: governmentActions.ADD_CONSTITUTION_CONTENT,
     data: {
-      content: sanitizeHtml(constitution.content),
+      content: sanitizeConstitutionHtml(constitution.content),
     },
   });
 };

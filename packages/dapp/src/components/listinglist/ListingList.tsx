@@ -9,17 +9,30 @@ export interface ListingListOwnProps {
   listings?: Set<NewsroomListing>;
 }
 
-class ListingList extends React.Component<ListingListOwnProps> {
-  constructor(props: any) {
-    super(props);
-  }
+// TODO(jon): Add support for various sorting comparator functions (alpha descending?)
+const sortNewsroomByAlphaNameAscending = (a: NewsroomListing, b: NewsroomListing): number => {
+  const newsroomA = a!.newsroom;
+  const newsroomB = b!.newsroom;
+  const newsroomAName = newsroomA && newsroomA.data && newsroomA.data.name && newsroomA.data.name.toLowerCase();
+  const newsroomBName = newsroomB && newsroomB.data && newsroomB.data.name && newsroomB.data.name.toLowerCase();
 
+  if (newsroomAName && newsroomBName) {
+    if (newsroomAName < newsroomBName) {
+      return -1;
+    } else if (newsroomAName > newsroomBName) {
+      return 1;
+    }
+  }
+  return 0;
+};
+
+class ListingList extends React.Component<ListingListOwnProps> {
   public render(): JSX.Element {
     let index = 0;
     return (
       <StyledListingSummaryList>
         {this.props.listings &&
-          this.props.listings.map(l => {
+          this.props.listings.sort(sortNewsroomByAlphaNameAscending).map(l => {
             index++;
             return (
               <ListingListItem

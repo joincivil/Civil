@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { EmailSignup } from "./EmailSignup";
 import { EmailSignupSuccess } from "./EmailSignupSuccess";
-import { TCR_SENDGRID_LIST_ID, addToMailingList } from "@joincivil/utils";
+import { addToMailingList } from "@joincivil/utils";
 
 const StyledDiv = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const StyledDiv = styled.div`
   width: 400px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
+const Container: React.FunctionComponent = ({ children }) => <StyledDiv>{children}</StyledDiv>;
 
 let email: string;
 
@@ -26,21 +26,21 @@ async function onSubmit(): Promise<void> {
   console.log("On Submit", email);
 
   try {
-    await addToMailingList(email, TCR_SENDGRID_LIST_ID);
+    await addToMailingList(email, "5353193");
   } catch (err) {
     console.error("Error adding to mailing list:", { err });
   }
 }
 
-storiesOf("Email Signup Component", module)
-  .add("Email Signup", () => {
+storiesOf("Registry / Mailing List Signup Component", module)
+  .add("Mailing List Signup Signup", () => {
     return (
       <Container>
         <EmailSignup onChange={onChange} onSubmit={onSubmit} />
       </Container>
     );
   })
-  .add("Email Signup Success", () => {
+  .add("Mailing List Signup Success", () => {
     return (
       <Container>
         <EmailSignupSuccess />

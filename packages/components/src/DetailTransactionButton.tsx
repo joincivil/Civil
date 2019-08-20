@@ -2,7 +2,7 @@ import { Civil, EthAddress } from "@joincivil/core";
 import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
-import styled from "styled-components";
+import styled, { StyledComponentClass } from "styled-components";
 import {
   TransactionButton,
   Transaction,
@@ -15,9 +15,9 @@ import { QuestionToolTip } from "./QuestionToolTip";
 export interface DetailTransactionButtonProps {
   civil?: Civil;
   transactions: Transaction[];
-  estimateFunctions?: Array<() => Promise<number>>;
+  estimateFunctions?: Array<(...args: any[]) => Promise<number>>;
   requiredNetwork?: string;
-  Button?: React.StatelessComponent<TransactionButtonInnerProps>;
+  Button?: React.FunctionComponent<TransactionButtonInnerProps>;
   noModal?: boolean;
   disabled?: boolean;
   preExecuteTransactions?(): any;
@@ -74,7 +74,7 @@ const ToolTipLink = styled.a`
   color: ${colors.basic.WHITE};
 `;
 
-const PopUpWarning = styled.p`
+export const TransactionPopUpWarning = styled.p`
   && {
     color: ${colors.accent.CIVIL_GRAY_2};
     font-size: 12px;
@@ -114,7 +114,7 @@ export class DetailTransactionButton extends React.Component<
         const gasPrice = await this.props.civil!.getGasPrice();
         this.setState({
           price: gasPrice
-            .times(gas)
+            .mul(this.props.civil!.toBigNumber(gas))
             .div(this.props.civil!.toBigNumber(10).pow(18))
             .toNumber(),
           priceFailed: false,
@@ -169,7 +169,9 @@ export class DetailTransactionButton extends React.Component<
           >
             {this.props.children}
           </TransactionButtonComponent>
-          <PopUpWarning>This will open a new window to confirm and process your transaction.</PopUpWarning>
+          <TransactionPopUpWarning>
+            This will open a new window to confirm and process your transaction.
+          </TransactionPopUpWarning>
         </ButtonWrapper>
       </Wrapper>
     );

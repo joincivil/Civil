@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const VerifyIdentityIcon: React.SFC = props => {
+export const VerifyIdentityIcon: React.FunctionComponent = props => {
   return (
     <svg width="18" height="22" viewBox="0 0 18 22" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">

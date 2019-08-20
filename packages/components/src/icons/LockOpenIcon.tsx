@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const LockOpenIcon: React.SFC = props => {
+export const LockOpenIcon: React.FunctionComponent = props => {
   return (
     <svg width="14" height="18" viewBox="0 0 14 18" xmlns="http://www.w3.org/2000/svg">
       <g stroke="none" strokeWidth="1" fill={colors.accent.CIVIL_RED} fillRule="evenodd">

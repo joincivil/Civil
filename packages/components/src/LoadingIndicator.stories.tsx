@@ -8,13 +8,13 @@ const StyledDiv = styled.div`
   width: 600px;
 `;
 
-const Container: React.StatelessComponent = ({ children }) => (
+const Container: React.FunctionComponent = ({ children }) => (
   <StyledDiv>
     <div>{children}</div>
   </StyledDiv>
 );
 
-storiesOf("Loading Indicator", module)
+storiesOf("Pattern Library / Loading / Loading Indicator", module)
   .add("Default Size (32px x 32px)", () => {
     return (
       <Container>

@@ -6,8 +6,8 @@ import { InvertedButton, buttonSizes } from "../Button";
 
 import { NumericInput, TextInput, InputProps } from "./Input";
 
-export interface InputWithButtonContainerProps {
-  buttonText: string;
+export interface InputContainerProps {
+  buttonText?: string;
   icon?: JSX.Element;
   children(
     isFocused: boolean,
@@ -15,7 +15,7 @@ export interface InputWithButtonContainerProps {
     setUnfocused: (ev: any) => void,
     setInputRef: (el: any) => void,
   ): React.ReactNode;
-  onButtonClick(ev: any): void;
+  onButtonClick?(ev: any): void;
 }
 
 export interface InputWithButtonProps extends InputProps {
@@ -66,11 +66,11 @@ const StyledButtonContainer = styled.div`
   top: calc(50% - 18px);
 `;
 
-class InputWithButtonContainer extends React.Component<InputWithButtonContainerProps, InputWithButtonState> {
+class InputContainer extends React.Component<InputContainerProps, InputWithButtonState> {
   private inputElement: HTMLInputElement | undefined = undefined;
   private buttonElement: HTMLButtonElement | undefined = undefined;
 
-  constructor(props: InputWithButtonContainerProps) {
+  constructor(props: InputContainerProps) {
     super(props);
     this.state = {
       isFocused: false,
@@ -81,7 +81,7 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
     return (
       <StyledTextInputButton {...this.state}>
         {this.props.children(this.state.isFocused, this.setFocused, this.setUnfocused, this.setInputRef)}
-        {this.state.isFocused && (
+        {this.props.buttonText && this.state.isFocused && (
           <StyledButtonContainer>
             <InvertedButton size={buttonSizes.SMALL} onClick={this.handleButtonClick} inputRef={this.setButtonRef}>
               {this.props.buttonText}
@@ -94,7 +94,9 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
   }
 
   private handleButtonClick = (ev: any) => {
-    this.props.onButtonClick(ev);
+    if (this.props.onButtonClick) {
+      this.props.onButtonClick(ev);
+    }
     if (this.inputElement) {
       this.inputElement.blur();
       this._setUnfocused();
@@ -121,13 +123,13 @@ class InputWithButtonContainer extends React.Component<InputWithButtonContainerP
   private setButtonRef = (el: HTMLButtonElement) => (this.buttonElement = el);
 }
 
-export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps> = props => {
+export const TextInputWithButton: React.FunctionComponent<InputWithButtonProps> = props => {
   const { onButtonClick, icon, buttonText, ...restProps } = props;
   const inputProps = { ...restProps, noLabel: true };
   const containerProps = { onButtonClick, buttonText, icon };
 
   return (
-    <InputWithButtonContainer {...containerProps}>
+    <InputContainer {...containerProps}>
       {(
         isFocused: boolean,
         setFocused: () => void,
@@ -140,17 +142,17 @@ export const TextInputWithButton: React.StatelessComponent<InputWithButtonProps>
           </>
         );
       }}
-    </InputWithButtonContainer>
+    </InputContainer>
   );
 };
 
-export const CurrencyInputWithButton: React.StatelessComponent<InputWithButtonProps> = props => {
+export const CurrencyInputWithButton: React.FunctionComponent<InputWithButtonProps> = props => {
   const { onButtonClick, icon, buttonText, ...restProps } = props;
   const inputProps = { ...restProps, noLabel: true };
   const containerProps = { onButtonClick, buttonText, icon };
 
   return (
-    <InputWithButtonContainer {...containerProps}>
+    <InputContainer {...containerProps}>
       {(
         isFocused: boolean,
         setFocused: () => void,
@@ -163,6 +165,29 @@ export const CurrencyInputWithButton: React.StatelessComponent<InputWithButtonPr
           </>
         );
       }}
-    </InputWithButtonContainer>
+    </InputContainer>
+  );
+};
+
+export const CurrencyInputWithoutButton: React.FunctionComponent<InputProps> = props => {
+  const { icon, ...restProps } = props;
+  const inputProps = { ...restProps, noLabel: true };
+  const containerProps = { icon };
+
+  return (
+    <InputContainer {...containerProps}>
+      {(
+        isFocused: boolean,
+        setFocused: () => void,
+        setUnfocused: (ev: any) => void,
+        setInputRef: (el: any) => void,
+      ) => {
+        return (
+          <>
+            <NumericInput {...inputProps} onFocus={setFocused} onBlur={setUnfocused} inputRef={setInputRef} />
+          </>
+        );
+      }}
+    </InputContainer>
   );
 };

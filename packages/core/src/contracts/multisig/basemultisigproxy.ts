@@ -6,6 +6,7 @@ import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 import { Contract } from "../interfaces/contract";
 import { createTwoStepSimple, isDecodedLog, isOwnableContract } from "../utils/contracts";
 import { Multisig } from "./multisig";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Proxies functionionality to a contract instance via multisig wallet. Also supports instantiation *without* multisig proxy, in which case calls are passed directly to the contract. If the wrapped contract has an `owner` property, it will be checked to see if the owner is a multisig wallet.
@@ -96,7 +97,7 @@ export class BaseMultisigProxy {
         if (submissionLogs.length !== 1) {
           throw new Error("Too many Submission events than expected in multisig");
         }
-        return submissionLogs[0].args.transactionId.toNumber();
+        return new BigNumber(submissionLogs[0].returnValues.transactionId).toNumber();
       },
     };
   }

@@ -1,6 +1,28 @@
 import { EthAddress, AppealData, CharterData } from "@joincivil/core";
 
-export interface ListingSummaryComponentProps {
+export interface ListingChallengeStatusProps {
+  isInApplication?: boolean;
+  canBeChallenged?: boolean;
+  canBeWhitelisted?: boolean;
+  inChallengeCommitVotePhase?: boolean;
+  inChallengeRevealPhase?: boolean;
+  isAwaitingAppealRequest?: boolean;
+  didChallengeSucceed?: boolean;
+  didChallengeOriginallySucceed?: boolean;
+  canResolveChallenge?: boolean;
+  doesChallengeHaveAppeal?: boolean;
+  isAwaitingAppealJudgement?: boolean;
+  isAwaitingAppealChallenge?: boolean;
+  canListingAppealBeResolved?: boolean;
+  isInAppealChallengeCommitPhase?: boolean;
+  isInAppealChallengeRevealPhase?: boolean;
+  isRejected?: boolean;
+  isWhitelisted?: boolean;
+  isUnderChallenge?: boolean;
+  canListingAppealChallengeBeResolved?: boolean;
+}
+
+export interface ListingSummaryComponentProps extends ListingChallengeStatusProps {
   listingAddress?: EthAddress;
   name?: string;
   charter?: CharterData;
@@ -11,24 +33,6 @@ export interface ListingSummaryComponentProps {
   appealRequested?: boolean;
   appealGranted?: boolean;
   appealStatementSummary?: string;
-  isInApplication?: boolean;
-  canBeChallenged?: boolean;
-  canBeWhitelisted?: boolean;
-  inChallengeCommitVotePhase?: boolean;
-  inChallengeRevealPhase?: boolean;
-  isAwaitingAppealRequest?: boolean;
-  didChallengeSucceed?: boolean;
-  didChallengeOriginallySucceed?: boolean;
-  canResolveChallenge?: boolean;
-  isAwaitingAppealJudgement?: boolean;
-  isAwaitingAppealChallenge?: boolean;
-  canListingAppealBeResolved?: boolean;
-  isInAppealChallengeCommitPhase?: boolean;
-  isInAppealChallengeRevealPhase?: boolean;
-  isRejected?: boolean;
-  isWhitelisted?: boolean;
-  isUnderChallenge?: boolean;
-  canListingAppealChallengeBeResolved?: boolean;
   whitelistedTimestamp?: number;
   appExpiry?: number;
   commitEndDate?: number;

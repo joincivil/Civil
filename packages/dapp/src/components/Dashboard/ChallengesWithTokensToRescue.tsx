@@ -1,10 +1,13 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 
 import {
+  Tabs,
+  Tab,
+  StyledDashboardSubTab,
   RescueTokensDescriptionText,
   ModalContent,
   StyledDashboardActivityDescription,
@@ -14,8 +17,13 @@ import {
 import { rescueTokensInMultiplePolls } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
-import { ChallengesToProcess, StyledBatchButtonContainer, getChallengesToProcess } from "./DashboardActivity";
-import ActivityListItemRescueTokens from "./ActivityListItemRescueTokens";
+import {
+  ChallengesToProcess,
+  StyledBatchButtonContainer,
+  getChallengesToProcess,
+  StyledTabsComponent,
+} from "./DashboardActivity";
+import RescueTokensItem from "./RescueTokensItem";
 
 enum TransactionTypes {
   MULTI_RESCUE_TOKENS = "MULTI_RESCUE_TOKENS",
@@ -60,6 +68,8 @@ export interface ChallengesWithTokensToRescueProps {
   challenges: any;
   appealChallenges: any;
   proposalChallenges: any;
+  userChallengeData?: any;
+  refetchUserChallengeData?(): void;
   onMobileTransactionClick?(): any;
 }
 
@@ -71,24 +81,23 @@ class ChallengesWithTokensToRescue extends React.Component<
   ChallengesWithTokensToRescueProps & InjectedTransactionStatusModalProps,
   ChallengesWithTokensToRescueState
 > {
-  constructor(props: ChallengesWithTokensToRescueProps & InjectedTransactionStatusModalProps) {
-    super(props);
-    this.state = {
-      challengesToRescue: {},
-    };
-  }
+  public state = {
+    challengesToRescue: {},
+  };
 
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
   }
 
   public componentWillUnmount(): void {
-    this.setState(() => ({ challengesToRescue: {} }));
+    this.resetChallengesToMultiRescue();
   }
 
   public render(): JSX.Element {
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
+    const { resetChallengesToMultiRescue } = this;
+    const { userChallengeData: allUserChallengeData } = this.props;
 
     return (
       <>
@@ -96,30 +105,73 @@ class ChallengesWithTokensToRescue extends React.Component<
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
 
-        {this.props.challenges.map((c: string) => (
-          <ActivityListItemRescueTokens key={c} challengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
-        ))}
+        <Tabs
+          TabComponent={StyledDashboardSubTab}
+          TabsNavComponent={StyledTabsComponent}
+          onActiveTabChange={resetChallengesToMultiRescue}
+        >
+          <Tab title="Listing Challenges">
+            <>
+              {this.props.challenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
 
-        {this.props.appealChallenges.map((c: string) => (
-          <ActivityListItemRescueTokens key={c} appealChallengeID={c!} toggleSelect={this.setChallengesToMultiRescue} />
-        ))}
-
-        {this.props.proposalChallenges.map((c: string) => (
-          <ActivityListItemRescueTokens
-            key={c}
-            isProposalChallenge={true}
-            challengeID={c!}
-            toggleSelect={this.setChallengesToMultiRescue}
-          />
-        ))}
+              {this.props.appealChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      appealChallengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
+            </>
+          </Tab>
+          <Tab title="Parameter Proposal Challenges">
+            <>
+              {this.props.proposalChallenges
+                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                .map((c: string) => {
+                  let userChallengeData;
+                  if (allUserChallengeData) {
+                    userChallengeData = allUserChallengeData.get(c!);
+                  }
+                  return (
+                    <RescueTokensItem
+                      key={c}
+                      isProposalChallenge={true}
+                      challengeID={c!}
+                      queryUserChallengeData={userChallengeData}
+                      toggleSelect={this.setChallengesToMultiRescue}
+                    />
+                  );
+                })}
+            </>
+          </Tab>
+        </Tabs>
 
         <StyledBatchButtonContainer>
-          <TransactionButtonNoModal
-            disabled={isRescueTokensButtonDisabled}
-            transactions={transactions}
-            disabledOnMobile={true}
-            onMobileClick={this.props.onMobileTransactionClick}
-          >
+          <TransactionButtonNoModal disabled={isRescueTokensButtonDisabled} transactions={transactions}>
             Rescue Tokens
           </TransactionButtonNoModal>
         </StyledBatchButtonContainer>
@@ -160,6 +212,9 @@ class ChallengesWithTokensToRescue extends React.Component<
             isTransactionProgressModalOpen: false,
             isTransactionSuccessModalOpen: true,
           });
+          if (this.props.refetchUserChallengeData) {
+            this.props.refetchUserChallengeData();
+          }
         },
         handleTransactionError: this.props.handleTransactionError,
       },
@@ -178,6 +233,10 @@ class ChallengesWithTokensToRescue extends React.Component<
         challengesToRescue: { ...newChallengesToRescue },
       }));
     }
+  };
+
+  private resetChallengesToMultiRescue = (): void => {
+    this.setState(() => ({ challengesToRescue: {} }));
   };
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {

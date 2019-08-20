@@ -6,7 +6,7 @@ export interface TutorialFooterProps {
   floatRight?: boolean;
 }
 
-export const TutorialFooter: React.StatelessComponent<TutorialFooterProps> = props => {
+export const TutorialFooter: React.FunctionComponent<TutorialFooterProps> = props => {
   return (
     <TutorialFooterFull questionResult={props.questionResult}>
       <TutorialFooterWrap floatRight={props.floatRight}>{props.children}</TutorialFooterWrap>

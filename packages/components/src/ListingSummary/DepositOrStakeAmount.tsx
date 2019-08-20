@@ -3,7 +3,7 @@ import { ListingSummaryComponentProps } from "./types";
 import { MetaRow, MetaItemValue, MetaItemLabel } from "./styledComponents";
 import { AmountDepositedLabelText, AmountStakedChallengeLabelText } from "./textComponents";
 
-const DepositOrStakeAmount: React.SFC<ListingSummaryComponentProps> = props => {
+const DepositOrStakeAmount: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   if (
     props.inChallengeCommitVotePhase ||
     props.isInAppealChallengeCommitPhase ||
@@ -21,7 +21,7 @@ const DepositOrStakeAmount: React.SFC<ListingSummaryComponentProps> = props => {
   return null;
 };
 
-const UnstakedDeposit: React.SFC<ListingSummaryComponentProps> = props => {
+const UnstakedDeposit: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   if (!props.unstakedDeposit && !props.isWhitelisted) {
     return null;
   }
@@ -35,7 +35,7 @@ const UnstakedDeposit: React.SFC<ListingSummaryComponentProps> = props => {
   );
 };
 
-const ChallengeStake: React.SFC<ListingSummaryComponentProps> = props => {
+const ChallengeStake: React.FunctionComponent<ListingSummaryComponentProps> = props => {
   if (!props.challengeStake) {
     return null;
   }

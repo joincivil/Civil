@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 export enum userActions {
   ADD_USER = "ADD_USER",

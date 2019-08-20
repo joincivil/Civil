@@ -2,123 +2,52 @@ import * as React from "react";
 import {
   FlexColumnsPrimaryModule,
   TokenBtns,
-  TokenBtnsInverted,
   TokenBuySection,
-  TokenBuyIntro,
-  TokenAirswapSection,
-  TokenOrBreak,
-  TokenExchangeSection,
-  TokenThanksPurchase,
-  TokenUnlock,
+  TokenBuySellTab,
+  TokenBuySellTabsNav,
 } from "./TokensStyledComponents";
-import {
-  TokenBuyText,
-  TokenBuyTextDisabled,
-  TokenBuyFoundationBtnText,
-  TokenBuyBtnDisabledText,
-  TokenAirswapFoundationText,
-  TokenAirswapExchangeText,
-  TokenBuyExchangeBtnText,
-  TokenOrText,
-  TokenThanksText,
-  TokenUnlockText,
-  TokenUnlockBtnText,
-} from "./TokensTextComponents";
-import { AirswapBuyCVL } from "../Airswap/AirswapBuyCVL";
-import { UsdEthCvlConverter } from "../CurrencyConverter/UsdEthCvlConverter";
+import { TokenBuyTextDisabled, TokenBuyBtnDisabledText } from "./TokensTextComponents";
 import { TOKEN_PROGRESS } from "./Tokens";
+import { Tabs, Tab } from "../Tabs";
+import { TokensTabBuy } from "./buy/TokensTabBuy";
+import { TokensTabSell } from "./sell/TokensTabSell";
 
 export interface TokenAccountBuyProps {
   foundationAddress: string;
   network: string;
-  faqUrl: string;
-  step?: string;
+  step: string;
 }
 
-export interface TokenAccountBuyStates {
-  step?: string;
-}
+export const UserTokenAccountBuy: React.FunctionComponent<TokenAccountBuyProps> = props => {
+  const { foundationAddress, network, step } = props;
 
-export class UserTokenAccountBuy extends React.Component<TokenAccountBuyProps, TokenAccountBuyStates> {
-  constructor(props: any) {
-    super(props);
-    this.state = { step: this.props.step };
+  if (step === TOKEN_PROGRESS.DISABLED) {
+    return (
+      <FlexColumnsPrimaryModule padding={true}>
+        <TokenBuySection>
+          <TokenBuyTextDisabled />
+          <TokenBtns disabled={true}>
+            <TokenBuyBtnDisabledText />
+          </TokenBtns>
+        </TokenBuySection>
+      </FlexColumnsPrimaryModule>
+    );
   }
 
-  public render(): JSX.Element | null {
-    const { foundationAddress, network, faqUrl } = this.props;
-    const { step } = this.state;
-    let tokenSection;
-
-    if (step === TOKEN_PROGRESS.DISABLED) {
-      tokenSection = (
-        <FlexColumnsPrimaryModule padding={true}>
+  return (
+    <FlexColumnsPrimaryModule padding={true}>
+      <Tabs TabComponent={TokenBuySellTab} TabsNavComponent={TokenBuySellTabsNav}>
+        <Tab title="Buy">
           <TokenBuySection>
-            <TokenBuyTextDisabled />
-            <TokenBtns disabled={true}>
-              <TokenBuyBtnDisabledText />
-            </TokenBtns>
+            <TokensTabBuy foundationAddress={foundationAddress} network={network} />
           </TokenBuySection>
-        </FlexColumnsPrimaryModule>
-      );
-    } else if (step === TOKEN_PROGRESS.ACTIVE) {
-      tokenSection = (
-        <>
-          <FlexColumnsPrimaryModule padding={true}>
-            <TokenBuySection>
-              <TokenBuyIntro>
-                <TokenBuyText />
-              </TokenBuyIntro>
-
-              <TokenAirswapSection>
-                <>
-                  <TokenAirswapFoundationText />
-                  <UsdEthCvlConverter currencyLabelLeft={"Enter amount of USD"} currencyLabelRight={"Amount of ETH"} />
-                  <AirswapBuyCVL
-                    network={network}
-                    buyCVLBtnText={<TokenBuyFoundationBtnText />}
-                    buyFromAddress={foundationAddress}
-                    onComplete={this.onBuyComplete}
-                  />
-                </>
-
-                <TokenOrBreak>
-                  <TokenOrText />
-                </TokenOrBreak>
-
-                <TokenExchangeSection>
-                  <TokenAirswapExchangeText />
-                  <AirswapBuyCVL network={network} buyCVLBtnText={<TokenBuyExchangeBtnText />} />
-                </TokenExchangeSection>
-              </TokenAirswapSection>
-            </TokenBuySection>
-          </FlexColumnsPrimaryModule>
-        </>
-      );
-    } else {
-      tokenSection = (
-        <>
-          <FlexColumnsPrimaryModule padding={true}>
-            <TokenBuySection>
-              <TokenThanksPurchase>
-                <TokenThanksText faqUrl={faqUrl} />
-              </TokenThanksPurchase>
-              <TokenUnlock>
-                <TokenUnlockText />
-                <TokenBtnsInverted to="/dashboard/tasks/transfer-voting-tokens">
-                  <TokenUnlockBtnText />
-                </TokenBtnsInverted>
-              </TokenUnlock>
-            </TokenBuySection>
-          </FlexColumnsPrimaryModule>
-        </>
-      );
-    }
-
-    return tokenSection;
-  }
-
-  private onBuyComplete = () => {
-    this.setState({ step: TOKEN_PROGRESS.COMPLETED });
-  };
-}
+        </Tab>
+        <Tab title="Sell">
+          <TokenBuySection>
+            <TokensTabSell network={network} />
+          </TokenBuySection>
+        </Tab>
+      </Tabs>
+    </FlexColumnsPrimaryModule>
+  );
+};

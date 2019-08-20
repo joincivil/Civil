@@ -38,34 +38,30 @@ const StyledReadyToCompleteStatus = styled(StyledBaseStatus)`
   color: ${colors.basic.WHITE};
 `;
 
-export const AwaitingApprovalStatusLabel: React.SFC = props => {
+export const AwaitingApprovalStatusLabel: React.FunctionComponent = props => {
   return <StyledAwaitingStatuslabel>Awaiting Approval</StyledAwaitingStatuslabel>;
 };
 
-export const AwaitingAppealRequestLabel: React.SFC = props => {
-  return <StyledAwaitingAppealStatuslabel>Requesting Appeal</StyledAwaitingAppealStatuslabel>;
+export const AwaitingAppealRequestLabel: React.FunctionComponent = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Request to Appeal</StyledAwaitingStatuslabel>;
 };
 
-export const AwaitingDecisionStatusLabel: React.SFC = props => {
-  return <StyledAwaitingStatuslabel>Awaiting Decision</StyledAwaitingStatuslabel>;
+export const AwaitingDecisionStatusLabel: React.FunctionComponent = props => {
+  return <StyledAwaitingStatuslabel>Awaiting Council Decision</StyledAwaitingStatuslabel>;
 };
 
-export const AwaitingAppealChallengeStatusLabel: React.SFC = props => {
+export const AwaitingAppealChallengeStatusLabel: React.FunctionComponent = props => {
   return <StyledAwaitingAppealStatuslabel>Challenge Council Decision</StyledAwaitingAppealStatuslabel>;
 };
 
-export const CommitVoteStatusLabel: React.SFC = props => {
+export const CommitVoteStatusLabel: React.FunctionComponent = props => {
   return <StyledCommitVoteStatus>Submit Vote</StyledCommitVoteStatus>;
 };
 
-export const RevealVoteStatusLabel: React.SFC = props => {
+export const RevealVoteStatusLabel: React.FunctionComponent = props => {
   return <StyledRevealVoteStatus>Confirm Vote</StyledRevealVoteStatus>;
 };
 
-export const RequestingAppealStatusLabel: React.SFC = props => {
-  return <StyledAwaitingAppealStatuslabel>Requesting Appeal</StyledAwaitingAppealStatuslabel>;
-};
-
-export const ReadyToCompleteStatusLabel: React.SFC = props => {
+export const ReadyToCompleteStatusLabel: React.FunctionComponent = props => {
   return <StyledReadyToCompleteStatus>Ready To Update</StyledReadyToCompleteStatus>;
 };

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { colors } from "../styleConstants";
 
-export const ArticleSignPanelIcon: React.SFC = props => {
+export const ArticleSignPanelIcon: React.FunctionComponent = props => {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
       <g fill="none" fillRule="evenodd" opacity=".3">

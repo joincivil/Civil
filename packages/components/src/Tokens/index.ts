@@ -1,5 +1,4 @@
 export * from "./Tokens";
-export * from "./TokensAccountHeader";
 export * from "./TokensAccountHelp";
 export * from "./TokensAccountRequirement";
 export * from "./TokensAccountSignup";
@@ -9,3 +8,4 @@ export * from "./TokensAccountFaq";
 export * from "./TokensAccountProgress";
 export * from "./TokensStyledComponents";
 export * from "./TokensTextComponents";
+export * from "./TokensAccountPaypal";

@@ -8,25 +8,21 @@ import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { State } from "../../redux/reducers";
 import { NewsroomListing } from "@joincivil/core";
-import { StyledListingCopy } from "../utility/styledComponents";
+import { RejectedTabDescription } from "./TabDescriptions";
 
 export interface RejectedListingsListReduxReduxProps {
   rejectedListings: Set<NewsroomListing>;
   loadingFinished: boolean;
 }
 
-const RejectedListingListRedux: React.SFC<RejectedListingsListReduxReduxProps> = props => {
+const RejectedListingListRedux = (props: RejectedListingsListReduxReduxProps) => {
   if (props.rejectedListings.count()) {
     return <ListingList ListingItemComponent={ListingSummaryRejectedComponent} listings={props.rejectedListings} />;
   }
 
   return (
     <>
-      <StyledListingCopy>
-        Rejected Newsrooms have been removed from the Civil Registry following a vote that they had violated the{" "}
-        <a href="https://civil.co/constitution/">Civil Constitution</a> in some way. Rejected Newsrooms can reapply to
-        the Registry at any time. <a href="#zendesk">Learn how</a>.
-      </StyledListingCopy>
+      <RejectedTabDescription />
       <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.REJECTED} />;
     </>
   );

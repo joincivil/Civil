@@ -1,8 +1,14 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import styled from "styled-components";
-import { EthAddress, ListingWrapper, WrappedChallengeData, AppealChallengeData } from "@joincivil/core";
+import {
+  EthAddress,
+  ListingWrapper,
+  WrappedChallengeData,
+  AppealChallengeData,
+  ParamPropChallengeData,
+} from "@joincivil/core";
 import {
   ChallengeResultsProps,
   ChallengePhaseProps,
@@ -16,7 +22,7 @@ import {
 import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
 import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
-import { makeGetLatestChallengeSucceededChallengeID } from "../../selectors";
+import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
@@ -32,6 +38,7 @@ export interface ListingContainerProps {
 
 export interface ChallengeContainerProps {
   challengeID?: BigNumber | string;
+  isProposalChallenge?: boolean;
 }
 
 export interface AppealChallengeContainerProps {
@@ -41,7 +48,9 @@ export interface AppealChallengeContainerProps {
 export interface ChallengeContainerReduxProps {
   challengeData?: WrappedChallengeData;
   appealChallengeData?: AppealChallengeData;
+  proposalChallengeData?: ParamPropChallengeData;
   challengeDataRequestStatus?: any;
+  challengeState?: any;
   dispensationPct?: any;
   user: EthAddress;
 }
@@ -66,7 +75,7 @@ export interface PhaseCountdownReduxProps {
 export const connectChallengeResults = <TOriginalProps extends ChallengeContainerProps>(
   PresentationComponent:
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
-    | React.StatelessComponent<TOriginalProps & ChallengeResultsProps>,
+    | React.FunctionComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const mapStateToProps = (
     state: State,
@@ -251,7 +260,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
 
   class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any>> {
     public render(): JSX.Element | null {
-      let displayLabel: string | React.SFC = "";
+      let displayLabel: string | React.FunctionComponent = "";
       let flavorText;
       let endTime = 0;
       let totalSeconds = 0;
@@ -332,7 +341,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     | React.ComponentClass<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >
-    | React.StatelessComponent<
+    | React.FunctionComponent<
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >,
 ) => {
@@ -351,12 +360,17 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         challengeData = challenges.get(challengeID.toString());
         challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
       }
+      let challengeState;
+      if (challengeData) {
+        challengeState = getChallengeState(challengeData);
+      }
       const userAcct = user.account;
       // Can't use spread here b/c of TS issue with spread and generics
       // https://github.com/Microsoft/TypeScript/pull/13288
       // tslint:disable-next-line:prefer-object-spread
       return Object.assign({}, ownProps, {
         challengeData,
+        challengeState,
         challengeID,
         challengeDataRequestStatus,
         user: userAcct.account,
@@ -381,14 +395,26 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(
-        this.props.challengeData && this.props.challengeData.challenge,
+        this.props.challengeData && (this.props.challengeData as any).challenge,
       ) as ChallengeResultsProps;
+      const { challengeState } = this.props;
+
+      let doesChallengeHaveAppeal;
+      let isAwaitingAppealJudgement;
+      if (challengeState) {
+        doesChallengeHaveAppeal = challengeState.doesChallengeHaveAppeal;
+        isAwaitingAppealJudgement = challengeState.isAwaitingAppealJudgement;
+      }
 
       let appealPhaseProps = {};
       if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
+        const { appeal } = this.props.challengeData.challenge;
         appealPhaseProps = {
+          appeal,
           appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
           appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
+          doesChallengeHaveAppeal,
+          isAwaitingAppealJudgement,
         };
       }
       let appealChallengePhaseProps = {};
@@ -454,7 +480,7 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
 export const connectChallengePhase = <TChallengeContainerProps extends ChallengeContainerProps>(
   PhaseCardComponent:
     | React.ComponentClass<TChallengeContainerProps & ChallengePhaseProps>
-    | React.StatelessComponent<TChallengeContainerProps & ChallengePhaseProps>,
+    | React.FunctionComponent<TChallengeContainerProps & ChallengePhaseProps>,
 ) => {
   const mapStateToProps = (
     state: State,

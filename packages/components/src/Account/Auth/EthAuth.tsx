@@ -12,9 +12,10 @@ import {
   ModalHeading,
   metaMaskSignImgUrl,
 } from "../../";
+import { CivilContext, ICivilContext } from "../../context";
 
 export interface AccountEthAuthProps {
-  civil: Civil;
+  civil?: Civil;
   buttonText?: string;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
@@ -40,6 +41,8 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
+
   private _isMounted?: boolean;
 
   constructor(props: AccountEthAuthProps) {
@@ -151,9 +154,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
     return (
       <MetaMaskModal
         alert={true}
-        bodyText={`Something went wrong when authenticating and saving your wallet address (${
-          this.state.errorMessage
-        }). Please try again later.`}
+        bodyText={`Something went wrong when authenticating and saving your wallet address (${this.state.errorMessage}). Please try again later.`}
         cancelTransaction={this.cancelTransaction}
       >
         <ModalHeading>Failed to save your wallet address</ModalHeading>
@@ -162,12 +163,17 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
   }
 
   private signTransactions = (userSetEthAddress: MutationFunc): Transaction[] => {
+    let { civil } = this.context;
+    if (this.props.civil) {
+      civil = this.props.civil;
+    }
+
     return [
       {
         transaction: async (): Promise<EthSignedMessage> => {
           this.setState({ isWaitingSignatureOpen: true, isSignRejectionOpen: false, errorMessage: undefined });
           const message = "I control this address @ " + new Date().toISOString();
-          return this.props.civil!.signMessage(message);
+          return civil!.signMessage(message);
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
           try {
