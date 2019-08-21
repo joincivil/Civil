@@ -52,7 +52,7 @@ const authSignupEthMutation = gql`
 
 export interface AuthWeb3SignUpProps {
   onAuthenticated?(address: EthAddress): void;
-  onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
+  onSignupContinue?(): void;
 }
 
 const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps> = props => {
@@ -62,7 +62,7 @@ const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps
         authMutation={authSignupEthMutation}
         messagePrefix="Sign up with Civil"
         buttonText={ethereumSignupButtonContent}
-        onAuthenticationContinue={props.onAuthenticationContinue}
+        onSignupContinue={props.onSignupContinue}
       />
     </StyledCardTransactionButtonContainer>
   );
@@ -93,7 +93,7 @@ const AuthWeb3SignupComponent: React.FunctionComponent<AuthWeb3SignUpProps & Aut
         if (!hasInjectedProvider()) {
           return <ShowWalletOnboardingButtonComponent onClick={props.showWalletOnboarding} />;
         }
-        return <AuthWeb3SignupButtonComponent onAuthenticationContinue={props.onAuthenticationContinue} />;
+        return <AuthWeb3SignupButtonComponent onSignupContinue={props.onSignupContinue} />;
       })()}
 
       <StyledAuthAltOption>
@@ -123,7 +123,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
               <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
               <StyledAuthHeaderCopy>Sign up to create an account</StyledAuthHeaderCopy>
               <AuthWeb3SignupComponent
-                onAuthenticationContinue={props.onAuthenticationContinue}
+                onSignupContinue={props.onSignupContinue}
                 showWalletOnboarding={showWalletOnboarding}
               />
               <StyledAuthFooterContainer>

@@ -38,7 +38,7 @@ const authLoginEthMutation = gql`
 
 export interface AuthWeb3LoginProps {
   onAuthenticated?(address: EthAddress): void;
-  onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
+  onSignupContinue?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -53,7 +53,7 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
           authMutation={authLoginEthMutation}
           messagePrefix="Log in to Civil"
           buttonText={ethereumLoginButtonContent}
-          onAuthenticationContinue={props.onAuthenticationContinue}
+          onSignupContinue={props.onSignupContinue}
           {...props}
         />
       </StyledCardTransactionButtonContainer>
@@ -71,7 +71,7 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
     <Dropdown target={target}>
       <div>
         <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+        <AuthWeb3LoginComponent onSignupContinue={props.onSignupContinue} />
       </div>
     </Dropdown>
   );
@@ -83,7 +83,7 @@ const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => 
       <Helmet title={`Login - The Civil Registry`} />
       <div>
         <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+        <AuthWeb3LoginComponent onSignupContinue={props.onSignupContinue} />
       </div>
     </StyledPageContentWithPadding>
   );

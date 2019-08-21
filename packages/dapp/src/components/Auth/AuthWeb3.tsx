@@ -20,7 +20,7 @@ export interface AuthWeb3Props {
   buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
-  onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
+  onSignupContinue?(): void;
 }
 
 export interface AuthWeb3State {
@@ -147,8 +147,10 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     return [
       {
         transaction: async (): Promise<EthSignedMessage> => {
+          console.log("transaction 1");
           this.setState({ isWaitingSignatureOpen: true, isSignRejectionOpen: false, errorMessage: undefined });
           const message = `${this.props.messagePrefix} @ ${new Date().toISOString()}`;
+          console.log("transaction 2");
           return civil!.signMessage(message);
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
@@ -166,8 +168,8 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
-              if (this.props.onAuthenticationContinue) {
-                this.props.onAuthenticationContinue();
+              if (this.props.onSignupContinue) {
+                this.props.onSignupContinue();
               }
               if (this._isMounted) {
                 // A bit of an antipattern, but cancelling async/await is hard
