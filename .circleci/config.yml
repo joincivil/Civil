@@ -12,13 +12,13 @@ jobs:
             - checkout
             - restore_cache:
                 name: Restore yarn cache
-                key: node-modules-{{ .Branch }}-{{ checksum "yarn.lock" }}
+                key: node-modules-{{ checksum "yarn.lock" }}
             - run:
                 name: Install modules
                 command: yarn --frozen-lockfile install
             - save_cache:
                 name: Save yarn cache
-                key: node-modules--{{ .Branch }}-{{ checksum "yarn.lock" }}
+                key: node-modules-{{ checksum "yarn.lock" }}
                 paths:
                     - node_modules
             - run:
@@ -52,8 +52,9 @@ jobs:
                 name: Running migrations
                 command: yarn lerna run --scope=@joincivil/contracts migrate:ganache
             - run:
-                name: Running tests
-                command: yarn test
+                name: Running tests (except contracts)
+                command: |
+                    yarn test
     coverage:
         <<: *defaults
         steps:
