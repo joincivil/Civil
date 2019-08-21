@@ -108,8 +108,6 @@ export class EthApi {
   }
 
   public async getAccount(): Promise<string | null> {
-    console.log("getAccount", this.web3.eth.defaultAccount);
-    // return requireAccount(this).toPromise()
     return this.web3.eth.defaultAccount;
   }
 
@@ -173,7 +171,6 @@ export class EthApi {
       this.web3.eth
         .sendTransaction(txData)
         .once("transactionHash", hash => {
-          console.log("got a tx hash", hash);
           resolve(hash);
         })
         .catch(reject);
@@ -234,7 +231,6 @@ export class EthApi {
       console.log("found a weird bignumber:", amount);
       return bigNumberify(0);
     }
-    console.log("toBigNumber", amount, typeof amount, amount.toString());
     return bigNumberify(amount);
   }
   // public toBigNumber(numberOrHexString: number | string | BigNumber): any {
@@ -250,7 +246,6 @@ export class EthApi {
 
   public toWei(amount: number): BigNumber {
     const wei = this.web3.utils.toWei(amount.toString());
-    console.log("wei", wei);
     return this.toBigNumber(wei);
   }
 
@@ -270,16 +265,13 @@ export class EthApi {
     blockConfirmations: number = 1, // wait till the api says the current block is confirmed
   ): Promise<R> {
     while (true) {
-      console.log("awaitReceipt 1");
       const receipt = await this.getReceipt<R>(txHash);
       if (!receipt) {
-        console.log("no receipt yet");
         // TODO(ritave): Move to pending block parsing instead of polling
         await delay(POLL_MILLISECONDS);
         continue;
       }
 
-      console.log("got receipt", receipt);
       this.checkForEvmException(receipt);
       await this.awaitConfirmations(receipt.blockNumber, blockConfirmations);
       return receipt;
@@ -289,9 +281,7 @@ export class EthApi {
   public async awaitConfirmations(startblock: number, confirmations: number): Promise<void> {
     while (true) {
       const confirmationsSoFar = await this.getConfirmations(startblock);
-      console.log("confirmationsSoFar", confirmationsSoFar, confirmations);
       if (confirmationsSoFar >= confirmations) {
-        console.log("boom");
         return;
       } else {
         await delay(POLL_MILLISECONDS);
@@ -341,14 +331,12 @@ export class EthApi {
     // tslint:disable-next-line
     // https://ethereum.stackexchange.com/questions/28077/how-do-i-detect-a-failed-transaction-after-the-byzantium-fork-as-the-revert-opco/28078#28078
     // Pre-Bizantium, let's just throw, Civil didn't exist before Bizantium
-    console.log("checking receipt", receipt);
     if (receipt.status === null) {
       debug("Warning: Pre-Bizantium block, not supported");
       throw new Error(CivilErrors.EvmException);
     }
 
     if (receipt.status === false) {
-      console.log("bad news bears");
       throw new Error(CivilErrors.EvmException);
     }
   }
