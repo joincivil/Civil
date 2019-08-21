@@ -18,6 +18,7 @@ import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownEr
 export interface SetEmailMutationVariables {
   emailAddress: string;
   channelID: string;
+  addToMailing: boolean;
 }
 
 export interface AuthSignupEmailSendResult {

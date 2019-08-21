@@ -100,7 +100,6 @@ class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>
           const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
           const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
           const showSetHandle = civilUser && civilUser.uid && civilUser.userChannel && !civilUser.userChannel.handle;
-          console.log("SHOW SET HANDLE: ", showSetHandle);
           return (
             <>
               <NavBar {...navBarViewProps} civilUser={civilUser} />
