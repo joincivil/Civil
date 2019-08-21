@@ -18,7 +18,7 @@ import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownEr
 export interface SetEmailMutationVariables {
   emailAddress: string;
   channelID: string;
-  addToMailing: boolean;
+  // addToMailing: boolean;
 }
 
 export interface AuthSignupEmailSendResult {
@@ -192,9 +192,9 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     try {
       const variables: SetEmailMutationVariables = { emailAddress, channelID };
 
-      if (isNewUser) {
-        variables.addToMailing = hasSelectedToAddToNewsletter;
-      }
+      // if (isNewUser) {
+      //   variables.addToMailing = hasSelectedToAddToNewsletter;
+      // }
       const res: any = await mutation({
         variables,
         refetchQueries: [
