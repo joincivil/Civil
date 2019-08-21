@@ -67,7 +67,7 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
         uri = "https://graphql.civil.co/v1/query";
         break;
       case 4:
-        uri = "https://graphql.staging.civil.app/v1/query";
+        uri = "http://localhost:8080/v1/query";
         break;
       case 50:
         uri = "http://localhost:8080/v1/query";
@@ -166,6 +166,7 @@ export const getCurrentUserQuery = gql`
       }
       userChannel {
         handle
+        id
       }
     }
   }

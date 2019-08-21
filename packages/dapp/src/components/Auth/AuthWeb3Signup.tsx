@@ -2,7 +2,13 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import { MetaMaskFrontIcon, AuthFooterContainer, WalletOnboardingV2, CardClickable } from "@joincivil/components";
+import {
+  MetaMaskFrontIcon,
+  AuthFooterContainer,
+  WalletOnboardingV2,
+  CardClickable,
+  Modal,
+} from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 import { urlConstants as links } from "@joincivil/utils";
 import { hasInjectedProvider } from "@joincivil/ethapi";
@@ -111,8 +117,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
   };
 
   return (
-    <StyledPageContentWithPadding centerContent={true}>
-      <Helmet title={`Sign up - The Civil Registry`} />
+    <Modal width={558}>
       <div>
         {(() => {
           if (isWalletOnboardingVisible) {
@@ -134,7 +139,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
           );
         })()}
       </div>
-    </StyledPageContentWithPadding>
+    </Modal>
   );
 };
 

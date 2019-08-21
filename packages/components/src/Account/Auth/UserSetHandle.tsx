@@ -9,13 +9,13 @@ import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownEr
 import { LoadUser } from "../LoadUser";
 
 export interface UserSetHandleMutationVariables {
-  Handle: string;
-  UserID: string;
+  handle: string;
+  channelID: string;
 }
 
 const setHandleMutation = gql`
-  mutation($input: UserChannelSetHandleInput!) {
-    userChannelSetHandle(input: $input) {
+  mutation($input: ChannelsSetHandleInput!) {
+    channelsSetHandle(input: $input) {
       id
     }
   }
@@ -30,7 +30,7 @@ export interface UserSetHandleSendResult {
 
 export interface UserSetHandleAuthProps {
   headerComponent?: JSX.Element;
-  userID: string;
+  channelID: string;
 }
 
 export type UserSetHandleError = "unknown" | "emailexists" | "emailnotfound" | undefined;
@@ -54,16 +54,16 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
   }
 
   public renderHandleInput(): JSX.Element {
-    const { Handle } = this.state;
+    const { handle } = this.state;
 
-    const isValid = isValidHandle(Handle);
+    const isValid = isValidHandle(handle);
     return (
       <TextInput
         placeholder="username"
         noLabel
         type="text"
         name="username"
-        value={Handle}
+        value={handle}
         invalidMessage={isValid ? undefined : "Please enter a valid username."}
         invalid={!isValid}
         onChange={(_, value) => this.setState({ handle: value, hasBlurred: false, isValid })}
@@ -93,47 +93,39 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     const isButtonDisabled = !this.state.isValid; // TODO (validate)
 
     return (
-      <LoadUser>
-        {({ loading, user }) => {
-          if (loading) {
-            return <></>;
-          }
-          return (
-            <>
-              {this.renderAuthError()}
-              {headerComponent}
-              <Mutation mutation={setHandleMutation}>
-                {setHandle => {
-                  return (
-                    <form onSubmit={async event => this.handleSubmit(event, setHandle, user.uid)}>
-                      {this.renderHandleInput()}
-                      <ConfirmButtonContainer>
-                        <Button
-                          size={buttonSizes.SMALL_WIDE}
-                          textTransform={"none"}
-                          disabled={isButtonDisabled}
-                          type={"submit"}
-                        >
-                          Confirm
-                        </Button>
-                      </ConfirmButtonContainer>
-                    </form>
-                  );
-                }}
-              </Mutation>
-            </>
-          );
-        }}
-      </LoadUser>
+      <>
+        {this.renderAuthError()}
+        {headerComponent}
+        <Mutation mutation={setHandleMutation}>
+          {setHandle => {
+            return (
+              <form onSubmit={async event => this.handleSubmit(event, setHandle)}>
+                {this.renderHandleInput()}
+                <ConfirmButtonContainer>
+                  <Button
+                    size={buttonSizes.SMALL_WIDE}
+                    textTransform={"none"}
+                    disabled={isButtonDisabled}
+                    type={"submit"}
+                  >
+                    Confirm
+                  </Button>
+                </ConfirmButtonContainer>
+              </form>
+            );
+          }}
+        </Mutation>
+      </>
     );
   }
 
-  private async handleSubmit(event: React.FormEvent, mutation: MutationFn, userID: string): Promise<void> {
+  private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
     const { handle } = this.state;
+    const { channelID } = this.props;
 
     if (!isValidHandle(handle)) {
       return;
@@ -144,7 +136,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
       const res: any = await mutation({
         variables: {
-          input: { userID, handle },
+          input: { channelID, handle },
         },
         refetchQueries: [
           {

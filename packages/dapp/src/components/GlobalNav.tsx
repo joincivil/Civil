@@ -50,7 +50,7 @@ class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>
     return (
       <LoadUser>
         {({ user: civilUser }) => {
-          console.log("user 2: ", civilUser);
+          console.log("load user 7");
           const {
             balance,
             votingBalance,
@@ -103,10 +103,10 @@ class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>
           console.log("SHOW SET HANDLE: ", showSetHandle);
           return (
             <>
-              <NavBar {...navBarViewProps} />
+              <NavBar {...navBarViewProps} civilUser={civilUser} />
               {showWeb3Signup && <AuthWeb3Signup onSignupContinue={this.handleOnSignupContinue} />}
               {showWeb3Login && <AuthWeb3Login onSignupContinue={this.handleOnLoginContinue} />}
-              {showSetHandle && <SetUsername />}
+              {showSetHandle && <SetUsername channelID={civilUser.userChannel.id} />}
             </>
           );
         }}

@@ -39,76 +39,67 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
     applyURL,
     onLoginPressed,
     onSignupPressed,
+    civilUser,
   } = props;
 
+  if (civilUser && userEthAddress) {
+    const userAccountElRef = React.createRef<HTMLDivElement>();
+    let child;
+
+    if (props.children) {
+      child = React.cloneElement(props.children as React.ReactElement, {
+        userAccountElRef,
+      });
+    }
+
+    return (
+      <>
+        <StyledVisibleIfLoggedInLink>
+          <NavLink to="/dashboard">
+            <NavLinkDashboardText />
+          </NavLink>
+        </StyledVisibleIfLoggedInLink>
+        <div ref={userAccountElRef}>
+          <NavUser onClick={ev => props.toggleDrawer()}>
+            <CvlContainer>
+              <CvlToken />
+              <BalancesContainer>
+                <UserCvlBalance>{balance}</UserCvlBalance>
+                <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
+              </BalancesContainer>
+              <AvatarContainer>
+                <UserAvatar />
+                <Arrow isOpen={props.isUserDrawerOpen} />
+              </AvatarContainer>
+            </CvlContainer>
+          </NavUser>
+        </div>
+
+        {child}
+      </>
+    );
+  } else if (civilUser && enableEthereum && !userEthAddress) {
+    return (
+      <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
+        Connect Wallet
+      </LogInButton>
+    );
+  }
+
+  let memberBtnProps: any = { href: joinAsMemberUrl };
+  if (joinAsMemberUrl.charAt(0) === "/") {
+    memberBtnProps = { to: joinAsMemberUrl };
+  }
+  let applyBtnProps: any = { href: applyURL };
+  if (applyURL.charAt(0) === "/") {
+    applyBtnProps = { to: applyURL };
+  }
+
   return (
-    <LoadUser>
-      {({ loading, user: civilUser }) => {
-        if (loading) {
-          return null;
-        }
-
-        if (civilUser && userEthAddress) {
-          const userAccountElRef = React.createRef<HTMLDivElement>();
-          let child;
-
-          if (props.children) {
-            child = React.cloneElement(props.children as React.ReactElement, {
-              userAccountElRef,
-            });
-          }
-
-          return (
-            <>
-              <StyledVisibleIfLoggedInLink>
-                <NavLink to="/dashboard">
-                  <NavLinkDashboardText />
-                </NavLink>
-              </StyledVisibleIfLoggedInLink>
-              <div ref={userAccountElRef}>
-                <NavUser onClick={ev => props.toggleDrawer()}>
-                  <CvlContainer>
-                    <CvlToken />
-                    <BalancesContainer>
-                      <UserCvlBalance>{balance}</UserCvlBalance>
-                      <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
-                    </BalancesContainer>
-                    <AvatarContainer>
-                      <UserAvatar />
-                      <Arrow isOpen={props.isUserDrawerOpen} />
-                    </AvatarContainer>
-                  </CvlContainer>
-                </NavUser>
-              </div>
-
-              {child}
-            </>
-          );
-        } else if (civilUser && enableEthereum && !userEthAddress) {
-          return (
-            <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
-              Connect Wallet
-            </LogInButton>
-          );
-        }
-
-        let memberBtnProps: any = { href: joinAsMemberUrl };
-        if (joinAsMemberUrl.charAt(0) === "/") {
-          memberBtnProps = { to: joinAsMemberUrl };
-        }
-        let applyBtnProps: any = { href: applyURL };
-        if (applyURL.charAt(0) === "/") {
-          applyBtnProps = { to: applyURL };
-        }
-
-        return (
-          <>
-            <LogInButton onClick={onLoginPressed}>Log In</LogInButton>
-            <LogInButton onClick={onSignupPressed}>Sign Up</LogInButton>
-          </>
-        );
-      }}
-    </LoadUser>
+    <>
+      <LogInButton onClick={onLoginPressed}>Log In</LogInButton>
+      <LogInButton onClick={onSignupPressed}>Sign Up</LogInButton>
+    </>
   );
 };
 
