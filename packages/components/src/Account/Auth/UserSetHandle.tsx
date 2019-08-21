@@ -40,24 +40,24 @@ export interface UserSetHandleAuthState {
   Handle: string;
   errorMessage: UserSetHandleError;
   hasBlurred: boolean;
+  isValid: boolean;
 }
 
 export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserSetHandleAuthState> {
   constructor(props: UserSetHandleAuthProps) {
     super(props);
-    console.log("constructor 1");
     this.state = {
       Handle: "",
       errorMessage: undefined,
       hasBlurred: false,
+      isValid: false,
     };
   }
 
   public renderHandleInput(): JSX.Element {
-    const { Handle, hasBlurred } = this.state;
+    const { Handle } = this.state;
 
-    const isValid = !hasBlurred || isValidHandle(Handle);
-    console.log("render email input 1");
+    const isValid = isValidHandle(Handle);
     return (
       <TextInput
         placeholder="username"
@@ -67,7 +67,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
         value={Handle}
         invalidMessage={isValid ? undefined : "Please enter a valid username."}
         invalid={!isValid}
-        onChange={(_, value) => this.setState({ Handle: value, hasBlurred: false })}
+        onChange={(_, value) => this.setState({ Handle: value, hasBlurred: false, isValid })}
         onBlur={() => this.setState({ hasBlurred: true })}
       />
     );
@@ -83,16 +83,15 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     return (
       <AuthErrorMessage>
         <AuthTextUnknownError />
-        <>errorMessage</>
+        <>{errorMessage}</>
       </AuthErrorMessage>
     );
   }
 
   public render(): JSX.Element {
-    console.log("RENDER 1");
     const { headerComponent } = this.props;
 
-    const isButtonDisabled = false; // TODO (validate)
+    const isButtonDisabled = !this.state.isValid; // TODO (validate)
 
     return (
       <LoadUser>
@@ -100,7 +99,6 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
           if (loading) {
             return <></>;
           }
-          console.log("user: ", user);
           return (
             <>
               {this.renderAuthError()}
