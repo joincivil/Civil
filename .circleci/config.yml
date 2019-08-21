@@ -24,26 +24,12 @@ jobs:
             - run:
                 name: Building
                 command:  yarn build
-            - persist_to_workspace:
-                root: ../
-                paths:
-                    - project/
-    lint:
-        <<: *defaults
-        steps:
-            - attach_workspace:
-                at: ../
             - run:
                 name: Ensuring prettified
                 command: yarn prettier
             - run:
                 name: Linting
                 command: yarn lint
-    test:
-        <<: *defaults
-        steps:
-            - attach_workspace:
-                at: ../
             - run:
                 name: Starting Ganache
                 command: yarn ganache:raw
@@ -55,6 +41,10 @@ jobs:
                 name: Running tests (except contracts)
                 command: |
                     yarn test
+            - run:
+                name: Releasing
+                command: |
+                    yarn release
     coverage:
         <<: *defaults
         steps:
@@ -212,22 +202,6 @@ workflows:
                         ignore:
                             - master
                             - production
-            - test:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - production
-                requires:
-                    - build
-            - lint:
-                filters:
-                    branches:
-                        ignore:
-                            - master
-                            - production
-                requires:
-                    - build
     deployment:
         jobs:
             - setup-gcp:
