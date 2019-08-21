@@ -20,14 +20,13 @@ const getBaseChallengeResults = (
   let votesAgainst = "";
   let percentFor = "";
   let percentAgainst = "";
-  const zero = new BigNumber(0);
   const hundred = new BigNumber(100);
 
   const totalVotesBN = challengeData.poll.votesAgainst.add(challengeData.poll.votesFor);
   totalVotes = getFormattedTokenBalance(totalVotesBN);
   votesFor = getFormattedTokenBalance(challengeData.poll.votesFor);
   votesAgainst = getFormattedTokenBalance(challengeData.poll.votesAgainst);
-  if (challengeData.poll.votesAgainst.eq(zero)) {
+  if (challengeData.poll.votesAgainst.isZero()) {
     percentFor = "100";
     percentAgainst = "0";
   } else {

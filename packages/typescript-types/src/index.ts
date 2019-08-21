@@ -4,8 +4,7 @@ import { Log, TransactionReceipt } from "web3/types";
 import { utils } from "ethers";
 
 export type BigNumber = utils.BigNumber;
-export const BigNumber = utils.BigNumber;
-export const bigNumberify = utils.bigNumberify;
+export const { BigNumber, bigNumberify, parseEther, formatEther, parseUnits, commify } = utils;
 
 import { ABIDefinition as AbiItem } from "web3/eth/abi";
 

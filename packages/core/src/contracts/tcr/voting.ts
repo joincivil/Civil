@@ -128,7 +128,6 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param numTokens number of tokens to deposit into voting contract
    */
   public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
-    console.log("requesting voting rights", numTokens.toString());
     return createTwoStepSimple(
       this.ethApi,
       await this.instance.requestVotingRights.sendTransactionAsync(numTokens.toString()),
@@ -149,7 +148,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
         console.log("can rescue tokens. pollID: " + pollID);
         res(true);
       } catch (ex) {
-        console.log("cannot rescue tokens bud. " + pollID);
+        console.log("cannot rescue tokens. pollID:" + pollID);
         res(false);
       }
     });
