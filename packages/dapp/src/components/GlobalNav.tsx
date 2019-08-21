@@ -26,6 +26,7 @@ import {
 import AuthWeb3Signup from "./Auth/AuthWeb3Signup";
 import AuthWeb3Login from "./Auth/AuthWeb3Login";
 import { Query } from "react-apollo";
+import SetUsername from "./Auth/SetUsername";
 
 export interface NavBarProps {
   balance: string;
@@ -47,9 +48,9 @@ class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>
   public render(): JSX.Element {
     const civil = this.context.civil;
     return (
-      <Query query={getCurrentUserQuery}>
-        {({ loading, error, data }) => {
-          console.log("data: ", data);
+      <LoadUser>
+        {({ user: civilUser }) => {
+          console.log("user 2: ", civilUser);
           const {
             balance,
             votingBalance,
@@ -98,22 +99,18 @@ class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>
 
           const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
           const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
-          const showSetHandle =
-            data &&
-            data.currentUser &&
-            data.currentUser.uid &&
-            data.currentUser.userChannel &&
-            !data.currentUser.userChannel.handle;
+          const showSetHandle = civilUser && civilUser.uid && civilUser.userChannel && !civilUser.userChannel.handle;
           console.log("SHOW SET HANDLE: ", showSetHandle);
           return (
             <>
               <NavBar {...navBarViewProps} />
               {showWeb3Signup && <AuthWeb3Signup onSignupContinue={this.handleOnSignupContinue} />}
               {showWeb3Login && <AuthWeb3Login onSignupContinue={this.handleOnLoginContinue} />}
+              {showSetHandle && <SetUsername />}
             </>
           );
         }}
-      </Query>
+      </LoadUser>
     );
   }
 
