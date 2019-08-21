@@ -1,7 +1,7 @@
 {
   "name": "@joincivil/dapp",
   "version": "0.9.11",
-  "homepage": "/",
+  "homepage": "https://registry.civil.co",
   "private": false,
   "dependencies": {
     "@joincivil/civil-sdk": "^1.21.4",
