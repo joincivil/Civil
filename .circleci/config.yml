@@ -54,7 +54,7 @@ jobs:
             - run:
                 name: Running tests (except contracts)
                 command: |
-                    yarn test-nocontracts
+                    yarn test
     coverage:
         <<: *defaults
         steps:
