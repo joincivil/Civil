@@ -85,13 +85,13 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
     const appealChallengeVotesFor = getFormattedTokenBalance(this.props.appealChallenge.poll.votesFor);
     const appealChallengeVotesAgainst = getFormattedTokenBalance(this.props.appealChallenge.poll.votesAgainst);
     const appealChallengePercentFor = this.props.appealChallenge.poll.votesFor
-      .div(appealChallengeTotalVotes)
       .mul(100)
-      .toFixed(0);
+      .div(appealChallengeTotalVotes)
+      .toString();
     const appealChallengePercentAgainst = this.props.appealChallenge.poll.votesAgainst
-      .div(appealChallengeTotalVotes)
       .mul(100)
-      .toFixed(0);
+      .div(appealChallengeTotalVotes)
+      .toString();
 
     const didAppealChallengeSucceed = getDidAppealChallengeSucceed(this.props.appealChallenge);
 

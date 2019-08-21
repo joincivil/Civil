@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, bigNumberify, formatEther } from "@joincivil/typescript-types";
 
 import { EthAddress, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
@@ -97,8 +97,8 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     } = this.props;
     const endTime = challenge.poll.commitEndDate.toNumber();
     const phaseLength = parameters[Parameters.pCommitStageLen];
-    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
-    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
+    const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));
     const tokenBalanceDisplay = balance ? getFormattedTokenBalance(balance) : "";
     const votingTokenBalanceDisplay = votingBalance ? getFormattedTokenBalance(votingBalance) : "";
     const userHasCommittedVote = userChallengeData && !!userChallengeData.didUserCommit;
@@ -173,13 +173,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
     percentFor = challenge.poll.votesFor
-      .div(totalVotesBN)
       .mul(100)
-      .toFixed(0);
+      .div(totalVotesBN)
+      .toString();
     percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotesBN)
       .mul(100)
-      .toFixed(0);
+      .div(totalVotesBN)
+      .toString();
 
     return (
       <ChallengeProposalResolve

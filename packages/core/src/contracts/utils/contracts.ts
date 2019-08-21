@@ -20,9 +20,6 @@ export interface EventOptions {
 
 export function findEvent<T extends DecodedLogEntry>(tx: TransactionReceipt, eventName: string): T | undefined {
   if (tx.events && tx.events[eventName]) {
-    console.log("findEvent", tx.events[eventName]);
-    // TODO(dankins): ignoring typescript error, make sure this works
-    // @ts-ignore
     return tx.events[eventName] as T | undefined;
   }
   // return tx.events!.find(log => isDecodedLog(log) && log.event === eventName) as T | undefined;
@@ -41,7 +38,6 @@ export function findEvents<T extends DecodedLogEntry>(tx: TransactionReceipt, ev
 }
 
 export function isContract<T extends Contract>(what: any): what is T {
-  console.log("isContract", what);
   // TODO(dankins): ignoring typescript error, make sure this works
   // @ts-ignore
   return (what as T).abi !== undefined;
@@ -86,7 +82,6 @@ export function streamifyEvent<A, L extends DecodedLogEntryEvent<A>>(
             subscriber.complete();
           })
           .catch(err => {
-            console.log("!!error toBlock", err);
             subscriber.error(err);
           });
       } else {
@@ -97,7 +92,6 @@ export function streamifyEvent<A, L extends DecodedLogEntryEvent<A>>(
             subscriber.next(event);
           })
           .on("error", (err: Error) => {
-            console.log("!!error", err);
             subscriber.error(err);
             subscriber.complete();
           });

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, formatEther, bigNumberify, parseEther } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   AppealChallengeCommitVoteCard as AppealChallengeCommitVoteCardComponent,
@@ -132,12 +132,13 @@ class AppealChallengeCommitVote extends React.Component<
     const endTime = appealChallenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
 
-    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
-    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
+    const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));
     const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
     const votingTokenBalanceDisplay = this.props.votingBalance
       ? getFormattedTokenBalance(this.props.votingBalance)
       : "";
+
     const salt = fetchSalt(this.props.challengeID, this.props.user);
 
     const userHasCommittedVote =
@@ -181,10 +182,7 @@ class AppealChallengeCommitVote extends React.Component<
     } else {
       numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const numTokensString = numTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
+    const numTokensString = formatEther(numTokens);
     this.setState(() => ({ numTokens: numTokensString }));
   }
 
@@ -295,7 +293,7 @@ class AppealChallengeCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens = parseEther(this.state.numTokens!);
     return approveVotingRightsForCommit(numTokens);
   };
 
@@ -304,7 +302,7 @@ class AppealChallengeCommitVote extends React.Component<
     const pollID = this.props.appealChallengeID;
     const saltStr = fetchSalt(pollID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = parseEther(this.state.numTokens!);
     saveVote(pollID, this.props.user, voteOption);
     return commitVote(pollID, voteOption, salt, numTokens);
   };

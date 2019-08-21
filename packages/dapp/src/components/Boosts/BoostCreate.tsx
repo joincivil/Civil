@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
-import { compose, withApollo, WithApolloClient } from "react-apollo";
+import { compose, withApollo, WithApolloClient, Query } from "react-apollo";
 import { Helmet } from "react-helmet";
 import gql from "graphql-tag";
 import { Set } from "immutable";
@@ -30,6 +30,14 @@ const NoNewsroomMessage = styled.div`
   margin: 0 auto;
   max-width: 640px;
   padding: 20px;
+`;
+
+const CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY = gql`
+  query($contractAddress: String!) {
+    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+      id
+    }
+  }
 `;
 
 const NEWSROOMS_QUERY = gql`
@@ -121,17 +129,27 @@ class BoostCreatePage extends React.Component<
     const { newsroom, charter } = this.props;
     const listingRoute = formatRoute(routes.LISTING, { listingAddress: newsroom.address });
     return (
-      <BoostForm
-        newsroomData={{
-          name: charter.name,
-          url: charter && charter.newsroomUrl,
-          owner: newsroom.multisigAddress,
+      <Query query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY} variables={{ contractAddress: newsroom.address }}>
+        {({ loading, error, data }) => {
+          if (loading || error) {
+            return <></>;
+          }
+          return (
+            <BoostForm
+              channelID={data.channelsGetByNewsroomAddress.id}
+              newsroomData={{
+                name: charter.name,
+                url: charter && charter.newsroomUrl,
+                owner: newsroom.multisigAddress,
+              }}
+              newsroomContractAddress={newsroom.address}
+              newsroomListingUrl={`${document.location.origin}${listingRoute}`}
+              newsroomTagline={charter && charter.tagline}
+              newsroomLogoUrl={charter && charter.logoUrl}
+            />
+          );
         }}
-        newsroomContractAddress={newsroom.address}
-        newsroomListingUrl={`${document.location.origin}${listingRoute}`}
-        newsroomTagline={charter && charter.tagline}
-        newsroomLogoUrl={charter && charter.logoUrl}
-      />
+      </Query>
     );
   }
 

@@ -2,7 +2,7 @@ import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
 import { getTCR } from "../../helpers/civilInstance";
 import { ParamPropChallengeData, EthAddress, UserChallengeData } from "@joincivil/core";
-import { ensureWeb3BigNumber } from "../../apis/civilTCR";
+import { bigNumberify } from "@joincivil/typescript-types";
 
 export enum parameterizerActions {
   ADD_OR_UPDATE_PROPOSAL = "ADD_OR_UPDATE_PROPOSAL",
@@ -111,7 +111,7 @@ export const fetchAndAddParameterProposalChallengeData = (challengeID: string): 
 
       const tcr = await getTCR();
       const parameterizer = await tcr.getParameterizer();
-      const challengeIDBN = ensureWeb3BigNumber(parseInt(challengeID, 10));
+      const challengeIDBN = bigNumberify(challengeID)
       const challengeData = await parameterizer.getChallengeData(challengeIDBN);
       dispatch(addParameterProposalChallenge(challengeID, challengeData));
 

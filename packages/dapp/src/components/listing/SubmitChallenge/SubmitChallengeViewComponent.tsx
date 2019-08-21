@@ -235,7 +235,6 @@ class SubmitChallengeComponent extends React.Component<
   };
 
   private getTransactions = (): any[] => {
-    console.log("getTransactions");
     return [
       {
         transaction: async () => {

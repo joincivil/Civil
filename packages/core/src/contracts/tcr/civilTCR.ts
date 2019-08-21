@@ -278,7 +278,6 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
    * @returns currently whitelisted addresses
    */
   public whitelistedListings(fromBlock: number = this.defaultBlock, toBlock?: number): Observable<ListingWrapper> {
-    console.log("civilTCR core whitelistedListings ", fromBlock, toBlock);
     return this.instance
       ._ApplicationWhitelistedStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
