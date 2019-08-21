@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, bigNumberify, formatEther } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   ChallengeCommitVoteCard as ChallengeCommitVoteCardComponent,
@@ -123,8 +123,8 @@ class ChallengeCommitVote extends React.Component<
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
     const phaseLength = this.props.parameters.commitStageLen;
     const challenge = this.props.challenge;
-    const tokenBalance = this.props.balance ? this.props.balance.div(1e18).toNumber() : 0;
-    const votingTokenBalance = this.props.votingBalance ? this.props.votingBalance.div(1e18).toNumber() : 0;
+    const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
+    const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));
     const tokenBalanceDisplay = this.props.balance ? getFormattedTokenBalance(this.props.balance) : "";
     const votingTokenBalanceDisplay = this.props.votingBalance
       ? getFormattedTokenBalance(this.props.votingBalance)
@@ -168,10 +168,7 @@ class ChallengeCommitVote extends React.Component<
     } else {
       numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const numTokensString = numTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
+    const numTokensString = formatEther(numTokens);
     this.setState(() => ({ numTokens: numTokensString }));
   }
 
@@ -273,15 +270,15 @@ class ChallengeCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens: BigNumber = bigNumberify(this.state.numTokens as string).mul(1e18);
     return approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
+    const voteOption: BigNumber = bigNumberify(this.state.voteOption as string);
     const saltStr = fetchSalt(this.props.challengeID, this.props.user);
-    const salt: BigNumber = new BigNumber(saltStr as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const salt: BigNumber = bigNumberify(saltStr as string);
+    const numTokens: BigNumber = bigNumberify(this.state.numTokens as string).mul(1e18);
     saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };

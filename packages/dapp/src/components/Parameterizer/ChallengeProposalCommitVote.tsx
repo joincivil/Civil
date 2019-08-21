@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, formatEther } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -166,10 +166,7 @@ class ChallengeProposalCommitVote extends React.Component<
     } else {
       numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const numTokensString = numTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
+    const numTokensString = formatEther(numTokens);
     this.setState(() => ({ numTokens: numTokensString }));
   }
 

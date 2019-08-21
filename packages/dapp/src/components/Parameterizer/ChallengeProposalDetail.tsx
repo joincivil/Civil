@@ -173,13 +173,13 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     votesFor = getFormattedTokenBalance(challenge.poll.votesFor);
     votesAgainst = getFormattedTokenBalance(challenge.poll.votesAgainst);
     percentFor = challenge.poll.votesFor
-      .div(totalVotesBN)
       .mul(100)
-      .toFixed(0);
+      .div(totalVotesBN)
+      .toString();
     percentAgainst = challenge.poll.votesAgainst
-      .div(totalVotesBN)
       .mul(100)
-      .toFixed(0);
+      .div(totalVotesBN)
+      .toString();
 
     return (
       <ChallengeProposalResolve

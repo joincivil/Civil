@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BigNumber, EthAddress } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress, formatEther } from "@joincivil/typescript-types";
 import { Parameters, GovernmentParameters } from "./civilHelpers";
 
 // A collection of helper methods for user-facing views
@@ -49,16 +49,9 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
 
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
 export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
-  // TODO: get decimal places value from EIP20 wrapper
-  let balanceNumber;
-  if (BigNumber.isBigNumber(balance)) {
-    balanceNumber = balance.div(new BigNumber(1e10)).toNumber();
-  } else {
-    // TODO(dankins): more hackery
-    // @ts-ignore
-    balanceNumber = new BigNumber(balance.toString()).div(new BigNumber(1e10)).toNumber();
-  }
-  const formattedBalance = Math.round(balanceNumber / 1e6) / 1e2;
+  // @ts-ignore types are wrong, commify exists
+  const balanceEther = formatEther(balance, { commify: true, pad: true });
+  const formattedBalance = balanceEther.slice(0, balanceEther.indexOf(".") + decimals + 1);
 
   return `${formattedBalance} ${!!noCVLLabel ? "" : "CVL"}`;
 }

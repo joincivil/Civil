@@ -19,7 +19,6 @@ export async function approveForChallenge(): Promise<TwoStepEthTransaction | voi
   const tcr = await civil.tcrSingletonTrusted();
   const parameterizer = await tcr.getParameterizer();
   const minDeposit = await parameterizer.getParameterValue("minDeposit");
-  console.log("approveForChallenge", minDeposit);
   return approve(minDeposit);
 }
 
@@ -56,18 +55,15 @@ export async function approveForChallengeGrantedAppeal(): Promise<TwoStepEthTran
 
 export function toWei(amount: number): BigNumber {
   const cvl = getCivil();
-  console.log("to wei", cvl.toWei(amount).toString());
   return cvl.toWei(amount);
 }
 
 export async function approve(amount: BigNumber, multisigAddress?: EthAddress): Promise<TwoStepEthTransaction | void> {
-  console.log("approve", amount);
   const civil = getCivil();
   const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
   const token = await tcr.getToken();
   // const amountBN = ensureWeb3BigNumber(amount);
   const balance = await token.getBalance();
-  console.log("approve", amount);
   if (balance.lt(amount)) {
     throw new Error(CivilErrors.InsufficientToken);
   }
@@ -156,9 +152,7 @@ export async function depositTokens(
   multisigAddress?: EthAddress,
 ): Promise<TwoStepEthTransaction> {
   const civil = getCivil();
-  console.log("ready to deposit tokens", multisigAddress);
   const tcr = await civil.tcrSingletonTrustedMultisigSupport(multisigAddress);
-  console.log("ready to deposit tokens", numTokens);
   return tcr.deposit(address, ensureWeb3BigNumber(numTokens));
 }
 
@@ -274,19 +268,14 @@ export async function approveVotingRightsForTransfer(tokensWei: BigNumber): Prom
   const voting = tcr.getVoting();
   const eip = await tcr.getToken();
 
-  console.log("still goodd", voting.address, tokensWei);
   const approvedTokensForSpender = await eip.getApprovedTokensForSpender(voting.address);
 
-  console.log("hey bud", approvedTokensForSpender);
   try {
     if (approvedTokensForSpender.lt(tokensWei)) {
-      console.log("hey budz", approvedTokensForSpender);
       const approveSpenderReceipt = await eip.approveSpender(voting.address, tokensWei);
       await approveSpenderReceipt.awaitReceipt();
     }
-    console.log("done", approvedTokensForSpender);
   } catch (err) {
-    console.log("err", err);
     return Promise.reject(err);
   }
 }
