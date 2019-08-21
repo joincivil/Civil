@@ -65,9 +65,7 @@ describe("utils/salt", () => {
       const salt = randomSalt(cnt);
       const wrds = saltToWords(salt);
 
-      console.log("ok", wrds, cnt);
       expect(wrds.length).equal(cnt);
-      console.log("ok");
       expect(salt.toString()).equal(wordsToSalt(wrds).toString());
     }
   });
