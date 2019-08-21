@@ -1,7 +1,5 @@
 {
   "repositoryUrl": "git@github.com:joincivil/Civil.git",
   "branch": "master",
-  "plugins": [
-
-  ]
+  "plugins": []
 }

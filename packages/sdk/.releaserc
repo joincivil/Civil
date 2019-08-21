@@ -26,5 +26,6 @@
         }
       }
     ],
+    "@semantic-release/npm"
   ]
 }
