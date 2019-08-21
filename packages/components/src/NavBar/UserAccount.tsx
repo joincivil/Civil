@@ -24,10 +24,22 @@ import { NavLinkDashboardText } from "./textComponents";
 export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthenticationProps {
   isUserDrawerOpen: boolean;
   toggleDrawer(): void;
+  onLoginPressed(): void;
+  onSignupPressed(): void;
+  onModalDefocussed(): void;
 }
 
 const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance, enableEthereum, joinAsMemberUrl, applyURL } = props;
+  const {
+    balance,
+    userEthAddress,
+    votingBalance,
+    enableEthereum,
+    joinAsMemberUrl,
+    applyURL,
+    onLoginPressed,
+    onSignupPressed,
+  } = props;
 
   return (
     <LoadUser>
@@ -91,15 +103,8 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
 
         return (
           <>
-            <NavLink to={props.authenticationURL}>Log In</NavLink>
-
-            <NavBarButton size={buttonSizes.SMALL} {...memberBtnProps}>
-              Join as a member
-            </NavBarButton>
-
-            <NavBarButton size={buttonSizes.SMALL} {...applyBtnProps}>
-              Join as a newsroom
-            </NavBarButton>
+            <LogInButton onClick={onLoginPressed}>Log In</LogInButton>
+            <LogInButton onClick={onSignupPressed}>Sign Up</LogInButton>
           </>
         );
       }}

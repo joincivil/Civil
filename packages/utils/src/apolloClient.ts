@@ -161,6 +161,12 @@ export const getCurrentUserQuery = gql`
       ethAddress
       quizPayload
       quizStatus
+      channels {
+        role
+      }
+      userChannel {
+        handle
+      }
     }
   }
 `;

@@ -1,7 +1,12 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
+import {
+  getFormattedTokenBalance,
+  getFormattedEthAddress,
+  urlConstants as links,
+  getCurrentUserQuery,
+} from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -10,8 +15,17 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { CivilContext, NavBar, NavProps } from "@joincivil/components";
-import { toggleUseGraphQL } from "../redux/actionCreators/ui";
+import { CivilContext, ICivilContext, NavBar, NavProps, LoadUser } from "@joincivil/components";
+import {
+  toggleUseGraphQL,
+  showWeb3LoginModal,
+  showWeb3SignupModal,
+  hideWeb3AuthModal,
+} from "../redux/actionCreators/ui";
+// import AuthWeb3 from "./Auth/AuthWeb3";
+import AuthWeb3Signup from "./Auth/AuthWeb3Signup";
+import AuthWeb3Login from "./Auth/AuthWeb3Login";
+import { Query } from "react-apollo";
 
 export interface NavBarProps {
   balance: string;
@@ -23,55 +37,97 @@ export interface NavBarProps {
   userChallengesWithUnrevealedVotes?: Set<string>;
   userChallengesWithUnclaimedRewards?: Set<string>;
   useGraphQL: boolean;
+  showWeb3AuthModal: boolean;
+  web3AuthType: string;
 }
 
-const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any>> = props => {
-  const { civil } = React.useContext(CivilContext);
+class GlobalNavComponent extends React.Component<NavBarProps & DispatchProp<any>> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
 
-  const {
-    balance,
-    votingBalance,
-    userAccount,
-    userChallengesWithUnrevealedVotes,
-    userChallengesWithUnclaimedRewards,
-    currentUserChallengesStarted,
-    currentUserChallengesVotedOn,
-    useGraphQL,
-  } = props;
+  public render(): JSX.Element {
+    const civil = this.context.civil;
+    return (
+      <Query query={getCurrentUserQuery}>
+        {({ loading, error, data }) => {
+          console.log("data: ", data);
+          const {
+            balance,
+            votingBalance,
+            userAccount,
+            userChallengesWithUnrevealedVotes,
+            userChallengesWithUnclaimedRewards,
+            currentUserChallengesStarted,
+            currentUserChallengesVotedOn,
+            useGraphQL,
+            showWeb3AuthModal,
+            web3AuthType,
+          } = this.props;
 
-  const navBarViewProps: NavProps = {
-    balance,
-    votingBalance,
-    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
-    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
-    userChallengesStartedCount: currentUserChallengesStarted.count(),
-    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    useGraphQL,
-    authenticationURL: "/auth/login",
-    buyCvlUrl: "/tokens",
-    joinAsMemberUrl: "https://civil.co/become-a-member",
-    applyURL: links.APPLY,
-    onLoadingPrefToggled: async (): Promise<any> => {
-      props.dispatch!(await toggleUseGraphQL());
-    },
-  };
+          const navBarViewProps: NavProps = {
+            balance,
+            votingBalance,
+            userEthAddress: userAccount && getFormattedEthAddress(userAccount),
+            userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
+            userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
+            userChallengesStartedCount: currentUserChallengesStarted.count(),
+            userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
+            useGraphQL,
+            authenticationURL: "/auth/login",
+            buyCvlUrl: "/tokens",
+            joinAsMemberUrl: "https://civil.co/become-a-member",
+            applyURL: links.APPLY,
+            onLoadingPrefToggled: async (): Promise<any> => {
+              this.props.dispatch!(await toggleUseGraphQL());
+            },
+            onLoginPressed: async (): Promise<any> => {
+              this.props.dispatch!(await showWeb3LoginModal());
+            },
+            onSignupPressed: async (): Promise<any> => {
+              this.props.dispatch!(await showWeb3SignupModal());
+            },
+            onModalDefocussed: async (): Promise<any> => {
+              this.props.dispatch!(await hideWeb3AuthModal());
+            },
+          };
 
-  if (civil && civil.currentProvider) {
-    navBarViewProps.enableEthereum = async () => {
-      await civil.currentProviderEnable();
-    };
+          if (civil && civil.currentProvider) {
+            navBarViewProps.enableEthereum = async () => {
+              await civil.currentProviderEnable();
+            };
+          }
+
+          const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
+          const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
+          const showSetHandle =
+            data &&
+            data.currentUser &&
+            data.currentUser.uid &&
+            data.currentUser.userChannel &&
+            !data.currentUser.userChannel.handle;
+          console.log("SHOW SET HANDLE: ", showSetHandle);
+          return (
+            <>
+              <NavBar {...navBarViewProps} />
+              {showWeb3Signup && <AuthWeb3Signup onSignupContinue={this.handleOnSignupContinue} />}
+              {showWeb3Login && <AuthWeb3Login onSignupContinue={this.handleOnLoginContinue} />}
+            </>
+          );
+        }}
+      </Query>
+    );
   }
 
-  return (
-    <>
-      <NavBar {...navBarViewProps} />
-    </>
-  );
-};
+  public handleOnSignupContinue = async () => {
+    this.props.dispatch!(await hideWeb3AuthModal());
+  };
+
+  public handleOnLoginContinue = async () => {
+    this.props.dispatch!(await hideWeb3AuthModal());
+  };
+}
 
 const mapStateToProps = (state: State): NavBarProps => {
-  const { network, useGraphQL } = state;
+  const { network, useGraphQL, showWeb3AuthModal, web3AuthType } = state;
   const { user } = state.networkDependent;
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
   const currentUserChallengesVotedOn = getChallengesVotedOnByUser(state);
@@ -103,6 +159,8 @@ const mapStateToProps = (state: State): NavBarProps => {
     userChallengesWithUnrevealedVotes,
     userChallengesWithUnclaimedRewards,
     useGraphQL,
+    showWeb3AuthModal,
+    web3AuthType,
   };
 };
 

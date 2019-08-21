@@ -32,6 +32,15 @@ storiesOf("Common / Nav / Nav Bar", module)
         onLoadingPrefToggled={() => {
           console.log("thinged");
         }}
+        onLoginPressed={() => {
+          console.log("thinged");
+        }}
+        onSignupPressed={() => {
+          console.log("thinged");
+        }}
+        onModalDefocussed={() => {
+          console.log("thinged");
+        }}
       />
     );
   })

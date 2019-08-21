@@ -19,6 +19,9 @@ export interface NavDrawerProps {
   buyCvlUrl: string;
   useGraphQL: boolean;
   onLoadingPrefToggled(): void;
+  onLoginPressed(): void;
+  onSignupPressed(): void;
+  onModalDefocussed(): void;
 }
 
 export type NavProps = NavUserAccountProps & NavAuthenticationProps & NavDrawerProps;

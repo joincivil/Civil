@@ -31,6 +31,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
       useGraphQL,
       onLoadingPrefToggled,
       enableEthereum,
+      onLoginPressed,
+      onSignupPressed,
+      onModalDefocussed,
     } = this.props;
     const { isUserDrawerOpen } = this.state;
 
@@ -58,6 +61,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
               applyURL={applyURL}
               enableEthereum={enableEthereum}
               toggleDrawer={this.toggleDrawer}
+              onLoginPressed={onLoginPressed}
+              onSignupPressed={onSignupPressed}
+              onModalDefocussed={onModalDefocussed}
             >
               {isUserDrawerOpen && (
                 <NavDrawer
@@ -72,6 +78,9 @@ export class NavBar extends React.Component<NavProps, NavState> {
                   useGraphQL={useGraphQL}
                   onLoadingPrefToggled={onLoadingPrefToggled}
                   handleOutsideClick={this.hideUserDrawer}
+                  onLoginPressed={onLoginPressed}
+                  onSignupPressed={onSignupPressed}
+                  onModalDefocussed={onModalDefocussed}
                 />
               )}
             </UserAccount>
