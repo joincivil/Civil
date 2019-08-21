@@ -141,11 +141,9 @@ class DepositTokensComponent extends React.Component<
   };
 
   private getTransactions = (): any[] => {
-    console.log("kick it");
     return [
       {
         transaction: async () => {
-          console.log("kick it updateTransactionStatusModalsState");
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
@@ -155,7 +153,6 @@ class DepositTokensComponent extends React.Component<
           return this.approveVotingRights();
         },
         handleTransactionHash: (txHash: TxHash) => {
-          console.log("kick it handleTransactionHash");
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: false,
             isTransactionProgressModalOpen: true,
@@ -165,7 +162,6 @@ class DepositTokensComponent extends React.Component<
       },
       {
         transaction: async () => {
-          console.log("kick it depositTokens");
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,

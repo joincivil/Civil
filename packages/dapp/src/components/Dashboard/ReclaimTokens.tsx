@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { parseEther } from "@joincivil/typescript-types";
 import { Set } from "immutable";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -149,7 +149,7 @@ class ReclaimTokensComponent extends React.Component<
   };
 
   private withdrawVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens = parseEther(this.state.numTokens!);
     return withdrawVotingRights(numTokens);
   };
 

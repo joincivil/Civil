@@ -25,7 +25,6 @@ public {{this.name}} = {
       debug("{{this.name}}: new gas price: ", txOptions.gasPrice);
     }
 
-    console.log("sending it", txOptions);
     return self.ethApi.sendTransaction(txOptions)
   },
   async estimateGasAsync(
