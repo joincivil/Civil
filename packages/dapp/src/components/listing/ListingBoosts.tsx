@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ListingTabIntro } from "./styledComponents";
-import { BoostFeed } from "@joincivil/civil-sdk";
+import { BoostFeed } from "@joincivil/sdk";
 import { FeatureFlag, LoadingMessage, DisclosureArrowIcon } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 import { ComingSoonText } from "../Boosts/BoostStyledComponents";

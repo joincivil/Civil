@@ -4,7 +4,7 @@
   "homepage": "https://registry.civil.co",
   "private": false,
   "dependencies": {
-    "@joincivil/civil-sdk": "^1.21.4",
+    "@joincivil/sdk": "^2.0.0",
     "@joincivil/components": "^1.9.10",
     "@joincivil/core": "^4.8.11",
     "@joincivil/ethapi": "^0.4.9",
@@ -63,7 +63,7 @@
     "eject": "react-scripts eject",
     "lint": "tslint --project ./",
     "clean": "rimraf build/",
-    "predeploy": "npm run build",
+  "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {

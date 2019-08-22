@@ -4,7 +4,7 @@ import { State } from "../../redux/reducers";
 import { BoostWrapper, ComingSoonText } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { Boost } from "@joincivil/civil-sdk";
+import { Boost } from "@joincivil/sdk";
 import { FeatureFlag } from "@joincivil/components";
 
 export interface BoostPageProps {
