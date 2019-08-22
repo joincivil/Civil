@@ -41,6 +41,9 @@ jobs:
                 name: Running tests (except contracts)
                 command: |
                     yarn test
+            - add_ssh_keys:
+                fingerprints:
+                - "70:4a:4d:06:ec:1f:2a:fd:50:c6:a8:63:da:e9:0c:e6"
             - run:
                 name: Releasing
                 command: |
@@ -185,6 +188,8 @@ workflows:
             - build
             - setup-gcp:
                 context: gcp-common
+                requires:
+                    - build
                 filters:
                     branches:
                         only:
