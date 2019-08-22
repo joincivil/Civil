@@ -185,7 +185,8 @@ workflows:
     version: 2
     build-and-deploy:
         jobs:
-            - build
+            - build:
+                context: gcp-common
             - setup-gcp:
                 context: gcp-common
                 requires:
