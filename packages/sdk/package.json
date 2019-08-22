@@ -7,6 +7,9 @@
   "scripts": {
     "test": "echo \"hello from test dk\""
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "",
   "license": "ISC"
 }
