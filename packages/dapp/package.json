@@ -49,12 +49,12 @@
     "semantic-ui-react": "~0.82.0",
     "sort-by": "^1.2.0",
     "store": "^2.0.12",
-    "styled-components": "^3.2.5",
+    "styled-components": "^4.3.2",
     "web3-providers-http": "^1.2.1",
     "web3-providers-ws": "^1.2.1"
   },
   "resolutions": {
-    "styled-components": "3.2.5"
+    "styled-components": "4.3.2"
   },
   "scripts": {
     "start": "react-app-rewired --max_old_space_size=4096 start",
