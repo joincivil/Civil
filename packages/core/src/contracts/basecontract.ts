@@ -1,4 +1,3 @@
-
 import { Contract as IContract } from "./interfaces/contract";
 
 import Contract from "web3/eth/contract";

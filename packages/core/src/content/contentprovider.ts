@@ -11,6 +11,4 @@ export interface ContentProviderOptions {
   ethApi: EthApi;
 }
 
-export interface ContentProviderCreator {
-  new (options: ContentProviderOptions): ContentProvider;
-}
+export type ContentProviderCreator = new (options: ContentProviderOptions) => ContentProvider;

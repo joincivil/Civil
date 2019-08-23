@@ -86,12 +86,12 @@ exports[`Storyshots Common / Tabs Default Tabs 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -730,12 +730,12 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1869,12 +1869,12 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2894,12 +2894,12 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3726,12 +3726,12 @@ exports[`Storyshots Common / Tabs Styled Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -4543,12 +4543,12 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

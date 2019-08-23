@@ -133,12 +133,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -863,12 +863,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1588,12 +1588,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2336,12 +2336,12 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

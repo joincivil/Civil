@@ -104,12 +104,12 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -377,57 +377,24 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -435,158 +402,83 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -653,12 +545,12 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -926,57 +818,24 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -984,158 +843,83 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -1208,12 +992,12 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1481,57 +1265,24 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -1539,158 +1290,83 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -1760,12 +1436,12 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2033,57 +1709,24 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -2091,158 +1734,83 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -2346,12 +1914,12 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2619,57 +2187,24 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -2677,158 +2212,83 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -2901,12 +2361,12 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3174,57 +2634,24 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -3232,158 +2659,83 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>
@@ -3541,12 +2893,12 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3814,57 +3166,24 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -3872,158 +3191,83 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>

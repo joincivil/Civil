@@ -72,12 +72,12 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -363,12 +363,12 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -647,12 +647,12 @@ exports[`Storyshots Pattern Library / Inputs Header Input 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -946,12 +946,12 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1330,12 +1330,12 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2193,12 +2193,12 @@ exports[`Storyshots Pattern Library / Inputs Text Input 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2477,12 +2477,12 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2761,12 +2761,12 @@ exports[`Storyshots Pattern Library / Inputs Textarea Input 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3044,12 +3044,12 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

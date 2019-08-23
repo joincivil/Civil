@@ -9,7 +9,7 @@ import {
 } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { BoostFeed } from "@joincivil/civil-sdk";
+import { BoostFeed } from "@joincivil/sdk";
 import { FeatureFlag } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 

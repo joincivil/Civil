@@ -127,12 +127,12 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1304,12 +1304,12 @@ exports[`Storyshots Pattern Library / inputs / check box slide check box 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

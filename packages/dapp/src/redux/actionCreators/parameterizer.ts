@@ -111,7 +111,7 @@ export const fetchAndAddParameterProposalChallengeData = (challengeID: string): 
 
       const tcr = await getTCR();
       const parameterizer = await tcr.getParameterizer();
-      const challengeIDBN = bigNumberify(challengeID)
+      const challengeIDBN = bigNumberify(challengeID);
       const challengeData = await parameterizer.getChallengeData(challengeIDBN);
       dispatch(addParameterProposalChallenge(challengeID, challengeData));
 
