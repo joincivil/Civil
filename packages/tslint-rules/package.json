@@ -8,5 +8,8 @@
   "bugs": {
     "url": "https://github.com/joincivil/Civil/issues"
   },
-  "homepage": "https://github.com/joincivil/Civil"
+  "homepage": "https://github.com/joincivil/Civil",
+  "publishConfig": {
+    "access": "public"
+  }
 }

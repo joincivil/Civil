@@ -7,6 +7,9 @@
   "bugs": {
     "url": "https://github.com/joincivil/Civil/issues"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://github.com/joincivil/Civil",
   "license": "LGPL-2.1"
 }

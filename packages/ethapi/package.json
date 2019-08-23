@@ -38,5 +38,8 @@
     "web3-eth-contract": "^1.2.1",
     "web3-providers": "^1.0.0-beta.55",
     "web3-utils": "^1.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

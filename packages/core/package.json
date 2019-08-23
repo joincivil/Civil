@@ -59,5 +59,8 @@
     "ipfs-http-client": "^29.1.1",
     "rxjs": "^5.5.6",
     "web3": "^1.2.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

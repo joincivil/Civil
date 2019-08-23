@@ -23,5 +23,8 @@
   "dependencies": {
     "@types/web3": "^1.0.19",
     "ethers": "^4.0.27"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

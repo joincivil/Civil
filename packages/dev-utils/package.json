@@ -2,7 +2,7 @@
   "name": "@joincivil/dev-utils",
   "version": "1.6.9",
   "description": "Utilities shared between Civil packages",
-  "private": true,
+  "private": false,
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "bin": {
@@ -51,5 +51,8 @@
     "rimraf": "^2.6.2",
     "tslint": "^5.17.0",
     "typescript": "^3.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
