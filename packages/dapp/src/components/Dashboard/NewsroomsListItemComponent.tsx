@@ -6,6 +6,7 @@ import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } f
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
 import { DashboardNewsroom } from "@joincivil/components";
 import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
+import { NewsroomWithdraw } from "@joincivil/sdk";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -164,6 +165,7 @@ class NewsroomsListItemListingRedux extends React.Component<
         manageNewsroomURL,
         newsroomDeposit: getFormattedTokenBalance(listing.data.unstakedDeposit, true),
         etherscanBaseURL,
+        boostProceeds: <NewsroomWithdraw newsroomAddress={listingAddress} />,
       };
 
       return <DashboardNewsroom {...displayProps} {...newsroomStatusOnRegistry} />;
