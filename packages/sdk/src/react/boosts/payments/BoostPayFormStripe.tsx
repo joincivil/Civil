@@ -264,14 +264,28 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
                   </InputValidationUI>
                 </div>
                 <div>
-                  {postalCodeVisible && (
-                    <>
-                      <label>Zip/Postal Code</label>
-                      <InputValidationUI inputState={this.state.postalCodeState} width={"150px"}>
-                        <input id="zip" name="zip" maxLength={12} onBlur={() => this.handleOnBlur(event)} />
-                      </InputValidationUI>
-                    </>
-                  )}
+                  {postalCodeVisible &&
+                    (this.state.country === "USA" ? (
+                      <>
+                        <label>Zip Code</label>
+                        <InputValidationUI inputState={this.state.postalCodeState} width={"150px"}>
+                          <input
+                            type="number"
+                            id="zip"
+                            name="zip"
+                            maxLength={12}
+                            onBlur={() => this.handleOnBlur(event)}
+                          />
+                        </InputValidationUI>
+                      </>
+                    ) : (
+                      <>
+                        <label>Postal Code</label>
+                        <InputValidationUI inputState={this.state.postalCodeState} width={"150px"}>
+                          <input id="zip" name="zip" maxLength={12} onBlur={() => this.handleOnBlur(event)} />
+                        </InputValidationUI>
+                      </>
+                    ))}
                 </div>
               </StripeUserInfoFlex>
             </StripeUserInfoWrap>
