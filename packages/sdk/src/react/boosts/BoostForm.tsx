@@ -412,13 +412,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   End date
                   <QuestionToolTip explainerText="All proceeds go directly to the Newsroom. There are small fees charged by the Ethereum network." />
                 </BoostFormTitle>
-                <EndDateInput
-                  type="date"
-                  name="dateEnd"
-                  value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
-                  onChange={this.onDateEndInputChange}
-                  disabled={this.props.editMode}
-                />
+                {this.renderEndDate()}
                 <EndDateNotice>Your Boost will end at 11:59PM on the date selected.</EndDateNotice>
                 {!this.props.channelData.isStripeConnected && (
                   <ConnectStripeNotice>
@@ -461,6 +455,22 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
           );
         }}
       </Mutation>
+    );
+  }
+
+  private renderEndDate(): JSX.Element {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+
+    return (
+      <EndDateInput
+        type="date"
+        name="dateEnd"
+        min={date.toISOString().split("T")[0]}
+        value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
+        onChange={this.onDateEndInputChange}
+        disabled={this.props.editMode}
+      />
     );
   }
 
