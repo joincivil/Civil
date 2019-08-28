@@ -345,14 +345,14 @@ export class NewsroomUserComponent extends React.Component<
   };
 }
 
-const mapStateToProps = (
-  state: StateWithNewsroom,
-  ownProps: Partial<NewsroomUserProps>,
-): Partial<NewsroomUserProps> => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: Partial<NewsroomUserProps>): NewsroomUserProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
+    type: ownProps.type!,
+    address: ownProps.address!,
+    newsroomAddress: ownProps.newsroomAddress!,
     newsroom: newsroom.newsroom,
   };
 };

@@ -158,7 +158,7 @@ const StyledCheck = styled(HollowGreenCheck)`
 `;
 
 export class AddMemberComponent extends React.Component<AddMemberProps & DispatchProp<any>, AddMemberState> {
-  constructor(props: AddMemberProps) {
+  constructor(props: AddMemberProps & DispatchProp<any>) {
     super(props);
     const value = options.find(option => {
       return option.value === props.role;

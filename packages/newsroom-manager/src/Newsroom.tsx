@@ -180,7 +180,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     { maxWait: 2000 },
   );
 
-  constructor(props: NewsroomProps) {
+  constructor(props: NewsroomProps & DispatchProp) {
     super(props);
     let currentStep = props.address ? 1 : 0;
     if (typeof props.initialStep !== "undefined") {
