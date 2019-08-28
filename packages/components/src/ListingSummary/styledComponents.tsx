@@ -6,7 +6,7 @@ import { InvertedButton } from "../Button";
 import { StyledBaseStatus } from "../ApplicationPhaseStatusLabels";
 
 export const StyledListingSummaryList = styled.div`
-  display: flex
+  display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
   width: 1200px;
