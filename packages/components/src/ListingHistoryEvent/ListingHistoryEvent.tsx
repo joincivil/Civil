@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { ListingHistoryEventDetailsProps, ListingHistoryEventProps } from "./types";
 import EventDate from "./EventDate";
@@ -23,7 +23,7 @@ const eventColors: any = {
   [ListingHistoryEventStyles.REJECTED]: colors.accent.CIVIL_RED,
 };
 
-const StyledEventDetail = styled<StyledEventDetailProps, "div">("div")`
+const StyledEventDetail = styled.div<StyledEventDetailProps>`
   border-left: 4px solid ${colors.accent.CIVIL_GRAY_4}
   padding: 0 0 40px 33px;
   position: relative;

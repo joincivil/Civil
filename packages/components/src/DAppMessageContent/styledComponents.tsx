@@ -1,8 +1,8 @@
 import * as React from "react";
 import { InvertedButton } from "../Button";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { MetaMaskSideIcon, MetaMaskIconProps } from "../icons";
+import { MetaMaskSideIcon } from "../icons";
 
 export const StyledMessageIconContainer = styled.span`
   display: inline-block;
@@ -39,7 +39,7 @@ export const MetaMaskMockImage = styled.img`
   max-width: 255px;
 `;
 
-export const MetaMaskIcon = styled<MetaMaskIconProps>(MetaMaskSideIcon)`
+export const MetaMaskIcon = styled(MetaMaskSideIcon)`
   position: relative;
   top: 3px;
 `;

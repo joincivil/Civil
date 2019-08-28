@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import StoryRouter from "storybook-react-router";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { TokensTabSell } from "./TokensTabSell";
 import { CivilContext, buildCivilContext } from "../../context/CivilContext";
 import { Civil } from "@joincivil/core";

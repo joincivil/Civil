@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { SectionHeading } from "../Heading";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { InvertedButton } from "../Button";
@@ -43,10 +43,7 @@ export interface StyledListingSummaryProps {
   hasTopPadding?: boolean;
 }
 
-export const StyledListingSummary: StyledComponentClass<StyledListingSummaryProps, "div"> = styled<
-  StyledListingSummaryProps,
-  "div"
->("div")`
+export const StyledListingSummary = styled.div<StyledListingSummaryProps>`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   box-shadow: inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_4}, 0 2px 4px 0 ${colors.accent.CIVIL_GRAY_3};
   box-sizing: border-box;

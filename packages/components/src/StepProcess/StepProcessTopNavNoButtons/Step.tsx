@@ -16,7 +16,7 @@ export interface StepTopNavNoButtonsProps {
   setStartPosition?(position: number): void;
 }
 
-const StyledLi = styled<StyledLiProps, "li">("li")`
+const StyledLi = styled.li<StyledLiProps>`
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};

@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface TwitterIconProps {
   className?: string;
@@ -28,7 +28,7 @@ const _TwitterIcon = (props: TwitterIconProps) => {
   );
 };
 
-export const TwitterIcon: StyledComponentClass<TwitterIconProps, "svg"> = styled(_TwitterIcon)`
+export const TwitterIcon = styled(_TwitterIcon)`
   &:hover path {
     fill: white;
   }

@@ -7,9 +7,8 @@ import {
   TokenTutorial,
   HollowGreenCheck,
   Button,
-  ButtonProps,
 } from "@joincivil/components";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface TutorialModalProps {
   user: any;
@@ -20,7 +19,7 @@ export interface TutorialModalStates {
   isTutorialModalOpen: boolean;
 }
 
-export const LaunchTutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const LaunchTutorialBtn = styled(Button)`
   font-size: 13px;
   letter-spacing: 0.2px;
   margin-top: 7px;

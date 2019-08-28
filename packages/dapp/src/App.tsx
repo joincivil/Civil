@@ -7,15 +7,14 @@ import { getApolloClient } from "@joincivil/utils";
 import config from "./helpers/config";
 import { ErrorBoundry } from "./components/errors/ErrorBoundry";
 
-import { injectGlobal } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import { colors, fonts, CivilContext, ICivilContext, buildCivilContext } from "@joincivil/components";
 import { ConnectedRouter } from "connected-react-router";
 
 import { history } from "./redux/store";
 import { getCivil } from "./helpers/civilInstance";
 
-// tslint:disable-next-line:no-unused-expression
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   body {
     font-family: ${fonts.SANS_SERIF};
   }
@@ -50,6 +49,7 @@ export class App extends React.Component {
             </CivilContext.Provider>
           </ConnectedRouter>
         </ApolloProvider>
+        <GlobalStyle />
       </ErrorBoundry>
     );
   }

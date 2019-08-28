@@ -1,15 +1,12 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { mediaQueries } from "@joincivil/components";
 
 export interface StyledPageContentProps {
   centerContent?: boolean;
 }
 
-export const StyledPageContent: StyledComponentClass<StyledPageContentProps, "div"> = styled<
-  StyledPageContentProps,
-  "div"
->("div")`
+export const StyledPageContent = styled.div<StyledPageContentProps>`
   ${props =>
     !props.centerContent
       ? ""

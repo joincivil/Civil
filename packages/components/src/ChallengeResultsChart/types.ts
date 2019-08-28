@@ -13,7 +13,7 @@ export interface ChallengeResultsProps {
   headerText?: string;
   noHeader?: boolean;
   noExplainerText?: boolean;
-  styledHeaderComponent?: React.ComponentClass;
+  styledHeaderComponent?: React.FunctionComponent;
   collapsable?: boolean;
   open?: boolean;
 }

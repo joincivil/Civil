@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "./styleConstants";
 
 export interface OpenBool {
@@ -22,13 +22,13 @@ export interface CollapseAreaProps extends OpenBool {
   height: number | null;
 }
 
-export const CollapseArea: StyledComponentClass<CollapseAreaProps, "div"> = styled<CollapseAreaProps, "div">("div")`
+export const CollapseArea = styled.div<CollapseAreaProps>`
   height: ${props => (props.open ? `${props.height ? `${props.height}px` : "auto"}` : "0px")};
   transition: height 1s;
   overflow: ${props => (props.open ? "visible" : "hidden")};
 `;
 
-export const Arrow: StyledComponentClass<ArrowProps, "div"> = styled<ArrowProps, "div">("div")`
+export const Arrow = styled.div<ArrowProps>`
   width: 8px;
   height: 8px;
   border-left: 3px solid ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.primary.CIVIL_GRAY_1)};
@@ -87,7 +87,7 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
             <Arrow disabled={this.props.disabled} open={this.state.open} />
           )}
         </HeaderWrapper>
-        <CollapseArea innerRef={el => (this.collapseArea = el)} height={this.state.height} open={this.state.open}>
+        <CollapseArea ref={(el: any) => (this.collapseArea = el)} height={this.state.height} open={this.state.open}>
           {this.props.children}
         </CollapseArea>
       </div>

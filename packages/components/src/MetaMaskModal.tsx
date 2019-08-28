@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import {
   Modal,
   Button,
@@ -39,7 +39,7 @@ export interface ContentSectionWrapperProps {
   row?: boolean;
 }
 
-export const MetaMaskStepCounter: StyledComponentClass<any, "div"> = styled.div`
+export const MetaMaskStepCounter = styled.div`
   font-weight: 600;
 `;
 

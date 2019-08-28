@@ -11,10 +11,10 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
     }
   >
     <div
-      className="sc-wRHdD dWIIOK"
+      className="sc-LzNtV lllXgQ"
     >
       <h4
-        className="sc-EHOje gTvBKb"
+        className="sc-AykKH CwENs"
       >
         Log into Civil with your crypto wallet
       </h4>
@@ -27,7 +27,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
         </p>
         
         <button
-          className="sc-iKpIOp dKexfn sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fzXfMD sc-fzXfME sc-LzMWX gljbPM"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -45,10 +45,10 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
           type="button"
         >
           <div
-            className="sc-AqAhp byfPbn"
+            className="sc-LzMWY iVmSTF"
           >
             <img
-              className="sc-jtRfpW jKBoMj"
+              className="sc-fzXfQs flRwhx"
               src={
                 Object {
                   "0": "t",

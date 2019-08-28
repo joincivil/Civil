@@ -6,20 +6,15 @@ import {
   buttonSizes,
   Button,
   BorderlessButton,
-  ButtonProps,
   TextInput,
   TextareaInput,
-  InputProps,
   QuestionToolTip as _QuestionToolTip,
-  ToolTipProps,
   TransactionPopUpWarning as _TransactionPopUpWarning,
-  DetailTransactionButtonProps,
   ImageFileToDataUri,
-  ImageFileToDataUriProps,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
-import styled, { StyledComponentClass, css } from "styled-components";
+import styled, { css } from "styled-components";
 
 export const DEFAULT_THEME = {
   ...DEFAULT_BUTTON_THEME,
@@ -29,7 +24,7 @@ export const DEFAULT_THEME = {
   borderlessButtonSize: "14px",
 };
 
-export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+export const Wrapper = styled.div`
   max-width: 720px;
   margin: auto;
   font-size: 14px;
@@ -52,7 +47,7 @@ export const FormTitle = styled.h4`
 export interface FormSubheadProps {
   optional?: any;
 }
-export const FormSubhead = styled<FormSubheadProps, "h4">("h4")`
+export const FormSubhead = styled.h4<FormSubheadProps>`
   font-size: 14px;
   font-weight: 500;
   color: #23282d;
@@ -88,7 +83,7 @@ export interface FormRowItemProps {
   width?: string;
 }
 
-export const FormRowItem: StyledComponentClass<FormRowItemProps, "div"> = styled<FormRowItemProps, "div">("div")`
+export const FormRowItem = styled.div<FormRowItemProps>`
   padding-right: 15px;
   text-align: ${(props: FormRowItemProps) => props.align || "left"};
   &:last-child {
@@ -107,7 +102,7 @@ export const HelperText = styled.div`
   color: #72777c;
 `;
 
-export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(Button)`
+export const TertiaryButton = styled(Button)`
   border-radius: 3px;
   background-color: #f7f7f7;
   border: solid 1px #cccccc;
@@ -134,15 +129,15 @@ const textInputStyles = css`
   }
 `;
 
-export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(TextInput)`
+export const StyledTextInput = styled(TextInput)`
   ${textInputStyles};
 `;
 
-export const StyledImageToData: StyledComponentClass<ImageFileToDataUriProps, any> = styled(ImageFileToDataUri)`
+export const StyledImageToData = styled(ImageFileToDataUri)`
   ${textInputStyles};
 `;
 
-export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled(TextareaInput)`
+export const StyledTextareaInput = styled(TextareaInput)`
   position: relative;
   small {
     position: absolute;
@@ -153,7 +148,7 @@ export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled
   }
 `;
 
-export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_QuestionToolTip)`
+export const QuestionToolTip = styled(_QuestionToolTip)`
   position: relative;
   top: 2px;
 `;
@@ -203,7 +198,7 @@ export const _NoAvatar = styled.div`
 
 export const noAvatar = <_NoAvatar>?</_NoAvatar>;
 
-export const TransactionPopUpWarning = styled<DetailTransactionButtonProps, any>(_TransactionPopUpWarning)`
+export const TransactionPopUpWarning = styled(_TransactionPopUpWarning)`
   margin-top: 12px;
 `;
 

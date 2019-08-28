@@ -14,7 +14,7 @@ import {
   ClipLoader,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
@@ -30,7 +30,7 @@ const TertiaryButton = styled(_TertiaryButton)`
   margin: 1em 0;
 `;
 
-const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -68,7 +68,7 @@ export interface NewsroomUserProps {
   type: UserTypes;
 }
 
-export const DisabledTransactionProcessingButton: StyledComponentClass<any, "button"> = styled.button`
+export const DisabledTransactionProcessingButton = styled.button`
   padding: 8px;
   background: transparent;
   border-radius: 3px;

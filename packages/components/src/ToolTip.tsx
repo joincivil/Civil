@@ -30,14 +30,14 @@ export interface TipContainerProps {
   left?: number;
 }
 
-const TipContainer = styled<TipContainerProps, "div">("div")`
+const TipContainer = styled.div<TipContainerProps>`
   position: absolute;
   top: ${(props: TipContainerProps) => props.top || 0}px;
   left: ${(props: TipContainerProps) => props.left || 0}px;
   height: 0px;
 `;
 
-const Tip = styled<ToolTipProps, "div">("div")`
+const Tip = styled.div<ToolTipProps>`
   position: absolute;
   ${(props: ToolTipProps) => (props.positionBottom ? "top: 30px" : "bottom: 10px")};
   left: 7px;
@@ -124,7 +124,7 @@ export class ToolTip extends React.Component<ToolTipProps, ToolTipState> {
 
     return (
       <Wrapper
-        innerRef={(el: HTMLDivElement) => (this.divEl = el)}
+        ref={(el: HTMLDivElement) => (this.divEl = el)}
         onMouseLeave={this.onMouseLeave}
         onMouseEnter={this.onMouseEnter}
         onClick={this.props.onClick}

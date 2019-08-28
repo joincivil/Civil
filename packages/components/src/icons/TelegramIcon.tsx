@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface TelegramIconProps {
   className?: string;
@@ -34,7 +34,7 @@ const _TelegramIcon = (props: TelegramIconProps) => {
   );
 };
 
-export const TelegramIcon: StyledComponentClass<TelegramIconProps, "svg"> = styled(_TelegramIcon)`
+export const TelegramIcon = styled(_TelegramIcon)`
   &:hover path {
     fill: white;
   }
