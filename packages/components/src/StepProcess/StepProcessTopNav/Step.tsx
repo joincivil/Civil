@@ -40,7 +40,7 @@ export interface StyledLiProps {
   disabled?: boolean;
 }
 
-const StyledLi = styled<StyledLiProps, "li">("li")`
+const StyledLi = styled.li<StyledLiProps>`
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   box-sizing: border-box;
   font-family: ${props => props.theme.sansSerifFont};
@@ -63,7 +63,7 @@ const StyledLi = styled<StyledLiProps, "li">("li")`
   }};
 `;
 
-const Dot = styled<DotProps, "div">("div")`
+const Dot = styled.div<DotProps>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -162,7 +162,7 @@ export class Step extends React.Component<StepTopNavProps, StepState> {
         disabled={this.props.disabled}
       >
         <Dot
-          innerRef={(el: HTMLDivElement) => (this.dot = el)}
+          ref={(el: HTMLDivElement) => (this.dot = el)}
           isActive={this.props.isActive}
           isCurrent={this.props.isCurrent}
           tailLength={tailLength}

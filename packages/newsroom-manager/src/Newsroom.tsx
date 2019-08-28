@@ -17,7 +17,7 @@ import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
-import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
@@ -100,11 +100,11 @@ export interface NewsroomProps extends NewsroomExternalProps {
   charterUri?: string;
 }
 
-export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
+export const NoteSection = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
-export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+export const Wrapper = styled.div`
   max-width: 845px;
 
   &,

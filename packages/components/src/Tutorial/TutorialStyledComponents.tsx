@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { Button, InvertedButton, SecondaryButton, ButtonProps } from "../Button";
+import { Button, InvertedButton, SecondaryButton } from "../Button";
 
 export interface TutorialProgressBarProps {
   activeSlide: number;
@@ -163,7 +163,7 @@ export const TutorialFooterLeft = styled.div`
   }
 `;
 
-export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const TutorialBtn = styled(Button)`
   border-radius: 1px;
   font-size: 14px;
   font-weight: 700;
@@ -173,7 +173,7 @@ export const TutorialBtn: StyledComponentClass<ButtonProps, "button"> = styled(B
   width: 160px;
 `;
 
-export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TutorialInvertedBtn = styled(InvertedButton)`
   background-color: transparent;
   border-radius: 1px;
   font-size: 14px;
@@ -184,7 +184,7 @@ export const TutorialInvertedBtn: StyledComponentClass<ButtonProps, "button"> = 
   width: 160px;
 `;
 
-export const TutorialTextBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TutorialTextBtn = styled(InvertedButton)`
   background-color: transparent;
   border: none;
   font-size: 13px;
@@ -281,7 +281,7 @@ export const TutorialRadioBtnContain = styled.div`
   }
 `;
 
-export const TutorialRadioBtn: StyledComponentClass<ButtonProps, "button"> = styled(SecondaryButton)`
+export const TutorialRadioBtn = styled(SecondaryButton)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 3px;
   color: ${colors.accent.CIVIL_GRAY_0};

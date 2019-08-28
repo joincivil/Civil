@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
 export interface StepStyledProps {
@@ -57,7 +57,7 @@ export const StepStyledFluid = styled(StepStyled)`
   }
 `;
 
-export const StepDescription = styled<StepDescriptionProps, "p">("p")`
+export const StepDescription = styled.p<StepDescriptionProps>`
   color: ${props => (props.disabled ? colors.accent.CIVIL_GRAY_3 : colors.accent.CIVIL_GRAY_2)};
   margin-bottom: 23px;
   margin-top: 0;

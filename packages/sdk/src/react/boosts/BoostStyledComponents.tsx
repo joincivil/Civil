@@ -1,5 +1,5 @@
-import styled, { StyledComponentClass } from "styled-components";
-import { colors, fonts, mediaQueries, Button, ButtonProps, InvertedButton } from "@joincivil/components";
+import styled from "styled-components";
+import { colors, fonts, mediaQueries, Button, InvertedButton } from "@joincivil/components";
 
 export interface BoostStyleProps {
   open?: boolean;
@@ -84,7 +84,7 @@ export const BoostWrapperFullWidthHr = styled.hr`
   }
 `;
 
-export const BoostButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const BoostButton = styled(Button)`
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
@@ -99,7 +99,7 @@ export const BoostButton: StyledComponentClass<ButtonProps, "button"> = styled(B
   }
 `;
 
-export const BoostTextButton: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const BoostTextButton = styled(InvertedButton)`
   border: none;
   cursor: pointer;
   font-size: 14px;
@@ -500,7 +500,7 @@ export const BoostModalContent = styled.p`
   text-align: ${(props: BoostStyleProps) => (props.textAlign ? props.textAlign : "left")};
 `;
 
-export const BoostModalCloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const BoostModalCloseBtn = styled(InvertedButton)`
   border: none;
   padding: 0;
   height: 40px;

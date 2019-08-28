@@ -1,6 +1,5 @@
 import * as React from "react";
-// tslint:disable-next-line:no-unused-variable Normally isn't needed but we need StyledComponentClass cause of exporting styled components but linter complaining about unused StyledComponentClass
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { BorderlessButton, Modal, fonts, colors } from "@joincivil/components";
 
 const Wrapper = styled.div`

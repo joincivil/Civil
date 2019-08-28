@@ -2,16 +2,13 @@ import {
   colors,
   fonts,
   Button,
-  ButtonProps,
   TextInput,
   TextareaInput,
-  InputProps,
   QuestionToolTip as _QuestionToolTip,
-  ToolTipProps,
 } from "@joincivil/components";
 // tslint:disable-next-line:no-unused-variable
 import * as React from "react"; // needed to export styled components
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export const FormSection = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -29,7 +26,7 @@ export const FormTitle = styled.h4`
 export interface FormSubheadProps {
   optional?: any;
 }
-export const FormSubhead = styled<FormSubheadProps, "h4">("h4")`
+export const FormSubhead = styled.h4<FormSubheadProps>`
   font-size: 14px;
   font-weight: 500;
   color: #23282d;
@@ -65,7 +62,7 @@ export const HelperText = styled.div`
   color: #72777c;
 `;
 
-export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(Button)`
+export const TertiaryButton = styled(Button)`
   border-radius: 3px;
   background-color: #f7f7f7;
   border: solid 1px #cccccc;
@@ -81,7 +78,7 @@ export const TertiaryButton: StyledComponentClass<ButtonProps, any> = styled(But
   }
 `;
 
-export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(TextInput)`
+export const StyledTextInput = styled(TextInput)`
   position: relative;
   small {
     position: absolute;
@@ -92,7 +89,7 @@ export const StyledTextInput: StyledComponentClass<InputProps, any> = styled(Tex
   }
 `;
 
-export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled(TextareaInput)`
+export const StyledTextareaInput = styled(TextareaInput)`
   position: relative;
   small {
     position: absolute;
@@ -103,7 +100,7 @@ export const StyledTextareaInput: StyledComponentClass<InputProps, any> = styled
   }
 `;
 
-export const QuestionToolTip: StyledComponentClass<ToolTipProps, any> = styled(_QuestionToolTip)`
+export const QuestionToolTip = styled(_QuestionToolTip)`
   position: relative;
   top: 2px;
 `;

@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { Civil } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { AccountEthAuth } from "../";

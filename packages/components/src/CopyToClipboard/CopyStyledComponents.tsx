@@ -1,9 +1,9 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
-import { InvertedButton, ButtonProps } from "../Button";
+import { InvertedButton } from "../Button";
 
-export const CopyBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const CopyBtn = styled(InvertedButton)`
   background-color: transparent;
   border: none;
   font-size: 13px;

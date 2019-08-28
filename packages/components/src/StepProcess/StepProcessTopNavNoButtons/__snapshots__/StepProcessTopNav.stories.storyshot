@@ -12,64 +12,64 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) StepNoButtons 2 1
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS fvrAAs"
+            className="sc-fzXfQn ceVxKK"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <p
           goNext={[Function]}
@@ -1443,64 +1443,64 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) StepNoButtons 3 1
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS klRNzq"
+            className="sc-fzXfQn GDmWG"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <p
           goNext={[Function]}
@@ -2874,64 +2874,64 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) StepNoButtons 3 2
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS klRNzq"
+            className="sc-fzXfQn GDmWG"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <p
           goNext={[Function]}
@@ -4313,65 +4313,65 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) StepProcessTopNav
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX lfFKSN"
+            className="sc-fzXfPL jTgjqg"
             disabled={true}
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS gXYeMA"
+            className="sc-fzXfQn dtDWSV"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <p
           goNext={[Function]}
@@ -5717,64 +5717,64 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) StepProcessTopNav
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS gXYeMA"
+            className="sc-fzXfQn dtDWSV"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <p
           goNext={[Function]}
@@ -7120,64 +7120,64 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) passes go next to
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX eSgJzJ"
+            className="sc-fzXfPL iwZfTF"
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS klRNzq"
+            className="sc-fzXfQn GDmWG"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <div>
           Content
@@ -8577,65 +8577,65 @@ exports[`Storyshots Common / Steps / Step Process (no buttons) scrolls to top 1`
   >
     <div>
       <div
-        className="sc-kafWEX ePztWo"
+        className="sc-fzXfPM hdUUcO"
       >
         <ul
-          className="sc-feJyhm klYewY"
+          className="sc-fzXfPN JrGgP"
         >
           <li
-            className="sc-cIShpX cWKzMh"
+            className="sc-fzXfPL gLiCpY"
             onClick={[Function]}
           >
             StepNoButtons 1
           </li>
           <li
-            className="sc-cIShpX lfFKSN"
+            className="sc-fzXfPL jTgjqg"
             disabled={true}
             onClick={[Function]}
           >
             StepNoButtons 2
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 3
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 4
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 5
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 6
           </li>
           <li
-            className="sc-cIShpX kRkENE"
+            className="sc-fzXfPL bZLuIk"
             onClick={[Function]}
           >
             StepNoButtons 7
           </li>
         </ul>
         <div
-          className="sc-cmTdod eLcuRT"
+          className="sc-fzXfQm gIeCET"
         >
           <div
-            className="sc-jwKygS gXYeMA"
+            className="sc-fzXfQn dtDWSV"
           />
         </div>
       </div>
       <div
-        className="sc-iELTvK icDmiA"
+        className="sc-fzXfQl jESuov"
       >
         <div
           goNext={[Function]}

@@ -1,8 +1,8 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, DarkButton, ButtonProps } from "../Button";
+import { Button, DarkButton } from "../Button";
 import {
   StyledDisplayName,
   StyledEthAddressContainer,
@@ -47,7 +47,7 @@ export const StyledNewsroomLogo = styled.span`
   }
 `;
 
-export const StyledEthereumInfoToggle: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+export const StyledEthereumInfoToggle = styled(DarkButton)`
   background: ${colors.accent.CIVIL_GRAY_0};
   color: ${colors.accent.CIVIL_GRAY_4};
   cursor: pointer;
@@ -60,7 +60,7 @@ export const StyledEthereumInfoToggle: StyledComponentClass<ButtonProps, "button
   white-space: nowrap;
 `;
 
-export const StyledListingURLButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+export const StyledListingURLButton = styled(DarkButton)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_1};
   font-size: 13px;
   font-weight: bold;

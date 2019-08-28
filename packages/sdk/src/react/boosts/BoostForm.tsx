@@ -519,7 +519,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   {!this.props.editMode && (
                     <td>
                       {i > 0 && (
-                        <ItemLink href="#" onClick={e => this.removeItem(e, i)}>
+                        <ItemLink href="#" onClick={(e: any) => this.removeItem(e, i)}>
                           x
                         </ItemLink>
                       )}

@@ -11,16 +11,16 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
     }
   >
     <div
-      className="sc-bjPkoM khShYx"
+      className="sc-LzNuw dATzZs"
     >
       <div>
         <h4
-          className="sc-cEvuZC cSOMjM sc-hmXxxW feJmWW"
+          className="sc-LzLuz sc-LzLMS kvbmml"
         >
           Challenge Results
         </h4>
         <p
-          className="sc-hjRWVT eGnaZE"
+          className="sc-LzLMO cRFROV"
         >
           The Civil Community 
           <b>
@@ -29,16 +29,16 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
            on the grounds that it adheres to the Civil Constitution.
         </p>
         <div
-          className="sc-ePZHVD hhGsMn"
+          className="sc-LzLLH fziAMJ"
         >
           <div
-            className="sc-likbZx gwUtkk"
+            className="sc-LzLLI kUlSUu"
           >
             <div
-              className="sc-gVyKpa jYJFkV"
+              className="sc-LzLMl pwEIK"
             >
               <div
-                className="sc-cpmKsF xIvGi"
+                className="sc-LzLMn dQhPSk"
               >
                 <svg
                   height="14"
@@ -71,27 +71,27 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
               </div>
             </div>
             <div
-              className="sc-eKZiaR dbjEBL"
+              className="sc-LzLMg cxGjhG"
             >
               <div
-                className="sc-drMfKT ihDCSr"
+                className="sc-LzLMh lbpwWI"
               >
                 73
                 %
               </div>
               <div
-                className="sc-fgfRvd gYepeo"
+                className="sc-LzLMi jKnxWi"
               >
                 <div
-                  className="sc-hIVACf eKfPww"
+                  className="sc-LzLMj jJijwq"
                 >
                   <div
-                    className="sc-gpHHfC cxyYMR"
+                    className="sc-LzLMk jBShC"
                     color="#30E8BD"
                   />
                 </div>
                 <div
-                  className="sc-gPzReC lnCPfx"
+                  className="sc-LzLMp jexZCu"
                 >
                   73000
                 </div>
@@ -100,16 +100,16 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
           </div>
         </div>
         <div
-          className="sc-ePZHVD hhGsMn"
+          className="sc-LzLLH fziAMJ"
         >
           <div
-            className="sc-likbZx gwUtkk"
+            className="sc-LzLLI kUlSUu"
           >
             <div
-              className="sc-gVyKpa jYJFkV"
+              className="sc-LzLMl pwEIK"
             >
               <div
-                className="sc-cpmKsF hTaIZu"
+                className="sc-LzLMn jdmtbX"
               >
                 <svg
                   height="14"
@@ -137,27 +137,27 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
               </div>
             </div>
             <div
-              className="sc-eKZiaR dbjEBL"
+              className="sc-LzLMg cxGjhG"
             >
               <div
-                className="sc-drMfKT ihDCSr"
+                className="sc-LzLMh lbpwWI"
               >
                 27
                 %
               </div>
               <div
-                className="sc-fgfRvd gYepeo"
+                className="sc-LzLMi jKnxWi"
               >
                 <div
-                  className="sc-hIVACf eKfPww"
+                  className="sc-LzLMj jJijwq"
                 >
                   <div
-                    className="sc-gpHHfC eaNxJl"
+                    className="sc-LzLMk kGgTtg"
                     color="#FF0C1A"
                   />
                 </div>
                 <div
-                  className="sc-gPzReC lnCPfx"
+                  className="sc-LzLMp jexZCu"
                 >
                   27000
                 </div>
@@ -166,22 +166,22 @@ exports[`Storyshots Registry Challenge Results Chart 1`] = `
           </div>
         </div>
         <div
-          className="sc-ePZHVD hhGsMn"
+          className="sc-LzLLH fziAMJ"
         >
           <div
-            className="sc-likbZx gwUtkk"
+            className="sc-LzLLI kUlSUu"
           >
             <div
-              className="sc-eXNvrr eIYtZd"
+              className="sc-LzLMm cFRTtM"
             >
               <div
-                className="sc-kQsIoO gDgHLQ sc-cpmKsF hTaIZu"
+                className="sc-LzLMn sc-LzLMo hdYubs"
               >
                 Total Votes
               </div>
             </div>
             <div
-              className="sc-jrIrqw dVyVMK"
+              className="sc-LzLMN iiOHSt"
             >
               100000
             </div>
