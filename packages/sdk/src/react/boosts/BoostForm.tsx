@@ -542,10 +542,10 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
               <td>
                 <BoostFormTitle>Boost Goal</BoostFormTitle>
                 <p>
-                  Your Boost Goal is the amount you would like to raise. If you Boost does not reach it’s amount goal by
-                  the end date, the funds sent by supporters will still be collected into your Newsroom Wallet. Once the
-                  Boost will ends, you’ll be able to widthdrawl and either dispense or exchange the funds to your wallet
-                  or exchange for another currency.
+                  Your Boost goal is the amount you would like to raise. If your Boost does not reach its amount goal by
+                  the end date, the proceeds sent by supporters will still be collected into your Newsroom’s wallet.
+                  Once the Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
+                  wallet, or exchange to another currency.
                 </p>
               </td>
               <ItemCostCell>
