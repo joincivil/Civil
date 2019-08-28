@@ -14,6 +14,7 @@ import {
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
+import { listingTabs, TListingTab } from "../../constants";
 import { State } from "../../redux/reducers";
 import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
 import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
@@ -29,11 +30,21 @@ import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
 
+const TABS: TListingTab[] = [
+  listingTabs.CHARTER,
+  listingTabs.DISCUSSIONS,
+  listingTabs.HISTORY,
+  listingTabs.BOOSTS,
+  listingTabs.OWNER,
+];
+
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
   charterRevisions?: Map<number, StorageHeader>;
+  match?: any;
+  history: any;
 }
 
 export interface ListingReduxProps {
@@ -56,7 +67,7 @@ export interface ListingReduxProps {
 }
 
 interface ListingPageComponentState {
-  activeTab: number;
+  activeTabIndex: number;
 }
 
 class ListingPageComponent extends React.Component<
@@ -65,7 +76,7 @@ class ListingPageComponent extends React.Component<
 > {
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
-    this.state = { activeTab: 0 };
+    this.state = { activeTabIndex: 0 };
   }
 
   public async componentDidUpdate(): Promise<void> {
@@ -96,9 +107,17 @@ class ListingPageComponent extends React.Component<
   }
 
   public componentWillMount(): void {
+    const { activeTab } = this.props.match.params;
     const listing = this.props.listing;
-    const activeTab = listing && listing.data.challenge ? 1 : 0;
-    this.setState({ activeTab });
+    let activeTabIndex = 0;
+
+    if (activeTab) {
+      activeTabIndex = TABS.indexOf(activeTab) || 0;
+    } else if (listing && listing.data.challenge) {
+      activeTabIndex = 1;
+    }
+
+    this.setState({ activeTabIndex });
   }
 
   public render(): JSX.Element {
@@ -138,7 +157,7 @@ class ListingPageComponent extends React.Component<
           </StyledRightContentWell>
 
           <StyledLeftContentWell>
-            <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTab} onActiveTabChange={this.onTabChange}>
+            <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTabIndex} onActiveTabChange={this.onTabChange}>
               <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
@@ -201,8 +220,10 @@ class ListingPageComponent extends React.Component<
     return <ErrorNotFoundMsg>We could not find this Newsroom Listing</ErrorNotFoundMsg>;
   }
 
-  private onTabChange = (newActiveTab: number): void => {
-    this.setState({ activeTab: newActiveTab });
+  private onTabChange = (newActiveTabIndex: number): void => {
+    const tabName = TABS[newActiveTabIndex];
+    this.setState({ activeTabIndex: newActiveTabIndex });
+    this.props.history.push(`/listing/${this.props.listingAddress}/${tabName}`);
   };
 
   private showCharterTab = (): void => {

@@ -3,7 +3,7 @@ export enum routes {
   REGISTRY_HOME_ROOT = "/registry",
   HOMEPAGE = "/",
   CONTRACT_ADDRESSES = "/contract-addresses",
-  LISTING = "/listing/:listingAddress",
+  LISTING = "/listing/:listingAddress/:activeTab?",
   SUBMIT_CHALLENGE = "/listing/:listingAddress/submit-challenge",
   SUBMIT_APPEAL_CHALLENGE = "/listing/:listingAddress/submit-appeal-challenge",
   REQUEST_APPEAL = "/listing/:listingAddress/request-appeal",
@@ -89,3 +89,18 @@ export type TDashboardSubTab =
   | dashboardSubTabs.TASKS_TRANSFER_VOTING_TOKENS
   | dashboardSubTabs.CHALLENGES_COMPLETED
   | dashboardSubTabs.CHALLENGES_STAKED;
+
+export enum listingTabs {
+  CHARTER = "charter",
+  DISCUSSIONS = "discussions",
+  HISTORY = "history",
+  BOOSTS = "boosts",
+  OWNER = "owner-actions",
+}
+
+export type TListingTab =
+  | listingTabs.CHARTER
+  | listingTabs.DISCUSSIONS
+  | listingTabs.HISTORY
+  | listingTabs.BOOSTS
+  | listingTabs.OWNER;

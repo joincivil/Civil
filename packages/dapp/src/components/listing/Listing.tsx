@@ -22,6 +22,7 @@ import ListingRedux from "./ListingRedux";
 export interface ListingPageProps {
   match: any;
   listingAddress: EthAddress;
+  history: any;
 }
 
 export interface ListingPageReduxProps {
@@ -60,6 +61,8 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
                   newsroom={newsroom}
                   listing={listing}
                   charterRevisions={charterRevisions}
+                  match={this.props.match}
+                  history={this.props.history}
                 />
               </>
             );

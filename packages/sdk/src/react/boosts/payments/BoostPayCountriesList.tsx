@@ -1,4 +1,5 @@
 export const Countries = [
+  { value: "USA", name: "United States" },
   { value: "AFG", name: "Afghanistan" },
   { value: "ALA", name: "Åland Islands" },
   { value: "ALB", name: "Albania" },

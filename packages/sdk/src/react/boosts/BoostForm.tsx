@@ -412,13 +412,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   End date
                   <QuestionToolTip explainerText="All proceeds go directly to the Newsroom. There are small fees charged by the Ethereum network." />
                 </BoostFormTitle>
-                <EndDateInput
-                  type="date"
-                  name="dateEnd"
-                  value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
-                  onChange={this.onDateEndInputChange}
-                  disabled={this.props.editMode}
-                />
+                {this.renderEndDate()}
                 <EndDateNotice>Your Boost will end at 11:59PM on the date selected.</EndDateNotice>
                 {!this.props.channelData.isStripeConnected && (
                   <ConnectStripeNotice>
@@ -461,6 +455,22 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
           );
         }}
       </Mutation>
+    );
+  }
+
+  private renderEndDate(): JSX.Element {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+
+    return (
+      <EndDateInput
+        type="date"
+        name="dateEnd"
+        min={date.toISOString().split("T")[0]}
+        value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
+        onChange={this.onDateEndInputChange}
+        disabled={this.props.editMode}
+      />
     );
   }
 
@@ -532,10 +542,10 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
               <td>
                 <BoostFormTitle>Boost Goal</BoostFormTitle>
                 <p>
-                  Your Boost Goal is the amount you would like to raise. If you Boost does not reach it’s amount goal by
-                  the end date, the funds sent by supporters will still be collected into your Newsroom Wallet. Once the
-                  Boost will ends, you’ll be able to widthdrawl and either dispense or exchange the funds to your wallet
-                  or exchange for another currency.
+                  Your Boost goal is the amount you would like to raise. If your Boost does not reach its amount goal by
+                  the end date, the proceeds sent by supporters will still be collected into your Newsroom’s wallet.
+                  Once the Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
+                  wallet, or exchange to another currency.
                 </p>
               </td>
               <ItemCostCell>

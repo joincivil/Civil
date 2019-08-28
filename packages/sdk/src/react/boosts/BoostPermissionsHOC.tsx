@@ -189,11 +189,11 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
 
       if (this.state.userEthAddress && this.state.newsroomContractAddress && this.context.civil) {
         const newsroom = await this.context.civil.newsroomAtUntrusted(this.state.newsroomContractAddress);
-        const newsroomOwners = (await newsroom.getNewsroomData()).owners;
+        const newsroomOwners = (await newsroom.getNewsroomData()).owners.map(owner => owner.toLowerCase());
 
         this.setState({
           checkingIfOwner: false,
-          boostOwner: newsroomOwners && newsroomOwners.indexOf(this.state.userEthAddress) !== -1,
+          boostOwner: newsroomOwners && newsroomOwners.indexOf(this.state.userEthAddress.toLowerCase()) !== -1,
           newsroomOwners,
           newsroom,
         });
