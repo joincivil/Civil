@@ -112,7 +112,7 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyTo
 
   const minDeposit = new BigNumber((parameters && parameters[Parameters.minDeposit]) || 0);
 
-  const multisigHasMinDeposit = multisigBalance.greaterThanOrEqualTo(minDeposit);
+  const multisigHasMinDeposit = multisigBalance.gte(minDeposit);
 
   return {
     ...ownProps,
