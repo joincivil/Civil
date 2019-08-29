@@ -88,7 +88,7 @@ class SignConstitutionComponent extends React.Component<
   DispatchProp<any> & SignConstitutionReduxProps,
   SignConstitutionState
 > {
-  constructor(props: SignConstitutionReduxProps) {
+  constructor(props: SignConstitutionReduxProps & DispatchProp<any>) {
     super(props);
     this.state = {
       isNewsroomOwner: false,

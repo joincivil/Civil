@@ -558,6 +558,7 @@ export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props =>
     <AuthWrapper>
       <DataWrapper>
         {(gqlProps: NewsroomGqlProps) => {
+          // @ts-ignore Type 'ButtonTheme | undefined' is not assignable to type
           return <NewsroomRedux {...props} {...gqlProps} />;
         }}
       </DataWrapper>
