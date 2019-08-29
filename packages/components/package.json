@@ -51,7 +51,7 @@
     "strip-ansi": "^5.0.0",
     "ts-jest": "^23.10.4",
     "ts-loader": "^4",
-    "typescript": "^3.4.1",
+    "typescript": "^3.6.2",
     "webpack": "^4",
     "webpack-hot-middleware": "^2.21.1"
   },
