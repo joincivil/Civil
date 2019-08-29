@@ -187,7 +187,8 @@ export class EthApi {
     const signerAccount = account || (await requireAccount(this).toPromise());
     let signature: Hex;
     try {
-      signature = (await this.rpc("personal_sign", messageHex, signerAccount, "")).result;
+      // @ts-ignore types are wrong on personal sign
+      signature = await this.web3.eth.personal.sign(messageHex, signerAccount);
     } catch (e) {
       if (e.message.toLowerCase().includes("user denied")) {
         throw e; // rethrow the metamask error to be handled in ui

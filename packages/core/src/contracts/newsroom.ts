@@ -135,7 +135,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       throw new Error("No Newsroom created during deployment through factory");
     }
 
-    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.returnValues.instantiation);
+    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
     const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
     const defaultBlock = getDefaultFromBlock(await ethApi.network());
     return new Newsroom(ethApi, contentProvider, contract, multisigProxy, defaultBlock);
