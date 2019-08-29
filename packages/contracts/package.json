@@ -49,7 +49,7 @@
     "@types/chai-as-promised": "^7.1.0",
     "@types/glob": "^5.0.34",
     "@types/mkdirp": "^0.5.2",
-    "@types/node": "^10.12.0",
+    "@types/node": "^12.7.2",
     "@types/underscore": "^1.8.6",
     "@types/web3": "^1.0.19",
     "bn.js": "^4.11.8",

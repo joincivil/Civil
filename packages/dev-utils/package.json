@@ -47,7 +47,7 @@
     "@types/glob": "^5.0.35",
     "@types/handlebars": "^4.0.36",
     "@types/mkdirp": "^0.5.2",
-    "@types/node": "^10.12.0",
+    "@types/node": "^12.7.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.17.0",
     "typescript": "^3.6.2"
