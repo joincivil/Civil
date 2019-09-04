@@ -9,6 +9,7 @@
   "author": "The Civil Media Company",
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc -w",
     "clean": "rimraf build/",
     "lint": "tslint --project ./"
   },
