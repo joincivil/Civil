@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
+import { withRouter } from "react-router-dom";
+import { compose } from "react-apollo";
 
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
 import {
@@ -293,4 +295,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default connect(makeMapStateToProps)(ListingPageComponent);
+export default compose(
+  withRouter,
+  connect(makeMapStateToProps),
+)(ListingPageComponent);
