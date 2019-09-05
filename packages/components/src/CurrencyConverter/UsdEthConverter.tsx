@@ -24,7 +24,7 @@ export const UsdEthConverter = (props: UsdEthConverterProps) => {
         return (
           <>
             <CurrencyConverter
-              fromValue={props.fromValue || "0"}
+              fromValue={props.fromValue}
               currencyCodeFrom="USD"
               currencyLabelFrom="Enter USD Amount"
               currencyCodeTo="ETH"
