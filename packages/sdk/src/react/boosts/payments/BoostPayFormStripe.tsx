@@ -23,6 +23,7 @@ import { BoostPayOption } from "./BoostPayOption";
 import { Countries } from "./BoostPayCountriesList";
 import { urlConstants } from "../../urlConstants";
 import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./InputValidationUI";
+import PaymentRequestForm from "./BoostPaymentRequest";
 
 const StripeWrapper = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
@@ -141,6 +142,12 @@ const StripePolicy = styled.div`
   }
 `;
 
+const StripePaymentRequest = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  margin-bottom: 10px;
+  padding: 10px 0;
+`;
+
 export interface BoostPayFormStripeProps extends ReactStripeElements.InjectedStripeProps {
   boostId: string;
   newsroomName: string;
@@ -208,6 +215,13 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
           optionLabel={this.props.optionLabel}
           selected={this.props.selected}
         >
+          <StripePaymentRequest>
+            <PaymentRequestForm
+              savePayment={this.props.savePayment}
+              boostId={this.props.boostId}
+              usdToSpend={this.props.usdToSpend}
+            />
+          </StripePaymentRequest>
           <StripeWrapper>
             <StripeCardEmailWrap>
               <label>Email</label>
