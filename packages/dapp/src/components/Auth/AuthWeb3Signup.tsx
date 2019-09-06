@@ -1,14 +1,18 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import { MetaMaskFrontIcon, AuthFooterContainer, WalletOnboardingV2, CardClickable } from "@joincivil/components";
+import {
+  MetaMaskFrontIcon,
+  AuthFooterContainer,
+  WalletOnboardingV2,
+  CardClickable,
+  Modal,
+} from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 import { urlConstants as links } from "@joincivil/utils";
 import { hasInjectedProvider } from "@joincivil/ethapi";
 
 import { routes } from "../../constants";
-import { StyledPageContentWithPadding } from "../utility/styledComponents";
 import { StyledAuthAltOption, StyledAuthHeader, StyledAuthHeaderCopy } from "./authStyledComponents";
 import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
 import AuthWeb3 from "./AuthWeb3";
@@ -53,6 +57,7 @@ const authSignupEthMutation = gql`
 export interface AuthWeb3SignUpProps {
   onAuthenticated?(address: EthAddress): void;
   onSignupContinue?(): void;
+  onOuterClicked?(): void;
 }
 
 const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps> = props => {
@@ -111,8 +116,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
   };
 
   return (
-    <StyledPageContentWithPadding centerContent={true}>
-      <Helmet title={`Sign up - The Civil Registry`} />
+    <Modal width={558} onOuterClicked={props.onOuterClicked}>
       <div>
         {(() => {
           if (isWalletOnboardingVisible) {
@@ -134,7 +138,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
           );
         })()}
       </div>
-    </StyledPageContentWithPadding>
+    </Modal>
   );
 };
 

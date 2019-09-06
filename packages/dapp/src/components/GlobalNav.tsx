@@ -1,7 +1,12 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { State } from "../redux/reducers";
-import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
+import {
+  getFormattedTokenBalance,
+  getFormattedEthAddress,
+  urlConstants as links,
+  clearApolloSession,
+} from "@joincivil/utils";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -10,8 +15,8 @@ import {
   getUserChallengesWithUnrevealedVotes,
   getUserChallengesWithUnclaimedRewards,
 } from "../selectors";
-import { CivilContext, NavBar, NavProps } from "@joincivil/components";
-import { toggleUseGraphQL } from "../redux/actionCreators/ui";
+import { CivilContext, ICivilContext, NavBar, NavProps } from "@joincivil/components";
+import { showWeb3LoginModal, showWeb3SignupModal, hideWeb3AuthModal } from "../redux/actionCreators/ui";
 
 export interface NavBarProps {
   balance: string;
@@ -25,52 +30,76 @@ export interface NavBarProps {
   useGraphQL: boolean;
 }
 
-const GlobalNavComponent: React.FunctionComponent<NavBarProps & DispatchProp<any>> = props => {
-  const { civil } = React.useContext(CivilContext);
+export interface NavBarOwnProps {
+  civilUser: any;
+}
 
-  const {
-    balance,
-    votingBalance,
-    userAccount,
-    userChallengesWithUnrevealedVotes,
-    userChallengesWithUnclaimedRewards,
-    currentUserChallengesStarted,
-    currentUserChallengesVotedOn,
-    useGraphQL,
-  } = props;
+class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & DispatchProp<any>> {
+  public static contextType: React.Context<ICivilContext> = CivilContext;
 
-  const navBarViewProps: NavProps = {
-    balance,
-    votingBalance,
-    userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
-    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
-    userChallengesStartedCount: currentUserChallengesStarted.count(),
-    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    useGraphQL,
-    authenticationURL: "/auth/login",
-    buyCvlUrl: "/tokens",
-    joinAsMemberUrl: "https://civil.co/become-a-member",
-    applyURL: links.APPLY,
-    onLoadingPrefToggled: async (): Promise<any> => {
-      props.dispatch!(await toggleUseGraphQL());
-    },
-  };
+  public render(): JSX.Element {
+    const civil = this.context.civil;
 
-  if (civil && civil.currentProvider) {
-    navBarViewProps.enableEthereum = async () => {
-      await civil.currentProviderEnable();
+    const {
+      balance,
+      votingBalance,
+      userAccount,
+      userChallengesWithUnrevealedVotes,
+      userChallengesWithUnclaimedRewards,
+      currentUserChallengesStarted,
+      currentUserChallengesVotedOn,
+      useGraphQL,
+      civilUser,
+    } = this.props;
+
+    const navBarViewProps: NavProps = {
+      balance,
+      votingBalance,
+      userEthAddress: userAccount && getFormattedEthAddress(userAccount),
+      userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
+      userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
+      userChallengesStartedCount: currentUserChallengesStarted.count(),
+      userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
+      useGraphQL,
+      authenticationURL: "/auth/login",
+      buyCvlUrl: "/tokens",
+      joinAsMemberUrl: "https://civil.co/become-a-member",
+      applyURL: links.APPLY,
+      onLogoutPressed: async (): Promise<any> => {
+        console.log("on logout pressed");
+        this.handleLogoutPressed();
+      },
+      onLoginPressed: async (): Promise<any> => {
+        this.props.dispatch!(await showWeb3LoginModal());
+      },
+      onSignupPressed: async (): Promise<any> => {
+        this.props.dispatch!(await showWeb3SignupModal());
+      },
+      onModalDefocussed: async (): Promise<any> => {
+        this.props.dispatch!(await hideWeb3AuthModal());
+      },
     };
+
+    if (civil && civil.currentProvider) {
+      navBarViewProps.enableEthereum = async () => {
+        await civil.currentProviderEnable();
+      };
+    }
+
+    return (
+      <>
+        <NavBar {...navBarViewProps} civilUser={civilUser} />
+      </>
+    );
   }
 
-  return (
-    <>
-      <NavBar {...navBarViewProps} />
-    </>
-  );
-};
+  public handleLogoutPressed(): any {
+    console.log("handle logout pressed.");
+    clearApolloSession();
+  }
+}
 
-const mapStateToProps = (state: State): NavBarProps => {
+const mapStateToProps = (state: State, ownProps: NavBarOwnProps): NavBarProps & NavBarOwnProps => {
   const { network, useGraphQL } = state;
   const { user } = state.networkDependent;
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
@@ -103,6 +132,7 @@ const mapStateToProps = (state: State): NavBarProps => {
     userChallengesWithUnrevealedVotes,
     userChallengesWithUnclaimedRewards,
     useGraphQL,
+    ...ownProps,
   };
 };
 

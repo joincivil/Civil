@@ -2,6 +2,7 @@ export interface NavUserAccountProps {
   balance: string;
   userEthAddress?: string;
   votingBalance: string;
+  civilUser?: any;
 }
 
 export interface NavAuthenticationProps {
@@ -18,7 +19,10 @@ export interface NavDrawerProps {
   userChallengesVotedOnCount?: number;
   buyCvlUrl: string;
   useGraphQL: boolean;
-  onLoadingPrefToggled(): void;
+  onLogoutPressed(): void;
+  onLoginPressed(): void;
+  onSignupPressed(): void;
+  onModalDefocussed(): void;
 }
 
 export type NavProps = NavUserAccountProps & NavAuthenticationProps & NavDrawerProps;

@@ -11,7 +11,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
     }
   >
     <div
-      className="sc-LzMjO CkMWx"
+      className="sc-LzMjO bYpkZW"
     >
       <div
         className="sc-LzMkm cYdFMK"
@@ -126,44 +126,44 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
         <div
           className="sc-LzMkp ifwkBd"
         >
-          <a
-            href="/#auth"
+          <button
+            className="sc-fzXfMD sc-fzXfME sc-LzMkW gbQMQi"
             onClick={[Function]}
+            theme={
+              Object {
+                "primaryButtonBackground": "#2B56FF",
+                "primaryButtonColor": "#FFFFFF",
+                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+                "primaryButtonDisabledColor": "#FFFFFF",
+                "primaryButtonFontWeight": "normal",
+                "primaryButtonHoverBackground": "#4066FF",
+                "primaryButtonTextTransform": "uppercase",
+                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+              }
+            }
+            type="button"
           >
             Log In
-          </a>
-          <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMkX cMCzrV"
-            href="#buy-tokens"
-            size="SMALL"
+          </button>
+          <button
+            className="sc-fzXfMD sc-fzXfME sc-LzMkW gbQMQi"
+            onClick={[Function]}
             theme={
               Object {
-                "darkButtonBackground": "#000000",
-                "darkButtonColor": "#FFFFFF",
-                "darkButtonHoverBackground": "#5A5653",
-                "darkButtonHoverColor": "#FFFFFF",
-                "darkButtonTextTransform": "none",
+                "primaryButtonBackground": "#2B56FF",
+                "primaryButtonColor": "#FFFFFF",
+                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+                "primaryButtonDisabledColor": "#FFFFFF",
+                "primaryButtonFontWeight": "normal",
+                "primaryButtonHoverBackground": "#4066FF",
+                "primaryButtonTextTransform": "uppercase",
+                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
               }
             }
+            type="button"
           >
-            Join as a member
-          </a>
-          <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMkX cMCzrV"
-            href="#apply"
-            size="SMALL"
-            theme={
-              Object {
-                "darkButtonBackground": "#000000",
-                "darkButtonColor": "#FFFFFF",
-                "darkButtonHoverBackground": "#5A5653",
-                "darkButtonHoverColor": "#FFFFFF",
-                "darkButtonTextTransform": "none",
-              }
-            }
-          >
-            Join as a newsroom
-          </a>
+            Sign Up
+          </button>
         </div>
       </div>
     </div>

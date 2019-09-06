@@ -4,17 +4,19 @@ import { Mutation, MutationFn } from "react-apollo";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
 import { ConfirmButtonContainer, AuthErrorMessage } from "./AuthStyledComponents";
-import { isValidEmail } from "@joincivil/utils";
-import { AuthTextEmailNotFoundError, AuthTextEmailExistsError, AuthTextUnknownError } from "./AuthTextComponents";
+import { isValidHandle, getCurrentUserQuery } from "@joincivil/utils";
+import { AuthTextUnknownError } from "./AuthTextComponents";
 
 export interface UserSetHandleMutationVariables {
+  channelID: string;
   handle: string;
-  userID: string;
 }
 
 const setHandleMutation = gql`
-  mutation($setHandleInput: UserChannelSetHandleInput!) {
-    userChannelSetHandle(userID: $userID, handle: $handle)
+  mutation($input: ChannelsSetHandleInput!) {
+    channelsSetHandle(input: $input) {
+      id
+    }
   }
 `;
 
@@ -27,8 +29,7 @@ export interface UserSetHandleSendResult {
 
 export interface UserSetHandleAuthProps {
   headerComponent?: JSX.Element;
-  userID: string;
-  onEmailSend(isNewUser: boolean, emailAddress: string): void;
+  channelID: string;
 }
 
 export type UserSetHandleError = "unknown" | "emailexists" | "emailnotfound" | undefined;
@@ -37,24 +38,25 @@ export interface UserSetHandleAuthState {
   handle: string;
   errorMessage: UserSetHandleError;
   hasBlurred: boolean;
+  isValid: boolean;
 }
 
 export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserSetHandleAuthState> {
   constructor(props: UserSetHandleAuthProps) {
     super(props);
-    console.log("constructor 1");
+    console.log("UserSetProps: ", props);
     this.state = {
       handle: "",
       errorMessage: undefined,
       hasBlurred: false,
+      isValid: false,
     };
   }
 
   public renderHandleInput(): JSX.Element {
-    const { handle, hasBlurred } = this.state;
+    const { handle } = this.state;
 
-    const isValid = !hasBlurred || isValidEmail(handle);
-    console.log("render email input 1");
+    const isValid = isValidHandle(handle);
     return (
       <TextInput
         placeholder="username"
@@ -64,7 +66,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
         value={handle}
         invalidMessage={isValid ? undefined : "Please enter a valid username."}
         invalid={!isValid}
-        onChange={(_, value) => this.setState({ handle: value, hasBlurred: false })}
+        onChange={(_, value) => this.setState({ handle: value, hasBlurred: false, isValid })}
         onBlur={() => this.setState({ hasBlurred: true })}
       />
     );
@@ -80,25 +82,24 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     return (
       <AuthErrorMessage>
         <AuthTextUnknownError />
-        <>errorMessage</>
+        <>{errorMessage}</>
       </AuthErrorMessage>
     );
   }
 
   public render(): JSX.Element {
-    console.log("RENDER 1");
-    const { headerComponent } = this.props;
-
-    const isButtonDisabled = false; // TODO (validate)
+    const { headerComponent, channelID } = this.props;
+    console.log("render channelID: ", channelID);
+    const isButtonDisabled = !this.state.isValid; // TODO (validate)
 
     return (
       <>
         {this.renderAuthError()}
         {headerComponent}
         <Mutation mutation={setHandleMutation}>
-          {sendEmail => {
+          {setHandle => {
             return (
-              <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>
+              <form onSubmit={async event => this.handleSubmit(event, setHandle, channelID)}>
                 {this.renderHandleInput()}
                 <ConfirmButtonContainer>
                   <Button
@@ -118,22 +119,33 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     );
   }
 
-  private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
+  private async handleSubmit(event: React.FormEvent, mutation: MutationFn, channelID: string): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
     const { handle } = this.state;
 
-    if (!isValidEmail(handle)) {
+    console.log("submit channelID: ", channelID);
+    console.log("submit handle: ", handle);
+    console.log("submit channelID 2: ", this.props.channelID);
+
+    if (!isValidHandle(handle)) {
       return;
     }
 
     try {
-      const variables: UserSetHandleMutationVariables = { userID: this.props.userID, handle };
+      // const variables: UserSetHandleMutationVariables = { UserID, Handle };
 
       const res: any = await mutation({
-        variables,
+        variables: {
+          input: { channelID, handle },
+        },
+        refetchQueries: [
+          {
+            query: getCurrentUserQuery,
+          },
+        ],
       });
 
       console.log("good job. res: ", res);

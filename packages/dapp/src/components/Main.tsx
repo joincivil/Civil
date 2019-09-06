@@ -28,6 +28,7 @@ import { isNetworkSupported } from "../helpers/networkHelpers";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import AsyncComponent from "./utility/AsyncComponent";
 import { analyticsEvent } from "../redux/actionCreators/analytics";
+import { Subscription } from "rxjs";
 
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
@@ -54,8 +55,15 @@ export interface MainReduxProps {
   network: string;
 }
 
+export interface MainProps {
+  civilUser: any;
+}
+
 export interface MainState {
   prevAccount: EthAddress;
+  accountStream: Subscription;
+  networkStream: Subscription;
+  networkNameStream: Subscription;
 }
 
 class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>, MainState> {
@@ -76,12 +84,28 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
   }
 
   public async componentDidMount(): Promise<void> {
+    console.log("main mounts");
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const { civil } = this.context;
-    civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
-    civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
-    civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
+    const networkStream = civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
+    const networkNameStream = civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
+    const accountStream = civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
     this.context.setAnalyticsEvent(this.fireAnalyticsEvent);
+    this.setState({ networkNameStream, networkStream, accountStream });
+  }
+
+  public async componentWillUnmount(): Promise<void> {
+    const { networkStream, networkNameStream, accountStream } = this.state;
+    if (networkStream) {
+      networkStream.unsubscribe();
+    }
+    if (networkNameStream) {
+      networkNameStream.unsubscribe();
+    }
+    if (accountStream) {
+      accountStream.unsubscribe();
+    }
+    console.log("main unmounts");
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {

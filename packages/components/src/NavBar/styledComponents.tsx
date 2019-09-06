@@ -10,7 +10,7 @@ export const NavContainer = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999999;
+  z-index: 999;
 `;
 
 export const NavOuter = styled.div`
@@ -150,15 +150,21 @@ export const LogInButton = styled(Button)`
   margin-left: 10px;
 `;
 
+export const BorderlessNavBarButton = styled(DarkButton)`
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 15px 15px 15px 15px;
+  text-align: center;
+`;
+
 export const NavBarButton = styled(DarkButton)`
   border: 2px solid ${colors.basic.WHITE};
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-left: 30px;
-  padding: 15px 0;
+  padding: 15px 15px 15px 15px;
   text-align: center;
-  width: 180px;
 
   &:hover {
     background: ${colors.basic.WHITE};

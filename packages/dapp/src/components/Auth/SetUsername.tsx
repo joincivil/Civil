@@ -1,23 +1,20 @@
 import * as React from "react";
-import { SetHandle, AuthApplicationEnum, AuthWrapper, AuthTextSigninWithEmail } from "@joincivil/components";
+import { UserSetHandle, AuthApplicationEnum, AuthTextSetHandle, Modal } from "@joincivil/components";
 
-export interface AuthLoginProps {
-  onEmailSend(isNewUser: boolean, emailAddress: string): void;
+interface SetUsernameProps {
+  channelID: string;
 }
-
-const SetUsername: React.FunctionComponent<AuthLoginProps> = props => {
-  console.log("set username 1");
+const SetUsername: React.FunctionComponent<SetUsernameProps> = props => {
+  console.log("SetUsername props: ", props);
   return (
-    <AuthWrapper>
-      <SetHandle
+    <Modal width={588}>
+      <UserSetHandle
+        {...props}
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
-        onEmailSend={(isNewUser: boolean, emailAddress: string) => props.onEmailSend(isNewUser, emailAddress)}
-        headerComponent={<AuthTextSigninWithEmail />}
-        loginPath="/auth/login"
-        signupPath="/auth/signup"
+        headerComponent={<AuthTextSetHandle />}
       />
-    </AuthWrapper>
+    </Modal>
   );
 };
 

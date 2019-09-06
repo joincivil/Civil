@@ -20,6 +20,7 @@ export const TokensComponent = ({ network }: TokensProps) => {
       <ScrollToTopOnMount />
       <LoadUser>
         {({ loading, user }) => {
+          console.log("load user 8");
           if (loading) {
             // TODO(jorgelo): Should we have a loading state here?
             return null;

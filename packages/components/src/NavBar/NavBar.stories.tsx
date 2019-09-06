@@ -29,7 +29,16 @@ storiesOf("Common / Nav / Nav Bar", module)
         buyCvlUrl="#become-member"
         applyURL="#apply"
         useGraphQL={false}
-        onLoadingPrefToggled={() => {
+        onLogoutPressed={() => {
+          console.log("thinged");
+        }}
+        onLoginPressed={() => {
+          console.log("thinged");
+        }}
+        onSignupPressed={() => {
+          console.log("thinged");
+        }}
+        onModalDefocussed={() => {
           console.log("thinged");
         }}
       />

@@ -1,12 +1,10 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import { Dropdown, MetaMaskFrontIcon } from "@joincivil/components";
+import { Dropdown, MetaMaskFrontIcon, Modal } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 
 import { routes } from "../../constants";
-import { StyledPageContentWithPadding } from "../utility/styledComponents";
 import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
 import { StyledAuthAltOption, StyledAuthHeader } from "./authStyledComponents";
 import AuthWeb3 from "./AuthWeb3";
@@ -39,6 +37,7 @@ const authLoginEthMutation = gql`
 export interface AuthWeb3LoginProps {
   onAuthenticated?(address: EthAddress): void;
   onSignupContinue?(): void;
+  onOuterClicked?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -54,7 +53,6 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
           messagePrefix="Log in to Civil"
           buttonText={ethereumLoginButtonContent}
           onSignupContinue={props.onSignupContinue}
-          {...props}
         />
       </StyledCardTransactionButtonContainer>
 
@@ -79,13 +77,12 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
 
 const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => {
   return (
-    <StyledPageContentWithPadding centerContent={true}>
-      <Helmet title={`Login - The Civil Registry`} />
+    <Modal width={558} onOuterClicked={props.onOuterClicked}>
       <div>
         <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
         <AuthWeb3LoginComponent onSignupContinue={props.onSignupContinue} />
       </div>
-    </StyledPageContentWithPadding>
+    </Modal>
   );
 };
 

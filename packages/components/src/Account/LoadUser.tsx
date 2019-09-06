@@ -29,7 +29,6 @@ export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
         if (loading || error) {
           return renderFunction({ user: null, loading });
         }
-
         return renderFunction({ user: data.currentUser, loading });
       }}
     </Query>

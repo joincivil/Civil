@@ -24,7 +24,6 @@ interface AuthenticatedRedirectRouteParams {
 }
 
 const TOKEN_PARAM = "jwt";
-const REDIRECT_PARAM = "next";
 
 function getTokenFromSearch(search: string): string | undefined {
   try {
@@ -32,18 +31,6 @@ function getTokenFromSearch(search: string): string | undefined {
     const parsed = qs.parse(search.substr(1));
 
     return parsed[TOKEN_PARAM] as string;
-  } catch (err) {
-    console.error("Error parsing query:", err);
-    return undefined;
-  }
-}
-
-function getRedirectFromString(search: string): string | undefined {
-  try {
-    // Needs substr since search includes the ?
-    const parsed = qs.parse(search.substr(1));
-
-    return parsed[REDIRECT_PARAM] as string;
   } catch (err) {
     console.error("Error parsing query:", err);
     return undefined;
