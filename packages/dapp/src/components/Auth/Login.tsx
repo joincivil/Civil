@@ -13,6 +13,7 @@ export interface AuthLoginProps {
 }
 
 const AuthLogin: React.FunctionComponent<AuthLoginProps> = props => {
+  console.log("Login.tsx 1");
   return (
     <AuthWrapper>
       <AccountEmailAuth

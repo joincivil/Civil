@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Dropdown, MetaMaskFrontIcon, Modal } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 
-import { routes } from "../../constants";
 import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
 import { StyledAuthAltOption, StyledAuthHeader } from "./authStyledComponents";
 import AuthWeb3 from "./AuthWeb3";
@@ -38,6 +37,7 @@ export interface AuthWeb3LoginProps {
   onAuthenticated?(address: EthAddress): void;
   onSignupContinue?(): void;
   onOuterClicked?(): void;
+  onSignUpClicked?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -57,7 +57,18 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
       </StyledCardTransactionButtonContainer>
 
       <StyledAuthAltOption>
-        Not a Civil member? <a href={routes.AUTH_SIGNUP_WEB3}>Sign up to join</a>
+        Not a Civil member?{" "}
+        <a
+          onClick={() => {
+            console.log("on click!");
+            if (props.onSignUpClicked) {
+              console.log("did click");
+              props.onSignUpClicked();
+            }
+          }}
+        >
+          Sign up to join
+        </a>
       </StyledAuthAltOption>
     </StyledAuthLogin>
   );
@@ -80,7 +91,7 @@ const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => 
     <Modal width={558} onOuterClicked={props.onOuterClicked}>
       <div>
         <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onSignupContinue={props.onSignupContinue} />
+        <AuthWeb3LoginComponent {...props} />
       </div>
     </Modal>
   );

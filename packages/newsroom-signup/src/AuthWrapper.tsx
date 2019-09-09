@@ -82,6 +82,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
   }
 
   public render(): JSX.Element {
+    console.log("this.props.location: ", this.props.location);
     if (this.state.loggedIn) {
       return <>{this.props.children}</>;
     }

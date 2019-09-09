@@ -5,6 +5,7 @@ import AsyncComponent from "../utility/AsyncComponent";
 import * as qs from "querystring";
 import { routes } from "../../constants";
 import SetUsername from "./SetUsername";
+import ConfirmEmail from "./ConfirmEmail";
 
 const AuthLogin = React.lazy(async () => import("./Login"));
 const AuthWeb3Login = React.lazy(async () => import("./AuthWeb3Login"));
@@ -45,7 +46,6 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
       redirectTo: routes.TOKEN_STOREFRONT,
       authUrl: routes.AUTH_SIGNUP,
     };
-
     return (
       <>
         <Switch>
@@ -65,6 +65,21 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
             render={(props: RouteComponentProps) => {
               return AsyncComponent(SetUsername)({
                 onSendAgain: () => this.handleOnSendAgain(false),
+              });
+            }}
+          />
+          <Route
+            path={routes.CONFIRM_EMAIL}
+            render={(props: RouteComponentProps) => {
+              const token = getTokenFromSearch(props.location.search);
+              return AsyncComponent(ConfirmEmail)({
+                token,
+                onConfirmEmailContinue: () => {
+                  this.props.history.push({
+                    pathname: "/",
+                    state: {},
+                  });
+                },
               });
             }}
           />

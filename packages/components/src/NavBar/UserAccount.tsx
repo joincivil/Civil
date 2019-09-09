@@ -76,7 +76,6 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
     );
   }
 
-  console.log("lets do navlink");
   return (
     <>
       <BorderlessNavBarButton onClick={onLoginPressed}>Log In</BorderlessNavBarButton>

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
+exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
 <div>
   <div
     style={
@@ -10,6 +10,16 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
       }
     }
   >
+    <div
+      className="sc-LzNtX KkNPU"
+    >
+      Get email notifications from Civil
+    </div>
+    <div
+      className="sc-LzNtY BmYBZ"
+    >
+      Get notified when a Newsroom has joined the Registry, or when a challenge requires your vote, and more.
+    </div>
     <form
       onSubmit={[Function]}
     >
@@ -50,38 +60,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
             <span
               className="sc-LzNtn bhKHKy"
             >
-              I agree to Civil's 
-              <a
-                href="https://civil.co/terms/"
-                target="_blank"
-              >
-                Privacy Policy and Terms of Use
-              </a>
-            </span>
-          </label>
-        </li>
-        <li
-          className="sc-LzNtm eZpEmp"
-        >
-          <label>
-            <label
-              className="sc-fzXfNJ IqFez"
-              size="SMALL"
-            >
-              <input
-                checked={false}
-                onChange={[Function]}
-                type="checkbox"
-              />
-              <span
-                className="sc-fzXfNl kWGrR"
-                size="SMALL"
-              />
-            </label>
-            <span
-              className="sc-LzNtn bhKHKy"
-            >
-              Get notified of news and announcements from Civil.
+              Yes, I'd like to receive notifications.
             </span>
           </label>
         </li>
@@ -90,8 +69,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         className="sc-LzNto fYRCGZ"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME cUXPCo disabled"
-          disabled={true}
+          className="sc-fzXfMD sc-fzXfME cUXPCo"
           size="SMALL_WIDE"
           textTransform="none"
           theme={
@@ -108,7 +86,21 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           }
           type="submit"
         >
-          Confirm
+          Sign up
+        </button>
+      </div>
+    </form>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="sc-LzNtp eAwiQm"
+      >
+        <button
+          className="sc-LzNuw gjiwAT"
+          type="submit"
+        >
+          Skip for now
         </button>
       </div>
     </form>
@@ -212,7 +204,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               }
             }
           >
-            Common / Auth / Email Signup Flow
+            Common / Web3Auth
           </h1>
           <h2
             style={
@@ -224,7 +216,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               }
             }
           >
-            AccountEmailAuth
+            UserSetEmail
           </h2>
         </div>
         

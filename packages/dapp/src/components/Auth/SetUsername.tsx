@@ -3,6 +3,7 @@ import { UserSetHandle, AuthApplicationEnum, AuthTextSetHandle, Modal } from "@j
 
 interface SetUsernameProps {
   channelID: string;
+  onSetHandleComplete?(): void;
 }
 const SetUsername: React.FunctionComponent<SetUsernameProps> = props => {
   console.log("SetUsername props: ", props);
@@ -13,6 +14,7 @@ const SetUsername: React.FunctionComponent<SetUsernameProps> = props => {
         applicationType={AuthApplicationEnum.STOREFRONT}
         isNewUser={false}
         headerComponent={<AuthTextSetHandle />}
+        onSetHandleComplete={props.onSetHandleComplete}
       />
     </Modal>
   );

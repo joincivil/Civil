@@ -1,5 +1,5 @@
 import { Civil, EthAddress } from "@joincivil/core";
-import { CivilErrors, setNetworkValue } from "@joincivil/utils";
+import { CivilErrors, setNetworkValue, clearApolloSession } from "@joincivil/utils";
 import { CivilContext, StyledMainContainer } from "@joincivil/components";
 import { BigNumber } from "@joincivil/typescript-types";
 import * as React from "react";
@@ -55,21 +55,23 @@ export interface MainReduxProps {
   network: string;
 }
 
-export interface MainProps {
+export interface MainOwnProps {
   civilUser: any;
 }
 
 export interface MainState {
-  prevAccount: EthAddress;
-  accountStream: Subscription;
-  networkStream: Subscription;
-  networkNameStream: Subscription;
+  prevAccount?: EthAddress;
+  accountStream?: Subscription;
+  networkStream?: Subscription;
+  networkNameStream?: Subscription;
 }
 
-class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteComponentProps<any>, MainState> {
+type MainProps = MainReduxProps & MainOwnProps & DispatchProp<any> & RouteComponentProps<any>;
+
+class Main extends React.Component<MainProps, MainState> {
   public static contextType = CivilContext;
 
-  constructor(props: MainReduxProps & DispatchProp<any> & RouteComponentProps<any>) {
+  constructor(props: MainProps) {
     super(props);
     this.state = {
       prevAccount: "",
@@ -84,15 +86,53 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
   }
 
   public async componentDidMount(): Promise<void> {
-    console.log("main mounts");
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const { civil } = this.context;
     const networkStream = civil.networkStream.subscribe(this.onNetworkUpdated.bind(this, civil));
     const networkNameStream = civil.networkNameStream.subscribe(this.onNetworkNameUpdated);
-    const accountStream = civil.accountStream.subscribe(this.onAccountUpdated.bind(this, civil));
+    const accountStream = civil.accountStream.subscribe(this.onAccountUpdated.bind(this));
     this.context.setAnalyticsEvent(this.fireAnalyticsEvent);
     this.setState({ networkNameStream, networkStream, accountStream });
   }
+
+  public async componentDidUpdate(prevProps: MainProps): Promise<void> {
+    if (this.props.civilUser && (!prevProps.civilUser || (prevProps !== this.props && prevProps.civilUser))) {
+      const account = this.props.civilUser.ethAddress;
+      const oldAccount = prevProps.civilUser && prevProps.civilUser.ethAddress;
+      if (account !== oldAccount) {
+        if (account) {
+          return this.setUserAccount(account);
+        } else {
+          this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
+        }
+      }
+    }
+  }
+
+  public setUserAccount = async (account: EthAddress): Promise<void> => {
+    try {
+      // add placeholder user here while we get token balances
+      this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
+
+      const { civil } = this.context;
+      this.setState({ prevAccount: account });
+      const tcr = await civil.tcrSingletonTrusted();
+      const token = await tcr.getToken();
+      const voting = await tcr.getVoting();
+      const balance = await token.getBalance(account);
+      const votingBalance = await voting.getNumVotingRights(account);
+      console.log("add real.");
+      this.props.dispatch!(addUser(account, balance, votingBalance));
+      await initializeTokenSubscriptions(this.props.dispatch!, account);
+    } catch (err) {
+      if (err.message === CivilErrors.UnsupportedNetwork) {
+        this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
+        console.error("Unsupported network when trying to set-up user");
+      } else {
+        throw err;
+      }
+    }
+  };
 
   public async componentWillUnmount(): Promise<void> {
     const { networkStream, networkNameStream, accountStream } = this.state;
@@ -105,7 +145,6 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     if (accountStream) {
       accountStream.unsubscribe();
     }
-    console.log("main unmounts");
   }
 
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
@@ -115,7 +154,10 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
       this.props.dispatch!(disableGraphQL());
     }
 
-    await civil.accountStream.first().forEach(this.onAccountUpdated.bind(this, civil));
+    const account = await civil.accountStream.first().toPromise();
+    if (account && this.props.civilUser && account === this.props.civilUser.ethAddress) {
+      await this.setUserAccount(account);
+    }
     try {
       await initializeParameterizer(this.props.dispatch!);
       await initializeGovernment(this.props.dispatch!);
@@ -138,33 +180,14 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
     this.props.dispatch!(setNetworkName(networkName));
   };
 
-  public onAccountUpdated = async (civil: Civil, account?: EthAddress): Promise<void> => {
-    if (account && account !== this.state.prevAccount) {
-      try {
-        this.setState({ prevAccount: account });
-        const tcr = await civil.tcrSingletonTrusted();
-        const token = await tcr.getToken();
-        const voting = await tcr.getVoting();
-        const balance = await token.getBalance(account);
-        const votingBalance = await voting.getNumVotingRights(account);
-        this.props.dispatch!(addUser(account, balance, votingBalance));
-        await initializeTokenSubscriptions(this.props.dispatch!, account);
-      } catch (err) {
-        if (err.message === CivilErrors.UnsupportedNetwork) {
-          this.props.dispatch!(addUser(account, new BigNumber(0), new BigNumber(0)));
-          console.error("Unsupported network when trying to set-up user");
-        } else {
-          throw err;
-        }
-      }
-    } else {
-      this.props.dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
+  public onAccountUpdated = (account?: EthAddress): void => {
+    if (account !== this.state.prevAccount && this.state.prevAccount) {
+      this.setState({ prevAccount: account });
+      clearApolloSession();
     }
   };
 
   public render(): JSX.Element {
-    console.log("Main.tsx network", this.props.network);
-    // const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));
     const networkIsSupported = isNetworkSupported(this.props.network);
     return (
       <StyledMainContainer>

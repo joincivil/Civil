@@ -1,9 +1,10 @@
 export * from "./Auth/VerifyToken";
+export * from "./Auth/ConfirmEmailToken";
 export * from "./Auth/EmailAuth";
 export * from "./Auth/EmailSent";
 export * from "./Auth/EthAuth";
 export * from "./Auth/UserSetHandle";
-// export * from "./Auth/SetEmail";
+export * from "./Auth/UserSetEmail";
 export * from "./LoadUser";
 
 export {

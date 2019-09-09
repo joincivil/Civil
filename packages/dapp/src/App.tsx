@@ -44,7 +44,6 @@ export class App extends React.Component {
             <CivilContext.Provider value={this.civilContext}>
               <LoadUser>
                 {({ user: civilUser }) => {
-                  console.log("app.tsx civilUser: ", civilUser);
                   return (
                     <>
                       <Web3AuthWrapper civilUser={civilUser} />

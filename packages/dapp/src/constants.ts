@@ -22,6 +22,7 @@ export enum routes {
   AUTH_LOGIN_WEB3 = "/auth/login/web3",
   AUTH_LOGOUT = "/auth/logout",
   WALLET_HOME = "/auth/wallet",
+  CONFIRM_EMAIL = "/auth/confirm-email",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",

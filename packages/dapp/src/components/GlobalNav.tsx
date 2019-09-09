@@ -94,7 +94,6 @@ class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & 
   }
 
   public handleLogoutPressed(): any {
-    console.log("handle logout pressed.");
     clearApolloSession();
   }
 }
@@ -121,6 +120,9 @@ const mapStateToProps = (state: State, ownProps: NavBarOwnProps): NavBarProps & 
 
     userAccount = user.account.account;
   }
+
+  console.log("GlobalNav user: ", user);
+  console.log("GlobalNav userAccount: ", userAccount);
 
   return {
     network,

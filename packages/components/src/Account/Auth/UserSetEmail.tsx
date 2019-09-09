@@ -1,6 +1,5 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { AuthApplicationEnum } from "../index";
 import { Mutation, MutationFn } from "react-apollo";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
@@ -11,55 +10,92 @@ import {
   CheckboxLabel,
   ConfirmButtonContainer,
   AuthErrorMessage,
+  SkipForNowButtonContainer,
 } from "./AuthStyledComponents";
 import { isValidEmail, getCurrentUserQuery } from "@joincivil/utils";
 import { AuthTextUnknownError } from "./AuthTextComponents";
+import styled from "styled-components";
+import { fonts } from "../../styleConstants";
+
+const HeaderDiv = styled.div`
+  color: #000000;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  width: 298px;
+  text-align: left;
+`;
+
+const SubHeaderDiv = styled.div`
+  color: #3f3c39;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  width: 298px;
+  text-align: left;
+`;
+
+const SkipButton = styled.button`
+  color: #2b56ff;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 26px;
+  width: 82px;
+  text-align: left;
+  background-color: #ffffff;
+`;
 
 export interface SetEmailMutationVariables {
   emailAddress: string;
   channelID: string;
-  // addToMailing: boolean;
+  addToMailing: boolean;
 }
 
-export interface AuthSignupEmailSendResult {
+export interface UserSetEmailSendResult {
   data: {
     authSignupEmailSend: string;
   };
 }
 
 const setEmailMutation = gql`
-  mutation($input: UserChannelSetHandleInput!) {
-    channelSetEmail(input: $input) {
+  mutation($input: ChannelsSetEmailInput!) {
+    userChannelSetEmail(input: $input) {
       id
     }
   }
 `;
 
-export interface AccountEmailAuthProps {
-  applicationType: AuthApplicationEnum;
-  isNewUser: boolean;
-  headerComponent?: JSX.Element;
+const skipSetEmailMutation = gql`
+  mutation {
+    skipUserChannelEmailPrompt {
+      uid
+    }
+  }
+`;
+
+export interface UserSetEmailProps {
   channelID: string;
   onEmailSend(isNewUser: boolean, emailAddress: string): void;
 }
 
-export type AuthEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
+export type UserSetEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
 
-export interface AccountEmailAuthState {
+export interface UserSetEmailState {
   emailAddress: string;
-  errorMessage: AuthEmailError;
-  hasAgreedToTOS: boolean;
+  errorMessage: UserSetEmailError;
   hasSelectedToAddToNewsletter: boolean;
   hasBlurred: boolean;
 }
 
-export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, AccountEmailAuthState> {
-  constructor(props: AccountEmailAuthProps) {
+export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmailState> {
+  constructor(props: UserSetEmailProps) {
     super(props);
     this.state = {
       emailAddress: "",
       errorMessage: undefined,
-      hasAgreedToTOS: false,
       hasSelectedToAddToNewsletter: false,
       hasBlurred: false,
     };
@@ -85,37 +121,6 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     );
   }
 
-  public renderCheckboxes(): JSX.Element {
-    const { hasAgreedToTOS, hasSelectedToAddToNewsletter } = this.state;
-
-    return (
-      <CheckboxContainer>
-        <CheckboxSection>
-          <label>
-            <Checkbox size={CheckboxSizes.SMALL} checked={hasAgreedToTOS} onClick={this.toggleHasAgreedToTOS} />
-            <CheckboxLabel>
-              I agree to Civil's {}
-              <a href="https://civil.co/terms/" target="_blank">
-                Privacy Policy and Terms of Use
-              </a>
-            </CheckboxLabel>
-          </label>
-        </CheckboxSection>
-
-        <CheckboxSection>
-          <label>
-            <Checkbox
-              size={CheckboxSizes.SMALL}
-              checked={hasSelectedToAddToNewsletter}
-              onClick={this.toggleHasSelectedToAddToNewsletter}
-            />
-            <CheckboxLabel>Get notified of news and announcements from Civil.</CheckboxLabel>
-          </label>
-        </CheckboxSection>
-      </CheckboxContainer>
-    );
-  }
-
   public renderAuthError(): JSX.Element {
     const { errorMessage } = this.state;
 
@@ -131,31 +136,35 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
   }
 
   public render(): JSX.Element {
-    const { isNewUser, headerComponent } = this.props;
-    const { hasAgreedToTOS } = this.state;
-
-    const isButtonDisabled = isNewUser && !hasAgreedToTOS;
-
     return (
       <>
         {this.renderAuthError()}
-        {headerComponent}
+        <HeaderDiv>Get email notifications from Civil</HeaderDiv>
+        <SubHeaderDiv>
+          Get notified when a Newsroom has joined the Registry, or when a challenge requires your vote, and more.
+        </SubHeaderDiv>
         <Mutation mutation={setEmailMutation}>
           {sendEmail => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>
                 {this.renderEmailInput()}
-                {isNewUser && this.renderCheckboxes()}
+                {this.renderCheckboxes()}
                 <ConfirmButtonContainer>
-                  <Button
-                    size={buttonSizes.SMALL_WIDE}
-                    textTransform={"none"}
-                    disabled={isButtonDisabled}
-                    type={"submit"}
-                  >
-                    Confirm
+                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
+                    Sign up
                   </Button>
                 </ConfirmButtonContainer>
+              </form>
+            );
+          }}
+        </Mutation>
+        <Mutation mutation={skipSetEmailMutation}>
+          {skipEmail => {
+            return (
+              <form onSubmit={async event => this.onSkipForNowClicked(event, skipEmail)}>
+                <SkipForNowButtonContainer>
+                  <SkipButton type={"submit"}>Skip for now</SkipButton>
+                </SkipForNowButtonContainer>
               </form>
             );
           }}
@@ -164,33 +173,74 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
     );
   }
 
-  public toggleHasAgreedToTOS = (): void => {
-    const { hasAgreedToTOS } = this.state;
+  public renderCheckboxes(): JSX.Element {
+    const { hasSelectedToAddToNewsletter } = this.state;
 
-    this.setState({ hasAgreedToTOS: !hasAgreedToTOS });
-  };
+    return (
+      <CheckboxContainer>
+        <CheckboxSection>
+          <label>
+            <Checkbox
+              size={CheckboxSizes.SMALL}
+              checked={hasSelectedToAddToNewsletter}
+              onClick={this.toggleHasSelectedToAddToNewsletter}
+            />
+            <CheckboxLabel>Yes, I'd like to receive notifications.</CheckboxLabel>
+          </label>
+        </CheckboxSection>
+      </CheckboxContainer>
+    );
+  }
 
   public toggleHasSelectedToAddToNewsletter = (): void => {
     const { hasSelectedToAddToNewsletter } = this.state;
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
+  private async onSkipForNowClicked(event: React.FormEvent, mutation: MutationFn): Promise<void> {
+    // const res: await mutation
+    console.log("onSkipForNow.");
+    console.log("onSkipForNow. mutation: ", mutation);
+    event.preventDefault();
+
+    try {
+      const variables = {};
+      const res: any = await mutation({
+        variables,
+        refetchQueries: [
+          {
+            query: getCurrentUserQuery,
+          },
+        ],
+      });
+      console.log("res: ", res);
+    } catch (err) {
+      this.setState({ errorMessage: "unknown" });
+    }
+  }
+
   private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
-    const { emailAddress } = this.state;
-    const { onEmailSend, isNewUser, channelID } = this.props;
+    const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
+    const { /*onEmailSend,*/ channelID } = this.props;
 
     if (!isValidEmail(emailAddress)) {
       return;
     }
 
-    const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
+    // const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     try {
-      const variables: SetEmailMutationVariables = { emailAddress, channelID };
+      const variables = {
+        input: {
+          emailAddress,
+          channelID,
+          addToMailing: hasSelectedToAddToNewsletter,
+        },
+      };
 
       // if (isNewUser) {
       //   variables.addToMailing = hasSelectedToAddToNewsletter;
@@ -204,13 +254,14 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
         ],
       });
 
-      const authResponse: string = res.data[resultKey];
+      console.log("111 res: ", res);
+      // const authResponse: string = res.data[resultKey];
 
-      if (authResponse === "ok") {
-        onEmailSend(isNewUser, emailAddress);
-      }
+      // if (authResponse === "ok") {
+      //   onEmailSend(isNewUser, emailAddress);
+      // }
 
-      this.setState({ errorMessage: authResponse as AuthEmailError });
+      // this.setState({ errorMessage: authResponse as UserSetEmailError });
 
       return;
     } catch (err) {

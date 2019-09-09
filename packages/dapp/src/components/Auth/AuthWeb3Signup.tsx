@@ -12,7 +12,6 @@ import { EthAddress } from "@joincivil/core";
 import { urlConstants as links } from "@joincivil/utils";
 import { hasInjectedProvider } from "@joincivil/ethapi";
 
-import { routes } from "../../constants";
 import { StyledAuthAltOption, StyledAuthHeader, StyledAuthHeaderCopy } from "./authStyledComponents";
 import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
 import AuthWeb3 from "./AuthWeb3";
@@ -58,6 +57,7 @@ export interface AuthWeb3SignUpProps {
   onAuthenticated?(address: EthAddress): void;
   onSignupContinue?(): void;
   onOuterClicked?(): void;
+  onLoginClicked?(): void;
 }
 
 const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps> = props => {
@@ -102,7 +102,16 @@ const AuthWeb3SignupComponent: React.FunctionComponent<AuthWeb3SignUpProps & Aut
       })()}
 
       <StyledAuthAltOption>
-        Already a Civil member? <a href={routes.AUTH_LOGIN_WEB3}>Sign in</a>
+        Already a Civil member?{" "}
+        <a
+          onClick={() => {
+            if (props.onLoginClicked) {
+              props.onLoginClicked();
+            }
+          }}
+        >
+          Sign in
+        </a>
       </StyledAuthAltOption>
     </StyledAuthSignup>
   );
@@ -126,10 +135,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
             <>
               <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
               <StyledAuthHeaderCopy>Sign up to create an account</StyledAuthHeaderCopy>
-              <AuthWeb3SignupComponent
-                onSignupContinue={props.onSignupContinue}
-                showWalletOnboarding={showWalletOnboarding}
-              />
+              <AuthWeb3SignupComponent {...props} showWalletOnboarding={showWalletOnboarding} />
               <StyledAuthFooterContainer>
                 By signing up with MetaMask or other Ethereum wallets, you accept Civil’s{" "}
                 <a href={links.TERMS}>Terms of Use</a> and <a href={links.PRIVACY_POLICY}>Privacy Policy</a>.

@@ -1,48 +1,34 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { setApolloSession, getApolloClient } from "@joincivil/utils";
-import { AuthLoginResponse } from "..";
-import { AuthEmailVerify } from "./AuthStyledComponents";
+import { getApolloClient } from "@joincivil/utils";
+import { EmailConfirmVerify } from "./AuthStyledComponents";
 
-const verifySignUpTokenMutation = gql`
+const verifyMutation = gql`
   mutation($token: String!) {
-    authSignupEmailConfirm(signupJWT: $token) {
-      token
-      refreshToken
-      uid
+    channelsSetEmailConfirm(jwt: $token) {
+      ChannelID
     }
   }
 `;
 
-const verifyLoginTokenMutation = gql`
-  mutation($token: String!) {
-    authLoginEmailConfirm(loginJWT: $token) {
-      token
-      refreshToken
-      uid
-    }
-  }
-`;
-
-export interface AccountVerifyTokenProps {
-  isNewUser: boolean;
+export interface ConfirmEmailTokenProps {
   token: string;
   ethAuthNextExt?: boolean;
-  onAuthenticationContinue(isNewUser: boolean): void;
+  onEmailConfirmContinue?(): void;
 }
 
-export interface VerifyTokenState {
+export interface ConfirmEmailTokenState {
   hasVerified: boolean;
   errorMessage: string | undefined;
 }
 
-export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps, VerifyTokenState> {
+export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, ConfirmEmailTokenState> {
   public state = {
     hasVerified: false,
     errorMessage: undefined,
   };
 
-  constructor(props: AccountVerifyTokenProps) {
+  constructor(props: ConfirmEmailTokenProps) {
     super(props);
   }
 
@@ -51,16 +37,12 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   }
 
   public handleTokenVerification = async (): Promise<void> => {
-    const { isNewUser } = this.props;
     const token = this.props.token;
 
     const client = getApolloClient();
 
-    const verifyMutation = isNewUser ? verifySignUpTokenMutation : verifyLoginTokenMutation;
-    const resultKey = isNewUser ? "authSignupEmailConfirm" : "authLoginEmailConfirm";
-
     try {
-      const { data, error } = await client.mutate({
+      const { error } = await client.mutate({
         mutation: verifyMutation,
         variables: { token },
       });
@@ -70,9 +52,6 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
         const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(" ,");
         this.setState({ errorMessage, hasVerified: true });
       } else {
-        const authResponse: AuthLoginResponse = data[resultKey];
-        setApolloSession(authResponse);
-
         this.setState({ errorMessage: undefined, hasVerified: true });
       }
     } catch (err) {
@@ -83,14 +62,13 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
 
   public render(): JSX.Element {
     const { hasVerified, errorMessage } = this.state;
-    const { onAuthenticationContinue, isNewUser, ethAuthNextExt } = this.props;
-    console.log("VerifyToken.");
+    const { onEmailConfirmContinue, ethAuthNextExt } = this.props;
     return (
-      <AuthEmailVerify
+      <EmailConfirmVerify
         hasVerified={hasVerified}
         errorMessage={errorMessage}
         ethAuthNextExt={ethAuthNextExt}
-        onAuthenticationContinue={() => onAuthenticationContinue(isNewUser)}
+        onEmailConfirmContinue={onEmailConfirmContinue!}
       />
     );
   }

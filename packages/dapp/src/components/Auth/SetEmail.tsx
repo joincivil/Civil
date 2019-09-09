@@ -1,16 +1,16 @@
-// import * as React from "react";
-// import { UserSetHandle, AuthApplicationEnum, AuthTextSetHandle, Modal } from "@joincivil/components";
+import * as React from "react";
+import { Modal, UserSetEmail } from "@joincivil/components";
 
-// const SetUsername: React.FunctionComponent = props => {
-//   return (
-//     <Modal width={588}>
-//       <UserSetHandle
-//         applicationType={AuthApplicationEnum.STOREFRONT}
-//         isNewUser={false}
-//         headerComponent={<AuthTextSetHandle />}
-//       />
-//     </Modal>
-//   );
-// };
+interface SetUsernameProps {
+  channelID: string;
+}
+const SetEmail: React.FunctionComponent<SetUsernameProps> = props => {
+  console.log("SetUsername props: ", props);
+  return (
+    <Modal width={588}>
+      <UserSetEmail {...props} />
+    </Modal>
+  );
+};
 
-// export default SetUsername;
+export default SetEmail;

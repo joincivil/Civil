@@ -30,6 +30,7 @@ export interface UserSetHandleSendResult {
 export interface UserSetHandleAuthProps {
   headerComponent?: JSX.Element;
   channelID: string;
+  onSetHandleComplete?(): void;
 }
 
 export type UserSetHandleError = "unknown" | "emailexists" | "emailnotfound" | undefined;
@@ -147,6 +148,13 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
           },
         ],
       });
+
+      if (res.data && res.data.channelsSetHandle && res.data.channelsSetHandle.id === channelID) {
+        console.log("success. onSetHandleComplete");
+        if (this.props.onSetHandleComplete) {
+          this.props.onSetHandleComplete();
+        }
+      }
 
       console.log("good job. res: ", res);
       return;

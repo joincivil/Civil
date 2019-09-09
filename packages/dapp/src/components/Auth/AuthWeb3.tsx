@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
 import { Civil, EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { setApolloSession, clearApolloSession, getCurrentUserQuery } from "@joincivil/utils";
+import { setApolloSession, /*clearApolloSession,*/ getCurrentUserQuery } from "@joincivil/utils";
 import {
   CivilContext,
   ICivilContext,
@@ -38,7 +38,7 @@ function loginUser(civil: Civil, sessionData: any, currAccount?: EthAddress): vo
   const logoutUser = (account?: EthAddress) => {
     if (!account || account !== currAccount) {
       // TODO(jon): Should we display some type of message/modal/toaster to the user that indicates they've been signed out?
-      clearApolloSession();
+      // clearApolloSession();
     }
   };
 

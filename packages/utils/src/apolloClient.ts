@@ -171,6 +171,7 @@ export const getCurrentUserQuery = gql`
         handle
         id
       }
+      userChannelEmailPromptSeen
     }
   }
 `;

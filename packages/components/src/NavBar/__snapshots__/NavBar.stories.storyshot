@@ -42,13 +42,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMlG fiSMtj"
+            className="sc-LzMlH ldciMU"
           >
             <div
-              className="sc-LzMmi wdpST"
+              className="sc-LzMmj lhrLjQ"
             >
               <span
-                className="sc-LzMmj eqSSFp"
+                className="sc-LzMmk hFUAKm"
               >
                 <a
                   href="/registry"
@@ -57,11 +57,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-LzMmk gLnBfT"
+                  className="sc-LzMml eAPjIk"
                 />
               </span>
               <div
-                className="sc-LzMml emcoiq"
+                className="sc-LzMmm kSsikj"
               >
                 <a
                   href="/registry"
@@ -100,7 +100,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMlH hpnlUx"
+            className="sc-LzMlI dwtfAO"
           >
             <div
               onClick={[Function]}
@@ -120,25 +120,22 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzMlI bIZPPV"
+            className="sc-LzMlJ MnrtO"
           />
         </div>
         <div
           className="sc-LzMkp ifwkBd"
         >
           <button
-            className="sc-fzXfMD sc-fzXfME sc-LzMkW gbQMQi"
+            className="sc-fzXfMD sc-fzXfNe sc-LzMkX ecNXOI"
             onClick={[Function]}
             theme={
               Object {
-                "primaryButtonBackground": "#2B56FF",
-                "primaryButtonColor": "#FFFFFF",
-                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-                "primaryButtonDisabledColor": "#FFFFFF",
-                "primaryButtonFontWeight": "normal",
-                "primaryButtonHoverBackground": "#4066FF",
-                "primaryButtonTextTransform": "uppercase",
-                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
               }
             }
             type="button"
@@ -146,18 +143,15 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Log In
           </button>
           <button
-            className="sc-fzXfMD sc-fzXfME sc-LzMkW gbQMQi"
+            className="sc-fzXfMD sc-fzXfNe sc-LzMkY grnIun"
             onClick={[Function]}
             theme={
               Object {
-                "primaryButtonBackground": "#2B56FF",
-                "primaryButtonColor": "#FFFFFF",
-                "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-                "primaryButtonDisabledColor": "#FFFFFF",
-                "primaryButtonFontWeight": "normal",
-                "primaryButtonHoverBackground": "#4066FF",
-                "primaryButtonTextTransform": "uppercase",
-                "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
               }
             }
             type="button"
@@ -596,7 +590,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-LzMmm fBaaGT"
+      className="sc-LzMmn dhNfyE"
     >
       Please Switch To Rinkeby Testnet
     </div>
