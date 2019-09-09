@@ -21,9 +21,11 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       country: "US",
       currency: "usd",
       total: {
-        label: "Boost",
+        label: "Boost Payment",
         amount: this.props.usdToSpend,
       },
+      requestPayerName: true,
+      requestPayerEmail: true,
     });
 
     paymentRequest.on("token", (token: any) => {
