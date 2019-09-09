@@ -11,13 +11,13 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
     }
   >
     <div
-      className="sc-RmnOB jBOjxG"
+      className="sc-LzMEc lmerki"
     >
       <h2
-        className="sc-cNnxps hXOQHs"
+        className="sc-LzMCj coGyxb"
       >
         <svg
-          className="sc-hMjcWo dAEGvd"
+          className="sc-LzMFm gAJFHp"
           height="32"
           viewBox="0 0 20 20"
           width="32"
@@ -47,38 +47,38 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         Wallet Connected
       </h2>
       <p
-        className="sc-eweMDZ cXEthd sc-jWxkHr cZIAqs"
+        className="sc-LzMCI sc-LzMEF gxphhU"
       >
         Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil network so you can log in using your wallet.
       </p>
       <div
-        className="sc-bLJvFH koklFT"
+        className="sc-LzMFn ewesqR"
       >
         <p
-          className="sc-igwadP dHtKwU"
+          className="sc-LzMED cyaEQW"
         >
           Public Wallet Address
         </p>
         <div
-          className="sc-eAudoH gktZZR"
+          className="sc-LzMFo fxdkJF"
         >
           0xabc1230000000000000000000000000000abc123
         </div>
       </div>
       <p
-        className="sc-hgzKov dNPasQ"
+        className="sc-LzMFp fCNZuh"
       >
         <span
-          className="sc-cbMPqi emvzTX"
+          className="sc-LzMDp jLCobO"
         >
           Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase, username and password in a safe place. We can’t help you restore or regain access if you lose it.
         </span>
       </p>
       <div
-        className="sc-hZeNU iXOWsm"
+        className="sc-LzMFl efxtax"
       >
         <button
-          className="sc-kEYyzF bnmMlI sc-hMqMXs djbzrj"
+          className="sc-fzXfMD sc-fzXfME dndRzE"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -100,85 +100,85 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </button>
       </div>
       <div
-        className="sc-kkwfeq dReJRE sc-PLyBE cwmykV"
+        className="sc-LzMCO sc-LzMCQ hTQIiP"
       >
         <span
-          className="sc-izvnbC hyMMlC"
+          className="sc-LzMDo jaCBCO"
         >
           Using a different wallet?
         </span>
         <span
-          className="sc-cbMPqi emvzTX"
+          className="sc-LzMDp jLCobO"
         >
           Make sure it's unlocked
           . You may need to refresh.
         </span>
       </div>
       <div
-        className="sc-geAPOV kwNeXl"
+        className="sc-LzMCM fgPwVm"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-bJTOcE eKPHZf"
+            className="sc-LzMCN fPouGl"
           >
              What is a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-LzLrj ielGAs"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
-        className="sc-geAPOV kwNeXl"
+        className="sc-LzMCM fgPwVm"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-bJTOcE eKPHZf"
+            className="sc-LzMCN fPouGl"
           >
              Why do I need a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-LzLrj ielGAs"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             Having a wallet is required. We recommend
              
@@ -192,12 +192,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
             to log in and manage your transactions.
           </p>
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -207,37 +207,37 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
-        className="sc-geAPOV kwNeXl"
+        className="sc-LzMCM fgPwVm"
       >
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-bJTOcE eKPHZf"
+            className="sc-LzMCN fPouGl"
           >
              Need help setting up your wallet?
           </h4>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-LzLrj ielGAs"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
           <p
-            className="sc-imDfJI iCvhpK"
+            className="sc-LzMCJ JmBep"
           >
             Head over to our
              
@@ -253,7 +253,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </div>
       </div>
       <p
-        className="sc-jGFFOr bplAei sc-imDfJI iCvhpK"
+        className="sc-LzMCJ sc-LzMFk eydOpn"
       >
         Need more info before you start using a crypto wallet?
          
@@ -264,7 +264,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           Learn more in our support area
            
           <span
-            className="sc-dNoQZL cvpmrl"
+            className="sc-LzMEC ZrBIJ"
           >
             <svg
               height="11"
@@ -313,12 +313,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -606,6 +606,244 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                     }
                                   }
                                 >
+                                  currentProvider
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                {
+                                <span>
+                                  <span>
+                                    <br />
+                                            
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    host
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#22a",
+                                      "wordBreak": "break-word",
+                                    }
+                                  }
+                                >
+                                  'http://localhost:8545'
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                            
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    httpAgent
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  {
+                                  <span>
+                                    <span>
+                                      <br />
+                                                
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      _events
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    {
+                                    <span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        free
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#170",
+                                        }
+                                      }
+                                    >
+                                      anonymous
+                                    </span>
+                                    }
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                                
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      _eventsCount
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#a11",
+                                      }
+                                    }
+                                  >
+                                    1
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                                
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      _maxListeners
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#444",
+                                      }
+                                    }
+                                  >
+                                    null
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                                
+                                        
+                                    </span>
+                                    …
+                                  </span>
+                                  <span>
+                                    <br />
+                                              
+                                  </span>
+                                  }
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                            
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    timeout
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#a11",
+                                    }
+                                  }
+                                >
+                                  0
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                            
+                                      
+                                  </span>
+                                  …
+                                </span>
+                                <span>
+                                  <br />
+                                          
+                                </span>
+                                }
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                        
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
                                   _requestManager
                                 </span>
                               </span>
@@ -679,290 +917,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                         }
                                       }
                                     >
-                                      timeout
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#a11",
-                                      }
-                                    }
-                                  >
-                                    0
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                                
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      user
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#444",
-                                      }
-                                    }
-                                  >
-                                    null
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                                
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                              
-                                  </span>
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    polls
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    timeout
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#444",
-                                    }
-                                  }
-                                >
-                                  null
-                                </span>
-                                }
-                              </span>
-                              ,
-                              <span>
-                                <span>
-                                  <br />
-                                        
-                                    
-                                </span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  currentProvider
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                {
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    host
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
-                                    }
-                                  }
-                                >
-                                  'http://localhost:8545'
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    timeout
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#a11",
-                                    }
-                                  }
-                                >
-                                  0
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    user
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#444",
-                                    }
-                                  }
-                                >
-                                  null
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  …
-                                </span>
-                                <span>
-                                  <br />
-                                          
-                                </span>
-                                }
-                              </span>
-                              ,
-                              <span>
-                                <span>
-                                  <br />
-                                        
-                                    
-                                </span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  eth
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                {
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    _requestManager
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      provider
+                                      httpAgent
                                     </span>
                                   </span>
                                   : 
@@ -987,19 +942,40 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                           }
                                         }
                                       >
-                                        host
+                                        _events
                                       </span>
                                     </span>
                                     : 
                                     <span
                                       style={
                                         Object {
-                                          "color": "#22a",
-                                          "wordBreak": "break-word",
+                                          "color": "#666",
                                         }
                                       }
                                     >
-                                      'http://localhost:8545'
+                                      {
+                                      <span>
+                                        <span
+                                          style={
+                                            Object {
+                                              "color": "#666",
+                                            }
+                                          }
+                                        >
+                                          free
+                                        </span>
+                                      </span>
+                                      : 
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#170",
+                                          }
+                                        }
+                                      >
+                                        anonymous
+                                      </span>
+                                      }
                                     </span>
                                     ,
                                     <span>
@@ -1015,7 +991,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                           }
                                         }
                                       >
-                                        timeout
+                                        _eventsCount
                                       </span>
                                     </span>
                                     : 
@@ -1026,7 +1002,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                         }
                                       }
                                     >
-                                      0
+                                      1
                                     </span>
                                     ,
                                     <span>
@@ -1042,7 +1018,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                           }
                                         }
                                       >
-                                        user
+                                        _maxListeners
                                       </span>
                                     </span>
                                     : 
@@ -1072,29 +1048,11 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                   </span>
                                   ,
                                   <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      polls
+                                    <span>
+                                      <br />
+                                                
+                                        
                                     </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
                                     <span
                                       style={
                                         Object {
@@ -1109,21 +1067,29 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                   <span
                                     style={
                                       Object {
-                                        "color": "#444",
+                                        "color": "#a11",
                                       }
                                     }
                                   >
-                                    null
+                                    0
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                                
+                                        
+                                    </span>
+                                    …
+                                  </span>
+                                  <span>
+                                    <br />
+                                              
                                   </span>
                                   }
                                 </span>
                                 ,
                                 <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
                                   <span
                                     style={
                                       Object {
@@ -1131,26 +1097,87 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                       }
                                     }
                                   >
-                                    getBalance
+                                    providers
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#170",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  send
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      WebsocketProvider
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#170",
+                                      }
+                                    }
+                                  >
+                                    WebsocketProvider
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      HttpProvider
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#170",
+                                      }
+                                    }
+                                  >
+                                    HttpProvider
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      IpcProvider
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#170",
+                                      }
+                                    }
+                                  >
+                                    IpcProvider
+                                  </span>
+                                  }
                                 </span>
                                 ,
                                 <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
                                   <span
                                     style={
                                       Object {
@@ -1158,33 +1185,48 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
                                       }
                                     }
                                   >
-                                    getStorageAt
+                                    subscriptions
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#170",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  send
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                            
-                                      
-                                  </span>
-                                  …
-                                </span>
-                                <span>
-                                  <br />
-                                          
+                                  {
+                                  }
                                 </span>
                                 }
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                        
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  givenProvider
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#444",
+                                  }
+                                }
+                              >
+                                null
                               </span>
                               ,
                               <span>

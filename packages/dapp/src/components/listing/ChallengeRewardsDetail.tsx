@@ -15,7 +15,7 @@ import {
   canRescueAppealChallengeTokens,
 } from "@joincivil/core";
 import { claimRewards, rescueTokens } from "../../apis/civilTCR";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 export interface ChallengeRewardsDetailProps {

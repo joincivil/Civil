@@ -1,6 +1,6 @@
 import { EthApi } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
 import { EthAddress, Param, TwoStepEthTransaction, ParamProposalState } from "../../types";
@@ -33,20 +33,22 @@ export class Government extends BaseWrapper<GovernmentContract> {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
     const multisig = Multisig.atUntrusted(ethApi, multisigAddress);
-    return new Government(ethApi, instance, multisig);
+    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    return new Government(ethApi, instance, multisig, defaultBlock);
   }
 
   public static async atUntrusted(web3wrapper: EthApi, address: EthAddress): Promise<Government> {
     const instance = GovernmentContract.atUntrusted(web3wrapper, address);
     const appellateAddr = await instance.appellate.callAsync();
     const multisig = Multisig.atUntrusted(web3wrapper, appellateAddr);
-    return new Government(web3wrapper, instance, multisig);
+    const defaultBlock = getDefaultFromBlock(await web3wrapper.network());
+    return new Government(web3wrapper, instance, multisig, defaultBlock);
   }
 
   private multisig: Multisig;
 
-  private constructor(ethApi: EthApi, instance: GovernmentContract, multisig: Multisig) {
-    super(ethApi, instance);
+  private constructor(ethApi: EthApi, instance: GovernmentContract, multisig: Multisig, defaultBlock: number) {
+    super(ethApi, instance, defaultBlock);
     this.multisig = multisig;
   }
 
@@ -67,11 +69,11 @@ export class Government extends BaseWrapper<GovernmentContract> {
   /**
    * Gets an unending stream of parameters being set
    */
-  public getParameterSet(fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network())): Observable<Param> {
+  public getParameterSet(fromBlock: number = this.defaultBlock): Observable<Param> {
     return this.instance._ParameterSetStream({}, { fromBlock }).map(e => {
       return {
-        paramName: e.args.name,
-        value: e.args.value,
+        paramName: e.returnValues.name,
+        value: new BigNumber(e.returnValues.value),
       };
     });
   }
@@ -84,7 +86,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param parameter key of parameter to check
    */
   public async getParameterValue(parameter: string): Promise<BigNumber> {
-    return this.instance.get.callAsync(parameter);
+    return this.instance.get.callAsync(parameter).then(d => new BigNumber(d));
   }
 
   /**
@@ -93,7 +95,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param newValue value you want parameter to be changed to
    */
   public async set(paramName: GovtParameters | string, newValue: BigNumber): Promise<TwoStepEthTransaction<any>> {
-    const txdata = await this.instance.proposeReparameterization.getRaw(paramName, newValue, { gas: 0 });
+    const txdata = await this.instance.proposeReparameterization.getRaw(paramName, newValue.toString(), { gas: 0 });
     return this.multisig.submitTransaction(this.instance.address, this.ethApi.toBigNumber(0), txdata.data!);
   }
 
@@ -129,12 +131,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events.
    * @returns currently active proposals in Challenge Commit Phase propIDs
    */
-  public propIDsInCommitPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsInCommitPhase(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._GovtReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(e => e.returnValues.propID)
       .concatFilter(async propID => this.isPropInCommitPhase(propID));
   }
 
@@ -144,12 +144,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns currently active proposals in Challenge Reveal Phase propIDs
    */
-  public propIDsInRevealPhase(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsInRevealPhase(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._GovtReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(e => e.returnValues.propID)
       .concatFilter(async propID => this.isPropInRevealPhase(propID));
   }
 
@@ -160,12 +158,10 @@ export class Government extends BaseWrapper<GovernmentContract> {
    * @param fromBlock Starting block in history for events. Set to "latest" for only new events
    * @returns propIDs for proposals that can be updated
    */
-  public propIDsToProcess(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-  ): Observable<string> {
+  public propIDsToProcess(fromBlock: number = this.defaultBlock): Observable<string> {
     return this.instance
       ._GovtReparameterizationProposalStream({}, { fromBlock })
-      .map(e => e.args.propID)
+      .map(e => e.returnValues.propID)
       .concatFilter(async propID => this.isPropInResolvePhase(propID));
   }
 
@@ -192,12 +188,12 @@ export class Government extends BaseWrapper<GovernmentContract> {
       return false;
     }
     const [challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isCommitPeriodActive(challengeID);
+    return voting.isCommitPeriodActive(new BigNumber(challengeID));
   }
 
   /**
@@ -209,12 +205,12 @@ export class Government extends BaseWrapper<GovernmentContract> {
       return false;
     }
     const [challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.isRevealPeriodActive(challengeID);
+    return voting.isRevealPeriodActive(new BigNumber(challengeID));
   }
 
   /**
@@ -226,12 +222,12 @@ export class Government extends BaseWrapper<GovernmentContract> {
       return false;
     }
     const [challengeID] = await this.instance.proposals.callAsync(propID);
-    if (challengeID.isZero()) {
+    if (new BigNumber(challengeID).isZero()) {
       return false;
     }
 
     const voting = await this.getVoting();
-    return voting.hasPollEnded(challengeID);
+    return voting.hasPollEnded(new BigNumber(challengeID));
   }
 
   /**
@@ -240,7 +236,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getChallengeID(parameter: string): Promise<BigNumber> {
     const [challengeID] = await this.instance.proposals.callAsync(parameter);
-    return challengeID;
+    return new BigNumber(challengeID);
   }
 
   /**
@@ -282,7 +278,7 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getPropProcessBy(propID: string): Promise<Date> {
     const [, , expiryTimestamp] = await this.instance.proposals.callAsync(propID);
-    return new Date(expiryTimestamp.toNumber() * 1000);
+    return new Date(new BigNumber(expiryTimestamp).toNumber() * 1000);
   }
 
   /**
@@ -300,6 +296,6 @@ export class Government extends BaseWrapper<GovernmentContract> {
    */
   public async getPropValue(propID: string): Promise<BigNumber> {
     const [, , , value] = await this.instance.proposals.callAsync(propID);
-    return value;
+    return new BigNumber(value);
   }
 }

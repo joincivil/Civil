@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { CurrencyConverter } from "./CurrencyConverter";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 const Container = styled.div`
   width: 500px;

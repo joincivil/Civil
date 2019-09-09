@@ -11,7 +11,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNuB izMMig"
     />
   </div>
   <button
@@ -44,12 +44,12 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -259,7 +259,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNuB izMMig"
     />
   </div>
   <button
@@ -292,12 +292,12 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

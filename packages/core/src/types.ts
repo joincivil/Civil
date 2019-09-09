@@ -1,4 +1,5 @@
 import {
+  BigNumber,
   Bytes32,
   DecodedLogEntryEvent,
   DecodedTransactionReceipt,
@@ -6,24 +7,13 @@ import {
   Hex,
   TxHash,
 } from "@joincivil/typescript-types";
-import BigNumber from "bignumber.js";
 import { CivilLogs } from "./contracts/generated/events";
 
 // For backwards compatibillity
-export {
-  Bytes32,
-  DecodedTransactionReceipt,
-  EthAddress,
-  Hex,
-  TxData,
-  TxDataAll,
-  TxDataBase,
-  TxDataPayable,
-  TxHash,
-  Uri,
-} from "@joincivil/typescript-types";
+export { Bytes32, DecodedTransactionReceipt, EthAddress, Hex, Uri } from "@joincivil/typescript-types";
 export { ContentProvider, ContentProviderCreator, ContentProviderOptions } from "./content/contentprovider";
 
+export type TxHash = string;
 export type ContentData = string | object;
 export type ContentId = number;
 export type RevisionId = ContentId;

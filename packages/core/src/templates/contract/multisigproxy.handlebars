@@ -1,64 +1,70 @@
 /*
- * This file is auto-generated using abi-gen. Any changes will be reverted
- */
+* This file is auto-generated using abi-gen. Any changes will be reverted
+*/
 
- {{!-- Some contracts have inputs like `_value` which run afoul of linter, so: --}}
- /* tslint:disable:variable-name */
+{{!-- Some contracts have inputs like `_value` which run afoul of linter, so: --}}
+/* tslint:disable:variable-name */
 
 import { isDefined, bindNestedAll } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import {Tx as TransactionConfig} from "web3/eth/types";
 
 import { createTwoStepSimple } from "../../utils/contracts";
 import { BaseMultisigProxy, MultisigProxyTransaction } from "../../multisig/basemultisigproxy";
-import { Contract } from "../../interfaces/contract";
+import { Contract as IContract } from "../../interfaces/contract";
 import { EthApi } from "@joincivil/ethapi";
-import { EthAddress, TxData } from "../../../types";
+import { EthAddress } from "../../../types";
+
+// hack(dankins): abi-gen things these are bignumber.js, but they are actually returned as strings
+// https://github.com/0xProject/0x-monorepo/blob/development/packages/abi-gen/src/utils.ts#L64
+type BigNumber = string;
 
 // TODO(ritave): Abi-Gen doesn't support lowercase contractName so we can't
-//               import the Contract wrappers, we're using generics instead
-//               This means calls to instance are untyped inside are using (this: any) type
+// import the Contract wrappers, we're using generics instead
+// This means calls to instance are untyped inside are using (this: any) type
 export class {{contractName}}MultisigProxy extends BaseMultisigProxy {
-  /**
-   * Creates a multisig wrapper around a contract
-   * @param ethApi Web3 API
-   * @param instance Contract we are wrapping
-   * @param multisigAddress (optional) Address of multisig wallet - if not supplied, will check if contract is owned by a multisig wallet and use that instead
-   */
-  public static async create(
-    ethApi: EthApi,
-    instance: Contract,
-    multisigAddress?: EthAddress,
-  ): Promise<{{contractName}}MultisigProxy> {
-    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
-    await proxy.resolveMultisig(multisigAddress);
-    return proxy;
+/**
+ * Creates a multisig wrapper around a contract
+ * @param ethApi Web3 API
+ * @param instance Contract we are wrapping
+ * @param multisigAddress (optional) Address of multisig wallet - if not supplied, will check if contract is owned by a
+ * multisig wallet and use that instead
+ */
+public static async create(
+ethApi: EthApi,
+instance: IContract,
+multisigAddress?: EthAddress,
+): Promise<{{contractName}}MultisigProxy> {
+  const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
+  await proxy.resolveMultisig(multisigAddress);
+  return proxy;
   }
 
   /**
-   * Creates a wrapper around a contract with identical API to multisig wrapper, but all transactions are passed directly to contract. Essentially just a helper for when we know multisig isn't needed and want a synchronous call.
+   * Creates a wrapper around a contract with identical API to multisig wrapper, but all transactions are passed directly
+   * to contract. Essentially just a helper for when we know multisig isn't needed and want a synchronous call.
    * @param ethApi Web3 API
    * @param instance Contract we are wrapping
    */
   public static createNonMultisig(
-    ethApi: EthApi,
-    instance: Contract,
+  ethApi: EthApi,
+  instance: IContract,
   ): {{contractName}}MultisigProxy {
-    const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
-    // No call to `proxy.resolveMultisig`, `proxy.multisig` will remain undefined
-    return proxy;
+  const proxy = new {{contractName}}MultisigProxy(ethApi, instance);
+  // No call to `proxy.resolveMultisig`, `proxy.multisig` will remain undefined
+  return proxy;
   }
 
-{{#each methods}}
+  {{#each methods}}
   {{^this.constant}}
   {{> proxy_tx contractName=../contractName}}
   {{/this.constant}}
-{{/each}}
+  {{/each}}
 
   private constructor(
-    ethApi: EthApi,
-    instance: Contract,
+  ethApi: EthApi,
+  instance: IContract,
   ) {
-    super(ethApi, instance);
-    bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);
+  super(ethApi, instance);
+  bindNestedAll(this, ["constructor", "instance", "multisig", "ethApi"]);
   }
-}
+  }

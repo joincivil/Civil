@@ -1,9 +1,8 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
 import { colors, fonts } from "../styleConstants";
 import { LoadingMessage } from "../LoadingMessage";
-import { LoadingIndicatorProps } from "../LoadingIndicator";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
 
@@ -60,7 +59,7 @@ export interface StyledDashboardActivityDescriptionProps {
   noBorder?: boolean;
 }
 
-export const StyledDashboardActivityDescription = styled<StyledDashboardActivityDescriptionProps, "div">("div")`
+export const StyledDashboardActivityDescription = styled.div<StyledDashboardActivityDescriptionProps>`
   ${props =>
     props.noBorder
       ? ""
@@ -575,7 +574,7 @@ export const StyledDashboardNoContentButtonContainer = styled.div`
 `;
 
 // @ts-ignore: Looks like `React.FunctionComponent` type (which `LoadingMessage` is) doesn't play nicely with `styled` typings
-export const StyledDashboardLoadingMessage: StyledComponentClass<LoadingIndicatorProps, "div"> = styled(LoadingMessage)`
+export const StyledDashboardLoadingMessage = styled(LoadingMessage)`
   padding-top: 0;
   p {
     margin-top: 18px;

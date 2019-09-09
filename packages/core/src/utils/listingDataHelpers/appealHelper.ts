@@ -1,6 +1,7 @@
 import { AppealData } from "../../types";
 import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage } from "./appealChallengeHelper";
 import { is0x0Address } from "@joincivil/utils";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Checks if an appeal can be resolved
@@ -16,10 +17,12 @@ export function canAppealBeResolved(appealData: AppealData): boolean {
     return !inCommit && !inReveal && !appealData.appealChallenge!.resolved;
   } else if (appealData.appealGranted) {
     // appeal challenge request phase must be over
-    const appealOpenToChallengeExpiryDate = new Date(appealData.appealOpenToChallengeExpiry.toNumber() * 1000);
+    const appealOpenToChallengeExpiryDate = new Date(
+      new BigNumber(appealData.appealOpenToChallengeExpiry).toNumber() * 1000,
+    );
     return appealOpenToChallengeExpiryDate < new Date();
   } else {
-    const judgmentExpiry = new Date(appealData.appealPhaseExpiry.toNumber() * 1000);
+    const judgmentExpiry = new Date(new BigNumber(appealData.appealPhaseExpiry).toNumber() * 1000);
     return judgmentExpiry < new Date();
   }
 }
@@ -32,10 +35,12 @@ export function isAwaitingAppealChallenge(appealData: AppealData): boolean {
   if (!appealData.appealGranted) {
     return false;
   }
-  if (!appealData.appealChallengeID.isZero()) {
+  if (!new BigNumber(appealData.appealChallengeID).isZero()) {
     return false;
   } else {
-    const appealOpenToChallengeExpiryDate = new Date(appealData.appealOpenToChallengeExpiry.toNumber() * 1000);
+    const appealOpenToChallengeExpiryDate = new Date(
+      new BigNumber(appealData.appealOpenToChallengeExpiry).toNumber() * 1000,
+    );
     return appealOpenToChallengeExpiryDate > new Date();
   }
 }
@@ -44,7 +49,7 @@ export function isAppealAwaitingJudgment(appealData: AppealData): boolean {
   if (appealData.appealGranted) {
     return false;
   } else {
-    const appealExpiryDate = new Date(appealData.appealPhaseExpiry.toNumber() * 1000);
+    const appealExpiryDate = new Date(new BigNumber(appealData.appealPhaseExpiry).toNumber() * 1000);
     return appealExpiryDate > new Date();
   }
 }

@@ -7,6 +7,7 @@ utils.configureProviders(PLCRVoting);
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("User stories", () => {
@@ -24,7 +25,7 @@ contract("Registry", accounts => {
     });
 
     it("should apply, get challenged, have challenge be successful, and reject listing", async () => {
-      await registry.apply(listing27, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing27, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       await utils.simpleSuccessfulChallenge(registry, listing27, challenger, voter);
       await registry.updateStatus(listing27);
 
@@ -34,7 +35,7 @@ contract("Registry", accounts => {
     });
 
     it("should apply, pass challenge (challenge vote fails), and whitelist listing", async () => {
-      await registry.apply(listing28, minDeposit, "", { from: applicant });
+      await registry.apply(listing28, minDeposit, ZERO_DATA, { from: applicant });
 
       // Challenge and get back the pollID
       const pollID = await utils.challengeAndGetPollID(listing28, challenger, registry);
@@ -79,7 +80,7 @@ contract("Registry", accounts => {
     });
 
     it("should allow someone to update their committed vote", async () => {
-      await registry.apply(listing28, minDeposit, "", { from: applicant });
+      await registry.apply(listing28, minDeposit, ZERO_DATA, { from: applicant });
 
       // Challenge and get back the pollID
       const pollID = await utils.challengeAndGetPollID(listing28, challenger, registry);

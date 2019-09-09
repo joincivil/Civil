@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -14,7 +14,7 @@ import {
   CurrencyInput,
 } from "@joincivil/components";
 import { State } from "../../redux/reducers";
-import { approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
+import { toWei, approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { FormGroup } from "../utility/FormElements";
 
@@ -129,13 +129,15 @@ class DepositTokensComponent extends React.Component<
   }
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return approveVotingRightsForTransfer(numTokens);
+    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    console.log("approveVotingRights ", tokensWei.toString());
+    return approveVotingRightsForTransfer(tokensWei);
   };
 
   private depositTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
-    return requestVotingRights(numTokens);
+    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    console.log("depositTokens", tokensWei, tokensWei.toString());
+    return requestVotingRights(tokensWei);
   };
 
   private getTransactions = (): any[] => {

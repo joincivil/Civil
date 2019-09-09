@@ -2,8 +2,8 @@ import * as chai from "chai";
 import { configureChai } from "@joincivil/dev-utils";
 
 import * as utils from "../../utils/contractutils";
-import { BigNumber } from "bignumber.js";
 import { REVERTED } from "../../utils/constants";
+import { BN } from "bn.js";
 const Government = artifacts.require("Government");
 const PLCRVoting = artifacts.require("PLCRVoting");
 configureChai(chai);
@@ -22,7 +22,7 @@ contract("Government", accounts => {
     });
 
     it("processProposal should fail if proposal not active", async () => {
-      await expect(government.processProposal("1234", { from: nobody })).to.eventually.be.rejectedWith(
+      await expect(government.processProposal("0x1234", { from: nobody })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have been able to process nonexistent proposal",
       );
@@ -68,7 +68,7 @@ contract("Government", accounts => {
       await government.processProposal(propID, { from: nobody });
       const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
-        new BigNumber(100),
+        new BN(100),
         "judgeAppealLen was not equal to value it was set to",
       );
     });
@@ -84,7 +84,7 @@ contract("Government", accounts => {
       await government.processProposal(propID, { from: nobody });
       const judgeAppealLength = await government.get("judgeAppealLen");
       expect(judgeAppealLength).to.be.bignumber.equal(
-        new BigNumber(utils.paramConfig.judgeAppealPhaseLength),
+        new BN(utils.paramConfig.judgeAppealPhaseLength),
         "judgeAppealLen was not equal to value it was set to",
       );
     });

@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "../styleConstants";
 
 export interface CivilIconProps {
@@ -26,7 +26,7 @@ const _CivilIcon = (props: CivilIconProps) => {
   );
 };
 
-export const CivilIcon: StyledComponentClass<CivilIconProps, "svg"> = styled(_CivilIcon)`
+export const CivilIcon = styled(_CivilIcon)`
   &:hover g {
     fill: ${colors.accent.CIVIL_BLUE};
   }

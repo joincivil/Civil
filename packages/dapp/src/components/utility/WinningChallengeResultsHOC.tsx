@@ -25,6 +25,8 @@ import {
   ChallengeContainerReduxProps,
 } from "./HigherOrderComponents";
 
+import { BigNumber } from "@joincivil/typescript-types";
+
 import { getAppealChallenge, getProposalChallengeByChallengeID } from "../../selectors";
 
 export interface WinningChallengeResultsProps {
@@ -61,17 +63,22 @@ export const getChallengeViewProps = (challenge: ChallengeData) => {
   if (didChallengeOriginallySucceed(challenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
     votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
-    votesPercent = challenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+
+    votesPercent = totalVotes.isZero()
+      ? "0"
+      : challenge.poll.votesAgainst
+          .div(totalVotes)
+          .mul(new BigNumber(100))
+          .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
     votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
-    votesPercent = challenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+    votesPercent = totalVotes.isZero()
+      ? "0"
+      : challenge.poll.votesFor
+          .div(totalVotes)
+          .mul(new BigNumber(100))
+          .toString();
   }
   return { voteType, votesCount, votesPercent };
 };
@@ -86,17 +93,21 @@ export const getAppealChallengeViewProps = (appealChallenge: AppealChallengeData
   if (didAppealChallengeSucceed(appealChallenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
     votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
-    votesPercent = appealChallenge.poll.votesAgainst
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+    votesPercent = totalVotes.isZero()
+      ? "0"
+      : appealChallenge.poll.votesAgainst
+          .div(totalVotes)
+          .mul(new BigNumber(100))
+          .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
     votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
-    votesPercent = appealChallenge.poll.votesFor
-      .div(totalVotes)
-      .mul(100)
-      .toFixed(0);
+    votesPercent = totalVotes.isZero()
+      ? "0"
+      : appealChallenge.poll.votesFor
+          .div(totalVotes)
+          .mul(new BigNumber(100))
+          .toString();
   }
   return { voteType, votesCount, votesPercent };
 };
@@ -149,18 +160,22 @@ export const connectWinningChallengeResults = <
       explanation = "The Civil Community voted to reject this proposal from The Civil Registry Parameters.";
       voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
       votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
-      votesPercent = challenge.poll.votesAgainst
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+      votesPercent = totalVotes.isZero()
+        ? "0"
+        : challenge.poll.votesAgainst
+            .div(totalVotes)
+            .mul(new BigNumber(100))
+            .toString();
     } else {
       explanation = "The Civil Community voted to accept this proposal to The Civil Registry Parameters.";
       voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMAIN;
       votesCount = getFormattedTokenBalance(challenge.poll.votesFor);
-      votesPercent = challenge.poll.votesFor
-        .div(totalVotes)
-        .mul(100)
-        .toFixed(0);
+      votesPercent = totalVotes.isZero()
+        ? "0"
+        : challenge.poll.votesFor
+            .div(totalVotes)
+            .mul(new BigNumber(100))
+            .toString();
     }
 
     const viewProps = { voteType, votesCount, votesPercent };

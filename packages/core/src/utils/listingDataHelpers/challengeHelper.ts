@@ -2,6 +2,7 @@ import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
 import { didAppealChallengeSucceed } from "./appealChallengeHelper";
 import { is0x0Address } from "@joincivil/utils";
 import { ChallengeData, UserChallengeData } from "../../types";
+import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Checks if a Challenge is in the Commit stage
@@ -32,7 +33,7 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
     if (doesChallengeHaveAppeal(challengeData)) {
       return false;
     } else {
-      return challengeData.requestAppealExpiry.toNumber() > Date.now() / 1000;
+      return new BigNumber(challengeData.requestAppealExpiry).toNumber() > Date.now() / 1000;
     }
   }
 }

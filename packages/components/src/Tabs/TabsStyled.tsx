@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { TabComponentProps } from "./Tab";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 

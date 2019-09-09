@@ -11,11 +11,11 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-      className="sc-jRnjsG GliFJ"
+      className="sc-LzNuy eOiItb"
     >
       <div>
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h3>
@@ -23,12 +23,12 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
           </h3>
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-LzLrj ielGAs"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
@@ -69,12 +69,12 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -496,11 +496,11 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-      className="sc-jRnjsG GliFJ"
+      className="sc-LzNuy eOiItb"
     >
       <div>
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h3>
@@ -508,13 +508,13 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
           </h3>
            
           <div
-            className="sc-epnACN fcJrdi"
+            className="sc-LzLrj DXHPI"
             disabled={true}
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
@@ -555,12 +555,12 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -990,11 +990,11 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-      className="sc-jRnjsG GliFJ"
+      className="sc-LzNuy eOiItb"
     >
       <div>
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h3>
@@ -1002,12 +1002,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
           </h3>
            
           <div
-            className="sc-epnACN bTibBg"
+            className="sc-LzLrj BaGaD"
             open={true}
           />
         </div>
         <div
-          className="sc-hXRMBi hEGpML"
+          className="sc-LzLqL fNKggC"
           height={null}
           open={true}
         >
@@ -1048,12 +1048,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1457,22 +1457,22 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-      className="sc-jRnjsG GliFJ"
+      className="sc-LzNuy eOiItb"
     >
       <div>
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-fPbjcq hJpbXg"
+            className="sc-LzNvS bGeXbL"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
@@ -1513,12 +1513,12 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1720,11 +1720,100 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
                             <span
                               style={
                                 Object {
-                                  "color": "#170",
+                                  "color": "#666",
                                 }
                               }
                             >
-                              StyledComponent
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  $$typeof
+                                </span>
+                              </span>
+                              : 
+                              <span>
+                                …
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  render
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#170",
+                                  }
+                                }
+                              >
+                                forwardRef
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  attrs
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                [
+                                ]
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
                             </span>
                             }
                           </span>
@@ -1967,22 +2056,22 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-      className="sc-jRnjsG GliFJ"
+      className="sc-LzNuy eOiItb"
     >
       <div>
         <div
-          className="sc-iQNlJl hSunJd"
+          className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-epnACN geNAjr"
+            className="sc-LzLrj ielGAs"
             open={false}
           />
         </div>
         <div
-          className="sc-hXRMBi dgFUIb"
+          className="sc-LzLqL dvLWsj"
           height={null}
           open={false}
         >
@@ -2023,12 +2112,12 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

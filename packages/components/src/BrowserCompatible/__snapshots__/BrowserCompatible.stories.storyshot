@@ -11,28 +11,28 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
-      className="sc-fFTYTi deHJZk"
+      className="sc-LzMDW eANFIa"
     >
       <h2
-        className="sc-cNnxps hXOQHs"
+        className="sc-LzMCj coGyxb"
       >
         Can we switch to a different browser?
       </h2>
       <p
-        className="sc-MYvYT gJZZo sc-jWxkHr cZIAqs"
+        className="sc-LzMCI sc-LzMEb kEaivI"
       >
         Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
       </p>
       <p
-        className="sc-MYvYT gJZZo sc-jWxkHr cZIAqs"
+        className="sc-LzMCI sc-LzMEb kEaivI"
       >
         In the meantime, please…
       </p>
       <div
-        className="sc-bEufUU cOILCo"
+        className="sc-LzMDY ipsVXx"
       >
         <a
-          className="sc-gFXMyG IekcW sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+          className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-bTiqRo erkoJi"
+            className="sc-LzMDX TZSde"
             src={
               Object {
                 "0": "t",
@@ -68,7 +68,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           Get Google Chrome
         </a>
         <a
-          className="sc-gFXMyG IekcW sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+          className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -80,7 +80,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-bTiqRo erkoJi"
+            className="sc-LzMDX TZSde"
             src={
               Object {
                 "0": "t",
@@ -105,16 +105,16 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         </a>
       </div>
       <p
-        className="sc-DNdyV eRVoJ sc-imDfJI iCvhpK"
+        className="sc-LzMCJ sc-LzMCL hGWlgk"
       >
         <a
-          className="sc-gQNndl iOsCkc"
+          className="sc-LzMEa kGqwzi"
           href="mailto:support@civil.co"
         >
           Contact Us
         </a>
         <a
-          className="sc-gQNndl iOsCkc"
+          className="sc-LzMEa kGqwzi"
           href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
           target="_blank"
         >
@@ -153,12 +153,12 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -426,57 +426,24 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
               StoryRouter
               " Component
             </h3>
-            <table>
+            <table
+              className="info-table"
+            >
               <thead>
                 <tr>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     property
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     propType
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     required
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     default
                   </th>
-                  <th
-                    style={
-                      Object {
-                        "textAlign": "left",
-                        "verticalAlign": "top",
-                      }
-                    }
-                  >
+                  <th>
                     description
                   </th>
                 </tr>
@@ -484,158 +451,83 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
               <tbody>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     story
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      func
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     yes
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     links
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
                 <tr>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     routerProps
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className="info-table-monospace"
                   >
                     <span>
-                      object
+                      other
                     </span>
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   >
                     -
                   </td>
                   <td
-                    style={
-                      Object {
-                        "paddingRight": 10,
-                        "verticalAlign": "top",
-                      }
-                    }
+                    className={null}
                   />
                 </tr>
               </tbody>

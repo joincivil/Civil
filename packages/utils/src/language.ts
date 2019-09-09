@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 
 // tslint:disable promise-function-async
 export function promisify<T>(original: (...params: any[]) => void, thisArg?: any): (...callArgs: any[]) => Promise<T> {
@@ -17,7 +17,12 @@ export function promisify<T>(original: (...params: any[]) => void, thisArg?: any
 }
 // tslint:enable:promise-function-async
 
-export function bindNestedAll(what: any, excludes: string[] = ["constructor"], thisArg?: any, ...params: any[]): void {
+export function bindNestedAll(
+  what: any,
+  excludes: string[] = ["constructor", "ethApi"],
+  thisArg?: any,
+  ...params: any[]
+): void {
   const self = thisArg || what;
   for (const key of Object.getOwnPropertyNames(what)) {
     const val = what[key];

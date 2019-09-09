@@ -11,12 +11,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     }
   >
     <h2
-      className="sc-gzVnrw hwklMf"
+      className="sc-AykKJ uzsbQ"
     >
       Email Address Confirmed!
     </h2>
     <div
-      className="sc-dnqmqq eFaQQc sc-htoDjs hbgsSJ"
+      className="sc-AykKK sc-fzXfLO kfcsmY"
     >
       Thanks for confirming your email address.
     </div>
@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-csuNZv jdAmGl sc-bAtgIc eJhQHf"
+          className="sc-LzNto sc-LzNtp kAHQWz"
         />
       </div>
     </div>
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
-          className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fzXfMD sc-fzXfME ePpSnn"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -96,12 +96,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -373,12 +373,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
     }
   >
     <h2
-      className="sc-gzVnrw hwklMf"
+      className="sc-AykKJ uzsbQ"
     >
       Uh oh.
     </h2>
     <div
-      className="sc-dnqmqq eFaQQc sc-htoDjs hbgsSJ"
+      className="sc-AykKK sc-fzXfLO kfcsmY"
     >
       <strong>
         Error is bad
@@ -415,12 +415,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -693,7 +693,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     }
   >
     <h2
-      className="sc-gzVnrw hwklMf"
+      className="sc-AykKJ uzsbQ"
     >
       Confirming your email address...
     </h2>
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-csuNZv jdAmGl sc-bAtgIc eJhQHf"
+          className="sc-LzNto sc-LzNtp kAHQWz"
         />
       </div>
     </div>
@@ -721,7 +721,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
-          className="sc-kEYyzF bnmMlI sc-hMqMXs bMlmhm"
+          className="sc-fzXfMD sc-fzXfME ePpSnn"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -773,12 +773,12 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

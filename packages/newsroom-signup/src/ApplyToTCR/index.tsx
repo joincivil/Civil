@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Civil, EthAddress, ListingWrapper, isInApplicationPhase, NewsroomInstance } from "@joincivil/core";
 import { Parameters, getFormattedParameterValue } from "@joincivil/utils";
 import { NextBack } from "../styledComponents";
@@ -112,7 +112,7 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyTo
 
   const minDeposit = new BigNumber((parameters && parameters[Parameters.minDeposit]) || 0);
 
-  const multisigHasMinDeposit = multisigBalance.greaterThanOrEqualTo(minDeposit);
+  const multisigHasMinDeposit = multisigBalance.gte(minDeposit);
 
   return {
     ...ownProps,

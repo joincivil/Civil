@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../../styleConstants";
 import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
 import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";

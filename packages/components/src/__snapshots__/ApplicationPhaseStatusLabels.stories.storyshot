@@ -11,46 +11,46 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
     }
   >
     <div
-      className="sc-jTqLGJ bqSVVO"
+      className="sc-LzNtW BQgbW"
     >
       <div
-        className="sc-hMFtBS ggAFsy sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrr ddlXEP"
       >
         Awaiting Approval
       </div>
       <br />
       <div
-        className="sc-hMFtBS ggAFsy sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrr ddlXEP"
       >
         Awaiting Request to Appeal
       </div>
       <br />
       <div
-        className="sc-hMFtBS ggAFsy sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrr ddlXEP"
       >
         Awaiting Council Decision
       </div>
       <br />
       <div
-        className="sc-cLQEGU djvnmM sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrs iGxMVM"
       >
         Challenge Council Decision
       </div>
       <br />
       <div
-        className="sc-gqPbQI jDiUUc sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrQ eMXdir"
       >
         Submit Vote
       </div>
       <br />
       <div
-        className="sc-hORach ievrXX sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrR kzVaTl"
       >
         Confirm Vote
       </div>
       <br />
       <div
-        className="sc-bMVAic kOKwQL sc-cmthru kMUvlH"
+        className="sc-LzLrq sc-LzLrS fLNRhX"
       >
         Ready To Update
       </div>
@@ -86,12 +86,12 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

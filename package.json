@@ -1,6 +1,7 @@
 {
+  "name": "@joincivil/root",
   "private": true,
-  "homepage": "https://joincivil.github.io/civil",
+  "homepage": "https://civil.co",
   "workspaces": [
     "packages/*"
   ],
@@ -14,7 +15,8 @@
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
     "prettier:package": "[ $PACKAGE ] && prettier --config .prettierrc.yaml --write --list-different ./packages/$PACKAGE'/**/*.{ts,tsx,json,md}' || echo 'Specify a package name as environment variable to run prettier on just that package, e.g. `PACKAGE=dapp yarn prettier:package`'",
     "clean": "lerna run clean --parallel",
-    "test": "lerna run test --stream --sort",
+    "test": "CI=true lerna run test --stream --sort --ignore @joincivil/contracts",
+    "test-contracts": "lerna run test --stream --sort",
     "lerna:run": "lerna run",
     "prepare": "lerna run prepare --no-sort",
     "ganache": "run-p ganache:raw 'lerna:run --scope @joincivil/contracts migrate:ganache'",
@@ -23,19 +25,38 @@
     "serve:dapp": "cd ./packages/dapp && serve -s build",
     "publish:docs": "ncp ./packages/dapp/build/ ./docs/",
     "publish:artifacts-dev": "ncp ./packages/contracts/build/artifacts/CivilTCR.json ./packages/artifacts/v1/CivilTCR.json && ncp ./packages/contracts/build/artifacts/CivilPLCRVoting.json ./packages/artifacts/v1/CivilPLCRVoting.json && ncp ./packages/contracts/build/artifacts/CivilParameterizer.json ./packages/artifacts/v1/CivilParameterizer.json && ncp ./packages/contracts/build/artifacts/CVLToken.json ./packages/artifacts/v1/CVLToken.json && ncp ./packages/contracts/build/artifacts/EventStorage.json ./packages/artifacts/v1/EventStorage.json && ncp ./packages/contracts/build/artifacts/Government.json ./packages/artifacts/v1/Government.json && ncp ./packages/contracts/build/artifacts/MultiSigWallet.json ./packages/artifacts/v1/MultiSigWallet.json && ncp ./packages/contracts/build/artifacts/Newsroom.json ./packages/artifacts/v1/Newsroom.json && ncp ./packages/contracts/build/artifacts/NewsroomFactory.json ./packages/artifacts/v1/NewsroomFactory.json && ncp ./packages/contracts/build/artifacts/CivilTokenController.json ./packages/artifacts/v1/CivilTokenController.json && ncp ./packages/contracts/build/artifacts/CreateNewsroomInGroup.json ./packages/artifacts/v1/CreateNewsroomInGroup.json && ncp ./packages/contracts/build/artifacts/NoOpTokenController.json ./packages/artifacts/v1/NoOpTokenController.json",
-    "preparelocally": "run-s migrate publish:artifacts-dev build:core"
+    "preparelocally": "run-s migrate publish:artifacts-dev build:core",
+    "commit": "commit",
+    "release": "multi-semantic-release"
   },
   "config": {
     "mnemonic": "notice tobacco baby curious trade other capable invite cable thunder file equal"
   },
+  "resolutions": {
+    "ethers": "4.0.27",
+    "**/ethers": "4.0.27"
+  },
   "license": "(Apache-2.0 OR LGPL-2.1-only)",
   "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-conventional": "^7.5.0",
+    "@commitlint/config-lerna-scopes": "^8.1.0",
+    "@commitlint/prompt-cli": "^8.1.0",
+    "@semantic-release/npm": "^5.1.7",
     "coveralls": "^3.0.0",
-    "ganache-cli": "^6.1.6",
+    "ganache-cli": "^6.5.1",
+    "husky": "^2.1.0",
     "lcov-result-merger": "^3.1.0",
     "lerna": "^3.15.0",
+    "multi-semantic-release": "^1.1.0",
     "ncp": "^2.0.0",
     "npm-run-all": ">=4.1.5",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "semantic-release": "^15.13.3"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }

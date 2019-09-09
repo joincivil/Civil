@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, DarkButton, ButtonProps } from "../Button";
+import { Button, DarkButton } from "../Button";
 
 import { NavArrowProps } from "./NavBarTypes";
 
@@ -137,7 +137,7 @@ export const UserAvatar = styled.figure`
   width: 36px;
 `;
 
-export const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrowProps, "div">("div")`
+export const Arrow = styled.div<NavArrowProps>`
   border-bottom: 2px solid ${colors.basic.WHITE};
   border-left: 2px solid ${colors.basic.WHITE};
   height: 8px;
@@ -146,11 +146,11 @@ export const Arrow: StyledComponentClass<NavArrowProps, "div"> = styled<NavArrow
   width: 8px;
 `;
 
-export const LogInButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const LogInButton = styled(Button)`
   margin-left: 10px;
 `;
 
-export const NavBarButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+export const NavBarButton = styled(DarkButton)`
   border: 2px solid ${colors.basic.WHITE};
   font-size: 14px;
   font-weight: bold;

@@ -4,5 +4,5 @@
     "outDir": "build/",
     "declarationDir": "build/"
   },
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts"] // https://github.com/ReactiveX/rxjs/issues/3031
 }

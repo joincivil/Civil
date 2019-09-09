@@ -11,10 +11,10 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-zDqdV kGgmXG"
+      className="sc-LzNvh hFmZpz"
     >
       <div
-        className="sc-eqIVtm cpvyEn"
+        className="sc-fzXfOu ewwlWv"
       >
         <svg
           fill="#30E8BD"
@@ -81,7 +81,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
           </circle>
         </svg>
         <p
-          className="sc-fAjcbJ beTSky"
+          className="sc-fzXfOv kMxIPO"
         >
           Please wait while we load all the stuff.
         </p>
@@ -118,12 +118,12 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -440,10 +440,10 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-zDqdV kGgmXG"
+      className="sc-LzNvh hFmZpz"
     >
       <div
-        className="sc-eqIVtm cpvyEn"
+        className="sc-fzXfOu ewwlWv"
       >
         <svg
           fill="#30E8BD"
@@ -510,7 +510,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
           </circle>
         </svg>
         <p
-          className="sc-fAjcbJ beTSky"
+          className="sc-fzXfOv kMxIPO"
         >
           Loading
         </p>
@@ -547,12 +547,12 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -829,10 +829,10 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
     }
   >
     <div
-      className="sc-zDqdV kGgmXG"
+      className="sc-LzNvh hFmZpz"
     >
       <div
-        className="sc-eqIVtm cpvyEn"
+        className="sc-fzXfOu ewwlWv"
       >
         <svg
           fill="#30E8BD"
@@ -899,7 +899,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
           </circle>
         </svg>
         <p
-          className="sc-fAjcbJ beTSky"
+          className="sc-fzXfOv kMxIPO"
         >
           Loading
         </p>
@@ -936,12 +936,12 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

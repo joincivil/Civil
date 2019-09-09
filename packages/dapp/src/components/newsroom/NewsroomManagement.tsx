@@ -1,7 +1,7 @@
 import { TransactionButton } from "@joincivil/components";
 import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
 import { CivilErrors } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { List } from "immutable";
 import * as React from "react";
 import { Link } from "react-router-dom";
@@ -200,8 +200,8 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   };
 
   private sendTokenToMultisig = async (): Promise<TwoStepEthTransaction | void> => {
-    const numTokens = parseInt(this.state.numTokens, 10);
-    if (!numTokens || isNaN(numTokens)) {
+    const numTokens = parseEther(this.state.numTokens);
+    if (!numTokens) {
       this.setState({ error: "Please enter a valid number of tokens" });
       // TODO(tobek) returning leaves button in "waiting for transaction" state, should just do nothing
       return;
@@ -211,7 +211,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     const civil = new Civil();
     const tcr = await civil.tcrSingletonTrusted();
     const token = await tcr.getToken();
-    return token.transfer(this.state.multisigAddr, civil.toBigNumber(numTokens).mul(1e18));
+    return token.transfer(this.state.multisigAddr, numTokens);
   };
 
   private postSendToken = async () => {

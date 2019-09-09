@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApplicationInProgressIco
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -57,12 +57,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApplicationInProgressIco
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -339,7 +339,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApprovedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -391,12 +391,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApprovedNewsroomsIcon 1`
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -673,7 +673,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height={24}
@@ -729,12 +729,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1011,7 +1011,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexPanelIcon 1`
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -1074,12 +1074,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexPanelIcon 1`
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1356,7 +1356,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="24"
@@ -1422,12 +1422,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -1704,7 +1704,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignPanelIcon 1`]
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="20"
@@ -1766,12 +1766,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignPanelIcon 1`]
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2048,7 +2048,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BellIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="24"
@@ -2099,12 +2099,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BellIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2381,7 +2381,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BookreaderIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="70"
@@ -2528,12 +2528,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BookreaderIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2810,7 +2810,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BrainIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="74"
@@ -3007,12 +3007,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BrainIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3289,7 +3289,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="33"
@@ -3364,12 +3364,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3646,7 +3646,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = 
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="20"
@@ -3705,12 +3705,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3987,7 +3987,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ClockIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -4041,12 +4041,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ClockIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -4323,7 +4323,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CloseXIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="42"
@@ -4369,12 +4369,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CloseXIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -4651,7 +4651,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="100"
@@ -4721,12 +4721,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -5003,7 +5003,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DashboardNewsroomApplica
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="34"
@@ -5160,12 +5160,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DashboardNewsroomApplica
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -5442,7 +5442,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] 
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="12"
@@ -5497,12 +5497,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -5779,7 +5779,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DropdownArrow 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="5"
@@ -5825,12 +5825,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DropdownArrow 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -6107,7 +6107,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="28"
@@ -6161,12 +6161,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ErrorIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -6443,7 +6443,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExamIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="70"
@@ -6608,12 +6608,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExamIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -6890,7 +6890,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExchangeArrowsIcon 1`] =
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="14"
@@ -6946,12 +6946,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExchangeArrowsIcon 1`] =
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -7228,7 +7228,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExpandDownArrow 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="12"
@@ -7275,12 +7275,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExpandDownArrow 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -7557,10 +7557,10 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
-        className="sc-jwKygS kXtAyj"
+        className="sc-fzXfQp iBgZkn"
         height={23}
         viewBox="0 0 22 23"
         width={23}
@@ -7605,12 +7605,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -7887,7 +7887,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GrantSubmitIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="82"
@@ -7955,12 +7955,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GrantSubmitIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -8237,7 +8237,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GreenCheckMark 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="26"
@@ -8290,12 +8290,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GreenCheckMark 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -8572,7 +8572,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HamburgerIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="42"
@@ -8618,12 +8618,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HamburgerIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -8900,7 +8900,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowGreenCheck 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="20"
@@ -8961,12 +8961,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowGreenCheck 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -9243,7 +9243,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowRedNoGood 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="20"
@@ -9299,12 +9299,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowRedNoGood 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -9581,7 +9581,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons InfoNotification 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="28"
@@ -9638,12 +9638,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons InfoNotification 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -9920,7 +9920,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons LockOpenIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -9971,12 +9971,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons LockOpenIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -10253,10 +10253,10 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <img
-        className="sc-bYSBpT fsvMUD"
+        className="sc-fzXfQs flRwhx"
         src={
           Object {
             "0": "t",
@@ -10309,12 +10309,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -10591,10 +10591,10 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <img
-        className="sc-bYSBpT fsvMUD"
+        className="sc-fzXfQs flRwhx"
         src={
           Object {
             "0": "t",
@@ -10647,12 +10647,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -10929,7 +10929,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NetworkIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="44"
@@ -10977,12 +10977,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NetworkIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -11259,7 +11259,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NorthEastArrow 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="11"
@@ -11305,12 +11305,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NorthEastArrow 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -11587,7 +11587,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons OctopusErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="73"
@@ -11644,12 +11644,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons OctopusErrorIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -11926,7 +11926,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RegistryEmptyIcon 1`] = 
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="155"
@@ -12014,12 +12014,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RegistryEmptyIcon 1`] = 
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -12296,7 +12296,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RejectedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="18"
@@ -12341,12 +12341,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RejectedNewsroomsIcon 1`
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -12623,7 +12623,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RequestAppealSuccessIcon
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="100"
@@ -12758,12 +12758,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RequestAppealSuccessIcon
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -13040,7 +13040,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RevealVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="100"
@@ -13119,12 +13119,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RevealVoteSuccessIcon 1`
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -13401,7 +13401,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ReviewIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="24"
@@ -13455,12 +13455,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ReviewIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -13737,7 +13737,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons SubmitChallengeSuccessIc
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="100"
@@ -13899,12 +13899,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons SubmitChallengeSuccessIc
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -14181,7 +14181,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TokenWalletIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="21"
@@ -14232,12 +14232,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TokenWalletIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -14514,7 +14514,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TrendsIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="48"
@@ -14572,12 +14572,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TrendsIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -14854,10 +14854,10 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
-        className="sc-jtRfpW lGljq"
+        className="sc-fzXfQu bylFpo"
         height={23}
         viewBox="0 0 22 23"
         width={23}
@@ -14902,12 +14902,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -15184,7 +15184,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons VerifyIdentityIcon 1`] =
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="22"
@@ -15243,12 +15243,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons VerifyIdentityIcon 1`] =
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -15525,7 +15525,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WaitForApply 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="54"
@@ -15577,12 +15577,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WaitForApply 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -15859,7 +15859,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
     }
   >
     <div
-      className="sc-jBoNkH gcJRD"
+      className="sc-LzNvR NSTEz"
     >
       <svg
         height="28"
@@ -15925,12 +15925,12 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

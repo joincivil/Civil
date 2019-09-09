@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { CancelButton } from "../Button";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";

@@ -2,7 +2,7 @@
   "name": "@joincivil/dev-utils",
   "version": "1.6.9",
   "description": "Utilities shared between Civil packages",
-  "private": true,
+  "private": false,
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "bin": {
@@ -20,18 +20,21 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@0xproject/subproviders": "^2.0.6",
+    "@0x/subproviders": "^5.0.0",
     "argparse": "^1.0.9",
+    "bn-chai": "^1.0.1",
+    "bn.js": "^4.11.8",
     "chai-as-promised": "^7.1.1",
-    "chai-bignumber": "^2.0.2",
     "debug": "^4.1.0",
     "dirty-chai": "^2.0.1",
     "glob": "^7.1.2",
     "handlebars": "^4.0.11",
     "mkdirp": "^0.5.1",
     "to-snake-case": "^1.0.0",
-    "web3": "^0.20.3",
-    "web3-provider-engine": "^14.0.6"
+    "web3": "^1.2.1",
+    "web3-core": "^1.2.1",
+    "web3-provider-engine": "^14.0.6",
+    "web3-providers-http": "^1.2.1"
   },
   "devDependencies": {
     "@joincivil/tslint-rules": "^2.7.1",
@@ -46,7 +49,10 @@
     "@types/mkdirp": "^0.5.2",
     "@types/node": "^10.12.0",
     "rimraf": "^2.6.2",
-    "tslint": "^5.9.1",
-    "typescript": "^3.4.1"
+    "tslint": "^5.17.0",
+    "typescript": "^3.6.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

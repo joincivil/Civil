@@ -2,21 +2,26 @@ public {{this.name}} = {
   async sendTransactionAsync(
     {{> typed_inputs inputs=inputs}}
     {{#this.payable}}
-    txData: TxDataPayble = {},
+    txData: TransactionConfig = {},
     {{/this.payable}}
     {{^this.payable}}
-    txData: TxData = {},
+    txData: TransactionConfig = {},
     {{/this.payable}}
   ): Promise<MultisigProxyTransaction> {
     const self = this as {{contractName}}MultisigProxy;
     if (!isDefined(self.multisig)) {
-      return createTwoStepSimple(
-          self.ethApi,
-          await (self.instance as any).{{this.name}}.sendTransactionAsync(
+      try {
+        const tx = await (self.instance as any).{{this.name}}.sendTransactionAsync(
             {{> params inputs=inputs}}
             txData,
-          ),
-      );
+        )
+        return createTwoStepSimple(
+          self.ethApi,
+          tx,
+        );
+      } catch (err) {
+        return Promise.reject(err)
+      }
     }
     const raw = await (self.instance as any).{{this.name}}.getRaw(
       {{> params inputs=inputs}}

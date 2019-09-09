@@ -6,6 +6,10 @@ import * as utils from "../../utils/contractutils";
 configureChai(chai);
 const expect = chai.expect;
 
+const CHARTER_HASH = "0x";
+const CHALLENGE_HASH = "0x";
+const ZERO_DATA = "0x";
+
 contract("Registry With Appeals", accounts => {
   describe("Function: updateStatus", () => {
     const [JAB, applicant, challenger] = accounts;
@@ -29,8 +33,8 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if request appeal is over without one requested", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, CHARTER_HASH, { from: applicant });
+      await registry.challenge(newsroomAddress, CHALLENGE_HASH, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
       await utils.advanceEvmTime(utils.paramConfig.requestAppealPhaseLength);
@@ -44,11 +48,11 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should fail if request appeal is over and one is requested", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, CHARTER_HASH, { from: applicant });
+      await registry.challenge(newsroomAddress, CHALLENGE_HASH, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
         REVERTED,
@@ -57,11 +61,11 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if appeal is requested and that phase ends without one being granted ", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, CHARTER_HASH, { from: applicant });
+      await registry.challenge(newsroomAddress, CHALLENGE_HASH, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
       await utils.advanceEvmTime(utils.paramConfig.judgeAppealPhaseLength + 1);
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.fulfilled(
         "should not have been able to update status before appeal challenge is over",
@@ -72,14 +76,14 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should succeed if appealChallenge is over", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, CHARTER_HASH, { from: applicant });
+      await registry.challenge(newsroomAddress, CHALLENGE_HASH, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
-      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+      await registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger });
 
       await utils.advanceEvmTime(
         utils.paramConfig.appealChallengeCommitStageLength + utils.paramConfig.appealChallengeRevealStageLength + 1,
@@ -94,14 +98,14 @@ contract("Registry With Appeals", accounts => {
     });
 
     it("should fail if appealChallenge is still in progress", async () => {
-      await registry.apply(newsroomAddress, minDeposit, "", { from: applicant });
-      await registry.challenge(newsroomAddress, "", { from: challenger });
+      await registry.apply(newsroomAddress, minDeposit, CHARTER_HASH, { from: applicant });
+      await registry.challenge(newsroomAddress, CHALLENGE_HASH, { from: challenger });
       await utils.advanceEvmTime(utils.paramConfig.commitStageLength);
       await utils.advanceEvmTime(utils.paramConfig.revealStageLength + 1);
-      await registry.requestAppeal(newsroomAddress, "", { from: applicant });
-      await registry.grantAppeal(newsroomAddress, "", { from: JAB });
+      await registry.requestAppeal(newsroomAddress, ZERO_DATA, { from: applicant });
+      await registry.grantAppeal(newsroomAddress, ZERO_DATA, { from: JAB });
 
-      await registry.challengeGrantedAppeal(newsroomAddress, "", { from: challenger });
+      await registry.challengeGrantedAppeal(newsroomAddress, ZERO_DATA, { from: challenger });
 
       await expect(registry.updateStatus(newsroomAddress)).to.eventually.be.rejectedWith(
         REVERTED,

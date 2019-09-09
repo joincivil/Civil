@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 import { colors, fonts } from "../styleConstants";
 import { InvertedButton, buttonSizes } from "../Button";
@@ -28,9 +28,7 @@ export interface InputWithButtonState {
   isFocused: boolean;
 }
 
-const StyledTextInputButton: StyledComponentClass<InputWithButtonState, "div"> = styled<InputWithButtonState, "div">(
-  "div",
-)`
+const StyledTextInputButton = styled.div<InputWithButtonState>`
   border: 1px solid;
   border-color: ${props => (props.isFocused ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_3)};
   border-radius: 3px;

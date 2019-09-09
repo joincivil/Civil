@@ -1,0 +1,7 @@
+{
+  "extends": ["@joincivil/tslint-rules"],
+  "linterOptions": {},
+  "rules": {
+    "variable-name": [true, "ban-keywords", "allow-leading-underscore"]
+  }
+}

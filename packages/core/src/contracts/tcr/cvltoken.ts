@@ -1,6 +1,6 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Observable } from "rxjs";
 import { EthAddress } from "../../types";
 import { BaseWrapper } from "../basewrapper";
@@ -26,7 +26,8 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     if (!tokenController) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new CVLToken(web3wrapper, instance, multisigProxy, tokenController);
+    const defaultBlock = getDefaultFromBlock(await web3wrapper.network());
+    return new CVLToken(web3wrapper, instance, multisigProxy, tokenController, defaultBlock);
   }
 
   public static async singletonTrusted(web3wrapper: EthApi, multisigAddress?: EthAddress): Promise<CVLToken> {
@@ -36,7 +37,9 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     if (!tokenController) {
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new CVLToken(web3wrapper, instance, multisigProxy, tokenController);
+
+    const defaultBlock = getDefaultFromBlock(await web3wrapper.network());
+    return new CVLToken(web3wrapper, instance, multisigProxy, tokenController, defaultBlock);
   }
 
   /** If instantiated with `multisigAddress` undefined, proxy will send transactions directly to the contract instance. */
@@ -48,8 +51,9 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     instance: CVLTokenContract,
     multisigProxy: CVLTokenMultisigProxy,
     tokenController: CivilTokenControllerContract,
+    defaultBlock: number,
   ) {
-    super(ethApi, instance);
+    super(ethApi, instance, defaultBlock);
     this.multisigProxy = multisigProxy;
     this.tokenController = tokenController;
   }
@@ -64,13 +68,10 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
    * @param numTokens number of tokens to approve for spender to spend on user's behalf
    */
   public async approveSpender(spender: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens);
+    return this.multisigProxy.approve.sendTransactionAsync(spender, numTokens.toString());
   }
 
-  public balanceUpdate(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-    user: EthAddress,
-  ): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number = this.defaultBlock, user: EthAddress): Observable<BigNumber> {
     return this.instance
       .TransferStream({ from: user }, { fromBlock })
       .merge(this.instance.TransferStream({ to: user }, { fromBlock }))
@@ -91,7 +92,7 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     if (!who) {
       who = await this.getDefaultCurrentAddress();
     }
-    return this.instance.allowance.callAsync(who, spender);
+    return this.instance.allowance.callAsync(who, spender).then(e => new BigNumber(e));
   }
 
   /**
@@ -103,7 +104,7 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     if (!who) {
       who = await this.getDefaultCurrentAddress();
     }
-    return this.instance.balanceOf.callAsync(who);
+    return this.instance.balanceOf.callAsync(who).then(e => new BigNumber(e));
   }
 
   public async isTransferAllowed(to: EthAddress, from?: EthAddress): Promise<boolean> {
@@ -111,9 +112,9 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
     if (!who) {
       who = await this.getDefaultCurrentAddress();
     }
-    const code = await this.tokenController.detectTransferRestriction.callAsync(who, to, new BigNumber(1));
+    const code = await this.tokenController.detectTransferRestriction.callAsync(who, to, "1");
 
-    return code.toNumber() === 0;
+    return code === "0";
   }
 
   public async isCivilian(user: EthAddress): Promise<boolean> {
@@ -130,12 +131,12 @@ export class CVLToken extends BaseWrapper<CVLTokenContract> {
    * @param numTokens number of tokens to send
    */
   public async transfer(recipient: EthAddress, numTokens: BigNumber): Promise<MultisigProxyTransaction> {
-    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens);
+    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens.toString());
   }
 
   public async transferToSelf(numTokens: BigNumber): Promise<MultisigProxyTransaction> {
     const recipient = await requireAccount(this.ethApi).toPromise();
-    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens);
+    return this.multisigProxy.transfer.sendTransactionAsync(recipient, numTokens.toString());
   }
 
   private async getDefaultCurrentAddress(): Promise<EthAddress> {

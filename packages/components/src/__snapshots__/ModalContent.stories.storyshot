@@ -11,16 +11,16 @@ exports[`Storyshots Pattern Library / Modals content 1`] = `
     }
   >
     <div
-      className="sc-cBXKeB dGLlEy"
+      className="sc-LzNvk jEeCWB"
     >
       <div>
         <h2
-          className="sc-caSCKo AGNOA"
+          className="sc-fzXfOw fWbOMd"
         >
           I'm a Heading
         </h2>
         <p
-          className="sc-gisBJw gfwRXs"
+          className="sc-fzXfOx bGdeqg"
         >
           I'm a paragraph of some sorts
         </p>
@@ -57,12 +57,12 @@ exports[`Storyshots Pattern Library / Modals content 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

@@ -6,10 +6,12 @@ export interface EthersProviderResult {
   signer?: ethers.Signer;
   network: number;
 }
+
 export function makeEthersProvider(defaultNetwork: string): EthersProviderResult {
   const web3Provider = detectProvider();
 
   if (web3Provider) {
+    // @ts-ignore
     const provider = new ethers.providers.Web3Provider(web3Provider);
     const signer = provider.getSigner();
     let network = Number.parseInt((web3Provider as any).networkVersion as string, 10);

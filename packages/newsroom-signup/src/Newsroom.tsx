@@ -1,5 +1,5 @@
 import * as qs from "querystring";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
@@ -13,7 +13,7 @@ import { Civil, EthAddress, CharterData, NewsroomInstance } from "@joincivil/cor
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
-import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
@@ -154,7 +154,7 @@ export interface NewsroomGqlProps {
 
 export type NewsroomProps = NewsroomGqlProps & NewsroomReduxProps & DispatchProp<any>;
 
-export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
+export const NoteSection = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
@@ -537,7 +537,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
   if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
     const userBalance = new BigNumber(user.account.balance);
     const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
-    hasMinDeposit = userBalance.greaterThanOrEqualTo(minDeposit);
+    hasMinDeposit = userBalance.gte(minDeposit);
     waitingOnGrant = waitingOnGrant && !hasMinDeposit;
   }
   const completedGrantFlow = hasMinDeposit || (typeof ownProps.grantRequested === "boolean" && !waitingOnGrant);
@@ -558,6 +558,7 @@ export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props =>
     <AuthWrapper>
       <DataWrapper>
         {(gqlProps: NewsroomGqlProps) => {
+          // @ts-ignore Type 'ButtonTheme | undefined' is not assignable to type
           return <NewsroomRedux {...props} {...gqlProps} />;
         }}
       </DataWrapper>

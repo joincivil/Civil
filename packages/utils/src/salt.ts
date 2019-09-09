@@ -1,5 +1,7 @@
 import { words } from "./bip39.english";
-import { BigNumber } from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
+
+import { randomHex } from "web3-utils";
 
 export { words };
 
@@ -11,9 +13,10 @@ export function toAlphabet(srcNum: BigNumber, alphabet: string[]): string[] {
   let num: BigNumber = srcNum;
 
   do {
-    digits.push(num.mod(base));
-    num = num.dividedBy(base).round(0, BigNumber.ROUND_FLOOR);
-  } while (num.greaterThan(0));
+    const baseBN = new BigNumber(base);
+    digits.push(num.mod(baseBN));
+    num = num.div(baseBN);
+  } while (num.gt(new BigNumber(0)));
 
   const chars = [];
   while (digits.length) {
@@ -38,8 +41,8 @@ export function fromAlphabet(srcWords: string[], alphabet: string[]): BigNumber 
       throw new Error("Invalid word: " + word);
     }
 
-    const n = new BigNumber(base).pow(pos).mul(idx);
-    num = num.plus(n);
+    const n = new BigNumber(base).pow(new BigNumber(pos)).mul(new BigNumber(idx));
+    num = num.add(n);
   }
 
   return num;
@@ -56,25 +59,20 @@ export function saltToWords(salt: string | BigNumber): string[] {
   return toAlphabet(bn, words);
 }
 
-export function randomSalt(wordCount: number): BigNumber {
-  if (!wordCount) {
+export function randomSalt(wordCountInt: number): BigNumber {
+  if (!wordCountInt) {
     throw new Error("wordCount must be at least 1.");
   }
+  const wordCount = new BigNumber(wordCountInt);
 
-  let salt = new BigNumber(0);
   const base = new BigNumber(words.length);
 
-  const min = base.pow(wordCount - 1);
+  const min = base.pow(wordCount.sub(1));
   const max = base.pow(wordCount);
+  const spread = max.sub(min);
 
-  const spread = max.minus(min);
+  const rand = new BigNumber(randomHex(64));
+  const seed = rand.mod(spread).add(min);
 
-  const rand = BigNumber.random()
-    .mul(spread)
-    .plus(min)
-    .round(0, BigNumber.ROUND_FLOOR);
-
-  salt = salt.plus(rand);
-
-  return salt;
+  return seed;
 }

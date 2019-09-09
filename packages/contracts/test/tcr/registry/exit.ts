@@ -8,6 +8,7 @@ utils.configureProviders(Token);
 
 configureChai(chai);
 const expect = chai.expect;
+const ZERO_DATA = "0x";
 
 contract("Registry", accounts => {
   describe("Function: exit", () => {
@@ -24,7 +25,7 @@ contract("Registry", accounts => {
     });
 
     it("should not allow a listing to exit if listing is not whitelisted", async () => {
-      await registry.apply(listing17, utils.paramConfig.minDeposit, "", { from: applicant });
+      await registry.apply(listing17, utils.paramConfig.minDeposit, ZERO_DATA, { from: applicant });
       await expect(registry.exit(listing17, { from: applicant })).to.eventually.be.rejectedWith(
         REVERTED,
         "should not have allowed listing in application stage to exit",
@@ -59,7 +60,7 @@ contract("Registry", accounts => {
       const [, isWhitelisted] = await registry.listings(listing18);
       expect(isWhitelisted).to.be.true("the listing was not added to the registry");
 
-      await registry.challenge(listing18, "", { from: challenger });
+      await registry.challenge(listing18, ZERO_DATA, { from: challenger });
       await expect(registry.exit(listing18, { from: applicant })).to.eventually.be.rejectedWith(
         REVERTED,
         "exit succeeded when it should have failed",

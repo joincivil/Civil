@@ -23,7 +23,7 @@ import {
 import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { updateNewsroom, trackTx, TX_TYPE } from "../actionCreators";
 import { CivilContext, CivilContextValue } from "../CivilContext";
 import { StateWithNewsroom } from "../reducers";
@@ -69,7 +69,7 @@ const ToolTipLink = styled.a`
   color: ${colors.basic.WHITE};
 `;
 
-const Label: StyledComponentClass<any, "div"> = styled.div`
+const Label = styled.div`
   font-size: 14px;
   color: ${colors.primary.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
@@ -278,7 +278,7 @@ export class CreateNewsroomContractComponent extends React.Component<
               placeholder="Enter your newsroom's name"
               name="NameInput"
               value={this.props.charter.name || ""}
-              onChange={(name, val) => this.onChange(name, val)}
+              onChange={(name: any, val: any) => this.onChange(name, val)}
             />
             <SmallText>
               Estimated Cost{" "}

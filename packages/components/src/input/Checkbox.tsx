@@ -39,7 +39,7 @@ interface ContainerProps {
   size?: CheckboxSizes;
 }
 
-const Container = styled<ContainerProps, "label">("label")`
+const Container = styled.label<ContainerProps>`
   position: relative;
   display: inline-block;
   box-sizing: content-box;

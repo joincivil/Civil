@@ -12,26 +12,26 @@ exports[`Storyshots Common / Tabs Default Tabs 1`] = `
   >
     <div>
       <nav
-        className="sc-kcbnda ljuMyf"
+        className="sc-LzLPx hXETGe"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <li
-            className="sc-cjHlYL bbrDoU"
+            className="sc-LzLPt jYWoJY"
             onClick={[Function]}
           >
             Index
           </li>
           <li
-            className="sc-cjHlYL jYssh"
+            className="sc-LzLPt jRjOwF"
             onClick={[Function]}
           >
             Sign
           </li>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -86,12 +86,12 @@ exports[`Storyshots Common / Tabs Default Tabs 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -638,44 +638,44 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
   >
     <div>
       <div
-        className="sc-hgRTRy iehpCk"
+        className="sc-LzLQa dgnrdF"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <li
-            className="sc-iIHSe cXAUmj"
+            className="sc-LzLQb JyDSQ"
             onClick={[Function]}
           >
             All
           </li>
           <li
-            className="sc-iIHSe fJvvKb"
+            className="sc-LzLQb dIyIuN"
             onClick={[Function]}
           >
             Accepting Votes
           </li>
           <li
-            className="sc-iIHSe fJvvKb"
+            className="sc-LzLQb dIyIuN"
             onClick={[Function]}
           >
             Verifying Votes
           </li>
           <li
-            className="sc-iIHSe fJvvKb"
+            className="sc-LzLQb dIyIuN"
             onClick={[Function]}
           >
             Request Appeal
           </li>
           <li
-            className="sc-iIHSe fJvvKb"
+            className="sc-LzLQb dIyIuN"
             onClick={[Function]}
           >
             Ready to Complete
           </li>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -730,12 +730,12 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -880,11 +880,100 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -906,11 +995,100 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -1783,38 +1961,38 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
   >
     <div>
       <div
-        className="sc-eLdqWK gXQhuj"
+        className="sc-LzLPY fypOaL"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <li
-            className="sc-iiUIRa kPGwbz"
+            className="sc-LzLPZ heVzcX"
             onClick={[Function]}
           >
             New Applications
           </li>
           <li
-            className="sc-iiUIRa fIilcb"
+            className="sc-LzLPZ hvGGkp"
             onClick={[Function]}
           >
             Under Challenge
           </li>
           <li
-            className="sc-iiUIRa fIilcb"
+            className="sc-LzLPZ hvGGkp"
             onClick={[Function]}
           >
             Appeal to Council
           </li>
           <li
-            className="sc-iiUIRa fIilcb"
+            className="sc-LzLPZ hvGGkp"
             onClick={[Function]}
           >
             Challenge Council Appeal
           </li>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -1869,12 +2047,12 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -2019,11 +2197,100 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -2045,11 +2312,100 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -2773,13 +3129,13 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
   >
     <div>
       <div
-        className="sc-dREXXX fKkwqT"
+        className="sc-LzLPw fwxhBw"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <li
-            className="sc-ejGVNB gMXicB"
+            className="sc-LzLPX cZhMNk"
             onClick={[Function]}
           >
             <svg
@@ -2803,7 +3159,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
              Approved Newsrooms
           </li>
           <li
-            className="sc-ejGVNB TLFUY"
+            className="sc-LzLPX kQOWvl"
             onClick={[Function]}
           >
             <svg
@@ -2821,7 +3177,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
              Newsrooms In Progress
           </li>
           <li
-            className="sc-ejGVNB TLFUY"
+            className="sc-LzLPX kQOWvl"
             onClick={[Function]}
           >
             <svg
@@ -2839,7 +3195,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
           </li>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -2894,12 +3250,12 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3044,11 +3400,100 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -3070,11 +3515,100 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -3646,32 +4180,32 @@ exports[`Storyshots Common / Tabs Styled Tab 1`] = `
   >
     <div>
       <nav
-        className="sc-kcbnda ljuMyf"
+        className="sc-LzLPx hXETGe"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <li
-            className="sc-gldTML cwGXJU"
+            className="sc-LzLQc cjXIGi"
             onClick={[Function]}
           >
             About
           </li>
           <li
-            className="sc-gldTML iLiEuU"
+            className="sc-LzLQc fggywd"
             onClick={[Function]}
           >
             Discussions
           </li>
           <li
-            className="sc-gldTML iLiEuU"
+            className="sc-LzLQc fggywd"
             onClick={[Function]}
           >
             History
           </li>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -3726,12 +4260,12 @@ exports[`Storyshots Common / Tabs Styled Tab 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -3876,11 +4410,100 @@ exports[`Storyshots Common / Tabs Styled Tab 1`] = `
                           <span
                             style={
                               Object {
-                                "color": "#170",
+                                "color": "#666",
                               }
                             }
                           >
-                            StyledComponent
+                            {
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                $$typeof
+                              </span>
+                            </span>
+                            : 
+                            <span>
+                              …
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                render
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              forwardRef
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                attrs
+                              </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              [
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
+                              …
+                            </span>
+                            <span>
+                              <br />
+                                
+                            </span>
+                            }
                           </span>
                           }
                         </span>
@@ -4455,32 +5078,32 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
   >
     <div>
       <nav
-        className="sc-kcbnda ljuMyf"
+        className="sc-LzLPx hXETGe"
       >
         <ul
-          className="sc-dHmInP keHGRN"
+          className="sc-LzLPW jyndRi"
         >
           <span
-            className="sc-dAWfgX kbfaFh"
+            className="sc-LzNwv ictmGf"
           >
             <span>
               before!
             </span>
           </span>
           <li
-            className="sc-cjHlYL bbrDoU"
+            className="sc-LzLPt jYWoJY"
             onClick={[Function]}
           >
             Index
           </li>
           <li
-            className="sc-cjHlYL jYssh"
+            className="sc-LzLPt jRjOwF"
             onClick={[Function]}
           >
             Sign
           </li>
           <span
-            className="sc-dAWfgX kbfaFh"
+            className="sc-LzNwv ictmGf"
           >
             <span>
               after!
@@ -4488,7 +5111,7 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
           </span>
         </ul>
         <div
-          className="sc-hcmgZB iQLERe"
+          className="sc-LzLPy kWjbGC"
           onClick={[Function]}
         >
           <svg
@@ -4543,12 +5166,12 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

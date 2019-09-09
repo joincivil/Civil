@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Default Size (
     }
   >
     <div
-      className="sc-fIIFii jBrvCy"
+      className="sc-LzNvg htcnwS"
     >
       <div>
         <svg
@@ -111,12 +111,12 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Default Size (
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -393,7 +393,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Prop-defined s
     }
   >
     <div
-      className="sc-fIIFii jBrvCy"
+      className="sc-LzNvg htcnwS"
     >
       <div>
         <svg
@@ -493,12 +493,12 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Prop-defined s
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

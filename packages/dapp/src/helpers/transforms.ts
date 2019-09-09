@@ -10,6 +10,8 @@ import {
 } from "@joincivil/core";
 import { ChallengeResultsProps } from "@joincivil/components";
 
+import { BigNumber } from "@joincivil/typescript-types";
+
 const getBaseChallengeResults = (
   challengeData: ChallengeData | AppealChallengeData,
 ): Partial<ChallengeResultsProps> => {
@@ -18,19 +20,25 @@ const getBaseChallengeResults = (
   let votesAgainst = "";
   let percentFor = "";
   let percentAgainst = "";
+  const hundred = new BigNumber(100);
 
   const totalVotesBN = challengeData.poll.votesAgainst.add(challengeData.poll.votesFor);
   totalVotes = getFormattedTokenBalance(totalVotesBN);
   votesFor = getFormattedTokenBalance(challengeData.poll.votesFor);
   votesAgainst = getFormattedTokenBalance(challengeData.poll.votesAgainst);
-  percentFor = challengeData.poll.votesFor
-    .div(totalVotesBN)
-    .mul(100)
-    .toFixed(0);
-  percentAgainst = challengeData.poll.votesAgainst
-    .div(totalVotesBN)
-    .mul(100)
-    .toFixed(0);
+  if (challengeData.poll.votesAgainst.isZero()) {
+    percentFor = "100";
+    percentAgainst = "0";
+  } else {
+    percentFor = challengeData.poll.votesFor
+      .div(totalVotesBN)
+      .mul(hundred)
+      .toString();
+    percentAgainst = challengeData.poll.votesAgainst
+      .div(totalVotesBN)
+      .mul(hundred)
+      .toString();
+  }
 
   return {
     totalVotes,

@@ -11,76 +11,76 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
     }
   >
     <div
-      className="sc-dzVpKk uIjQx"
+      className="sc-LzNvN kWNVZZ"
     >
       <table
-        className="sc-kMBllD fwrgUM"
+        className="sc-LzMFr fSwwyp"
         width="100%"
       >
         <tr
-          className="sc-jgVwMx cdsTyM"
+          className="sc-LzMFR esxOBf"
         >
           <th
-            className="sc-enfXDO fHuPxc"
+            className="sc-LzMFs gmvaOV"
           >
             Default Header
           </th>
           <th
-            className="sc-enfXDO kYptQF"
+            className="sc-LzMFs cHnNOY"
           >
             Right aligned
           </th>
           <th
-            className="sc-enfXDO bRmihF"
+            className="sc-LzMFs cyidqp"
             colSpan={2}
           >
             Accent Col spanned header
           </th>
         </tr>
         <tr
-          className="sc-jgVwMx cdsTyM"
+          className="sc-LzMFR esxOBf"
         >
           <td
-            className="sc-hCbubC fANZZl"
+            className="sc-LzMFq gYLAJX"
           >
             Default cell
           </td>
           <td
-            className="sc-hCbubC cfsEeH"
+            className="sc-LzMFq bGzNvm"
           >
             Default cell
           </td>
           <td
-            className="sc-hCbubC kEHzHZ"
+            className="sc-LzMFq kPIeqB"
           >
             Pasta
           </td>
           <td
-            className="sc-hCbubC kEHzHZ"
+            className="sc-LzMFq kPIeqB"
           >
             Pho
           </td>
         </tr>
         <tr
-          className="sc-jgVwMx cdsTyM"
+          className="sc-LzMFR esxOBf"
         >
           <td
-            className="sc-hCbubC fANZZl"
+            className="sc-LzMFq gYLAJX"
           >
             Pizza is delicious
           </td>
           <td
-            className="sc-hCbubC cfsEeH"
+            className="sc-LzMFq bGzNvm"
           >
             Ramen is tasty too
           </td>
           <td
-            className="sc-hCbubC kEHzHZ"
+            className="sc-LzMFq kPIeqB"
           >
             Pasta
           </td>
           <td
-            className="sc-hCbubC kEHzHZ"
+            className="sc-LzMFq kPIeqB"
           >
             Pho
           </td>
@@ -118,12 +118,12 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

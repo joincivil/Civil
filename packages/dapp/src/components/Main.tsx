@@ -1,7 +1,7 @@
 import { Civil, EthAddress } from "@joincivil/core";
 import { CivilErrors, setNetworkValue } from "@joincivil/utils";
 import { CivilContext, StyledMainContainer } from "@joincivil/components";
-import BigNumber from "bignumber.js";
+import { BigNumber } from "@joincivil/typescript-types";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router-dom";
@@ -24,7 +24,7 @@ import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
-import { supportedNetworks } from "../helpers/networkHelpers";
+import { isNetworkSupported } from "../helpers/networkHelpers";
 import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import AsyncComponent from "./utility/AsyncComponent";
 import { analyticsEvent } from "../redux/actionCreators/analytics";
@@ -139,10 +139,12 @@ class Main extends React.Component<MainReduxProps & DispatchProp<any> & RouteCom
   };
 
   public render(): JSX.Element {
-    const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));
+    console.log("Main.tsx network", this.props.network);
+    // const isNetworkSupported = supportedNetworks.includes(parseInt(this.props.network, 10));
+    const networkIsSupported = isNetworkSupported(this.props.network);
     return (
       <StyledMainContainer>
-        {isNetworkSupported && (
+        {networkIsSupported && (
           <Switch>
             <Redirect
               exact

@@ -1,7 +1,7 @@
 import { configureChai } from "@joincivil/dev-utils";
-import { BigNumber } from "bignumber.js";
 
 import * as chai from "chai";
+import { BN } from "bn.js";
 
 configureChai(chai);
 const expect = chai.expect;
@@ -152,7 +152,7 @@ contract("CivilTokenController", accounts => {
     beforeEach(async () => {
       const name = "Test Newsroom";
       const charterUri = "http://civil.co";
-      const charterHash = web3.sha3("foo");
+      const charterHash = web3.utils.sha3("foo");
       const initialOwners = [MANAGER];
       const initialRequired = 1;
       await createNewsroomInGroup.create(name, charterUri, charterHash, initialOwners, initialRequired);
@@ -176,7 +176,7 @@ contract("CivilTokenController", accounts => {
 
   describe("Proof of Use", () => {
     it("should have PLCR add CIVILIANS to UNLOCKED list using Telemetry", async () => {
-      const token = await CVLToken.new(new BigNumber(10000), "TestCoin", "18", "TEST", controller.address);
+      const token = await CVLToken.new(new BN(10000), "TestCoin", "18", "TEST", controller.address);
       await token.transfer(CIVILIAN_USER, 1000);
       CivilPLCRVoting.link(AttributeStore);
       CivilPLCRVoting.link(DLL);

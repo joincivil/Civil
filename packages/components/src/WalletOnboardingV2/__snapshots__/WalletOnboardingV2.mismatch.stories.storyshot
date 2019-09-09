@@ -11,31 +11,31 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
     }
   >
     <div
-      className="sc-RmnOB jBOjxG"
+      className="sc-LzMEc lmerki"
     >
       <div
-        className="sc-fFTYTi deHJZk"
+        className="sc-LzMDW eANFIa"
       >
         <h2
-          className="sc-cNnxps hXOQHs"
+          className="sc-LzMCj coGyxb"
         >
           Can we switch to a different browser?
         </h2>
         <p
-          className="sc-MYvYT gJZZo sc-jWxkHr cZIAqs"
+          className="sc-LzMCI sc-LzMEb kEaivI"
         >
           Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
         </p>
         <p
-          className="sc-MYvYT gJZZo sc-jWxkHr cZIAqs"
+          className="sc-LzMCI sc-LzMEb kEaivI"
         >
           In the meantime, please…
         </p>
         <div
-          className="sc-bEufUU cOILCo"
+          className="sc-LzMDY ipsVXx"
         >
           <a
-            className="sc-gFXMyG IekcW sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
             href="https://www.google.com/chrome/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -47,7 +47,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
             }
           >
             <img
-              className="sc-bTiqRo erkoJi"
+              className="sc-LzMDX TZSde"
               src={
                 Object {
                   "0": "t",
@@ -71,7 +71,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
             Get Google Chrome
           </a>
           <a
-            className="sc-gFXMyG IekcW sc-kkGfuU hYLHhU sc-hMqMXs dxbbGc"
+            className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
             href="https://www.mozilla.org/en-US/firefox/"
             size="MEDIUM_WIDE"
             target="_blank"
@@ -83,7 +83,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
             }
           >
             <img
-              className="sc-bTiqRo erkoJi"
+              className="sc-LzMDX TZSde"
               src={
                 Object {
                   "0": "t",
@@ -108,16 +108,16 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
           </a>
         </div>
         <p
-          className="sc-DNdyV eRVoJ sc-imDfJI iCvhpK"
+          className="sc-LzMCJ sc-LzMCL hGWlgk"
         >
           <a
-            className="sc-gQNndl iOsCkc"
+            className="sc-LzMEa kGqwzi"
             href="mailto:support@civil.co"
           >
             Contact Us
           </a>
           <a
-            className="sc-gQNndl iOsCkc"
+            className="sc-LzMEa kGqwzi"
             href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
             target="_blank"
           >
@@ -157,12 +157,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -480,6 +480,244 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                       }
                                     }
                                   >
+                                    currentProvider
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  {
+                                  <span>
+                                    <span>
+                                      <br />
+                                              
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      host
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    'http://localhost:8545'
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                              
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      httpAgent
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    {
+                                    <span>
+                                      <span>
+                                        <br />
+                                                  
+                                          
+                                      </span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        _events
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      {
+                                      <span>
+                                        <span
+                                          style={
+                                            Object {
+                                              "color": "#666",
+                                            }
+                                          }
+                                        >
+                                          free
+                                        </span>
+                                      </span>
+                                      : 
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#170",
+                                          }
+                                        }
+                                      >
+                                        anonymous
+                                      </span>
+                                      }
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span>
+                                        <br />
+                                                  
+                                          
+                                      </span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        _eventsCount
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#a11",
+                                        }
+                                      }
+                                    >
+                                      1
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span>
+                                        <br />
+                                                  
+                                          
+                                      </span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        _maxListeners
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#444",
+                                        }
+                                      }
+                                    >
+                                      null
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span>
+                                        <br />
+                                                  
+                                          
+                                      </span>
+                                      …
+                                    </span>
+                                    <span>
+                                      <br />
+                                                
+                                    </span>
+                                    }
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                              
+                                        
+                                    </span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      timeout
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#a11",
+                                      }
+                                    }
+                                  >
+                                    0
+                                  </span>
+                                  ,
+                                  <span>
+                                    <span>
+                                      <br />
+                                              
+                                        
+                                    </span>
+                                    …
+                                  </span>
+                                  <span>
+                                    <br />
+                                            
+                                  </span>
+                                  }
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                          
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
                                     _requestManager
                                   </span>
                                 </span>
@@ -553,290 +791,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                           }
                                         }
                                       >
-                                        timeout
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      0
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        user
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#444",
-                                        }
-                                      }
-                                    >
-                                      null
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      polls
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      timeout
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#444",
-                                      }
-                                    }
-                                  >
-                                    null
-                                  </span>
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    currentProvider
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      host
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#22a",
-                                        "wordBreak": "break-word",
-                                      }
-                                    }
-                                  >
-                                    'http://localhost:8545'
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      timeout
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#a11",
-                                      }
-                                    }
-                                  >
-                                    0
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      user
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#444",
-                                      }
-                                    }
-                                  >
-                                    null
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                            
-                                  </span>
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    eth
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      _requestManager
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        provider
+                                        httpAgent
                                       </span>
                                     </span>
                                     : 
@@ -861,19 +816,40 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                             }
                                           }
                                         >
-                                          host
+                                          _events
                                         </span>
                                       </span>
                                       : 
                                       <span
                                         style={
                                           Object {
-                                            "color": "#22a",
-                                            "wordBreak": "break-word",
+                                            "color": "#666",
                                           }
                                         }
                                       >
-                                        'http://localhost:8545'
+                                        {
+                                        <span>
+                                          <span
+                                            style={
+                                              Object {
+                                                "color": "#666",
+                                              }
+                                            }
+                                          >
+                                            free
+                                          </span>
+                                        </span>
+                                        : 
+                                        <span
+                                          style={
+                                            Object {
+                                              "color": "#170",
+                                            }
+                                          }
+                                        >
+                                          anonymous
+                                        </span>
+                                        }
                                       </span>
                                       ,
                                       <span>
@@ -889,7 +865,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                             }
                                           }
                                         >
-                                          timeout
+                                          _eventsCount
                                         </span>
                                       </span>
                                       : 
@@ -900,7 +876,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                           }
                                         }
                                       >
-                                        0
+                                        1
                                       </span>
                                       ,
                                       <span>
@@ -916,7 +892,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                             }
                                           }
                                         >
-                                          user
+                                          _maxListeners
                                         </span>
                                       </span>
                                       : 
@@ -946,29 +922,11 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                     </span>
                                     ,
                                     <span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        polls
+                                      <span>
+                                        <br />
+                                                  
+                                          
                                       </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      }
-                                    </span>
-                                    ,
-                                    <span>
                                       <span
                                         style={
                                           Object {
@@ -983,21 +941,29 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                     <span
                                       style={
                                         Object {
-                                          "color": "#444",
+                                          "color": "#a11",
                                         }
                                       }
                                     >
-                                      null
+                                      0
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span>
+                                        <br />
+                                                  
+                                          
+                                      </span>
+                                      …
+                                    </span>
+                                    <span>
+                                      <br />
+                                                
                                     </span>
                                     }
                                   </span>
                                   ,
                                   <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
                                     <span
                                       style={
                                         Object {
@@ -1005,26 +971,87 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                         }
                                       }
                                     >
-                                      getBalance
+                                      providers
                                     </span>
                                   </span>
                                   : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#170",
+                                        "color": "#666",
                                       }
                                     }
                                   >
-                                    send
+                                    {
+                                    <span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        WebsocketProvider
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#170",
+                                        }
+                                      }
+                                    >
+                                      WebsocketProvider
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        HttpProvider
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#170",
+                                        }
+                                      }
+                                    >
+                                      HttpProvider
+                                    </span>
+                                    ,
+                                    <span>
+                                      <span
+                                        style={
+                                          Object {
+                                            "color": "#666",
+                                          }
+                                        }
+                                      >
+                                        IpcProvider
+                                      </span>
+                                    </span>
+                                    : 
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#170",
+                                        }
+                                      }
+                                    >
+                                      IpcProvider
+                                    </span>
+                                    }
                                   </span>
                                   ,
                                   <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
                                     <span
                                       style={
                                         Object {
@@ -1032,33 +1059,48 @@ exports[`Storyshots Common / Wallet Onboarding V2/Mismatch Civil account vs. Met
                                         }
                                       }
                                     >
-                                      getStorageAt
+                                      subscriptions
                                     </span>
                                   </span>
                                   : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#170",
+                                        "color": "#666",
                                       }
                                     }
                                   >
-                                    send
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                            
+                                    {
+                                    }
                                   </span>
                                   }
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                          
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    givenProvider
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#444",
+                                    }
+                                  }
+                                >
+                                  null
                                 </span>
                                 ,
                                 <span>

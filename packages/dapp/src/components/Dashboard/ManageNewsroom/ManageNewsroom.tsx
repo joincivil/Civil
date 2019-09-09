@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { Query } from "react-apollo";
-import { BoostForm } from "@joincivil/civil-sdk";
+import { BoostForm } from "@joincivil/sdk";
 import { EthAddress, CharterData } from "@joincivil/core";
 import {
   Tabs,

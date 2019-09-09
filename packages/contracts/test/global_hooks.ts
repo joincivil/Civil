@@ -1,8 +1,8 @@
-import { coverageProviderSingleton, inCoverage } from "./utils/coverage";
+// import { coverageProviderSingleton, inCoverage } from "./utils/coverage";
 
-after("Write coverage", async () => {
-  if (inCoverage()) {
-    console.log("Writting coverage");
-    await coverageProviderSingleton().writeCoverageAsync();
-  }
-});
+// after("Write coverage", async () => {
+//   if (inCoverage()) {
+//     console.log("Writting coverage");
+//     await coverageProviderSingleton().writeCoverageAsync();
+//   }
+// });

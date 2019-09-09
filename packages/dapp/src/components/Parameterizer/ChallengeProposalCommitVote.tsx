@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import BigNumber from "bignumber.js";
+import { BigNumber, formatEther, parseEther } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -166,10 +166,7 @@ class ChallengeProposalCommitVote extends React.Component<
     } else {
       numTokens = this.props.balance!.add(this.props.votingBalance!);
     }
-    const numTokensString = numTokens
-      .div(1e18)
-      .toFixed(2)
-      .toString();
+    const numTokensString = formatEther(numTokens);
     this.setState(() => ({ numTokens: numTokensString }));
   }
 
@@ -226,7 +223,7 @@ class ChallengeProposalCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens = parseEther(this.state.numTokens!);
     return approveVotingRightsForCommit(numTokens);
   };
 
@@ -234,7 +231,7 @@ class ChallengeProposalCommitVote extends React.Component<
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const saltStr = fetchSalt(this.props.challengeID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
-    const numTokens: BigNumber = new BigNumber(this.state.numTokens as string).mul(1e18);
+    const numTokens = parseEther(this.state.numTokens!);
     saveVote(this.props.challengeID, this.props.user, voteOption);
     return commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };

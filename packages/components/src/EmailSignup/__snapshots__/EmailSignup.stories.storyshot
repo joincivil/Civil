@@ -11,13 +11,13 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-eBipZS eKoOvo"
+      className="sc-LzNuC gegIzD"
     >
       <div
-        className="sc-cANqwJ hSiUKd"
+        className="sc-LzMXM kZgPmr"
       >
         <div
-          className="sc-bWjmDF eUrkIz"
+          className="sc-LzMXK llNLDZ"
         >
           <svg
             height="24"
@@ -39,34 +39,34 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
-          className="sc-kvkilB ccPtgH"
+          className="sc-LzMXL gViHTd"
         >
           Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
         <div
-          className="sc-kpOJdX iUaKKN"
+          className="sc-fzXfMy duWRmS"
         >
           <div
-            className="sc-dxgOiQ iNJqpF"
+            className="sc-fzXfMz cvaEwV"
           >
             <div
-              className=" sc-kgoBCf bwAjsU"
+              className=" sc-fzXfMw koOATN"
             >
               <input
-                className="sc-kgoBCf bwAjsU"
+                className="sc-fzXfMw koOATN"
                 name="EmailSignupTextInput"
                 onChange={[Function]}
                 type="text"
               />
             </div>
             <div
-              className="sc-jKJlTe fQRReB"
+              className="sc-fzXfMB fGwXNB"
             >
               <span
-                className="sc-eNQAEJ gdyuwV"
+                className="sc-fzXfMC jvScAn"
               >
                 <button
-                  className="sc-kEYyzF bnmMlI sc-hMqMXs jYGHQX"
+                  className="sc-fzXfMD sc-fzXfME expvlL"
                   onClick={[Function]}
                   size="SMALL"
                   theme={
@@ -90,7 +90,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
-          className="sc-kvkilB ccPtgH"
+          className="sc-LzMXL gViHTd"
         >
           <b>
             Follow us on twitter for alerts
@@ -136,12 +136,12 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }
@@ -472,10 +472,10 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-eBipZS eKoOvo"
+      className="sc-LzNuC gegIzD"
     >
       <div
-        className="sc-clWJBl hLpUDZ sc-cANqwJ hSiUKd"
+        className="sc-LzMXM sc-LzMXN HwhEN"
       >
         <svg
           height="36"
@@ -497,17 +497,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
-          className="sc-bWjmDF eUrkIz"
+          className="sc-LzMXK llNLDZ"
         >
           Thanks for signing up!
         </div>
         <p
-          className="sc-kvkilB ccPtgH"
+          className="sc-LzMXL gViHTd"
         >
           Please check your email to confirm your subscription.
         </p>
         <p
-          className="sc-kvkilB ccPtgH"
+          className="sc-LzMXL gViHTd"
         >
           <b>
             Follow us on twitter for alerts
@@ -553,12 +553,12 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
         "background": "white",
         "bottom": 0,
         "display": "none",
+        "height": "100vh",
         "left": 0,
         "overflow": "auto",
-        "padding": "0 40px",
         "position": "fixed",
-        "right": 0,
         "top": 0,
+        "width": "100vw",
         "zIndex": 99999,
       }
     }

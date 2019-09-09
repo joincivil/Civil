@@ -2,7 +2,7 @@ import { Civil, EthAddress } from "@joincivil/core";
 import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import {
   TransactionButton,
   Transaction,
@@ -114,7 +114,7 @@ export class DetailTransactionButton extends React.Component<
         const gasPrice = await this.props.civil!.getGasPrice();
         this.setState({
           price: gasPrice
-            .times(gas)
+            .mul(this.props.civil!.toBigNumber(gas))
             .div(this.props.civil!.toBigNumber(10).pow(18))
             .toNumber(),
           priceFailed: false,

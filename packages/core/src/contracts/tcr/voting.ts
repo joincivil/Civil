@@ -1,13 +1,12 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-import BigNumber from "bignumber.js";
+import { BigNumber, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
 import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilPLCRVotingContract, CivilPLCRVoting } from "../generated/wrappers/civil_p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";
-import { DecodedLogEntryEvent } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:tcr");
 
@@ -22,16 +21,18 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
       debug("Smart-contract wrapper for Voting returned null, unsupported network");
       throw new Error(CivilErrors.UnsupportedNetwork);
     }
-    return new Voting(ethApi, instance);
+    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    return new Voting(ethApi, instance, defaultBlock);
   }
 
-  public static atUntrusted(web3wrapper: EthApi, address: EthAddress): Voting {
+  public static async atUntrusted(web3wrapper: EthApi, address: EthAddress): Promise<Voting> {
     const instance = CivilPLCRVotingContract.atUntrusted(web3wrapper, address);
-    return new Voting(web3wrapper, instance);
+    const defaultBlock = getDefaultFromBlock(await web3wrapper.network());
+    return new Voting(web3wrapper, instance, defaultBlock);
   }
 
-  private constructor(ethApi: EthApi, instance: CivilPLCRVotingContract) {
-    super(ethApi, instance);
+  private constructor(ethApi: EthApi, instance: CivilPLCRVotingContract, defaultBlock: number) {
+    super(ethApi, instance, defaultBlock);
   }
 
   /**
@@ -44,14 +45,12 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    *                  Set to "latest" for only new events
    * @returns currently active polls (by id)
    */
-  public activePolls(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-    toBlock?: number,
-  ): Observable<BigNumber> {
+  public activePolls(fromBlock: number = this.defaultBlock, toBlock?: number): Observable<BigNumber> {
     return this.instance
       ._PollCreatedStream({}, { fromBlock, toBlock })
-      .map(e => e.args.pollID)
-      .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID));
+      .map(e => e.returnValues.pollID)
+      .concatFilter(async pollID => this.instance.pollExists.callAsync(pollID))
+      .map(e => new BigNumber(e));
   }
 
   /**
@@ -61,11 +60,13 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param user the user to check
    */
   public votesCommitted(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    fromBlock: number = this.defaultBlock,
     user?: EthAddress,
     toBlock?: number,
   ): Observable<BigNumber> {
-    return this.instance._VoteCommittedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
+    return this.instance
+      ._VoteCommittedStream({ voter: user }, { fromBlock, toBlock })
+      .map(e => new BigNumber(e.returnValues.pollID));
   }
 
   /**
@@ -75,11 +76,13 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param user the user to check
    */
   public votesRevealed(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    fromBlock: number = this.defaultBlock,
     user?: EthAddress,
     toBlock?: number,
   ): Observable<BigNumber> {
-    return this.instance._VoteRevealedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
+    return this.instance
+      ._VoteRevealedStream({ voter: user }, { fromBlock, toBlock })
+      .map(e => new BigNumber(e.returnValues.pollID));
   }
 
   /**
@@ -89,17 +92,16 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param user the user to check
    */
   public votesRescued(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
+    fromBlock: number = this.defaultBlock,
     user?: EthAddress,
     toBlock?: number,
   ): Observable<BigNumber> {
-    return this.instance._TokensRescuedStream({ voter: user }, { fromBlock, toBlock }).map(e => e.args.pollID);
+    return this.instance
+      ._TokensRescuedStream({ voter: user }, { fromBlock, toBlock })
+      .map(e => new BigNumber(e.returnValues.pollID));
   }
 
-  public balanceUpdate(
-    fromBlock: number | "latest" = getDefaultFromBlock(this.ethApi.network()),
-    user: EthAddress,
-  ): Observable<BigNumber> {
+  public balanceUpdate(fromBlock: number = this.defaultBlock, user: EthAddress): Observable<BigNumber> {
     return this.instance
       ._VotingRightsGrantedStream({ voter: user }, { fromBlock })
       .merge(this.instance._VotingRightsWithdrawnStream({ voter: user }, { fromBlock }))
@@ -128,7 +130,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async requestVotingRights(numTokens: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.ethApi,
-      await this.instance.requestVotingRights.sendTransactionAsync(this.ethApi.toBigNumber(numTokens)),
+      await this.instance.requestVotingRights.sendTransactionAsync(numTokens.toString()),
     );
   }
 
@@ -142,11 +144,11 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async canRescueTokens(user: EthAddress, pollID: BigNumber): Promise<boolean> {
     return new Promise<boolean>(async (res, rej) => {
       try {
-        await this.instance.rescueTokens.estimateGasAsync(pollID, { from: user });
+        await this.instance.rescueTokens.estimateGasAsync(pollID.toString(), { from: user });
         console.log("can rescue tokens. pollID: " + pollID);
         res(true);
       } catch (ex) {
-        console.log("cannot rescue tokens bud. " + pollID);
+        console.log("cannot rescue tokens. pollID:" + pollID);
         res(false);
       }
     });
@@ -191,7 +193,12 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   ): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.ethApi,
-      await this.instance.commitVote.sendTransactionAsync(pollID, secretHash, numTokens, prevPollID),
+      await this.instance.commitVote.sendTransactionAsync(
+        pollID.toString(),
+        secretHash,
+        numTokens.toString(),
+        prevPollID.toString(),
+      ),
     );
   }
 
@@ -204,17 +211,17 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async revealVote(pollID: BigNumber, voteOption: BigNumber, salt: BigNumber): Promise<TwoStepEthTransaction> {
     return createTwoStepSimple(
       this.ethApi,
-      await this.instance.revealVote.sendTransactionAsync(pollID, voteOption, salt),
+      await this.instance.revealVote.sendTransactionAsync(pollID.toString(), voteOption.toString(), salt.toString()),
     );
   }
 
   public async getRevealedVote(pollID: BigNumber, voter: EthAddress): Promise<BigNumber | undefined> {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: this.defaultBlock })
         .first()
         .toPromise();
-      return reveal.args.choice;
+      return new BigNumber(reveal.returnValues.choice);
     }
     return undefined;
   }
@@ -222,10 +229,10 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   public async isVoterWinner(pollID: BigNumber, voter: EthAddress): Promise<boolean> {
     const vote = await this.getRevealedVote(pollID, voter);
     if (vote) {
-      const isPollPassed = await this.instance.isPassed.callAsync(pollID);
-      if (vote.equals("1") && isPollPassed) {
+      const isPollPassed = await this.instance.isPassed.callAsync(pollID.toString());
+      if (vote.eq(this.ethApi.toBigNumber(1)) && isPollPassed) {
         return true;
-      } else if (vote.equals("0") && !isPollPassed) {
+      } else if (vote.eq(this.ethApi.toBigNumber(0)) && !isPollPassed) {
         return true;
       }
     }
@@ -240,7 +247,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
   > {
     if (await this.didRevealVote(voter, pollID)) {
       const reveal = await this.instance
-        ._VoteRevealedStream({ pollID, voter }, { fromBlock: getDefaultFromBlock(this.ethApi.network()) })
+        ._VoteRevealedStream({ pollID, voter }, { fromBlock: this.defaultBlock })
         .first()
         .toPromise();
 
@@ -264,7 +271,8 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.voteTokenBalance.callAsync(who);
+    const balance = await this.instance.voteTokenBalance.callAsync(who);
+    return new BigNumber(balance);
   }
 
   /**
@@ -285,7 +293,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isRevealPeriodActive(pollID: BigNumber): Promise<boolean> {
-    return this.instance.revealPeriodActive.callAsync(pollID);
+    return this.instance.revealPeriodActive.callAsync(pollID.toString());
   }
 
   /**
@@ -293,14 +301,14 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isCommitPeriodActive(pollID: BigNumber): Promise<boolean> {
-    return this.instance.commitPeriodActive.callAsync(pollID);
+    return this.instance.commitPeriodActive.callAsync(pollID.toString());
   }
 
   public async didCommitVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
-    return this.instance.didCommit.callAsync(user, pollID);
+    return this.instance.didCommit.callAsync(user, pollID.toString());
   }
   public async didRevealVote(user: EthAddress, pollID: BigNumber): Promise<boolean> {
-    return this.instance.didReveal.callAsync(user, pollID);
+    return this.instance.didReveal.callAsync(user, pollID.toString());
   }
 
   /**
@@ -308,7 +316,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async hasPollEnded(pollID: BigNumber): Promise<boolean> {
-    return this.instance.pollEnded.callAsync(pollID);
+    return this.instance.pollEnded.callAsync(pollID.toString());
   }
 
   /**
@@ -316,7 +324,8 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async getTotalTokensForWinners(pollID: BigNumber): Promise<BigNumber> {
-    return this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID);
+    const tokens = await this.instance.getTotalNumberOfTokensForWinningOption.callAsync(pollID.toString());
+    return new BigNumber(tokens);
   }
 
   /**
@@ -326,15 +335,19 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param salt Salt used by voter for this poll
    */
   public async getNumPassingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
-    return this.instance.getNumPassingTokens.callAsync(voter, pollID, salt);
+    return this.instance.getNumPassingTokens
+      .callAsync(voter, pollID.toString(), salt.toString())
+      .then(e => new BigNumber(e));
   }
 
   public async getNumLosingTokens(pollID: BigNumber, salt: BigNumber, voter: EthAddress): Promise<BigNumber> {
-    return this.instance.getNumLosingTokens.callAsync(voter, pollID, salt);
+    return this.instance.getNumLosingTokens
+      .callAsync(voter, pollID.toString(), salt.toString())
+      .then(e => new BigNumber(e));
   }
 
   public async getNumTokens(pollID: BigNumber, voter: EthAddress): Promise<BigNumber> {
-    return this.instance.getNumTokens.callAsync(voter, pollID);
+    return this.instance.getNumTokens.callAsync(voter, pollID.toString()).then(e => new BigNumber(e));
   }
 
   /**
@@ -342,7 +355,7 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
    * @param pollID ID of poll to check
    */
   public async isPollPassed(pollID: BigNumber): Promise<boolean> {
-    return this.instance.isPassed.callAsync(pollID);
+    return this.instance.isPassed.callAsync(pollID.toString());
   }
 
   /**
@@ -356,19 +369,21 @@ export class Voting extends BaseWrapper<CivilPLCRVotingContract> {
     if (!who) {
       who = await requireAccount(this.ethApi).toPromise();
     }
-    return this.instance.getInsertPointForNumTokens.callAsync(who, tokens, pollID);
+    return this.instance.getInsertPointForNumTokens
+      .callAsync(who, tokens.toString(), pollID.toString())
+      .then(e => new BigNumber(e));
   }
 
   public async getPoll(pollID: BigNumber): Promise<PollData> {
     const [commitEndDate, revealEndDate, voteQuorum, votesFor, votesAgainst] = await this.instance.pollMap.callAsync(
-      pollID,
+      pollID.toString(),
     );
     return {
-      commitEndDate,
-      revealEndDate,
-      voteQuorum,
-      votesFor,
-      votesAgainst,
+      commitEndDate: new BigNumber(commitEndDate),
+      revealEndDate: new BigNumber(revealEndDate),
+      voteQuorum: new BigNumber(voteQuorum),
+      votesFor: new BigNumber(votesFor),
+      votesAgainst: new BigNumber(votesAgainst),
     };
   }
 }

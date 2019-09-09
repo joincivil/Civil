@@ -1,5 +1,5 @@
 import { configureChai } from "@joincivil/dev-utils";
-import BN from "bignumber.js";
+import { BN } from "bn.js";
 import * as chai from "chai";
 import * as utils from "../../utils/contractutils";
 
@@ -32,23 +32,17 @@ contract("Parameterizer", accounts => {
       const receipt = await parameterizer.proposeReparameterization("voteQuorum", "51", { from: proposer });
 
       const { propID } = receipt.logs[0].args;
-
       await parameterizer.challengeReparameterization(propID, { from: challenger });
-
       await utils.advanceEvmTime(utils.paramConfig.pCommitStageLength + utils.paramConfig.pRevealStageLength + 1);
-
       await parameterizer.processProposal(propID);
-
       const voteQuorum = await parameterizer.get("voteQuorum");
       expect(voteQuorum).to.be.bignumber.equal("50");
-
       const proposerFinalBalance = await token.balanceOf(proposer);
-      const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
+      const proposerExpected = proposerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit));
       expect(proposerFinalBalance).to.be.bignumber.equal(proposerExpected);
-
       // Edge case, challenger gets both deposits back because there were no voters
       const challengerFinalBalance = await token.balanceOf(challenger);
-      const challengerExpected = challengerStartingBalance.add(new BN(utils.paramConfig.pMinDeposit, 10));
+      const challengerExpected = challengerStartingBalance.add(new BN(utils.paramConfig.pMinDeposit));
       expect(challengerFinalBalance).to.be.bignumber.equal(challengerExpected);
     });
 
@@ -74,12 +68,15 @@ contract("Parameterizer", accounts => {
       expect(voteQuorum).to.be.bignumber.equal("51");
 
       const proposerFinalBalance = await token.balanceOf(proposer);
-      const winnings = utils.multiplyByPercentage(utils.paramConfig.pMinDeposit, utils.paramConfig.pDispensationPct);
-      const proposerExpected = proposerStartingBalance.add(winnings);
+      const winnings = utils.multiplyByPercentage(
+        new BN(utils.paramConfig.pMinDeposit),
+        utils.paramConfig.pDispensationPct,
+      );
+      const proposerExpected = proposerStartingBalance.add(new BN(winnings.toString()));
       expect(proposerFinalBalance).to.be.bignumber.equal(proposerExpected);
 
       const challengerFinalBalance = await token.balanceOf(challenger);
-      const challengerExpected = challengerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit, 10));
+      const challengerExpected = challengerStartingBalance.sub(new BN(utils.paramConfig.pMinDeposit));
       expect(challengerFinalBalance).to.be.bignumber.equal(challengerExpected);
     });
   });

@@ -2,57 +2,45 @@ public {{this.name}} = {
   async sendTransactionAsync(
     {{> typed_inputs inputs=inputs}}
     {{#this.payable}}
-    txData?: TxDataPayable,
+    txData?: TransactionConfig,
     {{/this.payable}}
     {{^this.payable}}
-    txData?: TxData,
+    txData?: TransactionConfig,
     {{/this.payable}}
   ): Promise<TxHash> {
     const self = this as {{contractName}}Contract;
-    const txOptions = { ...self.configuration.txDefaults, ...txData };
-    debug(`{{this.name}}(
-{{>typed_inputs inputs=inputs}})`);
+    const txOptions: TransactionConfig = { ...self.configuration.txDefaults, ...txData };
+    debug(`{{this.name}}({{>typed_inputs inputs=inputs}})`);
     debug("{{this.name}}: txOptions:", txOptions);
-    debug(
-      "{{this.name}}: Sending with:",
-{{> params inputs=inputs}}
-      );
+    debug("{{this.name}}: Sending with:",  {{> params inputs=inputs}}  );
+    txOptions.to = self.instance.options.address;
+    txOptions.data = self.instance.methods.{{this.name}}({{> params inputs=inputs}}).encodeABI();
+
     if (!isDefined(txOptions.gas)) {
-      txOptions.gas = await self.{{name}}.estimateGasAsync(
-        {{> params inputs=inputs}}
-        txOptions);
+      txOptions.gas = await self.ethApi.estimateGas(txOptions);
     }
     if (!isDefined(txOptions.gasPrice)) {
-      const getGasPrice = promisify<BigNumber>(self.instance._eth.getGasPrice, self.instance._eth);
-      txOptions.gasPrice = await getGasPrice();
+      const gasPricePromise = self.ethApi.getGasPriceString()
+      txOptions.gasPrice = (await gasPricePromise).toString(); 
       debug("{{this.name}}: new gas price: ", txOptions.gasPrice);
     }
-    const promisified = promisify<TxHash>(
-      self.instance.{{this.name}}.sendTransaction,
-      self.instance.{{this.name}},
-    );
-    return promisified(
-      {{> params inputs=inputs}}
-      txOptions);
+
+    return self.ethApi.sendTransaction(txOptions)
   },
   async estimateGasAsync(
     {{> typed_inputs inputs=inputs}}
     {{#this.payable}}
-    txData?: TxDataPayable,
+    txData?: TransactionConfig,
     {{/this.payable}}
     {{^this.payable}}
-    txData?: TxData,
+    txData?: TransactionConfig,
     {{/this.payable}}
   ): Promise<number> {
     const self = this as {{contractName}}Contract;
-    const promisified = promisify<number>(
-      self.instance.{{this.name}}.estimateGas,
-      self.instance.{{this.name}},
-    );
+    const estimateGas = self.instance.methods.{{this.name}}({{> params inputs=inputs}}).estimateGas
+
     try {
-      const estimate = Math.floor(await promisified(
-        {{> params inputs=inputs}}
-        txData) * self.configuration.estimationMultiplier);
+      const estimate = Math.floor(await estimateGas(txData) * self.configuration.estimationMultiplier);
       debug("{{this.name}}: Gas estimation:", estimate);
       return estimate;
     } catch (e) {
@@ -63,24 +51,21 @@ public {{this.name}} = {
   async getRaw(
     {{> typed_inputs inputs=inputs}}
     {{#this.payable}}
-    txData?: TxDataPayable,
+    txData?: TransactionConfig,
     {{/this.payable}}
     {{^this.payable}}
-    txData?: TxData,
+    txData?: TransactionConfig,
     {{/this.payable}}
-  ): Promise<TxDataAll> {
-    const self = this as {{contractName}}Contract;
-    const options: TxDataAll = {...txData, to: self.address};
-    if (!isDefined(options.gas)) {
-      options.gas = await self.{{name}}.estimateGasAsync(
-        {{> params inputs=inputs}}
-        options,
-      );
-    }
-    options.data = self.instance.{{this.name}}.getData(
+  ): Promise<TransactionConfig> {
+      const self = this as {{contractName}}Contract;
+      const options: TransactionConfig = {... txData};
+      if (!isDefined(options.gas)) {
+        options.gas = await self.{{name}}.estimateGasAsync(
       {{> params inputs=inputs}}
-      txData,
-    );
-    return options;
+      options,
+      );
+      }
+      options.data = self.instance.methods.{{this.name}}({{> params inputs=inputs}}).encodeABI();
+      return options;
   },
 };

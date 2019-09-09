@@ -10,7 +10,7 @@ import styled from "styled-components";
 
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { CharterData, EthAddress } from "@joincivil/core";
-import { BoostForm } from "@joincivil/civil-sdk";
+import { BoostForm } from "@joincivil/sdk";
 import { FeatureFlag, AuthenticatedRoute, ErrorLoadingData, LoadingMessage } from "@joincivil/components";
 
 import { routes } from "../../constants";
