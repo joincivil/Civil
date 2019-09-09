@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface MediumIconProps {
   className?: string;
@@ -28,7 +28,7 @@ const _MediumIcon = (props: MediumIconProps) => {
   );
 };
 
-export const MediumIcon: StyledComponentClass<MediumIconProps, "svg"> = styled(_MediumIcon)`
+export const MediumIcon = styled(_MediumIcon)`
   &:hover path {
     fill: white;
   }

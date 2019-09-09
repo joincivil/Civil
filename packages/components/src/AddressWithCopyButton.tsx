@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "./styleConstants";
 import { SecondaryButton, buttonSizes } from "./Button";
 
@@ -7,7 +7,7 @@ export interface AddressWithCopyButtonProps {
   address?: string;
 }
 
-const Box: StyledComponentClass<any, "div"> = styled.div`
+const Box = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-right: none;
   background-color: ${colors.basic.WHITE};
@@ -19,7 +19,7 @@ const Box: StyledComponentClass<any, "div"> = styled.div`
   width: calc(100% - 21px);
 `;
 
-const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -37,7 +37,7 @@ export class AddressWithCopyButton extends React.Component<AddressWithCopyButton
   public render(): JSX.Element {
     return (
       <Wrapper>
-        <Box innerRef={(el: HTMLDivElement) => (this.addressBox = el)}>{this.props.address}</Box>
+        <Box ref={(el: HTMLDivElement) => (this.addressBox = el)}>{this.props.address}</Box>
         <Button size={buttonSizes.SMALL} onClick={this.copy}>
           Copy
         </Button>

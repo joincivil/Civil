@@ -21,7 +21,7 @@ import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/cor
 import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { changeName, updateNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
@@ -43,7 +43,7 @@ export interface NameAndAddressState extends TransactionButtonModalFlowState {
   collapsableOpen: boolean;
 }
 
-const Label: StyledComponentClass<any, "div"> = styled.div`
+const Label = styled.div`
   font-size: 15px;
   color: #000;
   font-family: ${fonts.SANS_SERIF};

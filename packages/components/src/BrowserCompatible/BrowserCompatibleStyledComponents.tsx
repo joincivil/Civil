@@ -1,6 +1,6 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
-import { InvertedButton, ButtonProps, OBSectionDescription, mediaQueries } from "../";
+import styled from "styled-components";
+import { InvertedButton, OBSectionDescription, mediaQueries } from "../";
 
 export const BrowserCompatWrapper = styled.div`
   padding: 80px 0;
@@ -22,7 +22,7 @@ export const BrowserButtons = styled.div`
   margin: 32px 0 70px;
 `;
 
-export const BrowserButton: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const BrowserButton = styled(InvertedButton)`
   border-width: 1px;
   font-size: 13px;
   font-weight: bold;

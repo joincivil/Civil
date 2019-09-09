@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { fonts, colors } from "../styleConstants";
 
 export interface ComponentProps {
@@ -8,7 +8,7 @@ export interface ComponentProps {
   active?: boolean;
 }
 
-export const SectionHeader = styled<ComponentProps, "h4">("h4")`
+export const SectionHeader = styled.h4<ComponentProps>`
   font-family: ${props => props.theme.sansSerifFont};
   font-weight: ${props => (props.active ? props.theme.stepHeaderWeightHeavy : props.theme.stepHeaderWeightLight)};
   font-size: 20px;

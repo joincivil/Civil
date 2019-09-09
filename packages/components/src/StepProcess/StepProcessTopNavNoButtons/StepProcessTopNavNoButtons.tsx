@@ -46,7 +46,7 @@ const ProgressBar = styled.div`
   background-color: ${colors.accent.CIVIL_GRAY_3};
 `;
 
-const ProgressBarInner = styled<ProgressBarInnerProps, "div">("div")`
+const ProgressBarInner = styled.div<ProgressBarInnerProps>`
   width: ${props => `${Math.ceil(props.percent * 100)}%`};
   height: 6px;
   border-radius: 2px;
@@ -106,7 +106,7 @@ export class StepProcessTopNavNoButtons extends React.Component<StepsNoButtonsPr
     const progress = (this.state.activeIndex + 1) / this.props.children.length;
     return (
       <div>
-        <StyledNav innerRef={el => (this.navContainer = el)}>
+        <StyledNav ref={(el: any) => (this.navContainer = el)}>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
           <ProgressBar>
             <ProgressBarInner percent={progress} />

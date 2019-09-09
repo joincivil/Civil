@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors } from "../styleConstants";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { BreakdownBarPercentageProps, VotesPerTokenVoteProps } from "./types";
@@ -39,7 +39,7 @@ export const BreakdownBarTotal = styled.div`
   width: 100%;
 `;
 
-export const BreakdownBarPercentage = styled<BreakdownBarPercentageProps, "div">("div")`
+export const BreakdownBarPercentage = styled.div<BreakdownBarPercentageProps>`
   display: inline-block;
   background-color: ${props => props.color};
   height: 8px;
@@ -62,7 +62,7 @@ export const TotalVotesLabelContainer = styled.div`
   width: 39%;
 `;
 
-export const VotesPerTokenVote = styled<VotesPerTokenVoteProps, "div">("div")`
+export const VotesPerTokenVote = styled.div<VotesPerTokenVoteProps>`
   font-weight: bold;
   width: 95px;
 

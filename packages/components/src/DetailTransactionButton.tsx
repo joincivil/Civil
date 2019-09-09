@@ -2,7 +2,7 @@ import { Civil, EthAddress } from "@joincivil/core";
 import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import {
   TransactionButton,
   Transaction,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface FacebookIconProps {
   className?: string;
@@ -28,7 +28,7 @@ const _FacebookIcon = (props: FacebookIconProps) => {
   );
 };
 
-export const FacebookIcon: StyledComponentClass<FacebookIconProps, "svg"> = styled(_FacebookIcon)`
+export const FacebookIcon = styled(_FacebookIcon)`
   &:hover path {
     fill: white;
   }

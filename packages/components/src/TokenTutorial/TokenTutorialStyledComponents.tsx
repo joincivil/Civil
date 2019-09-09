@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { Button, InvertedButton, ButtonProps } from "../Button";
 
@@ -12,7 +12,7 @@ export const TutorialLandingContainer = styled.div`
   max-width: 730px;
 `;
 
-export const WelcomeSlideBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const WelcomeSlideBtns = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
   font-weight: 800;
@@ -122,7 +122,7 @@ export const TutorialSkipSection = styled.div`
   }
 `;
 
-export const TakeQuizBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TakeQuizBtn = styled(InvertedButton)`
   background-color: transparent;
   border-radius: 0;
   font-size: 14px;
@@ -176,7 +176,7 @@ export const LaunchTopicTop = styled.div`
   }
 `;
 
-export const LaunchTopic: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const LaunchTopic = styled(InvertedButton)`
   border: none;
   cursor: ${(props: ButtonProps) => (props.disabled ? "auto" : "pointer")};
   letter-spacing: 0;

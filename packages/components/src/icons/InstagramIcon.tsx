@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 export interface InstagramIconProps {
   className?: string;
@@ -28,7 +28,7 @@ const _InstagramIcon = (props: InstagramIconProps) => {
   );
 };
 
-export const InstagramIcon: StyledComponentClass<InstagramIconProps, "svg"> = styled(_InstagramIcon)`
+export const InstagramIcon = styled(_InstagramIcon)`
   &:hover path {
     fill: white;
   }

@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, ButtonProps, InvertedButton } from "../Button";
+import { Button, InvertedButton } from "../Button";
 import { TOKEN_PROGRESS } from "./Tokens";
 import { TabComponentProps } from "../Tabs";
 import { PaypalLogoIcon } from "../icons/logos";
@@ -89,7 +89,7 @@ export const TokenAccountInner = styled.div`
   max-width: 1200px;
 `;
 
-export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const TokenBtns = styled(Button)`
   border-radius: 1px;
   font-size: 13px;
   font-weight: 700;
@@ -97,7 +97,7 @@ export const TokenBtns: StyledComponentClass<ButtonProps, "button"> = styled(But
   text-transform: none;
 `;
 
-export const TokenBtnsInverted: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const TokenBtnsInverted = styled(InvertedButton)`
   border-radius: 1px;
   font-size: 13px;
   font-weight: 700;
@@ -432,7 +432,7 @@ export const TokenFAQLineBreak = styled.hr`
   width: 15px;
 `;
 
-export const CloseBtn: StyledComponentClass<ButtonProps, "button"> = styled(InvertedButton)`
+export const CloseBtn = styled(InvertedButton)`
   border: none;
   padding: 0;
   height: 40px;

@@ -110,7 +110,7 @@ export class StepProcessTopNav extends React.Component<StepsProps, StepProcessTo
   public render(): JSX.Element {
     return (
       <div>
-        <StyledNav innerRef={el => (this.navContainer = el)}>
+        <StyledNav ref={(el: any) => (this.navContainer = el)}>
           <StyledContainer>{this.renderTabs()}</StyledContainer>
         </StyledNav>
         <MainSection>{this.renderContent()}</MainSection>

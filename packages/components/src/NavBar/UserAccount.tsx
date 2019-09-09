@@ -54,7 +54,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
                 </NavLink>
               </StyledVisibleIfLoggedInLink>
               <div ref={userAccountElRef}>
-                <NavUser onClick={ev => props.toggleDrawer()}>
+                <NavUser onClick={(ev: any) => props.toggleDrawer()}>
                   <CvlContainer>
                     <CvlToken />
                     <BalancesContainer>
