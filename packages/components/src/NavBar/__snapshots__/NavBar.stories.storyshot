@@ -14,13 +14,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
       className="sc-LzMjO bYpkZW"
     >
       <div
-        className="sc-LzMkm cYdFMK"
+        className="sc-LzMkm dGPzjy"
       >
         <div
           className="sc-LzMko ienFrP"
         >
           <div
-            className="sc-LzMkn gbMdGK"
+            className="sc-LzMkn fgoiIr"
           >
             <a
               href="https://civil.co"
@@ -124,7 +124,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
           />
         </div>
         <div
-          className="sc-LzMkp ifwkBd"
+          className="sc-LzMkp jZFdvc"
         >
           <button
             className="sc-fzXfMD sc-fzXfNe sc-LzMkX ecNXOI"

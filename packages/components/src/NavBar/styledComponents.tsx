@@ -42,18 +42,16 @@ export const NavOuter = styled.div`
       color: ${colors.accent.CIVIL_GRAY_2};
     }
   }
-
-  ${mediaQueries.MOBILE} {
-    justify-content: center;
-    min-height: auto;
-    padding: 15px 20px;
-  }
 `;
 
 export const NavLogo = styled.div`
   height: 21px;
   margin-right: 12px;
   width: 72px;
+
+  ${mediaQueries.MOBILE} {
+    margin-left: 22px;
+  }
 `;
 
 export const NavInner = styled.div`
@@ -65,10 +63,6 @@ export const NavInnerRight = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-end;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
 `;
 
 export const NavAccent = styled.span`
@@ -87,9 +81,7 @@ export const NavUser = styled.div`
   height: 30px;
   justify-content: space-between;
   margin-left: 15px;
-  padding-left: 15px ${mediaQueries.MOBILE} {
-    display: none;
-  }
+  padding-left: 15px;
 `;
 
 export const CvlContainer = styled.div`
@@ -185,10 +177,6 @@ export const StyledNavDrawer = styled.div`
   z-index: 1;
   * {
     box-sizing: border-box;
-  }
-
-  ${mediaQueries.MOBILE} {
-    display: none;
   }
 `;
 
