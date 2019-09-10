@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import { buttonSizes } from "../Button";
-import { CvlToken } from "../icons/CvlToken";
 
 import { NavLink } from "./NavLink";
 import { NavUserAccountProps as NavUserAccountBaseProps, NavAuthenticationProps } from "./NavBarTypes";
@@ -10,14 +9,12 @@ import {
   AvatarContainer,
   CvlContainer,
   UserAvatar,
-  BalancesContainer,
   LogInButton,
   NavUser,
   StyledVisibleIfLoggedInLink,
-  UserCvlBalance,
-  UserCvlVotingBalance,
   NavBarButton,
   BorderlessNavBarButton,
+  HandleContainer,
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
 
@@ -30,7 +27,7 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
-  const { balance, userEthAddress, votingBalance, enableEthereum, onLoginPressed, onSignupPressed, civilUser } = props;
+  const { userEthAddress, enableEthereum, onLoginPressed, onSignupPressed, civilUser } = props;
 
   if (civilUser && userEthAddress) {
     const userAccountElRef = React.createRef<HTMLDivElement>();
@@ -46,21 +43,17 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
       <>
         <StyledVisibleIfLoggedInLink>
           <NavLink to="/dashboard">
-            <NavLinkDashboardText />({civilUser.userChannel!.handle})
+            <NavLinkDashboardText />
           </NavLink>
         </StyledVisibleIfLoggedInLink>
         <div ref={userAccountElRef}>
           <NavUser onClick={(ev: any) => props.toggleDrawer()}>
             <CvlContainer>
-              <CvlToken />
-              <BalancesContainer>
-                <UserCvlBalance>{balance}</UserCvlBalance>
-                <UserCvlVotingBalance>{votingBalance}</UserCvlVotingBalance>
-              </BalancesContainer>
               <AvatarContainer>
                 <UserAvatar />
-                <Arrow isOpen={props.isUserDrawerOpen} />
               </AvatarContainer>
+              <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
+              <Arrow isOpen={props.isUserDrawerOpen} />
             </CvlContainer>
           </NavUser>
         </div>

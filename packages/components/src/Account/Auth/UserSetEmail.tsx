@@ -12,7 +12,7 @@ import {
   AuthErrorMessage,
   SkipForNowButtonContainer,
 } from "./AuthStyledComponents";
-import { isValidEmail, getCurrentUserQuery } from "@joincivil/utils";
+import { isValidEmail, getCurrentUserQuery, getApolloClient } from "@joincivil/utils";
 import { AuthTextUnknownError } from "./AuthTextComponents";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";
@@ -37,7 +37,7 @@ const SubHeaderDiv = styled.div`
   text-align: left;
 `;
 
-const SkipButton = styled.button`
+const SkipButton = styled.span`
   color: #2b56ff;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
@@ -158,17 +158,10 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
             );
           }}
         </Mutation>
-        <Mutation mutation={skipSetEmailMutation}>
-          {skipEmail => {
-            return (
-              <form onSubmit={async event => this.onSkipForNowClicked(event, skipEmail)}>
-                <SkipForNowButtonContainer>
-                  <SkipButton type={"submit"}>Skip for now</SkipButton>
-                </SkipForNowButtonContainer>
-              </form>
-            );
-          }}
-        </Mutation>
+
+        <SkipForNowButtonContainer>
+          <SkipButton onClick={() => this.onSkipForNowClicked()}>Skip for now</SkipButton>
+        </SkipForNowButtonContainer>
       </>
     );
   }
@@ -197,25 +190,20 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async onSkipForNowClicked(event: React.FormEvent, mutation: MutationFn): Promise<void> {
-    // const res: await mutation
-    console.log("onSkipForNow.");
-    console.log("onSkipForNow. mutation: ", mutation);
-    event.preventDefault();
+  private async onSkipForNowClicked(): Promise<void> {
+    const client = getApolloClient();
 
-    try {
-      const variables = {};
-      const res: any = await mutation({
-        variables,
-        refetchQueries: [
-          {
-            query: getCurrentUserQuery,
-          },
-        ],
-      });
-      console.log("res: ", res);
-    } catch (err) {
-      this.setState({ errorMessage: "unknown" });
+    const { error } = await client.mutate({
+      mutation: skipSetEmailMutation,
+      refetchQueries: [
+        {
+          query: getCurrentUserQuery,
+        },
+      ],
+    });
+
+    if (error) {
+      this.setState({ errorMessage: error });
     }
   }
 
@@ -225,13 +213,11 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
     this.setState({ errorMessage: undefined, hasBlurred: true });
 
     const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
-    const { /*onEmailSend,*/ channelID } = this.props;
+    const { channelID } = this.props;
 
     if (!isValidEmail(emailAddress)) {
       return;
     }
-
-    // const resultKey = isNewUser ? "authSignupEmailSendForApplication" : "authLoginEmailSendForApplication";
 
     try {
       const variables = {
@@ -242,9 +228,6 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
         },
       };
 
-      // if (isNewUser) {
-      //   variables.addToMailing = hasSelectedToAddToNewsletter;
-      // }
       const res: any = await mutation({
         variables,
         refetchQueries: [
@@ -255,13 +238,6 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
       });
 
       console.log("111 res: ", res);
-      // const authResponse: string = res.data[resultKey];
-
-      // if (authResponse === "ok") {
-      //   onEmailSend(isNewUser, emailAddress);
-      // }
-
-      // this.setState({ errorMessage: authResponse as UserSetEmailError });
 
       return;
     } catch (err) {

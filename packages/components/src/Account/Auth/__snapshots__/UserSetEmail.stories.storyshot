@@ -11,12 +11,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNtX KkNPU"
+      className="sc-LzNtY kLDOhN"
     >
       Get email notifications from Civil
     </div>
     <div
-      className="sc-LzNtY BmYBZ"
+      className="sc-LzNuw kTrSQM"
     >
       Get notified when a Newsroom has joined the Registry, or when a challenge requires your vote, and more.
     </div>
@@ -37,10 +37,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNtl caMABo"
+        className="sc-LzNtm dgIqAJ"
       >
         <li
-          className="sc-LzNtm eZpEmp"
+          className="sc-LzNtn hdxNcO"
         >
           <label>
             <label
@@ -58,7 +58,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
               />
             </label>
             <span
-              className="sc-LzNtn bhKHKy"
+              className="sc-LzNto bEuKaz"
             >
               Yes, I'd like to receive notifications.
             </span>
@@ -66,7 +66,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNto fYRCGZ"
+        className="sc-LzNtp eAwiQm"
       >
         <button
           className="sc-fzXfMD sc-fzXfME cUXPCo"
@@ -90,20 +90,16 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </button>
       </div>
     </form>
-    <form
-      onSubmit={[Function]}
+    <div
+      className="sc-LzNtq dcaOZz"
     >
-      <div
-        className="sc-LzNtp eAwiQm"
+      <span
+        className="sc-LzNux bUnpag"
+        onClick={[Function]}
       >
-        <button
-          className="sc-LzNuw gjiwAT"
-          type="submit"
-        >
-          Skip for now
-        </button>
-      </div>
-    </form>
+        Skip for now
+      </span>
+    </div>
   </div>
   <button
     className="info__show-button"

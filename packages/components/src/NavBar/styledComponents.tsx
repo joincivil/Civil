@@ -90,7 +90,6 @@ export const CvlContainer = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   padding-left: 20px;
-  width: 280px;
 `;
 
 export const BalancesContainer = styled.span`
@@ -118,6 +117,13 @@ export const AvatarContainer = styled.div`
   align-items: center;
   display: flex;
   width: 60px;
+`;
+
+export const HandleContainer = styled.div`
+  align-items: center;
+  display: flex;
+  width: 60px;
+  margin-right: 16px;
 `;
 
 export const UserAvatar = styled.figure`
