@@ -35,6 +35,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
       onSignupPressed,
       onModalDefocussed,
       civilUser,
+      onViewDashboardPressed,
     } = this.props;
     const { isUserDrawerOpen } = this.state;
 
@@ -79,6 +80,7 @@ export class NavBar extends React.Component<NavProps, NavState> {
                   buyCvlUrl={buyCvlUrl}
                   useGraphQL={useGraphQL}
                   onLogoutPressed={onLogoutPressed}
+                  onViewDashboardPressed={onViewDashboardPressed}
                   handleOutsideClick={this.hideUserDrawer}
                   onLoginPressed={onLoginPressed}
                   onSignupPressed={onSignupPressed}

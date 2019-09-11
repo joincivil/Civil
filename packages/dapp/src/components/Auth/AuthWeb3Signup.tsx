@@ -145,7 +145,14 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
               <AuthWeb3SignupComponent {...props} showWalletOnboarding={showWalletOnboarding} />
               <StyledAuthFooterContainer>
                 By signing up with MetaMask or other Ethereum wallets, you accept Civil’s{" "}
-                <a href={links.TERMS}>Terms of Use</a> and <a href={links.PRIVACY_POLICY}>Privacy Policy</a>.
+                <a href={links.TERMS} target="_blank">
+                  Terms of Use
+                </a>{" "}
+                and{" "}
+                <a href={links.PRIVACY_POLICY} target="_blank">
+                  Privacy Policy
+                </a>
+                .
               </StyledAuthFooterContainer>
             </>
           );

@@ -43,6 +43,7 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
     const {
       userEthAddress,
       onLogoutPressed,
+      onViewDashboardPressed,
       balance,
       votingBalance,
       buyCvlUrl,
@@ -71,6 +72,11 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
           <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => this.copyToClipBoard()}>
             <NavDrawerCopyBtnText />
           </CopyButton>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <Button size={buttonSizes.SMALL} onClick={onViewDashboardPressed}>
+            View My Dashboard
+          </Button>
         </NavDrawerSection>
         <NavDrawerSection>
           <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>

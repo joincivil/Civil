@@ -41,6 +41,9 @@ storiesOf("Common / Nav / Nav Bar", module)
         onModalDefocussed={() => {
           console.log("thinged");
         }}
+        onViewDashboardPressed={() => {
+          console.log("thinged");
+        }}
       />
     );
   })

@@ -20,6 +20,7 @@ export interface NavDrawerProps {
   buyCvlUrl: string;
   useGraphQL: boolean;
   onLogoutPressed(): void;
+  onViewDashboardPressed(): void;
   onLoginPressed(): void;
   onSignupPressed(): void;
   onModalDefocussed(): void;

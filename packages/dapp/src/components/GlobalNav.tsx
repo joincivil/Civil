@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import { State } from "../redux/reducers";
+import { routes } from "../constants";
 import {
   getFormattedTokenBalance,
   getFormattedEthAddress,
@@ -17,6 +19,7 @@ import {
 } from "../selectors";
 import { CivilContext, ICivilContext, NavBar, NavProps } from "@joincivil/components";
 import { showWeb3LoginModal, showWeb3SignupModal, hideWeb3AuthModal } from "../redux/actionCreators/ui";
+import { withRouter } from "react-router";
 
 export interface NavBarProps {
   balance: string;
@@ -34,7 +37,9 @@ export interface NavBarOwnProps {
   civilUser: any;
 }
 
-class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & DispatchProp<any>> {
+class GlobalNavComponent extends React.Component<
+  NavBarProps & NavBarOwnProps & DispatchProp<any> & RouteComponentProps
+> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
 
   public render(): JSX.Element {
@@ -77,6 +82,12 @@ class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & 
       onModalDefocussed: async (): Promise<any> => {
         this.props.dispatch!(await hideWeb3AuthModal());
       },
+      onViewDashboardPressed: (): any => {
+        this.props.history.push({
+          pathname: routes.DASHBOARD_ROOT,
+          state: {},
+        });
+      },
     };
 
     if (civil && civil.currentProvider) {
@@ -97,7 +108,10 @@ class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & 
   }
 }
 
-const mapStateToProps = (state: State, ownProps: NavBarOwnProps): NavBarProps & NavBarOwnProps => {
+const mapStateToProps = (
+  state: State,
+  ownProps: NavBarOwnProps & RouteComponentProps,
+): NavBarProps & NavBarOwnProps & RouteComponentProps => {
   const { network, useGraphQL } = state;
   const { user } = state.networkDependent;
   const currentUserChallengesStarted = getChallengesStartedByUser(state);
@@ -134,4 +148,4 @@ const mapStateToProps = (state: State, ownProps: NavBarOwnProps): NavBarProps & 
   };
 };
 
-export const GlobalNav = connect(mapStateToProps)(GlobalNavComponent);
+export const GlobalNav = withRouter(connect(mapStateToProps)(GlobalNavComponent));
