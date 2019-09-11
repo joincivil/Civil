@@ -65,6 +65,8 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
           etherToSpend={this.props.etherToSpend}
           usdToSpend={this.props.usdToSpend}
           handlePaymentSuccess={this.props.handlePaymentSuccess}
+          boostId={this.props.boostId}
+          newsroom={this.props.newsroomName}
         />
       ),
       [progressModalStates.ERROR]: <PaymentErrorModalText />,

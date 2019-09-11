@@ -331,6 +331,8 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
               newsroomName={this.props.newsroomName}
               usdToSpend={this.props.usdToSpend}
               handlePaymentSuccess={this.props.handlePaymentSuccess}
+              boostId={this.props.boostId}
+              newsroom={this.props.newsroomName}
             />
           </BoostModalContain>
         </FullScreenModal>
