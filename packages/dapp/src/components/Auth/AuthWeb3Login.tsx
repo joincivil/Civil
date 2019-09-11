@@ -38,6 +38,7 @@ export interface AuthWeb3LoginProps {
   onSignUpContinue?(): void;
   onOuterClicked?(): void;
   onSignUpClicked?(): void;
+  onLogInNoUserExists?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -53,6 +54,7 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
           messagePrefix="Log in to Civil"
           buttonText={ethereumLoginButtonContent}
           onSignUpContinue={props.onSignUpContinue}
+          onLogInNoUserExists={props.onLogInNoUserExists}
         />
       </StyledCardTransactionButtonContainer>
 
@@ -77,8 +79,11 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
   return (
     <Dropdown target={target}>
       <div>
-        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onSignUpContinue={props.onSignUpContinue} />
+        <StyledAuthHeader>Log in to Civil</StyledAuthHeader>
+        <AuthWeb3LoginComponent
+          onSignUpContinue={props.onSignUpContinue}
+          onLogInNoUserExists={props.onLogInNoUserExists}
+        />
       </div>
     </Dropdown>
   );
@@ -88,7 +93,7 @@ const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => 
   return (
     <Modal width={558} onOuterClicked={props.onOuterClicked}>
       <div>
-        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
+        <StyledAuthHeader>Log in to Civil</StyledAuthHeader>
         <AuthWeb3LoginComponent {...props} />
       </div>
     </Modal>

@@ -58,6 +58,7 @@ export interface AuthWeb3SignUpProps {
   onSignUpContinue?(): void;
   onOuterClicked?(): void;
   onLoginClicked?(): void;
+  onSignUpUserAlreadyExists?(): void;
 }
 
 const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps> = props => {
@@ -68,6 +69,7 @@ const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps
         messagePrefix="Sign up with Civil"
         buttonText={ethereumSignupButtonContent}
         onSignUpContinue={props.onSignUpContinue}
+        onSignUpUserAlreadyExists={props.onSignUpUserAlreadyExists}
       />
     </StyledCardTransactionButtonContainer>
   );
@@ -98,7 +100,12 @@ const AuthWeb3SignupComponent: React.FunctionComponent<AuthWeb3SignUpProps & Aut
         if (!hasInjectedProvider()) {
           return <ShowWalletOnboardingButtonComponent onClick={props.showWalletOnboarding} />;
         }
-        return <AuthWeb3SignupButtonComponent onSignUpContinue={props.onSignUpContinue} />;
+        return (
+          <AuthWeb3SignupButtonComponent
+            onSignUpContinue={props.onSignUpContinue}
+            onSignUpUserAlreadyExists={props.onSignUpUserAlreadyExists}
+          />
+        );
       })()}
 
       <StyledAuthAltOption>
@@ -133,7 +140,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
           }
           return (
             <>
-              <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
+              <StyledAuthHeader>Sign up for Civil</StyledAuthHeader>
               <StyledAuthHeaderCopy>Sign up to create an account</StyledAuthHeaderCopy>
               <AuthWeb3SignupComponent {...props} showWalletOnboarding={showWalletOnboarding} />
               <StyledAuthFooterContainer>

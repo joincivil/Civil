@@ -46,6 +46,7 @@ class Web3AuthWrapperComponent extends React.Component<
             onSignUpContinue={this.handleOnSignupContinue}
             onOuterClicked={this.handleOnOuterClicked}
             onLoginClicked={this.handleLoginClicked}
+            onSignUpUserAlreadyExists={this.handleSignUpUserExists}
           />
         )}
         {showWeb3Login && (
@@ -53,6 +54,7 @@ class Web3AuthWrapperComponent extends React.Component<
             onSignUpContinue={this.handleOnLoginContinue}
             onOuterClicked={this.handleOnOuterClicked}
             onSignUpClicked={this.handleSignUpClicked}
+            onLogInNoUserExists={this.handleLogInNoUserExists}
           />
         )}
         {showSetHandle && <SetUsername channelID={channelID} />}
@@ -79,6 +81,14 @@ class Web3AuthWrapperComponent extends React.Component<
 
   public handleOnLoginContinue = async () => {
     this.props.dispatch!(await hideWeb3AuthModal());
+  };
+
+  public handleSignUpUserExists = async () => {
+    this.props.dispatch!(await showWeb3LoginModal());
+  };
+
+  public handleLogInNoUserExists = async () => {
+    this.props.dispatch!(await showWeb3SignupModal());
   };
 }
 
