@@ -10,8 +10,6 @@ import {
   NavLinkParameterizerText,
   NavLinkContractAddressesText,
   NavLinkBoostsText,
-  NavLinkBrowseBoostsText,
-  NavLinkLaunchBoostText,
   NavLinkConstitutionText,
   NavLinkFoundationText,
   NavLinkFaqText,
@@ -49,21 +47,9 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
         </NavLink>
       </NavDropDown>
       <FeatureFlag feature={"boosts-mvp"}>
-        <NavDropDown
-          label={
-            <NavLink to="/boosts" {...mobileOnClickProp}>
-              <NavLinkBoostsText />
-            </NavLink>
-          }
-        >
-          <NavLink to="/boosts" {...mobileOnClickProp}>
-            <NavLinkBrowseBoostsText />
-          </NavLink>
-          <NavLink to="/launch-boost" {...mobileOnClickProp}>
-            <NavLinkLaunchBoostText />
-          </NavLink>
-          {/* @TODO/tobek "My Boosts" here if signed in? */}
-        </NavDropDown>
+        <NavLink to="/boosts" {...mobileOnClickProp}>
+          <NavLinkBoostsText />
+        </NavLink>
       </FeatureFlag>
       <NavLink href="https://civil.co/constitution/">
         <NavLinkConstitutionText />

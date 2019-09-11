@@ -44,7 +44,7 @@ const InputWrapper = styled.div`
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: ${colors.basic.WHITE};
+    background-color: transparent;
     border: 1px solid
       ${(props: InputValidationStyleProps) =>
         props.inputState === INPUT_STATE.INVALID ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_3};
