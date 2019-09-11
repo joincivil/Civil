@@ -6,7 +6,6 @@ interface SetUsernameProps {
   onSetHandleComplete?(): void;
 }
 const SetUsername: React.FunctionComponent<SetUsernameProps> = props => {
-  console.log("SetUsername props: ", props);
   return (
     <Modal width={588}>
       <UserSetHandle

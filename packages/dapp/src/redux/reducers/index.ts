@@ -206,7 +206,6 @@ const networkDependentReducers = combineReducers({
 
 const networkDependent = (state: any, action: AnyAction) => {
   if (action.type === networkActions.SET_NETWORK) {
-    console.log("NETWRORK SET.");
     return networkDependentReducers(undefined, action);
   }
   return networkDependentReducers(state, action);

@@ -5,7 +5,6 @@ export function user(state: { account: any } = { account: {} }, action: AnyActio
   const accountState = state.account;
   switch (action.type) {
     case userActions.ADD_USER:
-      console.log("ADD USER. action.data: ", action.data);
       return { account: action.data };
     case userActions.UPDATE_VOTING_BALANCE:
       return { account: { ...accountState, votingBalance: action.data.votingBalance } };

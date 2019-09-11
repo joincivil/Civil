@@ -554,7 +554,6 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
 const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
 
 export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props => {
-  console.log("Newsroom 1");
   return (
     <AuthWrapper>
       <DataWrapper>

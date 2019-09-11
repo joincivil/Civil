@@ -33,7 +33,7 @@ export interface UserSetHandleAuthProps {
   onSetHandleComplete?(): void;
 }
 
-export type UserSetHandleError = "unknown" | "emailexists" | "emailnotfound" | undefined;
+export type UserSetHandleError = "unknown" | undefined;
 
 export interface UserSetHandleAuthState {
   handle: string;
@@ -45,7 +45,6 @@ export interface UserSetHandleAuthState {
 export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserSetHandleAuthState> {
   constructor(props: UserSetHandleAuthProps) {
     super(props);
-    console.log("UserSetProps: ", props);
     this.state = {
       handle: "",
       errorMessage: undefined,
@@ -90,8 +89,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
   public render(): JSX.Element {
     const { headerComponent, channelID } = this.props;
-    console.log("render channelID: ", channelID);
-    const isButtonDisabled = !this.state.isValid; // TODO (validate)
+    const isButtonDisabled = !this.state.isValid;
 
     return (
       <>
@@ -127,17 +125,11 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
     const { handle } = this.state;
 
-    console.log("submit channelID: ", channelID);
-    console.log("submit handle: ", handle);
-    console.log("submit channelID 2: ", this.props.channelID);
-
     if (!isValidHandle(handle)) {
       return;
     }
 
     try {
-      // const variables: UserSetHandleMutationVariables = { UserID, Handle };
-
       const res: any = await mutation({
         variables: {
           input: { channelID, handle },
@@ -150,13 +142,14 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
       });
 
       if (res.data && res.data.channelsSetHandle && res.data.channelsSetHandle.id === channelID) {
-        console.log("success. onSetHandleComplete");
         if (this.props.onSetHandleComplete) {
           this.props.onSetHandleComplete();
         }
       }
+      if (res.error) {
+        console.log("res.error: ", res.error);
+      }
 
-      console.log("good job. res: ", res);
       return;
     } catch (err) {
       this.setState({ errorMessage: "unknown" });

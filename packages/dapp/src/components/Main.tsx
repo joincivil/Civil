@@ -121,7 +121,6 @@ class Main extends React.Component<MainProps, MainState> {
       const voting = await tcr.getVoting();
       const balance = await token.getBalance(account);
       const votingBalance = await voting.getNumVotingRights(account);
-      console.log("add real.");
       this.props.dispatch!(addUser(account, balance, votingBalance));
       await initializeTokenSubscriptions(this.props.dispatch!, account);
     } catch (err) {

@@ -55,7 +55,7 @@ const authSignupEthMutation = gql`
 
 export interface AuthWeb3SignUpProps {
   onAuthenticated?(address: EthAddress): void;
-  onSignupContinue?(): void;
+  onSignUpContinue?(): void;
   onOuterClicked?(): void;
   onLoginClicked?(): void;
 }
@@ -67,7 +67,7 @@ const AuthWeb3SignupButtonComponent: React.FunctionComponent<AuthWeb3SignUpProps
         authMutation={authSignupEthMutation}
         messagePrefix="Sign up with Civil"
         buttonText={ethereumSignupButtonContent}
-        onSignupContinue={props.onSignupContinue}
+        onSignUpContinue={props.onSignUpContinue}
       />
     </StyledCardTransactionButtonContainer>
   );
@@ -98,7 +98,7 @@ const AuthWeb3SignupComponent: React.FunctionComponent<AuthWeb3SignUpProps & Aut
         if (!hasInjectedProvider()) {
           return <ShowWalletOnboardingButtonComponent onClick={props.showWalletOnboarding} />;
         }
-        return <AuthWeb3SignupButtonComponent onSignupContinue={props.onSignupContinue} />;
+        return <AuthWeb3SignupButtonComponent onSignUpContinue={props.onSignUpContinue} />;
       })()}
 
       <StyledAuthAltOption>

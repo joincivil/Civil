@@ -12,7 +12,7 @@ const AuthCheckEmail: React.FunctionComponent<AuthCheckEmailProps> = props => {
   const { isNewUser, emailAddress, onSendAgain } = props;
 
   // TODO(jorgelo): Maybe redirect if emailAddress is not set
-  console.log("CheckEmail 1");
+
   return (
     <>
       <AuthWrapper>

@@ -5,7 +5,6 @@ interface SetUsernameProps {
   channelID: string;
 }
 const SetEmail: React.FunctionComponent<SetUsernameProps> = props => {
-  console.log("SetUsername props: ", props);
   return (
     <Modal width={588}>
       <UserSetEmail {...props} />

@@ -43,14 +43,14 @@ class Web3AuthWrapperComponent extends React.Component<
       <>
         {showWeb3Signup && (
           <AuthWeb3Signup
-            onSignupContinue={this.handleOnSignupContinue}
+            onSignUpContinue={this.handleOnSignupContinue}
             onOuterClicked={this.handleOnOuterClicked}
             onLoginClicked={this.handleLoginClicked}
           />
         )}
         {showWeb3Login && (
           <AuthWeb3Login
-            onSignupContinue={this.handleOnLoginContinue}
+            onSignUpContinue={this.handleOnLoginContinue}
             onOuterClicked={this.handleOnOuterClicked}
             onSignUpClicked={this.handleSignUpClicked}
           />
@@ -66,7 +66,6 @@ class Web3AuthWrapperComponent extends React.Component<
   };
 
   public handleSignUpClicked = async () => {
-    console.log("handleSignUpClicked");
     this.props.dispatch!(await showWeb3SignupModal());
   };
 

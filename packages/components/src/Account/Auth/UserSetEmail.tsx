@@ -228,7 +228,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
         },
       };
 
-      const res: any = await mutation({
+      await mutation({
         variables,
         refetchQueries: [
           {
@@ -236,8 +236,6 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
           },
         ],
       });
-
-      console.log("111 res: ", res);
 
       return;
     } catch (err) {

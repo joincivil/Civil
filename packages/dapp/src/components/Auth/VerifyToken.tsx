@@ -19,7 +19,6 @@ const AuthVerifyToken: React.FunctionComponent<AuthVerifyTokenProps> = ({
     return <Redirect to={target} />;
   }
 
-  console.log("VerifyToken 1");
   return (
     <AuthWrapper>
       <AccountVerifyToken isNewUser={isNewUser} token={token} onAuthenticationContinue={onAuthenticationContinue} />

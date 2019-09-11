@@ -152,17 +152,14 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
   public componentDidMount(): void {
     document.body.appendChild(this.bucket);
     document.addEventListener("mousedown", this.handleClick, false);
-    console.log("listener added");
   }
 
   public componentWillUnmount(): void {
     document.body.removeChild(this.bucket);
     document.removeEventListener("mousedown", this.handleClick, false);
-    console.log("listener removed");
   }
 
   public render(): React.ReactPortal {
-    console.log("nav drawer bucket render.");
     return ReactDOM.createPortal(<NavDrawerComponent {...this.props} />, this.bucket);
   }
 

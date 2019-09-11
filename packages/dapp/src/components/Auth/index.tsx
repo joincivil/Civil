@@ -93,7 +93,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   path={`${match.path}/login/web3`}
                   exact
                   render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
-                    return AsyncComponent(AuthWeb3Login)({ onSignupContinue: this.handleOnSignupContinue });
+                    return AsyncComponent(AuthWeb3Login)({ onSignUpContinue: this.handleOnSignupContinue });
                   }}
                 />
                 <Route
@@ -128,7 +128,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   path={`${match.path}/signup/web3`}
                   exact
                   render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
-                    return AsyncComponent(AuthWeb3Signup)({ onSignupContinue: this.handleOnSignupContinue });
+                    return AsyncComponent(AuthWeb3Signup)({ onSignUpContinue: this.handleOnSignupContinue });
                   }}
                 />
                 <Route

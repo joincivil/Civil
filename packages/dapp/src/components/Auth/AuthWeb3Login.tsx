@@ -35,7 +35,7 @@ const authLoginEthMutation = gql`
 
 export interface AuthWeb3LoginProps {
   onAuthenticated?(address: EthAddress): void;
-  onSignupContinue?(): void;
+  onSignUpContinue?(): void;
   onOuterClicked?(): void;
   onSignUpClicked?(): void;
 }
@@ -52,7 +52,7 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
           authMutation={authLoginEthMutation}
           messagePrefix="Log in to Civil"
           buttonText={ethereumLoginButtonContent}
-          onSignupContinue={props.onSignupContinue}
+          onSignUpContinue={props.onSignUpContinue}
         />
       </StyledCardTransactionButtonContainer>
 
@@ -60,9 +60,7 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
         Not a Civil member?{" "}
         <a
           onClick={() => {
-            console.log("on click!");
             if (props.onSignUpClicked) {
-              console.log("did click");
               props.onSignUpClicked();
             }
           }}
@@ -80,7 +78,7 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
     <Dropdown target={target}>
       <div>
         <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onSignupContinue={props.onSignupContinue} />
+        <AuthWeb3LoginComponent onSignUpContinue={props.onSignUpContinue} />
       </div>
     </Dropdown>
   );

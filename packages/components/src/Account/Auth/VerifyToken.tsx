@@ -84,7 +84,6 @@ export class AccountVerifyToken extends React.Component<AccountVerifyTokenProps,
   public render(): JSX.Element {
     const { hasVerified, errorMessage } = this.state;
     const { onAuthenticationContinue, isNewUser, ethAuthNextExt } = this.props;
-    console.log("VerifyToken.");
     return (
       <AuthEmailVerify
         hasVerified={hasVerified}

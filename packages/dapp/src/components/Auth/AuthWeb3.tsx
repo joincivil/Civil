@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
 import { Civil, EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { setApolloSession, /*clearApolloSession,*/ getCurrentUserQuery } from "@joincivil/utils";
+import { setApolloSession, getCurrentUserQuery } from "@joincivil/utils";
 import {
   CivilContext,
   ICivilContext,
@@ -20,7 +20,7 @@ export interface AuthWeb3Props {
   buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
-  onSignupContinue?(): void;
+  onSignUpContinue?(): void;
 }
 
 export interface AuthWeb3State {
@@ -32,22 +32,12 @@ export interface AuthWeb3State {
 
 // TODO(jon): This is a simple function to handle the auth behavior.
 // We should probably abstract this into a AuthManager class?
-function loginUser(civil: Civil, sessionData: any, currAccount?: EthAddress): void {
+function loginUser(sessionData: any): void {
   setApolloSession(sessionData);
-
-  const logoutUser = (account?: EthAddress) => {
-    if (!account || account !== currAccount) {
-      // TODO(jon): Should we display some type of message/modal/toaster to the user that indicates they've been signed out?
-      // clearApolloSession();
-    }
-  };
-
-  civil.accountStream.subscribe(logoutUser);
 }
 
 class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
-
   private _isMounted?: boolean;
 
   constructor(props: AuthWeb3Props) {
@@ -63,14 +53,11 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   }
 
   public render(): JSX.Element {
-    const { civil } = this.context;
-    const { userAddress } = this.state;
-
     return (
       <Mutation
         mutation={this.props.authMutation}
         refetchQueries={({ data: { authWeb3 } }) => {
-          loginUser(civil, authWeb3, userAddress);
+          loginUser(authWeb3);
           return [{ query: getCurrentUserQuery }];
         }}
       >
@@ -147,10 +134,8 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     return [
       {
         transaction: async (): Promise<EthSignedMessage> => {
-          console.log("transaction 1");
           this.setState({ isWaitingSignatureOpen: true, isSignRejectionOpen: false, errorMessage: undefined });
           const message = `${this.props.messagePrefix} @ ${new Date().toISOString()}`;
-          console.log("transaction 2");
           return civil!.signMessage(message);
         },
         postTransaction: async (sig: EthSignedMessage): Promise<void> => {
@@ -168,8 +153,8 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
-              if (this.props.onSignupContinue) {
-                this.props.onSignupContinue();
+              if (this.props.onSignUpContinue) {
+                this.props.onSignUpContinue();
               }
               if (this._isMounted) {
                 // A bit of an antipattern, but cancelling async/await is hard

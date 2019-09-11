@@ -66,7 +66,6 @@ class GlobalNavComponent extends React.Component<NavBarProps & NavBarOwnProps & 
       joinAsMemberUrl: "https://civil.co/become-a-member",
       applyURL: links.APPLY,
       onLogoutPressed: async (): Promise<any> => {
-        console.log("on logout pressed");
         this.handleLogoutPressed();
       },
       onLoginPressed: async (): Promise<any> => {
