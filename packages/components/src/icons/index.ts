@@ -39,6 +39,8 @@ export * from "./RejectedNewsroomsIcon";
 export * from "./RevealVoteSuccessIcon";
 export * from "./ReviewIcon";
 export * from "./RequestAppealSuccessIcon";
+export * from "./ShareEmailIcon";
+export * from "./ShareTwitterIcon";
 export * from "./SubmitChallengeSuccessIcon";
 export * from "./TelegramIcon";
 export * from "./TokenWalletIcon";

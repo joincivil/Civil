@@ -15,6 +15,7 @@ import {
   BoostNotificationContain,
   BoostAmountInputWrap,
   BoostAmountInput,
+  BoostCardFlex,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
@@ -150,13 +151,13 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
               }
             />
           </BoostNotice>
-          <>
+          <BoostCardFlex>
             <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
-            <>
+            <div>
               <h3>Share this Boost</h3>
               <BoostShare boostId={this.props.boostId} newsroom={this.props.newsroomData.name} />
-            </>
-          </>
+            </div>
+          </BoostCardFlex>
           <BoostDescription>
             <h3>What the outcome will be</h3>
             {renderPTagsFromLineBreaks(boostData.what)}

@@ -12,6 +12,7 @@ import {
   BoostModalContent,
   BoostNotification,
   NoBoostsTextStyled,
+  BoostPaymentShare,
 } from "./BoostStyledComponents";
 import { urlConstants } from "../urlConstants";
 import { BoostShare } from "./BoostShare";
@@ -198,9 +199,10 @@ export interface BoostShareTextProps {
 
 export const PaymentShareText: React.FunctionComponent<BoostShareTextProps> = props => (
   <>
-    <p>
-      Tell your friends about your Boost! <BoostShare boostId={props.boostId} newsroom={props.newsroom} />
-    </p>
+    <p>Tell your friends about your Boost!</p>
+    <BoostPaymentShare>
+      <BoostShare boostId={props.boostId} newsroom={props.newsroom} />
+    </BoostPaymentShare>
   </>
 );
 
@@ -241,7 +243,9 @@ export const PaymentErrorModalText: React.FunctionComponent<BoostPaymentTextProp
   );
 };
 
-export const PaymentSuccessCardModalText: React.FunctionComponent<BoostPaymentTextProps & BoostShareTextProps> = props => {
+export const PaymentSuccessCardModalText: React.FunctionComponent<
+  BoostPaymentTextProps & BoostShareTextProps
+> = props => {
   return (
     <>
       <PaymentSuccessText />
