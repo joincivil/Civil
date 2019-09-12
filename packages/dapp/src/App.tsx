@@ -8,11 +8,12 @@ import config from "./helpers/config";
 import { ErrorBoundry } from "./components/errors/ErrorBoundry";
 
 import { createGlobalStyle } from "styled-components";
-import { colors, fonts, CivilContext, ICivilContext, buildCivilContext } from "@joincivil/components";
+import { colors, fonts, CivilContext, ICivilContext, buildCivilContext, LoadUser } from "@joincivil/components";
 import { ConnectedRouter } from "connected-react-router";
 
 import { history } from "./redux/store";
 import { getCivil } from "./helpers/civilInstance";
+import { Web3AuthWrapper } from "./components/Web3AuthWrapper";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -41,11 +42,18 @@ export class App extends React.Component {
         <ApolloProvider client={client}>
           <ConnectedRouter history={history}>
             <CivilContext.Provider value={this.civilContext}>
-              <>
-                <GlobalNav />
-                <Main />
-                <Footer />
-              </>
+              <LoadUser>
+                {({ user: civilUser }) => {
+                  return (
+                    <>
+                      <Web3AuthWrapper civilUser={civilUser} />
+                      <GlobalNav civilUser={civilUser} />
+                      <Main civilUser={civilUser} />
+                      <Footer />
+                    </>
+                  );
+                }}
+              </LoadUser>
             </CivilContext.Provider>
           </ConnectedRouter>
         </ApolloProvider>

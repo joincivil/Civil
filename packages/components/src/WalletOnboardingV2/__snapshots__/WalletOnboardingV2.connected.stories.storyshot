@@ -11,13 +11,13 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
     }
   >
     <div
-      className="sc-LzMEc lmerki"
+      className="sc-LzMEe equcZM"
     >
       <h2
-        className="sc-LzMCj coGyxb"
+        className="sc-LzMCI hhAsiS"
       >
         <svg
-          className="sc-LzMFm gAJFHp"
+          className="sc-LzMFo emOfgT"
           height="32"
           viewBox="0 0 20 20"
           width="32"
@@ -47,35 +47,35 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         Wallet Connected
       </h2>
       <p
-        className="sc-LzMCI sc-LzMEF gxphhU"
+        className="sc-LzMCK sc-LzMEH jYlMTi"
       >
         Your crypto wallet is connected. Your public wallet address will be linked to your email address on the Civil network so you can log in using your wallet.
       </p>
       <div
-        className="sc-LzMFn ewesqR"
+        className="sc-LzMFp fTSObz"
       >
         <p
-          className="sc-LzMED cyaEQW"
+          className="sc-LzMEF bFynRo"
         >
           Public Wallet Address
         </p>
         <div
-          className="sc-LzMFo fxdkJF"
+          className="sc-LzMFq heSXlr"
         >
           0xabc1230000000000000000000000000000abc123
         </div>
       </div>
       <p
-        className="sc-LzMFp fCNZuh"
+        className="sc-LzMFr eXyVjh"
       >
         <span
-          className="sc-LzMDp jLCobO"
+          className="sc-LzMDr cGxGRc"
         >
           Make sure you've backed up and saved your MetaMask login and account details, such as your seed phrase, username and password in a safe place. We can’t help you restore or regain access if you lose it.
         </span>
       </p>
       <div
-        className="sc-LzMFl efxtax"
+        className="sc-LzMFn dDMIYb"
       >
         <button
           className="sc-fzXfMD sc-fzXfME dndRzE"
@@ -100,29 +100,29 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </button>
       </div>
       <div
-        className="sc-LzMCO sc-LzMCQ hTQIiP"
+        className="sc-LzMCQ sc-LzMDp cWaYGj"
       >
         <span
-          className="sc-LzMDo jaCBCO"
+          className="sc-LzMDq dybhIY"
         >
           Using a different wallet?
         </span>
         <span
-          className="sc-LzMDp jLCobO"
+          className="sc-LzMDr cGxGRc"
         >
           Make sure it's unlocked
           . You may need to refresh.
         </span>
       </div>
       <div
-        className="sc-LzMCM fgPwVm"
+        className="sc-LzMCO iSyTaQ"
       >
         <div
           className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMCN fPouGl"
+            className="sc-LzMCP jzOrUL"
           >
              What is a cryptocurrency wallet?
           </h4>
@@ -138,31 +138,31 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           open={false}
         >
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
-        className="sc-LzMCM fgPwVm"
+        className="sc-LzMCO iSyTaQ"
       >
         <div
           className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMCN fPouGl"
+            className="sc-LzMCP jzOrUL"
           >
              Why do I need a cryptocurrency wallet?
           </h4>
@@ -178,7 +178,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           open={false}
         >
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             Having a wallet is required. We recommend
              
@@ -192,12 +192,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
             to log in and manage your transactions.
           </p>
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -207,21 +207,21 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
-        className="sc-LzMCM fgPwVm"
+        className="sc-LzMCO iSyTaQ"
       >
         <div
           className="sc-LzLrk iVEhLl"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMCN fPouGl"
+            className="sc-LzMCP jzOrUL"
           >
              Need help setting up your wallet?
           </h4>
@@ -237,7 +237,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           open={false}
         >
           <p
-            className="sc-LzMCJ JmBep"
+            className="sc-LzMCL eTDDsz"
           >
             Head over to our
              
@@ -253,7 +253,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
         </div>
       </div>
       <p
-        className="sc-LzMCJ sc-LzMFk eydOpn"
+        className="sc-LzMCL sc-LzMFm fIKxuB"
       >
         Need more info before you start using a crypto wallet?
          
@@ -264,7 +264,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Connected Connected 1`] = `
           Learn more in our support area
            
           <span
-            className="sc-LzMEC ZrBIJ"
+            className="sc-LzMEE fuhYhX"
           >
             <svg
               height="11"

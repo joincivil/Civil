@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
-import { Civil, EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { setApolloSession, clearApolloSession, getCurrentUserQuery } from "@joincivil/utils";
+import { setApolloSession, getCurrentUserQuery } from "@joincivil/utils";
 import {
   CivilContext,
   ICivilContext,
@@ -20,7 +20,9 @@ export interface AuthWeb3Props {
   buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
   onAuthenticated?(address: EthAddress): void;
-  onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
+  onSignUpContinue?(): void;
+  onSignUpUserAlreadyExists?(): void;
+  onLogInNoUserExists?(): void;
 }
 
 export interface AuthWeb3State {
@@ -28,26 +30,20 @@ export interface AuthWeb3State {
   isWaitingSignatureOpen?: boolean;
   isSignRejectionOpen?: boolean;
   userAddress?: EthAddress;
+  onErrContinue?(): void;
 }
 
 // TODO(jon): This is a simple function to handle the auth behavior.
 // We should probably abstract this into a AuthManager class?
-function loginUser(civil: Civil, sessionData: any, currAccount?: EthAddress): void {
+function loginUser(sessionData: any): void {
   setApolloSession(sessionData);
-
-  const logoutUser = (account?: EthAddress) => {
-    if (!account || account !== currAccount) {
-      // TODO(jon): Should we display some type of message/modal/toaster to the user that indicates they've been signed out?
-      clearApolloSession();
-    }
-  };
-
-  civil.accountStream.subscribe(logoutUser);
 }
+
+const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
+const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
 
 class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   public static contextType: React.Context<ICivilContext> = CivilContext;
-
   private _isMounted?: boolean;
 
   constructor(props: AuthWeb3Props) {
@@ -63,14 +59,11 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   }
 
   public render(): JSX.Element {
-    const { civil } = this.context;
-    const { userAddress } = this.state;
-
     return (
       <Mutation
         mutation={this.props.authMutation}
         refetchQueries={({ data: { authWeb3 } }) => {
-          loginUser(civil, authWeb3, userAddress);
+          loginUser(authWeb3);
           return [{ query: getCurrentUserQuery }];
         }}
       >
@@ -118,7 +111,6 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
         denied={true}
         denialText="To authenticate that you own your wallet address, you need to sign the message in your MetaMask wallet."
         cancelTransaction={this.cancelTransaction}
-        denialRestartTransactions={this.signTransactions(authWeb3Mutate)}
       >
         <ModalHeading>Failed to authenticate your wallet address</ModalHeading>
       </MetaMaskModal>
@@ -130,12 +122,16 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
       return null;
     }
 
+    const err = this.state.errorMessage.toString();
+    let bodyText = `Something went wrong when authenticating your wallet address (${this.state.errorMessage}). Please try again later.`;
+    if (err.includes(USER_ALREADY_EXISTS)) {
+      bodyText = "A user with this Ethereum address already exists. You will be redirected to Log In.";
+    } else if (err.includes(NO_USER_EXISTS)) {
+      bodyText = "No user with this Ethereum address was found. You Will be redirected to Sign Up.";
+    }
+
     return (
-      <MetaMaskModal
-        alert={true}
-        bodyText={`Something went wrong when authenticating your wallet address (${this.state.errorMessage}). Please try again later.`}
-        cancelTransaction={this.cancelTransaction}
-      >
+      <MetaMaskModal alert={true} bodyText={bodyText} cancelTransaction={this.cancelTransaction}>
         <ModalHeading>Failed to save your wallet address</ModalHeading>
       </MetaMaskModal>
     );
@@ -166,8 +162,8 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
               if (this.props.onAuthenticated) {
                 this.props.onAuthenticated(sig.signer);
               }
-              if (this.props.onAuthenticationContinue) {
-                this.props.onAuthenticationContinue();
+              if (this.props.onSignUpContinue) {
+                this.props.onSignUpContinue();
               }
               if (this._isMounted) {
                 // A bit of an antipattern, but cancelling async/await is hard
@@ -178,15 +174,29 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
               throw Error("Failed to validate and log in with ETH address");
             }
           } catch (err) {
-            this.setState({
-              isWaitingSignatureOpen: false,
-              errorMessage: err,
-            });
+            if (err.toString().includes(USER_ALREADY_EXISTS)) {
+              this.setState({
+                isWaitingSignatureOpen: false,
+                errorMessage: err,
+                onErrContinue: this.props.onSignUpUserAlreadyExists,
+              });
+            } else if (err.toString().includes(NO_USER_EXISTS)) {
+              this.setState({
+                isWaitingSignatureOpen: false,
+                errorMessage: err,
+                onErrContinue: this.props.onLogInNoUserExists,
+              });
+            } else {
+              this.setState({
+                isWaitingSignatureOpen: false,
+                errorMessage: err,
+              });
+            }
           }
         },
         handleTransactionError: (err: Error) => {
           this.setState({ isWaitingSignatureOpen: false });
-          if (err.message.indexOf("Error: MetaMask Message Signature: User denied message signature.") !== -1) {
+          if (err.stack.indexOf("Error: MetaMask Message Signature: User denied message signature.") !== -1) {
             this.setState({ isSignRejectionOpen: true });
           } else {
             console.error("Transaction failed:", err);
@@ -200,10 +210,14 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
   };
 
   private cancelTransaction = () => {
+    if (this.state.onErrContinue) {
+      this.state.onErrContinue();
+    }
     this.setState({
       isWaitingSignatureOpen: false,
       isSignRejectionOpen: false,
       errorMessage: undefined,
+      onErrContinue: undefined,
     });
   };
 }
