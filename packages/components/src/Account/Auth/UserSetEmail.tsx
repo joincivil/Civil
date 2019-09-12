@@ -49,18 +49,6 @@ const SkipButton = styled.span`
   background-color: #ffffff;
 `;
 
-export interface SetEmailMutationVariables {
-  emailAddress: string;
-  channelID: string;
-  addToMailing: boolean;
-}
-
-export interface UserSetEmailSendResult {
-  data: {
-    authSignupEmailSend: string;
-  };
-}
-
 const setEmailMutation = gql`
   mutation($input: ChannelsSetEmailInput!) {
     userChannelSetEmail(input: $input) {

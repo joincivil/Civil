@@ -7,11 +7,6 @@ import { ConfirmButtonContainer, AuthErrorMessage } from "./AuthStyledComponents
 import { isValidHandle, getCurrentUserQuery } from "@joincivil/utils";
 import { AuthTextUnknownError } from "./AuthTextComponents";
 
-export interface UserSetHandleMutationVariables {
-  channelID: string;
-  handle: string;
-}
-
 const setHandleMutation = gql`
   mutation($input: ChannelsSetHandleInput!) {
     channelsSetHandle(input: $input) {
@@ -19,13 +14,6 @@ const setHandleMutation = gql`
     }
   }
 `;
-
-export interface UserSetHandleSendResult {
-  data: {
-    id: string;
-    handle: string;
-  };
-}
 
 export interface UserSetHandleAuthProps {
   headerComponent?: JSX.Element;

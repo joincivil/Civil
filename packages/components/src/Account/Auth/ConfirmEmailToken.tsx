@@ -76,7 +76,7 @@ class ConfirmEmailTokenWithApolloClient extends React.Component<ConfirmEmailToke
   }
 }
 
-export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, {}> {
+export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps> {
   public render(): JSX.Element {
     return (
       <ApolloConsumer>
