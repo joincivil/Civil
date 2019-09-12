@@ -70,6 +70,7 @@
     "@joincivil/ethapi": "^0.4.9",
     "@joincivil/utils": "^1.9.9",
     "@types/styled-components": "^4.1.18",
+    "apollo-client": "^2.6.4",
     "apollo-storybook-react": "^0.1.8",
     "classnames": "^2.2.5",
     "graphql-tag": "^2.10.0",

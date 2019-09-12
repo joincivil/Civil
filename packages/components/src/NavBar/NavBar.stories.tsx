@@ -30,19 +30,19 @@ storiesOf("Common / Nav / Nav Bar", module)
         applyURL="#apply"
         useGraphQL={false}
         onLogoutPressed={() => {
-          console.log("thinged");
+          console.log("onLogoutPressed");
         }}
         onLoginPressed={() => {
-          console.log("thinged");
+          console.log("onLoginPressed");
         }}
         onSignupPressed={() => {
-          console.log("thinged");
+          console.log("onSignupPressed");
         }}
         onModalDefocussed={() => {
-          console.log("thinged");
+          console.log("onModalDefocussed");
         }}
         onViewDashboardPressed={() => {
-          console.log("thinged");
+          console.log("onViewDashboardPressed");
         }}
       />
     );

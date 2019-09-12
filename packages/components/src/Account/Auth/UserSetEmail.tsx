@@ -1,6 +1,6 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation, MutationFn } from "react-apollo";
+import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
 import { Checkbox, CheckboxSizes } from "../../input/Checkbox";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
@@ -12,10 +12,11 @@ import {
   AuthErrorMessage,
   SkipForNowButtonContainer,
 } from "./AuthStyledComponents";
-import { isValidEmail, getCurrentUserQuery, getApolloClient } from "@joincivil/utils";
+import { isValidEmail, getCurrentUserQuery } from "@joincivil/utils";
 import { AuthTextUnknownError } from "./AuthTextComponents";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";
+import ApolloClient from "apollo-client";
 
 const HeaderDiv = styled.div`
   color: #000000;
@@ -160,7 +161,9 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
         </Mutation>
 
         <SkipForNowButtonContainer>
-          <SkipButton onClick={() => this.onSkipForNowClicked()}>Skip for now</SkipButton>
+          <ApolloConsumer>
+            {client => <SkipButton onClick={() => this.onSkipForNowClicked(client)}>Skip for now</SkipButton>}
+          </ApolloConsumer>
         </SkipForNowButtonContainer>
       </>
     );
@@ -190,9 +193,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
     this.setState({ hasSelectedToAddToNewsletter: !hasSelectedToAddToNewsletter });
   };
 
-  private async onSkipForNowClicked(): Promise<void> {
-    const client = getApolloClient();
-
+  private async onSkipForNowClicked(client: ApolloClient<any>): Promise<void> {
     const { error } = await client.mutate({
       mutation: skipSetEmailMutation,
       refetchQueries: [

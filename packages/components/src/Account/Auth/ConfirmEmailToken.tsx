@@ -1,7 +1,8 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { getApolloClient } from "@joincivil/utils";
 import { EmailConfirmVerify } from "./AuthStyledComponents";
+import { ApolloConsumer } from "react-apollo";
+import ApolloClient from "apollo-client";
 
 const verifyMutation = gql`
   mutation($token: String!) {
@@ -14,6 +15,7 @@ const verifyMutation = gql`
 export interface ConfirmEmailTokenProps {
   token: string;
   ethAuthNextExt?: boolean;
+  apolloClient: ApolloClient<any>;
   onEmailConfirmContinue?(): void;
 }
 
@@ -22,7 +24,7 @@ export interface ConfirmEmailTokenState {
   errorMessage: string | undefined;
 }
 
-export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, ConfirmEmailTokenState> {
+class ConfirmEmailTokenWithApolloClient extends React.Component<ConfirmEmailTokenProps, ConfirmEmailTokenState> {
   public state = {
     hasVerified: false,
     errorMessage: undefined,
@@ -39,7 +41,7 @@ export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, C
   public handleTokenVerification = async (): Promise<void> => {
     const token = this.props.token;
 
-    const client = getApolloClient();
+    const client = this.props.apolloClient;
 
     try {
       const { error } = await client.mutate({
@@ -70,6 +72,16 @@ export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, C
         ethAuthNextExt={ethAuthNextExt}
         onEmailConfirmContinue={onEmailConfirmContinue!}
       />
+    );
+  }
+}
+
+export class ConfirmEmailToken extends React.Component<ConfirmEmailTokenProps, {}> {
+  public render(): JSX.Element {
+    return (
+      <ApolloConsumer>
+        {client => <ConfirmEmailTokenWithApolloClient apolloClient={client} {...this.props} />}
+      </ApolloConsumer>
     );
   }
 }
