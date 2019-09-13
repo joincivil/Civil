@@ -21,3 +21,25 @@ export function useGraphQL(state: boolean = true, action: AnyAction): boolean {
       return state;
   }
 }
+
+export function web3AuthType(state: string = "", action: AnyAction): string {
+  switch (action.type) {
+    case uiActions.HIDE_WEB3_AUTH_MODAL:
+      return "";
+    case uiActions.SET_WEB3_AUTH_TYPE:
+      return action.value;
+    default:
+      return state;
+  }
+}
+
+export function showWeb3AuthModal(state: boolean = false, action: AnyAction): boolean {
+  switch (action.type) {
+    case uiActions.SHOW_WEB3_AUTH_MODAL:
+      return true;
+    case uiActions.HIDE_WEB3_AUTH_MODAL:
+      return false;
+    default:
+      return state;
+  }
+}

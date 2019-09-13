@@ -38,6 +38,12 @@ export const ConfirmButtonContainer = styled.div`
   padding-top: 20px;
 `;
 
+export const SkipForNowButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+`;
+
 export const CheckEmailLetterIcon = styled.div`
   width: 108px;
   height: 108px;
@@ -165,6 +171,43 @@ export const AuthEmailVerify = ({
       )}
       <CenterWrapper>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={onAuthenticationContinue}>
+          Continue
+        </Button>
+      </CenterWrapper>
+    </>
+  );
+};
+
+export interface ConfirmEmailVerifyProps {
+  hasVerified: boolean;
+  errorMessage: string | undefined;
+  ethAuthNextExt?: boolean;
+  onEmailConfirmContinue(): void;
+}
+
+export const EmailConfirmVerify = ({
+  hasVerified,
+  errorMessage,
+  onEmailConfirmContinue,
+  ethAuthNextExt,
+}: ConfirmEmailVerifyProps) => {
+  if (errorMessage) {
+    return <AuthTextVerifyTokenError errorMessage={errorMessage} />;
+  }
+
+  return (
+    <>
+      {hasVerified ? <AuthTextVerifyTokenConfirmed /> : <AuthTextVerifyTokenVerifying />}
+      <CenterWrapper>
+        <ConfirmedEmailLetterIcon />
+      </CenterWrapper>
+      {ethAuthNextExt && (
+        <div style={{ marginBottom: 24 }}>
+          <AuthTextEthAuthNext />
+        </div>
+      )}
+      <CenterWrapper>
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={onEmailConfirmContinue}>
           Continue
         </Button>
       </CenterWrapper>

@@ -86,9 +86,6 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
           return (
             <StyledAuthButtonContainer>
               <p>Sign Up or Login to view Your Civil Registry Dashboard</p>
-              <Button to="/auth/signup" size={buttonSizes.SMALL}>
-                Sign Up | Login
-              </Button>
             </StyledAuthButtonContainer>
           );
         }}

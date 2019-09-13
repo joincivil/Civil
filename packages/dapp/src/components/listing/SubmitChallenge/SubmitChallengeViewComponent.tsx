@@ -185,7 +185,12 @@ class SubmitChallengeComponent extends React.Component<
       Parameters.revealStageLen,
       civil.toBigNumber(revealStageLen),
     );
-    const isInsufficientBalance = balanceBN.lt(minDeposit);
+    let isInsufficientBalance;
+    if (!balanceBN) {
+      isInsufficientBalance = true;
+    } else {
+      isInsufficientBalance = balanceBN.lt(minDeposit);
+    }
 
     const props: SubmitChallengeStatementProps = {
       listingURI,
