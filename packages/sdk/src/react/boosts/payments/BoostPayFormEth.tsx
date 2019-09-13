@@ -25,6 +25,7 @@ export interface BoostPayFormEthProps {
   etherToSpend: number;
   usdToSpend: number;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
   savePayment: MutationFunc;
   handlePaymentSuccess(): void;
@@ -67,6 +68,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
           handlePaymentSuccess={this.props.handlePaymentSuccess}
           boostId={this.props.boostId}
           newsroom={this.props.newsroomName}
+          title={this.props.title}
         />
       ),
       [progressModalStates.ERROR]: <PaymentErrorModalText />,

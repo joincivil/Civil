@@ -17,6 +17,7 @@ export interface BoostPayOptionsProps {
   boostId: string;
   usdToSpend: number;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
   walletConnected: boolean;
   isStripeConnected: boolean;
@@ -141,6 +142,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             selected={true}
             boostId={boostId}
             newsroomName={newsroomName}
+            title={this.props.title}
             paymentType={PAYMENT_TYPE.ETH}
             optionLabel={<PaymentLabelEthText />}
             handleNext={() => this.handleEthNext(etherToSpend, usdToSpend)}
@@ -159,6 +161,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             usdToSpend={usdToSpend}
             selected={true}
             newsroomName={newsroomName}
+            title={this.props.title}
             optionLabel={<PaymentLabelCardText />}
             paymentType={PAYMENT_TYPE.STRIPE}
             paymentStarted={true}
@@ -174,6 +177,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
               optionLabel={<PaymentLabelEthText />}
               boostId={boostId}
               newsroomName={newsroomName}
+              title={this.props.title}
               paymentType={PAYMENT_TYPE.ETH}
               etherToSpend={etherToSpend}
               usdToSpend={usdToSpend}
@@ -190,6 +194,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
                   usdToSpend={usdToSpend}
                   selected={selectedStripe}
                   newsroomName={newsroomName}
+                  title={this.props.title}
                   optionLabel={<PaymentLabelCardText />}
                   paymentType={PAYMENT_TYPE.STRIPE}
                   handleNext={this.handleStripeNext}

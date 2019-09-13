@@ -195,13 +195,14 @@ export const PaymentCardConfirmationText: React.FunctionComponent<BoostPaymentTe
 export interface BoostShareTextProps {
   newsroom: string;
   boostId: string;
+  title: string;
 }
 
 export const PaymentShareText: React.FunctionComponent<BoostShareTextProps> = props => (
   <>
     <p>Tell your friends about your Boost!</p>
     <BoostPaymentShare>
-      <BoostShare boostId={props.boostId} newsroom={props.newsroom} />
+      <BoostShare boostId={props.boostId} newsroom={props.newsroom} title={props.title} />
     </BoostPaymentShare>
   </>
 );
@@ -222,7 +223,7 @@ export const PaymentSuccessModalText: React.FunctionComponent<BoostPaymentTextPr
         usdToSpend={props.usdToSpend}
         etherToSpend={props.etherToSpend}
       />
-      <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} />
+      <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} title={props.title} />
       <BoostButton onClick={props.handlePaymentSuccess}>Done</BoostButton>
     </>
   );
@@ -250,7 +251,7 @@ export const PaymentSuccessCardModalText: React.FunctionComponent<
     <>
       <PaymentSuccessText />
       <PaymentCardConfirmationText newsroomName={props.newsroomName} usdToSpend={props.usdToSpend} />
-      <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} />
+      <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} title={props.title} />
       <BoostButton onClick={props.handlePaymentSuccess}>Done</BoostButton>
     </>
   );

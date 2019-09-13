@@ -188,6 +188,7 @@ const DropDownWrap = styled.div`
 export interface BoostPayFormStripeProps extends ReactStripeElements.InjectedStripeProps {
   boostId: string;
   newsroomName: string;
+  title: string;
   usdToSpend: number;
   selected: boolean;
   paymentType: string;
@@ -389,6 +390,7 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
               handlePaymentSuccess={this.props.handlePaymentSuccess}
               boostId={this.props.boostId}
               newsroom={this.props.newsroomName}
+              title={this.props.title}
             />
           </BoostModalContain>
         </FullScreenModal>

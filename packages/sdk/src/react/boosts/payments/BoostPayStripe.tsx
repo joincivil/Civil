@@ -11,6 +11,7 @@ import { BoostPayOption } from "./BoostPayOption";
 export interface BoostPayStripeProps {
   boostId: string;
   newsroomName: string;
+  title: string;
   usdToSpend: number;
   selected: boolean;
   paymentType: string;
@@ -85,6 +86,7 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
                   <BoostPayFormStripe
                     boostId={this.props.boostId}
                     newsroomName={this.props.newsroomName}
+                    title={this.props.title}
                     usdToSpend={this.props.usdToSpend}
                     paymentType={this.props.paymentType}
                     optionLabel={this.props.optionLabel}

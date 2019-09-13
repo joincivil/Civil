@@ -155,7 +155,11 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
             <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
             <div>
               <h3>Share this Boost</h3>
-              <BoostShare boostId={this.props.boostId} newsroom={this.props.newsroomData.name} />
+              <BoostShare
+                boostId={this.props.boostId}
+                newsroom={this.props.newsroomData.name}
+                title={boostData.title}
+              />
             </div>
           </BoostCardFlex>
           <BoostDescription>
