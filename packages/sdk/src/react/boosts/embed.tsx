@@ -1,4 +1,4 @@
-/** Proof-of-concept loader - this will instantiate the boost component on the page element with id `civil-boost`. */
+/** DEPRECATED IN FAVOR OF BOOST EMBED STANDALONE ROUTE IN DAPP PACKAGE. Proof-of-concept loader - this will instantiate the boost component on the page element with id `civil-boost`. */
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
