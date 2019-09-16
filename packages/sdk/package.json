@@ -74,7 +74,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "start:boost": "OPEN_PATH=boost-test.html node scripts/start.js",
+    "start:boost": "OPEN_PATH=boost-embed.html node scripts/start.js",
     "build": "yarn package:build",
     "test": "node scripts/test.js",
     "lint": "tslint --project ./",
