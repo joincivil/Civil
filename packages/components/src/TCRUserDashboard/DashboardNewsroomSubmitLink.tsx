@@ -14,7 +14,6 @@ const EXTERNAL_LINK_MUTATION = gql`
 
 export interface DashboardNewsroomSubmitLinkProps {
   channelID: string;
-  newsroomAddress: string;
 }
 
 export interface DashboardNewsroomSubmitLinkState {
@@ -44,7 +43,7 @@ export class DashboardNewsroomSubmitLink extends React.Component<
         {mutation => {
           return (
             <SubmitLink
-              name={"submit link"}
+              name={"storyfeed submit link"}
               loading={this.state.loading}
               success={this.state.success}
               error={this.state.error}
@@ -78,6 +77,7 @@ export class DashboardNewsroomSubmitLink extends React.Component<
         this.setState({ error: true });
       }
     } catch (error) {
+      console.log(error);
       this.setState({ error: true });
     }
 

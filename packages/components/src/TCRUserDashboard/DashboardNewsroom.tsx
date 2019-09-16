@@ -164,24 +164,21 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
         />
       </StyledDashboardNewsroomSection>
 
-      {/*<FeatureFlag feature={"pew-mvp"}>*/}
-      <Query query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY} variables={{ contractAddress: props.newsroomAddress }}>
-        {({ loading, error, data }) => {
-          if (loading || error) {
-            return <></>;
-          }
-          return (
-            <StyledDashboardNewsroomSection>
-              <StyledDashboardNewsroomHdr>Pulse Story Feed</StyledDashboardNewsroomHdr>
-              <DashboardNewsroomSubmitLink
-                channelID={data.channelsGetByNewsroomAddress.id}
-                newsroomAddress={props.newsroomAddress}
-              />
-            </StyledDashboardNewsroomSection>
-          );
-        }}
-      </Query>
-      {/*</FeatureFlag>*/}
+      <FeatureFlag feature={"pew"}>
+        <Query query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY} variables={{ contractAddress: props.newsroomAddress }}>
+          {({ loading, error, data }) => {
+            if (loading || error) {
+              return <></>;
+            }
+            return (
+              <StyledDashboardNewsroomSection>
+                <StyledDashboardNewsroomHdr>Pulse Story Feed</StyledDashboardNewsroomHdr>
+                <DashboardNewsroomSubmitLink channelID={data.channelsGetByNewsroomAddress.id} />
+              </StyledDashboardNewsroomSection>
+            );
+          }}
+        </Query>
+      </FeatureFlag>
 
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
