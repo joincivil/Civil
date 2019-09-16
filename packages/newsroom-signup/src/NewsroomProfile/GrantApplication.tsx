@@ -166,7 +166,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             Learn more about the Civil Token Grant process
           </a>
         </ModalP>
-        <Mutation
+        <Mutation<any>
           update={cache => {
             cache.writeQuery({
               query: grantQuery,
@@ -224,7 +224,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             You understand that your newsroom must submit to review and potential challenge by the Civil community
           </ModalLi>
         </ul>
-        <Mutation
+        <Mutation<any>
           mutation={requestGrantMutation}
           update={cache => {
             cache.writeQuery({
@@ -320,7 +320,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
 
   public render(): JSX.Element {
     return (
-      <Query query={grantQuery}>
+      <Query<any> query={grantQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return "Loading...";

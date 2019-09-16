@@ -52,6 +52,7 @@ import {
   USER_CHALLENGE_DATA_QUERY,
   transformGraphQLDataIntoSpecificUserChallenge,
 } from "../../helpers/queryTransformations";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const withChallengeResults = (
   WrappedComponent: React.ComponentType<
@@ -105,7 +106,7 @@ export interface ChallengeContainerReduxProps {
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
   grantAppealTxDataFetching?: boolean;
-  grantAppealTxData?: TxDataAll;
+  grantAppealTxData?: any;
   useGraphQL: boolean;
 }
 
@@ -345,12 +346,15 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
 class ChallengeContainer extends React.Component<
   ChallengeDetailContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentDidUpdate(): void {
     if (!this.props.challengeData && !this.props.challengeDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+      this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
     }
     if (!this.props.grantAppealTxData && !this.props.grantAppealTxDataFetching) {
-      this.props.dispatch!(fetchAndAddGrantAppealTx(this.props.listingAddress));
+      this.props.dispatch!(fetchAndAddGrantAppealTx(this.context, this.props.listingAddress));
     }
   }
 

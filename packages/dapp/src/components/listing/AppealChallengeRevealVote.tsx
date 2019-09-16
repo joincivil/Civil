@@ -11,7 +11,7 @@ import {
   RevealVoteSuccessIcon,
 } from "@joincivil/components";
 import { getLocalDateTimeStrings, Parameters, urlConstants as links } from "@joincivil/utils";
-import { revealVote } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
 import {
@@ -75,6 +75,9 @@ class AppealChallengeRevealVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & AppealRevealCardKeyState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: AppealChallengeDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
@@ -203,7 +206,7 @@ class AppealChallengeRevealVote extends React.Component<
     const pollID = this.props.appealChallengeID;
     const voteOption: BigNumber = new BigNumber(this.state.voteOption as string);
     const salt: BigNumber = new BigNumber(this.state.salt as string);
-    return revealVote(pollID, voteOption, salt);
+    return this.context.revealVote(pollID, voteOption, salt);
   };
 
   private updateRevealVoteState = (data: any, callback?: () => void): void => {

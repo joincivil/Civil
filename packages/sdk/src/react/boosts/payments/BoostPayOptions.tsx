@@ -86,8 +86,8 @@ export interface BoostPayOptionsStates {
 }
 
 export class BoostPayOptions extends React.Component<BoostPayOptionsProps, BoostPayOptionsStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   public constructor(props: BoostPayOptionsProps) {
     super(props);
     this.state = {

@@ -17,6 +17,7 @@ import {
   HandleContainer,
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
+import { CivilContext, ICivilContext } from "../context";
 
 export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthenticationProps {
   isUserDrawerOpen: boolean;
@@ -27,7 +28,9 @@ export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthent
 }
 
 const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
-  const { userEthAddress, enableEthereum, onLoginPressed, onSignupPressed, civilUser } = props;
+  const civilContext = React.useContext<ICivilContext>(CivilContext);
+  const civilUser = civilContext.currentUser;
+  const { userEthAddress, enableEthereum, onLoginPressed, onSignupPressed } = props;
 
   if (civilUser && userEthAddress) {
     const userAccountElRef = React.createRef<HTMLDivElement>();

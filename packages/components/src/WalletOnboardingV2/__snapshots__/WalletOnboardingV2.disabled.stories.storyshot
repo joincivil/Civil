@@ -10,10 +10,276 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
       }
     }
   >
-    <b>
-      NOTE:
-    </b>
-     To see this state you must view this story with metamask from a browser where you haven't enabled MetaMask for this domain, or if you already have, you can go into MetaMask settings, enable privacy mode, and hit Clear Privacy Data and refresh.
+    <div
+      className="sc-LzMED fzlMAz"
+    >
+      <h2
+        className="sc-LzMCK kojIbA"
+      >
+        Connect your crypto wallet
+      </h2>
+      <p
+        className="sc-LzMCM sc-LzMEJ cjMJfA"
+      >
+        To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using MetaMask.
+      </p>
+      <div
+        className="sc-LzMDp sc-LzMDq sc-LzMFl dIjVbB"
+      >
+        <a
+          href="https://metamask.io/"
+          target="_blank"
+        >
+          <img
+            className="sc-LzMFm fMqHMt"
+            src={
+              Object {
+                "0": "t",
+                "1": "e",
+                "10": "s",
+                "11": "t",
+                "12": "u",
+                "13": "b",
+                "2": "s",
+                "3": "t",
+                "4": "-",
+                "5": "f",
+                "6": "i",
+                "7": "l",
+                "8": "e",
+                "9": "-",
+                "default": "test-file-stub",
+              }
+            }
+          />
+          <div
+            className="sc-LzMFn gKZQzr"
+          >
+            Get the MetaMask Browser Extension
+          </div>
+        </a>
+      </div>
+      <p
+        className="sc-LzMCN sc-LzMCP cfNINQ"
+      >
+        Once the extension is installed,
+         
+        <a
+          href="javascript:void(0)"
+          onClick={[Function]}
+        >
+          refresh this page
+        </a>
+        .
+      </p>
+      <div
+        className="sc-LzMFp dcbYVF"
+      >
+        <button
+          className="sc-fzXfMD sc-fzXfME dndRzE disabled"
+          disabled={true}
+          size="MEDIUM_WIDE"
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+              "primaryButtonDisabledColor": "#FFFFFF",
+              "primaryButtonFontWeight": "normal",
+              "primaryButtonHoverBackground": "#4066FF",
+              "primaryButtonTextTransform": "uppercase",
+              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+            }
+          }
+          type="button"
+          width={220}
+        >
+          Continue
+        </button>
+      </div>
+      <div
+        className="sc-LzMDp sc-LzMDr cvFzHN"
+      >
+        <span
+          className="sc-LzMDs jkVxoe"
+        >
+          Using a different wallet?
+        </span>
+        <span
+          className="sc-LzMDt gQOJfm"
+        >
+          Make sure it's unlocked
+          . You may need to refresh.
+        </span>
+      </div>
+      <div
+        className="sc-LzMCQ boMFHy"
+      >
+        <div
+          className="sc-LzLrm jtRcoj"
+          onClick={[Function]}
+        >
+          <h4
+            className="sc-LzMDo dKiiCD"
+          >
+             What is a cryptocurrency wallet?
+          </h4>
+           
+          <div
+            className="sc-LzLrl iCavNG"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLrk kzNhZL"
+          height={null}
+          open={false}
+        >
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
+          </p>
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
+          </p>
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
+          </p>
+        </div>
+      </div>
+      <div
+        className="sc-LzMCQ boMFHy"
+      >
+        <div
+          className="sc-LzLrm jtRcoj"
+          onClick={[Function]}
+        >
+          <h4
+            className="sc-LzMDo dKiiCD"
+          >
+             Why do I need a cryptocurrency wallet?
+          </h4>
+           
+          <div
+            className="sc-LzLrl iCavNG"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLrk kzNhZL"
+          height={null}
+          open={false}
+        >
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            Having a wallet is required. We recommend
+             
+            <a
+              href="https://metamask.io/"
+              target="_blank"
+            >
+              MetaMask
+            </a>
+             
+            to log in and manage your transactions.
+          </p>
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
+          </p>
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
+             
+            <strong>
+              Note:
+            </strong>
+             Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
+          </p>
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
+          </p>
+        </div>
+      </div>
+      <div
+        className="sc-LzMCQ boMFHy"
+      >
+        <div
+          className="sc-LzLrm jtRcoj"
+          onClick={[Function]}
+        >
+          <h4
+            className="sc-LzMDo dKiiCD"
+          >
+             Need help setting up your wallet?
+          </h4>
+           
+          <div
+            className="sc-LzLrl iCavNG"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLrk kzNhZL"
+          height={null}
+          open={false}
+        >
+          <p
+            className="sc-LzMCN jdUFGJ"
+          >
+            Head over to our
+             
+            <a
+              href="https://help.civil.co/hc/en-us/articles/360016789691-How-do-I-set-up-my-MetaMask-wallet-"
+              target="_blank"
+            >
+              FAQ guide
+            </a>
+             
+            on how to install a MetaMask wallet.
+          </p>
+        </div>
+      </div>
+      <p
+        className="sc-LzMCN sc-LzMFo gTrgzP"
+      >
+        Need more info before you start using a crypto wallet?
+         
+        <a
+          href="https://help.civil.co/hc/en-us/sections/360003838452-Wallets"
+          target="_blank"
+        >
+          Learn more in our support area
+           
+          <span
+            className="sc-LzMEG jOYuHl"
+          >
+            <svg
+              height="11"
+              viewBox="0 0 11 11"
+              width="11"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
+                fill="#23282d"
+                fillRule="evenodd"
+              />
+            </svg>
+          </span>
+        </a>
+      </p>
+    </div>
   </div>
   <button
     className="info__show-button"
@@ -249,2498 +515,11 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
                           <span
                             style={
                               Object {
-                                "color": "#666",
+                                "color": "#444",
                               }
                             }
                           >
-                            {
-                            <span>
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                ethApi
-                              </span>
-                            </span>
-                            : 
-                            <span
-                              style={
-                                Object {
-                                  "color": "#666",
-                                }
-                              }
-                            >
-                              {
-                              <span>
-                                <span>
-                                  <br />
-                                      
-                                    
-                                </span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  rpcId
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#a11",
-                                  }
-                                }
-                              >
-                                10000
-                              </span>
-                              ,
-                              <span>
-                                <span>
-                                  <br />
-                                      
-                                    
-                                </span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  web3
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                {
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    currentProvider
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      host
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#22a",
-                                        "wordBreak": "break-word",
-                                      }
-                                    }
-                                  >
-                                    'http://localhost:8545'
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      httpAgent
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        _events
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      <span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          free
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#170",
-                                          }
-                                        }
-                                      >
-                                        anonymous
-                                      </span>
-                                      }
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        _eventsCount
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      1
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        _maxListeners
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#444",
-                                        }
-                                      }
-                                    >
-                                      null
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      timeout
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#a11",
-                                      }
-                                    }
-                                  >
-                                    0
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                            
-                                  </span>
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    _requestManager
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      provider
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        host
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#22a",
-                                          "wordBreak": "break-word",
-                                        }
-                                      }
-                                    >
-                                      'http://localhost:8545'
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        httpAgent
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          _events
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        {
-                                        <span>
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#666",
-                                              }
-                                            }
-                                          >
-                                            free
-                                          </span>
-                                        </span>
-                                        : 
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#170",
-                                            }
-                                          }
-                                        >
-                                          anonymous
-                                        </span>
-                                        }
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          _eventsCount
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#a11",
-                                          }
-                                        }
-                                      >
-                                        1
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          _maxListeners
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#444",
-                                          }
-                                        }
-                                      >
-                                        null
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                    
-                                      </span>
-                                      }
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        timeout
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      0
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      providers
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        WebsocketProvider
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#170",
-                                        }
-                                      }
-                                    >
-                                      WebsocketProvider
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        HttpProvider
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#170",
-                                        }
-                                      }
-                                    >
-                                      HttpProvider
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        IpcProvider
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#170",
-                                        }
-                                      }
-                                    >
-                                      IpcProvider
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      subscriptions
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    }
-                                  </span>
-                                  }
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    givenProvider
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#444",
-                                    }
-                                  }
-                                >
-                                  null
-                                </span>
-                                ,
-                                <span>
-                                  <span>
-                                    <br />
-                                          
-                                      
-                                  </span>
-                                  …
-                                </span>
-                                <span>
-                                  <br />
-                                        
-                                </span>
-                                }
-                              </span>
-                              ,
-                              <span>
-                                <span>
-                                  <br />
-                                      
-                                    
-                                </span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  abiDecoder
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                {
-                                <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    savedABIs
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  [
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          constant
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#a11",
-                                          }
-                                        }
-                                      >
-                                        true
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          inputs
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        [
-                                        ]
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          name
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#22a",
-                                            "wordBreak": "break-word",
-                                          }
-                                        }
-                                      >
-                                        'PROCESSBY'
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                  
-                                      </span>
-                                      }
-                                    </span>
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          constant
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#a11",
-                                          }
-                                        }
-                                      >
-                                        false
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          inputs
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        [
-                                        <span>
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#666",
-                                              }
-                                            }
-                                          >
-                                            {
-                                            <span>
-                                              <span
-                                                style={
-                                                  Object {
-                                                    "color": "#666",
-                                                  }
-                                                }
-                                              >
-                                                name
-                                              </span>
-                                            </span>
-                                            : 
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#22a",
-                                                  "wordBreak": "break-word",
-                                                }
-                                              }
-                                            >
-                                              '_propID'
-                                            </span>
-                                            ,
-                                            <span>
-                                              <span
-                                                style={
-                                                  Object {
-                                                    "color": "#666",
-                                                  }
-                                                }
-                                              >
-                                                type
-                                              </span>
-                                            </span>
-                                            : 
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#22a",
-                                                  "wordBreak": "break-word",
-                                                }
-                                              }
-                                            >
-                                              'bytes32'
-                                            </span>
-                                            }
-                                          </span>
-                                        </span>
-                                        ]
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          name
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#22a",
-                                            "wordBreak": "break-word",
-                                          }
-                                        }
-                                      >
-                                        'processProposal'
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                  
-                                      </span>
-                                      }
-                                    </span>
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      {
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          constant
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#a11",
-                                          }
-                                        }
-                                      >
-                                        true
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          inputs
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        [
-                                        <span>
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#666",
-                                              }
-                                            }
-                                          >
-                                            {
-                                            <span>
-                                              <span
-                                                style={
-                                                  Object {
-                                                    "color": "#666",
-                                                  }
-                                                }
-                                              >
-                                                name
-                                              </span>
-                                            </span>
-                                            : 
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#22a",
-                                                  "wordBreak": "break-word",
-                                                }
-                                              }
-                                            >
-                                              ''
-                                            </span>
-                                            ,
-                                            <span>
-                                              <span
-                                                style={
-                                                  Object {
-                                                    "color": "#666",
-                                                  }
-                                                }
-                                              >
-                                                type
-                                              </span>
-                                            </span>
-                                            : 
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#22a",
-                                                  "wordBreak": "break-word",
-                                                }
-                                              }
-                                            >
-                                              'bytes32'
-                                            </span>
-                                            }
-                                          </span>
-                                        </span>
-                                        ]
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          name
-                                        </span>
-                                      </span>
-                                      : 
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#22a",
-                                            "wordBreak": "break-word",
-                                          }
-                                        }
-                                      >
-                                        'proposals'
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                    
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                  
-                                      </span>
-                                      }
-                                    </span>
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                            
-                                  </span>
-                                  ]
-                                </span>
-                                ,
-                                <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    methodIds
-                                  </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  {
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      0xb25bdef16105f099e5c185f9c7fd969571e8e0caa3f7bd75409512fe0a41a60b
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        anonymous
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      false
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        inputs
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      [
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'name'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'string'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'value'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'uint256'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'propID'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'bytes32'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                    
-                                      </span>
-                                      ]
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        name
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#22a",
-                                          "wordBreak": "break-word",
-                                        }
-                                      }
-                                    >
-                                      '_ReparameterizationProposal'
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      0xe94e3086c4bfe84acba4437b85a80fca3721dfc419d1f7afe4fa4e470e670b48
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        anonymous
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      false
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        inputs
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      [
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            true
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'propID'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'bytes32'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'challengeID'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'uint256'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'commitEndDate'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'uint256'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span>
-                                          <br />
-                                                      
-                                            
-                                        </span>
-                                        …
-                                      </span>
-                                      <span>
-                                        <br />
-                                                    
-                                      </span>
-                                      ]
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        name
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#22a",
-                                          "wordBreak": "break-word",
-                                        }
-                                      }
-                                    >
-                                      '_NewChallenge'
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      0x37f3986c71e1aa2c470cfc4a92af70820610c3065589d35ef1664ea27f3e73a5
-                                    </span>
-                                  </span>
-                                  : 
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        anonymous
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#a11",
-                                        }
-                                      }
-                                    >
-                                      false
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        inputs
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#666",
-                                        }
-                                      }
-                                    >
-                                      [
-                                      <span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            true
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'propID'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'bytes32'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'name'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'string'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ,
-                                      <span>
-                                        <span
-                                          style={
-                                            Object {
-                                              "color": "#666",
-                                            }
-                                          }
-                                        >
-                                          {
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              indexed
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#a11",
-                                              }
-                                            }
-                                          >
-                                            false
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              name
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'value'
-                                          </span>
-                                          ,
-                                          <span>
-                                            <span
-                                              style={
-                                                Object {
-                                                  "color": "#666",
-                                                }
-                                              }
-                                            >
-                                              type
-                                            </span>
-                                          </span>
-                                          : 
-                                          <span
-                                            style={
-                                              Object {
-                                                "color": "#22a",
-                                                "wordBreak": "break-word",
-                                              }
-                                            }
-                                          >
-                                            'uint256'
-                                          </span>
-                                          }
-                                        </span>
-                                      </span>
-                                      ]
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      <span
-                                        style={
-                                          Object {
-                                            "color": "#666",
-                                          }
-                                        }
-                                      >
-                                        name
-                                      </span>
-                                    </span>
-                                    : 
-                                    <span
-                                      style={
-                                        Object {
-                                          "color": "#22a",
-                                          "wordBreak": "break-word",
-                                        }
-                                      }
-                                    >
-                                      '_ProposalAccepted'
-                                    </span>
-                                    ,
-                                    <span>
-                                      <span>
-                                        <br />
-                                                  
-                                          
-                                      </span>
-                                      …
-                                    </span>
-                                    <span>
-                                      <br />
-                                                
-                                    </span>
-                                    }
-                                  </span>
-                                  ,
-                                  <span>
-                                    <span>
-                                      <br />
-                                              
-                                        
-                                    </span>
-                                    …
-                                  </span>
-                                  <span>
-                                    <br />
-                                            
-                                  </span>
-                                  }
-                                </span>
-                                }
-                              </span>
-                              ,
-                              <span>
-                                <span>
-                                  <br />
-                                      
-                                    
-                                </span>
-                                …
-                              </span>
-                              <span>
-                                <br />
-                                    
-                              </span>
-                              }
-                            </span>
-                            ,
-                            <span>
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                contentProvider
-                              </span>
-                            </span>
-                            : 
-                            <span
-                              style={
-                                Object {
-                                  "color": "#666",
-                                }
-                              }
-                            >
-                              {
-                              <span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  providers
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                [
-                                <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    {
-                                    }
-                                  </span>
-                                </span>
-                                ]
-                              </span>
-                              }
-                            </span>
-                            }
+                            null
                           </span>
                           }
                         </span>

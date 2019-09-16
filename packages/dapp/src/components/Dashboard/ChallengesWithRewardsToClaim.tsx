@@ -14,7 +14,7 @@ import {
   TransactionButtonNoModal,
 } from "@joincivil/components";
 
-import { multiClaimRewards } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import {
@@ -79,6 +79,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
   ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps,
   ChallengesWithRewardsToClaimState
 > {
+  public static contextType: React.Context<CivilHelper | undefined> = CivilHelperContext;
   public state = {
     challengesToClaim: {},
   };

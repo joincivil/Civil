@@ -23,6 +23,7 @@ import WinningChallengeResults from "./WinningChallengeResults";
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";
 import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const StyledWarningText = styled.span`
   color: ${colors.accent.CIVIL_RED};
@@ -64,21 +65,24 @@ export interface ActivityListItemReduxProps {
 class ActivityListItemComponent extends React.Component<
   ActivityListItemOwnProps & ResolvedChallengeActivityListItemProps & ActivityListItemReduxProps & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidUpdate(): Promise<void> {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+      this.props.dispatch!(fetchAndAddListingData(this.context, this.props.listingAddress!));
     }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.wrapper.data.charterHeader!));
     }
   }
 
   public async componentDidMount(): Promise<void> {
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+      this.props.dispatch!(fetchAndAddListingData(this.context, this.props.listingAddress!));
     }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.wrapper.data.charterHeader!));
     }
   }
 
@@ -182,7 +186,7 @@ class ActivityListItemComponent extends React.Component<
       if (challengeState.isResolved) {
         return (
           <>
-            <WinningChallengeResults challengeID={this.props.challenge.challengeID} />
+            <WinningChallengeResults challengeID={this.props.challenge.challengeID.toString()} />
           </>
         );
       }

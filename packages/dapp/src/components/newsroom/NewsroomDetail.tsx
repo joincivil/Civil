@@ -3,7 +3,7 @@ import { List } from "immutable";
 import { EthAddress } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
-import { getNewsroom } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { BigNumber } from "@joincivil/typescript-types";
 
 export interface NewsroomDetailState {
@@ -22,6 +22,9 @@ export interface NewsroomDetailProps {
 }
 
 class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetailState> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: NewsroomDetailProps) {
     super(props);
     this.state = {
@@ -69,7 +72,7 @@ class NewsroomDetail extends React.Component<NewsroomDetailProps, NewsroomDetail
   }
 
   private initNewsroom = async () => {
-    const newsroom = await getNewsroom(this.props.address);
+    const newsroom = await this.context.getNewsroom(this.props.address);
     if (newsroom) {
       this.setState({ name: await newsroom.getName() });
       this.setState({ owners: await newsroom.owners() });

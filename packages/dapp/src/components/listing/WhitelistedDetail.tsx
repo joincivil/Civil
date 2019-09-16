@@ -11,6 +11,7 @@ import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
 import { BigNumber } from "@joincivil/typescript-types";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface WhitelistedCardSubmitChallengeProps {
   listingAddress: EthAddress;
@@ -30,9 +31,11 @@ class WhitelistedDetail extends React.Component<
     WhitelistedCardReduxProps &
     DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
   public async componentDidMount(): Promise<void> {
     if (!this.props.useGraphQL) {
-      this.props.dispatch!(await setupListingWhitelistedSubscription(this.props.listingAddress));
+      this.props.dispatch!(await setupListingWhitelistedSubscription(this.context, this.props.listingAddress));
     }
   }
 

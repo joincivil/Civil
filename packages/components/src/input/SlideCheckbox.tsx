@@ -81,7 +81,7 @@ export const SlideCheckbox = (props: SlideCheckboxProps) => {
   return (
     <Switch>
       <input
-        onClick={() => {
+        onChange={() => {
           if (!props.locked) {
             props.onClick();
           }

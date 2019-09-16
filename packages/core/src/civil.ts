@@ -1,4 +1,4 @@
-import { currentNetwork, detectProvider, EthApi, requireAccount, Provider } from "@joincivil/ethapi";
+import { currentNetwork, EthApi, requireAccount, Provider } from "@joincivil/ethapi";
 import { BigNumber, EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import * as Debug from "debug";
@@ -13,7 +13,6 @@ import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
 import { CVLToken } from "./contracts/tcr/cvltoken";
-import Web3 = require("web3");
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");
@@ -49,18 +48,10 @@ export class Civil {
       debug('Enabled debug for "civil:*" namespace');
     }
 
-    let provider: Provider;
-    if (opts.web3Provider) {
-      provider = opts.web3Provider;
-    } else {
-      const detectedProvider = detectProvider();
-      if (detectedProvider) {
-        provider = detectedProvider;
-      } else {
-        provider = new Web3.providers.HttpProvider("http://localhost:8545");
-        debug("No web3 provider provided or found injected, defaulting to localhost RPC");
-      }
+    if (!opts.web3Provider) {
+      throw new Error("no web3Provider in options");
     }
+    const provider = opts.web3Provider;
     this.ethApi = new EthApi(provider, Object.values<Artifact>(artifacts).map(a => a.abi));
 
     const providerConstructor = opts.ContentProvider || FallbackProvider.build([IPFSProvider]);
@@ -81,10 +72,11 @@ export class Civil {
     return this.ethApi.signMessage(message, account);
   }
 
-  public async currentProviderEnable(): Promise<boolean | EthAddress[]> {
+  public async currentProviderEnable(): Promise<boolean> {
     if (this.ethApi.currentProvider && (this.ethApi.currentProvider as any).enable) {
       try {
-        return await (this.ethApi.currentProvider as any).enable();
+        await (this.ethApi.currentProvider as any).enable();
+        return true;
       } catch (e) {
         return false;
       }

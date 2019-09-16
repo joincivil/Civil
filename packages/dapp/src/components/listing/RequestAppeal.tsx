@@ -5,7 +5,6 @@ import { formatRoute } from "react-router-named-routes";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  CivilContext,
   InsufficientCVLForAppeal,
   ModalContent,
   ModalUnorderedList,
@@ -18,7 +17,7 @@ import {
 import { getFormattedParameterValue, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { approveForAppeal, publishContent, requestAppealWithUri } from "../../apis/civilTCR";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 import { State } from "../../redux/reducers";
 import {
   InjectedTransactionStatusModalProps,
@@ -110,7 +109,8 @@ class RequestAppealComponent extends React.Component<
   RequestAppealProps & RequestAppealReduxProps & InjectedTransactionStatusModalProps,
   RequestAppealState
 > {
-  public static contextType = CivilContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
 
   public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
@@ -177,7 +177,7 @@ class RequestAppealComponent extends React.Component<
             isIPFSUploadModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_APPEAL_REQUEST,
           });
-          return approveForAppeal();
+          return this.context.approveForAppeal();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -266,10 +266,10 @@ class RequestAppealComponent extends React.Component<
       summary: appealStatementSummaryValue,
       details: appealStatementDetailsValue.toString("html"),
     };
-    return publishContent(JSON.stringify(jsonToSave));
+    return this.context.publishContent(JSON.stringify(jsonToSave));
   };
   private appeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return requestAppealWithUri(this.props.listingAddress, this.state.appealStatementUri!);
+    return this.context.requestAppealWithUri(this.props.listingAddress, this.state.appealStatementUri!);
   };
 }
 

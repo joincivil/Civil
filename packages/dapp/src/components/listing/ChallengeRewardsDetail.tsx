@@ -14,7 +14,7 @@ import {
   canUserCollectAppealChallengeReward,
   canRescueAppealChallengeTokens,
 } from "@joincivil/core";
-import { claimRewards, rescueTokens } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { BigNumber } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
@@ -27,6 +27,9 @@ export interface ChallengeRewardsDetailProps {
 }
 
 class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public render(): JSX.Element {
     const userChallengeData = this.props.userChallengeData;
     let isWinner;
@@ -84,11 +87,11 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
   }
 
   private claimRewards = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return claimRewards(this.props.challengeID, this.props.userChallengeData!.salt!);
+    return this.context.claimRewards(this.props.challengeID, this.props.userChallengeData!.salt!);
   };
 
   private rescueTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return rescueTokens(this.props.challengeID);
+    return this.context.rescueTokens(this.props.challengeID);
   };
 }
 

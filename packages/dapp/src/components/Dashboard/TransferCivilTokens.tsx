@@ -18,6 +18,7 @@ import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenC
 
 import DepositTokens from "./DepositTokens";
 import ReclaimTokens from "./ReclaimTokens";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface TransferCivilTokensProps {
   showNoMobileTransactionsModal(): void;
@@ -38,6 +39,9 @@ class TransferCivilTokens extends React.Component<
   TransferCivilTokensProps & TransferCivilTokensReduxProps,
   TransferCivilTokensState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public state = {
     isNoMobileTransactionVisible: false,
     fromBalanceType: 0,
@@ -46,8 +50,8 @@ class TransferCivilTokens extends React.Component<
   public render(): JSX.Element {
     const balance = getFormattedTokenBalance(this.props.balance);
     const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
-    const isCivilianWhitelist = getCivilianWhitelist(this.props.userAccount);
-    const isUnlockedWhitelist = getUnlockedWhitelist(this.props.userAccount);
+    const isCivilianWhitelist = getCivilianWhitelist(this.context, this.props.userAccount);
+    const isUnlockedWhitelist = getUnlockedWhitelist(this.context, this.props.userAccount);
 
     return (
       <>
