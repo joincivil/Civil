@@ -33,6 +33,7 @@ export interface BoostPayEthProps {
   selected: boolean;
   boostId: string;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
   paymentStarted?: boolean;
   optionLabel: string | JSX.Element;
@@ -157,6 +158,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
               <BoostPayFormEth
                 boostId={this.props.boostId}
                 paymentAddr={this.props.paymentAddr}
+                title={this.props.title}
                 savePayment={paymentsCreateEtherPayment}
                 etherToSpend={this.state.etherToSpend}
                 usdToSpend={this.state.usdToSpend}

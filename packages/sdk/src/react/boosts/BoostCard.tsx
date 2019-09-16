@@ -15,6 +15,7 @@ import {
   BoostNotificationContain,
   BoostAmountInputWrap,
   BoostAmountInput,
+  BoostCardFlex,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
@@ -24,6 +25,7 @@ import * as boostCardImage from "../../images/boost-card.png";
 import { urlConstants } from "../urlConstants";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import { BoostCardListView } from "./BoostCardListView";
+import { BoostShare } from "./BoostShare";
 
 export interface BoostCardProps {
   boostData: BoostData;
@@ -149,7 +151,17 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
               }
             />
           </BoostNotice>
-          <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
+          <BoostCardFlex>
+            <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
+            <div>
+              <h3>Share this Boost</h3>
+              <BoostShare
+                boostId={this.props.boostId}
+                newsroom={this.props.newsroomData.name}
+                title={boostData.title}
+              />
+            </div>
+          </BoostCardFlex>
           <BoostDescription>
             <h3>What the outcome will be</h3>
             {renderPTagsFromLineBreaks(boostData.what)}
