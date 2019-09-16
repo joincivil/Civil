@@ -4,12 +4,15 @@ import { Button } from "../Button";
 import styled from "styled-components";
 
 export const SubmitLinkStyled = styled.div`
+  align-items: flex-start;
   display: flex;
 
   ${Button} {
-    font-size: 16px;
+    border-radius: 0;
+    font-size: 14px;
     letter-spacing: 0;
-    padding: 15px;
+    margin: 5px 0 0 5px;
+    padding: 12px 15px;
     text-transform: none;
     width: 200px;
   }

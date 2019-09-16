@@ -155,8 +155,12 @@ storiesOf("Pattern Library / Inputs", module)
     );
   })
 
-  .add("URL input", () => {
+  .add("Submit a link", () => {
     return (
-      <SubmitLink />
+      <ControlComponent>
+        {(state: any, onChange: changeCallback) => (
+          <SubmitLink name={"submit link"} onChange={onChange} onSubmit={() => console.log("Link submitted")} />
+        )}
+      </ControlComponent>
     );
   });
