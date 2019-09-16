@@ -20,6 +20,7 @@ import {
   StyledWarningText,
 } from "./DashboardStyledComponents";
 import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
+import { DashboardNewsroomSubmitLink } from "./DashboardNewsroomSubmitLink";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
@@ -152,6 +153,13 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           etherscanBaseURL={props.etherscanBaseURL}
         />
       </StyledDashboardNewsroomSection>
+
+      {/*<FeatureFlag feature={"pew-mvp"}>*/}
+      <StyledDashboardNewsroomSection>
+        <StyledDashboardNewsroomHdr>Pulse</StyledDashboardNewsroomHdr>
+        <DashboardNewsroomSubmitLink newsroomAddress={props.newsroomAddress} />
+      </StyledDashboardNewsroomSection>
+      {/*</FeatureFlag>*/}
 
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>

@@ -169,3 +169,7 @@ export interface TextareaProps {
 export const TextareaInput = (props: TextareaProps & InputProps) => {
   return <InputBase type="textarea" {...props} />;
 };
+
+export const URLInput = (props: InputProps) => {
+  return <InputBase type="url" pattern="https?://.+" {...props} />;
+};

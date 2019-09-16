@@ -5,6 +5,7 @@ import { InputGroup } from "./InputGroup";
 import { RadioInput, RadioButton } from "./RadioInput";
 import { CurrencyInputWithButton, TextInputWithButton } from "./InputWithButton";
 import { ImageFileToDataUri } from "./ImageFileToDataUri";
+import { SubmitLink } from "./SubmitLink";
 type changeCallback = (name: string, value: any) => any;
 interface ControlProps {
   children(state: any, onChange: changeCallback): React.ReactNode;
@@ -151,5 +152,11 @@ storiesOf("Pattern Library / Inputs", module)
           return <ImageFileToDataUri onChange={(dataUri: string) => onChange("name", dataUri)} />;
         }}
       </ControlComponent>
+    );
+  })
+
+  .add("URL input", () => {
+    return (
+      <SubmitLink />
     );
   });
