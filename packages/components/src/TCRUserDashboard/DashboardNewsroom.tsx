@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import { ErrorIcon } from "../icons";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
 import { Button, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
@@ -41,6 +43,14 @@ export interface DashboardNewsroomProps {
   inProgressPhaseDetails?: string | JSX.Element;
   rejectedDate?: string;
 }
+
+const CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY = gql`
+  query($contractAddress: String!) {
+    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+      id
+    }
+  }
+`;
 
 const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   let statusDisplay;
@@ -155,10 +165,22 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       </StyledDashboardNewsroomSection>
 
       {/*<FeatureFlag feature={"pew-mvp"}>*/}
-      <StyledDashboardNewsroomSection>
-        <StyledDashboardNewsroomHdr>Pulse</StyledDashboardNewsroomHdr>
-        <DashboardNewsroomSubmitLink newsroomAddress={props.newsroomAddress} />
-      </StyledDashboardNewsroomSection>
+      <Query query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY} variables={{ contractAddress: props.newsroomAddress }}>
+        {({ loading, error, data }) => {
+          if (loading || error) {
+            return <></>;
+          }
+          return (
+            <StyledDashboardNewsroomSection>
+              <StyledDashboardNewsroomHdr>Pulse Story Feed</StyledDashboardNewsroomHdr>
+              <DashboardNewsroomSubmitLink
+                channelID={data.channelsGetByNewsroomAddress.id}
+                newsroomAddress={props.newsroomAddress}
+              />
+            </StyledDashboardNewsroomSection>
+          );
+        }}
+      </Query>
       {/*</FeatureFlag>*/}
 
       <StyledDashboardNewsroomSection>

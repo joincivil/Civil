@@ -159,7 +159,14 @@ storiesOf("Pattern Library / Inputs", module)
     return (
       <ControlComponent>
         {(state: any, onChange: changeCallback) => (
-          <SubmitLink name={"submit link"} onChange={onChange} onSubmit={() => console.log("Link submitted")} />
+          <SubmitLink
+            name={"submit link"}
+            loading={false}
+            success={false}
+            error={false}
+            onChange={onChange}
+            onSubmit={() => console.log("Link submitted")}
+          />
         )}
       </ControlComponent>
     );
