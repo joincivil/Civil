@@ -1,4 +1,9 @@
-/** DEPRECATED IN FAVOR OF BOOST EMBED STANDALONE ROUTE IN DAPP PACKAGE. Proof-of-concept loader - this will instantiate the boost component on the page element with id `civil-boost`. */
+/**
+ * * * * * * * * *  * * *
+ * * * * DEPRECATED * * *
+ * * * * * * * * *  * * *
+ * Deprecated in favor of boost embed standalone route in dapp. Leaving this code here as a proof-of-concept of loading our content in any context, which we might use for PEW widget. This code will instantiate the boost component in the page element with id `civil-boost`.
+ */
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
