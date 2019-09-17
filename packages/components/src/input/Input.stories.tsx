@@ -161,7 +161,7 @@ storiesOf("Pattern Library / Inputs", module)
         {(state: any, onChange: changeCallback) => (
           <SubmitLink
             name={"submit link"}
-            loading={false}
+            submitting={false}
             success={false}
             error={false}
             onChange={onChange}

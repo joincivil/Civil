@@ -18,7 +18,7 @@ export interface DashboardNewsroomSubmitLinkProps {
 
 export interface DashboardNewsroomSubmitLinkState {
   url: string;
-  loading: boolean;
+  submitting: boolean;
   success: boolean;
   error: boolean;
 }
@@ -31,7 +31,7 @@ export class DashboardNewsroomSubmitLink extends React.Component<
     super(props);
     this.state = {
       url: "",
-      loading: false,
+      submitting: false,
       success: false,
       error: false,
     };
@@ -44,10 +44,10 @@ export class DashboardNewsroomSubmitLink extends React.Component<
           return (
             <SubmitLink
               name={"storyfeed submit link"}
-              loading={this.state.loading}
+              submitting={this.state.submitting}
               success={this.state.success}
               error={this.state.error}
-              onChange={() => this.handleChange}
+              onChange={this.setURL}
               onSubmit={async () => this.handleSubmit(mutation)}
             />
           );
@@ -56,12 +56,12 @@ export class DashboardNewsroomSubmitLink extends React.Component<
     );
   }
 
-  private handleChange = (name: string, value: string) => {
+  private setURL = (name: string, value: string) => {
     this.setState({ url: value });
   };
 
   private async handleSubmit(mutation: MutationFunc): Promise<void> {
-    this.setState({ loading: true, error: false, success: false });
+    this.setState({ submitting: true, error: false, success: false });
     try {
       const response = await mutation({
         variables: {
@@ -81,6 +81,6 @@ export class DashboardNewsroomSubmitLink extends React.Component<
       this.setState({ error: true });
     }
 
-    this.setState({ loading: false });
+    this.setState({ submitting: false });
   }
 }

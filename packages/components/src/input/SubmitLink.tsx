@@ -12,9 +12,8 @@ export const SubmitLinkStyled = styled.div`
     border-radius: 0;
     font-size: 14px;
     letter-spacing: 0;
-    margin: 5px 0 0 5px;
-    padding: 12px 15px;
-    text-transform: none;
+    margin: 5px 0 0 10px;
+    padding: 10px 15px;
     width: 200px;
   }
 
@@ -43,32 +42,30 @@ export interface SubmitLinkProps {
   name: string;
   buttonText?: string;
   placeholder?: string;
-  loading: boolean;
+  submitting: boolean;
   success: boolean;
   error: boolean;
   onSubmit(): void;
-  onChange(name: string, value: string): any;
+  onChange(name: string, value: string): void;
 }
 
-export class SubmitLink extends React.Component<SubmitLinkProps> {
-  public render(): JSX.Element {
-    const { buttonText, name, placeholder, loading, success, error, onChange, onSubmit } = this.props;
+export const SubmitLink: React.FunctionComponent<SubmitLinkProps> = props => {
+  const { buttonText, name, placeholder, submitting, success, error, onChange, onSubmit } = props;
 
-    return (
-      <>
-        <form>
-          <SubmitLinkStyled>
-            <URLInput name={name} placeholder={placeholder} onChange={() => onChange} />
-            <Button disabled={loading} type="submit" onClick={onSubmit}>
-              {loading ? "Loading..." : buttonText || "Submit Link"}
-            </Button>
-          </SubmitLinkStyled>
-          <ResponseText error={error}>
-            {error && <>There was an error submitting your link. Please try again.</>}
-            {success && <>Your link has been submitted.</>}
-          </ResponseText>
-        </form>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <form>
+        <SubmitLinkStyled>
+          <URLInput name={name} placeholder={placeholder} onChange={onChange} />
+          <Button disabled={submitting} type="submit" onClick={onSubmit}>
+            {submitting ? "Submitting..." : buttonText || "Submit Link"}
+          </Button>
+        </SubmitLinkStyled>
+        <ResponseText error={error}>
+          {error && <>There was an error submitting your link. Please try again.</>}
+          {success && <>Your link has been submitted.</>}
+        </ResponseText>
+      </form>
+    </>
+  );
+};
