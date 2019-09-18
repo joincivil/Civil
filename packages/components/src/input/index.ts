@@ -8,3 +8,4 @@ export * from "./SlideCheckbox";
 export * from "./Checkbox";
 export * from "./InputWithButton";
 export * from "./ImageFileToDataUri";
+export * from "./SubmitLink";

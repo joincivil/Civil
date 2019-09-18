@@ -11,21 +11,21 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
-      className="sc-LzNvg cHqGkz"
+      className="sc-LzNvi Ugiut"
     >
       <div
-        className="sc-LzLNv gUrnDI"
+        className="sc-LzLNx drPfHu"
       >
         <div
-          className="sc-LzLNw dJNvhl"
+          className="sc-LzLNy jwHKMr"
         >
           CVL Token Contract Address
         </div>
         <div
-          className="sc-LzLNx jjkPuL"
+          className="sc-LzLNz cBMIjt"
         >
           <div
-            className="sc-LzLNy hVPufa"
+            className="sc-LzLNA kkjprO"
           >
             0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
           </div>
