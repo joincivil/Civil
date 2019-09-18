@@ -5,11 +5,13 @@ import Footer from "./components/Footer";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
 import config from "./helpers/config";
+import { standaloneRoutes } from "./constants";
 import { ErrorBoundry } from "./components/errors/ErrorBoundry";
 
 import { createGlobalStyle } from "styled-components";
 import { colors, fonts, CivilContext, ICivilContext, buildCivilContext, LoadUser } from "@joincivil/components";
 import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 
 import { history } from "./redux/store";
 import { getCivil } from "./helpers/civilInstance";
@@ -42,18 +44,25 @@ export class App extends React.Component {
         <ApolloProvider client={client}>
           <ConnectedRouter history={history}>
             <CivilContext.Provider value={this.civilContext}>
-              <LoadUser>
-                {({ user: civilUser }) => {
-                  return (
-                    <>
-                      <Web3AuthWrapper civilUser={civilUser} />
-                      <GlobalNav civilUser={civilUser} />
-                      <Main civilUser={civilUser} />
-                      <Footer />
-                    </>
-                  );
-                }}
-              </LoadUser>
+              <Switch>
+                {standaloneRoutes.map(route => (
+                  <Route key={route.pathname} path={route.pathname} component={route.component} />
+                ))}
+                <Route>
+                  <LoadUser>
+                    {({ user: civilUser }) => {
+                      return (
+                        <>
+                          <Web3AuthWrapper civilUser={civilUser} />
+                          <GlobalNav civilUser={civilUser} />
+                          <Main civilUser={civilUser} />
+                          <Footer />
+                        </>
+                      );
+                    }}
+                  </LoadUser>
+                </Route>
+              </Switch>
             </CivilContext.Provider>
           </ConnectedRouter>
         </ApolloProvider>
