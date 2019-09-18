@@ -1,8 +1,5 @@
 import * as React from "react";
-import { connect } from "react-redux";
 import { Set } from "immutable";
-import { State } from "../../redux/reducers";
-import ListingsInProgressRedux from "./ListingsInProgressRedux";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import {
@@ -34,11 +31,6 @@ export interface ListingsInProgressProps {
   history?: any;
   govtParameters: any;
 }
-
-export interface ListingsInProgressContainerReduxProps {
-  useGraphQL: boolean;
-}
-
 export interface ListingsInProgressState {
   increment: number;
 }
@@ -50,16 +42,14 @@ const LISTINGS_QUERY = gql`
   }
   ${LISTING_FRAGMENT}
 `;
-class ListingsInProgressContainer extends React.Component<
-  ListingsInProgressContainerReduxProps & ListingsInProgressProps,
+class ListingsInProgressContainer extends React.Component<ListingsInProgressProps,
   ListingsInProgressState
 > {
-  constructor(props: ListingsInProgressContainerReduxProps & ListingsInProgressProps) {
+  constructor(props: ListingsInProgressProps) {
     super(props);
     this.state = { increment: 0 };
   }
   public render(): JSX.Element {
-    if (this.props.useGraphQL) {
       return (
         <Query
           query={LISTINGS_QUERY}
@@ -157,25 +147,11 @@ class ListingsInProgressContainer extends React.Component<
           }}
         </Query>
       );
-    } else {
-      return <ListingsInProgressRedux {...this.props} />;
-    }
+
   }
   public onTimerExpiry = (): void => {
     this.setState({ increment: this.state.increment + 1 });
   };
 }
 
-const mapStateToProps = (
-  state: State,
-  ownProps: ListingsInProgressProps,
-): ListingsInProgressContainerReduxProps & ListingsInProgressProps => {
-  const useGraphQL = state.useGraphQL;
-
-  return {
-    useGraphQL,
-    ...ownProps,
-  };
-};
-
-export default connect(mapStateToProps)(ListingsInProgressContainer);
+export default ListingsInProgressContainer;

@@ -10,7 +10,6 @@ import { routes, registryListingTypes, registrySubListingTypes, dashboardTabs, d
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { catchWindowOnError } from "../redux/actionCreators/errors";
-import { isGraphQLSupportedOnNetwork } from "../helpers/civilInstance";
 import {
   initializeGovernment,
   initializeGovernmentParamSubscription,
@@ -25,7 +24,6 @@ import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 import { State } from "../redux/reducers";
 import { isNetworkSupported } from "../helpers/networkHelpers";
-import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
 import AsyncComponent from "./utility/AsyncComponent";
 import { analyticsEvent } from "../redux/actionCreators/analytics";
 import { Subscription } from "rxjs";
@@ -149,9 +147,6 @@ class Main extends React.Component<MainProps, MainState> {
   public onNetworkUpdated = async (civil: Civil, network: number): Promise<void> => {
     this.props.dispatch!(setNetwork(network.toString()));
     setNetworkValue(network);
-    if (!isGraphQLSupportedOnNetwork(network)) {
-      this.props.dispatch!(disableGraphQL());
-    }
 
     const account = await civil.accountStream.first().toPromise();
     if (account && this.props.civilUser && account === this.props.civilUser.ethAddress) {
@@ -165,7 +160,6 @@ class Main extends React.Component<MainProps, MainState> {
       await initializeGovernmentParamSubscription(this.props.dispatch!);
       await initializeGovtProposalsSubscriptions(this.props.dispatch!);
       await initializeContractAddresses(this.props.dispatch!);
-      await this.props.dispatch!(await initialize());
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
         throw err;
