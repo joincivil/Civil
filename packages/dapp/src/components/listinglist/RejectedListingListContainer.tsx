@@ -38,7 +38,7 @@ const LoadMoreContainer = styled.div`
   width: 100%;
 `;
 
-class RejectedListingListContainer extends React.Component<{}> {
+class RejectedListingListContainer extends React.Component {
   public render(): JSX.Element {
       return (
         <Query query={LISTINGS_QUERY} variables={{ rejectedOnly: true, sortBy: "NAME" }}>

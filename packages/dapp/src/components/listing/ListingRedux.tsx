@@ -12,14 +12,12 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
-  LoadingMessage,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
 import { listingTabs, TListingTab } from "../../constants";
 import { State } from "../../redux/reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
-import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
+import { getListingPhaseState, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";

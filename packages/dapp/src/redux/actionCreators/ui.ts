@@ -1,10 +1,6 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
 
-import { clearAllListingData } from "./listings";
-import { clearAllChallengesData } from "./challenges";
-import { isGraphQLSupportedOnNetwork } from "../../helpers/civilInstance";
-
 export enum uiActions {
   ADD_OR_UPDATE_UI_STATE = "ADD_OR_UPDATE_UI_STATE",
   SET_LOADING_FINISHED = "SET_LOADING_FINISHED",
