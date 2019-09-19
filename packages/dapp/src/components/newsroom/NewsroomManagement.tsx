@@ -9,7 +9,7 @@ import { formatRoute } from "react-router-named-routes";
 import RichTextEditor from "react-rte";
 import { Subscription } from "rxjs";
 import { routes } from "../../constants";
-import { applyToTCR, approveForApply, getNewsroom } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { PageView, ViewModule } from "../utility/ViewModules";
 import NewsroomDetail from "./NewsroomDetail";
 
@@ -33,6 +33,9 @@ export interface NewsroomManagementProps {
 }
 
 class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
+  public static contextType: React.Context<CivilHelper | undefined> = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: NewsroomManagementProps) {
     super(props);
     this.state = {
@@ -139,7 +142,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   }
 
   private updateCharter = async (): Promise<TwoStepEthTransaction | void> => {
-    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    const newsroomInstance = await this.context.getNewsroom(this.props.match.params.newsroomAddress);
     const jsonToSave = { desc: this.state.descValue, charter: this.state.value.toString("html") };
     return newsroomInstance.updateRevision(0, JSON.stringify(jsonToSave));
   };
@@ -147,7 +150,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   private approve = async (): Promise<TwoStepEthTransaction | void> => {
     this.setState({ error: "" });
     try {
-      return await approveForApply(this.state.multisigAddr);
+      return await this.context.approveForApply(this.state.multisigAddr);
     } catch (e) {
       if (e.message === CivilErrors.InsufficientToken) {
         this.setState({
@@ -165,7 +168,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
     if (this.state.error) {
       return;
     }
-    return applyToTCR(this.props.match.params.newsroomAddress, this.state.multisigAddr);
+    return this.context.applyToTCR(this.props.match.params.newsroomAddress, this.state.multisigAddr);
   };
 
   private postApply = (result: any) => {
@@ -178,7 +181,7 @@ class NewsroomManagement extends React.Component<NewsroomManagementProps, Newsro
   };
 
   private submitArticle = async (): Promise<TwoStepEthTransaction> => {
-    const newsroomInstance = await getNewsroom(this.props.match.params.newsroomAddress);
+    const newsroomInstance = await this.context.getNewsroom(this.props.match.params.newsroomAddress);
     return newsroomInstance.publishRevision(this.state.articleURL);
   };
 

@@ -11,6 +11,7 @@ import {
   ParameterizerTd,
   StyledTableAccentText,
   mediaQueries,
+  ICivilContext,
 } from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
@@ -39,6 +40,7 @@ export interface ParameterReduxProps {
 
 class ParameterComponent extends React.Component<ParameterProps & ParameterReduxProps> {
   public static contextType = CivilContext;
+  public context: ICivilContext;
 
   public render(): JSX.Element {
     return (

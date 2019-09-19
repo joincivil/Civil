@@ -1,12 +1,11 @@
 import * as React from "react";
 import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash, NewsroomWrapper } from "@joincivil/core";
 import { TransactionButton } from "@joincivil/components";
-import { exitListing, withdrawTokensFromMultisig } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { ViewModuleHeader } from "../utility/ViewModules";
 import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from "../utility/TransactionStatusModalsHOC";
 import { ModalContent } from "@joincivil/components/build/ReviewVote/styledComponents";
 import { compose } from "redux";
-import { getCivil } from "../../helpers/civilInstance";
 import { BigNumber } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
@@ -84,6 +83,9 @@ const transactionStatusModalConfig = {
 };
 
 class ExitListing extends React.Component<OwnerListingViewProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
   }
@@ -125,11 +127,14 @@ class ExitListing extends React.Component<OwnerListingViewProps & InjectedTransa
   }
 
   private exitListing = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return exitListing(this.props.listingAddress, this.props.listing.data.owner);
+    return this.context.exitListing(this.props.listingAddress, this.props.listing.data.owner);
   };
 }
 
 class WithdrawTokens extends React.Component<OwnerListingViewProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
   }
@@ -171,7 +176,7 @@ class WithdrawTokens extends React.Component<OwnerListingViewProps & InjectedTra
   }
 
   private withdrawTokensFromMultisig = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return withdrawTokensFromMultisig(this.props.newsroom.data.owner);
+    return this.context.withdrawTokensFromMultisig(this.props.newsroom.data.owner);
   };
 }
 
@@ -194,6 +199,9 @@ class ListingOwnerActions extends React.Component<
   ListingOwnerActionsProps & InjectedTransactionStatusModalProps,
   ListingOwnerActionsState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: ListingOwnerActionsProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
@@ -202,7 +210,7 @@ class ListingOwnerActions extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
-    const civil = getCivil();
+    const civil = this.context.civil;
     const cvl = await civil.cvlTokenSingletonTrusted();
     const ownerCVLBalance = await cvl.getBalance(this.props.newsroom.data.owner);
     this.setState({ cvlBalance: ownerCVLBalance });
@@ -235,7 +243,7 @@ class ListingOwnerActions extends React.Component<
           </>
         )}
         <p>Newsroom Wallet CVL Balance: {getFormattedTokenBalance(this.state.cvlBalance)}</p>
-        {this.state.cvlBalance.greaterThan(0) && (
+        {this.state.cvlBalance.gt(0) && (
           <>
             <p>
               To withdraw your CVL tokens from your newsroom wallet into your personal wallet, click the button below.

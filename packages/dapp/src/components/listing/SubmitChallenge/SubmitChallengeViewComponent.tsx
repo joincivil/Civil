@@ -8,7 +8,6 @@ import { BigNumber } from "@joincivil/typescript-types";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   colors,
-  CivilContext,
   Modal,
   ModalHeading,
   ModalContent,
@@ -26,7 +25,7 @@ import { getFormattedParameterValue, Parameters, urlConstants as links } from "@
 import { State } from "../../../redux/reducers";
 import { routes } from "../../../constants";
 import ScrollToTopOnMount from "../../utility/ScrollToTop";
-import { approveForChallenge, publishContent, challengeListingWithUri } from "../../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../../apis/CivilHelper";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
@@ -140,7 +139,8 @@ class SubmitChallengeComponent extends React.Component<
     DispatchProp<any>,
   SubmitChallengeState
 > {
-  public static contextType = CivilContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
 
   public state = {
     challengeStatementSummaryValue: undefined,
@@ -243,7 +243,6 @@ class SubmitChallengeComponent extends React.Component<
     return [
       {
         transaction: async () => {
-          console.log("getTransactions", approveForChallenge);
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
@@ -252,7 +251,7 @@ class SubmitChallengeComponent extends React.Component<
             isTransactionRejectionModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_CHALLENGE,
           });
-          return approveForChallenge();
+          return this.context.approveForChallenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -364,11 +363,11 @@ class SubmitChallengeComponent extends React.Component<
       details: (challengeStatementDetailsValue as any).toString("html"),
       charterRevisionId,
     };
-    return publishContent(JSON.stringify(jsonToSave));
+    return this.context.publishContent(JSON.stringify(jsonToSave));
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    return challengeListingWithUri(this.props.listingAddress, this.state.challengeStatementUri!);
+    return this.context.challengeListingWithUri(this.props.listingAddress, this.state.challengeStatementUri!);
   };
 }
 

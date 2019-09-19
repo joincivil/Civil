@@ -21,8 +21,8 @@ import {
 } from "../redux/actionCreators/challenges";
 import { addListing, setLoadingFinished } from "../redux/actionCreators/listings";
 import { addUserNewsroom, addContent, addCharterRevision } from "../redux/actionCreators/newsrooms";
-import { getCivil, getTCR } from "./civilInstance";
 import { addUserProposalChallengeData } from "../redux/actionCreators/parameterizer";
+import { CivilHelper } from "../apis/CivilHelper";
 
 const listingTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
@@ -31,9 +31,13 @@ let currentListingSubscriptions: Subscription | undefined;
 
 const allNewsroomContentRevisionsSubscriptions = new Map<EthAddress, Subscription>();
 
-export async function initializeSubscriptions(dispatch: Dispatch<any>, network: number): Promise<void> {
-  const tcr = await getTCR();
-  const civil = getCivil();
+export async function initializeSubscriptions(
+  helper: CivilHelper,
+  dispatch: Dispatch<any>,
+  network: number,
+): Promise<void> {
+  const tcr = await helper.getTCR();
+  const civil = helper.civil;
   const current = await civil.currentBlock();
   const civilGenesisBlock = getDefaultFromBlock(network);
 
@@ -41,7 +45,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>, network: 
 
   initialListingSubscriptions = initialLoadObservable.subscribe(
     async (listing: ListingWrapper) => {
-      await getNewsroom(dispatch, listing.address);
+      await getNewsroom(helper, dispatch, listing.address);
       setupListingCallback(listing, dispatch);
       dispatch(addListing(listing));
     },
@@ -51,7 +55,7 @@ export async function initializeSubscriptions(dispatch: Dispatch<any>, network: 
     () => {
       dispatch(setLoadingFinished());
       currentListingSubscriptions = tcr.allEventsFromBlock(current).subscribe(async (listing: ListingWrapper) => {
-        await getNewsroom(dispatch, listing.address);
+        await getNewsroom(helper, dispatch, listing.address);
         setupListingCallback(listing, dispatch);
         dispatch(addListing(listing));
       });
@@ -90,51 +94,60 @@ let allPropChallengeIDs: Set<string> = new Set();
 let propChallengeIDsToPropIDs: Map<string, string> = new Map();
 
 async function checkChallengeForUserPoll(
+  helper: CivilHelper,
   challengeId: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
   if (allUserPollIDs.has(challengeId.toString())) {
-    await getChallenge(challengeId, dispatch, user);
+    await getChallenge(helper, challengeId, dispatch, user);
   }
 }
 
 async function checkAppealChallengeForUserPoll(
+  helper: CivilHelper,
   appealChallengeID: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
   if (allUserPollIDs.has(appealChallengeID.toString())) {
-    await getAppealChallenge(appealChallengeID, dispatch, user);
+    await getAppealChallenge(helper, appealChallengeID, dispatch, user);
   }
 }
 
 async function checkPropChallengeIDForUserPoll(
+  helper: CivilHelper,
   propChallengeID: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
   if (allUserPollIDs.has(propChallengeID.toString())) {
-    await getPropChallenge(propChallengeID, dispatch, user);
+    await getPropChallenge(helper, propChallengeID, dispatch, user);
   }
 }
 
 async function checkUserPollForChallengeType(
+  helper: CivilHelper,
   pollID: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
   if (allChallengeIDs.has(pollID.toString())) {
-    await getChallenge(pollID, dispatch, user);
+    await getChallenge(helper, pollID, dispatch, user);
   } else if (allAppealChallengeIDs.has(pollID.toString())) {
-    await getAppealChallenge(pollID, dispatch, user);
+    await getAppealChallenge(helper, pollID, dispatch, user);
   } else if (allPropChallengeIDs.has(pollID.toString())) {
-    await getPropChallenge(pollID, dispatch, user);
+    await getPropChallenge(helper, pollID, dispatch, user);
   }
 }
 
-async function getChallenge(challengeId: BigNumber, dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
-  const tcr = await getTCR();
+async function getChallenge(
+  helper: CivilHelper,
+  challengeId: BigNumber,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
+  const tcr = await helper.getTCR();
   const listingAddress = challengeIdsToListingAddresses.get(challengeId.toString())!;
   const wrappedChallenge = await tcr.getChallengeData(challengeId, listingAddress);
   dispatch(addChallenge(wrappedChallenge));
@@ -143,13 +156,14 @@ async function getChallenge(challengeId: BigNumber, dispatch: Dispatch<any>, use
 }
 
 async function getAppealChallenge(
+  helper: CivilHelper,
   appealChallengeID: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
   const challengeId = new BigNumber(appealChallengesToChallengeIDs.get(appealChallengeID.toString())!);
   const listingAddress = challengeIdsToListingAddresses.get(challengeId.toString())!;
-  const tcr = await getTCR();
+  const tcr = await helper.getTCR();
   const wrappedChallenge = await tcr.getChallengeData(challengeId, listingAddress);
   dispatch(addChallenge(wrappedChallenge));
   const challengeUserData = await tcr.getUserAppealChallengeData(appealChallengeID, user);
@@ -158,17 +172,22 @@ async function getAppealChallenge(
 }
 
 async function getPropChallenge(
+  helper: CivilHelper,
   proposalChallengeID: BigNumber,
   dispatch: Dispatch<any>,
   user: EthAddress,
 ): Promise<void> {
-  const tcr = await getTCR();
+  const tcr = await helper.getTCR();
   const parameterizer = await tcr.getParameterizer();
   const propChallengeUserData = await parameterizer.getUserProposalChallengeData(proposalChallengeID, user);
   dispatch(addUserProposalChallengeData(proposalChallengeID.toString(), user, propChallengeUserData));
 }
 
-export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, user: EthAddress): Promise<void> {
+export async function initializeChallengeSubscriptions(
+  helper: CivilHelper,
+  dispatch: Dispatch<any>,
+  user: EthAddress,
+): Promise<void> {
   if (challengeSubscription) {
     challengeSubscription.unsubscribe();
   }
@@ -187,15 +206,15 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   allPropChallengeIDs = new Set();
   propChallengeIDsToPropIDs = new Map();
 
-  const tcr = await getTCR();
-  const civil = getCivil();
+  const tcr = await helper.getTCR();
+  const civil = helper.civil;
   const current = await civil.currentBlock();
   const parameterizer = await tcr.getParameterizer();
 
   tcr.allChallengeIDsEver().subscribe(async (wrappedChallengeID: WrappedChallengeID) => {
     allChallengeIDs.add(wrappedChallengeID.challengeID.toString());
     challengeIdsToListingAddresses.set(wrappedChallengeID.challengeID.toString(), wrappedChallengeID.listingAddress);
-    await checkChallengeForUserPoll(wrappedChallengeID.challengeID, dispatch, user);
+    await checkChallengeForUserPoll(helper, wrappedChallengeID.challengeID, dispatch, user);
   });
   tcr.allAppealChallengeIDsEver().subscribe(async (wrappedAppealChallengeID: WrappedAppealChallengeID) => {
     allAppealChallengeIDs.add(wrappedAppealChallengeID.appealChallengeToChallengeID.appealChallengeID.toString());
@@ -204,6 +223,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
       wrappedAppealChallengeID.appealChallengeToChallengeID.challengeID.toString(),
     );
     await checkAppealChallengeForUserPoll(
+      helper,
       wrappedAppealChallengeID.appealChallengeToChallengeID.appealChallengeID,
       dispatch,
       user,
@@ -212,7 +232,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
   parameterizer.allProposalChallengeIDsEver().subscribe(async (wrappedPropID: WrappedPropID) => {
     allPropChallengeIDs.add(wrappedPropID.challengeID.toString());
     propChallengeIDsToPropIDs.set(wrappedPropID.challengeID.toString(), wrappedPropID.propID);
-    await checkPropChallengeIDForUserPoll(wrappedPropID.challengeID, dispatch, user);
+    await checkPropChallengeIDForUserPoll(helper, wrappedPropID.challengeID, dispatch, user);
   });
 
   // TODO: also add support for govt proposals
@@ -222,7 +242,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
     .votesCommitted(undefined, user)
     .subscribe(async (pollID: BigNumber) => {
       allUserPollIDs.add(pollID.toString());
-      await checkUserPollForChallengeType(pollID, dispatch, user);
+      await checkUserPollForChallengeType(helper, pollID, dispatch, user);
     });
 
   newChallengeActionsSubscription = Observable.merge(
@@ -236,7 +256,7 @@ export async function initializeChallengeSubscriptions(dispatch: Dispatch<any>, 
       dispatch(addUserChallengeData(challengeId.toString(), user, challengeUserData));
 
       // if the challenge ID corresponds to an appeal challenge, get any user data for it
-      if (!pollID.equals(challengeId)) {
+      if (!pollID.eq(challengeId)) {
         const appealChallengeUserData = await tcr.getUserAppealChallengeData(pollID, user);
         dispatch(addUserAppealChallengeData(pollID.toString(), user, appealChallengeUserData));
         dispatch(linkAppealChallengeToChallenge(pollID.toString(), challengeId.toString()));
@@ -278,8 +298,8 @@ export function clearChallengeSubscriptions(): any {
   }
 }
 
-export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
-  const civil = getCivil();
+export async function getNewsroom(helper: CivilHelper, dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
+  const civil = helper.civil;
   const user = await civil.accountStream.first().toPromise();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
@@ -303,12 +323,13 @@ async function delay(ms: number): Promise<any> {
 }
 
 export async function getIPFSContent(
+  helper: CivilHelper,
   header: StorageHeader,
   dispatch: Dispatch<any>,
   wait: number = 1000,
   tries: number = 0,
 ): Promise<void> {
-  const civil = getCivil();
+  const civil = helper.civil;
   const content = await civil.getContent(header);
   if (content) {
     const parsedContent = JSON.parse(content.toString());
@@ -318,7 +339,7 @@ export async function getIPFSContent(
     if (header.uri !== "" && tries < 6) {
       console.warn("Retrying getIPFSContent. wait = " + wait + "ms");
       await delay(wait);
-      return getIPFSContent(header, dispatch, wait * 2, tries + 1);
+      return getIPFSContent(helper, header, dispatch, wait * 2, tries + 1);
     } else if (header.uri !== "" && tries >= 6) {
       console.error("Unable to find IPFS content after 6 tries. header: ", header);
     }

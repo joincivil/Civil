@@ -40,6 +40,7 @@ import {
   GovtProposalCommitStageLenLabelText,
   GovtProposalRevealStageLenLabelText,
   AppealVoteDispensationPctLabelText,
+  ICivilContext,
 } from "@joincivil/components";
 import { getFormattedParameterValue, Parameters, GovernmentParameters } from "@joincivil/utils";
 
@@ -188,6 +189,7 @@ export interface ParameterizerPageState {
 
 class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any>, ParameterizerPageState> {
   public static contextType = CivilContext;
+  public context: ICivilContext;
 
   constructor(props: ParameterizerPageProps & DispatchProp<any>) {
     super(props);
@@ -206,7 +208,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(
         Parameters.pMinDeposit,
-        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+        civil!.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
       );
 
     return (
@@ -326,13 +328,13 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(
         Parameters.pMinDeposit,
-        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+        civil!.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
       );
     const pApplyLenText =
       this.props.parameters[Parameters.pApplyStageLen] &&
       getFormattedParameterValue(
         Parameters.pApplyStageLen,
-        civil.toBigNumber(this.props.parameters[Parameters.pApplyStageLen].toString()),
+        civil!.toBigNumber(this.props.parameters[Parameters.pApplyStageLen].toString()),
       );
 
     return (
@@ -399,7 +401,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
       this.props.parameters[Parameters.pMinDeposit] &&
       getFormattedParameterValue(
         Parameters.pMinDeposit,
-        civil.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
+        civil!.toBigNumber(this.props.parameters[Parameters.pMinDeposit].toString()),
       );
 
     return (

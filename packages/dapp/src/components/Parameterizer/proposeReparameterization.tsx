@@ -2,7 +2,7 @@ import * as React from "react";
 import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { StyledFormContainer, FormGroup, InputElement, InputSelectElement } from "../utility/FormElements";
-import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { TwoStepEthTransaction } from "@joincivil/core";
 import { BigNumber } from "@joincivil/typescript-types";
 
@@ -20,6 +20,9 @@ export class ProposeReparameterization extends React.Component<
   ProposeReparameterizationProps,
   ProposeReparameterizationState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -52,7 +55,7 @@ export class ProposeReparameterization extends React.Component<
           <FormGroup>
             <TransactionButton
               transactions={[
-                { transaction: approveForProposeReparameterization },
+                { transaction: this.context.approveForProposeReparameterization },
                 { transaction: this.proposeReparameterization },
               ]}
             >
@@ -87,6 +90,6 @@ export class ProposeReparameterization extends React.Component<
       throw new Error("oops. the proposal is missing some key args.");
     }
     const newValue: BigNumber = new BigNumber(this.state.newValue);
-    return proposeReparameterization(this.state.paramName, newValue);
+    return this.context.proposeReparameterization(this.state.paramName, newValue);
   };
 }

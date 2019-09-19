@@ -2,7 +2,7 @@ import * as React from "react";
 import { BigNumber } from "@joincivil/typescript-types";
 import { ParamProposalState } from "@joincivil/core";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
+import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer, ICivilContext } from "@joincivil/components";
 
 import { StyledHiddenOnMobile } from "./Parameter";
 
@@ -15,6 +15,7 @@ export interface ProposalProps {
 
 export class Proposal extends React.Component<ProposalProps> {
   public static contextType = CivilContext;
+  public context: ICivilContext;
 
   public render(): JSX.Element {
     return (

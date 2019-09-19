@@ -38,8 +38,8 @@ export interface BoostPayFormEthState {
 }
 
 export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, BoostPayFormEthState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   constructor(props: BoostPayFormEthProps) {
     super(props);

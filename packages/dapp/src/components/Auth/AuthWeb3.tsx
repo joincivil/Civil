@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { EthSignedMessage } from "@joincivil/typescript-types";
-import { setApolloSession, getCurrentUserQuery } from "@joincivil/utils";
+import { getCurrentUserQuery } from "@joincivil/utils";
 import {
   CivilContext,
   ICivilContext,
@@ -33,17 +33,13 @@ export interface AuthWeb3State {
   onErrContinue?(): void;
 }
 
-// TODO(jon): This is a simple function to handle the auth behavior.
-// We should probably abstract this into a AuthManager class?
-function loginUser(sessionData: any): void {
-  setApolloSession(sessionData);
-}
-
 const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
 const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
 
 class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   private _isMounted?: boolean;
 
   constructor(props: AuthWeb3Props) {
@@ -60,10 +56,10 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
 
   public render(): JSX.Element {
     return (
-      <Mutation
+      <Mutation<any>
         mutation={this.props.authMutation}
         refetchQueries={({ data: { authWeb3 } }) => {
-          loginUser(authWeb3);
+          this.context.auth.loginUser(authWeb3).catch(err => console.error("loginUser error", err));
           return [{ query: getCurrentUserQuery }];
         }}
       >

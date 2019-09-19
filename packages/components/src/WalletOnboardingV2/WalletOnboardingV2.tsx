@@ -221,7 +221,6 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
         return <>{this.props.children}</>;
       }
     }
-
     if (!isBrowserCompatible()) {
       return this.renderBrowserIncompatible();
     } else if (!hasInjectedProvider()) {
@@ -235,7 +234,7 @@ export class WalletOnboardingV2 extends React.Component<WalletOnboardingV2Props,
     } else if (this.props.metamaskWalletAddress) {
       if (!this.props.profileWalletAddress) {
         return this.renderSaveAddress();
-      } else if (this.props.metamaskWalletAddress !== this.props.profileWalletAddress) {
+      } else if (this.props.metamaskWalletAddress.toLowerCase() !== this.props.profileWalletAddress.toLowerCase()) {
         return this.renderAddressMismatch();
       }
     }

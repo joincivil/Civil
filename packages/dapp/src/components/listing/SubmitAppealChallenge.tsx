@@ -5,7 +5,6 @@ import { formatRoute } from "react-router-named-routes";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  CivilContext,
   InsufficientCVLForAppealChallenge,
   ModalContent,
   ModalUnorderedList,
@@ -18,7 +17,7 @@ import {
 import { getFormattedParameterValue, Parameters, GovernmentParameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { approveForChallengeGrantedAppeal, publishContent, challengeGrantedAppealWithUri } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { State } from "../../redux/reducers";
 import {
   InjectedTransactionStatusModalProps,
@@ -112,7 +111,8 @@ class SubmitAppealChallengeComponent extends React.Component<
   SubmitAppealChallengeProps & SubmitAppealChallengeReduxProps & InjectedTransactionStatusModalProps,
   SubmitAppealChallengeState
 > {
-  public static contextType = CivilContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
 
   public async componentWillMount(): Promise<void> {
     const transactionSuccessContent = this.getTransactionSuccessContent();
@@ -193,7 +193,7 @@ class SubmitAppealChallengeComponent extends React.Component<
             isTransactionSuccessModalOpen: false,
             transactionType: TransactionTypes.APPROVE_CHALLENGE_APPEAL,
           });
-          return approveForChallengeGrantedAppeal();
+          return this.context.approveForChallengeGrantedAppeal();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -305,11 +305,14 @@ class SubmitAppealChallengeComponent extends React.Component<
       summary: challengeStatementSummaryValue,
       details: challengeStatementDetailsValue.toString("html"),
     };
-    return publishContent(JSON.stringify(jsonToSave));
+    return this.context.publishContent(JSON.stringify(jsonToSave));
   };
 
   private challengeGrantedAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return challengeGrantedAppealWithUri(this.props.listingAddress, this.state.appealChallengeStatementUri!);
+    return this.context.challengeGrantedAppealWithUri(
+      this.props.listingAddress,
+      this.state.appealChallengeStatementUri!,
+    );
   };
 }
 

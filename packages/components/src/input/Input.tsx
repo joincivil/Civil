@@ -32,6 +32,7 @@ export interface InputBaseProps {
   value?: string;
   placeholder?: string;
   autocomplete?: string;
+  pattern?: string;
   defaultValue?: any;
   type?: string;
   min?: string;

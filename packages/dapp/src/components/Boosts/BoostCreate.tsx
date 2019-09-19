@@ -24,6 +24,7 @@ import {
   newsroomChannelAdminQuery,
   newsroomChannelsFromQueryData,
 } from "../Dashboard/ManageNewsroom/WithNewsroomChannelAdminList";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const NoNewsroomMessage = styled.div`
   font-size: 16px;
@@ -66,6 +67,9 @@ class BoostCreatePage extends React.Component<
   WithApolloClient<BoostCreatePageProps & DispatchProp<any>>,
   BoostCreatePageState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {};
@@ -220,10 +224,10 @@ class BoostCreatePage extends React.Component<
 
   private async fetchNewsroomData(): Promise<void> {
     if (!this.props.newsroom && this.props.currentUserNewsrooms.first()) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.currentUserNewsrooms.first()));
+      this.props.dispatch!(fetchAndAddListingData(this.context, this.props.currentUserNewsrooms.first()));
     }
     if (this.props.newsroom && !this.props.charter) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.wrapper.data.charterHeader!));
     }
   }
 }

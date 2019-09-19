@@ -8,7 +8,7 @@ import {
   ModalContent,
 } from "@joincivil/components";
 
-import { confirmAppeal, grantAppeal } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import {
   ChallengeContainerProps,
   connectChallengePhase,
@@ -76,6 +76,9 @@ class AwaitingAppealDecision extends React.Component<
   AppealDetailProps & InjectedTransactionStatusModalProps,
   AwaitingAppealDecisionState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: AppealDetailProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {

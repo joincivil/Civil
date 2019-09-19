@@ -15,7 +15,7 @@ import {
 import { State } from "../../redux/reducers";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { getUserChallengesWithRescueTokens } from "../../selectors";
-import { withdrawVotingRights } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { FormGroup } from "../utility/FormElements";
 
 enum TransactionTypes {
@@ -73,6 +73,9 @@ class ReclaimTokensComponent extends React.Component<
   ReclaimTokenProps & ReclaimTokenReduxProps & InjectedTransactionStatusModalProps,
   ReclaimTokensState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: ReclaimTokenReduxProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
@@ -150,7 +153,7 @@ class ReclaimTokensComponent extends React.Component<
 
   private withdrawVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens = parseEther(this.state.numTokens!);
-    return withdrawVotingRights(numTokens);
+    return this.context.withdrawVotingRights(numTokens);
   };
 
   private updateViewState = (name: string, value: string): void => {

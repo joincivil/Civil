@@ -12,17 +12,16 @@ import {
   addOrUpdateGovtProposal,
   checkAndUpdateGovtParameterProposalState,
 } from "../redux/actionCreators/government";
-import { getGovernmentParameters } from "../apis/civilTCR";
-import { getCivil, getTCR } from "./civilInstance";
+import { CivilHelper } from "../apis/CivilHelper";
 import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
 import { Observable } from "rxjs";
 
 const paramProposalTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 
-export async function initializeGovernment(dispatch: Dispatch<any>): Promise<void> {
+export async function initializeGovernment(helper: CivilHelper, dispatch: Dispatch<any>): Promise<void> {
   const paramKeys: string[] = Object.values(GovernmentParameters);
-  const parameterVals = await getGovernmentParameters(paramKeys);
+  const parameterVals = await helper.getGovernmentParameters(paramKeys);
   const paramObj = parameterVals.reduce((acc, item, index) => {
     acc[paramKeys[index]] = item.toString();
     return acc;
@@ -31,9 +30,12 @@ export async function initializeGovernment(dispatch: Dispatch<any>): Promise<voi
   dispatch(multiSetGovtParameters(paramObj));
 }
 
-export async function initializeGovernmentParamSubscription(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = await getTCR();
-  const civil = getCivil();
+export async function initializeGovernmentParamSubscription(
+  helper: CivilHelper,
+  dispatch: Dispatch<any>,
+): Promise<void> {
+  const tcr = await helper.getTCR();
+  const civil = helper.civil;
   const current = await civil.currentBlock();
   const govt = await tcr.getGovernment();
   govt.getParameterSet(current).subscribe(async (p: Param) => {
@@ -41,8 +43,11 @@ export async function initializeGovernmentParamSubscription(dispatch: Dispatch<a
   });
 }
 
-export async function initializeGovtProposalsSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = await getTCR();
+export async function initializeGovtProposalsSubscriptions(
+  helper: CivilHelper,
+  dispatch: Dispatch<any>,
+): Promise<void> {
+  const tcr = await helper.getTCR();
   const government = await tcr.getGovernment();
   await Observable.merge(
     government.propIDsInCommitPhase(),
@@ -98,6 +103,7 @@ async function getNextTimerExpiry(paramProposal: any, dispatch: Dispatch<any>): 
 }
 
 async function setupGovtParamProposalCallback(
+  helper: CivilHelper,
   paramProposal: any,
   isInit: boolean,
   dispatch: Dispatch<any>,
@@ -118,17 +124,17 @@ async function setupGovtParamProposalCallback(
   if (delay > 0) {
     paramProposalTimeouts.set(
       paramProposal.id,
-      setTimeout(dispatch, delay, checkAndUpdateGovtParameterProposalState(paramProposal.id)),
+      setTimeout(dispatch, delay, helper, checkAndUpdateGovtParameterProposalState(helper, paramProposal.id)),
     );
     setTimeoutTimeouts.set(
       paramProposal.id,
-      setTimeout(setupGovtParamProposalCallback, delay, paramProposal, false, dispatch),
+      setTimeout(setupGovtParamProposalCallback, delay, helper, paramProposal, false, dispatch),
     );
   }
 }
 
-export async function initializeConstitution(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = await getTCR();
+export async function initializeConstitution(helper: CivilHelper, dispatch: Dispatch<any>): Promise<void> {
+  const tcr = await helper.getTCR();
   const govt = await tcr.getGovernment();
   const council = await tcr.getCouncil();
   const uri = await govt.getConstitutionURI();

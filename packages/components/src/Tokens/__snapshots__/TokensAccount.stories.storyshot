@@ -160,6 +160,34 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   </a>
                 </div>
               </div>
+              <div
+                className="sc-LzMZH jwXhIj"
+              >
+                <p>
+                  or
+                </p>
+              </div>
+              <div>
+                <h3>
+                  Buy Civil tokens on the open market
+                </h3>
+                <p>
+                  The Civil community can buy and sell Civil tokens between each other without a middle man, sometimes resulting in a lower price than offered by The Civil Media Company. Tokens bought on the open market perform the exact same utility as those purchased directly from The Civil Media Company, however none of the proceeds go to the Civil Foundation. Instead, the funds go to a third-party buyer.
+                </p>
+                <div />
+              </div>
+              <div
+                className="sc-LzNaO lgmylV"
+              >
+                By clicking buy to purchase Civil tokens, you agree to the
+                 
+                <a
+                  href="https://civil.co/terms-of-sale/"
+                  target="_blank"
+                >
+                  Terms of Sale.
+                </a>
+              </div>
             </div>
           </div>
         </div>

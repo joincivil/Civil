@@ -2,7 +2,7 @@ import * as React from "react";
 import { CurrencyConverterSection } from "../../CurrencyConverter";
 import { CivilContext, ICivilContext } from "../../context";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
-import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
+import { EthereumTransactionButton } from "../EthereumTransactionButton";
 
 export interface UniswapBuyProps {
   usdToSpend: number;
@@ -11,7 +11,9 @@ export interface UniswapBuyProps {
   onBuyComplete(): void;
 }
 export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   private isComponentMounted = true;
   constructor(props: UniswapBuyProps) {
     super(props);
@@ -79,7 +81,7 @@ export class UniswapBuy extends React.Component<UniswapBuyProps, any> {
     }
   }
 
-  private async buyCVL(): Promise<EthereumTransactionInfo> {
+  private async buyCVL(): Promise<any> {
     const uniswap = this.context.uniswap;
     const weiToSpend = uniswap.parseEther(this.props.ethToSpend.toString());
     return uniswap.executeETHToCVL(weiToSpend, this.state.cvlToReceive);

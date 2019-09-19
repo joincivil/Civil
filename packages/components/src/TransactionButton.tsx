@@ -90,7 +90,7 @@ export const PrimaryTransactionButton: React.FunctionComponent<TransactionButton
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
-    <Button onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+    <Button onClick={e => props.onClick(e)} disabled={props.disabled} size={buttonSizes.MEDIUM}>
       {props.step === 1 && "Waiting for confirmation..."}
       {props.step === 2 && "Processing..."}
       {props.step === 0 && props.children}
@@ -102,7 +102,7 @@ export const InvertedTransactionButton: React.FunctionComponent<TransactionButto
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
-    <InvertedButton onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+    <InvertedButton onClick={e => props.onClick(e)} disabled={props.disabled} size={buttonSizes.MEDIUM}>
       {props.step === 1 && "Waiting for confirmation..."}
       {props.step === 2 && "Processing..."}
       {props.step === 0 && props.children}
@@ -114,7 +114,7 @@ export const DarkTransactionButton: React.FunctionComponent<TransactionButtonInn
   props: TransactionButtonInnerProps,
 ): JSX.Element => {
   return (
-    <DarkButton onClick={props.onClick} disabled={props.disabled} size={buttonSizes.MEDIUM}>
+    <DarkButton onClick={e => props.onClick(e)} disabled={props.disabled} size={buttonSizes.MEDIUM}>
       {props.step === 1 && "Waiting for confirmation..."}
       {props.step === 2 && "Processing..."}
       {props.step === 0 && props.children}
@@ -123,7 +123,8 @@ export const DarkTransactionButton: React.FunctionComponent<TransactionButtonInn
 };
 
 export class TransactionButtonNoModal extends React.Component<TransactionButtonProps, TransactionButtonState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   constructor(props: TransactionButtonProps) {
     super(props);
@@ -157,7 +158,6 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
   private onClick = async () => {
     const { civil } = this.context;
-
     if (civil && civil.currentProvider) {
       await civil.currentProviderEnable();
 
@@ -224,6 +224,7 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
 
         return this.executeTransactions(transactions);
       } catch (err) {
+        console.log("error executing transaction", err);
         this.setState({ step: 0, disableButton: false });
 
         if (currTransaction.handleTransactionError) {

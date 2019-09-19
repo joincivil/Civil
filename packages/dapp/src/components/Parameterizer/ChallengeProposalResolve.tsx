@@ -9,7 +9,7 @@ import {
   ModalContent,
 } from "@joincivil/components";
 
-import { resolveReparameterizationChallenge, updateGovernmentProposal } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ChallegeProposalResolveProps extends ResolveChallengeProposalComponentProps, ChallengeResultsProps {
@@ -62,6 +62,9 @@ const transactionStatusModalConfig = {
 class ChallengeProposalResolve extends React.Component<
   ChallegeProposalResolveProps & InjectedTransactionStatusModalProps
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.props.handleClose);
@@ -113,9 +116,9 @@ class ChallengeProposalResolve extends React.Component<
 
   private resolveChallenge = async (): Promise<TwoStepEthTransaction<any> | void> => {
     if (this.props.isGovtProposal) {
-      return updateGovernmentProposal(this.props.propID.toString());
+      return this.context.updateGovernmentProposal(this.props.propID.toString());
     } else {
-      return resolveReparameterizationChallenge(this.props.propID!.toString());
+      return this.context.resolveReparameterizationChallenge(this.props.propID!.toString());
     }
   };
 }

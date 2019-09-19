@@ -12,7 +12,7 @@ export interface DataWrapperProps {
 export class DataWrapper extends React.Component<DataWrapperProps> {
   public render(): JSX.Element {
     return (
-      <Query query={userDataQuery}>
+      <Query<any> query={userDataQuery}>
         {({ loading, error, data: userData }) => {
           if (loading) {
             return "Loading...";
@@ -26,7 +26,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
           }
 
           return (
-            <Query query={getCharterQuery}>
+            <Query<any> query={getCharterQuery}>
               {({ loading: charterLoading, error: charterError, data: charterData, refetch: refetchCharterQuery }) => {
                 if (charterLoading) {
                   return "Loading...";
@@ -64,7 +64,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                 }
 
                 return (
-                  <Mutation
+                  <Mutation<any>
                     mutation={SaveAddressMutation}
                     refetchQueries={[
                       {

@@ -1,7 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-import { FeatureFlag } from "../features/FeatureFlag";
+import { FeatureFlag } from "../features";
 import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuContainer, StyledNavMenuResponsiveContainer, StyledMobileNavMenu } from "./styledComponents";
 import {

@@ -13,7 +13,7 @@ import {
   ModalListItem,
 } from "@joincivil/components";
 
-import { approveVotingRightsForCommit, commitVote } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
@@ -88,6 +88,9 @@ class ChallengeProposalCommitVote extends React.Component<
   ChallengeDetailProps & ChallengeProposalCommitVoteComponentProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public constructor(
     props: ChallengeDetailProps & ChallengeProposalCommitVoteComponentProps & InjectedTransactionStatusModalProps,
   ) {
@@ -224,7 +227,7 @@ class ChallengeProposalCommitVote extends React.Component<
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens = parseEther(this.state.numTokens!);
-    return approveVotingRightsForCommit(numTokens);
+    return this.context.approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -233,7 +236,7 @@ class ChallengeProposalCommitVote extends React.Component<
     const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens = parseEther(this.state.numTokens!);
     saveVote(this.props.challengeID, this.props.user, voteOption);
-    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
+    return this.context.commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 
   private handleReviewVote = () => {

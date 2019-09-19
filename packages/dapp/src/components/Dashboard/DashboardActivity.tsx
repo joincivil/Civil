@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { Map, Set } from "immutable";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress } from "@joincivil/core";
 import {
