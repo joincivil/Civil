@@ -15,7 +15,6 @@ export interface ListingHistoryProps {
 
 export interface ListingHistoryReduxProps extends ListingHistoryProps {
   listingHistory: List<any>;
-  useGraphql: boolean;
 }
 
 export interface ListingHistoryState {
@@ -47,8 +46,7 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
     return (
       <>
         <ListingTabHeading>Listing History</ListingTabHeading>
-        {this.props.useGraphql && this.renderGraphQLHistory()}
-        {!this.props.useGraphql && this.renderReduxHistory()}
+        {this.renderGraphQLHistory()}
       </>
     );
   }
@@ -90,23 +88,12 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
       args,
     };
   };
-
-  public renderReduxHistory(): JSX.Element {
-    return (
-      <>
-        {this.props.listingHistory.map((e, i) => {
-          return <ListingEvent key={i} event={e} listing={this.props.listingAddress} />;
-        })}
-      </>
-    );
-  }
 }
 
 const mapToStateToProps = (state: State, ownProps: ListingHistoryProps): ListingHistoryReduxProps => {
   return {
     ...ownProps,
     listingHistory: getListingHistory(state, ownProps),
-    useGraphql: state.useGraphQL,
   };
 };
 

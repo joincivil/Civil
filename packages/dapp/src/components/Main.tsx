@@ -12,7 +12,6 @@ import { routes, registryListingTypes, registrySubListingTypes, dashboardTabs, d
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { catchWindowOnError } from "../redux/actionCreators/errors";
-import { isGraphQLSupportedOnNetwork, isNetworkSupported } from "../helpers/networkHelpers";
 import {
   initializeGovernment,
   initializeGovernmentParamSubscription,
@@ -25,7 +24,9 @@ import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
-import { initialize, disableGraphQL } from "../redux/actionCreators/ui";
+
+import { isNetworkSupported } from "../helpers/networkHelpers";
+
 import AsyncComponent from "./utility/AsyncComponent";
 import { analyticsEvent } from "../redux/actionCreators/analytics";
 import { CivilHelperContext } from "../apis/CivilHelper";
@@ -95,9 +96,6 @@ export const Main: React.FunctionComponent = () => {
   async function onNetworkUpdated(network: number): Promise<void> {
     dispatch!(setNetwork(network.toString()));
     setNetworkValue(network);
-    if (!isGraphQLSupportedOnNetwork(network)) {
-      dispatch!(disableGraphQL());
-    }
 
     try {
       await initializeParameterizer(civilHelper!, dispatch!);
@@ -107,7 +105,6 @@ export const Main: React.FunctionComponent = () => {
       await initializeGovernmentParamSubscription(civilHelper!, dispatch!);
       await initializeGovtProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeContractAddresses(civilHelper!, dispatch!);
-      await dispatch!(await initialize(civilHelper!));
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
         throw err;

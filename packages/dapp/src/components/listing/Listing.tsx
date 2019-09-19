@@ -16,7 +16,6 @@ import ScrollToTopOnMount from "../utility/ScrollToTop";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
-import ListingReduxContainer from "./ListingReduxContainer";
 import ListingRedux from "./ListingRedux";
 
 export interface ListingPageProps {
@@ -25,20 +24,15 @@ export interface ListingPageProps {
   history: any;
 }
 
-export interface ListingPageReduxProps {
-  useGraphQl: boolean;
-}
-
 export interface PreListingReduxProps {
   newsroom?: NewsroomState;
   listing?: ListingWrapper;
 }
 
-class ListingPageComponent extends React.Component<ListingPageProps & ListingPageReduxProps> {
+class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
     const listingAddress = this.props.listingAddress;
-    if (this.props.useGraphQl) {
-      return (
+    return (
         <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
           {({ loading, error, data }: any): JSX.Element => {
             if (loading || !data) {
@@ -69,21 +63,12 @@ class ListingPageComponent extends React.Component<ListingPageProps & ListingPag
           }}
         </Query>
       );
-    } else {
-      return (
-        <>
-          <ScrollToTopOnMount />
-          <ListingReduxContainer listingAddress={listingAddress} />
-        </>
-      );
-    }
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingPageProps & ListingPageReduxProps => {
+const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingPageProps => {
   return {
     ...ownProps,
-    useGraphQl: state.useGraphQL,
     listingAddress: ownProps.match.params.listingAddress,
   };
 };

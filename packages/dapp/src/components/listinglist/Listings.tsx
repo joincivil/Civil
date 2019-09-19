@@ -38,7 +38,6 @@ export interface ListingReduxProps {
   govtParameters: any;
   error: undefined | string;
   loadingFinished: boolean;
-  useGraphQL: boolean;
   userAcct: EthAddress;
 }
 
@@ -102,7 +101,6 @@ class Listings extends React.Component<ListingProps & ListingReduxProps> {
 
 const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & ListingReduxProps => {
   const { parameters, govtParameters, user } = state.networkDependent;
-  const useGraphQL = state.useGraphQL;
   const userAcct = user && user.account && user.account.account;
   return {
     ...ownProps,
@@ -110,7 +108,6 @@ const mapStateToProps = (state: State, ownProps: ListingProps): ListingProps & L
     govtParameters,
     error: undefined,
     loadingFinished: true,
-    useGraphQL,
     userAcct,
   };
 };
