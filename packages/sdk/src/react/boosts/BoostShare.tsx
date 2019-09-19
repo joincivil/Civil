@@ -47,26 +47,26 @@ export class BoostShare extends React.Component<BoostShareProps> {
   }
 
   private getEmailURL = (url: string) => {
-    const subjectText = "Support this newsroom with a Boost";
+    const subjectText = "You can support " + this.props.newsroom + " with a Boost";
     const bodyText =
-      "Support this newsroom on Civil - " +
-      this.props.title +
-      "%0D%0D" +
-      url +
-      "%0D%0D" +
+      "I just gave supported " +
       this.props.newsroom +
+      " a Boost on the Civil Registry. Now, " +
+      this.props.newsroom +
+      " also needs your support to make their journalism project a success! " +
       "%0D%0D" +
-      " are using Civil Boosts. Boosts are a peer-to-peer fundraising tool that allows newsrooms on the Registry to raise funds for specific journalism initiatives." +
-      "%0D%0D" +
-      "Pass this along to anyone else you know who may want to support a newsroom Boost." +
-      "%0D%0D" +
-      "Thanks!";
+      +url +
+      +"%0D%0D" +
+      +"Boosts is a peer-to-peer fundraising tool that allows Civil newsrooms to raise funds for specific journalism initiatives. Feel free to pass this email on to anyone you know who may also want to support their project!" +
+      +"%0D%0D" +
+      +"Thank you!";
     const emailShare = "mailto:?subject=" + encodeURI(subjectText) + "&amp;body=" + encodeURI(bodyText);
     return emailShare;
   };
 
   private getTweetURL = (url: string) => {
-    const shareText = "Support this Boost on @Civil - " + this.props.title;
+    const shareText =
+      "Help give " + this.props.newsroom + " a Boost on @Civil by donating to their project - " + this.props.title;
     const twitterShare = "https://twitter.com/intent/tweet?text=" + encodeURI(shareText) + "&url=" + url;
     return twitterShare;
   };
