@@ -19,13 +19,14 @@ import {
   GasEstimate,
   ClipLoader,
   LoadingIndicator,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
 import { updateNewsroom, trackTx, TX_TYPE } from "../actionCreators";
-import { CivilContext, CivilContextValue } from "../CivilContext";
 import { StateWithNewsroom } from "../reducers";
 import { TransactionButtonInner } from "../TransactionButtonInner";
 import { AboutSmartContractsButton } from "./AboutSmartContractsButton";
@@ -136,6 +137,9 @@ export class CreateNewsroomContractComponent extends React.Component<
   NameAndAddressProps & DispatchProp<any>,
   NameAndAddressState
 > {
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   constructor(props: NameAndAddressProps & DispatchProp<any>) {
     super(props);
     this.state = {
@@ -235,19 +239,15 @@ export class CreateNewsroomContractComponent extends React.Component<
       : "To create your newsroom smart contract, you need to confirm the transaction in your MetaMask wallet. You will not be able to proceed without creating a newsroom smart contract.";
 
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <MetaMaskModal
-            waiting={false}
-            denied={true}
-            denialText={denialMessage}
-            cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransactions(value.civil!, true)}
-          >
-            <ModalHeading>{message}</ModalHeading>
-          </MetaMaskModal>
-        )}
-      </CivilContext.Consumer>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={() => this.cancelTransaction()}
+        denialRestartTransactions={this.getTransactions(this.context.civil!, true)}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
     );
   }
 
@@ -268,49 +268,48 @@ export class CreateNewsroomContractComponent extends React.Component<
 
   public renderNoContract(): JSX.Element {
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <>
-            <FormTitle>Let’s get your Newsroom Smart Contract started</FormTitle>
-            <Subhead>Enter or confirm your newsroom name to create your Newsroom Smart Contract.</Subhead>
-            <StyledInput
-              label="Newsroom Name"
-              placeholder="Enter your newsroom's name"
-              name="NameInput"
-              value={this.props.charter.name || ""}
-              onChange={(name: any, val: any) => this.onChange(name, val)}
-            />
-            <SmallText>
-              Estimated Cost{" "}
-              <QuestionToolTip
-                explainerText={
-                  <>
-                    Current Prices based on{" "}
-                    <ToolTipLink href="https://ethgasstation.info/" target="_blank">
-                      {"https://ethgasstation.info/"}
-                    </ToolTipLink>
-                  </>
-                }
-              />
-            </SmallText>
-            <GasEstimate
-              civil={value.civil!}
-              estimateFunctions={[
-                value.civil!.estimateNewsroomDeployTrusted.bind(
-                  value.civil,
-                  this.props.charter.name || "",
-                  STANDIN_IPFS_URL,
-                  STAND_IN_HASH,
-                ),
-              ]}
-            />
-            <TransactionButtonNoModal transactions={this.getTransactions(value.civil!)} Button={TransactionButtonInner}>
-              Create Newsroom Smart Contract
-            </TransactionButtonNoModal>
-            <SmallText>This will open your wallet asking to process your transaction.</SmallText>
-          </>
-        )}
-      </CivilContext.Consumer>
+      <>
+        <FormTitle>Let’s get your Newsroom Smart Contract started</FormTitle>
+        <Subhead>Enter or confirm your newsroom name to create your Newsroom Smart Contract.</Subhead>
+        <StyledInput
+          label="Newsroom Name"
+          placeholder="Enter your newsroom's name"
+          name="NameInput"
+          value={this.props.charter.name || ""}
+          onChange={(name: any, val: any) => this.onChange(name, val)}
+        />
+        <SmallText>
+          Estimated Cost{" "}
+          <QuestionToolTip
+            explainerText={
+              <>
+                Current Prices based on{" "}
+                <ToolTipLink href="https://ethgasstation.info/" target="_blank">
+                  {"https://ethgasstation.info/"}
+                </ToolTipLink>
+              </>
+            }
+          />
+        </SmallText>
+        <GasEstimate
+          civil={this.context.civil!}
+          estimateFunctions={[
+            this.context.civil!.estimateNewsroomDeployTrusted.bind(
+              this.context.civil,
+              this.props.charter.name || "",
+              STANDIN_IPFS_URL,
+              STAND_IN_HASH,
+            ),
+          ]}
+        />
+        <TransactionButtonNoModal
+          transactions={this.getTransactions(this.context.civil!)}
+          Button={TransactionButtonInner}
+        >
+          Create Newsroom Smart Contract
+        </TransactionButtonNoModal>
+        <SmallText>This will open your wallet asking to process your transaction.</SmallText>
+      </>
     );
   }
 

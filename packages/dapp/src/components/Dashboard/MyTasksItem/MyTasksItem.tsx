@@ -7,6 +7,7 @@ import { getContent } from "../../../redux/actionCreators/newsrooms";
 import { MyTasksItemOwnProps, MyTasksItemWrapperReduxProps } from "./MyTasksItemTypes";
 import MyTasksItemApolloQueryWrapper from "./MyTasksItemApolloQueryWrapper";
 import MyTasksItemReduxComponent from "./MyTasksItemReduxComponent";
+import { CivilHelperContext } from "../../../apis/CivilHelper";
 
 const MyTasksItemWrapper: React.FunctionComponent<
   MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>
@@ -31,8 +32,10 @@ const MyTasksItemWrapper: React.FunctionComponent<
     content,
   };
 
+  const helper = React.useContext(CivilHelperContext);
+
   const getCharterContent = async (charterHeader: EthContentHeader) => {
-    dispatch!(await getContent(charterHeader));
+    dispatch!(await getContent(helper!, charterHeader));
   };
 
   if (useGraphQL) {

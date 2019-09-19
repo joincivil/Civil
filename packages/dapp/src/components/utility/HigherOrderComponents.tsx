@@ -27,6 +27,7 @@ import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface GraphQLizableComponentProps {
   useGraphQL: boolean;
@@ -109,6 +110,9 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public componentDidMount(): void {
       this.ensureHasChallengeData();
     }
@@ -227,7 +231,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
         !this.props.challengeData &&
         !this.props.challengeDataRequestStatus
       ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID! as string));
       }
     };
   }
@@ -259,6 +263,9 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
   };
 
   class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any>> {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public render(): JSX.Element | null {
       let displayLabel: string | React.FunctionComponent = "";
       let flavorText;
@@ -383,6 +390,9 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public async componentDidMount(): Promise<void> {
       this.ensureHasChallengeData();
       await this.setupChallengeSubscription();
@@ -460,12 +470,14 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         !this.props.challengeDataRequestStatus &&
         !this.props.challengeDataRequestStatus
       ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
       }
     };
 
     private setupChallengeSubscription = async (): Promise<void> => {
-      this.props.dispatch!(await setupRejectedListingLatestChallengeSubscription(this.props.listingAddress!));
+      this.props.dispatch!(
+        await setupRejectedListingLatestChallengeSubscription(this.context, this.props.listingAddress!),
+      );
     };
   }
 
@@ -514,6 +526,9 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   class HOChallengePhaseContainer extends React.Component<
     TChallengeContainerProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public componentDidMount(): void {
       this.ensureHasChallengeData();
     }
@@ -575,7 +590,7 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
         !this.props.challengeData &&
         !this.props.challengeDataRequestStatus
       ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID! as string));
       }
     };
   }

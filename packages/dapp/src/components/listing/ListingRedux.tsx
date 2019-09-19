@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
-import { compose } from "react-apollo";
+import { compose } from "redux";
 
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
 import {
@@ -29,6 +29,8 @@ import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
+import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 const TABS: TListingTab[] = [
   listingTabs.CHARTER,
@@ -71,6 +73,9 @@ class ListingPageComponent extends React.Component<
   ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
   ListingPageComponentState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
     this.state = { activeTabIndex: 0 };
@@ -78,19 +83,21 @@ class ListingPageComponent extends React.Component<
 
   public async componentDidUpdate(): Promise<void> {
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
     if (this.props.listing && this.props.listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(this.props.listing.data.challenge.challengeStatementURI!));
+      this.props.dispatch!(
+        await getBareContent(this.context, this.props.listing.data.challenge.challengeStatementURI!),
+      );
     }
     if (this.props.charterRevision && !this.props.charter) {
-      this.props.dispatch!(await getContent(this.props.charterRevision));
+      this.props.dispatch!(await getContent(this.context, this.props.charterRevision));
     }
   }
 
   public async componentDidMount(): Promise<void> {
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
   }
 

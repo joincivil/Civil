@@ -25,3 +25,7 @@ export function isNetworkSupported(network: string | number): boolean {
   }
   return supportedNetworks.includes(networkKey);
 }
+
+export const isGraphQLSupportedOnNetwork = (network: number): boolean => {
+  return supportedNetworks.includes(network);
+};

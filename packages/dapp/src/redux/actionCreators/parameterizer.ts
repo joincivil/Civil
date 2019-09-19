@@ -1,8 +1,8 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
-import { getTCR } from "../../helpers/civilInstance";
 import { ParamPropChallengeData, EthAddress, UserChallengeData } from "@joincivil/core";
 import { bigNumberify } from "@joincivil/typescript-types";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum parameterizerActions {
   ADD_OR_UPDATE_PROPOSAL = "ADD_OR_UPDATE_PROPOSAL",
@@ -100,7 +100,7 @@ export const fetchParameterProposalChallengeComplete = (challengeID: string): An
   };
 };
 
-export const fetchAndAddParameterProposalChallengeData = (challengeID: string): any => {
+export const fetchAndAddParameterProposalChallengeData = (helper: CivilHelper, challengeID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { challengesFetching } = getState().networkDependent;
     const challengeRequest = challengesFetching.get(challengeID);
@@ -109,7 +109,7 @@ export const fetchAndAddParameterProposalChallengeData = (challengeID: string): 
     if (challengeRequest === undefined) {
       dispatch(fetchParameterProposalChallenge(challengeID));
 
-      const tcr = await getTCR();
+      const tcr = await helper.getTCR();
       const parameterizer = await tcr.getParameterizer();
       const challengeIDBN = bigNumberify(challengeID);
       const challengeData = await parameterizer.getChallengeData(challengeIDBN);

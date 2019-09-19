@@ -28,6 +28,7 @@ import {
 import { BigNumber } from "@joincivil/typescript-types";
 
 import { getAppealChallenge, getProposalChallengeByChallengeID } from "../../selectors";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface WinningChallengeResultsProps {
   displayExplanation?: boolean;
@@ -198,6 +199,9 @@ export const connectWinningChallengeResults = <
       WinningChallengeResultsProps &
       DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public componentDidMount(): void {
       this.ensureHasChallengeData();
     }
@@ -224,7 +228,7 @@ export const connectWinningChallengeResults = <
 
     private ensureHasChallengeData = (): void => {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
       }
     };
   }

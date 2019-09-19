@@ -1,6 +1,6 @@
 import { Dispatch } from "react-redux";
-import { getTCR } from "./civilInstance";
 import { setContractAddress } from "../redux/actionCreators/contractAddresses";
+import { CivilHelper } from "../apis/CivilHelper";
 
 export enum ContractAddressKeys {
   TCR_ADDRESS = "TCR_ADDRESS",
@@ -9,8 +9,8 @@ export enum ContractAddressKeys {
   PARAMETERIZER_ADDRESS = "PARAMETERIZER_ADDRESS",
 }
 
-export async function initializeContractAddresses(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = await getTCR();
+export async function initializeContractAddresses(helper: CivilHelper, dispatch: Dispatch<any>): Promise<void> {
+  const tcr = await helper.getTCR();
 
   const tcrAddress = tcr.address;
   dispatch(setContractAddress(ContractAddressKeys.TCR_ADDRESS, tcrAddress));

@@ -1,26 +1,7 @@
 import { EthAddress } from "@joincivil/typescript-types";
 import { CivilErrors, isDefined } from "@joincivil/utils";
-import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
-import Web3 = require("web3");
-import { EthApi, Provider } from "./ethapi";
-
-const debug = Debug("civil:ethapi:helpers");
-
-export function detectProvider(): Provider | undefined {
-  // Try to use the window's injected provider
-  if (hasInjectedProvider()) {
-    debug("Using injected web3 provider");
-    const injectedWeb3: Web3 = (window as any).web3;
-    // @ts-ignore
-    return injectedWeb3.currentProvider;
-  }
-  return undefined;
-}
-
-export function hasInjectedProvider(): boolean {
-  return typeof window !== "undefined" && (window as any).web3 !== undefined;
-}
+import { EthApi } from "./ethapi";
 
 export function requireAccount(ethApi: EthApi): Observable<EthAddress> {
   return ethApi.accountStream.first().map(account => {
@@ -29,6 +10,10 @@ export function requireAccount(ethApi: EthApi): Observable<EthAddress> {
     }
     throw new Error(CivilErrors.NoUnlockedAccount);
   });
+}
+
+export function hasInjectedProvider(): boolean {
+  return typeof window !== "undefined" && (window as any).web3 !== undefined;
 }
 
 export async function currentAccount(ethApi: EthApi): Promise<EthAddress | undefined> {

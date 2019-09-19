@@ -4,8 +4,9 @@ import { CivilContext, ICivilContext } from "../../context/CivilContext";
 import { TokenPurchaseSummary } from "../TokenPurchaseSummary";
 import { MetaMaskLogoButton } from "../../MetaMaskLogoButton";
 import { Notice, NoticeTypes } from "../../Notice";
-import { EthereumTransactionButton, EthereumTransactionInfo } from "../EthereumTransactionButton";
+import { EthereumTransactionButton } from "../EthereumTransactionButton";
 import { SellFeeNotice, ApproveNoticeText } from "../TokensTextComponents";
+import { BigNumber } from "@joincivil/typescript-types";
 
 const SellContainer = styled.div`
   padding: 0;
@@ -37,10 +38,12 @@ export interface UniswapSellProps {
 }
 export interface UniswapSellState {
   approvedTokens?: any;
-  weiToReceive?: number;
+  weiToReceive?: BigNumber;
 }
 export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   constructor(props: UniswapSellProps) {
     super(props);
     this.state = {};
@@ -57,7 +60,9 @@ export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellSt
   public async componentDidMount(): Promise<void> {
     const uniswap = this.context.uniswap;
     const approvedTokens = await uniswap.getApprovedSellAmount();
-    const weiToReceive = await uniswap.quoteCVLToETH(uniswap.parseEther(this.props.cvlToSell || "0"));
+    const weiToReceive = await uniswap.quoteCVLToETH(
+      uniswap.parseEther(this.props.cvlToSell ? this.props.cvlToSell.toString() : "0"),
+    );
     this.setState({ ...this.state, approvedTokens, weiToReceive });
   }
 
@@ -136,12 +141,12 @@ export class UniswapSell extends React.Component<UniswapSellProps, UniswapSellSt
     );
   }
 
-  private async sellCVL(cvlWei: any, weiToReceive: any): Promise<EthereumTransactionInfo> {
+  private async sellCVL(cvlWei: any, weiToReceive: any): Promise<any> {
     const uniswap = this.context.uniswap;
     return uniswap.executeCVLToETH(cvlWei, weiToReceive);
   }
 
-  private async approve(cvlWei: any): Promise<EthereumTransactionInfo> {
+  private async approve(cvlWei: BigNumber): Promise<any> {
     const uniswap = this.context.uniswap;
     return uniswap.setApprovedSellAmount(cvlWei);
   }

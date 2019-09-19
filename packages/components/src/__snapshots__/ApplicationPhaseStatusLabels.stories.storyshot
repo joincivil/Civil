@@ -11,46 +11,46 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
     }
   >
     <div
-      className="sc-LzNuz iJyHtC"
+      className="sc-LzNuB bqbcIi"
     >
       <div
-        className="sc-LzLrq sc-LzLrr ddlXEP"
+        className="sc-LzLrs sc-LzLrQ hgvNAy"
       >
         Awaiting Approval
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrr ddlXEP"
+        className="sc-LzLrs sc-LzLrQ hgvNAy"
       >
         Awaiting Request to Appeal
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrr ddlXEP"
+        className="sc-LzLrs sc-LzLrQ hgvNAy"
       >
         Awaiting Council Decision
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrs iGxMVM"
+        className="sc-LzLrs sc-LzLrR fHXgTn"
       >
         Challenge Council Decision
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrQ eMXdir"
+        className="sc-LzLrs sc-LzLrS jpsoeZ"
       >
         Submit Vote
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrR kzVaTl"
+        className="sc-LzLrs sc-LzLrT dMUCqX"
       >
         Confirm Vote
       </div>
       <br />
       <div
-        className="sc-LzLrq sc-LzLrS fLNRhX"
+        className="sc-LzLrs sc-LzLrU kojceF"
       >
         Ready To Update
       </div>

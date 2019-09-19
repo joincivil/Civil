@@ -8,7 +8,7 @@ import {
   ModalContent,
 } from "@joincivil/components";
 
-import { updateReparameterizationProp } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ProcessProposalProps extends ProcessProposalComponentProps {
@@ -56,6 +56,9 @@ const transactionStatusModalConfig = {
 };
 
 class ProcessProposal extends React.Component<ProcessProposalProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.props.handleClose);
@@ -104,7 +107,7 @@ class ProcessProposal extends React.Component<ProcessProposalProps & InjectedTra
   };
 
   private updateProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return updateReparameterizationProp(this.props.challengeProposalID!.toString());
+    return this.context.updateReparameterizationProp(this.props.challengeProposalID!.toString());
   };
 }
 

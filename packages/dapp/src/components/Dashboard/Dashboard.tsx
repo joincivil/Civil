@@ -44,7 +44,7 @@ export interface DashboardReduxProps {
 const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
   const { civil } = React.useContext(CivilContext);
 
-  let enableEthereum: () => void | undefined;
+  let enableEthereum: () => Promise<void> | undefined;
   if (civil && civil.currentProvider) {
     enableEthereum = async () => {
       await civil.currentProviderEnable();

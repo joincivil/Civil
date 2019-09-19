@@ -13,7 +13,7 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 
-import { updateStatus } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import {
   ChallengeContainerProps,
@@ -73,6 +73,9 @@ const AppealChallengeResolveCard = compose<
 
 // A container for the Challenge Resolve Card component
 class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
   }
@@ -149,7 +152,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
   };
 
   private resolve = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listingAddress);
+    return this.context.updateStatus(this.props.listingAddress);
   };
 }
 

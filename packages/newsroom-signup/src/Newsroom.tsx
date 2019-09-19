@@ -34,7 +34,6 @@ import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
-import { CivilContext } from "./CivilContext";
 import { PurchaseTokens } from "./PurchaseTokens";
 import { RepublishCharterNotice } from "./RepublishCharterNotice";
 import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
@@ -282,23 +281,14 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
             contact a newsroom officer in order to be added.
           </ErrorP>
         )}
-        <CivilContext.Provider
-          value={{
-            civil: this.props.civil,
-            currentNetwork: this.props.currentNetwork,
-            requiredNetwork: this.props.requiredNetwork || "rinkeby|ganache",
-            account: this.props.account,
-          }}
+        <StepProcessTopNavNoButtons
+          activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+          onActiveTabChange={this.navigateToSection}
+          contentPrepend={this.renderRepublishCharter()}
+          fullyControlledIndex={true}
         >
-          <StepProcessTopNavNoButtons
-            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
-            onActiveTabChange={this.navigateToSection}
-            contentPrepend={this.renderRepublishCharter()}
-            fullyControlledIndex={true}
-          >
-            {this.renderSteps()}
-          </StepProcessTopNavNoButtons>
-        </CivilContext.Provider>
+          {this.renderSteps()}
+        </StepProcessTopNavNoButtons>
       </>
     );
   }

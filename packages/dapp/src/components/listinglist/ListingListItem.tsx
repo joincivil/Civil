@@ -16,6 +16,7 @@ import { ListingContainerProps, connectLatestChallengeSucceededResults } from ".
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -170,19 +171,25 @@ const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & Listing
 };
 
 class ListingListItem extends React.Component<ListingListItemOwnProps & ListingListItemReduxProps & DispatchProp<any>> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidMount(): Promise<void> {
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
     const { listing } = this.props;
     if (listing && listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      this.props.dispatch!(await getBareContent(this.context, listing.data.challenge.challengeStatementURI!));
       if (listing.data.challenge.appeal) {
-        this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+        this.props.dispatch!(await getBareContent(this.context, listing.data.challenge.appeal.appealStatementURI!));
 
         if (listing.data.challenge.appeal.appealChallenge) {
           this.props.dispatch!(
-            await getBareContent(listing.data.challenge.appeal.appealChallenge.appealChallengeStatementURI!),
+            await getBareContent(
+              this.context,
+              listing.data.challenge.appeal.appealChallenge.appealChallengeStatementURI!,
+            ),
           );
         }
       }
@@ -193,13 +200,16 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     if (prevProps.listing !== this.props.listing) {
       const { listing } = this.props;
       if (listing && listing.data.challenge) {
-        this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+        this.props.dispatch!(await getBareContent(this.context, listing.data.challenge.challengeStatementURI!));
         if (listing.data.challenge.appeal) {
-          this.props.dispatch!(await getBareContent(listing.data.challenge.appeal.appealStatementURI!));
+          this.props.dispatch!(await getBareContent(this.context, listing.data.challenge.appeal.appealStatementURI!));
 
           if (listing.data.challenge.appeal.appealChallenge) {
             this.props.dispatch!(
-              await getBareContent(listing.data.challenge.appeal.appealChallenge.appealChallengeStatementURI!),
+              await getBareContent(
+                this.context,
+                listing.data.challenge.appeal.appealChallenge.appealChallengeStatementURI!,
+              ),
             );
           }
         }
@@ -207,7 +217,7 @@ class ListingListItem extends React.Component<ListingListItemOwnProps & ListingL
     }
     if (prevProps.newsroom !== this.props.newsroom) {
       if (this.props.newsroom) {
-        this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+        this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
       }
     }
   }

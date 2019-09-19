@@ -1,12 +1,13 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import * as sanitizeHtml from "sanitize-html";
+import sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
 import { getChallengeByListingAddress } from "../../selectors";
 import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";
 import { getBareContent } from "../../redux/actionCreators/newsrooms";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const StyledChallengeStatementComponent = styled.div`
   margin: 0 0 56px;
@@ -32,6 +33,9 @@ export interface ListingChallengeStatementReduxProps {
 class ListingChallengeStatement extends React.Component<
   ListingChallengeStatementProps & ListingChallengeStatementReduxProps & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidMount(): Promise<void> {
     await this.getContents();
   }
@@ -57,10 +61,10 @@ class ListingChallengeStatement extends React.Component<
   private async getContents(): Promise<void> {
     const { listing } = this.props;
     if (listing && listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(listing.data.challenge.challengeStatementURI!));
+      this.props.dispatch!(await getBareContent(this.context, listing.data.challenge.challengeStatementURI!));
       const { challenge } = listing.data;
       if (challenge.appeal) {
-        this.props.dispatch!(await getBareContent(challenge.appeal.appealStatementURI!));
+        this.props.dispatch!(await getBareContent(this.context, challenge.appeal.appealStatementURI!));
       }
     }
   }
@@ -70,11 +74,14 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     let parsed = this.props.appealStatement;
-    try {
-      parsed = JSON.parse(this.props.appealStatement);
-    } catch (ex) {
-      console.warn("unable to parse appeal statement, possibly already parsed. ex: ", ex);
+    if (typeof parsed !== "object") {
+      try {
+        parsed = JSON.parse(this.props.appealStatement);
+      } catch (ex) {
+        console.warn("unable to parse appeal statement, possibly already parsed. ex: ", ex, parsed);
+      }
     }
+
     const summary = parsed.summary;
     const cleanDetails = sanitizeHtml(parsed.details, {
       allowedSchemes: sanitizeHtml.defaults.allowedSchemes.concat(["bzz"]),
@@ -152,11 +159,14 @@ class ListingChallengeStatement extends React.Component<
       return <></>;
     }
     let parsed = this.props.appealChallengeStatement;
-    try {
-      parsed = JSON.parse(this.props.appealChallengeStatement);
-    } catch (ex) {
-      console.warn("unable to parse appeal challenge  statement, possibly already parsed. ex: ", ex);
+    if (typeof parsed !== "object") {
+      try {
+        parsed = JSON.parse(this.props.appealChallengeStatement);
+      } catch (ex) {
+        console.warn("unable to parse appeal challenge  statement, possibly already parsed. ex: ", ex);
+      }
     }
+
     const summary = parsed.summary || "";
     const cleanDetails = parsed.details
       ? sanitizeHtml(parsed.details, {

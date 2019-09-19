@@ -6,12 +6,13 @@ import { addNewsroom, setNewsroomMultisigAddress } from "@joincivil/newsroom-sig
 import { Dispatch } from "react-redux";
 import { Subscription } from "rxjs";
 import { addUserNewsroom, addContent, addCharterRevision } from "../redux/actionCreators/newsrooms";
-import { getCivil } from "./civilInstance";
+
+import { CivilHelper } from "../apis/CivilHelper";
 
 const allNewsroomContentRevisionsSubscriptions = new Map<EthAddress, Subscription>();
 
-export async function getNewsroom(dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
-  const civil = getCivil();
+export async function getNewsroom(helper: CivilHelper, dispatch: Dispatch<any>, address: EthAddress): Promise<void> {
+  const civil = helper.civil;
   const user = await civil.accountStream.first().toPromise();
   const newsroom = await civil.newsroomAtUntrusted(address);
   const wrapper = await newsroom.getNewsroomWrapper();
@@ -35,12 +36,13 @@ async function delay(ms: number): Promise<any> {
 }
 
 export async function getIPFSContent(
+  helper: CivilHelper,
   header: StorageHeader,
   dispatch: Dispatch<any>,
   wait: number = 1000,
   tries: number = 0,
 ): Promise<void> {
-  const civil = getCivil();
+  const civil = helper.civil;
   const content = await civil.getContent(header);
   if (content) {
     const parsedContent = JSON.parse(content.toString());
@@ -50,7 +52,7 @@ export async function getIPFSContent(
     if (header.uri !== "" && tries < 6) {
       console.warn("Retrying getIPFSContent. wait = " + wait + "ms");
       await delay(wait);
-      return getIPFSContent(header, dispatch, wait * 2, tries + 1);
+      return getIPFSContent(helper, header, dispatch, wait * 2, tries + 1);
     } else if (header.uri !== "" && tries >= 6) {
       console.error("Unable to find IPFS content after 6 tries. header: ", header);
     }

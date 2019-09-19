@@ -28,8 +28,8 @@ export interface BoostStates {
 }
 
 class BoostComponent extends React.Component<BoostProps, BoostStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   public constructor(props: BoostProps) {
     super(props);

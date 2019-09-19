@@ -35,8 +35,8 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
     BoostPermissionsOuterProps & TOriginalProps,
     BoostPermissionsState
   > {
-    public static contextType: React.Context<ICivilContext> = CivilContext;
-    public context!: React.ContextType<typeof CivilContext>;
+    public static contextType = CivilContext;
+    public context!: ICivilContext;
 
     constructor(props: TOriginalProps & BoostPermissionsInjectedProps) {
       super(props);

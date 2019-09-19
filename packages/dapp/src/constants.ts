@@ -1,3 +1,11 @@
+import * as React from "react";
+import { BoostLoader } from "@joincivil/sdk";
+
+/** Routes that should load components outside of Main.tsx and header and footer etc., but which will still inherit config, civil context, Apollo provider, etc. */
+export const standaloneRoutes: Array<{ pathname: string; component: React.FunctionComponent }> = [
+  { pathname: "/boost-embed", component: BoostLoader },
+];
+
 export enum routes {
   REGISTRY_HOME = "/registry/:listingType/:subListingType?",
   REGISTRY_HOME_ROOT = "/registry",

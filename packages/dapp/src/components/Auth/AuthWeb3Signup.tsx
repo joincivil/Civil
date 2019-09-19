@@ -100,6 +100,7 @@ const AuthWeb3SignupComponent: React.FunctionComponent<AuthWeb3SignUpProps & Aut
         if (!hasInjectedProvider()) {
           return <ShowWalletOnboardingButtonComponent onClick={props.showWalletOnboarding} />;
         }
+
         return (
           <AuthWeb3SignupButtonComponent
             onSignUpContinue={props.onSignUpContinue}
