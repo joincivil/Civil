@@ -7,3 +7,4 @@ declare module "*.png";
 declare module "*.svg";
 declare module "apollo-storybook-react";
 declare module "react-async-script";
+declare module "web3-providers-http";

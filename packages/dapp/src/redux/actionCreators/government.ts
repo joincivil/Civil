@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { Dispatch } from "react-redux";
-import { getTCR } from "../../helpers/civilInstance";
 import { MultisigTransaction } from "@joincivil/core/build/src/contracts/multisig/multisigtransaction";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum governmentActions {
   ADD_OR_UPDATE_GOVT_PROPOSAL = "ADD_OR_UPDATE_GOVT_PROPOSAL",
@@ -84,14 +84,14 @@ export const addCouncilMultisigTransaction = (transaction: MultisigTransaction):
   };
 };
 
-export const checkAndUpdateGovtParameterProposalState = (paramPropID: string): any => {
+export const checkAndUpdateGovtParameterProposalState = (helper: CivilHelper, paramPropID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction | undefined> => {
     const { proposals } = getState().networkDependent;
     const paramProposal = proposals.get(paramPropID);
     if (!paramProposal) {
       return;
     }
-    const tcr = await getTCR();
+    const tcr = await helper.getTCR();
     const government = await tcr.getGovernment();
     const paramProposalState = await government.getPropState(paramPropID);
 

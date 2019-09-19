@@ -28,8 +28,8 @@ export interface BoostPayStripeStates {
 }
 
 export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPayStripeStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   constructor(props: BoostPayStripeProps) {
     super(props);
     this.state = {

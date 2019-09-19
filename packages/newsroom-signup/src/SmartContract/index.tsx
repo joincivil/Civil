@@ -8,7 +8,7 @@ import { AddMembersToContract } from "./AddMembersToContract";
 import { Mutation, MutationFunc } from "react-apollo";
 import { getCharterQuery } from "../queries";
 import { SaveAddressMutation, SaveTxMutation } from "../mutations";
-import { CivilContext, CivilContextValue } from "../CivilContext";
+import { CivilContext, ICivilContext } from "@joincivil/components";
 
 export interface SmartContractProps {
   currentStep: number;
@@ -23,6 +23,9 @@ export interface SmartContractProps {
 }
 
 export class SmartContract extends React.Component<SmartContractProps> {
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   public getDisabled(index: number): () => boolean {
     const functions = [
       () => {
@@ -48,11 +51,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
   public renderCurrentStep(): JSX.Element {
     const steps = [
       <LetsGetStartedPage walletAddress={this.props.profileWalletAddress} name={this.props.charter.name!} />,
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => {
-          return <UnderstandingEth civil={value.civil} />;
-        }}
-      </CivilContext.Consumer>,
+      <UnderstandingEth civil={this.context.civil} />,
       <Mutation
         mutation={SaveTxMutation}
         refetchQueries={[

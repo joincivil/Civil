@@ -10,10 +10,11 @@ import {
   CurrencyConvertedBox as CurrencyBox,
   CurrencyCode,
   ModalContent,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
-import { CivilContext, CivilContextValue } from "../CivilContext";
 import {
   FormRowLeftAlign,
   FormRowItem,
@@ -75,12 +76,45 @@ export interface TransactionsProp {
   transactions: any;
 }
 
-const TransferToMultisigComponent: React.FunctionComponent<
-  TransferToMultisigProps & TransferPostTransactionProp & TransactionsProp
+const TransferToMultisig: React.FunctionComponent<
+  TransferToMultisigProps & TransferPostTransactionProp & InjectedTransactionStatusModalProps
 > = props => {
-  const transformFormLeftColWidth = "126px";
-  const { minDeposit, userBalance, multisigBalance, transactions } = props;
+  const civilCtx = React.useContext<ICivilContext>(CivilContext);
+  const { multisigAddress, minDeposit, multisigBalance, postTransfer, userBalance } = props;
   const tokenAmountToTransfer = minDeposit.sub(multisigBalance);
+  const transactions = [
+    {
+      transaction: async () => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: true,
+          isTransactionProgressModalOpen: false,
+          isTransactionSuccessModalOpen: false,
+          isTransactionErrorModalOpen: false,
+          isTransactionRejectionModalOpen: false,
+          transactionType: TransactionTypes.TRANSFER_TO_MULTISIG,
+        });
+        const tcr = await civilCtx.civil!.tcrSingletonTrusted();
+        const token = await tcr.getToken();
+        return token.transfer(multisigAddress, civilCtx.civil!.toBigNumber(tokenAmountToTransfer));
+      },
+      handleTransactionHash: (txHash: TxHash) => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: false,
+          isTransactionProgressModalOpen: true,
+        });
+      },
+      handleTransactionError: props.handleTransactionError,
+      postTransaction: () => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: false,
+          isTransactionProgressModalOpen: false,
+          isTransactionSuccessModalOpen: true,
+        });
+        postTransfer();
+      },
+    },
+  ];
+  const transformFormLeftColWidth = "126px";
 
   return (
     <OBCollapsable
@@ -136,52 +170,6 @@ const TransferToMultisigComponent: React.FunctionComponent<
         </FormRowItem>
       </FormRowLeftAlign>
     </OBCollapsable>
-  );
-};
-
-const TransferToMultisig: React.FunctionComponent<
-  TransferToMultisigProps & TransferPostTransactionProp & InjectedTransactionStatusModalProps
-> = props => {
-  return (
-    <CivilContext.Consumer>
-      {(value: CivilContextValue) => {
-        const { multisigAddress, minDeposit, multisigBalance, postTransfer } = props;
-        const tokenAmountToTransfer = minDeposit.sub(multisigBalance);
-        const transactions = [
-          {
-            transaction: async () => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: true,
-                isTransactionProgressModalOpen: false,
-                isTransactionSuccessModalOpen: false,
-                isTransactionErrorModalOpen: false,
-                isTransactionRejectionModalOpen: false,
-                transactionType: TransactionTypes.TRANSFER_TO_MULTISIG,
-              });
-              const tcr = await value.civil!.tcrSingletonTrusted();
-              const token = await tcr.getToken();
-              return token.transfer(multisigAddress, value.civil!.toBigNumber(tokenAmountToTransfer));
-            },
-            handleTransactionHash: (txHash: TxHash) => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isTransactionProgressModalOpen: true,
-              });
-            },
-            handleTransactionError: props.handleTransactionError,
-            postTransaction: () => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isTransactionProgressModalOpen: false,
-                isTransactionSuccessModalOpen: true,
-              });
-              postTransfer();
-            },
-          },
-        ];
-        return <TransferToMultisigComponent {...props} transactions={transactions} />;
-      }}
-    </CivilContext.Consumer>
   );
 };
 

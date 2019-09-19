@@ -17,8 +17,9 @@ import {
   buttonSizes,
   MetaMaskSideIcon,
   colors,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
-import { CivilContext, CivilContextValue } from "./CivilContext";
 
 export interface RepublishCharterNoticeProps {
   civil: Civil;
@@ -61,6 +62,9 @@ const RepublishLink = styled.a`
 `;
 
 export class RepublishCharterNotice extends React.Component<RepublishCharterNoticeProps, RepublishCharterNoticeState> {
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   constructor(props: RepublishCharterNoticeProps) {
     super(props);
     this.state = {};
@@ -70,16 +74,10 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     return (
       <Wrapper className={this.props.className} type={NoticeTypes.ALERT}>
         {this.renderIntroCopy()}{" "}
-        <CivilContext.Consumer>
-          {(value: CivilContextValue) => {
-            return (
-              <TransactionButtonNoModal
-                transactions={this.getTransactions(value.civil!)}
-                Button={this.renderTransactionButtonComponent}
-              />
-            );
-          }}
-        </CivilContext.Consumer>
+        <TransactionButtonNoModal
+          transactions={this.getTransactions(this.context.civil!)}
+          Button={this.renderTransactionButtonComponent}
+        />
         {this.renderIpfsModal()}
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
@@ -138,19 +136,15 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
       return null;
     }
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <MetaMaskModal
-            waiting={false}
-            denied={true}
-            denialText="To republish your newsroom charter, you need to confirm the transaction in your MetaMask wallet."
-            cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransactions(value.civil!, true)}
-          >
-            <ModalHeading>Your charter republish did not complete</ModalHeading>
-          </MetaMaskModal>
-        )}
-      </CivilContext.Consumer>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText="To republish your newsroom charter, you need to confirm the transaction in your MetaMask wallet."
+        cancelTransaction={() => this.cancelTransaction()}
+        denialRestartTransactions={this.getTransactions(this.context.civil!, true)}
+      >
+        <ModalHeading>Your charter republish did not complete</ModalHeading>
+      </MetaMaskModal>
     );
   }
 

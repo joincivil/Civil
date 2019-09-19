@@ -1,4 +1,3 @@
-import { hasInjectedProvider } from "@joincivil/ethapi";
 import {
   ButtonTheme,
   colors,
@@ -236,9 +235,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public renderManager(): JSX.Element | null {
-    if (!hasInjectedProvider()) {
-      return null;
-    }
     const disabled = this.isDisabled();
     return (
       <>
@@ -422,7 +418,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               civil={this.props.civil}
-              noProvider={!hasInjectedProvider()}
+              noProvider={false}
               notEnabled={this.props.civil && !this.props.metamaskEnabled}
               enable={this.props.enable}
               walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}

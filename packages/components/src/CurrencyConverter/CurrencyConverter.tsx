@@ -34,7 +34,9 @@ export interface CurrencyConverterState {
 }
 
 export class CurrencyConverter extends React.Component<CurrencyConverterProps, CurrencyConverterState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   private handleConversionDebounced: (fromValueString: string) => Promise<void>;
   constructor(props: any) {
     super(props);
@@ -50,6 +52,9 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
 
   public async componentDidMount(): Promise<void> {
     const civil = this.context.civil;
+    if (this.props.fromValue) {
+      await this.handleConversionDebounced(this.props.fromValue);
+    }
     if (civil) {
       const account = await civil.accountStream.first().toPromise();
       if (account) {
@@ -57,10 +62,6 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
           balance: await civil.accountBalance(account),
         });
       }
-    }
-
-    if (this.props.fromValue) {
-      await this.handleConversionDebounced(this.props.fromValue);
     }
   }
 

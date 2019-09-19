@@ -17,8 +17,12 @@ import {
 } from "../../../selectors";
 import { MyTasksItemOwnProps, MyTasksItemReduxProps } from "./MyTasksItemTypes";
 import MyTasksItemComponent from "./MyTasksItemComponent";
+import { CivilHelperContext, CivilHelper } from "../../../apis/CivilHelper";
 
 class MyTasksItemReduxWrapper extends React.Component<MyTasksItemOwnProps & MyTasksItemReduxProps & DispatchProp<any>> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidUpdate(): Promise<void> {
     await this.ensureListingAndNewsroomData();
   }
@@ -33,10 +37,10 @@ class MyTasksItemReduxWrapper extends React.Component<MyTasksItemOwnProps & MyTa
 
   private ensureListingAndNewsroomData = async (): Promise<void> => {
     if (!this.props.listing && !this.props.listingDataRequestStatus && this.props.listingAddress) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress!));
+      this.props.dispatch!(fetchAndAddListingData(this.context, this.props.listingAddress!));
     }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.wrapper.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.wrapper.data.charterHeader!));
     }
   };
 }

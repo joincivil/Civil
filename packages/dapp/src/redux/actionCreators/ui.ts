@@ -8,7 +8,8 @@ import {
 } from "../../helpers/listingEvents";
 import { clearAllListingData } from "./listings";
 import { clearAllChallengesData } from "./challenges";
-import { isGraphQLSupportedOnNetwork } from "../../helpers/civilInstance";
+import { isGraphQLSupportedOnNetwork } from "../../helpers/networkHelpers";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum uiActions {
   ADD_OR_UPDATE_UI_STATE = "ADD_OR_UPDATE_UI_STATE",
@@ -29,15 +30,15 @@ export const addOrUpdateUIState = (key: string, value: any): AnyAction => {
   };
 };
 
-export const initialize = async (): Promise<any> => {
+export const initialize = async (helper: CivilHelper): Promise<any> => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<undefined> => {
     const { useGraphQL, network, user } = getState();
     const account = user && user.account;
     if (!useGraphQL) {
       if (account) {
-        await initializeChallengeSubscriptions(dispatch, account);
+        await initializeChallengeSubscriptions(helper, dispatch, account);
       }
-      await initializeSubscriptions(dispatch, network);
+      await initializeSubscriptions(helper, dispatch, network);
     }
     return undefined;
   };
@@ -83,7 +84,7 @@ export const disableGraphQL = (): AnyAction => {
   };
 };
 
-export const toggleUseGraphQL = async (): Promise<any> => {
+export const toggleUseGraphQL = async (helper: CivilHelper): Promise<any> => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { useGraphQL, network } = getState();
     if (isGraphQLSupportedOnNetwork(parseInt(network, 10))) {
@@ -95,7 +96,7 @@ export const toggleUseGraphQL = async (): Promise<any> => {
         dispatch(clearAllChallengesData());
       } else {
         // going to web3 loading
-        await initializeSubscriptions(dispatch, network);
+        await initializeSubscriptions(helper, dispatch, network);
       }
       return dispatch(toggleUseGraphQLSimple());
     } else {

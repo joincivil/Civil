@@ -32,6 +32,7 @@ export interface InputBaseProps {
   value?: string;
   placeholder?: string;
   autocomplete?: string;
+  pattern?: string;
   defaultValue?: any;
   type?: string;
   min?: string;
@@ -168,4 +169,8 @@ export interface TextareaProps {
 
 export const TextareaInput = (props: TextareaProps & InputProps) => {
   return <InputBase type="textarea" {...props} />;
+};
+
+export const URLInput = (props: InputProps) => {
+  return <InputBase type="url" pattern="https?://.+" {...props} />;
 };

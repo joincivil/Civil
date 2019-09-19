@@ -27,6 +27,7 @@ import { renderPTagsFromLineBreaks, getLocalDateTimeStrings } from "@joincivil/u
 import { State } from "../../redux/reducers";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 import ListingCharterRosterMember from "./ListingCharterRosterMember";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 export interface ListingCharterProps {
   newsroom?: NewsroomWrapper;
@@ -123,7 +124,10 @@ class ListingCharter extends React.Component<
   ListingCharterProps & ListingCharterReduxProps & DispatchProp<any>,
   ListingCharterState
 > {
-  constructor(props: ListingCharterProps) {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
+  constructor(props: ListingCharterProps & DispatchProp) {
     super(props);
     this.state = {
       selectedCharterRevisionId: props.charterRevisionId || 0,
@@ -138,7 +142,7 @@ class ListingCharter extends React.Component<
     if (prevState.selectedCharterRevisionId !== selectedCharterRevisionId && charterRevisions) {
       const charterRevision = charterRevisions.get(selectedCharterRevisionId!);
       if (charterRevision && charterRevision.uri) {
-        dispatch!(await getContent(charterRevision as StorageHeader));
+        dispatch!(await getContent(this.context, charterRevision as StorageHeader));
       }
     }
 
@@ -146,7 +150,7 @@ class ListingCharter extends React.Component<
       const prevCharterRevisionId = selectedCharterRevisionId - 1;
       const prevCharterRevision = charterRevisions.get(prevCharterRevisionId);
       if (prevCharterRevision && prevCharterRevision.uri) {
-        dispatch!(await getContent(prevCharterRevision as StorageHeader));
+        dispatch!(await getContent(this.context, prevCharterRevision as StorageHeader));
       }
     }
   }

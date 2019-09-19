@@ -2,7 +2,7 @@ import * as React from "react";
 import { TransactionButton } from "@joincivil/components";
 import { ViewModule, ViewModuleHeader } from "../utility/ViewModules";
 import { StyledFormContainer, FormGroup, InputElement } from "../utility/FormElements";
-import { setAppellate } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { TwoStepEthTransaction } from "@joincivil/core";
 
 export interface SetAppellateState {
@@ -10,6 +10,9 @@ export interface SetAppellateState {
 }
 
 export class SetAppellate extends React.Component<{}, SetAppellateState> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -49,6 +52,6 @@ export class SetAppellate extends React.Component<{}, SetAppellateState> {
     if (this.state.newValue.length !== 42) {
       throw new Error("oops. the address was not set correctly.");
     }
-    return setAppellate(this.state.newValue);
+    return this.context.setAppellate(this.state.newValue);
   };
 }

@@ -16,7 +16,7 @@ import {
 import { getFormattedTokenBalance, Parameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
 import {
@@ -111,6 +111,9 @@ class AppealChallengeCommitVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & AppealCommitCardKeyState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -294,7 +297,7 @@ class AppealChallengeCommitVote extends React.Component<
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
     const numTokens = parseEther(this.state.numTokens!);
-    return approveVotingRightsForCommit(numTokens);
+    return this.context.approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -304,7 +307,7 @@ class AppealChallengeCommitVote extends React.Component<
     const salt: BigNumber = new BigNumber(saltStr as string);
     const numTokens: BigNumber = parseEther(this.state.numTokens!);
     saveVote(pollID, this.props.user, voteOption);
-    return commitVote(pollID, voteOption, salt, numTokens);
+    return this.context.commitVote(pollID, voteOption, salt, numTokens);
   };
 }
 

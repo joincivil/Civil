@@ -11,10 +11,10 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
     }
   >
     <div
-      className="sc-LzNwr kTYppm"
+      className="sc-LzNwt iXhmHw"
     >
       <div
-        className="sc-LzNak jycFQr"
+        className="sc-LzNam ggoQnh"
       >
         <svg
           height="48"
@@ -514,17 +514,17 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
     }
   >
     <div
-      className="sc-LzNwr kTYppm"
+      className="sc-LzNwt iXhmHw"
     >
       <div
-        className="sc-LzMmp eOAVBC"
+        className="sc-LzMBt bRXBSH"
         type={2}
       >
         <div
-          className="sc-LzMmq hnTsbj"
+          className="sc-LzMBu ePgjPs"
         />
         <div
-          className="sc-LzMBt eicbaL"
+          className="sc-LzMBv bLfRoV"
         >
           <p>
             To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't have enough ETH, you can buy ETH on 
@@ -552,10 +552,10 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzMZD sSjbL"
+        className="sc-LzMZF jfSuGR"
       >
         <div
-          className="sc-LzMZD sSjbL"
+          className="sc-LzMZF jfSuGR"
         >
           <h3>
             Contribute to the Civil Foundation
@@ -576,7 +576,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             <div />
           </div>
           <div
-            className="sc-LzNsa TZrvh"
+            className="sc-LzNsc bQxOlH"
           >
             <span>
               You are 
@@ -608,7 +608,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             Buy CVL from Civil Media Company in Airswap
           </button>
           <div
-            className="sc-LzNap ktVnVq"
+            className="sc-LzNaO lgmylV"
           >
             By clicking buy to purchase Civil tokens, you agree to the
              
@@ -621,7 +621,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzMZF eGnOV"
+          className="sc-LzMZH jwXhIj"
         >
           <p>
             or
@@ -637,7 +637,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           <div />
         </div>
         <div
-          className="sc-LzNap ktVnVq"
+          className="sc-LzNaO lgmylV"
         >
           By clicking buy to purchase Civil tokens, you agree to the
            
@@ -1079,7 +1079,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
     }
   >
     <div
-      className="sc-LzNwr kTYppm"
+      className="sc-LzNwt iXhmHw"
     >
       <button
         className="sc-fzXfMD sc-fzXfME eqxXLm"
@@ -1530,7 +1530,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Uniswap 1`] = `
     }
   >
     <div
-      className="sc-LzNwr kTYppm"
+      className="sc-LzNwt iXhmHw"
     >
       <div>
         loading price...

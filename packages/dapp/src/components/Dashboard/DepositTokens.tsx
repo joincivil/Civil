@@ -14,7 +14,7 @@ import {
   CurrencyInput,
 } from "@joincivil/components";
 import { State } from "../../redux/reducers";
-import { toWei, approveVotingRightsForTransfer, requestVotingRights } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { FormGroup } from "../utility/FormElements";
 
@@ -96,6 +96,9 @@ class DepositTokensComponent extends React.Component<
   DepositTokensProps & DepositTokenReduxProps & InjectedTransactionStatusModalProps,
   DepositTokensState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -129,15 +132,15 @@ class DepositTokensComponent extends React.Component<
   }
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    const tokensWei = this.context.toWei(parseFloat(this.state.numTokens!));
     console.log("approveVotingRights ", tokensWei.toString());
-    return approveVotingRightsForTransfer(tokensWei);
+    return this.context.approveVotingRightsForTransfer(tokensWei);
   };
 
   private depositTokens = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const tokensWei = toWei(parseFloat(this.state.numTokens!));
+    const tokensWei = this.context.toWei(parseFloat(this.state.numTokens!));
     console.log("depositTokens", tokensWei, tokensWei.toString());
-    return requestVotingRights(tokensWei);
+    return this.context.requestVotingRights(tokensWei);
   };
 
   private getTransactions = (): any[] => {

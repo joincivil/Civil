@@ -8,15 +8,14 @@ import {
   multiSetParameters,
   addChallengeToPropMapping,
 } from "../redux/actionCreators/parameterizer";
-import { getParameterValues } from "../apis/civilTCR";
-import { getTCR } from "./civilInstance";
+import { CivilHelper } from "../apis/CivilHelper";
 
 const paramProposalTimeouts = new Map<string, number>();
 const setTimeoutTimeouts = new Map<string, number>();
 
-export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<void> {
+export async function initializeParameterizer(api: CivilHelper, dispatch: Dispatch<any>): Promise<void> {
   const paramKeys: string[] = Object.values(Parameters);
-  const parameterVals = await getParameterValues(paramKeys);
+  const parameterVals = await api.getParameterValues(paramKeys);
   const paramObj = parameterVals.reduce((acc, item, index) => {
     acc[paramKeys[index]] = item.toString();
     return acc;
@@ -25,8 +24,8 @@ export async function initializeParameterizer(dispatch: Dispatch<any>): Promise<
   dispatch(multiSetParameters(paramObj));
 }
 
-export async function initializeProposalsSubscriptions(dispatch: Dispatch<any>): Promise<void> {
-  const tcr = await getTCR();
+export async function initializeProposalsSubscriptions(helper: CivilHelper, dispatch: Dispatch<any>): Promise<void> {
+  const tcr = await helper.getTCR();
   const parameterizer = await tcr.getParameterizer();
   await Observable.merge(
     parameterizer.propIDsInApplicationPhase(),

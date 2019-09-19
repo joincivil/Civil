@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { EthAddress, ContentData, StorageHeader } from "@joincivil/core";
 import { getIPFSContent } from "../../helpers/listingEvents";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum newsroomActions {
   ADD_USER_NEWSROOM = "ADD_USER_NEWSROOM",
@@ -44,21 +45,21 @@ export const fetchContent = (header: StorageHeader): AnyAction => {
   };
 };
 
-export const getContent = (header: StorageHeader): any => {
+export const getContent = (helper: CivilHelper, header: StorageHeader): any => {
   return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
     const contentFetched = getState().networkDependent.contentFetched;
     if (!contentFetched.has(header.uri)) {
       dispatch(fetchContent(header));
-      await getIPFSContent(header, dispatch);
+      await getIPFSContent(helper, header, dispatch);
     }
   };
 };
 
-export const getBareContent = (uri: string): any => {
+export const getBareContent = (helper: CivilHelper, uri: string): any => {
   return async (dispatch: any, getState: any): Promise<AnyAction | void> => {
     const contentFetched = getState().networkDependent.contentFetched;
     if (!contentFetched.has(uri)) {
-      await getIPFSContent({ uri }, dispatch);
+      await getIPFSContent(helper, { uri }, dispatch);
       dispatch(fetchContent({ uri }));
     }
   };
