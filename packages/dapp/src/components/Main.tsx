@@ -25,7 +25,6 @@ import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
 
-import { State } from "../redux/reducers";
 import { isNetworkSupported } from "../helpers/networkHelpers";
 
 import AsyncComponent from "./utility/AsyncComponent";
@@ -97,7 +96,6 @@ export const Main: React.FunctionComponent = () => {
   async function onNetworkUpdated(network: number): Promise<void> {
     dispatch!(setNetwork(network.toString()));
     setNetworkValue(network);
-
 
     try {
       await initializeParameterizer(civilHelper!, dispatch!);
