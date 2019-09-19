@@ -82,12 +82,19 @@ export class App extends React.Component {
           >
             <CivilHelperProvider>
               <ConnectedRouter history={history}>
-                <>
-                  <Web3AuthWrapper />
-                  <GlobalNav />
-                  <Main />
-                  <Footer />
-                </>
+                <Switch>
+                  {standaloneRoutes.map((route: any) => (
+                    <Route key={route.pathname} path={route.pathname} component={route.component} />
+                  ))}
+                  <Route>
+                    <>
+                      <Web3AuthWrapper />
+                      <GlobalNav />
+                      <Main />
+                      <Footer />
+                    </>
+                  </Route>
+                </Switch>
               </ConnectedRouter>
             </CivilHelperProvider>
           </CivilProvider>
