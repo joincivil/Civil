@@ -45,25 +45,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         >
           <img
             className="sc-LzMEb qTqPx"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            src="test-file-stub"
           />
           Get Google Chrome
         </a>
@@ -81,25 +63,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         >
           <img
             className="sc-LzMEb qTqPx"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            src="test-file-stub"
           />
           Get Firefox
         </a>

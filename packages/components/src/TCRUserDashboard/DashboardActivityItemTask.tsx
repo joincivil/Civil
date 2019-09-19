@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 
 import { SmallNewsroomIcon } from "../ListingSummary/styledComponents";
-import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
+import defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 
 import { DashboardActivityItemProps } from "./DashboardTypes";
 import {

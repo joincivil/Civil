@@ -11,9 +11,9 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
 } from ".";
-import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
-import * as confirmButton from "./images/img-metamask-confirm@2x.png";
-import * as signImage from "./images/img-metamaskmodal-new-signature.png";
+import metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
+import confirmButton from "./images/img-metamask-confirm@2x.png";
+import signImage from "./images/img-metamaskmodal-new-signature.png";
 
 const ModalP = styled.p`
   font-size: 16px;

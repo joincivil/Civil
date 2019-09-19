@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import * as metamaskSideLogoUrl from "../images/img-metamask-small@2x.png";
-import * as metamaskFrontLogoUrl from "../images/img-metamask-small-front@2x.png";
+import metamaskSideLogoUrl from "../images/img-metamask-small@2x.png";
+import metamaskFrontLogoUrl from "../images/img-metamask-small-front@2x.png";
 
 export interface MetaMaskImgProps {
   className?: string;

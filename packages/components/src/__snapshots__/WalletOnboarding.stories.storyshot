@@ -51,25 +51,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         >
           <img
             className="sc-fzXfQu ihvvef"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
         </div>
@@ -553,25 +535,7 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
         >
           <img
             className="sc-fzXfQu ihvvef"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
         </div>
@@ -950,25 +914,7 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
     >
       <img
         className="sc-LzMDZ emoDzV"
-        src={
-          Object {
-            "0": "t",
-            "1": "e",
-            "10": "s",
-            "11": "t",
-            "12": "u",
-            "13": "b",
-            "2": "s",
-            "3": "t",
-            "4": "-",
-            "5": "f",
-            "6": "i",
-            "7": "l",
-            "8": "e",
-            "9": "-",
-            "default": "test-file-stub",
-          }
-        }
+        src="test-file-stub"
       />
       <h4
         className="sc-AykKH CwENs"
@@ -1378,25 +1324,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
          
         <img
           className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
-          src={
-            Object {
-              "0": "t",
-              "1": "e",
-              "10": "s",
-              "11": "t",
-              "12": "u",
-              "13": "b",
-              "2": "s",
-              "3": "t",
-              "4": "-",
-              "5": "f",
-              "6": "i",
-              "7": "l",
-              "8": "e",
-              "9": "-",
-              "default": "test-file-stub",
-            }
-          }
+          src="test-file-stub"
         />
          to manage your transactions.
          
@@ -1902,25 +1830,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
         If you do not see the MetaMask popup, please click the 
         <img
           className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
-          src={
-            Object {
-              "0": "t",
-              "1": "e",
-              "10": "s",
-              "11": "t",
-              "12": "u",
-              "13": "b",
-              "2": "s",
-              "3": "t",
-              "4": "-",
-              "5": "f",
-              "6": "i",
-              "7": "l",
-              "8": "e",
-              "9": "-",
-              "default": "test-file-stub",
-            }
-          }
+          src="test-file-stub"
         />
          icon in your browser address bar.
       </p>
@@ -2297,25 +2207,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         >
           <img
             className="sc-fzXfQu ihvvef"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
         </div>
@@ -2744,25 +2636,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
     >
       <img
         className="sc-LzMDZ emoDzV"
-        src={
-          Object {
-            "0": "t",
-            "1": "e",
-            "10": "s",
-            "11": "t",
-            "12": "u",
-            "13": "b",
-            "2": "s",
-            "3": "t",
-            "4": "-",
-            "5": "f",
-            "6": "i",
-            "7": "l",
-            "8": "e",
-            "9": "-",
-            "default": "test-file-stub",
-          }
-        }
+        src="test-file-stub"
       />
       <h4
         className="sc-AykKH CwENs"
@@ -2785,25 +2659,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
         to switch networks in MetaMask 
         <img
           className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
-          src={
-            Object {
-              "0": "t",
-              "1": "e",
-              "10": "s",
-              "11": "t",
-              "12": "u",
-              "13": "b",
-              "2": "s",
-              "3": "t",
-              "4": "-",
-              "5": "f",
-              "6": "i",
-              "7": "l",
-              "8": "e",
-              "9": "-",
-              "default": "test-file-stub",
-            }
-          }
+          src="test-file-stub"
         />
       </p>
       <p>
