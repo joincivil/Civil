@@ -1,9 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../../styleConstants";
-import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
-import * as iconError from "../../images/icons/ico-error-red@2x.png";
+import checkEmailImage from "../../images/auth/img-check-email@2x.png";
+import confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import iconError from "../../images/icons/ico-error-red@2x.png";
 import { urlConstants as links } from "@joincivil/utils";
 
 import {

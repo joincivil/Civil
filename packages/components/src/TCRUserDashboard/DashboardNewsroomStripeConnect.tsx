@@ -15,9 +15,9 @@ import { ErrorIcon, NorthEastArrow } from "../icons";
 import { colors } from "../styleConstants";
 import { InvertedButton, buttonSizes } from "../Button";
 
-import * as stripeLogo from "../images/stripe-logo-blue.png";
-import * as stripeConnectButtonLight from "../images/stripe-connect-blue-on-light.png";
-import * as stripeConnectButtonDark from "../images/stripe-connect-blue-on-dark.png";
+import stripeLogo from "../images/stripe-logo-blue.png";
+import stripeConnectButtonLight from "../images/stripe-connect-blue-on-light.png";
+import stripeConnectButtonDark from "../images/stripe-connect-blue-on-dark.png";
 
 export const StripeContainer = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};

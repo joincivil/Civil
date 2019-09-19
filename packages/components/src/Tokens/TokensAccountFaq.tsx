@@ -10,7 +10,7 @@ import {
   TokenETHFAQQuestion7Text,
 } from "./TokensTextComponents";
 import { Collapsable } from "../Collapsable";
-import * as metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
+import metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
 
 export const UserTokenAccountFaq: React.FunctionComponent = props => {
   return (
