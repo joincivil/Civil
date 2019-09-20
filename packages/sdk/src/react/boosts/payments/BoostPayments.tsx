@@ -55,7 +55,7 @@ export interface BoostPaymentsProps {
   boostId: string;
   title: string;
   newsroomName: string;
-  history?: any;
+  history: any;
   handleBackToListing(): void;
   handlePaymentSuccess(): void;
 }
