@@ -1,5 +1,5 @@
 import { currentNetwork, EthApi, requireAccount, Provider } from "@joincivil/ethapi";
-import { BigNumber, EthAddress, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress, EthSignedMessage, TxHash, parseEther } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
@@ -285,12 +285,12 @@ export class Civil {
     return this.ethApi.accountBalace(account);
   }
 
-  public async simplePayment(recipient: EthAddress, amountInETH: BigNumber): Promise<TwoStepEthTransaction> {
-    const wei = this.ethApi.toBigNumber(this.ethApi.toWei(amountInETH.toNumber()));
+  public async simplePayment(recipient: EthAddress, amountInETH: string): Promise<TwoStepEthTransaction> {
+    const wei = parseEther(amountInETH);
     const account = await requireAccount(this.ethApi).toPromise();
     return createTwoStepSimple(
       this.ethApi,
-      await this.ethApi.sendTransaction({ from: account, to: recipient, value: wei, gas: 26000 }),
+      await this.ethApi.sendTransaction({ from: account, to: recipient, value: wei.toString(), gas: 26000 }),
     );
   }
 }
