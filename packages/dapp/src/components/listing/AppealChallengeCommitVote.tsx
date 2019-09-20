@@ -296,7 +296,7 @@ class AppealChallengeCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens = parseEther(this.state.numTokens!);
+    const numTokens = parseEther(this.state.numTokens!.toString());
     return this.context.approveVotingRightsForCommit(numTokens);
   };
 
@@ -305,7 +305,7 @@ class AppealChallengeCommitVote extends React.Component<
     const pollID = this.props.appealChallengeID;
     const saltStr = fetchSalt(pollID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
-    const numTokens: BigNumber = parseEther(this.state.numTokens!);
+    const numTokens: BigNumber = parseEther(this.state.numTokens!.toString());
     saveVote(pollID, this.props.user, voteOption);
     return this.context.commitVote(pollID, voteOption, salt, numTokens);
   };

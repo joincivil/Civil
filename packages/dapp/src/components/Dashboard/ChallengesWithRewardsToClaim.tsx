@@ -79,7 +79,8 @@ class ChallengesWithRewardsToClaim extends React.Component<
   ChallengesWithRewardsToClaimProps & InjectedTransactionStatusModalProps,
   ChallengesWithRewardsToClaimState
 > {
-  public static contextType: React.Context<CivilHelper | undefined> = CivilHelperContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
   public state = {
     challengesToClaim: {},
   };
@@ -242,7 +243,7 @@ class ChallengesWithRewardsToClaim extends React.Component<
   private multiClaim = async (): Promise<TwoStepEthTransaction | void> => {
     const challengeIDs = getChallengesToProcess(this.state.challengesToClaim);
     const salts = getSalts(this.state.challengesToClaim);
-    return multiClaimRewards(challengeIDs, salts);
+    return this.context.multiClaimRewards(challengeIDs, salts);
   };
 }
 
