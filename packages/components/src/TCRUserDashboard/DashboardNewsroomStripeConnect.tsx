@@ -204,4 +204,4 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
   }
 }
 
-export const DashboardNewsroomStripeConnect = withApollo(withNewsroomChannel(DashboardNewsroomStripeConnectComponent));
+export const DashboardNewsroomStripeConnect = withNewsroomChannel(withApollo(DashboardNewsroomStripeConnectComponent));
