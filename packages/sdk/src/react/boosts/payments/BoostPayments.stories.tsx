@@ -54,6 +54,7 @@ storiesOf("Boosts", module)
           handleBackToListing={handlePaymentSuccess}
           handlePaymentSuccess={handlePaymentSuccess}
           isStripeConnected={true}
+          history={{}}
         />
       </>
     );

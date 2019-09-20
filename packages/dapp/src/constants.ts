@@ -2,8 +2,8 @@ import * as React from "react";
 import { BoostLoader } from "@joincivil/sdk";
 
 /** Routes that should load components outside of Main.tsx and header and footer etc., but which will still inherit config, civil context, Apollo provider, etc. */
-export const standaloneRoutes: Array<{ pathname: string; component: React.FunctionComponent }> = [
-  { pathname: "/boost-embed", component: BoostLoader },
+export const standaloneRoutes: Array<{ pathname: string; component: React.ComponentType }> = [
+  { pathname: "/boost-embed/:boostId/:payment?", component: BoostLoader },
 ];
 
 export enum routes {

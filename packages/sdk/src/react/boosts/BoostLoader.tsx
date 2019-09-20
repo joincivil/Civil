@@ -1,8 +1,14 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router";
 import { Boost } from "./Boost";
 
-export const BoostLoader: React.FunctionComponent = props => {
-  const boostId = new URLSearchParams(window.location.search).get("boost");
+export interface BoostLoaderParams {
+  boostId: string;
+  payment?: string;
+}
 
-  return boostId ? <Boost boostId={boostId} open={true} /> : <p>Error: Missing Boost ID</p>;
+const BoostLoaderComponent = (props: RouteComponentProps<BoostLoaderParams>) => {
+  return <Boost boostId={props.match.params.boostId} open={true} payment={!!props.match.params.payment} />;
 };
+
+export const BoostLoader: React.ComponentType = withRouter(BoostLoaderComponent);
