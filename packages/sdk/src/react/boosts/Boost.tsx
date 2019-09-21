@@ -196,4 +196,6 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
   };
 }
 
-export const Boost = withBoostPermissions(withRouter(BoostComponent));
+// @WORKAROUND/tobek In order to avoid spurious "Function components do not support contextType" runtime error when using the component output by `withRouter` HOC as input into a HOC that uses context, you need to wrap it in a dummy component (https://github.com/facebook/react/issues/14061). Ideally we could use a generalizable `withRouterWorkaround` (https://github.com/facebook/react/issues/14061#issuecomment-471959332) instead of declaring the dummy component here, but that crashes typescript because of a typescript bug (https://github.com/microsoft/TypeScript/issues/33133).
+const WrappedBoostWorkaround = (props: BoostProps) => <BoostComponent {...props} />;
+export const Boost = withBoostPermissions(withRouter(WrappedBoostWorkaround));
