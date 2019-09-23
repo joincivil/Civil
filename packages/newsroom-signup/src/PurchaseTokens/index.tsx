@@ -223,4 +223,4 @@ const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps & Sig
   };
 };
 
-export const PurchaseTokens = withRouter(compose(connectSignupParameters, connect(mapStateToProps))(PurchaseTokensComponent));
+export const PurchaseTokens = compose(withRouter, connectSignupParameters, connect(mapStateToProps))(PurchaseTokensComponent);

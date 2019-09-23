@@ -23,7 +23,10 @@ export const PARAMETERS_QUERY = gql`
   }
 `;
 
-export const connectSignupParameters = <TOriginalProps extends any>(PresentationComponent: React.ComponentClass<TOriginalProps & ParametersProps>, ) => {
+export const connectSignupParameters = <TOriginalProps extends any>(
+  PresentationComponent:
+    | React.ComponentClass<TOriginalProps & SignupParametersProps>
+    | React.FunctionComponent<TOriginalProps & SignupParametersProps>, ) => {
   class ParametersContainer extends React.Component<TOriginalProps> {
     public render(): JSX.Element {
       return (<Query query={PARAMETERS_QUERY} variables={{ input: parametersArray }}>
