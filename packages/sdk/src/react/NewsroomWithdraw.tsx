@@ -14,6 +14,7 @@ import {
   TransactionButton,
 } from "@joincivil/components";
 import { BoostButton } from "./boosts/BoostStyledComponents";
+import { BoostProceeds } from "./boosts/BoostProceeds";
 import { urlConstants } from "./urlConstants";
 
 const ethPriceQuery = gql`
@@ -23,16 +24,10 @@ const ethPriceQuery = gql`
 `;
 
 const Wrapper = styled.div`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  display: flex;
-  justify-content: space-between;
-  margin: 36px 0;
-  padding: 32px 0 16px;
+  padding: 0 0 16px;
 
   ${mediaQueries.MOBILE} {
-    display: block;
-    padding: 16px 0 8px;
+    padding: 0 0 8px;
   }
 
   p {
@@ -49,6 +44,15 @@ const Heading = styled.div`
   font-weight: bold;
   line-height: 23px;
   margin-bottom: 18px;
+`;
+
+const WithdrawWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+  }
 `;
 const Copy = styled.div`
   max-width: 500px;
@@ -73,11 +77,11 @@ const BalanceAndButton = styled.div`
   }
 `;
 
-// Component requires either instance or newsroom address:
 export interface NewsroomWithdrawProps {
+  newsroomAddress: EthAddress;
+  /** Pass newsroom instance if handy to avoid unecessary instantiation. */
   newsroom?: NewsroomInstance;
-  newsroomAddress?: EthAddress;
-  isStripeConnected: boolean;
+  isStripeConnected?: boolean;
 }
 
 export interface NewsroomWithdrawState {
@@ -92,9 +96,6 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
 
   public constructor(props: NewsroomWithdrawProps) {
     super(props);
-    if (!props.newsroom && !props.newsroomAddress) {
-      throw Error("NewsroomWithdraw: Must supply either newsroom instance or newsroom address");
-    }
     this.state = {
       newsroom: props.newsroom,
     };
@@ -104,10 +105,10 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
     const userAccount = await this.context.civil!.accountStream.first().toPromise();
     let newsroom = this.props.newsroom;
     if (!newsroom) {
-      newsroom = await this.context.civil!.newsroomAtUntrusted(this.props.newsroomAddress!);
+      newsroom = await this.context.civil!.newsroomAtUntrusted(this.props.newsroomAddress);
     }
 
-    const multisigAddress = await newsroom.getMultisigAddress();
+    const multisigAddress = await newsroom!.getMultisigAddress();
     if (!multisigAddress) {
       // This can only happen if user created contract manually.
       alert(
@@ -127,43 +128,47 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
   public render(): JSX.Element {
     return (
       <Wrapper>
-        <Copy>
-          <Heading>Withdraw funds</Heading>
-          <p>
-            Transfer or withdraw funds from your Newsroom Wallet to collect proceeds from Boosts. You’ll be able to
-            exchange ETH for fiat currency. Reminder: only Newsroom Officers can access the Newsroom Wallet.
-          </p>
-          {this.props.isStripeConnected && (
+        <BoostProceeds newsroomAddress={this.props.newsroomAddress} />
+        <WithdrawWrapper>
+          <Copy>
+            <Heading>Withdraw funds</Heading>
             <p>
-              You may have additional funds in your{" "}
-              <a href="https://dashboard.stripe.com" target="_blank">
-                Stripe account
-              </a>
-              .
+              Transfer or withdraw funds from your Newsroom Wallet to collect proceeds from Boosts. You’ll be able to
+              exchange ETH for fiat currency. Reminder: only Newsroom Officers can access the Newsroom Wallet.
             </p>
-          )}
-          <p>
-            <a target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
-              Learn&nbsp;More&nbsp;&gt;
-            </a>
-          </p>
-        </Copy>
-        <BalanceAndButton>
-          <p>
-            Newsroom balance:{" "}
-            <Query query={ethPriceQuery}>
-              {({ loading, error, data }) => {
-                if (loading || typeof this.state.multisigBalance === "undefined") {
-                  return <LoadingIndicator />;
-                }
-                return <b>${(data.storefrontEthPrice * this.state.multisigBalance).toFixed(2)}</b>;
-              }}
-            </Query>
-            <br />
-            {typeof this.state.multisigBalance !== "undefined" && <>({this.state.multisigBalance.toFixed(4)} ETH)</>}
-          </p>
-          {this.renderButton()}
-        </BalanceAndButton>
+            {(this.props.isStripeConnected === true || typeof this.props.isStripeConnected === "undefined") && (
+              <p>
+                {this.props.isStripeConnected === true ? "Y" : "If you have connected Stripe to your newsroom, y"}ou may
+                have additional funds in your{" "}
+                <a href="https://dashboard.stripe.com" target="_blank">
+                  Stripe account
+                </a>
+                .
+              </p>
+            )}
+            <p>
+              <a target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
+                Learn&nbsp;More&nbsp;&gt;
+              </a>
+            </p>
+          </Copy>
+          <BalanceAndButton>
+            <p>
+              Newsroom balance:{" "}
+              <Query query={ethPriceQuery}>
+                {({ loading, error, data }) => {
+                  if (loading || typeof this.state.multisigBalance === "undefined") {
+                    return <LoadingIndicator />;
+                  }
+                  return <b>${(data.storefrontEthPrice * this.state.multisigBalance).toFixed(2)}</b>;
+                }}
+              </Query>
+              <br />
+              {typeof this.state.multisigBalance !== "undefined" && <>({this.state.multisigBalance.toFixed(4)} ETH)</>}
+            </p>
+            {this.renderButton()}
+          </BalanceAndButton>
+        </WithdrawWrapper>
       </Wrapper>
     );
   }
