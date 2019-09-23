@@ -3,7 +3,7 @@ import * as qs from "querystring";
 import styled from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
 import { connect } from "react-redux";
-import { RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, Link, withRouter } from "react-router-dom";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
@@ -24,7 +24,6 @@ import {
   GrantSubmitIcon,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
-import { withRouter } from "react-router-dom";
 
 export interface PurchaseTokensExternalProps extends RouteComponentProps {
   minDeposit: BigNumber;

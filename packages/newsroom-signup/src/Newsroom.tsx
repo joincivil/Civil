@@ -39,8 +39,7 @@ import { ApplyToTCRStep } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { Wrapper, DEFAULT_THEME } from "./styledComponents";
-import { MutationFunc, Query } from "react-apollo";
-import { compose } from "redux";
+import { MutationFunc } from "react-apollo";
 
 enum SECTION {
   PROFILE,
