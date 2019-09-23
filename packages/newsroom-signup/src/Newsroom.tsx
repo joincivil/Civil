@@ -1,6 +1,5 @@
 import * as qs from "querystring";
 import { BigNumber } from "@joincivil/typescript-types";
-import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
   colors,
@@ -34,9 +33,9 @@ import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
-import { PurchaseTokens } from "./PurchaseTokens";
+import { PurchaseTokensWrapper } from "./PurchaseTokens/PurchaseTokensWrapper";
 import { RepublishCharterNotice } from "./RepublishCharterNotice";
-import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
+import { ApplyToTCRWrapper } from "./ApplyToTCR/ApplyToTCRWrapper";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { Wrapper, DEFAULT_THEME } from "./styledComponents";
@@ -327,10 +326,10 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
-        <PurchaseTokens navigate={this.navigate} grantApproved={this.props.grantApproved} />
+        <PurchaseTokensWrapper navigate={this.navigate} grantApproved={this.props.grantApproved} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
-        <ApplyToTCR
+        <ApplyToTCRWrapper
           navigate={this.navigate}
           newsroom={this.props.newsroom!}
           address={this.props.newsroomAddress}

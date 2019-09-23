@@ -4,7 +4,7 @@ import { Parameters } from "@joincivil/utils"
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
-const parametersArray = [
+export const parametersArray = [
   Parameters.minDeposit,
   Parameters.applyStageLen,
 ]
@@ -31,7 +31,7 @@ export const connectSignupParameters = <TOriginalProps extends any>(
     public render(): JSX.Element {
       return (<Query query={PARAMETERS_QUERY} variables={{ input: parametersArray }}>
 
-        {({ loading, error, data }) => {
+        {({ loading, error, data }: { loading?: any, error?: any, data: any}) => {
           if (loading || error) {
             return <></>
           }

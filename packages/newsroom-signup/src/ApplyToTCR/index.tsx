@@ -7,8 +7,7 @@ import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
-import { SignupParametersProps, connectSignupParameters } from "../ParameterizerHOC";
-import { compose } from "redux";
+import { SignupParametersProps } from "../ParameterizerHOC";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
@@ -129,4 +128,4 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps & SignupPa
   };
 };
 
-export const ApplyToTCRStep = compose(connectSignupParameters, connect(mapStateToProps))(ApplyToTCRStepComponent);
+export const ApplyToTCRStep = connect(mapStateToProps)(ApplyToTCRStepComponent);

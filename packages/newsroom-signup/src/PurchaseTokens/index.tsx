@@ -3,7 +3,7 @@ import * as qs from "querystring";
 import styled from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
 import { connect } from "react-redux";
-import { withRouter, RouteComponentProps, Link } from "react-router-dom";
+import { RouteComponentProps, Link } from "react-router-dom";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
@@ -24,8 +24,7 @@ import {
   GrantSubmitIcon,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
-import { compose } from "redux";
-import { connectSignupParameters, SignupParametersProps } from "../ParameterizerHOC";
+import { SignupParametersProps } from "../ParameterizerHOC";
 
 export interface PurchaseTokensExternalProps extends RouteComponentProps {
   grantApproved?: boolean;
@@ -158,6 +157,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
   }
 
   public render(): JSX.Element {
+    console.log("render. props 1? : ", this.props);
     const justPurchased = !!qs.parse(document.location.search.substr(1)).purchased;
     return (
       <>
@@ -223,4 +223,4 @@ const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps & Sig
   };
 };
 
-export const PurchaseTokens = compose(withRouter, connectSignupParameters, connect(mapStateToProps))(PurchaseTokensComponent);
+export const PurchaseTokens = connect(mapStateToProps)(PurchaseTokensComponent);
