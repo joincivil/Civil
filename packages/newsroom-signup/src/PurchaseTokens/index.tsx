@@ -157,7 +157,6 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
   }
 
   public render(): JSX.Element {
-    console.log("render. props 1? : ", this.props);
     const justPurchased = !!qs.parse(document.location.search.substr(1)).purchased;
     return (
       <>
