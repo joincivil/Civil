@@ -10,7 +10,7 @@ export const NavContainer = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 999999;
+  z-index: 999;
 `;
 
 export const NavOuter = styled.div`
@@ -42,18 +42,16 @@ export const NavOuter = styled.div`
       color: ${colors.accent.CIVIL_GRAY_2};
     }
   }
-
-  ${mediaQueries.MOBILE} {
-    justify-content: center;
-    min-height: auto;
-    padding: 15px 20px;
-  }
 `;
 
 export const NavLogo = styled.div`
   height: 21px;
   margin-right: 12px;
   width: 72px;
+
+  ${mediaQueries.MOBILE} {
+    margin-left: 22px;
+  }
 `;
 
 export const NavInner = styled.div`
@@ -65,10 +63,6 @@ export const NavInnerRight = styled.div`
   align-items: center;
   display: flex;
   justify-content: flex-end;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
 `;
 
 export const NavAccent = styled.span`
@@ -87,9 +81,7 @@ export const NavUser = styled.div`
   height: 30px;
   justify-content: space-between;
   margin-left: 15px;
-  padding-left: 15px ${mediaQueries.MOBILE} {
-    display: none;
-  }
+  padding-left: 15px;
 `;
 
 export const CvlContainer = styled.div`
@@ -98,7 +90,6 @@ export const CvlContainer = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   padding-left: 20px;
-  width: 280px;
 `;
 
 export const BalancesContainer = styled.span`
@@ -128,6 +119,13 @@ export const AvatarContainer = styled.div`
   width: 60px;
 `;
 
+export const HandleContainer = styled.div`
+  align-items: center;
+  display: flex;
+  width: 60px;
+  margin-right: 16px;
+`;
+
 export const UserAvatar = styled.figure`
   background-color: ${colors.accent.CIVIL_TEAL};
   border: 2px solid ${colors.basic.WHITE};
@@ -150,15 +148,21 @@ export const LogInButton = styled(Button)`
   margin-left: 10px;
 `;
 
+export const BorderlessNavBarButton = styled(DarkButton)`
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 15px 15px 15px 15px;
+  text-align: center;
+`;
+
 export const NavBarButton = styled(DarkButton)`
   border: 2px solid ${colors.basic.WHITE};
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-left: 30px;
-  padding: 15px 0;
+  padding: 15px 15px 15px 15px;
   text-align: center;
-  width: 180px;
 
   &:hover {
     background: ${colors.basic.WHITE};
@@ -179,10 +183,6 @@ export const StyledNavDrawer = styled.div`
   z-index: 1;
   * {
     box-sizing: border-box;
-  }
-
-  ${mediaQueries.MOBILE} {
-    display: none;
   }
 `;
 

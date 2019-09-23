@@ -41,7 +41,8 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   private _isMounted?: boolean;
 

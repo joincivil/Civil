@@ -13,6 +13,7 @@ import {
   ChallengeContainerReduxProps,
   GraphQLizableComponentProps,
 } from "./HigherOrderComponents";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 /**
  * Given a `challengeID`, this container fetches the complete challenge data, including appeal and appeal challenge data from the Redux store or GraphQL
@@ -59,6 +60,9 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
   class HOChallengeResultsContainer extends React.Component<
     TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public componentDidMount(): void {
       this.ensureHasChallengeData();
     }
@@ -171,7 +175,7 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
         !this.props.challengeData &&
         !this.props.challengeDataRequestStatus
       ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID! as string));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID! as string));
       }
     };
   }

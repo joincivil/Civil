@@ -11,76 +11,76 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
     }
   >
     <div
-      className="sc-LzNvN kWNVZZ"
+      className="sc-LzNws gbQqcD"
     >
       <table
-        className="sc-LzMFr fSwwyp"
+        className="sc-LzMFS iKNCkj"
         width="100%"
       >
         <tr
-          className="sc-LzMFR esxOBf"
+          className="sc-LzMFV jyvIfg"
         >
           <th
-            className="sc-LzMFs gmvaOV"
+            className="sc-LzMFT jDSJnC"
           >
             Default Header
           </th>
           <th
-            className="sc-LzMFs cHnNOY"
+            className="sc-LzMFT lcBAfF"
           >
             Right aligned
           </th>
           <th
-            className="sc-LzMFs cyidqp"
+            className="sc-LzMFT dgBXqW"
             colSpan={2}
           >
             Accent Col spanned header
           </th>
         </tr>
         <tr
-          className="sc-LzMFR esxOBf"
+          className="sc-LzMFV jyvIfg"
         >
           <td
-            className="sc-LzMFq gYLAJX"
+            className="sc-LzMFR dkkIAM"
           >
             Default cell
           </td>
           <td
-            className="sc-LzMFq bGzNvm"
+            className="sc-LzMFR bjclRv"
           >
             Default cell
           </td>
           <td
-            className="sc-LzMFq kPIeqB"
+            className="sc-LzMFR vBsxW"
           >
             Pasta
           </td>
           <td
-            className="sc-LzMFq kPIeqB"
+            className="sc-LzMFR vBsxW"
           >
             Pho
           </td>
         </tr>
         <tr
-          className="sc-LzMFR esxOBf"
+          className="sc-LzMFV jyvIfg"
         >
           <td
-            className="sc-LzMFq gYLAJX"
+            className="sc-LzMFR dkkIAM"
           >
             Pizza is delicious
           </td>
           <td
-            className="sc-LzMFq bGzNvm"
+            className="sc-LzMFR bjclRv"
           >
             Ramen is tasty too
           </td>
           <td
-            className="sc-LzMFq kPIeqB"
+            className="sc-LzMFR vBsxW"
           >
             Pasta
           </td>
           <td
-            className="sc-LzMFq kPIeqB"
+            className="sc-LzMFR vBsxW"
           >
             Pho
           </td>

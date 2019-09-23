@@ -87,8 +87,8 @@ export interface NewsroomWithdrawState {
 }
 
 export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, NewsroomWithdrawState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   public constructor(props: NewsroomWithdrawProps) {
     super(props);

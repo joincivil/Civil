@@ -156,9 +156,9 @@ module.exports = function(webpackEnv) {
       boost: isEnvDevelopment
         ? [
             require.resolve("react-dev-utils/webpackHotDevClient"),
-            paths.boostLoaderJs
+            paths.boostEmbedJs
           ]
-        : paths.boostLoaderJs,
+        : paths.boostEmbedJs,
     },
     // entry: [
     //   // Include an alternative client for WebpackDevServer. A client's job is to
@@ -522,8 +522,8 @@ module.exports = function(webpackEnv) {
           {},
           {
             inject: true,
-            template: paths.boostTestHtml,
-            filename: "boost-test.html",
+            template: paths.boostEmbedHtml,
+            filename: "boost-embed.html",
             chunks: ["boost"],
           },
           htmlWebpackPluginConfig,

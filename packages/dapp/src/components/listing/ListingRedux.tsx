@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
-import { compose } from "react-apollo";
+import { compose } from "redux";
 
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
 import {
@@ -12,14 +12,12 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
-  LoadingMessage,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
 import { listingTabs, TListingTab } from "../../constants";
 import { State } from "../../redux/reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
-import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
+import { getListingPhaseState, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
@@ -31,6 +29,8 @@ import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
+import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 const TABS: TListingTab[] = [
   listingTabs.CHARTER,
@@ -53,10 +53,8 @@ export interface ListingReduxProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
-  expiry?: number;
   userAccount?: EthAddress;
   isUserNewsroomOwner?: boolean;
-  listingDataRequestStatus?: any;
   listingPhaseState?: any;
   charter?: CharterData;
   charterRevisionId?: number;
@@ -64,7 +62,6 @@ export interface ListingReduxProps {
   parameters: any;
   govtParameters: any;
   network: string;
-  useGraphQL: boolean;
   loadingFinished: boolean;
 }
 
@@ -76,35 +73,31 @@ class ListingPageComponent extends React.Component<
   ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
   ListingPageComponentState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
     this.state = { activeTabIndex: 0 };
   }
 
   public async componentDidUpdate(): Promise<void> {
-    if (!this.props.listing && !this.props.listingDataRequestStatus && !this.props.useGraphQL) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
-    }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
     if (this.props.listing && this.props.listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(this.props.listing.data.challenge.challengeStatementURI!));
+      this.props.dispatch!(
+        await getBareContent(this.context, this.props.listing.data.challenge.challengeStatementURI!),
+      );
     }
     if (this.props.charterRevision && !this.props.charter) {
-      this.props.dispatch!(await getContent(this.props.charterRevision));
+      this.props.dispatch!(await getContent(this.context, this.props.charterRevision));
     }
   }
 
   public async componentDidMount(): Promise<void> {
-    if (!this.props.useGraphQL) {
-      this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
-      if (!this.props.listing && !this.props.listingDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
-      }
-    }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
   }
 
@@ -148,7 +141,6 @@ class ListingPageComponent extends React.Component<
             <ListingPhaseActions
               listing={this.props.listing!}
               newsroom={this.props.newsroom!}
-              expiry={this.props.expiry}
               listingPhaseState={this.props.listingPhaseState}
               listingLastGovState={this.props.listing!.data.lastGovState}
               parameters={this.props.parameters}
@@ -216,9 +208,6 @@ class ListingPageComponent extends React.Component<
   }
 
   private renderLoadingOrListingNotFound(): JSX.Element {
-    if (!this.props.loadingFinished && !this.props.useGraphQL) {
-      return <LoadingMessage />;
-    }
     return <ErrorNotFoundMsg>We could not find this Newsroom Listing</ErrorNotFoundMsg>;
   }
 
@@ -234,16 +223,11 @@ class ListingPageComponent extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListingExpiry = makeGetListingExpiry();
   const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { listingsFetching, user, parameters, govtParameters, content, loadingFinished } = state.networkDependent;
-    const { network, useGraphQL } = state;
+    const { user, parameters, govtParameters, content, loadingFinished } = state.networkDependent;
+    const { network } = state;
     const newsroom = ownProps.newsroom;
-    let listingDataRequestStatus;
-    if (ownProps.listingAddress) {
-      listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
-    }
-    const expiry = getListingExpiry(state, ownProps);
+
     const listingPhaseState = getListingPhaseState(ownProps.listing);
 
     let charter;
@@ -278,8 +262,6 @@ const makeMapStateToProps = () => {
     return {
       ...ownProps,
       network,
-      expiry,
-      listingDataRequestStatus,
       listingPhaseState,
       isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
       userAccount: user.account,
@@ -288,7 +270,6 @@ const makeMapStateToProps = () => {
       charter,
       charterRevisionId,
       charterRevision,
-      useGraphQL,
       loadingFinished,
     };
   };

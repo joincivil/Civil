@@ -1,8 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { buttonSizes } from "../Button";
+import { buttonSizes, Button } from "../Button";
 
-import { LoadUser } from "../Account";
 import { QuestionToolTip } from "../QuestionToolTip";
 
 import {
@@ -31,9 +30,7 @@ import {
   NavDrawerClaimRewardsText,
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
-  NavDrawerLoadingPrefText,
 } from "./textComponents";
-import { LoadingPrefToggle } from "./LoadingPrefToggle";
 import { NavUserAccountProps, NavDrawerProps as NavDrawerBaseProps } from "./NavBarTypes";
 
 export interface NavDrawerProps extends NavDrawerBaseProps, NavUserAccountProps {
@@ -45,8 +42,8 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
   public render(): JSX.Element {
     const {
       userEthAddress,
-      onLoadingPrefToggled,
-      useGraphQL,
+      onLogoutPressed,
+      onViewDashboardPressed,
       balance,
       votingBalance,
       buyCvlUrl,
@@ -77,10 +74,14 @@ class NavDrawerComponent extends React.Component<NavDrawerProps> {
           </CopyButton>
         </NavDrawerSection>
         <NavDrawerSection>
-          <NavDrawerRowLabel>
-            <NavDrawerLoadingPrefText />
-          </NavDrawerRowLabel>
-          <LoadingPrefToggle onClick={onLoadingPrefToggled} useGraphQL={useGraphQL} />
+          <Button size={buttonSizes.SMALL} onClick={onViewDashboardPressed}>
+            View My Dashboard
+          </Button>
+        </NavDrawerSection>
+        <NavDrawerSection>
+          <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>
+            Logout
+          </Button>
         </NavDrawerSection>
         <NavDrawerSection>
           <NavDrawerSectionHeader>
@@ -182,17 +183,7 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
 }
 
 const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
-  return (
-    <LoadUser>
-      {({ loading, user: civilUser }) => {
-        if (loading || !civilUser || !props.userEthAddress) {
-          return null;
-        }
-
-        return <NavDrawerBucketComponent {...props} />;
-      }}
-    </LoadUser>
-  );
+  return <NavDrawerBucketComponent {...props} />;
 };
 
 export default NavDrawer;

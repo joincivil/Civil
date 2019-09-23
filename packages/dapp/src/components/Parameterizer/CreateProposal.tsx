@@ -11,7 +11,7 @@ import {
   ModalListItem,
 } from "@joincivil/components";
 
-import { approveForProposeReparameterization, proposeReparameterization } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import { amountParams } from "./constants";
@@ -83,6 +83,9 @@ const transactionStatusModalConfig = {
 };
 
 class CreateProposal extends React.Component<CreateProposalProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.props.handleClose);
@@ -110,7 +113,7 @@ class CreateProposal extends React.Component<CreateProposalProps & InjectedTrans
             isTransactionRejectionModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_REPARAMETERIZATION,
           });
-          return approveForProposeReparameterization();
+          return this.context.approveForProposeReparameterization();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -155,7 +158,7 @@ class CreateProposal extends React.Component<CreateProposalProps & InjectedTrans
     if (amountParams.includes(this.props.createProposalParameterName!)) {
       newValue = newValue.mul(1e18);
     }
-    return proposeReparameterization(this.props.createProposalParameterName!, newValue);
+    return this.context.proposeReparameterization(this.props.createProposalParameterName!, newValue);
   };
 }
 

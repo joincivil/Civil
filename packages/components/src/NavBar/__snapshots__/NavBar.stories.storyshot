@@ -11,16 +11,16 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
     }
   >
     <div
-      className="sc-LzMjO CkMWx"
+      className="sc-LzMkn dvzRHi"
     >
       <div
-        className="sc-LzMkm cYdFMK"
+        className="sc-LzMko eldqKU"
       >
         <div
-          className="sc-LzMko ienFrP"
+          className="sc-LzMkq cGjONJ"
         >
           <div
-            className="sc-LzMkn gbMdGK"
+            className="sc-LzMkp gWeqMd"
           >
             <a
               href="https://civil.co"
@@ -42,13 +42,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMlG fiSMtj"
+            className="sc-LzMmh jKHXeN"
           >
             <div
-              className="sc-LzMmi wdpST"
+              className="sc-LzMmm juVULT"
             >
               <span
-                className="sc-LzMmj eqSSFp"
+                className="sc-LzMmn gjDPAh"
               >
                 <a
                   href="/registry"
@@ -57,11 +57,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-LzMmk gLnBfT"
+                  className="sc-LzMmo jkPSOf"
                 />
               </span>
               <div
-                className="sc-LzMml emcoiq"
+                className="sc-LzMmp igwxrW"
               >
                 <a
                   href="/registry"
@@ -100,7 +100,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMlH hpnlUx"
+            className="sc-LzMmi RUhyr"
           >
             <div
               onClick={[Function]}
@@ -120,22 +120,31 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzMlI bIZPPV"
+            className="sc-LzMmj hEIUED"
           />
         </div>
         <div
-          className="sc-LzMkp ifwkBd"
+          className="sc-LzMkr iIGtxC"
         >
-          <a
-            href="/#auth"
+          <button
+            className="sc-fzXfMD sc-fzXfNe sc-LzMla iaAnDi"
             onClick={[Function]}
+            theme={
+              Object {
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
+              }
+            }
+            type="button"
           >
             Log In
-          </a>
-          <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMkX cMCzrV"
-            href="#buy-tokens"
-            size="SMALL"
+          </button>
+          <button
+            className="sc-fzXfMD sc-fzXfNe sc-LzMlb beXBjJ"
+            onClick={[Function]}
             theme={
               Object {
                 "darkButtonBackground": "#000000",
@@ -145,25 +154,10 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                 "darkButtonTextTransform": "none",
               }
             }
+            type="button"
           >
-            Join as a member
-          </a>
-          <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMkX cMCzrV"
-            href="#apply"
-            size="SMALL"
-            theme={
-              Object {
-                "darkButtonBackground": "#000000",
-                "darkButtonColor": "#FFFFFF",
-                "darkButtonHoverBackground": "#5A5653",
-                "darkButtonHoverColor": "#FFFFFF",
-                "darkButtonTextTransform": "none",
-              }
-            }
-          >
-            Join as a newsroom
-          </a>
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
@@ -596,7 +590,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-LzMmm fBaaGT"
+      className="sc-LzMmq hrwdyH"
     >
       Please Switch To Rinkeby Testnet
     </div>

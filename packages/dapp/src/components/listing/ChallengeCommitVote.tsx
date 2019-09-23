@@ -17,7 +17,7 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
 import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
@@ -104,6 +104,9 @@ class ChallengeCommitVote extends React.Component<
   ChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & CommitCardKeyState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -269,17 +272,17 @@ class ChallengeCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens = parseEther(this.state.numTokens!);
-    return approveVotingRightsForCommit(numTokens);
+    const numTokens = parseEther(this.state.numTokens!.toString());
+    return this.context.approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
     const voteOption: BigNumber = bigNumberify(this.state.voteOption!);
     const saltStr = fetchSalt(this.props.challengeID, this.props.user);
     const salt: BigNumber = bigNumberify(saltStr!);
-    const numTokens: BigNumber = parseEther(this.state.numTokens!);
+    const numTokens: BigNumber = parseEther(this.state.numTokens!.toString());
     saveVote(this.props.challengeID, this.props.user, voteOption);
-    return commitVote(this.props.challengeID, voteOption, salt, numTokens);
+    return this.context.commitVote(this.props.challengeID, voteOption, salt, numTokens);
   };
 }
 

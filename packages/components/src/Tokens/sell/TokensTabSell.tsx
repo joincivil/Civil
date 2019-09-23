@@ -18,7 +18,8 @@ export interface TokensTabSellStates {
 }
 
 export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTabSellStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
   public constructor(props: TokensTabSellProps) {
     super(props);
     this.state = {

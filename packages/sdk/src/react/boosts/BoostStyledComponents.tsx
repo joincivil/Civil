@@ -209,6 +209,37 @@ export const BoostNewsroomName = styled.div`
   }
 `;
 
+export const BoostCardFlex = styled.div`
+  display: flex;
+
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 19px;
+    margin: 7px 0 10px;
+
+    ${mediaQueries.MOBILE} {
+      color: ${colors.primary.BLACK};
+      font-size: 16px;
+      line-height: 28px;
+    }
+  }
+`;
+
+export const BoostCardShare = styled.div`
+  width: 245px;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
+
+export const BoostPaymentShare = styled.span`
+  display: block;
+  margin: 10px auto 8px;
+  width: 100px;
+`;
+
 export const BoostDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
@@ -250,6 +281,7 @@ export const BoostDescription = styled.div`
 export const BoostDescriptionWhy = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
+  width: 500px;
 
   p {
     font-size: 18px;

@@ -11,6 +11,7 @@ import { BoostPayOption } from "./BoostPayOption";
 export interface BoostPayStripeProps {
   boostId: string;
   newsroomName: string;
+  title: string;
   usdToSpend: number;
   selected: boolean;
   paymentType: string;
@@ -27,8 +28,8 @@ export interface BoostPayStripeStates {
 }
 
 export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPayStripeStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   constructor(props: BoostPayStripeProps) {
     super(props);
     this.state = {
@@ -85,6 +86,7 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
                   <BoostPayFormStripe
                     boostId={this.props.boostId}
                     newsroomName={this.props.newsroomName}
+                    title={this.props.title}
                     usdToSpend={this.props.usdToSpend}
                     paymentType={this.props.paymentType}
                     optionLabel={this.props.optionLabel}

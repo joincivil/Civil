@@ -10,7 +10,7 @@ import {
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
-import { updateStatus } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import {
   ChallengeContainerProps,
   connectChallengePhase,
@@ -68,6 +68,9 @@ const transactionStatusModalConfig = {
 };
 
 class AppealResolve extends React.Component<AppealDetailProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public render(): JSX.Element {
     const transactions = this.getTransactions();
     const { appeal, challengeID, onMobileTransactionClick } = this.props;
@@ -118,7 +121,7 @@ class AppealResolve extends React.Component<AppealDetailProps & InjectedTransact
   };
 
   private resolveAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listingAddress);
+    return this.context.updateStatus(this.props.listingAddress);
   };
 }
 

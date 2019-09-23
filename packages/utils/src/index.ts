@@ -6,6 +6,7 @@ export * from "./contracts";
 export * from "./crypto";
 export * from "./email";
 export * from "./errors";
+export * from "./handle";
 export * from "./language";
 export * from "./localStorage";
 export * from "./salt";

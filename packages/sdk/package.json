@@ -74,7 +74,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "start:boost": "OPEN_PATH=boost-test.html node scripts/start.js",
+    "start:boost": "OPEN_PATH=boost-embed.html node scripts/start.js",
     "build": "yarn package:build",
     "test": "node scripts/test.js",
     "lint": "tslint --project ./",
@@ -132,7 +132,7 @@
     "rimraf": "^2.6.2",
     "semantic-release": "^15.13.3",
     "tslint": "^5.17.0",
-    "typescript": "3.3.4000"
+    "typescript": "^3.6.2"
   },
   "peerDependencies": {
     "styled-components": ">= 3"

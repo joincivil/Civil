@@ -76,12 +76,12 @@ const SaveButtonWrapper = styled.div`
 const DEFAULT_DIRTY_MESSAGE = "Are you sure you want to leave this page? Your changes have not been saved.";
 
 class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, NewsroomManagerState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+
   public static defaultProps: Partial<NewsroomManagerProps> = {
     theme: DEFAULT_THEME,
   };
-
-  public context!: React.ContextType<typeof CivilContext>;
+  public context!: ICivilContext;
 
   constructor(props: NewsroomManagerProps) {
     super(props);

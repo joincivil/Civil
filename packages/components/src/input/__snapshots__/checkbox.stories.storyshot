@@ -1266,7 +1266,7 @@ exports[`Storyshots Pattern Library / inputs / check box slide check box 1`] = `
     >
       <input
         checked={false}
-        onClick={[Function]}
+        onChange={[Function]}
         type="checkbox"
       />
       <span

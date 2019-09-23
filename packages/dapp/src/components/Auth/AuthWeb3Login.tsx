@@ -1,12 +1,9 @@
 import gql from "graphql-tag";
 import * as React from "react";
-import { Helmet } from "react-helmet";
 import styled from "styled-components";
-import { Dropdown, MetaMaskFrontIcon } from "@joincivil/components";
+import { Dropdown, MetaMaskFrontIcon, Modal } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 
-import { routes } from "../../constants";
-import { StyledPageContentWithPadding } from "../utility/styledComponents";
 import AuthButtonContent, { StyledCardTransactionButtonContainer } from "./AuthButtonContent";
 import { StyledAuthAltOption, StyledAuthHeader } from "./authStyledComponents";
 import AuthWeb3 from "./AuthWeb3";
@@ -38,7 +35,10 @@ const authLoginEthMutation = gql`
 
 export interface AuthWeb3LoginProps {
   onAuthenticated?(address: EthAddress): void;
-  onAuthenticationContinue?(isNewUser?: boolean, redirectUrl?: string): void;
+  onSignUpContinue?(): void;
+  onOuterClicked?(): void;
+  onSignUpClicked?(): void;
+  onLogInNoUserExists?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -53,13 +53,22 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
           authMutation={authLoginEthMutation}
           messagePrefix="Log in to Civil"
           buttonText={ethereumLoginButtonContent}
-          onAuthenticationContinue={props.onAuthenticationContinue}
-          {...props}
+          onSignUpContinue={props.onSignUpContinue}
+          onLogInNoUserExists={props.onLogInNoUserExists}
         />
       </StyledCardTransactionButtonContainer>
 
       <StyledAuthAltOption>
-        Not a Civil member? <a href={routes.AUTH_SIGNUP_WEB3}>Sign up to join</a>
+        Not a Civil member?{" "}
+        <a
+          onClick={() => {
+            if (props.onSignUpClicked) {
+              props.onSignUpClicked();
+            }
+          }}
+        >
+          Sign up to join
+        </a>
       </StyledAuthAltOption>
     </StyledAuthLogin>
   );
@@ -70,8 +79,11 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
   return (
     <Dropdown target={target}>
       <div>
-        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+        <StyledAuthHeader>Log in to Civil</StyledAuthHeader>
+        <AuthWeb3LoginComponent
+          onSignUpContinue={props.onSignUpContinue}
+          onLogInNoUserExists={props.onLogInNoUserExists}
+        />
       </div>
     </Dropdown>
   );
@@ -79,13 +91,12 @@ export const AuthWeb3LoginDropdown: React.FunctionComponent<AuthWeb3LoginProps &
 
 const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => {
   return (
-    <StyledPageContentWithPadding centerContent={true}>
-      <Helmet title={`Login - The Civil Registry`} />
+    <Modal width={558} onOuterClicked={props.onOuterClicked}>
       <div>
-        <StyledAuthHeader>Sign in to Civil</StyledAuthHeader>
-        <AuthWeb3LoginComponent onAuthenticationContinue={props.onAuthenticationContinue} />
+        <StyledAuthHeader>Log in to Civil</StyledAuthHeader>
+        <AuthWeb3LoginComponent {...props} />
       </div>
-    </StyledPageContentWithPadding>
+    </Modal>
   );
 };
 

@@ -8,7 +8,20 @@ import {
   CardCvcElement,
 } from "react-stripe-elements";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, FullScreenModal, CivilContext, ICivilContext } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  mediaQueries,
+  FullScreenModal,
+  CivilContext,
+  ICivilContext,
+  DropdownArrow,
+  CCAmexIcon,
+  CCDiscoverIcon,
+  CCMastercardIcon,
+  CCVisaIcon,
+  CCSecurityCodeIcon,
+} from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import {
   BoostFlexStart,
@@ -76,7 +89,7 @@ const StripeCardInfoFlex = styled.div`
   ${mediaQueries.MOBILE} {
     display: block;
 
-    div {
+    > div {
       &:first-of-type {
         margin: 0 0 10px;
       }
@@ -148,9 +161,41 @@ const StripePaymentRequest = styled.div`
   padding: 10px 0;
 `;
 
+const CreditCardIconsWrap = styled.div`
+  position: absolute;
+  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
+  top: 13px;
+
+  svg {
+    margin-right: 8px;
+  }
+
+  ${mediaQueries.MOBILE} {
+    right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "25px" : "8px")};
+
+    svg {
+      margin-right: 5px;
+    }
+  }
+`;
+
+const CreditCardCVCWrap = styled.div`
+  position: absolute;
+  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
+  top: 10px;
+`;
+
+const DropDownWrap = styled.div`
+  position: absolute;
+  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
+  top: 8px;
+  z-index: -1;
+`;
+
 export interface BoostPayFormStripeProps extends ReactStripeElements.InjectedStripeProps {
   boostId: string;
   newsroomName: string;
+  title: string;
   usdToSpend: number;
   selected: boolean;
   paymentType: string;
@@ -177,8 +222,8 @@ export interface BoostPayFormStripeStates {
 }
 
 class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostPayFormStripeStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -242,6 +287,12 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
                 <StripeElement inputState={this.state.cardNumberState}>
                   <CardNumberElement id="card-number" onBlur={() => this.handleOnBlurStripe()} />
                 </StripeElement>
+                <CreditCardIconsWrap inputState={this.state.cardNumberState}>
+                  <CCAmexIcon />
+                  <CCDiscoverIcon />
+                  <CCMastercardIcon />
+                  <CCVisaIcon />
+                </CreditCardIconsWrap>
               </InputValidationUI>
               <StripeCardInfoFlex>
                 <InputValidationUI inputState={this.state.cardExpiryState} width={"170px"}>
@@ -253,6 +304,9 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
                   <StripeElement inputState={this.state.cardCVCState}>
                     <CardCvcElement id="card-cvc" onBlur={() => this.handleOnBlurStripe()} />
                   </StripeElement>
+                  <CreditCardCVCWrap inputState={this.state.cardCVCState}>
+                    <CCSecurityCodeIcon />
+                  </CreditCardCVCWrap>
                 </InputValidationUI>
               </StripeCardInfoFlex>
             </StripeCardInfoWrap>
@@ -275,6 +329,9 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
                         );
                       })}
                     </select>
+                    <DropDownWrap inputState={this.state.countryState}>
+                      <DropdownArrow />
+                    </DropDownWrap>
                   </InputValidationUI>
                 </div>
                 <div>
@@ -345,6 +402,9 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
               newsroomName={this.props.newsroomName}
               usdToSpend={this.props.usdToSpend}
               handlePaymentSuccess={this.props.handlePaymentSuccess}
+              boostId={this.props.boostId}
+              newsroom={this.props.newsroomName}
+              title={this.props.title}
             />
           </BoostModalContain>
         </FullScreenModal>

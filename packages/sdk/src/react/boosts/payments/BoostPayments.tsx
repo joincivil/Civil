@@ -55,7 +55,7 @@ export interface BoostPaymentsProps {
   boostId: string;
   title: string;
   newsroomName: string;
-  history?: any;
+  history: any;
   handleBackToListing(): void;
   handlePaymentSuccess(): void;
 }
@@ -92,6 +92,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         usdToSpend={usdToSpend}
         paymentAddr={props.paymentAddr}
         newsroomName={props.newsroomName}
+        title={props.title}
         boostId={props.boostId}
         walletConnected={props.walletConnected}
         isStripeConnected={props.isStripeConnected}

@@ -3,8 +3,14 @@ import { compose } from "redux";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TxHash } from "@joincivil/core";
 import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
-import { QuestionToolTip, OBSmallParagraph, TransactionButtonNoModal, ModalContent } from "@joincivil/components";
-import { CivilContext, CivilContextValue } from "../CivilContext";
+import {
+  QuestionToolTip,
+  OBSmallParagraph,
+  TransactionButtonNoModal,
+  ModalContent,
+  CivilContext,
+  ICivilContext,
+} from "@joincivil/components";
 import {
   FormSection,
   FormRow,
@@ -89,10 +95,75 @@ export interface TransactionsProp {
   transactions: any;
 }
 
-const ApplyToTCRFormComponent: React.FunctionComponent<
+const ApplyToTCRForm: React.FunctionComponent<
   ApplyToTCRFormProps & ApplyPostTransactionProp & TransactionsProp & InjectedTransactionStatusModalProps
 > = props => {
-  const { minDeposit, multisigHasMinDeposit, transactions } = props;
+  const civilCtx = React.useContext<ICivilContext>(CivilContext);
+
+  const { minDeposit, multisigHasMinDeposit, multisigAddress, newsroomAddress, postApplyToTCR } = props;
+  const transactions = [
+    {
+      transaction: async () => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: true,
+          isTransactionProgressModalOpen: false,
+          isTransactionSuccessModalOpen: false,
+          isTransactionErrorModalOpen: false,
+          isTransactionRejectionModalOpen: false,
+          transactionType: TransactionTypes.APPROVE_FOR_APPLY,
+        });
+        const tcr = await civilCtx.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
+        const token = await tcr.getToken();
+        const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress);
+        if (approvedTokens.lt(minDeposit!)) {
+          return token.approveSpender(tcr.address, civilCtx.civil!.toBigNumber(minDeposit!));
+        }
+        return;
+      },
+      handleTransactionHash: (txHash: TxHash) => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: false,
+          isTransactionProgressModalOpen: true,
+        });
+      },
+      handleTransactionError: props.handleTransactionError,
+    },
+    {
+      transaction: async () => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: true,
+          isTransactionProgressModalOpen: false,
+          isTransactionSuccessModalOpen: false,
+          transactionType: TransactionTypes.APPLY_TO_REGISTRY,
+        });
+        const tcr = await civilCtx.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
+        return tcr.apply(newsroomAddress!, civilCtx.civil!.toBigNumber(minDeposit), "");
+      },
+      handleTransactionHash: async (txHash: TxHash) => {
+        await props.saveTxHash(txHash);
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: false,
+          isTransactionProgressModalOpen: true,
+        });
+      },
+      handleTransactionError: props.handleTransactionError,
+      postTransaction: () => {
+        props.updateTransactionStatusModalsState({
+          isWaitingTransactionModalOpen: false,
+          isTransactionProgressModalOpen: false,
+          isTransactionSuccessModalOpen: true,
+        });
+        postApplyToTCR();
+
+        // @TODO A hack until https://github.com/joincivil/Civil/pull/1148
+        props.setHandleTransactionSuccessButtonClick(() => {
+          document.location.reload();
+        });
+      },
+    },
+  ];
+
+  props.setTransactions(transactions);
 
   return (
     <FormSection>
@@ -136,84 +207,6 @@ const ApplyToTCRFormComponent: React.FunctionComponent<
         </FormRowItem>
       </FormRow>
     </FormSection>
-  );
-};
-
-const ApplyToTCRForm: React.FunctionComponent<
-  ApplyToTCRFormProps & ApplyPostTransactionProp & InjectedTransactionStatusModalProps
-> = props => {
-  const { newsroomAddress, minDeposit, multisigAddress, postApplyToTCR } = props;
-
-  return (
-    <CivilContext.Consumer>
-      {(value: CivilContextValue) => {
-        const transactions = [
-          {
-            transaction: async () => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: true,
-                isTransactionProgressModalOpen: false,
-                isTransactionSuccessModalOpen: false,
-                isTransactionErrorModalOpen: false,
-                isTransactionRejectionModalOpen: false,
-                transactionType: TransactionTypes.APPROVE_FOR_APPLY,
-              });
-              const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
-              const token = await tcr.getToken();
-              const approvedTokens = await token.getApprovedTokensForSpender(tcr.address, multisigAddress);
-              if (approvedTokens.lt(minDeposit!)) {
-                return token.approveSpender(tcr.address, value.civil!.toBigNumber(minDeposit!));
-              }
-              return;
-            },
-            handleTransactionHash: (txHash: TxHash) => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isTransactionProgressModalOpen: true,
-              });
-            },
-            handleTransactionError: props.handleTransactionError,
-          },
-          {
-            transaction: async () => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: true,
-                isTransactionProgressModalOpen: false,
-                isTransactionSuccessModalOpen: false,
-                transactionType: TransactionTypes.APPLY_TO_REGISTRY,
-              });
-              const tcr = await value.civil!.tcrSingletonTrustedMultisigSupport(multisigAddress);
-              return tcr.apply(newsroomAddress!, value.civil!.toBigNumber(minDeposit), "");
-            },
-            handleTransactionHash: async (txHash: TxHash) => {
-              await props.saveTxHash(txHash);
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isTransactionProgressModalOpen: true,
-              });
-            },
-            handleTransactionError: props.handleTransactionError,
-            postTransaction: () => {
-              props.updateTransactionStatusModalsState({
-                isWaitingTransactionModalOpen: false,
-                isTransactionProgressModalOpen: false,
-                isTransactionSuccessModalOpen: true,
-              });
-              postApplyToTCR();
-
-              // @TODO A hack until https://github.com/joincivil/Civil/pull/1148
-              props.setHandleTransactionSuccessButtonClick(() => {
-                document.location.reload();
-              });
-            },
-          },
-        ];
-
-        props.setTransactions(transactions);
-
-        return <ApplyToTCRFormComponent {...props} transactions={transactions} />;
-      }}
-    </CivilContext.Consumer>
   );
 };
 

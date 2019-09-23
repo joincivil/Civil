@@ -1,14 +1,14 @@
 import { EthAddress } from "@joincivil/core";
-import { getTCR } from "./civilInstance";
+import { CivilHelper } from "../apis/CivilHelper";
 
-export async function getCivilianWhitelist(user: EthAddress): Promise<boolean> {
-  const tcr = await getTCR();
+export async function getCivilianWhitelist(helper: CivilHelper, user: EthAddress): Promise<boolean> {
+  const tcr = await helper.getTCR();
   const token = await tcr.getToken();
   return token.isCivilian(user);
 }
 
-export async function getUnlockedWhitelist(user: EthAddress): Promise<boolean> {
-  const tcr = await getTCR();
+export async function getUnlockedWhitelist(helper: CivilHelper, user: EthAddress): Promise<boolean> {
+  const tcr = await helper.getTCR();
   const token = await tcr.getToken();
   return token.isUnlocked(user);
 }

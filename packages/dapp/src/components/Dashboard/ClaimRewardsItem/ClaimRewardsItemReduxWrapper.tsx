@@ -19,6 +19,7 @@ import { fetchAndAddChallengeData } from "../../../redux/actionCreators/challeng
 import { fetchAndAddParameterProposalChallengeData } from "../../../redux/actionCreators/parameterizer";
 import { ClaimRewardsItemOwnProps, ClaimRewardsViewComponentProps, ProposalClaimRewardsComponentProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
+import { CivilHelperContext, CivilHelper } from "../../../apis/CivilHelper";
 
 interface ClaimRewardsChallengeProp {
   challenge?: any;
@@ -28,6 +29,9 @@ interface ClaimRewardsChallengeProp {
 class ClaimRewardsItemReduxWrapperComponent extends React.Component<
   ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps & ClaimRewardsChallengeProp & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidMount(): Promise<void> {
     await this.ensureListingAndNewsroomData();
   }
@@ -43,10 +47,10 @@ class ClaimRewardsItemReduxWrapperComponent extends React.Component<
   private ensureListingAndNewsroomData = async (): Promise<void> => {
     const { newsroom, challengeID, challenge, challengeDataRequestStatus, dispatch } = this.props;
     if (newsroom && newsroom.data && newsroom.data.charterHeader) {
-      dispatch!(await getContent(newsroom.data.charterHeader));
+      dispatch!(await getContent(this.context, newsroom.data.charterHeader));
     }
     if (challengeID && !challenge && !challengeDataRequestStatus) {
-      dispatch!(fetchAndAddChallengeData(challengeID! as string));
+      dispatch!(fetchAndAddChallengeData(this.context, challengeID! as string));
     }
   };
 }
@@ -54,6 +58,9 @@ class ClaimRewardsItemReduxWrapperComponent extends React.Component<
 class ClaimRewardsProposalItemReduxWrapperComponent extends React.Component<
   ClaimRewardsItemOwnProps & ProposalClaimRewardsComponentProps & ClaimRewardsChallengeProp & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidMount(): Promise<void> {
     await this.ensureProposalData();
   }
@@ -69,7 +76,7 @@ class ClaimRewardsProposalItemReduxWrapperComponent extends React.Component<
   private ensureProposalData = async (): Promise<void> => {
     const { challengeID, challenge, challengeDataRequestStatus } = this.props;
     if (!challenge && !challengeDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
+      this.props.dispatch!(fetchAndAddParameterProposalChallengeData(this.context, challengeID! as string));
     }
   };
 }

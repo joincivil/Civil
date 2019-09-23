@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
+import { withRouter, RouteComponentProps } from "react-router";
 import { boostQuery, boostNewsroomQuery } from "./queries";
 import { BoostData, BoostNewsroomData } from "./types";
 import { BoostCard } from "./BoostCard";
@@ -10,8 +11,7 @@ import { NewsroomWithdraw } from "../NewsroomWithdraw";
 import { withBoostPermissions, BoostPermissionsInjectedProps } from "./BoostPermissionsHOC";
 import { LoadingMessage, CivilContext, ICivilContext } from "@joincivil/components";
 
-export interface BoostInternalProps {
-  history?: any;
+export interface BoostExternalProps {
   boostId: string;
   open: boolean;
   disableOwnerCheck?: boolean;
@@ -20,21 +20,19 @@ export interface BoostInternalProps {
   payment?: boolean;
 }
 
-export type BoostProps = BoostInternalProps & BoostPermissionsInjectedProps;
+export type BoostProps = BoostExternalProps & BoostPermissionsInjectedProps & RouteComponentProps;
 
 export interface BoostStates {
-  payment: boolean;
   paymentSuccess: boolean;
 }
 
 class BoostComponent extends React.Component<BoostProps, BoostStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   public constructor(props: BoostProps) {
     super(props);
     this.state = {
-      payment: this.props.payment || false,
       paymentSuccess: false,
     };
   }
@@ -103,7 +101,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                   return this.renderEditMode(boostData, newsroomData);
                 }
 
-                if (this.state.payment) {
+                if (this.props.payment) {
                   return (
                     <BoostPayments
                       boostId={id}
@@ -165,7 +163,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
   private startPayment = (usdToSpend: number) => {
     this.props.history.push({
-      pathname: "/boosts/" + this.props.boostId + "/payment",
+      pathname: this.props.location.pathname + "/payment",
       state: { usdToSpend },
     });
     this.context.fireAnalyticsEvent("boosts", "start support", this.props.boostId, usdToSpend);
@@ -173,14 +171,14 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
   private handlePaymentSuccess = () => {
     this.props.history.push({
-      pathname: "/boosts/" + this.props.boostId,
+      pathname: this.props.location.pathname.replace("/payment", ""),
       state: { paymentSuccess: true },
     });
   };
 
   private handleBackToListing = () => {
-    this.props.history.push("/boosts/" + this.props.boostId);
+    this.props.history.push(this.props.location.pathname.replace("/payment", ""));
   };
 }
 
-export const Boost = withBoostPermissions(BoostComponent);
+export const Boost = withBoostPermissions(withRouter(BoostComponent));

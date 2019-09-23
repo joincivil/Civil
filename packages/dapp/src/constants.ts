@@ -1,3 +1,11 @@
+import * as React from "react";
+import { BoostLoader } from "@joincivil/sdk";
+
+/** Routes that should load components outside of Main.tsx and header and footer etc., but which will still inherit config, civil context, Apollo provider, etc. */
+export const standaloneRoutes: Array<{ pathname: string; component: React.ComponentType }> = [
+  { pathname: "/boost-embed/:boostId/:payment?", component: BoostLoader },
+];
+
 export enum routes {
   REGISTRY_HOME = "/registry/:listingType/:subListingType?",
   REGISTRY_HOME_ROOT = "/registry",
@@ -22,6 +30,7 @@ export enum routes {
   AUTH_LOGIN_WEB3 = "/auth/login/web3",
   AUTH_LOGOUT = "/auth/logout",
   WALLET_HOME = "/auth/wallet",
+  CONFIRM_EMAIL = "/auth/confirm-email",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
   BOOST_CREATE = "/launch-boost",
@@ -30,6 +39,7 @@ export enum routes {
   BOOST_PAYMENT = "/boosts/:boostId/payment",
   CHANNEL_ADMIN = "/admin/:reference",
   MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",
+  SET_HANDLE = "/auth/set-handle",
 }
 
 export enum registryListingTypes {

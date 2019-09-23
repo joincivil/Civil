@@ -56,7 +56,7 @@ import {
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
-import { ui, useGraphQL } from "./ui";
+import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, List, Map } from "immutable";
 import {
@@ -88,6 +88,8 @@ export interface State {
   networkName: string;
   ui: Map<string, any>;
   useGraphQL: boolean;
+  showWeb3AuthModal: boolean;
+  web3AuthType: string;
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
@@ -223,4 +225,6 @@ export default (history: any) =>
     networkName,
     ui,
     useGraphQL,
+    showWeb3AuthModal,
+    web3AuthType,
   });

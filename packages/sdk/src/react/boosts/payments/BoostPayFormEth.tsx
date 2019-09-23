@@ -25,6 +25,7 @@ export interface BoostPayFormEthProps {
   etherToSpend: number;
   usdToSpend: number;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
   savePayment: MutationFunc;
   handlePaymentSuccess(): void;
@@ -37,8 +38,8 @@ export interface BoostPayFormEthState {
 }
 
 export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, BoostPayFormEthState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   constructor(props: BoostPayFormEthProps) {
     super(props);
@@ -65,6 +66,9 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
           etherToSpend={this.props.etherToSpend}
           usdToSpend={this.props.usdToSpend}
           handlePaymentSuccess={this.props.handlePaymentSuccess}
+          boostId={this.props.boostId}
+          newsroom={this.props.newsroomName}
+          title={this.props.title}
         />
       ),
       [progressModalStates.ERROR]: <PaymentErrorModalText />,
@@ -130,9 +134,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
     this.context.fireAnalyticsEvent("boosts", "start submit ETH support", this.props.boostId, this.props.usdToSpend);
     // @TODO/loginV2 migrate away from window.ethereum
     if (this.context.civil && (window as any).ethereum) {
-      const amount = this.context.civil.toBigNumber(this.props.etherToSpend);
-
-      return this.context.civil.simplePayment(this.props.paymentAddr, amount);
+      return this.context.civil.simplePayment(this.props.paymentAddr, this.props.etherToSpend.toString());
     } else {
       // TODO: pop dialog telling them to install metamask/web3
     }

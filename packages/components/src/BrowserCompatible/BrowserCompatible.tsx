@@ -8,8 +8,8 @@ import {
   BrowserCompatLinks,
 } from "./BrowserCompatibleStyledComponents";
 import { BrowserCompatHeadingText, BrowserCompatIntroText } from "./BrowserCompatibleTextComponents";
-import * as chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
-import * as firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
+import chromeLogoImgUrl from "../images/img-chrome-logo@2x.png";
+import firefoxLogoImgUrl from "../images/img-firefox-logo@2x.png";
 import { urlConstants as links } from "@joincivil/utils";
 
 export const BrowserCompatible: React.FunctionComponent = props => {
