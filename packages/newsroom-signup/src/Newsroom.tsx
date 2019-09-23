@@ -41,6 +41,8 @@ import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { Wrapper, DEFAULT_THEME } from "./styledComponents";
 import { MutationFunc } from "react-apollo";
+import { compose } from "redux";
+import { SignupParametersProps, connectSignupParameters } from "./ParameterizerHOC";
 
 enum SECTION {
   PROFILE,
@@ -517,16 +519,16 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps & SignupParametersProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
-  const { user, parameters } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
+  const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
   let hasMinDeposit;
   let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
-  if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
+  if (user && user.account && user.account.balance && ownProps.minDeposit) {
     const userBalance = new BigNumber(user.account.balance);
-    const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
+    const minDeposit = new BigNumber(ownProps.minDeposit);
     hasMinDeposit = userBalance.gte(minDeposit);
     waitingOnGrant = waitingOnGrant && !hasMinDeposit;
   }
@@ -541,7 +543,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
   };
 };
 
-const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
+const NewsroomRedux = compose(connectSignupParameters, connect(mapStateToProps))(NewsroomComponent);
 
 export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props => {
   return (

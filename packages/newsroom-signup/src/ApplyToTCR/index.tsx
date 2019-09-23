@@ -7,6 +7,8 @@ import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
+import { SignupParametersProps, connectSignupParameters } from "../ParameterizerHOC";
+import { compose } from "redux";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
@@ -88,7 +90,7 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
   };
 }
 
-const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyToTCRStepProps => {
+const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps & SignupParametersProps): TApplyToTCRStepProps => {
   const newsroom = state.newsrooms.get(ownProps.address);
   const { listings, parameters, user } = state.networkDependent;
   const listingWrapperWithExpiry: { listing: ListingWrapper; expiry: number } | undefined = listings.get(
@@ -110,7 +112,7 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyTo
 
   const userBalance = new BigNumber((user && user.account && user.account.account !== "" && user.account.balance) || 0);
 
-  const minDeposit = new BigNumber((parameters && parameters[Parameters.minDeposit]) || 0);
+  const minDeposit = ownProps.minDeposit;
 
   const multisigHasMinDeposit = multisigBalance.gte(minDeposit);
 
@@ -127,4 +129,4 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyTo
   };
 };
 
-export const ApplyToTCRStep = connect(mapStateToProps)(ApplyToTCRStepComponent);
+export const ApplyToTCRStep = compose(connectSignupParameters, connect(mapStateToProps))(ApplyToTCRStepComponent);
