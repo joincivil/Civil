@@ -13,7 +13,7 @@ import {
   Button,
   TransactionButton,
 } from "@joincivil/components";
-import { BoostButton } from "./boosts/BoostStyledComponents";
+import { BoostButton, CurrencyLabel } from "./boosts/BoostStyledComponents";
 import { BoostProceeds } from "./boosts/BoostProceeds";
 import { urlConstants } from "./urlConstants";
 
@@ -139,7 +139,7 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
             {(this.props.isStripeConnected === true || typeof this.props.isStripeConnected === "undefined") && (
               <p>
                 {this.props.isStripeConnected === true ? "Y" : "If you have connected Stripe to your newsroom, y"}ou may
-                have additional funds in your{" "}
+                have additional funds from credit card proceeds in your{" "}
                 <a href="https://dashboard.stripe.com" target="_blank">
                   Stripe account
                 </a>
@@ -155,16 +155,27 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
           <BalanceAndButton>
             <p>
               Newsroom balance:{" "}
+              <b>
+                {typeof this.state.multisigBalance !== "undefined" && (
+                  <>
+                    {this.state.multisigBalance.toFixed(4)} <CurrencyLabel>ETH</CurrencyLabel>
+                  </>
+                )}
+              </b>
+              <br />
               <Query query={ethPriceQuery}>
                 {({ loading, error, data }) => {
                   if (loading || typeof this.state.multisigBalance === "undefined") {
                     return <LoadingIndicator />;
                   }
-                  return <b>${(data.storefrontEthPrice * this.state.multisigBalance).toFixed(2)}</b>;
+                  return (
+                    <>
+                      (${(data.storefrontEthPrice * this.state.multisigBalance).toFixed(2)}{" "}
+                      <CurrencyLabel secondary={true}>USD</CurrencyLabel>)
+                    </>
+                  );
                 }}
               </Query>
-              <br />
-              {typeof this.state.multisigBalance !== "undefined" && <>({this.state.multisigBalance.toFixed(4)} ETH)</>}
             </p>
             {this.renderButton()}
           </BalanceAndButton>

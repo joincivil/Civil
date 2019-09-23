@@ -10,6 +10,7 @@ import {
   NewsroomChannelInjectedProps,
 } from "@joincivil/components";
 import { boostProceedsQuery } from "./queries";
+import { CurrencyLabel } from "./BoostStyledComponents";
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,11 +37,6 @@ const Amount = styled.span`
 `;
 const TotalAmount = styled(Amount)`
   font-size: 20px;
-`;
-const CurrencyLabel = styled.span`
-  color: ${colors.primary.CIVIL_GRAY_0};
-  font-size: 12px;
-  font-weight: bold;
 `;
 
 export interface BoostProceedsProps {
@@ -82,14 +78,14 @@ class BoostProceedsComponent extends React.Component<BoostProceedsProps & Newsro
               </TotalProceeds>
               <Proceed>
                 <div>
-                  <Amount>{ether}</Amount> <CurrencyLabel>ETH</CurrencyLabel> ~= ${ethUsdAmount}{" "}
-                  <CurrencyLabel>USD</CurrencyLabel>
+                  <Amount>{ether}</Amount> <CurrencyLabel>ETH</CurrencyLabel> ≈ ${ethUsdAmount}{" "}
+                  <CurrencyLabel secondary={true}>USD</CurrencyLabel>
                 </div>
                 <div>ETH Proceeds</div>
               </Proceed>
               <Proceed>
                 <div>
-                  <Amount>${usd}</Amount> <CurrencyLabel>USD</CurrencyLabel>
+                  <Amount>${usd}</Amount> <CurrencyLabel secondary={true}>USD</CurrencyLabel>
                 </div>
                 <div>Credit Card Proceeds</div>
               </Proceed>
