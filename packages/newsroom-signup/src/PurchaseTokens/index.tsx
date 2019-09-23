@@ -24,15 +24,15 @@ import {
   GrantSubmitIcon,
 } from "@joincivil/components";
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
-import { SignupParametersProps } from "../ParameterizerHOC";
+import { withRouter } from "react-router-dom";
 
 export interface PurchaseTokensExternalProps extends RouteComponentProps {
+  minDeposit: BigNumber;
   grantApproved?: boolean;
   navigate(go: 1 | -1): void;
 }
 export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
   userCvlBalance: BigNumber;
-  minDeposit: BigNumber;
   hasMinDeposit: boolean;
 }
 
@@ -210,7 +210,7 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
   };
 }
 
-const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps & SignupParametersProps): PurchaseTokensProps => {
+const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps): PurchaseTokensProps => {
   const { user } = state.networkDependent;
   const userBalance = new BigNumber((user && user.account && user.account.balance) || 0);
   const minDeposit = ownProps.minDeposit;
@@ -222,4 +222,4 @@ const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps & Sig
   };
 };
 
-export const PurchaseTokens = connect(mapStateToProps)(PurchaseTokensComponent);
+export const PurchaseTokens = withRouter(connect(mapStateToProps)(PurchaseTokensComponent));

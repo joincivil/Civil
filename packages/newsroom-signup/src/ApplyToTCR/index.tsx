@@ -7,12 +7,13 @@ import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
-import { SignupParametersProps } from "../ParameterizerHOC";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
   newsroom: NewsroomInstance;
   civil?: Civil;
+  minDeposit: BigNumber;
+  applyStageLen: BigNumber;
   navigate(go: 1 | -1): void;
 }
 
@@ -89,9 +90,9 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
   };
 }
 
-const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps & SignupParametersProps): TApplyToTCRStepProps => {
+const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyToTCRStepProps => {
   const newsroom = state.newsrooms.get(ownProps.address);
-  const { listings, parameters, user } = state.networkDependent;
+  const { listings, user } = state.networkDependent;
   const listingWrapperWithExpiry: { listing: ListingWrapper; expiry: number } | undefined = listings.get(
     ownProps.address,
   );
@@ -103,7 +104,7 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps & SignupPa
   const multisigAddress = newsroom && newsroom.multisigAddress;
   const multisigBalance = (newsroom && newsroom.multisigBalance) || new BigNumber(0);
 
-  const applyStageLenValue = parameters && parameters[Parameters.applyStageLen];
+  const applyStageLenValue = ownProps.applyStageLen;
   let applyStageLenDisplay;
   if (applyStageLenValue) {
     applyStageLenDisplay = getFormattedParameterValue(Parameters.applyStageLen, applyStageLenValue);

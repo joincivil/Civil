@@ -33,15 +33,14 @@ import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
-import { PurchaseTokensWrapper } from "./PurchaseTokens/PurchaseTokensWrapper";
+import { PurchaseTokens } from "./PurchaseTokens/index";
 import { RepublishCharterNotice } from "./RepublishCharterNotice";
-import { ApplyToTCRWrapper } from "./ApplyToTCR/ApplyToTCRWrapper";
+import { ApplyToTCRStep } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { Wrapper, DEFAULT_THEME } from "./styledComponents";
-import { MutationFunc } from "react-apollo";
+import { MutationFunc, Query } from "react-apollo";
 import { compose } from "redux";
-import { SignupParametersProps, connectSignupParameters } from "./ParameterizerHOC";
 
 enum SECTION {
   PROFILE,
@@ -149,6 +148,8 @@ export interface NewsroomGqlProps {
   quizStatus?: string;
   saveAddress: MutationFunc;
   saveSteps: MutationFunc;
+  minDeposit: BigNumber;
+  applyStageLen: BigNumber;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
@@ -291,7 +292,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           {this.renderSteps()}
         </StepProcessTopNavNoButtons>
       </>
-    );
+    )
   }
 
   public renderSteps(): JSX.Element[] {
@@ -326,14 +327,19 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
-        <PurchaseTokensWrapper navigate={this.navigate} grantApproved={this.props.grantApproved} />
+        <PurchaseTokens
+          navigate={this.navigate}
+          grantApproved={this.props.grantApproved}
+          minDeposit={this.props.minDeposit} />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
-        <ApplyToTCRWrapper
+        <ApplyToTCRStep
           navigate={this.navigate}
           newsroom={this.props.newsroom!}
           address={this.props.newsroomAddress}
           civil={this.props.civil}
+          minDeposit={this.props.minDeposit}
+          applyStageLen={this.props.applyStageLen}
         />
       </StepNoButtons>,
     ];
@@ -518,7 +524,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps & SignupParametersProps): NewsroomReduxProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
@@ -542,7 +548,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps & 
   };
 };
 
-const NewsroomRedux = compose(connectSignupParameters, connect(mapStateToProps))(NewsroomComponent);
+const NewsroomRedux = connect(mapStateToProps)(NewsroomComponent);
 
 export const Newsroom: React.FunctionComponent<NewsroomExternalProps> = props => {
   return (
