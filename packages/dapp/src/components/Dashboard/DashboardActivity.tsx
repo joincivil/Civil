@@ -120,6 +120,9 @@ const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
       pollID
       pollType
     }
+    challengesStarted: challengesStartedByUser(addr:$userAddress) {
+      challengeID
+    }
   }
 `;
 
@@ -276,9 +279,7 @@ class DashboardActivity extends React.Component<
               }
             });
 
-            // const { currentUserChallengesStarted } = this.props;
-            const currentUserChallengesStarted = Set<string>();
-
+            const currentUserChallengesStarted = Set<string>(data.challengesStarted.map(challenge => challenge.challengeID));
             const myTasksViewProps = {
               userChallengeData: userChallengeDataMap,
               challengeToAppealChallengeMap,

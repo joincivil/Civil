@@ -93,19 +93,19 @@ export const getAppealChallengeViewProps = (appealChallenge: AppealChallengeData
 
   if (didAppealChallengeSucceed(appealChallenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
-    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
+    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
     votesPercent = totalVotes.isZero()
       ? "0"
-      : appealChallenge.poll.votesAgainst
+      : appealChallenge.poll.votesFor
           .div(totalVotes)
           .mul(new BigNumber(100))
           .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
-    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
+    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
     votesPercent = totalVotes.isZero()
       ? "0"
-      : appealChallenge.poll.votesFor
+      : appealChallenge.poll.votesAgainst
           .div(totalVotes)
           .mul(new BigNumber(100))
           .toString();

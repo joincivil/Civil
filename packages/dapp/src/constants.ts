@@ -82,7 +82,7 @@ export enum dashboardSubTabs {
   TASKS_RESCUE_TOKENS = "rescue-tokens",
   TASKS_TRANSFER_VOTING_TOKENS = "transfer-voting-tokens",
   CHALLENGES_COMPLETED = "completed",
-  CHALLENGES_STAKED = "completed",
+  CHALLENGES_STAKED = "staked",
 }
 
 export type TDashboardTab =
