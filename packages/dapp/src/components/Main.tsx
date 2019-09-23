@@ -18,7 +18,6 @@ import {
   initializeConstitution,
   initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
-import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { AuthRouter } from "./Auth";
@@ -98,10 +97,8 @@ export const Main: React.FunctionComponent = () => {
     setNetworkValue(network);
 
     try {
-      await initializeParameterizer(civilHelper!, dispatch!);
       await initializeGovernment(civilHelper!, dispatch!);
       await initializeConstitution(civilHelper!, dispatch!);
-      await initializeProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeGovernmentParamSubscription(civilHelper!, dispatch!);
       await initializeGovtProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeContractAddresses(civilHelper!, dispatch!);

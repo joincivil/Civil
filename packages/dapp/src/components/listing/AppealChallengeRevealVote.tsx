@@ -18,6 +18,7 @@ import {
   ChallengeContainerProps,
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 } from "../utility/HigherOrderComponents";
 import {
   InjectedTransactionStatusModalProps,
@@ -69,6 +70,7 @@ const AppealChallengeRevealVoteCard = compose<
 >(
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 )(AppealChallengeRevealVoteCardComponent);
 
 class AppealChallengeRevealVote extends React.Component<
@@ -107,8 +109,8 @@ class AppealChallengeRevealVote extends React.Component<
       this.props.userAppealChallengeData && !!this.props.userAppealChallengeData.didUserCommit;
 
     const endTime = appealChallenge.poll.revealEndDate.toNumber();
-    const phaseLength = this.props.parameters[Parameters.challengeAppealRevealLen];
-    const secondaryPhaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
+    const phaseLength = this.props.parameters.get(Parameters.challengeAppealRevealLen);
+    const secondaryPhaseLength = this.props.parameters.get(Parameters.challengeAppealCommitLen);
 
     const transactions = this.getTransactions();
 

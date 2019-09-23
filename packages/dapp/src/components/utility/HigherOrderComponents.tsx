@@ -25,13 +25,11 @@ import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges"
 import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
-import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY, PARAMETERS_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
-
-export interface GraphQLizableComponentProps {
-  useGraphQL: boolean;
-}
+import { Map } from "immutable";
+import { compose } from "redux";
 
 export interface ListingContainerProps {
   listingAddress: EthAddress;
@@ -63,7 +61,6 @@ export interface PhaseCountdownTimerProps {
 }
 
 export interface PhaseCountdownReduxProps {
-  parameters: any;
   govtParameters: any;
 }
 
@@ -81,9 +78,8 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
   const mapStateToProps = (
     state: State,
     ownProps: TOriginalProps,
-  ): TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps => {
+  ): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching, user } = state.networkDependent;
-    const { useGraphQL } = state;
     let challengeData;
     let challengeID = ownProps.challengeID;
     if (challengeID) {
@@ -102,27 +98,17 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
       challengeID,
       challengeData,
       challengeDataRequestStatus,
-      useGraphQL,
       user: userAcct.account,
     });
   };
 
   class HOChallengeResultsContainer extends React.Component<
-    TOriginalProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
+    TOriginalProps & ChallengeContainerReduxProps & DispatchProp<any>
   > {
     public static contextType = CivilHelperContext;
     public context: CivilHelper;
 
-    public componentDidMount(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public componentDidUpdate(): void {
-      this.ensureHasChallengeData();
-    }
-
     public render(): JSX.Element | null {
-      if (this.props.useGraphQL) {
         return (
           <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
             {({ loading, error, data }: any): JSX.Element | null => {
@@ -171,73 +157,55 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
             }}
           </Query>
         );
-      } else {
-        if (!this.props.challengeData) {
-          return null;
-        }
-
-        const challengeResultsProps = getChallengeResultsProps(
-          this.props.challengeData.challenge,
-        ) as ChallengeResultsProps;
-        const challengeID = this.props.challengeID && this.props.challengeID.toString();
-
-        let appealPhaseProps = {};
-        if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
-          appealPhaseProps = {
-            appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
-            appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
-          };
-        }
-        let appealChallengePhaseProps = {};
-        if (
-          this.props.challengeData &&
-          this.props.challengeData.challenge.appeal &&
-          this.props.challengeData.challenge.appeal.appealChallengeID
-        ) {
-          appealChallengePhaseProps = {
-            appealChallengeID: this.props.challengeData.challenge.appeal.appealChallengeID.toString(),
-          };
-        }
-        let appealChallengeResultsProps = {};
-        if (
-          this.props.challengeData &&
-          this.props.challengeData.challenge.appeal &&
-          this.props.challengeData.challenge.appeal.appealChallenge
-        ) {
-          appealChallengeResultsProps = getAppealChallengeResultsProps(
-            this.props.challengeData.challenge.appeal.appealChallenge,
-          ) as AppealChallengeResultsProps;
-        }
-
-        return (
-          <>
-            <PresentationComponent
-              {...this.props}
-              {...challengeResultsProps}
-              {...appealPhaseProps}
-              {...appealChallengePhaseProps}
-              {...appealChallengeResultsProps}
-              challengeID={challengeID}
-            />
-          </>
-        );
-      }
     }
 
-    private ensureHasChallengeData = (): void => {
-      if (
-        !this.props.useGraphQL &&
-        this.props.challengeID &&
-        !this.props.challengeData &&
-        !this.props.challengeDataRequestStatus
-      ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID! as string));
-      }
-    };
   }
 
   return connect(mapStateToProps)(HOChallengeResultsContainer);
 };
+
+const parametersArray = [
+  Parameters.minDeposit,
+  Parameters.pMinDeposit,
+  Parameters.applyStageLen,
+  Parameters.pApplyStageLen,
+  Parameters.commitStageLen,
+  Parameters.pCommitStageLen,
+  Parameters.revealStageLen,
+  Parameters.pRevealStageLen,
+  Parameters.dispensationPct,
+  Parameters.pDispensationPct,
+  Parameters.voteQuorum,
+  Parameters.pVoteQuorum,
+  Parameters.challengeAppealLen,
+  Parameters.challengeAppealCommitLen,
+  Parameters.challengeAppealRevealLen
+]
+
+export interface ParametersProps {
+  parameters: Map<string, BigNumber>;
+}
+
+export const connectParameters = <TOriginalProps extends any>(PresentationComponent: React.ComponentClass<TOriginalProps & ParametersProps>,) => {
+  class ParametersContainer extends React.Component<TOriginalProps> {
+    public render(): JSX.Element {
+      return (<Query query={PARAMETERS_QUERY} variables={{ input: parametersArray}}>
+
+        {({ loading, error, data }) => {
+          if (loading || error) {
+            return <></>
+          }
+          const parameters = Map<string, BigNumber>(data.parameters.map(param => {
+            return [param.paramName, new BigNumber(param.value)]
+          }))
+          return <PresentationComponent parameters={parameters} {...this.props}/>
+        }}
+      </Query>)
+    }
+  }
+
+  return ParametersContainer;
+}
 
 /**
  * Generates a HO-Component Container for My Dashboard Activity Item
@@ -253,16 +221,15 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     state: State,
     ownProps: PhaseCountdownTimerProps,
   ): PhaseCountdownTimerProps & PhaseCountdownReduxProps => {
-    const { parameters, govtParameters } = state.networkDependent;
+    const { govtParameters } = state.networkDependent;
 
     return {
       ...ownProps,
-      parameters,
       govtParameters,
     };
   };
 
-  class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any>> {
+  class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any> & ParametersProps> {
     public static contextType = CivilHelperContext;
     public context: CivilHelper;
 
@@ -279,13 +246,13 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge) {
             endTime = challenge.challenge.poll.commitEndDate.toNumber();
           }
-          totalSeconds = parameters.commitStageLen;
+          totalSeconds = parameters.get(Parameters.commitStageLen).toNumber();
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_REVEAL_VOTE:
           if (challenge) {
             endTime = challenge.challenge.poll.revealEndDate.toNumber();
           }
-          totalSeconds = parameters.revealStageLen;
+          totalSeconds = parameters.get(Parameters.revealStageLen).toNumber();
           break;
         case PHASE_TYPE_NAMES.CHALLENGE_AWAITING_APPEAL_REQUEST:
           if (challenge) {
@@ -303,19 +270,19 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
           if (challenge && challenge.challenge.appeal) {
             endTime = challenge.challenge.appeal.appealOpenToChallengeExpiry.toNumber();
           }
-          totalSeconds = parameters.challengeAppealLen;
+          totalSeconds = parameters.get(Parameters.challengeAppealLen).toNumber();
           break;
         case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_COMMIT_VOTE:
           if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {
             endTime = challenge.challenge.appeal.appealChallenge.poll.commitEndDate.toNumber();
           }
-          totalSeconds = parameters.challengeAppealCommitLen;
+          totalSeconds = parameters.get(Parameters.challengeAppealCommitLen).toNumber();
           break;
         case PHASE_TYPE_NAMES.APPEAL_CHALLENGE_REVEAL_VOTE:
           if (challenge && challenge.challenge.appeal && challenge.challenge.appeal.appealChallenge) {
             endTime = challenge.challenge.appeal.appealChallenge.poll.revealEndDate.toNumber();
           }
-          totalSeconds = parameters.challengeAppealRevealLen;
+          totalSeconds = parameters.get(Parameters.challengeAppealRevealLen).toNumber();
           break;
       }
 
@@ -335,7 +302,7 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     }
   }
 
-  return connect(mapStateToProps)(HOContainer);
+  return compose(connectParameters, connect(mapStateToProps))(HOContainer);
 };
 
 /**
@@ -497,103 +464,52 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeContainerProps & GraphQLizableComponentProps => {
-    const { challenges, challengesFetching, user, parameters } = state.networkDependent;
-    const { useGraphQL } = state;
-    let challengeData;
-    const challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeData = challenges.get(challengeID.toString());
-    }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
-    }
+  ): ChallengeContainerReduxProps & ChallengeContainerProps => {
+    const { user } = state.networkDependent;
     const userAcct = user.account;
-    const dispensationPct =
-      parameters && parameters[Parameters.dispensationPct] && parameters[Parameters.dispensationPct].toString();
     return {
       ...ownProps,
-      challengeID: challengeID!.toString(),
-      challengeData,
-      challengeDataRequestStatus,
-      dispensationPct,
+      challengeID: ownProps.challengeID!.toString(),
       user: userAcct.account,
-      useGraphQL,
     };
   };
 
   class HOChallengePhaseContainer extends React.Component<
-    TChallengeContainerProps & ChallengeContainerReduxProps & GraphQLizableComponentProps & DispatchProp<any>
+    TChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any> & ParametersProps
   > {
     public static contextType = CivilHelperContext;
     public context: CivilHelper;
 
-    public componentDidMount(): void {
-      this.ensureHasChallengeData();
-    }
-
-    public componentDidUpdate(): void {
-      this.ensureHasChallengeData();
-    }
-
     public render(): JSX.Element | undefined {
-      if (this.props.useGraphQL) {
-        return (
-          <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
-            {({ loading, error, data }: any): JSX.Element | null => {
-              if (loading) {
-                return null;
-              }
-              if (error) {
-                return null;
-              }
-              const challenge = transformGraphQLDataIntoChallenge(data.challenge);
-              return (
-                <>
-                  <PhaseCardComponent
-                    {...this.props}
-                    challenger={challenge!.challenger.toString()}
-                    isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-                    rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-                    stake={getFormattedTokenBalance(challenge!.stake)}
-                    dispensationPct={this.props.dispensationPct}
-                  />
-                </>
-              );
-            }}
-          </Query>
-        );
-      } else {
-        if (!this.props.challengeData) {
-          return <></>;
-        }
-
-        const challenge = this.props.challengeData.challenge;
-        return (
-          <PhaseCardComponent
-            challenger={challenge!.challenger.toString()}
-            isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
-            rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
-            stake={getFormattedTokenBalance(challenge!.stake)}
-            dispensationPct={this.props.dispensationPct}
-            {...this.props}
-          />
-        );
-      }
+      const dispensationPct = this.props.parameters.get(Parameters.dispensationPct).toString();
+      return (
+        <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
+          {({ loading, error, data }: any): JSX.Element | null => {
+            if (loading) {
+              return null;
+            }
+            if (error) {
+              return null;
+            }
+            const challenge = transformGraphQLDataIntoChallenge(data.challenge);
+            return (
+              <>
+                <PhaseCardComponent
+                  {...this.props}
+                  challenger={challenge!.challenger.toString()}
+                  isViewingUserChallenger={challenge!.challenger.toString() === this.props.user}
+                  rewardPool={getFormattedTokenBalance(challenge!.rewardPool)}
+                  stake={getFormattedTokenBalance(challenge!.stake)}
+                  dispensationPct={dispensationPct}
+                />
+              </>
+            );
+          }}
+        </Query>
+      );
     }
 
-    private ensureHasChallengeData = (): void => {
-      if (
-        !this.props.useGraphQL &&
-        this.props.challengeID &&
-        !this.props.challengeData &&
-        !this.props.challengeDataRequestStatus
-      ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID! as string));
-      }
-    };
   }
 
-  return connect(mapStateToProps)(HOChallengePhaseContainer);
+  return compose(connectParameters, connect(mapStateToProps))(HOChallengePhaseContainer);
 };

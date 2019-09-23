@@ -18,7 +18,6 @@ const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
   const {
     userChallengeData: allUserChallengeData,
     challengeToAppealChallengeMap,
-    useGraphQL,
     refetchUserChallengeData,
   } = props;
   return (
@@ -45,7 +44,6 @@ const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
                 challengeID={c!}
                 queryUserChallengeData={userChallengeData}
                 queryUserAppealChallengeData={appealChallengeUserData}
-                useGraphQL={useGraphQL}
                 refetchUserChallengeData={refetchUserChallengeData}
                 showClaimRewardsTab={() => {
                   props.showClaimRewardsTab();
@@ -69,7 +67,6 @@ const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
                 key={c}
                 challengeID={c!}
                 queryUserChallengeData={userChallengeData}
-                useGraphQL={useGraphQL}
                 refetchUserChallengeData={refetchUserChallengeData}
                 showClaimRewardsTab={() => {
                   props.showClaimRewardsTab();

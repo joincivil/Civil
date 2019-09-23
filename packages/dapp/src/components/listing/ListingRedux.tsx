@@ -31,6 +31,7 @@ import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
+import { connectParameters } from "../utility/HigherOrderComponents";
 
 const TABS: TListingTab[] = [
   listingTabs.CHARTER,
@@ -59,7 +60,6 @@ export interface ListingReduxProps {
   charter?: CharterData;
   charterRevisionId?: number;
   charterRevision?: StorageHeader;
-  parameters: any;
   govtParameters: any;
   network: string;
   loadingFinished: boolean;
@@ -222,9 +222,8 @@ class ListingPageComponent extends React.Component<
   };
 }
 
-const makeMapStateToProps = () => {
-  const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { user, parameters, govtParameters, content, loadingFinished } = state.networkDependent;
+const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
+    const { user, govtParameters, content, loadingFinished } = state.networkDependent;
     const { network } = state;
     const newsroom = ownProps.newsroom;
 
@@ -265,7 +264,6 @@ const makeMapStateToProps = () => {
       listingPhaseState,
       isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
       userAccount: user.account,
-      parameters,
       govtParameters,
       charter,
       charterRevisionId,
@@ -273,10 +271,9 @@ const makeMapStateToProps = () => {
       loadingFinished,
     };
   };
-  return mapStateToProps;
-};
 
 export default compose(
   withRouter,
-  connect(makeMapStateToProps),
+  connect(mapStateToProps),
+  connectParameters,
 )(ListingPageComponent);
