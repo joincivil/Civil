@@ -18,7 +18,7 @@ const setHandleMutation = gql`
 
 const checkHandleUniqueQuery = gql`
   query($handle: String!) {
-    isHandleAvailable(handle: $handle)
+    channelsIsHandleAvailable(handle: $handle)
   }
 `;
 
@@ -120,7 +120,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
   private checkHandleUniqueness = async (val: any, client: ApolloClient<any>): Promise<void> => {
     const result = await client.query({ query: checkHandleUniqueQuery, variables: { handle: val }});
-    const isHandleUnique = result.data && result.data.isHandleAvailable;
+    const isHandleUnique = result.data && result.data.channelsIsHandleAvailable;
     this.setState({isHandleUnique})
   }
 
