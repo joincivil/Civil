@@ -7,7 +7,7 @@ import { DashboardActivityItemProposalCTAButtonProps } from "./DashboardTypes";
 export const DashboardActivityProposalItemCTAButton: React.FunctionComponent<
   DashboardActivityItemProposalCTAButtonProps
 > = props => {
-  const { propDetailURL, canUserReveal, canUserCollect, canUserRescue, onClick } = props;
+  const { propDetailURL, canUserReveal, canUserCollect, canUserRescue, canResolveChallenge, onClick } = props;
 
   let buttonText;
 
@@ -17,6 +17,8 @@ export const DashboardActivityProposalItemCTAButton: React.FunctionComponent<
     buttonText = "Claim Rewards";
   } else if (canUserRescue) {
     buttonText = "Rescue Tokens";
+  } else if (canResolveChallenge) {
+    buttonText = "Resolve";
   } else {
     buttonText = "Change Vote";
   }

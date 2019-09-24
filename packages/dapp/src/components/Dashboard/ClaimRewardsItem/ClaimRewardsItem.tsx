@@ -1,16 +1,9 @@
 import * as React from "react";
-import { connect } from "react-redux";
-import { State } from "../../../redux/reducers";
 import { ClaimRewardsItemOwnProps } from "./types";
 import ClaimRewardsItemApolloQueryWrapper from "./ClaimRewardsApolloQueryWrapper";
-import { ClaimRewardsItemReduxWrapper, ClaimRewardsProposalItemReduxWrapper } from "./ClaimRewardsItemReduxWrapper";
-
-interface ClaimRewardsItemWrapperReduxProps {
-  useGraphQL?: boolean;
-}
 
 const ClaimRewardsItemWrapper: React.FunctionComponent<
-  ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps
+  ClaimRewardsItemOwnProps
 > = props => {
   const {
     challengeID,
@@ -19,7 +12,6 @@ const ClaimRewardsItemWrapper: React.FunctionComponent<
     queryUserChallengeData,
     queryUserAppealChallengeData,
     toggleSelect,
-    useGraphQL,
   } = props;
 
   const viewProps = {
@@ -29,29 +21,13 @@ const ClaimRewardsItemWrapper: React.FunctionComponent<
     toggleSelect,
   };
 
-  if (useGraphQL) {
-    return (
-      <ClaimRewardsItemApolloQueryWrapper
-        {...viewProps}
-        queryUserChallengeData={queryUserChallengeData}
-        queryUserAppealChallengeData={queryUserAppealChallengeData}
-      />
-    );
-  }
+  return (
+    <ClaimRewardsItemApolloQueryWrapper
+      {...viewProps}
+      queryUserChallengeData={queryUserChallengeData}
+      queryUserAppealChallengeData={queryUserAppealChallengeData}
+    />
+  );
+}
 
-  if (isProposalChallenge) {
-    return <ClaimRewardsProposalItemReduxWrapper {...viewProps} />;
-  }
-
-  return <ClaimRewardsItemReduxWrapper {...viewProps} />;
-};
-
-const mapStateToPropsClaimRewardsItemWrapper = (
-  state: State,
-  ownProps: ClaimRewardsItemOwnProps,
-): ClaimRewardsItemOwnProps & ClaimRewardsItemWrapperReduxProps => {
-  const { useGraphQL } = state;
-  return { useGraphQL, ...ownProps };
-};
-
-export default connect(mapStateToPropsClaimRewardsItemWrapper)(ClaimRewardsItemWrapper);
+export default ClaimRewardsItemWrapper;

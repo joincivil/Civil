@@ -140,7 +140,6 @@ export class AppealChallengeRevealVoteCard extends React.Component<
                   transactions={this.props.transactions}
                   votingSmartContractFaqURL={this.props.votingSmartContractFaqURL}
                 />
-                />
               </StyledListingDetailPhaseCardSection>
             </StyledListingDetailPhaseCardContainer>
           </StyledCardBack>

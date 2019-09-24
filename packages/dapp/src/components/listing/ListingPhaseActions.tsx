@@ -14,7 +14,7 @@ import {
   ChallengePhaseProps,
   WithdrawnCard,
 } from "@joincivil/components";
-import { urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links, Parameters } from "@joincivil/utils";
 
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import ChallengeDetailContainer from "./ChallengeDetail";
@@ -181,7 +181,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
   private renderApplicationPhase(): JSX.Element | null {
     const endTime = this.props.listing!.data.appExpiry.toNumber();
-    const phaseLength = this.props.parameters.applyStageLen;
+    const phaseLength = this.props.parameters.get(Parameters.applyStageLen);
     if (!endTime || !phaseLength) {
       return null;
     }

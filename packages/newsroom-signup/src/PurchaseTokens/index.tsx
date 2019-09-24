@@ -3,8 +3,8 @@ import * as qs from "querystring";
 import styled from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
 import { connect } from "react-redux";
-import { withRouter, RouteComponentProps, Link } from "react-router-dom";
-import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
+import { RouteComponentProps, Link, withRouter } from "react-router-dom";
+import { getFormattedTokenBalance } from "@joincivil/utils";
 import {
   colors,
   Button,
@@ -26,12 +26,12 @@ import {
 import { NextBack, FormTitle, FormSection, FormRow, FormRowItem } from "../styledComponents";
 
 export interface PurchaseTokensExternalProps extends RouteComponentProps {
+  minDeposit: BigNumber;
   grantApproved?: boolean;
   navigate(go: 1 | -1): void;
 }
 export interface PurchaseTokensProps extends PurchaseTokensExternalProps {
   userCvlBalance: BigNumber;
-  minDeposit: BigNumber;
   hasMinDeposit: boolean;
 }
 
@@ -210,9 +210,9 @@ export class PurchaseTokensComponent extends React.Component<PurchaseTokensProps
 }
 
 const mapStateToProps = (state: any, ownProps: PurchaseTokensExternalProps): PurchaseTokensProps => {
-  const { user, parameters } = state.networkDependent;
+  const { user } = state.networkDependent;
   const userBalance = new BigNumber((user && user.account && user.account.balance) || 0);
-  const minDeposit = new BigNumber((parameters && parameters[Parameters.minDeposit]) || 0);
+  const minDeposit = ownProps.minDeposit;
   return {
     ...ownProps,
     userCvlBalance: userBalance,

@@ -1,8 +1,6 @@
 import * as React from "react";
 import styled, { StyledComponentClass } from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
-import { connect } from "react-redux";
-import { Set } from "immutable";
 import {
   CivilContext,
   Table,
@@ -14,13 +12,31 @@ import {
   ICivilContext,
 } from "@joincivil/components";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { State } from "../../redux/reducers";
-import { makeGetProposalsByParameterName, makeGetGovtProposalsByParameterName } from "../../selectors";
 import { Proposal } from "./Proposal";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import { transformGraphQLDataIntoParamProposal } from "../../helpers/queryTransformations";
 
 export const StyledHiddenOnMobile = styled.div`
   ${mediaQueries.MOBILE} {
     display: none;
+  }
+`;
+
+const PARAMETER_PROPOSALS_QUERY = gql`
+  query ParamProposals($input: String!) {
+    paramProposals: paramProposals(paramName: $input) {
+      id
+      propID
+      name
+      value
+      deposit
+      appExpiry
+      challengeID
+      proposer
+      accepted
+      expired
+    }
   }
 `;
 
@@ -31,14 +47,10 @@ export interface ParameterProps {
   canShowCreateProposal: boolean;
   isGovtProposal?: boolean;
   handleCreateProposal(paramName: string, currentValue: string): void;
-  handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any): void;
+  handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any, actionType: string): void;
 }
 
-export interface ParameterReduxProps {
-  parameterProposals: Set<any>;
-}
-
-class ParameterComponent extends React.Component<ParameterProps & ParameterReduxProps> {
+class ParameterComponent extends React.Component<ParameterProps> {
   public static contextType = CivilContext;
   public context: ICivilContext;
 
@@ -53,12 +65,13 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
           <Table borderWidth="0" width="100%">
             <tbody>
               {this.props.canShowCreateProposal && this.renderCreateProposalAction()}
-              {!!this.props.parameterProposals.count() && this.renderProposals()}
+              {this.renderProposals()}
             </tbody>
           </Table>
         </ParameterizerTd>
       </Tr>
     );
+    return <></>
   }
 
   private renderCreateProposalAction(): JSX.Element {
@@ -76,17 +89,22 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
   }
 
   private renderProposals(): JSX.Element {
-    const { parameterProposals } = this.props;
-    const out = parameterProposals.map((proposal, key, iter) => (
-      <Proposal
-        key={key}
-        proposal={proposal}
-        handleProposalAction={this.props.handleProposalAction}
-        parameterName={this.props.parameterName}
-        parameterValue={this.props.parameterValue}
-      />
-    ));
-    return <>{out}</>;
+    return (
+      <Query query={PARAMETER_PROPOSALS_QUERY} variables={{input: this.props.parameterName}}>
+        {({ loading, error, data }) => {
+          if (loading || error) {
+            return <></>
+          }
+          return data.paramProposals.map(prop => {
+            const proposal = transformGraphQLDataIntoParamProposal(prop)
+            return <Proposal key={proposal.propID} proposal={proposal}
+              handleProposalAction={this.props.handleProposalAction}
+              parameterName={this.props.parameterName}
+              parameterValue={this.props.parameterValue} />
+          })
+        }}
+      </Query>
+    )
   }
 
   private onCreateProposal = (event: any) => {
@@ -99,23 +117,4 @@ class ParameterComponent extends React.Component<ParameterProps & ParameterRedux
   };
 }
 
-const makeMapStateToProps = () => {
-  const getProposalsByParameterName = makeGetProposalsByParameterName();
-  const getGovtProposalsByParameterName = makeGetGovtProposalsByParameterName();
-  const mapStateToProps = (state: State, ownProps: ParameterProps): ParameterProps & ParameterReduxProps => {
-    let parameterProposals: Set<any> = Set<any>();
-    if (!ownProps.isGovtProposal) {
-      parameterProposals = getProposalsByParameterName(state, ownProps);
-    } else {
-      parameterProposals = getGovtProposalsByParameterName(state, ownProps);
-    }
-
-    return {
-      parameterProposals,
-      ...ownProps,
-    };
-  };
-  return mapStateToProps;
-};
-
-export const Parameter = connect(makeMapStateToProps)(ParameterComponent);
+export const Parameter = ParameterComponent;
