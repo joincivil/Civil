@@ -85,7 +85,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
     this.state = {
       emailAddress: "",
       errorMessage: undefined,
-      hasSelectedToAddToNewsletter: false,
+      hasSelectedToAddToNewsletter: true,
       hasBlurred: false,
     };
   }
@@ -128,9 +128,9 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
     return (
       <>
         {this.renderAuthError()}
-        <HeaderDiv>Get email notifications from Civil</HeaderDiv>
+        <HeaderDiv>Almost done!</HeaderDiv>
         <SubHeaderDiv>
-          Get notified when a Newsroom has joined the Registry, or when a challenge requires your vote, and more.
+          To receive payment confirmations and account-related alerts, please enter your email address.
         </SubHeaderDiv>
         <Mutation mutation={setEmailMutation}>
           {sendEmail => {
@@ -140,7 +140,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
                 {this.renderCheckboxes()}
                 <ConfirmButtonContainer>
                   <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
-                    Sign up
+                    Save Email
                   </Button>
                 </ConfirmButtonContainer>
               </form>
@@ -169,7 +169,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
               checked={hasSelectedToAddToNewsletter}
               onClick={this.toggleHasSelectedToAddToNewsletter}
             />
-            <CheckboxLabel>Yes, I'd like to receive notifications.</CheckboxLabel>
+            <CheckboxLabel>Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.</CheckboxLabel>
           </label>
         </CheckboxSection>
       </CheckboxContainer>

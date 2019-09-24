@@ -157,7 +157,6 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
       return;
     } catch (err) {
-      console.error("err: ", err);
       let errorMessage = "Unknown Error when setting username. Please contact support@civil.co if problem persists.";
       if (err.toString().includes("invalid handle")) {
         errorMessage = ERROR_MESSAGE_INVALID_HANDLE;
