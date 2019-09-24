@@ -77,7 +77,8 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
             invalidMessage={invalidMessage}
             invalid={!isValid || !isHandleUnique || isError}
             onChange={(_, value) => {
-              this.setState({ handle: value, hasBlurred: false, errorMessage: undefined, isHandleUnique: true })
+              this.setState({ handle: value, hasBlurred: false, errorMessage: undefined, isHandleUnique: true });
+              // tslint:disable-next-line
               this.checkHandleUniqueness(value, client);
             }}
             onBlur={() => this.setState({ hasBlurred: true })}
