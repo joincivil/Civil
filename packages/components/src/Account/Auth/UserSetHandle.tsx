@@ -3,9 +3,8 @@ import gql from "graphql-tag";
 import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
-import { ConfirmButtonContainer, AuthErrorMessage } from "./AuthStyledComponents";
+import { ConfirmButtonContainer } from "./AuthStyledComponents";
 import { isValidHandle, getCurrentUserQuery } from "@joincivil/utils";
-import { AuthTextUnknownError } from "./AuthTextComponents";
 import ApolloClient from "apollo-client";
 import { debounce } from "lodash";
 
@@ -29,11 +28,12 @@ export interface UserSetHandleAuthProps {
   onSetHandleComplete?(): void;
 }
 
-export type UserSetHandleError = "unknown" | undefined;
+const ERROR_MESSAGE_INVALID_HANDLE = "Please enter a valid username. Usernames must be 4-15 characters, with no spaces or special characters other than underscores.";
+const ERROR_MESSAGE_NOT_UNIQUE = "That username is already in use. Please try another.";
 
 export interface UserSetHandleAuthState {
   handle: string;
-  errorMessage: UserSetHandleError;
+  errorMessage: string | undefined;
   hasBlurred: boolean;
   isHandleUnique: boolean;
 }
@@ -51,15 +51,18 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
   }
 
   public renderHandleInput(): JSX.Element {
-    const { handle, isHandleUnique } = this.state;
-
+    const { handle, isHandleUnique, errorMessage } = this.state;
+    let isError = false;
+    if (errorMessage) {
+      isError = true;
+    }
     const isValid = isValidHandle(handle);
 
-    let invalidMessage: string | undefined;
+    let invalidMessage: string | undefined = errorMessage;
     if (!isValid) {
-      invalidMessage = "Please enter a valid username. Usernames must be 4-15 characters, with no spaces or special characters other than underscores.";
+      invalidMessage = ERROR_MESSAGE_INVALID_HANDLE;
     } else if (!isHandleUnique) {
-      invalidMessage = "That username is already in use. Please try another."
+      invalidMessage = ERROR_MESSAGE_NOT_UNIQUE;
     }
 
     return (
@@ -72,9 +75,9 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
             name="username"
             value={handle}
             invalidMessage={invalidMessage}
-            invalid={!isValid || !isHandleUnique}
+            invalid={!isValid || !isHandleUnique || isError}
             onChange={(_, value) => {
-              this.setState({ handle: value, hasBlurred: false })
+              this.setState({ handle: value, hasBlurred: false, errorMessage: undefined, isHandleUnique: true })
               this.checkHandleUniqueness(value, client);
             }}
             onBlur={() => this.setState({ hasBlurred: true })}
@@ -84,28 +87,12 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     );
   }
 
-  public renderAuthError(): JSX.Element {
-    const { errorMessage } = this.state;
-
-    if (!errorMessage) {
-      return <></>;
-    }
-
-    return (
-      <AuthErrorMessage>
-        <AuthTextUnknownError />
-        <>{errorMessage}</>
-      </AuthErrorMessage>
-    );
-  }
-
   public render(): JSX.Element {
     const { headerComponent, channelID } = this.props;
     const isButtonDisabled = !isValidHandle(this.state.handle) || !this.state.isHandleUnique;
 
     return (
       <>
-        {this.renderAuthError()}
         {headerComponent}
         <Mutation mutation={setHandleMutation}>
           {setHandle => {
@@ -170,7 +157,14 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
       return;
     } catch (err) {
-      this.setState({ errorMessage: "unknown" });
+      console.error("err: ", err);
+      let errorMessage = "Unknown Error when setting username. Please contact support@civil.co if problem persists.";
+      if (err.toString().includes("invalid handle")) {
+        errorMessage = ERROR_MESSAGE_INVALID_HANDLE;
+      } else if (err.toString().includes("not unique")) {
+        errorMessage = ERROR_MESSAGE_NOT_UNIQUE;
+      }
+      this.setState({ errorMessage });
     }
   }
 }
