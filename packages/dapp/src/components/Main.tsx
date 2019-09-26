@@ -45,7 +45,6 @@ const SignUpNewsroom = React.lazy(async () => import("./SignUpNewsroom"));
 const StorefrontPage = React.lazy(async () => import("./Tokens/StorefrontPage"));
 const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage"));
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
-const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import("./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
@@ -189,7 +188,6 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
           <Route path={routes.BOOST_PAYMENT} component={AsyncComponent(BoostPage, { payment: true })} />
           <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
-          <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
           <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
           {/* TODO(jorgelo): Better 404 */}
           <Route path="*" render={() => <h1>404</h1>} />
