@@ -221,8 +221,7 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
       return;
     }
 
-    const eth = this.context.civil!.toBigNumber(this.state.multisigBalance);
-    return this.state.newsroom.transferEthFromMultisig(eth, this.state.userAccount);
+    return this.state.newsroom.transferEthFromMultisig(this.state.multisigBalance.toString(), this.state.userAccount);
   };
 
   private postTransaction = (): void => {
