@@ -33,7 +33,6 @@ export enum routes {
   CONFIRM_EMAIL = "/auth/confirm-email",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
-  BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
   BOOST_EDIT = "/boosts/:boostId/edit",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
