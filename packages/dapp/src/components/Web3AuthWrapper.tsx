@@ -7,6 +7,7 @@ import SetUsername from "./Auth/SetUsername";
 import SetEmail from "./Auth/SetEmail";
 import { hideWeb3AuthModal, showWeb3LoginModal, showWeb3SignupModal } from "../redux/actionCreators/ui";
 import { ICivilContext, CivilContext } from "@joincivil/components";
+import SetAvatar from "./Auth/SetAvatar";
 
 export const Web3AuthWrapper: React.FunctionComponent = () => {
   // context
@@ -21,15 +22,19 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
   const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
   let showSetHandle = false;
+  let showSetAvatar = false;
   let showSetEmail = false;
   if (civilUser && civilUser.uid && civilUser.userChannel) {
     showSetHandle = !civilUser.userChannel.handle;
     if (!showSetHandle) {
-      showSetEmail = !civilUser.userChannelEmailPromptSeen;
+      showSetAvatar = !civilUser.userChannel.avatarDataUrl;
+      if (!showSetAvatar) {
+        showSetEmail = !civilUser.userChannelEmailPromptSeen;
+      }
     }
   }
   let channelID;
-  if (showSetHandle || showSetEmail) {
+  if (showSetHandle || showSetAvatar || showSetEmail) {
     channelID = civilUser.userChannel.id;
   }
 
@@ -80,6 +85,7 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
         />
       )}
       {showSetHandle && <SetUsername channelID={channelID} />}
+      {showSetAvatar && <SetAvatar channelID={channelID} />}
       {showSetEmail && <SetEmail channelID={channelID} />}
     </>
   );
