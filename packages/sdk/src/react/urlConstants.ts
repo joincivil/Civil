@@ -8,7 +8,8 @@ export const urlConstants = {
 
   // FAQ Boosts
   FAQ_BOOSTS: FAQ_BASE_URL + "/hc/en-us/categories/360001939731-Boosts",
-  FAQ_BOOST_WITHDRAWL: FAQ_BASE_URL + "/hc/en-us/articles/360030522631-How-to-create-and-launch-a-Boost",
+  FAQ_BOOST_WITHDRAWL:
+    FAQ_BASE_URL + "/hc/en-us/articles/360030195272-How-do-I-withdraw-my-ETH-proceeds-once-a-Boost-has-ended-",
   FAQ_BOOST_SUPPORTERS: FAQ_BASE_URL + "/hc/en-us/sections/360005752331-Supporters",
   FAQ_WALLETS: FAQ_BASE_URL + "/hc/en-us/sections/360003838452-Wallets",
   FAQ_CVL_TOKENS: FAQ_BASE_URL + "/hc/en-us/articles/360016409251-What-are-Civil-tokens-CVL-",
