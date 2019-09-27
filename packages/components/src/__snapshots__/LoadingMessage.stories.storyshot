@@ -14,7 +14,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
       className="sc-LzNvM bnJrgs"
     >
       <div
-        className="sc-fzXfOw bZAckF"
+        className="sc-fzXfOx gvMPei"
       >
         <svg
           fill="#30E8BD"
@@ -81,7 +81,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
           </circle>
         </svg>
         <p
-          className="sc-fzXfOx icgzTQ"
+          className="sc-fzXfOy bcndJt"
         >
           Please wait while we load all the stuff.
         </p>
@@ -443,7 +443,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
       className="sc-LzNvM bnJrgs"
     >
       <div
-        className="sc-fzXfOw bZAckF"
+        className="sc-fzXfOx gvMPei"
       >
         <svg
           fill="#30E8BD"
@@ -510,7 +510,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
           </circle>
         </svg>
         <p
-          className="sc-fzXfOx icgzTQ"
+          className="sc-fzXfOy bcndJt"
         >
           Loading
         </p>
@@ -832,7 +832,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
       className="sc-LzNvM bnJrgs"
     >
       <div
-        className="sc-fzXfOw bZAckF"
+        className="sc-fzXfOx gvMPei"
       >
         <svg
           fill="#30E8BD"
@@ -899,7 +899,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
           </circle>
         </svg>
         <p
-          className="sc-fzXfOx icgzTQ"
+          className="sc-fzXfOy bcndJt"
         >
           Loading
         </p>

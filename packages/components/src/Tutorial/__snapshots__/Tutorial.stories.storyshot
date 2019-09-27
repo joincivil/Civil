@@ -48,7 +48,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
         className="sc-LzNci castNh"
       >
         <button
-          className="sc-fzXfMD sc-fzXfNc sc-LzNrn cksmbZ"
+          className="sc-fzXfME sc-fzXfNd sc-LzNrn btXJCt"
           onClick={[Function]}
           theme={
             Object {
@@ -61,7 +61,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
           Back
         </button>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzNck imhuMU"
+          className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
           onClick={[Function]}
           theme={
             Object {
@@ -511,7 +511,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
       </h3>
       <div>
         <div
-          className="sc-fzXfNi etWsxs"
+          className="sc-fzXfNj iJyFLR"
         >
           <div>
             <div
@@ -524,7 +524,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 1"
               />
               <button
-                className="sc-fzXfMD sc-fzXfNd sc-LzNrv cxvzRb"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -553,7 +553,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 2"
               />
               <button
-                className="sc-fzXfMD sc-fzXfNd sc-LzNrv cxvzRb"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -582,7 +582,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 3"
               />
               <button
-                className="sc-fzXfMD sc-fzXfNd sc-LzNrv cxvzRb"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -612,7 +612,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
         className="sc-LzNci castNh"
       >
         <button
-          className="sc-fzXfMD sc-fzXfNc sc-LzNrn cksmbZ"
+          className="sc-fzXfME sc-fzXfNd sc-LzNrn btXJCt"
           onClick={[Function]}
           theme={
             Object {
@@ -625,7 +625,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
           Back to Tutorial
         </button>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzNck imhuMU disabled"
+          className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -1304,7 +1304,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Completed 1`] = `
         Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.
       </p>
       <button
-        className="sc-fzXfMD sc-fzXfME sc-LzNck imhuMU"
+        className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
         onClick={[Function]}
         theme={
           Object {
@@ -1796,7 +1796,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
       >
         <div>
           <button
-            className="sc-fzXfMD sc-fzXfNc sc-LzNro vWOPP"
+            className="sc-fzXfME sc-fzXfNd sc-LzNro iAswZm"
             onClick={[Function]}
             theme={
               Object {
@@ -1809,7 +1809,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
             Skip to the quiz
           </button>
           <button
-            className="sc-fzXfMD sc-fzXfME sc-LzNck imhuMU"
+            className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
             onClick={[Function]}
             theme={
               Object {

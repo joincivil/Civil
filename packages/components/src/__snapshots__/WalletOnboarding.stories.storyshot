@@ -44,13 +44,13 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         Connected wallet address
       </p>
       <div
-        className="sc-LzLrq lljcFL"
+        className="sc-LzLrr cchrWc"
       >
         <div
-          className="sc-LzLrr dLzhzO"
+          className="sc-LzLrs fLjjxX"
         >
           <img
-            className="sc-fzXfQu ihvvef"
+            className="sc-fzXfQS dOozeJ"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -61,7 +61,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         className="sc-LzMDW eGlVcK"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME ePpSnn"
+          className="sc-fzXfME sc-fzXfNc keNjb"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -528,13 +528,13 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
         Your wallet address
       </p>
       <div
-        className="sc-LzLrq lljcFL"
+        className="sc-LzLrr cchrWc"
       >
         <div
-          className="sc-LzLrr dLzhzO"
+          className="sc-LzLrs fLjjxX"
         >
           <img
-            className="sc-fzXfQu ihvvef"
+            className="sc-fzXfQS dOozeJ"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -935,7 +935,7 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzMDv dkPQyE"
+          className="sc-fzXfME sc-fzXfNc sc-LzMDv dZJqDZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1323,7 +1323,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
         </a>
          
         <img
-          className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
+          className="sc-fzXfQS dOozeJ sc-LzMDY hXRxoh"
           src="test-file-stub"
         />
          to manage your transactions.
@@ -1337,7 +1337,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
       </p>
       <p>
         <a
-          className="sc-fzXfMD sc-fzXfME ePpSnn"
+          className="sc-fzXfME sc-fzXfNc keNjb"
           href="https://metamask.io/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -1806,7 +1806,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzMDv dkPQyE"
+          className="sc-fzXfME sc-fzXfNc sc-LzMDv dZJqDZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1829,7 +1829,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       <p>
         If you do not see the MetaMask popup, please click the 
         <img
-          className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
+          className="sc-fzXfQS dOozeJ sc-LzMDY hXRxoh"
           src="test-file-stub"
         />
          icon in your browser address bar.
@@ -2200,13 +2200,13 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         Your wallet address
       </p>
       <div
-        className="sc-LzLrq lljcFL"
+        className="sc-LzLrr cchrWc"
       >
         <div
-          className="sc-LzLrr dLzhzO"
+          className="sc-LzLrs fLjjxX"
         >
           <img
-            className="sc-fzXfQu ihvvef"
+            className="sc-fzXfQS dOozeJ"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -2217,7 +2217,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         className="sc-LzMDW eGlVcK"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME ePpSnn"
+          className="sc-fzXfME sc-fzXfNc keNjb"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -2658,7 +2658,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
          
         to switch networks in MetaMask 
         <img
-          className="sc-fzXfQu ihvvef sc-LzMDY hXRxoh"
+          className="sc-fzXfQS dOozeJ sc-LzMDY hXRxoh"
           src="test-file-stub"
         />
       </p>
@@ -2667,7 +2667,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzMDv dkPQyE"
+          className="sc-fzXfME sc-fzXfNc sc-LzMDv dZJqDZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

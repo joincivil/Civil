@@ -34,7 +34,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         >
           <label>
             <label
-              className="sc-fzXfNJ IqFez"
+              className="sc-fzXfNK hpUWWu"
               size="SMALL"
             >
               <input
@@ -43,7 +43,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNl kWGrR"
+                className="sc-fzXfNJ exRLLP"
                 size="SMALL"
               />
             </label>
@@ -65,7 +65,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         >
           <label>
             <label
-              className="sc-fzXfNJ IqFez"
+              className="sc-fzXfNK hpUWWu"
               size="SMALL"
             >
               <input
@@ -74,7 +74,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNl kWGrR"
+                className="sc-fzXfNJ exRLLP"
                 size="SMALL"
               />
             </label>
@@ -90,7 +90,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         className="sc-LzNtr bDFviM"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME cUXPCo disabled"
+          className="sc-fzXfME sc-fzXfNc bNdDxM disabled"
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"

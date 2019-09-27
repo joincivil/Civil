@@ -58,7 +58,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         className="sc-LzMFp dcbYVF"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME dndRzE disabled"
+          className="sc-fzXfME sc-fzXfNc pQdGg disabled"
           disabled={true}
           size="MEDIUM_WIDE"
           theme={
@@ -99,7 +99,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         className="sc-LzMCQ boMFHy"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
@@ -109,12 +109,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >
@@ -139,7 +139,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         className="sc-LzMCQ boMFHy"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
@@ -149,12 +149,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >
@@ -198,7 +198,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         className="sc-LzMCQ boMFHy"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
@@ -208,12 +208,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >

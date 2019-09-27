@@ -589,7 +589,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             </h4>
           </div>
           <button
-            className="sc-fzXfMD sc-fzXfME eqxXLm"
+            className="sc-fzXfME sc-fzXfNc KrJoS"
             onClick={[Function]}
             theme={
               Object {
@@ -1082,7 +1082,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
       className="sc-LzNwt iXhmHw"
     >
       <button
-        className="sc-fzXfMD sc-fzXfME eqxXLm"
+        className="sc-fzXfME sc-fzXfNc KrJoS"
         onClick={[Function]}
         theme={
           Object {

@@ -127,7 +127,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
           className="sc-LzMkr iIGtxC"
         >
           <button
-            className="sc-fzXfMD sc-fzXfNe sc-LzMla iaAnDi"
+            className="sc-fzXfME sc-fzXfNf sc-LzMla ckNndv"
             onClick={[Function]}
             theme={
               Object {
@@ -143,7 +143,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Log In
           </button>
           <button
-            className="sc-fzXfMD sc-fzXfNe sc-LzMlb beXBjJ"
+            className="sc-fzXfME sc-fzXfNf sc-LzMlb jyHFNe"
             onClick={[Function]}
             theme={
               Object {

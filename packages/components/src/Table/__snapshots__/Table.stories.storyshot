@@ -18,7 +18,7 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
         width="100%"
       >
         <tr
-          className="sc-LzMFV jyvIfg"
+          className="sc-LzMFV iBfflH"
         >
           <th
             className="sc-LzMFT jDSJnC"
@@ -38,7 +38,7 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
           </th>
         </tr>
         <tr
-          className="sc-LzMFV jyvIfg"
+          className="sc-LzMFV iBfflH"
         >
           <td
             className="sc-LzMFR dkkIAM"
@@ -62,7 +62,7 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
           </td>
         </tr>
         <tr
-          className="sc-LzMFV jyvIfg"
+          className="sc-LzMFV iBfflH"
         >
           <td
             className="sc-LzMFR dkkIAM"

@@ -169,7 +169,10 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
               checked={hasSelectedToAddToNewsletter}
               onClick={this.toggleHasSelectedToAddToNewsletter}
             />
-            <CheckboxLabel>Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.</CheckboxLabel>
+            <CheckboxLabel>
+              Also get email alerts when new events occur on the Civil Registry to help participate in Civil's
+              governance.
+            </CheckboxLabel>
           </label>
         </CheckboxSection>
       </CheckboxContainer>
