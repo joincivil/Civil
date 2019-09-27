@@ -3,6 +3,7 @@ import { Modal, UserSetEmail } from "@joincivil/components";
 
 interface SetUsernameProps {
   channelID: string;
+  onSetEmailComplete?(): void;
 }
 const SetEmail: React.FunctionComponent<SetUsernameProps> = props => {
   return (

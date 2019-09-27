@@ -67,7 +67,7 @@ const skipSetEmailMutation = gql`
 
 export interface UserSetEmailProps {
   channelID: string;
-  onEmailSend(isNewUser: boolean, emailAddress: string): void;
+  onSetEmailComplete?(): void;
 }
 
 export type UserSetEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
@@ -187,15 +187,14 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
   private async onSkipForNowClicked(client: ApolloClient<any>): Promise<void> {
     const { error } = await client.mutate({
       mutation: skipSetEmailMutation,
-      refetchQueries: [
-        {
-          query: getCurrentUserQuery,
-        },
-      ],
     });
 
     if (error) {
       this.setState({ errorMessage: error });
+    } else {
+      if (this.props.onSetEmailComplete) {
+        this.props.onSetEmailComplete();
+      }
     }
   }
 
@@ -222,12 +221,11 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
       await mutation({
         variables,
-        refetchQueries: [
-          {
-            query: getCurrentUserQuery,
-          },
-        ],
       });
+
+      if (this.props.onSetEmailComplete) {
+        this.props.onSetEmailComplete();
+      }
 
       return;
     } catch (err) {

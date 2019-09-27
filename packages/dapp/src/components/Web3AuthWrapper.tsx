@@ -66,6 +66,11 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
     dispatch(await showWeb3SignupModal());
   }
 
+  async function handleUpdateUser(): Promise<void> {
+    console.log("handle update user.");
+    return civilContext.auth.handleInitialState()
+  }
+
   return (
     <>
       {showWeb3Signup && (
@@ -84,9 +89,9 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
           onLogInNoUserExists={handleLogInNoUserExists}
         />
       )}
-      {showSetHandle && <SetUsername channelID={channelID} />}
-      {showSetAvatar && <SetAvatar channelID={channelID} />}
-      {showSetEmail && <SetEmail channelID={channelID} />}
+      {showSetHandle && <SetUsername channelID={channelID} onSetHandleComplete={handleUpdateUser} />}
+      {showSetAvatar && <SetAvatar channelID={channelID} onSetAvatarComplete={handleUpdateUser} />}
+      {showSetEmail && <SetEmail channelID={channelID} onSetEmailComplete={handleUpdateUser} />}
     </>
   );
 };

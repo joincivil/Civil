@@ -11,7 +11,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
     }
   >
     <div
-      className="sc-LzNuA bBfaU"
+      className="sc-LzNuD fKIhFf"
     >
       <h4
         className="sc-AykKH CwENs"
@@ -45,7 +45,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
           type="button"
         >
           <div
-            className="sc-LzMXc bfixuU"
+            className="sc-LzMXd hzmzup"
           >
             <img
               className="sc-fzXfQS dOozeJ"
