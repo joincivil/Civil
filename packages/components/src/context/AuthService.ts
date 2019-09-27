@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   public async fetchCurrentUser(): Promise<void> {
-    const result = await this.apolloClient.query({ query: getCurrentUserQuery });
+    const result = await this.apolloClient.query({ query: getCurrentUserQuery, fetchPolicy: "no-cache" });
 
     if (result.errors) {
       throw new Error("error fetching user");
