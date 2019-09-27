@@ -67,7 +67,6 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   }
 
   async function handleUpdateUser(): Promise<void> {
-    console.log("handle update user.");
     return civilContext.auth.handleInitialState()
   }
 
