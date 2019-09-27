@@ -2,6 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { colors, fonts } from "./styleConstants";
+import { ClipLoader } from "./ClipLoader";
 
 export enum buttonSizes {
   SMALL = "SMALL",
@@ -28,6 +29,7 @@ export interface ButtonProps {
   // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
   type?: "button" | "reset" | "submit" | undefined;
+  loading?: boolean;
   onClick?(ev: any): void;
 }
 
@@ -129,12 +131,14 @@ const fontObject: { [index: string]: string } = {
 export const ButtonComponent = (props: ButtonProps) => {
   const activeClass = props.active ? " active" : "";
   const disabledClass = props.disabled ? " disabled" : "";
-  const { children, className, onClick, disabled, to, href, target, type, inputRef } = props;
+  const { children, className, onClick, disabled, to, href, target, type, inputRef, loading } = props;
+
+  const inner = loading ? <ClipLoader size={24} /> : children;
 
   if (to) {
     return (
       <Link {...props} className={className + activeClass + disabledClass} to={to} ref={inputRef}>
-        {children}
+        {inner}
       </Link>
     );
   }
@@ -142,7 +146,7 @@ export const ButtonComponent = (props: ButtonProps) => {
   if (href) {
     return (
       <a {...props} className={className + activeClass + disabledClass} href={href} target={target} ref={inputRef}>
-        {children}
+        {inner}
       </a>
     );
   }
@@ -156,7 +160,7 @@ export const ButtonComponent = (props: ButtonProps) => {
       disabled={disabled}
       ref={inputRef}
     >
-      {children}
+      {inner}
     </button>
   );
 };
@@ -192,6 +196,11 @@ export const Button = styled(BaseButton)`
     background-color: ${props => props.theme.primaryButtonDisabledBackground};
     color: ${props => props.theme.primaryButtonDisabledColor};
   }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.primaryButtonColor};
+    border-bottom-color: transparent;
+  }
 `;
 
 Button.defaultProps = {
@@ -208,6 +217,11 @@ export const InvertedButton = styled(BaseButton)`
   &:hover {
     background-color: ${props => props.theme.invertedButtonColor};
     color: ${props => props.theme.invertedButtonBackground};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.invertedButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
@@ -226,6 +240,11 @@ export const SecondaryButton = styled(BaseButton)`
     border: 1px solid ${props => props.theme.secondaryButtonHoverBackground};
     color: ${props => props.theme.secondaryButtonHoverColor};
   }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.secondaryButtonColor};
+    border-bottom-color: transparent;
+  }
 `;
 
 SecondaryButton.defaultProps = {
@@ -241,6 +260,11 @@ export const DarkButton = styled(BaseButton)`
   &.active {
     color: ${props => props.theme.darkButtonHoverColor};
     background-color: ${props => props.theme.darkButtonHoverBackground};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.darkButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
@@ -275,6 +299,11 @@ export const BorderlessButton = styled(Button)`
   &:hover {
     background-color: transparent;
     color: ${props => props.theme.borderlessButtonHoverColor};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.borderlessButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 

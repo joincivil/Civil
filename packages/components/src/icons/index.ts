@@ -21,6 +21,7 @@ export * from "./CommitVoteSuccessIcon";
 export * from "./DashboardNewsroomApplicationIcon";
 export * from "./DisclosureArrowIcon";
 export * from "./DropdownArrow";
+export * from "./EmbedIcon";
 export * from "./ErrorIcon";
 export * from "./ExamIcon";
 export * from "./ExchangeArrowsIcon";

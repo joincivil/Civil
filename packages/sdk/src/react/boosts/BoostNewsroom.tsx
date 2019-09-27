@@ -75,7 +75,7 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
             {this.props.open && (
               <>
                 {this.props.boostOwner && (
-                  <a href={`/boosts/${this.props.boostId}/edit?feature-flag=boosts-mvp`}>
+                  <a href={`/boosts/${this.props.boostId}/edit`}>
                     <b>
                       Edit Boost <MobileStyle>&raquo;</MobileStyle>
                     </b>

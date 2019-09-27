@@ -28,7 +28,8 @@ export interface UserSetHandleAuthProps {
   onSetHandleComplete?(): void;
 }
 
-const ERROR_MESSAGE_INVALID_HANDLE = "Please enter a valid username. Usernames must be 4-15 characters, with no spaces or special characters other than underscores.";
+const ERROR_MESSAGE_INVALID_HANDLE =
+  "Please enter a valid username. Usernames must be 4-15 characters, with no spaces or special characters other than underscores.";
 const ERROR_MESSAGE_NOT_UNIQUE = "That username is already in use. Please try another.";
 
 export interface UserSetHandleAuthState {
@@ -67,7 +68,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
     return (
       <ApolloConsumer>
-        { client =>
+        {client => (
           <TextInput
             placeholder="username"
             noLabel
@@ -83,7 +84,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
             }}
             onBlur={() => this.setState({ hasBlurred: true })}
           />
-        }
+        )}
       </ApolloConsumer>
     );
   }
@@ -119,10 +120,10 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
   }
 
   private checkHandleUniqueness = async (val: any, client: ApolloClient<any>): Promise<void> => {
-    const result = await client.query({ query: checkHandleUniqueQuery, variables: { handle: val }});
+    const result = await client.query({ query: checkHandleUniqueQuery, variables: { handle: val } });
     const isHandleUnique = result.data && result.data.channelsIsHandleAvailable;
-    this.setState({isHandleUnique})
-  }
+    this.setState({ isHandleUnique });
+  };
 
   private async handleSubmit(event: React.FormEvent, mutation: MutationFn, channelID: string): Promise<void> {
     event.preventDefault();

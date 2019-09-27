@@ -31,7 +31,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
             className="sc-LzNrX jlYgSn"
           >
             <div
-              className="sc-fzXfNK jbdZTu"
+              className="sc-fzXfNL kIagwr"
             >
               <div
                 className=" sc-fzXfMw koOATN"
@@ -48,7 +48,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                 />
               </div>
               <div
-                className="sc-fzXfNL dfgCZe"
+                className="sc-fzXfNM mBDNf"
               >
                 CVL
               </div>
@@ -755,7 +755,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
             className="sc-LzNrX jlYgSn"
           >
             <div
-              className="sc-fzXfNK jbdZTu"
+              className="sc-fzXfNL kIagwr"
             >
               <div
                 className=" sc-fzXfMw koOATN"
@@ -773,7 +773,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                 />
               </div>
               <div
-                className="sc-fzXfNL dfgCZe"
+                className="sc-fzXfNM mBDNf"
               >
                 USD
               </div>

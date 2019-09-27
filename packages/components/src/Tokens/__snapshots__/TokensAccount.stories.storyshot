@@ -18,7 +18,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
           className="sc-LzNap jYIrnU"
         >
           <ul
-            className="sc-LzLPY ihotTI"
+            className="sc-LzLPZ bRekix"
           >
             <li
               className="sc-LzNao ekzsks"
@@ -34,7 +34,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
             </li>
           </ul>
           <div
-            className="sc-LzLPX faVLIt"
+            className="sc-LzLPY gVmaYK"
             onClick={[Function]}
           >
             <svg
@@ -129,7 +129,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   </h4>
                 </div>
                 <button
-                  className="sc-fzXfMD sc-fzXfME eqxXLm"
+                  className="sc-fzXfME sc-fzXfNc KrJoS"
                   onClick={[Function]}
                   theme={
                     Object {
@@ -656,7 +656,7 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
           Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)
         </p>
         <a
-          className="sc-fzXfMD sc-fzXfME sc-LzMYU icpKKC"
+          className="sc-fzXfME sc-fzXfNc sc-LzMYU iKiduf"
           href="/auth/wallet"
           onClick={[Function]}
           theme={
@@ -1161,7 +1161,7 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
           It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry. You will be able to answer the questions again.
         </p>
         <button
-          className="sc-fzXfMD sc-fzXfME sc-LzMYU icpKKC"
+          className="sc-fzXfME sc-fzXfNc sc-LzMYU iKiduf"
           onClick={[Function]}
           theme={
             Object {
