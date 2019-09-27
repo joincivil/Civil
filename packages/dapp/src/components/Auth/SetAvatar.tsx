@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UserSetAvatar, AuthApplicationEnum, AuthTextSetAvatar, Modal } from "@joincivil/components";
+import { UserSetAvatar, AuthTextSetAvatar, Modal } from "@joincivil/components";
 
 interface SetAvatarProps {
   channelID: string;
