@@ -7,15 +7,13 @@ const BoostShareWrap = styled.span`
   justify-content: space-around;
 
   a {
-    .email-share-icon,
-    .twitter-share-icon {
-      fill: ${colors.accent.CIVIL_GRAY_2};
+    svg path {
+      fill: ${colors.accent.CIVIL_GRAY_0};
       transition: fill 0.2s;
     }
 
     &:hover {
-      .email-share-icon,
-      .twitter-share-icon {
+      svg path {
         fill: ${colors.accent.CIVIL_BLUE};
       }
     }
