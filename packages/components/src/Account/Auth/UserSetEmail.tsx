@@ -12,7 +12,7 @@ import {
   AuthErrorMessage,
   SkipForNowButtonContainer,
 } from "./AuthStyledComponents";
-import { isValidEmail, getCurrentUserQuery } from "@joincivil/utils";
+import { isValidEmail } from "@joincivil/utils";
 import { AuthTextUnknownError } from "./AuthTextComponents";
 import styled from "styled-components";
 import { fonts } from "../../styleConstants";

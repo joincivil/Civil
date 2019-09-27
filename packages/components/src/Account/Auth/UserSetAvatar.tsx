@@ -1,9 +1,8 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
+import { Mutation, MutationFn } from "react-apollo";
 import { Button, buttonSizes } from "../../Button";
 import { ConfirmButtonContainer } from "./AuthStyledComponents";
-import { getCurrentUserQuery } from "@joincivil/utils";
 import AvatarEditor from "react-avatar-editor";
 import styled from "styled-components";
 
@@ -124,11 +123,6 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
         variables: {
           input: { channelID, avatarDataURL },
         },
-        refetchQueries: [
-          {
-            query: getCurrentUserQuery,
-          },
-        ],
       });
 
       if (res.data && res.data.channelsSetAvatar && res.data.channelsSetAvatar.id === channelID) {
