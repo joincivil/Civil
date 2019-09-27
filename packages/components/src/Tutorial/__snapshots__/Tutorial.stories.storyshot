@@ -48,7 +48,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
         className="sc-LzNcj jtuKSu"
       >
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNrn btXJCt"
+          className="sc-fzXfME sc-fzXfNd sc-LzNro kYZLAC"
           onClick={[Function]}
           theme={
             Object {
@@ -61,7 +61,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
           Back
         </button>
         <button
-          className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
+          className="sc-fzXfME sc-fzXfNc sc-LzNrn ctGFmr"
           onClick={[Function]}
           theme={
             Object {
@@ -524,7 +524,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 1"
               />
               <button
-                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrw zGsVR"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -553,7 +553,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 2"
               />
               <button
-                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrw zGsVR"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -582,7 +582,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
                 value="Option 3"
               />
               <button
-                className="sc-fzXfME sc-fzXfNe sc-LzNrv dWymQU"
+                className="sc-fzXfME sc-fzXfNe sc-LzNrw zGsVR"
                 onClick={[Function]}
                 theme={
                   Object {
@@ -612,7 +612,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
         className="sc-LzNcj jtuKSu"
       >
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNrn btXJCt"
+          className="sc-fzXfME sc-fzXfNd sc-LzNro kYZLAC"
           onClick={[Function]}
           theme={
             Object {
@@ -625,7 +625,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
           Back to Tutorial
         </button>
         <button
-          className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx disabled"
+          className="sc-fzXfME sc-fzXfNc sc-LzNrn ctGFmr disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -1304,7 +1304,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Completed 1`] = `
         Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.
       </p>
       <button
-        className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
+        className="sc-fzXfME sc-fzXfNc sc-LzNrn ctGFmr"
         onClick={[Function]}
         theme={
           Object {
@@ -1796,7 +1796,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
       >
         <div>
           <button
-            className="sc-fzXfME sc-fzXfNd sc-LzNro iAswZm"
+            className="sc-fzXfME sc-fzXfNd sc-LzNrp iWurFn"
             onClick={[Function]}
             theme={
               Object {
@@ -1809,7 +1809,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
             Skip to the quiz
           </button>
           <button
-            className="sc-fzXfME sc-fzXfNc sc-LzNck ebEPUx"
+            className="sc-fzXfME sc-fzXfNc sc-LzNrn ctGFmr"
             onClick={[Function]}
             theme={
               Object {

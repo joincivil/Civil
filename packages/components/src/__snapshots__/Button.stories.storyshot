@@ -1837,7 +1837,7 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
       className="sc-LzNuF jfbQAS"
     >
       <button
-        className="sc-fzXfME sc-fzXfNc sc-LzMXb duzaTQ"
+        className="sc-fzXfME sc-fzXfNc sc-LzMXc ghvRgN"
         onClick={[Function]}
         size="MEDIUM_WIDE"
         theme={

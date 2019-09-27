@@ -656,7 +656,7 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
           Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)
         </p>
         <a
-          className="sc-fzXfME sc-fzXfNc sc-LzMYU iKiduf"
+          className="sc-fzXfME sc-fzXfNc sc-LzMYV kQsHDY"
           href="/auth/wallet"
           onClick={[Function]}
           theme={
@@ -1161,7 +1161,7 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
           It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry. You will be able to answer the questions again.
         </p>
         <button
-          className="sc-fzXfME sc-fzXfNc sc-LzMYU iKiduf"
+          className="sc-fzXfME sc-fzXfNc sc-LzMYV kQsHDY"
           onClick={[Function]}
           theme={
             Object {

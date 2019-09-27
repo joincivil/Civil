@@ -52,7 +52,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           If you’ve read the Civil Constitution and FAQ, skip to the quiz.
         </p>
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNbu ivVqDM"
+          className="sc-fzXfME sc-fzXfNd sc-LzNbv buFTaB"
           onClick={[Function]}
           theme={
             Object {
@@ -69,7 +69,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         className="sc-LzNbw hlDkDR"
       >
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNbx hcYmqj"
+          className="sc-fzXfME sc-fzXfNd sc-LzNby esAgVF"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -163,7 +163,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         className="sc-LzNbw hlDkDR"
       >
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNbx dlOnwq disabled"
+          className="sc-fzXfME sc-fzXfNd sc-LzNby esJigI disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -260,7 +260,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         className="sc-LzNbw hlDkDR"
       >
         <button
-          className="sc-fzXfME sc-fzXfNd sc-LzNbx dlOnwq disabled"
+          className="sc-fzXfME sc-fzXfNd sc-LzNby esJigI disabled"
           disabled={true}
           onClick={[Function]}
           theme={

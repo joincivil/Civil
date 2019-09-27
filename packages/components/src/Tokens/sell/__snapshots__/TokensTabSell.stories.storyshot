@@ -482,7 +482,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
           . And that’s it.
         </p>
         <a
-          className="sc-fzXfME sc-fzXfNd sc-LzMYV fZiRFr"
+          className="sc-fzXfME sc-fzXfNd sc-LzMYW kTxRNY"
           href="/dashboard/tasks/transfer-voting-tokens"
           onClick={[Function]}
           theme={
