@@ -170,6 +170,9 @@ export const getCurrentUserQuery = gql`
       userChannel {
         handle
         id
+        EmailAddressRestricted
+        avatarDataUrl
+        tiny100AvatarDataUrl
       }
       userChannelEmailPromptSeen
     }

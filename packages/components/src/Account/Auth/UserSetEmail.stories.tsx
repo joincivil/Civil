@@ -76,7 +76,7 @@ storiesOf("Common / Web3Auth", module)
     return (
       <UserSetEmail
         channelID={""}
-        onEmailSend={() => {
+        onSetEmailComplete={() => {
           console.log("Sent");
         }}
       />
