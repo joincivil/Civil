@@ -24,6 +24,7 @@ jobs:
             - run:
                 name: Building
                 command:  yarn build
+                no_output_timeout: 15m
             - run:
                 name: Ensuring prettified
                 command: yarn prettier
