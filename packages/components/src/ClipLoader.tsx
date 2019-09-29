@@ -4,7 +4,7 @@ import { colors } from "./styleConstants";
 
 export interface ClipLoaderProps {
   size?: number;
-  theme?: any;
+  theme?: { clipLoaderColor: string };
 }
 
 const clip = keyframes`

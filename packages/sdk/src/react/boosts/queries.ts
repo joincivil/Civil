@@ -71,6 +71,17 @@ export const boostNewsroomQuery = gql`
   }
 `;
 
+export const boostProceedsQuery = gql`
+  query proceeds($channelID: String!) {
+    getChannelTotalProceeds(channelID: $channelID) {
+      totalAmount
+      usd
+      ethUsdAmount
+      ether
+    }
+  }
+`;
+
 export const createBoostMutation = gql`
   mutation($input: PostCreateBoostInput!) {
     postsCreateBoost(input: $input) {

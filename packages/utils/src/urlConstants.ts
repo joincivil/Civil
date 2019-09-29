@@ -64,7 +64,7 @@ export const urlConstants = {
   FAQ_CHARTER_BEST_PRACTICES: "https://blog.joincivil.com/creating-great-charters-6b37cbca47c3",
   FAQ_CVL_TOKENS: FAQ_BASE_URL + "/hc/en-us/articles/360016409251-What-are-Civil-tokens-CVL-",
   FAQ_BOOSTS: FAQ_BASE_URL + "/hc/en-us/categories/360001939731-Boosts",
-  FAQ_BOOST_WITHDRAWL: FAQ_BASE_URL + "/hc/en-us/articles/360030522631-How-to-create-and-launch-a-Boost",
+  FAQ_BOOST_WITHDRAWL: FAQ_BASE_URL + "/hc/en-us/articles/360030195272-How-do-I-withdraw-my-ETH-proceeds-once-a-Boost-has-ended-",
   FAQ_BOOST_SUPPORTERS: FAQ_BASE_URL + "/hc/en-us/sections/360005752331-Supporters",
   FAQ_BOOST_HOW_TO_SUPPORT: FAQ_BASE_URL + "/hc/en-us/articles/360030520791-How-do-I-support-a-Boost-",
   FAQ_BOOST_WHEN_CHARGED: FAQ_BASE_URL + "/hc/en-us/articles/360030521331-When-will-my-payment-be-charged-",

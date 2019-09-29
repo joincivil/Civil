@@ -798,3 +798,12 @@ export const BoostUserInfoForm = styled.div`
     width: 100%;
   }
 `;
+
+export interface CurrencyLabelProps {
+  secondary?: boolean;
+}
+export const CurrencyLabel = styled.span`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: ${(props: CurrencyLabelProps) => (props.secondary ? 500 : 600)};
+`;

@@ -41,6 +41,7 @@ export interface DashboardNewsroomProps {
   inProgressPhaseDisplayName?: string;
   inProgressPhaseCountdown?: JSX.Element;
   inProgressPhaseDetails?: string | JSX.Element;
+  boostProceeds?: JSX.Element;
   rejectedDate?: string;
 }
 
@@ -188,10 +189,14 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
             Learn more
           </a>
         </p>
+
+        {/*@HACK We need to include `NewsroomWithdraw` from `sdk` package, but this component is in `components` package which `sdk` uses so we'd have a circular dependency. @TODO/tobek all these TCR dashboard components should be moved into `dapp` package.*/}
+        {props.boostProceeds}
+
         {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
         <p>
           <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
-            Launch Boost
+            Launch New Boost
           </Button>
         </p>
         <p>

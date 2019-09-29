@@ -19,6 +19,7 @@ import {
   DashboardNewsroomApplicationIcon,
   DisclosureArrowIcon,
   DropdownArrow,
+  EmbedIcon,
   ErrorIcon,
   ExamIcon,
   ExchangeArrowsIcon,
@@ -176,6 +177,13 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <DropdownArrow />
+      </Container>
+    );
+  })
+  .add("EmbedIcon", () => {
+    return (
+      <Container>
+        <EmbedIcon />
       </Container>
     );
   })

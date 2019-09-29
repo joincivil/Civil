@@ -19,6 +19,7 @@ export const CheckboxContainer = styled.ul`
   list-style: none;
   padding-left: 0;
   margin-top: 0;
+  max-width: 300px;
 `;
 
 export const CheckboxSection = styled.li`

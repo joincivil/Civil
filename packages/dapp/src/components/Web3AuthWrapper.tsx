@@ -7,6 +7,7 @@ import SetUsername from "./Auth/SetUsername";
 import SetEmail from "./Auth/SetEmail";
 import { hideWeb3AuthModal, showWeb3LoginModal, showWeb3SignupModal } from "../redux/actionCreators/ui";
 import { ICivilContext, CivilContext } from "@joincivil/components";
+import SetAvatar from "./Auth/SetAvatar";
 
 export const Web3AuthWrapper: React.FunctionComponent = () => {
   // context
@@ -21,15 +22,19 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
   const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
   let showSetHandle = false;
+  let showSetAvatar = false;
   let showSetEmail = false;
   if (civilUser && civilUser.uid && civilUser.userChannel) {
     showSetHandle = !civilUser.userChannel.handle;
     if (!showSetHandle) {
-      showSetEmail = !civilUser.userChannelEmailPromptSeen;
+      showSetAvatar = !civilUser.userChannel.avatarDataUrl;
+      if (!showSetAvatar) {
+        showSetEmail = !civilUser.userChannelEmailPromptSeen;
+      }
     }
   }
   let channelID;
-  if (showSetHandle || showSetEmail) {
+  if (showSetHandle || showSetAvatar || showSetEmail) {
     channelID = civilUser.userChannel.id;
   }
 
@@ -61,6 +66,10 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
     dispatch(await showWeb3SignupModal());
   }
 
+  async function handleUpdateUser(): Promise<void> {
+    return civilContext.auth.handleInitialState()
+  }
+
   return (
     <>
       {showWeb3Signup && (
@@ -79,8 +88,9 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
           onLogInNoUserExists={handleLogInNoUserExists}
         />
       )}
-      {showSetHandle && <SetUsername channelID={channelID} />}
-      {showSetEmail && <SetEmail channelID={channelID} />}
+      {showSetHandle && <SetUsername channelID={channelID} onSetHandleComplete={handleUpdateUser} />}
+      {showSetAvatar && <SetAvatar channelID={channelID} onSetAvatarComplete={handleUpdateUser} />}
+      {showSetEmail && <SetEmail channelID={channelID} onSetEmailComplete={handleUpdateUser} />}
     </>
   );
 };

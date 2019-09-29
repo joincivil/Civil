@@ -9,6 +9,7 @@ import {
   UserChallengeData,
   isInCommitStage,
   isInRevealStage,
+  ParamPropChallengeData,
 } from "@joincivil/core";
 import { Set, Map } from "immutable";
 import { BigNumber } from "@joincivil/typescript-types";
@@ -145,6 +146,18 @@ export const CHALLENGE_QUERY = gql`
   ${CHALLENGE_FRAGMENT}
 `;
 
+export const POLL_QUERY = gql`
+  query($input: Int!) {
+    poll(pollID: $input) {
+      commitEndDate
+      revealEndDate
+      voteQuorum
+      votesFor
+      votesAgainst
+    }
+  }
+`;
+
 export const USER_CHALLENGE_DATA_QUERY = gql`
   query($userAddr: String!, $pollID: Int!) {
     userChallengeData(userAddr: $userAddr, pollID: $pollID) {
@@ -163,6 +176,15 @@ export const USER_CHALLENGE_DATA_QUERY = gql`
       numTokens
       voterReward
       parentChallengeID
+    }
+  }
+`;
+
+export const PARAMETERS_QUERY = gql`
+  query Parameters($input: [String!]) {
+    parameters: parameters(paramNames: $input) {
+      paramName
+      value
     }
   }
 `;
@@ -245,6 +267,23 @@ function transfromGraphQLDataIntoPoll(queryPollData: any): PollData | undefined 
   return undefined;
 }
 
+export function transformGraphQLDataIntoParamPropChallenge(queryChallengeData: any): ParamPropChallengeData | undefined {
+  if (queryChallengeData) {
+    const pollData = transfromGraphQLDataIntoPoll(queryChallengeData.poll);
+
+    return {
+      rewardPool: new BigNumber(queryChallengeData.rewardPool),
+      challenger: queryChallengeData.challenger,
+      resolved: queryChallengeData.resolved,
+      stake: new BigNumber(queryChallengeData.stake),
+      totalTokens: new BigNumber(queryChallengeData.totalTokens),
+      poll: pollData!,
+    };
+  } else {
+    return undefined;
+  }
+}
+
 export function transformGraphQLDataIntoChallenge(queryChallengeData: any): ChallengeData | undefined {
   if (queryChallengeData) {
     const pollData = transfromGraphQLDataIntoPoll(queryChallengeData.poll);
@@ -302,6 +341,20 @@ export function transformGraphQLDataIntoAppealChallenge(
       },
       appealChallengeStatementURI: queryAppealChallengeData.statement,
     };
+  } else {
+    return undefined;
+  }
+}
+
+export function transformGraphQLDataIntoParamProposal(propData: any): any {
+  if (propData) {
+    return {
+      propID: "0x" + propData.propID,
+      paramName: propData.name,
+      propValue: new BigNumber(propData.value),
+      pollID: propData.challengeID !== "0" ? new BigNumber(propData.challengeID) : undefined,
+      applicationExpiry: new BigNumber(propData.appExpiry),
+    }
   } else {
     return undefined;
   }

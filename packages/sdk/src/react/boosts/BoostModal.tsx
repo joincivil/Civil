@@ -5,17 +5,20 @@ import { colors, FullScreenModal, CloseXIcon } from "@joincivil/components";
 export interface BoostModalProps {
   open: boolean;
   children: any;
-  handleClose(): void;
+  className?: string;
+  handleClose?(): void;
 }
 
 export const BoostModal: React.FunctionComponent<BoostModalProps> = props => {
   return (
     <>
       <FullScreenModal open={props.open}>
-        <BoostModalContain>
-          <BoostModalCloseBtn onClick={() => props.handleClose()}>
-            <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
-          </BoostModalCloseBtn>
+        <BoostModalContain className={props.className}>
+          {props.handleClose && (
+            <BoostModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
+              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+            </BoostModalCloseBtn>
+          )}
           {props.children}
         </BoostModalContain>
       </FullScreenModal>

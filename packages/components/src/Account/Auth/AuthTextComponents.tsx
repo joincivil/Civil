@@ -90,6 +90,15 @@ export const AuthTextSetHandle: React.FunctionComponent = () => (
   </>
 );
 
+export const AuthTextSetAvatar: React.FunctionComponent = () => (
+  <>
+    <PageHeadingCentered>Welcome to the Civil community</PageHeadingCentered>
+    <PageHeadingTextCentered>
+      To help the Civil community identify you, please select an avatar.
+    </PageHeadingTextCentered>
+  </>
+);
+
 export const AuthTextEmailNotFoundError: React.FunctionComponent<{ signupPath: string }> = ({ signupPath }) => (
   <>
     The email address you entered does not exist. Try again? or{" "}

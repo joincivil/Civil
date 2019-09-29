@@ -14,13 +14,13 @@ import {
   PhaseWithExpiryProps,
   ChallengePhaseProps,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
-import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
+import { ChallengeContainerProps, connectChallengePhase, ParametersProps } from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { ChallengeDetailProps, ChallengeVoteState } from "./ChallengeDetail";
 
@@ -101,7 +101,7 @@ interface CommitCardKeyState {
 }
 
 class ChallengeCommitVote extends React.Component<
-  ChallengeDetailProps & InjectedTransactionStatusModalProps,
+  ChallengeDetailProps & InjectedTransactionStatusModalProps & ParametersProps,
   ChallengeVoteState & CommitCardKeyState
 > {
   public static contextType = CivilHelperContext;
@@ -123,8 +123,11 @@ class ChallengeCommitVote extends React.Component<
   }
 
   public render(): JSX.Element | null {
+    if (!this.props.parameters) {
+      return <></>;
+    }
     const endTime = this.props.challenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters.commitStageLen;
+    const phaseLength = this.props.parameters.get(Parameters.commitStageLen).toNumber();
     const challenge = this.props.challenge;
     const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
     const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));
@@ -286,6 +289,6 @@ class ChallengeCommitVote extends React.Component<
   };
 }
 
-export default compose<React.ComponentClass<ChallengeDetailProps>>(
+export default compose<React.ComponentClass<ChallengeDetailProps & ParametersProps>>(
   hasTransactionStatusModals(transactionStatusModalConfig),
 )(ChallengeCommitVote);

@@ -13,12 +13,12 @@ import {
   ChallengePhaseProps,
   RevealVoteProps,
 } from "@joincivil/components";
-import { getLocalDateTimeStrings, urlConstants as links } from "@joincivil/utils";
+import { getLocalDateTimeStrings, urlConstants as links, Parameters } from "@joincivil/utils";
 
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { fetchVote } from "../../helpers/vote";
-import { ChallengeContainerProps, connectChallengePhase } from "../utility/HigherOrderComponents";
+import { ChallengeContainerProps, connectChallengePhase, ParametersProps } from "../utility/HigherOrderComponents";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
@@ -75,13 +75,13 @@ interface RevealCardKeyState {
 }
 
 class ChallengeRevealVote extends React.Component<
-  ChallengeDetailProps & InjectedTransactionStatusModalProps,
+  ChallengeDetailProps & InjectedTransactionStatusModalProps & ParametersProps,
   ChallengeVoteState & RevealCardKeyState
 > {
   public static contextType = CivilHelperContext;
   public context: CivilHelper;
 
-  constructor(props: ChallengeDetailProps & InjectedTransactionStatusModalProps) {
+  constructor(props: ChallengeDetailProps & InjectedTransactionStatusModalProps & ParametersProps) {
     super(props);
     this.state = {
       voteOption: this.getVoteOption(),
@@ -103,8 +103,8 @@ class ChallengeRevealVote extends React.Component<
 
   public render(): JSX.Element | null {
     const endTime = this.props.challenge.poll.revealEndDate.toNumber();
-    const phaseLength = this.props.parameters.revealStageLen;
-    const secondaryPhaseLength = this.props.parameters.commitStageLen;
+    const phaseLength = this.props.parameters.get(Parameters.revealStageLen).toNumber();
+    const secondaryPhaseLength = this.props.parameters.get(Parameters.commitStageLen).toNumber();
     const challenge = this.props.challenge;
     const userHasRevealedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserReveal;
     const userHasCommittedVote = this.props.userChallengeData && !!this.props.userChallengeData.didUserCommit;

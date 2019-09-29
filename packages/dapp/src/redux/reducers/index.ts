@@ -26,14 +26,6 @@ import {
   loadingFinished,
 } from "./listings";
 import {
-  parameters,
-  proposals,
-  parameterProposalChallenges,
-  parameterProposalChallengesFetching,
-  proposalChallengeUserData,
-  proposalChallengesToPropIDs,
-} from "./parameterizer";
-import {
   appealChallengeUserData,
   challenges,
   challengesFetching,
@@ -64,7 +56,6 @@ import {
   WrappedChallengeData,
   UserChallengeData,
   EthAddress,
-  ParamPropChallengeData,
   MultisigTransaction,
   EthContentHeader,
   ContentData,
@@ -120,12 +111,6 @@ export interface NetworkDependentState {
   rejectedListings: Set<string>;
   loadingFinished: boolean;
   user: { account: any };
-  parameters: object;
-  proposals: Map<string, object>;
-  parameterProposalChallenges: Map<string, ParamPropChallengeData>;
-  parameterProposalChallengesFetching: Map<string, any>;
-  proposalChallengeUserData: Map<string, Map<string, UserChallengeData>>;
-  proposalChallengesToPropIDs: Map<string, string>;
   govtParameters: object;
   govtProposals: Map<string, object>;
   challenges: Map<string, WrappedChallengeData>;
@@ -174,12 +159,6 @@ const networkDependentReducers = combineReducers({
   rejectedListings,
   loadingFinished,
   user,
-  parameters,
-  proposals,
-  parameterProposalChallenges,
-  parameterProposalChallengesFetching,
-  proposalChallengeUserData,
-  proposalChallengesToPropIDs,
   govtParameters,
   govtProposals,
   challenges,

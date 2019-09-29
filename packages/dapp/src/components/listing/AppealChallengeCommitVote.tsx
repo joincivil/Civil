@@ -23,6 +23,7 @@ import {
   ChallengeContainerProps,
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 } from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { AppealChallengeDetailProps, ChallengeVoteState } from "./AppealChallengeDetail";
@@ -105,6 +106,7 @@ const AppealChallengeCommitVoteCard = compose<
 >(
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 )(AppealChallengeCommitVoteCardComponent);
 
 class AppealChallengeCommitVote extends React.Component<
@@ -133,7 +135,7 @@ class AppealChallengeCommitVote extends React.Component<
     const { appealChallenge } = this.props;
 
     const endTime = appealChallenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
+    const phaseLength = this.props.parameters.get(Parameters.challengeAppealCommitLen);
 
     const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
     const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));

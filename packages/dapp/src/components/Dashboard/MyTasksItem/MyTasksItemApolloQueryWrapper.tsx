@@ -38,7 +38,7 @@ const MyTasksItemApolloQueryWrapper: React.FunctionComponent<
         return (
           <Query query={LISTING_QUERY} variables={{ addr: listingAddress }}>
             {({ loading: listingLoading, error: listingError, data: listingData }: any): JSX.Element => {
-              if (listingLoading || listingError || !listingData) {
+              if (listingLoading || listingError || !listingData || !listingData.listing) {
                 return <></>;
               }
 

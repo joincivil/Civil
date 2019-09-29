@@ -35,7 +35,6 @@ export interface MyTasksProps {
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
   activeSubTabIndex: number;
-  useGraphQL?: boolean;
   setActiveSubTabIndex(activeSubIndex: number): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
@@ -62,7 +61,6 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     showNoMobileTransactionsModal,
     userChallengeData,
     challengeToAppealChallengeMap,
-    useGraphQL,
     refetchUserChallengeData,
   } = props;
 
@@ -109,7 +107,6 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             proposalChallenges={proposalChallengesWithAvailableActions}
             userChallengeData={userChallengeData}
             challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-            useGraphQL={useGraphQL}
             refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
@@ -121,7 +118,6 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             proposalChallenges={proposalChallengesWithUnrevealedVotes}
             userChallengeData={userChallengeData}
             challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-            useGraphQL={useGraphQL}
             refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}

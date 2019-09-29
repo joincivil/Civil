@@ -186,11 +186,11 @@ class AwaitingAppealDecision extends React.Component<
   };
 
   private grantAppeal = async (uri: string): Promise<TwoStepEthTransaction<any>> => {
-    return grantAppeal(this.props.listingAddress, uri);
+    return this.context.grantAppeal(this.props.listingAddress, uri);
   };
 
   private confirmAppeal = async (): Promise<TwoStepEthTransaction<any>> => {
-    return confirmAppeal(this.props.txIdToConfirm!);
+    return this.context.confirmAppeal(this.props.txIdToConfirm!);
   };
 }
 
