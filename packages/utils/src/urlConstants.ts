@@ -27,6 +27,7 @@ export const urlConstants = {
   FACEBOOK: "https://facebook.com/joincivil",
   INSTAGRAM: "https://www.instagram.com/join_civil",
   TELEGRAM: "https://t.me/join_civil",
+  TWITTER_SHARE_BASE: "https://twitter.com/intent/tweet?text=",
 
   // Email
   EMAIL_SUPPORT: "support@civil.co",
