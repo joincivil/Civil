@@ -8,6 +8,7 @@ export const SocialWrapper = styled.div`
 
   label {
   }
+`;
 
 export const SocialBtnFlex = styled.div`
   align-items: center;
