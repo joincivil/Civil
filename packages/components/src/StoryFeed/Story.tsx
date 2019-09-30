@@ -1,19 +1,16 @@
 import * as React from "react";
-import { StoryLink, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryfeedStyledComponents";
-import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
+import { StoryLink, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
 
-export interface StoryCardProps {
+export interface StoryProps {
   img: string;
-  newsroom: string;
   timeStamp: string;
   title: string;
   url: string;
 }
 
-export const StoryCard: React.FunctionComponent<StoryCardProps> = props => {
+export const Story: React.FunctionComponent<StoryProps> = props => {
   return (
     <>
-      <StoryNewsroomStatus newsroom={props.newsroom} activeChallenge={true} />
       <StoryLink href={props.url} target="_blank">
         <StoryTitle>{props.title}</StoryTitle>
         <StoryImgSquare>

@@ -1,17 +1,12 @@
 import * as React from "react";
 import {
   LeaderboardLabel,
-  LeaderboardUser,
+  LeaderboardItem,
   LeaderboardAvatar,
   LeaderboardUserName,
   LeaderboardAmount,
 } from "./LeaderboardStyledComponents";
-
-export interface Contributers {
-  avatar: string;
-  username: string;
-  amount: string;
-}
+import { Contributers } from "./types";
 
 export interface LeaderboardProps {
   label?: string;
@@ -23,13 +18,13 @@ export const Leaderboard: React.FunctionComponent<LeaderboardProps> = props => {
     <>
       {props.label && <LeaderboardLabel>{props.label}</LeaderboardLabel>}
       {props.contributers.map((contributer, idx) => (
-        <LeaderboardUser key={idx}>
+        <LeaderboardItem key={idx}>
           <LeaderboardAvatar src={contributer.avatar} />
           <div>
             <LeaderboardUserName>{contributer.username}</LeaderboardUserName>
             <LeaderboardAmount>{contributer.amount}</LeaderboardAmount>
           </div>
-        </LeaderboardUser>
+        </LeaderboardItem>
       ))}
     </>
   );

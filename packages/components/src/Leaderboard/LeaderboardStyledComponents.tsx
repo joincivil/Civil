@@ -11,7 +11,7 @@ export const LeaderboardLabel = styled.label`
   text-transform: uppercase;
 `;
 
-export const LeaderboardUser = styled.div`
+export const LeaderboardItem = styled.div`
   padding: 5px 5px 5px 35px;
   position: relative;
 `;

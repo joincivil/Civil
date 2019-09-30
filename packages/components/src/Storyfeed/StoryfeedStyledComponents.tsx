@@ -57,8 +57,8 @@ export const TimeStamp = styled.div`
   line-height: 14px;
 `;
 
-export const StoryCardFooter = styled.div`
-  background-color: ${colors.accent.CIVIL_BLUE};
+export const StoryFooter = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 15px;
 `;
 
@@ -72,7 +72,43 @@ export const ReadMoreBtn = styled.a`
   padding: 15px;
 `;
 
-export const CivilStatusInfo = styled.div`
-  background-color: ${colors.accent.CIVIL_BLUE};
-  padding: 15px;
+export const StoryRegistryStatusSection = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding: 15px 0;
+`;
+
+export interface StoryRegistryStatusProps {
+  activeChallenge: boolean;
+}
+
+export const StoryRegistryStatusTextWrap = styled.div`
+  border-left: 1px solid
+    ${(props: StoryRegistryStatusProps) =>
+      props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL};
+  padding: 0 15px;
+`;
+
+export const ApprovedTag = styled.span`
+  background-color: ${colors.accent.CIVIL_TEAL};
+  color: ${colors.basic.WHITE};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.92px;
+  line-height: 15px;
+  padding: 2px 3px;
+  text-transform: uppercase;
+`;
+
+export const ChallengedTag = styled.span`
+  background-color: ${colors.accent.CIVIL_ORANGE};
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.92px;
+  line-height: 15px;
+  padding: 2px 3px;
+  text-transform: uppercase;
 `;

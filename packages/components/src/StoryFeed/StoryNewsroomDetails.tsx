@@ -1,7 +1,8 @@
 import * as React from "react";
-import { CivilStatusInfo } from "./StoryfeedStyledComponents";
+import { StoryRegistryDetails } from "./StoryRegistryDetails";
+import { ChallengedTag, ApprovedTag } from "./StoryFeedStyledComponents";
 
-export interface StoryNewsroomCardProps {
+export interface StoryNewsroomDetailsProps {
   activeChallenge: boolean;
   contractAddress: string;
   multisigAddress: string;
@@ -10,7 +11,7 @@ export interface StoryNewsroomCardProps {
   newsroomURL: string;
 }
 
-export const StoryNewsroomCard: React.FunctionComponent<StoryNewsroomCardProps> = props => {
+export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsProps> = props => {
   return (
     <>
       <>
@@ -20,12 +21,10 @@ export const StoryNewsroomCard: React.FunctionComponent<StoryNewsroomCardProps> 
         </>
         <>
           <span>Civil Registry</span>
-          {props.activeChallenge ? <span>Challenged</span> : <span>Approved</span>}
+          {props.activeChallenge ? <ChallengedTag /> : <ApprovedTag />}
         </>
       </>
-      <CivilStatusInfo>
-        <p></p>
-      </CivilStatusInfo>
+      <StoryRegistryDetails activeChallenge={props.activeChallenge} />
       <>
         <>About</>
         {props.newsroomAbout}

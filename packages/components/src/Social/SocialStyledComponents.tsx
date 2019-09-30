@@ -1,6 +1,5 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries } from "../styleConstants";
 
 export const SocialWrapper = styled.div`
   margin-bottom: 15px;

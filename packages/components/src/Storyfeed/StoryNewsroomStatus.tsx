@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StoryNewsroomName } from "./StoryfeedStyledComponents";
+import { StoryNewsroomName } from "./StoryFeedStyledComponents";
 
 export interface StoryNewsroomStatusProps {
   newsroom: string;

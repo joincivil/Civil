@@ -4,14 +4,14 @@ import {
   TimeStamp,
   StoryDescription,
   StoryImgWide,
-  StoryCardFooter,
+  StoryFooter,
   ReadMoreBtn,
-} from "./StoryfeedStyledComponents";
+} from "./StoryFeedStyledComponents";
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 import { Button } from "../Button";
 import { Share } from "../Social";
 
-export interface StoryDescriptionCardProps {
+export interface StoryDetailsProps {
   description: string;
   img: string;
   newsroom: string;
@@ -20,7 +20,7 @@ export interface StoryDescriptionCardProps {
   url: string;
 }
 
-export const StoryDescriptionCard: React.FunctionComponent<StoryDescriptionCardProps> = props => {
+export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
   return (
     <>
       <>
@@ -36,10 +36,10 @@ export const StoryDescriptionCard: React.FunctionComponent<StoryDescriptionCardP
       <StoryDescription>{props.description}</StoryDescription>
       <>Recent Contributors Component</>
       <Share />
-      <StoryCardFooter>
+      <StoryFooter>
         <Button>Tips</Button>
         <ReadMoreBtn>Read More</ReadMoreBtn>
-      </StoryCardFooter>
+      </StoryFooter>
     </>
   );
 };

@@ -1,9 +1,6 @@
 import * as React from "react";
 import { ContributerCountTotal, ContributerCountAvatar } from "./LeaderboardStyledComponents";
-
-export interface Contributers {
-  avatar: string;
-}
+import { Contributers } from "./types";
 
 export interface ContributersCountProps {
   label?: string;
