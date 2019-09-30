@@ -94,10 +94,10 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
         <AvatarEditor
           ref={(el: any) => {this.editor = el}}
           image={this.state.image ? this.state.image : ""}
-          width={400}
-          height={400}
+          width={336}
+          height={336}
           border={0}
-          borderRadius={200}
+          borderRadius={168}
           color={[255, 255, 255, 0.6]} // RGBA
           scale={1.2}
           rotate={0}
