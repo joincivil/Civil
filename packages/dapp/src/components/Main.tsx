@@ -59,7 +59,7 @@ export interface MainOwnProps {
 }
 
 export interface MainState {
-  prevAccount?: EthAddress;
+  prevAccount: EthAddress;
   accountStream?: Subscription;
   networkStream?: Subscription;
   networkNameStream?: Subscription;
@@ -68,7 +68,7 @@ export interface MainState {
 export const Main: React.FunctionComponent = () => {
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
   const civilHelper = React.useContext(CivilHelperContext);
-  const [prevAccount, setAccount] = React.useState("");
+  const [prevAccount, setPrevAccount] = React.useState("");
   const dispatch = useDispatch();
   const networkRedux = useSelector((state: any) => state.network);
   const networkIsSupported = isNetworkSupported(networkRedux);
@@ -114,10 +114,17 @@ export const Main: React.FunctionComponent = () => {
     dispatch!(setNetworkName(networkName));
   }
 
-  async function onAccountUpdated(account: EthAddress | undefined): Promise<void> {
+  const onAccountUpdated = async (account: EthAddress | undefined): Promise<void> => {
     const civil = civilCtx.civil!;
-    if (account && account !== prevAccount) {
+    if (prevAccount !== "" && account !== prevAccount) {
+      if (civilCtx.auth.currentUser) {
+        civilCtx.auth.logout();
+      }
+    }
+    if (account) {
       try {
+        setPrevAccount(account ? account : "");
+        dispatch!(addUser(account, new BigNumber(0), new BigNumber(0))); // get user eth address into redux right away
         const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const voting = await tcr.getVoting();
@@ -125,7 +132,6 @@ export const Main: React.FunctionComponent = () => {
         const votingBalance = await voting.getNumVotingRights(account);
         dispatch!(addUser(account, balance, votingBalance));
         await initializeTokenSubscriptions(civilHelper!, dispatch!, account);
-        setAccount(account);
       } catch (err) {
         console.log("ERROR", err);
         if (err.message === CivilErrors.UnsupportedNetwork) {
