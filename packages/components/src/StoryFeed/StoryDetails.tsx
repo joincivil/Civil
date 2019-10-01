@@ -12,17 +12,18 @@ import {
 } from "./StoryFeedStyledComponents";
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 // import { Share } from "../Social";
-import { Leaderboard, ContributerCount, Contributers } from "../Leaderboard";
+import { Contributors, ContributorCount, ContributorData } from "../Contributors";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;
-  contributers: Contributers[];
   description: string;
   img: string;
   newsroom: string;
   timeStamp: string;
   title: string;
-  totalContributers: number;
+  displayedContributors: ContributorData[];
+  sortedContributors: ContributorData[];
+  totalContributors: number;
   url: string;
   handleOpenNewsroom(): void;
 }
@@ -46,8 +47,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           <TimeStamp>{props.timeStamp}</TimeStamp>
         </StoryDetailsFlex>
         <StoryDescription>{props.description}</StoryDescription>
-        <Leaderboard label={"Recent Contributers"} contributers={props.contributers} />
-        <ContributerCount totalContributers={props.totalContributers} contributers={props.contributers} />
+        <Contributors label={"Recent Contributors"} sortedContributors={props.sortedContributors} />
+        <ContributorCount
+          totalContributors={props.totalContributors}
+          displayedContributors={props.displayedContributors}
+        />
         {/* <Share /> */}
       </StoryModalContent>
       <StoryModalFooter>

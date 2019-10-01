@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
+exports[`Storyshots Common / Contributors Contributor Count 1`] = `
 <div>
   <div
     style={
@@ -11,7 +11,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
     }
   >
     <div
-      className="sc-LzNMq kimZJh"
+      className="sc-LzNMk iNaGBr"
     >
       <div
         className="sc-LzNtS jHuKwS"
@@ -136,7 +136,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
               }
             }
           >
-            Common / Leaderboard
+            Common / Contributors
           </h1>
           <h2
             style={
@@ -148,7 +148,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
               }
             }
           >
-            Contributer Count
+            Contributor Count
           </h2>
         </div>
         
@@ -227,7 +227,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
                     }
                   >
                     &lt;
-                    ContributerCount
+                    ContributorCount
                   </span>
                   <span>
                     <span>
@@ -235,7 +235,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
                       <span
                         style={Object {}}
                       >
-                        contributers
+                        displayedContributors
                       </span>
                       <span>
                         =
@@ -504,7 +504,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
                       <span
                         style={Object {}}
                       >
-                        totalContributers
+                        totalContributors
                       </span>
                       <span>
                         =
@@ -605,7 +605,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
               }
             >
               "
-              ContributerCount
+              ContributorCount
               " Component
             </h3>
             <small>
@@ -635,7 +635,7 @@ exports[`Storyshots Common / Leaderboard Contributer Count 1`] = `
 </div>
 `;
 
-exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
+exports[`Storyshots Common / Contributors Contributors 1`] = `
 <div>
   <div
     style={
@@ -646,7 +646,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
     }
   >
     <div
-      className="sc-LzNMq kimZJh"
+      className="sc-LzNMk iNaGBr"
     >
       <div
         className="sc-LzNtp xgcXt"
@@ -654,7 +654,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
         <label
           className="sc-LzNtq dnMrxK"
         >
-          Recent Contributers
+          Recent Contributors
         </label>
         <div
           className="sc-LzNtr fNdwfE"
@@ -818,7 +818,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
               }
             }
           >
-            Common / Leaderboard
+            Common / Contributors
           </h1>
           <h2
             style={
@@ -830,7 +830,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
               }
             }
           >
-            Leaderboard
+            Contributors
           </h2>
         </div>
         
@@ -909,7 +909,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
                     }
                   >
                     &lt;
-                    Leaderboard
+                    Contributors
                   </span>
                   <span>
                     <span>
@@ -933,7 +933,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
                               }
                             }
                           >
-                            Recent Contributers
+                            Recent Contributors
                           </span>
                           "
                         </span>
@@ -944,7 +944,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
                       <span
                         style={Object {}}
                       >
-                        contributers
+                        sortedContributors
                       </span>
                       <span>
                         =
@@ -1288,7 +1288,7 @@ exports[`Storyshots Common / Leaderboard Leaderboard 1`] = `
               }
             >
               "
-              Leaderboard
+              Contributors
               " Component
             </h3>
             <small>
