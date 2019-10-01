@@ -43,8 +43,8 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
       });
     }
 
-    const tiny100AvatarDataUrl = civilUser.userChannel!.tiny100AvatarDataUrl;
-    const showFigure = !tiny100AvatarDataUrl;
+    const tiny72AvatarDataUrl = civilUser.userChannel!.tiny72AvatarDataUrl;
+    const showFigure = !tiny72AvatarDataUrl;
 
     return (
       <>
@@ -57,7 +57,7 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           <NavUser onClick={(ev: any) => props.toggleDrawer()}>
             <CvlContainer>
               <AvatarContainer>
-                {tiny100AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny100AvatarDataUrl} />}
+                {tiny72AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny72AvatarDataUrl} />}
                 {showFigure && <UserAvatarFigure />}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
