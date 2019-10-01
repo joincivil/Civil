@@ -4,7 +4,7 @@ import { EthAddress, CharterData } from "@joincivil/core";
 import { NewsroomGqlProps } from "./Newsroom";
 import { userDataQuery, getCharterQuery } from "./queries";
 import { saveCharterMutation, SaveAddressMutation, saveStepsMutation } from "./mutations";
-import { Parameters } from "@joincivil/utils"
+import { Parameters } from "@joincivil/utils";
 import gql from "graphql-tag";
 import { BigNumber } from "@joincivil/typescript-types";
 
@@ -12,10 +12,7 @@ export interface DataWrapperProps {
   children(props: NewsroomGqlProps): any;
 }
 
-export const parametersArray = [
-  Parameters.minDeposit,
-  Parameters.applyStageLen,
-]
+export const parametersArray = [Parameters.minDeposit, Parameters.applyStageLen];
 
 export const PARAMETERS_QUERY = gql`
   query Parameters($input: [String!]) {
@@ -30,9 +27,17 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
   public render(): JSX.Element {
     return (
       <Query<any> query={PARAMETERS_QUERY} variables={{ input: parametersArray }}>
-        {({ loading: paramsLoading, error: paramsError, data: paramsData }: { loading?: any, error?: any, data: any }) => {
+        {({
+          loading: paramsLoading,
+          error: paramsError,
+          data: paramsData,
+        }: {
+          loading?: any;
+          error?: any;
+          data: any;
+        }) => {
           if (paramsLoading || paramsError) {
-            return <></>
+            return <></>;
           }
           const minDeposit = new BigNumber(paramsData.parameters[0].value);
           const applyStageLen = new BigNumber(paramsData.parameters[1].value);
@@ -52,13 +57,21 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
 
                 return (
                   <Query<any> query={getCharterQuery}>
-                    {({ loading: charterLoading, error: charterError, data: charterData, refetch: refetchCharterQuery }) => {
+                    {({
+                      loading: charterLoading,
+                      error: charterError,
+                      data: charterData,
+                      refetch: refetchCharterQuery,
+                    }) => {
                       if (charterLoading) {
                         return "Loading...";
                       }
                       let doRefetchHack = false;
                       if (charterError) {
-                        if (charterError.graphQLErrors[0] && charterError.graphQLErrors[0].message === "No jsonb found") {
+                        if (
+                          charterError.graphQLErrors[0] &&
+                          charterError.graphQLErrors[0].message === "No jsonb found"
+                        ) {
                           // ok, they haven't saved a charter yet
                           // Due to an apollo bug (https://github.com/apollographql/react-apollo/issues/2070) when a query errors, future refetches from mutation refetchQueries fail to update the query. There are various solutions suggested, some of which didn't work, but using the refetch function we get here will work if we call it just once (once we do data and the query won't error).
                           doRefetchHack = true;
@@ -127,7 +140,7 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                                           saveSteps,
                                           persistCharter: this.saveCharterFuncFromMutation(saveCharter),
                                           minDeposit,
-                                          applyStageLen
+                                          applyStageLen,
                                         });
                                       }}
                                     </Mutation>
@@ -143,9 +156,9 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                 );
               }}
             </Query>
-            )
+          );
         }}
-        </Query>
+      </Query>
     );
   }
 

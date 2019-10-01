@@ -124,7 +124,7 @@ const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
       pollID
       pollType
     }
-    challengesStarted: challengesStartedByUser(addr:$userAddress) {
+    challengesStarted: challengesStartedByUser(addr: $userAddress) {
       challengeID
     }
   }
@@ -164,7 +164,7 @@ export const getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
 class DashboardActivity extends React.Component<
   DashboardActivityProps & DashboardActivityReduxProps,
   DashboardActivityState
-  > {
+> {
   public state = {
     isNoMobileTransactionVisible: false,
     activeTabIndex: 0,
@@ -242,10 +242,7 @@ class DashboardActivity extends React.Component<
 
           return (
             <>
-              <NewsroomsList
-                listings={newsrooms}
-                newsroomsApplicationProgressData={newsroomsApplicationProgressData}
-              />
+              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
               {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
             </>
           );
@@ -287,7 +284,9 @@ class DashboardActivity extends React.Component<
               }
             });
 
-            const currentUserChallengesStarted = Set<string>(data.challengesStarted.map(challenge => challenge.challengeID));
+            const currentUserChallengesStarted = Set<string>(
+              data.challengesStarted.map(challenge => challenge.challengeID),
+            );
             const myTasksViewProps = {
               userChallengeData: userChallengeDataMap,
               challengeToAppealChallengeMap,

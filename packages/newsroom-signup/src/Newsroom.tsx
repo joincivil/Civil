@@ -291,7 +291,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           {this.renderSteps()}
         </StepProcessTopNavNoButtons>
       </>
-    )
+    );
   }
 
   public renderSteps(): JSX.Element[] {
@@ -329,7 +329,8 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         <PurchaseTokens
           navigate={this.navigate}
           grantApproved={this.props.grantApproved}
-          minDeposit={this.props.minDeposit} />
+          minDeposit={this.props.minDeposit}
+        />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
         <ApplyToTCRStep

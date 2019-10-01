@@ -11,7 +11,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
     }
   >
     <div
-      className="sc-LzNww ujQWn"
+      className="sc-LzNNC bqcvuW"
     >
       <div
         className="sc-LzNan kffNla"
@@ -514,7 +514,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
     }
   >
     <div
-      className="sc-LzNww ujQWn"
+      className="sc-LzNNC bqcvuW"
     >
       <div
         className="sc-LzMBu bvlSwk"
@@ -1079,7 +1079,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
     }
   >
     <div
-      className="sc-LzNww ujQWn"
+      className="sc-LzNNC bqcvuW"
     >
       <button
         className="sc-fzXfME sc-fzXfNc KrJoS"
@@ -1530,7 +1530,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Uniswap 1`] = `
     }
   >
     <div
-      className="sc-LzNww ujQWn"
+      className="sc-LzNNC bqcvuW"
     >
       <div>
         loading price...

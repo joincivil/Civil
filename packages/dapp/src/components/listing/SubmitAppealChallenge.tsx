@@ -261,10 +261,19 @@ class SubmitAppealChallengeComponent extends React.Component<
         <>
           <ModalContent>
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
-            {getFormattedParameterValue(Parameters.challengeAppealCommitLen, this.props.parameters.get(Parameters.challengeAppealCommitLen))} to commit their secret votes, and{" "}
-            {getFormattedParameterValue(Parameters.challengeAppealRevealLen, this.props.parameters.get(Parameters.challengeAppealRevealLen))} to confirm their vote. To prevent decision bias, all votes will be
-            hidden using a secret phrase, until the end of the voting. Only a supermajority (
-            {getFormattedParameterValue(GovernmentParameters.appealVotePercentage, this.props.appealVotePercentage)}) from the community can overturn the Civil Council's decision.
+            {getFormattedParameterValue(
+              Parameters.challengeAppealCommitLen,
+              this.props.parameters.get(Parameters.challengeAppealCommitLen),
+            )}{" "}
+            to commit their secret votes, and{" "}
+            {getFormattedParameterValue(
+              Parameters.challengeAppealRevealLen,
+              this.props.parameters.get(Parameters.challengeAppealRevealLen),
+            )}{" "}
+            to confirm their vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the
+            end of the voting. Only a supermajority (
+            {getFormattedParameterValue(GovernmentParameters.appealVotePercentage, this.props.appealVotePercentage)})
+            from the community can overturn the Civil Council's decision.
           </ModalContent>
           <ModalContent>
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge

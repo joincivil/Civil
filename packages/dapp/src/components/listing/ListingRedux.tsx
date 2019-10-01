@@ -223,54 +223,49 @@ class ListingPageComponent extends React.Component<
 }
 
 const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { user, govtParameters, content, loadingFinished } = state.networkDependent;
-    const { network } = state;
-    const newsroom = ownProps.newsroom;
+  const { user, govtParameters, content, loadingFinished } = state.networkDependent;
+  const { network } = state;
+  const newsroom = ownProps.newsroom;
 
-    const listingPhaseState = getListingPhaseState(ownProps.listing);
+  const listingPhaseState = getListingPhaseState(ownProps.listing);
 
-    let charter;
-    let charterUri;
-    let charterRevisionId =
-      newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader.revisionId;
-    let charterRevision;
-    if (
-      listingPhaseState &&
-      listingPhaseState.isUnderChallenge &&
-      ownProps.listing &&
-      ownProps.listing.data.challenge
-    ) {
-      const challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
-      if (challengeStatement && (challengeStatement as any).charterRevisionId !== undefined) {
-        charterRevisionId = (challengeStatement as any).charterRevisionId;
-      }
-      if (ownProps.charterRevisions) {
-        charterRevision = ownProps.charterRevisions.get(charterRevisionId!);
-        if (charterRevision) {
-          charter = content.get(charterRevision.uri) as CharterData;
-        }
-      }
-    } else {
-      if (newsroom && newsroom.data.charterHeader) {
-        charterUri = newsroom.data.charterHeader.uri;
-        charter = content.get(charterUri) as CharterData;
-        charterRevisionId = newsroom.data.charterHeader.revisionId;
+  let charter;
+  let charterUri;
+  let charterRevisionId =
+    newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader.revisionId;
+  let charterRevision;
+  if (listingPhaseState && listingPhaseState.isUnderChallenge && ownProps.listing && ownProps.listing.data.challenge) {
+    const challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+    if (challengeStatement && (challengeStatement as any).charterRevisionId !== undefined) {
+      charterRevisionId = (challengeStatement as any).charterRevisionId;
+    }
+    if (ownProps.charterRevisions) {
+      charterRevision = ownProps.charterRevisions.get(charterRevisionId!);
+      if (charterRevision) {
+        charter = content.get(charterRevision.uri) as CharterData;
       }
     }
+  } else {
+    if (newsroom && newsroom.data.charterHeader) {
+      charterUri = newsroom.data.charterHeader.uri;
+      charter = content.get(charterUri) as CharterData;
+      charterRevisionId = newsroom.data.charterHeader.revisionId;
+    }
+  }
 
-    return {
-      ...ownProps,
-      network,
-      listingPhaseState,
-      isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
-      userAccount: user.account,
-      govtParameters,
-      charter,
-      charterRevisionId,
-      charterRevision,
-      loadingFinished,
-    };
+  return {
+    ...ownProps,
+    network,
+    listingPhaseState,
+    isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
+    userAccount: user.account,
+    govtParameters,
+    charter,
+    charterRevisionId,
+    charterRevision,
+    loadingFinished,
   };
+};
 
 export default compose(
   withRouter,
