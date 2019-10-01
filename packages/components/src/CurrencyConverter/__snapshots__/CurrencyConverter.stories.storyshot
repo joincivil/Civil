@@ -11,7 +11,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-      className="sc-LzNvi jRAoFf"
+      className="sc-LzNMl cPbhHh"
     >
       <div>
         (exchange rate is 2x)
@@ -735,7 +735,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-      className="sc-LzNvi jRAoFf"
+      className="sc-LzNMl cPbhHh"
     >
       <div>
         (exchange rate is 0.5x)

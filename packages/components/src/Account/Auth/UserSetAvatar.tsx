@@ -19,8 +19,7 @@ const AvatarEditorDiv = styled.div`
   justify-content: space-around;
 `;
 
-const AvatarEditorContainerDiv = styled.div`
-`;
+const AvatarEditorContainerDiv = styled.div``;
 
 export interface UserSetAvatarAuthProps {
   headerComponent?: JSX.Element;
@@ -67,11 +66,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
               <form onSubmit={async event => this.handleSubmit(event, setAvatar, channelID)}>
                 {this.renderAvatarSelector()}
                 <ConfirmButtonContainer>
-                  <Button
-                    size={buttonSizes.SMALL_WIDE}
-                    textTransform={"none"}
-                    type={"submit"}
-                  >
+                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
                     Confirm
                   </Button>
                 </ConfirmButtonContainer>
@@ -84,30 +79,32 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
   }
 
   public handleNewImage = (e: any) => {
-    this.setState({ image: e.target.files[0] })
-  }
+    this.setState({ image: e.target.files[0] });
+  };
 
   private renderAvatarSelector(): JSX.Element {
     return (
-    <AvatarEditorContainerDiv>
-      <AvatarEditorDiv>
-        <AvatarEditor
-          ref={(el: any) => {this.editor = el}}
-          image={this.state.image ? this.state.image : ""}
-          width={400}
-          height={400}
-          border={0}
-          borderRadius={200}
-          color={[255, 255, 255, 0.6]} // RGBA
-          scale={1.2}
-          rotate={0}
-        />
-      </AvatarEditorDiv>
-      <br />
-        New File:
-          <input name="newImage" type="file" onChange={this.handleNewImage} />
+      <AvatarEditorContainerDiv>
+        <AvatarEditorDiv>
+          <AvatarEditor
+            ref={(el: any) => {
+              this.editor = el;
+            }}
+            image={this.state.image ? this.state.image : ""}
+            width={400}
+            height={400}
+            border={0}
+            borderRadius={200}
+            color={[255, 255, 255, 0.6]} // RGBA
+            scale={1.2}
+            rotate={0}
+          />
+        </AvatarEditorDiv>
         <br />
-    </AvatarEditorContainerDiv>
+        New File:
+        <input name="newImage" type="file" onChange={this.handleNewImage} />
+        <br />
+      </AvatarEditorContainerDiv>
     );
   }
 

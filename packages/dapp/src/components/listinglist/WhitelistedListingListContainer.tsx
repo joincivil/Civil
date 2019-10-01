@@ -39,75 +39,75 @@ const LoadMoreContainer = styled.div`
 `;
 
 const WhitelistedListingListContainer = () => {
-    return (
-      <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true, sortBy: "NAME" }}>
-        {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
-          if (loading) {
-            return <LoadingMessage />;
-          }
-          if (error) {
-            return <ErrorLoadingDataMsg />;
-          }
-          const map = Set<NewsroomListing>(
-            tcrListings.edges.map((edge: any) => {
-              return {
-                listing: transformGraphQLDataIntoListing(edge.node, edge.node.contractAddress),
-                newsroom: transformGraphQLDataIntoNewsroom(edge.node, edge.node.contractAddress),
-              };
-            }),
-          );
+  return (
+    <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true, sortBy: "NAME" }}>
+      {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
+        if (loading) {
+          return <LoadingMessage />;
+        }
+        if (error) {
+          return <ErrorLoadingDataMsg />;
+        }
+        const map = Set<NewsroomListing>(
+          tcrListings.edges.map((edge: any) => {
+            return {
+              listing: transformGraphQLDataIntoListing(edge.node, edge.node.contractAddress),
+              newsroom: transformGraphQLDataIntoNewsroom(edge.node, edge.node.contractAddress),
+            };
+          }),
+        );
 
-          if (!map.count()) {
-            return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
-          }
+        if (!map.count()) {
+          return <EmptyRegistryTabContentComponent phaseTabType={REGISTRY_PHASE_TAB_TYPES.APPROVED} />;
+        }
 
-          const predicate = (newsroomListing?: NewsroomListing) => {
-            const listing = newsroomListing && newsroomListing.listing;
-            return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
-          };
+        const predicate = (newsroomListing?: NewsroomListing) => {
+          const listing = newsroomListing && newsroomListing.listing;
+          return !!listing && !!listing.data && !!listing.data.challenge && !listing.data.challengeID.isZero();
+        };
 
-          const challengedListings = map.filter(predicate).toSet();
-          const unchallengedListings = map.filterNot(predicate).toSet();
-          const groupedListings = challengedListings.concat(unchallengedListings).toSet();
+        const challengedListings = map.filter(predicate).toSet();
+        const unchallengedListings = map.filterNot(predicate).toSet();
+        const groupedListings = challengedListings.concat(unchallengedListings).toSet();
 
-          return (
-            <>
-              <WhitelistedTabDescription />
-              <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
-              {tcrListings.pageInfo.hasNextPage && (
-                <LoadMoreContainer>
-                  <Button
-                    onClick={() =>
-                      fetchMore({
-                        variables: {
-                          cursor: tcrListings.pageInfo.endCursor,
-                        },
-                        updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
-                          const newEdges = fetchMoreResult.tcrListings.edges;
-                          const pageInfo = fetchMoreResult.tcrListings.pageInfo;
+        return (
+          <>
+            <WhitelistedTabDescription />
+            <ListingList ListingItemComponent={ListingSummaryApprovedComponent} listings={groupedListings} />
+            {tcrListings.pageInfo.hasNextPage && (
+              <LoadMoreContainer>
+                <Button
+                  onClick={() =>
+                    fetchMore({
+                      variables: {
+                        cursor: tcrListings.pageInfo.endCursor,
+                      },
+                      updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                        const newEdges = fetchMoreResult.tcrListings.edges;
+                        const pageInfo = fetchMoreResult.tcrListings.pageInfo;
 
-                          return newEdges.length
-                            ? {
-                                tcrListings: {
-                                  __typename: previousResult.tcrListings.__typename,
-                                  edges: [...previousResult.tcrListings.edges, ...newEdges],
-                                  pageInfo,
-                                },
-                              }
-                            : previousResult;
-                        },
-                      })
-                    }
-                  >
-                    Load More
-                  </Button>
-                </LoadMoreContainer>
-              )}
-            </>
-          );
-        }}
-      </Query>
-    );
+                        return newEdges.length
+                          ? {
+                              tcrListings: {
+                                __typename: previousResult.tcrListings.__typename,
+                                edges: [...previousResult.tcrListings.edges, ...newEdges],
+                                pageInfo,
+                              },
+                            }
+                          : previousResult;
+                      },
+                    })
+                  }
+                >
+                  Load More
+                </Button>
+              </LoadMoreContainer>
+            )}
+          </>
+        );
+      }}
+    </Query>
+  );
 };
 
 export default WhitelistedListingListContainer;

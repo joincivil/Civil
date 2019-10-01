@@ -2,9 +2,7 @@ import * as React from "react";
 import { RescueTokensItemOwnProps } from "./types";
 import RescueTokensItemApolloQueryWrapper from "./RescueTokensApolloQueryWrapper";
 
-const RescueTokensItemWrapper: React.FunctionComponent<
-  RescueTokensItemOwnProps
-> = props => {
+const RescueTokensItemWrapper: React.FunctionComponent<RescueTokensItemOwnProps> = props => {
   const {
     challengeID,
     appealChallengeID,

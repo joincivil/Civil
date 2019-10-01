@@ -15,11 +15,7 @@ export interface MyTasksListOwnProps {
 }
 
 const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
-  const {
-    userChallengeData: allUserChallengeData,
-    challengeToAppealChallengeMap,
-    refetchUserChallengeData,
-  } = props;
+  const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap, refetchUserChallengeData } = props;
   return (
     <>
       {props.challenges &&

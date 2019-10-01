@@ -30,7 +30,7 @@ export class Proposal extends React.Component<ProposalProps> {
   }
 
   private renderProposalStageActions = (): JSX.Element => {
-    const {pollID, applicationExpiry} = this.props.proposal;
+    const { pollID, applicationExpiry } = this.props.proposal;
     if (!pollID || pollID.eq(0)) {
       if (new Date(applicationExpiry * 1000).valueOf() < Date.now().valueOf()) {
         return this.renderUpdateParam();
@@ -77,16 +77,16 @@ export class Proposal extends React.Component<ProposalProps> {
   };
 
   private renderChallenge = (): JSX.Element => {
-    const pollID = this.props.proposal.pollID.toNumber()
+    const pollID = this.props.proposal.pollID.toNumber();
     return (
       <Query query={POLL_QUERY} variables={{ input: pollID }}>
         {({ loading, error, data }) => {
           if (loading || error) {
-            return <></>
+            return <></>;
           }
           const nowTimestamp = Date.now().valueOf();
-          const commitEndTimestamp = new Date(data.poll.commitEndDate * 1000).valueOf()
-          const revealEndTimestamp = new Date(data.poll.revealEndDate * 1000).valueOf()
+          const commitEndTimestamp = new Date(data.poll.commitEndDate * 1000).valueOf();
+          const revealEndTimestamp = new Date(data.poll.revealEndDate * 1000).valueOf();
 
           if (nowTimestamp < commitEndTimestamp) {
             return this.renderCommitState(commitEndTimestamp);
@@ -97,8 +97,8 @@ export class Proposal extends React.Component<ProposalProps> {
           }
         }}
       </Query>
-    )
-  }
+    );
+  };
 
   private renderResolveChallenge = (endTimestamp: number): JSX.Element => {
     return (
