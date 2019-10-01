@@ -1,12 +1,15 @@
 import * as React from "react";
 import { colors, ShareEmailIcon, ShareTwitterIcon } from "@joincivil/components";
 import styled from "styled-components";
+import { BoostShareEmbed } from "./BoostShareEmbed";
 
 const BoostShareWrap = styled.span`
   display: flex;
   justify-content: space-around;
 
   a {
+    cursor: pointer;
+
     svg path {
       fill: ${colors.accent.CIVIL_GRAY_0};
       transition: fill 0.2s;
@@ -40,6 +43,7 @@ export class BoostShare extends React.Component<BoostShareProps> {
         <a href={emailShare} target="_blank">
           <ShareEmailIcon />
         </a>
+        <BoostShareEmbed boostId={this.props.boostId} />
       </BoostShareWrap>
     );
   }
