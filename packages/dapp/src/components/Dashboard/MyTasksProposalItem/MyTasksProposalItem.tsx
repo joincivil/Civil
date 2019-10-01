@@ -17,7 +17,6 @@ const MyTasksProposalItemWrapper: React.FunctionComponent<
     userAcct,
   };
   return <MyTasksProposalItemApolloQueryWrapper {...viewProps} queryUserChallengeData={queryUserChallengeData} />;
-
 };
 
 const mapStateToPropsMyTasksProposalItemWrapper = (

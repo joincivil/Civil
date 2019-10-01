@@ -465,4 +465,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default compose(connect(makeMapStateToProps), connectParameters)(ChallengeContainer);
+export default compose(
+  connect(makeMapStateToProps),
+  connectParameters,
+)(ChallengeContainer);

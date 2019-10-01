@@ -31,7 +31,7 @@ const AppealDecisionCard = compose<
 >(
   connectChallengeResults,
   connectChallengePhase,
-  connectParameters
+  connectParameters,
 )(AppealDecisionCardComponent);
 
 class AppealSubmitChallenge extends React.Component<AppealDetailProps> {

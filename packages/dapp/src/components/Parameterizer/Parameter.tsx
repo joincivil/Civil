@@ -47,7 +47,13 @@ export interface ParameterProps {
   canShowCreateProposal: boolean;
   isGovtProposal?: boolean;
   handleCreateProposal(paramName: string, currentValue: string): void;
-  handleProposalAction(paramName: string, currentValue: string, newValue: string, proposal: any, actionType: string): void;
+  handleProposalAction(
+    paramName: string,
+    currentValue: string,
+    newValue: string,
+    proposal: any,
+    actionType: string,
+  ): void;
 }
 
 class ParameterComponent extends React.Component<ParameterProps> {
@@ -71,7 +77,7 @@ class ParameterComponent extends React.Component<ParameterProps> {
         </ParameterizerTd>
       </Tr>
     );
-    return <></>
+    return <></>;
   }
 
   private renderCreateProposalAction(): JSX.Element {
@@ -90,21 +96,26 @@ class ParameterComponent extends React.Component<ParameterProps> {
 
   private renderProposals(): JSX.Element {
     return (
-      <Query query={PARAMETER_PROPOSALS_QUERY} variables={{input: this.props.parameterName}}>
+      <Query query={PARAMETER_PROPOSALS_QUERY} variables={{ input: this.props.parameterName }}>
         {({ loading, error, data }) => {
           if (loading || error) {
-            return <></>
+            return <></>;
           }
           return data.paramProposals.map(prop => {
-            const proposal = transformGraphQLDataIntoParamProposal(prop)
-            return <Proposal key={proposal.propID} proposal={proposal}
-              handleProposalAction={this.props.handleProposalAction}
-              parameterName={this.props.parameterName}
-              parameterValue={this.props.parameterValue} />
-          })
+            const proposal = transformGraphQLDataIntoParamProposal(prop);
+            return (
+              <Proposal
+                key={proposal.propID}
+                proposal={proposal}
+                handleProposalAction={this.props.handleProposalAction}
+                parameterName={this.props.parameterName}
+                parameterValue={this.props.parameterValue}
+              />
+            );
+          });
         }}
       </Query>
-    )
+    );
   }
 
   private onCreateProposal = (event: any) => {

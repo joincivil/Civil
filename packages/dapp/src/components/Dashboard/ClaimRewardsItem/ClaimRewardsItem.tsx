@@ -2,9 +2,7 @@ import * as React from "react";
 import { ClaimRewardsItemOwnProps } from "./types";
 import ClaimRewardsItemApolloQueryWrapper from "./ClaimRewardsApolloQueryWrapper";
 
-const ClaimRewardsItemWrapper: React.FunctionComponent<
-  ClaimRewardsItemOwnProps
-> = props => {
+const ClaimRewardsItemWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps> = props => {
   const {
     challengeID,
     appealChallengeID,
@@ -28,6 +26,6 @@ const ClaimRewardsItemWrapper: React.FunctionComponent<
       queryUserAppealChallengeData={queryUserAppealChallengeData}
     />
   );
-}
+};
 
 export default ClaimRewardsItemWrapper;

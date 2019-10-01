@@ -166,55 +166,52 @@ class SubmitChallengeComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const {
-      listingURI,
-      newsroomName,
-      governanceGuideURI,
-      balance: balanceBN,
-    } = this.props;
+    const { listingURI, newsroomName, governanceGuideURI, balance: balanceBN } = this.props;
 
     const { civil } = this.context;
 
-    const displayMinDeposit = getFormattedParameterValue(Parameters.minDeposit, civil.toBigNumber(this.props.parameters.get(Parameters.minDeposit)));
+    const displayMinDeposit = getFormattedParameterValue(
+      Parameters.minDeposit,
+      civil.toBigNumber(this.props.parameters.get(Parameters.minDeposit)),
+    );
     const displayCommitStageLen = getFormattedParameterValue(
-          Parameters.commitStageLen,
-          civil.toBigNumber(this.props.parameters.get(Parameters.commitStageLen)),
-        );
+      Parameters.commitStageLen,
+      civil.toBigNumber(this.props.parameters.get(Parameters.commitStageLen)),
+    );
     const displayRevealStageLen = getFormattedParameterValue(
-          Parameters.revealStageLen,
-          civil.toBigNumber(this.props.parameters.get(Parameters.revealStageLen)),
-        );
+      Parameters.revealStageLen,
+      civil.toBigNumber(this.props.parameters.get(Parameters.revealStageLen)),
+    );
     let isInsufficientBalance;
     if (!balanceBN) {
-          isInsufficientBalance = true;
-        } else {
+      isInsufficientBalance = true;
+    } else {
       isInsufficientBalance = balanceBN.lt(this.props.parameters.get(Parameters.minDeposit));
-        }
+    }
 
     const props: SubmitChallengeStatementProps = {
-          listingURI,
-          newsroomName,
-          constitutionURI: links.CONSTITUTION,
-          governanceGuideURI,
-          minDeposit: displayMinDeposit,
-          commitStageLen: displayCommitStageLen,
-          revealStageLen: displayRevealStageLen,
-          updateStatementValue: this.updateStatement,
-          transactions: this.getTransactions(),
-          postExecuteTransactions: this.onSubmitChallengeSuccess,
-        };
+      listingURI,
+      newsroomName,
+      constitutionURI: links.CONSTITUTION,
+      governanceGuideURI,
+      minDeposit: displayMinDeposit,
+      commitStageLen: displayCommitStageLen,
+      revealStageLen: displayRevealStageLen,
+      updateStatementValue: this.updateStatement,
+      transactions: this.getTransactions(),
+      postExecuteTransactions: this.onSubmitChallengeSuccess,
+    };
 
     return (
-          <>
-            <ScrollToTopOnMount />
-            {isInsufficientBalance && this.props.parameters.get(Parameters.minDeposit) && (
-              <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
-            )}
-            <SubmitChallengeStatementComponent {...props} />
-            {this.state.isConfirmModalVisible && this.renderConfirmationModal()}
-          </>
-        );
-
+      <>
+        <ScrollToTopOnMount />
+        {isInsufficientBalance && this.props.parameters.get(Parameters.minDeposit) && (
+          <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
+        )}
+        <SubmitChallengeStatementComponent {...props} />
+        {this.state.isConfirmModalVisible && this.renderConfirmationModal()}
+      </>
+    );
   }
 
   private renderConfirmationModal = (): JSX.Element => {
