@@ -33,36 +33,36 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
     const listingAddress = this.props.listingAddress;
     return (
-        <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
-          {({ loading, error, data }: any): JSX.Element => {
-            if (loading || !data) {
-              return <LoadingMessage />;
-            }
-            if (error) {
-              return <ErrorLoadingDataMsg />;
-            }
-            if (!data.listing || !data.charterRevisions) {
-              return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
-            }
-            const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
-            const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
-            const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
-            return (
-              <>
-                <ScrollToTopOnMount />
-                <ListingRedux
-                  listingAddress={listingAddress}
-                  newsroom={newsroom}
-                  listing={listing}
-                  charterRevisions={charterRevisions}
-                  match={this.props.match}
-                  history={this.props.history}
-                />
-              </>
-            );
-          }}
-        </Query>
-      );
+      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
+        {({ loading, error, data }: any): JSX.Element => {
+          if (loading || !data) {
+            return <LoadingMessage />;
+          }
+          if (error) {
+            return <ErrorLoadingDataMsg />;
+          }
+          if (!data.listing || !data.charterRevisions) {
+            return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
+          }
+          const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
+          const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
+          const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
+          return (
+            <>
+              <ScrollToTopOnMount />
+              <ListingRedux
+                listingAddress={listingAddress}
+                newsroom={newsroom}
+                listing={listing}
+                charterRevisions={charterRevisions}
+                match={this.props.match}
+                history={this.props.history}
+              />
+            </>
+          );
+        }}
+      </Query>
+    );
   }
 }
 

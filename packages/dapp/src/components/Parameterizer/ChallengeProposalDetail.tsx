@@ -6,15 +6,18 @@ import { EthAddress, UserChallengeData, ParamPropChallengeData } from "@joincivi
 import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
-import {
-  getIsMemberOfAppellate,
-} from "../../selectors";
+import { getIsMemberOfAppellate } from "../../selectors";
 
 import ChallengeProposalCommitVote from "./ChallengeProposalCommitVote";
 import ChallengeProposalRevealVote from "./ChallengeProposalRevealVote";
 import ChallengeProposalResolve from "./ChallengeProposalResolve";
 import { Query } from "react-apollo";
-import { CHALLENGE_QUERY, transformGraphQLDataIntoParamPropChallenge, USER_CHALLENGE_DATA_QUERY, transfromGraphQLDataIntoUserChallengeData } from "../../helpers/queryTransformations";
+import {
+  CHALLENGE_QUERY,
+  transformGraphQLDataIntoParamPropChallenge,
+  USER_CHALLENGE_DATA_QUERY,
+  transfromGraphQLDataIntoUserChallengeData,
+} from "../../helpers/queryTransformations";
 import { compose } from "redux";
 import { connectParameters, ParametersProps } from "../utility/HigherOrderComponents";
 
@@ -66,10 +69,9 @@ export interface ChallengeVoteState {
 // @TODO(jon): Clean this up... by maybe separating into separate containers for each phase card component
 class ChallengeDetail extends React.Component<ChallengeDetailProps & ParametersProps> {
   public render(): JSX.Element {
-
     const nowTimestamp = Date.now().valueOf();
-    const commitEndTimestamp = new Date(this.props.challenge.poll.commitEndDate.toNumber() * 1000).valueOf()
-    const revealEndTimestamp = new Date(this.props.challenge.poll.revealEndDate.toNumber() * 1000).valueOf()
+    const commitEndTimestamp = new Date(this.props.challenge.poll.commitEndDate.toNumber() * 1000).valueOf();
+    const revealEndTimestamp = new Date(this.props.challenge.poll.revealEndDate.toNumber() * 1000).valueOf();
 
     if (nowTimestamp < commitEndTimestamp) {
       return this.renderCommitStage();
@@ -191,52 +193,60 @@ class ChallengeContainer extends React.Component<
 > {
   public render(): JSX.Element | null {
     const { challengeID } = this.props;
-    return (<Query query={CHALLENGE_QUERY} variables={{ challengeID: challengeID.toString() }}>
-    {({ loading, error, data }) => {
-      if (loading) {
-        return <></>
-      } else if (error) {
-        return this.renderNoChallengeFound();
-      }
-
-      const challengeData = transformGraphQLDataIntoParamPropChallenge(data.challenge);
-      return (
-      <Query query={USER_CHALLENGE_DATA_QUERY} variables={{ userAddr: this.props.user, pollID: challengeID.toString()}}>
-        {({ loading: loadingUserData, error: errorUserData, data: dataUserData }) => {
-          if (loadingUserData) {
+    return (
+      <Query query={CHALLENGE_QUERY} variables={{ challengeID: challengeID.toString() }}>
+        {({ loading, error, data }) => {
+          if (loading) {
             return <></>;
+          } else if (error) {
+            return this.renderNoChallengeFound();
           }
-          if (errorUserData) {
-            console.error("errorUserData: ", errorUserData)
-          }
-          let userChallengeData;
-          if (dataUserData && dataUserData.userChallengeData && dataUserData.userChallengeData.length > 0) {
-            userChallengeData = transfromGraphQLDataIntoUserChallengeData(dataUserData.userChallengeData[0], data.challenge)
-          }
+
+          const challengeData = transformGraphQLDataIntoParamPropChallenge(data.challenge);
           return (
-            <ChallengeDetail
-              propID={this.props.propID}
-              handleClose={this.props.handleClose}
-              parameterDisplayName={this.props.parameterDisplayName}
-              parameterCurrentValue={this.props.parameterCurrentValue}
-              parameterProposalValue={this.props.parameterProposalValue}
-              challengeID={challengeID}
-              challenge={challengeData!}
-              userChallengeData={userChallengeData}
-              user={this.props.user}
-              balance={this.props.balance}
-              votingBalance={this.props.votingBalance}
-              govtParameters={this.props.govtParameters}
-              isMemberOfAppellate={this.props.isMemberOfAppellate}
-              isGovtProposal={this.props.isGovtProposal}
-              parameters={this.props.parameters}
-            />
+            <Query
+              query={USER_CHALLENGE_DATA_QUERY}
+              variables={{ userAddr: this.props.user, pollID: challengeID.toString() }}
+            >
+              {({ loading: loadingUserData, error: errorUserData, data: dataUserData }) => {
+                if (loadingUserData) {
+                  return <></>;
+                }
+                if (errorUserData) {
+                  console.error("errorUserData: ", errorUserData);
+                }
+                let userChallengeData;
+                if (dataUserData && dataUserData.userChallengeData && dataUserData.userChallengeData.length > 0) {
+                  userChallengeData = transfromGraphQLDataIntoUserChallengeData(
+                    dataUserData.userChallengeData[0],
+                    data.challenge,
+                  );
+                }
+                return (
+                  <ChallengeDetail
+                    propID={this.props.propID}
+                    handleClose={this.props.handleClose}
+                    parameterDisplayName={this.props.parameterDisplayName}
+                    parameterCurrentValue={this.props.parameterCurrentValue}
+                    parameterProposalValue={this.props.parameterProposalValue}
+                    challengeID={challengeID}
+                    challenge={challengeData!}
+                    userChallengeData={userChallengeData}
+                    user={this.props.user}
+                    balance={this.props.balance}
+                    votingBalance={this.props.votingBalance}
+                    govtParameters={this.props.govtParameters}
+                    isMemberOfAppellate={this.props.isMemberOfAppellate}
+                    isGovtProposal={this.props.isGovtProposal}
+                    parameters={this.props.parameters}
+                  />
+                );
+              }}
+            </Query>
           );
         }}
-        </Query>)
-    }}
-  </Query>)
-
+      </Query>
+    );
   }
 
   private renderNoChallengeFound = (): JSX.Element => {
@@ -245,25 +255,28 @@ class ChallengeContainer extends React.Component<
 }
 
 const mapStateToProps = (
-    state: State,
-    ownProps: ChallengeDetailContainerProps,
-  ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    const { user, govtParameters } = state.networkDependent;
+  state: State,
+  ownProps: ChallengeDetailContainerProps,
+): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
+  const { user, govtParameters } = state.networkDependent;
 
-    const userAcct = user.account;
-    const isMemberOfAppellate = getIsMemberOfAppellate(state);
+  const userAcct = user.account;
+  const isMemberOfAppellate = getIsMemberOfAppellate(state);
 
-    const isGovtProposal = govtParameters[ownProps.parameterName] !== undefined;
+  const isGovtProposal = govtParameters[ownProps.parameterName] !== undefined;
 
-    return {
-      user: userAcct.account,
-      balance: user.account.balance,
-      votingBalance: user.account.votingBalance,
-      govtParameters,
-      isMemberOfAppellate,
-      isGovtProposal,
-      ...ownProps,
-    };
+  return {
+    user: userAcct.account,
+    balance: user.account.balance,
+    votingBalance: user.account.votingBalance,
+    govtParameters,
+    isMemberOfAppellate,
+    isGovtProposal,
+    ...ownProps,
   };
+};
 
-export default compose(connectParameters, connect(mapStateToProps))(ChallengeContainer);
+export default compose(
+  connectParameters,
+  connect(mapStateToProps),
+)(ChallengeContainer);

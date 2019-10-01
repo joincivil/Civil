@@ -42,112 +42,109 @@ const LISTINGS_QUERY = gql`
   }
   ${LISTING_FRAGMENT}
 `;
-class ListingsInProgressContainer extends React.Component<ListingsInProgressProps,
-  ListingsInProgressState
-> {
+class ListingsInProgressContainer extends React.Component<ListingsInProgressProps, ListingsInProgressState> {
   constructor(props: ListingsInProgressProps) {
     super(props);
     this.state = { increment: 0 };
   }
   public render(): JSX.Element {
-      return (
-        <Query
-          query={LISTINGS_QUERY}
-          variables={{ activeChallenge: true, currentApplication: true, sortBy: "NAME" }}
-          pollInterval={30000}
-        >
-          {({ loading, error, data }: any): JSX.Element => {
-            if (loading && !data) {
-              return <LoadingMessage />;
+    return (
+      <Query
+        query={LISTINGS_QUERY}
+        variables={{ activeChallenge: true, currentApplication: true, sortBy: "NAME" }}
+        pollInterval={30000}
+      >
+        {({ loading, error, data }: any): JSX.Element => {
+          if (loading && !data) {
+            return <LoadingMessage />;
+          }
+          if (error) {
+            return <ErrorLoadingDataMsg />;
+          }
+          const map = Set<any>(data.listings);
+          const allListings: Set<NewsroomListing> = map
+            .map(listing => {
+              return {
+                listing: transformGraphQLDataIntoListing(listing, listing!.contractAddress),
+                newsroom: transformGraphQLDataIntoNewsroom(listing, listing!.contractAddress),
+              };
+            })
+            .toSet();
+
+          let soonestExpiry = Number.MAX_SAFE_INTEGER;
+          allListings.forEach(listing => {
+            const expiry = getNextTimerExpiry(listing!.listing.data);
+            if (expiry > 0 && expiry < soonestExpiry) {
+              soonestExpiry = expiry;
             }
-            if (error) {
-              return <ErrorLoadingDataMsg />;
-            }
-            const map = Set<any>(data.listings);
-            const allListings: Set<NewsroomListing> = map
-              .map(listing => {
-                return {
-                  listing: transformGraphQLDataIntoListing(listing, listing!.contractAddress),
-                  newsroom: transformGraphQLDataIntoNewsroom(listing, listing!.contractAddress),
-                };
-              })
-              .toSet();
+          });
+          const nowSeconds = Date.now() / 1000;
+          const delaySeconds = soonestExpiry - nowSeconds;
+          setTimeout(this.onTimerExpiry, delaySeconds * 1000);
 
-            let soonestExpiry = Number.MAX_SAFE_INTEGER;
-            allListings.forEach(listing => {
-              const expiry = getNextTimerExpiry(listing!.listing.data);
-              if (expiry > 0 && expiry < soonestExpiry) {
-                soonestExpiry = expiry;
-              }
-            });
-            const nowSeconds = Date.now() / 1000;
-            const delaySeconds = soonestExpiry - nowSeconds;
-            setTimeout(this.onTimerExpiry, delaySeconds * 1000);
+          const applications = allListings.filter(listing => isInApplicationPhase(listing!.listing.data)).toSet();
 
-            const applications = allListings.filter(listing => isInApplicationPhase(listing!.listing.data)).toSet();
+          const readyToWhitelistListings = allListings
+            .filter(listing => canBeWhitelisted(listing!.listing.data))
+            .toSet();
 
-            const readyToWhitelistListings = allListings
-              .filter(listing => canBeWhitelisted(listing!.listing.data))
-              .toSet();
+          const inChallengeCommitListings = allListings
+            .filter(listing => isInChallengedCommitVotePhase(listing!.listing.data))
+            .toSet();
 
-            const inChallengeCommitListings = allListings
-              .filter(listing => isInChallengedCommitVotePhase(listing!.listing.data))
-              .toSet();
+          const inChallengeRevealListings = allListings
+            .filter(listing => isInChallengedRevealVotePhase(listing!.listing.data))
+            .toSet();
 
-            const inChallengeRevealListings = allListings
-              .filter(listing => isInChallengedRevealVotePhase(listing!.listing.data))
-              .toSet();
+          const awaitingAppealRequestListings = allListings
+            .filter(listing => isAwaitingAppealRequest(listing!.listing.data))
+            .toSet();
 
-            const awaitingAppealRequestListings = allListings
-              .filter(listing => isAwaitingAppealRequest(listing!.listing.data))
-              .toSet();
+          const awaitingAppealJudgmentListings = allListings
+            .filter(listing => isListingAwaitingAppealJudgment(listing!.listing.data))
+            .toSet();
 
-            const awaitingAppealJudgmentListings = allListings
-              .filter(listing => isListingAwaitingAppealJudgment(listing!.listing.data))
-              .toSet();
+          const awaitingAppealChallengeListings = allListings
+            .filter(listing => isListingAwaitingAppealChallenge(listing!.listing.data))
+            .toSet();
 
-            const awaitingAppealChallengeListings = allListings
-              .filter(listing => isListingAwaitingAppealChallenge(listing!.listing.data))
-              .toSet();
+          const appealChallengeCommitPhaseListings = allListings
+            .filter(listing => isInAppealChallengeCommitPhase(listing!.listing.data))
+            .toSet();
 
-            const appealChallengeCommitPhaseListings = allListings
-              .filter(listing => isInAppealChallengeCommitPhase(listing!.listing.data))
-              .toSet();
+          const appealChallengeRevealPhaseListings = allListings
+            .filter(listing => isInAppealChallengeRevealPhase(listing!.listing.data))
+            .toSet();
 
-            const appealChallengeRevealPhaseListings = allListings
-              .filter(listing => isInAppealChallengeRevealPhase(listing!.listing.data))
-              .toSet();
+          const resolveChallengeListings = allListings
+            .filter(listing => canChallengeBeResolved(listing!.listing.data))
+            .toSet();
 
-            const resolveChallengeListings = allListings
-              .filter(listing => canChallengeBeResolved(listing!.listing.data))
-              .toSet();
+          const resolveAppealListings = allListings
+            .filter(listing => canListingAppealBeResolved(listing!.listing.data))
+            .toSet();
 
-            const resolveAppealListings = allListings
-              .filter(listing => canListingAppealBeResolved(listing!.listing.data))
-              .toSet();
-
-            return (
-              <>
-                <ListingsInProgress
-                  applications={applications}
-                  readyToWhitelistListings={readyToWhitelistListings}
-                  inChallengeCommitListings={inChallengeCommitListings}
-                  inChallengeRevealListings={inChallengeRevealListings}
-                  awaitingAppealRequestListings={awaitingAppealRequestListings}
-                  awaitingAppealJudgmentListings={awaitingAppealJudgmentListings}
-                  awaitingAppealChallengeListings={awaitingAppealChallengeListings}
-                  appealChallengeCommitPhaseListings={appealChallengeCommitPhaseListings}
-                  appealChallengeRevealPhaseListings={appealChallengeRevealPhaseListings}
-                  resolveChallengeListings={resolveChallengeListings}
-                  resolveAppealListings={resolveAppealListings}
-                  {...this.props}
-                />
-              </>
-            );
-          }}
-        </Query>
-      );
-
+          return (
+            <>
+              <ListingsInProgress
+                applications={applications}
+                readyToWhitelistListings={readyToWhitelistListings}
+                inChallengeCommitListings={inChallengeCommitListings}
+                inChallengeRevealListings={inChallengeRevealListings}
+                awaitingAppealRequestListings={awaitingAppealRequestListings}
+                awaitingAppealJudgmentListings={awaitingAppealJudgmentListings}
+                awaitingAppealChallengeListings={awaitingAppealChallengeListings}
+                appealChallengeCommitPhaseListings={appealChallengeCommitPhaseListings}
+                appealChallengeRevealPhaseListings={appealChallengeRevealPhaseListings}
+                resolveChallengeListings={resolveChallengeListings}
+                resolveAppealListings={resolveAppealListings}
+                {...this.props}
+              />
+            </>
+          );
+        }}
+      </Query>
+    );
   }
   public onTimerExpiry = (): void => {
     this.setState({ increment: this.state.increment + 1 });

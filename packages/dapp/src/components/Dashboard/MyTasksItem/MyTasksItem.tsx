@@ -37,13 +37,13 @@ const MyTasksItemWrapper: React.FunctionComponent<
   };
 
   return (
-      <MyTasksItemApolloQueryWrapper
-        {...viewProps}
-        queryUserChallengeData={queryUserChallengeData}
-        queryUserAppealChallengeData={queryUserAppealChallengeData}
-        getCharterContent={getCharterContent}
-      />
-    );
+    <MyTasksItemApolloQueryWrapper
+      {...viewProps}
+      queryUserChallengeData={queryUserChallengeData}
+      queryUserAppealChallengeData={queryUserAppealChallengeData}
+      getCharterContent={getCharterContent}
+    />
+  );
 };
 
 const mapStateToPropsMyTasksItemWrapper = (

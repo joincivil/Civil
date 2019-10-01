@@ -158,7 +158,7 @@ const ParameterizerKeys = [
   Parameters.challengeAppealLen,
   Parameters.challengeAppealCommitLen,
   Parameters.challengeAppealRevealLen,
-]
+];
 
 export interface GovernmentParameterProps {
   [GovernmentParameters.requestAppealLen]: BigNumber;
@@ -188,7 +188,10 @@ export interface ParameterizerPageState {
   actionType?: string;
 }
 
-class Parameterizer extends React.Component<ParameterizerPageProps & DispatchProp<any> & ParametersProps, ParameterizerPageState> {
+class Parameterizer extends React.Component<
+  ParameterizerPageProps & DispatchProp<any> & ParametersProps,
+  ParameterizerPageState
+> {
   public static contextType = CivilContext;
   public context: ICivilContext;
 
@@ -206,28 +209,26 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     const { civil } = this.context;
     const { parameters } = this.props;
     const proposalMinDeposit =
-      parameters && parameters.get(Parameters.pMinDeposit) &&
-      getFormattedParameterValue(
-        Parameters.pMinDeposit,
-        civil!.toBigNumber(parameters.get(Parameters.pMinDeposit)),
-      );
+      parameters &&
+      parameters.get(Parameters.pMinDeposit) &&
+      getFormattedParameterValue(Parameters.pMinDeposit, civil!.toBigNumber(parameters.get(Parameters.pMinDeposit)));
 
-    const params = ParameterizerKeys.map((paramName) => {
-      const value = parameters.get(paramName)
+    const params = ParameterizerKeys.map(paramName => {
+      const value = parameters.get(paramName);
       return (
-            <Parameter
-              key={paramName}
-              parameterName={paramName}
-              parameterDisplayName={this.getParameterDisplayName(paramName)}
-              parameterValue={value}
-              handleCreateProposal={this.showCreateProposal}
-              handleProposalAction={this.showProposalAction}
-              canShowCreateProposal={true}
-            />
-          );
-        })
+        <Parameter
+          key={paramName}
+          parameterName={paramName}
+          parameterDisplayName={this.getParameterDisplayName(paramName)}
+          parameterValue={value}
+          handleCreateProposal={this.showCreateProposal}
+          handleProposalAction={this.showProposalAction}
+          canShowCreateProposal={true}
+        />
+      );
+    });
 
-    return(
+    return (
       <>
         <ScrollToTopOnMount />
         <Helmet title="Registry Parameters - The Civil Registry" />
@@ -243,7 +244,6 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
         <StyledContentRow>
           <Tabs TabComponent={StyledTabComponent}>
             <Tab title="Current Parameters">
-
               <StyledTabContainer>
                 <StyledP>
                   All Civil token holders may propose a change to the current Registry values. This process involves
@@ -262,9 +262,7 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
                         <Th accent>Proposal for New Value</Th>
                       </Tr>
                     </thead>
-                    <tbody>
-                      {params}
-                    </tbody>
+                    <tbody>{params}</tbody>
                   </Table>
                 </StyledParameterizerContainer>
               </StyledTabContainer>
@@ -325,23 +323,27 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   }
 
   private renderCreateProposal = (): JSX.Element => {
-      const proposalMinDeposit = getFormattedParameterValue(
-        Parameters.pMinDeposit, this.props.parameters.get(Parameters.pMinDeposit));
-      const pApplyLenText = getFormattedParameterValue(
-        Parameters.pApplyStageLen, this.props.parameters.get(Parameters.pApplyStageLen));
-      return (
-        <CreateProposal
-          pApplyLenText={pApplyLenText}
-          parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
-          parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
-          parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
-          createProposalParameterName={this.state.createProposalParameterName!}
-          parameterProposalValue={this.state.createProposalNewValue!}
-          proposalDeposit={proposalMinDeposit}
-          handleClose={this.hideCreateProposal}
-          handleUpdateProposalValue={this.updateProposalNewValue}
-        />
-      );
+    const proposalMinDeposit = getFormattedParameterValue(
+      Parameters.pMinDeposit,
+      this.props.parameters.get(Parameters.pMinDeposit),
+    );
+    const pApplyLenText = getFormattedParameterValue(
+      Parameters.pApplyStageLen,
+      this.props.parameters.get(Parameters.pApplyStageLen),
+    );
+    return (
+      <CreateProposal
+        pApplyLenText={pApplyLenText}
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterDisplayUnits={this.getParameterDisplayUnits(this.state.createProposalParameterName!)}
+        createProposalParameterName={this.state.createProposalParameterName!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        proposalDeposit={proposalMinDeposit}
+        handleClose={this.hideCreateProposal}
+        handleUpdateProposalValue={this.updateProposalNewValue}
+      />
+    );
   };
 
   private renderCreateGovtProposal = (): JSX.Element => {
@@ -388,19 +390,22 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
   };
 
   private renderChallengeProposal = (): JSX.Element => {
-
     const proposalMinDeposit = getFormattedParameterValue(
-      Parameters.pMinDeposit, this.props.parameters.get(Parameters.pMinDeposit));
+      Parameters.pMinDeposit,
+      this.props.parameters.get(Parameters.pMinDeposit),
+    );
 
-    return (<ChallengeProposal
-            challengeProposalID={this.state.challengeProposalID!}
-            parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
-            parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
-            parameterProposalValue={this.state.createProposalNewValue!}
-            parameterNewValue={this.state.challengeProposalNewValue!}
-            proposalDeposit={proposalMinDeposit}
-            handleClose={this.hideProposalAction}
-      />);
+    return (
+      <ChallengeProposal
+        challengeProposalID={this.state.challengeProposalID!}
+        parameterDisplayName={this.getParameterDisplayName(this.state.createProposalParameterName!)}
+        parameterCurrentValue={this.state.createProposalParameterCurrentValue!}
+        parameterProposalValue={this.state.createProposalNewValue!}
+        parameterNewValue={this.state.challengeProposalNewValue!}
+        proposalDeposit={proposalMinDeposit}
+        handleClose={this.hideProposalAction}
+      />
+    );
   };
 
   private renderChallengeDetail = (): JSX.Element => {
@@ -437,14 +442,20 @@ class Parameterizer extends React.Component<ParameterizerPageProps & DispatchPro
     this.setState(() => ({ isCreateGovtProposalVisible: true }));
   };
 
-  private showProposalAction = (parameterName: string, currentValue: string, newValue: string, proposal: any, actionType: string): void => {
+  private showProposalAction = (
+    parameterName: string,
+    currentValue: string,
+    newValue: string,
+    proposal: any,
+    actionType: string,
+  ): void => {
     this.setState(() => ({
       createProposalParameterName: parameterName,
       createProposalParameterCurrentValue: currentValue,
       challengeProposalID: proposal.propID,
       challengeProposalNewValue: newValue,
       proposal,
-      actionType
+      actionType,
     }));
     this.setState(() => ({ isProposalActionVisible: true }));
   };
@@ -522,4 +533,7 @@ const mapToStateToProps = (state: State): ParameterizerPageProps => {
   };
 };
 
-export default compose(connectParameters, connect(mapToStateToProps))(Parameterizer);
+export default compose(
+  connectParameters,
+  connect(mapToStateToProps),
+)(Parameterizer);
