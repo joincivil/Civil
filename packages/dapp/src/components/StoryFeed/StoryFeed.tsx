@@ -4,6 +4,7 @@ import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { urlConstants as links } from "@joincivil/utils";
 import gql from "graphql-tag";
 
 export const STORY_FEED_QUERY = gql`
@@ -13,7 +14,17 @@ export const STORY_FEED_QUERY = gql`
         ... on PostExternalLink {
           id
           channelID
-          url
+          openGraphData {
+            url
+            title
+            description
+            images {
+              url
+            }
+            article {
+              published_time
+            }
+          }
           channel {
             newsroom {
               contractAddress
@@ -65,22 +76,22 @@ class StoryFeedPage extends React.Component {
 
               return feedQueryData.postsSearch.posts.map((storyData: any, i: number) => (
                 <StoryFeedItem
+                  key={i}
                   activeChallenge={false}
                   contractAddress={storyData.channel.newsroom.contractAddress}
-                  contributers={contributers}
-                  description={
-                    "Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown"
-                  }
-                  img={"https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"}
+                  description={storyData.openGraphData.description}
+                  img={storyData.openGraphData.images.url}
                   multisigAddress={storyData.channel.newsroom.multisigAddress}
                   newsroom={storyData.channel.newsroom.charter.name}
                   newsroomAbout={storyData.channel.newsroom.charter.mission.purpose}
-                  newsroomRegistryURL={"https://registry.civil.co/" + storyData.channel.newsroom.contractAddress}
+                  newsroomRegistryURL={links.REGISTRY + storyData.channel.newsroom.contractAddress}
                   newsroomURL={storyData.channel.newsroom.charter.newsroomURL}
-                  timeStamp={"10 days ago"}
-                  title={"How TikTok opened a window into China’s police state"}
-                  totalContributers={30}
-                  url={storyData.url}
+                  timeStamp={storyData.openGraphData.article.published_time}
+                  title={storyData.openGraphData.title}
+                  displayedContributors={contributers}
+                  sortedContributors={contributers}
+                  totalContributors={30}
+                  url={storyData.openGraphData.url}
                 />
               ));
             }}
