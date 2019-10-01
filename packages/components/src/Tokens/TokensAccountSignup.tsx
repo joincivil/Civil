@@ -40,9 +40,6 @@ export const UserTokenAccountSignup: React.FunctionComponent<TokenRequirementPro
         <TokenWalletIcon />
       </TokenRequirementIcon>
       <TokenAuthText />
-      <TokenBtns to={signupPath}>
-        <TokenAuthBtnText />
-      </TokenBtns>
     </>
   );
 

@@ -11,6 +11,8 @@ import {
   ProgressModalContentMobileUnsupported,
   NoNewsrooms,
   LoadingMessage,
+  NoTasks,
+  NoChallenges,
 } from "@joincivil/components";
 
 import { routes, dashboardTabs, dashboardSubTabs, TDashboardTab, TDashboardSubTab } from "../../constants";
@@ -76,6 +78,8 @@ export const StyledBatchButtonContainer = styled.div`
   justify-content: center;
   padding: 12px 0 36px;
 `;
+
+const NO_RESULTS = "No results from persister";
 
 const NRSIGNUP_NEWSROOMS_QUERY = gql`
   query {
@@ -255,7 +259,11 @@ class DashboardActivity extends React.Component<
       <Query query={DASHBOARD_USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
         {({ loading, error, data }: any): JSX.Element => {
           if (error) {
-            return <ErrorLoadingDataMsg />;
+            if (error.toString().includes(NO_RESULTS)) {
+              return <NoChallenges />
+            } else {
+              return <ErrorLoadingDataMsg />;
+            }
           }
           if (loading || !data) {
             return <LoadingMessage />;
@@ -308,9 +316,13 @@ class DashboardActivity extends React.Component<
           const refetchUserChallengeData = (): void => {
             refetch();
           };
-
           if (error) {
-            return <ErrorLoadingDataMsg />;
+            console.log("error.ToString(): ", error.toString())
+            if (error.toString().includes(NO_RESULTS)) {
+              return <NoTasks />
+            } else {
+              return <ErrorLoadingDataMsg />;
+            }
           }
           if (loading || !data) {
             return <LoadingMessage />;
