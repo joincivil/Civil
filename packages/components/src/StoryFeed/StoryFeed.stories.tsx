@@ -16,6 +16,10 @@ const contributers = [
   { avatar: "https://picsum.photos/50", username: "ronburgundy", amount: "0.009214 ETH" },
 ];
 
+const onClickFunc = () => {
+  console.log("clicked");
+};
+
 storiesOf("Pulse / Story Feed", module)
   .add("Story", () => {
     return (
@@ -24,7 +28,7 @@ storiesOf("Pulse / Story Feed", module)
           img={"https://codastory.com/wp-content/uploads/2019/09/Untitled-design-2019-09-13T160153.273.png"}
           title={"How TikTok opened a window into China’s police state"}
           timeStamp={"10 mins ago"}
-          url={"https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"}
+          handleOpenStory={onClickFunc}
         />
       </Container>
     );
@@ -42,6 +46,7 @@ storiesOf("Pulse / Story Feed", module)
           title={"How TikTok opened a window into China’s police state"}
           total={30}
           url={"https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"}
+          handleOpenNewsroom={onClickFunc}
         />
       </Container>
     );

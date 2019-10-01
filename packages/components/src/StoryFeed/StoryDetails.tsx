@@ -24,6 +24,7 @@ export interface StoryDetailsProps {
   title: string;
   total: number;
   url: string;
+  handleOpenNewsroom(): void;
 }
 
 export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
@@ -37,7 +38,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <StoryModalContent>
         <StoryTitle>{props.title}</StoryTitle>
         <StoryDetailsFlex>
-          <StoryNewsroomStatus newsroom={props.newsroom} activeChallenge={props.activeChallenge} />
+          <StoryNewsroomStatus
+            newsroom={props.newsroom}
+            activeChallenge={props.activeChallenge}
+            handleOpenNewsroom={props.handleOpenNewsroom}
+          />
           <TimeStamp>{props.timeStamp}</TimeStamp>
         </StoryDetailsFlex>
         <StoryDescription>{props.description}</StoryDescription>
@@ -47,7 +52,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryModalContent>
       <StoryModalFooter>
         {/* <Button>Tips</Button> */}
-        <BlueLinkBtn>Read More</BlueLinkBtn>
+        <BlueLinkBtn href={props.url} target="_blank">
+          Read More
+        </BlueLinkBtn>
       </StoryModalFooter>
     </>
   );

@@ -17,6 +17,15 @@ export const StoryNewsroomStatusStyled = styled.div`
   line-height: 16px;
   margin-bottom: 8px;
 
+  a {
+    color: ${colors.primary.BLACK};
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: ${colors.accent.CIVIL_BLUE};
+    }
+  }
+
   svg {
     margin-left: 8px;
   }
@@ -33,6 +42,7 @@ export const StoryTitle = styled.h2`
 `;
 
 export const StoryLink = styled.a`
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -102,7 +112,6 @@ export const StoryNewsroomURL = styled.a`
 `;
 
 export const StoryNewsroomSection = styled.div`
-  height: 90px;
   margin-bottom: 12px;
   width: 100%;
 
@@ -215,17 +224,19 @@ export const StoryModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
   overflow: scroll;
   position: relative;
+  max-width: 500px;
   width: 100%;
 `;
 
 export const StoryModalCloseBtn = styled(InvertedButton)`
-  border: none;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 50%;
   padding: 0;
-  height: 40px;
+  height: 32px;
   position: absolute;
-  right: 5px;
-  top: 5px;
-  width: 40px;
+  right: 15px;
+  top: 15px;
+  width: 32px;
 
   svg path {
     transition: fill 0.2s ease;
@@ -233,7 +244,7 @@ export const StoryModalCloseBtn = styled(InvertedButton)`
 
   &:focus,
   &:hover {
-    background-color: transparent;
+    background-color: ${colors.basic.WHITE};
 
     svg path {
       fill: ${colors.accent.CIVIL_BLUE};

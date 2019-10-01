@@ -18,7 +18,7 @@ export const StoryModal: React.FunctionComponent<StoryModalProps> = props => {
         <StoryModalContain className={props.className}>
           {props.handleClose && (
             <StoryModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
-              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} width={32} height={32} />
             </StoryModalCloseBtn>
           )}
           {props.children}

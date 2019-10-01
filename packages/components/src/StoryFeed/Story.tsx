@@ -5,13 +5,13 @@ export interface StoryProps {
   img: string;
   timeStamp: string;
   title: string;
-  url: string;
+  handleOpenStory(): void;
 }
 
 export const Story: React.FunctionComponent<StoryProps> = props => {
   return (
     <>
-      <StoryLink href={props.url} target="_blank">
+      <StoryLink onClick={props.handleOpenStory}>
         <StoryLinkLeft>
           <StoryTitle>{props.title}</StoryTitle>
           <TimeStamp>{props.timeStamp}</TimeStamp>
