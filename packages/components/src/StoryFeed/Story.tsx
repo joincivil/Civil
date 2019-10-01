@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StoryLink, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
+import { StoryLink, StoryLinkLeft, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
 
 export interface StoryProps {
   img: string;
@@ -12,11 +12,13 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
   return (
     <>
       <StoryLink href={props.url} target="_blank">
-        <StoryTitle>{props.title}</StoryTitle>
+        <StoryLinkLeft>
+          <StoryTitle>{props.title}</StoryTitle>
+          <TimeStamp>{props.timeStamp}</TimeStamp>
+        </StoryLinkLeft>
         <StoryImgSquare>
           <img src={props.img} />
         </StoryImgSquare>
-        <TimeStamp>{props.timeStamp}</TimeStamp>
       </StoryLink>
     </>
   );

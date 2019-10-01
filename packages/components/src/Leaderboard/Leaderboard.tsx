@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  LeaderboardStyled,
   LeaderboardLabel,
   LeaderboardItem,
   LeaderboardAvatar,
@@ -15,7 +16,7 @@ export interface LeaderboardProps {
 
 export const Leaderboard: React.FunctionComponent<LeaderboardProps> = props => {
   return (
-    <>
+    <LeaderboardStyled>
       {props.label && <LeaderboardLabel>{props.label}</LeaderboardLabel>}
       {props.contributers.map((contributer, idx) => (
         <LeaderboardItem key={idx}>
@@ -26,6 +27,6 @@ export const Leaderboard: React.FunctionComponent<LeaderboardProps> = props => {
           </div>
         </LeaderboardItem>
       ))}
-    </>
+    </LeaderboardStyled>
   );
 };

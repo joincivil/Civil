@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StoryRegistryStatusSection, StoryRegistryStatusTextWrap } from "./StoryFeedStyledComponents";
+import { StoryRegistryDetailsStyled, StoryRegistryStatusTextWrap } from "./StoryFeedStyledComponents";
 import { ApprovedNewsroomText, ChallengedNewsroomText } from "./StoryFeedTextComponents";
 
 export interface StoryRegistryDetailsProps {
@@ -8,18 +8,18 @@ export interface StoryRegistryDetailsProps {
 
 export const StoryRegistryDetails: React.FunctionComponent<StoryRegistryDetailsProps> = props => {
   return (
-    <StoryRegistryStatusSection>
+    <StoryRegistryDetailsStyled>
       {props.activeChallenge ? (
         <StoryRegistryStatusTextWrap activeChallenge={true}>
           <ChallengedNewsroomText />
-          <>challenge icon tktk</>
+          {/* TODO(sruddy) challenge icon tktk */}
         </StoryRegistryStatusTextWrap>
       ) : (
         <StoryRegistryStatusTextWrap activeChallenge={false}>
           <ApprovedNewsroomText />
-          <>approved icon tktk</>
+          {/* TODO(sruddy) approved icon tktk */}
         </StoryRegistryStatusTextWrap>
       )}
-    </StoryRegistryStatusSection>
+    </StoryRegistryDetailsStyled>
   );
 };

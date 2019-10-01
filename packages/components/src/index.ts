@@ -72,3 +72,6 @@ export * from "./features";
 export * from "./CopyToClipboard";
 export * from "./HelmetHelper";
 export * from "./WithNewsroomChannelHOC";
+export * from "./Social";
+export * from "./Leaderboard";
+export * from "./StoryFeed";

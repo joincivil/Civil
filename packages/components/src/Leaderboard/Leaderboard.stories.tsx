@@ -26,7 +26,7 @@ storiesOf("Common / Leaderboard", module)
   .add("Contributer Count", () => {
     return (
       <Container>
-        <ContributerCount label={"contributers"} contributers={contributers} total={30} />
+        <ContributerCount contributers={contributers} total={30} />
       </Container>
     );
   });
