@@ -10,7 +10,7 @@ const Container = styled.div`
   width: 400px;
 `;
 
-const contributers = [
+const contributors = [
   { avatar: "https://picsum.photos/50", username: "violetnight13", amount: "$2.50" },
   { avatar: "https://picsum.photos/50", username: "CaryRay", amount: "$5.00" },
   { avatar: "https://picsum.photos/50", username: "ronburgundy", amount: "0.009214 ETH" },
@@ -38,13 +38,14 @@ storiesOf("Pulse / Story Feed", module)
       <Container>
         <StoryDetails
           activeChallenge={false}
-          contributers={contributers}
           description={"Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown"}
           img={"https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"}
           newsroom={"Coda Story"}
           timeStamp={"10 days ago"}
           title={"How TikTok opened a window into China’s police state"}
-          totalContributers={30}
+          displayedContributors={contributors}
+          sortedContributors={contributors}
+          totalContributors={30}
           url={"https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"}
           handleOpenNewsroom={onClickFunc}
         />

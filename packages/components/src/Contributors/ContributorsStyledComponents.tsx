@@ -2,11 +2,11 @@ import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 
-export const LeaderboardStyled = styled.div`
+export const ContributorsStyled = styled.div`
   margin-bottom: 15px;
 `;
 
-export const LeaderboardLabel = styled.label`
+export const ContributorsLabel = styled.label`
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 10px;
@@ -17,20 +17,20 @@ export const LeaderboardLabel = styled.label`
   text-transform: uppercase;
 `;
 
-export const LeaderboardItem = styled.div`
+export const ContributorItem = styled.div`
   align-items: center;
   display: flex;
   margin-bottom: 10px;
 `;
 
-export const LeaderboardAvatar = styled.img`
+export const ContributorAvatar = styled.img`
   border-radius: 50%;
   height: 25px;
   margin-right: 10px;
   width: 25px;
 `;
 
-export const LeaderboardUserName = styled.div`
+export const ContributorUserName = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
@@ -38,7 +38,7 @@ export const LeaderboardUserName = styled.div`
   margin-bottom: 2px;
 `;
 
-export const LeaderboardAmount = styled.div`
+export const ContributorAmount = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 11px;
@@ -46,7 +46,7 @@ export const LeaderboardAmount = styled.div`
   line-height: 13px;
 `;
 
-export const ContributerCountStyled = styled.div`
+export const ContributorCountStyled = styled.div`
   align-items: center;
   color: ${colors.accent.CIVIL_GRAY_1};
   display: flex;
@@ -56,7 +56,7 @@ export const ContributerCountStyled = styled.div`
   line-height: 13px;
 `;
 
-export const ContributerCountAvatars = styled.span`
+export const ContributorCountAvatars = styled.span`
   img {
     border: 1px solid ${colors.basic.WHITE};
     border-radius: 50%;
@@ -75,7 +75,7 @@ export const ContributerCountAvatars = styled.span`
   }
 `;
 
-export const ContributerCountTotal = styled.span`
+export const ContributorCountTotal = styled.span`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;

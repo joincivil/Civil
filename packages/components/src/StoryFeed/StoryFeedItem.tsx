@@ -4,13 +4,12 @@ import { Story } from "./Story";
 import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
-import { ContributerCount, Contributers } from "../Leaderboard";
+import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap } from "./StoryFeedStyledComponents";
 
 export interface StoryFeedItemProps {
   activeChallenge: boolean;
   contractAddress: string;
-  contributers: Contributers[];
   description: string;
   img: string;
   multisigAddress: string;
@@ -20,7 +19,9 @@ export interface StoryFeedItemProps {
   newsroomURL: string;
   timeStamp: string;
   title: string;
-  totalContributers: number;
+  displayedContributors: ContributorData[];
+  sortedContributors: ContributorData[];
+  totalContributors: number;
   url: string;
 }
 
@@ -53,18 +54,22 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             title={this.props.title}
             handleOpenStory={this.openStoryDetails}
           />
-          <ContributerCount totalContributers={this.props.totalContributers} contributers={this.props.contributers} />
+          <ContributorCount
+            totalContributors={this.props.totalContributors}
+            displayedContributors={this.props.displayedContributors}
+          />
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
             activeChallenge={this.props.activeChallenge}
-            contributers={this.props.contributers}
             description={this.props.description}
             img={this.props.img}
             newsroom={this.props.newsroom}
             timeStamp={this.props.timeStamp}
             title={this.props.title}
-            totalContributers={this.props.totalContributers}
+            displayedContributors={this.props.displayedContributors}
+            sortedContributors={this.props.sortedContributors}
+            totalContributors={this.props.totalContributors}
             url={this.props.url}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
