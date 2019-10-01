@@ -122,7 +122,6 @@ export const AvatarContainer = styled.div`
 export const HandleContainer = styled.div`
   align-items: center;
   display: flex;
-  width: 60px;
   margin-right: 16px;
 `;
 
