@@ -67,7 +67,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
         <SignupLoginInnerWrap>
           <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
           <OBSectionDescription>
-            Sign Up or Login to add your Newsroom to Civil.
+            Sign Up or Log In to add your Newsroom to Civil.
           </OBSectionDescription>
         </SignupLoginInnerWrap>
       </Wrapper>

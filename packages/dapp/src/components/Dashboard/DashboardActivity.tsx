@@ -317,7 +317,6 @@ class DashboardActivity extends React.Component<
             refetch();
           };
           if (error) {
-            console.log("error.ToString(): ", error.toString())
             if (error.toString().includes(NO_RESULTS)) {
               return <NoTasks />
             } else {
