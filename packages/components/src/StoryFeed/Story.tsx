@@ -1,10 +1,9 @@
 import * as React from "react";
 import { StoryLink, StoryLinkLeft, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
+import { OpenGraphData } from "./types";
 
 export interface StoryProps {
-  img: string;
-  timeStamp: string;
-  title: string;
+  openGraphData: OpenGraphData;
   handleOpenStory(): void;
 }
 
@@ -13,11 +12,11 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
     <>
       <StoryLink onClick={props.handleOpenStory}>
         <StoryLinkLeft>
-          <StoryTitle>{props.title}</StoryTitle>
-          <TimeStamp>{props.timeStamp}</TimeStamp>
+          <StoryTitle>{props.openGraphData.title}</StoryTitle>
+          <TimeStamp>{props.openGraphData.article.published_time}</TimeStamp>
         </StoryLinkLeft>
         <StoryImgSquare>
-          <img src={props.img} />
+          <img src={props.openGraphData.images.url} />
         </StoryImgSquare>
       </StoryLink>
     </>

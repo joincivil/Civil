@@ -145,7 +145,7 @@ export const Main: React.FunctionComponent = () => {
     } else {
       dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
     }
-  }
+  };
 
   return (
     <StyledMainContainer>

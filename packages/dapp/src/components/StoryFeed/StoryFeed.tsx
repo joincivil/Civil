@@ -4,7 +4,6 @@ import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import { StoryFeedItem, LoadingMessage } from "@joincivil/components";
-import { urlConstants as links } from "@joincivil/utils";
 import gql from "graphql-tag";
 
 export const STORY_FEED_QUERY = gql`
@@ -78,20 +77,11 @@ class StoryFeedPage extends React.Component {
                 <StoryFeedItem
                   key={i}
                   activeChallenge={false}
-                  contractAddress={storyData.channel.newsroom.contractAddress}
-                  description={storyData.openGraphData.description}
-                  img={storyData.openGraphData.images.url}
-                  multisigAddress={storyData.channel.newsroom.multisigAddress}
-                  newsroom={storyData.channel.newsroom.charter.name}
-                  newsroomAbout={storyData.channel.newsroom.charter.mission.purpose}
-                  newsroomRegistryURL={links.REGISTRY + storyData.channel.newsroom.contractAddress}
-                  newsroomURL={storyData.channel.newsroom.charter.newsroomURL}
-                  timeStamp={storyData.openGraphData.article.published_time}
-                  title={storyData.openGraphData.title}
+                  newsroom={storyData.channel.newsroom}
+                  openGraphData={storyData.openGraphData}
                   displayedContributors={contributers}
                   sortedContributors={contributers}
                   totalContributors={30}
-                  url={storyData.openGraphData.url}
                 />
               ));
             }}
