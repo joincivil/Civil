@@ -25,7 +25,11 @@ import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges"
 import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
-import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY, PARAMETERS_QUERY } from "../../helpers/queryTransformations";
+import {
+  transformGraphQLDataIntoChallenge,
+  CHALLENGE_QUERY,
+  PARAMETERS_QUERY,
+} from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { Map } from "immutable";
@@ -75,10 +79,7 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     | React.ComponentClass<TOriginalProps & ChallengeResultsProps>
     | React.FunctionComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
-  const mapStateToProps = (
-    state: State,
-    ownProps: TOriginalProps,
-  ): TOriginalProps & ChallengeContainerReduxProps => {
+  const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching, user } = state.networkDependent;
     let challengeData;
     let challengeID = ownProps.challengeID;
@@ -109,56 +110,55 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     public context: CivilHelper;
 
     public render(): JSX.Element | null {
-        return (
-          <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
-            {({ loading, error, data }: any): JSX.Element | null => {
-              if (loading) {
-                return null;
-              }
-              if (error) {
-                return null;
-              }
-              const { challengeID } = this.props;
-              const challenge = transformGraphQLDataIntoChallenge(data.challenge);
-              const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;
+      return (
+        <Query query={CHALLENGE_QUERY} variables={{ challengeID: this.props.challengeID }}>
+          {({ loading, error, data }: any): JSX.Element | null => {
+            if (loading) {
+              return null;
+            }
+            if (error) {
+              return null;
+            }
+            const { challengeID } = this.props;
+            const challenge = transformGraphQLDataIntoChallenge(data.challenge);
+            const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;
 
-              let appealPhaseProps = {};
-              if (challenge && challenge.appeal) {
-                appealPhaseProps = {
-                  appealRequested: !challenge.appeal.appealFeePaid.isZero(),
-                  appealGranted: challenge.appeal.appealGranted,
-                };
-              }
-              let appealChallengePhaseProps = {};
-              if (challenge && challenge.appeal && challenge.appeal.appealChallengeID) {
-                appealChallengePhaseProps = {
-                  appealChallengeID: challenge.appeal.appealChallengeID.toString(),
-                };
-              }
-              let appealChallengeResultsProps = {};
-              if (challenge && challenge.appeal && challenge.appeal.appealChallenge) {
-                appealChallengeResultsProps = getAppealChallengeResultsProps(
-                  challenge.appeal.appealChallenge,
-                ) as AppealChallengeResultsProps;
-              }
+            let appealPhaseProps = {};
+            if (challenge && challenge.appeal) {
+              appealPhaseProps = {
+                appealRequested: !challenge.appeal.appealFeePaid.isZero(),
+                appealGranted: challenge.appeal.appealGranted,
+              };
+            }
+            let appealChallengePhaseProps = {};
+            if (challenge && challenge.appeal && challenge.appeal.appealChallengeID) {
+              appealChallengePhaseProps = {
+                appealChallengeID: challenge.appeal.appealChallengeID.toString(),
+              };
+            }
+            let appealChallengeResultsProps = {};
+            if (challenge && challenge.appeal && challenge.appeal.appealChallenge) {
+              appealChallengeResultsProps = getAppealChallengeResultsProps(
+                challenge.appeal.appealChallenge,
+              ) as AppealChallengeResultsProps;
+            }
 
-              return (
-                <>
-                  <PresentationComponent
-                    {...this.props}
-                    {...challengeResultsProps}
-                    {...appealPhaseProps}
-                    {...appealChallengePhaseProps}
-                    {...appealChallengeResultsProps}
-                    challengeID={challengeID!.toString()}
-                  />
-                </>
-              );
-            }}
-          </Query>
-        );
+            return (
+              <>
+                <PresentationComponent
+                  {...this.props}
+                  {...challengeResultsProps}
+                  {...appealPhaseProps}
+                  {...appealChallengePhaseProps}
+                  {...appealChallengeResultsProps}
+                  challengeID={challengeID!.toString()}
+                />
+              </>
+            );
+          }}
+        </Query>
+      );
     }
-
   }
 
   return connect(mapStateToProps)(HOChallengeResultsContainer);
@@ -179,33 +179,38 @@ const parametersArray = [
   Parameters.pVoteQuorum,
   Parameters.challengeAppealLen,
   Parameters.challengeAppealCommitLen,
-  Parameters.challengeAppealRevealLen
-]
+  Parameters.challengeAppealRevealLen,
+];
 
 export interface ParametersProps {
   parameters: Map<string, BigNumber>;
 }
 
-export const connectParameters = <TOriginalProps extends any>(PresentationComponent: React.ComponentClass<TOriginalProps & ParametersProps>,) => {
+export const connectParameters = <TOriginalProps extends any>(
+  PresentationComponent: React.ComponentClass<TOriginalProps & ParametersProps>,
+) => {
   class ParametersContainer extends React.Component<TOriginalProps> {
     public render(): JSX.Element {
-      return (<Query query={PARAMETERS_QUERY} variables={{ input: parametersArray}}>
-
-        {({ loading, error, data }) => {
-          if (loading || error) {
-            return <></>
-          }
-          const parameters = Map<string, BigNumber>(data.parameters.map(param => {
-            return [param.paramName, new BigNumber(param.value)]
-          }))
-          return <PresentationComponent parameters={parameters} {...this.props}/>
-        }}
-      </Query>)
+      return (
+        <Query query={PARAMETERS_QUERY} variables={{ input: parametersArray }}>
+          {({ loading, error, data }) => {
+            if (loading || error) {
+              return <></>;
+            }
+            const parameters = Map<string, BigNumber>(
+              data.parameters.map(param => {
+                return [param.paramName, new BigNumber(param.value)];
+              }),
+            );
+            return <PresentationComponent parameters={parameters} {...this.props} />;
+          }}
+        </Query>
+      );
     }
   }
 
   return ParametersContainer;
-}
+};
 
 /**
  * Generates a HO-Component Container for My Dashboard Activity Item
@@ -229,7 +234,9 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     };
   };
 
-  class HOContainer extends React.Component<PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any> & ParametersProps> {
+  class HOContainer extends React.Component<
+    PhaseCountdownTimerProps & PhaseCountdownReduxProps & DispatchProp<any> & ParametersProps
+  > {
     public static contextType = CivilHelperContext;
     public context: CivilHelper;
 
@@ -302,7 +309,10 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     }
   }
 
-  return compose(connectParameters, connect(mapStateToProps))(HOContainer);
+  return compose(
+    connectParameters,
+    connect(mapStateToProps),
+  )(HOContainer);
 };
 
 /**
@@ -508,8 +518,10 @@ export const connectChallengePhase = <TChallengeContainerProps extends Challenge
         </Query>
       );
     }
-
   }
 
-  return compose(connectParameters, connect(mapStateToProps))(HOChallengePhaseContainer);
+  return compose(
+    connectParameters,
+    connect(mapStateToProps),
+  )(HOChallengePhaseContainer);
 };

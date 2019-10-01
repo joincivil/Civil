@@ -267,7 +267,9 @@ function transfromGraphQLDataIntoPoll(queryPollData: any): PollData | undefined 
   return undefined;
 }
 
-export function transformGraphQLDataIntoParamPropChallenge(queryChallengeData: any): ParamPropChallengeData | undefined {
+export function transformGraphQLDataIntoParamPropChallenge(
+  queryChallengeData: any,
+): ParamPropChallengeData | undefined {
   if (queryChallengeData) {
     const pollData = transfromGraphQLDataIntoPoll(queryChallengeData.poll);
 
@@ -354,7 +356,7 @@ export function transformGraphQLDataIntoParamProposal(propData: any): any {
       propValue: new BigNumber(propData.value),
       pollID: propData.challengeID !== "0" ? new BigNumber(propData.challengeID) : undefined,
       applicationExpiry: new BigNumber(propData.appExpiry),
-    }
+    };
   } else {
     return undefined;
   }

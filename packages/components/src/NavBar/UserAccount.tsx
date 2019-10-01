@@ -57,8 +57,8 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           <NavUser onClick={(ev: any) => props.toggleDrawer()}>
             <CvlContainer>
               <AvatarContainer>
-                { tiny100AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny100AvatarDataUrl} /> }
-                { showFigure && <UserAvatarFigure /> }
+                {tiny100AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny100AvatarDataUrl} />}
+                {showFigure && <UserAvatarFigure />}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
               <Arrow isOpen={props.isUserDrawerOpen} />

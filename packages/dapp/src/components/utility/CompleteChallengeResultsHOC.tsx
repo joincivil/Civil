@@ -7,10 +7,7 @@ import { State } from "../../redux/reducers";
 import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
-import {
-  ChallengeContainerProps,
-  ChallengeContainerReduxProps,
-} from "./HigherOrderComponents";
+import { ChallengeContainerProps, ChallengeContainerReduxProps } from "./HigherOrderComponents";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 /**
@@ -26,10 +23,7 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
         TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
       >,
 ) => {
-  const mapStateToProps = (
-    state: State,
-    ownProps: TOriginalProps,
-  ): TOriginalProps & ChallengeContainerReduxProps => {
+  const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
     const { challenges, challengesFetching, user } = state.networkDependent;
     let challengeData;
     let challengeID = ownProps.challengeID;
