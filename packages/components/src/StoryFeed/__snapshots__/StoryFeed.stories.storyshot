@@ -617,7 +617,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           <span
             className="sc-LzNtU buFVS"
           >
-            undefined contributors
+            30 contributors
           </span>
         </div>
       </div>
@@ -1286,7 +1286,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                       <span
                         style={Object {}}
                       >
-                        total
+                        totalContributers
                       </span>
                       <span>
                         =
