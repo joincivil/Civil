@@ -172,7 +172,7 @@ export const getCurrentUserQuery = gql`
         id
         EmailAddressRestricted
         avatarDataUrl
-        tiny100AvatarDataUrl
+        tiny72AvatarDataUrl
       }
       userChannelEmailPromptSeen
     }
