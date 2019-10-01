@@ -1,17 +1,16 @@
 import * as React from "react";
-import { EmbedIcon, ModalHeading, colors } from "@joincivil/components";
+import { EmbedIcon, ModalHeading, colors, Modal, CloseXIcon } from "@joincivil/components";
 import styled from "styled-components";
-import { BoostModalContent } from "./BoostStyledComponents";
-import { BoostModal } from "./BoostModal";
-
-const EmbedModal = styled(BoostModal)`
-  overflow: auto;
-`;
+import { BoostModalContent, BoostModalCloseBtn } from "./BoostStyledComponents";
 
 const EmbedCode = styled.pre`
   white-space: pre-wrap;
   background: ${colors.accent.CIVIL_GRAY_5};
   padding: 8px;
+`;
+
+const ModalContain = styled.div`
+  position: relative;
 `;
 
 export interface BoostShareEmbedProps {
@@ -25,18 +24,23 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
       <a onClick={() => setModalOpen(true)}>
         <EmbedIcon />
       </a>
-      <EmbedModal open={modalOpen} handleClose={() => setModalOpen(false)}>
-        <ModalHeading>Boost Embed Code</ModalHeading>
-        <BoostModalContent>
-          <EmbedCode>
-            &lt;iframe src="https://registry.civil.co/boost-embed/{props.boostId}" style="width: 100%; height:
-            500px"&gt;&lt;/iframe&gt;
-          </EmbedCode>
-          <a href="@TODO" target="_blank">
-            More about embedding boosts >
-          </a>
-        </BoostModalContent>
-      </EmbedModal>
+      {modalOpen && (
+        <Modal>
+          <ModalContain>
+            <BoostModalCloseBtn onClick={() => setModalOpen(false)}>
+              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
+            </BoostModalCloseBtn>
+            <ModalHeading>Embed Boost</ModalHeading>
+            <BoostModalContent>
+              Copy and paste this HTML code into your website where you would like this Boost to embedded:
+            </BoostModalContent>
+            <EmbedCode>
+              &lt;iframe src="https://registry.civil.co/boost-embed/{props.boostId}" style="width: 100%; height:
+              500px"&gt;&lt;/iframe&gt;
+            </EmbedCode>
+          </ModalContain>
+        </Modal>
+      )}
     </>
   );
 };
