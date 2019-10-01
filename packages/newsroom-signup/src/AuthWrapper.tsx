@@ -1,17 +1,9 @@
 import * as React from "react";
-import * as qs from "querystring";
 import styled from "styled-components";
-import { withRouter, RouteComponentProps, Link } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import {
-  AccountEmailSent,
-  AccountEmailAuth,
-  AccountVerifyToken,
-  AuthApplicationEnum,
-  AuthPageFooterLink,
   OBSectionTitle,
   OBSectionDescription,
-  PageHeadingTextCentered,
-  PageSubHeadingCentered,
 } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
@@ -26,8 +18,6 @@ export interface AuthParams {
   action?: "login" | "signup";
 }
 
-const BASE_PATH = "/apply-to-registry";
-
 const Wrapper = styled.div`
   margin: 70px auto 0 auto;
   max-width: 700px;
@@ -36,28 +26,6 @@ const SignupLoginInnerWrap = styled.div`
   margin: 0 auto;
   max-width: 520px;
 `;
-
-const BodyText = styled(PageHeadingTextCentered)`
-  margin-bottom: 12px;
-`;
-
-const FooterLink = styled(AuthPageFooterLink)`
-  font-size: 13px;
-`;
-
-const Footer: React.FunctionComponent = () => (
-  <></>
-  // @TODO/toby Re-enable footer when foundation launches this page
-  // <AuthFooterTerms
-  //   textEl={
-  //     <BodyText>
-  //       By joining Civil, you will become part of a community of high quality news publishers. Your content will be
-  //       featured alongside other Civil newsroom and enjoy all the privileges of the Civil community.
-  //     </BodyText>
-  //   }
-  //   benefitsUrl={"https://civil.co/how-to-launch-newsroom/"}
-  // />
-);
 
 class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParams>, AuthWrapperState> {
   constructor(props: RouteComponentProps) {
