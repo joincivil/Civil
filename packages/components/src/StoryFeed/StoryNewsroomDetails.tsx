@@ -1,5 +1,6 @@
 import * as React from "react";
 import { StoryRegistryDetails } from "./StoryRegistryDetails";
+import { urlConstants as links } from "@joincivil/utils";
 import { CivilIcon } from "../icons";
 import {
   RegistryStatusTag,
@@ -13,27 +14,25 @@ import {
   BlueLinkBtn,
   StoryETHAddress,
 } from "./StoryFeedStyledComponents";
+import { StoryNewsroomData } from "./types";
 
 export interface StoryNewsroomDetailsProps {
   activeChallenge: boolean;
-  contractAddress: string;
-  multisigAddress: string;
-  newsroom: string;
-  newsroomAbout: string;
-  newsroomURL: string;
-  newsroomRegistryURL: string;
+  newsroom: StoryNewsroomData;
 }
 
 export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsProps> = props => {
+  const { newsroom } = props;
+
   return (
     <>
       <StoryModalHeader>
         <StoryRegistryLabel>
           <CivilIcon width={42} height={11} /> Registry
         </StoryRegistryLabel>
-        <StoryNewsroomName>{props.newsroom}</StoryNewsroomName>
-        <StoryNewsroomURL href={props.newsroomURL} target="_blank">
-          {props.newsroomURL}
+        <StoryNewsroomName>{newsroom.charter.name}</StoryNewsroomName>
+        <StoryNewsroomURL href={newsroom.charter.newsroomUrl} target="_blank">
+          {newsroom.charter.newsroomUrl}
         </StoryNewsroomURL>
         {props.activeChallenge ? (
           <RegistryStatusTag activeChallenge={true}>Challenged</RegistryStatusTag>
@@ -45,19 +44,19 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
         <StoryRegistryDetails activeChallenge={props.activeChallenge} />
         <StoryNewsroomSection>
           <h2>About</h2>
-          {props.newsroomAbout}
+          {newsroom.charter.mission.purpose}
         </StoryNewsroomSection>
         <StoryNewsroomSection>
           <h3>Smart Contract Address</h3>
-          <StoryETHAddress>{props.contractAddress}</StoryETHAddress>
+          <StoryETHAddress>{newsroom.contractAddress}</StoryETHAddress>
         </StoryNewsroomSection>
         <StoryNewsroomSection>
           <h3>Public Wallet Address</h3>
-          <StoryETHAddress>{props.multisigAddress}</StoryETHAddress>
+          <StoryETHAddress>{newsroom.multisigAddress}</StoryETHAddress>
         </StoryNewsroomSection>
       </StoryModalContent>
       <StoryModalFooter>
-        <BlueLinkBtn href={props.newsroomRegistryURL} target="_blank">
+        <BlueLinkBtn href={links.REGISTRY + newsroom.contractAddress} target="_blank">
           See Civil Registry Profile
         </BlueLinkBtn>
       </StoryModalFooter>

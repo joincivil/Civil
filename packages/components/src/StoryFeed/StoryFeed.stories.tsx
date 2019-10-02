@@ -16,6 +16,30 @@ const contributors = [
   { avatar: "https://picsum.photos/50", username: "ronburgundy", amount: "0.009214 ETH" },
 ];
 
+const newsroom = {
+  contractAddress: "0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7",
+  multisigAddress: "0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c",
+  charter: {
+    name: "Coda Story",
+    newsroomUrl: "https://codastory.com",
+    mission: {
+      purpose:
+        "Coda Story puts a team of journalists on one crisis at a time and stays with it, providing unique depth, continuity and understanding to events that shape our world.",
+    },
+  },
+};
+
+const openGraphData = {
+  description: "Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown",
+  images: [
+    {
+      url: "https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png",
+    },
+  ],
+  title: "How TikTok opened a window into China’s police state",
+  url: "https://codastory.com/authoritarian-tech/tiktok-uyghur-china/",
+};
+
 const onClickFunc = () => {
   console.log("clicked");
 };
@@ -24,12 +48,7 @@ storiesOf("Pulse / Story Feed", module)
   .add("Story", () => {
     return (
       <Container>
-        <Story
-          img={"https://codastory.com/wp-content/uploads/2019/09/Untitled-design-2019-09-13T160153.273.png"}
-          title={"How TikTok opened a window into China’s police state"}
-          timeStamp={"10 mins ago"}
-          handleOpenStory={onClickFunc}
-        />
+        <Story createdAt={"2019-08-28T15:58:32Z"} openGraphData={openGraphData} handleOpenStory={onClickFunc} />
       </Container>
     );
   })
@@ -38,15 +57,12 @@ storiesOf("Pulse / Story Feed", module)
       <Container>
         <StoryDetails
           activeChallenge={false}
-          description={"Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown"}
-          img={"https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"}
-          newsroom={"Coda Story"}
-          timeStamp={"10 days ago"}
-          title={"How TikTok opened a window into China’s police state"}
+          createdAt={"2019-08-28T15:58:32Z"}
+          newsroom={newsroom}
+          openGraphData={openGraphData}
           displayedContributors={contributors}
           sortedContributors={contributors}
           totalContributors={30}
-          url={"https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"}
           handleOpenNewsroom={onClickFunc}
         />
       </Container>
@@ -55,17 +71,7 @@ storiesOf("Pulse / Story Feed", module)
   .add("Story Newsroom Details", () => {
     return (
       <Container>
-        <StoryNewsroomDetails
-          activeChallenge={false}
-          contractAddress={"0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7"}
-          multisigAddress={"0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c"}
-          newsroom={"Coda Story"}
-          newsroomAbout={
-            "Coda Story puts a team of journalists on one crisis at a time and stays with it, providing unique depth, continuity and understanding to events that shape our world."
-          }
-          newsroomURL={"https://codastory.com"}
-          newsroomRegistryURL={"https://codastory.com"}
-        />
+        <StoryNewsroomDetails activeChallenge={false} newsroom={newsroom} />
       </Container>
     );
   });
