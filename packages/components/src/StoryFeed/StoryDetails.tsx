@@ -13,40 +13,40 @@ import {
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 // import { Share } from "../Social";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
+import { StoryNewsroomData, OpenGraphData } from "./types";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;
-  description: string;
-  img: string;
-  newsroom: string;
-  timeStamp: string;
-  title: string;
+  createdAt: string;
+  newsroom: StoryNewsroomData;
+  openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
-  url: string;
   handleOpenNewsroom(): void;
 }
 
 export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
+  const { openGraphData } = props;
+
   return (
     <>
       <StoryModalFullBleedHeader>
         <StoryImgWide>
-          <img src={props.img} />
+          <img src={openGraphData.images[0].url} />
         </StoryImgWide>
       </StoryModalFullBleedHeader>
       <StoryModalContent>
-        <StoryTitle>{props.title}</StoryTitle>
+        <StoryTitle>{openGraphData.title}</StoryTitle>
         <StoryDetailsFlex>
           <StoryNewsroomStatus
             newsroom={props.newsroom}
             activeChallenge={props.activeChallenge}
             handleOpenNewsroom={props.handleOpenNewsroom}
           />
-          <TimeStamp>{props.timeStamp}</TimeStamp>
+          <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryDetailsFlex>
-        <StoryDescription>{props.description}</StoryDescription>
+        <StoryDescription>{openGraphData.description}</StoryDescription>
         <Contributors label={"Recent Contributors"} sortedContributors={props.sortedContributors} />
         <ContributorCount
           totalContributors={props.totalContributors}
@@ -56,7 +56,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryModalContent>
       <StoryModalFooter>
         {/* <Button>Tips</Button> */}
-        <BlueLinkBtn href={props.url} target="_blank">
+        <BlueLinkBtn href={openGraphData.url} target="_blank">
           Read More
         </BlueLinkBtn>
       </StoryModalFooter>

@@ -6,23 +6,16 @@ import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap } from "./StoryFeedStyledComponents";
+import { StoryNewsroomData, OpenGraphData } from "./types";
 
 export interface StoryFeedItemProps {
   activeChallenge: boolean;
-  contractAddress: string;
-  description: string;
-  img: string;
-  multisigAddress: string;
-  newsroom: string;
-  newsroomAbout: string;
-  newsroomRegistryURL: string;
-  newsroomURL: string;
-  timeStamp: string;
-  title: string;
+  createdAt: string;
+  newsroom: StoryNewsroomData;
+  openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
-  url: string;
 }
 
 export interface StoryFeedItemStates {
@@ -40,50 +33,41 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
   }
 
   public render(): JSX.Element {
+    const {
+      activeChallenge,
+      createdAt,
+      newsroom,
+      openGraphData,
+      displayedContributors,
+      sortedContributors,
+      totalContributors,
+    } = this.props;
+
     return (
       <>
         <StoryFeedItemWrap>
           <StoryNewsroomStatus
-            newsroom={this.props.newsroom}
-            activeChallenge={this.props.activeChallenge}
+            newsroom={newsroom}
+            activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story
-            img={this.props.img}
-            timeStamp={this.props.timeStamp}
-            title={this.props.title}
-            handleOpenStory={this.openStoryDetails}
-          />
-          <ContributorCount
-            totalContributors={this.props.totalContributors}
-            displayedContributors={this.props.displayedContributors}
-          />
+          <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
+          <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
-            activeChallenge={this.props.activeChallenge}
-            description={this.props.description}
-            img={this.props.img}
-            newsroom={this.props.newsroom}
-            timeStamp={this.props.timeStamp}
-            title={this.props.title}
-            displayedContributors={this.props.displayedContributors}
-            sortedContributors={this.props.sortedContributors}
-            totalContributors={this.props.totalContributors}
-            url={this.props.url}
+            activeChallenge={activeChallenge}
+            createdAt={createdAt}
+            newsroom={newsroom}
+            openGraphData={openGraphData}
+            displayedContributors={displayedContributors}
+            sortedContributors={sortedContributors}
+            totalContributors={totalContributors}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
         </StoryModal>
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
-          <StoryNewsroomDetails
-            activeChallenge={this.props.activeChallenge}
-            contractAddress={this.props.contractAddress}
-            multisigAddress={this.props.multisigAddress}
-            newsroom={this.props.newsroom}
-            newsroomAbout={this.props.newsroomAbout}
-            newsroomURL={this.props.newsroomURL}
-            newsroomRegistryURL={this.props.newsroomRegistryURL}
-          />
+          <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
       </>
     );
