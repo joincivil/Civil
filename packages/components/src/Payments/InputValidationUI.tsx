@@ -82,13 +82,13 @@ const InputErrorIcon = styled.div`
   top: calc(50% - 10px);
 `;
 
-export interface BoostModalProps {
+export interface InputValidationUIProps {
   children: any;
   inputState: string;
   width?: string;
 }
 
-export const InputValidationUI: React.FunctionComponent<BoostModalProps> = props => {
+export const InputValidationUI: React.FunctionComponent<InputValidationUIProps> = props => {
   return (
     <>
       <InputWrapper inputState={props.inputState} width={props.width}>

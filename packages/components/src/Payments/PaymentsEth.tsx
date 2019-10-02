@@ -13,7 +13,7 @@ import {
   PayWithEthDescriptionText,
 } from "./PaymentsTextComponents";
 import { PaymentsModal } from "./PaymentsModal";
-import { PaymentEthForm } from "./PaymentEthForm";
+import { PaymentsEthForm } from "./PaymentsEthForm";
 
 export enum MODEL_CONTENT {
   WHY_ETH = "why eth",
@@ -21,7 +21,7 @@ export enum MODEL_CONTENT {
   CAN_USE_CVL = "can I use cvl",
 }
 
-export interface BoostPayEthProps {
+export interface PaymentsEthProps {
   linkId: string;
   newsroomName: string;
   paymentAddr: EthAddress;
@@ -31,7 +31,7 @@ export interface BoostPayEthProps {
   handlePaymentSuccess(): void;
 }
 
-export interface BoostPayEthStates {
+export interface PaymentsEthStates {
   isMobileWalletModalOpen: boolean;
   isInfoModalOpen: boolean;
   modalContent: string;
@@ -41,8 +41,8 @@ export interface BoostPayEthStates {
   paymentStarted: boolean;
 }
 
-export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthStates> {
-  public constructor(props: BoostPayEthProps) {
+export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthStates> {
+  public constructor(props: PaymentsEthProps) {
     super(props);
     this.state = {
       isMobileWalletModalOpen: this.showMobileWalletModal(),
@@ -93,7 +93,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
         <Mutation mutation={PAYMENTS_ETH_MUTATION}>
           {(paymentsCreateEtherPayment: MutationFunc) => {
             return (
-              <PaymentEthForm
+              <PaymentsEthForm
                 linkId={this.props.linkId}
                 paymentAddr={this.props.paymentAddr}
                 savePayment={paymentsCreateEtherPayment}

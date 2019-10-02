@@ -163,7 +163,7 @@ const DropDownWrap = styled.div`
   z-index: -1;
 `;
 
-export interface BoostPayFormStripeProps extends ReactStripeElements.InjectedStripeProps {
+export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
   linkId: string;
   newsroomName: string;
   usdToSpend: number;
@@ -171,7 +171,7 @@ export interface BoostPayFormStripeProps extends ReactStripeElements.InjectedStr
   handlePaymentSuccess(): void;
 }
 
-export interface BoostPayFormStripeStates {
+export interface PaymentStripeFormStates {
   email: string;
   emailState: string;
   name: string;
@@ -188,7 +188,7 @@ export interface BoostPayFormStripeStates {
   paymentProcessing: boolean;
 }
 
-class PaymentStripeForm extends React.Component<BoostPayFormStripeProps, BoostPayFormStripeStates> {
+class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentStripeFormStates> {
   public static contextType = CivilContext;
   public context!: ICivilContext;
   constructor(props: any) {
@@ -329,7 +329,7 @@ class PaymentStripeForm extends React.Component<BoostPayFormStripeProps, BoostPa
           <PaymentStripeNoticeText />
         </PaymentNotice>
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
-          {this.state.paymentProcessing ? "Payment processing..." : "Support this Boost"}
+          {this.state.paymentProcessing ? "Payment processing..." : "Tip newsroom"}
         </PaymentBtn>
         {this.state.isPaymentError && <PaymentErrorText />}
         {this.state.isPaymentSuccess && <PaymentSuccessText />}

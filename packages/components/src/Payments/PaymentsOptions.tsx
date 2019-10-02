@@ -8,7 +8,7 @@ import {
   PayWithEthDescriptionText,
 } from "./PaymentsTextComponents";
 
-export interface PaymentOptionsProps {
+export interface PaymentsOptionsProps {
   amount: string;
   newsroomMultisig: string;
   newsroomName: string;
@@ -16,7 +16,7 @@ export interface PaymentOptionsProps {
   walletConnected?: boolean;
 }
 
-export const PaymentOptions: React.FunctionComponent<PaymentOptionsProps> = props => {
+export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
   return (
     <>
       <>

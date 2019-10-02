@@ -3,28 +3,27 @@ import { StripeProvider, Elements } from "react-stripe-elements";
 import { Mutation, MutationFunc } from "react-apollo";
 import { PAYMENTS_STRIPE_MUTATION } from "./queries";
 import makeAsyncScriptLoader from "react-async-script";
-import {  } from "./PaymentsStyledComponents";
 import { PayWithCardText } from "./PaymentsTextComponents";
-import PaymentStripeForm from "./PaymentStripeForm";
+import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
 
-export interface BoostPayStripeProps {
+export interface PaymentStripeProps {
   linkId: string;
   newsroomName: string;
   usdToSpend: number;
   handlePaymentSuccess(): void;
 }
 
-export interface BoostPayStripeStates {
+export interface PaymentStripeStates {
   stripeLoaded: boolean;
   stripe: any;
 }
 
-export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPayStripeStates> {
+export class PaymentStripe extends React.Component<PaymentStripeProps, PaymentStripeStates> {
   public static contextType = CivilContext;
   public context!: ICivilContext;
-  constructor(props: BoostPayStripeProps) {
+  constructor(props: PaymentStripeProps) {
     super(props);
     this.state = {
       stripeLoaded: false,

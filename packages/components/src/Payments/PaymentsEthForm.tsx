@@ -19,7 +19,7 @@ import {
   PaymentEthTermsText,
 } from "./PaymentsTextComponents";
 
-export interface PaymentEthFormProps {
+export interface PaymentsEthFormProps {
   linkId: string;
   etherToSpend: number;
   usdToSpend: number;
@@ -29,17 +29,17 @@ export interface PaymentEthFormProps {
   handlePaymentSuccess(): void;
 }
 
-export interface PaymentEthFormState {
+export interface PaymentsEthFormState {
   email: string;
   emailState: string;
   fromAddr?: EthAddress;
 }
 
-export class PaymentEthForm extends React.Component<PaymentEthFormProps, PaymentEthFormState> {
+export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, PaymentsEthFormState> {
   public static contextType = CivilContext;
   public context!: ICivilContext;
 
-  constructor(props: PaymentEthFormProps) {
+  constructor(props: PaymentsEthFormProps) {
     super(props);
     this.state = {
       email: "",

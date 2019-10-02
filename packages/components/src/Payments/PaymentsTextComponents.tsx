@@ -101,7 +101,7 @@ export const PaymentStripeTermsText: React.FunctionComponent = props => (
 
 export const PaymentInProgressText: React.FunctionComponent = props => (
   <>
-    <p>Your wallet has popped up a new window. Confirm the transaction in your wallet to complete the Boost.</p>
+    <p>Your wallet has popped up a new window. Confirm the transaction in your wallet to complete the payment.</p>
     <ClipLoader />
   </>
 );
@@ -123,11 +123,6 @@ export const WhyEthInfoText: React.FunctionComponent = props => (
       few cents. This cost goes to the Ethereum miners who perform the computational work for your content to be
       included on the Ethereum blockchain.
     </p>
-    <p>
-      <a target="_blank" href={links.FAQ_BOOST_SUPPORTERS}>
-        Learn more about how to get ETH and support Boosts on our FAQ.
-      </a>
-    </p>
   </>
 );
 
@@ -135,7 +130,7 @@ export const WhatIsEthInfoText: React.FunctionComponent = props => (
   <>
     <h2>What is ETH?</h2>
     <p>
-      Ether (ETH) is the cryptocurrency for the Ethereum blockchain. You’ll be paying in ETH to support and pay Boosts.
+      Ether (ETH) is the cryptocurrency for the Ethereum blockchain. You’ll be paying in ETH to tip a newsroom.
     </p>
     <p>
       You can purchase or exchange for ETH using a cryptocurrency exchange such as Coinbase or Gemini and fund a digital
@@ -147,17 +142,12 @@ export const WhatIsEthInfoText: React.FunctionComponent = props => (
       Each transaction includes a small transaction cost, called gas, which is usually a few cents. These fees go to the
       Ethereum miners who perform the computational work for your content to be included on the Ethereum blockchain.
     </p>
-    <p>
-      <a target="_blank" href={links.FAQ_BOOST_SUPPORTERS}>
-        Learn more about how to get ETH and support Boosts on our FAQ.
-      </a>
-    </p>
   </>
 );
 
 export const CanUseCVLInfoText: React.FunctionComponent = props => (
   <>
-    <h2>Can I use CVL to support a Boost?</h2>
+    <h2>Can I use CVL to tip a newsroom?</h2>
     <p>
       Civil tokens (CVL) are intended as a governance token to be used on the Civil Registry. You can use them to
       participate in and contribute to Civil’s community. Civil tokens unlock specific activities on the Civil platform,
