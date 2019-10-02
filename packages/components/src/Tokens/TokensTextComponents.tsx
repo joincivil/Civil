@@ -56,7 +56,6 @@ export const TokenConnectWalletBtnText: React.FunctionComponent = props => <>Con
 export const TokenAuthText: React.FunctionComponent = props => (
   <>
     <h3>Sign up or Log in to your Civil account</h3>
-    <p>Create a Civil account with your email address or log in to your existing account.</p>
   </>
 );
 
