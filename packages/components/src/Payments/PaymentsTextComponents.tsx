@@ -129,9 +129,7 @@ export const WhyEthInfoText: React.FunctionComponent = props => (
 export const WhatIsEthInfoText: React.FunctionComponent = props => (
   <>
     <h2>What is ETH?</h2>
-    <p>
-      Ether (ETH) is the cryptocurrency for the Ethereum blockchain. You’ll be paying in ETH to tip a newsroom.
-    </p>
+    <p>Ether (ETH) is the cryptocurrency for the Ethereum blockchain. You’ll be paying in ETH to tip a newsroom.</p>
     <p>
       You can purchase or exchange for ETH using a cryptocurrency exchange such as Coinbase or Gemini and fund a digital
       wallet such as MetaMask. Don’t worry, both Coinbase and Gemini are regulated and in compliance with all applicable

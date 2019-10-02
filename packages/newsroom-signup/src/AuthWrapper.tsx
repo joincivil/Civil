@@ -1,10 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { withRouter, RouteComponentProps } from "react-router-dom";
-import {
-  OBSectionTitle,
-  OBSectionDescription,
-} from "@joincivil/components";
+import { OBSectionTitle, OBSectionDescription } from "@joincivil/components";
 import { isLoggedIn } from "@joincivil/utils";
 
 export interface AuthWrapperState {
@@ -66,9 +63,7 @@ class AuthWrapperComponent extends React.Component<RouteComponentProps<AuthParam
       <Wrapper>
         <SignupLoginInnerWrap>
           <OBSectionTitle>Add your Newsroom to Civil</OBSectionTitle>
-          <OBSectionDescription>
-            Sign Up or Log In to add your Newsroom to Civil.
-          </OBSectionDescription>
+          <OBSectionDescription>Sign Up or Log In to add your Newsroom to Civil.</OBSectionDescription>
         </SignupLoginInnerWrap>
       </Wrapper>
     );

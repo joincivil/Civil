@@ -25,7 +25,6 @@ export interface PaymentsEthProps {
   linkId: string;
   newsroomName: string;
   paymentAddr: EthAddress;
-  etherToSpend: number;
   usdToSpend: number;
   walletConnected: boolean;
   handlePaymentSuccess(): void;
@@ -48,7 +47,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       isMobileWalletModalOpen: this.showMobileWalletModal(),
       isInfoModalOpen: false,
       modalContent: "",
-      etherToSpend: this.props.etherToSpend || 0,
+      etherToSpend: 0,
       usdToSpend: this.props.usdToSpend,
       notEnoughEthError: false,
       paymentStarted: false,

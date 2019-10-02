@@ -8,15 +8,14 @@ const Container = styled.div`
   width: 400px;
 `;
 
-storiesOf("Pulse / Payments", module)
-  .add("Payments", () => {
-    return (
-      <Container>
-        <Payments
-          amount={"3"}
-          newsroomMultisig={"0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c"}
-          newsroomName={"Coda Story"}
-        />
-      </Container>
-    );
-  });
+storiesOf("Pulse / Payments", module).add("Payments", () => {
+  return (
+    <Container>
+      <Payments
+        amount={"3"}
+        newsroomMultisig={"0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c"}
+        newsroomName={"Coda Story"}
+      />
+    </Container>
+  );
+});

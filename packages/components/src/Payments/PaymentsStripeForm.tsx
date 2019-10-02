@@ -12,7 +12,12 @@ import { DropdownArrow, CCAmexIcon, CCDiscoverIcon, CCMastercardIcon, CCVisaIcon
 import { CivilContext, ICivilContext, colors, fonts, mediaQueries } from "../";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
 import { PaymentNotice, PaymentTerms, PaymentBtn } from "./PaymentsStyledComponents";
-import { PaymentStripeNoticeText, PaymentStripeTermsText, PaymentErrorText, PaymentSuccessText } from "./PaymentsTextComponents";
+import {
+  PaymentStripeNoticeText,
+  PaymentStripeTermsText,
+  PaymentErrorText,
+  PaymentSuccessText,
+} from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./InputValidationUI";
 
 const StripeWrapper = styled.div`

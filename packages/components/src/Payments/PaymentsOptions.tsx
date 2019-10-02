@@ -9,11 +9,12 @@ import {
 } from "./PaymentsTextComponents";
 
 export interface PaymentsOptionsProps {
-  amount: string;
   newsroomMultisig: string;
   newsroomName: string;
   isStripeConnected?: boolean;
   walletConnected?: boolean;
+  handlePayEth(): void;
+  handlePayStripe(): void;
 }
 
 export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
@@ -24,7 +25,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
       </>
       {props.isStripeConnected && (
         <>
-          <PaymentBtn>
+          <PaymentBtn onClick={props.handlePayStripe}>
             <PayWithCardText />
           </PaymentBtn>
           <PaymentOptionDescription>
@@ -33,7 +34,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
         </>
       )}
       <>
-        <PaymentBtn>
+        <PaymentBtn onClick={props.handlePayEth}>
           <PayWithEthText />
         </PaymentBtn>
         <PaymentOptionDescription>

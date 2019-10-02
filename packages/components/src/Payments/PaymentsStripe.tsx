@@ -8,22 +8,22 @@ import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
 
-export interface PaymentStripeProps {
+export interface PaymentsStripeProps {
   linkId: string;
   newsroomName: string;
   usdToSpend: number;
   handlePaymentSuccess(): void;
 }
 
-export interface PaymentStripeStates {
+export interface PaymentsStripeStates {
   stripeLoaded: boolean;
   stripe: any;
 }
 
-export class PaymentStripe extends React.Component<PaymentStripeProps, PaymentStripeStates> {
+export class PaymentsStripe extends React.Component<PaymentsStripeProps, PaymentsStripeStates> {
   public static contextType = CivilContext;
   public context!: ICivilContext;
-  constructor(props: PaymentStripeProps) {
+  constructor(props: PaymentsStripeProps) {
     super(props);
     this.state = {
       stripeLoaded: false,
@@ -34,7 +34,9 @@ export class PaymentStripe extends React.Component<PaymentStripeProps, PaymentSt
   public render(): JSX.Element {
     return (
       <>
-        <><PayWithCardText /></>
+        <>
+          <PayWithCardText />
+        </>
         <>Apple Pay / Google Pay TKTK</>
         {this.renderStripePaymentForm()}
       </>
