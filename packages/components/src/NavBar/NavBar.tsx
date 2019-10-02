@@ -2,11 +2,12 @@ import * as React from "react";
 import { colors } from "../styleConstants";
 import { NavMenu } from "./NavMenu";
 import NavDrawer from "./NavDrawer";
-import UserAccount from "./UserAccount";
 import { CivilLogo } from "../CivilLogo";
 
 import { NavProps, NavState } from "./NavBarTypes";
 import { NavContainer, NavOuter, NavLogo, NavInner, NavInnerRight } from "./styledComponents";
+
+import UserAccount from "./UserAccount";
 
 export class NavBar extends React.Component<NavProps, NavState> {
   constructor(props: NavProps) {

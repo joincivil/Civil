@@ -20,7 +20,6 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@0x/subproviders": "^5.0.0",
     "argparse": "^1.0.9",
     "bn-chai": "^1.0.1",
     "bn.js": "^4.11.8",

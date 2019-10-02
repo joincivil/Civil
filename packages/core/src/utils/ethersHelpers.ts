@@ -7,7 +7,6 @@ export interface EthersProviderResult {
 
 export function makeEthersProvider(web3Provider: any, network: number): EthersProviderResult {
   const provider = new ethers.providers.Web3Provider(web3Provider, network === 1 ? "mainnet" : "rinkeby");
-  console.log("network:", provider.network);
   const signer = provider.getSigner();
   return {
     provider,

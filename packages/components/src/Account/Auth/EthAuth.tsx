@@ -82,7 +82,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
 
   private renderTransactionUI(): JSX.Element {
     return (
-      <Mutation
+      <Mutation<any>
         mutation={setEthAddressMutation}
         update={(cache, { data: { userSetEthAddress } }) => {
           cache.writeQuery({

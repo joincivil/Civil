@@ -41,13 +41,14 @@ const LoadMoreContainer = styled.div`
 const WhitelistedListingListContainer = () => {
   return (
     <Query query={LISTINGS_QUERY} variables={{ whitelistedOnly: true, sortBy: "NAME" }}>
-      {({ loading, error, data: { tcrListings }, fetchMore }: any): JSX.Element => {
+      {({ loading, error, data, fetchMore }: any): JSX.Element => {
         if (loading) {
           return <LoadingMessage />;
         }
         if (error) {
           return <ErrorLoadingDataMsg />;
         }
+        const { tcrListings } = data;
         const map = Set<NewsroomListing>(
           tcrListings.edges.map((edge: any) => {
             return {
