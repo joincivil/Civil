@@ -10,6 +10,7 @@ import { StoryNewsroomData, OpenGraphData } from "./types";
 
 export interface StoryFeedItemProps {
   activeChallenge: boolean;
+  createdAt: string;
   newsroom: StoryNewsroomData;
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
@@ -34,6 +35,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
   public render(): JSX.Element {
     const {
       activeChallenge,
+      createdAt,
       newsroom,
       openGraphData,
       displayedContributors,
@@ -49,12 +51,13 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
+          <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
             activeChallenge={activeChallenge}
+            createdAt={createdAt}
             newsroom={newsroom}
             openGraphData={openGraphData}
             displayedContributors={displayedContributors}

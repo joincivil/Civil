@@ -3,6 +3,7 @@ import { StoryLink, StoryLinkLeft, StoryTitle, StoryImgSquare, TimeStamp } from 
 import { OpenGraphData } from "./types";
 
 export interface StoryProps {
+  createdAt: string;
   openGraphData: OpenGraphData;
   handleOpenStory(): void;
 }
@@ -13,10 +14,10 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
       <StoryLink onClick={props.handleOpenStory}>
         <StoryLinkLeft>
           <StoryTitle>{props.openGraphData.title}</StoryTitle>
-          <TimeStamp>{props.openGraphData.article.published_time}</TimeStamp>
+          <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryLinkLeft>
         <StoryImgSquare>
-          <img src={props.openGraphData.images.url} />
+          <img src={props.openGraphData.images[0].url} />
         </StoryImgSquare>
       </StoryLink>
     </>

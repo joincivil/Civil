@@ -239,6 +239,33 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
                       <span
                         style={Object {}}
                       >
+                        createdAt
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            2019-08-28T15:58:32Z
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
                         openGraphData
                       </span>
                       <span>
@@ -255,56 +282,6 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
                             }
                           >
                             {
-                            <span>
-                              <span>
-                                <br />
-                                  
-                                  
-                              </span>
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
-                                article
-                              </span>
-                            </span>
-                            : 
-                            <span
-                              style={
-                                Object {
-                                  "color": "#666",
-                                }
-                              }
-                            >
-                              {
-                              <span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  published_time
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#22a",
-                                    "wordBreak": "break-word",
-                                  }
-                                }
-                              >
-                                '2019-08-28T15:58:32Z'
-                              </span>
-                              }
-                            </span>
-                            ,
                             <span>
                               <span>
                                 <br />
@@ -357,7 +334,7 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
                                 }
                               }
                             >
-                              {
+                              [
                               <span>
                                 <span
                                   style={
@@ -366,21 +343,61 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
                                     }
                                   }
                                 >
-                                  url
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      url
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    'https://codastory.com/wp-content/uploads/2019/09/S…'
+                                  </span>
+                                  }
                                 </span>
                               </span>
-                              : 
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
                               <span
                                 style={
                                   Object {
-                                    "color": "#22a",
-                                    "wordBreak": "break-word",
+                                    "color": "#666",
                                   }
                                 }
                               >
-                                'https://codastory.com/wp-content/uploads/2019/09/S…'
+                                title
                               </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
                               }
+                            >
+                              'How TikTok opened a window into China’s police sta…'
                             </span>
                             ,
                             <span>
@@ -938,6 +955,36 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                       <span
                         style={Object {}}
                       >
+                        createdAt
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            2019-08-28T15:58:32Z
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                      <span>
+                        <br />
+                          
+                      </span>
+                      <span
+                        style={Object {}}
+                      >
                         newsroom
                       </span>
                       <span>
@@ -1155,56 +1202,6 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                   }
                                 }
                               >
-                                article
-                              </span>
-                            </span>
-                            : 
-                            <span
-                              style={
-                                Object {
-                                  "color": "#666",
-                                }
-                              }
-                            >
-                              {
-                              <span>
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#666",
-                                    }
-                                  }
-                                >
-                                  published_time
-                                </span>
-                              </span>
-                              : 
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#22a",
-                                    "wordBreak": "break-word",
-                                  }
-                                }
-                              >
-                                '2019-08-28T15:58:32Z'
-                              </span>
-                              }
-                            </span>
-                            ,
-                            <span>
-                              <span>
-                                <br />
-                                  
-                                  
-                              </span>
-                              <span
-                                style={
-                                  Object {
-                                    "color": "#666",
-                                  }
-                                }
-                              >
                                 description
                               </span>
                             </span>
@@ -1244,7 +1241,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                 }
                               }
                             >
-                              {
+                              [
                               <span>
                                 <span
                                   style={
@@ -1253,21 +1250,61 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                     }
                                   }
                                 >
-                                  url
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      url
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    'https://codastory.com/wp-content/uploads/2019/09/S…'
+                                  </span>
+                                  }
                                 </span>
                               </span>
-                              : 
+                              ]
+                            </span>
+                            ,
+                            <span>
+                              <span>
+                                <br />
+                                  
+                                  
+                              </span>
                               <span
                                 style={
                                   Object {
-                                    "color": "#22a",
-                                    "wordBreak": "break-word",
+                                    "color": "#666",
                                   }
                                 }
                               >
-                                'https://codastory.com/wp-content/uploads/2019/09/S…'
+                                title
                               </span>
+                            </span>
+                            : 
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
                               }
+                            >
+                              'How TikTok opened a window into China’s police sta…'
                             </span>
                             ,
                             <span>

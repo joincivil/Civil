@@ -16,13 +16,12 @@ export interface StoryNewsroomData {
 }
 
 export interface OpenGraphData {
-  article: {
-    published_time: string;
-  };
   description: string;
-  images: {
-    url: string;
-  };
+  images: OpenGraphImageData[];
   title: string;
+  url: string;
+}
+
+export interface OpenGraphImageData {
   url: string;
 }

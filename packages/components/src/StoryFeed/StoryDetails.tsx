@@ -17,6 +17,7 @@ import { StoryNewsroomData, OpenGraphData } from "./types";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;
+  createdAt: string;
   newsroom: StoryNewsroomData;
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
@@ -32,7 +33,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
     <>
       <StoryModalFullBleedHeader>
         <StoryImgWide>
-          <img src={openGraphData.images.url} />
+          <img src={openGraphData.images[0].url} />
         </StoryImgWide>
       </StoryModalFullBleedHeader>
       <StoryModalContent>
@@ -43,7 +44,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
             activeChallenge={props.activeChallenge}
             handleOpenNewsroom={props.handleOpenNewsroom}
           />
-          <TimeStamp>{openGraphData.article.published_time}</TimeStamp>
+          <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryDetailsFlex>
         <StoryDescription>{openGraphData.description}</StoryDescription>
         <Contributors label={"Recent Contributors"} sortedContributors={props.sortedContributors} />

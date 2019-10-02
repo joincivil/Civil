@@ -30,13 +30,12 @@ const newsroom = {
 };
 
 const openGraphData = {
-  article: {
-    published_time: "2019-08-28T15:58:32Z",
-  },
   description: "Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown",
-  images: {
-    url: "https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png",
-  },
+  images: [
+    {
+      url: "https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png",
+    },
+  ],
   title: "How TikTok opened a window into China’s police state",
   url: "https://codastory.com/authoritarian-tech/tiktok-uyghur-china/",
 };
@@ -49,7 +48,7 @@ storiesOf("Pulse / Story Feed", module)
   .add("Story", () => {
     return (
       <Container>
-        <Story openGraphData={openGraphData} handleOpenStory={onClickFunc} />
+        <Story createdAt={"2019-08-28T15:58:32Z"} openGraphData={openGraphData} handleOpenStory={onClickFunc} />
       </Container>
     );
   })
@@ -58,6 +57,7 @@ storiesOf("Pulse / Story Feed", module)
       <Container>
         <StoryDetails
           activeChallenge={false}
+          createdAt={"2019-08-28T15:58:32Z"}
           newsroom={newsroom}
           openGraphData={openGraphData}
           displayedContributors={contributors}

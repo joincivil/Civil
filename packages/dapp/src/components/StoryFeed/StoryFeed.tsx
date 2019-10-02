@@ -13,15 +13,13 @@ export const STORY_FEED_QUERY = gql`
         ... on PostExternalLink {
           id
           channelID
+          createdAt
           openGraphData {
             url
             title
             description
             images {
               url
-            }
-            article {
-              published_time
             }
           }
           channel {
@@ -77,6 +75,7 @@ class StoryFeedPage extends React.Component {
                 <StoryFeedItem
                   key={i}
                   activeChallenge={false}
+                  createdAt={storyData.createdAt}
                   newsroom={storyData.channel.newsroom}
                   openGraphData={storyData.openGraphData}
                   displayedContributors={contributers}
