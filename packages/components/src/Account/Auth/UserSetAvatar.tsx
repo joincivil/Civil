@@ -1,10 +1,14 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation, MutationFn } from "react-apollo";
+import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
 import { Button, buttonSizes } from "../../Button";
-import { ConfirmButtonContainer } from "./AuthStyledComponents";
+import { ConfirmButtonContainer, SkipForNowButtonContainer } from "./AuthStyledComponents";
 import AvatarEditor from "react-avatar-editor";
 import styled from "styled-components";
+import { AvatarDragAndDrop } from "./AvatarDragAndDrop";
+import ApolloClient from "apollo-client";
+import { fonts } from "../../styleConstants";
+import Slider from "react-input-slider";
 
 const setAvatarMutation = gql`
   mutation($input: ChannelsSetAvatarInput!) {
@@ -14,12 +18,42 @@ const setAvatarMutation = gql`
   }
 `;
 
+const skipSetAvatarMutation = gql`
+  mutation {
+    skipUserChannelAvatarPrompt {
+      uid
+    }
+  }
+`;
+
 const AvatarEditorDiv = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-around;
 `;
 
-const AvatarEditorContainerDiv = styled.div``;
+const CropSpan = styled.span``;
+
+const AvatarEditorContainerDiv = styled.div`
+  height: 500px;
+`;
+
+const ZoomContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const SkipButton = styled.span`
+  color: #2b56ff;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+  width: 158px;
+  text-align: center;
+`;
 
 export interface UserSetAvatarAuthProps {
   headerComponent?: JSX.Element;
@@ -30,6 +64,7 @@ export interface UserSetAvatarAuthProps {
 export interface UserSetAvatarAuthState {
   avatarDataURL: string;
   errorMessage: string | undefined;
+  scale: number;
   image?: any;
   preview?: PreviewImageState;
 }
@@ -50,6 +85,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
     this.state = {
       avatarDataURL: "",
       errorMessage: undefined,
+      scale: 1.2,
     };
     this.editor = null;
   }
@@ -66,44 +102,78 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
               <form onSubmit={async event => this.handleSubmit(event, setAvatar, channelID)}>
                 {this.renderAvatarSelector()}
                 <ConfirmButtonContainer>
+                  {this.state.image &&
                   <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
-                    Confirm
+                    Save
                   </Button>
+                  }
                 </ConfirmButtonContainer>
               </form>
             );
           }}
         </Mutation>
+
+        { !this.state.image &&
+          <SkipForNowButtonContainer>
+            <ApolloConsumer>
+              {client => <SkipButton onClick={() => this.onSkipForNowClicked(client)}>Skip for now</SkipButton>}
+            </ApolloConsumer>
+          </SkipForNowButtonContainer>
+        }
       </>
     );
   }
 
   public handleNewImage = (e: any) => {
-    this.setState({ image: e.target.files[0] });
+    this.setState({ image: e });
   };
+
+  private async onSkipForNowClicked(client: ApolloClient<any>): Promise<void> {
+    const { error } = await client.mutate({
+      mutation: skipSetAvatarMutation,
+    });
+
+    if (error) {
+      this.setState({ errorMessage: error });
+    } else {
+      if (this.props.onSetAvatarComplete) {
+        this.props.onSetAvatarComplete();
+      }
+    }
+  }
 
   private renderAvatarSelector(): JSX.Element {
     return (
       <AvatarEditorContainerDiv>
-        <AvatarEditorDiv>
-          <AvatarEditor
-            ref={(el: any) => {
-              this.editor = el;
-            }}
-            image={this.state.image ? this.state.image : ""}
-            width={336}
-            height={336}
-            border={0}
-            borderRadius={168}
-            color={[255, 255, 255, 0.6]} // RGBA
-            scale={1.2}
-            rotate={0}
-          />
+        { this.state.image &&
+          <AvatarEditorDiv>
+            <AvatarEditor
+              ref={(el: any) => {
+                this.editor = el;
+              }}
+              image={this.state.image ? this.state.image : ""}
+              width={336}
+              height={336}
+              border={0}
+              borderRadius={168}
+              color={[255, 255, 255, 0.6]} // RGBA
+              scale={this.state.scale}
+              rotate={0}
+            />
+            <CropSpan>Crop your photo</CropSpan>
+            <ZoomContainer>
+            <Slider axis="x" xmin={100} xmax={400} x={(this.state.scale * 100)} onChange={(xy: any) => {
+              console.log("onChange. x: ", (xy.x) / 100);
+              this.setState({ scale: (xy.x / 100)})}
+              } />
+          </ZoomContainer>
+          </AvatarEditorDiv>
+        }
+        { !this.state.image &&
+          <AvatarEditorDiv>
+          <AvatarDragAndDrop onChange={this.handleNewImage} />
         </AvatarEditorDiv>
-        <br />
-        New File:
-        <input name="newImage" type="file" onChange={this.handleNewImage} />
-        <br />
+        }
       </AvatarEditorContainerDiv>
     );
   }

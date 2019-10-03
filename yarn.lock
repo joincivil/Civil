@@ -1927,6 +1927,11 @@
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.3.tgz#5b6b1c11d6a6dddf1f2fc996f74cf3b219644d78"
 
+"@emotion/memoize@0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.3.tgz#5b6b1c11d6a6dddf1f2fc996f74cf3b219644d78"
+  integrity sha512-2Md9mH6mvo+ygq1trTeVp2uzAKwE2P7In0cRpD/M9Q70aH8L+rxMLbb3JCN2JoSWsV2O+DdFjfbbXoMoLBczow==
+
 "@emotion/memoize@^0.6.1", "@emotion/memoize@^0.6.6":
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.6.6.tgz#004b98298d04c7ca3b4f50ca2035d4f60d2eed1b"
@@ -20794,6 +20799,14 @@ react-input-autosize@^2.2.2:
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
   dependencies:
     prop-types "^15.5.8"
+    
+react-input-slider@^5.1.2:
+  version "5.1.2"
+  resolved "https://registry.yarnpkg.com/react-input-slider/-/react-input-slider-5.1.2.tgz#f4adf9bc8a7f285d39344fa5bf16e25ff6e4fd3f"
+  integrity sha512-18GZdjk7OaK7fv+LtlDWto2dvUs9hD8HOGVU9dK7JsaPyJHQnommXzEfRVKNOL95adp3iQMS6mQsZHEJW2PIeQ==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    "@emotion/core" "^10.0.14"
 
 react-inspector@^3.0.2:
   version "3.0.2"
