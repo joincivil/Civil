@@ -1,9 +1,8 @@
 import * as React from "react";
-import { InvertedButton, BorderlessButton, buttonSizes } from "../Button";
+import { InvertedButton, buttonSizes } from "../Button";
 import { colors, fonts } from "../styleConstants";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
-import { RefObject } from "react";
 
 export interface SimpleImageFileToDataUriProps {
   buttonText?: string;
@@ -28,13 +27,7 @@ const DropArea = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 25px;
-`;
-
-const WholeContainer = styled.div`
+const ImageSelectionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,8 +35,8 @@ const WholeContainer = styled.div`
   height: 450px;
 `;
 
-export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToDataUriProps, {}> {
-  private readonly inputOpenFileRef: RefObject<HTMLInputElement>;
+export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToDataUriProps> {
+  private readonly inputOpenFileRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: SimpleImageFileToDataUriProps) {
     super(props);
@@ -74,7 +67,7 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
 
   public render(): JSX.Element {
     return (
-      <WholeContainer>
+      <ImageSelectionContainer>
         {this.renderDropZone()}
         or
         <input
@@ -87,7 +80,7 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
           {" "}
           {this.props.buttonText || "Upload Image"}{" "}
         </InvertedButton>
-      </WholeContainer>
+      </ImageSelectionContainer>
     );
   }
 

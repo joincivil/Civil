@@ -621,68 +621,68 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown
         </div>
         <div
-          className="sc-LzNuF eqBUCU"
+          className="sc-LzNuE cmtLMv"
         >
           <label
-            className="sc-LzNvd jQmsuf"
+            className="sc-LzNuF jdmECg"
           >
             Recent Contributors
           </label>
           <div
-            className="sc-LzNve gOBohl"
+            className="sc-LzNvd gNAQME"
           >
             <img
-              className="sc-LzNvf QXRYC"
+              className="sc-LzNve ckKeed"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNvg iJOdoU"
+                className="sc-LzNvf iexLMn"
               >
                 violetnight13
               </div>
               <div
-                className="sc-LzNvh CAGsv"
+                className="sc-LzNvg iYzibO"
               >
                 $2.50
               </div>
             </div>
           </div>
           <div
-            className="sc-LzNve gOBohl"
+            className="sc-LzNvd gNAQME"
           >
             <img
-              className="sc-LzNvf QXRYC"
+              className="sc-LzNve ckKeed"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNvg iJOdoU"
+                className="sc-LzNvf iexLMn"
               >
                 CaryRay
               </div>
               <div
-                className="sc-LzNvh CAGsv"
+                className="sc-LzNvg iYzibO"
               >
                 $5.00
               </div>
             </div>
           </div>
           <div
-            className="sc-LzNve gOBohl"
+            className="sc-LzNvd gNAQME"
           >
             <img
-              className="sc-LzNvf QXRYC"
+              className="sc-LzNve ckKeed"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNvg iJOdoU"
+                className="sc-LzNvf iexLMn"
               >
                 ronburgundy
               </div>
               <div
-                className="sc-LzNvh CAGsv"
+                className="sc-LzNvg iYzibO"
               >
                 0.009214 ETH
               </div>
@@ -690,10 +690,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNvi haOVsK"
+          className="sc-LzNvh ghFTal"
         >
           <span
-            className="sc-LzNvj jRsyxB"
+            className="sc-LzNvi jjhTeg"
           >
             <img
               src="https://picsum.photos/50"
@@ -706,7 +706,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             />
           </span>
           <span
-            className="sc-LzNvk evuPKG"
+            className="sc-LzNvj bBXHVd"
           >
             30 contributors
           </span>
@@ -2057,7 +2057,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           className="sc-LzNvP lTigr"
         >
           <svg
-            className="sc-LzLqK dltRQM"
+            className="sc-LzLqJ jgpqnz"
             height={11}
             viewBox="0 0 72 21"
             width={42}
