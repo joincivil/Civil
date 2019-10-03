@@ -164,7 +164,6 @@ export class TransactionButtonNoModal extends React.Component<TransactionButtonP
       const currentAccount = await civil.accountStream.first().toPromise();
       if (currentAccount) {
         this.setState({ currentAccount });
-
         if (this.props.preExecuteTransactions) {
           setImmediate(() => this.props.preExecuteTransactions!());
         }

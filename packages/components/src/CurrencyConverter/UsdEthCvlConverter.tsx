@@ -41,7 +41,7 @@ export class UsdEthCvlConverter extends React.Component<CurrencyConverterProps, 
       <CurrencyConverterSection>
         <UsdEthConverter onConversion={updateConversion} />
         <CurrencyCalcCVL>
-          <Query query={cvlPriceQuery} variables={{ usdToSpend }}>
+          <Query<any> query={cvlPriceQuery} variables={{ usdToSpend }}>
             {({ loading, error, data }) => {
               return (
                 <CurrencyCVLPriceText pricePerCvl={data.storefrontCvlPrice} totalPrice={data.storefrontCvlQuoteUsd} />

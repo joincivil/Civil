@@ -16,7 +16,7 @@ export interface UsdEthConverterProps {
 }
 export const UsdEthConverter = (props: UsdEthConverterProps) => {
   return (
-    <Query query={ethPriceQuery}>
+    <Query<any> query={ethPriceQuery}>
       {({ loading, error, data }) => {
         if (loading) {
           return <div />;

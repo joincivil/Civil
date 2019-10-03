@@ -39,7 +39,7 @@ export class DashboardNewsroomSubmitLink extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <Mutation mutation={EXTERNAL_LINK_MUTATION}>
+      <Mutation<any> mutation={EXTERNAL_LINK_MUTATION}>
         {mutation => {
           return (
             <SubmitLink

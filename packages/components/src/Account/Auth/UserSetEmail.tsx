@@ -132,7 +132,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
         <SubHeaderDiv>
           To receive payment confirmations and account-related alerts, please enter your email address.
         </SubHeaderDiv>
-        <Mutation mutation={setEmailMutation}>
+        <Mutation<any> mutation={setEmailMutation}>
           {sendEmail => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>

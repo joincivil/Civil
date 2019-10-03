@@ -1,12 +1,11 @@
 import { Log, TransactionReceipt } from "web3/types";
+import { ABIDefinition as AbiItem } from "web3/eth/abi";
 
 // make sure that typescript-types/ethers is using the same version as web3's abi-encoder ether
 import { utils } from "ethers";
 
 export type BigNumber = utils.BigNumber;
 export const { BigNumber, bigNumberify, parseEther, formatEther, parseUnits, commify } = utils;
-
-import { ABIDefinition as AbiItem } from "web3/eth/abi";
 
 // this isn't exported: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/web3/eth/contract.d.ts#L6
 export interface ContractOptions {
