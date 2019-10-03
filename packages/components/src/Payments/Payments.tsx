@@ -1,8 +1,8 @@
 import * as React from "react";
-import { YourTipText } from "./PaymentsTextComponents";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
+import { PaymentsWrapper } from "./PaymentsWrapper";
 import { EthAddress } from "@joincivil/core";
 import { CivilContext, ICivilContext } from "../";
 
@@ -47,26 +47,30 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   public render(): JSX.Element {
     if (this.state.payEth) {
       return (
-        <PaymentsEth
-          postId={this.props.postId}
-          newsroomName={this.props.newsroomName}
-          paymentAddress={this.props.paymentAddress}
-          userAddress={this.state.userAddress}
-          usdToSpend={this.props.usdToSpend}
-          isWalletConnected={this.state.isWalletConnected}
-          handlePaymentSuccess={this.handlePaymentSuccess}
-        />
+        <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={true} handleBack={this.handleBack}>
+          <PaymentsEth
+            postId={this.props.postId}
+            newsroomName={this.props.newsroomName}
+            paymentAddress={this.props.paymentAddress}
+            userAddress={this.state.userAddress}
+            usdToSpend={this.props.usdToSpend}
+            isWalletConnected={this.state.isWalletConnected}
+            handlePaymentSuccess={this.handlePaymentSuccess}
+          />
+        </PaymentsWrapper>
       );
     }
 
     if (this.state.payStripe) {
       return (
-        <PaymentsStripe
-          postId={this.props.postId}
-          newsroomName={this.props.newsroomName}
-          usdToSpend={this.props.usdToSpend}
-          handlePaymentSuccess={this.handlePaymentSuccess}
-        />
+        <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={true} handleBack={this.handleBack}>
+          <PaymentsStripe
+            postId={this.props.postId}
+            newsroomName={this.props.newsroomName}
+            usdToSpend={this.props.usdToSpend}
+            handlePaymentSuccess={this.handlePaymentSuccess}
+          />
+        </PaymentsWrapper>
       );
     }
     if (this.state.isPaymentSuccessfull) {
@@ -74,18 +78,19 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <>
-        <>
-          <YourTipText /> {"$" + this.props.usdToSpend}
-        </>
+      <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={false}>
         <PaymentsOptions
           isStripeConnected={this.props.isStripeConnected}
           handlePayEth={this.handlePayEth}
           handlePayStripe={this.handlePayStripe}
         />
-      </>
+      </PaymentsWrapper>
     );
   }
+
+  private handleBack = () => {
+    this.setState({ payEth: false, payStripe: false, isPaymentSuccessfull: false });
+  };
 
   private handlePayEth = () => {
     this.setState({ payEth: true, payStripe: false, isPaymentSuccessfull: false });

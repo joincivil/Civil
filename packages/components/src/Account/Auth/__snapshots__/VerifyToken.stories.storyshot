@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-LzNvS sc-LzNvT hYGuqz"
+          className="sc-LzNMS sc-LzNMT jGmcQi"
         />
       </div>
     </div>
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-LzNvS sc-LzNvT hYGuqz"
+          className="sc-LzNMS sc-LzNMT jGmcQi"
         />
       </div>
     </div>

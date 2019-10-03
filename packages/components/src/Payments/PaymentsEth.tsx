@@ -3,8 +3,15 @@ import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import { LearnMore, PaymentBtn } from "./PaymentsStyledComponents";
 import {
+  PaymentDirectionsStyled,
+  PaymentEthLearnMore,
+  PaymentBtn,
+  PaymentAmountEth,
+  PaymentTypeLabel,
+} from "./PaymentsStyledComponents";
+import {
+  PayWithEthText,
   WhyEthInfoText,
   WhatIsEthInfoText,
   CanUseCVLInfoText,
@@ -62,13 +69,18 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
     return (
       <>
-        <PayWithEthDescriptionText />
+        <PaymentTypeLabel>
+          <PayWithEthText />
+        </PaymentTypeLabel>
+        <PaymentDirectionsStyled>
+          <PayWithEthDescriptionText />
+        </PaymentDirectionsStyled>
         {!this.props.isWalletConnected && <ConnectWalletWarningText />}
-        <LearnMore>
+        <PaymentEthLearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.CAN_USE_CVL)}>Can I use CVL?</a>
-        </LearnMore>
+        </PaymentEthLearnMore>
         <UsdEthConverter
           fromValue={this.state.usdToSpend.toString()}
           onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
@@ -88,7 +100,12 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   private renderPaymentForm = (): JSX.Element => {
     return (
       <>
-        <span>{this.state.etherToSpend + " ETH"}</span>
+        <PaymentTypeLabel>
+          <PayWithEthText />
+        </PaymentTypeLabel>
+        <PaymentAmountEth>
+          Tip amount: {this.state.etherToSpend + " ETH"} ({"$" + this.state.usdToSpend})
+        </PaymentAmountEth>
 
         <Mutation mutation={PAYMENTS_ETH_MUTATION}>
           {(paymentsCreateEtherPayment: MutationFunc) => {

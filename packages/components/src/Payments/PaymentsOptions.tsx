@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PaymentOptionDescription, PaymentBtn } from "./PaymentsStyledComponents";
+import { PaymentDirectionsStyled, PaymentOptionDescription, PaymentBtn } from "./PaymentsStyledComponents";
 import {
   SelectTipMethodText,
   PayWithCardText,
@@ -17,9 +17,9 @@ export interface PaymentsOptionsProps {
 export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
   return (
     <>
-      <>
+      <PaymentDirectionsStyled>
         <SelectTipMethodText />
-      </>
+      </PaymentDirectionsStyled>
       {props.isStripeConnected && (
         <>
           <PaymentBtn onClick={props.handlePayStripe}>

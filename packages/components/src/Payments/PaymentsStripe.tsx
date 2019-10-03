@@ -3,6 +3,7 @@ import { StripeProvider, Elements } from "react-stripe-elements";
 import { Mutation, MutationFunc } from "react-apollo";
 import { PAYMENTS_STRIPE_MUTATION } from "./queries";
 import makeAsyncScriptLoader from "react-async-script";
+import { PaymentTypeLabel } from "./PaymentsStyledComponents";
 import { PayWithCardText } from "./PaymentsTextComponents";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
@@ -34,9 +35,9 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
   public render(): JSX.Element {
     return (
       <>
-        <>
+        <PaymentTypeLabel>
           <PayWithCardText />
-        </>
+        </PaymentTypeLabel>
         <>Apple Pay / Google Pay TKTK</>
         {this.renderStripePaymentForm()}
       </>

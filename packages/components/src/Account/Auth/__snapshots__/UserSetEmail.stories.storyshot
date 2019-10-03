@@ -11,12 +11,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNwY jmdtZk"
+      className="sc-LzNNB gfmtxA"
     >
       Almost done!
     </div>
     <div
-      className="sc-LzNwZ jdfELp"
+      className="sc-LzNNC fWoEjF"
     >
       To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
@@ -37,10 +37,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNvN hKtzRV"
+        className="sc-LzNMq bQnanX"
       >
         <li
-          className="sc-LzNvO PbVph"
+          className="sc-LzNMr eypmbP"
         >
           <label>
             <label
@@ -58,7 +58,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
               />
             </label>
             <span
-              className="sc-LzNvP fDmDqm"
+              className="sc-LzNMs gzVSLY"
             >
               Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
@@ -66,7 +66,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNvQ jDgmwF"
+        className="sc-LzNMt dprpCr"
       >
         <button
           className="sc-fzXfME sc-fzXfNc bNdDxM"
@@ -91,10 +91,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       </div>
     </form>
     <div
-      className="sc-LzNvR ieKSFS"
+      className="sc-LzNMR idHBEh"
     >
       <span
-        className="sc-LzNxa dKxePU"
+        className="sc-LzNND dgvjrx"
         onClick={[Function]}
       >
         Skip for now

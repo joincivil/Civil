@@ -57,7 +57,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
     return (
       <form>
         <PaymentEthUserInfoForm>
-          <label>Email (optional)</label>
+          <label>Email address (optional)</label>
           <InputValidationUI inputState={this.state.emailState} width={"500px"}>
             <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
           </InputValidationUI>
@@ -76,7 +76,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           ]}
           modalContentComponents={PAY_MODAL_COMPONENTS}
         >
-          Tip Newsroom
+          Tip
         </TransactionButton>
         <PaymentTerms>
           <PaymentEthTermsText />

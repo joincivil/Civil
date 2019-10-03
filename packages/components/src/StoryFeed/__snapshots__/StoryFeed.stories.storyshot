@@ -11,28 +11,28 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
     }
   >
     <div
-      className="sc-LzNNA gHidPG"
+      className="sc-LzNPy budSeo"
     >
       <a
-        className="sc-LzNux gLoYyh"
+        className="sc-LzNuy czoEIb"
         onClick={[Function]}
       >
         <div
-          className="sc-LzNuy feILLV"
+          className="sc-LzNuz jDogIC"
         >
           <h2
-            className="sc-LzNuw UeJyL"
+            className="sc-LzNux fOBPig"
           >
             How TikTok opened a window into China’s police state
           </h2>
           <div
-            className="sc-LzNve jNDnTg"
+            className="sc-LzNvg elbTZq"
           >
             2019-08-28T15:58:32Z
           </div>
         </div>
         <div
-          className="sc-LzNuA dNFanj"
+          className="sc-LzNuB cbAQJs"
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -565,13 +565,13 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNNA gHidPG"
+      className="sc-LzNPy budSeo"
     >
       <div
-        className="sc-LzNvK kNLOOD"
+        className="sc-LzNvM fqkOFZ"
       >
         <div
-          className="sc-LzNuB kuZPcB"
+          className="sc-LzNuC iIVFyK"
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -579,18 +579,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzNvL ljuKxH"
+        className="sc-LzNvN egMYDl"
       >
         <h2
-          className="sc-LzNuw UeJyL"
+          className="sc-LzNux fOBPig"
         >
           How TikTok opened a window into China’s police state
         </h2>
         <div
-          className="sc-LzNvf frSbQI"
+          className="sc-LzNvh jaTKwJ"
         >
           <div
-            className="sc-LzNtY quKQQ"
+            className="sc-LzNuw duOZWH"
           >
             <a
               onClick={[Function]}
@@ -610,13 +610,13 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzNve jNDnTg"
+            className="sc-LzNvg elbTZq"
           >
             2019-08-28T15:58:32Z
           </div>
         </div>
         <div
-          className="sc-LzNuz cqFHST"
+          className="sc-LzNuA hXzrzW"
         >
           Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown
         </div>
@@ -713,10 +713,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzNvM hwolVH"
+        className="sc-LzNvO bTbMPR"
       >
         <a
-          className="sc-LzNvg iTmePD"
+          className="sc-LzNvi gVRaIl"
           href="https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"
           target="_blank"
         >
@@ -2048,13 +2048,13 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNNA gHidPG"
+      className="sc-LzNPy budSeo"
     >
       <div
-        className="sc-LzNvm fhsVWP"
+        className="sc-LzNvL bDubxC"
       >
         <div
-          className="sc-LzNuC kGUhsd"
+          className="sc-LzNuE kIVchr"
         >
           <svg
             className="sc-fzXfQr eqGhJf"
@@ -2076,31 +2076,31 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
            Registry
         </div>
         <div
-          className="sc-LzNuD dODuQS"
+          className="sc-LzNuF cbsXaM"
         >
           Coda Story
         </div>
         <a
-          className="sc-LzNuE eqPCyn"
+          className="sc-LzNvd dOXHZb"
           href="https://codastory.com"
           target="_blank"
         >
           https://codastory.com
         </a>
         <span
-          className="sc-LzNvj bZYAVc"
+          className="sc-LzNvl ZGNBe"
         >
           Approved
         </span>
       </div>
       <div
-        className="sc-LzNvL ljuKxH"
+        className="sc-LzNvN egMYDl"
       >
         <div
-          className="sc-LzNvh gUakFb"
+          className="sc-LzNvj bAnFUN"
         >
           <div
-            className="sc-LzNvi ckWofe"
+            className="sc-LzNvk ldvNSk"
           >
             <p>
               This Newsroom maintains the standards and journalistic principles set by the
@@ -2117,7 +2117,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNuF pFemA"
+          className="sc-LzNve bFNexE"
         >
           <h2>
             About
@@ -2125,35 +2125,35 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           Coda Story puts a team of journalists on one crisis at a time and stays with it, providing unique depth, continuity and understanding to events that shape our world.
         </div>
         <div
-          className="sc-LzNuF pFemA"
+          className="sc-LzNve bFNexE"
         >
           <h3>
             Smart Contract Address
           </h3>
           <span
-            className="sc-LzNvd lHJBN"
+            className="sc-LzNvf fvuxwT"
           >
             0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7
           </span>
         </div>
         <div
-          className="sc-LzNuF pFemA"
+          className="sc-LzNve bFNexE"
         >
           <h3>
             Public Wallet Address
           </h3>
           <span
-            className="sc-LzNvd lHJBN"
+            className="sc-LzNvf fvuxwT"
           >
             0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c
           </span>
         </div>
       </div>
       <div
-        className="sc-LzNvM hwolVH"
+        className="sc-LzNvO bTbMPR"
       >
         <a
-          className="sc-LzNvg iTmePD"
+          className="sc-LzNvi gVRaIl"
           href="https://registry.civil.co/0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7"
           target="_blank"
         >

@@ -3,6 +3,23 @@ import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { InvertedButton } from "../Button";
 
+export const TipButton = styled.button`
+  background-color: transparent;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  border-radius: 2px;
+  color: ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 17px;
+  padding: 5px 15px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 30px 0;
@@ -83,6 +100,12 @@ export const StoryImgWide = styled.div`
   img {
     width: 100%;
   }
+`;
+
+export const StoryElements = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const StoryRegistryLabel = styled.div`
@@ -220,10 +243,15 @@ export const RegistryStatusTag = styled.span`
   text-transform: uppercase;
 `;
 
+export interface StoryModalProps {
+  maxHeight: number;
+}
+
 export const StoryModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
   overflow: scroll;
   position: relative;
+  max-height: ${(props: StoryModalProps) => props.maxHeight + "px"};
   max-width: 500px;
   width: 100%;
 `;
@@ -237,6 +265,7 @@ export const StoryModalCloseBtn = styled(InvertedButton)`
   right: 15px;
   top: 15px;
   width: 32px;
+  z-index: 1;
 
   svg path {
     transition: fill 0.2s ease;
