@@ -27,7 +27,7 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
             >
               <section>
                 <div
-                  className="sc-fzXfPf cAeabD"
+                  className="sc-fzXfPf hfcYvn"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragEnter={[Function]}

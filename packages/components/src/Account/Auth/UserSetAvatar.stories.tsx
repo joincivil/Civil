@@ -11,29 +11,19 @@ const typeDefs = `
     ethAddress: String
   }
 
-  type AuthLoginResponse {
-    token: String
-    refreshToken: String
-    uid: String
-  }
-
   type Query {
     currentUser: User
   }
 
   type Mutation {
 
-    authSignupEmailSendForApplication(
-      email: String
-      application: String
+    setAvatarMutation(
+      channelID: String
+      avatarDataURL: String
     ): String
 
-    authSignupEmailConfirm(
-      signupJWT: String!
-    ): AuthLoginResponse
-
-    authSignupEmailSend(
-      emailAddress: String!
+    skipSetAvatarMutation(
+      hasSeen: Boolean!
     ): String
 
   }
@@ -54,10 +44,10 @@ const mocks = {
   },
   Mutation: () => {
     return {
-      authSignupEmailSend: (email: string) => {
+      setAvatarMutation: (channelID: string, avatarDataURL: string) => {
         return "ok";
       },
-      authSignupEmailSendForApplication: (email: string, application: string) => {
+      skipSetAvatarMutation: (hasSeen: boolean) => {
         return "ok";
       },
     };
