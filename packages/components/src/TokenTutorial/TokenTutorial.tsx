@@ -20,7 +20,7 @@ export class TokenTutorial extends React.Component<TokenTutorialProps, TokenTuto
 
   public render(): JSX.Element {
     return (
-      <Query query={getCurrentUserQuery}>
+      <Query<any> query={getCurrentUserQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return <></>;

@@ -8,11 +8,14 @@ export interface ConfigType {
   SUPPORTED_ETHEREUM_NETWORKS?: string;
   SENDGRID_REGISTRY_LIST_ID?: string;
   INFURA_APP_KEY?: string;
+  PORTIS_APP_ID?: string;
   FEATURE_FLAGS?: string;
   SENTRY_DSN?: string;
   STRIPE_CLIENT_ID?: string;
   STRIPE_API_KEY?: string;
   APP_VERSION?: string;
+  KIRBY_TARGET_ORIGIN?: string;
+  KIRBY_IFRAME_SRC?: string;
 }
 
 const defaultConfig: ConfigType = {
@@ -25,11 +28,14 @@ const defaultConfig: ConfigType = {
   SUPPORTED_ETHEREUM_NETWORKS: process.env.REACT_APP_SUPPORTED_ETHEREUM_NETWORKS,
   SENDGRID_REGISTRY_LIST_ID: process.env.REACT_APP_SENDGRID_REGISTRY_LIST_ID,
   INFURA_APP_KEY: process.env.REACT_APP_INFURA_APP_KEY,
+  PORTIS_APP_ID: process.env.REACT_APP_PORTIS_APP_ID,
   FEATURE_FLAGS: process.env.REACT_APP_FEATURE_FLAGS,
   SENTRY_DSN: process.env.REACT_APP_SENTRY_DSN,
   STRIPE_CLIENT_ID: process.env.REACT_APP_STRIPE_CLIENT_ID,
   STRIPE_API_KEY: process.env.REACT_APP_STRIPE_API_KEY,
   APP_VERSION: process.env.REACT_APP_APP_VERSION,
+  KIRBY_TARGET_ORIGIN: process.env.REACT_APP_KIRBY_TARGET_ORIGIN,
+  KIRBY_IFRAME_SRC: process.env.REACT_APP_KIRBY_IFRAME_SRC,
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;

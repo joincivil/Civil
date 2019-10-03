@@ -24,7 +24,7 @@ export const AirswapBuySection = (props: AirswapBuySectionProps) => {
   const { usdToSpend, onBuyComplete, foundationAddress, network } = props;
   return (
     <>
-      <Query query={cvlPriceQuery} variables={{ usdToSpend }}>
+      <Query<any> query={cvlPriceQuery} variables={{ usdToSpend }}>
         {({ loading, error, data }) => {
           if (error) {
             return <div>error loading data</div>;

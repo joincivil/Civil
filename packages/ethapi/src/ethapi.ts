@@ -70,7 +70,7 @@ export class EthApi {
       });
     }
 
-    this.networkObservable = new ReplaySubject<number>();
+    this.networkObservable = new ReplaySubject<number>(1);
     this.web3.eth.net
       .getId()
       .then(network => {
@@ -108,7 +108,9 @@ export class EthApi {
   }
 
   public async network(): Promise<number> {
-    return this.web3.eth.net.getId();
+    const network = await this.networkObservable.first().toPromise();
+
+    return network;
   }
 
   public async getAccount(): Promise<string | null> {

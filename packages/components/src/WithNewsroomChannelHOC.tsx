@@ -80,7 +80,7 @@ export const withNewsroomChannel = <TProps extends NewsroomChannelInjectedProps>
     }
     public render(): JSX.Element {
       return (
-        <Query query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.state.newsroomAddress }}>
+        <Query<any> query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.state.newsroomAddress }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <LoadingMessage>Loading</LoadingMessage>;
@@ -108,7 +108,7 @@ export const withNewsroomChannel = <TProps extends NewsroomChannelInjectedProps>
 
     public renderNoChannel(): JSX.Element {
       return (
-        <Mutation
+        <Mutation<any>
           mutation={CREATE_NEWSROOM_CHANNEL_MUTATION}
           variables={{ newsroomContractAddress: this.state.newsroomAddress }}
           refetchQueries={[

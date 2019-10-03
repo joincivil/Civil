@@ -33,6 +33,12 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
   const civilUser = civilContext.currentUser;
   const { userEthAddress, enableEthereum, onLoginPressed, onSignupPressed } = props;
 
+  React.useMemo(() => {
+    if (civilUser && enableEthereum && !userEthAddress) {
+      enableEthereum();
+    }
+  }, [civilUser, enableEthereum, userEthAddress]);
+
   if (civilUser && userEthAddress) {
     const userAccountElRef = React.createRef<HTMLDivElement>();
     let child;

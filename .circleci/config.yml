@@ -3,7 +3,7 @@ version: 2
 # What is this - http://yaml.org/type/merge.html
 defaults: &defaults
   docker:
-    - image: circleci/node:10.12.0-stretch
+    - image: circleci/node:12.10
 
 jobs:
     build:
@@ -49,6 +49,12 @@ jobs:
                 name: Releasing
                 command: |
                     yarn release
+                    pwd
+            - persist_to_workspace:
+                root: ./
+                paths:
+                    - ./packages/dapp/build
+                    - ./packages/dapp/devops
     coverage:
         <<: *defaults
         steps:
@@ -107,6 +113,10 @@ jobs:
             - run:
                 name: Build Container
                 command: |
+                    find /root/packages
+                    cp -r /root/packages/dapp/build ./packages/dapp/build
+                    cp -r /root/packages/dapp/devops ./packages/dapp/devops
+
                     TAG=`echo $CIRCLE_BRANCH | sed 's/\\//_/g'`
                     docker build -f Dockerfile-dapp . \
                     --build-arg version=$CIRCLE_SHA1 \

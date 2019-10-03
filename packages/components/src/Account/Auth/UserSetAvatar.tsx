@@ -60,7 +60,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
     return (
       <>
         {headerComponent}
-        <Mutation mutation={setAvatarMutation}>
+        <Mutation<any> mutation={setAvatarMutation}>
           {setAvatar => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, setAvatar, channelID)}>

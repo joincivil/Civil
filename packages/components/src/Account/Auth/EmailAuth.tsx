@@ -167,7 +167,7 @@ export class AccountEmailAuth extends React.Component<AccountEmailAuthProps, Acc
       <>
         {this.renderAuthError()}
         {headerComponent}
-        <Mutation mutation={emailMutation}>
+        <Mutation<any> mutation={emailMutation}>
           {sendEmail => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, sendEmail)}>

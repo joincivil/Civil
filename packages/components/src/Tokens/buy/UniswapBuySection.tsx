@@ -19,7 +19,7 @@ export const UniswapBuySection = (props: UniswapBuySectionProps) => {
   return (
     <div>
       <TokenAirswapExchangeText />
-      <Query query={ethPriceQuery}>
+      <Query<any> query={ethPriceQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return <div />;

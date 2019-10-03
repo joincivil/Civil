@@ -52,7 +52,7 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
               <CivilTutorialIcon />
             </TokenRequirementIcon>
             <TokenQuizSectionText />
-            <Query query={getCurrentUserQuery}>
+            <Query<any> query={getCurrentUserQuery}>
               {({ loading, error, data }) => {
                 const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 

@@ -26,7 +26,7 @@ export class UniswapSellSection extends React.Component<UniswapSellSectionProps,
   public render(): JSX.Element {
     const updatePrice = this.updatePrice.bind(this);
     return (
-      <Query query={ethPriceQuery}>
+      <Query<any> query={ethPriceQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return null;

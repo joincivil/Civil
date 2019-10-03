@@ -1,0 +1,57 @@
+{
+  "name": "@joincivil/kirby",
+  "version": "0.1.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "dependencies": {
+    "@joincivil/elements": "^0.0.1",
+    "@kirby-web3/child-core": "^1.0.0",
+    "@kirby-web3/child-react": "^1.0.0",
+    "@kirby-web3/plugin-connext": "^1.1.2",
+    "@kirby-web3/plugin-ethereum": "^1.0.0",
+    "@reach/router": "^1.2.1",
+    "@types/jest": "24.0.15",
+    "@types/node": "12.6.8",
+    "@types/reach__router": "^1.2.4",
+    "@types/react": "16.8.23",
+    "@types/react-dom": "16.8.5",
+    "ethers": "^4.0.37",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "react-test-renderer": "^16.9.0",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "lint": "tslint --project ./",
+    "clean": "rimraf build/"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

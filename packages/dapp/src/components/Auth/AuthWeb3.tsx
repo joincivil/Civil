@@ -1,21 +1,11 @@
 import * as React from "react";
-import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
-import { EthSignedMessage } from "@joincivil/typescript-types";
-import { getCurrentUserQuery } from "@joincivil/utils";
-import {
-  CivilContext,
-  ICivilContext,
-  Transaction,
-  TransactionButtonNoModal,
-  CardTransactionButton,
-  MetaMaskModal,
-  ModalHeading,
-} from "@joincivil/components";
+import { CivilContext, ICivilContext, MetaMaskModal, ModalHeading } from "@joincivil/components";
+import { KirbyEthereumContext, KirbyEthereum } from "@kirby-web3/ethereum-react";
+import { StyledAuthHeader } from "./authStyledComponents";
 
 export interface AuthWeb3Props {
-  authMutation: any;
-  messagePrefix: string;
+  messagePrefix?: string;
   header?: JSX.Element | string;
   buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
@@ -36,68 +26,60 @@ export interface AuthWeb3State {
 const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
 const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
 
-class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
-  public static contextType = CivilContext;
-  public context: ICivilContext;
+export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3Props) => {
+  // context
+  const civilCtx = React.useContext<ICivilContext>(CivilContext);
+  const kirby = React.useContext<KirbyEthereum>(KirbyEthereumContext);
 
-  private _isMounted?: boolean;
+  // state
+  const [isSignRejectionOpen, setisSignRejectionOpen] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
+  const [onErrContinue, setOnErrContinue] = React.useState<any | undefined>(undefined);
 
-  constructor(props: AuthWeb3Props) {
-    super(props);
-    this.state = {};
-  }
+  // effects
+  React.useEffect(() => {
+    kirbyLogin().catch(err => {
+      console.log("error", err);
+    });
+  }, []);
 
-  public componentDidMount(): void {
-    this._isMounted = true;
-  }
-  public componentWillUnmount(): void {
-    this._isMounted = false;
-  }
-
-  public render(): JSX.Element {
-    return (
-      <Mutation<any>
-        mutation={this.props.authMutation}
-        refetchQueries={({ data: { authWeb3 } }) => {
-          this.context.auth.loginUser(authWeb3).catch(err => console.error("loginUser error", err));
-          return [{ query: getCurrentUserQuery }];
-        }}
-      >
-        {authWeb3Mutate => (
-          <>
-            <TransactionButtonNoModal
-              transactions={this.signTransactions(authWeb3Mutate)}
-              Button={props => {
-                return (
-                  <CardTransactionButton onClick={props.onClick}>
-                    {this.props.buttonText || "Open MetaMask"}
-                  </CardTransactionButton>
-                );
-              }}
-            />
-
-            {this.renderWaitingSignModal()}
-            {this.renderSignRejectionModal(authWeb3Mutate)}
-            {this.renderSaveErrorModal()}
-          </>
-        )}
-      </Mutation>
-    );
-  }
-
-  private renderWaitingSignModal(): JSX.Element | null {
-    if (!this.state.isWaitingSignatureOpen) {
-      return null;
+  async function kirbyLogin(): Promise<void> {
+    try {
+      let sig;
+      if (props.messagePrefix === "Log in to Civil") {
+        sig = await kirby.kirby.plugins.identity.login("Civil");
+        await civilCtx.auth.authenticate(sig);
+      } else {
+        sig = await kirby.kirby.plugins.identity.signup("Civil");
+        await civilCtx.auth.signup(sig);
+      }
+      if (props.onAuthenticated) {
+        props.onAuthenticated(sig.signer);
+      }
+      if (props.onSignUpContinue) {
+        props.onSignUpContinue();
+      }
+    } catch (err) {
+      setErrorMessage(err);
+      if (err.toString().includes(USER_ALREADY_EXISTS)) {
+        setOnErrContinue(props.onSignUpUserAlreadyExists);
+      } else if (err.toString().includes(NO_USER_EXISTS)) {
+        setOnErrContinue(props.onLogInNoUserExists);
+      } else {
+        setErrorMessage(err);
+      }
     }
-    return (
-      <MetaMaskModal waiting={true} signing={true} cancelTransaction={this.cancelTransaction}>
-        <ModalHeading>Please sign the text in MetaMask to authenticate</ModalHeading>
-      </MetaMaskModal>
-    );
   }
 
-  private renderSignRejectionModal(authWeb3Mutate: MutationFunc): JSX.Element | null {
-    if (!this.state.isSignRejectionOpen) {
+  return (
+    <>
+      {renderSignRejectionModal()}
+      {renderSaveErrorModal()}
+    </>
+  );
+
+  function renderSignRejectionModal(): JSX.Element | null {
+    if (!isSignRejectionOpen) {
       return null;
     }
 
@@ -106,20 +88,21 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
         waiting={false}
         denied={true}
         denialText="To authenticate that you own your wallet address, you need to sign the message in your MetaMask wallet."
-        cancelTransaction={this.cancelTransaction}
+        cancelTransaction={cancelTransaction}
       >
         <ModalHeading>Failed to authenticate your wallet address</ModalHeading>
       </MetaMaskModal>
     );
   }
 
-  private renderSaveErrorModal(): JSX.Element | null {
-    if (!this.state.errorMessage) {
+  function renderSaveErrorModal(): JSX.Element | null {
+    if (!errorMessage) {
       return null;
     }
 
-    const err = this.state.errorMessage.toString();
-    let bodyText = `Something went wrong when authenticating your wallet address (${this.state.errorMessage}). Please try again later.`;
+    console.log("rendering error message", errorMessage);
+    const err = errorMessage.toString();
+    let bodyText = `Something went wrong when authenticating your wallet address (${errorMessage}). Please try again later.`;
     if (err.includes(USER_ALREADY_EXISTS)) {
       bodyText = "A user with this Ethereum address already exists. You will be redirected to Log In.";
     } else if (err.includes(NO_USER_EXISTS)) {
@@ -127,95 +110,23 @@ class AuthWeb3 extends React.Component<AuthWeb3Props, AuthWeb3State> {
     }
 
     return (
-      <MetaMaskModal alert={true} bodyText={bodyText} cancelTransaction={this.cancelTransaction}>
-        <ModalHeading>Failed to save your wallet address</ModalHeading>
-      </MetaMaskModal>
+      <div>
+        <StyledAuthHeader>Log in to Civil</StyledAuthHeader>
+        <MetaMaskModal alert={true} bodyText={bodyText} cancelTransaction={cancelTransaction}>
+          <ModalHeading>Failed to save your wallet address</ModalHeading>
+        </MetaMaskModal>
+      </div>
     );
   }
 
-  private signTransactions = (authWeb3Mutate: MutationFunc): Transaction[] => {
-    const { civil } = this.context;
-
-    return [
-      {
-        transaction: async (): Promise<EthSignedMessage> => {
-          this.setState({ isWaitingSignatureOpen: true, isSignRejectionOpen: false, errorMessage: undefined });
-          const message = `${this.props.messagePrefix} @ ${new Date().toISOString()}`;
-          return civil!.signMessage(message);
-        },
-        postTransaction: async (sig: EthSignedMessage): Promise<void> => {
-          try {
-            delete sig.rawMessage; // gql endpoint doesn't want this and errors out
-            this.setState({ userAddress: sig.signer });
-
-            const res = await authWeb3Mutate({
-              variables: {
-                input: sig,
-              },
-            });
-
-            if (res && res.data && res.data.authWeb3) {
-              if (this.props.onAuthenticated) {
-                this.props.onAuthenticated(sig.signer);
-              }
-              if (this.props.onSignUpContinue) {
-                this.props.onSignUpContinue();
-              }
-              if (this._isMounted) {
-                // A bit of an antipattern, but cancelling async/await is hard
-                this.setState({ isWaitingSignatureOpen: false });
-              }
-            } else {
-              console.error("Failed to validate and log in with ETH address. Response:", res);
-              throw Error("Failed to validate and log in with ETH address");
-            }
-          } catch (err) {
-            if (err.toString().includes(USER_ALREADY_EXISTS)) {
-              this.setState({
-                isWaitingSignatureOpen: false,
-                errorMessage: err,
-                onErrContinue: this.props.onSignUpUserAlreadyExists,
-              });
-            } else if (err.toString().includes(NO_USER_EXISTS)) {
-              this.setState({
-                isWaitingSignatureOpen: false,
-                errorMessage: err,
-                onErrContinue: this.props.onLogInNoUserExists,
-              });
-            } else {
-              this.setState({
-                isWaitingSignatureOpen: false,
-                errorMessage: err,
-              });
-            }
-          }
-        },
-        handleTransactionError: (err: Error) => {
-          this.setState({ isWaitingSignatureOpen: false });
-          if (err.stack.indexOf("Error: MetaMask Message Signature: User denied message signature.") !== -1) {
-            this.setState({ isSignRejectionOpen: true });
-          } else {
-            console.error("Transaction failed:", err);
-            this.setState({
-              errorMessage: "Transaction failed: " + err.message,
-            });
-          }
-        },
-      },
-    ];
-  };
-
-  private cancelTransaction = () => {
-    if (this.state.onErrContinue) {
-      this.state.onErrContinue();
+  function cancelTransaction(): void {
+    if (onErrContinue) {
+      onErrContinue();
     }
-    this.setState({
-      isWaitingSignatureOpen: false,
-      isSignRejectionOpen: false,
-      errorMessage: undefined,
-      onErrContinue: undefined,
-    });
-  };
-}
+    setErrorMessage(undefined);
+    setOnErrContinue(undefined);
+    setisSignRejectionOpen(false);
+  }
+};
 
 export default AuthWeb3;
