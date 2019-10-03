@@ -10,7 +10,7 @@ import {
   CivilContext,
   ICivilContext,
 } from "../";
-import { InputValidationUI, INPUT_STATE } from "./InputValidationUI";
+import { InputValidationUI, INPUT_STATE } from "./PaymentsInputValidationUI";
 import {
   PaymentInProgressText,
   PaymentSuccessText,
@@ -20,11 +20,12 @@ import {
 } from "./PaymentsTextComponents";
 
 export interface PaymentsEthFormProps {
-  linkId: string;
+  postId: string;
   etherToSpend: number;
   usdToSpend: number;
   newsroomName: string;
-  paymentAddr: EthAddress;
+  paymentAddress: EthAddress;
+  userAddress?: EthAddress;
   savePayment: MutationFunc;
   handlePaymentSuccess(): void;
 }
@@ -32,7 +33,6 @@ export interface PaymentsEthFormProps {
 export interface PaymentsEthFormState {
   email: string;
   emailState: string;
-  fromAddr?: EthAddress;
 }
 
 export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, PaymentsEthFormState> {
@@ -45,14 +45,6 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
       email: "",
       emailState: INPUT_STATE.EMPTY,
     };
-  }
-
-  public async componentDidMount(): Promise<void> {
-    const civil = this.context.civil;
-    if (civil) {
-      const account = await civil.accountStream.first().toPromise();
-      this.setState({ fromAddr: account });
-    }
   }
 
   public render(): JSX.Element {
@@ -110,21 +102,21 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   };
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.linkId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.postId, this.props.usdToSpend);
     if (this.context.civil && (window as any).ethereum) {
-      return this.context.civil.simplePayment(this.props.paymentAddr, this.props.etherToSpend.toString());
+      return this.context.civil.simplePayment(this.props.paymentAddress, this.props.etherToSpend.toString());
     }
   };
 
   private handleTransactionHash = async (txHash: TxHash) => {
-    this.context.fireAnalyticsEvent("tips", "ETH support submitted", this.props.linkId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("tips", "ETH support submitted", this.props.postId, this.props.usdToSpend);
     await this.props.savePayment({
       variables: {
-        postID: this.props.linkId,
+        postID: this.props.postId,
         input: {
           transactionID: txHash,
-          paymentAddress: this.props.paymentAddr,
-          fromAddress: this.state.fromAddr,
+          paymentAddress: this.props.paymentAddress,
+          fromAddress: this.props.userAddress,
           amount: this.props.etherToSpend,
           usdAmount: this.props.usdToSpend.toString(),
           emailAddress: this.state.email,
@@ -134,10 +126,10 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   };
 
   private onTransactionError = (err: string) => {
-    this.context.fireAnalyticsEvent("tips", "ETH support rejected", this.props.linkId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("tips", "ETH support rejected", this.props.postId, this.props.usdToSpend);
   };
 
   private postTransaction = () => {
-    this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.linkId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
   };
 }

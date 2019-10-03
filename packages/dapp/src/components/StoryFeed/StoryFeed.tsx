@@ -23,6 +23,7 @@ export const STORY_FEED_QUERY = gql`
             }
           }
           channel {
+            isStripeConnected
             newsroom {
               contractAddress
               multisigAddress
@@ -74,8 +75,10 @@ class StoryFeedPage extends React.Component {
               return feedQueryData.postsSearch.posts.map((storyData: any, i: number) => (
                 <StoryFeedItem
                   key={i}
+                  storyId={storyData.id}
                   activeChallenge={false}
                   createdAt={storyData.createdAt}
+                  isStripeConnected={storyData.channel.isStripeConnected}
                   newsroom={storyData.channel.newsroom}
                   openGraphData={storyData.openGraphData}
                   displayedContributors={contributers}

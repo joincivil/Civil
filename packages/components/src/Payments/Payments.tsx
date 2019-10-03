@@ -3,41 +3,57 @@ import { YourTipText } from "./PaymentsTextComponents";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
+import { EthAddress } from "@joincivil/core";
+import { CivilContext, ICivilContext } from "../";
 
 export interface PaymentsProps {
-  linkId: string;
+  postId: string;
   usdToSpend: number;
-  newsroomMultisig: string;
+  paymentAddress: string;
   newsroomName: string;
-  isStripeConnected?: boolean;
-  walletConnected: boolean;
+  isStripeConnected: boolean;
 }
 
 export interface PaymentsStates {
+  isWalletConnected: boolean;
+  userAddress?: EthAddress;
   payEth: boolean;
   payStripe: boolean;
   isPaymentSuccessfull: boolean;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   constructor(props: any) {
     super(props);
     this.state = {
+      isWalletConnected: false,
       payEth: false,
       payStripe: false,
       isPaymentSuccessfull: false,
     };
   }
 
+  public async componentDidMount(): Promise<void> {
+    const civil = this.context.civil;
+    if (civil) {
+      const account = await civil.accountStream.first().toPromise();
+      this.setState({ userAddress: account, isWalletConnected: true });
+    }
+  }
+
   public render(): JSX.Element {
     if (this.state.payEth) {
       return (
         <PaymentsEth
-          linkId={this.props.linkId}
+          postId={this.props.postId}
           newsroomName={this.props.newsroomName}
-          paymentAddr={this.props.newsroomMultisig}
+          paymentAddress={this.props.paymentAddress}
+          userAddress={this.state.userAddress}
           usdToSpend={this.props.usdToSpend}
-          walletConnected={this.props.walletConnected}
+          isWalletConnected={this.state.isWalletConnected}
           handlePaymentSuccess={this.handlePaymentSuccess}
         />
       );
@@ -46,7 +62,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (this.state.payStripe) {
       return (
         <PaymentsStripe
-          linkId={this.props.linkId}
+          postId={this.props.postId}
           newsroomName={this.props.newsroomName}
           usdToSpend={this.props.usdToSpend}
           handlePaymentSuccess={this.handlePaymentSuccess}
@@ -63,10 +79,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           <YourTipText /> {"$" + this.props.usdToSpend}
         </>
         <PaymentsOptions
-          newsroomMultisig={this.props.newsroomMultisig}
-          newsroomName={this.props.newsroomName}
           isStripeConnected={this.props.isStripeConnected}
-          walletConnected={this.props.walletConnected}
           handlePayEth={this.handlePayEth}
           handlePayStripe={this.handlePayStripe}
         />

@@ -22,11 +22,12 @@ export enum MODEL_CONTENT {
 }
 
 export interface PaymentsEthProps {
-  linkId: string;
+  postId: string;
   newsroomName: string;
-  paymentAddr: EthAddress;
+  paymentAddress: EthAddress;
+  userAddress?: EthAddress;
   usdToSpend: number;
-  walletConnected: boolean;
+  isWalletConnected: boolean;
   handlePaymentSuccess(): void;
 }
 
@@ -62,7 +63,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
     return (
       <>
         <PayWithEthDescriptionText />
-        {!this.props.walletConnected && <ConnectWalletWarningText />}
+        {!this.props.isWalletConnected && <ConnectWalletWarningText />}
         <LearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>
@@ -93,8 +94,9 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
           {(paymentsCreateEtherPayment: MutationFunc) => {
             return (
               <PaymentsEthForm
-                linkId={this.props.linkId}
-                paymentAddr={this.props.paymentAddr}
+                postId={this.props.postId}
+                paymentAddress={this.props.paymentAddress}
+                userAddress={this.props.userAddress}
                 savePayment={paymentsCreateEtherPayment}
                 etherToSpend={this.state.etherToSpend}
                 usdToSpend={this.state.usdToSpend}
@@ -128,7 +130,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   private showMobileWalletModal = () => {
     let showMobileWalletModal = false;
 
-    if (window.innerWidth < 800 && !this.props.walletConnected) {
+    if (window.innerWidth < 800 && !this.props.isWalletConnected) {
       showMobileWalletModal = true;
     }
 

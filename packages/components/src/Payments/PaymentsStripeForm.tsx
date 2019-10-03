@@ -18,7 +18,7 @@ import {
   PaymentErrorText,
   PaymentSuccessText,
 } from "./PaymentsTextComponents";
-import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./InputValidationUI";
+import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./PaymentsInputValidationUI";
 
 const StripeWrapper = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
@@ -169,7 +169,7 @@ const DropDownWrap = styled.div`
 `;
 
 export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
-  linkId: string;
+  postId: string;
   newsroomName: string;
   usdToSpend: number;
   savePayment: MutationFunc;
@@ -449,7 +449,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           });
           await this.props.savePayment({
             variables: {
-              postID: this.props.linkId,
+              postID: this.props.postId,
               input: {
                 // @ts-ignore
                 paymentToken: token.token.id,

@@ -9,7 +9,7 @@ import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
 
 export interface PaymentsStripeProps {
-  linkId: string;
+  postId: string;
   newsroomName: string;
   usdToSpend: number;
   handlePaymentSuccess(): void;
@@ -53,7 +53,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
               {(paymentsCreateStripePayment: MutationFunc) => {
                 return (
                   <PaymentStripeForm
-                    linkId={this.props.linkId}
+                    postId={this.props.postId}
                     newsroomName={this.props.newsroomName}
                     usdToSpend={this.props.usdToSpend}
                     savePayment={paymentsCreateStripePayment}

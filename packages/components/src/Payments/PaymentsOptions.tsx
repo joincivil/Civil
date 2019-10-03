@@ -9,10 +9,7 @@ import {
 } from "./PaymentsTextComponents";
 
 export interface PaymentsOptionsProps {
-  newsroomMultisig: string;
-  newsroomName: string;
-  isStripeConnected?: boolean;
-  walletConnected?: boolean;
+  isStripeConnected: boolean;
   handlePayEth(): void;
   handlePayStripe(): void;
 }

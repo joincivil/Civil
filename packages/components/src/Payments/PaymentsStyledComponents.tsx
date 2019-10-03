@@ -110,9 +110,11 @@ export const PaymentEthUserInfoForm = styled.div`
 
 export const PaymentsModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  overflow: scroll;
-  position: relative;
+  max-height: 600px;
   max-width: 500px;
+  overflow: scroll;
+  padding: 20px;
+  position: relative;
   width: 100%;
 `;
 
