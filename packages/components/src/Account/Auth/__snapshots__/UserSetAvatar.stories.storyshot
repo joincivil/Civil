@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
+exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
 <div>
   <div
     style={
@@ -11,94 +11,91 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNOM gKdcTE"
+      className="sc-LzNMR eeSvGG"
     >
-      Almost done!
-    </div>
-    <div
-      className="sc-LzNON gBfnFJ"
-    >
-      To receive payment confirmations and account-related alerts, please enter your email address.
-    </div>
-    <form
-      onSubmit={[Function]}
-    >
-      <div
-        className=" sc-fzXfLP corfVh"
+      <form
+        onSubmit={[Function]}
       >
-        <input
-          className="sc-fzXfLP corfVh"
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          placeholder="Email address"
-          type="email"
-          value=""
-        />
-      </div>
-      <ul
-        className="sc-LzNNB gCEsyh"
-      >
-        <li
-          className="sc-LzNNC jmrVbR"
+        <div
+          className="sc-LzNMU eClntA"
         >
-          <label>
-            <label
-              className="sc-fzXfOs dLsnPu"
-              size="SMALL"
+          <div
+            className="sc-LzNMS bvPmDr"
+          >
+            <div
+              className="sc-fzXfPE extTbQ"
             >
+              <section>
+                <div
+                  className="sc-fzXfPf cAeabD"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragEnter={[Function]}
+                  onDragLeave={[Function]}
+                  onDragOver={[Function]}
+                  onDrop={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  tabIndex={0}
+                >
+                  <input
+                    autoComplete="off"
+                    multiple={true}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "display": "none",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="file"
+                  />
+                  <p>
+                    Drag and drop an image here
+                  </p>
+                </div>
+              </section>
+              or
               <input
-                checked={true}
                 onChange={[Function]}
-                type="checkbox"
+                style={
+                  Object {
+                    "display": "none",
+                  }
+                }
+                type="file"
               />
-              <span
-                className="sc-fzXfOr cHHeOg"
+              <button
+                className="sc-fzXfOu sc-fzXfOw hhVJSL"
+                onClick={[Function]}
                 size="SMALL"
-              />
-            </label>
-            <span
-              className="sc-LzNND ulmvK"
-            >
-              Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
-            </span>
-          </label>
-        </li>
-      </ul>
+                theme={
+                  Object {
+                    "invertedButtonBackground": "#FFFFFF",
+                    "invertedButtonColor": "#2B56FF",
+                  }
+                }
+                type="button"
+              >
+                 
+                Upload Image
+                 
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
       <div
-        className="sc-LzNNE bonoeZ"
+        className="sc-LzNxh dcfQCa"
       >
-        <button
-          className="sc-fzXfOu sc-fzXfOv gzeMpR"
-          size="SMALL_WIDE"
-          textTransform="none"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="submit"
+        <span
+          className="sc-LzNNy cqVTzf"
+          onClick={[Function]}
         >
-          Save Email
-        </button>
+          Skip for now
+        </span>
       </div>
-    </form>
-    <div
-      className="sc-LzNNF lfnDNi"
-    >
-      <span
-        className="sc-LzNOO gCFvSh"
-        onClick={[Function]}
-      >
-        Skip for now
-      </span>
     </div>
   </div>
   <button
@@ -212,7 +209,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
               }
             }
           >
-            UserSetEmail
+            UserSetAvatar
           </h2>
         </div>
         

@@ -448,7 +448,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
         You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible to sell them here.
       </p>
       <div
-        className="sc-LzNbz cmluOF"
+        className="sc-LzNcb gFUTIq"
       >
         <h4>
           <svg
@@ -482,7 +482,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
           . And that’s it.
         </p>
         <a
-          className="sc-fzXfOs sc-fzXfOu sc-LzNah kAKSSO"
+          className="sc-fzXfOu sc-fzXfOw sc-LzNam jNkuYf"
           href="/dashboard/tasks/transfer-voting-tokens"
           onClick={[Function]}
           theme={
@@ -928,14 +928,14 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
       className="sc-LzNQM cXugbj"
     >
       <div
-        className="sc-LzMCi eIxuGt"
+        className="sc-LzMCK grXBhz"
         type={0}
       >
         <div
-          className="sc-LzMCj fsBbyC"
+          className="sc-LzMCL eEwmQM"
         />
         <div
-          className="sc-LzMCH HaBpo"
+          className="sc-LzMCM juULl"
         >
           notes for storybooks: if you are actually trying to buy you might have troubles. make sure the storefrontEthPrice graphql mock gets updated to the current price.
         </div>

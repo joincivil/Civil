@@ -60,10 +60,8 @@ const ZoomContainer = styled.div`
   margin-top: 10px;
 `;
 
-const ZoomSliderContainer = styled.div`
-`;
-const ZoomIconContainer = styled.div`
-`;
+const ZoomSliderContainer = styled.div``;
+const ZoomIconContainer = styled.div``;
 
 const SaveButtonContainer = styled.div`
   margin-left: 10px;
@@ -131,9 +129,13 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
             return (
               <form onSubmit={async event => this.handleSubmit(event, setAvatar, channelID)}>
                 {this.renderAvatarSelector()}
-                {this.state.image &&
+                {this.state.image && (
                   <SkipAndSaveButtonsContainer>
-                    <InvertedButton size={buttonSizes.SMALL} textTransform={"none"} onClick={() => this.setState({image: undefined})}>
+                    <InvertedButton
+                      size={buttonSizes.SMALL}
+                      textTransform={"none"}
+                      onClick={() => this.setState({ image: undefined })}
+                    >
                       Go back
                     </InvertedButton>
                     <SaveButtonContainer>
@@ -142,19 +144,19 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
                       </Button>
                     </SaveButtonContainer>
                   </SkipAndSaveButtonsContainer>
-                }
+                )}
               </form>
             );
           }}
         </Mutation>
 
-        { !this.state.image &&
+        {!this.state.image && (
           <SkipForNowButtonContainer>
             <ApolloConsumer>
               {client => <SkipButton onClick={() => this.onSkipForNowClicked(client)}>Skip for now</SkipButton>}
             </ApolloConsumer>
           </SkipForNowButtonContainer>
-        }
+        )}
       </UserSetAvatarContainer>
     );
   }
@@ -180,7 +182,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
   private renderAvatarSelector(): JSX.Element {
     return (
       <AvatarEditorContainerDiv>
-        { this.state.image &&
+        {this.state.image && (
           <AvatarEditorDiv>
             <AvatarEditorInnerDiv>
               <AvatarEditor
@@ -204,14 +206,17 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
               </ZoomIconContainer>
               <ZoomSliderContainer>
                 <Slider
-                  styles={{ track: { backgroundColor: colors.accent.CIVIL_GRAY_4 }, active: { backgroundColor: colors.accent.CIVIL_GRAY_4}}}
+                  styles={{
+                    track: { backgroundColor: colors.accent.CIVIL_GRAY_4 },
+                    active: { backgroundColor: colors.accent.CIVIL_GRAY_4 },
+                  }}
                   axis="x"
                   xmin={100}
                   xmax={400}
-                  x={(this.state.scale * 100)}
+                  x={this.state.scale * 100}
                   onChange={(xy: any) => {
-                    this.setState({ scale: (xy.x / 100)})}
-                  }
+                    this.setState({ scale: xy.x / 100 });
+                  }}
                 />
               </ZoomSliderContainer>
               <ZoomIconContainer>
@@ -219,12 +224,12 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
               </ZoomIconContainer>
             </ZoomContainer>
           </AvatarEditorDiv>
-        }
-        { !this.state.image &&
+        )}
+        {!this.state.image && (
           <AvatarEditorDiv>
-          <AvatarDragAndDrop onChange={this.handleNewImage} />
-        </AvatarEditorDiv>
-        }
+            <AvatarDragAndDrop onChange={this.handleNewImage} />
+          </AvatarEditorDiv>
+        )}
       </AvatarEditorContainerDiv>
     );
   }

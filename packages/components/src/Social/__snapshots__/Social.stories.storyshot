@@ -14,13 +14,13 @@ exports[`Storyshots Pattern Library / Social Follow component 1`] = `
       className="sc-LzNQI drGAcR"
     >
       <div
-        className="sc-LzNvg Gcngd"
+        className="sc-LzNvl cItOJu"
       >
         <label>
           Follow
         </label>
         <div
-          className="sc-LzNvh dGAAzK"
+          className="sc-LzNvm ePKFOn"
         >
           <a
             href="https://www.facebook.com/JoinCivil/"
@@ -1155,13 +1155,13 @@ exports[`Storyshots Pattern Library / Social Share component 1`] = `
       className="sc-LzNQI drGAcR"
     >
       <div
-        className="sc-LzNvg Gcngd"
+        className="sc-LzNvl cItOJu"
       >
         <label>
           Follow
         </label>
         <div
-          className="sc-LzNvh dGAAzK"
+          className="sc-LzNvm ePKFOn"
         >
           <a
             onClick={[Function]}

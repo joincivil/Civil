@@ -14,7 +14,7 @@ const DropArea = styled.div`
   width: 336px;
   box-sizing: border-box;
   height: 336px;
-  background-color: #F9FAFF;
+  background-color: #f9faff;
   border: 2px dashed ${colors.primary.CIVIL_BLUE_1};
   color: ${colors.primary.CIVIL_GRAY_2};
   border-radius: 168px;
@@ -43,21 +43,19 @@ const WholeContainer = styled.div`
 `;
 
 export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToDataUriProps, {}> {
-
-  private readonly inputOpenFileRef: RefObject<HTMLInputElement>
+  private readonly inputOpenFileRef: RefObject<HTMLInputElement>;
 
   constructor(props: SimpleImageFileToDataUriProps) {
-    super(props)
+    super(props);
 
-    this.inputOpenFileRef = React.createRef()
+    this.inputOpenFileRef = React.createRef();
   }
 
   public showOpenFileDlg = () => {
-    this.inputOpenFileRef!.current!.click()
-  }
+    this.inputOpenFileRef!.current!.click();
+  };
 
   public renderDropZone(): JSX.Element | null {
-
     return (
       <>
         <Dropzone onDrop={this.createDataUrlFromFile}>
@@ -70,7 +68,7 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
             </section>
           )}
         </Dropzone>
-        </>
+      </>
     );
   }
 
@@ -79,8 +77,13 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
       <WholeContainer>
         {this.renderDropZone()}
         or
-        <input ref={this.inputOpenFileRef} type="file" style={{ display: "none" }} onChange={this.createDataUrlFromFile2} />
-        <InvertedButton size={buttonSizes.SMALL} onClick={() => this.showOpenFileDlg()} >
+        <input
+          ref={this.inputOpenFileRef}
+          type="file"
+          style={{ display: "none" }}
+          onChange={this.createDataUrlFromFile2}
+        />
+        <InvertedButton size={buttonSizes.SMALL} onClick={() => this.showOpenFileDlg()}>
           {" "}
           {this.props.buttonText || "Upload Image"}{" "}
         </InvertedButton>
@@ -99,5 +102,5 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
 
   private createDataUrlFromFile2 = (e: any) => {
     this.props.onChange(e.target.files[0]);
-  }
+  };
 }
