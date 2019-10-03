@@ -64,7 +64,8 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
     // We create this dummy proxy so that `this.multisigProxy` is always available and can be used without knowing if this is a multisig instance or not - the proxy handles non-multisig instances as well.
     const multisigProxyDummy = CivilTCRMultisigProxy.createNonMultisig(ethApi, instance);
 
-    const defaultBlock = getDefaultFromBlock(await ethApi.network());
+    const network = await ethApi.network();
+    const defaultBlock = getDefaultFromBlock(network);
     return new CivilTCR(
       ethApi,
       contentProvider,

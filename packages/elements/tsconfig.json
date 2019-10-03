@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "outDir": "build/",
+    "declaration": true,
+    "declarationDir": "build/",
+    "jsx": "react",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "lib": ["dom", "es2017"]
+  },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"]
+}

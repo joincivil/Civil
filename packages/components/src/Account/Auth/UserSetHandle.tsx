@@ -96,7 +96,7 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
     return (
       <>
         {headerComponent}
-        <Mutation mutation={setHandleMutation}>
+        <Mutation<any> mutation={setHandleMutation}>
           {setHandle => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, setHandle, channelID)}>

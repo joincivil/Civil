@@ -25,7 +25,7 @@ export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
   }
 
   return (
-    <Query query={getCurrentUserQuery}>
+    <Query<any> query={getCurrentUserQuery}>
       {({ loading, error, data }) => {
         if (loading || error) {
           return renderFunction({ user: null, loading });

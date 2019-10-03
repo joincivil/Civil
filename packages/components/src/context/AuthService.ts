@@ -1,5 +1,26 @@
 import ApolloClient from "apollo-client";
 import { clearApolloSession, setApolloSession, getCurrentUserQuery, getApolloSession } from "@joincivil/utils";
+import gql from "graphql-tag";
+
+const authLoginEthMutation = gql`
+  mutation($input: UserSignatureInput!) {
+    authWeb3: authLoginEth(input: $input) {
+      token
+      refreshToken
+      uid
+    }
+  }
+`;
+
+const authSignupEthMutation = gql`
+  mutation($input: UserSignatureInput!) {
+    authWeb3: authSignupEth(input: $input) {
+      token
+      refreshToken
+      uid
+    }
+  }
+`;
 
 export interface AuthServiceOptions {
   apolloClient: ApolloClient<any>;
@@ -29,12 +50,23 @@ export class AuthService {
   }
 
   public logout(): void {
+    console.log("AuthService logout");
     clearApolloSession();
     delete this.currentUser;
     if (this.onAuthChange) {
       this.onAuthChange();
     }
   }
+
+  public async authenticate(signature: any): Promise<any> {
+    console.log("sending authenticate mutation", signature);
+    return this.graphqlLoginSignup(authLoginEthMutation, signature);
+  }
+  public async signup(signature: any): Promise<any> {
+    console.log("sending signup mutation", signature);
+    return this.graphqlLoginSignup(authSignupEthMutation, signature);
+  }
+
   public async loginUser(session: any): Promise<void> {
     setApolloSession(session);
 
@@ -51,5 +83,20 @@ export class AuthService {
       throw new Error("error fetching user");
     }
     return result.data.currentUser;
+  }
+
+  private async graphqlLoginSignup(mutation: any, signature: any): Promise<any> {
+    // TODO(dankins): graphql API requires messageHash, r,s,v but they aren't actually used
+    const signatureWithHack = { ...signature, messageHash: "n/a", r: "n/a", s: "n/a", v: "n/a" };
+    const res = await this.apolloClient.mutate({
+      mutation,
+      variables: { input: signatureWithHack },
+    });
+    if (res && res.data && res.data.authWeb3) {
+      await this.loginUser(res.data.authWeb3);
+    } else {
+      console.error("Failed to validate and log in with ETH address. Response:", res);
+      throw Error("Failed to validate and log in with ETH address");
+    }
   }
 }

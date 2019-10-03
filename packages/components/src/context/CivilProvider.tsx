@@ -6,6 +6,8 @@ import { KirbyEthereum, KirbyEthereumProvider, KirbyEthereumContext } from "@kir
 import { ApolloConsumer } from "react-apollo";
 import ApolloClient from "apollo-client";
 
+import { IdentityParentPlugin } from "./IdentityParentPlugin";
+
 export interface CivilInnerProviderProps {
   config: any;
   featureFlags: string[];
@@ -29,6 +31,7 @@ const CivilInnerProvider: React.FunctionComponent<CivilInnerProviderProps> = ({
 
   const baseContext = React.useMemo(() => {
     function onAuthChange(nextUser: any): void {
+      console.log("auth change", nextUser);
       setCurrentUser(nextUser);
     }
 
@@ -63,6 +66,10 @@ export const CivilProvider: React.FunctionComponent<CivilProviderProps> = ({
     return new FeatureFlagService(featureFlags);
   }, [featureFlags]);
 
+  const plugins = React.useMemo(() => {
+    return [new IdentityParentPlugin()];
+  }, []);
+
   if (!featureFlagService.featureEnabled("kirby")) {
     const mockKirby = React.useMemo(() => {
       const web3 = makeLegacyWeb3();
@@ -86,7 +93,7 @@ export const CivilProvider: React.FunctionComponent<CivilProviderProps> = ({
   return (
     <ApolloConsumer>
       {client => (
-        <KirbyEthereumProvider config={pluginConfig}>
+        <KirbyEthereumProvider config={pluginConfig} plugins={plugins}>
           <CivilInnerProvider featureFlags={featureFlags} config={config} apolloClient={client}>
             {children}
           </CivilInnerProvider>
