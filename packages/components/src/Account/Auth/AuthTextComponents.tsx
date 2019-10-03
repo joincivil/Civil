@@ -5,6 +5,8 @@ import {
   PageSubHeadingCentered,
   PageHeadingCentered,
   PageHeadingTextCenteredLarge,
+  PageHeadingLeftAligned,
+  PageHeadingTextLeftAligned,
 } from "../../Heading";
 import { Link } from "react-router-dom";
 
@@ -92,10 +94,10 @@ export const AuthTextSetHandle: React.FunctionComponent = () => (
 
 export const AuthTextSetAvatar: React.FunctionComponent = () => (
   <>
-    <PageHeadingCentered>Welcome to the Civil community</PageHeadingCentered>
-    <PageHeadingTextCentered>
-      To help the Civil community identify you, please select an avatar.
-    </PageHeadingTextCentered>
+    <PageHeadingLeftAligned>Add profile photo</PageHeadingLeftAligned>
+    <PageHeadingTextLeftAligned>
+      To help the Civil community identify you, add a profile image.
+    </PageHeadingTextLeftAligned>
   </>
 );
 

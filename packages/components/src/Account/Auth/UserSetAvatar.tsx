@@ -1,14 +1,16 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
-import { Button, buttonSizes } from "../../Button";
-import { ConfirmButtonContainer, SkipForNowButtonContainer } from "./AuthStyledComponents";
+import { Button, InvertedButton, buttonSizes } from "../../Button";
+import { SkipForNowButtonContainer } from "./AuthStyledComponents";
 import AvatarEditor from "react-avatar-editor";
 import styled from "styled-components";
 import { AvatarDragAndDrop } from "./AvatarDragAndDrop";
 import ApolloClient from "apollo-client";
 import { fonts } from "../../styleConstants";
 import Slider from "react-input-slider";
+import { ZoomInIcon, ZoomOutIcon } from "../../icons";
+import { colors } from "@joincivil/elements";
 
 const setAvatarMutation = gql`
   mutation($input: ChannelsSetAvatarInput!) {
@@ -26,6 +28,10 @@ const skipSetAvatarMutation = gql`
   }
 `;
 
+const UserSetAvatarContainer = styled.div`
+  width: 400px;
+`;
+
 const AvatarEditorDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,16 +39,40 @@ const AvatarEditorDiv = styled.div`
   justify-content: space-around;
 `;
 
-const CropSpan = styled.span``;
+const CropSpan = styled.span`
+  margin-top: 15px;
+`;
 
 const AvatarEditorContainerDiv = styled.div`
-  height: 500px;
+  margin-bottom: 25px;
+`;
+
+const AvatarEditorInnerDiv = styled.div`
+  margin-top: 15px;
 `;
 
 const ZoomContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  width: 336px;
+  margin-top: 10px;
+`;
+
+const ZoomSliderContainer = styled.div`
+`;
+const ZoomIconContainer = styled.div`
+`;
+
+const SaveButtonContainer = styled.div`
+  margin-left: 10px;
+`;
+
+const SkipAndSaveButtonsContainer = styled.div`
+  width: 400px;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const SkipButton = styled.span`
@@ -94,20 +124,25 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
     const { headerComponent, channelID } = this.props;
 
     return (
-      <>
+      <UserSetAvatarContainer>
         {headerComponent}
         <Mutation<any> mutation={setAvatarMutation}>
           {setAvatar => {
             return (
               <form onSubmit={async event => this.handleSubmit(event, setAvatar, channelID)}>
                 {this.renderAvatarSelector()}
-                <ConfirmButtonContainer>
-                  {this.state.image &&
-                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
-                    Save
-                  </Button>
-                  }
-                </ConfirmButtonContainer>
+                {this.state.image &&
+                  <SkipAndSaveButtonsContainer>
+                    <InvertedButton size={buttonSizes.SMALL} textTransform={"none"} onClick={() => this.setState({image: undefined})}>
+                      Go back
+                    </InvertedButton>
+                    <SaveButtonContainer>
+                      <Button size={buttonSizes.SMALL} textTransform={"none"} type={"submit"}>
+                        Save
+                      </Button>
+                    </SaveButtonContainer>
+                  </SkipAndSaveButtonsContainer>
+                }
               </form>
             );
           }}
@@ -120,7 +155,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
             </ApolloConsumer>
           </SkipForNowButtonContainer>
         }
-      </>
+      </UserSetAvatarContainer>
     );
   }
 
@@ -147,26 +182,42 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
       <AvatarEditorContainerDiv>
         { this.state.image &&
           <AvatarEditorDiv>
-            <AvatarEditor
-              ref={(el: any) => {
-                this.editor = el;
-              }}
-              image={this.state.image ? this.state.image : ""}
-              width={336}
-              height={336}
-              border={0}
-              borderRadius={168}
-              color={[255, 255, 255, 0.6]} // RGBA
-              scale={this.state.scale}
-              rotate={0}
-            />
+            <AvatarEditorInnerDiv>
+              <AvatarEditor
+                ref={(el: any) => {
+                  this.editor = el;
+                }}
+                image={this.state.image ? this.state.image : ""}
+                width={336}
+                height={336}
+                border={0}
+                borderRadius={168}
+                color={[255, 255, 255, 0.6]} // RGBA
+                scale={this.state.scale}
+                rotate={0}
+              />
+            </AvatarEditorInnerDiv>
             <CropSpan>Crop your photo</CropSpan>
             <ZoomContainer>
-            <Slider axis="x" xmin={100} xmax={400} x={(this.state.scale * 100)} onChange={(xy: any) => {
-              console.log("onChange. x: ", (xy.x) / 100);
-              this.setState({ scale: (xy.x / 100)})}
-              } />
-          </ZoomContainer>
+              <ZoomIconContainer>
+                <ZoomOutIcon />
+              </ZoomIconContainer>
+              <ZoomSliderContainer>
+                <Slider
+                  styles={{ track: { backgroundColor: colors.accent.CIVIL_GRAY_4 }, active: { backgroundColor: colors.accent.CIVIL_GRAY_4}}}
+                  axis="x"
+                  xmin={100}
+                  xmax={400}
+                  x={(this.state.scale * 100)}
+                  onChange={(xy: any) => {
+                    this.setState({ scale: (xy.x / 100)})}
+                  }
+                />
+              </ZoomSliderContainer>
+              <ZoomIconContainer>
+                <ZoomInIcon />
+              </ZoomIconContainer>
+            </ZoomContainer>
           </AvatarEditorDiv>
         }
         { !this.state.image &&
