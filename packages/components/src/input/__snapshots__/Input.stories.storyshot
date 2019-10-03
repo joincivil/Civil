@@ -309,7 +309,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfNK jbdZTu"
+      className="sc-fzXfNL kIagwr"
     >
       <div
         className=" sc-fzXfMw koOATN"
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-fzXfNL dfgCZe"
+        className="sc-fzXfNM mBDNf"
       >
         CVL
       </div>
@@ -1184,7 +1184,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
   >
     <div>
       <div
-        className="sc-fzXfNi etWsxs"
+        className="sc-fzXfNj iJyFLR"
       >
         <label
           className="sc-fzXfLX KBzex"
@@ -1193,7 +1193,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
         </label>
         <div>
           <div
-            className="sc-fzXfNh dkMDZb"
+            className="sc-fzXfNi loyLmU"
           >
             <input
               defaultChecked={false}
@@ -1202,7 +1202,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="daily"
             />
             <button
-              className="sc-fzXfMD sc-fzXfNd iydVQB"
+              className="sc-fzXfME sc-fzXfNe ipkhPK"
               onClick={[Function]}
               theme={
                 Object {
@@ -1219,7 +1219,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNh dkMDZb"
+            className="sc-fzXfNi loyLmU"
           >
             <input
               defaultChecked={false}
@@ -1228,7 +1228,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="weekly"
             />
             <button
-              className="sc-fzXfMD sc-fzXfNd iydVQB"
+              className="sc-fzXfME sc-fzXfNe ipkhPK"
               onClick={[Function]}
               theme={
                 Object {
@@ -1245,7 +1245,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNh dkMDZb"
+            className="sc-fzXfNi loyLmU"
           >
             <input
               defaultChecked={false}
@@ -1254,7 +1254,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="monthly"
             />
             <button
-              className="sc-fzXfMD sc-fzXfNd iydVQB"
+              className="sc-fzXfME sc-fzXfNe ipkhPK"
               onClick={[Function]}
               theme={
                 Object {
@@ -1271,7 +1271,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNh dkMDZb"
+            className="sc-fzXfNi loyLmU"
           >
             <input
               defaultChecked={false}
@@ -1280,7 +1280,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="yearly"
             />
             <button
-              className="sc-fzXfMD sc-fzXfNd iydVQB"
+              className="sc-fzXfME sc-fzXfNe ipkhPK"
               onClick={[Function]}
               theme={
                 Object {
@@ -2147,7 +2147,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfNR djRSee"
+        className="sc-fzXfNS bxcmBx"
       >
         <div
           className=" sc-fzXfMw koOATN"
@@ -2164,7 +2164,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
           />
         </div>
         <button
-          className="sc-fzXfMD sc-fzXfME eqxXLm"
+          className="sc-fzXfME sc-fzXfNc KrJoS"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfNS bsaGKn"
+        className="sc-fzXfOq inEfQe"
       />
     </form>
   </div>
@@ -2740,7 +2740,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfNK jbdZTu"
+      className="sc-fzXfNL kIagwr"
     >
       <div
         className=" sc-fzXfMw koOATN"
@@ -3308,7 +3308,7 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
     }
   >
     <button
-      className="sc-fzXfMD sc-fzXfNc ijEYXT"
+      className="sc-fzXfME sc-fzXfNd kNTfiA"
       onClick={[Function]}
       size="SMALL"
       theme={

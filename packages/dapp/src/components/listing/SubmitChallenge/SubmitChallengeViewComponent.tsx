@@ -3,7 +3,6 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
@@ -37,6 +36,7 @@ import {
   SubmitChallengeReduxParametersProps,
 } from "./SubmitChallengeTypes";
 import InsufficientBalanceSnackBar from "./InsufficientBalanceSnackBar";
+import { connectParameters, ParametersProps } from "../../utility/HigherOrderComponents";
 
 const StyledConfirmModalContent = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};
@@ -136,7 +136,8 @@ class SubmitChallengeComponent extends React.Component<
     SubmitChallengeReduxProps &
     SubmitChallengeReduxParametersProps &
     InjectedTransactionStatusModalProps &
-    DispatchProp<any>,
+    DispatchProp<any> &
+    ParametersProps,
   SubmitChallengeState
 > {
   public static contextType = CivilHelperContext;
@@ -165,31 +166,27 @@ class SubmitChallengeComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const {
-      listingURI,
-      newsroomName,
-      governanceGuideURI,
-      minDeposit,
-      commitStageLen,
-      revealStageLen,
-      balance: balanceBN,
-    } = this.props;
+    const { listingURI, newsroomName, governanceGuideURI, balance: balanceBN } = this.props;
 
     const { civil } = this.context;
-    const displayMinDeposit = getFormattedParameterValue(Parameters.minDeposit, civil.toBigNumber(minDeposit));
+
+    const displayMinDeposit = getFormattedParameterValue(
+      Parameters.minDeposit,
+      civil.toBigNumber(this.props.parameters.get(Parameters.minDeposit)),
+    );
     const displayCommitStageLen = getFormattedParameterValue(
       Parameters.commitStageLen,
-      civil.toBigNumber(commitStageLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.commitStageLen)),
     );
     const displayRevealStageLen = getFormattedParameterValue(
       Parameters.revealStageLen,
-      civil.toBigNumber(revealStageLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.revealStageLen)),
     );
     let isInsufficientBalance;
     if (!balanceBN) {
       isInsufficientBalance = true;
     } else {
-      isInsufficientBalance = balanceBN.lt(minDeposit);
+      isInsufficientBalance = balanceBN.lt(this.props.parameters.get(Parameters.minDeposit));
     }
 
     const props: SubmitChallengeStatementProps = {
@@ -208,7 +205,7 @@ class SubmitChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance && minDeposit && (
+        {isInsufficientBalance && this.props.parameters.get(Parameters.minDeposit) && (
           <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
         )}
         <SubmitChallengeStatementComponent {...props} />
@@ -376,25 +373,14 @@ const mapStateToProps = (
   state: State,
   ownProps: SubmitChallengeProps & SubmitChallengeReduxProps,
 ): SubmitChallengeProps & SubmitChallengeReduxParametersProps => {
-  const { parameters, user } = state.networkDependent;
+  const { user } = state.networkDependent;
 
-  let minDeposit = new BigNumber(0);
-  let commitStageLen = new BigNumber(0);
-  let revealStageLen = new BigNumber(0);
-  if (parameters && Object.keys(parameters).length) {
-    minDeposit = parameters[Parameters.minDeposit];
-    commitStageLen = parameters[Parameters.commitStageLen];
-    revealStageLen = parameters[Parameters.revealStageLen];
-  }
   let balance;
   if (user && user.account && user.account.balance) {
     balance = user.account.balance;
   }
 
   return {
-    minDeposit,
-    commitStageLen,
-    revealStageLen,
     balance,
     ...ownProps,
   };
@@ -403,4 +389,5 @@ const mapStateToProps = (
 export default compose(
   connect(mapStateToProps),
   hasTransactionStatusModals(transactionStatusModalConfig),
+  connectParameters,
 )(SubmitChallengeComponent) as React.ComponentClass<SubmitChallengeProps>;

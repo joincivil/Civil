@@ -27,14 +27,14 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNto fszWzz"
+        className="sc-LzNvN hKtzRV"
       >
         <li
-          className="sc-LzNtp llOeJM"
+          className="sc-LzNvO PbVph"
         >
           <label>
             <label
-              className="sc-fzXfNJ IqFez"
+              className="sc-fzXfNK hpUWWu"
               size="SMALL"
             >
               <input
@@ -43,12 +43,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNl kWGrR"
+                className="sc-fzXfNJ exRLLP"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNtq cxOOGB"
+              className="sc-LzNvP fDmDqm"
             >
               I agree to Civil's 
               <a
@@ -61,11 +61,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
-          className="sc-LzNtp llOeJM"
+          className="sc-LzNvO PbVph"
         >
           <label>
             <label
-              className="sc-fzXfNJ IqFez"
+              className="sc-fzXfNK hpUWWu"
               size="SMALL"
             >
               <input
@@ -74,12 +74,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNl kWGrR"
+                className="sc-fzXfNJ exRLLP"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNtq cxOOGB"
+              className="sc-LzNvP fDmDqm"
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -87,10 +87,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNtr bDFviM"
+        className="sc-LzNvQ jDgmwF"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME cUXPCo disabled"
+          className="sc-fzXfME sc-fzXfNc bNdDxM disabled"
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"

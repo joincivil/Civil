@@ -25,6 +25,7 @@ import {
   TransactionStatusModalContentMap,
 } from "../utility/TransactionStatusModalsHOC";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
+import { connectParameters, ParametersProps } from "../utility/HigherOrderComponents";
 
 export interface SubmitAppealChallengePageProps {
   match: any;
@@ -41,8 +42,6 @@ interface SubmitAppealChallengeProps {
 interface SubmitAppealChallengeReduxProps {
   newsroomName: string;
   appealFee: BigNumber;
-  challengeAppealCommitLen: BigNumber;
-  challengeAppealRevealLen: BigNumber;
   appealVotePercentage: BigNumber;
   balance: BigNumber;
 }
@@ -108,7 +107,7 @@ const transactionStatusModalConfig = {
 };
 
 class SubmitAppealChallengeComponent extends React.Component<
-  SubmitAppealChallengeProps & SubmitAppealChallengeReduxProps & InjectedTransactionStatusModalProps,
+  SubmitAppealChallengeProps & SubmitAppealChallengeReduxProps & InjectedTransactionStatusModalProps & ParametersProps,
   SubmitAppealChallengeState
 > {
   public static contextType = CivilHelperContext;
@@ -134,8 +133,6 @@ class SubmitAppealChallengeComponent extends React.Component<
       newsroomName,
       governanceGuideURI,
       appealFee,
-      challengeAppealCommitLen,
-      challengeAppealRevealLen,
       appealVotePercentage,
       balance: balanceBN,
     } = this.props;
@@ -143,11 +140,11 @@ class SubmitAppealChallengeComponent extends React.Component<
     const { civil } = this.context;
     const displayChallengeAppealCommitLen = getFormattedParameterValue(
       Parameters.challengeAppealCommitLen,
-      civil.toBigNumber(challengeAppealCommitLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.challengeAppealCommitLen)),
     );
     const displayChallengeAppealRevealLen = getFormattedParameterValue(
       Parameters.challengeAppealRevealLen,
-      civil.toBigNumber(challengeAppealRevealLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.challengeAppealRevealLen)),
     );
 
     const displayAppealFee = getFormattedParameterValue(GovernmentParameters.appealFee, civil.toBigNumber(appealFee));
@@ -157,7 +154,7 @@ class SubmitAppealChallengeComponent extends React.Component<
     );
 
     const balance = civil.toBigNumber(balanceBN);
-    const isInsufficientBalance = balance.lt(civil.toBigNumber(GovernmentParameters.appealFee));
+    const isInsufficientBalance = balance.lt(civil.toBigNumber(appealFee));
 
     const props: SubmitAppealChallengeStatementProps = {
       listingURI,
@@ -264,10 +261,19 @@ class SubmitAppealChallengeComponent extends React.Component<
         <>
           <ModalContent>
             This challenge is now accepting votes. The CVL token-holding community will have the next{" "}
-            {this.props.challengeAppealCommitLen} to commit their secret votes, and{" "}
-            {this.props.challengeAppealRevealLen} to confirm their vote. To prevent decision bias, all votes will be
-            hidden using a secret phrase, until the end of the voting. Only a supermajority (
-            {this.props.appealVotePercentage}) from the community can overturn the Civil Council's decision.
+            {getFormattedParameterValue(
+              Parameters.challengeAppealCommitLen,
+              this.props.parameters.get(Parameters.challengeAppealCommitLen),
+            )}{" "}
+            to commit their secret votes, and{" "}
+            {getFormattedParameterValue(
+              Parameters.challengeAppealRevealLen,
+              this.props.parameters.get(Parameters.challengeAppealRevealLen),
+            )}{" "}
+            to confirm their vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the
+            end of the voting. Only a supermajority (
+            {getFormattedParameterValue(GovernmentParameters.appealVotePercentage, this.props.appealVotePercentage)})
+            from the community can overturn the Civil Council's decision.
           </ModalContent>
           <ModalContent>
             You may vote on your own challenge using your CVL voting tokens, which is separate from your challenge
@@ -328,30 +334,23 @@ const mapStateToProps = (
     newsroomName = newsroom.wrapper.data.name;
   }
 
-  const { parameters, govtParameters, user } = state.networkDependent;
+  const { govtParameters, user } = state.networkDependent;
 
   let appealFee = new BigNumber(0);
-  let challengeAppealCommitLen = new BigNumber(0);
-  let challengeAppealRevealLen = new BigNumber(0);
   let appealVotePercentage = new BigNumber(0);
-  if (parameters && Object.keys(parameters).length) {
-    challengeAppealCommitLen = parameters[Parameters.challengeAppealCommitLen];
-    challengeAppealRevealLen = parameters[Parameters.challengeAppealRevealLen];
-  }
+
   if (govtParameters && Object.keys(govtParameters).length) {
     appealFee = govtParameters[GovernmentParameters.appealFee];
     appealVotePercentage = govtParameters[GovernmentParameters.appealVotePercentage];
   }
   let balance = new BigNumber(0);
-  if (user) {
+  if (user && user.account && user.account.balance) {
     balance = user.account.balance;
   }
 
   return {
     newsroomName,
     appealFee,
-    challengeAppealCommitLen,
-    challengeAppealRevealLen,
     appealVotePercentage,
     balance,
     ...ownProps,
@@ -374,6 +373,7 @@ const InsufficientBalanceSnackBar: React.FunctionComponent<InsufficientBalanceSn
 const SubmitAppealChallenge = compose(
   connect(mapStateToProps),
   hasTransactionStatusModals(transactionStatusModalConfig),
+  connectParameters,
 )(SubmitAppealChallengeComponent) as React.ComponentClass<SubmitAppealChallengeProps>;
 
 const SubmitAppealChallengePage = (props: SubmitAppealChallengePageProps) => {

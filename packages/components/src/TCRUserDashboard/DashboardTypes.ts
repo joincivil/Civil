@@ -35,6 +35,7 @@ export interface DashboardActivityItemProposalCTAButtonProps {
   didUserReveal?: boolean;
   canUserCollect?: boolean;
   canUserRescue?: boolean;
+  canResolveChallenge?: boolean;
   onClick?(): void;
 }
 

@@ -244,8 +244,10 @@ class RequestAppealComponent extends React.Component<
         </>,
         <>
           <ModalContent>
-            The Civil Council has {this.props.judgeAppealLen} to review the vote. They will publish at least one public
-            document outlining the Constitutional rationale for their decision. Please check back for their decision.
+            The Civil Council has{" "}
+            {getFormattedParameterValue(GovernmentParameters.judgeAppealLen, this.props.judgeAppealLen)} to review the
+            vote. They will publish at least one public document outlining the Constitutional rationale for their
+            decision. Please check back for their decision.
           </ModalContent>
         </>,
       ],

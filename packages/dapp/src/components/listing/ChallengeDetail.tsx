@@ -45,6 +45,7 @@ import {
   ChallengeContainerProps,
   connectChallengeResults,
   connectChallengePhase,
+  connectParameters,
 } from "../utility/HigherOrderComponents";
 import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
 import { Query } from "react-apollo";
@@ -101,7 +102,6 @@ export interface ChallengeContainerReduxProps {
   user: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
-  parameters: any;
   govtParameters: any;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
@@ -118,7 +118,6 @@ export interface ChallengeDetailProps {
   challengeState: any;
   appealChallengeID?: BigNumber;
   appealChallengeState: any;
-  parameters?: any;
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
@@ -408,7 +407,6 @@ const makeMapStateToProps = () => {
       challengesFetching,
       challenges,
       user,
-      parameters,
       govtParameters,
       councilMultisigTransactions,
       grantAppealTxs,
@@ -455,7 +453,6 @@ const makeMapStateToProps = () => {
       user: userAcct.account,
       balance: user.account.balance,
       votingBalance: user.account.votingBalance,
-      parameters,
       govtParameters,
       isMemberOfAppellate,
       txIdToConfirm,
@@ -468,4 +465,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default connect(makeMapStateToProps)(ChallengeContainer);
+export default compose(
+  connect(makeMapStateToProps),
+  connectParameters,
+)(ChallengeContainer);

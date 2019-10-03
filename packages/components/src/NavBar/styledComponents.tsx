@@ -122,13 +122,19 @@ export const AvatarContainer = styled.div`
 export const HandleContainer = styled.div`
   align-items: center;
   display: flex;
-  width: 60px;
   margin-right: 16px;
 `;
 
-export const UserAvatar = styled.figure`
+export const UserAvatarFigure = styled.figure`
   background-color: ${colors.accent.CIVIL_TEAL};
   border: 2px solid ${colors.basic.WHITE};
+  border-radius: 50%;
+  height: 36px;
+  margin: 0 8px 0 0;
+  width: 36px;
+`;
+
+export const UserAvatar = styled.img`
   border-radius: 50%;
   height: 36px;
   margin: 0 8px 0 0;

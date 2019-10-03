@@ -15,6 +15,7 @@ import {
   NavBarButton,
   BorderlessNavBarButton,
   HandleContainer,
+  UserAvatarFigure,
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
 import { CivilContext, ICivilContext } from "../context";
@@ -42,6 +43,9 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
       });
     }
 
+    const tiny72AvatarDataUrl = civilUser.userChannel!.tiny72AvatarDataUrl;
+    const showFigure = !tiny72AvatarDataUrl;
+
     return (
       <>
         <StyledVisibleIfLoggedInLink>
@@ -53,7 +57,8 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           <NavUser onClick={(ev: any) => props.toggleDrawer()}>
             <CvlContainer>
               <AvatarContainer>
-                <UserAvatar />
+                {tiny72AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny72AvatarDataUrl} />}
+                {showFigure && <UserAvatarFigure />}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
               <Arrow isOpen={props.isUserDrawerOpen} />

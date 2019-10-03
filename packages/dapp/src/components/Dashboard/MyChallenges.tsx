@@ -72,6 +72,7 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
           <>
             <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
             <MyTasksList
+              userChallengeData={userChallengeData}
               challenges={currentUserChallengesStarted}
               showClaimRewardsTab={showClaimRewardsTab}
               showRescueTokensTab={showRescueTokensTab}

@@ -1,11 +1,12 @@
 import * as React from "react";
 import gql from "graphql-tag";
-import { Mutation, MutationFn } from "react-apollo";
+import { Mutation, MutationFn, ApolloConsumer } from "react-apollo";
 import { Button, buttonSizes } from "../../Button";
 import { TextInput } from "../../input";
-import { ConfirmButtonContainer, AuthErrorMessage } from "./AuthStyledComponents";
+import { ConfirmButtonContainer } from "./AuthStyledComponents";
 import { isValidHandle, getCurrentUserQuery } from "@joincivil/utils";
-import { AuthTextUnknownError } from "./AuthTextComponents";
+import ApolloClient from "apollo-client";
+import { debounce } from "lodash";
 
 const setHandleMutation = gql`
   mutation($input: ChannelsSetHandleInput!) {
@@ -15,19 +16,27 @@ const setHandleMutation = gql`
   }
 `;
 
+const checkHandleUniqueQuery = gql`
+  query($handle: String!) {
+    channelsIsHandleAvailable(handle: $handle)
+  }
+`;
+
 export interface UserSetHandleAuthProps {
   headerComponent?: JSX.Element;
   channelID: string;
   onSetHandleComplete?(): void;
 }
 
-export type UserSetHandleError = "unknown" | undefined;
+const ERROR_MESSAGE_INVALID_HANDLE =
+  "Please enter a valid username. Usernames must be 4-15 characters, with no spaces or special characters other than underscores.";
+const ERROR_MESSAGE_NOT_UNIQUE = "That username is already in use. Please try another.";
 
 export interface UserSetHandleAuthState {
   handle: string;
-  errorMessage: UserSetHandleError;
+  errorMessage: string | undefined;
   hasBlurred: boolean;
-  isValid: boolean;
+  isHandleUnique: boolean;
 }
 
 export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserSetHandleAuthState> {
@@ -37,51 +46,55 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
       handle: "",
       errorMessage: undefined,
       hasBlurred: false,
-      isValid: false,
+      isHandleUnique: true,
     };
+    this.checkHandleUniqueness = debounce(this.checkHandleUniqueness.bind(this), 1000);
   }
 
   public renderHandleInput(): JSX.Element {
-    const { handle } = this.state;
-
+    const { handle, isHandleUnique, errorMessage } = this.state;
+    let isError = false;
+    if (errorMessage) {
+      isError = true;
+    }
     const isValid = isValidHandle(handle);
-    return (
-      <TextInput
-        placeholder="username"
-        noLabel
-        type="text"
-        name="username"
-        value={handle}
-        invalidMessage={isValid ? undefined : "Please enter a valid username."}
-        invalid={!isValid}
-        onChange={(_, value) => this.setState({ handle: value, hasBlurred: false, isValid })}
-        onBlur={() => this.setState({ hasBlurred: true })}
-      />
-    );
-  }
 
-  public renderAuthError(): JSX.Element {
-    const { errorMessage } = this.state;
-
-    if (!errorMessage) {
-      return <></>;
+    let invalidMessage: string | undefined = errorMessage;
+    if (!isValid) {
+      invalidMessage = ERROR_MESSAGE_INVALID_HANDLE;
+    } else if (!isHandleUnique) {
+      invalidMessage = ERROR_MESSAGE_NOT_UNIQUE;
     }
 
     return (
-      <AuthErrorMessage>
-        <AuthTextUnknownError />
-        <>{errorMessage}</>
-      </AuthErrorMessage>
+      <ApolloConsumer>
+        {client => (
+          <TextInput
+            placeholder="username"
+            noLabel
+            type="text"
+            name="username"
+            value={handle}
+            invalidMessage={invalidMessage}
+            invalid={!isValid || !isHandleUnique || isError}
+            onChange={(_, value) => {
+              this.setState({ handle: value, hasBlurred: false, errorMessage: undefined, isHandleUnique: true });
+              // tslint:disable-next-line
+              this.checkHandleUniqueness(value, client);
+            }}
+            onBlur={() => this.setState({ hasBlurred: true })}
+          />
+        )}
+      </ApolloConsumer>
     );
   }
 
   public render(): JSX.Element {
     const { headerComponent, channelID } = this.props;
-    const isButtonDisabled = !this.state.isValid;
+    const isButtonDisabled = !isValidHandle(this.state.handle) || !this.state.isHandleUnique;
 
     return (
       <>
-        {this.renderAuthError()}
         {headerComponent}
         <Mutation mutation={setHandleMutation}>
           {setHandle => {
@@ -105,6 +118,12 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
       </>
     );
   }
+
+  private checkHandleUniqueness = async (val: any, client: ApolloClient<any>): Promise<void> => {
+    const result = await client.query({ query: checkHandleUniqueQuery, variables: { handle: val } });
+    const isHandleUnique = result.data && result.data.channelsIsHandleAvailable;
+    this.setState({ isHandleUnique });
+  };
 
   private async handleSubmit(event: React.FormEvent, mutation: MutationFn, channelID: string): Promise<void> {
     event.preventDefault();
@@ -140,7 +159,13 @@ export class UserSetHandle extends React.Component<UserSetHandleAuthProps, UserS
 
       return;
     } catch (err) {
-      this.setState({ errorMessage: "unknown" });
+      let errorMessage = "Unknown Error when setting username. Please contact support@civil.co if problem persists.";
+      if (err.toString().includes("invalid handle")) {
+        errorMessage = ERROR_MESSAGE_INVALID_HANDLE;
+      } else if (err.toString().includes("not unique")) {
+        errorMessage = ERROR_MESSAGE_NOT_UNIQUE;
+      }
+      this.setState({ errorMessage });
     }
   }
 }

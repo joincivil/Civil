@@ -11,38 +11,38 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
     }
   >
     <div
-      className="sc-LzMED fzlMAz"
+      className="sc-LzMEE cbtFvo"
     >
       <h2
-        className="sc-LzMCK kojIbA"
+        className="sc-LzMCL CfGyV"
       >
         Connect your crypto wallet
       </h2>
       <p
-        className="sc-LzMCM sc-LzMEJ cjMJfA"
+        className="sc-LzMCN sc-LzMEK dXkYYh"
       >
         To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using MetaMask.
       </p>
       <div
-        className="sc-LzMDp sc-LzMDq sc-LzMFl dIjVbB"
+        className="sc-LzMDq sc-LzMDr sc-LzMFm hlVfXC"
       >
         <a
           href="https://metamask.io/"
           target="_blank"
         >
           <img
-            className="sc-LzMFm fMqHMt"
+            className="sc-LzMFn hWLSZa"
             src="test-file-stub"
           />
           <div
-            className="sc-LzMFn gKZQzr"
+            className="sc-LzMFo ljsqbs"
           >
             Get the MetaMask Browser Extension
           </div>
         </a>
       </div>
       <p
-        className="sc-LzMCN sc-LzMCP cfNINQ"
+        className="sc-LzMCO sc-LzMCQ jkBPoV"
       >
         Once the extension is installed,
          
@@ -55,10 +55,10 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         .
       </p>
       <div
-        className="sc-LzMFp dcbYVF"
+        className="sc-LzMFq ivUyGS"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME dndRzE disabled"
+          className="sc-fzXfME sc-fzXfNc pQdGg disabled"
           disabled={true}
           size="MEDIUM_WIDE"
           theme={
@@ -80,15 +80,15 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         </button>
       </div>
       <div
-        className="sc-LzMDp sc-LzMDr cvFzHN"
+        className="sc-LzMDq sc-LzMDs hQfEVa"
       >
         <span
-          className="sc-LzMDs jkVxoe"
+          className="sc-LzMDt OWVEL"
         >
           Using a different wallet?
         </span>
         <span
-          className="sc-LzMDt gQOJfm"
+          className="sc-LzMDu domszT"
         >
           Make sure it's unlocked
            and connected to the Main Ethereum Network
@@ -96,70 +96,70 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         </span>
       </div>
       <div
-        className="sc-LzMCQ boMFHy"
+        className="sc-LzMDo fHBJlV"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMDo dKiiCD"
+            className="sc-LzMDp lkfYWo"
           >
              What is a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
-        className="sc-LzMCQ boMFHy"
+        className="sc-LzMDo fHBJlV"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMDo dKiiCD"
+            className="sc-LzMDp lkfYWo"
           >
              Why do I need a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             Having a wallet is required. We recommend
              
@@ -173,12 +173,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
             to log in and manage your transactions.
           </p>
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -188,37 +188,37 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
-        className="sc-LzMCQ boMFHy"
+        className="sc-LzMDo fHBJlV"
       >
         <div
-          className="sc-LzLrm jtRcoj"
+          className="sc-LzLrn jFXzCI"
           onClick={[Function]}
         >
           <h4
-            className="sc-LzMDo dKiiCD"
+            className="sc-LzMDp lkfYWo"
           >
              Need help setting up your wallet?
           </h4>
            
           <div
-            className="sc-LzLrl iCavNG"
+            className="sc-LzLrm dgjYHP"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLrk kzNhZL"
+          className="sc-LzLrl lhcaeI"
           height={null}
           open={false}
         >
           <p
-            className="sc-LzMCN jdUFGJ"
+            className="sc-LzMCO fBspbq"
           >
             Head over to our
              
@@ -234,7 +234,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
         </div>
       </div>
       <p
-        className="sc-LzMCN sc-LzMFo gTrgzP"
+        className="sc-LzMCO sc-LzMFp hyHycw"
       >
         Need more info before you start using a crypto wallet?
          
@@ -245,7 +245,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/ Wrong Network Wrong Network 1
           Learn more in our support area
            
           <span
-            className="sc-LzMEG jOYuHl"
+            className="sc-LzMEH JXWuW"
           >
             <svg
               height="11"

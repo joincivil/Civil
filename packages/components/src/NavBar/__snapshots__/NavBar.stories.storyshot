@@ -42,13 +42,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMmh jKHXeN"
+            className="sc-LzMmi epvJZC"
           >
             <div
-              className="sc-LzMmm juVULT"
+              className="sc-LzMmn iQOGDU"
             >
               <span
-                className="sc-LzMmn gjDPAh"
+                className="sc-LzMmo jyFxFe"
               >
                 <a
                   href="/registry"
@@ -57,11 +57,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-LzMmo jkPSOf"
+                  className="sc-LzMmp harBqw"
                 />
               </span>
               <div
-                className="sc-LzMmp igwxrW"
+                className="sc-LzMmq dxqHUT"
               >
                 <a
                   href="/registry"
@@ -100,7 +100,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMmi RUhyr"
+            className="sc-LzMmj iovKDE"
           >
             <div
               onClick={[Function]}
@@ -120,14 +120,14 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzMmj hEIUED"
+            className="sc-LzMmk gHWwiw"
           />
         </div>
         <div
           className="sc-LzMkr iIGtxC"
         >
           <button
-            className="sc-fzXfMD sc-fzXfNe sc-LzMla iaAnDi"
+            className="sc-fzXfME sc-fzXfNf sc-LzMlb iUUknE"
             onClick={[Function]}
             theme={
               Object {
@@ -143,7 +143,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Log In
           </button>
           <button
-            className="sc-fzXfMD sc-fzXfNe sc-LzMlb beXBjJ"
+            className="sc-fzXfME sc-fzXfNf sc-LzMlc gWIhuH"
             onClick={[Function]}
             theme={
               Object {
@@ -590,7 +590,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-LzMmq hrwdyH"
+      className="sc-LzMBt iwcFQX"
     >
       Please Switch To Rinkeby Testnet
     </div>

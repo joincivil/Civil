@@ -11,26 +11,26 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
-      className="sc-LzNvi Ugiut"
+      className="sc-LzNMp gvfsGb"
     >
       <div
-        className="sc-LzLNx drPfHu"
+        className="sc-LzLNy hllTvL"
       >
         <div
-          className="sc-LzLNy jwHKMr"
+          className="sc-LzLNz aJjcY"
         >
           CVL Token Contract Address
         </div>
         <div
-          className="sc-LzLNz cBMIjt"
+          className="sc-LzLNA gEVwxc"
         >
           <div
-            className="sc-LzLNA kkjprO"
+            className="sc-LzLNB bJAfBH"
           >
             0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
           </div>
           <button
-            className="sc-fzXfMD sc-fzXfME expvlL"
+            className="sc-fzXfME sc-fzXfNc eBqErX"
             onClick={[Function]}
             size="SMALL"
             theme={
@@ -50,7 +50,7 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
             Copy
           </button>
           <a
-            className="sc-fzXfMD sc-fzXfNc ijEYXT"
+            className="sc-fzXfME sc-fzXfNd kNTfiA"
             href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
             size="SMALL"
             target="_blank"

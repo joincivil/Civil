@@ -54,13 +54,13 @@ const ChallengeSummary: React.FunctionComponent<
     return <></>;
   }
 
-  const { canUserCollect, canUserRescue, choice, numTokens } = userChallengeData;
+  const { canUserCollect, canUserRescue, didUserReveal, choice, numTokens } = userChallengeData;
 
   let userVotingSummary;
 
   let userVotingSummaryContent;
   let userChoice;
-  if (canUserCollect) {
+  if (didUserReveal) {
     if (choice) {
       userChoice = choice.toNumber() === 1 ? CHALLENGE_RESULTS_VOTE_TYPES.REMAIN : CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
       userVotingSummaryContent = (
@@ -84,8 +84,11 @@ const ChallengeSummary: React.FunctionComponent<
     onCTAButtonClick = showRescueTokensTab;
   }
 
+  const canResolveChallenge = canParamPropChallengeBeResolved(challenge);
+
   const buttonProps = {
     ...userChallengeData,
+    canResolveChallenge,
     propDetailURL: "/parameterizer",
     onClick: onCTAButtonClick,
   };

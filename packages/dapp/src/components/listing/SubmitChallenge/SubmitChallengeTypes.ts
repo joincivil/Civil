@@ -14,8 +14,5 @@ export interface SubmitChallengeReduxProps {
 }
 
 export interface SubmitChallengeReduxParametersProps {
-  minDeposit: BigNumber;
-  commitStageLen: BigNumber;
-  revealStageLen: BigNumber;
   balance: BigNumber;
 }

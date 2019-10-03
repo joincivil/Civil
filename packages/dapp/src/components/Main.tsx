@@ -18,7 +18,6 @@ import {
   initializeConstitution,
   initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
-import { initializeParameterizer, initializeProposalsSubscriptions } from "../helpers/parameterizer";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { AuthRouter } from "./Auth";
@@ -46,8 +45,8 @@ const SignUpNewsroom = React.lazy(async () => import("./SignUpNewsroom"));
 const StorefrontPage = React.lazy(async () => import("./Tokens/StorefrontPage"));
 const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage"));
 const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
-const BoostCreatePage = React.lazy(async () => import("./Boosts/BoostCreate"));
 const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
+const StoryFeedPage = React.lazy(async () => import("./StoryFeed/StoryFeed"));
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import("./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
 );
@@ -61,7 +60,7 @@ export interface MainOwnProps {
 }
 
 export interface MainState {
-  prevAccount?: EthAddress;
+  prevAccount: EthAddress;
   accountStream?: Subscription;
   networkStream?: Subscription;
   networkNameStream?: Subscription;
@@ -70,7 +69,7 @@ export interface MainState {
 export const Main: React.FunctionComponent = () => {
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
   const civilHelper = React.useContext(CivilHelperContext);
-  const [prevAccount, setAccount] = React.useState("");
+  const [prevAccount, setPrevAccount] = React.useState("");
   const dispatch = useDispatch();
   const networkRedux = useSelector((state: any) => state.network);
   const networkIsSupported = isNetworkSupported(networkRedux);
@@ -98,10 +97,8 @@ export const Main: React.FunctionComponent = () => {
     setNetworkValue(network);
 
     try {
-      await initializeParameterizer(civilHelper!, dispatch!);
       await initializeGovernment(civilHelper!, dispatch!);
       await initializeConstitution(civilHelper!, dispatch!);
-      await initializeProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeGovernmentParamSubscription(civilHelper!, dispatch!);
       await initializeGovtProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeContractAddresses(civilHelper!, dispatch!);
@@ -118,10 +115,17 @@ export const Main: React.FunctionComponent = () => {
     dispatch!(setNetworkName(networkName));
   }
 
-  async function onAccountUpdated(account: EthAddress | undefined): Promise<void> {
+  const onAccountUpdated = async (account: EthAddress | undefined): Promise<void> => {
     const civil = civilCtx.civil!;
-    if (account && account !== prevAccount) {
+    if (prevAccount !== "" && account !== prevAccount) {
+      if (civilCtx.auth.currentUser) {
+        civilCtx.auth.logout();
+      }
+    }
+    if (account) {
       try {
+        setPrevAccount(account ? account : "");
+        dispatch!(addUser(account, new BigNumber(0), new BigNumber(0))); // get user eth address into redux right away
         const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();
         const voting = await tcr.getVoting();
@@ -129,7 +133,6 @@ export const Main: React.FunctionComponent = () => {
         const votingBalance = await voting.getNumVotingRights(account);
         dispatch!(addUser(account, balance, votingBalance));
         await initializeTokenSubscriptions(civilHelper!, dispatch!, account);
-        setAccount(account);
       } catch (err) {
         console.log("ERROR", err);
         if (err.message === CivilErrors.UnsupportedNetwork) {
@@ -142,7 +145,7 @@ export const Main: React.FunctionComponent = () => {
     } else {
       dispatch!(addUser("", new BigNumber(0), new BigNumber(0)));
     }
-  }
+  };
 
   return (
     <StyledMainContainer>
@@ -192,8 +195,8 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
           <Route path={routes.BOOST_PAYMENT} component={AsyncComponent(BoostPage, { payment: true })} />
           <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
-          <Route path={routes.BOOST_CREATE} component={AsyncComponent(BoostCreatePage)} />
           <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
+          <Route path={routes.STORY_FEED} component={AsyncComponent(StoryFeedPage)} />
           {/* TODO(jorgelo): Better 404 */}
           <Route path="*" render={() => <h1>404</h1>} />
         </Switch>

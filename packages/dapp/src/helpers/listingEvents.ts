@@ -1,7 +1,4 @@
-import {
-  EthAddress,
-  StorageHeader,
-} from "@joincivil/core";
+import { EthAddress, StorageHeader } from "@joincivil/core";
 import { addNewsroom, setNewsroomMultisigAddress } from "@joincivil/newsroom-signup";
 import { Dispatch } from "react-redux";
 import { Subscription } from "rxjs";

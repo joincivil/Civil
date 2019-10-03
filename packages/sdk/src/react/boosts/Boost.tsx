@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { withRouter, RouteComponentProps } from "react-router";
+import styled from "styled-components";
 import { boostQuery, boostNewsroomQuery } from "./queries";
 import { BoostData, BoostNewsroomData } from "./types";
 import { BoostCard } from "./BoostCard";
@@ -9,7 +10,18 @@ import { BoostPayments } from "./payments/BoostPayments";
 import { BoostWrapper } from "./BoostStyledComponents";
 import { NewsroomWithdraw } from "../NewsroomWithdraw";
 import { withBoostPermissions, BoostPermissionsInjectedProps } from "./BoostPermissionsHOC";
-import { LoadingMessage, CivilContext, ICivilContext } from "@joincivil/components";
+import { LoadingMessage, CivilContext, ICivilContext, colors, mediaQueries } from "@joincivil/components";
+
+const WithdrawWrapper = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding: 0 0 16px;
+  margin: 36px 0;
+
+  ${mediaQueries.MOBILE} {
+    margin: 18px 0;
+  }
+`;
 
 export interface BoostExternalProps {
   boostId: string;
@@ -121,10 +133,13 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                   <>
                     {/*@TODO/tobek Move to Newsroom Boosts page when we have that.*/}
                     {this.props.open && this.props.newsroom && this.props.boostOwner && (
-                      <NewsroomWithdraw
-                        newsroom={this.props.newsroom}
-                        isStripeConnected={boostData.channel.isStripeConnected}
-                      />
+                      <WithdrawWrapper>
+                        <NewsroomWithdraw
+                          newsroomAddress={boostData.channel.newsroom.contractAddress}
+                          newsroom={this.props.newsroom}
+                          isStripeConnected={boostData.channel.isStripeConnected}
+                        />
+                      </WithdrawWrapper>
                     )}
                     <BoostCard
                       boostData={boostData}
@@ -181,4 +196,6 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
   };
 }
 
-export const Boost = withBoostPermissions(withRouter(BoostComponent));
+// @WORKAROUND/tobek In order to avoid spurious "Function components do not support contextType" runtime error when using the component output by `withRouter` HOC as input into a HOC that uses context, you need to wrap it in a dummy component (https://github.com/facebook/react/issues/14061). Ideally we could use a generalizable `withRouterWorkaround` (https://github.com/facebook/react/issues/14061#issuecomment-471959332) instead of declaring the dummy component here, but that crashes typescript because of a typescript bug (https://github.com/microsoft/TypeScript/issues/33133).
+const WrappedBoostWorkaround = (props: BoostProps) => <BoostComponent {...props} />;
+export const Boost = withBoostPermissions(withRouter(WrappedBoostWorkaround));

@@ -11,14 +11,14 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNux iAkpQB"
+      className="sc-LzNwY jmdtZk"
     >
-      Get email notifications from Civil
+      Almost done!
     </div>
     <div
-      className="sc-LzNuy irmACG"
+      className="sc-LzNwZ jdfELp"
     >
-      Get notified when a Newsroom has joined the Registry, or when a challenge requires your vote, and more.
+      To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
     <form
       onSubmit={[Function]}
@@ -37,39 +37,39 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNto fszWzz"
+        className="sc-LzNvN hKtzRV"
       >
         <li
-          className="sc-LzNtp llOeJM"
+          className="sc-LzNvO PbVph"
         >
           <label>
             <label
-              className="sc-fzXfNJ IqFez"
+              className="sc-fzXfNK hpUWWu"
               size="SMALL"
             >
               <input
-                checked={false}
+                checked={true}
                 onChange={[Function]}
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNl kWGrR"
+                className="sc-fzXfNJ exRLLP"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNtq cxOOGB"
+              className="sc-LzNvP fDmDqm"
             >
-              Yes, I'd like to receive notifications.
+              Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
           </label>
         </li>
       </ul>
       <div
-        className="sc-LzNtr bDFviM"
+        className="sc-LzNvQ jDgmwF"
       >
         <button
-          className="sc-fzXfMD sc-fzXfME cUXPCo"
+          className="sc-fzXfME sc-fzXfNc bNdDxM"
           size="SMALL_WIDE"
           textTransform="none"
           theme={
@@ -86,15 +86,15 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
           }
           type="submit"
         >
-          Sign up
+          Save Email
         </button>
       </div>
     </form>
     <div
-      className="sc-LzNtP grVHkC"
+      className="sc-LzNvR ieKSFS"
     >
       <span
-        className="sc-LzNuz eFSJxC"
+        className="sc-LzNxa dKxePU"
         onClick={[Function]}
       >
         Skip for now
