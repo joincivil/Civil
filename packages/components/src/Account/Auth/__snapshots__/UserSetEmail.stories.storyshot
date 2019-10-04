@@ -11,12 +11,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNMr jHpFtz"
+      className="sc-LzNuF emnZLT"
     >
       Almost done!
     </div>
     <div
-      className="sc-LzNMs jyrQfE"
+      className="sc-LzNvd euceuS"
     >
       To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
@@ -24,10 +24,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className=" sc-fzXfLP corfVh"
+        className=" sc-fzXfMB iysgko"
       >
         <input
-          className="sc-fzXfLP corfVh"
+          className="sc-fzXfMB iysgko"
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -37,14 +37,14 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNwY efFlDt"
+        className="sc-LzNtR gexnjz"
       >
         <li
-          className="sc-LzNwZ bWFVuV"
+          className="sc-LzNtS hupEuv"
         >
           <label>
             <label
-              className="sc-fzXfOq dLzFhA"
+              className="sc-fzXfOy idvYvS"
               size="SMALL"
             >
               <input
@@ -53,12 +53,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfNS JhPLs"
+                className="sc-fzXfOx dUqtny"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNxa hUBkxd"
+              className="sc-LzNtT bffjiU"
             >
               Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
@@ -66,10 +66,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNxb DivZE"
+        className="sc-LzNtU kpovDL"
       >
         <button
-          className="sc-fzXfOs sc-fzXfOt gLEIgS"
+          className="sc-fzXfOX sc-fzXfOY jwDATT"
           size="SMALL_WIDE"
           textTransform="none"
           theme={
@@ -91,10 +91,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       </div>
     </form>
     <div
-      className="sc-LzNxc kuiLHN"
+      className="sc-LzNtV iQTbMY"
     >
       <span
-        className="sc-LzNMt gFqfzM"
+        className="sc-LzNve jIdsJi"
         onClick={[Function]}
       >
         Skip for now

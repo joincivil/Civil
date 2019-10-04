@@ -11,13 +11,13 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-LzNNz bZZlub"
+      className="sc-LzNvN btXHfP"
     >
       <div
-        className="sc-LzMZz edFmKW"
+        className="sc-LzMWY bFzlIK"
       >
         <div
-          className="sc-LzMZa dadQdd"
+          className="sc-LzMWz gRAVBj"
         >
           <svg
             height="24"
@@ -39,34 +39,34 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
-          className="sc-LzMZb hbLZaF"
+          className="sc-LzMWX iPLSeY"
         >
           Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
         <div
-          className="sc-fzXfNL kspZbC"
+          className="sc-fzXfOq hytTUE"
         >
           <div
-            className="sc-fzXfNM iIlEKl"
+            className="sc-fzXfOr cpFlhL"
           >
             <div
-              className=" sc-fzXfLP corfVh"
+              className=" sc-fzXfMB iysgko"
             >
               <input
-                className="sc-fzXfLP corfVh"
+                className="sc-fzXfMB iysgko"
                 name="EmailSignupTextInput"
                 onChange={[Function]}
                 type="text"
               />
             </div>
             <div
-              className="sc-fzXfNO iAMPTr"
+              className="sc-fzXfOt bgAMdp"
             >
               <span
-                className="sc-fzXfNP cVQath"
+                className="sc-fzXfOu kKRxnv"
               >
                 <button
-                  className="sc-fzXfOs sc-fzXfOt kJgoZR"
+                  className="sc-fzXfOX sc-fzXfOY blROFO"
                   onClick={[Function]}
                   size="SMALL"
                   theme={
@@ -90,7 +90,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
-          className="sc-LzMZb hbLZaF"
+          className="sc-LzMWX iPLSeY"
         >
           <b>
             Follow us on twitter for alerts
@@ -472,10 +472,10 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-LzNNz bZZlub"
+      className="sc-LzNvN btXHfP"
     >
       <div
-        className="sc-LzMZz sc-LzMZA cYLBOm"
+        className="sc-LzMWY sc-LzMWZ hGywjX"
       >
         <svg
           height="36"
@@ -497,17 +497,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
-          className="sc-LzMZa dadQdd"
+          className="sc-LzMWz gRAVBj"
         >
           Thanks for signing up!
         </div>
         <p
-          className="sc-LzMZb hbLZaF"
+          className="sc-LzMWX iPLSeY"
         >
           Please check your email to confirm your subscription.
         </p>
         <p
-          className="sc-LzMZb hbLZaF"
+          className="sc-LzMWX iPLSeY"
         >
           <b>
             Follow us on twitter for alerts

@@ -11,12 +11,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNe beSeXH"
+      className="sc-fzXfNJ isQxdU"
     >
       Email Address Confirmed!
     </h2>
     <div
-      className="sc-fzXfNf sc-fzXfNg kDzxlW"
+      className="sc-fzXfNK sc-fzXfNL bulDNf"
     >
       Thanks for confirming your email address.
     </div>
@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-LzNxd sc-LzNxe iwbryC"
+          className="sc-LzNtW sc-LzNtX hOltfN"
         />
       </div>
     </div>
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOs sc-fzXfOt grUxQV"
+          className="sc-fzXfOX sc-fzXfOY ikbGVO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -373,12 +373,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNe beSeXH"
+      className="sc-fzXfNJ isQxdU"
     >
       Uh oh.
     </h2>
     <div
-      className="sc-fzXfNf sc-fzXfNg kDzxlW"
+      className="sc-fzXfNK sc-fzXfNL bulDNf"
     >
       <strong>
         Error is bad
@@ -693,7 +693,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNe beSeXH"
+      className="sc-fzXfNJ isQxdU"
     >
       Confirming your email address...
     </h2>
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-LzNxd sc-LzNxe iwbryC"
+          className="sc-LzNtW sc-LzNtX hOltfN"
         />
       </div>
     </div>
@@ -721,7 +721,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOs sc-fzXfOt grUxQV"
+          className="sc-fzXfOX sc-fzXfOY ikbGVO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
