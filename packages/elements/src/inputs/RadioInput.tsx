@@ -64,6 +64,8 @@ const RadioDiv = styled.div`
     display: flex;
     flex-direction: rows;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 `;
 export const RadioInput = (props: RadioInputProps) => {

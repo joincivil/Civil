@@ -38,7 +38,7 @@ const KirbyApp: React.FunctionComponent<KirbyAppProps> = ({ config }) => {
       new ReachRouterPlugin(),
       new CivilIDPlugin(),
       new ConnextChildPlugin({
-        ethProviderUrl: "https://rinkeby.infura.io/v3/06b8a36891d649ffa92950aeac5a7874",
+        ethProviderUrl: "https://rinkeby.infura.io/v3/" + config.INFURA_APP_KEY,
         nodeUrl: "wss://rinkeby.indra.connext.network/api/messaging",
       }),
       new SignatureInterceptorPlugin({ autoSign: false }),

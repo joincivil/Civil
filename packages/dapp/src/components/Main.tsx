@@ -115,6 +115,19 @@ export const Main: React.FunctionComponent = () => {
 
   const onAccountUpdated = async (account: EthAddress | undefined): Promise<void> => {
     const civil = civilCtx.civil!;
+    const currentUser = civilCtx.currentUser;
+    if (
+      account &&
+      currentUser &&
+      currentUser.ethAddress &&
+      account.toLowerCase() !== currentUser.ethAddress.toLowerCase()
+    ) {
+      console.log("web3 account does not match that of the logged in user, so logging out", {
+        web3Account: account,
+        currentUserAccount: currentUser.ethAddress,
+      });
+      civilCtx.auth.logout();
+    }
     if (account) {
       try {
         dispatch!(addUser(account, new BigNumber(0), new BigNumber(0))); // get user eth address into redux right away
