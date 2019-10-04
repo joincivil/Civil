@@ -3,10 +3,10 @@ import { withRouter, RouteComponentProps } from "react-router";
 import { RegistryShell } from "./RegistryShell";
 import { standaloneRoutes } from "../constants";
 
-const RegistrySection = React.lazy(async () => {
-  console.log("loading RegistrySection");
-  const rtn = await import("./RegistrySection");
-  console.log("loaded RegistrySection");
+const RegistryWrapper = React.lazy(async () => {
+  console.log("loading RegistryWrapper");
+  const rtn = await import("./RegistryWrapper");
+  console.log("loaded RegistryWrapper");
   return rtn;
 });
 
@@ -15,7 +15,7 @@ const RegistryAppComponent = (props: RouteComponentProps) => {
 
   return (
     <React.Suspense fallback={isStandaloneRoute ? <></> : <RegistryShell />}>
-      <RegistrySection />
+      <RegistryWrapper />
     </React.Suspense>
   );
 };
