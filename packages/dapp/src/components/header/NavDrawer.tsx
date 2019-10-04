@@ -22,7 +22,7 @@ import {
   NavDrawerBalanceText,
   NavDrawerTotalBalanceText,
   NavDrawerVotingBalanceText,
-  NavDrawerVotingBalanceToolTipText,
+  // NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
   NavDrawerDashboardText,
@@ -31,25 +31,21 @@ import {
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
 } from "./textComponents";
-import { NavUserAccountProps } from "./NavBarTypes";
 import { ICivilContext, CivilContext } from "@joincivil/components";
 import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
 import { useSelector } from "react-redux";
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 
+import {
+  getChallengesStartedByUser,
+  getChallengesVotedOnByUser,
+  getUserChallengesWithUnrevealedVotes,
+  getUserChallengesWithUnclaimedRewards,
+} from "../../selectors";
+
 export interface NavDrawerProps {
-  userRevealVotesCount?: number;
-  userClaimRewardsCount?: number;
-  userChallengesStartedCount?: number;
-  userChallengesVotedOnCount?: number;
-  buyCvlUrl: string;
   userAccountElRef?: any;
-  onLogoutPressed(): void;
-  onViewDashboardPressed(): void;
-  onLoginPressed(): void;
-  onSignupPressed(): void;
-  onModalDefocussed(): void;
   handleOutsideClick(): void;
 }
 
@@ -63,7 +59,10 @@ function maybeAccount(state: State): any {
 export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const account: any | undefined = useSelector(maybeAccount);
-  const civilUser = civilContext.currentUser;
+  const currentUserChallengesStarted = useSelector(getChallengesStartedByUser);
+  const currentUserChallengesVotedOn = useSelector(getChallengesVotedOnByUser);
+  const userChallengesWithUnrevealedVotes = useSelector(getUserChallengesWithUnrevealedVotes);
+  const userChallengesWithUnclaimedRewards = useSelector(getUserChallengesWithUnclaimedRewards);
   const userAccount = account ? account.account : undefined;
   const userEthAddress = userAccount && getFormattedEthAddress(userAccount);
   const balance = account ? getFormattedTokenBalance(account.balance) : "loading...";
@@ -75,13 +74,10 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
     civilContext.auth.logout();
   }
 
-  const {
-    onViewDashboardPressed,
-    userRevealVotesCount,
-    userClaimRewardsCount,
-    userChallengesStartedCount,
-    userChallengesVotedOnCount,
-  } = props;
+  const userRevealVotesCount = userChallengesWithUnrevealedVotes!.count();
+  const userClaimRewardsCount = userChallengesWithUnclaimedRewards!.count();
+  const userChallengesStartedCount = currentUserChallengesStarted.count();
+  const userChallengesVotedOnCount = currentUserChallengesVotedOn.count();
 
   if (!userEthAddress) {
     return <></>;
@@ -128,6 +124,7 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         <NavDrawerRow>
           <NavDrawerRowLabel>
             <NavDrawerVotingBalanceText />
+            {/* TODO(dankins): move ToolTip into elements and add this back */}
             {/* <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} /> */}
           </NavDrawerRowLabel>
           <NavDrawerRowInfo>
@@ -180,7 +177,7 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
   }
 };
 
-class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
+class NavDrawer extends React.Component<NavDrawerProps> {
   public bucket: HTMLDivElement = document.createElement("div");
 
   public componentDidMount(): void {
@@ -209,9 +206,5 @@ class NavDrawerBucketComponent extends React.Component<NavDrawerProps> {
     this.props.handleOutsideClick();
   };
 }
-
-const NavDrawer: React.FunctionComponent<NavDrawerProps> = props => {
-  return <NavDrawerBucketComponent {...props} />;
-};
 
 export default NavDrawer;

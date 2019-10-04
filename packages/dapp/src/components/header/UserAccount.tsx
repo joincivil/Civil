@@ -1,15 +1,11 @@
 import * as React from "react";
 
-import { buttonSizes } from "@joincivil/elements";
-
 import { NavLink } from "./NavLink";
-import { NavUserAccountProps as NavUserAccountBaseProps, NavAuthenticationProps } from "./NavBarTypes";
 import {
   Arrow,
   AvatarContainer,
   CvlContainer,
   UserAvatar,
-  LogInButton,
   NavUser,
   StyledVisibleIfLoggedInLink,
   NavBarButton,
@@ -21,7 +17,7 @@ import { NavLinkDashboardText } from "./textComponents";
 import { ICivilContext, CivilContext } from "@joincivil/components";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../redux/reducers";
-import { showWeb3LoginModal, showWeb3SignupModal, hideWeb3AuthModal } from "../../redux/actionCreators/ui";
+import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
 import NavDrawer from "./NavDrawer";
 
 function maybeAccount(state: State): any {
@@ -63,7 +59,6 @@ const UserAccount: React.FunctionComponent = props => {
 
   if (civilUser) {
     const userAccountElRef = React.createRef<HTMLDivElement>();
-    let child;
 
     if (props.children) {
       child = React.cloneElement(props.children as React.ReactElement, {
@@ -93,7 +88,9 @@ const UserAccount: React.FunctionComponent = props => {
             </CvlContainer>
           </NavUser>
         </div>
-        {isUserDrawerOpen && <NavDrawer handleOutsideClick={() => setUserDrawerOpen(false)} />}
+        {isUserDrawerOpen && (
+          <NavDrawer userAccountElRef={userAccountElRef} handleOutsideClick={() => setUserDrawerOpen(false)} />
+        )}
       </>
     );
   }

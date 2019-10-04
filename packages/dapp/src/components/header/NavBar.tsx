@@ -1,9 +1,6 @@
 import * as React from "react";
 import { CivilLogo, colors } from "@joincivil/elements";
 import { NavMenu } from "./NavMenu";
-import NavDrawer from "./NavDrawer";
-
-import { NavProps, NavState } from "./NavBarTypes";
 import { NavContainer, NavOuter, NavLogo, NavInner, NavInnerRight } from "./styledComponents";
 
 const UserAccountContainer = React.lazy(async () => import("./UserAccountContainer"));
