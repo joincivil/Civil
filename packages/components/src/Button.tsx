@@ -183,6 +183,7 @@ const BaseButton = styled(ButtonComponent)`
 
 export const Button = styled(BaseButton)`
   background-color: ${props => props.theme.primaryButtonBackground};
+  border: 2px solid ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
   font-weight: ${props => props.theme.primaryButtonFontWeight};
   text-transform: ${props => (props.textTransform ? props.textTransform : props.theme.primaryButtonTextTransform)};
@@ -208,7 +209,7 @@ Button.defaultProps = {
 };
 
 export const InvertedButton = styled(BaseButton)`
-  text-transform: uppercase;
+  text-transform: ${props => (props.textTransform ? props.textTransform : "uppercase")};
   background-color: ${props => props.theme.invertedButtonBackground};
   color: ${props => props.theme.invertedButtonColor};
   border: 2px solid ${props => props.theme.invertedButtonColor};

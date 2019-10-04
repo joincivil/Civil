@@ -72,6 +72,16 @@ export const PageHeadingCentered = styled.h2`
   text-align: center;
 `;
 
+export const PageHeadingLeftAligned = styled.h2`
+  font-family: ${fonts.SANS_SERIF};
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 50px;
+  letter-spacing: -0.58px;
+  margin: 0;
+  text-align: left;
+`;
+
 PageHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageSubHeadingCentered = styled.h2`
@@ -87,6 +97,15 @@ PageSubHeadingCentered.defaultProps = headingDefaultProps;
 
 export const PageHeadingTextCentered = styled.div`
   text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 25px;
+  font-family: ${props => props.theme.sansSerifFont};
+  padding: 10px 0;
+`;
+
+export const PageHeadingTextLeftAligned = styled.div`
+  text-align: left;
   color: ${colors.primary.CIVIL_GRAY_0};
   font-size: 16px;
   line-height: 25px;

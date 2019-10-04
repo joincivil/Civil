@@ -27,7 +27,7 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   if (civilUser && civilUser.uid && civilUser.userChannel) {
     showSetHandle = !civilUser.userChannel.handle;
     if (!showSetHandle) {
-      showSetAvatar = !civilUser.userChannel.avatarDataUrl;
+      showSetAvatar = !civilUser.userChannelAvatarPromptSeen;
       if (!showSetAvatar) {
         showSetEmail = !civilUser.userChannelEmailPromptSeen;
       }
