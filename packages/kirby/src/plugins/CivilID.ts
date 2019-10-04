@@ -11,10 +11,12 @@ export interface ChildPluginState {
   pendingLoginRequest?: {
     requestID: number;
     message: string;
+    service: string;
   };
   pendingSignupRequest?: {
     requestID: number;
     message: string;
+    service: string;
   };
 }
 
@@ -74,6 +76,7 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
     return {
       message,
       requestID,
+      service,
     };
   }
   public buildSignupRequest(requestID: string, service: string): any {
@@ -81,12 +84,13 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
     return {
       message,
       requestID,
+      service,
     };
   }
 
   public sendLoginResponse(signer: string, signature: string): void {
     const state = this.getState().civilid as ChildPluginState;
-    const { requestID, ...request } = state.pendingLoginRequest!;
+    const { requestID, service, ...request } = state.pendingLoginRequest!;
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
   }

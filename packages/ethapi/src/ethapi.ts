@@ -43,7 +43,7 @@ export class EthApi {
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(abis);
 
-    this.accountObservable = new ReplaySubject<EthAddress | undefined>(undefined);
+    this.accountObservable = new ReplaySubject<EthAddress | undefined>(1);
 
     this.web3.eth
       .getAccounts()
