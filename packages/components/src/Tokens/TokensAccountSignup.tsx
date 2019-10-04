@@ -1,11 +1,7 @@
 import * as React from "react";
 import { UserTokenAccountRequirement } from "./TokensAccountRequirement";
 import { FlexColumnsPrimaryModule, TokenBtns, TokenRequirementIcon } from "./TokensStyledComponents";
-import {
-  TokenConnectWalletText,
-  TokenConnectWalletBtnText,
-  TokenAuthText,
-} from "./TokensTextComponents";
+import { TokenConnectWalletText, TokenConnectWalletBtnText, TokenAuthText } from "./TokensTextComponents";
 import { TokenWalletIcon } from "../icons/TokenWalletIcon";
 import { TOKEN_PROGRESS } from "./Tokens";
 

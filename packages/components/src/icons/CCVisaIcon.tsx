@@ -10,8 +10,8 @@ export const CCVisaIcon: React.FunctionComponent = props => {
           height="15.5"
           rx="2"
           stroke={colors.primary.BLACK}
-          stroke-opacity=".2"
-          stroke-width=".5"
+          strokeOpacity=".2"
+          strokeWidth=".5"
           width="23.5"
           x=".25"
           y=".25"

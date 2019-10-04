@@ -32,6 +32,10 @@ export const urlConstants = {
   EMAIL_SUPPORT: "support@civil.co",
   EMAIL_MAILTO: "mailto:support@civil.co",
 
+  // Payments
+  STRIPE: "https://stripe.com/",
+  METAMASK: "https://metamask.io/",
+
   // FAQ
   FAQ_HOME: FAQ_BASE_URL,
   FAQ_REGISTRY: FAQ_BASE_URL + "/hc/en-us/categories/360001542132-Registry",

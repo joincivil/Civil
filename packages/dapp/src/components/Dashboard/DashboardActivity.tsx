@@ -257,7 +257,7 @@ class DashboardActivity extends React.Component<
         {({ loading, error, data }: any): JSX.Element => {
           if (error) {
             if (error.toString().includes(NO_RESULTS)) {
-              return <NoChallenges />
+              return <NoChallenges />;
             } else {
               return <ErrorLoadingDataMsg />;
             }
@@ -317,7 +317,7 @@ class DashboardActivity extends React.Component<
           };
           if (error) {
             if (error.toString().includes(NO_RESULTS)) {
-              return <NoTasks />
+              return <NoTasks />;
             } else {
               return <ErrorLoadingDataMsg />;
             }
