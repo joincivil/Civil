@@ -1,8 +1,7 @@
 import * as React from "react";
-import { CoreContext, useSelector as useKirbySelector } from "@kirby-web3/child-react";
+import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
 import { SignatureInterceptorPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
 import { RouteComponentProps } from "@reach/router";
-import { PageLayout } from "../common/containers/layouts";
 
 export const SignatureConfirm: React.FunctionComponent<RouteComponentProps> = () => {
   // context
@@ -34,13 +33,13 @@ export const SignatureConfirm: React.FunctionComponent<RouteComponentProps> = ()
   }
 
   return (
-    <PageLayout>
+    <CenteredPage>
       <small>signature requested:</small>
       <div>{plaintext}</div>
       <div>
         <button onClick={() => sig.approveAction()}>approve</button>
         <button onClick={() => sig.rejectAction()}>reject</button>
       </div>
-    </PageLayout>
+    </CenteredPage>
   );
 };
