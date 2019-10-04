@@ -5,10 +5,12 @@ import Footer from "../components/Footer";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
 import config from "../helpers/config";
+import { standaloneRoutes } from "../constants";
 import { ErrorBoundry } from "../components/errors/ErrorBoundry";
 
 import { CivilProvider } from "@joincivil/components";
 import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 
 import { store, history } from "../redux/store";
 import { CivilHelperProvider } from "../apis/CivilHelper";
@@ -78,12 +80,21 @@ export class RegistrySection extends React.Component {
             >
               <CivilHelperProvider>
                 <ConnectedRouter history={history}>
-                  <>
-                    <Web3AuthWrapper />
-                    <GlobalNav />
-                    <Main />
-                    <Footer />
-                  </>
+                  <React.Suspense fallback={<></>}>
+                    <Switch>
+                      {standaloneRoutes.map((route: any) => (
+                        <Route key={route.pathname} path={route.pathname} component={route.component} />
+                      ))}
+                      <Route>
+                        <>
+                          <Web3AuthWrapper />
+                          <GlobalNav />
+                          <Main />
+                          <Footer />
+                        </>
+                      </Route>
+                    </Switch>
+                  </React.Suspense>
                 </ConnectedRouter>
               </CivilHelperProvider>
             </CivilProvider>
