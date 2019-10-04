@@ -23,9 +23,9 @@ import { PaymentsModal } from "./PaymentsModal";
 import { PaymentsEthForm } from "./PaymentsEthForm";
 
 export enum MODEL_CONTENT {
-  WHY_ETH = "why eth",
-  WHAT_IS_ETH = "what is eth",
-  CAN_USE_CVL = "can I use cvl",
+  WHY_ETH,
+  WHAT_IS_ETH,
+  CAN_USE_CVL,
 }
 
 export interface PaymentsEthProps {
@@ -41,7 +41,7 @@ export interface PaymentsEthProps {
 export interface PaymentsEthStates {
   isMobileWalletModalOpen: boolean;
   isInfoModalOpen: boolean;
-  modalContent: string;
+  modalContent?: MODEL_CONTENT;
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
@@ -54,7 +54,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
     this.state = {
       isMobileWalletModalOpen: this.showMobileWalletModal(),
       isInfoModalOpen: false,
-      modalContent: "",
       etherToSpend: 0,
       usdToSpend: this.props.usdToSpend,
       notEnoughEthError: false,
@@ -167,7 +166,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
     }
   };
 
-  private openInfoModal = (modelContent: string) => {
+  private openInfoModal = (modelContent: any) => {
     this.setState({ isInfoModalOpen: true, modalContent: modelContent });
   };
 

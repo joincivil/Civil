@@ -41,8 +41,6 @@ const InputWrapper = styled.div`
   }
 
   select {
-    -moz-appearance: none;
-    -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     border: 1px solid
