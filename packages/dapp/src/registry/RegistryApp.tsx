@@ -1,17 +1,25 @@
 import * as React from "react";
+import { withRouter, RouteComponentProps } from "react-router";
 import { RegistryShell } from "./RegistryShell";
+import { standaloneRoutes } from "../constants";
 
-const RegistrySection = React.lazy(async () => {
-  console.log("loading RegistrySection");
-  const rtn = await import("./RegistrySection");
-  console.log("loaded RegistrySection");
+const RegistryWrapper = React.lazy(async () => {
+  console.log("loading RegistryWrapper");
+  const rtn = await import("./RegistryWrapper");
+  console.log("loaded RegistryWrapper");
   return rtn;
 });
 
-export const RegistryApp = () => (
-  <React.Suspense fallback={<RegistryShell />}>
-    <RegistrySection />
-  </React.Suspense>
-);
+const RegistryAppComponent = (props: RouteComponentProps) => {
+  const isStandaloneRoute = standaloneRoutes.find(route => props.location.pathname.indexOf(route.pathStem) === 0);
+
+  return (
+    <React.Suspense fallback={isStandaloneRoute ? <></> : <RegistryShell />}>
+      <RegistryWrapper />
+    </React.Suspense>
+  );
+};
+
+export const RegistryApp = withRouter(RegistryAppComponent);
 
 export default RegistryApp;
