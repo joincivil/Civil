@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 
+import { Navigation } from "../components/header/Navigation";
+
 const BlankHeader = styled.div`
   left: 0px;
   position: fixed;
@@ -28,7 +30,7 @@ const BlankHeader = styled.div`
 export const RegistryShell = () => {
   return (
     <div>
-      <BlankHeader />
+      <Navigation />
     </div>
   );
 };
