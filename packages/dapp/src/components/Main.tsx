@@ -26,7 +26,6 @@ import config from "../helpers/config";
 import { isNetworkSupported } from "../helpers/networkHelpers";
 
 import AsyncComponent from "./utility/AsyncComponent";
-import { analyticsEvent } from "../redux/actionCreators/analytics";
 import { CivilHelperContext } from "../apis/CivilHelper";
 
 import { initializeContractAddresses } from "../helpers/contractAddresses";
@@ -68,7 +67,6 @@ export const Main: React.FunctionComponent = () => {
 
   React.useEffect(() => {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
-    civilCtx.setAnalyticsEvent(fireAnalyticsEvent);
     const civil = civilCtx.civil!;
     const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
     const networkNameSub = civil.networkNameStream.subscribe(onNetworkNameUpdated);
@@ -85,10 +83,6 @@ export const Main: React.FunctionComponent = () => {
       accountSub.unsubscribe();
     };
   }, [civilCtx]);
-
-  function fireAnalyticsEvent(category: string, action: string, label: string, value: number): void {
-    dispatch!(analyticsEvent({ category, action, label, value }));
-  }
 
   async function onNetworkUpdated(network: number): Promise<void> {
     dispatch!(setNetwork(network.toString()));
