@@ -12,8 +12,7 @@ import { TutorialFooter } from "./TutorialFooter";
 import { TutorialProgress } from "./TutorialProgress";
 import { TutorialRadio } from "./TutorialRadio";
 import { RadioInput } from "../input";
-import { HollowGreenCheck } from "../icons/HollowGreenCheck";
-import { HollowRedNoGood } from "../icons/HollowRedNoGood";
+import { HollowGreenCheck, HollowRedNoGood } from "@joincivil/elements";
 
 export interface Options {
   text: string;

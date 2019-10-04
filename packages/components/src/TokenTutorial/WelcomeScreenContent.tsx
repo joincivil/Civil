@@ -1,7 +1,5 @@
 import * as React from "react";
-import { BookreaderIcon } from "../icons/BookreaderIcon";
-import { BrainIcon } from "../icons/BrainIcon";
-import { ExamIcon } from "../icons/ExamIcon";
+import { BookreaderIcon, BrainIcon, ExamIcon } from "@joincivil/elements";
 
 export const WelcomeScreenContent = [
   {

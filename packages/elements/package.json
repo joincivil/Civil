@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "sideEffects": false,
   "scripts": {
-    "copy:images": "mkdir -p build/public && cp -a public/. build/public",
+    "copy:images": "mkdir -p build/images && cp -a src/images/. build/images",
     "build": "yarn clean && tsc && yarn copy:images",
     "build:watch": "yarn clean && yarn copy:images && tsc -w",
     "lint": "tslint --exclude \"**/storyFixtures/**\" --project ./",

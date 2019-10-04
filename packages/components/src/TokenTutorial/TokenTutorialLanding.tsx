@@ -12,7 +12,6 @@ import {
   TutorialLandingProgressBars,
   TutorialLandingProgressBar,
 } from "./TokenTutorialStyledComponents";
-import { ClockIcon } from "../icons/ClockIcon";
 import {
   TutorialIntroText,
   TutorialTimeText,
@@ -21,7 +20,7 @@ import {
 } from "./TokenTutorialTextComponents";
 import { TokenTutorialQuiz } from "./TokenTutorialQuiz";
 import { TutorialContent } from "./TutorialContent";
-import { DisclosureArrowIcon } from "../icons/DisclosureArrowIcon";
+import { ClockIcon, DisclosureArrowIcon } from "@joincivil/elements";
 import { updateQuizPayload } from "@joincivil/utils";
 
 export interface TokenTutorialLandingProps {
