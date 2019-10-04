@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { CloseXIcon, HamburgerIcon } from "../icons";
+import { CloseXIcon, HamburgerIcon } from "@joincivil/elements";
 
 import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuResponsiveButton } from "./styledComponents";

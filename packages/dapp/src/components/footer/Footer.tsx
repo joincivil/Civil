@@ -1,24 +1,165 @@
 import * as React from "react";
-import { urlConstants as links } from "@joincivil/utils";
+import styled from "styled-components";
 
-import { CivilIcon, TwitterIcon, FacebookIcon, InstagramIcon, MediumIcon, TelegramIcon } from "../icons";
 import {
-  StyledFooter,
-  StyledFooterInner,
-  StyledFooterInnerLeft,
-  StyledFooterInnerRight,
-  StyledFooterLogo,
-  StyledFooterNav,
-  StyledSlogan,
-  StyledFooterSocial,
-  StyledFooterCopyright,
-} from "./FooterStyledComponents";
+  colors,
+  fonts,
+  mediaQueries,
+  CivilIcon,
+  TwitterIcon,
+  FacebookIcon,
+  InstagramIcon,
+  MediumIcon,
+  TelegramIcon,
+} from "@joincivil/elements";
 
-export interface FooterProps {
-  currentYear: string;
-}
+import { links } from "../../helpers/links";
 
-export const Footer: React.FunctionComponent<FooterProps> = props => {
+const StyledFooter = styled.footer`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
+  margin: 50px auto 0;
+  max-width: 1440px;
+  padding: 50px 30px;
+
+  ${mediaQueries.MOBILE} {
+    padding: 40px 15px;
+  }
+`;
+
+const StyledFooterInner = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+  }
+`;
+
+const StyledFooterInnerLeft = styled.div`
+  display: flex;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+    margin: 0 0 30px;
+  }
+`;
+
+const StyledFooterInnerRight = styled.div`
+  font-size: 12px;
+  padding: 9px 0 0;
+  text-align: right;
+
+  ${mediaQueries.MOBILE} {
+    padding: 9px 0 0;
+    text-align: left;
+  }
+`;
+
+const StyledFooterLogo = styled.div`
+  margin-right: 50px;
+  width: 74px;
+`;
+
+const StyledFooterNav = styled.nav`
+  display: flex;
+
+  ${mediaQueries.MOBILE} {
+    display: block;
+  }
+
+  ul {
+    margin: 0 20px;
+    padding: 2px 0 0;
+    width: 120px;
+
+    ${mediaQueries.MOBILE} {
+      margin: 0 0 15px;
+      padding: 0;
+      width: 100%;
+    }
+  }
+
+  li {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 16px;
+    line-height: 26px;
+    list-style: none;
+    margin: 0;
+    text-align: left;
+  }
+
+  b {
+    color: ${colors.primary.BLACK};
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    line-height: 26px;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 28px;
+    text-decoration: none;
+    text-transform: uppercase;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
+const StyledSlogan = styled.span`
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  margin: 0 auto 10px;
+  text-transform: uppercase;
+`;
+
+const StyledFooterSocial = styled.div`
+  margin: 0 0 69px;
+
+  ${TwitterIcon} path,
+  ${FacebookIcon} path,
+  ${InstagramIcon} path,
+  ${MediumIcon} path,
+  ${TelegramIcon} path {
+    fill: ${colors.accent.CIVIL_GRAY_1};
+  }
+
+  ${TwitterIcon}:hover path,
+  ${FacebookIcon}:hover path,
+  ${InstagramIcon}:hover path,
+  ${MediumIcon}:hover path,
+  ${TelegramIcon}:hover path {
+    fill: ${colors.accent.CIVIL_BLUE};
+  }
+
+  ${mediaQueries.MOBILE} {
+    margin: 0 0 30px;
+  }
+
+  a {
+    margin: 0 14px 0 0;
+  }
+`;
+
+const StyledFooterCopyright = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_2};
+  display: block;
+  font-size: 12px;
+`;
+
+export const Footer: React.FunctionComponent = () => {
+  const currentYear = new Date().getFullYear().toString();
+
   return (
     <StyledFooter>
       <StyledFooterInner>
@@ -123,9 +264,11 @@ export const Footer: React.FunctionComponent<FooterProps> = props => {
             </a>
           </StyledFooterSocial>
 
-          <StyledFooterCopyright>© {props.currentYear} The Civil Media Company</StyledFooterCopyright>
+          <StyledFooterCopyright>© {currentYear} The Civil Media Company</StyledFooterCopyright>
         </StyledFooterInnerRight>
       </StyledFooterInner>
     </StyledFooter>
   );
 };
+
+export default Footer;

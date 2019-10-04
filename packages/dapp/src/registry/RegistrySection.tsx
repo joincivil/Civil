@@ -1,7 +1,4 @@
 import * as React from "react";
-import { GlobalNav } from "../components/GlobalNav";
-import Main from "../components/Main";
-import Footer from "../components/Footer";
 import { ApolloProvider } from "react-apollo";
 import { getApolloClient } from "@joincivil/utils";
 import config from "../helpers/config";
@@ -18,6 +15,11 @@ import Web3 from "web3";
 import { Web3AuthWrapper } from "../components/Web3AuthWrapper";
 
 import { Provider } from "react-redux";
+
+// components
+import Main from "../components/Main";
+import { Footer } from "../components/footer/Footer";
+import { NavBar } from "../components/header/NavBar";
 
 console.log("using config:", config);
 
@@ -80,7 +82,7 @@ export class RegistrySection extends React.Component {
                 <ConnectedRouter history={history}>
                   <>
                     <Web3AuthWrapper />
-                    <GlobalNav />
+                    <NavBar showUser={true} />
                     <Main />
                     <Footer />
                   </>

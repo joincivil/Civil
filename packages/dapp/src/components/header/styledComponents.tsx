@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, DarkButton } from "../Button";
+import { colors, fonts, mediaQueries, Button, DarkButton } from "@joincivil/elements";
 
 import { NavArrowProps } from "./NavBarTypes";
 

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { buttonSizes } from "../Button";
+import { buttonSizes } from "@joincivil/elements";
 
 import { NavLink } from "./NavLink";
 import { NavUserAccountProps as NavUserAccountBaseProps, NavAuthenticationProps } from "./NavBarTypes";
@@ -18,28 +18,50 @@ import {
   UserAvatarFigure,
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
-import { CivilContext, ICivilContext } from "../context";
+import { ICivilContext, CivilContext } from "@joincivil/components";
+import { useSelector, useDispatch } from "react-redux";
+import { State } from "../../redux/reducers";
+import { showWeb3LoginModal, showWeb3SignupModal, hideWeb3AuthModal } from "../../redux/actionCreators/ui";
+import NavDrawer from "./NavDrawer";
 
-export interface NavUserAccountProps extends NavUserAccountBaseProps, NavAuthenticationProps {
-  isUserDrawerOpen: boolean;
-  toggleDrawer(): void;
-  onLoginPressed(): void;
-  onSignupPressed(): void;
-  onModalDefocussed(): void;
+function maybeAccount(state: State): any {
+  const { user } = state.networkDependent;
+  if (user.account && user.account.account && user.account.account !== "") {
+    return user.account;
+  }
 }
 
-const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
+const UserAccount: React.FunctionComponent = props => {
+  // context
+  const civilCtx = React.useContext<ICivilContext>(CivilContext);
+  const civil = civilCtx.civil;
+
+  // redux
+  const dispatch = useDispatch();
+  const account: any | undefined = useSelector(maybeAccount);
+
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const civilUser = civilContext.currentUser;
-  const { userEthAddress, enableEthereum, onLoginPressed, onSignupPressed } = props;
+  const userAccount = account ? account.account : undefined;
 
-  React.useMemo(() => {
-    if (civilUser && enableEthereum && !userEthAddress) {
-      enableEthereum();
+  // state
+  const [isUserDrawerOpen, setUserDrawerOpen] = React.useState(false);
+  const toggleDrawer = () => setUserDrawerOpen(!isUserDrawerOpen);
+
+  async function onLoginPressed(): Promise<any> {
+    dispatch!(await showWeb3LoginModal());
+  }
+  async function onSignupPressed(): Promise<any> {
+    dispatch!(await showWeb3SignupModal());
+  }
+
+  React.useEffect(() => {
+    if (civilUser && !userAccount) {
+      civilCtx.civil!.currentProviderEnable().catch(err => console.log("error enabling ethereum", err));
     }
-  }, [civilUser, enableEthereum, userEthAddress]);
+  }, [civil, civilUser, userAccount]);
 
-  if (civilUser && userEthAddress) {
+  if (civilUser) {
     const userAccountElRef = React.createRef<HTMLDivElement>();
     let child;
 
@@ -60,26 +82,19 @@ const UserAccount: React.FunctionComponent<NavUserAccountProps> = props => {
           </NavLink>
         </StyledVisibleIfLoggedInLink>
         <div ref={userAccountElRef}>
-          <NavUser onClick={(ev: any) => props.toggleDrawer()}>
+          <NavUser onClick={(ev: any) => toggleDrawer()}>
             <CvlContainer>
               <AvatarContainer>
                 {tiny72AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny72AvatarDataUrl} />}
                 {showFigure && <UserAvatarFigure />}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
-              <Arrow isOpen={props.isUserDrawerOpen} />
+              <Arrow isOpen={isUserDrawerOpen} />
             </CvlContainer>
           </NavUser>
         </div>
-
-        {child}
+        {isUserDrawerOpen && <NavDrawer handleOutsideClick={() => setUserDrawerOpen(false)} />}
       </>
-    );
-  } else if (civilUser && enableEthereum && !userEthAddress) {
-    return (
-      <LogInButton onClick={props.enableEthereum} size={buttonSizes.SMALL}>
-        Connect Wallet
-      </LogInButton>
     );
   }
 

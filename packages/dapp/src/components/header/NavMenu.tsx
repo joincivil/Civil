@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { FeatureFlag } from "../features";
 import { NavMenuState } from "./NavBarTypes";
 import { StyledNavMenuContainer, StyledNavMenuResponsiveContainer, StyledMobileNavMenu } from "./styledComponents";
 import {
@@ -45,11 +44,9 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
-      <FeatureFlag feature={"boosts-mvp"}>
-        <NavLink to="/boosts" {...mobileOnClickProp}>
-          <NavLinkBoostsText />
-        </NavLink>
-      </FeatureFlag>
+      <NavLink to="/boosts" {...mobileOnClickProp}>
+        <NavLinkBoostsText />
+      </NavLink>
       <NavLink href="https://civil.co/constitution/">
         <NavLinkConstitutionText />
       </NavLink>
