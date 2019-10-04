@@ -10,7 +10,7 @@
   "dependencies": {
     "@joincivil/elements": "^0.0.1",
     "@kirby-web3/child-core": "^1.0.0",
-    "@kirby-web3/child-react": "^1.0.0",
+    "@kirby-web3/child-react": "^1.1.8",
     "@kirby-web3/plugin-connext": "^1.1.2",
     "@kirby-web3/plugin-ethereum": "^1.0.0",
     "@reach/router": "^1.2.1",
