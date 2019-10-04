@@ -11,11 +11,11 @@ exports[`Storyshots Pattern Library / Loading / Clip Loader Default Size (32px x
     }
   >
     <div
-      className="sc-LzNOU gcdElF"
+      className="sc-LzNQb bZBMdU"
     >
       <div>
         <div
-          className="sc-fzXfOr cOnOFC"
+          className="sc-fzXfOt fyIGwY"
           size={35}
         />
       </div>
@@ -423,11 +423,11 @@ exports[`Storyshots Pattern Library / Loading / Clip Loader Prop-defined size (1
     }
   >
     <div
-      className="sc-LzNOU gcdElF"
+      className="sc-LzNQb bZBMdU"
     >
       <div>
         <div
-          className="sc-fzXfOr blURiQ"
+          className="sc-fzXfOt exZwWC"
           size={100}
         />
       </div>

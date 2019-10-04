@@ -11,10 +11,10 @@ exports[`Storyshots Pattern Library / Cards Clickable Card 1`] = `
     }
   >
     <div
-      className="sc-LzNOS hnEEQt"
+      className="sc-LzNPC jpAlHO"
     >
       <div
-        className="sc-fzXfPf sc-fzXfPg bFlcFK"
+        className="sc-fzXfPG sc-fzXfPH hqMLbn"
         onClick={[Function]}
       >
         I am a basic clickable card.

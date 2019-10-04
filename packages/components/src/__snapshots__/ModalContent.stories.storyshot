@@ -11,16 +11,16 @@ exports[`Storyshots Pattern Library / Modals content 1`] = `
     }
   >
     <div
-      className="sc-LzNQf bHTXzT"
+      className="sc-LzNQP gPAyQZ"
     >
       <div>
         <h2
-          className="sc-fzXfPK jRNWHC"
+          className="sc-fzXfQl iWkugA"
         >
           I'm a Heading
         </h2>
         <p
-          className="sc-fzXfPL cslkgJ"
+          className="sc-fzXfQm jmKkKn"
         >
           I'm a paragraph of some sorts
         </p>

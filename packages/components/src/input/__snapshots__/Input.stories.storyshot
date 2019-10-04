@@ -309,7 +309,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfOz egfUHK"
+      className="sc-fzXfOY gKIhJl"
     >
       <div
         className=" sc-fzXfLP corfVh"
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-fzXfOX kdqvtb"
+        className="sc-fzXfOZ esgwVd"
       >
         CVL
       </div>
@@ -884,7 +884,7 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
     }
   >
     <div
-      className="sc-fzXfNL kspZbC"
+      className="sc-fzXfNN fwolVg"
     >
       <label
         className="sc-AykKK hGXZCW"
@@ -892,13 +892,13 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
         Input Group with Prepend Text
       </label>
       <div
-        className="sc-fzXfNM iIlEKl"
+        className="sc-fzXfNO evpIL"
       >
         <div
-          className="sc-fzXfNN fIPTNB"
+          className="sc-fzXfNP lpehvL"
         >
           <span
-            className="sc-fzXfNP JyfDi"
+            className="sc-fzXfNR dRMhAg"
           >
             CVL
           </span>
@@ -2147,7 +2147,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfPd fuwiYc"
+        className="sc-fzXfPE iHfKtt"
       >
         <div
           className=" sc-fzXfLP corfVh"
@@ -2164,7 +2164,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
           />
         </div>
         <button
-          className="sc-fzXfOs sc-fzXfOt irxLwo"
+          className="sc-fzXfOu sc-fzXfOv hMLggX"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfPe dbQQBv"
+        className="sc-fzXfPF bFxRPo"
       />
     </form>
   </div>
@@ -2740,7 +2740,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfOz egfUHK"
+      className="sc-fzXfOY gKIhJl"
     >
       <div
         className=" sc-fzXfLP corfVh"
@@ -3308,7 +3308,7 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
     }
   >
     <button
-      className="sc-fzXfOs sc-fzXfOu diTCqS"
+      className="sc-fzXfOu sc-fzXfOw hhVJSL"
       onClick={[Function]}
       size="SMALL"
       theme={
