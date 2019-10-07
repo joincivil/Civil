@@ -37,7 +37,7 @@ const AvatarEditorDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 const CropSpan = styled.span`
@@ -120,7 +120,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
     this.state = {
       avatarDataURL: "",
       errorMessage: undefined,
-      scale: 1.2,
+      scale: 1.4,
       saveInProgress: false,
     };
     this.editor = null;
@@ -217,7 +217,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
               <ZoomSliderContainer>
                 <Slider
                   styles={{
-                    track: { backgroundColor: colors.accent.CIVIL_GRAY_4 },
+                    track: { backgroundColor: colors.accent.CIVIL_GRAY_4, width: 250 },
                     active: { backgroundColor: colors.accent.CIVIL_GRAY_4 },
                   }}
                   axis="x"
