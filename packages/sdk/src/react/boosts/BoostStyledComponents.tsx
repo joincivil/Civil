@@ -196,33 +196,41 @@ export const BoostNewsroomInfo = styled.div`
   }
 `;
 
-export const BoostNewsroomName = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 18px;
-  line-height: 26px;
-  font-weight: 200;
-  margin-right: 20px;
+export const BoostNewsroomName = styled.a`
+  // override <a> specificity
+  && {
+    color: ${colors.accent.CIVIL_GRAY_0} !important;
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 200;
+    margin-right: 20px;
+  }
 
   ${mediaQueries.MOBILE} {
     font-size: 14px;
   }
 `;
 
-export const BoostCardFlex = styled.div`
+export const BoostDescShareFlex = styled.div`
   display: flex;
+  ${mediaQueries.MOBILE_SMALL} {
+    flex-direction: column-reverse;
+  }
+`;
 
-  h3 {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 19px;
-    margin: 7px 0 10px;
+export const BoostShareHeading = styled.h3`
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  margin: 5px 0 10px;
+  white-space: nowrap;
 
-    ${mediaQueries.MOBILE} {
-      color: ${colors.primary.BLACK};
-      font-size: 16px;
-      line-height: 28px;
-    }
+  ${mediaQueries.MOBILE} {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    line-height: 28px;
+    margin-top: 1px;
   }
 `;
 

@@ -71,7 +71,9 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
         <BoostFlexStartMobile>
           <BoostImgDivMobile>{this.renderImage()}</BoostImgDivMobile>
           <BoostNewsroomInfo>
-            <BoostNewsroomName>{this.props.newsroomData.name}</BoostNewsroomName>
+            <BoostNewsroomName href={this.state.charter && this.state.charter.newsroomUrl} target="_blank">
+              {this.props.newsroomData.name}
+            </BoostNewsroomName>
             {this.props.open && (
               <>
                 {this.props.boostOwner && (
