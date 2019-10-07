@@ -40,6 +40,7 @@ export * from "./MetaMaskIcons";
 export * from "./NetworkIcon";
 export * from "./NorthEastArrow";
 export * from "./OctopusErrorIcon";
+export * from "./PhotoDragIcon";
 export * from "./RegistryEmptyIcon";
 export * from "./RejectedNewsroomsIcon";
 export * from "./RevealVoteSuccessIcon";

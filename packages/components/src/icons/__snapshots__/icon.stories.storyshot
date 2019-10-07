@@ -7899,7 +7899,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
       className="sc-LzNRV ldYSwP"
     >
       <svg
-        className="sc-LzLqK bYuogC"
+        className="sc-fzXfPg gPhfZV"
         height={23}
         viewBox="0 0 22 23"
         width={23}
@@ -10595,7 +10595,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
       className="sc-LzNRV ldYSwP"
     >
       <img
-        className="sc-LzLrk hWwieG"
+        className="sc-fzXfPG qFkjc"
         src="test-file-stub"
       />
     </div>
@@ -10915,7 +10915,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
       className="sc-LzNRV ldYSwP"
     >
       <img
-        className="sc-LzLrk hWwieG"
+        className="sc-fzXfPG qFkjc"
         src="test-file-stub"
       />
     </div>
@@ -15160,7 +15160,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
       className="sc-LzNRV ldYSwP"
     >
       <svg
-        className="sc-LzLrm cqeomN"
+        className="sc-fzXfPI dWWJAf"
         height={23}
         viewBox="0 0 22 23"
         width={23}

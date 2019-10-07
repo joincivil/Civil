@@ -3,6 +3,7 @@ import { InvertedButton, buttonSizes } from "../Button";
 import { colors, fonts } from "../styleConstants";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
+import { PhotoDragIcon } from "../icons";
 
 export interface SimpleImageFileToDataUriProps {
   buttonText?: string;
@@ -20,6 +21,7 @@ const DropArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 30px;
   p {
     font-size: 18px;
@@ -56,6 +58,8 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
             <section>
               <DropArea {...getRootProps()}>
                 <input {...getInputProps()} />
+                <PhotoDragIcon />
+                <br />
                 <p>Drag and drop an image here</p>
               </DropArea>
             </section>
