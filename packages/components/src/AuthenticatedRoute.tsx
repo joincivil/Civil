@@ -49,7 +49,7 @@ export const AuthenticatedRoute = ({
 
   return (
     <Route {...otherProps}>
-      <Query query={getCurrentUserQuery}>
+      <Query<any> query={getCurrentUserQuery}>
         {({ loading, error, data }) => {
           if (loading) {
             return null;

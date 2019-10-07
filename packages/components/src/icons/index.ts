@@ -58,3 +58,5 @@ export * from "./WaitForApply";
 export * from "./Info";
 export * from "./logos";
 export * from "./GrantSubmitIcon";
+export * from "./ZoomInIcon";
+export * from "./ZoomOutIcon";

@@ -19,7 +19,6 @@ import {
   initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
-import { initializeContractAddresses } from "../helpers/contractAddresses";
 import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
 import config from "../helpers/config";
@@ -27,9 +26,9 @@ import config from "../helpers/config";
 import { isNetworkSupported } from "../helpers/networkHelpers";
 
 import AsyncComponent from "./utility/AsyncComponent";
-import { analyticsEvent } from "../redux/actionCreators/analytics";
 import { CivilHelperContext } from "../apis/CivilHelper";
-import { Subscription } from "rxjs";
+
+import { initializeContractAddresses } from "../helpers/contractAddresses";
 // PAGES
 const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
 const Listing = React.lazy(async () => import("./listing/Listing"));
@@ -59,38 +58,31 @@ export interface MainOwnProps {
   civilUser: any;
 }
 
-export interface MainState {
-  prevAccount: EthAddress;
-  accountStream?: Subscription;
-  networkStream?: Subscription;
-  networkNameStream?: Subscription;
-}
-
 export const Main: React.FunctionComponent = () => {
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
   const civilHelper = React.useContext(CivilHelperContext);
-  const [prevAccount, setPrevAccount] = React.useState("");
   const dispatch = useDispatch();
   const networkRedux = useSelector((state: any) => state.network);
   const networkIsSupported = isNetworkSupported(networkRedux);
 
   React.useEffect(() => {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
-    civilCtx.setAnalyticsEvent(fireAnalyticsEvent);
     const civil = civilCtx.civil!;
-    civil.networkStream.subscribe(onNetworkUpdated);
-    civil.networkNameStream.subscribe(onNetworkNameUpdated);
-    civil.accountStream.subscribe(onAccountUpdated);
+    const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
+    const networkNameSub = civil.networkNameStream.subscribe(onNetworkNameUpdated);
+    const accountSub = civil.accountStream.subscribe(onAccountUpdated);
 
     (window as any).onerror = (message: string, source: string, lineNum: string, colNum: string, errorObj: any) => {
       dispatch!(catchWindowOnError(message, source, lineNum, colNum, errorObj));
-      return false;
+      // return false;
+    };
+
+    return function cleanup(): void {
+      networkSub.unsubscribe();
+      networkNameSub.unsubscribe();
+      accountSub.unsubscribe();
     };
   }, [civilCtx]);
-
-  function fireAnalyticsEvent(category: string, action: string, label: string, value: number): void {
-    dispatch!(analyticsEvent({ category, action, label, value }));
-  }
 
   async function onNetworkUpdated(network: number): Promise<void> {
     dispatch!(setNetwork(network.toString()));
@@ -117,14 +109,21 @@ export const Main: React.FunctionComponent = () => {
 
   const onAccountUpdated = async (account: EthAddress | undefined): Promise<void> => {
     const civil = civilCtx.civil!;
-    if (prevAccount !== "" && account !== prevAccount) {
-      if (civilCtx.auth.currentUser) {
-        civilCtx.auth.logout();
-      }
+    const currentUser = civilCtx.currentUser;
+    if (
+      account &&
+      currentUser &&
+      currentUser.ethAddress &&
+      account.toLowerCase() !== currentUser.ethAddress.toLowerCase()
+    ) {
+      console.log("web3 account does not match that of the logged in user, so logging out", {
+        web3Account: account,
+        currentUserAccount: currentUser.ethAddress,
+      });
+      civilCtx.auth.logout();
     }
     if (account) {
       try {
-        setPrevAccount(account ? account : "");
         dispatch!(addUser(account, new BigNumber(0), new BigNumber(0))); // get user eth address into redux right away
         const tcr = await civil.tcrSingletonTrusted();
         const token = await tcr.getToken();

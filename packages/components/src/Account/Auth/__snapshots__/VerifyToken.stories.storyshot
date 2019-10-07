@@ -11,12 +11,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     }
   >
     <h2
-      className="sc-AykKJ uzsbQ"
+      className="sc-fzXfNf jjYEDs"
     >
       Email Address Confirmed!
     </h2>
     <div
-      className="sc-AykKK sc-fzXfLO kfcsmY"
+      className="sc-fzXfNg sc-fzXfNi fQaGGE"
     >
       Thanks for confirming your email address.
     </div>
@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-LzNvS sc-LzNvT hYGuqz"
+          className="sc-LzNOh sc-LzNOi YEpcp"
         />
       </div>
     </div>
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfME sc-fzXfNc keNjb"
+          className="sc-fzXfOu sc-fzXfOv liGmVU"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -373,12 +373,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
     }
   >
     <h2
-      className="sc-AykKJ uzsbQ"
+      className="sc-fzXfNf jjYEDs"
     >
       Uh oh.
     </h2>
     <div
-      className="sc-AykKK sc-fzXfLO kfcsmY"
+      className="sc-fzXfNg sc-fzXfNi fQaGGE"
     >
       <strong>
         Error is bad
@@ -693,7 +693,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     }
   >
     <h2
-      className="sc-AykKJ uzsbQ"
+      className="sc-fzXfNf jjYEDs"
     >
       Confirming your email address...
     </h2>
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-LzNvS sc-LzNvT hYGuqz"
+          className="sc-LzNOh sc-LzNOi YEpcp"
         />
       </div>
     </div>
@@ -721,7 +721,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfME sc-fzXfNc keNjb"
+          className="sc-fzXfOu sc-fzXfOv liGmVU"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

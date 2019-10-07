@@ -174,6 +174,7 @@ export const getCurrentUserQuery = gql`
         avatarDataUrl
         tiny72AvatarDataUrl
       }
+      userChannelAvatarPromptSeen
       userChannelEmailPromptSeen
     }
   }

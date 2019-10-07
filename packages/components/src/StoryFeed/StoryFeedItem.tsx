@@ -5,12 +5,15 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
-import { StoryFeedItemWrap } from "./StoryFeedStyledComponents";
+import { StoryFeedItemWrap, TipButton, StoryElements } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
+import { Payments } from "../Payments";
 
 export interface StoryFeedItemProps {
+  storyId: string;
   activeChallenge: boolean;
   createdAt: string;
+  isStripeConnected: boolean;
   newsroom: StoryNewsroomData;
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
@@ -21,6 +24,7 @@ export interface StoryFeedItemProps {
 export interface StoryFeedItemStates {
   isStoryModalOpen: boolean;
   isStoryNewsroomModalOpen: boolean;
+  isPaymentsModalOpen: boolean;
 }
 
 export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeedItemStates> {
@@ -29,6 +33,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
     this.state = {
       isStoryModalOpen: false,
       isStoryNewsroomModalOpen: false,
+      isPaymentsModalOpen: false,
     };
   }
 
@@ -52,7 +57,10 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
           <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
-          <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
+          <StoryElements>
+            <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
+            <TipButton onClick={this.openPayments}>Tip $</TipButton>
+          </StoryElements>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
@@ -69,19 +77,32 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
           <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
+        <StoryModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
+          <Payments
+            postId={this.props.storyId}
+            newsroomName={this.props.newsroom.charter.name}
+            paymentAddress={this.props.newsroom.multisigAddress}
+            usdToSpend={3}
+            isStripeConnected={this.props.isStripeConnected}
+          />
+        </StoryModal>
       </>
     );
   }
 
+  private openPayments = () => {
+    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+  };
+
   private openStoryDetails = () => {
-    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false });
+    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false });
+    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private handleClose = () => {
-    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
   };
 }

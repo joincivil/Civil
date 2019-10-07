@@ -166,7 +166,10 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       </StyledDashboardNewsroomSection>
 
       <FeatureFlag feature={"pew"}>
-        <Query query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY} variables={{ contractAddress: props.newsroomAddress }}>
+        <Query<any>
+          query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
+          variables={{ contractAddress: props.newsroomAddress }}
+        >
           {({ loading, error, data }) => {
             if (loading || error) {
               return <></>;

@@ -11,10 +11,10 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNc KrJoS"
+        className="sc-fzXfOu sc-fzXfOv hMLggX"
         theme={
           Object {
             "primaryButtonBackground": "#2B56FF",
@@ -33,7 +33,7 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
       </button>
       <br />
       <button
-        className="sc-fzXfME sc-fzXfNc KrJoS disabled"
+        className="sc-fzXfOu sc-fzXfOv hMLggX disabled"
         disabled={true}
         theme={
           Object {
@@ -53,7 +53,7 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
       </button>
       <br />
       <a
-        className="sc-fzXfME sc-fzXfNc KrJoS"
+        className="sc-fzXfOu sc-fzXfOv hMLggX"
         href="/home"
         onClick={[Function]}
         theme={
@@ -502,13 +502,13 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <p>
         This is a Transaction Button styled as a Card, and can contain any markup
       </p>
       <div
-        className="sc-fzXfOr sc-fzXfOs dpdOSR"
+        className="sc-fzXfPG sc-fzXfPH hqMLbn"
         onClick={[Function]}
       >
         Transaction
@@ -943,10 +943,10 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNf IixrF"
+        className="sc-fzXfOu sc-fzXfOy choKRT"
         theme={
           Object {
             "darkButtonBackground": "#000000",
@@ -1390,10 +1390,10 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNd fDjlGj"
+        className="sc-fzXfOu sc-fzXfOw jwKbzq"
         theme={
           Object {
             "invertedButtonBackground": "#FFFFFF",
@@ -1834,10 +1834,10 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNc sc-LzMXc ghvRgN"
+        className="sc-fzXfOu sc-fzXfOv sc-LzMYr diZEdg"
         onClick={[Function]}
         size="MEDIUM_WIDE"
         theme={
@@ -1855,10 +1855,10 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
         type="button"
       >
         <div
-          className="sc-LzMXd hzmzup"
+          className="sc-LzMYs jaKUUN"
         >
           <img
-            className="sc-fzXfQS dOozeJ"
+            className="sc-LzLrk hWwieG"
             src="test-file-stub"
           />
         </div>
@@ -2294,10 +2294,10 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNe ipkhPK"
+        className="sc-fzXfOu sc-fzXfOx gqWIWU"
         theme={
           Object {
             "secondaryButtonBackground": "#FFFFFF",
@@ -2741,10 +2741,10 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
     }
   >
     <div
-      className="sc-LzNxd dpbnRj"
+      className="sc-LzNPB eBuFQt"
     >
       <button
-        className="sc-fzXfME sc-fzXfNc KrJoS"
+        className="sc-fzXfOu sc-fzXfOv hMLggX"
         size="LARGE"
         theme={
           Object {
@@ -2764,7 +2764,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
       </button>
       <br />
       <button
-        className="sc-fzXfME sc-fzXfNc fnjGoE"
+        className="sc-fzXfOu sc-fzXfOv kjtSoZ"
         size="MEDIUM"
         theme={
           Object {
@@ -2784,7 +2784,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
       </button>
       <br />
       <button
-        className="sc-fzXfME sc-fzXfNc keNjb"
+        className="sc-fzXfOu sc-fzXfOv liGmVU"
         size="MEDIUM_WIDE"
         theme={
           Object {
@@ -2804,7 +2804,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
       </button>
       <br />
       <button
-        className="sc-fzXfME sc-fzXfNc eBqErX"
+        className="sc-fzXfOu sc-fzXfOv ipMfto"
         size="SMALL"
         theme={
           Object {
@@ -2824,7 +2824,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
       </button>
       <br />
       <button
-        className="sc-fzXfME sc-fzXfNc bipzsc"
+        className="sc-fzXfOu sc-fzXfOv bHqTZJ"
         size="SMALL_WIDE"
         theme={
           Object {

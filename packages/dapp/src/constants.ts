@@ -2,8 +2,17 @@ import * as React from "react";
 import { BoostLoader } from "@joincivil/sdk";
 
 /** Routes that should load components outside of Main.tsx and header and footer etc., but which will still inherit config, civil context, Apollo provider, etc. */
-export const standaloneRoutes: Array<{ pathname: string; component: React.ComponentType }> = [
-  { pathname: "/boost-embed/:boostId/:payment?", component: BoostLoader },
+export const standaloneRoutes: Array<{
+  /** `pathStem` is a hack needed to determine whether to show `RegistryShell` component or not (since we don't want to show it for boost embed or anything else like it. At the point in which `RegistryShell` is displayed, the `Route` that parses `pathname` hasn't been loaded yet so `router.location.pathname` returns "/boost-embed/abc123" instead of "/boost-embed/:boostId/:payment?", so we just have to check for "/boost-embed/". */
+  pathStem: string;
+  pathname: string;
+  component: React.ComponentType;
+}> = [
+  {
+    pathStem: "/boost-embed/",
+    pathname: "/boost-embed/:boostId/:payment?",
+    component: BoostLoader,
+  },
 ];
 
 export enum routes {
