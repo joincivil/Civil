@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, Button, InvertedButton } from "@joincivil/components";
+import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
 
 export interface BoostStyleProps {
   open?: boolean;
@@ -39,6 +39,10 @@ export const BoostTitle = styled.h2`
   font-weight: bold;
   margin: 0 0 8px;
   transition: color 0.25s ease;
+
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"}
 
   ${mediaQueries.MOBILE} {
     font-size: 16px;

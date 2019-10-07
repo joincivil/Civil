@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { withRouter, RouteComponentProps } from "react-router";
+import { CivilContext, ICivilContext, RENDER_CONTEXT } from "@joincivil/components";
 import { colors } from "@joincivil/elements";
 import { Boost } from "./Boost";
 
@@ -41,13 +42,22 @@ export interface BoostLoaderParams {
 }
 
 const BoostLoaderComponent = (props: RouteComponentProps<BoostLoaderParams>) => {
+  // @TODO/toby Once https://github.com/joincivil/Civil/pull/1432 is merged this should be set at the point at which embeds fork from other paths.
+  const civilContext = React.useContext<ICivilContext>(CivilContext);
+  civilContext.renderContext = RENDER_CONTEXT.EMBED;
+  const theme = {
+    renderContext: RENDER_CONTEXT.EMBED,
+  };
+
   return (
     <>
       <GlobalStyleNoScroll />
       <OverflowLinkContainer>
         <OverflowLink href={"https://registry.civil.co/boosts/" + props.match.params.boostId} target="_blank">View this Boost &gt;</OverflowLink>
       </OverflowLinkContainer>
+      <ThemeProvider theme={theme}>
         <Boost boostId={props.match.params.boostId} open={true} payment={!!props.match.params.payment} />
+      </ThemeProvider>
     </>
   );
 };

@@ -1,5 +1,11 @@
 import * as React from "react";
-import { defaultNewsroomImgUrl, HelmetHelper } from "@joincivil/components";
+import {
+  defaultNewsroomImgUrl,
+  HelmetHelper,
+  CivilContext,
+  ICivilContext,
+  RENDER_CONTEXT,
+} from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import * as IPFS from "ipfs-http-client";
 import { promisify } from "@joincivil/utils";
@@ -41,6 +47,9 @@ export interface BoostNewsroomState {
 }
 
 export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNewsroomState> {
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   constructor(props: BoostNewsroomProps) {
     super(props);
     this.state = {
@@ -113,7 +122,7 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
   }
 
   private renderNewsroomURL(): JSX.Element {
-    if (this.state.charter) {
+    if (this.state.charter && this.context.renderContext !== RENDER_CONTEXT.EMBED) {
       return (
         <a href={this.state.charter.newsroomUrl} target="_blank">
           Visit Newsroom <MobileStyle>&raquo;</MobileStyle>
