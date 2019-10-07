@@ -21,6 +21,7 @@ import {
   CCMastercardIcon,
   CCVisaIcon,
   CCSecurityCodeIcon,
+  FeatureFlag,
 } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import {
@@ -36,6 +37,7 @@ import { BoostPayOption } from "./BoostPayOption";
 import { Countries } from "./BoostPayCountriesList";
 import { urlConstants } from "../../urlConstants";
 import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./InputValidationUI";
+import PaymentRequestForm from "./BoostPaymentRequest";
 
 const StripeWrapper = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
@@ -253,6 +255,13 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
           optionLabel={this.props.optionLabel}
           selected={this.props.selected}
         >
+          <FeatureFlag feature={"pay-request"}>
+            <PaymentRequestForm
+              savePayment={this.props.savePayment}
+              boostId={this.props.boostId}
+              usdToSpend={this.props.usdToSpend}
+            />
+          </FeatureFlag>
           <StripeWrapper>
             <StripeCardEmailWrap>
               <label>Email</label>
