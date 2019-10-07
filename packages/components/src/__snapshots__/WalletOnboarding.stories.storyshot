@@ -50,7 +50,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
           className="sc-LzLte hMyaqH"
         >
           <img
-            className="sc-LzLrk hWwieG"
+            className="sc-fzXfPG qFkjc"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -534,7 +534,7 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
           className="sc-LzLte hMyaqH"
         >
           <img
-            className="sc-LzLrk hWwieG"
+            className="sc-fzXfPG qFkjc"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -1323,7 +1323,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
         </a>
          
         <img
-          className="sc-LzLrk hWwieG sc-LzMFo CBdKN"
+          className="sc-fzXfPG qFkjc sc-LzMFo CBdKN"
           src="test-file-stub"
         />
          to manage your transactions.
@@ -1829,7 +1829,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       <p>
         If you do not see the MetaMask popup, please click the 
         <img
-          className="sc-LzLrk hWwieG sc-LzMFo CBdKN"
+          className="sc-fzXfPG qFkjc sc-LzMFo CBdKN"
           src="test-file-stub"
         />
          icon in your browser address bar.
@@ -2206,7 +2206,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
           className="sc-LzLte hMyaqH"
         >
           <img
-            className="sc-LzLrk hWwieG"
+            className="sc-fzXfPG qFkjc"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -2658,7 +2658,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
          
         to switch networks in MetaMask 
         <img
-          className="sc-LzLrk hWwieG sc-LzMFo CBdKN"
+          className="sc-fzXfPG qFkjc sc-LzMFo CBdKN"
           src="test-file-stub"
         />
       </p>

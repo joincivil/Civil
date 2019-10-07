@@ -508,7 +508,7 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
         This is a Transaction Button styled as a Card, and can contain any markup
       </p>
       <div
-        className="sc-fzXfPG sc-fzXfPH hqMLbn"
+        className="sc-fzXfPN sc-fzXfQl gFQins"
         onClick={[Function]}
       >
         Transaction
@@ -1858,7 +1858,7 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
           className="sc-LzMYs jaKUUN"
         >
           <img
-            className="sc-LzLrk hWwieG"
+            className="sc-fzXfPG qFkjc"
             src="test-file-stub"
           />
         </div>

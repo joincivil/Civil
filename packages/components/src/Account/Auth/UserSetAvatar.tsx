@@ -11,6 +11,7 @@ import { fonts } from "../../styleConstants";
 import Slider from "react-input-slider";
 import { ZoomInIcon, ZoomOutIcon } from "../../icons";
 import { colors } from "@joincivil/elements";
+import { ClipLoader } from "../../ClipLoader";
 
 const setAvatarMutation = gql`
   mutation($input: ChannelsSetAvatarInput!) {
@@ -41,6 +42,11 @@ const AvatarEditorDiv = styled.div`
 
 const CropSpan = styled.span`
   margin-top: 15px;
+  color: #676767;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.16px;
+  line-height: 17px;
 `;
 
 const AvatarEditorContainerDiv = styled.div`
@@ -55,7 +61,7 @@ const ZoomContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 336px;
   margin-top: 10px;
 `;
@@ -83,18 +89,19 @@ const SkipButton = styled.span`
   text-align: center;
 `;
 
-export interface UserSetAvatarAuthProps {
+export interface UserSetAvatarProps {
   headerComponent?: JSX.Element;
   channelID: string;
   onSetAvatarComplete?(): void;
 }
 
-export interface UserSetAvatarAuthState {
+export interface UserSetAvatarState {
   avatarDataURL: string;
   errorMessage: string | undefined;
   scale: number;
   image?: any;
   preview?: PreviewImageState;
+  saveInProgress: boolean;
 }
 
 export interface PreviewImageState {
@@ -106,14 +113,15 @@ export interface PreviewImageState {
   borderRadius: number;
 }
 
-export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserSetAvatarAuthState> {
+export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAvatarState> {
   public editor: AvatarEditor | null;
-  constructor(props: UserSetAvatarAuthProps) {
+  constructor(props: UserSetAvatarProps) {
     super(props);
     this.state = {
       avatarDataURL: "",
       errorMessage: undefined,
       scale: 1.2,
+      saveInProgress: false,
     };
     this.editor = null;
   }
@@ -135,12 +143,14 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
                       size={buttonSizes.SMALL}
                       textTransform={"none"}
                       onClick={() => this.setState({ image: undefined })}
+                      disabled={this.state.saveInProgress}
                     >
                       Go back
                     </InvertedButton>
                     <SaveButtonContainer>
-                      <Button size={buttonSizes.SMALL} textTransform={"none"} type={"submit"}>
-                        Save
+                      <Button size={buttonSizes.SMALL} textTransform={"none"} type={"submit"} disabled={this.state.saveInProgress}>
+                        {this.state.saveInProgress && <>Saving <ClipLoader size={16} /></>}
+                        {!this.state.saveInProgress && "Save"}
                       </Button>
                     </SaveButtonContainer>
                   </SkipAndSaveButtonsContainer>
@@ -237,7 +247,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
   private async handleSubmit(event: React.FormEvent, mutation: MutationFn, channelID: string): Promise<void> {
     event.preventDefault();
 
-    this.setState({ errorMessage: undefined });
+    this.setState({ errorMessage: undefined, saveInProgress: true });
 
     const avatarDataURL = this.editor!.getImageScaledToCanvas().toDataURL();
 
@@ -256,12 +266,11 @@ export class UserSetAvatar extends React.Component<UserSetAvatarAuthProps, UserS
       if (res.error) {
         console.log("res.error: ", res.error);
       }
-
       return;
     } catch (err) {
       const errorMessage = "Unknown Error when setting avatar. Please contact support@civil.co if problem persists.";
 
-      this.setState({ errorMessage });
+      this.setState({ errorMessage, saveInProgress: false });
     }
   }
 }
