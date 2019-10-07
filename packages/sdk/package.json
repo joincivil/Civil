@@ -10,6 +10,7 @@
     "@commitlint/config-conventional": "^7.5.0",
     "@joincivil/components": "^1.9.10",
     "@joincivil/core": "^4.8.11",
+    "@joincivil/elements": "^0.0.1",
     "@joincivil/utils": "^1.9.8",
     "@svgr/webpack": "4.1.0",
     "babel-core": "7.0.0-bridge.0",

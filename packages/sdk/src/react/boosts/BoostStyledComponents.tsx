@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, Button, InvertedButton } from "@joincivil/components";
+import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
 
 export interface BoostStyleProps {
   open?: boolean;
@@ -39,6 +39,10 @@ export const BoostTitle = styled.h2`
   font-weight: bold;
   margin: 0 0 8px;
   transition: color 0.25s ease;
+
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"}
 
   ${mediaQueries.MOBILE} {
     font-size: 16px;
@@ -196,33 +200,41 @@ export const BoostNewsroomInfo = styled.div`
   }
 `;
 
-export const BoostNewsroomName = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 18px;
-  line-height: 26px;
-  font-weight: 200;
-  margin-right: 20px;
+export const BoostNewsroomName = styled.a`
+  // override <a> specificity
+  && {
+    color: ${colors.accent.CIVIL_GRAY_0} !important;
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 200;
+    margin-right: 20px;
+  }
 
   ${mediaQueries.MOBILE} {
     font-size: 14px;
   }
 `;
 
-export const BoostCardFlex = styled.div`
+export const BoostDescShareFlex = styled.div`
   display: flex;
+  ${mediaQueries.MOBILE_SMALL} {
+    flex-direction: column-reverse;
+  }
+`;
 
-  h3 {
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 19px;
-    margin: 7px 0 10px;
+export const BoostShareHeading = styled.h3`
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  margin: 5px 0 10px;
+  white-space: nowrap;
 
-    ${mediaQueries.MOBILE} {
-      color: ${colors.primary.BLACK};
-      font-size: 16px;
-      line-height: 28px;
-    }
+  ${mediaQueries.MOBILE} {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    line-height: 28px;
+    margin-top: 1px;
   }
 `;
 
