@@ -34,7 +34,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
             </li>
           </ul>
           <div
-            className="sc-LzLRn bXmvfp"
+            className="sc-LzLRn kUSmeB"
             onClick={[Function]}
           >
             <svg
@@ -92,10 +92,10 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
               </div>
             </div>
             <div
-              className="sc-LzNaV cELYdN"
+              className="sc-LzNaV ennDmx"
             >
               <div
-                className="sc-LzNaV cELYdN"
+                className="sc-LzNaV ennDmx"
               >
                 <h3>
                   Contribute to the Civil Foundation

@@ -1,11 +1,20 @@
 import * as React from "react";
 import { colors, ShareEmailIcon, ShareTwitterIcon } from "@joincivil/components";
+import { mediaQueries } from "@joincivil/elements";
 import styled from "styled-components";
 import { BoostShareEmbed } from "./BoostShareEmbed";
+import { BoostShareHeading } from "./BoostStyledComponents";
 
 const BoostShareWrap = styled.span`
+  position: relative;
+  z-index: 10;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    margin-bottom: 12px;
+    justify-content: space-around;
+  }
 
   a {
     cursor: pointer;
@@ -36,15 +45,18 @@ export class BoostShare extends React.Component<BoostShareProps> {
     const emailShare = this.getEmailURL(boostUrl);
 
     return (
-      <BoostShareWrap>
-        <a href={twitterShare} target="_blank">
-          <ShareTwitterIcon />
-        </a>
-        <a href={emailShare} target="_blank">
-          <ShareEmailIcon />
-        </a>
-        <BoostShareEmbed boostId={this.props.boostId} />
-      </BoostShareWrap>
+      <>
+        <BoostShareHeading>Share this Boost</BoostShareHeading>
+        <BoostShareWrap>
+          <a href={twitterShare} target="_blank">
+            <ShareTwitterIcon />
+          </a>
+          <a href={emailShare} target="_blank">
+            <ShareEmailIcon />
+          </a>
+          <BoostShareEmbed boostId={this.props.boostId} />
+        </BoostShareWrap>
+      </>
     );
   }
 

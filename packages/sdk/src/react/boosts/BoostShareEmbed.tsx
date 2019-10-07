@@ -35,8 +35,8 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
               Copy and paste this HTML code into your website where you would like this Boost to embedded:
             </BoostModalContent>
             <EmbedCode>
-              &lt;iframe src="https://registry.civil.co/boost-embed/{props.boostId}" style="width: 100%; height:
-              500px"&gt;&lt;/iframe&gt;
+              &lt;iframe src="https://registry.civil.co/boost-embed/{props.boostId}" style="display: block; width: 100%;
+              height: 500px; margin: 32px 0;"&gt;&lt;/iframe&gt;
             </EmbedCode>
           </ModalContain>
         </Modal>

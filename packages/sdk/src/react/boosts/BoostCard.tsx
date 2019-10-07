@@ -15,7 +15,7 @@ import {
   BoostNotificationContain,
   BoostAmountInputWrap,
   BoostAmountInput,
-  BoostCardFlex,
+  BoostDescShareFlex,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
@@ -62,6 +62,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
       btnText = "Boost Ended";
     }
     const btnDisabled = timeEnded || !newsroomData.whitelisted || this.state.amount === 0;
+    const inputDisabled = timeEnded || !newsroomData.whitelisted;
 
     if (!open) {
       return (
@@ -128,7 +129,13 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
             </BoostProgressCol>
             <BoostAmountInputWrap>
               <BoostAmountInput>
-                <CurrencyInput label={""} placeholder={"0"} name={"BoostAmount"} onChange={this.handleAmount} />
+                <CurrencyInput
+                  label={""}
+                  placeholder={"0"}
+                  name={"BoostAmount"}
+                  onChange={this.handleAmount}
+                  disabled={inputDisabled}
+                />
               </BoostAmountInput>
               <BoostButton disabled={btnDisabled} onClick={() => this.props.handlePayments(this.state.amount)}>
                 {btnText}
@@ -151,17 +158,16 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
               }
             />
           </BoostNotice>
-          <BoostCardFlex>
+          <BoostDescShareFlex>
             <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
             <div>
-              <h3>Share this Boost</h3>
               <BoostShare
                 boostId={this.props.boostId}
                 newsroom={this.props.newsroomData.name}
                 title={boostData.title}
               />
             </div>
-          </BoostCardFlex>
+          </BoostDescShareFlex>
           <BoostDescription>
             <h3>What the outcome will be</h3>
             {renderPTagsFromLineBreaks(boostData.what)}

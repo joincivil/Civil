@@ -3,6 +3,11 @@ import { Civil, UniswapService, FeatureFlagService, EthersProviderResult, makeEt
 import { AuthService } from "./AuthService";
 import ApolloClient from "apollo-client";
 
+export enum RENDER_CONTEXT {
+  DAPP,
+  EMBED,
+}
+
 export interface ICivilContext {
   // services
   civil?: Civil;
@@ -17,6 +22,8 @@ export interface ICivilContext {
   // fields that should trigger context re-renders
   currentUser: any;
 
+  renderContext: RENDER_CONTEXT;
+
   /** See `packages/dapp/src/helpers/config.ts` */
   config: any;
   // other things that should probably be put into a service
@@ -29,6 +36,7 @@ export interface CivilContextOptions {
   web3: any;
   featureFlags: string[];
   config: any;
+  renderContext?: RENDER_CONTEXT;
   apolloClient?: ApolloClient<any>;
   onAuthChange?(nextUser: any): void;
 }
@@ -63,6 +71,8 @@ export function buildCivilContext(opts: CivilContextOptions): ICivilContext {
     // fields that should trigger context re-renders
     currentUser: auth.currentUser,
     network,
+
+    renderContext: opts.renderContext || RENDER_CONTEXT.DAPP,
 
     // other things that should probably be put into a service
     config,

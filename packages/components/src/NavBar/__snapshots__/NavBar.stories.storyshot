@@ -20,7 +20,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
           className="sc-LzMlF hrLAKv"
         >
           <div
-            className="sc-LzMlE jkxlSr"
+            className="sc-LzMlE jdTvIT"
           >
             <a
               href="https://civil.co"
@@ -42,13 +42,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMCc jpJYpm"
+            className="sc-LzMCc eUBxW"
           >
             <div
-              className="sc-LzMCh cpwtKI"
+              className="sc-LzMCh iHvUso"
             >
               <span
-                className="sc-LzMCi giievm"
+                className="sc-LzMCi jWoYyK"
               >
                 <a
                   href="/registry"
@@ -57,11 +57,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-LzMCj jTOUhk"
+                  className="sc-LzMCj zGXEc"
                 />
               </span>
               <div
-                className="sc-LzMCH kduuTE"
+                className="sc-LzMCH eCTMlA"
               >
                 <a
                   href="/registry"
@@ -100,7 +100,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMCd iMFJdg"
+            className="sc-LzMCd gZlBDs"
           >
             <div
               onClick={[Function]}
@@ -120,7 +120,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzMCe ZtheM"
+            className="sc-LzMCe FTzsI"
           />
         </div>
         <div
