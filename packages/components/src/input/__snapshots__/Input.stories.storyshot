@@ -2147,7 +2147,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfPE iHfKtt"
+        className="sc-fzXfPL khpgYo"
       >
         <div
           className=" sc-fzXfLP corfVh"
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfPF bFxRPo"
+        className="sc-fzXfPM huzksr"
       />
     </form>
   </div>

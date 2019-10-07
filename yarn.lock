@@ -1926,10 +1926,6 @@
 "@emotion/memoize@0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.3.tgz#5b6b1c11d6a6dddf1f2fc996f74cf3b219644d78"
-
-"@emotion/memoize@0.7.3":
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.3.tgz#5b6b1c11d6a6dddf1f2fc996f74cf3b219644d78"
   integrity sha512-2Md9mH6mvo+ygq1trTeVp2uzAKwE2P7In0cRpD/M9Q70aH8L+rxMLbb3JCN2JoSWsV2O+DdFjfbbXoMoLBczow==
 
 "@emotion/memoize@^0.6.1", "@emotion/memoize@^0.6.6":
@@ -2499,13 +2495,13 @@
     web3-providers-http "^1.2.0"
     web3-providers-ws "^1.2.0"
 
-"@kirby-web3/parent-react@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.8.tgz#b9c1103cdfa3030ee47a37e96e8630aadc0c03e2"
-  integrity sha512-aDQ2j1tVKuqPLBAaMNXl97zBdALxtWCTijF/NrIjuRCaPAgZza3KkDSfqAUnKaFpbBXbWroPGwxiFuN+nxh+qQ==
+"@kirby-web3/parent-react@1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.7.tgz#ec3510189b38509301d7a5b5310568d7eefdb95d"
+  integrity sha512-fqNz6/JI+3mVg/zYHMidOAPXhhNVTXj8GKz7l+cEdcHKhPU1I+awU20X9Q9qF7MF6IF6jBBXpdLE+iZVWPgKYA==
   dependencies:
-    "@kirby-web3/parent-core" "1.2.0"
-    "@kirby-web3/plugin-ethereum" "1.9.1"
+    "@kirby-web3/parent-core" "1.1.2"
+    "@kirby-web3/plugin-ethereum" "1.9.0"
     react-redux "^7.1.1"
     redux "^4.0.4"
 
@@ -2544,7 +2540,7 @@
     web3-providers-ws "^1.2.0"
     web3-utils "^1.2.1"
 
-"@kirby-web3/plugin-ethereum@1.9.1", "@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
+"@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.9.1.tgz#ea512d180b3d01fede6cc59ae17b64da848bc209"
   integrity sha512-rdsIiDrx38hLW0/ib6Rb/Se2lOIutEbbFW4e+p44f6hJ2BLHhSvjbgZ3MrkMzTTFJ/XO2G8oJeAfXwm1uiMn8Q==
@@ -20849,7 +20845,7 @@ react-input-autosize@^2.2.2:
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
   dependencies:
     prop-types "^15.5.8"
-    
+
 react-input-slider@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-input-slider/-/react-input-slider-5.1.2.tgz#f4adf9bc8a7f285d39344fa5bf16e25ff6e4fd3f"
@@ -25750,6 +25746,7 @@ websocket@^1.0.28:
   dependencies:
     debug "^2.2.0"
     es5-ext "^0.10.50"
+    gulp "^4.0.2"
     nan "^2.14.0"
     typedarray-to-buffer "^3.1.5"
     yaeti "^0.0.6"
