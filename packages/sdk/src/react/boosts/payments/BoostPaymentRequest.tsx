@@ -1,6 +1,14 @@
 import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { injectStripe, ReactStripeElements, PaymentRequestButtonElement } from "react-stripe-elements";
+import styled from "styled-components";
+import { colors } from "@joincivil/components";
+
+const StripePaymentRequest = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
+  margin-bottom: 10px;
+  padding: 10px 0;
+`;
 
 export interface BoostPaymentRequestProps extends ReactStripeElements.InjectedStripeProps {
   savePayment: MutationFunc;
@@ -21,7 +29,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       country: "US",
       currency: "usd",
       total: {
-        label: "Boost Payment",
+        label: "Civil Boost",
         amount: this.props.usdToSpend,
       },
       requestPayerName: true,
@@ -29,6 +37,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
     });
 
     paymentRequest.on("token", (token: any) => {
+      // tslint:disable-next-line
       this.handlePaymentRequest(token);
     });
 
@@ -44,7 +53,9 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
 
   public render(): JSX.Element {
     return this.state.canMakePayment ? (
-      <PaymentRequestButtonElement paymentRequest={this.state.paymentRequest} className="PaymentRequestButton" />
+      <StripePaymentRequest>
+        <PaymentRequestButtonElement paymentRequest={this.state.paymentRequest} className="PaymentRequestButton" />
+      </StripePaymentRequest>
     ) : (
       <></>
     );
@@ -62,7 +73,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
         },
       },
     });
-  };
+  }
 }
 
 export default injectStripe(PaymentRequestForm);
