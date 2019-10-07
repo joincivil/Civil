@@ -11,7 +11,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
-      className="sc-LzMFq cCStJO"
+      className="sc-LzMFq ePvaOO"
     >
       <h2
         className="sc-LzMEa bdHkEo"
@@ -32,7 +32,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
         className="sc-LzMFs hFLVXZ"
       >
         <a
-          className="sc-fzXfOu sc-fzXfOw sc-LzMFQ eHnhHX"
+          className="sc-fzXfOu sc-fzXfOw sc-LzMFQ lWOSz"
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -50,7 +50,7 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           Get Google Chrome
         </a>
         <a
-          className="sc-fzXfOu sc-fzXfOw sc-LzMFQ eHnhHX"
+          className="sc-fzXfOu sc-fzXfOw sc-LzMFQ lWOSz"
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"

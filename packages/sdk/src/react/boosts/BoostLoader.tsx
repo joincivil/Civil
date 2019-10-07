@@ -15,7 +15,7 @@ const GlobalStyleNoScroll = createGlobalStyle`
     margin: 1px; // otherwise border can be clipped by inner edge of iframe
     border-radius: 4px;
   }
-`
+`;
 const OverflowLinkContainer = styled.div`
   position: absolute;
   z-index: 1;
@@ -24,8 +24,13 @@ const OverflowLinkContainer = styled.div`
   bottom: 0;
   left: 0;
   display: table;
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.75) 25%, rgba(255,255,255,1) 100%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.75) 25%,
+    rgba(255, 255, 255, 1) 100%
+  );
 `;
 const OverflowLink = styled.a`
   display: table-cell;
@@ -53,7 +58,9 @@ const BoostLoaderComponent = (props: RouteComponentProps<BoostLoaderParams>) => 
     <>
       <GlobalStyleNoScroll />
       <OverflowLinkContainer>
-        <OverflowLink href={"https://registry.civil.co/boosts/" + props.match.params.boostId} target="_blank">View this Boost &gt;</OverflowLink>
+        <OverflowLink href={"https://registry.civil.co/boosts/" + props.match.params.boostId} target="_blank">
+          View this Boost &gt;
+        </OverflowLink>
       </OverflowLinkContainer>
       <ThemeProvider theme={theme}>
         <Boost boostId={props.match.params.boostId} open={true} payment={!!props.match.params.payment} />

@@ -14,24 +14,24 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
       className="sc-LzNRu hzZvuI"
     >
       <table
-        className="sc-LzMHi mMVKb"
+        className="sc-LzMHi ciArwT"
         width="100%"
       >
         <tr
           className="sc-LzMHl kfZUWq"
         >
           <th
-            className="sc-LzMHj efVnMa"
+            className="sc-LzMHj kflQmS"
           >
             Default Header
           </th>
           <th
-            className="sc-LzMHj pwdQJ"
+            className="sc-LzMHj kukOAN"
           >
             Right aligned
           </th>
           <th
-            className="sc-LzMHj fGqPyO"
+            className="sc-LzMHj bEdkym"
             colSpan={2}
           >
             Accent Col spanned header

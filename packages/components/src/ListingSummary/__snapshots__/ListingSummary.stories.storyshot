@@ -15,7 +15,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     >
       <div>
         <div
-          className="sc-LzLtm dUFVdq"
+          className="sc-LzLtm ifhTGa"
         >
           <a
             href="/listing/0x0a"
@@ -498,11 +498,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     >
       <div>
         <div
-          className="sc-LzLtl bYgurF"
+          className="sc-LzLtl gpkMoV"
         >
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0a"
@@ -553,7 +553,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0b"
@@ -604,7 +604,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0c"
@@ -655,7 +655,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0d"
@@ -706,7 +706,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0e"
@@ -757,7 +757,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtm dUFVdq"
+              className="sc-LzLtm ifhTGa"
             >
               <a
                 href="/listing/0x0f"
