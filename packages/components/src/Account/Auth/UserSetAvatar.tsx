@@ -148,8 +148,17 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
                       Go back
                     </InvertedButton>
                     <SaveButtonContainer>
-                      <Button size={buttonSizes.SMALL} textTransform={"none"} type={"submit"} disabled={this.state.saveInProgress}>
-                        {this.state.saveInProgress && <>Saving <ClipLoader size={16} /></>}
+                      <Button
+                        size={buttonSizes.SMALL}
+                        textTransform={"none"}
+                        type={"submit"}
+                        disabled={this.state.saveInProgress}
+                      >
+                        {this.state.saveInProgress && (
+                          <>
+                            Saving <ClipLoader size={16} />
+                          </>
+                        )}
                         {!this.state.saveInProgress && "Save"}
                       </Button>
                     </SaveButtonContainer>

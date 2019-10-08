@@ -174,7 +174,7 @@ const BaseButton = styled(ButtonComponent)`
   border: none;
   letter-spacing: ${(props: any) => spacingObject[props.size || buttonSizes.LARGE]};
   font-size: ${(props: any) => fontObject[props.size || buttonSizes.LARGE]};
-  transition: background-color 500ms;
+  transition: color 500ms, background-color 500ms, border-color 500ms;
   outline: none;
   display: inline-block;
   ${(props: any) => (props.width ? `width: ${props.width}px;` : "")};
@@ -196,6 +196,7 @@ export const Button = styled(BaseButton)`
   &:disabled {
     background-color: ${props => props.theme.primaryButtonDisabledBackground};
     color: ${props => props.theme.primaryButtonDisabledColor};
+    border-color: transparent;
   }
 
   ${ClipLoader} {

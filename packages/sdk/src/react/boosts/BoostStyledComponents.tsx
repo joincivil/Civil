@@ -209,6 +209,10 @@ export const BoostNewsroomName = styled.a`
     line-height: 26px;
     font-weight: 200;
     margin-right: 20px;
+
+    &:hover {
+      color: ${colors.primary.CIVIL_BLUE_1};
+    }
   }
 
   ${mediaQueries.MOBILE} {
@@ -255,6 +259,10 @@ export const BoostPaymentShare = styled.span`
 export const BoostDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 10px;
+  }
 
   h3 {
     font-size: 14px;
@@ -597,6 +605,7 @@ export const BoostNotice = styled.div`
   ${mediaQueries.MOBILE} {
     font-size: 12px;
     line-height: 18px;
+    margin-bottom: 12px;
   }
 `;
 
