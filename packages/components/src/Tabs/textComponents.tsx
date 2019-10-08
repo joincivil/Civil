@@ -1,7 +1,5 @@
 import * as React from "react";
-import { ApplicationInProgressIcon } from "../icons/ApplicationInProgressIcon";
-import { ApprovedNewsroomsIcon } from "../icons/ApprovedNewsroomsIcon";
-import { RejectedNewsroomsIcon } from "../icons/RejectedNewsroomsIcon";
+import { ApplicationInProgressIcon, ApprovedNewsroomsIcon, RejectedNewsroomsIcon } from "@joincivil/elements";
 
 // Text for listings approved newsrooms tab
 export const ApprovedNewsroomsTabText: React.FunctionComponent = props => {

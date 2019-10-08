@@ -3,7 +3,7 @@ import { InvertedButton, buttonSizes } from "../Button";
 import { colors, fonts } from "../styleConstants";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
-import { PhotoDragIcon } from "../icons";
+import { PhotoDragIcon } from "@joincivil/elements";
 
 export interface SimpleImageFileToDataUriProps {
   buttonText?: string;

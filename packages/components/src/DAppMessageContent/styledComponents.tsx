@@ -2,7 +2,7 @@ import * as React from "react";
 import { InvertedButton } from "../Button";
 import styled from "styled-components";
 import { colors } from "../styleConstants";
-import { MetaMaskSideIcon } from "../icons";
+import { MetaMaskSideIcon } from "@joincivil/elements";
 
 export const StyledMessageIconContainer = styled.span`
   display: inline-block;

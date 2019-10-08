@@ -1,5 +1,12 @@
 import * as React from "react";
-import { LogInWithMetaMask, LogInWithPortis, LogInWithBurner, CoreContext, useSelector } from "@kirby-web3/child-react";
+import {
+  LogInWithMetaMask,
+  LogInWithPortis,
+  LogInWithBurner,
+  CoreContext,
+  useSelector,
+  CenteredPage,
+} from "@kirby-web3/child-react";
 import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
 import { RouteComponentProps } from "@reach/router";
 import { ViewPlugin } from "@kirby-web3/child-core";
@@ -23,10 +30,10 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network }) => {
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
   return (
-    <div>
+    <CenteredPage>
       <LogInWithMetaMask onSelection={selection} />
       <LogInWithPortis onSelection={selection} />
       <LogInWithBurner onSelection={selection} />
-    </div>
+    </CenteredPage>
   );
 };

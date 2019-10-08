@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Chevron } from "./icons/Chevron";
+import { Chevron } from "@joincivil/elements";
 
 const ChevronLeft = styled(Chevron)`
   transform: scaleX(-1);

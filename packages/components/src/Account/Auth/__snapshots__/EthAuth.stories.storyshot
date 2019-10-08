@@ -11,10 +11,10 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
     }
   >
     <div
-      className="sc-LzNPA fPQNQb"
+      className="sc-LzNMt fsZwsb"
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Log into Civil with your crypto wallet
       </h4>
@@ -27,7 +27,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
         </p>
         
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzMYs gKPAfh"
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMHm VoCVT"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -45,10 +45,10 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
           type="button"
         >
           <div
-            className="sc-LzMYt eftnvm"
+            className="sc-LzMHn jsjEND"
           >
             <img
-              className="sc-fzXfPG qFkjc"
+              className="sc-fzXfLX hPVxpN"
               src="test-file-stub"
             />
           </div>
@@ -2815,6 +2815,11 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
                               >
                                 {
                                 <span>
+                                  <span>
+                                    <br />
+                                        
+                                      
+                                  </span>
                                   <span
                                     style={
                                       Object {
@@ -2837,6 +2842,38 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
                                 </span>
                                 ,
                                 <span>
+                                  <span>
+                                    <br />
+                                        
+                                      
+                                  </span>
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#666",
+                                      }
+                                    }
+                                  >
+                                    loading
+                                  </span>
+                                </span>
+                                : 
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#a11",
+                                    }
+                                  }
+                                >
+                                  false
+                                </span>
+                                ,
+                                <span>
+                                  <span>
+                                    <br />
+                                        
+                                      
+                                  </span>
                                   <span
                                     style={
                                       Object {
@@ -2859,25 +2896,16 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
                                 </span>
                                 ,
                                 <span>
-                                  <span
-                                    style={
-                                      Object {
-                                        "color": "#666",
-                                      }
-                                    }
-                                  >
-                                    onAuthChange
+                                  <span>
+                                    <br />
+                                        
+                                      
                                   </span>
+                                  …
                                 </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#444",
-                                    }
-                                  }
-                                >
-                                  null
+                                <span>
+                                  <br />
+                                      
                                 </span>
                                 }
                               </span>

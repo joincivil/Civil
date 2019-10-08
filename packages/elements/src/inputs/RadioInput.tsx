@@ -6,7 +6,7 @@ import { SecondaryButton } from "../buttons/Button";
 import { InputLabel } from "./Input";
 import { Heading, SubHeading } from "../text/headings";
 
-import { OvalImage } from "../images/index";
+import { OvalImage } from "../icons/logos/index";
 
 export interface RadioButtonProps {
   className?: string;
