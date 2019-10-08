@@ -8,7 +8,7 @@ export interface BoostStyleProps {
 }
 
 export const MobileStyle = styled.span`
-  display: none:
+  display: none;
 
   ${mediaQueries.MOBILE} {
     display: inline;
@@ -45,11 +45,17 @@ export const BoostTitle = styled.h2`
     "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"}
 
   ${mediaQueries.MOBILE} {
-    font-size: 16px;
-    line-height: 22px;
     margin: 0 0 12px;
   }
+  ${mediaQueries.MOBILE_SMALL} {
+    font-size: 16px;
+    line-height: 22px;
+  }
 `;
+// Suppress unncessary styled-components console.error from https://github.com/styled-components/styled-components/commit/f1f62440668af2e9ad9b9376f052cac8416672dd:
+BoostTitle.defaultProps = {
+  theme: {},
+};
 
 export const BoostWrapperLink = styled.a`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -161,10 +167,10 @@ export const BoostImgDivMobile = styled.div`
   display: none;
 
   img {
-    height: ${(props: BoostStyleProps) => (props.open ? "64px" : "32px")};
+    height: ${(props: BoostStyleProps) => (props.open ? "64px" : "48px")};
     margin-right: 10px;
     object-fit: contain;
-    width: ${(props: BoostStyleProps) => (props.open ? "64px" : "32px")};
+    width: ${(props: BoostStyleProps) => (props.open ? "64px" : "48px")};
   }
 
   ${mediaQueries.MOBILE} {
@@ -209,6 +215,10 @@ export const BoostNewsroomName = styled.a`
     line-height: 26px;
     font-weight: 200;
     margin-right: 20px;
+
+    &:hover {
+      color: ${colors.primary.CIVIL_BLUE_1};
+    }
   }
 
   ${mediaQueries.MOBILE} {
@@ -255,6 +265,10 @@ export const BoostPaymentShare = styled.span`
 export const BoostDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 10px;
+  }
 
   h3 {
     font-size: 14px;
@@ -597,6 +611,7 @@ export const BoostNotice = styled.div`
   ${mediaQueries.MOBILE} {
     font-size: 12px;
     line-height: 18px;
+    margin-bottom: 12px;
   }
 `;
 

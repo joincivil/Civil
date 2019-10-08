@@ -11,6 +11,7 @@ import {
   BellIcon,
   BookreaderIcon,
   BrainIcon,
+  Chevron,
   CivilTutorialIcon,
   ClockIcon,
   CloseXIcon,
@@ -121,6 +122,13 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <BrainIcon />
+      </Container>
+    );
+  })
+  .add("Chevron", () => {
+    return (
+      <Container>
+        <Chevron />
       </Container>
     );
   })

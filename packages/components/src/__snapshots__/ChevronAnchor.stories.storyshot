@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32px x 32px), custom text 1`] = `
+exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed 1`] = `
 <div>
   <div
     style={
@@ -11,81 +11,36 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-LzNQO iRbEmN"
+      className="sc-LzNQc zjLyo"
     >
-      <div
-        className="sc-fzXfQr Yxohy"
+      <a
+        href="#"
       >
+        Check this out
         <svg
-          fill="#30E8BD"
-          height="32"
-          style={
-            Object {
-              "verticalAlign": undefined,
-            }
-          }
-          viewBox="0 0 32 32"
-          width="32"
+          height={14}
+          version="1.1"
+          viewBox="0 0 14 14"
+          width={14}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(8 0)"
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
           >
-            <animate
-              attributeName="r"
-              begin="0"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
+            <polygon
+              points="0 0 18 0 18 18 0 18"
             />
-          </circle>
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(16 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.3"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
+            <polygon
+              fill="#2B56FF"
+              fillRule="nonzero"
+              points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
             />
-          </circle>
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(24 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.6"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
-            />
-          </circle>
+          </g>
         </svg>
-        <p
-          className="sc-fzXfQs kxJtRV"
-        >
-          Please wait while we load all the stuff.
-        </p>
-      </div>
+      </a>
     </div>
   </div>
   <button
@@ -187,7 +142,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             }
           >
-            Pattern Library / Loading / Loading Message
+            Pattern Library / Typography / Chevron Anchor
           </h1>
           <h2
             style={
@@ -199,7 +154,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             }
           >
-            Default size (32px x 32px), custom text
+            Civil Themed
           </h2>
         </div>
         
@@ -249,7 +204,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                     }
                   >
                     &lt;
-                    Container
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -279,9 +234,38 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                       }
                     >
                       &lt;
-                      LoadingMessage
+                      ChevronAnchor
                     </span>
-                    <span />
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          href
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              #
+                            </span>
+                            "
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
                     <span
                       style={
                         Object {
@@ -307,7 +291,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                         }
                       }
                     >
-                      Please wait while we load all the stuff.
+                      Check this out
                     </span>
                   </div>
                   <div
@@ -326,7 +310,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                       }
                     >
                       &lt;/
-                      LoadingMessage
+                      ChevronAnchor
                       &gt;
                     </span>
                   </div>
@@ -347,7 +331,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                     }
                   >
                     &lt;/
-                    Container
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -399,7 +383,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             >
               "
-              Container
+              ChevronAnchor
               " Component
             </h3>
             <small>
@@ -415,7 +399,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             >
               "
-              LoadingMessage
+              styled.div
               " Component
             </h3>
             <small>
@@ -429,7 +413,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
 </div>
 `;
 
-exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32px x 32px), default text 1`] = `
+exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed, Left 1`] = `
 <div>
   <div
     style={
@@ -440,81 +424,37 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-LzNQO iRbEmN"
+      className="sc-LzNQc zjLyo"
     >
-      <div
-        className="sc-fzXfQr Yxohy"
+      <a
+        href="#"
       >
         <svg
-          fill="#30E8BD"
-          height="32"
-          style={
-            Object {
-              "verticalAlign": undefined,
-            }
-          }
-          viewBox="0 0 32 32"
-          width="32"
+          className="sc-fzXfQm ggIodS"
+          height={14}
+          version="1.1"
+          viewBox="0 0 14 14"
+          width={14}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(8 0)"
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
           >
-            <animate
-              attributeName="r"
-              begin="0"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
+            <polygon
+              points="0 0 18 0 18 18 0 18"
             />
-          </circle>
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(16 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.3"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
+            <polygon
+              fill="#2B56FF"
+              fillRule="nonzero"
+              points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
             />
-          </circle>
-          <circle
-            cx="0"
-            cy="16"
-            r="0"
-            transform="translate(24 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.6"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 4; 0; 0"
-            />
-          </circle>
+          </g>
         </svg>
-        <p
-          className="sc-fzXfQs kxJtRV"
-        >
-          Loading
-        </p>
-      </div>
+        Go back to that thing
+      </a>
     </div>
   </div>
   <button
@@ -616,7 +556,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             }
           >
-            Pattern Library / Loading / Loading Message
+            Pattern Library / Typography / Chevron Anchor
           </h1>
           <h2
             style={
@@ -628,7 +568,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             }
           >
-            Default size (32px x 32px), default text
+            Civil Themed, Left
           </h2>
         </div>
         
@@ -678,7 +618,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                     }
                   >
                     &lt;
-                    Container
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -691,34 +631,103 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                     &gt;
                   </span>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
+                <div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    &lt;
-                    LoadingMessage
-                  </span>
-                  <span />
-                  <span
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      ChevronAnchorLeft
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          href
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              #
+                            </span>
+                            "
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    /&gt;
-                  </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      Go back to that thing
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      ChevronAnchorLeft
+                      &gt;
+                    </span>
+                  </div>
                 </div>
                 <div
                   style={
@@ -736,7 +745,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
                     }
                   >
                     &lt;/
-                    Container
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -788,7 +797,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             >
               "
-              Container
+              ChevronAnchorLeft
               " Component
             </h3>
             <small>
@@ -804,7 +813,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
               }
             >
               "
-              LoadingMessage
+              styled.div
               " Component
             </h3>
             <small>
@@ -818,7 +827,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
 </div>
 `;
 
-exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined size (100px x 100px), default text 1`] = `
+exports[`Storyshots Pattern Library / Typography / Chevron Anchor Default 1`] = `
 <div>
   <div
     style={
@@ -828,83 +837,34 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
       }
     }
   >
-    <div
-      className="sc-LzNQO iRbEmN"
+    <a
+      href="#"
     >
-      <div
-        className="sc-fzXfQr Yxohy"
+      Check this out
+      <svg
+        height={14}
+        version="1.1"
+        viewBox="0 0 14 14"
+        width={14}
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          fill="#30E8BD"
-          height="100"
-          style={
-            Object {
-              "verticalAlign": undefined,
-            }
-          }
-          viewBox="0 0 100 100"
-          width="100"
-          xmlns="http://www.w3.org/2000/svg"
+        <g
+          fill="none"
+          fillRule="evenodd"
+          stroke="none"
+          strokeWidth="1"
         >
-          <circle
-            cx="0"
-            cy="50"
-            r="0"
-            transform="translate(25 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 12; 0; 0"
-            />
-          </circle>
-          <circle
-            cx="0"
-            cy="50"
-            r="0"
-            transform="translate(50 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.3"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 12; 0; 0"
-            />
-          </circle>
-          <circle
-            cx="0"
-            cy="50"
-            r="0"
-            transform="translate(75 0)"
-          >
-            <animate
-              attributeName="r"
-              begin="0.6"
-              calcMode="spline"
-              dur="1.2s"
-              keySplines="0.2 0.2 0.4 0.8;0.2 0.6 0.4 0.8;0.2 0.6 0.4 0.8"
-              keyTimes="0;0.2;0.7;1"
-              repeatCount="indefinite"
-              values="0; 12; 0; 0"
-            />
-          </circle>
-        </svg>
-        <p
-          className="sc-fzXfQs kxJtRV"
-        >
-          Loading
-        </p>
-      </div>
-    </div>
+          <polygon
+            points="0 0 18 0 18 18 0 18"
+          />
+          <polygon
+            fill="#2B56FF"
+            fillRule="nonzero"
+            points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
+          />
+        </g>
+      </svg>
+    </a>
   </div>
   <button
     className="info__show-button"
@@ -1005,7 +965,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
               }
             }
           >
-            Pattern Library / Loading / Loading Message
+            Pattern Library / Typography / Chevron Anchor
           </h1>
           <h2
             style={
@@ -1017,7 +977,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
               }
             }
           >
-            Prop-defined size (100px x 100px), default text
+            Default
           </h2>
         </div>
         
@@ -1067,36 +1027,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
                     }
                   >
                     &lt;
-                    Container
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    LoadingMessage
+                    ChevronAnchor
                   </span>
                   <span>
                     <span>
@@ -1104,27 +1035,28 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
                       <span
                         style={Object {}}
                       >
-                        height
+                        href
                       </span>
                       <span>
                         =
                         <span
                           style={Object {}}
                         >
-                          {
+                          "
                           <span
                             style={
                               Object {
-                                "color": "#a11",
+                                "color": "#22a",
+                                "wordBreak": "break-word",
                               }
                             }
                           >
-                            100
+                            #
                           </span>
-                          }
+                          "
                         </span>
                       </span>
-                       
+                      
                     </span>
                   </span>
                   <span
@@ -1134,7 +1066,25 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
                       }
                     }
                   >
-                    /&gt;
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    Check this out
                   </span>
                 </div>
                 <div
@@ -1153,7 +1103,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
                     }
                   >
                     &lt;/
-                    Container
+                    ChevronAnchor
                     &gt;
                   </span>
                 </div>
@@ -1205,23 +1155,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
               }
             >
               "
-              Container
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              LoadingMessage
+              ChevronAnchor
               " Component
             </h3>
             <small>

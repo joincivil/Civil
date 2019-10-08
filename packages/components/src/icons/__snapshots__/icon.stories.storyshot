@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApplicationInProgressIco
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -339,7 +339,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ApprovedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -673,7 +673,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height={24}
@@ -1011,7 +1011,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleIndexPanelIcon 1`
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -1356,7 +1356,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="24"
@@ -1704,7 +1704,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ArticleSignPanelIcon 1`]
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="20"
@@ -2048,7 +2048,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BellIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="24"
@@ -2381,7 +2381,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BookreaderIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="70"
@@ -2810,7 +2810,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons BrainIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="74"
@@ -3289,7 +3289,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="33"
@@ -3635,6 +3635,345 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CVLToken 1`] = `
 </div>
 `;
 
+exports[`Storyshots Pattern Library / icons / SVG Icons Chevron 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNRX jqOuGJ"
+    >
+      <svg
+        height={14}
+        version="1.1"
+        viewBox="0 0 14 14"
+        width={14}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fillRule="evenodd"
+          stroke="none"
+          strokeWidth="1"
+        >
+          <polygon
+            points="0 0 18 0 18 18 0 18"
+          />
+          <polygon
+            fill="#2B56FF"
+            fillRule="nonzero"
+            points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
+          />
+        </g>
+      </svg>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / icons / SVG Icons
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Chevron
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Container
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    Chevron
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    Container
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Chevron
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Container
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = `
 <div>
   <div
@@ -3646,7 +3985,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CivilTutorialIcon 1`] = 
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="20"
@@ -3987,7 +4326,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ClockIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -4323,7 +4662,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CloseXIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="42"
@@ -4651,7 +4990,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons CommitVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="100"
@@ -5003,7 +5342,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DashboardNewsroomApplica
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="34"
@@ -5442,7 +5781,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DisclosureArrowIcon 1`] 
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="12"
@@ -5779,7 +6118,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons DropdownArrow 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="5"
@@ -6107,7 +6446,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons EmbedIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="32px"
@@ -6446,7 +6785,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="28"
@@ -6782,7 +7121,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExamIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="70"
@@ -7229,7 +7568,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExchangeArrowsIcon 1`] =
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="14"
@@ -7567,7 +7906,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ExpandDownArrow 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="12"
@@ -7896,7 +8235,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons FacebookIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         className="sc-fzXfPg gPhfZV"
@@ -8226,7 +8565,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GrantSubmitIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="82"
@@ -8576,7 +8915,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons GreenCheckMark 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="26"
@@ -8911,7 +9250,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HamburgerIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="42"
@@ -9239,7 +9578,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowGreenCheck 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="20"
@@ -9582,7 +9921,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons HollowRedNoGood 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="20"
@@ -9920,7 +10259,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons InfoNotification 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="28"
@@ -10259,7 +10598,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons LockOpenIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -10592,7 +10931,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskFrontIcon 1`] = 
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <img
         className="sc-fzXfPG qFkjc"
@@ -10912,7 +11251,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons MetaMaskSideIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <img
         className="sc-fzXfPG qFkjc"
@@ -11232,7 +11571,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NetworkIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="44"
@@ -11562,7 +11901,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons NorthEastArrow 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="11"
@@ -11890,7 +12229,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons OctopusErrorIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="73"
@@ -12229,7 +12568,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RegistryEmptyIcon 1`] = 
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="155"
@@ -12599,7 +12938,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RejectedNewsroomsIcon 1`
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="18"
@@ -12926,7 +13265,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RequestAppealSuccessIcon
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="100"
@@ -13343,7 +13682,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons RevealVoteSuccessIcon 1`
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="100"
@@ -13704,7 +14043,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons ReviewIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="24"
@@ -14040,7 +14379,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons SubmitChallengeSuccessIc
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="100"
@@ -14484,7 +14823,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TokenWalletIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="21"
@@ -14817,7 +15156,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TrendsIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="48"
@@ -15157,7 +15496,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons TwitterIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         className="sc-fzXfPI dWWJAf"
@@ -15487,7 +15826,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons VerifyIdentityIcon 1`] =
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="22"
@@ -15828,7 +16167,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WaitForApply 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="54"
@@ -16162,7 +16501,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons WarningIcon 1`] = `
     }
   >
     <div
-      className="sc-LzNRV ldYSwP"
+      className="sc-LzNRX jqOuGJ"
     >
       <svg
         height="28"

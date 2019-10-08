@@ -5,15 +5,22 @@ import styled from "styled-components";
 import { BoostShareEmbed } from "./BoostShareEmbed";
 import { BoostShareHeading } from "./BoostStyledComponents";
 
-const BoostShareWrap = styled.span`
+const Wrapper = styled.div`
   position: relative;
   z-index: 10;
+  ${mediaQueries.MOBILE_SMALL} {
+    display: flex;
+  }
+`;
+
+const IconsWrapper = styled.span`
   display: flex;
   justify-content: space-between;
 
   ${mediaQueries.MOBILE_SMALL} {
-    margin-bottom: 12px;
     justify-content: space-around;
+    flex-grow: 1;
+    padding-left: 16px;
   }
 
   a {
@@ -45,9 +52,9 @@ export class BoostShare extends React.Component<BoostShareProps> {
     const emailShare = this.getEmailURL(boostUrl);
 
     return (
-      <>
+      <Wrapper>
         <BoostShareHeading>Share this Boost</BoostShareHeading>
-        <BoostShareWrap>
+        <IconsWrapper>
           <a href={twitterShare} target="_blank">
             <ShareTwitterIcon />
           </a>
@@ -55,8 +62,8 @@ export class BoostShare extends React.Component<BoostShareProps> {
             <ShareEmailIcon />
           </a>
           <BoostShareEmbed boostId={this.props.boostId} />
-        </BoostShareWrap>
-      </>
+        </IconsWrapper>
+      </Wrapper>
     );
   }
 

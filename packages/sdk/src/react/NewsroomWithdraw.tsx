@@ -12,6 +12,7 @@ import {
   mediaQueries,
   Button,
   TransactionButton,
+  ChevronAnchor,
 } from "@joincivil/components";
 import { BoostButton, CurrencyLabel } from "./boosts/BoostStyledComponents";
 import { BoostProceeds } from "./boosts/BoostProceeds";
@@ -147,9 +148,9 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
               </p>
             )}
             <p>
-              <a target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
-                Learn&nbsp;More&nbsp;&gt;
-              </a>
+              <ChevronAnchor target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
+                Learn&nbsp;More
+              </ChevronAnchor>
             </p>
           </Copy>
           <BalanceAndButton>
