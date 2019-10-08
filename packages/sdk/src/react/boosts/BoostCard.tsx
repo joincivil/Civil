@@ -1,5 +1,9 @@
 import * as React from "react";
 import { debounce } from "lodash";
+
+import { QuestionToolTip, HelmetHelper, CurrencyInput } from "@joincivil/components";
+import { renderPTagsFromLineBreaks } from "@joincivil/utils";
+
 import { BoostProgress } from "./BoostProgress";
 import { BoostData, BoostNewsroomData } from "./types";
 import {
@@ -20,10 +24,8 @@ import {
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
 import { BoostCompleted } from "./BoostCompleted";
-import { QuestionToolTip, HelmetHelper, CurrencyInput } from "@joincivil/components";
 import * as boostCardImage from "../../images/boost-card.png";
 import { urlConstants } from "../urlConstants";
-import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import { BoostCardListView } from "./BoostCardListView";
 import { BoostShare } from "./BoostShare";
 
