@@ -9,8 +9,16 @@ import { BoostForm } from "./BoostForm";
 import { BoostPayments } from "./payments/BoostPayments";
 import { BoostWrapper } from "./BoostStyledComponents";
 import { NewsroomWithdraw } from "../NewsroomWithdraw";
+import { BoostEmbedNoScroll } from "./BoostEmbedNoScroll";
 import { withBoostPermissions, BoostPermissionsInjectedProps } from "./BoostPermissionsHOC";
-import { LoadingMessage, CivilContext, ICivilContext, colors, mediaQueries } from "@joincivil/components";
+import {
+  LoadingMessage,
+  CivilContext,
+  ICivilContext,
+  colors,
+  mediaQueries,
+  RENDER_CONTEXT,
+} from "@joincivil/components";
 
 const WithdrawWrapper = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -131,6 +139,10 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
                 return (
                   <>
+                    {this.props.open && this.context.renderContext === RENDER_CONTEXT.EMBED && (
+                      <BoostEmbedNoScroll boostId={id} />
+                    )}
+
                     {/*@TODO/tobek Move to Newsroom Boosts page when we have that.*/}
                     {this.props.open && this.props.newsroom && this.props.boostOwner && (
                       <WithdrawWrapper>
