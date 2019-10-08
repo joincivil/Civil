@@ -5084,7 +5084,7 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
           className="sc-LzLRo gnytuo"
         >
           <span
-            className="sc-LzNSc fRApeU"
+            className="sc-LzNSd bqBVbR"
           >
             <span>
               before!
@@ -5103,7 +5103,7 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
             Sign
           </li>
           <span
-            className="sc-LzNSc fRApeU"
+            className="sc-LzNSd bqBVbR"
           >
             <span>
               after!

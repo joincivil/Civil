@@ -6,6 +6,7 @@ import { ErrorIcon } from "../icons";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
+import { ChevronAnchor } from "../ChevronAnchor";
 import { Button, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
 import {
@@ -109,7 +110,11 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       );
     }
 
-    return <Link to={props.manageNewsroomURL}>Manage Newsroom &gt;</Link>;
+    return (
+      <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
+        Manage Newsroom
+      </ChevronAnchor>
+    );
   };
 
   return (
@@ -120,7 +125,9 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
 
           <StyledDashboardNewsroomLinks>
             {renderEditLink()}
-            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
+            <ChevronAnchor component={Link} to={props.listingDetailURL}>
+              View on Registry
+            </ChevronAnchor>
           </StyledDashboardNewsroomLinks>
         </StyledDashboardNewsroomSectionContentRow>
       </StyledDashboardNewsroomSection>

@@ -4,6 +4,7 @@ export * from "./input";
 export * from "./Account";
 export * from "./Button";
 export * from "./Card";
+export * from "./ChevronAnchor";
 export * from "./CivilLogo";
 export * from "./FullscreenModal";
 export * from "./Heading";

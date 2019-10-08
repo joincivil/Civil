@@ -12,6 +12,7 @@ export * from "./CCDiscoverIcon";
 export * from "./CCMastercardIcon";
 export * from "./CCSecurityCodeIcon";
 export * from "./CCVisaIcon";
+export * from "./Chevron";
 export * from "./CivilIcon";
 export * from "./CivilTutorialIcon";
 export * from "./CvlToken";

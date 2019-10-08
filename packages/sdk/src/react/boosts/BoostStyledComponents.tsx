@@ -8,7 +8,7 @@ export interface BoostStyleProps {
 }
 
 export const MobileStyle = styled.span`
-  display: none:
+  display: none;
 
   ${mediaQueries.MOBILE} {
     display: inline;

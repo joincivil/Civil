@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { withRouter, RouteComponentProps } from "react-router";
-import { CivilContext, ICivilContext, RENDER_CONTEXT } from "@joincivil/components";
 import { colors } from "@joincivil/elements";
+import { CivilContext, ICivilContext, RENDER_CONTEXT, CivilIcon, ChevronAnchor } from "@joincivil/components";
 import { Boost } from "./Boost";
 
 const GlobalStyleNoScroll = createGlobalStyle`
@@ -21,19 +21,9 @@ const OverflowLinkContainer = styled.div`
   z-index: 1;
   width: 100%;
   height: 100px;
-  bottom: 0;
-  left: 0;
-  display: table;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.75) 25%,
-    rgba(255, 255, 255, 1) 100%
-  );
 `;
-const OverflowLink = styled.a`
-  display: table-cell;
+const OverflowLink = styled(ChevronAnchor)`
+  bottom: 0;
   text-align: center;
   vertical-align: middle;
   &:hover {
@@ -58,9 +48,7 @@ const BoostLoaderComponent = (props: RouteComponentProps<BoostLoaderParams>) => 
     <>
       <GlobalStyleNoScroll />
       <OverflowLinkContainer>
-        <OverflowLink href={"https://registry.civil.co/boosts/" + props.match.params.boostId} target="_blank">
-          View this Boost &gt;
-        </OverflowLink>
+        <OverflowLink href={"https://registry.civil.co/boosts/" + props.match.params.boostId} target="_blank">View More</OverflowLink>
       </OverflowLinkContainer>
       <ThemeProvider theme={theme}>
         <Boost boostId={props.match.params.boostId} open={true} payment={!!props.match.params.payment} />

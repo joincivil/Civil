@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 
 import { EthAddress } from "@joincivil/core";
-import { colors, FeatureFlag, LoadingMessage } from "@joincivil/components";
+import { colors, FeatureFlag, LoadingMessage, ChevronAnchor } from "@joincivil/components";
 
 import config from "../../helpers/config";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
@@ -98,7 +98,9 @@ const DiscourseComments: React.FunctionComponent<DiscourseCommentsProps> = props
   if (props.isRinkebyNetwork) {
     return (
       <StyledLinkContainer>
-        <a href={`https://community.civil.co/t/${props.topicID}`}>Join the discussion on Discourse &raquo;</a>
+        <ChevronAnchor href={`https://community.civil.co/t/${props.topicID}`}>
+          Join the discussion on Discourse
+        </ChevronAnchor>
         <p>
           <span>* Discourse embedding is not currently enabled for Rinkeby Test Network</span>
         </p>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries } from "@joincivil/components";
+import { colors, fonts, mediaQueries, ChevronAnchor } from "@joincivil/components";
 
 export const ComingSoonText: React.FunctionComponent = props => <ComingSoon>Coming soon!</ComingSoon>;
 
@@ -50,7 +50,7 @@ export const BoostIntro = styled.p`
   }
 `;
 
-export const BoostLearnMore = styled.a`
+export const BoostLearnMore = styled(ChevronAnchor)`
   color: ${colors.accent.CIVIL_BLUE};
   display: block;
   font-size: 15px;

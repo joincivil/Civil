@@ -5,6 +5,7 @@ import {
   CivilContext,
   ICivilContext,
   RENDER_CONTEXT,
+  ChevronAnchor,
 } from "@joincivil/components";
 import { CharterData } from "@joincivil/core";
 import * as IPFS from "ipfs-http-client";
@@ -16,7 +17,6 @@ import {
   BoostNewsroomInfo,
   BoostNewsroomName,
   BoostFlexStartMobile,
-  MobileStyle,
 } from "./BoostStyledComponents";
 
 const ipfs = new IPFS({
@@ -86,16 +86,17 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
             {this.props.open && (
               <>
                 {this.props.boostOwner && (
-                  <a href={`/boosts/${this.props.boostId}/edit`}>
-                    <b>
-                      Edit Boost <MobileStyle>&raquo;</MobileStyle>
-                    </b>
-                  </a>
+                  <ChevronAnchor href={`/boosts/${this.props.boostId}/edit`}>
+                    <b>Edit Boost</b>
+                  </ChevronAnchor>
                 )}
                 {this.renderNewsroomURL()}
-                <a href={"https://registry.civil.co/listing/" + this.props.newsroomContractAddress} target="_blank">
-                  Visit Civil Registry <MobileStyle>&raquo;</MobileStyle>
-                </a>
+                <ChevronAnchor
+                  href={"https://registry.civil.co/listing/" + this.props.newsroomContractAddress}
+                  target="_blank"
+                >
+                  View on Civil Registry
+                </ChevronAnchor>
               </>
             )}
           </BoostNewsroomInfo>
@@ -124,9 +125,9 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
   private renderNewsroomURL(): JSX.Element {
     if (this.state.charter && this.context.renderContext !== RENDER_CONTEXT.EMBED) {
       return (
-        <a href={this.state.charter.newsroomUrl} target="_blank">
-          Visit Newsroom <MobileStyle>&raquo;</MobileStyle>
-        </a>
+        <ChevronAnchor href={this.state.charter.newsroomUrl} target="_blank">
+          Visit Newsroom
+        </ChevronAnchor>
       );
     } else {
       return <></>;

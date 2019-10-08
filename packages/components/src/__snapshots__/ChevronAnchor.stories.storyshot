@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transaction button 1`] = `
+exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed 1`] = `
 <div>
   <div
     style={
@@ -11,8 +11,37 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
-      className="sc-LzNQh fkDGOO"
-    />
+      className="sc-LzNQb kwTKpr"
+    >
+      <a
+        href="#"
+      >
+        Check this out
+        <svg
+          height={14}
+          version="1.1"
+          viewBox="0 0 14 14"
+          width={14}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="none"
+            fillRule="evenodd"
+            stroke="none"
+            strokeWidth="1"
+          >
+            <polygon
+              points="0 0 18 0 18 18 0 18"
+            />
+            <polygon
+              fill="#2B56FF"
+              fillRule="nonzero"
+              points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
+            />
+          </g>
+        </svg>
+      </a>
+    </div>
   </div>
   <button
     className="info__show-button"
@@ -113,7 +142,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
               }
             }
           >
-            Common / Ethereum / DetailTransactionButton
+            Pattern Library / Typography / Chevron Anchor
           </h1>
           <h2
             style={
@@ -125,7 +154,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
               }
             }
           >
-            detail transaction button
+            Civil Themed
           </h2>
         </div>
         
@@ -158,34 +187,154 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  styled.div
-                </span>
-                <span />
-                <span
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      ChevronAnchor
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          href
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              #
+                            </span>
+                            "
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      Check this out
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      ChevronAnchor
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -225,6 +374,22 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
           >
             Prop Types
           </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              ChevronAnchor
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
           <div>
             <h3
               style={
@@ -248,7 +413,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
 </div>
 `;
 
-exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transaction button with visible progress modal 1`] = `
+exports[`Storyshots Pattern Library / Typography / Chevron Anchor Default 1`] = `
 <div>
   <div
     style={
@@ -258,9 +423,34 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
       }
     }
   >
-    <div
-      className="sc-LzNQh fkDGOO"
-    />
+    <a
+      href="#"
+    >
+      Check this out
+      <svg
+        height={14}
+        version="1.1"
+        viewBox="0 0 14 14"
+        width={14}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fillRule="evenodd"
+          stroke="none"
+          strokeWidth="1"
+        >
+          <polygon
+            points="0 0 18 0 18 18 0 18"
+          />
+          <polygon
+            fill="#2B56FF"
+            fillRule="nonzero"
+            points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"
+          />
+        </g>
+      </svg>
+    </a>
   </div>
   <button
     className="info__show-button"
@@ -361,7 +551,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
               }
             }
           >
-            Common / Ethereum / DetailTransactionButton
+            Pattern Library / Typography / Chevron Anchor
           </h1>
           <h2
             style={
@@ -373,7 +563,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
               }
             }
           >
-            detail transaction button with visible progress modal
+            Default
           </h2>
         </div>
         
@@ -406,34 +596,103 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
             }
           >
             <div>
-              <div
-                style={
-                  Object {
-                    "paddingLeft": 18,
-                    "paddingRight": 3,
-                  }
-                }
-              >
-                <span
+              <div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  &lt;
-                  styled.div
-                </span>
-                <span />
-                <span
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    ChevronAnchor
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        href
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            #
+                          </span>
+                          "
+                        </span>
+                      </span>
+                      
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
                   style={
                     Object {
-                      "color": "#444",
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
                     }
                   }
                 >
-                  /&gt;
-                </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    Check this out
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    ChevronAnchor
+                    &gt;
+                  </span>
+                </div>
               </div>
             </div>
             <button
@@ -482,7 +741,7 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
               }
             >
               "
-              styled.div
+              ChevronAnchor
               " Component
             </h3>
             <small>

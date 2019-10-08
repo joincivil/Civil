@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
     }
   >
     <div
-      className="sc-LzNRt evmDYd"
+      className="sc-LzNRu eHxpQK"
     >
       <a
         className="sc-LzNvN kVfsqv"
@@ -565,7 +565,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNRt evmDYd"
+      className="sc-LzNRu eHxpQK"
     >
       <div
         className="sc-LzNxb fsTyAo"
@@ -2048,7 +2048,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNRt evmDYd"
+      className="sc-LzNRu eHxpQK"
     >
       <div
         className="sc-LzNxa fSJGmF"
@@ -2057,7 +2057,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           className="sc-LzNvT pUXKT"
         >
           <svg
-            className="sc-fzXfPf kffFrG"
+            className="sc-fzXfPf hHlBzH"
             height={11}
             viewBox="0 0 72 21"
             width={42}
