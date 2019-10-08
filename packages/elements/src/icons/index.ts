@@ -7,6 +7,7 @@ export * from "./ArticleSignPanelIcon";
 export * from "./BellIcon";
 export * from "./BookreaderIcon";
 export * from "./BrainIcon";
+export * from "./Chevron";
 export * from "./CivilIcon";
 export * from "./CivilTutorialIcon";
 export * from "./CvlToken";

@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Chevron } from "./icons/Chevron";
+import { Chevron } from "@joincivil/elements";
 
 // @NOTE: See also `DisclosureArrowIcon` - slightly thicker version, we could maybe make an anchor tag helper for that too.
 

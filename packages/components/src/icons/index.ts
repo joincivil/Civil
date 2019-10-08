@@ -13,6 +13,7 @@ export {
   CCMastercardIcon,
   CCSecurityCodeIcon,
   CCVisaIcon,
+  Chevron,
   CivilIcon,
   CivilTutorialIcon,
   CvlToken,
