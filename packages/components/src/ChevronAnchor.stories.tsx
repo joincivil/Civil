@@ -1,6 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import { ChevronAnchor } from "./ChevronAnchor";
+import { ChevronAnchorLeft } from "./ChevronAnchorLeft";
 import { colors } from "@joincivil/elements";
 import styled from "styled-components";
 
@@ -22,6 +23,13 @@ storiesOf("Pattern Library / Typography / Chevron Anchor", module)
     return (
       <ThemedContainer>
         <ChevronAnchor href="#">Check this out</ChevronAnchor>
+      </ThemedContainer>
+    );
+  })
+  .add("Civil Themed, Left", () => {
+    return (
+      <ThemedContainer>
+        <ChevronAnchorLeft href="#">Go back to that thing</ChevronAnchorLeft>
       </ThemedContainer>
     );
   });

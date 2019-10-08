@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-LzNOh sc-LzNOi YEpcp"
+          className="sc-LzNOi sc-LzNOj bBjbJC"
         />
       </div>
     </div>
@@ -44,7 +44,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOu sc-fzXfOv liGmVU"
+          className="sc-fzXfOu sc-fzXfOv fEukUO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-LzNOh sc-LzNOi YEpcp"
+          className="sc-LzNOi sc-LzNOj bBjbJC"
         />
       </div>
     </div>
@@ -721,7 +721,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOu sc-fzXfOv liGmVU"
+          className="sc-fzXfOu sc-fzXfOv fEukUO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

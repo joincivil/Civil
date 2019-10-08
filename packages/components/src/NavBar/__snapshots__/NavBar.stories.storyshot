@@ -11,16 +11,16 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
     }
   >
     <div
-      className="sc-LzMlC hwbwEQ"
+      className="sc-LzMlD cAkPKJ"
     >
       <div
-        className="sc-LzMlD bpMhdO"
+        className="sc-LzMlE hmDUDX"
       >
         <div
-          className="sc-LzMlF hrLAKv"
+          className="sc-LzMlG eFJFvs"
         >
           <div
-            className="sc-LzMlE jdTvIT"
+            className="sc-LzMlF gsvjTY"
           >
             <a
               href="https://civil.co"
@@ -45,13 +45,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMCc eUBxW"
+            className="sc-LzMCd HTmYL"
           >
             <div
-              className="sc-LzMCh iHvUso"
+              className="sc-LzMCi gqhwcV"
             >
               <span
-                className="sc-LzMCi jWoYyK"
+                className="sc-LzMCj eyrZOv"
               >
                 <a
                   href="/registry"
@@ -60,11 +60,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-LzMCj zGXEc"
+                  className="sc-LzMCH jUuLga"
                 />
               </span>
               <div
-                className="sc-LzMCH eCTMlA"
+                className="sc-LzMCI fDqpnd"
               >
                 <a
                   href="/registry"
@@ -103,7 +103,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzMCd gZlBDs"
+            className="sc-LzMCe iirGx"
           >
             <div
               onClick={[Function]}
@@ -123,14 +123,14 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzMCe FTzsI"
+            className="sc-LzMCf fTogel"
           />
         </div>
         <div
-          className="sc-LzMlG eaehMg"
+          className="sc-LzMlH iZpHzR"
         >
           <button
-            className="sc-fzXfOu sc-fzXfOy sc-LzMmq gaCoBO"
+            className="sc-fzXfOu sc-fzXfOy sc-LzMBt fEtPzJ"
             onClick={[Function]}
             theme={
               Object {
@@ -146,7 +146,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             Log In
           </button>
           <button
-            className="sc-fzXfOu sc-fzXfOy sc-LzMBt kGmsvw"
+            className="sc-fzXfOu sc-fzXfOy sc-LzMBu ijbQqM"
             onClick={[Function]}
             theme={
               Object {
@@ -593,7 +593,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-LzMCI jBKqxZ"
+      className="sc-LzMCJ hixvpK"
     >
       Please Switch To Rinkeby Testnet
     </div>

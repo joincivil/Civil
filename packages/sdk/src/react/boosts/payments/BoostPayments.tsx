@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, QuestionToolTip } from "@joincivil/components";
+import { colors, fonts, mediaQueries, QuestionToolTip, ChevronAnchorLeft } from "@joincivil/components";
 import { BoostPayOptions } from "./BoostPayOptions";
 import { BoostWrapper, BoostTitle, BoostSmallPrint, BoostTextButton, BoostBack } from "../BoostStyledComponents";
 import { EthAddress } from "@joincivil/core";
@@ -71,7 +71,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
     <BoostWrapper open={true}>
       <BoostHeaderWrap>
         <BoostBack>
-          <BoostTextButton onClick={() => props.handleBackToListing()}>&laquo; Back to Boost listing</BoostTextButton>
+          <ChevronAnchorLeft component={BoostTextButton} onClick={() => props.handleBackToListing()}>Back to Boost info</ChevronAnchorLeft>
         </BoostBack>
         <BoostHeader>Complete your Boost payment</BoostHeader>
         <BoostDetails>
