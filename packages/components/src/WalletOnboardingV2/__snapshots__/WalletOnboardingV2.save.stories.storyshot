@@ -58,7 +58,7 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
         className="sc-LzMGG fiSNfp"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv fVSNrn disabled"
+          className="sc-fzXfOu sc-fzXfOv cGHCaZ disabled"
           disabled={true}
           size="MEDIUM_WIDE"
           theme={

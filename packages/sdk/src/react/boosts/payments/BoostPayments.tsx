@@ -71,7 +71,9 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
     <BoostWrapper open={true}>
       <BoostHeaderWrap>
         <BoostBack>
-          <ChevronAnchorLeft component={BoostTextButton} onClick={() => props.handleBackToListing()}>Back to Boost info</ChevronAnchorLeft>
+          <ChevronAnchorLeft component={BoostTextButton} onClick={() => props.handleBackToListing()}>
+            Back to Boost info
+          </ChevronAnchorLeft>
         </BoostBack>
         <BoostHeader>Complete your Boost payment</BoostHeader>
         <BoostDetails>

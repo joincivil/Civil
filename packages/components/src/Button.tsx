@@ -194,6 +194,7 @@ export const Button = styled(BaseButton)`
     color: ${props => props.theme.primaryButtonColor};
   }
   &:disabled {
+    cursor: default;
     background-color: ${props => props.theme.primaryButtonDisabledBackground};
     color: ${props => props.theme.primaryButtonDisabledColor};
     border-color: transparent;

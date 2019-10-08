@@ -69,7 +69,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         className="sc-LzNOg ezxTrc"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv eybElb"
+          className="sc-fzXfOu sc-fzXfOv fKkRRZ"
           size="SMALL_WIDE"
           textTransform="none"
           theme={

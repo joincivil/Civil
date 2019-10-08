@@ -2164,7 +2164,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
           />
         </div>
         <button
-          className="sc-fzXfOu sc-fzXfOv fjdkbB"
+          className="sc-fzXfOu sc-fzXfOv jzOkwz"
           disabled={false}
           onClick={[Function]}
           theme={

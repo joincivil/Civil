@@ -14,7 +14,14 @@ export const Chevron = (props: ChevronProps) => {
   const height = props.height || 14;
   const width = props.width || 14;
   return (
-    <svg className={props.className} width={width} height={height} viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      className={props.className}
+      width={width}
+      height={height}
+      viewBox="0 0 14 14"
+      version="1.1"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <polygon points="0 0 18 0 18 18 0 18"></polygon>
         <polygon

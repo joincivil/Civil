@@ -23,11 +23,13 @@ const CivilLogoLink = styled.a`
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 35%);
 
   ${mediaQueries.MOBILE} {
-    padding-top: 22px;
+    padding-top: 25px;
     padding-right: 10px;
   }
   ${mediaQueries.MOBILE_SMALL} {
+    padding-top: 22px;
     padding-left: 60px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 40%);
   }
 
   svg {

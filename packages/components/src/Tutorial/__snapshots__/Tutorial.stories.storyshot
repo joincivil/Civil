@@ -61,7 +61,7 @@ exports[`Storyshots Common / Tutorial Tutorial Info 1`] = `
           Back
         </button>
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzNsD jgMHGH"
+          className="sc-fzXfOu sc-fzXfOv sc-LzNsD bXhRMl"
           onClick={[Function]}
           theme={
             Object {
@@ -625,7 +625,7 @@ exports[`Storyshots Common / Tutorial Tutorial Question 1`] = `
           Back to Tutorial
         </button>
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzNsD jgMHGH disabled"
+          className="sc-fzXfOu sc-fzXfOv sc-LzNsD bXhRMl disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -1304,7 +1304,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Completed 1`] = `
         Buying tokens, like any financial decision, is a risk. The price of tokens can fluctuate depending on various factors. It’ a good rule of thumb to look at the team behind the token – the founders, the advisors – as well as the token design and its supply.  It’s also important to diversify your portfolio across many investment vehicles – crypto assets and non-crypto assets.
       </p>
       <button
-        className="sc-fzXfOu sc-fzXfOv sc-LzNsD jgMHGH"
+        className="sc-fzXfOu sc-fzXfOv sc-LzNsD bXhRMl"
         onClick={[Function]}
         theme={
           Object {
@@ -1809,7 +1809,7 @@ exports[`Storyshots Common / Tutorial Tutorial Topic Intro 1`] = `
             Skip to the quiz
           </button>
           <button
-            className="sc-fzXfOu sc-fzXfOv sc-LzNsD jgMHGH"
+            className="sc-fzXfOu sc-fzXfOv sc-LzNsD bXhRMl"
             onClick={[Function]}
             theme={
               Object {

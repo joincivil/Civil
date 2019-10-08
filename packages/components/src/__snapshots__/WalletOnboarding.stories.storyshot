@@ -61,7 +61,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         className="sc-LzMFn dCIyNP"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv fEukUO"
+          className="sc-fzXfOu sc-fzXfOv dvJuTE"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -935,7 +935,7 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzMFj jDFEPI"
+          className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1337,7 +1337,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
       </p>
       <p>
         <a
-          className="sc-fzXfOu sc-fzXfOv fEukUO"
+          className="sc-fzXfOu sc-fzXfOv dvJuTE"
           href="https://metamask.io/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -1806,7 +1806,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzMFj jDFEPI"
+          className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -2217,7 +2217,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         className="sc-LzMFn dCIyNP"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv fEukUO"
+          className="sc-fzXfOu sc-fzXfOv dvJuTE"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -2667,7 +2667,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOu sc-fzXfOv sc-LzMFj jDFEPI"
+          className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

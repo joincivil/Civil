@@ -17,6 +17,7 @@ export const colors = {
     CIVIL_TEAL: "#30E8BD",
     CIVIL_TEAL_FADED: "#97F3DE", // accent color associated with Citizens; use as a highlight in text
     CIVIL_TEAL_FADED_2: "#C1F8EB",
+    CIVIL_TEAL_DARK: "#00C189",
     CIVIL_RED: "#FF0C1A", // Civil-wide accent color
     CIVIL_RED_FADED: "rgba(242, 82, 74, 0.56)",
     CIVIL_RED_VERY_FADED: "rgba(255, 12, 26, 0.10)",

@@ -90,7 +90,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         className="sc-LzNOg ezxTrc"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv eybElb disabled"
+          className="sc-fzXfOu sc-fzXfOv fKkRRZ disabled"
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"

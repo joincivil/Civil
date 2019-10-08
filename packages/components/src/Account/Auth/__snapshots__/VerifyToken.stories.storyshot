@@ -44,7 +44,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOu sc-fzXfOv fEukUO"
+          className="sc-fzXfOu sc-fzXfOv dvJuTE"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -721,7 +721,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
-          className="sc-fzXfOu sc-fzXfOv fEukUO"
+          className="sc-fzXfOu sc-fzXfOv dvJuTE"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

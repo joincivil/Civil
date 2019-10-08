@@ -66,7 +66,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
                 className="sc-fzXfNR efLYgn"
               >
                 <button
-                  className="sc-fzXfOu sc-fzXfOv kIwRzC"
+                  className="sc-fzXfOu sc-fzXfOv eWHtkk"
                   onClick={[Function]}
                   size="SMALL"
                   theme={

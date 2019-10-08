@@ -39,7 +39,7 @@ const BoostProgressBar = styled.div`
 `;
 
 const BoostProgressPercent = styled.div`
-  background-color: ${colors.accent.CIVIL_TEAL};
+  background-color: ${colors.accent.CIVIL_TEAL_DARK};
   border-radius: 5px;
   height: 10px;
   width: ${(props: BoostProgressWidthProps) => ((props.paymentsTotal / props.goalAmount) * 100).toString()}%;
