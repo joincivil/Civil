@@ -11,7 +11,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQO iRbEmN"
+=======
+      className="sc-LzNNF gdEqAd"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-fzXfQr Yxohy"
@@ -440,7 +444,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQO iRbEmN"
+=======
+      className="sc-LzNNF gdEqAd"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-fzXfQr Yxohy"
@@ -829,7 +837,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQO iRbEmN"
+=======
+      className="sc-LzNNF gdEqAd"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-fzXfQr Yxohy"

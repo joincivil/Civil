@@ -11,7 +11,11 @@ exports[`Storyshots Registry / Application Status Labels Labels 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNPB eBuFQt"
+=======
+      className="sc-LzNMt hXSWYY"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-LzLtg sc-LzLth gfdrAX"

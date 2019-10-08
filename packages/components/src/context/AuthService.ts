@@ -1,5 +1,11 @@
 import ApolloClient from "apollo-client";
-import { clearApolloSession, setApolloSession, getCurrentUserQuery, getApolloSession } from "@joincivil/utils";
+import {
+  clearApolloSession,
+  setApolloSession,
+  getCurrentUserQuery,
+  getApolloSession,
+  AuthLoginResponse,
+} from "@joincivil/utils";
 import gql from "graphql-tag";
 
 const authLoginEthMutation = gql`
@@ -29,6 +35,7 @@ export interface AuthServiceOptions {
 
 export class AuthService {
   public currentUser?: any;
+  public loading = false;
   private apolloClient: ApolloClient<any>;
   private onAuthChange: (currentUser?: any) => void;
 
@@ -47,6 +54,10 @@ export class AuthService {
         this.onAuthChange(this.currentUser);
       }
     }
+  }
+
+  public getSession(): AuthLoginResponse | null {
+    return getApolloSession();
   }
 
   public logout(): void {
@@ -69,7 +80,6 @@ export class AuthService {
 
   public async loginUser(session: any): Promise<void> {
     setApolloSession(session);
-
     this.currentUser = await this.fetchCurrentUser();
     if (this.onAuthChange) {
       this.onAuthChange(this.currentUser);
@@ -77,7 +87,9 @@ export class AuthService {
   }
 
   public async fetchCurrentUser(): Promise<void> {
+    this.loading = true;
     const result = await this.apolloClient.query({ query: getCurrentUserQuery, fetchPolicy: "no-cache" });
+    this.loading = false;
 
     if (result.errors) {
       throw new Error("error fetching user");

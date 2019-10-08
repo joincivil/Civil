@@ -11,7 +11,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Default Size (
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQN iEQSug"
+=======
+      className="sc-LzNNE fRtEHw"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <svg
@@ -393,7 +397,11 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Prop-defined s
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQN iEQSug"
+=======
+      className="sc-LzNNE fRtEHw"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <svg

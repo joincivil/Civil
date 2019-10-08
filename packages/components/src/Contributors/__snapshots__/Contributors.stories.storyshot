@@ -11,6 +11,7 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQf eIYcfi"
     >
       <div
@@ -18,6 +19,15 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
       >
         <span
           className="sc-LzNvj jRsyxB"
+=======
+      className="sc-LzNMW ecUdsH"
+    >
+      <div
+        className="sc-LzNsa ewABiH"
+      >
+        <span
+          className="sc-LzNsb hmcauS"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <img
             src="https://picsum.photos/50"
@@ -30,7 +40,11 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
           />
         </span>
         <span
+<<<<<<< master
           className="sc-LzNvk evuPKG"
+=======
+          className="sc-LzNsc bVbjgT"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           30 contributors
         </span>
@@ -646,6 +660,7 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQf eIYcfi"
     >
       <div
@@ -653,64 +668,118 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
       >
         <label
           className="sc-LzNvd jQmsuf"
+=======
+      className="sc-LzNMW ecUdsH"
+    >
+      <div
+        className="sc-LzNrU ksaDFo"
+      >
+        <label
+          className="sc-LzNrV iFRHud"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Recent Contributors
         </label>
         <div
+<<<<<<< master
           className="sc-LzNve gOBohl"
         >
           <img
             className="sc-LzNvf QXRYC"
+=======
+          className="sc-LzNrW dXnEkD"
+        >
+          <img
+            className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
             src="https://picsum.photos/50"
           />
           <div>
             <div
+<<<<<<< master
               className="sc-LzNvg iJOdoU"
+=======
+              className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               violetnight13
             </div>
             <div
+<<<<<<< master
               className="sc-LzNvh CAGsv"
+=======
+              className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               $2.50
             </div>
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNve gOBohl"
         >
           <img
             className="sc-LzNvf QXRYC"
+=======
+          className="sc-LzNrW dXnEkD"
+        >
+          <img
+            className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
             src="https://picsum.photos/50"
           />
           <div>
             <div
+<<<<<<< master
               className="sc-LzNvg iJOdoU"
+=======
+              className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               CaryRay
             </div>
             <div
+<<<<<<< master
               className="sc-LzNvh CAGsv"
+=======
+              className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               $5.00
             </div>
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNve gOBohl"
         >
           <img
             className="sc-LzNvf QXRYC"
+=======
+          className="sc-LzNrW dXnEkD"
+        >
+          <img
+            className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
             src="https://picsum.photos/50"
           />
           <div>
             <div
+<<<<<<< master
               className="sc-LzNvg iJOdoU"
+=======
+              className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               ronburgundy
             </div>
             <div
+<<<<<<< master
               className="sc-LzNvh CAGsv"
+=======
+              className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               0.009214 ETH
             </div>

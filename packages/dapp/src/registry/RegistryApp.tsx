@@ -1,25 +1,41 @@
 import * as React from "react";
-import { withRouter, RouteComponentProps } from "react-router";
-import { RegistryShell } from "./RegistryShell";
-import { standaloneRoutes } from "../constants";
+import { useDispatch } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { CivilContext, ICivilContext } from "@joincivil/components";
+import { Web3AuthWrapper } from "../components/Web3AuthWrapper";
+import Main from "../components/Main";
+import Footer from "../components/footer/Footer";
+import { analyticsEvent } from "../redux/actionCreators/analytics";
+import { NavBar } from "../components/header/NavBar";
+import { CivilHelperProvider } from "../apis/CivilHelper";
 
-const RegistryWrapper = React.lazy(async () => {
-  console.log("loading RegistryWrapper");
-  const rtn = await import("./RegistryWrapper");
-  console.log("loaded RegistryWrapper");
-  return rtn;
-});
+export const RegistrySection: React.FunctionComponent = () => {
+  const civilCtx = React.useContext<ICivilContext>(CivilContext);
+  const dispatch = useDispatch();
 
-const RegistryAppComponent = (props: RouteComponentProps) => {
-  const isStandaloneRoute = standaloneRoutes.find(route => props.location.pathname.indexOf(route.pathStem) === 0);
+  React.useEffect(() => {
+    function fireAnalyticsEvent(category: string, action: string, label: string, value: number): void {
+      dispatch!(analyticsEvent({ category, action, label, value }));
+    }
+    civilCtx.setAnalyticsEvent(fireAnalyticsEvent);
+  }, [civilCtx, dispatch]);
 
   return (
-    <React.Suspense fallback={isStandaloneRoute ? <></> : <RegistryShell />}>
-      <RegistryWrapper />
+    <React.Suspense fallback={<></>}>
+      <CivilHelperProvider>
+        <Switch>
+          <Route>
+            <>
+              <NavBar />
+              <Main />
+              <Footer />
+              <Web3AuthWrapper />
+            </>
+          </Route>
+        </Switch>
+      </CivilHelperProvider>
     </React.Suspense>
   );
 };
 
-export const RegistryApp = withRouter(RegistryAppComponent);
-
-export default RegistryApp;
+export default RegistrySection;

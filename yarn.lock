@@ -1471,7 +1471,7 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@7.4.3", "@babel/runtime@^7.1.2":
+"@babel/runtime@7.4.3":
   version "7.4.3"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.3.tgz#79888e452034223ad9609187a0ad1fe0d2ad4bdc"
   dependencies:
@@ -1489,15 +1489,15 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@babel/runtime@^7.3.4":
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.0.tgz#4fc1d642a9fd0299754e8b5de62c631cf5568205"
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2":
+  version "7.6.2"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.2.tgz#c3d6e41b304ef10dcf13777a33e7694ec4a9a6dd"
   dependencies:
     regenerator-runtime "^0.13.2"
 
-"@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2":
-  version "7.6.2"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.2.tgz#c3d6e41b304ef10dcf13777a33e7694ec4a9a6dd"
+"@babel/runtime@^7.3.4":
+  version "7.6.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.6.0.tgz#4fc1d642a9fd0299754e8b5de62c631cf5568205"
   dependencies:
     regenerator-runtime "^0.13.2"
 
@@ -1926,6 +1926,7 @@
 "@emotion/memoize@0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.3.tgz#5b6b1c11d6a6dddf1f2fc996f74cf3b219644d78"
+  integrity sha512-2Md9mH6mvo+ygq1trTeVp2uzAKwE2P7In0cRpD/M9Q70aH8L+rxMLbb3JCN2JoSWsV2O+DdFjfbbXoMoLBczow==
 
 "@emotion/memoize@^0.6.1", "@emotion/memoize@^0.6.6":
   version "0.6.6"
@@ -2460,12 +2461,13 @@
     redux-thunk "^2.3.0"
 
 "@kirby-web3/ethereum-react@^1.2.2":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.7.tgz#1c7c2e63bee18ccbeea5c5e5e397856393f3574e"
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.8.tgz#c92debf976318bf291de8b71e815a8c04630e400"
+  integrity sha512-9I/oD4EElrGS/njOobie+NQX0hnL9MaqYvk2aWk/Un8zo2OB/drXggJy8E2hvVowLkvTS08Q2ME6bacT5iv5YQ==
   dependencies:
-    "@kirby-web3/parent-core" "1.1.2"
-    "@kirby-web3/parent-react" "1.2.7"
-    "@kirby-web3/plugin-ethereum" "1.9.0"
+    "@kirby-web3/parent-core" "1.2.0"
+    "@kirby-web3/parent-react" "1.2.8"
+    "@kirby-web3/plugin-ethereum" "1.9.1"
 
 "@kirby-web3/parent-core@1.1.2":
   version "1.1.2"
@@ -2491,12 +2493,13 @@
     web3-providers-http "^1.2.0"
     web3-providers-ws "^1.2.0"
 
-"@kirby-web3/parent-react@1.2.7":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.7.tgz#ec3510189b38509301d7a5b5310568d7eefdb95d"
+"@kirby-web3/parent-react@1.2.8":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.8.tgz#b9c1103cdfa3030ee47a37e96e8630aadc0c03e2"
+  integrity sha512-aDQ2j1tVKuqPLBAaMNXl97zBdALxtWCTijF/NrIjuRCaPAgZza3KkDSfqAUnKaFpbBXbWroPGwxiFuN+nxh+qQ==
   dependencies:
-    "@kirby-web3/parent-core" "1.1.2"
-    "@kirby-web3/plugin-ethereum" "1.9.0"
+    "@kirby-web3/parent-core" "1.2.0"
+    "@kirby-web3/plugin-ethereum" "1.9.1"
     react-redux "^7.1.1"
     redux "^4.0.4"
 
@@ -2535,7 +2538,7 @@
     web3-providers-ws "^1.2.0"
     web3-utils "^1.2.1"
 
-"@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
+"@kirby-web3/plugin-ethereum@1.9.1", "@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.9.1.tgz#ea512d180b3d01fede6cc59ae17b64da848bc209"
   dependencies:
@@ -4569,8 +4572,9 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.13.tgz#ac786d623860adf39a3f51d629480aacd6a6eec7"
 
 "@types/node@^10.3.2":
-  version "10.14.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.19.tgz#f52742c7834a815dedf66edfc8a51547e2a67342"
+  version "10.14.20"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.20.tgz#c4378d9d6a62faa5c9aafffc3d726b5a1e7367c6"
+  integrity sha512-An+MXSV8CGXz/BO9C1KKsoJ/8WDrvlNUaRMsm2h+IHZuSyQkM8U5bJJkb8ItLKA73VePG/nUK+t+EuW2IWuhsQ==
 
 "@types/node@^12.0.2":
   version "12.7.2"
@@ -4680,9 +4684,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-router@^4.4.5":
-  version "4.4.5"
-  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.4.5.tgz#1166997dc7eef2917b5ebce890ebecb32ee5c1b3"
+"@types/react-router@^5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-5.1.1.tgz#e0b827556abc70da3473d05daf074c839d6852aa"
+  integrity sha512-S7SlFAPb7ZKr6HHMW0kLHGcz8pyJSL0UdM+JtlWthDqKUWwr7E6oPXuHgkofDI8dKCm16slg8K8VCf5pZJquaA==
   dependencies:
     "@types/history" "*"
     "@types/react" "*"
@@ -12886,6 +12891,7 @@ growly@^1.3.0:
 gud@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/gud/-/gud-1.0.0.tgz#a489581b17e6a70beca9abe3ae57de7a499852c0"
+  integrity sha512-zGEOVKFM5sVPPrYs7J5/hYEw2Pof8KCyOwyhG8sAF26mCAeUFAcYPu1mwB7hhpIP29zOIBaDqwuHdLp0jvZXjw==
 
 gulp-cli@^2.2.0:
   version "2.2.0"
@@ -13165,7 +13171,7 @@ hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
-hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.3.1:
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
@@ -19093,6 +19099,7 @@ path-to-regexp@0.1.7:
 path-to-regexp@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
+  integrity sha1-Wf3g9DW62suhA6hOnTvGTpa5k30=
   dependencies:
     isarray "0.0.1"
 
@@ -20846,6 +20853,7 @@ react-is@^16.3.2, react-is@^16.5.2:
 react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.9.0:
   version "16.10.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.1.tgz#0612786bf19df406502d935494f0450b40b8294f"
+  integrity sha512-BXUMf9sIOPXXZWqr7+c5SeOKJykyVr2u0UDzEf4LNGc6taGkQe1A9DFD07umCIXz45RLr9oAAwZbAJ0Pkknfaw==
 
 react-is@^16.8.3:
   version "16.9.0"
@@ -20909,17 +20917,6 @@ react-resize-detector@^4.0.5:
     raf-schd "^4.0.0"
     resize-observer-polyfill "^1.5.1"
 
-react-router-dom@^4.2.2, react-router-dom@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.3.1.tgz#4c2619fc24c4fa87c9fd18f4fb4a43fe63fbd5c6"
-  dependencies:
-    history "^4.7.2"
-    invariant "^2.2.4"
-    loose-envify "^1.3.1"
-    prop-types "^15.6.1"
-    react-router "^4.3.1"
-    warning "^4.0.1"
-
 react-router-dom@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"
@@ -20938,7 +20935,7 @@ react-router-named-routes@^0.0.23:
   dependencies:
     create-react-class "^15.6.0"
 
-react-router@5.1.2:
+react-router@5.1.2, react-router@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-5.1.2.tgz#6ea51d789cb36a6be1ba5f7c0d48dd9e817d3418"
   dependencies:
@@ -20952,18 +20949,6 @@ react-router@5.1.2:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
-
-react-router@^4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.3.1.tgz#aada4aef14c809cb2e686b05cee4742234506c4e"
-  dependencies:
-    history "^4.7.2"
-    hoist-non-react-statics "^2.5.0"
-    invariant "^2.2.4"
-    loose-envify "^1.3.1"
-    path-to-regexp "^1.7.0"
-    prop-types "^15.6.1"
-    warning "^4.0.1"
 
 react-rte@^0.16.1:
   version "0.16.1"
@@ -25008,12 +24993,6 @@ warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-warning@^4.0.1:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.2.tgz#aa6876480872116fa3e11d434b0d0d8d91e44607"
-  dependencies:
-    loose-envify "^1.0.0"
-
 warning@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/warning/-/warning-4.0.3.tgz#16e9e077eb8a86d6af7d64aa1e05fd85b4678ca3"
@@ -25719,7 +25698,6 @@ websocket@^1.0.28:
   dependencies:
     debug "^2.2.0"
     es5-ext "^0.10.50"
-    gulp "^4.0.2"
     nan "^2.14.0"
     typedarray-to-buffer "^3.1.5"
     yaeti "^0.0.6"

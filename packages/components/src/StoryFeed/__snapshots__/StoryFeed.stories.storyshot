@@ -11,6 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRv eTIbJr"
     >
       <a
@@ -22,17 +23,38 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
         >
           <h2
             className="sc-LzNvN gWkBXj"
+=======
+      className="sc-LzNOm cgkNWH"
+    >
+      <a
+        className="sc-LzNsG hBkwZL"
+        onClick={[Function]}
+      >
+        <div
+          className="sc-LzNsH kquQlu"
+        >
+          <h2
+            className="sc-LzNsF cZRmhw"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             How TikTok opened a window into China’s police state
           </h2>
           <div
+<<<<<<< master
             className="sc-LzNww jyScuD"
+=======
+            className="sc-LzNto gYyvQQ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             2019-08-28T15:58:32Z
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNvR hAVnvl"
+=======
+          className="sc-LzNsJ RwsHa"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -565,6 +587,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRv eTIbJr"
     >
       <div
@@ -572,6 +595,15 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
       >
         <div
           className="sc-LzNvS cSUsLH"
+=======
+      className="sc-LzNOm cgkNWH"
+    >
+      <div
+        className="sc-LzNtU fowqJP"
+      >
+        <div
+          className="sc-LzNsK hyRhws"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -579,18 +611,32 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNxd kjUaKx"
       >
         <h2
           className="sc-LzNvN gWkBXj"
+=======
+        className="sc-LzNtV focQQT"
+      >
+        <h2
+          className="sc-LzNsF cZRmhw"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           How TikTok opened a window into China’s police state
         </h2>
         <div
+<<<<<<< master
           className="sc-LzNwx fPsjZx"
         >
           <div
             className="sc-LzNvM gjKTcW"
+=======
+          className="sc-LzNtp knLfJb"
+        >
+          <div
+            className="sc-LzNsE ejgXrz"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <a
               onClick={[Function]}
@@ -610,79 +656,139 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             </a>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNww jyScuD"
+=======
+            className="sc-LzNto gYyvQQ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             2019-08-28T15:58:32Z
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNvQ bVTQwn"
+=======
+          className="sc-LzNsI kKVTrw"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown
         </div>
         <div
+<<<<<<< master
           className="sc-LzNuF eqBUCU"
         >
           <label
             className="sc-LzNvd jQmsuf"
+=======
+          className="sc-LzNrU ksaDFo"
+        >
+          <label
+            className="sc-LzNrV iFRHud"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Recent Contributors
           </label>
           <div
+<<<<<<< master
             className="sc-LzNve gOBohl"
           >
             <img
               className="sc-LzNvf QXRYC"
+=======
+            className="sc-LzNrW dXnEkD"
+          >
+            <img
+              className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
               src="https://picsum.photos/50"
             />
             <div>
               <div
+<<<<<<< master
                 className="sc-LzNvg iJOdoU"
+=======
+                className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 violetnight13
               </div>
               <div
+<<<<<<< master
                 className="sc-LzNvh CAGsv"
+=======
+                className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 $2.50
               </div>
             </div>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNve gOBohl"
           >
             <img
               className="sc-LzNvf QXRYC"
+=======
+            className="sc-LzNrW dXnEkD"
+          >
+            <img
+              className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
               src="https://picsum.photos/50"
             />
             <div>
               <div
+<<<<<<< master
                 className="sc-LzNvg iJOdoU"
+=======
+                className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 CaryRay
               </div>
               <div
+<<<<<<< master
                 className="sc-LzNvh CAGsv"
+=======
+                className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 $5.00
               </div>
             </div>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNve gOBohl"
           >
             <img
               className="sc-LzNvf QXRYC"
+=======
+            className="sc-LzNrW dXnEkD"
+          >
+            <img
+              className="sc-LzNrX kklmqI"
+>>>>>>> fix(dapp): clean up login/signup style
               src="https://picsum.photos/50"
             />
             <div>
               <div
+<<<<<<< master
                 className="sc-LzNvg iJOdoU"
+=======
+                className="sc-LzNrY lhmmLG"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 ronburgundy
               </div>
               <div
+<<<<<<< master
                 className="sc-LzNvh CAGsv"
+=======
+                className="sc-LzNrZ klsHUd"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 0.009214 ETH
               </div>
@@ -690,10 +796,17 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNvi haOVsK"
         >
           <span
             className="sc-LzNvj jRsyxB"
+=======
+          className="sc-LzNsa ewABiH"
+        >
+          <span
+            className="sc-LzNsb hmcauS"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <img
               src="https://picsum.photos/50"
@@ -706,17 +819,28 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             />
           </span>
           <span
+<<<<<<< master
             className="sc-LzNvk evuPKG"
+=======
+            className="sc-LzNsc bVbjgT"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             30 contributors
           </span>
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNxe fHHAwF"
       >
         <a
           className="sc-LzNwy jYOgSu"
+=======
+        className="sc-LzNtW fbikrr"
+      >
+        <a
+          className="sc-LzNtq gZzVsH"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"
           target="_blank"
         >
@@ -2048,6 +2172,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRv eTIbJr"
     >
       <div
@@ -2058,6 +2183,18 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
         >
           <svg
             className="sc-fzXfPf hHlBzH"
+=======
+      className="sc-LzNOm cgkNWH"
+    >
+      <div
+        className="sc-LzNtT jZWHMw"
+      >
+        <div
+          className="sc-LzNtj kMWRLT"
+        >
+          <svg
+            className="sc-fzXfLT dafkfk"
+>>>>>>> fix(dapp): clean up login/signup style
             height={11}
             viewBox="0 0 72 21"
             width={42}
@@ -2076,24 +2213,37 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
            Registry
         </div>
         <div
+<<<<<<< master
           className="sc-LzNws KMRhj"
+=======
+          className="sc-LzNtk jQtKTw"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Coda Story
         </div>
         <a
+<<<<<<< master
           className="sc-LzNwt fhvTts"
+=======
+          className="sc-LzNtl dDyKAR"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://codastory.com"
           target="_blank"
         >
           https://codastory.com
         </a>
         <span
+<<<<<<< master
           className="sc-LzNwY fmIhqo"
+=======
+          className="sc-LzNtQ inCEKd"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Approved
         </span>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNxd kjUaKx"
       >
         <div
@@ -2101,6 +2251,15 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
         >
           <div
             className="sc-LzNwA ffyeuX"
+=======
+        className="sc-LzNtV focQQT"
+      >
+        <div
+          className="sc-LzNtr kIsSUD"
+        >
+          <div
+            className="sc-LzNtP fXGPGD"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <p>
               This Newsroom maintains the standards and journalistic principles set by the
@@ -2117,7 +2276,11 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNwu cnDVtV"
+=======
+          className="sc-LzNtm jFnKrC"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <h2>
             About
@@ -2125,35 +2288,58 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           Coda Story puts a team of journalists on one crisis at a time and stays with it, providing unique depth, continuity and understanding to events that shape our world.
         </div>
         <div
+<<<<<<< master
           className="sc-LzNwu cnDVtV"
+=======
+          className="sc-LzNtm jFnKrC"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <h3>
             Smart Contract Address
           </h3>
           <span
+<<<<<<< master
             className="sc-LzNwv cESVgE"
+=======
+            className="sc-LzNtn bRkduB"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7
           </span>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNwu cnDVtV"
+=======
+          className="sc-LzNtm jFnKrC"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <h3>
             Public Wallet Address
           </h3>
           <span
+<<<<<<< master
             className="sc-LzNwv cESVgE"
+=======
+            className="sc-LzNtn bRkduB"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c
           </span>
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNxe fHHAwF"
       >
         <a
           className="sc-LzNwy jYOgSu"
+=======
+        className="sc-LzNtW fbikrr"
+      >
+        <a
+          className="sc-LzNtq gZzVsH"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://registry.civil.co/0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7"
           target="_blank"
         >

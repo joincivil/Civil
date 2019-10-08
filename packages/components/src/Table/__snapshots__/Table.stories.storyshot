@@ -11,6 +11,7 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRw fMOXEC"
     >
       <table
@@ -22,65 +23,124 @@ exports[`Storyshots Pattern Library / Table Default 1`] = `
         >
           <th
             className="sc-LzMHk dlzziT"
+=======
+      className="sc-LzNOn keqlzu"
+    >
+      <table
+        className="sc-LzMEH iQcLqD"
+        width="100%"
+      >
+        <tr
+          className="sc-LzMEK jJnREM"
+        >
+          <th
+            className="sc-LzMEI djMUBC"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Default Header
           </th>
           <th
+<<<<<<< master
             className="sc-LzMHk jplEDS"
+=======
+            className="sc-LzMEI ijMhwd"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Right aligned
           </th>
           <th
+<<<<<<< master
             className="sc-LzMHk jBraSD"
+=======
+            className="sc-LzMEI deOcwW"
+>>>>>>> fix(dapp): clean up login/signup style
             colSpan={2}
           >
             Accent Col spanned header
           </th>
         </tr>
         <tr
+<<<<<<< master
           className="sc-LzMHm jmsxGn"
         >
           <td
             className="sc-LzMHi illhix"
+=======
+          className="sc-LzMEK jJnREM"
+        >
+          <td
+            className="sc-LzMEG byNWJg"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Default cell
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi iIAqAY"
+=======
+            className="sc-LzMEG UKGCL"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Default cell
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi jygPOL"
+=======
+            className="sc-LzMEG fLeonm"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Pasta
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi jygPOL"
+=======
+            className="sc-LzMEG fLeonm"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Pho
           </td>
         </tr>
         <tr
+<<<<<<< master
           className="sc-LzMHm jmsxGn"
         >
           <td
             className="sc-LzMHi illhix"
+=======
+          className="sc-LzMEK jJnREM"
+        >
+          <td
+            className="sc-LzMEG byNWJg"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Pizza is delicious
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi iIAqAY"
+=======
+            className="sc-LzMEG UKGCL"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Ramen is tasty too
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi jygPOL"
+=======
+            className="sc-LzMEG fLeonm"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Pasta
           </td>
           <td
+<<<<<<< master
             className="sc-LzMHi jygPOL"
+=======
+            className="sc-LzMEG fLeonm"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Pho
           </td>

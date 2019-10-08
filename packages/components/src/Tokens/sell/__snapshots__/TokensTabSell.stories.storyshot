@@ -11,7 +11,11 @@ exports[`Storyshots Storefront / Sell Tab Coming Soon 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRV hvIOoV"
+=======
+      className="sc-LzNOM kxGuel"
+>>>>>>> fix(dapp): clean up login/signup style
     />
   </div>
   <button
@@ -442,13 +446,21 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRV hvIOoV"
+=======
+      className="sc-LzNOM kxGuel"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <p>
         You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible to sell them here.
       </p>
       <div
+<<<<<<< master
         className="sc-LzNcb gFUTIq"
+=======
+        className="sc-LzMZz gLOAeg"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <h4>
           <svg
@@ -482,7 +494,11 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
           . And that’s it.
         </p>
         <a
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOw sc-LzNam lizuYq"
+=======
+          className="sc-fzXfOZ sc-fzXfPb sc-LzMXK ciLERk"
+>>>>>>> fix(dapp): clean up login/signup style
           href="/dashboard/tasks/transfer-voting-tokens"
           onClick={[Function]}
           theme={
@@ -925,6 +941,7 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRV hvIOoV"
     >
       <div
@@ -936,6 +953,19 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
         />
         <div
           className="sc-LzMCM juULl"
+=======
+      className="sc-LzNOM kxGuel"
+    >
+      <div
+        className="sc-LzMlD gRvzt"
+        type={0}
+      >
+        <div
+          className="sc-LzMlE foYvia"
+        />
+        <div
+          className="sc-LzMlF gMGGtv"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           notes for storybooks: if you are actually trying to buy you might have troubles. make sure the storefrontEthPrice graphql mock gets updated to the current price.
         </div>
@@ -1370,7 +1400,11 @@ exports[`Storyshots Storefront / Sell Tab Uniswap 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRV hvIOoV"
+=======
+      className="sc-LzNOM kxGuel"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div>

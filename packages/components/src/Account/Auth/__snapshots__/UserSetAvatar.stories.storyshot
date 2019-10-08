@@ -11,23 +11,34 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNOP gAhlxu"
+=======
+      className="sc-LzNxc ezKrZG"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <form
         onSubmit={[Function]}
       >
         <div
+<<<<<<< master
           className="sc-LzNOS cfnVVk"
         >
           <div
             className="sc-LzNOQ kmxSYo"
+=======
+          className="sc-LzNxf jdMFYk"
+        >
+          <div
+            className="sc-LzNxd dxDurE"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <div
-              className="sc-fzXfPK gwIUgC"
+              className="sc-fzXfPL iHPalz"
             >
               <section>
                 <div
-                  className="sc-fzXfPJ hRbTBt"
+                  className="sc-fzXfPK kZHSQy"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragEnter={[Function]}
@@ -118,7 +129,11 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
                 type="file"
               />
               <button
+<<<<<<< master
                 className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                 onClick={[Function]}
                 size="SMALL"
                 theme={
@@ -138,10 +153,17 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
         </div>
       </form>
       <div
+<<<<<<< master
         className="sc-LzNOh dbczAp"
       >
         <span
           className="sc-LzNPw dDxrkr"
+=======
+        className="sc-LzNwu jRAebi"
+      >
+        <span
+          className="sc-LzNMo gYeZFI"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
         >
           Skip for now

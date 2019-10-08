@@ -11,23 +11,39 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNap dYNold"
     >
       <div>
         <div
           className="sc-LzNcd jrfeSO"
+=======
+      className="sc-LzMXN lkCwNh"
+    >
+      <div>
+        <div
+          className="sc-LzMZB cbPNji"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <ul
             className="sc-LzLRp lmJThZ"
           >
             <li
+<<<<<<< master
               className="sc-LzNcc jdGrBK"
+=======
+              className="sc-LzMZA hRmXXG"
+>>>>>>> fix(dapp): clean up login/signup style
               onClick={[Function]}
             >
               Buy
             </li>
             <li
+<<<<<<< master
               className="sc-LzNcc gxVLrx"
+=======
+              className="sc-LzMZA flCrNt"
+>>>>>>> fix(dapp): clean up login/signup style
               onClick={[Function]}
             >
               Sell
@@ -54,6 +70,7 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
         </div>
         <div>
           <div
+<<<<<<< master
             className="sc-LzNaU hckpEr"
           >
             <div
@@ -65,6 +82,19 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
               />
               <div
                 className="sc-LzMCM juULl"
+=======
+            className="sc-LzMYs eptepc"
+          >
+            <div
+              className="sc-LzMlD eCdrqR"
+              type={2}
+            >
+              <div
+                className="sc-LzMlE foYvia"
+              />
+              <div
+                className="sc-LzMlF gMGGtv"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 <p>
                   To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't have enough ETH, you can buy ETH on 
@@ -92,10 +122,17 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
               </div>
             </div>
             <div
+<<<<<<< master
               className="sc-LzNaW epZFiO"
             >
               <div
                 className="sc-LzNaW epZFiO"
+=======
+              className="sc-LzMYu cEMFzP"
+            >
+              <div
+                className="sc-LzMYu cEMFzP"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 <h3>
                   Contribute to the Civil Foundation
@@ -111,12 +148,16 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   </a>
                 </p>
                 <div
-                  className="sc-fzXfNl dnqUMc"
+                  className="sc-fzXfNQ iCtuqF"
                 >
                   <div />
                 </div>
                 <div
+<<<<<<< master
                   className="sc-LzNtQ diolFW"
+=======
+                  className="sc-LzNro iYHJSO"
+>>>>>>> fix(dapp): clean up login/signup style
                 >
                   <span>
                     You are 
@@ -129,7 +170,11 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   </h4>
                 </div>
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOv jzOkwz"
+=======
+                  className="sc-fzXfOZ sc-fzXfPa jxrOxo"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   theme={
                     Object {
@@ -148,7 +193,11 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                   Buy CVL from Civil Media Company in Airswap
                 </button>
                 <div
+<<<<<<< master
                   className="sc-LzNcf jQygwm"
+=======
+                  className="sc-LzMZD dkjSRC"
+>>>>>>> fix(dapp): clean up login/signup style
                 >
                   By clicking buy to purchase Civil tokens, you agree to the
                    
@@ -161,7 +210,11 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                 </div>
               </div>
               <div
+<<<<<<< master
                 className="sc-LzNbv kOGhFC"
+=======
+                className="sc-LzMYT bFTrSm"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 <p>
                   or
@@ -177,7 +230,11 @@ exports[`Storyshots Storefront / User Token Account Buy Section 1`] = `
                 <div />
               </div>
               <div
+<<<<<<< master
                 className="sc-LzNcf jQygwm"
+=======
+                className="sc-LzMZD dkjSRC"
+>>>>>>> fix(dapp): clean up login/signup style
               >
                 By clicking buy to purchase Civil tokens, you agree to the
                  
@@ -622,6 +679,7 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNap dYNold"
     >
       <div
@@ -629,6 +687,15 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
       >
         <div
           className="sc-LzNaS iDiEui"
+=======
+      className="sc-LzMXN lkCwNh"
+    >
+      <div
+        className="sc-LzMYp jXLNzC"
+      >
+        <div
+          className="sc-LzMYq jWDwGT"
+>>>>>>> fix(dapp): clean up login/signup style
           step="active"
         >
           <svg
@@ -656,7 +723,11 @@ exports[`Storyshots Storefront / User Token Account Signup Section 1`] = `
           Use your wallet to safely store your cryptocurrencies like Ether (ETH) and Civil tokens (CVL)
         </p>
         <a
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv sc-LzNal iRXFpu"
+=======
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMXJ hpQekz"
+>>>>>>> fix(dapp): clean up login/signup style
           href="/auth/wallet"
           onClick={[Function]}
           theme={
@@ -1105,10 +1176,17 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNap dYNold"
     >
       <div
         className="sc-LzNaQ ektegN"
+=======
+      className="sc-LzMXN lkCwNh"
+    >
+      <div
+        className="sc-LzMYo fRCAcm"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <h3>
           Take the Civil Tutorial
@@ -1118,11 +1196,19 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
         </p>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNaR eeXowt"
         step="active"
       >
         <div
           className="sc-LzNaS iDiEui"
+=======
+        className="sc-LzMYp jXLNzC"
+        step="active"
+      >
+        <div
+          className="sc-LzMYq jWDwGT"
+>>>>>>> fix(dapp): clean up login/signup style
           step="active"
         >
           <svg
@@ -1161,7 +1247,11 @@ exports[`Storyshots Storefront / User Token Account Tutorial Verify 1`] = `
           It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry. You will be able to answer the questions again.
         </p>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv sc-LzNal iRXFpu"
+=======
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMXJ hpQekz"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           theme={
             Object {

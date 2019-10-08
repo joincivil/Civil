@@ -11,7 +11,11 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQH ePOdLj"
+=======
+      className="sc-LzNNy dygPct"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-LzLOO gmCbTC"
@@ -22,7 +26,11 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
           CVL Token Contract Address
         </div>
         <div
+<<<<<<< master
           className="sc-LzLOQ dntYeN"
+=======
+          className="sc-LzLOQ bZkpVl"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <div
             className="sc-LzLOR cAOfDk"
@@ -30,7 +38,11 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
             0x 3e39 fa98 3abc d349 d95a ed60 8e79 8817 397c f0d1
           </div>
           <button
+<<<<<<< master
             className="sc-fzXfOu sc-fzXfOv eWHtkk"
+=======
+            className="sc-fzXfOZ sc-fzXfPa fvjjsZ"
+>>>>>>> fix(dapp): clean up login/signup style
             onClick={[Function]}
             size="SMALL"
             theme={
@@ -50,7 +62,11 @@ exports[`Storyshots Common / Ethereum / EthAddress Viewer EthAddress Viewer 1`] 
             Copy
           </button>
           <a
+<<<<<<< master
             className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+            className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
             href="https://rinkeby.etherscan.io/address/0x3e39fa983abcd349d95aed608e798817397cf0d1"
             size="SMALL"
             target="_blank"

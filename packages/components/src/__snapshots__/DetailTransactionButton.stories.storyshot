@@ -11,7 +11,11 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQi cykLDv"
+=======
+      className="sc-LzNMZ jCdqVQ"
+>>>>>>> fix(dapp): clean up login/signup style
     />
   </div>
   <button
@@ -259,7 +263,11 @@ exports[`Storyshots Common / Ethereum / DetailTransactionButton detail transacti
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQi cykLDv"
+=======
+      className="sc-LzNMZ jCdqVQ"
+>>>>>>> fix(dapp): clean up login/signup style
     />
   </div>
   <button

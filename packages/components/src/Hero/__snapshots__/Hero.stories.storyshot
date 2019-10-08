@@ -43,7 +43,11 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
           className="sc-LzMkv gSajlK"
         >
           <a
+<<<<<<< master
             className="sc-fzXfOu sc-fzXfOy sc-LzMkT loyAZv"
+=======
+            className="sc-fzXfOZ sc-fzXfPd sc-LzMkT fRvvwJ"
+>>>>>>> fix(dapp): clean up login/signup style
             href="#buy-tokens"
             size="SMALL"
             theme={
@@ -59,7 +63,11 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
             Join as a member
           </a>
           <a
+<<<<<<< master
             className="sc-fzXfOu sc-fzXfOy sc-LzMkT loyAZv"
+=======
+            className="sc-fzXfOZ sc-fzXfPd sc-LzMkT fRvvwJ"
+>>>>>>> fix(dapp): clean up login/signup style
             href="#apply"
             size="SMALL"
             theme={

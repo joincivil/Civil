@@ -11,7 +11,11 @@ exports[`Storyshots Pattern Library / Tooltips / QuestionToolTip tooltip 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRs iJzyxh"
+=======
+      className="sc-LzNOj cUxABR"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
         className="sc-LzLrs etEthT"

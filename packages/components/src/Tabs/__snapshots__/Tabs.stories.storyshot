@@ -5084,7 +5084,11 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
           className="sc-LzLRp lmJThZ"
         >
           <span
+<<<<<<< master
             className="sc-LzNSe ieZkxK"
+=======
+            className="sc-LzNOU ksPbTO"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <span>
               before!
@@ -5103,7 +5107,11 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
             Sign
           </li>
           <span
+<<<<<<< master
             className="sc-LzNSe ieZkxK"
+=======
+            className="sc-LzNOU ksPbTO"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <span>
               after!

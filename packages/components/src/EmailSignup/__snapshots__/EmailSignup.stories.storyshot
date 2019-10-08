@@ -11,6 +11,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQj cHshUm"
     >
       <div
@@ -18,6 +19,15 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
       >
         <div
           className="sc-LzMZC cLIXNL"
+=======
+      className="sc-LzNNa gYTvPe"
+    >
+      <div
+        className="sc-LzMXc bYYuAF"
+      >
+        <div
+          className="sc-LzMXa jiRMKn"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <svg
             height="24"
@@ -39,34 +49,42 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
+<<<<<<< master
           className="sc-LzMZD dbJlf"
+=======
+          className="sc-LzMXb jNIvbj"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
         <div
-          className="sc-fzXfNN fwolVg"
+          className="sc-fzXfOs cCsgOi"
         >
           <div
-            className="sc-fzXfNO evpIL"
+            className="sc-fzXfOt fbkFFh"
           >
             <div
-              className=" sc-fzXfLP corfVh"
+              className=" sc-fzXfMB iysgko"
             >
               <input
-                className="sc-fzXfLP corfVh"
+                className="sc-fzXfMB iysgko"
                 name="EmailSignupTextInput"
                 onChange={[Function]}
                 type="text"
               />
             </div>
             <div
-              className="sc-fzXfNQ hIkyTJ"
+              className="sc-fzXfOv nYvdH"
             >
               <span
-                className="sc-fzXfNR efLYgn"
+                className="sc-fzXfOw FrLBF"
               >
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOv eWHtkk"
+=======
+                  className="sc-fzXfOZ sc-fzXfPa fvjjsZ"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   size="SMALL"
                   theme={
@@ -90,7 +108,11 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
+<<<<<<< master
           className="sc-LzMZD dbJlf"
+=======
+          className="sc-LzMXb jNIvbj"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <b>
             Follow us on twitter for alerts
@@ -472,10 +494,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQj cHshUm"
     >
       <div
         className="sc-LzMZE sc-LzMZF fDziGJ"
+=======
+      className="sc-LzNNa gYTvPe"
+    >
+      <div
+        className="sc-LzMXc sc-LzMXd lejntV"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <svg
           height="36"
@@ -497,17 +526,29 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
+<<<<<<< master
           className="sc-LzMZC cLIXNL"
+=======
+          className="sc-LzMXa jiRMKn"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Thanks for signing up!
         </div>
         <p
+<<<<<<< master
           className="sc-LzMZD dbJlf"
+=======
+          className="sc-LzMXb jNIvbj"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Please check your email to confirm your subscription.
         </p>
         <p
+<<<<<<< master
           className="sc-LzMZD dbJlf"
+=======
+          className="sc-LzMXb jNIvbj"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <b>
             Follow us on twitter for alerts

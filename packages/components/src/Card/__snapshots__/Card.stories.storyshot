@@ -11,10 +11,14 @@ exports[`Storyshots Pattern Library / Cards Clickable Card 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQa eUctpp"
+=======
+      className="sc-LzNMS iIhphD"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div
-        className="sc-fzXfPN sc-fzXfQl gFQins"
+        className="sc-fzXfQl sc-fzXfQm bJTESh"
         onClick={[Function]}
       >
         I am a basic clickable card.

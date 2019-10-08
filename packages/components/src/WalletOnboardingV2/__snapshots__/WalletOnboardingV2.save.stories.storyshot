@@ -11,38 +11,65 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMFU cachJN"
     >
       <h2
         className="sc-LzMEb cGYSAF"
+=======
+      className="sc-LzMDs cnaDbl"
+    >
+      <h2
+        className="sc-LzMBz jEfwem"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Connect your crypto wallet
       </h2>
       <p
+<<<<<<< master
         className="sc-LzMEd sc-LzMGx hiameU"
+=======
+        className="sc-LzMBB sc-LzMDV kwEZZT"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using MetaMask.
       </p>
       <div
+<<<<<<< master
         className="sc-LzMEG sc-LzMEH sc-LzMGC iYLoeh"
+=======
+        className="sc-LzMCe sc-LzMCf sc-LzMEa eIClfF"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <a
           href="https://metamask.io/"
           target="_blank"
         >
           <img
+<<<<<<< master
             className="sc-LzMGD kLUoNh"
             src="test-file-stub"
           />
           <div
             className="sc-LzMGE eSuWFX"
+=======
+            className="sc-LzMEb kFgosN"
+            src="test-file-stub"
+          />
+          <div
+            className="sc-LzMEc chwPWj"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Get the MetaMask Browser Extension
           </div>
         </a>
       </div>
       <p
+<<<<<<< master
         className="sc-LzMEe sc-LzMED ZnmFG"
+=======
+        className="sc-LzMBC sc-LzMCb fAdvTu"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Once the extension is installed,
          
@@ -55,10 +82,17 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
         .
       </p>
       <div
+<<<<<<< master
         className="sc-LzMGG fiSNfp"
       >
         <button
           className="sc-fzXfOu sc-fzXfOv cGHCaZ disabled"
+=======
+        className="sc-LzMEe dyhCxZ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPa jyXou disabled"
+>>>>>>> fix(dapp): clean up login/signup style
           disabled={true}
           size="MEDIUM_WIDE"
           theme={
@@ -80,29 +114,48 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
         </button>
       </div>
       <div
+<<<<<<< master
         className="sc-LzMEG sc-LzMEI exnvBx"
       >
         <span
           className="sc-LzMEJ iQjFRy"
+=======
+        className="sc-LzMCe sc-LzMCg cpotAh"
+      >
+        <span
+          className="sc-LzMCh haVstK"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Using a different wallet?
         </span>
         <span
+<<<<<<< master
           className="sc-LzMEK bqUjzu"
+=======
+          className="sc-LzMCi eQViWu"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           Make sure it's unlocked
           . You may need to refresh.
         </span>
       </div>
       <div
+<<<<<<< master
         className="sc-LzMEE jtXlM"
+=======
+        className="sc-LzMCc VGuiU"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <div
           className="sc-LzLsD hARycr"
           onClick={[Function]}
         >
           <h4
+<<<<<<< master
             className="sc-LzMEF jEcVz"
+=======
+            className="sc-LzMCd brfeOb"
+>>>>>>> fix(dapp): clean up login/signup style
           >
              What is a cryptocurrency wallet?
           </h4>
@@ -118,31 +171,51 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
           open={false}
         >
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzMEE jtXlM"
+=======
+        className="sc-LzMCc VGuiU"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <div
           className="sc-LzLsD hARycr"
           onClick={[Function]}
         >
           <h4
+<<<<<<< master
             className="sc-LzMEF jEcVz"
+=======
+            className="sc-LzMCd brfeOb"
+>>>>>>> fix(dapp): clean up login/signup style
           >
              Why do I need a cryptocurrency wallet?
           </h4>
@@ -158,7 +231,11 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
           open={false}
         >
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Having a wallet is required. We recommend
              
@@ -172,12 +249,20 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
             to log in and manage your transactions.
           </p>
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -187,21 +272,33 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzMEE jtXlM"
+=======
+        className="sc-LzMCc VGuiU"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <div
           className="sc-LzLsD hARycr"
           onClick={[Function]}
         >
           <h4
+<<<<<<< master
             className="sc-LzMEF jEcVz"
+=======
+            className="sc-LzMCd brfeOb"
+>>>>>>> fix(dapp): clean up login/signup style
           >
              Need help setting up your wallet?
           </h4>
@@ -217,7 +314,11 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
           open={false}
         >
           <p
+<<<<<<< master
             className="sc-LzMEe jBfpta"
+=======
+            className="sc-LzMBC hebfxR"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             Head over to our
              
@@ -233,7 +334,11 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
         </div>
       </div>
       <p
+<<<<<<< master
         className="sc-LzMEe sc-LzMGF ccQweL"
+=======
+        className="sc-LzMBC sc-LzMEd cYrHlL"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Need more info before you start using a crypto wallet?
          
@@ -244,7 +349,11 @@ exports[`Storyshots Common / Wallet Onboarding V2 / Save Address Save address to
           Learn more in our support area
            
           <span
+<<<<<<< master
             className="sc-LzMFX gRktZL"
+=======
+            className="sc-LzMDv gKwtFr"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <svg
               height="11"

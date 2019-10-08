@@ -97,7 +97,7 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
 
   public sendSignupResponse(signer: string, signature: string): void {
     const state = this.getState().civilid as ChildPluginState;
-    const { requestID, ...request } = state.pendingSignupRequest!;
+    const { requestID, service, ...request } = state.pendingSignupRequest!;
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
   }

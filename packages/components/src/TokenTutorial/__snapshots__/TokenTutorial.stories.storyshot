@@ -11,16 +11,27 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNch jzDGel"
     >
       <div
         className="sc-LzNrn cPIlig"
+=======
+      className="sc-LzMZF cGgTsx"
+    >
+      <div
+        className="sc-LzNag bodqUg"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <h2>
           Choose a topic below to get started
         </h2>
         <div
+<<<<<<< master
           className="sc-LzNro beEsio"
+=======
+          className="sc-LzNah jOUBPs"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <svg
             height="18"
@@ -46,13 +57,21 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNrp IQYXE"
+=======
+        className="sc-LzNai jAdlGk"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <p>
           If you’ve read the Civil Constitution and FAQ, skip to the quiz.
         </p>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOw sc-LzNrq jBSrZv"
+=======
+          className="sc-fzXfOZ sc-fzXfPb sc-LzNaj cUuUxx"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           theme={
             Object {
@@ -66,10 +85,17 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNrr jQIUuQ"
       >
         <button
           className="sc-fzXfOu sc-fzXfOw sc-LzNrt firjSj"
+=======
+        className="sc-LzNak gKlbIQ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPb sc-LzNam eabtEl"
+>>>>>>> fix(dapp): clean up login/signup style
           disabled={false}
           onClick={[Function]}
           theme={
@@ -81,7 +107,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
+<<<<<<< master
             className="sc-LzNrs eDILWF"
+=======
+            className="sc-LzNal bOkKzJ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <div>
               <svg
@@ -128,7 +158,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNru hwNJht"
+=======
+            className="sc-LzNan iRBHbZ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             You have 
             4
@@ -136,6 +170,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
+<<<<<<< master
               className="sc-LzNrv cATjTz"
             >
               <div
@@ -149,6 +184,21 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
               />
               <div
                 className="sc-LzNrw euOKuu"
+=======
+              className="sc-LzNao cPtpXX"
+            >
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+>>>>>>> fix(dapp): clean up login/signup style
               />
               <b>
                 0
@@ -160,10 +210,17 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNrr jQIUuQ"
       >
         <button
           className="sc-fzXfOu sc-fzXfOw sc-LzNrt fMBfe disabled"
+=======
+        className="sc-LzNak gKlbIQ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPb sc-LzNam CAgzo disabled"
+>>>>>>> fix(dapp): clean up login/signup style
           disabled={true}
           onClick={[Function]}
           theme={
@@ -175,7 +232,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
+<<<<<<< master
             className="sc-LzNrs eDILWF"
+=======
+            className="sc-LzNal bOkKzJ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <div>
               <svg
@@ -225,7 +286,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNru hwNJht"
+=======
+            className="sc-LzNan iRBHbZ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             You have 
             4
@@ -233,6 +298,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
+<<<<<<< master
               className="sc-LzNrv cATjTz"
             >
               <div
@@ -246,6 +312,21 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
               />
               <div
                 className="sc-LzNrw euOKuu"
+=======
+              className="sc-LzNao cPtpXX"
+            >
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+>>>>>>> fix(dapp): clean up login/signup style
               />
               <b>
                 0
@@ -257,10 +338,17 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNrr jQIUuQ"
       >
         <button
           className="sc-fzXfOu sc-fzXfOw sc-LzNrt fMBfe disabled"
+=======
+        className="sc-LzNak gKlbIQ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPb sc-LzNam CAgzo disabled"
+>>>>>>> fix(dapp): clean up login/signup style
           disabled={true}
           onClick={[Function]}
           theme={
@@ -272,7 +360,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
+<<<<<<< master
             className="sc-LzNrs eDILWF"
+=======
+            className="sc-LzNal bOkKzJ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <div>
               <svg
@@ -329,7 +421,11 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
+<<<<<<< master
             className="sc-LzNru hwNJht"
+=======
+            className="sc-LzNan iRBHbZ"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             You have 
             4
@@ -337,6 +433,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
+<<<<<<< master
               className="sc-LzNrv cATjTz"
             >
               <div
@@ -350,6 +447,21 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
               />
               <div
                 className="sc-LzNrw euOKuu"
+=======
+              className="sc-LzNao cPtpXX"
+            >
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+              />
+              <div
+                className="sc-LzNap fnWmAK"
+>>>>>>> fix(dapp): clean up login/signup style
               />
               <b>
                 0

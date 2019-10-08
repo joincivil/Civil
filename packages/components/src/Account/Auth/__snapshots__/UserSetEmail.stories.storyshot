@@ -11,12 +11,20 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNPx BziuE"
+=======
+      className="sc-LzNMp TZoiJ"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       Almost done!
     </div>
     <div
+<<<<<<< master
       className="sc-LzNPy sBtgJ"
+=======
+      className="sc-LzNMq LbyUO"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
@@ -24,10 +32,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className=" sc-fzXfLP corfVh"
+        className=" sc-fzXfMB iysgko"
       >
         <input
-          className="sc-fzXfLP corfVh"
+          className="sc-fzXfMB iysgko"
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -37,14 +45,21 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
+<<<<<<< master
         className="sc-LzNNG eSFEBW"
       >
         <li
           className="sc-LzNNH irLdHq"
+=======
+        className="sc-LzNvT fIPOrn"
+      >
+        <li
+          className="sc-LzNwr gILneN"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <label>
             <label
-              className="sc-fzXfOs dLsnPu"
+              className="sc-fzXfOX QXUTr"
               size="SMALL"
             >
               <input
@@ -53,12 +68,16 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOr cHHeOg"
+                className="sc-fzXfOz epTyeE"
                 size="SMALL"
               />
             </label>
             <span
+<<<<<<< master
               className="sc-LzNOf hbQSfh"
+=======
+              className="sc-LzNws bsgBQO"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
@@ -66,10 +85,17 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
+<<<<<<< master
         className="sc-LzNOg ezxTrc"
       >
         <button
           className="sc-fzXfOu sc-fzXfOv fKkRRZ"
+=======
+        className="sc-LzNwt zOsZ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPa cfZabu"
+>>>>>>> fix(dapp): clean up login/signup style
           size="SMALL_WIDE"
           textTransform="none"
           theme={
@@ -91,10 +117,17 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       </div>
     </form>
     <div
+<<<<<<< master
       className="sc-LzNOh dbczAp"
     >
       <span
         className="sc-LzNPz isPlHV"
+=======
+      className="sc-LzNwu jRAebi"
+    >
+      <span
+        className="sc-LzNMr dTKLcq"
+>>>>>>> fix(dapp): clean up login/signup style
         onClick={[Function]}
       >
         Skip for now

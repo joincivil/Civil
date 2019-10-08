@@ -11,10 +11,14 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
+=======
+      className="sc-LzMCj gzlaDV"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Wallet Connected
       </h4>
@@ -28,18 +32,30 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         Your WordPress user profile wallet address does not match your MetaMask wallet address
       </p>
       <p
+<<<<<<< master
         className="sc-LzMFo iBbNFc"
+=======
+        className="sc-LzMCM iDuTMX"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Profile wallet address
       </p>
       <span
+<<<<<<< master
         className="sc-LzMFl iDBrOX"
+=======
+        className="sc-LzMCJ hXIldW"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         0x123abc00000000000000000000000000000x123abc
       </span>
        
       <p
+<<<<<<< master
         className="sc-LzMFo iBbNFc"
+=======
+        className="sc-LzMCM iDuTMX"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Connected wallet address
       </p>
@@ -50,7 +66,7 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
           className="sc-LzLtf jMicoQ"
         >
           <img
-            className="sc-fzXfPG qFkjc"
+            className="sc-fzXfLX hPVxpN"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -58,10 +74,17 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
       </div>
        
       <div
+<<<<<<< master
         className="sc-LzMFn dCIyNP"
       >
         <button
           className="sc-fzXfOu sc-fzXfOv dvJuTE"
+=======
+        className="sc-LzMCL xzGlu"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPa iodqVF"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -515,15 +538,23 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
+=======
+      className="sc-LzMCj gzlaDV"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Wallet Connected
       </h4>
       <p
+<<<<<<< master
         className="sc-LzMFo iBbNFc"
+=======
+        className="sc-LzMCM iDuTMX"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Your wallet address
       </p>
@@ -534,7 +565,7 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
           className="sc-LzLtf jMicoQ"
         >
           <img
-            className="sc-fzXfPG qFkjc"
+            className="sc-fzXfLX hPVxpN"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -910,14 +941,21 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
     >
       <img
         className="sc-LzMFq gvrZYu"
+=======
+      className="sc-LzMCj gzlaDV"
+    >
+      <img
+        className="sc-LzMCO cOEnft"
+>>>>>>> fix(dapp): clean up login/signup style
         src="test-file-stub"
       />
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Not logged in to wallet
       </h4>
@@ -935,7 +973,11 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
       </p>
       <p>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
+=======
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMCH idJIsi"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1305,10 +1347,14 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
+=======
+      className="sc-LzMCj gzlaDV"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         It looks like you aren’t logged in to your wallet
       </h4>
@@ -1323,7 +1369,11 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
         </a>
          
         <img
+<<<<<<< master
           className="sc-fzXfPG qFkjc sc-LzMFp iprfbK"
+=======
+          className="sc-fzXfLX hPVxpN sc-LzMCN gaOPqt"
+>>>>>>> fix(dapp): clean up login/signup style
           src="test-file-stub"
         />
          to manage your transactions.
@@ -1337,7 +1387,11 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
       </p>
       <p>
         <a
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv dvJuTE"
+=======
+          className="sc-fzXfOZ sc-fzXfPa iodqVF"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://metamask.io/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -1357,7 +1411,11 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
           Open MetaMask.io
            
           <span
+<<<<<<< master
             className="sc-LzMFm gTovWg"
+=======
+            className="sc-LzMCK hiYDbn"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <svg
               height="11"
@@ -1794,10 +1852,14 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
+=======
+      className="sc-LzMCj gzlaDV"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         MetaMask not enabled
       </h4>
@@ -1806,7 +1868,11 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       </p>
       <p>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
+=======
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMCH idJIsi"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1829,7 +1895,11 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       <p>
         If you do not see the MetaMask popup, please click the 
         <img
+<<<<<<< master
           className="sc-fzXfPG qFkjc sc-LzMFp iprfbK"
+=======
+          className="sc-fzXfLX hPVxpN sc-LzMCN gaOPqt"
+>>>>>>> fix(dapp): clean up login/signup style
           src="test-file-stub"
         />
          icon in your browser address bar.
@@ -2184,10 +2254,14 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
+=======
+      className="sc-LzMCj gzlaDV"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Wallet Connected
       </h4>
@@ -2195,7 +2269,11 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.
       </p>
       <p
+<<<<<<< master
         className="sc-LzMFo iBbNFc"
+=======
+        className="sc-LzMCM iDuTMX"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Your wallet address
       </p>
@@ -2206,7 +2284,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
           className="sc-LzLtf jMicoQ"
         >
           <img
-            className="sc-fzXfPG qFkjc"
+            className="sc-fzXfLX hPVxpN"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -2214,10 +2292,17 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
       </div>
        
       <div
+<<<<<<< master
         className="sc-LzMFn dCIyNP"
       >
         <button
           className="sc-fzXfOu sc-fzXfOv dvJuTE"
+=======
+        className="sc-LzMCL xzGlu"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPa iodqVF"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -2632,14 +2717,21 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMEL DiUwF"
     >
       <img
         className="sc-LzMFq gvrZYu"
+=======
+      className="sc-LzMCj gzlaDV"
+    >
+      <img
+        className="sc-LzMCO cOEnft"
+>>>>>>> fix(dapp): clean up login/signup style
         src="test-file-stub"
       />
       <h4
-        className="sc-fzXfNc ihbybb"
+        className="sc-fzXfNk ezLfjz"
       >
         Change your network
       </h4>
@@ -2658,7 +2750,11 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
          
         to switch networks in MetaMask 
         <img
+<<<<<<< master
           className="sc-fzXfPG qFkjc sc-LzMFp iprfbK"
+=======
+          className="sc-fzXfLX hPVxpN sc-LzMCN gaOPqt"
+>>>>>>> fix(dapp): clean up login/signup style
           src="test-file-stub"
         />
       </p>
@@ -2667,7 +2763,11 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
       </p>
       <p>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv sc-LzMFj ivYsCO"
+=======
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMCH idJIsi"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

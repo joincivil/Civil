@@ -14,10 +14,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className=" sc-fzXfLP corfVh"
+        className=" sc-fzXfMB iysgko"
       >
         <input
-          className="sc-fzXfLP corfVh"
+          className="sc-fzXfMB iysgko"
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -27,14 +27,21 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
+<<<<<<< master
         className="sc-LzNNG eSFEBW"
       >
         <li
           className="sc-LzNNH irLdHq"
+=======
+        className="sc-LzNvT fIPOrn"
+      >
+        <li
+          className="sc-LzNwr gILneN"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <label>
             <label
-              className="sc-fzXfOs dLsnPu"
+              className="sc-fzXfOX QXUTr"
               size="SMALL"
             >
               <input
@@ -43,12 +50,16 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOr cHHeOg"
+                className="sc-fzXfOz epTyeE"
                 size="SMALL"
               />
             </label>
             <span
+<<<<<<< master
               className="sc-LzNOf hbQSfh"
+=======
+              className="sc-LzNws bsgBQO"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               I agree to Civil's 
               <a
@@ -61,11 +72,15 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
+<<<<<<< master
           className="sc-LzNNH irLdHq"
+=======
+          className="sc-LzNwr gILneN"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <label>
             <label
-              className="sc-fzXfOs dLsnPu"
+              className="sc-fzXfOX QXUTr"
               size="SMALL"
             >
               <input
@@ -74,12 +89,16 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOr cHHeOg"
+                className="sc-fzXfOz epTyeE"
                 size="SMALL"
               />
             </label>
             <span
+<<<<<<< master
               className="sc-LzNOf hbQSfh"
+=======
+              className="sc-LzNws bsgBQO"
+>>>>>>> fix(dapp): clean up login/signup style
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -87,10 +106,17 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
+<<<<<<< master
         className="sc-LzNOg ezxTrc"
       >
         <button
           className="sc-fzXfOu sc-fzXfOv fKkRRZ disabled"
+=======
+        className="sc-LzNwt zOsZ"
+      >
+        <button
+          className="sc-fzXfOZ sc-fzXfPa cfZabu disabled"
+>>>>>>> fix(dapp): clean up login/signup style
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"

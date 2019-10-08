@@ -11,7 +11,11 @@ exports[`Storyshots Pattern Library / Notices / Messages (deprecate this?) Info 
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQP jdmqfu"
+=======
+      className="sc-LzNNG gpPcsK"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div

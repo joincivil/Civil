@@ -11,7 +11,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQJ jsUXXv"
+=======
+      className="sc-LzNNA LBlnz"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -38,7 +42,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
                   The Civil Times
                 </h1>
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOy sc-LzLPt hlvQVY"
+=======
+                  className="sc-fzXfOZ sc-fzXfPd sc-LzLPt cQovXu"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   theme={
                     Object {
@@ -65,7 +73,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Accepting Votes 
                     className="sc-LzLQa jzJXrI"
                   >
                     <a
+<<<<<<< master
                       className="sc-fzXfOu sc-fzXfOy sc-LzLPu ozQlM"
+=======
+                      className="sc-fzXfOZ sc-fzXfPd sc-LzLPu gxUqOC"
+>>>>>>> fix(dapp): clean up login/signup style
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -741,7 +753,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQJ jsUXXv"
+=======
+      className="sc-LzNNA LBlnz"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -768,7 +784,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
                   The Civil Times
                 </h1>
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOy sc-LzLPt hlvQVY"
+=======
+                  className="sc-fzXfOZ sc-fzXfPd sc-LzLPt cQovXu"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   theme={
                     Object {
@@ -795,7 +815,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header In Application 1
                     className="sc-LzLQa jzJXrI"
                   >
                     <a
+<<<<<<< master
                       className="sc-fzXfOu sc-fzXfOy sc-LzLPu ozQlM"
+=======
+                      className="sc-fzXfOZ sc-fzXfPd sc-LzLPu gxUqOC"
+>>>>>>> fix(dapp): clean up login/signup style
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -1471,7 +1495,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQJ jsUXXv"
+=======
+      className="sc-LzNNA LBlnz"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -1493,7 +1521,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
                   The Civil Times
                 </h1>
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOy sc-LzLPt hlvQVY"
+=======
+                  className="sc-fzXfOZ sc-fzXfPd sc-LzLPt cQovXu"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   theme={
                     Object {
@@ -1520,7 +1552,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header No phase label 1
                     className="sc-LzLQa jzJXrI"
                   >
                     <a
+<<<<<<< master
                       className="sc-fzXfOu sc-fzXfOy sc-LzLPu ozQlM"
+=======
+                      className="sc-fzXfOZ sc-fzXfPd sc-LzLPu gxUqOC"
+>>>>>>> fix(dapp): clean up login/signup style
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"
@@ -2214,7 +2250,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQJ jsUXXv"
+=======
+      className="sc-LzNNA LBlnz"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -2241,7 +2281,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
                   The Civil Times
                 </h1>
                 <button
+<<<<<<< master
                   className="sc-fzXfOu sc-fzXfOy sc-LzLPt hlvQVY"
+=======
+                  className="sc-fzXfOZ sc-fzXfPd sc-LzLPt cQovXu"
+>>>>>>> fix(dapp): clean up login/signup style
                   onClick={[Function]}
                   theme={
                     Object {
@@ -2268,7 +2312,11 @@ exports[`Storyshots Registry / Listing / Listing Details Header Revealing Votes 
                     className="sc-LzLQa jzJXrI"
                   >
                     <a
+<<<<<<< master
                       className="sc-fzXfOu sc-fzXfOy sc-LzLPu ozQlM"
+=======
+                      className="sc-fzXfOZ sc-fzXfPd sc-LzLPu gxUqOC"
+>>>>>>> fix(dapp): clean up login/signup style
                       href="https://civil.co"
                       size="MEDIUM_WIDE"
                       target="_blank"

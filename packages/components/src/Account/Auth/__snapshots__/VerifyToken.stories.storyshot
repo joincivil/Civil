@@ -11,12 +11,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNf jjYEDs"
+      className="sc-fzXfNK fiBnkJ"
     >
       Email Address Confirmed!
     </h2>
     <div
-      className="sc-fzXfNg sc-fzXfNi fQaGGE"
+      className="sc-fzXfNL sc-fzXfNN hWiwGJ"
     >
       Thanks for confirming your email address.
     </div>
@@ -30,7 +30,11 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
+<<<<<<< master
           className="sc-LzNOi sc-LzNOj bBjbJC"
+=======
+          className="sc-LzNwv sc-LzNww jijTP"
+>>>>>>> fix(dapp): clean up login/signup style
         />
       </div>
     </div>
@@ -44,7 +48,11 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv dvJuTE"
+=======
+          className="sc-fzXfOZ sc-fzXfPa iodqVF"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -373,12 +381,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNf jjYEDs"
+      className="sc-fzXfNK fiBnkJ"
     >
       Uh oh.
     </h2>
     <div
-      className="sc-fzXfNg sc-fzXfNi fQaGGE"
+      className="sc-fzXfNL sc-fzXfNN hWiwGJ"
     >
       <strong>
         Error is bad
@@ -693,7 +701,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNf jjYEDs"
+      className="sc-fzXfNK fiBnkJ"
     >
       Confirming your email address...
     </h2>
@@ -707,7 +715,11 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
+<<<<<<< master
           className="sc-LzNOi sc-LzNOj bBjbJC"
+=======
+          className="sc-LzNwv sc-LzNww jijTP"
+>>>>>>> fix(dapp): clean up login/signup style
         />
       </div>
     </div>
@@ -721,7 +733,11 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv dvJuTE"
+=======
+          className="sc-fzXfOZ sc-fzXfPa iodqVF"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

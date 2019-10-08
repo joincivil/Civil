@@ -9,8 +9,7 @@ import { AvatarDragAndDrop } from "./AvatarDragAndDrop";
 import ApolloClient from "apollo-client";
 import { fonts } from "../../styleConstants";
 import Slider from "react-input-slider";
-import { ZoomInIcon, ZoomOutIcon } from "../../icons";
-import { colors } from "@joincivil/elements";
+import { colors, ZoomInIcon, ZoomOutIcon } from "@joincivil/elements";
 import { ClipLoader } from "../../ClipLoader";
 
 const setAvatarMutation = gql`

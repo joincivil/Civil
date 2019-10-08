@@ -11,7 +11,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQM isGgBz"
+=======
+      className="sc-LzNND fFiSOP"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -32,7 +36,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
                 />
                 <div>
                   <h1
+<<<<<<< master
                     className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                    className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                   >
                     Block Club Chicago
                   </h1>
@@ -44,10 +52,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
                 </div>
               </div>
               <div
+<<<<<<< master
                 className="sc-LzLtS dNRzmA"
               >
                 <button
                   className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                className="sc-LzLtS jtUJdA"
+              >
+                <button
+                  className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                   size="SMALL"
                   theme={
                     Object {
@@ -494,7 +509,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQM isGgBz"
+=======
+      className="sc-LzNND fFiSOP"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         <div
@@ -519,7 +538,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Block Club Chicago
                       </h1>
@@ -531,10 +554,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -570,7 +600,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Cannabis Wire
                       </h1>
@@ -582,10 +616,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -621,7 +662,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Documented
                       </h1>
@@ -633,10 +678,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -672,7 +724,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Block Club Chicago
                       </h1>
@@ -684,10 +740,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -723,7 +786,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Cannabis Wire
                       </h1>
@@ -735,10 +802,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -774,7 +848,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     />
                     <div>
                       <h1
+<<<<<<< master
                         className="sc-fzXfMB sc-LzLtT xNecR"
+=======
+                        className="sc-fzXfNg sc-LzLtT xNecR"
+>>>>>>> fix(dapp): clean up login/signup style
                       >
                         Documented
                       </h1>
@@ -786,10 +864,17 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
                     </div>
                   </div>
                   <div
+<<<<<<< master
                     className="sc-LzLtS dNRzmA"
                   >
                     <button
                       className="sc-fzXfOu sc-fzXfOw lmgPnC"
+=======
+                    className="sc-LzLtS jtUJdA"
+                  >
+                    <button
+                      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
+>>>>>>> fix(dapp): clean up login/signup style
                       size="SMALL"
                       theme={
                         Object {
@@ -1238,7 +1323,11 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Rejected 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQM isGgBz"
+=======
+      className="sc-LzNND fFiSOP"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div />
     </div>

@@ -11,10 +11,17 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRx irRXIX"
     >
       <div
         className="sc-LzNbD ijWraZ"
+=======
+      className="sc-LzNOo etTZr"
+    >
+      <div
+        className="sc-LzMZb klKHJm"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         <svg
           height="48"
@@ -514,6 +521,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRx irRXIX"
     >
       <div
@@ -525,6 +533,19 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
         />
         <div
           className="sc-LzMCM juULl"
+=======
+      className="sc-LzNOo etTZr"
+    >
+      <div
+        className="sc-LzMlD eCdrqR"
+        type={2}
+      >
+        <div
+          className="sc-LzMlE foYvia"
+        />
+        <div
+          className="sc-LzMlF gMGGtv"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <p>
             To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't have enough ETH, you can buy ETH on 
@@ -552,10 +573,17 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
         </div>
       </div>
       <div
+<<<<<<< master
         className="sc-LzNaW epZFiO"
       >
         <div
           className="sc-LzNaW epZFiO"
+=======
+        className="sc-LzMYu cEMFzP"
+      >
+        <div
+          className="sc-LzMYu cEMFzP"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <h3>
             Contribute to the Civil Foundation
@@ -571,12 +599,16 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             </a>
           </p>
           <div
-            className="sc-fzXfNl dnqUMc"
+            className="sc-fzXfNQ iCtuqF"
           >
             <div />
           </div>
           <div
+<<<<<<< master
             className="sc-LzNtQ diolFW"
+=======
+            className="sc-LzNro iYHJSO"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             <span>
               You are 
@@ -589,7 +621,11 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             </h4>
           </div>
           <button
+<<<<<<< master
             className="sc-fzXfOu sc-fzXfOv jzOkwz"
+=======
+            className="sc-fzXfOZ sc-fzXfPa jxrOxo"
+>>>>>>> fix(dapp): clean up login/signup style
             onClick={[Function]}
             theme={
               Object {
@@ -608,7 +644,11 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             Buy CVL from Civil Media Company in Airswap
           </button>
           <div
+<<<<<<< master
             className="sc-LzNcf jQygwm"
+=======
+            className="sc-LzMZD dkjSRC"
+>>>>>>> fix(dapp): clean up login/signup style
           >
             By clicking buy to purchase Civil tokens, you agree to the
              
@@ -621,7 +661,11 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           </div>
         </div>
         <div
+<<<<<<< master
           className="sc-LzNbv kOGhFC"
+=======
+          className="sc-LzMYT bFTrSm"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           <p>
             or
@@ -637,7 +681,11 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           <div />
         </div>
         <div
+<<<<<<< master
           className="sc-LzNcf jQygwm"
+=======
+          className="sc-LzMZD dkjSRC"
+>>>>>>> fix(dapp): clean up login/signup style
         >
           By clicking buy to purchase Civil tokens, you agree to the
            
@@ -1079,10 +1127,17 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRx irRXIX"
     >
       <button
         className="sc-fzXfOu sc-fzXfOv jzOkwz"
+=======
+      className="sc-LzNOo etTZr"
+    >
+      <button
+        className="sc-fzXfOZ sc-fzXfPa jxrOxo"
+>>>>>>> fix(dapp): clean up login/signup style
         onClick={[Function]}
         theme={
           Object {
@@ -1530,7 +1585,11 @@ exports[`Storyshots Storefront / Buy Tab Buy from Uniswap 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRx irRXIX"
+=======
+      className="sc-LzNOo etTZr"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div>
         loading price...

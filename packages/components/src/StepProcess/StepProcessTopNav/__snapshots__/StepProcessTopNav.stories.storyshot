@@ -1529,7 +1529,11 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) StepProcessTopN
         className="sc-LzLqK fcfwuY"
       >
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv jzOkwz"
+=======
+          className="sc-fzXfOZ sc-fzXfPa jxrOxo"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           theme={
             Object {
@@ -3242,7 +3246,11 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) scrolls to top 
         className="sc-LzLqK fcfwuY"
       >
         <button
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOv jzOkwz"
+=======
+          className="sc-fzXfOZ sc-fzXfPa jxrOxo"
+>>>>>>> fix(dapp): clean up login/signup style
           onClick={[Function]}
           theme={
             Object {

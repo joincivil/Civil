@@ -11,7 +11,11 @@ exports[`Storyshots Registry / Parameterizer Create Proposal 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNRq fVgazk"
+=======
+      className="sc-LzNOh gHQIIQ"
+>>>>>>> fix(dapp): clean up login/signup style
     >
       <div />
     </div>

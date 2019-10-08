@@ -11,7 +11,11 @@ exports[`Storyshots Registry / Listing / Listing History Event Default 1`] = `
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQL cSGvqG"
+=======
+      className="sc-LzNNC hnNWSu"
+>>>>>>> fix(dapp): clean up login/signup style
     />
   </div>
   <button
@@ -442,7 +446,11 @@ exports[`Storyshots Registry / Listing / Listing History Event History Events Ti
     }
   >
     <div
+<<<<<<< master
       className="sc-LzNQL cSGvqG"
+=======
+      className="sc-LzNNC hnNWSu"
+>>>>>>> fix(dapp): clean up login/signup style
     />
   </div>
   <button

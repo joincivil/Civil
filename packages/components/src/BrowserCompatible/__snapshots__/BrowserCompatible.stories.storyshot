@@ -11,28 +11,50 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
+<<<<<<< master
       className="sc-LzMFr NoUtn"
     >
       <h2
         className="sc-LzMEb cGYSAF"
+=======
+      className="sc-LzMCP hmslTW"
+    >
+      <h2
+        className="sc-LzMBz jEfwem"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Can we switch to a different browser?
       </h2>
       <p
+<<<<<<< master
         className="sc-LzMEd sc-LzMFT kfGVoX"
+=======
+        className="sc-LzMBB sc-LzMDr dnUrOL"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
       </p>
       <p
+<<<<<<< master
         className="sc-LzMEd sc-LzMFT kfGVoX"
+=======
+        className="sc-LzMBB sc-LzMDr dnUrOL"
+>>>>>>> fix(dapp): clean up login/signup style
       >
         In the meantime, please…
       </p>
       <div
+<<<<<<< master
         className="sc-LzMFQ eIUndj"
       >
         <a
           className="sc-fzXfOu sc-fzXfOw sc-LzMFR eWzkPb"
+=======
+        className="sc-LzMDo iThWar"
+      >
+        <a
+          className="sc-fzXfOZ sc-fzXfPb sc-LzMDp kjQtul"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -44,13 +66,21 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
+<<<<<<< master
             className="sc-LzMFs jVOyBH"
+=======
+            className="sc-LzMCQ jbnoMG"
+>>>>>>> fix(dapp): clean up login/signup style
             src="test-file-stub"
           />
           Get Google Chrome
         </a>
         <a
+<<<<<<< master
           className="sc-fzXfOu sc-fzXfOw sc-LzMFR eWzkPb"
+=======
+          className="sc-fzXfOZ sc-fzXfPb sc-LzMDp kjQtul"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -62,23 +92,38 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
+<<<<<<< master
             className="sc-LzMFs jVOyBH"
+=======
+            className="sc-LzMCQ jbnoMG"
+>>>>>>> fix(dapp): clean up login/signup style
             src="test-file-stub"
           />
           Get Firefox
         </a>
       </div>
       <p
+<<<<<<< master
         className="sc-LzMEe sc-LzMED ZnmFG"
       >
         <a
           className="sc-LzMFS bWddNZ"
+=======
+        className="sc-LzMBC sc-LzMCb fAdvTu"
+      >
+        <a
+          className="sc-LzMDq iptWBV"
+>>>>>>> fix(dapp): clean up login/signup style
           href="mailto:support@civil.co"
         >
           Contact Us
         </a>
         <a
+<<<<<<< master
           className="sc-LzMFS bWddNZ"
+=======
+          className="sc-LzMDq iptWBV"
+>>>>>>> fix(dapp): clean up login/signup style
           href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
           target="_blank"
         >
