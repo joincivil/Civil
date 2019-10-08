@@ -45,6 +45,8 @@ export interface BoostCardStates {
 }
 
 export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> {
+  public amountInputEl?: HTMLElement | null;
+
   public constructor(props: any) {
     super(props);
     this.state = {
@@ -63,7 +65,6 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
     if (timeEnded) {
       btnText = "Boost Ended";
     }
-    const btnDisabled = timeEnded || !newsroomData.whitelisted || this.state.amount === 0;
     const inputDisabled = timeEnded || !newsroomData.whitelisted;
 
     if (!open) {
@@ -137,9 +138,12 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
                   name={"BoostAmount"}
                   onChange={this.handleAmount}
                   disabled={inputDisabled}
+                  inputRef={el => {
+                    this.amountInputEl = el;
+                  }}
                 />
               </BoostAmountInput>
-              <BoostButton disabled={btnDisabled} onClick={() => this.props.handlePayments(this.state.amount)}>
+              <BoostButton disabled={inputDisabled} onClick={this.handleBoostButton}>
                 {btnText}
               </BoostButton>
             </BoostAmountInputWrap>
@@ -209,6 +213,16 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
       </>
     );
   }
+
+  private handleBoostButton = () => {
+    if (!this.state.amount) {
+      if (this.amountInputEl) {
+        this.amountInputEl.focus();
+      }
+      return;
+    }
+    this.props.handlePayments(this.state.amount);
+  };
 
   private handleAmount = (name: string, value: any) => {
     let amount = Number.parseFloat(value);

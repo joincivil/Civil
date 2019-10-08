@@ -25,7 +25,9 @@ export interface InputBaseProps {
   icon?: JSX.Element;
   label?: string | JSX.Element;
   noLabel?: boolean;
-  inputRef?: any;
+  inputRef?:
+    | ((instance: HTMLInputElement | HTMLTextAreaElement | null) => void)
+    | React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
   invalid?: boolean;
   disabled?: boolean;
   invalidMessage?: string;
@@ -66,7 +68,7 @@ const InputBaseComponent = (props: InputBaseProps) => {
   if (inputProps.type === "textarea") {
     return (
       <InputBaseWrapperComponent {...props}>
-        <textarea {...inputProps} onChange={cb} ref={inputRef}>
+        <textarea {...inputProps} onChange={cb} ref={inputRef as any}>
           {inputProps.value}
         </textarea>
       </InputBaseWrapperComponent>
@@ -75,7 +77,7 @@ const InputBaseComponent = (props: InputBaseProps) => {
 
   return (
     <InputBaseWrapperComponent {...props}>
-      <input {...inputProps} onChange={cb} ref={inputRef} />
+      <input {...inputProps} onChange={cb} ref={inputRef as any} />
     </InputBaseWrapperComponent>
   );
 };
@@ -130,7 +132,9 @@ export interface InputProps {
   invalidMessage?: string;
   noLabel?: boolean;
   readOnly?: boolean;
-  inputRef?: any;
+  inputRef?:
+    | ((instance: HTMLInputElement | HTMLTextAreaElement | null) => void)
+    | React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
   type?: string;
   onBlur?(ev: any): void;
   onFocus?(ev: any): void;
