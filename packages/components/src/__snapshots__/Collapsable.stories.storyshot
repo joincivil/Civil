@@ -11,15 +11,11 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQe cgmIXX"
-=======
-      className="sc-LzNMV jkfoqs"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -27,12 +23,12 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
           </h3>
            
           <div
-            className="sc-LzLsC gKTmMC"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -500,15 +496,11 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQe cgmIXX"
-=======
-      className="sc-LzNMV jkfoqs"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -516,13 +508,13 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
           </h3>
            
           <div
-            className="sc-LzLsC kAaXAO"
+            className="sc-LzLsD fekAuX"
             disabled={true}
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -998,15 +990,11 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQe cgmIXX"
-=======
-      className="sc-LzNMV jkfoqs"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -1014,12 +1002,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
           </h3>
            
           <div
-            className="sc-LzLsC kxdVLJ"
+            className="sc-LzLsD fbnyFS"
             open={true}
           />
         </div>
         <div
-          className="sc-LzLsB btVvUe"
+          className="sc-LzLsC jtwnhX"
           height={null}
           open={true}
         >
@@ -1469,30 +1457,22 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQe cgmIXX"
-=======
-      className="sc-LzNMV jkfoqs"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           Hello
            
           <div
-<<<<<<< master
-            className="sc-LzNRY bqaswZ"
-=======
-            className="sc-LzNOO hzcVfQ"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNOQ ieUmgO"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -2076,26 +2056,22 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQe cgmIXX"
-=======
-      className="sc-LzNMV jkfoqs"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-LzLsC gKTmMC"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >

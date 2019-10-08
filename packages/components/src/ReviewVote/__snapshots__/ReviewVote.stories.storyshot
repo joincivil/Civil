@@ -11,11 +11,7 @@ exports[`Storyshots Registry / Review Vote Review Vote Modal 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRt cIHjtr"
-=======
-      className="sc-LzNOk lkFFfD"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOm tFtrV"
     >
       <div>
         <p>

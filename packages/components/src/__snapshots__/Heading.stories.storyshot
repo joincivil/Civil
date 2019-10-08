@@ -11,11 +11,7 @@ exports[`Storyshots Pattern Library / Typography / Headings Headings 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQI kVaaov"
-=======
-      className="sc-LzNNz kyfoRF"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNNB iFYkmZ"
     >
       <div>
         <h1

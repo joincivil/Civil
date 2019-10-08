@@ -11,22 +11,18 @@ exports[`Storyshots Pattern Library / Tooltips / QuestionToolTip tooltip 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRs iJzyxh"
-=======
-      className="sc-LzNOj cUxABR"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOl ibfntD"
     >
       <div
-        className="sc-LzLrs etEthT"
+        className="sc-LzLrQ lowWBR"
       >
         <div
-          className="sc-LzLrq jCnTXV"
+          className="sc-LzLrr cNFoYm"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
           <div
-            className="sc-LzLrQ fgMewD"
+            className="sc-LzLrR dtswYU"
           >
             <svg
               height="18"

@@ -11,65 +11,38 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMFU cachJN"
+      className="sc-LzMDt keEfuW"
     >
       <h2
-        className="sc-LzMEb cGYSAF"
-=======
-      className="sc-LzMDs cnaDbl"
-    >
-      <h2
-        className="sc-LzMBz jEfwem"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMBA kPeJWZ"
       >
         Connect your crypto wallet
       </h2>
       <p
-<<<<<<< master
-        className="sc-LzMEd sc-LzMGx hiameU"
-=======
-        className="sc-LzMBB sc-LzMDV kwEZZT"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMBC sc-LzMDW UHGtE"
       >
         To log in to your Civil account and continue, you’ll need to use a secure crypto wallet. We recommend using MetaMask.
       </p>
       <div
-<<<<<<< master
-        className="sc-LzMEG sc-LzMEH sc-LzMGC iYLoeh"
-=======
-        className="sc-LzMCe sc-LzMCf sc-LzMEa eIClfF"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCf sc-LzMCg sc-LzMEb imnwbG"
       >
         <a
           href="https://metamask.io/"
           target="_blank"
         >
           <img
-<<<<<<< master
-            className="sc-LzMGD kLUoNh"
+            className="sc-LzMEc bAfQgy"
             src="test-file-stub"
           />
           <div
-            className="sc-LzMGE eSuWFX"
-=======
-            className="sc-LzMEb kFgosN"
-            src="test-file-stub"
-          />
-          <div
-            className="sc-LzMEc chwPWj"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMEd gFPpyk"
           >
             Get the MetaMask Browser Extension
           </div>
         </a>
       </div>
       <p
-<<<<<<< master
-        className="sc-LzMEe sc-LzMED ZnmFG"
-=======
-        className="sc-LzMBC sc-LzMCb fAdvTu"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCa sc-LzMCc bpvSVD"
       >
         Once the extension is installed,
          
@@ -82,17 +55,10 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
         .
       </p>
       <div
-<<<<<<< master
-        className="sc-LzMGG fiSNfp"
+        className="sc-LzMEC blLHOn"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv cGHCaZ disabled"
-=======
-        className="sc-LzMEe dyhCxZ"
-      >
-        <button
-          className="sc-fzXfOZ sc-fzXfPa jyXou disabled"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-fzXfOZ sc-fzXfPa fUBxUC disabled"
           disabled={true}
           size="MEDIUM_WIDE"
           theme={
@@ -114,128 +80,85 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
         </button>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMEG sc-LzMEI exnvBx"
+        className="sc-LzMCf sc-LzMCh hJOyNu"
       >
         <span
-          className="sc-LzMEJ iQjFRy"
-=======
-        className="sc-LzMCe sc-LzMCg cpotAh"
-      >
-        <span
-          className="sc-LzMCh haVstK"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMCi jUsAjn"
         >
           Using a different wallet?
         </span>
         <span
-<<<<<<< master
-          className="sc-LzMEK bqUjzu"
-=======
-          className="sc-LzMCi eQViWu"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMCj bosSrb"
         >
           Make sure it's unlocked
           . You may need to refresh.
         </span>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMEE jtXlM"
-=======
-        className="sc-LzMCc VGuiU"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCd cOyflJ"
       >
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h4
-<<<<<<< master
-            className="sc-LzMEF jEcVz"
-=======
-            className="sc-LzMCd brfeOb"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCe iRcVhM"
           >
              What is a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-LzLsC gKTmMC"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             A cryptocurrency wallet is where you will store your CVL tokens and other crypto assets. It is also one of the main tools you'll need to log in to the Civil Registry and use the Civil plugin.
           </p>
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             Cryptocurrency wallets don’t store any actual money – they store the Public and Private Keys that provide access to those assets. You keep your cryptocurrency including ETH and CVL tokens in a wallet. When using your wallet on Civil, you use your wallet to pay for fees or transactions. Your wallet address also acts as your identity on the Ethereum blockchain.
           </p>
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             Consider it like your passport to the Civil economy. With your MetaMask wallet you will be able to store CVL tokens, apply, vote, engage on the Registry, and sign, index, archive content using the Publisher plugin.
           </p>
         </div>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMEE jtXlM"
-=======
-        className="sc-LzMCc VGuiU"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCd cOyflJ"
       >
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h4
-<<<<<<< master
-            className="sc-LzMEF jEcVz"
-=======
-            className="sc-LzMCd brfeOb"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCe iRcVhM"
           >
              Why do I need a cryptocurrency wallet?
           </h4>
            
           <div
-            className="sc-LzLsC gKTmMC"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             Having a wallet is required. We recommend
              
@@ -249,20 +172,12 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
             to log in and manage your transactions.
           </p>
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             You will also use your MetaMask wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as sign and index posts to the Ethereum blockchain.
           </p>
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             After you've set up MetaMask, you'll receive a public wallet address. You'll need to fund your wallet with ETH. You can buy ETH with your bank or credit card on a variety of cryptocurrency exchanges.
              
@@ -272,53 +187,37 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
              Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
           </p>
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             Make sure you've backed up and saved your MetaMask login and seed phrase in a safe place. We can’t help you regain access if you lose it.
           </p>
         </div>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMEE jtXlM"
-=======
-        className="sc-LzMCc VGuiU"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCd cOyflJ"
       >
         <div
-          className="sc-LzLsD hARycr"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h4
-<<<<<<< master
-            className="sc-LzMEF jEcVz"
-=======
-            className="sc-LzMCd brfeOb"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCe iRcVhM"
           >
              Need help setting up your wallet?
           </h4>
            
           <div
-            className="sc-LzLsC gKTmMC"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsB ftytmj"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
           <p
-<<<<<<< master
-            className="sc-LzMEe jBfpta"
-=======
-            className="sc-LzMBC hebfxR"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMCa jwcHco"
           >
             Head over to our
              
@@ -334,11 +233,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
         </div>
       </div>
       <p
-<<<<<<< master
-        className="sc-LzMEe sc-LzMGF ccQweL"
-=======
-        className="sc-LzMBC sc-LzMEd cYrHlL"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMCa sc-LzMEe dDHYOs"
       >
         Need more info before you start using a crypto wallet?
          
@@ -349,11 +244,7 @@ exports[`Storyshots Common / Wallet Onboarding V2/Not Enabled Not Enabled 1`] = 
           Learn more in our support area
            
           <span
-<<<<<<< master
-            className="sc-LzMFX gRktZL"
-=======
-            className="sc-LzMDv gKwtFr"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMDw iURERY"
           >
             <svg
               height="11"

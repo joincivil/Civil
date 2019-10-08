@@ -11,42 +11,24 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQh hFENoJ"
-=======
-      className="sc-LzNMY btfXTK"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNNa fbAQKr"
     >
       <div>
         (exchange rate is 2x)
       </div>
       <div
-<<<<<<< master
-        className="sc-LzNtl bYnYky"
+        className="sc-LzNcf rodgH"
       >
         <div
-          className="sc-LzNtm hODZCD"
+          className="sc-LzNcg iLIwEo"
         >
           <label
-            className="sc-LzNtn hYFuWW"
-=======
-        className="sc-LzNce dCXFrK"
-      >
-        <div
-          className="sc-LzNcf ezefsn"
-        >
-          <label
-            className="sc-LzNcg iKbTzu"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNch hXKJiP"
           >
             Enter CVL Amount
           </label>
           <div
-<<<<<<< master
-            className="sc-LzNto ePeWHQ"
-=======
-            className="sc-LzNch RgTWw"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNci irtUJR"
           >
             <div
               className="sc-fzXfPg eumpzc"
@@ -74,11 +56,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </div>
         </div>
         <div
-<<<<<<< master
-          className="sc-LzNtP hOregK"
-=======
-          className="sc-LzNrn kqOUWy"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNro giZjQH"
         >
           <svg
             height="14"
@@ -104,41 +82,23 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
           </svg>
         </div>
         <div
-<<<<<<< master
-          className="sc-LzNtm hODZCD"
+          className="sc-LzNcg iLIwEo"
         >
           <label
-            className="sc-LzNtn hYFuWW"
-=======
-          className="sc-LzNcf ezefsn"
-        >
-          <label
-            className="sc-LzNcg iKbTzu"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNch hXKJiP"
           >
             Converted ETH
           </label>
           <div
-<<<<<<< master
-            className="sc-LzNtp hVaNCn"
+            className="sc-LzNcj jOLUWw"
           >
             <div
-              className="sc-LzNtq lajKsh"
-=======
-            className="sc-LzNci fMENoT"
-          >
-            <div
-              className="sc-LzNcj hPUqFR"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNck dFYyrK"
             >
               0
             </div>
             <div
-<<<<<<< master
-              className="sc-LzNtr giptQA"
-=======
-              className="sc-LzNck Xkezg"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNrn blAdUe"
             >
               ETH
             </div>
@@ -775,42 +735,24 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQh hFENoJ"
-=======
-      className="sc-LzNMY btfXTK"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNNa fbAQKr"
     >
       <div>
         (exchange rate is 0.5x)
       </div>
       <div
-<<<<<<< master
-        className="sc-LzNtl bYnYky"
+        className="sc-LzNcf rodgH"
       >
         <div
-          className="sc-LzNtm hODZCD"
+          className="sc-LzNcg iLIwEo"
         >
           <label
-            className="sc-LzNtn hYFuWW"
-=======
-        className="sc-LzNce dCXFrK"
-      >
-        <div
-          className="sc-LzNcf ezefsn"
-        >
-          <label
-            className="sc-LzNcg iKbTzu"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNch hXKJiP"
           >
             Enter USD Amount
           </label>
           <div
-<<<<<<< master
-            className="sc-LzNto ePeWHQ"
-=======
-            className="sc-LzNch RgTWw"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNci irtUJR"
           >
             <div
               className="sc-fzXfPg eumpzc"
@@ -839,11 +781,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </div>
         </div>
         <div
-<<<<<<< master
-          className="sc-LzNtP hOregK"
-=======
-          className="sc-LzNrn kqOUWy"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNro giZjQH"
         >
           <svg
             height="14"
@@ -869,41 +807,23 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
           </svg>
         </div>
         <div
-<<<<<<< master
-          className="sc-LzNtm hODZCD"
+          className="sc-LzNcg iLIwEo"
         >
           <label
-            className="sc-LzNtn hYFuWW"
-=======
-          className="sc-LzNcf ezefsn"
-        >
-          <label
-            className="sc-LzNcg iKbTzu"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzNch hXKJiP"
           >
             Converted ETH
           </label>
           <div
-<<<<<<< master
-            className="sc-LzNtp hVaNCn"
+            className="sc-LzNcj jOLUWw"
           >
             <div
-              className="sc-LzNtq lajKsh"
-=======
-            className="sc-LzNci fMENoT"
-          >
-            <div
-              className="sc-LzNcj hPUqFR"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNck dFYyrK"
             >
               0
             </div>
             <div
-<<<<<<< master
-              className="sc-LzNtr giptQA"
-=======
-              className="sc-LzNck Xkezg"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNrn blAdUe"
             >
               ETH
             </div>

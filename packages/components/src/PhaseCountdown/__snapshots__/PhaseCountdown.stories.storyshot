@@ -11,11 +11,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Progress Bar Ti
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRr glJHYf"
-=======
-      className="sc-LzNOi kDkVSX"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOk iQaycR"
     />
   </div>
   <button
@@ -263,11 +259,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Text Timers 1`]
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRr glJHYf"
-=======
-      className="sc-LzNOi kDkVSX"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOk iQaycR"
     />
   </div>
   <button
@@ -515,11 +507,7 @@ exports[`Storyshots Registry / Application Phase Countdown Timer Two Phase Progr
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRr glJHYf"
-=======
-      className="sc-LzNOi kDkVSX"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOk iQaycR"
     />
   </div>
   <button

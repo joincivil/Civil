@@ -11,11 +11,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNPA fPQNQb"
-=======
-      className="sc-LzNMs dyFMQG"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMt fsZwsb"
     >
       <h4
         className="sc-fzXfNk ezLfjz"
@@ -31,11 +27,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
         </p>
         
         <button
-<<<<<<< master
-          className="sc-fzXfOu sc-fzXfOv sc-LzMYs gKPAfh"
-=======
-          className="sc-fzXfOZ sc-fzXfPa sc-LzMHl eAqKZu"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-fzXfOZ sc-fzXfPa sc-LzMHm VoCVT"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -53,11 +45,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
           type="button"
         >
           <div
-<<<<<<< master
-            className="sc-LzMYt eftnvm"
-=======
-            className="sc-LzMHm cYfCOi"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-LzMHn jsjEND"
           >
             <img
               className="sc-fzXfLX hPVxpN"

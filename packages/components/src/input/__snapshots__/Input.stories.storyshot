@@ -2164,11 +2164,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
           />
         </div>
         <button
-<<<<<<< master
-          className="sc-fzXfOu sc-fzXfOv jzOkwz"
-=======
-          className="sc-fzXfOZ sc-fzXfPa jxrOxo"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-fzXfOZ sc-fzXfPa iwphPE"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -3312,11 +3308,7 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
     }
   >
     <button
-<<<<<<< master
-      className="sc-fzXfOu sc-fzXfOw lmgPnC"
-=======
-      className="sc-fzXfOZ sc-fzXfPb eaNlhA"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-fzXfOZ sc-fzXfPb cfCPVL"
       onClick={[Function]}
       size="SMALL"
       theme={

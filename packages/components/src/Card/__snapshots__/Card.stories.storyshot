@@ -11,11 +11,7 @@ exports[`Storyshots Pattern Library / Cards Clickable Card 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQa eUctpp"
-=======
-      className="sc-LzNMS iIhphD"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMT cgRlAc"
     >
       <div
         className="sc-fzXfQl sc-fzXfQm bJTESh"

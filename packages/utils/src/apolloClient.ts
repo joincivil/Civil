@@ -58,6 +58,7 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
   if (client) {
     return client;
   }
+  console.log("HEY", httpLinkOptions);
 
   const httpLink = createHttpLink(httpLinkOptions);
 

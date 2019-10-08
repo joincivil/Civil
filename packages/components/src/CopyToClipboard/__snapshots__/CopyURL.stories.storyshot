@@ -11,17 +11,10 @@ exports[`Storyshots Common / Copy Copy URL 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQg bCukxC"
+      className="sc-LzNMZ kVBpUp"
     >
       <button
-        className="sc-fzXfOu sc-fzXfOw sc-LzNuD hPIJBD"
-=======
-      className="sc-LzNMX gFreBz"
-    >
-      <button
-        className="sc-fzXfOZ sc-fzXfPb sc-LzNrv dBpFiI"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-fzXfOZ sc-fzXfPb sc-LzNrw JpzJY"
         onClick={[Function]}
         theme={
           Object {

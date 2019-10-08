@@ -11,25 +11,14 @@ exports[`Storyshots Pattern Library / Notices Alert 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMCK frMZqj"
+      className="sc-LzMlE efrHUu"
       type={2}
     >
       <div
-        className="sc-LzMCL eEwmQM"
+        className="sc-LzMlF fqpUOr"
       />
       <div
-        className="sc-LzMCM juULl"
-=======
-      className="sc-LzMlD eCdrqR"
-      type={2}
-    >
-      <div
-        className="sc-LzMlE foYvia"
-      />
-      <div
-        className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlG liTtmY"
       >
         This is an alert notice
       </div>
@@ -348,25 +337,14 @@ exports[`Storyshots Pattern Library / Notices Attention 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMCK iWXBiT"
+      className="sc-LzMlE jbPbki"
       type={3}
     >
       <div
-        className="sc-LzMCL eEwmQM"
+        className="sc-LzMlF fqpUOr"
       />
       <div
-        className="sc-LzMCM juULl"
-=======
-      className="sc-LzMlD rZHFJ"
-      type={3}
-    >
-      <div
-        className="sc-LzMlE foYvia"
-      />
-      <div
-        className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlG liTtmY"
       >
         This is an attention notice
       </div>
@@ -685,19 +663,11 @@ exports[`Storyshots Pattern Library / Notices Error 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMCK kTUBiZ"
+      className="sc-LzMlE APSWg"
       type={1}
     >
       <div
-        className="sc-LzMCL eEwmQM"
-=======
-      className="sc-LzMlD fBgdmL"
-      type={1}
-    >
-      <div
-        className="sc-LzMlE foYvia"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlF fqpUOr"
       >
         <svg
           height="28"
@@ -724,11 +694,7 @@ exports[`Storyshots Pattern Library / Notices Error 1`] = `
         </svg>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMCM juULl"
-=======
-        className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlG liTtmY"
       >
         This is an error notice
       </div>
@@ -1047,25 +1013,14 @@ exports[`Storyshots Pattern Library / Notices Info 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMCK grXBhz"
+      className="sc-LzMlE kZNmmi"
       type={0}
     >
       <div
-        className="sc-LzMCL eEwmQM"
+        className="sc-LzMlF fqpUOr"
       />
       <div
-        className="sc-LzMCM juULl"
-=======
-      className="sc-LzMlD gRvzt"
-      type={0}
-    >
-      <div
-        className="sc-LzMlE foYvia"
-      />
-      <div
-        className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlG liTtmY"
       >
         This is an info notice
       </div>
@@ -1384,49 +1339,27 @@ exports[`Storyshots Pattern Library / Notices Notice - All types 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRp eURjbO"
+      className="sc-LzNOi hDGGgk"
     >
       <div
-        className="sc-LzMCK grXBhz"
+        className="sc-LzMlE kZNmmi"
         type={0}
       >
         <div
-          className="sc-LzMCL eEwmQM"
+          className="sc-LzMlF fqpUOr"
         />
         <div
-          className="sc-LzMCM juULl"
-=======
-      className="sc-LzNOg ceegqG"
-    >
-      <div
-        className="sc-LzMlD gRvzt"
-        type={0}
-      >
-        <div
-          className="sc-LzMlE foYvia"
-        />
-        <div
-          className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMlG liTtmY"
         >
           This is an info notice
         </div>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMCK kTUBiZ"
+        className="sc-LzMlE APSWg"
         type={1}
       >
         <div
-          className="sc-LzMCL eEwmQM"
-=======
-        className="sc-LzMlD fBgdmL"
-        type={1}
-      >
-        <div
-          className="sc-LzMlE foYvia"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMlF fqpUOr"
         >
           <svg
             height="28"
@@ -1453,59 +1386,33 @@ exports[`Storyshots Pattern Library / Notices Notice - All types 1`] = `
           </svg>
         </div>
         <div
-<<<<<<< master
-          className="sc-LzMCM juULl"
-=======
-          className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMlG liTtmY"
         >
           This is an error notice
         </div>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMCK frMZqj"
+        className="sc-LzMlE efrHUu"
         type={2}
       >
         <div
-          className="sc-LzMCL eEwmQM"
+          className="sc-LzMlF fqpUOr"
         />
         <div
-          className="sc-LzMCM juULl"
-=======
-        className="sc-LzMlD eCdrqR"
-        type={2}
-      >
-        <div
-          className="sc-LzMlE foYvia"
-        />
-        <div
-          className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMlG liTtmY"
         >
           This is an alert notice
         </div>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMCK iWXBiT"
+        className="sc-LzMlE jbPbki"
         type={3}
       >
         <div
-          className="sc-LzMCL eEwmQM"
+          className="sc-LzMlF fqpUOr"
         />
         <div
-          className="sc-LzMCM juULl"
-=======
-        className="sc-LzMlD rZHFJ"
-        type={3}
-      >
-        <div
-          className="sc-LzMlE foYvia"
-        />
-        <div
-          className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzMlG liTtmY"
         >
           This is an attention notice
         </div>
@@ -2183,19 +2090,11 @@ exports[`Storyshots Pattern Library / Notices foundation action 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzMCK ZOyxQ"
+      className="sc-LzMlE dytpHv"
       type={4}
     >
       <div
-        className="sc-LzMCL eEwmQM"
-=======
-      className="sc-LzMlD iVpEYq"
-      type={4}
-    >
-      <div
-        className="sc-LzMlE foYvia"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlF fqpUOr"
       >
         <svg
           height="48"
@@ -2233,11 +2132,7 @@ exports[`Storyshots Pattern Library / Notices foundation action 1`] = `
         </svg>
       </div>
       <div
-<<<<<<< master
-        className="sc-LzMCM juULl"
-=======
-        className="sc-LzMlF gMGGtv"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzMlG liTtmY"
       >
          
         This is a foundation action notice

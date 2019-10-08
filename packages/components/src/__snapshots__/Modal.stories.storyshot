@@ -11,11 +11,7 @@ exports[`Storyshots Pattern Library / Modals Fullscreen Modal 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQQ gZMoSq"
-=======
-      className="sc-LzNNH jHOlHq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOg kEADgS"
     >
       <div>
         <p>
@@ -376,11 +372,7 @@ exports[`Storyshots Pattern Library / Modals Modal 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQQ gZMoSq"
-=======
-      className="sc-LzNNH jHOlHq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOg kEADgS"
     >
       <div>
         <p>

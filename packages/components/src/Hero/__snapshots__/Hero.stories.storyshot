@@ -11,18 +11,18 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
     }
   >
     <div
-      className="sc-LzMkr iXUKaI"
+      className="sc-LzMks kzJoAB"
     >
       <div
-        className="sc-LzMks cvMcki"
+        className="sc-LzMkt bhJtdf"
       >
         <h2
-          className="sc-LzMkt ihuBEz"
+          className="sc-LzMku hviMSY"
         >
           The Civil Registry
         </h2>
         <div
-          className="sc-LzMku kVJdsZ"
+          className="sc-LzMkv jMRtSm"
         >
           <p>
             A community-driven space for curating quality journalism.
@@ -40,14 +40,10 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
           </p>
         </div>
         <div
-          className="sc-LzMkv gSajlK"
+          className="sc-LzMkT MFHwg"
         >
           <a
-<<<<<<< master
-            className="sc-fzXfOu sc-fzXfOy sc-LzMkT loyAZv"
-=======
-            className="sc-fzXfOZ sc-fzXfPd sc-LzMkT fRvvwJ"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-fzXfOZ sc-fzXfPd sc-LzMkU hwzgix"
             href="#buy-tokens"
             size="SMALL"
             theme={
@@ -63,11 +59,7 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
             Join as a member
           </a>
           <a
-<<<<<<< master
-            className="sc-fzXfOu sc-fzXfOy sc-LzMkT loyAZv"
-=======
-            className="sc-fzXfOZ sc-fzXfPd sc-LzMkT fRvvwJ"
->>>>>>> fix(dapp): clean up login/signup style
+            className="sc-fzXfOZ sc-fzXfPd sc-LzMkU hwzgix"
             href="#apply"
             size="SMALL"
             theme={
@@ -84,7 +76,7 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
           </a>
         </div>
         <div
-          className="sc-LzMkU fETksi"
+          className="sc-LzMkV ejpSnn"
         >
           Explore The Civil Registry
           <div>

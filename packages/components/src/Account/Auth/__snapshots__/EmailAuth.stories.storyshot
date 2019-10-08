@@ -27,17 +27,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
-<<<<<<< master
-        className="sc-LzNNG eSFEBW"
+        className="sc-LzNwr gXhdvm"
       >
         <li
-          className="sc-LzNNH irLdHq"
-=======
-        className="sc-LzNvT fIPOrn"
-      >
-        <li
-          className="sc-LzNwr gILneN"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNws iMTvVm"
         >
           <label>
             <label
@@ -55,11 +48,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               />
             </label>
             <span
-<<<<<<< master
-              className="sc-LzNOf hbQSfh"
-=======
-              className="sc-LzNws bsgBQO"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNwt bOQEgP"
             >
               I agree to Civil's 
               <a
@@ -72,11 +61,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
-<<<<<<< master
-          className="sc-LzNNH irLdHq"
-=======
-          className="sc-LzNwr gILneN"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNws iMTvVm"
         >
           <label>
             <label
@@ -94,11 +79,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               />
             </label>
             <span
-<<<<<<< master
-              className="sc-LzNOf hbQSfh"
-=======
-              className="sc-LzNws bsgBQO"
->>>>>>> fix(dapp): clean up login/signup style
+              className="sc-LzNwt bOQEgP"
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -106,17 +87,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
-<<<<<<< master
-        className="sc-LzNOg ezxTrc"
+        className="sc-LzNwu jRAebi"
       >
         <button
-          className="sc-fzXfOu sc-fzXfOv fKkRRZ disabled"
-=======
-        className="sc-LzNwt zOsZ"
-      >
-        <button
-          className="sc-fzXfOZ sc-fzXfPa cfZabu disabled"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-fzXfOZ sc-fzXfPa fkuTJK disabled"
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"

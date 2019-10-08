@@ -11,11 +11,7 @@ exports[`Storyshots Registry / User Statement Forms Submit Appeal Challenge Stat
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRW feWOzZ"
-=======
-      className="sc-LzNON hMYLoZ"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOP hdOQgf"
     >
       <div />
     </div>
@@ -448,11 +444,7 @@ exports[`Storyshots Registry / User Statement Forms Submit Appeal Statement 1`] 
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRW feWOzZ"
-=======
-      className="sc-LzNON hMYLoZ"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOP hdOQgf"
     >
       <div />
     </div>
@@ -885,11 +877,7 @@ exports[`Storyshots Registry / User Statement Forms Submit Challenge Statement 1
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRW feWOzZ"
-=======
-      className="sc-LzNON hMYLoZ"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOP hdOQgf"
     >
       <div />
     </div>

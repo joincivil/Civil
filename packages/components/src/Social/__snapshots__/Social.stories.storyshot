@@ -11,27 +11,16 @@ exports[`Storyshots Pattern Library / Social Follow component 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
+      className="sc-LzNOn BzWFk"
     >
       <div
-        className="sc-LzNvl cItOJu"
-=======
-      className="sc-LzNOl coKuvq"
-    >
-      <div
-        className="sc-LzNsd eewDBz"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzNsB byNxiZ"
       >
         <label>
           Follow
         </label>
         <div
-<<<<<<< master
-          className="sc-LzNvm ePKFOn"
-=======
-          className="sc-LzNsB hBBfNt"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNsC ZqgqW"
         >
           <a
             href="https://www.facebook.com/JoinCivil/"
@@ -439,11 +428,7 @@ exports[`Storyshots Pattern Library / Social Follow on Facebook 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
-=======
-      className="sc-LzNOl coKuvq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOn BzWFk"
     >
       <a
         href="https://facebook.com/Civil"
@@ -805,11 +790,7 @@ exports[`Storyshots Pattern Library / Social Follow on Twitter 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
-=======
-      className="sc-LzNOl coKuvq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOn BzWFk"
     >
       <a
         href="https://www.facebook.com/JoinCivil/"
@@ -1171,27 +1152,16 @@ exports[`Storyshots Pattern Library / Social Share component 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
+      className="sc-LzNOn BzWFk"
     >
       <div
-        className="sc-LzNvl cItOJu"
-=======
-      className="sc-LzNOl coKuvq"
-    >
-      <div
-        className="sc-LzNsd eewDBz"
->>>>>>> fix(dapp): clean up login/signup style
+        className="sc-LzNsB byNxiZ"
       >
         <label>
           Follow
         </label>
         <div
-<<<<<<< master
-          className="sc-LzNvm ePKFOn"
-=======
-          className="sc-LzNsB hBBfNt"
->>>>>>> fix(dapp): clean up login/signup style
+          className="sc-LzNsC ZqgqW"
         >
           <a
             onClick={[Function]}
@@ -1625,11 +1595,7 @@ exports[`Storyshots Pattern Library / Social Share on Twitter 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
-=======
-      className="sc-LzNOl coKuvq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOn BzWFk"
     >
       <a
         onClick={[Function]}
@@ -1990,11 +1956,7 @@ exports[`Storyshots Pattern Library / Social Share via Email 1`] = `
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNRu jmEPZu"
-=======
-      className="sc-LzNOl coKuvq"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNOn BzWFk"
     >
       <a
         onClick={[Function]}

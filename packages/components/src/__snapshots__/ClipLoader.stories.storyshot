@@ -11,11 +11,7 @@ exports[`Storyshots Pattern Library / Loading / Clip Loader Default Size (32px x
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQd cxXjPi"
-=======
-      className="sc-LzNMU bRTlcH"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMW cqoINV"
     >
       <div>
         <div
@@ -427,11 +423,7 @@ exports[`Storyshots Pattern Library / Loading / Clip Loader Prop-defined size (1
     }
   >
     <div
-<<<<<<< master
-      className="sc-LzNQd cxXjPi"
-=======
-      className="sc-LzNMU bRTlcH"
->>>>>>> fix(dapp): clean up login/signup style
+      className="sc-LzNMW cqoINV"
     >
       <div>
         <div
