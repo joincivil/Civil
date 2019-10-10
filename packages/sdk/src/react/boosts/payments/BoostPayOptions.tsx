@@ -19,7 +19,6 @@ export interface BoostPayOptionsProps {
   newsroomName: string;
   title: string;
   paymentAddr: EthAddress;
-  walletConnected: boolean;
   isStripeConnected: boolean;
   handlePaymentSuccess(): void;
 }
@@ -127,7 +126,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
   }
 
   private getPaymentTypes = () => {
-    const { isStripeConnected, boostId, newsroomName, paymentAddr, walletConnected, handlePaymentSuccess } = this.props;
+    const { isStripeConnected, boostId, newsroomName, paymentAddr, handlePaymentSuccess } = this.props;
     const { selectedEth, selectedStripe, etherToSpend, usdToSpend } = this.state;
     let isEthSelected = false;
 
@@ -150,7 +149,6 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             etherToSpend={etherToSpend}
             usdToSpend={usdToSpend}
             paymentAddr={paymentAddr}
-            walletConnected={walletConnected}
             handlePaymentSuccess={handlePaymentSuccess}
           />
         );
@@ -183,7 +181,6 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
               usdToSpend={usdToSpend}
               handleNext={this.handleEthNext}
               paymentAddr={paymentAddr}
-              walletConnected={walletConnected}
               handlePaymentSuccess={handlePaymentSuccess}
               handlePaymentSelected={this.handlePaymentSelected}
             />
