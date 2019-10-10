@@ -1,3 +1,7 @@
+export enum embedRoutes {
+  BOOST = "/embed/boost/:boostId/:payment?",
+}
+
 export enum routes {
   REGISTRY_HOME = "/registry/:listingType/:subListingType?",
   REGISTRY_HOME_ROOT = "/registry",

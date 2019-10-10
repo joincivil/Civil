@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
-import { useParams } from "react-router";
+import { useRouteMatch } from "react-router";
 import {
   CivilContext,
   ICivilContext,
@@ -12,6 +12,7 @@ import {
 import { mediaQueries } from "@joincivil/elements";
 import { Boost } from "@joincivil/sdk";
 
+import { embedRoutes } from "../constants";
 import AppProvider from "../components/providers/AppProvider";
 
 const CivilLogoLink = styled.a`
@@ -40,10 +41,10 @@ const CivilLogoLink = styled.a`
 
 export interface BoostLoaderParams {
   boostId: string;
-  payment: boolean;
+  payment?: string;
 }
 
-const BoostLoaderComponent: React.FunctionComponent<BoostLoaderParams> = ({ boostId, payment }) => {
+const BoostLoaderComponent: React.FunctionComponent = () => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   civilContext.renderContext = RENDER_CONTEXT.EMBED;
   const theme = {
@@ -51,6 +52,9 @@ const BoostLoaderComponent: React.FunctionComponent<BoostLoaderParams> = ({ boos
     ...DEFAULT_BUTTON_THEME,
     renderContext: RENDER_CONTEXT.EMBED,
   };
+
+  // Due to a conflict between react-router v5's `BrowserRouter`, which we use, and react/redux `ConnectedRouter`, which we also use (and which would take an unknown/large refactor to change without breaking code splitting gains), neither `useParams` hook nor `withRouter` are receiving updates here, so we have to use `useRouteMatch` and manually provide the boost embed route. - @tobek
+  const { boostId, payment } = useRouteMatch<BoostLoaderParams>(embedRoutes.BOOST)!.params;
 
   return (
     <>
@@ -65,11 +69,10 @@ const BoostLoaderComponent: React.FunctionComponent<BoostLoaderParams> = ({ boos
 };
 
 const BoostLoader: React.FunctionComponent = () => {
-  const { boostId, payment } = useParams();
   return (
     <React.Suspense fallback={<></>}>
       <AppProvider>
-        <BoostLoaderComponent boostId={boostId!} payment={!!payment} />
+        <BoostLoaderComponent />
       </AppProvider>
     </React.Suspense>
   );
