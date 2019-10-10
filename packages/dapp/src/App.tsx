@@ -1,56 +1,58 @@
 import * as React from "react";
-import { GlobalNav } from "./components/GlobalNav";
-import Main from "./components/Main";
-import Footer from "./components/Footer";
-import { ApolloProvider } from "react-apollo";
-import { getApolloClient } from "@joincivil/utils";
+
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import config from "./helpers/config";
-import { ErrorBoundry } from "./components/errors/ErrorBoundry";
+import { createGlobalStyle } from "styled-components";
 
-import { injectGlobal } from "styled-components";
-import { colors, fonts, CivilContext, ICivilContext, buildCivilContext } from "@joincivil/components";
-import { ConnectedRouter } from "connected-react-router";
+import { fonts, colors } from "@joincivil/elements";
 
-import { history } from "./redux/store";
-import { getCivil } from "./helpers/civilInstance";
-
-// tslint:disable-next-line:no-unused-expression
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
+  html {
+    box-sizing: border-box;
+  }
   body {
     font-family: ${fonts.SANS_SERIF};
   }
 
   a {
     color: ${colors.accent.CIVIL_BLUE};
+    text-decoration: none;
+  }
+  *, :after, :before {
+    box-sizing: inherit;
   }
 `;
 
-console.log("using config:", config);
+// apps
+const LazyRegistryApp = React.lazy(async () => {
+  console.log("loading registry");
+  return import("./registry/LazyRegistryApp");
+});
+const EmbedsApp = React.lazy(async () => {
+  console.log("loading embed");
+  return import("./embeds/EmbedsApp");
+});
+const StoriesApp = React.lazy(async () => {
+  console.log("loading stories");
+  return import("./stories/StoriesApp");
+});
+const KirbyApp = React.lazy(async () => {
+  console.log("loading kirby");
+  return import("@joincivil/kirby");
+});
 
-const client = getApolloClient();
-export class App extends React.Component {
-  private civilContext: ICivilContext;
-  public constructor(props: any) {
-    super(props);
-    const civil = getCivil();
-    const featureFlags = config.FEATURE_FLAGS ? config.FEATURE_FLAGS.split(",") : [];
-    this.civilContext = buildCivilContext(civil, config.DEFAULT_ETHEREUM_NETWORK, featureFlags, config);
-  }
-  public render(): JSX.Element {
-    return (
-      <ErrorBoundry>
-        <ApolloProvider client={client}>
-          <ConnectedRouter history={history}>
-            <CivilContext.Provider value={this.civilContext}>
-              <>
-                <GlobalNav />
-                <Main />
-                <Footer />
-              </>
-            </CivilContext.Provider>
-          </ConnectedRouter>
-        </ApolloProvider>
-      </ErrorBoundry>
-    );
-  }
-}
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <React.Suspense fallback={<></>}>
+        <GlobalStyle />
+        <Switch>
+          <Route path="/embed" render={() => <EmbedsApp />} />
+          <Route path="/stories" render={() => <StoriesApp />} />
+          <Route path="/kirby" render={() => <KirbyApp config={config} />} />
+          <Route path="*" render={() => <LazyRegistryApp />} />
+        </Switch>
+      </React.Suspense>
+    </BrowserRouter>
+  );
+};

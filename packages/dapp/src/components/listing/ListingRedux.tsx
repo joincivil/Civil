@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { Helmet } from "react-helmet";
+import { withRouter } from "react-router-dom";
+import { compose } from "redux";
 
 import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
 import {
@@ -10,13 +12,12 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
-  LoadingMessage,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
+import { listingTabs, TListingTab } from "../../constants";
 import { State } from "../../redux/reducers";
-import { fetchAndAddListingData, setupListingHistorySubscription } from "../../redux/actionCreators/listings";
-import { getListingPhaseState, makeGetListingExpiry, getIsUserNewsroomOwner } from "../../selectors";
+import { getListingPhaseState, getIsUserNewsroomOwner } from "../../selectors";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
@@ -28,77 +29,90 @@ import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
+import ErrorNotFoundMsg from "../utility/ErrorNotFound";
+import { connectParameters } from "../utility/HigherOrderComponents";
+
+const TABS: TListingTab[] = [
+  listingTabs.CHARTER,
+  listingTabs.DISCUSSIONS,
+  listingTabs.HISTORY,
+  listingTabs.BOOSTS,
+  listingTabs.OWNER,
+];
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
   charterRevisions?: Map<number, StorageHeader>;
+  match?: any;
+  history: any;
 }
 
 export interface ListingReduxProps {
   listingAddress: EthAddress;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
-  expiry?: number;
   userAccount?: EthAddress;
   isUserNewsroomOwner?: boolean;
-  listingDataRequestStatus?: any;
   listingPhaseState?: any;
   charter?: CharterData;
   charterRevisionId?: number;
   charterRevision?: StorageHeader;
-  parameters: any;
   govtParameters: any;
   network: string;
-  useGraphQL: boolean;
   loadingFinished: boolean;
 }
 
 interface ListingPageComponentState {
-  activeTab: number;
+  activeTabIndex: number;
 }
 
 class ListingPageComponent extends React.Component<
   ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
   ListingPageComponentState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
-    this.state = { activeTab: 0 };
+    this.state = { activeTabIndex: 0 };
   }
 
   public async componentDidUpdate(): Promise<void> {
-    if (!this.props.listing && !this.props.listingDataRequestStatus && !this.props.useGraphQL) {
-      this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
-    }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
     if (this.props.listing && this.props.listing.data.challenge) {
-      this.props.dispatch!(await getBareContent(this.props.listing.data.challenge.challengeStatementURI!));
+      this.props.dispatch!(
+        await getBareContent(this.context, this.props.listing.data.challenge.challengeStatementURI!),
+      );
     }
     if (this.props.charterRevision && !this.props.charter) {
-      this.props.dispatch!(await getContent(this.props.charterRevision));
+      this.props.dispatch!(await getContent(this.context, this.props.charterRevision));
     }
   }
 
   public async componentDidMount(): Promise<void> {
-    if (!this.props.useGraphQL) {
-      this.props.dispatch!(await setupListingHistorySubscription(this.props.listingAddress));
-      if (!this.props.listing && !this.props.listingDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddListingData(this.props.listingAddress));
-      }
-    }
     if (this.props.newsroom) {
-      this.props.dispatch!(await getContent(this.props.newsroom.data.charterHeader!));
+      this.props.dispatch!(await getContent(this.context, this.props.newsroom.data.charterHeader!));
     }
   }
 
   public componentWillMount(): void {
+    const { activeTab } = this.props.match.params;
     const listing = this.props.listing;
-    const activeTab = listing && listing.data.challenge ? 1 : 0;
-    this.setState({ activeTab });
+    let activeTabIndex = 0;
+
+    if (activeTab) {
+      activeTabIndex = TABS.indexOf(activeTab) || 0;
+    } else if (listing && listing.data.challenge) {
+      activeTabIndex = 1;
+    }
+
+    this.setState({ activeTabIndex });
   }
 
   public render(): JSX.Element {
@@ -127,7 +141,6 @@ class ListingPageComponent extends React.Component<
             <ListingPhaseActions
               listing={this.props.listing!}
               newsroom={this.props.newsroom!}
-              expiry={this.props.expiry}
               listingPhaseState={this.props.listingPhaseState}
               listingLastGovState={this.props.listing!.data.lastGovState}
               parameters={this.props.parameters}
@@ -138,7 +151,7 @@ class ListingPageComponent extends React.Component<
           </StyledRightContentWell>
 
           <StyledLeftContentWell>
-            <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTab} onActiveTabChange={this.onTabChange}>
+            <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTabIndex} onActiveTabChange={this.onTabChange}>
               <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
@@ -195,14 +208,13 @@ class ListingPageComponent extends React.Component<
   }
 
   private renderLoadingOrListingNotFound(): JSX.Element {
-    if (!this.props.loadingFinished && !this.props.useGraphQL) {
-      return <LoadingMessage />;
-    }
     return <ErrorNotFoundMsg>We could not find this Newsroom Listing</ErrorNotFoundMsg>;
   }
 
-  private onTabChange = (newActiveTab: number): void => {
-    this.setState({ activeTab: newActiveTab });
+  private onTabChange = (newActiveTabIndex: number): void => {
+    const tabName = TABS[newActiveTabIndex];
+    this.setState({ activeTabIndex: newActiveTabIndex });
+    this.props.history.push(`/listing/${this.props.listingAddress}/${tabName}`);
   };
 
   private showCharterTab = (): void => {
@@ -210,66 +222,53 @@ class ListingPageComponent extends React.Component<
   };
 }
 
-const makeMapStateToProps = () => {
-  const getListingExpiry = makeGetListingExpiry();
-  const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
-    const { listingsFetching, user, parameters, govtParameters, content, loadingFinished } = state.networkDependent;
-    const { network, useGraphQL } = state;
-    const newsroom = ownProps.newsroom;
-    let listingDataRequestStatus;
-    if (ownProps.listingAddress) {
-      listingDataRequestStatus = listingsFetching.get(ownProps.listingAddress.toString());
-    }
-    const expiry = getListingExpiry(state, ownProps);
-    const listingPhaseState = getListingPhaseState(ownProps.listing);
+const mapStateToProps = (state: State, ownProps: ListingPageComponentProps): ListingReduxProps => {
+  const { user, govtParameters, content, loadingFinished } = state.networkDependent;
+  const { network } = state;
+  const newsroom = ownProps.newsroom;
 
-    let charter;
-    let charterUri;
-    let charterRevisionId =
-      newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader.revisionId;
-    let charterRevision;
-    if (
-      listingPhaseState &&
-      listingPhaseState.isUnderChallenge &&
-      ownProps.listing &&
-      ownProps.listing.data.challenge
-    ) {
-      const challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
-      if (challengeStatement && (challengeStatement as any).charterRevisionId !== undefined) {
-        charterRevisionId = (challengeStatement as any).charterRevisionId;
-      }
-      if (ownProps.charterRevisions) {
-        charterRevision = ownProps.charterRevisions.get(charterRevisionId!);
-        if (charterRevision) {
-          charter = content.get(charterRevision.uri) as CharterData;
-        }
-      }
-    } else {
-      if (newsroom && newsroom.data.charterHeader) {
-        charterUri = newsroom.data.charterHeader.uri;
-        charter = content.get(charterUri) as CharterData;
-        charterRevisionId = newsroom.data.charterHeader.revisionId;
+  const listingPhaseState = getListingPhaseState(ownProps.listing);
+
+  let charter;
+  let charterUri;
+  let charterRevisionId =
+    newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader.revisionId;
+  let charterRevision;
+  if (listingPhaseState && listingPhaseState.isUnderChallenge && ownProps.listing && ownProps.listing.data.challenge) {
+    const challengeStatement = content.get(ownProps.listing.data.challenge.challengeStatementURI!);
+    if (challengeStatement && (challengeStatement as any).charterRevisionId !== undefined) {
+      charterRevisionId = (challengeStatement as any).charterRevisionId;
+    }
+    if (ownProps.charterRevisions) {
+      charterRevision = ownProps.charterRevisions.get(charterRevisionId!);
+      if (charterRevision) {
+        charter = content.get(charterRevision.uri) as CharterData;
       }
     }
+  } else {
+    if (newsroom && newsroom.data.charterHeader) {
+      charterUri = newsroom.data.charterHeader.uri;
+      charter = content.get(charterUri) as CharterData;
+      charterRevisionId = newsroom.data.charterHeader.revisionId;
+    }
+  }
 
-    return {
-      ...ownProps,
-      network,
-      expiry,
-      listingDataRequestStatus,
-      listingPhaseState,
-      isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
-      userAccount: user.account,
-      parameters,
-      govtParameters,
-      charter,
-      charterRevisionId,
-      charterRevision,
-      useGraphQL,
-      loadingFinished,
-    };
+  return {
+    ...ownProps,
+    network,
+    listingPhaseState,
+    isUserNewsroomOwner: getIsUserNewsroomOwner(newsroom, user),
+    userAccount: user.account,
+    govtParameters,
+    charter,
+    charterRevisionId,
+    charterRevision,
+    loadingFinished,
   };
-  return mapStateToProps;
 };
 
-export default connect(makeMapStateToProps)(ListingPageComponent);
+export default compose(
+  withRouter,
+  connect(mapStateToProps),
+  connectParameters,
+)(ListingPageComponent);

@@ -16,7 +16,7 @@ export interface UsdEthConverterProps {
 }
 export const UsdEthConverter = (props: UsdEthConverterProps) => {
   return (
-    <Query query={ethPriceQuery}>
+    <Query<any> query={ethPriceQuery}>
       {({ loading, error, data }) => {
         if (loading) {
           return <div />;
@@ -24,7 +24,7 @@ export const UsdEthConverter = (props: UsdEthConverterProps) => {
         return (
           <>
             <CurrencyConverter
-              fromValue={props.fromValue || "0"}
+              fromValue={props.fromValue}
               currencyCodeFrom="USD"
               currencyLabelFrom="Enter USD Amount"
               currencyCodeTo="ETH"

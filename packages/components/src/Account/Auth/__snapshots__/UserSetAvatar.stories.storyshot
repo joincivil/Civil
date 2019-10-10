@@ -1,0 +1,567 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNxd aeFWD"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="sc-LzNxg lhUOOJ"
+        >
+          <div
+            className="sc-LzNxe gaUnNx"
+          >
+            <div
+              className="sc-fzXfPL iHPalz"
+            >
+              <section>
+                <div
+                  className="sc-fzXfPK kZHSQy"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragEnter={[Function]}
+                  onDragLeave={[Function]}
+                  onDragOver={[Function]}
+                  onDrop={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  tabIndex={0}
+                >
+                  <input
+                    autoComplete="off"
+                    multiple={true}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "display": "none",
+                      }
+                    }
+                    tabIndex={-1}
+                    type="file"
+                  />
+                  <svg
+                    height="44px"
+                    version="1.1"
+                    viewBox="0 0 60 44"
+                    width="60px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                      id="Login-v2.1"
+                      stroke="none"
+                      stroke-width="1"
+                    >
+                      <g
+                        fill="#2B56FF"
+                        fill-rule="nonzero"
+                        id="08b_avatar-drop"
+                        transform="translate(-690.000000, -338.000000)"
+                      >
+                        <g
+                          id="Group"
+                          transform="translate(533.000000, 130.000000)"
+                        >
+                          <g
+                            id="Group-5"
+                            transform="translate(78.000000, 137.000000)"
+                          >
+                            <g
+                              id="noun_Photo_2144503"
+                              transform="translate(79.000000, 71.000000)"
+                            >
+                              <path
+                                d="M49.5375494,9.4229249 L42.472332,9.4229249 L40.5454545,5.243083 C39.9130435,3.87944664 38.5395257,3 37.0375494,3 L22.3932806,3 C20.8913043,3 19.527668,3.87944664 18.8952569,5.243083 L16.958498,9.4229249 L9.89328063,9.4229249 C7.7687747,9.4229249 6,11.1521739 6,13.2766798 L6,38.0790514 C6,40.2035573 7.7687747,41.9328063 9.89328063,41.9328063 L49.5375494,41.9328063 C51.6620553,41.9328063 53.43083,40.2035573 53.43083,38.0790514 L53.43083,13.2766798 C53.43083,11.1521739 51.6620553,9.4229249 49.5375494,9.4229249 Z M51.6521739,38.0790514 C51.6521739,39.2252964 50.6837945,40.1541502 49.5375494,40.1541502 L9.89328063,40.1541502 C8.74703557,40.1541502 7.77865613,39.2252964 7.77865613,38.0790514 L7.77865613,13.2766798 C7.77865613,12.1304348 8.74703557,11.201581 9.89328063,11.201581 L17.5316206,11.201581 C17.8774704,11.201581 18.1936759,10.9940711 18.3418972,10.687747 L20.5158103,5.99407115 C20.8517787,5.26284585 21.5928854,4.78853755 22.4031621,4.78853755 L37.0573123,4.78853755 C37.8675889,4.78853755 38.5988142,5.26284585 38.944664,5.99407115 L41.1185771,10.687747 C41.2667984,11.0039526 41.583004,11.2114625 41.9288538,11.2114625 L49.5671937,11.2114625 C50.7134387,11.2114625 51.6818182,12.1403162 51.6818182,13.2865613 L51.6818182,38.0790514 L51.6521739,38.0790514 Z"
+                                id="Shape"
+                              />
+                              <path
+                                d="M29.715415,12.5355731 C22.9268775,12.5355731 17.4031621,18.0592885 17.4031621,24.8478261 C17.4031621,31.6363636 22.9268775,37.1600791 29.715415,37.1600791 C36.5039526,37.1600791 42.027668,31.6264822 42.027668,24.8379447 C42.027668,18.0494071 36.5039526,12.5355731 29.715415,12.5355731 Z M29.715415,35.3715415 C23.9051383,35.3715415 19.1818182,30.6482213 19.1818182,24.8379447 C19.1818182,19.027668 23.9051383,14.3043478 29.715415,14.3043478 C35.5256917,14.3043478 40.2490119,19.0375494 40.2490119,24.8379447 C40.2490119,30.6482213 35.5256917,35.3715415 29.715415,35.3715415 Z"
+                                id="Shape"
+                              />
+                              <path
+                                d="M15.2885375,15.2529644 L11.5335968,15.2529644 C11.0395257,15.2529644 10.6442688,15.6482213 10.6442688,16.1422925 C10.6442688,16.6363636 11.0395257,17.0316206 11.5335968,17.0316206 L15.2885375,17.0316206 C15.7826087,17.0316206 16.1778656,16.6363636 16.1778656,16.1422925 C16.1778656,15.6482213 15.7826087,15.2529644 15.2885375,15.2529644 Z"
+                                id="Path"
+                              />
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                  <br />
+                  <p>
+                    Drag and drop an image here
+                  </p>
+                </div>
+              </section>
+              or
+              <input
+                onChange={[Function]}
+                style={
+                  Object {
+                    "display": "none",
+                  }
+                }
+                type="file"
+              />
+              <button
+                className="sc-fzXfOZ sc-fzXfPb cfCPVL"
+                onClick={[Function]}
+                size="SMALL"
+                theme={
+                  Object {
+                    "invertedButtonBackground": "#FFFFFF",
+                    "invertedButtonColor": "#2B56FF",
+                  }
+                }
+                type="button"
+              >
+                 
+                Upload Image
+                 
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div
+        className="sc-LzNwv iteKkv"
+      >
+        <span
+          className="sc-LzNMp bSWvox"
+          onClick={[Function]}
+        >
+          Skip for now
+        </span>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Common / Web3Auth
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            UserSetAvatar
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div
+                style={
+                  Object {
+                    "paddingLeft": 18,
+                    "paddingRight": 3,
+                  }
+                }
+              >
+                <span
+                  style={
+                    Object {
+                      "color": "#444",
+                    }
+                  }
+                >
+                  &lt;
+                  StoryRouter
+                </span>
+                <span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      story
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#170",
+                            }
+                          }
+                        >
+                          anonymous
+                        </span>
+                        }
+                      </span>
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      links
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#444",
+                            }
+                          }
+                        >
+                          null
+                        </span>
+                        }
+                      </span>
+                    </span>
+                  </span>
+                  <span>
+                     
+                    <span
+                      style={Object {}}
+                    >
+                      routerProps
+                    </span>
+                    <span>
+                      =
+                      <span
+                        style={Object {}}
+                      >
+                        {
+                        <span
+                          style={
+                            Object {
+                              "color": "#444",
+                            }
+                          }
+                        >
+                          null
+                        </span>
+                        }
+                      </span>
+                    </span>
+                     
+                  </span>
+                </span>
+                <span
+                  style={
+                    Object {
+                      "color": "#444",
+                    }
+                  }
+                >
+                  /&gt;
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              StoryRouter
+              " Component
+            </h3>
+            <table
+              className="info-table"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    property
+                  </th>
+                  <th>
+                    propType
+                  </th>
+                  <th>
+                    required
+                  </th>
+                  <th>
+                    default
+                  </th>
+                  <th>
+                    description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    story
+                  </td>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    <span>
+                      other
+                    </span>
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    yes
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    -
+                  </td>
+                  <td
+                    className={null}
+                  />
+                </tr>
+                <tr>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    links
+                  </td>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    <span>
+                      other
+                    </span>
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    -
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    -
+                  </td>
+                  <td
+                    className={null}
+                  />
+                </tr>
+                <tr>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    routerProps
+                  </td>
+                  <td
+                    className="info-table-monospace"
+                  >
+                    <span>
+                      other
+                    </span>
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    -
+                  </td>
+                  <td
+                    className={null}
+                  >
+                    -
+                  </td>
+                  <td
+                    className={null}
+                  />
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

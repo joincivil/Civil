@@ -11,17 +11,17 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
     }
   >
     <div
-      className=" sc-kgoBCf bwAjsU"
+      className=" sc-fzXfMB iysgko"
     >
       <div
-        className="sc-cSHVUG bZhUeE"
+        className="sc-fzXfMy csKLEw"
       >
         <span>
           USD
         </span>
       </div>
       <input
-        className="sc-kgoBCf bwAjsU"
+        className="sc-fzXfMB iysgko"
         icon={
           <span>
             USD
@@ -36,7 +36,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
         type="number"
       />
       <label
-        className="sc-kAzzGY ExwfS"
+        className="sc-fzXfMz fnnnLg"
       >
         Currency Input
       </label>
@@ -309,13 +309,13 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-iRbamj dUGcDR"
+      className="sc-fzXfPg eumpzc"
     >
       <div
-        className=" sc-kgoBCf bwAjsU"
+        className=" sc-fzXfMB iysgko"
       >
         <input
-          className="sc-kgoBCf bwAjsU"
+          className="sc-fzXfMB iysgko"
           min="0.01"
           name="CurrencyInputWithButton"
           onBlur={[Function]}
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-jlyJG elEcor"
+        className="sc-fzXfPE dXlIEd"
       >
         CVL
       </div>
@@ -600,10 +600,10 @@ exports[`Storyshots Pattern Library / Inputs Header Input 1`] = `
     }
   >
     <div
-      className=" sc-kGXeez NcyVA sc-kgoBCf bwAjsU"
+      className=" sc-fzXfMB iysgko sc-fzXfMC EJPZR"
     >
       <input
-        className="sc-kGXeez NcyVA sc-kgoBCf bwAjsU"
+        className="sc-fzXfMB iysgko sc-fzXfMC EJPZR"
         label="Header Input"
         name="HeaderInput"
         onChange={[Function]}
@@ -611,7 +611,7 @@ exports[`Storyshots Pattern Library / Inputs Header Input 1`] = `
         type="text"
       />
       <label
-        className="sc-kAzzGY ExwfS"
+        className="sc-fzXfMz fnnnLg"
       >
         Header Input
       </label>
@@ -884,30 +884,30 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
     }
   >
     <div
-      className="sc-kpOJdX iUaKKN"
+      className="sc-fzXfOs cCsgOi"
     >
       <label
-        className="sc-kAzzGY ExwfS"
+        className="sc-fzXfMz fnnnLg"
       >
         Input Group with Prepend Text
       </label>
       <div
-        className="sc-dxgOiQ iNJqpF"
+        className="sc-fzXfOt fbkFFh"
       >
         <div
-          className="sc-ckVGcZ bejyTR"
+          className="sc-fzXfOu eJjcPR"
         >
           <span
-            className="sc-eNQAEJ cUXCzX"
+            className="sc-fzXfOw bxaGIC"
           >
             CVL
           </span>
         </div>
         <div
-          className=" sc-kgoBCf bwAjsU"
+          className=" sc-fzXfMB iysgko"
         >
           <input
-            className="sc-kgoBCf bwAjsU"
+            className="sc-fzXfMB iysgko"
             name="TextInput"
             onChange={[Function]}
             type="text"
@@ -1184,16 +1184,16 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
   >
     <div>
       <div
-        className="sc-brqgnP kdyJg"
+        className="sc-fzXfNd dipkQb"
       >
         <label
-          className="sc-kAzzGY ExwfS"
+          className="sc-fzXfMz fnnnLg"
         >
           Group of radio buttons
         </label>
         <div>
           <div
-            className="sc-jWBwVP cCKRoQ"
+            className="sc-fzXfNc ibMFDu"
           >
             <input
               defaultChecked={false}
@@ -1202,7 +1202,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="daily"
             />
             <button
-              className="sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+              className="sc-AykKC sc-AykKF NoxCz"
               onClick={[Function]}
               theme={
                 Object {
@@ -1219,7 +1219,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-jWBwVP cCKRoQ"
+            className="sc-fzXfNc ibMFDu"
           >
             <input
               defaultChecked={false}
@@ -1228,7 +1228,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="weekly"
             />
             <button
-              className="sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+              className="sc-AykKC sc-AykKF NoxCz"
               onClick={[Function]}
               theme={
                 Object {
@@ -1245,7 +1245,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-jWBwVP cCKRoQ"
+            className="sc-fzXfNc ibMFDu"
           >
             <input
               defaultChecked={false}
@@ -1254,7 +1254,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="monthly"
             />
             <button
-              className="sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+              className="sc-AykKC sc-AykKF NoxCz"
               onClick={[Function]}
               theme={
                 Object {
@@ -1271,7 +1271,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-jWBwVP cCKRoQ"
+            className="sc-fzXfNc ibMFDu"
           >
             <input
               defaultChecked={false}
@@ -1280,7 +1280,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               value="yearly"
             />
             <button
-              className="sc-iAyFgw gKvJnO sc-hMqMXs fSKkRg"
+              className="sc-AykKC sc-AykKF NoxCz"
               onClick={[Function]}
               theme={
                 Object {
@@ -1491,7 +1491,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                       }
                     >
                       &lt;
-                      RadioInput
+                      Unknown
                     </span>
                     <span>
                       <span>
@@ -1641,7 +1641,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;
-                        RadioButton
+                        Unknown
                       </span>
                       <span>
                         <span>
@@ -1717,7 +1717,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;/
-                        RadioButton
+                        Unknown
                         &gt;
                       </span>
                     </div>
@@ -1739,7 +1739,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;
-                        RadioButton
+                        Unknown
                       </span>
                       <span>
                         <span>
@@ -1815,7 +1815,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;/
-                        RadioButton
+                        Unknown
                         &gt;
                       </span>
                     </div>
@@ -1837,7 +1837,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;
-                        RadioButton
+                        Unknown
                       </span>
                       <span>
                         <span>
@@ -1913,7 +1913,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;/
-                        RadioButton
+                        Unknown
                         &gt;
                       </span>
                     </div>
@@ -1935,7 +1935,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;
-                        RadioButton
+                        Unknown
                       </span>
                       <span>
                         <span>
@@ -2011,7 +2011,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                         }
                       >
                         &lt;/
-                        RadioButton
+                        Unknown
                         &gt;
                       </span>
                     </div>
@@ -2032,7 +2032,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
                       }
                     >
                       &lt;/
-                      RadioInput
+                      Unknown
                       &gt;
                     </span>
                   </div>
@@ -2105,7 +2105,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               }
             >
               "
-              RadioButton
+              Unknown
               " Component
             </h3>
             <small>
@@ -2121,7 +2121,317 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
               }
             >
               "
-              RadioInput
+              Unknown
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <form>
+      <div
+        className="sc-fzXfPM kNjJRx"
+      >
+        <div
+          className=" sc-fzXfMB iysgko"
+        >
+          <input
+            className="sc-fzXfMB iysgko"
+            name="submit link"
+            onChange={[Function]}
+            pattern="https?://.+"
+            type="url"
+          />
+          <label
+            className="sc-fzXfMz fnnnLg"
+          />
+        </div>
+        <button
+          className="sc-fzXfOZ sc-fzXfPa iwphPE"
+          disabled={false}
+          onClick={[Function]}
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+              "primaryButtonDisabledColor": "#FFFFFF",
+              "primaryButtonFontWeight": "normal",
+              "primaryButtonHoverBackground": "#4066FF",
+              "primaryButtonTextTransform": "uppercase",
+              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+            }
+          }
+          type="submit"
+        >
+          Submit Link
+        </button>
+      </div>
+      <p
+        className="sc-fzXfPN hVcAY"
+      />
+    </form>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Inputs
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Submit a link
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    ControlComponent
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    ControlComponent
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              ControlComponent
               " Component
             </h3>
             <small>
@@ -2146,10 +2456,10 @@ exports[`Storyshots Pattern Library / Inputs Text Input 1`] = `
     }
   >
     <div
-      className=" sc-kgoBCf bwAjsU"
+      className=" sc-fzXfMB iysgko"
     >
       <input
-        className="sc-kgoBCf bwAjsU"
+        className="sc-fzXfMB iysgko"
         label="Text Input"
         name="TextInput"
         onChange={[Function]}
@@ -2157,7 +2467,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input 1`] = `
         type="text"
       />
       <label
-        className="sc-kAzzGY ExwfS"
+        className="sc-fzXfMz fnnnLg"
       >
         Text Input
       </label>
@@ -2430,13 +2740,13 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-iRbamj dUGcDR"
+      className="sc-fzXfPg eumpzc"
     >
       <div
-        className=" sc-kgoBCf bwAjsU"
+        className=" sc-fzXfMB iysgko"
       >
         <input
-          className="sc-kgoBCf bwAjsU"
+          className="sc-fzXfMB iysgko"
           name="TextInputWithButton"
           onBlur={[Function]}
           onChange={[Function]}
@@ -2714,10 +3024,10 @@ exports[`Storyshots Pattern Library / Inputs Textarea Input 1`] = `
     }
   >
     <div
-      className=" sc-kgoBCf bwAjsU"
+      className=" sc-fzXfMB iysgko"
     >
       <textarea
-        className="sc-kgoBCf bwAjsU"
+        className="sc-fzXfMB iysgko"
         label="Textarea Input"
         name="TextareaInput"
         onChange={[Function]}
@@ -2725,7 +3035,7 @@ exports[`Storyshots Pattern Library / Inputs Textarea Input 1`] = `
         type="textarea"
       />
       <label
-        className="sc-kAzzGY ExwfS"
+        className="sc-fzXfMz fnnnLg"
       >
         Textarea Input
       </label>
@@ -2998,7 +3308,7 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
     }
   >
     <button
-      className="sc-kkGfuU hYLHhU sc-hMqMXs dMEdoq"
+      className="sc-fzXfOZ sc-fzXfPb cfCPVL"
       onClick={[Function]}
       size="SMALL"
       theme={

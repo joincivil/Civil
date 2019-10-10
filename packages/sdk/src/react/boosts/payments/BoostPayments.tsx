@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, QuestionToolTip } from "@joincivil/components";
+import { colors, fonts, mediaQueries, QuestionToolTip, ChevronAnchorLeft } from "@joincivil/components";
 import { BoostPayOptions } from "./BoostPayOptions";
 import { BoostWrapper, BoostTitle, BoostSmallPrint, BoostTextButton, BoostBack } from "../BoostStyledComponents";
 import { EthAddress } from "@joincivil/core";
@@ -55,7 +55,7 @@ export interface BoostPaymentsProps {
   boostId: string;
   title: string;
   newsroomName: string;
-  history?: any;
+  history: any;
   handleBackToListing(): void;
   handlePaymentSuccess(): void;
 }
@@ -71,7 +71,9 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
     <BoostWrapper open={true}>
       <BoostHeaderWrap>
         <BoostBack>
-          <BoostTextButton onClick={() => props.handleBackToListing()}>&laquo; Back to Boost listing</BoostTextButton>
+          <ChevronAnchorLeft component={BoostTextButton} onClick={() => props.handleBackToListing()}>
+            Back to Boost info
+          </ChevronAnchorLeft>
         </BoostBack>
         <BoostHeader>Complete your Boost payment</BoostHeader>
         <BoostDetails>
@@ -92,6 +94,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         usdToSpend={usdToSpend}
         paymentAddr={props.paymentAddr}
         newsroomName={props.newsroomName}
+        title={props.title}
         boostId={props.boostId}
         walletConnected={props.walletConnected}
         isStripeConnected={props.isStripeConnected}

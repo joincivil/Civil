@@ -31,7 +31,7 @@ const ExplainerText: React.FunctionComponent<ChallengeResultsProps> = props => {
     if (props.isAppealChallenge) {
       explainerText = (
         <>
-          The Civil Community <b>voted to uphold</b> the Civil Council's decision.
+          The Civil Community <b>voted to overturn</b> the Civil Council's decision.
         </>
       );
     } else {
@@ -46,7 +46,7 @@ const ExplainerText: React.FunctionComponent<ChallengeResultsProps> = props => {
     if (props.isAppealChallenge) {
       explainerText = (
         <>
-          The Civil Community <b>voted to overturn</b> The Civil Council's decision.
+          The Civil Community <b>voted to uphold</b> The Civil Council's decision.
         </>
       );
     } else {

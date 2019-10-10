@@ -29,7 +29,7 @@ class BoostFeedPage extends React.Component {
                 help them do it. Support these newsrooms by funding their Boosts to help hit their goals. Good reporting
                 costs money, and the Civil community is making it happen.
                 <BoostLearnMore href={urlConstants.FAQ_BOOSTS} target="_blank">
-                  Learn More &gt;
+                  Learn More
                 </BoostLearnMore>
               </BoostIntro>
             </BoostHeader>

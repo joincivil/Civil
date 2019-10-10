@@ -1,4 +1,4 @@
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
@@ -56,7 +56,6 @@ export const TokenConnectWalletBtnText: React.FunctionComponent = props => <>Con
 export const TokenAuthText: React.FunctionComponent = props => (
   <>
     <h3>Sign up or Log in to your Civil account</h3>
-    <p>Create a Civil account with your email address or log in to your existing account.</p>
   </>
 );
 

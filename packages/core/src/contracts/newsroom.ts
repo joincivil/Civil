@@ -12,7 +12,7 @@ import {
   promisify,
   recoverSigner,
 } from "@joincivil/utils";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, parseEther } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
@@ -135,7 +135,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
       throw new Error("No Newsroom created during deployment through factory");
     }
 
-    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.returnValues.instantiation);
+    const contract = NewsroomContract.atUntrusted(ethApi, createdNewsroom.args.instantiation);
     const multisigProxy = await NewsroomMultisigProxy.create(ethApi, contract);
     const defaultBlock = getDefaultFromBlock(await ethApi.network());
     return new Newsroom(ethApi, contentProvider, contract, multisigProxy, defaultBlock);
@@ -335,14 +335,13 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
    * @param to Address to transfer to
    */
   public async transferEthFromMultisig(
-    eth: BigNumber,
+    eth: string,
     to: EthAddress,
   ): Promise<TwoStepEthTransaction<MultisigTransaction>> {
-    const wei = eth.mul(new BigNumber(1e18));
-    // const wei = this.ethApi.toBigNumber(toWei(ethBN, EthereumUnits.ether));
+    const wei = parseEther(eth);
     const address = await this.multisigProxy.getMultisigAddress();
     const multisig = await Multisig.atUntrusted(this.ethApi, address!);
-    return multisig.submitTransaction(to, wei, "");
+    return multisig.submitTransaction(to, wei, "0x");
   }
 
   /**

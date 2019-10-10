@@ -1,4 +1,3 @@
-import { hasInjectedProvider } from "@joincivil/ethapi";
 import {
   ButtonTheme,
   colors,
@@ -17,7 +16,7 @@ import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
-import styled, { StyledComponentClass, ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import {
   addGetCmsUserDataForAddress,
   addPersistCharter,
@@ -100,11 +99,11 @@ export interface NewsroomProps extends NewsroomExternalProps {
   charterUri?: string;
 }
 
-export const NoteSection: StyledComponentClass<any, "p"> = styled.p`
+export const NoteSection = styled.p`
   color: ${(props: { disabled: boolean }) => (props.disabled ? "#dcdcdc" : colors.accent.CIVIL_GRAY_3)};
 `;
 
-export const Wrapper: StyledComponentClass<any, "div"> = styled.div`
+export const Wrapper = styled.div`
   max-width: 845px;
 
   &,
@@ -180,7 +179,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
     { maxWait: 2000 },
   );
 
-  constructor(props: NewsroomProps) {
+  constructor(props: NewsroomProps & DispatchProp) {
     super(props);
     let currentStep = props.address ? 1 : 0;
     if (typeof props.initialStep !== "undefined") {
@@ -236,9 +235,6 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
   }
 
   public renderManager(): JSX.Element | null {
-    if (!hasInjectedProvider()) {
-      return null;
-    }
     const disabled = this.isDisabled();
     return (
       <>
@@ -422,7 +418,7 @@ class NewsroomComponent extends React.Component<NewsroomProps & DispatchProp<any
           {this.props.showWalletOnboarding && (
             <WalletOnboarding
               civil={this.props.civil}
-              noProvider={!hasInjectedProvider()}
+              noProvider={false}
               notEnabled={this.props.civil && !this.props.metamaskEnabled}
               enable={this.props.enable}
               walletLocked={this.props.civil && this.props.metamaskEnabled && !this.props.account}

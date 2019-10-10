@@ -6,13 +6,12 @@ import { State } from "../../../redux/reducers";
 import { getContent } from "../../../redux/actionCreators/newsrooms";
 import { MyTasksItemOwnProps, MyTasksItemWrapperReduxProps } from "./MyTasksItemTypes";
 import MyTasksItemApolloQueryWrapper from "./MyTasksItemApolloQueryWrapper";
-import MyTasksItemReduxComponent from "./MyTasksItemReduxComponent";
+import { CivilHelperContext } from "../../../apis/CivilHelper";
 
 const MyTasksItemWrapper: React.FunctionComponent<
   MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>
 > = props => {
   const {
-    useGraphQL,
     challengeID,
     showClaimRewardsTab,
     showRescueTokensTab,
@@ -31,32 +30,29 @@ const MyTasksItemWrapper: React.FunctionComponent<
     content,
   };
 
+  const helper = React.useContext(CivilHelperContext);
+
   const getCharterContent = async (charterHeader: EthContentHeader) => {
-    dispatch!(await getContent(charterHeader));
+    dispatch!(await getContent(helper!, charterHeader));
   };
 
-  if (useGraphQL) {
-    return (
-      <MyTasksItemApolloQueryWrapper
-        {...viewProps}
-        queryUserChallengeData={queryUserChallengeData}
-        queryUserAppealChallengeData={queryUserAppealChallengeData}
-        getCharterContent={getCharterContent}
-      />
-    );
-  }
-
-  return <MyTasksItemReduxComponent {...viewProps} />;
+  return (
+    <MyTasksItemApolloQueryWrapper
+      {...viewProps}
+      queryUserChallengeData={queryUserChallengeData}
+      queryUserAppealChallengeData={queryUserAppealChallengeData}
+      getCharterContent={getCharterContent}
+    />
+  );
 };
 
 const mapStateToPropsMyTasksItemWrapper = (
   state: State,
   ownProps: MyTasksItemOwnProps,
 ): MyTasksItemOwnProps & MyTasksItemWrapperReduxProps => {
-  const { useGraphQL } = state;
   const { content, user } = state.networkDependent;
   const userAcct = user && user.account.account;
-  return { useGraphQL, content, userAcct, ...ownProps };
+  return { content, userAcct, ...ownProps };
 };
 
 export default connect(mapStateToPropsMyTasksItemWrapper)(MyTasksItemWrapper);

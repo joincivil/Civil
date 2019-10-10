@@ -13,6 +13,7 @@ module.exports = ({ config, mode }) => {
   });
 
   config.resolve.extensions.push(".ts", ".tsx");
+  config.node = { global: true, fs: "empty" };
 
   return config;
 };

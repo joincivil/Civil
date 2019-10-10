@@ -158,11 +158,6 @@ const UserAppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponen
   }
 
   let userVotingSummaryContent = <></>;
-  const { isResolved } = appealChallengeState;
-
-  if (!isResolved) {
-    return <></>;
-  }
 
   if (appealUserChallengeData) {
     const { didUserCommit, didUserReveal, choice, numTokens } = appealUserChallengeData;
@@ -173,7 +168,7 @@ const UserAppealChallengeSummary: React.FunctionComponent<MyTasksItemSubComponen
     } else if (didUserReveal) {
       if (choice) {
         userChoice =
-          choice.toNumber() === 1 ? CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD : CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
+          choice.toNumber() === 1 ? CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN : CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
         userVotingSummaryContent = (
           <UserVotingSummary choice={userChoice} numTokens={getFormattedTokenBalance(numTokens!)} />
         );
@@ -274,6 +269,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
   const {
     isResolved,
     canResolveChallenge,
+    canAppealBeResolved,
     canRequestAppeal,
     isAppealChallengeInCommitStage,
     isAppealChallengeInRevealStage,
@@ -287,7 +283,7 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
     displayChallengeResultsExplanation = true;
   }
 
-  if (userChallengeData && (isResolved || canResolveChallenge)) {
+  if (userChallengeData && (isResolved || canResolveChallenge || canAppealBeResolved)) {
     const { didUserReveal, choice, numTokens } = userChallengeData;
     let userVotingSummaryContent;
     let userChoice;

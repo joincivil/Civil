@@ -24,7 +24,8 @@ export class EthereumTransactionButton extends React.Component<
   EthereumTransactionButtonProps,
   EthereumTransactionButtonState
 > {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   public constructor(props: EthereumTransactionButtonProps) {
     super(props);

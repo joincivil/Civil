@@ -14,7 +14,7 @@ import {
   TransactionButtonNoModal,
 } from "@joincivil/components";
 
-import { rescueTokensInMultiplePolls } from "../../apis/civilTCR";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import {
@@ -81,6 +81,9 @@ class ChallengesWithTokensToRescue extends React.Component<
   ChallengesWithTokensToRescueProps & InjectedTransactionStatusModalProps,
   ChallengesWithTokensToRescueState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public state = {
     challengesToRescue: {},
   };
@@ -241,7 +244,7 @@ class ChallengesWithTokensToRescue extends React.Component<
 
   private multiRescue = async (): Promise<TwoStepEthTransaction | void> => {
     const challengeIDs = getChallengesToProcess(this.state.challengesToRescue);
-    return rescueTokensInMultiplePolls(challengeIDs);
+    return this.context.rescueTokensInMultiplePolls(challengeIDs);
   };
 }
 

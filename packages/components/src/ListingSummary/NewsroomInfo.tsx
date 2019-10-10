@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
+import defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 import { ListingSummaryComponentProps } from "./types";
 import { NewsroomIcon, StyledListingSummaryTop, StyledListingSummaryNewsroomName } from "./styledComponents";
 import NewsroomTagline from "./NewsroomTagline";

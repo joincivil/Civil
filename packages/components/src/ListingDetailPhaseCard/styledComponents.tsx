@@ -1,8 +1,8 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, ButtonProps, ButtonTheme, DEFAULT_BUTTON_THEME } from "../Button";
+import { Button, ButtonTheme, DEFAULT_BUTTON_THEME } from "../Button";
 
 const BACKGROUND_ACCENT_COLORS: any = {
   COMMIT_VOTE: colors.accent.CIVIL_YELLOW,
@@ -28,10 +28,7 @@ export interface StyledListingDetailPhaseCardSectionProps {
   bgAccentColor?: string;
 }
 
-export const StyledListingDetailPhaseCardSection: StyledComponentClass<
-  StyledListingDetailPhaseCardSectionProps,
-  "div"
-> = styled<StyledListingDetailPhaseCardSectionProps, "div">("div")`
+export const StyledListingDetailPhaseCardSection = styled.div<StyledListingDetailPhaseCardSectionProps>`
   background: ${props => (props.bgAccentColor ? BACKGROUND_ACCENT_COLORS[props.bgAccentColor] : "transparent")};
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.primary.CIVIL_GRAY_1};
@@ -190,9 +187,7 @@ export interface StyledCardProps {
   flipped?: boolean;
 }
 
-export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> = styled<StyledCardStageProps, "div">(
-  "div",
-)`
+export const StyledCardStage = styled.div<StyledCardStageProps>`
   perspective: 800px;
   width: ${props => (props.width ? props.width + "px" : "440")};
 
@@ -205,7 +200,7 @@ export const StyledCardStage: StyledComponentClass<StyledCardStageProps, "div"> 
   }
 `;
 
-export const StyledCard: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
+export const StyledCard = styled.div<StyledCardProps>`
   position: relative;
   transition: transform 500ms;
   transform-style: preserve-3d;
@@ -226,7 +221,7 @@ export const StyledCardClose = styled.div`
   }
 `;
 
-export const StyledCardFace: StyledComponentClass<StyledCardProps, "div"> = styled<StyledCardProps, "div">("div")`
+export const StyledCardFace = styled.div<StyledCardProps>`
   background-color: ${colors.basic.WHITE};
   backface-visibility: hidden;
   box-shadow: 0 2px 10px 0 ${colors.accent.CIVIL_GRAY_3};
@@ -254,7 +249,7 @@ export const StyledCardBack = styled(StyledCardFace)`
   }
 `;
 
-export const FullWidthButton: StyledComponentClass<ButtonProps, "button"> = styled(Button)`
+export const FullWidthButton = styled(Button)`
   margin: 14px 0 0;
   width: 100%;
 `;
@@ -282,7 +277,7 @@ export interface StyledStepPropsState {
   visible: boolean;
 }
 
-export const StyledStep: StyledComponentClass<StyledStepPropsState, "div"> = styled<StyledStepPropsState, "div">("div")`
+export const StyledStep = styled.div<StyledStepPropsState>`
   display: ${(props: StyledStepPropsState) => (props.visible ? "block" : "none")};
 `;
 

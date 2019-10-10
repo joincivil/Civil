@@ -2,13 +2,15 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import StoryRouter from "storybook-react-router";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
+import Web3HttpProvider from "web3-providers-http";
+
 import { TokensTabBuy } from "./TokensTabBuy";
 import { CivilContext, buildCivilContext } from "../../context/CivilContext";
-import { Civil } from "@joincivil/core";
 import { UniswapBuy } from "./UniswapBuy";
 import { AirswapBuyCVL } from "./AirswapBuyCVL";
 import { TokensTabBuyComplete } from "./TokensTabBuyComplete";
+import Web3 from "web3";
 
 export const Container = styled.div`
   align-items: center;
@@ -45,15 +47,9 @@ const mocks = {
     };
   },
 };
-
-let civil: Civil | undefined;
-try {
-  civil = new Civil();
-} catch (error) {
-  console.log("no civil", error);
-  civil = undefined;
-}
-const civilContext = buildCivilContext(civil, undefined, ["uniswap"]);
+const web3Provider = new Web3HttpProvider("http://localhost:8045");
+const web3 = new Web3(web3Provider);
+const civilContext = buildCivilContext({ web3, featureFlags: ["uniswap"], config: { DEFAULT_ETHEREUM_NETWORK: 4 } });
 
 const foundationAddress = "hello!";
 

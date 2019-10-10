@@ -1,5 +1,9 @@
 import * as React from "react";
 import { debounce } from "lodash";
+
+import { QuestionToolTip, HelmetHelper, CurrencyInput } from "@joincivil/components";
+import { renderPTagsFromLineBreaks } from "@joincivil/utils";
+
 import { BoostProgress } from "./BoostProgress";
 import { BoostData, BoostNewsroomData } from "./types";
 import {
@@ -15,15 +19,15 @@ import {
   BoostNotificationContain,
   BoostAmountInputWrap,
   BoostAmountInput,
+  BoostDescShareFlex,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
 import { BoostCompleted } from "./BoostCompleted";
-import { QuestionToolTip, HelmetHelper, CurrencyInput } from "@joincivil/components";
 import * as boostCardImage from "../../images/boost-card.png";
 import { urlConstants } from "../urlConstants";
-import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 import { BoostCardListView } from "./BoostCardListView";
+import { BoostShare } from "./BoostShare";
 
 export interface BoostCardProps {
   boostData: BoostData;
@@ -41,6 +45,8 @@ export interface BoostCardStates {
 }
 
 export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> {
+  public amountInputEl?: HTMLElement | null;
+
   public constructor(props: any) {
     super(props);
     this.state = {
@@ -59,7 +65,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
     if (timeEnded) {
       btnText = "Boost Ended";
     }
-    const btnDisabled = timeEnded || !newsroomData.whitelisted || this.state.amount === 0;
+    const inputDisabled = timeEnded || !newsroomData.whitelisted;
 
     if (!open) {
       return (
@@ -126,9 +132,18 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
             </BoostProgressCol>
             <BoostAmountInputWrap>
               <BoostAmountInput>
-                <CurrencyInput label={""} placeholder={"0"} name={"BoostAmount"} onChange={this.handleAmount} />
+                <CurrencyInput
+                  label={""}
+                  placeholder={"0"}
+                  name={"BoostAmount"}
+                  onChange={this.handleAmount}
+                  disabled={inputDisabled}
+                  inputRef={el => {
+                    this.amountInputEl = el;
+                  }}
+                />
               </BoostAmountInput>
-              <BoostButton disabled={btnDisabled} onClick={() => this.props.handlePayments(this.state.amount)}>
+              <BoostButton disabled={inputDisabled} onClick={this.handleBoostButton}>
                 {btnText}
               </BoostButton>
             </BoostAmountInputWrap>
@@ -149,7 +164,16 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
               }
             />
           </BoostNotice>
-          <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
+          <BoostDescShareFlex>
+            <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
+            <div>
+              <BoostShare
+                boostId={this.props.boostId}
+                newsroom={this.props.newsroomData.name}
+                title={boostData.title}
+              />
+            </div>
+          </BoostDescShareFlex>
           <BoostDescription>
             <h3>What the outcome will be</h3>
             {renderPTagsFromLineBreaks(boostData.what)}
@@ -189,6 +213,16 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
       </>
     );
   }
+
+  private handleBoostButton = () => {
+    if (!this.state.amount) {
+      if (this.amountInputEl) {
+        this.amountInputEl.focus();
+      }
+      return;
+    }
+    this.props.handlePayments(this.state.amount);
+  };
 
   private handleAmount = (name: string, value: any) => {
     let amount = Number.parseFloat(value);

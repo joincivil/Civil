@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CivilContext } from "@joincivil/components";
+import { CivilContext, ICivilContext } from "@joincivil/components";
 import { ethereumEnable } from "@joincivil/utils";
 import { Newsroom } from "@joincivil/newsroom-manager";
 
@@ -13,6 +13,7 @@ export interface NewsroomManagementState {
 
 export default class NewsroomManagement extends React.Component<NewsroomManagementProps, NewsroomManagementState> {
   public static contextType = CivilContext;
+  public context: ICivilContext;
 
   constructor(props: NewsroomManagementProps) {
     super(props);

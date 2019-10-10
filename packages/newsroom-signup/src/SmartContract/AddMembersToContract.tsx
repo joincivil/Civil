@@ -7,10 +7,11 @@ import {
   OBSmallParagraph,
   fonts,
   colors,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { CharterData, EthAddress } from "@joincivil/core";
 import styled from "styled-components";
-import { CivilContext, CivilContextValue } from "../CivilContext";
 import { AddMember } from "./AddMember";
 
 const MemberUL = styled.ul`
@@ -43,6 +44,9 @@ export interface AddMembersToContractProps {
 }
 
 export class AddMembersToContract extends React.Component<AddMembersToContractProps> {
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   public render(): JSX.Element {
     return (
       <>
@@ -85,31 +89,23 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
             <MemberUlLabel>Civil Role</MemberUlLabel>
             <MemberUlLabel>Status</MemberUlLabel>
           </MemberUlLabels>
-          <CivilContext.Consumer>
-            {(value: CivilContextValue) => {
+          {this.props.charter.roster &&
+            this.props.charter.roster!.map((member, index) => {
               return (
-                <>
-                  {this.props.charter.roster &&
-                    this.props.charter.roster!.map((member, index) => {
-                      return (
-                        <AddMember
-                          key={index}
-                          index={index}
-                          civil={value.civil!}
-                          newsroom={this.props.newsroom}
-                          name={member.name}
-                          avatarUrl={member.avatarUrl}
-                          memberAddress={member.ethAddress}
-                          updateCharter={this.props.updateCharter}
-                          charter={this.props.charter}
-                          profileWalletAddress={this.props.profileWalletAddress}
-                        />
-                      );
-                    })}
-                </>
+                <AddMember
+                  key={index}
+                  index={index}
+                  civil={this.context.civil!}
+                  newsroom={this.props.newsroom}
+                  name={member.name}
+                  avatarUrl={member.avatarUrl}
+                  memberAddress={member.ethAddress}
+                  updateCharter={this.props.updateCharter}
+                  charter={this.props.charter}
+                  profileWalletAddress={this.props.profileWalletAddress}
+                />
               );
-            }}
-          </CivilContext.Consumer>
+            })}
         </MemberUL>
       </>
     );

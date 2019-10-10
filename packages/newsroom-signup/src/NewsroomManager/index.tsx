@@ -76,12 +76,12 @@ const SaveButtonWrapper = styled.div`
 const DEFAULT_DIRTY_MESSAGE = "Are you sure you want to leave this page? Your changes have not been saved.";
 
 class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, NewsroomManagerState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+
   public static defaultProps: Partial<NewsroomManagerProps> = {
     theme: DEFAULT_THEME,
   };
-
-  public context!: React.ContextType<typeof CivilContext>;
+  public context!: ICivilContext;
 
   constructor(props: NewsroomManagerProps) {
     super(props);
@@ -178,7 +178,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
           introCopy={
             "Once you have finished making changes you must save them. This will open your wallet to process the transaction. You are republishing your charter alongside your newsroom smart contract"
           }
-          transactionButtonComponent={props => (
+          transactionButtonComponent={(props: any) => (
             <SaveButtonWrapper>
               <MetaMaskLogoButton onClick={props.onClick}>Save Changes</MetaMaskLogoButton>
             </SaveButtonWrapper>

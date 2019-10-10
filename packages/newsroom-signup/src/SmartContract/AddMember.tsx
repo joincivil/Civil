@@ -149,7 +149,7 @@ const ExplainerText = styled.p`
   line-height: 21px;
 `;
 
-const StyledSelect = styled<SelectProps, any>(Select)`
+const StyledSelect = styled(Select)`
   width: 150px;
 `;
 
@@ -158,7 +158,7 @@ const StyledCheck = styled(HollowGreenCheck)`
 `;
 
 export class AddMemberComponent extends React.Component<AddMemberProps & DispatchProp<any>, AddMemberState> {
-  constructor(props: AddMemberProps) {
+  constructor(props: AddMemberProps & DispatchProp<any>) {
     super(props);
     const value = options.find(option => {
       return option.value === props.role;
@@ -350,7 +350,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
             placeholder="Public Wallet Address"
             name="walletAddress"
             value={this.state.walletAddress}
-            onChange={(name, val) => this.setState({ walletAddress: val })}
+            onChange={(name: any, val: any) => this.setState({ walletAddress: val })}
           />
           <BorderlessButton onClick={this.addAddress}>Add Wallet Address</BorderlessButton>
         </AddAddressSection>

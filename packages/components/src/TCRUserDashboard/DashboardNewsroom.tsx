@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import { ErrorIcon } from "../icons";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
 
+import { ChevronAnchor } from "../ChevronAnchor";
 import { Button, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
 import {
@@ -20,6 +23,7 @@ import {
   StyledWarningText,
 } from "./DashboardStyledComponents";
 import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
+import { DashboardNewsroomSubmitLink } from "./DashboardNewsroomSubmitLink";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
@@ -38,8 +42,17 @@ export interface DashboardNewsroomProps {
   inProgressPhaseDisplayName?: string;
   inProgressPhaseCountdown?: JSX.Element;
   inProgressPhaseDetails?: string | JSX.Element;
+  boostProceeds?: JSX.Element;
   rejectedDate?: string;
 }
+
+const CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY = gql`
+  query($contractAddress: String!) {
+    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+      id
+    }
+  }
+`;
 
 const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   let statusDisplay;
@@ -97,7 +110,11 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
       );
     }
 
-    return <Link to={props.manageNewsroomURL}>Manage Newsroom &gt;</Link>;
+    return (
+      <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
+        Manage Newsroom
+      </ChevronAnchor>
+    );
   };
 
   return (
@@ -108,7 +125,9 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
 
           <StyledDashboardNewsroomLinks>
             {renderEditLink()}
-            <Link to={props.listingDetailURL}>View on Registry &gt;</Link>
+            <ChevronAnchor component={Link} to={props.listingDetailURL}>
+              View on Registry
+            </ChevronAnchor>
           </StyledDashboardNewsroomLinks>
         </StyledDashboardNewsroomSectionContentRow>
       </StyledDashboardNewsroomSection>
@@ -153,6 +172,25 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
         />
       </StyledDashboardNewsroomSection>
 
+      <FeatureFlag feature={"pew"}>
+        <Query<any>
+          query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
+          variables={{ contractAddress: props.newsroomAddress }}
+        >
+          {({ loading, error, data }) => {
+            if (loading || error) {
+              return <></>;
+            }
+            return (
+              <StyledDashboardNewsroomSection>
+                <StyledDashboardNewsroomHdr>Pulse Story Feed</StyledDashboardNewsroomHdr>
+                <DashboardNewsroomSubmitLink channelID={data.channelsGetByNewsroomAddress.id} />
+              </StyledDashboardNewsroomSection>
+            );
+          }}
+        </Query>
+      </FeatureFlag>
+
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
         <p>
@@ -161,10 +199,14 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
             Learn more
           </a>
         </p>
+
+        {/*@HACK We need to include `NewsroomWithdraw` from `sdk` package, but this component is in `components` package which `sdk` uses so we'd have a circular dependency. @TODO/tobek all these TCR dashboard components should be moved into `dapp` package.*/}
+        {props.boostProceeds}
+
         {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
         <p>
           <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
-            Launch Boost
+            Launch New Boost
           </Button>
         </p>
         <p>

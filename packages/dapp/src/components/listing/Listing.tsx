@@ -16,16 +16,12 @@ import ScrollToTopOnMount from "../utility/ScrollToTop";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
-import ListingReduxContainer from "./ListingReduxContainer";
 import ListingRedux from "./ListingRedux";
 
 export interface ListingPageProps {
   match: any;
   listingAddress: EthAddress;
-}
-
-export interface ListingPageReduxProps {
-  useGraphQl: boolean;
+  history: any;
 }
 
 export interface PreListingReduxProps {
@@ -33,54 +29,46 @@ export interface PreListingReduxProps {
   listing?: ListingWrapper;
 }
 
-class ListingPageComponent extends React.Component<ListingPageProps & ListingPageReduxProps> {
+class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
     const listingAddress = this.props.listingAddress;
-    if (this.props.useGraphQl) {
-      return (
-        <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
-          {({ loading, error, data }: any): JSX.Element => {
-            if (loading || !data) {
-              return <LoadingMessage />;
-            }
-            if (error) {
-              return <ErrorLoadingDataMsg />;
-            }
-            if (!data.listing || !data.charterRevisions) {
-              return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
-            }
-            const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
-            const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
-            const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
-            return (
-              <>
-                <ScrollToTopOnMount />
-                <ListingRedux
-                  listingAddress={listingAddress}
-                  newsroom={newsroom}
-                  listing={listing}
-                  charterRevisions={charterRevisions}
-                />
-              </>
-            );
-          }}
-        </Query>
-      );
-    } else {
-      return (
-        <>
-          <ScrollToTopOnMount />
-          <ListingReduxContainer listingAddress={listingAddress} />
-        </>
-      );
-    }
+    return (
+      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
+        {({ loading, error, data }: any): JSX.Element => {
+          if (loading || !data) {
+            return <LoadingMessage />;
+          }
+          if (error) {
+            return <ErrorLoadingDataMsg />;
+          }
+          if (!data.listing || !data.charterRevisions) {
+            return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
+          }
+          const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
+          const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
+          const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
+          return (
+            <>
+              <ScrollToTopOnMount />
+              <ListingRedux
+                listingAddress={listingAddress}
+                newsroom={newsroom}
+                listing={listing}
+                charterRevisions={charterRevisions}
+                match={this.props.match}
+                history={this.props.history}
+              />
+            </>
+          );
+        }}
+      </Query>
+    );
   }
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingPageProps & ListingPageReduxProps => {
+const mapToStateToProps = (state: State, ownProps: ListingPageProps): ListingPageProps => {
   return {
     ...ownProps,
-    useGraphQl: state.useGraphQL,
     listingAddress: ownProps.match.params.listingAddress,
   };
 };

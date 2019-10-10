@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import {
   Modal,
   Button,
@@ -11,9 +11,9 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
 } from ".";
-import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
-import * as confirmButton from "./images/img-metamask-confirm@2x.png";
-import * as signImage from "./images/img-metamaskmodal-new-signature.png";
+import metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
+import confirmButton from "./images/img-metamask-confirm@2x.png";
+import signImage from "./images/img-metamaskmodal-new-signature.png";
 
 const ModalP = styled.p`
   font-size: 16px;
@@ -39,7 +39,7 @@ export interface ContentSectionWrapperProps {
   row?: boolean;
 }
 
-export const MetaMaskStepCounter: StyledComponentClass<any, "div"> = styled.div`
+export const MetaMaskStepCounter = styled.div`
   font-weight: 600;
 `;
 

@@ -10,7 +10,7 @@ interface TextAlignProps {
   textAlign?: string | undefined;
 }
 
-const ModalOuter = styled<ToggleDisplayEl & TextAlignProps, "div">("div")`
+const ModalOuter = styled.div<ToggleDisplayEl & TextAlignProps>`
   position: fixed;
   top: 0;
   bottom: 0;
@@ -58,6 +58,7 @@ export interface ModalPropsAndState {
   width?: number;
   padding?: string;
   fullScreen?: boolean;
+  onOuterClicked?(): void;
 }
 
 export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndState> {
@@ -90,8 +91,23 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
 
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(
-      <ModalOuter visible={this.state.visible!} textAlign={this.props.textAlign}>
-        <ModalInner width={this.props.width} fullScreen={this.props.fullScreen} padding={this.props.padding}>
+      <ModalOuter
+        visible={this.state.visible!}
+        textAlign={this.props.textAlign}
+        onClick={() => {
+          if (this.props.onOuterClicked) {
+            this.props.onOuterClicked();
+          }
+        }}
+      >
+        <ModalInner
+          width={this.props.width}
+          fullScreen={this.props.fullScreen}
+          padding={this.props.padding}
+          onClick={(ev: any) => {
+            ev.stopPropagation();
+          }}
+        >
           {this.props.children}
         </ModalInner>
       </ModalOuter>,

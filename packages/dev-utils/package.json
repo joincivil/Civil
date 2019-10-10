@@ -20,7 +20,6 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@0x/subproviders": "^5.0.0",
     "argparse": "^1.0.9",
     "bn-chai": "^1.0.1",
     "bn.js": "^4.11.8",
@@ -50,7 +49,7 @@
     "@types/node": "^10.12.0",
     "rimraf": "^2.6.2",
     "tslint": "^5.17.0",
-    "typescript": "^3.4.1"
+    "typescript": "^3.6.2"
   },
   "publishConfig": {
     "access": "public"

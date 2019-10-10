@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 
 import { colors, fonts, mediaQueries } from "./styleConstants";
 
@@ -91,7 +91,7 @@ const ModalListItemStyles: ModalListItemColorsProps = {
   [ModalListItemTypes.STRONG]: [colors.primary.CIVIL_BLUE_1, "normal", "bold"],
 };
 
-export const ModalListItem = styled<ModalListItemProps, "li">("li")`
+export const ModalListItem = styled.li<ModalListItemProps>`
   color: ${props => (props.type && ModalListItemStyles[props.type][0]) || colors.primary.CIVIL_GRAY_2}
   font-style: ${props => (props.type && ModalListItemStyles[props.type][1]) || "normal"};
   font-weight: ${props => (props.type && ModalListItemStyles[props.type][2]) || "normal"};

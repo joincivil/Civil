@@ -5,6 +5,8 @@ import {
   PageSubHeadingCentered,
   PageHeadingCentered,
   PageHeadingTextCenteredLarge,
+  PageHeadingLeftAligned,
+  PageHeadingTextLeftAligned,
 } from "../../Heading";
 import { Link } from "react-router-dom";
 
@@ -78,6 +80,24 @@ export const AuthTextSigninWithEmail: React.FunctionComponent = () => (
     <PageHeadingTextCentered>
       Enter the address associated with your account, and we'll send a magic link to your inbox.
     </PageHeadingTextCentered>
+  </>
+);
+
+export const AuthTextSetHandle: React.FunctionComponent = () => (
+  <>
+    <PageHeadingCentered>Welcome to the Civil community</PageHeadingCentered>
+    <PageHeadingTextCentered>
+      To help the Civil community identify you, please enter a username.
+    </PageHeadingTextCentered>
+  </>
+);
+
+export const AuthTextSetAvatar: React.FunctionComponent = () => (
+  <>
+    <PageHeadingLeftAligned>Add profile photo</PageHeadingLeftAligned>
+    <PageHeadingTextLeftAligned>
+      To help the Civil community identify you, add a profile image.
+    </PageHeadingTextLeftAligned>
   </>
 );
 

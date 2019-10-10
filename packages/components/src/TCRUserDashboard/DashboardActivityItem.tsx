@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { buttonSizes, InvertedButton } from "../Button";
 import { CharterData } from "@joincivil/core";
 import { SmallNewsroomIcon } from "../ListingSummary/styledComponents";
-import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
+import defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 import {
   StyledDashboardActivityItem,
   StyledDashboardActivityItemDetails,

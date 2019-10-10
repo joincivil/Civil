@@ -1,9 +1,9 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../../styleConstants";
-import * as checkEmailImage from "../../images/auth/img-check-email@2x.png";
-import * as confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
-import * as iconError from "../../images/icons/ico-error-red@2x.png";
+import checkEmailImage from "../../images/auth/img-check-email@2x.png";
+import confirmedEmailImage from "../../images/auth/img-confirm-email@2x.png";
+import iconError from "../../images/icons/ico-error-red@2x.png";
 import { urlConstants as links } from "@joincivil/utils";
 
 import {
@@ -19,6 +19,7 @@ export const CheckboxContainer = styled.ul`
   list-style: none;
   padding-left: 0;
   margin-top: 0;
+  max-width: 300px;
 `;
 
 export const CheckboxSection = styled.li`
@@ -33,6 +34,12 @@ export const CheckboxLabel = styled.span`
 `;
 
 export const ConfirmButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+`;
+
+export const SkipForNowButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 20px;
@@ -165,6 +172,43 @@ export const AuthEmailVerify = ({
       )}
       <CenterWrapper>
         <Button size={buttonSizes.MEDIUM_WIDE} onClick={onAuthenticationContinue}>
+          Continue
+        </Button>
+      </CenterWrapper>
+    </>
+  );
+};
+
+export interface ConfirmEmailVerifyProps {
+  hasVerified: boolean;
+  errorMessage: string | undefined;
+  ethAuthNextExt?: boolean;
+  onEmailConfirmContinue(): void;
+}
+
+export const EmailConfirmVerify = ({
+  hasVerified,
+  errorMessage,
+  onEmailConfirmContinue,
+  ethAuthNextExt,
+}: ConfirmEmailVerifyProps) => {
+  if (errorMessage) {
+    return <AuthTextVerifyTokenError errorMessage={errorMessage} />;
+  }
+
+  return (
+    <>
+      {hasVerified ? <AuthTextVerifyTokenConfirmed /> : <AuthTextVerifyTokenVerifying />}
+      <CenterWrapper>
+        <ConfirmedEmailLetterIcon />
+      </CenterWrapper>
+      {ethAuthNextExt && (
+        <div style={{ marginBottom: 24 }}>
+          <AuthTextEthAuthNext />
+        </div>
+      )}
+      <CenterWrapper>
+        <Button size={buttonSizes.MEDIUM_WIDE} onClick={onEmailConfirmContinue}>
           Continue
         </Button>
       </CenterWrapper>

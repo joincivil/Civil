@@ -1,7 +1,7 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
-import { DarkButton, ButtonProps } from "../Button";
+import { DarkButton } from "../Button";
 import { HeroProps } from "./Hero";
 
 export const HeroOuter = styled.div`
@@ -59,7 +59,7 @@ export const StyledButtonContainer = styled.div`
   justify-content: center;
 `;
 
-export const CTAButton: StyledComponentClass<ButtonProps, "button"> = styled(DarkButton)`
+export const CTAButton = styled(DarkButton)`
   border: 2px solid ${colors.basic.WHITE};
   font-size: 14px;
   font-weight: bold;

@@ -17,6 +17,7 @@ import {
   LoadUser,
   withNewsroomChannel,
   NewsroomChannelInjectedProps,
+  ModalHeading,
 } from "@joincivil/components";
 import { Query, Mutation, MutationFunc } from "react-apollo";
 import { boostNewsroomQuery, createBoostMutation, editBoostMutation } from "./queries";
@@ -29,8 +30,11 @@ import {
   BoostPayFormTitle,
   BoostSmallPrint,
   BoostImgDiv,
+  BoostModalContent,
 } from "./BoostStyledComponents";
 import { BoostImg } from "./BoostImg";
+import { BoostModal } from "./BoostModal";
+import { BoostShare } from "./BoostShare";
 import { urlConstants } from "../urlConstants";
 import * as boostCardImage from "../../images/boost-card.png";
 import { withBoostPermissions, BoostPermissionsInjectedProps } from "./BoostPermissionsHOC";
@@ -164,6 +168,11 @@ const LaunchButton = styled(Button)`
   text-transform: none;
   width: 190px;
 `;
+const ErrorContainer = styled.div`
+  clear: both;
+  float: right;
+  margin-top: 10px;
+`;
 
 const ConnectStripeNotice = styled.div`
   background-color: rgb(208, 237, 237);
@@ -177,6 +186,16 @@ const ConnectStripeNotice = styled.div`
     font-weight: 700;
     margin-bottom: 5px;
   }
+`;
+
+const SuccessModal = styled(BoostModal)`
+  overflow: auto;
+`;
+const SuccessButton = styled(Button)`
+  width: 180px;
+  text-align: center;
+  float: right;
+  margin-top: 16px;
 `;
 
 export interface BoostFormInnerProps {
@@ -412,13 +431,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   End date
                   <QuestionToolTip explainerText="All proceeds go directly to the Newsroom. There are small fees charged by the Ethereum network." />
                 </BoostFormTitle>
-                <EndDateInput
-                  type="date"
-                  name="dateEnd"
-                  value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
-                  onChange={this.onDateEndInputChange}
-                  disabled={this.props.editMode}
-                />
+                {this.renderEndDate()}
                 <EndDateNotice>Your Boost will end at 11:59PM on the date selected.</EndDateNotice>
                 {!this.props.channelData.isStripeConnected && (
                   <ConnectStripeNotice>
@@ -438,29 +451,69 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                 <a href={urlConstants.TERMS}>Terms of Use</a> and{" "}
                 <a href={urlConstants.PRIVACY_POLICY}>Privacy Policy</a>.
               </LaunchDisclaimer>
-              <LaunchButton size={buttonSizes.MEDIUM} type="submit" disabled={this.state.loading || this.state.success}>
+              <LaunchButton
+                size={buttonSizes.MEDIUM}
+                type="submit"
+                disabled={this.state.loading || this.state.success}
+                loading={this.state.loading}
+              >
                 {this.props.editMode ? "Update Boost" : "Launch Boost"}
               </LaunchButton>
 
-              {/*@TODO/tobek Temporary feedback until we implement success modal*/}
-              <div style={{ clear: "both", float: "right", marginTop: 10 }}>
-                {this.state.loading && "loading..."}
-                {this.state.error && <Error>{this.state.error}</Error>}
-                {this.state.success && (
-                  <>
-                    Boost {this.props.editMode ? "updated" : "created"} successfully!{" "}
-                    <a
-                      href={"/boosts/" + (this.props.boostId || this.state.createdBoostId) + "?feature-flag=boosts-mvp"}
-                    >
-                      View boost.
-                    </a>
-                  </>
-                )}
-              </div>
+              {this.state.error && (
+                <ErrorContainer>
+                  <Error>{this.state.error}</Error>
+                </ErrorContainer>
+              )}
+
+              <SuccessModal open={!!this.state.success}>
+                <ModalHeading>Boost {this.props.editMode ? "Updated" : "Launched!"}</ModalHeading>
+                <BoostModalContent>
+                  {this.props.editMode ? (
+                    <>
+                      Your Boost <b>{this.state.boost.title}</b> has been updated successfully.
+                    </>
+                  ) : (
+                    <>
+                      Great work! Your Boost <b>{this.state.boost.title}</b> has successfully launched and is live.
+                    </>
+                  )}
+                </BoostModalContent>
+                <BoostModalContent>
+                  <b>Next step:</b> Share your Boost on social media to help get it funded!
+                </BoostModalContent>
+                <BoostShare
+                  boostId={this.props.boostId || this.state.createdBoostId!}
+                  newsroom={this.props.newsroomData.name}
+                  title={this.state.boost.title!}
+                />
+                <SuccessButton
+                  size={buttonSizes.MEDIUM_WIDE}
+                  to={"/boosts/" + (this.props.boostId || this.state.createdBoostId)}
+                >
+                  View Boost
+                </SuccessButton>
+              </SuccessModal>
             </form>
           );
         }}
       </Mutation>
+    );
+  }
+
+  private renderEndDate(): JSX.Element {
+    const date = new Date();
+    date.setDate(date.getDate() + 1);
+
+    return (
+      <EndDateInput
+        type="date"
+        name="dateEnd"
+        min={date.toISOString().split("T")[0]}
+        value={this.state.boost.dateEnd && this.state.boost.dateEnd.substr(0, 10)}
+        onChange={this.onDateEndInputChange}
+        disabled={this.props.editMode}
+      />
     );
   }
 
@@ -509,7 +562,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   {!this.props.editMode && (
                     <td>
                       {i > 0 && (
-                        <ItemLink href="#" onClick={e => this.removeItem(e, i)}>
+                        <ItemLink href="#" onClick={(e: any) => this.removeItem(e, i)}>
                           x
                         </ItemLink>
                       )}
@@ -532,10 +585,10 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
               <td>
                 <BoostFormTitle>Boost Goal</BoostFormTitle>
                 <p>
-                  Your Boost Goal is the amount you would like to raise. If you Boost does not reach it’s amount goal by
-                  the end date, the funds sent by supporters will still be collected into your Newsroom Wallet. Once the
-                  Boost will ends, you’ll be able to widthdrawl and either dispense or exchange the funds to your wallet
-                  or exchange for another currency.
+                  Your Boost goal is the amount you would like to raise. If your Boost does not reach its amount goal by
+                  the end date, the proceeds sent by supporters will still be collected into your Newsroom’s wallet.
+                  Once the Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
+                  wallet, or exchange to another currency.
                 </p>
               </td>
               <ItemCostCell>

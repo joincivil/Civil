@@ -1,6 +1,6 @@
 import * as React from "react";
 import { urlConstants } from "@joincivil/utils";
-import * as metaMaskNetworkSwitchUrl from "../images/img-metamask-networkswitch@2x.png";
+import metaMaskNetworkSwitchUrl from "../images/img-metamask-networkswitch@2x.png";
 import { Modal } from "../Modal";
 import { MetaMaskMockImage, MetaMaskIcon, StyledLargeModalText, StyledSmallModalText } from "./styledComponents";
 

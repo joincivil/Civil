@@ -11,28 +11,31 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
     }
   >
     <div
-      className="sc-ccLTTT gJtpAv"
+      className="sc-LzMlD cAkPKJ"
     >
       <div
-        className="sc-hlILIN ckhOCu"
+        className="sc-LzMlE hmDUDX"
       >
         <div
-          className="sc-bJHhxl fGbmqv"
+          className="sc-LzMlG eFJFvs"
         >
           <div
-            className="sc-jQMNup gnXvy"
+            className="sc-LzMlF gsvjTY"
           >
             <a
               href="https://civil.co"
             >
               <svg
-                height="21"
+                className="sc-fzXfPf hHlBzH"
+                height={21}
                 viewBox="0 0 72 21"
-                width="72"
+                width={72}
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#FFFFFF"
+                  fillRule="evenodd"
+                  transform="translate(0 .457)"
                 >
                   <path
                     d="M.5 10c0-5.76 4.357-10 9.856-10 3.58 0 6.069 1.414 7.729 3.77L15.75 5.445c-1.297-1.728-2.905-2.67-5.499-2.67-3.838 0-6.64 3.089-6.64 7.225 0 4.24 2.853 7.225 6.744 7.225 2.49 0 4.357-.942 5.81-2.827L18.5 16.02C16.529 18.691 13.987 20 10.252 20 4.805 20 .5 15.76.5 10M22.5 20h3V1h-3zM29 1h3.382l5.782 13.228L43.782 1H47l-8.782 20h-.163zM50.5 20h3V1h-3zM59.5 1h3.175v16.344H71.5V20h-12z"
@@ -42,13 +45,13 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-jRhVzh lbGXrs"
+            className="sc-LzMCd HTmYL"
           >
             <div
-              className="sc-bYnzgO kfUtrd"
+              className="sc-LzMCi gqhwcV"
             >
               <span
-                className="sc-cPuPxo IoiaZ"
+                className="sc-LzMCj eyrZOv"
               >
                 <a
                   href="/registry"
@@ -57,11 +60,11 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                   Registry
                 </a>
                 <div
-                  className="sc-hvvHee huMhLE"
+                  className="sc-LzMCH jUuLga"
                 />
               </span>
               <div
-                className="sc-fvLVrH gVesKj"
+                className="sc-LzMCI fDqpnd"
               >
                 <a
                   href="/registry"
@@ -100,7 +103,7 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </a>
           </div>
           <div
-            className="sc-iHhHRJ ftRHRE"
+            className="sc-LzMCe iirGx"
           >
             <div
               onClick={[Function]}
@@ -120,22 +123,31 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
             </div>
           </div>
           <div
-            className="sc-kqlzXE iojMDB"
+            className="sc-LzMCf fTogel"
           />
         </div>
         <div
-          className="sc-TuwoP iLjRNZ"
+          className="sc-LzMlH iZpHzR"
         >
-          <a
-            href="/#auth"
+          <button
+            className="sc-fzXfOu sc-fzXfOy sc-LzMBt fEtPzJ"
             onClick={[Function]}
+            theme={
+              Object {
+                "darkButtonBackground": "#000000",
+                "darkButtonColor": "#FFFFFF",
+                "darkButtonHoverBackground": "#5A5653",
+                "darkButtonHoverColor": "#FFFFFF",
+                "darkButtonTextTransform": "none",
+              }
+            }
+            type="button"
           >
             Log In
-          </a>
-          <a
-            className="sc-bvTASY dMQAay sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
-            href="#buy-tokens"
-            size="SMALL"
+          </button>
+          <button
+            className="sc-fzXfOu sc-fzXfOy sc-LzMBu ijbQqM"
+            onClick={[Function]}
             theme={
               Object {
                 "darkButtonBackground": "#000000",
@@ -145,25 +157,10 @@ exports[`Storyshots Common / Nav / Nav Bar Global Nav 1`] = `
                 "darkButtonTextTransform": "none",
               }
             }
+            type="button"
           >
-            Join as a member
-          </a>
-          <a
-            className="sc-bvTASY dMQAay sc-hSdWYo jhPlkS sc-hMqMXs dMEdoq"
-            href="#apply"
-            size="SMALL"
-            theme={
-              Object {
-                "darkButtonBackground": "#000000",
-                "darkButtonColor": "#FFFFFF",
-                "darkButtonHoverBackground": "#5A5653",
-                "darkButtonHoverColor": "#FFFFFF",
-                "darkButtonTextTransform": "none",
-              }
-            }
-          >
-            Join as a newsroom
-          </a>
+            Sign Up
+          </button>
         </div>
       </div>
     </div>
@@ -596,7 +593,7 @@ exports[`Storyshots Common / Nav / Nav Bar Nav Error Bar 1`] = `
     }
   >
     <div
-      className="sc-eSePXt gZDoaG"
+      className="sc-LzMCJ hixvpK"
     >
       Please Switch To Rinkeby Testnet
     </div>

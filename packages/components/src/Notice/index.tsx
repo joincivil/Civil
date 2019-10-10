@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { InfoNotification } from "../icons";
 
@@ -48,20 +48,20 @@ const typeColors = {
   },
 };
 
-export const NoticeContainer = styled<NoticeContainerProps, "div">("div")`
+export const NoticeContainer = styled.div<NoticeContainerProps>`
   display: flex;
   flex-direction: row;
-  color: ${props => typeColors[props.type].color};
+  color: ${(props: NoticeContainerProps) => typeColors[props.type].color};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 20px;
   padding: 30px 0;
   text-align: center;
-  border: 1px solid ${props => typeColors[props.type].border};
+  border: 1px solid ${(props: NoticeContainerProps) => typeColors[props.type].border};
   border-radius: 4px;
-  background-color: ${props => typeColors[props.type].background};
+  background-color: ${(props: NoticeContainerProps) => typeColors[props.type].background};
   align-items: center;
-  font-weight: ${props => typeColors[props.type].weight};
+  font-weight: ${(props: NoticeContainerProps) => typeColors[props.type].weight};
 `;
 
 export const NoticeIconContainer = styled("div")`

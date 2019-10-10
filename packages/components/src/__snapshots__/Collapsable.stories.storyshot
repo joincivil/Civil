@@ -11,11 +11,11 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-hZSUBg cOISRd"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -23,12 +23,12 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
           </h3>
            
           <div
-            className="sc-bsbRJL eRPICe"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-iQNlJl fIpEkR"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -496,11 +496,11 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-hZSUBg cOISRd"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -508,13 +508,13 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
           </h3>
            
           <div
-            className="sc-bsbRJL jhNsdx"
+            className="sc-LzLsD fekAuX"
             disabled={true}
             open={false}
           />
         </div>
         <div
-          className="sc-iQNlJl fIpEkR"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -990,11 +990,11 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-hZSUBg cOISRd"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           <h3>
@@ -1002,12 +1002,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
           </h3>
            
           <div
-            className="sc-bsbRJL fsOQSz"
+            className="sc-LzLsD fbnyFS"
             open={true}
           />
         </div>
         <div
-          className="sc-iQNlJl hqWUAY"
+          className="sc-LzLsC jtwnhX"
           height={null}
           open={true}
         >
@@ -1457,22 +1457,22 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-hZSUBg cOISRd"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-hBcjXN dWYcrW"
+            className="sc-LzNOQ ieUmgO"
             open={false}
           />
         </div>
         <div
-          className="sc-iQNlJl fIpEkR"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >
@@ -1720,11 +1720,100 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
                             <span
                               style={
                                 Object {
-                                  "color": "#170",
+                                  "color": "#666",
                                 }
                               }
                             >
-                              StyledComponent
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  $$typeof
+                                </span>
+                              </span>
+                              : 
+                              <span>
+                                …
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  render
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#170",
+                                  }
+                                }
+                              >
+                                forwardRef
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  attrs
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                [
+                                ]
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
                             </span>
                             }
                           </span>
@@ -1967,22 +2056,22 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-      className="sc-jEdsij LhbnD"
+      className="sc-LzNMX dLtxTG"
     >
       <div>
         <div
-          className="sc-hZSUBg cOISRd"
+          className="sc-LzLsE hMXVqQ"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-bsbRJL eRPICe"
+            className="sc-LzLsD bpcPGL"
             open={false}
           />
         </div>
         <div
-          className="sc-iQNlJl fIpEkR"
+          className="sc-LzLsC gaNlrg"
           height={null}
           open={false}
         >

@@ -14,11 +14,10 @@ import {
   ClipLoader,
 } from "@joincivil/components";
 import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
-import { CivilContext, CivilContextValue } from "./CivilContext";
 import { removeEditor, fetchNewsroom } from "./actionCreators";
 
 export enum UserTypes {
@@ -30,7 +29,7 @@ const TertiaryButton = styled(_TertiaryButton)`
   margin: 1em 0;
 `;
 
-const Wrapper: StyledComponentClass<{}, "div"> = styled.div`
+const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -68,7 +67,7 @@ export interface NewsroomUserProps {
   type: UserTypes;
 }
 
-export const DisabledTransactionProcessingButton: StyledComponentClass<any, "button"> = styled.button`
+export const DisabledTransactionProcessingButton = styled.button`
   padding: 8px;
   background: transparent;
   border-radius: 3px;
@@ -144,19 +143,15 @@ export class NewsroomUserComponent extends React.Component<
         : "To remove a Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <MetaMaskModal
-            waiting={false}
-            denied={true}
-            denialText={denialMessage}
-            cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransaction(true)}
-          >
-            <ModalHeading>{message}</ModalHeading>
-          </MetaMaskModal>
-        )}
-      </CivilContext.Consumer>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={() => this.cancelTransaction()}
+        denialRestartTransactions={this.getTransaction(true)}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
     );
   }
 
@@ -345,14 +340,14 @@ export class NewsroomUserComponent extends React.Component<
   };
 }
 
-const mapStateToProps = (
-  state: StateWithNewsroom,
-  ownProps: Partial<NewsroomUserProps>,
-): Partial<NewsroomUserProps> => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: Partial<NewsroomUserProps>): NewsroomUserProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
   return {
     ...ownProps,
+    type: ownProps.type!,
+    address: ownProps.address!,
+    newsroomAddress: ownProps.newsroomAddress!,
     newsroom: newsroom.newsroom,
   };
 };

@@ -14,11 +14,11 @@
   "author": "The Civil Media Company",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/web3": "^1.0.19",
     "@joincivil/typescript-types": "^1.4.8",
     "@types/debug": "^0.0.30",
     "@types/lodash": "^4.14.99",
-    "typescript": "^3.4.1"
+    "@types/web3": "^1.0.19",
+    "typescript": "^3.6.2"
   },
   "bugs": {
     "url": "https://github.com/joincivil/Civil/issues"

@@ -15,6 +15,7 @@ export interface LoadUserProps {
 export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
   const apolloSessionKey = getApolloSessionKey();
   const [auth] = useStateWithLocalStorage(apolloSessionKey);
+  useStateWithLocalStorage("network"); // basically just pay attention to when network is set
 
   const renderFunction = props.children;
   const hasAuthToken = auth && auth.token;
@@ -24,7 +25,7 @@ export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
   }
 
   return (
-    <Query query={getCurrentUserQuery}>
+    <Query<any> query={getCurrentUserQuery}>
       {({ loading, error, data }) => {
         if (loading || error) {
           return renderFunction({ user: null, loading });

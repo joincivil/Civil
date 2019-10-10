@@ -1,10 +1,18 @@
 import { storiesOf } from "@storybook/react";
 import StoryRouter from "storybook-react-router";
 import * as React from "react";
+import Web3HttpProvider from "web3-providers-http";
+
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
 import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
+import { CivilContext, buildCivilContext } from "../context";
+import Web3 from "web3";
+
+const web3Provider = new Web3HttpProvider("http://localhost:8045");
+const web3 = new Web3(web3Provider);
+const civilContext = buildCivilContext({ web3, featureFlags: ["uniswap"], config: { DEFAULT_ETHEREUM_NETWORK: 4 } });
 
 const onClickFunc = () => {
   console.log("clicked!");
@@ -51,11 +59,23 @@ storiesOf("Storefront / User Token Account", module)
   )
   .addDecorator(StoryRouter())
   .add("Signup Section", () => {
-    return <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />;
+    return (
+      <CivilContext.Provider value={civilContext}>
+        <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />
+      </CivilContext.Provider>
+    );
   })
   .add("Tutorial Verify", () => {
-    return <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />;
+    return (
+      <CivilContext.Provider value={civilContext}>
+        <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />
+      </CivilContext.Provider>
+    );
   })
   .add("Buy Section", () => {
-    return <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />;
+    return (
+      <CivilContext.Provider value={civilContext}>
+        <UserTokenAccountBuy step={"active"} network={"4"} foundationAddress={"0x..."} />
+      </CivilContext.Provider>
+    );
   });

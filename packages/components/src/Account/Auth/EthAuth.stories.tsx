@@ -1,10 +1,12 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
+import Web3HttpProvider from "web3-providers-http";
 import apolloStorybookDecorator from "apollo-storybook-react";
-import styled, { StyledComponentClass } from "styled-components";
-import { Civil } from "@joincivil/core";
+import styled from "styled-components";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { AccountEthAuth } from "../";
+import { CivilContext, buildCivilContext } from "../../context";
+import Web3 from "web3";
 
 export const Container = styled.div`
   align-items: center;
@@ -62,12 +64,9 @@ const mocks = {
   },
 };
 
-let civil: Civil | undefined;
-try {
-  civil = new Civil();
-} catch (error) {
-  civil = undefined;
-}
+const web3Provider = new Web3HttpProvider("http://localhost:8033");
+const web3 = new Web3(web3Provider);
+const civilContext = buildCivilContext({ web3, featureFlags: [], config: { DEFAULT_ETHEREUM_NETWORK: 4 } });
 
 storiesOf("Common / Auth / ETH", module)
   .addDecorator(
@@ -78,13 +77,15 @@ storiesOf("Common / Auth / ETH", module)
   )
   .add("AccountEthAuth Component", () => {
     return (
-      <Container>
-        <AccountEthAuth
-          civil={civil!}
-          onAuthenticated={() => {
-            alert("authenticated successfully");
-          }}
-        />
-      </Container>
+      <CivilContext.Provider value={civilContext}>
+        <Container>
+          <AccountEthAuth
+            civil={civilContext.civil!}
+            onAuthenticated={() => {
+              alert("authenticated successfully");
+            }}
+          />
+        </Container>
+      </CivilContext.Provider>
     );
   });

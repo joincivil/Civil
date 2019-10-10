@@ -26,14 +26,6 @@ import {
   loadingFinished,
 } from "./listings";
 import {
-  parameters,
-  proposals,
-  parameterProposalChallenges,
-  parameterProposalChallengesFetching,
-  proposalChallengeUserData,
-  proposalChallengesToPropIDs,
-} from "./parameterizer";
-import {
   appealChallengeUserData,
   challenges,
   challengesFetching,
@@ -56,7 +48,7 @@ import {
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
-import { ui, useGraphQL } from "./ui";
+import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, List, Map } from "immutable";
 import {
@@ -64,7 +56,6 @@ import {
   WrappedChallengeData,
   UserChallengeData,
   EthAddress,
-  ParamPropChallengeData,
   MultisigTransaction,
   EthContentHeader,
   ContentData,
@@ -88,6 +79,8 @@ export interface State {
   networkName: string;
   ui: Map<string, any>;
   useGraphQL: boolean;
+  showWeb3AuthModal: boolean;
+  web3AuthType: string;
   newsrooms: Map<string, NewsroomState>;
   newsroomUi: Map<string, any>;
   newsroomUsers: Map<EthAddress, string>;
@@ -118,12 +111,6 @@ export interface NetworkDependentState {
   rejectedListings: Set<string>;
   loadingFinished: boolean;
   user: { account: any };
-  parameters: object;
-  proposals: Map<string, object>;
-  parameterProposalChallenges: Map<string, ParamPropChallengeData>;
-  parameterProposalChallengesFetching: Map<string, any>;
-  proposalChallengeUserData: Map<string, Map<string, UserChallengeData>>;
-  proposalChallengesToPropIDs: Map<string, string>;
   govtParameters: object;
   govtProposals: Map<string, object>;
   challenges: Map<string, WrappedChallengeData>;
@@ -172,12 +159,6 @@ const networkDependentReducers = combineReducers({
   rejectedListings,
   loadingFinished,
   user,
-  parameters,
-  proposals,
-  parameterProposalChallenges,
-  parameterProposalChallengesFetching,
-  proposalChallengeUserData,
-  proposalChallengesToPropIDs,
   govtParameters,
   govtProposals,
   challenges,
@@ -223,4 +204,6 @@ export default (history: any) =>
     networkName,
     ui,
     useGraphQL,
+    showWeb3AuthModal,
+    web3AuthType,
   });

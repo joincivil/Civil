@@ -1,10 +1,10 @@
 import * as React from "react";
-import styled, { StyledComponentClass, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { colors } from "./styleConstants";
 
 export interface ClipLoaderProps {
   size?: number;
-  theme?: any;
+  theme?: { clipLoaderColor: string };
 }
 
 const clip = keyframes`
@@ -13,7 +13,7 @@ const clip = keyframes`
 100% {transform: rotate(360deg) scale(1)}
 `;
 
-export const ClipLoader: StyledComponentClass<ClipLoaderProps, "div"> = styled<ClipLoaderProps, "div">("div")`
+export const ClipLoader = styled.div<ClipLoaderProps>`
   background: transparent;
   width: ${(props: any) => props.size}px;
   height: ${(props: any) => props.size}px;
