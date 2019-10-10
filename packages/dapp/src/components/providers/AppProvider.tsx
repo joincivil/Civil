@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
-import { ConnectedRouter } from "connected-react-router";
 
 import { INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
 import { getApolloClient } from "@joincivil/utils";
@@ -9,9 +8,6 @@ import { CivilProvider } from "@joincivil/components";
 import { ErrorBoundry } from "../errors/ErrorBoundry";
 
 import config from "../../helpers/config";
-import { store, history } from "../../redux/store";
-
-import { Provider } from "react-redux";
 
 console.log("using config:", config);
 
@@ -36,13 +32,11 @@ export const AppProvider: React.FunctionComponent = ({ children }) => {
 
   return (
     <ErrorBoundry>
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          <CivilProvider pluginConfig={pluginConfig} featureFlags={featureFlags} config={config}>
-            <ConnectedRouter history={history}>{children}</ConnectedRouter>
-          </CivilProvider>
-        </ApolloProvider>
-      </Provider>
+      <ApolloProvider client={client}>
+        <CivilProvider pluginConfig={pluginConfig} featureFlags={featureFlags} config={config}>
+          {children}
+        </CivilProvider>
+      </ApolloProvider>
     </ErrorBoundry>
   );
 };
