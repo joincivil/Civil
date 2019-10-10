@@ -189,7 +189,8 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
   private startPayment = (usdToSpend: number) => {
     this.props.history.push({
-      pathname: this.props.location.pathname + "/payment",
+      // Current pathname shouldn't have trailing slash, but could happen if someone copied the payment route and deleted "payment" instead of "/payment", as I keep doing when testing, so, get rid of it
+      pathname: this.props.location.pathname.replace(/\/$/, "") + "/payment",
       state: { usdToSpend },
     });
     this.context.fireAnalyticsEvent("boosts", "start support", this.props.boostId, usdToSpend);
