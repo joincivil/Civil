@@ -17,7 +17,7 @@ import {
 } from "../BoostTextComponents";
 import { BoostModal } from "../BoostModal";
 import { BoostPayFormEth } from "./BoostPayFormEth";
-import { UsdEthConverter, HollowGreenCheck } from "@joincivil/components";
+import { UsdEthConverter, HollowGreenCheck, CivilContext, ICivilContext } from "@joincivil/components";
 import { EthAddress } from "@joincivil/core";
 import { Mutation, MutationFunc } from "react-apollo";
 import { boostPayEthMutation } from "../queries";
@@ -40,7 +40,6 @@ export interface BoostPayEthProps {
   paymentType: string;
   etherToSpend: number;
   usdToSpend: number;
-  walletConnected: boolean;
   handlePaymentSelected?(paymentType: string): void;
   handleNext(etherToSpend: number, usdToSpend: number): void;
   handlePaymentSuccess(): void;
@@ -53,9 +52,13 @@ export interface BoostPayEthStates {
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
+  walletConnected: boolean;
 }
 
 export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthStates> {
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   public constructor(props: BoostPayEthProps) {
     super(props);
     this.state = {
@@ -65,7 +68,15 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
       etherToSpend: this.props.etherToSpend || 0,
       usdToSpend: this.props.usdToSpend,
       notEnoughEthError: false,
+      walletConnected: false,
     };
+  }
+
+  public async componentDidMount(): Promise<void> {
+    if (this.context.civil) {
+      await this.context.civil.currentProviderEnable();
+      this.setState({ walletConnected: true });
+    }
   }
 
   public render(): JSX.Element {
@@ -100,7 +111,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
 
   private renderEthCheck = () => {
     let disableBtn;
-    if (!this.props.walletConnected || this.state.usdToSpend <= 0 || this.state.notEnoughEthError) {
+    if (!this.state.walletConnected || this.state.usdToSpend <= 0 || this.state.notEnoughEthError) {
       disableBtn = true;
     } else {
       disableBtn = false;
@@ -108,7 +119,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
 
     return (
       <>
-        {!this.props.walletConnected && <BoostConnectWalletWarningText />}
+        {!this.state.walletConnected && <BoostConnectWalletWarningText />}
         <LearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>
@@ -189,7 +200,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     let showMobileWalletModal = false;
 
     // TODO(sruddy) do we have a check for mobile browser util?
-    if (window.innerWidth < 800 && !this.props.walletConnected) {
+    if (window.innerWidth < 800 && !this.state.walletConnected) {
       showMobileWalletModal = true;
     }
 

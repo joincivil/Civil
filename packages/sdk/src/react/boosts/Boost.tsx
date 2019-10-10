@@ -128,7 +128,6 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                       title={boostData.title}
                       newsroomName={newsroomData.name}
                       paymentAddr={newsroomData.owner}
-                      walletConnected={!!this.props.walletConnected}
                       handleBackToListing={this.handleBackToListing}
                       handlePaymentSuccess={this.handlePaymentSuccess}
                       isStripeConnected={boostData.channel.isStripeConnected}

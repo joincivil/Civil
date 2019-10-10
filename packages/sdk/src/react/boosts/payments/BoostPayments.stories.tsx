@@ -50,7 +50,6 @@ storiesOf("Boosts", module)
           title={"Help The Colorado Sun stage a panel discussion about the impact of the opioid crisis on Colorado"}
           newsroomName={"The Colorado Sun"}
           paymentAddr={"0x"}
-          walletConnected={true}
           handleBackToListing={handlePaymentSuccess}
           handlePaymentSuccess={handlePaymentSuccess}
           isStripeConnected={true}

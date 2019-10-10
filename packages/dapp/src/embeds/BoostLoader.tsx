@@ -62,7 +62,7 @@ const BoostLoaderComponent: React.FunctionComponent = () => {
         <CivilIcon />
       </CivilLogoLink>
       <ThemeProvider theme={theme}>
-        <Boost boostId={boostId} open={true} payment={!!payment} />
+        <Boost boostId={boostId} open={true} payment={!!payment} disableOwnerCheck={true} />
       </ThemeProvider>
     </>
   );
