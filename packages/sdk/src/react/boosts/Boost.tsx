@@ -174,7 +174,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
   }
 
   private renderEditMode(boostData: BoostData, newsroomData: BoostNewsroomData): JSX.Element {
-    const listingUrl = "https://registry.civil.co/listing/" + boostData.channel.newsroom.contractAddress;
+    const listingUrl = `${document.location.origin}/listing/${boostData.channel.newsroom.contractAddress}`;
     return (
       <BoostForm
         channelID={boostData.channel.id}

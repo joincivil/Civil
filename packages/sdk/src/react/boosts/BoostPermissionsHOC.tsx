@@ -146,7 +146,7 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
             add you to the newsroom contract.
           </p>
           <p>
-            <a href={"https://registry.civil.co/listing/" + this.state.newsroomContractAddress}>
+            <a href={`${document.location.origin}/listing/${this.state.newsroomContractAddress}`}>
               View newsroom information.
             </a>
           </p>
