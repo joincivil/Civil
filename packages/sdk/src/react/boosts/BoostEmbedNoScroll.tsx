@@ -52,7 +52,7 @@ export const BoostEmbedNoScroll: React.FunctionComponent<BoostEmbedNoScrollProps
   <>
     <GlobalStyleNoScroll />
     <OverflowLinkContainer>
-      <OverflowLink href={"https://registry.civil.co/boosts/" + props.boostId} target="_blank">
+      <OverflowLink href={`${document.location.origin}/boosts/${props.boostId}`} target="_blank">
         View More
       </OverflowLink>
     </OverflowLinkContainer>

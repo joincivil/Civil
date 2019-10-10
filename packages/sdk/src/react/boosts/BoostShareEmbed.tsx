@@ -5,6 +5,7 @@ import { BoostModalContent, BoostModalCloseBtn } from "./BoostStyledComponents";
 
 const EmbedCode = styled.pre`
   white-space: pre-wrap;
+  word-break: break-word;
   background: ${colors.accent.CIVIL_GRAY_5};
   padding: 8px;
 `;
@@ -35,8 +36,8 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
               Copy and paste this HTML code into your website where you would like this Boost to embedded:
             </BoostModalContent>
             <EmbedCode>
-              &lt;iframe src="https://registry.civil.co/embed/boost/{props.boostId}" style="display: block; width: 100%;
-              height: 500px; margin: 32px 0;"&gt;&lt;/iframe&gt;
+              &lt;iframe src="{document.location.origin}/embed/boost/{props.boostId}" style="display: block; width:
+              100%; height: 500px; margin: 32px 0;"&gt;&lt;/iframe&gt;
             </EmbedCode>
           </ModalContain>
         </Modal>
