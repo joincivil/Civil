@@ -1,13 +1,14 @@
 import * as React from "react";
 
 import { Route, Switch } from "react-router-dom";
+import { embedRoutes } from "../constants";
 // apps
 const BoostLoader = React.lazy(async () => import("./BoostLoader"));
 
 export const EmbedsApp = () => {
   return (
     <Switch>
-      <Route path="/embed/boost/:boostId/:payment?" render={() => <BoostLoader />} />
+      <Route path={embedRoutes.BOOST} render={() => <BoostLoader />} />
     </Switch>
   );
 };
