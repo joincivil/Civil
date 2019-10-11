@@ -18,9 +18,9 @@ import AppProvider from "../components/providers/AppProvider";
 const CivilLogoLink = styled.a`
   position: absolute;
   display: inline-block;
-  z-index: 1000;
-  top: 1px;
-  right: 1px;
+  z-index: 2; // above basic stuff, below full screen modal mask
+  top: 0;
+  right: 0;
   padding: 34px 30px 0 75px;
   background: rgb(255, 255, 255);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 35%);
