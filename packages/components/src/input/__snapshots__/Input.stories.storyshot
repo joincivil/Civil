@@ -309,7 +309,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfOZ irEomi"
+      className="sc-fzXfPc jhXyMk"
     >
       <div
         className=" sc-fzXfMC haCwAp"
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-fzXfPa daxSzd"
+        className="sc-fzXfPd fMeEoc"
       >
         CVL
       </div>
@@ -884,7 +884,7 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
     }
   >
     <div
-      className="sc-fzXfOt ernkX"
+      className="sc-fzXfOw dZKqam"
     >
       <label
         className="sc-fzXfMA hoLydL"
@@ -892,13 +892,13 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
         Input Group with Prepend Text
       </label>
       <div
-        className="sc-fzXfOu Mpyeu"
+        className="sc-fzXfOx kyvuzZ"
       >
         <div
-          className="sc-fzXfOv bRFrUy"
+          className="sc-fzXfOy eGpUHp"
         >
           <span
-            className="sc-fzXfOx dbhHHb"
+            className="sc-fzXfOX iXVxYn"
           >
             CVL
           </span>
@@ -2147,7 +2147,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfPF cXJTBg"
+        className="sc-fzXfPI bIkpqL"
       >
         <div
           className=" sc-fzXfMC haCwAp"
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfPG fIptwR"
+        className="sc-fzXfPJ gBuoUE"
       />
     </form>
   </div>
@@ -2740,7 +2740,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfOZ irEomi"
+      className="sc-fzXfPc jhXyMk"
     >
       <div
         className=" sc-fzXfMC haCwAp"

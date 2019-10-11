@@ -6,7 +6,7 @@ import { Notice } from "../../common/text";
 import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
-import { RadioGroup, RadioCardInput, Incognito, Portis, MetaMask } from "@joincivil/elements";
+import { RadioGroup, RadioCardInput, Portis, MetaMask } from "@joincivil/elements";
 import styled from "styled-components";
 
 const CIVIL_DOMAINS = [
@@ -29,6 +29,7 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
   const service = useKirbySelector((state: any) => state.civilid.pendingSignupRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
+  const hasInjectedWeb3 = (window as any).ethereum;
 
   async function selection(provider: string): Promise<void> {
     const network = ctx.core.plugins.ethereum.config.defaultNetwork;
@@ -47,6 +48,9 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
 
+  const metaMaskSubheading = hasInjectedWeb3 ?
+    "Your browser has Web3 built-in! Click here to use your built-in Web3 wallet." :
+    "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
   return (
     <CenteredPage>
       {isCivil ? null : (
@@ -60,19 +64,15 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
           image={<MetaMask />}
           value={ProviderTypes.METAMASK}
           heading="Sign up with MetaMask"
-          subheading="Use an injected web3 provider such as MetaMask"
+          subheading={metaMaskSubheading}
+          disabled={!hasInjectedWeb3}
+          prioritized={hasInjectedWeb3}
         />
         <RadioCardInput
           image={<Portis />}
           value={ProviderTypes.PORTIS}
           heading="Sign up with Portis"
           subheading="Wallet that does not require any downloads"
-        />
-        <RadioCardInput
-          image={<Incognito />}
-          value={ProviderTypes.BURNER}
-          heading="Sign up Incognito"
-          subheading="Wallet that is destroyed when you clear your cookies"
         />
       </RadioGroup>
 
