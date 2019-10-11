@@ -49,7 +49,7 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   }
 
   const metaMaskSubheading = hasInjectedWeb3 ?
-    "Your Browser has Web3 built-in! Click here to use your built-in Web3 wallet." :
+    "Your browser has Web3 built-in! Click here to use your built-in Web3 wallet." :
     "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
   return (
     <CenteredPage>
