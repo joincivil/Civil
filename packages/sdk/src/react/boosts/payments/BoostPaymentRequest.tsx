@@ -30,15 +30,21 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       currency: "usd",
       total: {
         label: "Civil Boost",
-        amount: this.props.usdToSpend,
+        amount: this.props.usdToSpend * 100,
       },
       requestPayerName: true,
       requestPayerEmail: true,
     });
 
-    paymentRequest.on("token", (token: any) => {
-      // tslint:disable-next-line
-      this.handlePaymentRequest(token);
+    paymentRequest.on("token", (token: any, complete: any, payerName: string, payerEmail: string) => {
+      if (!payerName) {
+        complete("invalid_payer_name");
+      } else if (!payerEmail) {
+        complete("invalid_payer_email");
+      } else {
+        // tslint:disable-next-line
+        this.handlePaymentRequest(token, complete);
+      }
     });
 
     paymentRequest.canMakePayment().then((result: any) => {
@@ -61,18 +67,24 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
     );
   }
 
-  private async handlePaymentRequest(token: any): Promise<void> {
-    await this.props.savePayment({
-      variables: {
-        postID: this.props.boostId,
-        input: {
-          // @ts-ignore
-          paymentToken: token.token.id,
-          amount: this.props.usdToSpend,
-          currencyCode: "usd",
+  private async handlePaymentRequest(token: any, complete: any): Promise<void> {
+    try {
+      await this.props.savePayment({
+        variables: {
+          postID: this.props.boostId,
+          input: {
+            // @ts-ignore
+            paymentToken: token.token.id,
+            amount: this.props.usdToSpend,
+            currencyCode: "usd",
+          },
         },
-      },
-    });
+      });
+      complete("success");
+    } catch (err) {
+      console.error(err);
+      complete("fail");
+    }
   }
 }
 
