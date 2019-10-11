@@ -53,6 +53,7 @@ export interface BoostPayEthStates {
   usdToSpend: number;
   notEnoughEthError: boolean;
   walletConnected: boolean;
+  ethEnableCalled?: boolean;
 }
 
 export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthStates> {
@@ -72,18 +73,24 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     };
   }
 
-  public async componentDidMount(): Promise<void> {
-    this.setState({
-      isMobileWalletModalOpen: this.showMobileWalletModal(),
-    });
-    if (this.context.civil) {
+  public async componentDidUpdate(prevProps: BoostPayEthProps): Promise<void> {
+    if (!prevProps.selected && this.props.selected && !this.state.ethEnableCalled && this.context.civil) {
+      this.setState({
+        ethEnableCalled: true,
+      });
       await this.context.civil.currentProviderEnable();
-      await this.setState({
+      this.setState({
         walletConnected: true,
         // they clearly have a wallet, so:
         isMobileWalletModalOpen: false,
       });
     }
+  }
+
+  public async componentDidMount(): Promise<void> {
+    this.setState({
+      isMobileWalletModalOpen: this.showMobileWalletModal(),
+    });
   }
 
   public render(): JSX.Element {
