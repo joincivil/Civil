@@ -686,7 +686,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: ContentId,
     uri: string,
     hash: string,
-    signature: string = "",
+    signature: string = "0x",
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     if (contentId === 0) {
       await this.requireOwner();
