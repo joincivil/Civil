@@ -1,5 +1,13 @@
 import * as React from "react";
-import { colors, fonts, mediaQueries, FeatureFlag, CivilContext, ICivilContext } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  mediaQueries,
+  FeatureFlag,
+  CivilContext,
+  ICivilContext,
+  RENDER_CONTEXT,
+} from "@joincivil/components";
 import { BoostPayEth } from "./BoostPayEth";
 import { BoostPayStripe } from "./BoostPayStripe";
 import styled from "styled-components";
@@ -32,8 +40,10 @@ const BoostInstructions = styled.div`
   margin: 0 0 20px 20px;
 
   ${mediaQueries.MOBILE} {
-    margin: 0 0 20px;
+    margin-left: 0;
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && `display: none;`};
 `;
 
 const BoostPayFooter = styled.div`
@@ -52,6 +62,10 @@ const BoostPayFooterSection = styled.div`
   font-size: 14px;
   line-height: 19px;
   margin: 0 0 40px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 16px;
+  }
 
   h3 {
     font-size: 14px;
