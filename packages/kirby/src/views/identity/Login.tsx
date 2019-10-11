@@ -21,7 +21,7 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
   const service = useKirbySelector((state: any) => state.civilid.pendingLoginRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
-
+  const hasInjectedWeb3 = (window as any).ethereum;
   async function selection(provider: string): Promise<void> {
     const network = ctx.core.plugins.ethereum.config.defaultNetwork;
     const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
@@ -38,6 +38,9 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
 
+  const metaMaskSubheading = hasInjectedWeb3 ?
+    "Your Browser has Web3 built-in! Click here to use your built-in Web3 wallet." :
+    "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
   return (
     <CenteredPage>
       {isCivil ? null : (
@@ -51,19 +54,15 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
           image={<MetaMask />}
           value={ProviderTypes.METAMASK}
           heading="Log in with MetaMask"
-          subheading="Use an injected web3 provider such as MetaMask"
+          subheading={metaMaskSubheading}
+          disabled={!hasInjectedWeb3}
+          prioritized={hasInjectedWeb3}
         />
         <RadioCardInput
           image={<Portis />}
           value={ProviderTypes.PORTIS}
           heading="Log in with Portis"
-          subheading="Wallet that does not require any downloads"
-        />
-        <RadioCardInput
-          image={<Incognito />}
-          value={ProviderTypes.BURNER}
-          heading="Log in Incognito"
-          subheading="Wallet that is destroyed when you clear your cookies"
+          subheading="Web3 Wallet that does not require any downloads"
         />
       </RadioGroup>
     </CenteredPage>

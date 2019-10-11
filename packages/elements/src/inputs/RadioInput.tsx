@@ -95,6 +95,7 @@ export interface RadioCardInputProps {
   name?: string;
   disabled?: boolean;
   defaultValue?: any;
+  prioritized?: boolean;
 }
 
 const StyledRadioCardInput = styled.div`
@@ -109,9 +110,6 @@ const StyledRadioCardInput = styled.div`
   height: 117px;
   margin-top: 15px;
   cursor: pointer;
-  :hover {
-    border: 1px solid #2b56ff;
-  }
   > div:nth-child(2) {
     margin: 18px;
   }
@@ -123,9 +121,23 @@ const StyledRadioCardInput = styled.div`
   }
 `;
 
+const EnabledStyledRadioCardInput = styled(StyledRadioCardInput)`
+  :hover {
+    border: 1px solid #2b56ff;
+  }
+`;
+
+const PrioritizedStyledRadioCardInput = styled(EnabledStyledRadioCardInput)`
+  box-shadow: 0px 0px 2px 2px ${colors.accent.CIVIL_BLUE_FADED};
+`;
+
+const DisabledStyledRadioCardInput = styled(StyledRadioCardInput)`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
+`;
+
 export const RadioCardInput: React.FC<RadioCardInputProps> = props => {
   let input: any;
-  const { onChange, name, image, heading, subheading } = props;
+  const { onChange, name, image, heading, subheading, disabled, prioritized } = props;
   const clickHandler = () => {
     input.checked = true;
     if (onChange) {
@@ -134,14 +146,21 @@ export const RadioCardInput: React.FC<RadioCardInputProps> = props => {
   };
   const defaultChecked = props.defaultValue === props.value;
 
+  let SelectedStyledRadioCardInput = EnabledStyledRadioCardInput;
+  if (disabled) {
+    SelectedStyledRadioCardInput = DisabledStyledRadioCardInput;
+  } else if (prioritized) {
+    SelectedStyledRadioCardInput = PrioritizedStyledRadioCardInput
+  }
+
   return (
-    <StyledRadioCardInput onClick={clickHandler}>
+    <SelectedStyledRadioCardInput onClick={disabled ? undefined : clickHandler}>
       <input type="radio" value={props.value} defaultChecked={defaultChecked} name={name} ref={ref => (input = ref)} />
       <OvalImage>{image}</OvalImage>
       <div>
         <Heading>{heading}</Heading>
         <SubHeading>{subheading}</SubHeading>
       </div>
-    </StyledRadioCardInput>
+    </SelectedStyledRadioCardInput>
   );
 };
