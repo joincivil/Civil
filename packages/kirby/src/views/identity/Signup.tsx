@@ -6,8 +6,9 @@ import { Notice } from "../../common/text";
 import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
-import { RadioGroup, RadioCardInput, Portis, MetaMask } from "@joincivil/elements";
+import { RadioGroup, RadioCardInput, Portis, MetaMask, ClipLoader } from "@joincivil/elements";
 import styled from "styled-components";
+import { SwitchAuthTypeDiv, WaitingForConnectionDiv } from "../../common/containers/layouts";
 
 const CIVIL_DOMAINS = [
   "http://localhost:3000",
@@ -15,6 +16,9 @@ const CIVIL_DOMAINS = [
   "https://test.civil.app",
   "https://registry.civil.co",
 ];
+
+const WAITING_FOR_CONNECTION = "Waiting for Web3 Wallet Connection...";
+const WAITING_FOR_SIGNATURE = "Waiting for Signature...";
 
 const SignupFooter = styled.div`
   border-top: 1px solid #d8d8d8;
@@ -31,6 +35,8 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   const service = useKirbySelector((state: any) => state.civilid.pendingSignupRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
   const hasInjectedWeb3 = (window as any).ethereum;
+  const [hideSelections, setHideSelections] = React.useState(false);
+  const [selectionProcess, setSelectionProcess] = React.useState("none");
 
   React.useEffect(() => {
     (ctx.core.plugins.view as ViewPlugin).onParentClick(() => {
@@ -40,6 +46,8 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   }, [ctx.core.plugins.view, identityPlugin]);
 
   async function selection(provider: string): Promise<void> {
+    setHideSelections(true);
+    setSelectionProcess(WAITING_FOR_CONNECTION);
     const network = ctx.core.plugins.ethereum.config.defaultNetwork;
     const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
     const request = ctx.store.getState().civilid.pendingSignupRequest;
@@ -50,18 +58,21 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
 
     console.log("preparing to sign:", signer, request);
     try {
+      setSelectionProcess(WAITING_FOR_SIGNATURE);
       const signature = await (ethPlugin.web3 as any).eth.personal.sign(request.message, signer);
       identityPlugin.sendSignupResponse(signer, signature);
+      setHideSelections(false);
     } catch (err) {
       console.error("error with signature");
       identityPlugin.cancelSignup();
+      setHideSelections(false);
     }
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
 
-  const metaMaskSubheading = hasInjectedWeb3 ?
-    "Your browser has Web3 built-in! Click here to use your built-in Web3 wallet." :
-    "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
+  const metaMaskSubheading = hasInjectedWeb3
+    ? "Your browser has Web3 built-in! Click here to use your built-in Web3 wallet."
+    : "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
   return (
     <CenteredPage>
       {isCivil ? null : (
@@ -70,24 +81,46 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
         </Notice>
       )}
 
-      <RadioGroup name="LoginProvider" onChange={(_: string, provider: string) => selection(provider)}>
-        <RadioCardInput
-          image={<MetaMask />}
-          value={ProviderTypes.METAMASK}
-          heading="Sign up with MetaMask"
-          subheading={metaMaskSubheading}
-          disabled={!hasInjectedWeb3}
-          prioritized={hasInjectedWeb3}
-        />
-        <RadioCardInput
-          image={<Portis />}
-          value={ProviderTypes.PORTIS}
-          heading="Sign up with Portis"
-          subheading="Wallet that does not require any downloads"
-        />
-      </RadioGroup>
+      {hideSelections && (
+        <WaitingForConnectionDiv>
+          <ClipLoader size={100} />
+          <>{selectionProcess}</>
+        </WaitingForConnectionDiv>
+      )}
+      {!hideSelections && (
+        <>
+          <RadioGroup name="LoginProvider" onChange={(_: string, provider: string) => selection(provider)}>
+            <RadioCardInput
+              image={<MetaMask />}
+              value={ProviderTypes.METAMASK}
+              heading="Sign up with MetaMask"
+              subheading={metaMaskSubheading}
+              disabled={!hasInjectedWeb3}
+              prioritized={hasInjectedWeb3}
+            />
+            <RadioCardInput
+              image={<Portis />}
+              value={ProviderTypes.PORTIS}
+              heading="Sign up with Portis"
+              subheading="Wallet that does not require any downloads"
+            />
+          </RadioGroup>
 
-      {isCivil ? renderTerms() : null}
+          <SwitchAuthTypeDiv>
+            Already a Civil member?{" "}
+            <a
+              onClick={() => {
+                identityPlugin.cancelSignup("switch to log in");
+                (ctx.core.plugins.view as ViewPlugin).completeView();
+              }}
+            >
+              Click to Log In
+            </a>
+          </SwitchAuthTypeDiv>
+
+          {isCivil ? renderTerms() : null}
+        </>
+      )}
     </CenteredPage>
   );
 

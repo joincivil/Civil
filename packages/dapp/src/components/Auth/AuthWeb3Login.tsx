@@ -9,6 +9,7 @@ export interface AuthWeb3LoginProps {
   onOuterClicked?(): void;
   onSignUpClicked?(): void;
   onLogInNoUserExists?(): void;
+  onUserSelectSignUp?(): void;
 }
 
 export interface AuthLoginDropdownProps {
@@ -22,6 +23,7 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
       onOuterClicked={props.onOuterClicked}
       onSignUpContinue={props.onSignUpContinue}
       onLogInNoUserExists={props.onLogInNoUserExists}
+      onUserSelectSignUp={props.onUserSelectSignUp}
     />
   );
 };

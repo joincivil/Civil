@@ -17,3 +17,17 @@ export const CenteredPage = styled(PageLayout)`
   align-items: center;
   padding: 5px;
 `;
+
+export const SwitchAuthTypeDiv = styled.div`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+`;
+
+export const WaitingForConnectionDiv = styled.div`
+  display: flex;
+  height: 300px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+`;
