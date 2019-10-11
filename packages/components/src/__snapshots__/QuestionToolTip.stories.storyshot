@@ -11,18 +11,18 @@ exports[`Storyshots Pattern Library / Tooltips / QuestionToolTip tooltip 1`] = `
     }
   >
     <div
-      className="sc-LzNNG jpdbFN"
+      className="sc-LzNOg gzUDNi"
     >
       <div
-        className="sc-LzLrm cWKjTp"
+        className="sc-LzLrp jpSgnc"
       >
         <div
-          className="sc-LzLrk fcEMan"
+          className="sc-LzLrn hpwpZe"
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
           <div
-            className="sc-LzLrn kHSRGI"
+            className="sc-LzLrq ftLVnH"
           >
             <svg
               height="18"

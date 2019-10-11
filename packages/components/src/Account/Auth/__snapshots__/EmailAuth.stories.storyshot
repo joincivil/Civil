@@ -27,14 +27,14 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNvN hKtzRV"
+        className="sc-LzNvQ gJEHeE"
       >
         <li
-          className="sc-LzNvO PbVph"
+          className="sc-LzNvR hbAvME"
         >
           <label>
             <label
-              className="sc-fzXfOY hyCmLm"
+              className="sc-fzXfPb eaPgHK"
               size="SMALL"
             >
               <input
@@ -43,12 +43,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOX iCODyC"
+                className="sc-fzXfPa fYfRvc"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNvP fDmDqm"
+              className="sc-LzNvS gTqKmp"
             >
               I agree to Civil's 
               <a
@@ -61,11 +61,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
-          className="sc-LzNvO PbVph"
+          className="sc-LzNvR hbAvME"
         >
           <label>
             <label
-              className="sc-fzXfOY hyCmLm"
+              className="sc-fzXfPb eaPgHK"
               size="SMALL"
             >
               <input
@@ -74,12 +74,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOX iCODyC"
+                className="sc-fzXfPa fYfRvc"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNvP fDmDqm"
+              className="sc-LzNvS gTqKmp"
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -87,7 +87,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNvQ jDgmwF"
+        className="sc-LzNvT fhUeYs"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb disabled"

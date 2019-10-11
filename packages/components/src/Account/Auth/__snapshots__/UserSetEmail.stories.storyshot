@@ -11,12 +11,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNxh eMJsTc"
+      className="sc-LzNMm eKhpDS"
     >
       Almost done!
     </div>
     <div
-      className="sc-LzNMk irrBLg"
+      className="sc-LzNMn eBjApX"
     >
       To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
@@ -37,14 +37,14 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNvN hKtzRV"
+        className="sc-LzNvQ gJEHeE"
       >
         <li
-          className="sc-LzNvO PbVph"
+          className="sc-LzNvR hbAvME"
         >
           <label>
             <label
-              className="sc-fzXfOY hyCmLm"
+              className="sc-fzXfPb eaPgHK"
               size="SMALL"
             >
               <input
@@ -53,12 +53,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfOX iCODyC"
+                className="sc-fzXfPa fYfRvc"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNvP fDmDqm"
+              className="sc-LzNvS gTqKmp"
             >
               Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
@@ -66,7 +66,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNvQ jDgmwF"
+        className="sc-LzNvT fhUeYs"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb"
@@ -91,10 +91,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       </div>
     </form>
     <div
-      className="sc-LzNvR ieKSFS"
+      className="sc-LzNwr cXqCaz"
     >
       <span
-        className="sc-LzNMl haqliY"
+        className="sc-LzNMo fxayfH"
         onClick={[Function]}
       >
         Skip for now
