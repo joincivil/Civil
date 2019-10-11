@@ -8,6 +8,7 @@ export interface AuthWeb3SignUpProps {
   onOuterClicked?(): void;
   onLoginClicked?(): void;
   onSignUpUserAlreadyExists?(): void;
+  onUserSelectLogIn?(): void;
 }
 
 const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props => {
@@ -17,6 +18,7 @@ const AuthWeb3SignupPage: React.FunctionComponent<AuthWeb3SignUpProps> = props =
       onOuterClicked={props.onOuterClicked}
       onSignUpContinue={props.onSignUpContinue}
       onSignUpUserAlreadyExists={props.onSignUpUserAlreadyExists}
+      onUserSelectLogIn={props.onUserSelectLogIn}
     />
   );
 };

@@ -8,6 +8,7 @@ import { Notice } from "../../common/text";
 import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
+import styled from "styled-components";
 
 const CIVIL_DOMAINS = [
   "http://localhost:3000",
@@ -15,6 +16,12 @@ const CIVIL_DOMAINS = [
   "https://test.civil.app",
   "https://registry.civil.co",
 ];
+
+const SwitchToSignUpDiv = styled.div`
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-left: 10px;
+`;
 
 export const Login: React.FunctionComponent<RouteComponentProps> = () => {
   const ctx = React.useContext(CoreContext);
@@ -78,6 +85,13 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
           subheading="Web3 Wallet that does not require any downloads"
         />
       </RadioGroup>
+      <SwitchToSignUpDiv>
+        Not a Civil member?{" "}
+        <a onClick={() => {
+          identityPlugin.cancelLogin("switch to sign up");
+          (ctx.core.plugins.view as ViewPlugin).completeView();
+        }}>Sign up to join</a>
+      </SwitchToSignUpDiv>
     </CenteredPage>
   );
 };

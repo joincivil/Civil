@@ -24,6 +24,12 @@ const SignupFooter = styled.div`
   font-size: 15px;
 `;
 
+const SwitchToLogInDiv = styled.div`
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-left: 10px;
+`;
+
 export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   const ctx = React.useContext(CoreContext);
   const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
@@ -86,7 +92,13 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
           subheading="Wallet that does not require any downloads"
         />
       </RadioGroup>
-
+      <SwitchToLogInDiv>
+        Already a Civil member?{" "}
+        <a onClick={() => {
+          identityPlugin.cancelSignup("switch to log in");
+          (ctx.core.plugins.view as ViewPlugin).completeView();
+        }}>Click to Log In</a>
+      </SwitchToLogInDiv>
       {isCivil ? renderTerms() : null}
     </CenteredPage>
   );

@@ -13,6 +13,8 @@ export interface AuthWeb3Props {
   onSignUpContinue?(): void;
   onSignUpUserAlreadyExists?(): void;
   onLogInNoUserExists?(): void;
+  onUserSelectSignUp?(): void;
+  onUserSelectLogIn?(): void;
 }
 
 export interface AuthWeb3State {
@@ -26,6 +28,8 @@ export interface AuthWeb3State {
 const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
 const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
 const CANCELLED = "cancelled";
+const SWITCH_TO_SIGNUP = "switch to sign up";
+const SWITCH_TO_LOGIN = "switch to log in";
 
 export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3Props) => {
   // context
@@ -69,6 +73,14 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
         setOnErrContinue(props.onLogInNoUserExists);
       } else if (err.toString().includes(CANCELLED)) {
         setOnErrContinue(props.onOuterClicked);
+      } else if (err.toString().includes(SWITCH_TO_SIGNUP)) {
+        if (props.onUserSelectSignUp) {
+          props.onUserSelectSignUp();
+        }
+      } else if (err.toString().includes(SWITCH_TO_LOGIN)) {
+        if (props.onUserSelectLogIn) {
+          props.onUserSelectLogIn();
+        }
       } else {
         setErrorMessage(err);
         setOnErrContinue(props.onOuterClicked);
