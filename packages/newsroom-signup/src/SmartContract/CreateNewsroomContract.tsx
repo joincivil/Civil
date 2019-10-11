@@ -46,7 +46,7 @@ export interface NameAndAddressProps {
 }
 
 const STANDIN_IPFS_URL = "ipfs://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 export interface NameAndAddressState extends TransactionButtonModalFlowState {
   collapsableOpen: boolean;
