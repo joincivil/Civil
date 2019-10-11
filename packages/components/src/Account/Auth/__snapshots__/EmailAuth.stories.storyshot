@@ -31,6 +31,13 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
       >
         <li
           className="sc-LzNvO PbVph"
+        >
+          <label>
+            <label
+              className="sc-fzXfOY hyCmLm"
+              size="SMALL"
+            >
+              <input
                 checked={false}
                 onChange={[Function]}
                 type="checkbox"
@@ -48,7 +55,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 href="https://civil.co/terms/"
                 target="_blank"
               >
-              className="sc-LzNvP fDmDqm"
+                Privacy Policy and Terms of Use
+              </a>
+            </span>
+          </label>
+        </li>
         <li
           className="sc-LzNvO PbVph"
         >
@@ -61,7 +72,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 checked={false}
                 onChange={[Function]}
                 type="checkbox"
-          className="sc-LzNvO PbVph"
+              />
+              <span
+                className="sc-fzXfOX iCODyC"
+                size="SMALL"
+              />
             </label>
             <span
               className="sc-LzNvP fDmDqm"
@@ -79,7 +94,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           disabled={true}
           size="SMALL_WIDE"
           textTransform="none"
-              className="sc-LzNvP fDmDqm"
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
               "primaryButtonDisabledColor": "#FFFFFF",
               "primaryButtonFontWeight": "normal",
               "primaryButtonHoverBackground": "#4066FF",
@@ -87,10 +106,17 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
             }
           }
-        className="sc-LzNvQ jDgmwF"
-      >
-        <button
-          className="sc-fzXfLO sc-fzXfLP jQPtEb disabled"
+          type="submit"
+        >
+          Confirm
+        </button>
+      </div>
+    </form>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
       Object {
         "background": "#027ac5",
         "border": "none",
