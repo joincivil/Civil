@@ -35,6 +35,8 @@ export interface RepublishCharterNoticeProps {
 export interface RepublishCharterNoticeState extends TransactionButtonModalFlowState {
   isIpfsModalOpen?: boolean;
   isTransactionSuccessModalOpen?: boolean;
+  errorText?: string;
+  ipfsError?: boolean;
   contentHash?: string;
   contentURI?: string;
 }
@@ -82,6 +84,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
         {this.renderPreMetamaskCreateModal()}
         {this.renderAwaitingTransactionModal()}
         {this.renderMetaMaskRejectionModal()}
+        {this.renderErrorModal()}
         {this.renderProgressModal()}
         {this.renderTransactionSuccessModal()}
       </Wrapper>
@@ -131,6 +134,24 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     );
   }
 
+  public renderErrorModal(): JSX.Element | null {
+    if (!this.state.metaMaskErrorModal) {
+      return null;
+    }
+    return (
+      <MetaMaskModal
+        waiting={false}
+        errored={true}
+        errorText={this.state.errorText}
+        ipfsPost={this.state.ipfsError}
+        cancelTransaction={() => this.cancelTransaction()}
+        restartTransactions={this.getTransactions(this.context.civil!, true)}
+      >
+        <ModalHeading>Your charter republish did not complete</ModalHeading>
+      </MetaMaskModal>
+    );
+  }
+
   public renderMetaMaskRejectionModal(): JSX.Element | null {
     if (!this.state.metaMaskRejectionModal) {
       return null;
@@ -141,7 +162,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
         denied={true}
         denialText="To republish your newsroom charter, you need to confirm the transaction in your MetaMask wallet."
         cancelTransaction={() => this.cancelTransaction()}
-        denialRestartTransactions={this.getTransactions(this.context.civil!, true)}
+        restartTransactions={this.getTransactions(this.context.civil!, true)}
       >
         <ModalHeading>Your charter republish did not complete</ModalHeading>
       </MetaMaskModal>
@@ -230,6 +251,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
           this.setState({
             isIpfsModalOpen: false,
             metaMaskRejectionModal: false,
+            metaMaskErrorModal: false,
             isWaitingTransactionModalOpen: true,
             isPreTransactionModalOpen: false,
           });
@@ -268,13 +290,29 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
   private publishCharterToIpfs = async (noPreModal?: boolean): Promise<any> => {
     this.setState({
       isIpfsModalOpen: true,
+      metaMaskErrorModal: false,
     });
     const ipfsProvider = new IPFSProvider();
-    const ipfsObject = await ipfsProvider.put(JSON.stringify(this.props.charter));
+    let ipfsObject;
+    try {
+      ipfsObject = await ipfsProvider.put(JSON.stringify(this.props.charter));
+    } catch (err) {
+      console.error("Failed to publish updated charter to IPFS:", err);
+      const errorText = "Failed to publish updated charter to IPFS: " + (err.message || err);
+      this.setState({
+        isIpfsModalOpen: false,
+        metaMaskErrorModal: true,
+        errorText,
+        ipfsError: true,
+      });
+      throw errorText;
+    }
+
     this.setState({
       contentHash: ipfsObject.contentHash,
       contentURI: ipfsObject.uri,
       isIpfsModalOpen: false,
+      ipfsError: false,
     });
     return noPreModal ? undefined : this.requireBeforeTransaction();
   };
@@ -288,6 +326,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
       startTransaction: undefined,
       isPreTransactionModalOpen: false,
       metaMaskRejectionModal: false,
+      metaMaskErrorModal: false,
     });
   };
 
@@ -307,6 +346,11 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     this.setState({ isWaitingTransactionModalOpen: false });
     if (err && err.message === "Error: MetaMask Tx Signature: User denied transaction signature.") {
       this.setState({ metaMaskRejectionModal: true });
+    } else {
+      this.setState({
+        metaMaskErrorModal: true,
+        errorText: err.message || err.toString(),
+      });
     }
   };
 }

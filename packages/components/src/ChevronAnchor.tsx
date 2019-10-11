@@ -13,7 +13,11 @@ export interface ChevronAnchorProps extends React.AnchorHTMLAttributes<HTMLAncho
 export const ChevronAnchor: React.FunctionComponent<ChevronAnchorProps> = props =>
   React.createElement(
     props.component || "a",
-    props,
+    {
+      ...props,
+      // passing prop with name `component` breaks some components
+      component: undefined,
+    },
     <>
       {props.children}
       <Chevron />
