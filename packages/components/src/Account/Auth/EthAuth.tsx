@@ -140,7 +140,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         denied={true}
         denialText="To authenticate that you own your wallet address, you need to sign the message in your MetaMask wallet."
         cancelTransaction={this.cancelTransaction}
-        denialRestartTransactions={this.signTransactions(userSetEthAddress)}
+        restartTransactions={this.signTransactions(userSetEthAddress)}
       >
         <ModalHeading>Failed to authenticate your wallet address</ModalHeading>
       </MetaMaskModal>

@@ -244,7 +244,7 @@ export class CreateNewsroomContractComponent extends React.Component<
         denied={true}
         denialText={denialMessage}
         cancelTransaction={() => this.cancelTransaction()}
-        denialRestartTransactions={this.getTransactions(this.context.civil!, true)}
+        restartTransactions={this.getTransactions(this.context.civil!, true)}
       >
         <ModalHeading>{message}</ModalHeading>
       </MetaMaskModal>

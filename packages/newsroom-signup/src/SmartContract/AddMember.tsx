@@ -325,7 +325,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
         denied={true}
         denialText={denialMessage}
         cancelTransaction={() => this.cancelTransaction()}
-        denialRestartTransactions={this.getTransaction(true)}
+        restartTransactions={this.getTransaction(true)}
       >
         <ModalHeading>{message}</ModalHeading>
       </MetaMaskModal>

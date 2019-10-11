@@ -183,7 +183,7 @@ class SignConstitutionComponent extends React.Component<
             denied={true}
             denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransactions(value.civil!, true)}
+            restartTransactions={this.getTransactions(value.civil!, true)}
           >
             <MetaMaskStepCounter>Step 1 of 2</MetaMaskStepCounter>
             <ModalHeading>{message}</ModalHeading>
@@ -210,7 +210,7 @@ class SignConstitutionComponent extends React.Component<
             denied={true}
             denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getPublishTransaction(value.civil!)}
+            restartTransactions={this.getPublishTransaction(value.civil!)}
           >
             <MetaMaskStepCounter>Step 2 of 2</MetaMaskStepCounter>
             <ModalHeading>{message}</ModalHeading>
