@@ -7,8 +7,8 @@ import { StyledAuthHeader } from "./authStyledComponents";
 export interface AuthWeb3Props {
   messagePrefix?: string;
   header?: JSX.Element | string;
-  buttonText?: string | JSX.Element;
   buttonOnly?: boolean;
+  onOuterClicked?(): void;
   onAuthenticated?(address: EthAddress): void;
   onSignUpContinue?(): void;
   onSignUpUserAlreadyExists?(): void;
@@ -25,6 +25,7 @@ export interface AuthWeb3State {
 
 const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
 const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
+const CANCELLED = "cancelled";
 
 export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3Props) => {
   // context
@@ -60,13 +61,17 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
         props.onSignUpContinue();
       }
     } catch (err) {
-      setErrorMessage(err);
       if (err.toString().includes(USER_ALREADY_EXISTS)) {
+        setErrorMessage(err);
         setOnErrContinue(props.onSignUpUserAlreadyExists);
       } else if (err.toString().includes(NO_USER_EXISTS)) {
+        setErrorMessage(err);
         setOnErrContinue(props.onLogInNoUserExists);
+      } else if (err.toString().includes(CANCELLED)) {
+        setOnErrContinue(props.onOuterClicked);
       } else {
         setErrorMessage(err);
+        setOnErrContinue(props.onOuterClicked);
       }
     }
   }

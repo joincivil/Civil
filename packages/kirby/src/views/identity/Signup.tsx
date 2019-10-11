@@ -26,15 +26,22 @@ const SignupFooter = styled.div`
 
 export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
   const ctx = React.useContext(CoreContext);
+  const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
   const service = useKirbySelector((state: any) => state.civilid.pendingSignupRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
   const hasInjectedWeb3 = (window as any).ethereum;
 
+  React.useEffect(() => {
+    (ctx.core.plugins.view as ViewPlugin).onParentClick(() => {
+      identityPlugin.cancelSignup();
+      (ctx.core.plugins.view as ViewPlugin).completeView();
+    });
+  }, [ctx.core.plugins.view, identityPlugin]);
+
   async function selection(provider: string): Promise<void> {
     const network = ctx.core.plugins.ethereum.config.defaultNetwork;
     const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
-    const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
     const request = ctx.store.getState().civilid.pendingSignupRequest;
 
     await ethPlugin.changeProvider(provider, network as any);
@@ -42,9 +49,13 @@ export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
     const signer = accounts[0];
 
     console.log("preparing to sign:", signer, request);
-    const signature = await (ethPlugin.web3 as any).eth.personal.sign(request.message, signer);
-
-    identityPlugin.sendSignupResponse(signer, signature);
+    try {
+      const signature = await (ethPlugin.web3 as any).eth.personal.sign(request.message, signer);
+      identityPlugin.sendSignupResponse(signer, signature);
+    } catch (err) {
+      console.error("error with signature");
+      identityPlugin.cancelSignup();
+    }
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
 

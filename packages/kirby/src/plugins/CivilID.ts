@@ -94,12 +94,22 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
   }
+  public cancelLogin(reason?: any): void {
+    const state = this.getState().civilid as ChildPluginState;
+    const { requestID } = state.pendingLoginRequest!;
+    this.dependencies.iframe.reject(requestID, reason || "cancelled");
+  }
 
   public sendSignupResponse(signer: string, signature: string): void {
     const state = this.getState().civilid as ChildPluginState;
     const { requestID, service, ...request } = state.pendingSignupRequest!;
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
+  }
+  public cancelSignup(reason?: any): void {
+    const state = this.getState().civilid as ChildPluginState;
+    const { requestID } = state.pendingSignupRequest!;
+    this.dependencies.iframe.reject(requestID, reason || "cancelled");
   }
 
   public generateWallet(mnemonic: string): void {
