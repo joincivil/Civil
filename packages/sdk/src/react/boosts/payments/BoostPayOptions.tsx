@@ -1,5 +1,13 @@
 import * as React from "react";
-import { colors, fonts, mediaQueries, FeatureFlag, CivilContext, ICivilContext } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  mediaQueries,
+  FeatureFlag,
+  CivilContext,
+  ICivilContext,
+  RENDER_CONTEXT,
+} from "@joincivil/components";
 import { BoostPayEth } from "./BoostPayEth";
 import { BoostPayStripe } from "./BoostPayStripe";
 import styled from "styled-components";
@@ -19,7 +27,6 @@ export interface BoostPayOptionsProps {
   newsroomName: string;
   title: string;
   paymentAddr: EthAddress;
-  walletConnected: boolean;
   isStripeConnected: boolean;
   handlePaymentSuccess(): void;
 }
@@ -33,8 +40,10 @@ const BoostInstructions = styled.div`
   margin: 0 0 20px 20px;
 
   ${mediaQueries.MOBILE} {
-    margin: 0 0 20px;
+    margin-left: 0;
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && `display: none;`};
 `;
 
 const BoostPayFooter = styled.div`
@@ -53,6 +62,10 @@ const BoostPayFooterSection = styled.div`
   font-size: 14px;
   line-height: 19px;
   margin: 0 0 40px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 16px;
+  }
 
   h3 {
     font-size: 14px;
@@ -127,7 +140,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
   }
 
   private getPaymentTypes = () => {
-    const { isStripeConnected, boostId, newsroomName, paymentAddr, walletConnected, handlePaymentSuccess } = this.props;
+    const { isStripeConnected, boostId, newsroomName, paymentAddr, handlePaymentSuccess } = this.props;
     const { selectedEth, selectedStripe, etherToSpend, usdToSpend } = this.state;
     let isEthSelected = false;
 
@@ -150,7 +163,6 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             etherToSpend={etherToSpend}
             usdToSpend={usdToSpend}
             paymentAddr={paymentAddr}
-            walletConnected={walletConnected}
             handlePaymentSuccess={handlePaymentSuccess}
           />
         );
@@ -183,7 +195,6 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
               usdToSpend={usdToSpend}
               handleNext={this.handleEthNext}
               paymentAddr={paymentAddr}
-              walletConnected={walletConnected}
               handlePaymentSuccess={handlePaymentSuccess}
               handlePaymentSelected={this.handlePaymentSelected}
             />

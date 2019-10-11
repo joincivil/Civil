@@ -92,7 +92,7 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
                 )}
                 {this.renderNewsroomURL()}
                 <ChevronAnchor
-                  href={"https://registry.civil.co/listing/" + this.props.newsroomContractAddress}
+                  href={`${document.location.origin}/listing/${this.props.newsroomContractAddress}`}
                   target="_blank"
                 >
                   View on Civil Registry

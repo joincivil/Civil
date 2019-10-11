@@ -11,10 +11,10 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         Wallet Connected
       </h4>
@@ -28,29 +28,29 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
         Your WordPress user profile wallet address does not match your MetaMask wallet address
       </p>
       <p
-        className="sc-LzMCN fvYoLw"
+        className="sc-LzMCj hPhbMo"
       >
         Profile wallet address
       </p>
       <span
-        className="sc-LzMCK cFHIEL"
+        className="sc-LzMCg ldjTLL"
       >
         0x123abc00000000000000000000000000000x123abc
       </span>
        
       <p
-        className="sc-LzMCN fvYoLw"
+        className="sc-LzMCj hPhbMo"
       >
         Connected wallet address
       </p>
       <div
-        className="sc-LzLtf dKLnYq"
+        className="sc-LzLsB eeGMyd"
       >
         <div
-          className="sc-LzLtg wwuOd"
+          className="sc-LzLsC jKbIwg"
         >
           <img
-            className="sc-fzXfLX hPVxpN"
+            className="sc-AykKH jXAxor"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -58,10 +58,10 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
       </div>
        
       <div
-        className="sc-LzMCM crTpMP"
+        className="sc-LzMCi kgPKEv"
       >
         <button
-          className="sc-fzXfOZ sc-fzXfPa kMniWZ"
+          className="sc-fzXfLO sc-fzXfLP gPnInO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -515,26 +515,26 @@ exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         Wallet Connected
       </h4>
       <p
-        className="sc-LzMCN fvYoLw"
+        className="sc-LzMCj hPhbMo"
       >
         Your wallet address
       </p>
       <div
-        className="sc-LzLtf dKLnYq"
+        className="sc-LzLsB eeGMyd"
       >
         <div
-          className="sc-LzLtg wwuOd"
+          className="sc-LzLsC jKbIwg"
         >
           <img
-            className="sc-fzXfLX hPVxpN"
+            className="sc-AykKH jXAxor"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -910,14 +910,14 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <img
-        className="sc-LzMCP ccncOO"
+        className="sc-LzMCI hkDxaX"
         src="test-file-stub"
       />
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         Not logged in to wallet
       </h4>
@@ -935,7 +935,7 @@ exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOZ sc-fzXfPa sc-LzMCI bCpZQb"
+          className="sc-fzXfLO sc-fzXfLP sc-LzMCe dYffOZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1305,10 +1305,10 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         It looks like you aren’t logged in to your wallet
       </h4>
@@ -1323,7 +1323,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
         </a>
          
         <img
-          className="sc-fzXfLX hPVxpN sc-LzMCO cyjhiu"
+          className="sc-AykKH jXAxor sc-LzMCH eLFtov"
           src="test-file-stub"
         />
          to manage your transactions.
@@ -1337,7 +1337,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
       </p>
       <p>
         <a
-          className="sc-fzXfOZ sc-fzXfPa kMniWZ"
+          className="sc-fzXfLO sc-fzXfLP gPnInO"
           href="https://metamask.io/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -1357,7 +1357,7 @@ exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
           Open MetaMask.io
            
           <span
-            className="sc-LzMCL deSvHo"
+            className="sc-LzMCh bRLnJc"
           >
             <svg
               height="11"
@@ -1794,10 +1794,10 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         MetaMask not enabled
       </h4>
@@ -1806,7 +1806,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOZ sc-fzXfPa sc-LzMCI bCpZQb"
+          className="sc-fzXfLO sc-fzXfLP sc-LzMCe dYffOZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -1829,7 +1829,7 @@ exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
       <p>
         If you do not see the MetaMask popup, please click the 
         <img
-          className="sc-fzXfLX hPVxpN sc-LzMCO cyjhiu"
+          className="sc-AykKH jXAxor sc-LzMCH eLFtov"
           src="test-file-stub"
         />
          icon in your browser address bar.
@@ -2184,10 +2184,10 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         Wallet Connected
       </h4>
@@ -2195,18 +2195,18 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
         Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.
       </p>
       <p
-        className="sc-LzMCN fvYoLw"
+        className="sc-LzMCj hPhbMo"
       >
         Your wallet address
       </p>
       <div
-        className="sc-LzLtf dKLnYq"
+        className="sc-LzLsB eeGMyd"
       >
         <div
-          className="sc-LzLtg wwuOd"
+          className="sc-LzLsC jKbIwg"
         >
           <img
-            className="sc-fzXfLX hPVxpN"
+            className="sc-AykKH jXAxor"
             src="test-file-stub"
           />
           0xabc1230000000000000000000000000000abc123
@@ -2214,10 +2214,10 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
       </div>
        
       <div
-        className="sc-LzMCM crTpMP"
+        className="sc-LzMCi kgPKEv"
       >
         <button
-          className="sc-fzXfOZ sc-fzXfPa kMniWZ"
+          className="sc-fzXfLO sc-fzXfLP gPnInO"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
@@ -2632,14 +2632,14 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
     }
   >
     <div
-      className="sc-LzMCH kkmoVf"
+      className="sc-LzMCd bQRSBr"
     >
       <img
-        className="sc-LzMCP ccncOO"
+        className="sc-LzMCI hkDxaX"
         src="test-file-stub"
       />
       <h4
-        className="sc-fzXfNk ezLfjz"
+        className="sc-fzXfNl blkgXQ"
       >
         Change your network
       </h4>
@@ -2658,7 +2658,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
          
         to switch networks in MetaMask 
         <img
-          className="sc-fzXfLX hPVxpN sc-LzMCO cyjhiu"
+          className="sc-AykKH jXAxor sc-LzMCH eLFtov"
           src="test-file-stub"
         />
       </p>
@@ -2667,7 +2667,7 @@ exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
       </p>
       <p>
         <button
-          className="sc-fzXfOZ sc-fzXfPa sc-LzMCI bCpZQb"
+          className="sc-fzXfLO sc-fzXfLP sc-LzMCe dYffOZ"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={

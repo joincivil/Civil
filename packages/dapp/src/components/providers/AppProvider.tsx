@@ -10,6 +10,7 @@ import { ErrorBoundry } from "../errors/ErrorBoundry";
 
 import config from "../../helpers/config";
 import { store, history } from "../../redux/store";
+import AnalyticsProvider from "./AnalyticsProvider";
 
 import { Provider } from "react-redux";
 
@@ -39,7 +40,9 @@ export const AppProvider: React.FunctionComponent = ({ children }) => {
       <Provider store={store}>
         <ApolloProvider client={client}>
           <CivilProvider pluginConfig={pluginConfig} featureFlags={featureFlags} config={config}>
-            <ConnectedRouter history={history}>{children}</ConnectedRouter>
+            <AnalyticsProvider>
+              <ConnectedRouter history={history}>{children}</ConnectedRouter>
+            </AnalyticsProvider>
           </CivilProvider>
         </ApolloProvider>
       </Provider>

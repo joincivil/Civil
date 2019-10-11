@@ -145,6 +145,11 @@ export const BoostLinkBtn = styled.a`
 
 export const BoostBack = styled.div`
   margin: 0 0 30px;
+
+  ${mediaQueries.MOBILE} {
+    margin: 16px 0;
+    ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && `margin-top: 0;`};
+  }
 `;
 
 export const BoostImgDiv = styled.div`
@@ -393,6 +398,10 @@ export const BoostPayCardDetails = styled.div`
 
   p {
     margin-top: 0;
+
+    ${mediaQueries.MOBILE_SMALL} {
+      margin-bottom: 8px;
+    }
   }
 
   a {
@@ -438,6 +447,9 @@ export const LearnMore = styled.div`
     letter-spacing: -0.07px;
     line-height: 18px;
   }
+  ${mediaQueries.MOBILE_SMALL} {
+    padding: 5px 15px;
+  }
 
   a {
     cursor: pointer;
@@ -465,7 +477,7 @@ export const BoostPayFormTitle = styled.div`
   line-height: 22px;
 `;
 
-export const BoostFlexStart = styled.div`
+export const BoostPayFormFlex = styled.div`
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
@@ -473,6 +485,20 @@ export const BoostFlexStart = styled.div`
   ${mediaQueries.MOBILE} {
     display: block;
   }
+
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    ${mediaQueries.MOBILE} {
+      display: flex;
+      flex-direction: column-reverse;
+
+      ${SubmitInstructions} {
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  `}
 `;
 
 export const BoostFlexStartMobile = styled.div`
@@ -513,6 +539,12 @@ export const BoostFlexEth = styled.div`
 
   button {
     margin: 9px 0 0 15px;
+    ${mediaQueries.MOBILE} {
+      margin-left: 0;
+    }
+    ${mediaQueries.MOBILE_SMALL} {
+      margin-top: 0;
+    }
   }
 
   label {
@@ -813,12 +845,20 @@ export const BoostUserInfoForm = styled.div`
   max-width: 500px;
   width: 100%;
 
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 8px;
+  }
+
   label {
     display: block;
     font-size: 16px;
     font-weight: 500;
     line-height: 22px;
     margin-bottom: 5px;
+
+    ${mediaQueries.MOBILE} {
+      margin-bottom: 8px;
+    }
   }
 
   input {

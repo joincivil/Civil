@@ -18,6 +18,7 @@ const BoostPayOptionWrapper = styled.div`
   ${mediaQueries.MOBILE} {
     border-radius: 0;
     padding: 15px;
+    margin-bottom: 16px;
   }
 `;
 
@@ -50,6 +51,10 @@ const BoostPayOptionBtn = styled.button`
   padding: 0;
   text-align: left;
   width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 16px;
+  }
 
   ${BoostPayOptionWrapper} {
     margin: 0;

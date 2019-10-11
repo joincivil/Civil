@@ -47,7 +47,7 @@ export interface BoostShareProps {
 
 export class BoostShare extends React.Component<BoostShareProps> {
   public render(): JSX.Element {
-    const boostUrl = "https://registry.civil.co/boosts/" + this.props.boostId;
+    const boostUrl = `${document.location.origin}/boosts/${this.props.boostId}`;
     const twitterShare = this.getTweetURL(boostUrl);
     const emailShare = this.getEmailURL(boostUrl);
 
