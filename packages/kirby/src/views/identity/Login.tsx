@@ -2,7 +2,7 @@ import * as React from "react";
 import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
 import { RouteComponentProps } from "@reach/router";
 
-import { RadioGroup, RadioCardInput, Incognito, Portis, MetaMask } from "@joincivil/elements";
+import { RadioGroup, RadioCardInput, Portis, MetaMask } from "@joincivil/elements";
 
 import { Notice } from "../../common/text";
 import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";

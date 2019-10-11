@@ -6,7 +6,7 @@ import { Notice } from "../../common/text";
 import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
-import { RadioGroup, RadioCardInput, Incognito, Portis, MetaMask } from "@joincivil/elements";
+import { RadioGroup, RadioCardInput, Portis, MetaMask } from "@joincivil/elements";
 import styled from "styled-components";
 
 const CIVIL_DOMAINS = [
