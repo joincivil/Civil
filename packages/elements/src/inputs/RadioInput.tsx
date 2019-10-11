@@ -150,7 +150,7 @@ export const RadioCardInput: React.FC<RadioCardInputProps> = props => {
   if (disabled) {
     SelectedStyledRadioCardInput = DisabledStyledRadioCardInput;
   } else if (prioritized) {
-    SelectedStyledRadioCardInput = PrioritizedStyledRadioCardInput
+    SelectedStyledRadioCardInput = PrioritizedStyledRadioCardInput;
   }
 
   return (
