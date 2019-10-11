@@ -7,20 +7,16 @@ const GlobalStyleNoScroll = createGlobalStyle`
   html, body {
     height: 100%;
     overflow: hidden;
-  }
-  body {
-    border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-    margin: 1px; // otherwise border can be clipped by inner edge of iframe
-    border-radius: 4px;
+    margin: 0;
   }
 `;
 const OverflowLinkContainer = styled.div`
   position: absolute;
   z-index: 1;
-  width: calc(100% - 2px);
+  width: 100%;
   height: 100px;
-  bottom: 1px;
-  left: 1px;
+  bottom: 0;
+  left: 0;
   background: rgb(255, 255, 255);
   background: linear-gradient(
     180deg,
@@ -28,7 +24,6 @@ const OverflowLinkContainer = styled.div`
     rgba(255, 255, 255, 0.85) 25%,
     rgba(255, 255, 255, 1) 100%
   );
-  border-radius: 4px;
 `;
 const OverflowLink = styled(ChevronAnchor)`
   position: absolute;

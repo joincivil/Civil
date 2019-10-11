@@ -25,7 +25,7 @@ import {
 } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import {
-  BoostFlexStart,
+  BoostPayFormFlex,
   BoostPayFormWrapper,
   SubmitInstructions,
   SubmitWarning,
@@ -367,7 +367,7 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
         </BoostPayOption>
 
         <BoostPayFormWrapper>
-          <BoostFlexStart>
+          <BoostPayFormFlex>
             <SubmitInstructions>
               All proceeds of the Boost go directly to the newsroom minus Stripe processing fees. If a Boost goal is not
               met, the proceeds will still go to fund the selected newsroom.
@@ -384,7 +384,7 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
                 comment may be visible to the newsroom.
               </SubmitWarning>
             </div>
-          </BoostFlexStart>
+          </BoostPayFormFlex>
         </BoostPayFormWrapper>
         <FullScreenModal open={this.state.isErrorModalOpen}>
           <BoostModalContain textAlign={"center"}>

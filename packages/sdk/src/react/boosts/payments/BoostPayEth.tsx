@@ -62,7 +62,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   public constructor(props: BoostPayEthProps) {
     super(props);
     this.state = {
-      isMobileWalletModalOpen: this.showMobileWalletModal(),
+      isMobileWalletModalOpen: false,
       isInfoModalOpen: false,
       modalContent: "",
       etherToSpend: this.props.etherToSpend || 0,
@@ -73,9 +73,16 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   }
 
   public async componentDidMount(): Promise<void> {
+    this.setState({
+      isMobileWalletModalOpen: this.showMobileWalletModal(),
+    });
     if (this.context.civil) {
       await this.context.civil.currentProviderEnable();
-      this.setState({ walletConnected: true });
+      await this.setState({
+        walletConnected: true,
+        // they clearly have a wallet, so:
+        isMobileWalletModalOpen: false,
+      });
     }
   }
 
@@ -131,6 +138,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
             fromValue={this.state.usdToSpend.toString()}
             onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
             onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
+            displayErrorMsg={this.state.walletConnected}
           />
           <BoostButton
             disabled={disableBtn}
@@ -139,6 +147,10 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
             Next
           </BoostButton>
         </BoostFlexEth>
+
+        <BoostModal open={this.state.isMobileWalletModalOpen} handleClose={this.handleClose}>
+          <BoostMobileWalletModalText />
+        </BoostModal>
       </>
     );
   };
@@ -179,10 +191,6 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
             );
           }}
         </Mutation>
-
-        <BoostModal open={this.state.isMobileWalletModalOpen} handleClose={this.handleClose}>
-          <BoostMobileWalletModalText />
-        </BoostModal>
       </>
     );
   };
