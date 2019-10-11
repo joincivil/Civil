@@ -4,7 +4,7 @@ import { formatRoute } from "react-router-named-routes";
 import { Link } from "react-router-dom";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
-import { DashboardNewsroom } from "@joincivil/components";
+import { DashboardNewsroom, LoadingMessage } from "@joincivil/components";
 import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
 import { NewsroomWithdraw } from "@joincivil/sdk";
 
@@ -34,11 +34,21 @@ export interface NewsroomsListItemReduxProps {
   listingPhaseState?: any;
 }
 
+export interface NewsroomsListItemListingReduxState {
+  loading?: boolean;
+}
+
 class NewsroomsListItemListingRedux extends React.Component<
-  NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>
+  NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>,
+  NewsroomsListItemListingReduxState
 > {
   public static contextType = CivilHelperContext;
   public context: CivilHelper;
+
+  constructor(props: NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>) {
+    super(props);
+    this.state = {};
+  }
 
   public async componentDidUpdate(): Promise<void> {
     await this.hydrateData();
@@ -171,6 +181,10 @@ class NewsroomsListItemListingRedux extends React.Component<
       return <DashboardNewsroom {...displayProps} {...newsroomStatusOnRegistry} />;
     }
 
+    if (this.state.loading) {
+      return <LoadingMessage />;
+    }
+
     return <></>;
   }
 
@@ -179,6 +193,9 @@ class NewsroomsListItemListingRedux extends React.Component<
     const { civil } = this.context;
 
     if (!listing && !listingDataRequestStatus) {
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
       this.props.dispatch!(fetchAndAddListingData(this.context, listingAddress!));
     }
     if (newsroom) {
@@ -186,9 +203,15 @@ class NewsroomsListItemListingRedux extends React.Component<
         this.props.dispatch!(await getNewsroomMultisigBalance(listingAddress!, newsroom.multisigAddress, civil));
       }
     } else if (charter) {
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
       this.props.dispatch!(await getNewsroom(listingAddress!, civil, charter));
     }
     if (newsroomCharterHeader && !charter) {
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
       this.props.dispatch!(await getContent(this.context, newsroomCharterHeader!));
     }
   };

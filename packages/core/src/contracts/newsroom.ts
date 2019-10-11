@@ -578,8 +578,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async estimatePublishURIAndHash(
     uriOrContent: any,
     hash: string,
-    author: string = "",
-    signature: string = "",
+    author: string = "0x",
+    signature: string = "0x",
     archive?: boolean,
   ): Promise<number> {
     const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
@@ -604,7 +604,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: number,
     uriOrContent: any,
     hash: string,
-    signature: string = "",
+    signature: string = "0x",
     archive?: boolean,
   ): Promise<number> {
     const uriForEstimate = archive ? "self-tx:1.0" : uriOrContent;
@@ -663,8 +663,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async publishURIAndHash(
     uri: string,
     hash: string,
-    author: string = "",
-    signature: string = "",
+    author: string = "0x",
+    signature: string = "0x",
   ): Promise<TwoStepEthTransaction<ContentId | MultisigTransaction>> {
     if (!(await this.isEditor()) && (await this.isOwner())) {
       return this.twoStepOrMulti(
@@ -686,7 +686,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: ContentId,
     uri: string,
     hash: string,
-    signature: string = "",
+    signature: string = "0x",
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     if (contentId === 0) {
       await this.requireOwner();
@@ -742,8 +742,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   public async publishWithArchive(
     content: any,
     hash: string,
-    author: string = "",
-    signature: string = "",
+    author: string = "0x",
+    signature: string = "0x",
   ): Promise<TwoStepEthTransaction<MultisigTransaction | ContentId>> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const gas = await this.estimatePublishURIAndHash(content, hash, author, signature, true);
@@ -774,7 +774,7 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
     contentId: ContentId,
     content: any,
     hash: string,
-    signature: string = "",
+    signature: string = "0x",
   ): Promise<TwoStepEthTransaction<RevisionId | MultisigTransaction>> {
     const revision = typeof content === "string" ? content : JSON.stringify(content);
     const gas = await this.estimateUpdateURIAndHash(contentId, content, hash, signature, true);
@@ -1016,8 +1016,8 @@ export class Newsroom extends BaseWrapper<NewsroomContract> {
   ): Promise<{ storageHeader: StorageHeader; author: EthAddress; signature: Hex }> {
     const storageHeader = await this.contentProvider.put(content);
 
-    let author: EthAddress = "";
-    let signature: Hex = "";
+    let author: EthAddress = "0x";
+    let signature: Hex = "0x";
 
     if (signedData) {
       this.verifyApprovedRevision(storageHeader, signedData);

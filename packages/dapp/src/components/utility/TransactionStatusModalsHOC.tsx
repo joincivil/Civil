@@ -202,7 +202,7 @@ export const hasTransactionStatusModals = (transactionStatusModalConfig: Transac
           denied={true}
           denialText={denialContent[1] as string}
           cancelTransaction={cancelTransaction}
-          denialRestartTransactions={this.transactions}
+          restartTransactions={this.transactions}
         >
           <ModalHeading>{denialContent[0]}</ModalHeading>
         </MetaMaskModal>
