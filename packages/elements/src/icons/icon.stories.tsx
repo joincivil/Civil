@@ -13,6 +13,7 @@ import {
   BrainIcon,
   Chevron,
   CivilTutorialIcon,
+  ClipLoader,
   ClockIcon,
   CloseXIcon,
   CommitVoteSuccessIcon,
@@ -136,6 +137,20 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <CivilTutorialIcon />
+      </Container>
+    );
+  })
+  .add("Loading / Clip Loader / Default Size (32px x 32px)", () => {
+    return (
+      <Container>
+        <ClipLoader />
+      </Container>
+    );
+  })
+  .add("Loading / Clip Loader / Prop-defined size (100px x 100px)", () => {
+    return (
+      <Container>
+        <ClipLoader size={100} />
       </Container>
     );
   })

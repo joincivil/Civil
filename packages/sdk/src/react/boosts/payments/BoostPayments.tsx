@@ -2,7 +2,14 @@ import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts, mediaQueries, QuestionToolTip, ChevronAnchorLeft } from "@joincivil/components";
 import { BoostPayOptions } from "./BoostPayOptions";
-import { BoostWrapper, BoostTitle, BoostSmallPrint, BoostTextButton, BoostBack } from "../BoostStyledComponents";
+import {
+  BoostWrapper,
+  BoostTitle,
+  BoostSmallPrint,
+  BoostTextButton,
+  BoostBack,
+  MobileStyle,
+} from "../BoostStyledComponents";
 import { EthAddress } from "@joincivil/core";
 
 const BoostHeaderWrap = styled.div`
@@ -20,6 +27,13 @@ const BoostHeader = styled.h2`
   line-height: 33px;
   font-weight: bold;
   margin: 0 0 25px;
+
+  ${mediaQueries.MOBILE} {
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: normal;
+    margin-bottom: 12px;
+  }
 `;
 
 const BoostPayNewsroom = styled.div`
@@ -32,11 +46,8 @@ const BoostPayNewsroom = styled.div`
 
   ${mediaQueries.MOBILE} {
     font-size: 14px;
+    margin-bottom: 8px;
   }
-`;
-
-const BoostDetails = styled.div`
-  margin: 0 0 50px;
 `;
 
 const BoostAmount = styled.p`
@@ -48,9 +59,22 @@ const BoostAmount = styled.p`
   margin-bottom: 20px;
 `;
 
+const BoostDetails = styled.div`
+  margin: 0 0 50px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 16px;
+
+    ${BoostTitle},
+    ${BoostPayNewsroom},
+    ${BoostAmount} {
+      display: none;
+    }
+  }
+`;
+
 export interface BoostPaymentsProps {
   isStripeConnected: boolean;
-  walletConnected: boolean;
   paymentAddr: EthAddress;
   boostId: string;
   title: string;
@@ -75,7 +99,13 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
             Back to Boost info
           </ChevronAnchorLeft>
         </BoostBack>
-        <BoostHeader>Complete your Boost payment</BoostHeader>
+        <BoostHeader>
+          Complete your Boost payment
+          <MobileStyle>
+            {" "}
+            of <b>${usdToSpend}</b> to <b>{props.newsroomName}</b>
+          </MobileStyle>
+        </BoostHeader>
         <BoostDetails>
           <BoostTitle>{props.title}</BoostTitle>
           <BoostPayNewsroom>{props.newsroomName}</BoostPayNewsroom>
@@ -96,7 +126,6 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         newsroomName={props.newsroomName}
         title={props.title}
         boostId={props.boostId}
-        walletConnected={props.walletConnected}
         isStripeConnected={props.isStripeConnected}
         handlePaymentSuccess={() => props.handlePaymentSuccess()}
       />

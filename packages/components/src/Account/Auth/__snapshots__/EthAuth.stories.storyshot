@@ -11,11 +11,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
     }
   >
     <div
-      className="sc-LzNMR iQGppR"
-    >
-      <h4
-        className="sc-fzXfNl blkgXQ"
-      >
+      className="sc-LzNMm dvNrhg"
         Log into Civil with your crypto wallet
       </h4>
       <p>
@@ -27,15 +23,11 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
         </p>
         
         <button
-          className="sc-fzXfPa sc-fzXfPb sc-LzMHn jlKuQt"
+          className="sc-fzXfLO sc-fzXfLP sc-LzMHf gFJpnS"
           onClick={[Function]}
           size="MEDIUM_WIDE"
           theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
+          className="sc-fzXfLO sc-fzXfLP sc-LzMHf gFJpnS"
               "primaryButtonFontWeight": "normal",
               "primaryButtonHoverBackground": "#4066FF",
               "primaryButtonTextTransform": "uppercase",
@@ -45,7 +37,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
           type="button"
         >
           <div
-            className="sc-LzMWq ebolUt"
+            className="sc-LzMHg jRqcNw"
           >
             <img
               className="sc-AykKH jXAxor"
@@ -53,11 +45,7 @@ exports[`Storyshots Common / Auth / ETH AccountEthAuth Component 1`] = `
             />
           </div>
           Open MetaMask
-        </button>
-        <img
-          src="test-file-stub"
-        />
-      </div>
+            className="sc-LzMHg jRqcNw"
     </div>
   </div>
   <button

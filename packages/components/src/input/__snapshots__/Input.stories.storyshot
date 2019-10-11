@@ -309,7 +309,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfPE frSvXG"
+      className="sc-fzXfOZ irEomi"
     >
       <div
         className=" sc-fzXfMC haCwAp"
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-fzXfPF beGJse"
+        className="sc-fzXfPa daxSzd"
       >
         CVL
       </div>
@@ -2147,7 +2147,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfPN dDHUuw"
+        className="sc-fzXfPF cXJTBg"
       >
         <div
           className=" sc-fzXfMC haCwAp"
@@ -2164,7 +2164,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
           />
         </div>
         <button
-          className="sc-fzXfPa sc-fzXfPb hmUiTa"
+          className="sc-fzXfLO sc-fzXfLP ewtwbh"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfQl hdyBGP"
+        className="sc-fzXfPG fIptwR"
       />
     </form>
   </div>
@@ -2740,7 +2740,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfPE frSvXG"
+      className="sc-fzXfOZ irEomi"
     >
       <div
         className=" sc-fzXfMC haCwAp"
@@ -3308,7 +3308,7 @@ exports[`Storyshots Pattern Library / Inputs image file to data uri 1`] = `
     }
   >
     <button
-      className="sc-fzXfPa sc-fzXfPc fUWEIB"
+      className="sc-fzXfLO sc-fzXfLQ ioNMHg"
       onClick={[Function]}
       size="SMALL"
       theme={

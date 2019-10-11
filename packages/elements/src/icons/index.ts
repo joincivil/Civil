@@ -11,6 +11,7 @@ export * from "./Chevron";
 export * from "./CivilIcon";
 export * from "./CivilTutorialIcon";
 export * from "./CvlToken";
+export * from "./ClipLoader";
 export * from "./ClockIcon";
 export * from "./CloseXIcon";
 export * from "./CCAmexIcon";

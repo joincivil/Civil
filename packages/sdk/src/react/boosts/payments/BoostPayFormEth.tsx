@@ -1,7 +1,7 @@
 import * as React from "react";
 import { isValidEmail } from "@joincivil/utils";
 import {
-  BoostFlexStart,
+  BoostPayFormFlex,
   BoostPayFormWrapper,
   SubmitInstructions,
   SubmitWarning,
@@ -13,6 +13,7 @@ import {
   progressModalStates,
   CivilContext,
   ICivilContext,
+  RENDER_CONTEXT,
 } from "@joincivil/components";
 import { InputValidationUI, INPUT_STATE } from "./InputValidationUI";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
@@ -78,12 +79,19 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
       <BoostPayFormWrapper>
         <form>
           <BoostUserInfoForm>
-            <label>Email (optional)</label>
+            {this.context.renderContext !== RENDER_CONTEXT.EMBED && <label>Email (optional)</label>}
             <InputValidationUI inputState={this.state.emailState} width={"500px"}>
-              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder={this.context.renderContext === RENDER_CONTEXT.EMBED ? "Email (optional)" : undefined}
+                maxLength={254}
+                onBlur={() => this.handleOnBlur(event)}
+              />
             </InputValidationUI>
           </BoostUserInfoForm>
-          <BoostFlexStart>
+          <BoostPayFormFlex>
             <SubmitInstructions>
               All proceeds of the Boost go directly to the newsroom. If a Boost goal is not met, the proceeds will still
               go to fund the selected newsroom. Refunds are not possible.
@@ -108,7 +116,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
                 transaction. There are small fees charged by the Ethereum network.
               </SubmitWarning>
             </div>
-          </BoostFlexStart>
+          </BoostPayFormFlex>
         </form>
       </BoostPayFormWrapper>
     );

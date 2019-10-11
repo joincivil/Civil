@@ -128,7 +128,6 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                       title={boostData.title}
                       newsroomName={newsroomData.name}
                       paymentAddr={newsroomData.owner}
-                      walletConnected={!!this.props.walletConnected}
                       handleBackToListing={this.handleBackToListing}
                       handlePaymentSuccess={this.handlePaymentSuccess}
                       isStripeConnected={boostData.channel.isStripeConnected}
@@ -174,7 +173,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
   }
 
   private renderEditMode(boostData: BoostData, newsroomData: BoostNewsroomData): JSX.Element {
-    const listingUrl = "https://registry.civil.co/listing/" + boostData.channel.newsroom.contractAddress;
+    const listingUrl = `${document.location.origin}/listing/${boostData.channel.newsroom.contractAddress}`;
     return (
       <BoostForm
         channelID={boostData.channel.id}
@@ -190,7 +189,8 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
   private startPayment = (usdToSpend: number) => {
     this.props.history.push({
-      pathname: this.props.location.pathname + "/payment",
+      // Current pathname shouldn't have trailing slash, but could happen if someone copied the payment route and deleted "payment" instead of "/payment", as I keep doing when testing, so, get rid of it
+      pathname: this.props.location.pathname.replace(/\/$/, "") + "/payment",
       state: { usdToSpend },
     });
     this.context.fireAnalyticsEvent("boosts", "start support", this.props.boostId, usdToSpend);
