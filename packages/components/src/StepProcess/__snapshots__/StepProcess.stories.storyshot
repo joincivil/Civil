@@ -12,13 +12,13 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
   >
     <div>
       <div
-        className="sc-fzXfRa kenTOu"
+        className="sc-fzXfRb fhpZPb"
       >
         <div
-          className="sc-fzXfRb ipUZmU"
+          className="sc-LzLqC hQIgEQ"
         >
           <h4
-            className="sc-fzXfQZ btnRtA"
+            className="sc-fzXfRa iGswio"
           >
             Step 1
           </h4>
@@ -27,10 +27,10 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
           </p>
         </div>
         <div
-          className="sc-fzXfRb cuZvbl"
+          className="sc-LzLqC bVMCth"
         >
           <h4
-            className="sc-fzXfQZ btnRtA"
+            className="sc-fzXfRa iGswio"
           >
             Step 2
           </h4>
@@ -39,10 +39,10 @@ exports[`Storyshots Common / Steps / Step Process (deprecated?) Step Process 1`]
           </p>
         </div>
         <div
-          className="sc-fzXfRb hPzAoy"
+          className="sc-LzLqC hqmHGu"
         >
           <h4
-            className="sc-fzXfQZ btnRtA"
+            className="sc-fzXfRa iGswio"
           >
             Step 3
           </h4>

@@ -11,23 +11,23 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
     }
   >
     <div
-      className="sc-LzNxd aeFWD"
+      className="sc-LzNxe iPUDsw"
     >
       <form
         onSubmit={[Function]}
       >
         <div
-          className="sc-LzNxg lhUOOJ"
+          className="sc-LzNxh bWHogm"
         >
           <div
-            className="sc-LzNxe gaUnNx"
+            className="sc-LzNxf iElhjq"
           >
             <div
-              className="sc-fzXfPL iHPalz"
+              className="sc-fzXfPM kSVgqw"
             >
               <section>
                 <div
-                  className="sc-fzXfPK kZHSQy"
+                  className="sc-fzXfPL cSSiGH"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragEnter={[Function]}
@@ -118,7 +118,7 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
                 type="file"
               />
               <button
-                className="sc-fzXfOZ sc-fzXfPb cfCPVL"
+                className="sc-fzXfPa sc-fzXfPc fUWEIB"
                 onClick={[Function]}
                 size="SMALL"
                 theme={
@@ -138,10 +138,10 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
         </div>
       </form>
       <div
-        className="sc-LzNwv iteKkv"
+        className="sc-LzNww gUJqtI"
       >
         <span
-          className="sc-LzNMp bSWvox"
+          className="sc-LzNMq idjAwi"
           onClick={[Function]}
         >
           Skip for now
