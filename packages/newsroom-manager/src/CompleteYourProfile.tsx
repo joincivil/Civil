@@ -138,7 +138,7 @@ class CompleteYourProfileComponent extends React.Component<
             denied={true}
             denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransaction(true)}
+            restartTransactions={this.getTransaction(true)}
           >
             <ModalHeading>{message}</ModalHeading>
           </MetaMaskModal>

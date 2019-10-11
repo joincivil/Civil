@@ -25,6 +25,7 @@ export interface TransactionButtonModalFlowState {
   isPreTransactionModalOpen?: boolean;
   isWaitingTransactionModalOpen?: boolean;
   metaMaskRejectionModal?: boolean;
+  metaMaskErrorModal?: boolean;
   completeModalOpen?: boolean;
   startTransaction?(): any;
   cancelTransaction?(): any;

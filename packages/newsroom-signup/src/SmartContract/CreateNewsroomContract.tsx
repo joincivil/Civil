@@ -46,7 +46,7 @@ export interface NameAndAddressProps {
 }
 
 const STANDIN_IPFS_URL = "ipfs://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+const STAND_IN_HASH = "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 export interface NameAndAddressState extends TransactionButtonModalFlowState {
   collapsableOpen: boolean;
@@ -244,7 +244,7 @@ export class CreateNewsroomContractComponent extends React.Component<
         denied={true}
         denialText={denialMessage}
         cancelTransaction={() => this.cancelTransaction()}
-        denialRestartTransactions={this.getTransactions(this.context.civil!, true)}
+        restartTransactions={this.getTransactions(this.context.civil!, true)}
       >
         <ModalHeading>{message}</ModalHeading>
       </MetaMaskModal>

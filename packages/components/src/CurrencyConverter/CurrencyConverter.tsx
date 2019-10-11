@@ -58,9 +58,13 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
     if (civil) {
       const account = await civil.accountStream.first().toPromise();
       if (account) {
-        this.setState({
+        await this.setState({
           balance: await civil.accountBalance(account),
         });
+        // Now that we have balance we should do conversion again where we check if they have enough ETH for it
+        if (this.props.fromValue) {
+          await this.handleConversion(this.props.fromValue);
+        }
       }
     }
   }
