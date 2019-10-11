@@ -6,7 +6,6 @@ export * from "./Button";
 export * from "./Card";
 export * from "./ChevronAnchor";
 export * from "./ChevronAnchorLeft";
-export * from "./CivilLogo";
 export * from "./FullscreenModal";
 export * from "./Heading";
 export * from "./Message";

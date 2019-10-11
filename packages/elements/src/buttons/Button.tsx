@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { colors } from "../colors/index";
-import { fonts } from "../text/fonts";
+import { colors } from "../colors";
+import { fonts } from "../text";
+import { ClipLoader } from "../icons";
 
 export enum buttonSizes {
   SMALL = "SMALL",
@@ -29,6 +30,7 @@ export interface ButtonProps {
   // TODO(jorgelo): When a button with textTransform={"none"}, react throw this warning: React does not recognize the `textTransform` prop on a DOM element.
   textTransform?: string;
   type?: "button" | "reset" | "submit" | undefined;
+  loading?: boolean;
   onClick?(ev: any): void;
 }
 
@@ -130,12 +132,14 @@ const fontObject: { [index: string]: string } = {
 export const ButtonComponent = (props: ButtonProps) => {
   const activeClass = props.active ? " active" : "";
   const disabledClass = props.disabled ? " disabled" : "";
-  const { children, className, onClick, disabled, to, href, target, type, inputRef } = props;
+  const { children, className, onClick, disabled, to, href, target, type, inputRef, loading } = props;
+
+  const inner = loading ? <ClipLoader size={24} /> : children;
 
   if (to) {
     return (
       <Link {...props} className={className + activeClass + disabledClass} to={to} ref={inputRef}>
-        {children}
+        {inner}
       </Link>
     );
   }
@@ -143,7 +147,7 @@ export const ButtonComponent = (props: ButtonProps) => {
   if (href) {
     return (
       <a {...props} className={className + activeClass + disabledClass} href={href} target={target} ref={inputRef}>
-        {children}
+        {inner}
       </a>
     );
   }
@@ -157,7 +161,7 @@ export const ButtonComponent = (props: ButtonProps) => {
       disabled={disabled}
       ref={inputRef}
     >
-      {children}
+      {inner}
     </button>
   );
 };
@@ -171,7 +175,7 @@ const BaseButton = styled(ButtonComponent)`
   border: none;
   letter-spacing: ${(props: any) => spacingObject[props.size || buttonSizes.LARGE]};
   font-size: ${(props: any) => fontObject[props.size || buttonSizes.LARGE]};
-  transition: background-color 500ms;
+  transition: color 500ms, background-color 500ms, border-color 500ms;
   outline: none;
   display: inline-block;
   ${(props: any) => (props.width ? `width: ${props.width}px;` : "")};
@@ -180,6 +184,7 @@ const BaseButton = styled(ButtonComponent)`
 
 export const Button = styled(BaseButton)`
   background-color: ${props => props.theme.primaryButtonBackground};
+  border: 2px solid ${props => props.theme.primaryButtonBackground};
   color: ${props => props.theme.primaryButtonColor};
   font-weight: ${props => props.theme.primaryButtonFontWeight};
   text-transform: ${props => (props.textTransform ? props.textTransform : props.theme.primaryButtonTextTransform)};
@@ -190,8 +195,15 @@ export const Button = styled(BaseButton)`
     color: ${props => props.theme.primaryButtonColor};
   }
   &:disabled {
+    cursor: default;
     background-color: ${props => props.theme.primaryButtonDisabledBackground};
     color: ${props => props.theme.primaryButtonDisabledColor};
+    border-color: transparent;
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.primaryButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
@@ -200,7 +212,7 @@ Button.defaultProps = {
 };
 
 export const InvertedButton = styled(BaseButton)`
-  text-transform: uppercase;
+  text-transform: ${props => (props.textTransform ? props.textTransform : "uppercase")};
   background-color: ${props => props.theme.invertedButtonBackground};
   color: ${props => props.theme.invertedButtonColor};
   border: 2px solid ${props => props.theme.invertedButtonColor};
@@ -209,6 +221,11 @@ export const InvertedButton = styled(BaseButton)`
   &:hover {
     background-color: ${props => props.theme.invertedButtonColor};
     color: ${props => props.theme.invertedButtonBackground};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.invertedButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
@@ -227,6 +244,11 @@ export const SecondaryButton = styled(BaseButton)`
     border: 1px solid ${props => props.theme.secondaryButtonHoverBackground};
     color: ${props => props.theme.secondaryButtonHoverColor};
   }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.secondaryButtonColor};
+    border-bottom-color: transparent;
+  }
 `;
 
 SecondaryButton.defaultProps = {
@@ -242,6 +264,11 @@ export const DarkButton = styled(BaseButton)`
   &.active {
     color: ${props => props.theme.darkButtonHoverColor};
     background-color: ${props => props.theme.darkButtonHoverBackground};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.darkButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
@@ -276,6 +303,11 @@ export const BorderlessButton = styled(Button)`
   &:hover {
     background-color: transparent;
     color: ${props => props.theme.borderlessButtonHoverColor};
+  }
+
+  ${ClipLoader} {
+    border-color: ${props => props.theme.borderlessButtonColor};
+    border-bottom-color: transparent;
   }
 `;
 
