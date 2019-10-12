@@ -1,6 +1,7 @@
 import * as React from "react";
 import { StoryRegistryDetailsStyled, StoryRegistryStatusTextWrap } from "./StoryFeedStyledComponents";
 import { ApprovedNewsroomText, ChallengedNewsroomText } from "./StoryFeedTextComponents";
+import { ChallengeMarkIcon, TrustMarkIcon } from "@joincivil/elements";
 
 export interface StoryRegistryDetailsProps {
   activeChallenge: boolean;
@@ -12,12 +13,12 @@ export const StoryRegistryDetails: React.FunctionComponent<StoryRegistryDetailsP
       {props.activeChallenge ? (
         <StoryRegistryStatusTextWrap activeChallenge={true}>
           <ChallengedNewsroomText />
-          {/* TODO(sruddy) challenge icon tktk */}
+          <ChallengeMarkIcon />
         </StoryRegistryStatusTextWrap>
       ) : (
         <StoryRegistryStatusTextWrap activeChallenge={false}>
           <ApprovedNewsroomText />
-          {/* TODO(sruddy) approved icon tktk */}
+          <TrustMarkIcon />
         </StoryRegistryStatusTextWrap>
       )}
     </StoryRegistryDetailsStyled>

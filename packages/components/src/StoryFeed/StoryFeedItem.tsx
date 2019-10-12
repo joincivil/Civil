@@ -8,6 +8,7 @@ import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, TipButton, StoryElements } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
+import { TipIcon } from "@joincivil/elements";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -59,7 +60,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <StoryElements>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
-            <TipButton onClick={this.openPayments}>Tip $</TipButton>
+            <TipButton onClick={this.openPayments}><TipIcon /></TipButton>
           </StoryElements>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
