@@ -14,7 +14,7 @@ import {
   UserAvatarFigure,
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
-import { ICivilContext, CivilContext } from "@joincivil/components";
+import { ICivilContext, CivilContext, ClipLoader } from "@joincivil/components";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../redux/reducers";
 import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
@@ -92,7 +92,7 @@ const UserAccount: React.FunctionComponent = props => {
       </>
     );
   } else if (civilCtx.auth.loading) {
-    return <span>...</span>;
+    return <ClipLoader size={10} />;
   }
 
   return (
