@@ -31,6 +31,12 @@ export const NavOuter = styled.div`
     box-sizing: border-box;
   }
 
+  ${mediaQueries.MOBILE} {
+    min-height: 54px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
   & a {
     color: ${colors.basic.WHITE};
     text-decoration: none;
@@ -81,6 +87,10 @@ export const NavUser = styled.div`
   justify-content: space-between;
   margin-left: 15px;
   padding-left: 15px;
+
+  ${mediaQueries.MOBILE} {
+    border-left: none;
+  }
 `;
 
 export const CvlContainer = styled.div`
@@ -157,7 +167,7 @@ export const BorderlessNavBarButton = styled(DarkButton)`
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
   text-align: center;
 `;
 
@@ -166,12 +176,17 @@ export const NavBarButton = styled(DarkButton)`
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
-  padding: 15px 15px 15px 15px;
+  padding: 15px;
   text-align: center;
 
   &:hover {
     background: ${colors.basic.WHITE};
     color: ${colors.primary.BLACK};
+  }
+
+  ${mediaQueries.MOBILE} {
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 `;
 
@@ -188,6 +203,11 @@ export const StyledNavDrawer = styled.div`
   z-index: 1;
   * {
     box-sizing: border-box;
+  }
+
+  ${mediaQueries.MOBILE} {
+    z-index: 2;
+    top: 54px;
   }
 `;
 
