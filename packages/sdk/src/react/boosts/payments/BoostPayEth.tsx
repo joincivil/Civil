@@ -53,7 +53,7 @@ export interface BoostPayEthStates {
   usdToSpend: number;
   notEnoughEthError: boolean;
   walletConnected: boolean;
-  ethEnableCalled?: boolean;
+  waitingForWallet?: boolean;
 }
 
 export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthStates> {
@@ -74,16 +74,21 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   }
 
   public async componentDidUpdate(prevProps: BoostPayEthProps): Promise<void> {
-    if (!prevProps.selected && this.props.selected && !this.state.ethEnableCalled && this.context.civil) {
+    if (!prevProps.selected && this.props.selected && !this.state.waitingForWallet && this.context.civil) {
       this.setState({
-        ethEnableCalled: true,
+        waitingForWallet: true,
       });
-      await this.context.civil.currentProviderEnable();
-      this.setState({
-        walletConnected: true,
-        // they clearly have a wallet, so:
-        isMobileWalletModalOpen: false,
-      });
+      // In the registry context this should already have been called by global nav, but embed context we need to make sure provider is enabled:
+      this.context.civil.currentProviderEnable();
+      // @WORKAROUND: `currentProviderEnable` isn't returning promise in some cases (on the registry), so instead of awaiting that, once we've called it we can await this to see if it's gone through:
+      const wallet = await this.context.civil.accountStream.first().toPromise();
+      if (wallet) {
+        this.setState({
+          walletConnected: true,
+          // they clearly have a wallet, so:
+          isMobileWalletModalOpen: false,
+        });
+      }
     }
   }
 
