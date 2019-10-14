@@ -17,14 +17,6 @@ export interface AuthWeb3Props {
   onUserSelectLogIn?(): void;
 }
 
-export interface AuthWeb3State {
-  errorMessage?: string;
-  isWaitingSignatureOpen?: boolean;
-  isSignRejectionOpen?: boolean;
-  userAddress?: EthAddress;
-  onErrContinue?(): void;
-}
-
 const USER_ALREADY_EXISTS = "GraphQL error: User already exists with this identifier";
 const NO_USER_EXISTS = "GraphQL error: signature invalid or not signed up";
 const CANCELLED = "cancelled";
@@ -39,7 +31,7 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
   // state
   const [isSignRejectionOpen, setisSignRejectionOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
-  const [onErrContinue, setOnErrContinue] = React.useState<any | undefined>(undefined);
+  const [onErrContinue, setOnErrContinue] = React.useState<{ cb(): void } | undefined>(undefined);
 
   // effects
   React.useEffect(() => {
@@ -67,12 +59,12 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
     } catch (err) {
       if (err.toString().includes(USER_ALREADY_EXISTS)) {
         setErrorMessage(err);
-        setOnErrContinue(props.onSignUpUserAlreadyExists);
+        setOnErrContinue({ cb: props.onSignUpUserAlreadyExists });
       } else if (err.toString().includes(NO_USER_EXISTS)) {
         setErrorMessage(err);
-        setOnErrContinue(props.onLogInNoUserExists);
+        setOnErrContinue({ cb: props.onLogInNoUserExists });
       } else if (err.toString().includes(CANCELLED)) {
-        setOnErrContinue(props.onOuterClicked);
+        setOnErrContinue({ cb: props.onOuterClicked });
       } else if (err.toString().includes(SWITCH_TO_SIGNUP)) {
         if (props.onUserSelectSignUp) {
           props.onUserSelectSignUp();
@@ -83,7 +75,7 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
         }
       } else {
         setErrorMessage(err);
-        setOnErrContinue(props.onOuterClicked);
+        setOnErrContinue({ cb: props.onOuterClicked });
       }
     }
   }
@@ -121,9 +113,9 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
     const err = errorMessage.toString();
     let bodyText = `Something went wrong when authenticating your wallet address (${errorMessage}). Please try again later.`;
     if (err.includes(USER_ALREADY_EXISTS)) {
-      bodyText = "A user with this Ethereum address already exists. You will be redirected to Log In.";
+      bodyText = "A user with this Ethereum address already exists. You will now be redirected to Log In.";
     } else if (err.includes(NO_USER_EXISTS)) {
-      bodyText = "No user with this Ethereum address was found. You Will be redirected to Sign Up.";
+      bodyText = "No user with this Ethereum address was found. You will now be redirected to Sign Up.";
     }
 
     return (
@@ -137,8 +129,9 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
   }
 
   function cancelTransaction(): void {
+    console.log("calling cancelTransaction");
     if (onErrContinue) {
-      onErrContinue();
+      onErrContinue.cb();
     }
     setErrorMessage(undefined);
     setOnErrContinue(undefined);
