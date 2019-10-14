@@ -133,6 +133,7 @@ const PrioritizedStyledRadioCardInput = styled(EnabledStyledRadioCardInput)`
 
 const DisabledStyledRadioCardInput = styled(StyledRadioCardInput)`
   background-color: ${colors.accent.CIVIL_GRAY_4};
+  cursor: not-allowed;
 `;
 
 export const RadioCardInput: React.FC<RadioCardInputProps> = props => {
