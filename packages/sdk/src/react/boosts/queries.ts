@@ -35,6 +35,7 @@ export const boostQuery = gql`
           id
           channelType
           isStripeConnected
+          stripeAccountID
           newsroom {
             contractAddress
           }

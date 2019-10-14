@@ -26,6 +26,7 @@ const boost = {
     id: "",
     channelType: "",
     isStripeConnected: true,
+    stripeAccountID: "acct_id_00000",
     newsroom: {
       contractAddress: "0xabc123",
     },
