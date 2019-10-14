@@ -21,7 +21,6 @@ import {
   CCMastercardIcon,
   CCVisaIcon,
   CCSecurityCodeIcon,
-  FeatureFlag,
 } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import {
