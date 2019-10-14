@@ -4,7 +4,6 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 import { CivilIcon } from "../icons";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
-import { RadioButtonDiv, RadioButton, SecondaryButton } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
   padding: 20px;
@@ -270,6 +269,7 @@ export const PaymentEthLearnMore = styled.div`
 
 export const PaymentsRadioBtnContain = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
+  margin-right: 20px;
 
   input {
     display: none;
@@ -278,14 +278,62 @@ export const PaymentsRadioBtnContain = styled.div`
   input:checked + button {
     border: 2px solid ${colors.accent.CIVIL_BLUE};
   }
+
+  &:last-of-type {
+    margin-right: 0;
+  }
 `;
 
 export const PaymentsRadioBtn = styled.button`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 4px;
-  padding: 15px;
+  cursor pointer;
+  font-size: 18px;
+  font-weight: 600;
+  height: 75px;
+  padding: 10px;
+  width: 70px;
+
+  span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+  }
 
   &:hover {
     border: 2px solid ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
+export const PaymentAmountHeader = styled.h2`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  line-spacing: 22px;
+  margin: 0 0 10px;
+  text-align: center;
+`;
+
+export const PaymentAmountInfo = styled.p`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-spacing: 17px;
+  margin: 0 0 20px;
+  text-align: center;
+`;
+
+export const PaymentAmountUserOptions = styled.div`
+  margin: 20px 0;
+
+  input {
+    margin-right: 8px;
+  }
+
+  label {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 14px;
+    line-spacing: 17px;
   }
 `;

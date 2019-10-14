@@ -60,7 +60,9 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <StoryElements>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
-            <TipButton onClick={this.openPayments}><TipIcon /></TipButton>
+            <TipButton onClick={this.openPayments}>
+              <TipIcon />
+            </TipButton>
           </StoryElements>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
@@ -83,7 +85,6 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}
-            usdToSpend={3}
             isStripeConnected={this.props.isStripeConnected}
           />
         </StoryModal>

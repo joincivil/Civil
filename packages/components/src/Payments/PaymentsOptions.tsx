@@ -7,11 +7,11 @@ import {
   PayWithEthText,
   PayWithEthDescriptionText,
 } from "./PaymentsTextComponents";
+import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsOptionsProps {
   isStripeConnected: boolean;
-  handlePayEth(): void;
-  handlePayStripe(): void;
+  handleNext(paymentState: PAYMENT_STATE): void;
 }
 
 export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
@@ -22,7 +22,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
       </PaymentDirectionsStyled>
       {props.isStripeConnected && (
         <>
-          <PaymentBtn onClick={props.handlePayStripe}>
+          <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)}>
             <PayWithCardText />
           </PaymentBtn>
           <PaymentOptionDescription>
@@ -31,7 +31,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
         </>
       )}
       <>
-        <PaymentBtn onClick={props.handlePayEth}>
+        <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.ETH_PAYMENT)}>
           <PayWithEthText />
         </PaymentBtn>
         <PaymentOptionDescription>

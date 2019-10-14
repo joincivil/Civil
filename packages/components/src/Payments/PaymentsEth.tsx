@@ -21,6 +21,7 @@ import {
 } from "./PaymentsTextComponents";
 import { PaymentsModal } from "./PaymentsModal";
 import { PaymentsEthForm } from "./PaymentsEthForm";
+import { PAYMENT_STATE } from "./types";
 
 export enum MODEL_CONTENT {
   WHY_ETH,
@@ -35,7 +36,7 @@ export interface PaymentsEthProps {
   userAddress?: EthAddress;
   usdToSpend: number;
   isWalletConnected: boolean;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsEthStates {

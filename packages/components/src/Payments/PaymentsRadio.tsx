@@ -20,9 +20,7 @@ export const PaymentsRadio: React.FunctionComponent<PaymentsRadioProps> = props 
   return (
     <PaymentsRadioBtnContain>
       <input type="radio" value={value} onChange={onChange} name={name} ref={ref => (input = ref)} />
-      <PaymentsRadioBtn onClick={clickHandler}>
-        {children}
-      </PaymentsRadioBtn>
+      <PaymentsRadioBtn onClick={clickHandler}>{children}</PaymentsRadioBtn>
     </PaymentsRadioBtnContain>
   );
 };

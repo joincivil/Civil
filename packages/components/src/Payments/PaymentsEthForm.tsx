@@ -18,6 +18,7 @@ import {
   PaymentEthNoticeText,
   PaymentEthTermsText,
 } from "./PaymentsTextComponents";
+import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsEthFormProps {
   postId: string;
@@ -27,7 +28,7 @@ export interface PaymentsEthFormProps {
   paymentAddress: EthAddress;
   userAddress?: EthAddress;
   savePayment: MutationFunc;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsEthFormState {

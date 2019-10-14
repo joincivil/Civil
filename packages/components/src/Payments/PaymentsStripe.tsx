@@ -8,12 +8,13 @@ import { PayWithCardText } from "./PaymentsTextComponents";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
+import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsStripeProps {
   postId: string;
   newsroomName: string;
   usdToSpend: number;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsStripeStates {

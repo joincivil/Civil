@@ -1,5 +1,10 @@
 import * as React from "react";
-import { PaymentBtn } from "./PaymentsStyledComponents";
+import {
+  PaymentBtn,
+  PaymentAmountHeader,
+  PaymentAmountInfo,
+  PaymentAmountUserOptions,
+} from "./PaymentsStyledComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
 import { RadioInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
@@ -9,8 +14,10 @@ export interface SuggestedAmounts {
 }
 
 export interface PaymentsAmountProps {
+  usdToSpend: number;
   newsroomName: string;
   suggestedAmounts: SuggestedAmounts[];
+  handleAmount(usdToSpend: number, hideUserName: boolean): void;
 }
 
 export interface PaymentsAmountStates {
@@ -23,15 +30,16 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     super(props);
     this.state = {
       hideUserName: false,
-      usdToSpend: 0,
+      usdToSpend: this.props.usdToSpend,
     };
   }
 
   public render(): JSX.Element {
+    const disableNext = this.state.usdToSpend === 0;
     return (
       <>
-        <h2>Send a tip to Coda Story</h2>
-        <p>Your tip goes directly to their newsroom account.</p>
+        <PaymentAmountHeader>Send a tip to Coda Story</PaymentAmountHeader>
+        <PaymentAmountInfo>Your tip goes directly to their newsroom account.</PaymentAmountInfo>
         <RadioInput onChange={this.handleRadioSelection} label="" name="SuggestedAmounts">
           {this.props.suggestedAmounts.map((item, i) => (
             <PaymentsRadio value={item.amount} key={i}>
@@ -40,16 +48,21 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
             </PaymentsRadio>
           ))}
         </RadioInput>
-        <div>
+        <PaymentAmountUserOptions>
           <Checkbox
-            id="hideUsername"
+            id="hideUserName"
             onClick={this.handleCheckBox}
             checked={this.state.hideUserName}
             size={CheckboxSizes.SMALL}
           />
-          <label htmlFor="hideUsername">Hide my username from the contributor list</label>
-        </div>
-        <PaymentBtn>Continue</PaymentBtn>
+          <label htmlFor="hideUserName">Hide my username from the contributor list</label>
+        </PaymentAmountUserOptions>
+        <PaymentBtn
+          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.hideUserName)}
+          disabled={disableNext}
+        >
+          Continue
+        </PaymentBtn>
       </>
     );
   }

@@ -19,6 +19,7 @@ import {
   PaymentSuccessText,
 } from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./PaymentsInputValidationUI";
+import { PAYMENT_STATE } from "./types";
 
 const StripeWrapper = styled.div`
   color: ${colors.accent.CIVIL_GRAY_1};
@@ -173,7 +174,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   newsroomName: string;
   usdToSpend: number;
   savePayment: MutationFunc;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentStripeFormStates {

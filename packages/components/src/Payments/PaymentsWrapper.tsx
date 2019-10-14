@@ -8,19 +8,21 @@ import {
   PaymentAmountWrapper,
   PaymentAmount,
 } from "./PaymentsStyledComponents";
+import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsWrapperProps {
   showBackBtn: boolean;
+  backState: PAYMENT_STATE;
   usdToSpend: number;
   children: any;
-  handleBack?(): void;
+  handleBack(backState: PAYMENT_STATE): void;
 }
 
 export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = props => {
   return (
     <PaymentWrapperStyled>
       <PaymentHeader>
-        {props.showBackBtn && <PaymentBackBtn onClick={props.handleBack}>Back</PaymentBackBtn>}
+        {props.showBackBtn && <PaymentBackBtn onClick={() => props.handleBack(props.backState)}>Back</PaymentBackBtn>}
         <CivilIcon width={50} height={13} />
         <PaymentAmountWrapper>
           <YourTipText />
