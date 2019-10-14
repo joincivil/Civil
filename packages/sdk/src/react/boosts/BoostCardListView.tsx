@@ -36,7 +36,7 @@ export class BoostCardListView extends React.Component<BoostCardListViewProps> {
     } = this.props;
 
     return (
-      <BoostWrapperLink href={"/boosts/" + boostId}>
+      <BoostWrapperLink to={"/boosts/" + boostId}>
         <BoostTitle>{boostData.title}</BoostTitle>
 
         <BoostNewsroom
