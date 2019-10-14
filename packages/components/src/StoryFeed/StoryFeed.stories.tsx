@@ -6,7 +6,6 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 
 const Container = styled.div`
-  display: flex;
   width: 400px;
 `;
 

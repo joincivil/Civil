@@ -4,6 +4,7 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 import { CivilIcon } from "../icons";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
+import { RadioButtonDiv, RadioButton, SecondaryButton } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
   padding: 20px;
@@ -264,5 +265,27 @@ export const PaymentEthLearnMore = styled.div`
       color: ${colors.accent.CIVIL_BLUE};
       text-decoration: underline;
     }
+  }
+`;
+
+export const PaymentsRadioBtnContain = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+
+  input {
+    display: none;
+  }
+
+  input:checked + button {
+    border: 2px solid ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
+export const PaymentsRadioBtn = styled.button`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+  border-radius: 4px;
+  padding: 15px;
+
+  &:hover {
+    border: 2px solid ${colors.accent.CIVIL_BLUE};
   }
 `;
