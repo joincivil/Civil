@@ -131,6 +131,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                       handleBackToListing={this.handleBackToListing}
                       handlePaymentSuccess={this.handlePaymentSuccess}
                       isStripeConnected={boostData.channel.isStripeConnected}
+                      stripeAccountID={boostData.channel.stripeAccountID}
                       history={this.props.history}
                     />
                   );
