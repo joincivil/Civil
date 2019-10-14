@@ -255,13 +255,11 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
           optionLabel={this.props.optionLabel}
           selected={this.props.selected}
         >
-          <FeatureFlag feature={"pay-request"}>
-            <PaymentRequestForm
-              savePayment={this.props.savePayment}
-              boostId={this.props.boostId}
-              usdToSpend={this.props.usdToSpend}
-            />
-          </FeatureFlag>
+          <PaymentRequestForm
+            savePayment={this.props.savePayment}
+            boostId={this.props.boostId}
+            usdToSpend={this.props.usdToSpend}
+          />
           <StripeWrapper>
             <StripeCardEmailWrap>
               <label>Email</label>

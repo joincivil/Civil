@@ -77,6 +77,8 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
 
   private renderPaymentForm = (): JSX.Element => {
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
+    console.log("stripe api key: ", this.context.config.STRIPE_API_KEY);
+    console.log("this.props.stripeAccountID: ", this.props.stripeAccountID);
     if (this.state.stripeLoaded) {
       return (
         <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.props.stripeAccountID}>

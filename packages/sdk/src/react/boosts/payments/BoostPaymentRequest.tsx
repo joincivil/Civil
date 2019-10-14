@@ -35,19 +35,26 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       requestPayerName: true,
       requestPayerEmail: true,
     });
+    console.log("payment request: ", paymentRequest);
 
     paymentRequest.on("token", (token: any, complete: any, payerName: string, payerEmail: string) => {
+      console.log("on token. token: ", token);
+      console.log("on token. complete: ", complete);
       if (!payerName) {
+        console.log("no payer name");
         complete("invalid_payer_name");
       } else if (!payerEmail) {
+        console.log("no payer email");
         complete("invalid_payer_email");
       } else {
+        console.log("handlePaymentRequest.");
         // tslint:disable-next-line
         this.handlePaymentRequest(token, complete);
       }
     });
 
     paymentRequest.canMakePayment().then((result: any) => {
+      console.log("can make payment?: result: ", result);
       this.setState({ canMakePayment: !!result });
     });
 
@@ -68,6 +75,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
   }
 
   private async handlePaymentRequest(token: any, complete: any): Promise<void> {
+    console.log("handlePaymentRequest.");
     try {
       await this.props.savePayment({
         variables: {
@@ -80,8 +88,10 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
           },
         },
       });
+      console.log("mutation success.");
       complete("success");
     } catch (err) {
+      console.log("mutation failure.");
       console.error(err);
       complete("fail");
     }

@@ -69,7 +69,7 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
       etherToSpend: this.props.etherToSpend || 0,
       usdToSpend: this.props.usdToSpend,
       notEnoughEthError: false,
-      walletConnected: false,
+      walletConnected: true,
     };
   }
 
