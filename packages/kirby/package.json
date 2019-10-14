@@ -20,6 +20,7 @@
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.5",
     "ethers": "^4.0.37",
+    "query-string": "^6.8.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.0",
