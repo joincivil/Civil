@@ -6,14 +6,31 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 
 const Container = styled.div`
-  display: flex;
   width: 400px;
 `;
 
 const contributors = [
-  { avatar: "https://picsum.photos/50", username: "violetnight13", amount: "$2.50" },
-  { avatar: "https://picsum.photos/50", username: "CaryRay", amount: "$5.00" },
-  { avatar: "https://picsum.photos/50", username: "ronburgundy", amount: "0.009214 ETH" },
+  {
+    usdEquivalent: 2.5,
+    payerChannel: {
+      handle: "violetnight13",
+      tiny72AvatarDataUrl: "https://picsum.photos/50",
+    },
+  },
+  {
+    usdEquivalent: 3,
+    payerChannel: {
+      handle: "CaryRay",
+      tiny72AvatarDataUrl: "https://picsum.photos/50",
+    },
+  },
+  {
+    usdEquivalent: 5,
+    payerChannel: {
+      handle: "ronburgundy",
+      tiny72AvatarDataUrl: "https://picsum.photos/50",
+    },
+  },
 ];
 
 const newsroom = {

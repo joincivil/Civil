@@ -155,7 +155,7 @@ export interface CurrencyProps extends InputProps {
 }
 export const CurrencyInput = (props: InputProps) => {
   const icon = props.icon || <span>USD</span>;
-  return <InputBase type="number" min="0.01" step="0.01" {...props} icon={icon} />;
+  return <InputBase type="number" min="0.01" step="1" {...props} icon={icon} />;
 };
 
 export interface TextProps extends InputProps {
