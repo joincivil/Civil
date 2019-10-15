@@ -1,5 +1,7 @@
 export interface ContributorData {
-  avatar: string;
-  username: string;
-  amount: string;
+  usdEquivalent: number;
+  payerChannel: {
+    handle: string;
+    tiny72AvatarDataUrl: string;
+  };
 }
