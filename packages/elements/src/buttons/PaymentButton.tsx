@@ -43,7 +43,7 @@ export interface PaymentButtonProps {
 
 export const PaymentButton: React.FunctionComponent<PaymentButtonProps> = props => {
   return (
-    <PaymentBtnStyled onClick={props.onClick}>
+    <PaymentBtnStyled onClick={props.onClick} border={props.border}>
       <TipIcon />
       {props.label || "Boost"}
     </PaymentBtnStyled>
