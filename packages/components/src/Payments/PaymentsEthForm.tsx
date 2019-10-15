@@ -52,7 +52,9 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   public render(): JSX.Element {
     const PAY_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
       [progressModalStates.IN_PROGRESS]: <PaymentInProgressText />,
-      [progressModalStates.SUCCESS]: <PaymentSuccessText />,
+      [progressModalStates.SUCCESS]: (
+        <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.props.usdToSpend} />
+      ),
       [progressModalStates.ERROR]: <PaymentErrorText />,
     };
 

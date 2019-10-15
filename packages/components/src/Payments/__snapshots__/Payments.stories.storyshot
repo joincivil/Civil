@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
+exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
 <div>
   <div
     style={
@@ -11,99 +11,177 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
     }
   >
     <div
-      className="sc-LzNNA dQTvOX"
+      className="sc-LzNOn duEuZY"
     >
-      <div>
-        (exchange rate is 2x)
-      </div>
       <div
-        className="sc-LzNcc kaqJNQ"
+        className="sc-LzNtU fnQpCA"
       >
         <div
-          className="sc-LzNcd hprgth"
+          className="sc-LzNtV Ixnft"
         >
-          <label
-            className="sc-LzNce kiKogE"
-          >
-            Enter CVL Amount
-          </label>
+          <h2>
+            Send a Boost
+          </h2>
           <div
-            className="sc-LzNcf ivylty"
+            className="sc-LzNtW iRNqmV"
           >
             <div
-              className="sc-fzXfPd kOTFph"
+              className="sc-LzNtX hUutWB"
             >
-              <div
-                className=" sc-fzXfMD fCMMQq"
+              Coda Story
+            </div>
+          </div>
+          <div
+            className="sc-LzNtY bYMLwo"
+          >
+            Your Boost goes directly to the newsroom.
+          </div>
+        </div>
+        <p
+          className="sc-LzNuy dCiKgZ"
+        >
+          Select how much you would like to Boost
+        </p>
+        <div
+          className="sc-fzXfNf gqDmMZ"
+        >
+          <div>
+            <div
+              className="sc-LzNvi dRJgoG"
+            >
+              <input
+                name="SuggestedAmounts"
+                onChange={[Function]}
+                type="radio"
+                value="1"
+              />
+              <button
+                className="sc-LzNvj kZnGbT"
+                onClick={[Function]}
               >
-                <input
-                  className="sc-fzXfMD fCMMQq"
-                  min="0.01"
-                  name="Convert currency"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  step="0.01"
-                  type="number"
-                />
-              </div>
-              <div
-                className="sc-fzXfPe cTzFcd"
+                $
+                1
+                <span>
+                  USD
+                </span>
+              </button>
+            </div>
+            <div
+              className="sc-LzNvi dRJgoG"
+            >
+              <input
+                name="SuggestedAmounts"
+                onChange={[Function]}
+                type="radio"
+                value="2"
+              />
+              <button
+                className="sc-LzNvj kZnGbT"
+                onClick={[Function]}
               >
-                CVL
-              </div>
+                $
+                2
+                <span>
+                  USD
+                </span>
+              </button>
+            </div>
+            <div
+              className="sc-LzNvi dRJgoG"
+            >
+              <input
+                name="SuggestedAmounts"
+                onChange={[Function]}
+                type="radio"
+                value="3"
+              />
+              <button
+                className="sc-LzNvj kZnGbT"
+                onClick={[Function]}
+              >
+                $
+                3
+                <span>
+                  USD
+                </span>
+              </button>
+            </div>
+            <div
+              className="sc-LzNvi dRJgoG"
+            >
+              <input
+                name="SuggestedAmounts"
+                onChange={[Function]}
+                type="radio"
+                value="5"
+              />
+              <button
+                className="sc-LzNvj kZnGbT"
+                onClick={[Function]}
+              >
+                $
+                5
+                <span>
+                  USD
+                </span>
+              </button>
             </div>
           </div>
         </div>
         <div
-          className="sc-LzNcj cHszIn"
+          className="sc-LzNvm gBIezX"
         >
-          <svg
-            height="14"
-            viewBox="0 0 18 14"
-            width="18"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            className="sc-LzNvl cQsmQx"
+            onClick={[Function]}
           >
-            <g
-              fill="#8B8581"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <g
-                transform="translate(-336 -216)"
-              >
-                <path
-                  d="M349,228 L349,221 L347,221 L347,228 L344,228 L348,232 L352,228 L349,228 L349,228 Z M342,214 L338,218 L341,218 L341,225 L343,225 L343,218 L346,218 L342,214 L342,214 Z"
-                  transform="translate(345 223) rotate(90) translate(-345 -223)"
-                />
-              </g>
-            </g>
-          </svg>
+            Or enter a custom amount
+          </button>
         </div>
         <div
-          className="sc-LzNcd hprgth"
+          className="sc-LzNvK kPQBjA"
         >
           <label
-            className="sc-LzNce kiKogE"
+            className="sc-fzXfPc eMyvvO"
+            size="SMALL"
           >
-            Converted ETH
+            <input
+              checked={true}
+              id="shouldPublicize"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <span
+              className="sc-fzXfPb BjCeh"
+              size="SMALL"
+            />
           </label>
-          <div
-            className="sc-LzNcg iXMhyJ"
+          <label
+            htmlFor="shouldPublicize"
           >
-            <div
-              className="sc-LzNch eUqrJj"
-            >
-              0
-            </div>
-            <div
-              className="sc-LzNci jBatAG"
-            >
-              ETH
-            </div>
-          </div>
+            Hide my username from everyone but the newsroom
+          </label>
         </div>
+        <button
+          className="sc-fzXfLO sc-fzXfLP sc-LzNuA greuYy disabled"
+          disabled={true}
+          onClick={[Function]}
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+              "primaryButtonDisabledColor": "#FFFFFF",
+              "primaryButtonFontWeight": "normal",
+              "primaryButtonHoverBackground": "#4066FF",
+              "primaryButtonTextTransform": "uppercase",
+              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+            }
+          }
+          type="button"
+        >
+          Next
+        </button>
       </div>
     </div>
   </div>
@@ -206,7 +284,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
               }
             }
           >
-            Common / Currency / Currency Converter
+            Pulse / Payments
           </h1>
           <h2
             style={
@@ -218,7 +296,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
               }
             }
           >
-            CVL to ETH
+            Payment Amount
           </h2>
         </div>
         
@@ -268,7 +346,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                     }
                   >
                     &lt;
-                    StorybookProvider
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -298,9 +376,38 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                       }
                     >
                       &lt;
-                      styled.div
+                      PaymentsWrapper
                     </span>
-                    <span />
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          newsroomName
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Coda Story
+                            </span>
+                            "
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
                     <span
                       style={
                         Object {
@@ -310,75 +417,6 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                     >
                       &gt;
                     </span>
-                  </div>
-                  <div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 48,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &lt;
-                        div
-                      </span>
-                      <span />
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &gt;
-                      </span>
-                    </div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 63,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        (exchange rate is 2x)
-                      </span>
-                    </div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 48,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &lt;/
-                        div
-                        &gt;
-                      </span>
-                    </div>
                   </div>
                   <div
                     style={
@@ -396,18 +434,15 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                       }
                     >
                       &lt;
-                      CurrencyConverter
+                      PaymentsAmount
                     </span>
                     <span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          currencyCodeFrom
+                          newsroomName
                         </span>
                         <span>
                           =
@@ -423,111 +458,177 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                                 }
                               }
                             >
-                              CVL
+                              Coda Story
                             </span>
                             "
                           </span>
                         </span>
                       </span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          currencyCodeTo
+                          suggestedAmounts
                         </span>
                         <span>
                           =
                           <span
                             style={Object {}}
                           >
-                            "
+                            {
                             <span
                               style={
                                 Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
+                                  "color": "#666",
                                 }
                               }
                             >
-                              ETH
+                              [
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      amount
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    '1'
+                                  </span>
+                                  }
+                                </span>
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      amount
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    '2'
+                                  </span>
+                                  }
+                                </span>
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      amount
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
+                                    }
+                                  >
+                                    '3'
+                                  </span>
+                                  }
+                                </span>
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              ]
                             </span>
-                            "
+                            }
                           </span>
                         </span>
                       </span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          currencyLabelFrom
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Enter CVL Amount
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          currencyLabelTo
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Converted ETH
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          onConversion
+                          handleAmount
                         </span>
                         <span>
                           =
@@ -542,41 +643,12 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                                 }
                               }
                             >
-                              onConversion
+                              onClickFunc
                             </span>
                             }
                           </span>
                         </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          doConversion
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            {
-                            <span
-                              style={
-                                Object {
-                                  "color": "#170",
-                                }
-                              }
-                            >
-                              doConversion
-                            </span>
-                            }
-                          </span>
-                        </span>
-                        <br />
+                         
                       </span>
                     </span>
                     <span
@@ -605,7 +677,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                       }
                     >
                       &lt;/
-                      styled.div
+                      PaymentsWrapper
                       &gt;
                     </span>
                   </div>
@@ -626,7 +698,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
                     }
                   >
                     &lt;/
-                    StorybookProvider
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -678,7 +750,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
               }
             >
               "
-              CurrencyConverter
+              PaymentsAmount
               " Component
             </h3>
             <small>
@@ -694,7 +766,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
               }
             >
               "
-              StorybookProvider
+              PaymentsWrapper
               " Component
             </h3>
             <small>
@@ -724,7 +796,7 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
 </div>
 `;
 
-exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
+exports[`Storyshots Pulse / Payments Payment Type 1`] = `
 <div>
   <div
     style={
@@ -735,100 +807,127 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
     }
   >
     <div
-      className="sc-LzNNA dQTvOX"
+      className="sc-LzNOn duEuZY"
     >
-      <div>
-        (exchange rate is 0.5x)
-      </div>
       <div
-        className="sc-LzNcc kaqJNQ"
+        className="sc-LzNtU fnQpCA"
       >
         <div
-          className="sc-LzNcd hprgth"
+          className="sc-LzNtV Ixnft"
         >
-          <label
-            className="sc-LzNce kiKogE"
-          >
-            Enter USD Amount
-          </label>
+          <h2>
+            Send a Boost
+          </h2>
           <div
-            className="sc-LzNcf ivylty"
+            className="sc-LzNtW iRNqmV"
           >
             <div
-              className="sc-fzXfPd kOTFph"
+              className="sc-LzNtX hUutWB"
             >
-              <div
-                className=" sc-fzXfMD fCMMQq"
+              Coda Story
+            </div>
+            <div>
+              <span
+                className="sc-LzNuw gkkOjO"
               >
-                <input
-                  className="sc-fzXfMD fCMMQq"
-                  min="0.01"
-                  name="Convert currency"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  step="0.01"
-                  type="number"
-                  value="3"
-                />
-              </div>
-              <div
-                className="sc-fzXfPe cTzFcd"
+                Boost
+              </span>
+              <span
+                className="sc-LzNux iEeAfj"
               >
-                USD
-              </div>
+                $3
+              </span>
             </div>
           </div>
-        </div>
-        <div
-          className="sc-LzNcj cHszIn"
-        >
-          <svg
-            height="14"
-            viewBox="0 0 18 14"
-            width="18"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="#8B8581"
-              fillRule="evenodd"
-              stroke="none"
-              strokeWidth="1"
-            >
-              <g
-                transform="translate(-336 -216)"
-              >
-                <path
-                  d="M349,228 L349,221 L347,221 L347,228 L344,228 L348,232 L352,228 L349,228 L349,228 Z M342,214 L338,218 L341,218 L341,225 L343,225 L343,218 L346,218 L342,214 L342,214 Z"
-                  transform="translate(345 223) rotate(90) translate(-345 -223)"
-                />
-              </g>
-            </g>
-          </svg>
-        </div>
-        <div
-          className="sc-LzNcd hprgth"
-        >
-          <label
-            className="sc-LzNce kiKogE"
-          >
-            Converted ETH
-          </label>
           <div
-            className="sc-LzNcg iXMhyJ"
+            className="sc-LzNtY bYMLwo"
           >
-            <div
-              className="sc-LzNch eUqrJj"
-            >
-              0
-            </div>
-            <div
-              className="sc-LzNci jBatAG"
-            >
-              ETH
-            </div>
+            Your Boost goes directly to the newsroom.
           </div>
         </div>
+        <p
+          className="sc-LzNuy dCiKgZ"
+        >
+          How would you like to pay?
+        </p>
+        <p
+          className="sc-LzNuz fQorzI"
+        >
+          The tip minimum for cards is $2.00. Your tip will be increased when you pay with a card.
+        </p>
+        <button
+          className="sc-fzXfLO sc-fzXfLP sc-LzNuA greuYy"
+          onClick={[Function]}
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+              "primaryButtonDisabledColor": "#FFFFFF",
+              "primaryButtonFontWeight": "normal",
+              "primaryButtonHoverBackground": "#4066FF",
+              "primaryButtonTextTransform": "uppercase",
+              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+            }
+          }
+          type="button"
+        >
+          Pay with card
+        </button>
+        <p
+          className="sc-LzNuz kDKycf"
+        >
+          Continue with adding your payment information. Your payment information will be processed through
+           
+          <a
+            href="https://stripe.com/"
+            target="_blank"
+          >
+            Stripe
+          </a>
+          .
+        </p>
+        <button
+          className="sc-fzXfLO sc-fzXfLP sc-LzNuA greuYy"
+          onClick={[Function]}
+          theme={
+            Object {
+              "primaryButtonBackground": "#2B56FF",
+              "primaryButtonColor": "#FFFFFF",
+              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
+              "primaryButtonDisabledColor": "#FFFFFF",
+              "primaryButtonFontWeight": "normal",
+              "primaryButtonHoverBackground": "#4066FF",
+              "primaryButtonTextTransform": "uppercase",
+              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
+            }
+          }
+          type="button"
+        >
+          Pay with Eth
+        </button>
+        <p
+          className="sc-LzNuz kDKycf"
+        >
+          You will be sending a Boost using your wallet such as
+           
+          <a
+            href="https://metamask.io/"
+            target="_blank"
+          >
+            MetaMask
+          </a>
+           
+          or
+           
+          <a
+            href="https://www.portis.io/"
+            target="_blank"
+          >
+            Portis
+          </a>
+          .
+        </p>
       </div>
     </div>
   </div>
@@ -931,7 +1030,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
               }
             }
           >
-            Common / Currency / Currency Converter
+            Pulse / Payments
           </h1>
           <h2
             style={
@@ -943,7 +1042,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
               }
             }
           >
-            USD to ETH
+            Payment Type
           </h2>
         </div>
         
@@ -993,7 +1092,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                     }
                   >
                     &lt;
-                    StorybookProvider
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -1023,9 +1122,64 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                       }
                     >
                       &lt;
-                      styled.div
+                      PaymentsWrapper
                     </span>
-                    <span />
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          newsroomName
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Coda Story
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          usdToSpend
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              3
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
                     <span
                       style={
                         Object {
@@ -1035,75 +1189,6 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                     >
                       &gt;
                     </span>
-                  </div>
-                  <div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 48,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &lt;
-                        div
-                      </span>
-                      <span />
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &gt;
-                      </span>
-                    </div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 63,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        (exchange rate is 0.5x)
-                      </span>
-                    </div>
-                    <div
-                      style={
-                        Object {
-                          "paddingLeft": 48,
-                          "paddingRight": 3,
-                        }
-                      }
-                    >
-                      <span
-                        style={
-                          Object {
-                            "color": "#444",
-                          }
-                        }
-                      >
-                        &lt;/
-                        div
-                        &gt;
-                      </span>
-                    </div>
                   </div>
                   <div
                     style={
@@ -1121,179 +1206,49 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                       }
                     >
                       &lt;
-                      CurrencyConverter
+                      PaymentsOptions
                     </span>
                     <span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          fromValue
+                          usdToSpend
                         </span>
                         <span>
                           =
                           <span
                             style={Object {}}
                           >
-                            "
+                            {
                             <span
                               style={
                                 Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
+                                  "color": "#a11",
                                 }
                               }
                             >
-                              3
+                              1
                             </span>
-                            "
+                            }
                           </span>
                         </span>
                       </span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          currencyCodeFrom
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              USD
-                            </span>
-                            "
-                          </span>
+                          isStripeConnected
                         </span>
                       </span>
                       <span>
-                        <span>
-                          <br />
-                            
-                        </span>
+                         
                         <span
                           style={Object {}}
                         >
-                          currencyCodeTo
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              ETH
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          currencyLabelFrom
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Enter USD Amount
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          currencyLabelTo
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Converted ETH
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          displayErrorMsg
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          onConversion
+                          handleNext
                         </span>
                         <span>
                           =
@@ -1308,70 +1263,12 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                                 }
                               }
                             >
-                              onConversion
+                              onClickFunc
                             </span>
                             }
                           </span>
                         </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          doConversion
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            {
-                            <span
-                              style={
-                                Object {
-                                  "color": "#170",
-                                }
-                              }
-                            >
-                              doConversion
-                            </span>
-                            }
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                        <span>
-                          <br />
-                            
-                        </span>
-                        <span
-                          style={Object {}}
-                        >
-                          onNotEnoughEthError
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            {
-                            <span
-                              style={
-                                Object {
-                                  "color": "#170",
-                                }
-                              }
-                            >
-                              onNotEnoughEthError
-                            </span>
-                            }
-                          </span>
-                        </span>
-                        <br />
+                         
                       </span>
                     </span>
                     <span
@@ -1400,7 +1297,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                       }
                     >
                       &lt;/
-                      styled.div
+                      PaymentsWrapper
                       &gt;
                     </span>
                   </div>
@@ -1421,7 +1318,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
                     }
                   >
                     &lt;/
-                    StorybookProvider
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -1473,7 +1370,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
               }
             >
               "
-              CurrencyConverter
+              PaymentsOptions
               " Component
             </h3>
             <small>
@@ -1489,7 +1386,7 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
               }
             >
               "
-              StorybookProvider
+              PaymentsWrapper
               " Component
             </h3>
             <small>

@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
     }
   >
     <div
-      className="sc-LzNOj gdFHNo"
+      className="sc-LzNOP gAhlxu"
     >
       <a
         className="sc-LzNsD iVPUXh"
@@ -565,7 +565,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNOj gdFHNo"
+      className="sc-LzNOP gAhlxu"
     >
       <div
         className="sc-LzNtR ciphxM"
@@ -597,15 +597,27 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             >
               Coda Story
               <svg
-                height="14"
-                width="14"
+                height="20"
+                version="1.1"
+                viewBox="0 0 40 40"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <circle
-                  cx="7"
-                  cy="7"
-                  fill="#30E8BD"
-                  r="7"
-                />
+                <g
+                  fill="none"
+                  fillRule="evenodd"
+                  stroke="none"
+                  strokeWidth="1"
+                >
+                  <g
+                    fill="#00C189"
+                    transform="translate(-282, -18)"
+                  >
+                    <path
+                      d="M308.909553,20 L312.325,27.674 L320,31.0904474 L316.923,38 L320,44.9095526 L312.325,48.326 L308.909553,56 L302,52.923 L295.090447,56 L291.673,48.325 L284,44.9095526 L287.076,38 L284,31.0904474 L291.674,27.674 L295.090447,20 L302,23.076 L308.909553,20 Z M309.187143,31 L299.428571,40.4692898 L294.812857,36.0028791 L293,37.7619962 L299.428571,44 L311,32.7715931 L309.187143,31 Z"
+                    />
+                  </g>
+                </g>
               </svg>
             </a>
           </div>
@@ -621,68 +633,68 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown
         </div>
         <div
-          className="sc-LzNru jgBUTg"
+          className="sc-LzNrv lkKdJF"
         >
           <label
-            className="sc-LzNrv dFWcUl"
+            className="sc-LzNrw eiAPBy"
           >
             Recent Contributors
           </label>
           <div
-            className="sc-LzNrw eDBYUT"
+            className="sc-LzNrU dVmJvp"
           >
             <img
-              className="sc-LzNrU dcanip"
+              className="sc-LzNrV bIobcO"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNrV jrpmdL"
+                className="sc-LzNrW jWFDGs"
               >
                 violetnight13
               </div>
               <div
-                className="sc-LzNrW bFbkzu"
+                className="sc-LzNrX eyysoX"
               >
                 $2.5
               </div>
             </div>
           </div>
           <div
-            className="sc-LzNrw eDBYUT"
+            className="sc-LzNrU dVmJvp"
           >
             <img
-              className="sc-LzNrU dcanip"
+              className="sc-LzNrV bIobcO"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNrV jrpmdL"
+                className="sc-LzNrW jWFDGs"
               >
                 CaryRay
               </div>
               <div
-                className="sc-LzNrW bFbkzu"
+                className="sc-LzNrX eyysoX"
               >
                 $3
               </div>
             </div>
           </div>
           <div
-            className="sc-LzNrw eDBYUT"
+            className="sc-LzNrU dVmJvp"
           >
             <img
-              className="sc-LzNrU dcanip"
+              className="sc-LzNrV bIobcO"
               src="https://picsum.photos/50"
             />
             <div>
               <div
-                className="sc-LzNrV jrpmdL"
+                className="sc-LzNrW jWFDGs"
               >
                 ronburgundy
               </div>
               <div
-                className="sc-LzNrW bFbkzu"
+                className="sc-LzNrX eyysoX"
               >
                 $5
               </div>
@@ -690,10 +702,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNrX bRxIJl"
+          className="sc-LzNrY cKGLbK"
         >
           <span
-            className="sc-LzNrY bCncDX"
+            className="sc-LzNrZ ckxHXs"
           >
             <img
               src="https://picsum.photos/50"
@@ -706,10 +718,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             />
           </span>
           <span
-            className="sc-LzNrZ fxVtRF"
+            className="sc-LzNsa hxCDaJ"
           >
             30
-             contributors
+             Boosters
           </span>
         </div>
       </div>
@@ -2175,7 +2187,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNOj gdFHNo"
+      className="sc-LzNOP gAhlxu"
     >
       <div
         className="sc-LzNtQ fDvXKB"
@@ -2241,6 +2253,29 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
                
               and is approved by the community.
             </p>
+            <svg
+              height="40"
+              version="1.1"
+              viewBox="0 0 40 40"
+              width="40"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <g
+                  fill="#00C189"
+                  transform="translate(-282, -18)"
+                >
+                  <path
+                    d="M308.909553,20 L312.325,27.674 L320,31.0904474 L316.923,38 L320,44.9095526 L312.325,48.326 L308.909553,56 L302,52.923 L295.090447,56 L291.673,48.325 L284,44.9095526 L287.076,38 L284,31.0904474 L291.674,27.674 L295.090447,20 L302,23.076 L308.909553,20 Z M309.187143,31 L299.428571,40.4692898 L294.812857,36.0028791 L293,37.7619962 L299.428571,44 L311,32.7715931 L309.187143,31 Z"
+                  />
+                </g>
+              </g>
+            </svg>
           </div>
         </div>
         <div

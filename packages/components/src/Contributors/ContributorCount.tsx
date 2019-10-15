@@ -14,7 +14,7 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
         {this.props.totalContributors !== 0 ? (
           this.renderContributers()
         ) : (
-          <ContributorCountTotal>Be the first to tip</ContributorCountTotal>
+          <ContributorCountTotal>Be the first to Boost</ContributorCountTotal>
         )}
       </ContributorCountStyled>
     );
@@ -29,7 +29,7 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
         </ContributorCountAvatars>
         <ContributorCountTotal>
           {this.props.totalContributors}
-          {this.props.totalContributors === 1 ? " contributor" : " contributors"}
+          {this.props.totalContributors === 1 ? " Booster" : " Boosters"}
         </ContributorCountTotal>
       </>
     );

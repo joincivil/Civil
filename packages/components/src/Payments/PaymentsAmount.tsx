@@ -1,13 +1,12 @@
 import * as React from "react";
 import {
   PaymentBtn,
-  PaymentAmountHeader,
-  PaymentAmountInfo,
   PaymentAmountUserOptions,
   PaymentAmountUserInput,
   PaymentsShowInputBtn,
+  PaymentDirectionsStyled,
 } from "./PaymentsStyledComponents";
-import { PaymentSendToText, PaymentInfoText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
+import { SelectPaymentAmountText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
 import { RadioInput, CurrencyInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
@@ -44,12 +43,9 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     const disableNext = this.state.usdToSpend === 0;
     return (
       <>
-        <PaymentAmountHeader>
-          <PaymentSendToText newsroomName={this.props.newsroomName} />
-        </PaymentAmountHeader>
-        <PaymentAmountInfo>
-          <PaymentInfoText />
-        </PaymentAmountInfo>
+        <PaymentDirectionsStyled>
+          <SelectPaymentAmountText />
+        </PaymentDirectionsStyled>
         <RadioInput onChange={this.handleRadioSelection} label="" name="SuggestedAmounts">
           {this.props.suggestedAmounts.map((item, i) => (
             <PaymentsRadio value={item.amount} key={i}>
@@ -82,7 +78,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
           onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.shouldPublicize)}
           disabled={disableNext}
         >
-          Continue
+          Next
         </PaymentBtn>
       </>
     );

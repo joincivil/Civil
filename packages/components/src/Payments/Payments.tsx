@@ -7,6 +7,7 @@ import { PaymentsAmount } from "./PaymentsAmount";
 import { EthAddress } from "@joincivil/core";
 import { CivilContext, ICivilContext } from "../";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
+import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 export interface PaymentsProps {
   postId: string;
@@ -51,12 +52,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
-        <PaymentsWrapper
-          usdToSpend={usdToSpend}
-          showBackBtn={true}
-          backState={PAYMENT_STATE.SELECT_AMOUNT}
-          handleBack={this.handleUpdateState}
-        >
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsOptions
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
@@ -68,12 +64,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.ETH_PAYMENT) {
       return (
-        <PaymentsWrapper
-          usdToSpend={usdToSpend}
-          showBackBtn={true}
-          backState={PAYMENT_STATE.SELECT_PAYMENT_TYPE}
-          handleBack={this.handleUpdateState}
-        >
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
@@ -90,12 +81,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT) {
       return (
-        <PaymentsWrapper
-          usdToSpend={usdToSpend}
-          showBackBtn={true}
-          backState={PAYMENT_STATE.SELECT_PAYMENT_TYPE}
-          handleBack={this.handleUpdateState}
-        >
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
@@ -108,11 +94,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
-      return <>Payment Successful!</>;
+      return <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.state.usdToSpend} />;
     }
 
     return (
-      <PaymentsWrapper showBackBtn={false} backState={PAYMENT_STATE.SELECT_AMOUNT} handleBack={this.handleUpdateState}>
+      <PaymentsWrapper newsroomName={newsroomName}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}

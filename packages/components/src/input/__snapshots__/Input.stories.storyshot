@@ -11,17 +11,17 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
     }
   >
     <div
-      className=" sc-fzXfMC haCwAp"
+      className=" sc-fzXfMD fCMMQq"
     >
       <div
-        className="sc-fzXfMz ctLiZd"
+        className="sc-fzXfMA bolBsU"
       >
         <span>
           USD
         </span>
       </div>
       <input
-        className="sc-fzXfMC haCwAp"
+        className="sc-fzXfMD fCMMQq"
         icon={
           <span>
             USD
@@ -36,7 +36,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
         type="number"
       />
       <label
-        className="sc-fzXfMA hoLydL"
+        className="sc-fzXfMB cpmbbE"
       >
         Currency Input
       </label>
@@ -309,13 +309,13 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfPc jhXyMk"
+      className="sc-fzXfPd kOTFph"
     >
       <div
-        className=" sc-fzXfMC haCwAp"
+        className=" sc-fzXfMD fCMMQq"
       >
         <input
-          className="sc-fzXfMC haCwAp"
+          className="sc-fzXfMD fCMMQq"
           min="0.01"
           name="CurrencyInputWithButton"
           onBlur={[Function]}
@@ -327,7 +327,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
         />
       </div>
       <div
-        className="sc-fzXfPd fMeEoc"
+        className="sc-fzXfPe cTzFcd"
       >
         CVL
       </div>
@@ -600,10 +600,10 @@ exports[`Storyshots Pattern Library / Inputs Header Input 1`] = `
     }
   >
     <div
-      className=" sc-fzXfMC haCwAp sc-fzXfMD GbpGi"
+      className=" sc-fzXfMD fCMMQq sc-fzXfME HsPmz"
     >
       <input
-        className="sc-fzXfMC haCwAp sc-fzXfMD GbpGi"
+        className="sc-fzXfMD fCMMQq sc-fzXfME HsPmz"
         label="Header Input"
         name="HeaderInput"
         onChange={[Function]}
@@ -611,7 +611,7 @@ exports[`Storyshots Pattern Library / Inputs Header Input 1`] = `
         type="text"
       />
       <label
-        className="sc-fzXfMA hoLydL"
+        className="sc-fzXfMB cpmbbE"
       >
         Header Input
       </label>
@@ -884,30 +884,30 @@ exports[`Storyshots Pattern Library / Inputs Input Group 1`] = `
     }
   >
     <div
-      className="sc-fzXfOw dZKqam"
+      className="sc-fzXfOx bBJwxb"
     >
       <label
-        className="sc-fzXfMA hoLydL"
+        className="sc-fzXfMB cpmbbE"
       >
         Input Group with Prepend Text
       </label>
       <div
-        className="sc-fzXfOx kyvuzZ"
+        className="sc-fzXfOy gjAmZm"
       >
         <div
-          className="sc-fzXfOy eGpUHp"
+          className="sc-fzXfOz bOMjLW"
         >
           <span
-            className="sc-fzXfOX iXVxYn"
+            className="sc-fzXfOY kCcyWM"
           >
             CVL
           </span>
         </div>
         <div
-          className=" sc-fzXfMC haCwAp"
+          className=" sc-fzXfMD fCMMQq"
         >
           <input
-            className="sc-fzXfMC haCwAp"
+            className="sc-fzXfMD fCMMQq"
             name="TextInput"
             onChange={[Function]}
             type="text"
@@ -1184,16 +1184,16 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
   >
     <div>
       <div
-        className="sc-fzXfNe eMwlOA"
+        className="sc-fzXfNf gqDmMZ"
       >
         <label
-          className="sc-fzXfMA hoLydL"
+          className="sc-fzXfMB cpmbbE"
         >
           Group of radio buttons
         </label>
         <div>
           <div
-            className="sc-fzXfNd eQddsr"
+            className="sc-fzXfNe bEtBho"
           >
             <input
               defaultChecked={false}
@@ -1219,7 +1219,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNd eQddsr"
+            className="sc-fzXfNe bEtBho"
           >
             <input
               defaultChecked={false}
@@ -1245,7 +1245,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNd eQddsr"
+            className="sc-fzXfNe bEtBho"
           >
             <input
               defaultChecked={false}
@@ -1271,7 +1271,7 @@ exports[`Storyshots Pattern Library / Inputs Radio Input 1`] = `
             </button>
           </div>
           <div
-            className="sc-fzXfNd eQddsr"
+            className="sc-fzXfNe bEtBho"
           >
             <input
               defaultChecked={false}
@@ -2147,20 +2147,20 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
   >
     <form>
       <div
-        className="sc-fzXfPI bIkpqL"
+        className="sc-fzXfPJ blKwEE"
       >
         <div
-          className=" sc-fzXfMC haCwAp"
+          className=" sc-fzXfMD fCMMQq"
         >
           <input
-            className="sc-fzXfMC haCwAp"
+            className="sc-fzXfMD fCMMQq"
             name="submit link"
             onChange={[Function]}
             pattern="https?://.+"
             type="url"
           />
           <label
-            className="sc-fzXfMA hoLydL"
+            className="sc-fzXfMB cpmbbE"
           />
         </div>
         <button
@@ -2185,7 +2185,7 @@ exports[`Storyshots Pattern Library / Inputs Submit a link 1`] = `
         </button>
       </div>
       <p
-        className="sc-fzXfPJ gBuoUE"
+        className="sc-fzXfPK kElQCh"
       />
     </form>
   </div>
@@ -2456,10 +2456,10 @@ exports[`Storyshots Pattern Library / Inputs Text Input 1`] = `
     }
   >
     <div
-      className=" sc-fzXfMC haCwAp"
+      className=" sc-fzXfMD fCMMQq"
     >
       <input
-        className="sc-fzXfMC haCwAp"
+        className="sc-fzXfMD fCMMQq"
         label="Text Input"
         name="TextInput"
         onChange={[Function]}
@@ -2467,7 +2467,7 @@ exports[`Storyshots Pattern Library / Inputs Text Input 1`] = `
         type="text"
       />
       <label
-        className="sc-fzXfMA hoLydL"
+        className="sc-fzXfMB cpmbbE"
       >
         Text Input
       </label>
@@ -2740,13 +2740,13 @@ exports[`Storyshots Pattern Library / Inputs Text Input With Button 1`] = `
     }
   >
     <div
-      className="sc-fzXfPc jhXyMk"
+      className="sc-fzXfPd kOTFph"
     >
       <div
-        className=" sc-fzXfMC haCwAp"
+        className=" sc-fzXfMD fCMMQq"
       >
         <input
-          className="sc-fzXfMC haCwAp"
+          className="sc-fzXfMD fCMMQq"
           name="TextInputWithButton"
           onBlur={[Function]}
           onChange={[Function]}
@@ -3024,10 +3024,10 @@ exports[`Storyshots Pattern Library / Inputs Textarea Input 1`] = `
     }
   >
     <div
-      className=" sc-fzXfMC haCwAp"
+      className=" sc-fzXfMD fCMMQq"
     >
       <textarea
-        className="sc-fzXfMC haCwAp"
+        className="sc-fzXfMD fCMMQq"
         label="Textarea Input"
         name="TextareaInput"
         onChange={[Function]}
@@ -3035,7 +3035,7 @@ exports[`Storyshots Pattern Library / Inputs Textarea Input 1`] = `
         type="textarea"
       />
       <label
-        className="sc-fzXfMA hoLydL"
+        className="sc-fzXfMB cpmbbE"
       >
         Textarea Input
       </label>

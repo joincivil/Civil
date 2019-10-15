@@ -3,29 +3,24 @@ import { urlConstants as links } from "@joincivil/utils";
 import { ClipLoader, ErrorIcon, TokenWalletIcon } from "../";
 import { PaymentWarning } from "./PaymentsStyledComponents";
 
-{
-  /* TODO(sruddy) confirm final copy */
-}
-
 export interface PaymentsTextProps {
   newsroomName: string;
+  usdToSpend?: number;
 }
 
-export const YourPaymentText: React.FunctionComponent = props => <>Your boost</>;
+export const SendPaymentHdrText: React.FunctionComponent = props => <>Send a Boost</>;
 
-export const PaymentInfoText: React.FunctionComponent = props => (
-  <>Your boost goes directly to their newsroom account.</>
-);
-
-export const PaymentSendToText: React.FunctionComponent<PaymentsTextProps> = props => (
-  <>Send a tip to {props.newsroomName}</>
+export const PaymentToNewsroomsTipText: React.FunctionComponent = props => (
+  <>Your Boost goes directly to the newsroom.</>
 );
 
 export const EnterCustomAmountText: React.FunctionComponent = props => <>Or enter a custom amount</>;
 
-export const PublicizeUserText: React.FunctionComponent = props => <>Hide my username from the contributor list</>;
+export const PublicizeUserText: React.FunctionComponent = props => <>Hide my username from everyone but the newsroom</>;
 
-export const SelectPaymentMethodText: React.FunctionComponent = props => <>Select how you would like to tip</>;
+export const SelectPaymentAmountText: React.FunctionComponent = props => <>Select how much you would like to Boost</>;
+
+export const SelectPaymentMethodText: React.FunctionComponent = props => <>How would you like to pay?</>;
 
 export const PayWithCardText: React.FunctionComponent = props => <>Pay with card</>;
 
@@ -47,16 +42,30 @@ export const PayWithEthText: React.FunctionComponent = props => <>Pay with Eth</
 
 export const PayWithEthDescriptionText: React.FunctionComponent = props => (
   <>
-    You will be paying using a <a href={links.FAQ_WALLETS}>wallet</a>, such as{" "}
+    You will be sending a Boost using your wallet such as{" "}
     <a href={links.METAMASK} target="_blank">
-      MetaMask Wallet
+      MetaMask
+    </a>{" "}
+    or{" "}
+    <a href={links.PORTIS} target="_blank">
+      Portis
     </a>
     .
   </>
 );
 
+export const PaymentInfoText: React.FunctionComponent = props => (
+  <>
+    Boosts procceded are funded using ETH or Debit/Credit Cards. Civil does not collect any fees on Boosts and your
+    support goes directly to the newsroom.
+  </>
+);
+
 export const PaymentEthNoticeText: React.FunctionComponent = props => (
-  <>All proceeds go directly to the newsroom. Refunds are not possible.</>
+  <>
+    Once your Boost is sent, we’ll send you a confirmation email, if selected, of your completed transaction. All
+    proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
+  </>
 );
 
 export const PaymentEthTermsText: React.FunctionComponent = props => (
@@ -100,14 +109,14 @@ export const ConnectMobileWalletModalText: React.FunctionComponent = props => (
 
 export const PaymentStripeNoticeText: React.FunctionComponent = props => (
   <>
-    Once your tip is sent, we’ll send you a confirmation email of your completed transaction. All proceeds of the tips
-    go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
+    Once your Boost is sent, we’ll send you a confirmation email of your completed transaction. All proceeds of the
+    Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
   </>
 );
 
 export const PaymentStripeTermsText: React.FunctionComponent = props => (
   <>
-    By sending a tip, you agree to Civil’s{" "}
+    By sending a Boost, you agree to Civil’s{" "}
     <a href={links.TERMS} target="_blank">
       Terms of Use
     </a>{" "}
@@ -115,7 +124,7 @@ export const PaymentStripeTermsText: React.FunctionComponent = props => (
     <a href={links.PRIVACY_POLICY} target="_blank">
       Privacy Policy
     </a>
-    . Civil does not charge any fees for this transaction. There are small fees charged by Stripe.
+    . Depending on your selection, your email and comment may be visible to the newsroom.
   </>
 );
 
@@ -126,7 +135,16 @@ export const PaymentInProgressText: React.FunctionComponent = props => (
   </>
 );
 
-export const PaymentSuccessText: React.FunctionComponent = props => <>Payment Successful!</>;
+export const PaymentSuccessText: React.FunctionComponent<PaymentsTextProps> = props => (
+  <>
+    <h2>Boost payment successful!</h2>
+    <p>Thank you for being a contributor.</p>
+    <p>
+      {props.newsroomName} has received your Boost of ${props.usdToSpend}. You’ll receive an email with your Boost
+      details.
+    </p>
+  </>
+);
 
 export const PaymentErrorText: React.FunctionComponent = props => <>Your transaction failed. Please try again.</>;
 

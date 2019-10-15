@@ -12,12 +12,7 @@ import { DropdownArrow, CCAmexIcon, CCDiscoverIcon, CCMastercardIcon, CCVisaIcon
 import { CivilContext, ICivilContext, colors, fonts, mediaQueries } from "../";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
 import { PaymentNotice, PaymentTerms, PaymentBtn } from "./PaymentsStyledComponents";
-import {
-  PaymentStripeNoticeText,
-  PaymentStripeTermsText,
-  PaymentErrorText,
-  PaymentSuccessText,
-} from "./PaymentsTextComponents";
+import { PaymentStripeNoticeText, PaymentStripeTermsText, PaymentErrorText } from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./PaymentsInputValidationUI";
 import { PAYMENT_STATE } from "./types";
 
@@ -339,7 +334,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           {this.state.paymentProcessing ? "Payment processing..." : "Tip newsroom"}
         </PaymentBtn>
         {this.state.isPaymentError && <PaymentErrorText />}
-        {this.state.isPaymentSuccess && <PaymentSuccessText />}
         <PaymentTerms>
           <PaymentStripeTermsText />
         </PaymentTerms>
@@ -462,7 +456,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               },
             },
           });
-          this.setState({ isPaymentSuccess: true });
+          this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
         } catch (err) {
           console.error(err);
           this.setState({ isPaymentError: true });

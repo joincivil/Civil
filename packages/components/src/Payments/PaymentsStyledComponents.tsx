@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
-import { CivilIcon } from "../icons";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
 import { InputBase, InputIcon } from "@joincivil/elements";
 
@@ -15,54 +14,49 @@ export const PaymentWrapperStyled = styled.div`
 `;
 
 export const PaymentHeader = styled.div`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-bottom: 20px;
-  padding: 40px 0 10px;
-  position: relative;
-
-  ${CivilIcon} {
-    left: calc(50% - 25px);
-    position: absolute;
-    top: 5px;
-  }
-`;
-
-export const PaymentBackBtn = styled.button`
-  background-color: transparent;
-  border: none;
-  color: ${colors.accent.CIVIL_GRAY_2};
-  cursor: pointer;
   font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  left: 0;
-  line-height: 17px;
-  position: absolute;
-  top: 5px;
-  transition: color 0.2s ease;
+  margin-bottom: 25px;
 
-  &:hover {
-    color: ${colors.accent.CIVIL_BLUE};
+  h2 {
+    border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
   }
 `;
 
-export const PaymentAmountWrapper = styled.div`
+export const PaymentHeaderFlex = styled.div`
   align-items: center;
-  color: ${colors.accent.CIVIL_GRAY_1};
   display: flex;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  justify-content: center;
-  left: 0;
-  line-height: 18px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 `;
 
-export const PaymentAmount = styled.div`
-  color: ${colors.primary.BLACK};
-  font-family: ${fonts.SANS_SERIF};
+export const PaymentHeaderNewsroom = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+`;
+
+export const PaymentHeaderTip = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 16px;
+`;
+
+export const PaymentHeaderBoostLabel = styled.span`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 14px;
+  line-height: 17px;
+  margin-right: 5px;
+`;
+
+export const PaymentHeaderAmount = styled.span`
   font-size: 18px;
+  line-height: 22px;
   font-weight: 700;
-  line-height: 20px;
-  margin-left: 10px;
 `;
 
 export const PaymentDirectionsStyled = styled.p`
@@ -274,7 +268,7 @@ export const PaymentEthLearnMore = styled.div`
 
 export const PaymentsRadioBtnContain = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
-  margin-right: 20px;
+  margin-right: 10px;
 
   input {
     display: none;
@@ -311,22 +305,23 @@ export const PaymentsRadioBtn = styled.button`
   }
 `;
 
-export const PaymentAmountHeader = styled.h2`
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 18px;
-  font-weight: 600;
-  line-spacing: 22px;
-  margin: 0 0 10px;
-  text-align: center;
-`;
+export const PaymentAmountNewsroom = styled.div`
+  h3 {
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 18px;
+    font-weight: 600;
+    line-spacing: 22px;
+    margin: 0 0 10px;
+  }
 
-export const PaymentAmountInfo = styled.p`
-  color: ${colors.accent.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  line-spacing: 17px;
-  margin: 0 0 15px;
-  text-align: center;
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 14px;
+    line-spacing: 17px;
+    margin: 0 0 15px;
+    text-align: center;
+  }
 `;
 
 export const PaymentsShowInputBtn = styled.button`
