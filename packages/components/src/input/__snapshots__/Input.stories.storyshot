@@ -32,7 +32,7 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
         name="CurrencyInput"
         onChange={[Function]}
         placeholder="$0.00"
-        step="0.01"
+        step="1"
         type="number"
       />
       <label

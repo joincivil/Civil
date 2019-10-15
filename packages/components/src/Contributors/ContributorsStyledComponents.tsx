@@ -66,11 +66,11 @@ export const ContributorCountAvatars = styled.span`
     width: 17px;
 
     &:nth-of-type(2) {
-      left: -3px;
+      left: -4px;
     }
 
     &:nth-of-type(3) {
-      left: -6px;
+      left: -8px;
     }
   }
 `;

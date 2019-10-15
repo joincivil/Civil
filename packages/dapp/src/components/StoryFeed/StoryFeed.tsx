@@ -41,17 +41,18 @@ export const STORY_FEED_QUERY = gql`
               }
             }
           }
+          payments {
+            usdEquivalent
+            payerChannel {
+              handle
+              tiny72AvatarDataUrl
+            }
+          }
         }
       }
     }
   }
 `;
-
-const contributers = [
-  { avatar: "https://picsum.photos/50", username: "violetnight13", amount: "$2.50" },
-  { avatar: "https://picsum.photos/50", username: "CaryRay", amount: "$5.00" },
-  { avatar: "https://picsum.photos/50", username: "ronburgundy", amount: "0.009214 ETH" },
-];
 
 class StoryFeedPage extends React.Component {
   public render(): JSX.Element {
@@ -81,9 +82,9 @@ class StoryFeedPage extends React.Component {
                   isStripeConnected={storyData.channel.isStripeConnected}
                   newsroom={storyData.channel.newsroom}
                   openGraphData={storyData.openGraphData}
-                  displayedContributors={contributers}
-                  sortedContributors={contributers}
-                  totalContributors={30}
+                  displayedContributors={storyData.payments}
+                  sortedContributors={storyData.payments}
+                  totalContributors={storyData.payments ? storyData.payments.length : 0}
                 />
               ));
             }}
