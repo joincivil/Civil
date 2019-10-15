@@ -9,9 +9,11 @@ export class ReachRouterPlugin extends ChildPlugin {
   public middleware = (api: MiddlewareAPI<any>) => (next: Dispatch<any>) => <A extends Action>(action: any): void => {
     if (action.type === REQUEST_VIEW_ACTION) {
       navigate(action.payload.route);
-    }
-    if (action.type === COMPLETE_VIEW_ACTION) {
-      navigate("/");
+    } else if (action.type === COMPLETE_VIEW_ACTION) {
+      const queue = api.getState().view.queue;
+      if (queue.length === 1) {
+        navigate("/");
+      }
     }
     next(action);
   };
