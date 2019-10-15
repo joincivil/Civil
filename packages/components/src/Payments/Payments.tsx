@@ -19,7 +19,7 @@ export interface PaymentsStates {
   isWalletConnected: boolean;
   userAddress?: EthAddress;
   usdToSpend: number;
-  hideUserName: boolean;
+  shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
 }
 
@@ -32,7 +32,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     this.state = {
       isWalletConnected: false,
       usdToSpend: 0,
-      hideUserName: false,
+      shouldPublicize: false,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
     };
   }
@@ -46,7 +46,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   }
 
   public render(): JSX.Element {
-    const { isWalletConnected, userAddress, usdToSpend, hideUserName, paymentState } = this.state;
+    const { isWalletConnected, userAddress, usdToSpend, shouldPublicize, paymentState } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
@@ -55,12 +55,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           showBackBtn={true}
           backState={PAYMENT_STATE.SELECT_AMOUNT}
-          handleBack={this.handleNavigate}
+          handleBack={this.handleUpdateState}
         >
           <PaymentsOptions
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
-            handleNext={this.handleNavigate}
+            handleNext={this.handleUpdateState}
           />
         </PaymentsWrapper>
       );
@@ -72,16 +72,17 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           showBackBtn={true}
           backState={PAYMENT_STATE.SELECT_PAYMENT_TYPE}
-          handleBack={this.handleNavigate}
+          handleBack={this.handleUpdateState}
         >
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
+            shouldPublicize={shouldPublicize}
             userAddress={userAddress}
             usdToSpend={usdToSpend}
             isWalletConnected={isWalletConnected}
-            handlePaymentSuccess={this.handleNavigate}
+            handlePaymentSuccess={this.handleUpdateState}
           />
         </PaymentsWrapper>
       );
@@ -93,13 +94,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           showBackBtn={true}
           backState={PAYMENT_STATE.SELECT_PAYMENT_TYPE}
-          handleBack={this.handleNavigate}
+          handleBack={this.handleUpdateState}
         >
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
+            shouldPublicize={shouldPublicize}
             usdToSpend={usdToSpend}
-            handlePaymentSuccess={this.handleNavigate}
+            handlePaymentSuccess={this.handleUpdateState}
           />
         </PaymentsWrapper>
       );
@@ -110,11 +112,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <PaymentsWrapper
-        showBackBtn={false}
-        backState={PAYMENT_STATE.SELECT_AMOUNT}
-        handleBack={this.handleNavigate}
-      >
+      <PaymentsWrapper showBackBtn={false} backState={PAYMENT_STATE.SELECT_AMOUNT} handleBack={this.handleUpdateState}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
@@ -124,11 +122,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     );
   }
 
-  private handleNavigate = (paymentState: PAYMENT_STATE) => {
-    this.setState({ paymentState });
+  private handleUpdateState = (paymentState: PAYMENT_STATE) => {
+    if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {
+      this.setState({ paymentState, usdToSpend: 2 });
+    } else {
+      this.setState({ paymentState });
+    }
   };
 
-  private handleAmount = (usdToSpend: number, hideUserName: boolean) => {
-    this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, hideUserName });
+  private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+    this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
   };
 }

@@ -7,9 +7,25 @@ import { PaymentWarning } from "./PaymentsStyledComponents";
   /* TODO(sruddy) confirm final copy */
 }
 
-export const YourTipText: React.FunctionComponent = props => <>Your tip</>;
+export interface PaymentsTextProps {
+  newsroomName: string;
+}
 
-export const SelectTipMethodText: React.FunctionComponent = props => <>Select how you would like to tip</>;
+export const YourPaymentText: React.FunctionComponent = props => <>Your boost</>;
+
+export const PaymentInfoText: React.FunctionComponent = props => (
+  <>Your boost goes directly to their newsroom account.</>
+);
+
+export const PaymentSendToText: React.FunctionComponent<PaymentsTextProps> = props => (
+  <>Send a tip to {props.newsroomName}</>
+);
+
+export const EnterCustomAmountText: React.FunctionComponent = props => <>Or enter a custom amount</>;
+
+export const PublicizeUserText: React.FunctionComponent = props => <>Hide my username from the contributor list</>;
+
+export const SelectPaymentMethodText: React.FunctionComponent = props => <>Select how you would like to tip</>;
 
 export const PayWithCardText: React.FunctionComponent = props => <>Pay with card</>;
 

@@ -5,7 +5,9 @@ import {
   PaymentAmountInfo,
   PaymentAmountUserOptions,
   PaymentAmountUserInput,
+  PaymentsShowInputBtn,
 } from "./PaymentsStyledComponents";
+import { PaymentSendToText, PaymentInfoText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
 import { RadioInput, CurrencyInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
@@ -17,11 +19,13 @@ export interface SuggestedAmounts {
 export interface PaymentsAmountProps {
   newsroomName: string;
   suggestedAmounts: SuggestedAmounts[];
-  handleAmount(usdToSpend: number, hideUserName: boolean): void;
+  handleAmount(usdToSpend: number, shouldPublicize: boolean): void;
 }
 
 export interface PaymentsAmountStates {
-  hideUserName: boolean;
+  showInput: boolean;
+  shouldPublicizeChecked: boolean;
+  shouldPublicize: boolean;
   usdToSpend: number;
 }
 
@@ -29,7 +33,9 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
   constructor(props: any) {
     super(props);
     this.state = {
-      hideUserName: false,
+      showInput: false,
+      shouldPublicizeChecked: false,
+      shouldPublicize: true,
       usdToSpend: 0,
     };
   }
@@ -38,8 +44,12 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     const disableNext = this.state.usdToSpend === 0;
     return (
       <>
-        <PaymentAmountHeader>Send a tip to Coda Story</PaymentAmountHeader>
-        <PaymentAmountInfo>Your tip goes directly to their newsroom account.</PaymentAmountInfo>
+        <PaymentAmountHeader>
+          <PaymentSendToText newsroomName={this.props.newsroomName} />
+        </PaymentAmountHeader>
+        <PaymentAmountInfo>
+          <PaymentInfoText />
+        </PaymentAmountInfo>
         <RadioInput onChange={this.handleRadioSelection} label="" name="SuggestedAmounts">
           {this.props.suggestedAmounts.map((item, i) => (
             <PaymentsRadio value={item.amount} key={i}>
@@ -49,19 +59,27 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
           ))}
         </RadioInput>
         <PaymentAmountUserInput>
-          <CurrencyInput icon={<></>} name="CurrencyInput" onChange={this.handleInput} />
+          {this.state.showInput ? (
+            <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleInput} />
+          ) : (
+            <PaymentsShowInputBtn onClick={this.handleShowInput}>
+              <EnterCustomAmountText />
+            </PaymentsShowInputBtn>
+          )}
         </PaymentAmountUserInput>
         <PaymentAmountUserOptions>
           <Checkbox
-            id="hideUserName"
+            id="shouldPublicize"
             onClick={this.handleCheckBox}
-            checked={this.state.hideUserName}
+            checked={this.state.shouldPublicize}
             size={CheckboxSizes.SMALL}
           />
-          <label htmlFor="hideUserName">Hide my username from the contributor list</label>
+          <label htmlFor="shouldPublicize">
+            <PublicizeUserText />
+          </label>
         </PaymentAmountUserOptions>
         <PaymentBtn
-          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.hideUserName)}
+          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.shouldPublicize)}
           disabled={disableNext}
         >
           Continue
@@ -70,8 +88,15 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     );
   }
 
+  private handleShowInput = () => {
+    this.setState({ showInput: true });
+  };
+
   private handleCheckBox = () => {
-    this.setState({ hideUserName: !this.state.hideUserName });
+    this.setState({
+      shouldPublicizeChecked: !this.state.shouldPublicizeChecked,
+      shouldPublicize: !this.state.shouldPublicize,
+    });
   };
 
   private handleRadioSelection = (name: string, value: any) => {

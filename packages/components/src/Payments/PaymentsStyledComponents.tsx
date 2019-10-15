@@ -4,7 +4,7 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 import { CivilIcon } from "../icons";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
-import { InputBase } from "@joincivil/elements";
+import { InputBase, InputIcon } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
   padding: 20px;
@@ -329,17 +329,43 @@ export const PaymentAmountInfo = styled.p`
   text-align: center;
 `;
 
+export const PaymentsShowInputBtn = styled.button`
+  border: none;
+  color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
+  display: block;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-spacing: 17px;
+  padding: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 export const PaymentAmountUserInput = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px 0 0;
+
+  > div {
+    padding: 0;
+  }
 
   label {
     display: none;
   }
 
   ${InputBase} {
+    padding-left: 25px;
     width: 150px;
+  }
+
+  ${InputIcon} {
+    left: 9px;
+    top: -40px;
+    width: 18px;
   }
 `;
 

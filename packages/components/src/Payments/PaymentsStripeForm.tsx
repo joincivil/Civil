@@ -172,6 +172,7 @@ const DropDownWrap = styled.div`
 export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
   postId: string;
   newsroomName: string;
+  shouldPublicize: boolean;
   usdToSpend: number;
   savePayment: MutationFunc;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
@@ -457,6 +458,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
                 amount: this.props.usdToSpend,
                 currencyCode: "usd",
                 emailAddress: this.state.email,
+                shouldPublicize: this.props.shouldPublicize,
               },
             },
           });

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { PaymentDirectionsStyled, PaymentOptionDescription, PaymentBtn } from "./PaymentsStyledComponents";
 import {
-  SelectTipMethodText,
+  SelectPaymentMethodText,
   PayWithCardText,
   PayWithCardMinimumText,
   PayWithCardDescriptionText,
@@ -20,7 +20,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
   return (
     <>
       <PaymentDirectionsStyled>
-        <SelectTipMethodText />
+        <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
       {props.isStripeConnected && props.usdToSpend < 2 && (
         <PaymentOptionDescription warning={true}>

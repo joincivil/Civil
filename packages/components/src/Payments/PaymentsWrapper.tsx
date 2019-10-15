@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CivilIcon } from "../icons";
-import { YourTipText } from "./PaymentsTextComponents";
+import { YourPaymentText } from "./PaymentsTextComponents";
 import {
   PaymentWrapperStyled,
   PaymentHeader,
@@ -26,7 +26,7 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
         <CivilIcon width={50} height={13} />
         {props.usdToSpend && (
           <PaymentAmountWrapper>
-            <YourTipText />
+            <YourPaymentText />
             <PaymentAmount>{"$" + props.usdToSpend}</PaymentAmount>
           </PaymentAmountWrapper>
         )}
