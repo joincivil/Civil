@@ -3,6 +3,7 @@ import { PaymentDirectionsStyled, PaymentOptionDescription, PaymentBtn } from ".
 import {
   SelectTipMethodText,
   PayWithCardText,
+  PayWithCardMinimumText,
   PayWithCardDescriptionText,
   PayWithEthText,
   PayWithEthDescriptionText,
@@ -10,6 +11,7 @@ import {
 import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsOptionsProps {
+  usdToSpend: number;
   isStripeConnected: boolean;
   handleNext(paymentState: PAYMENT_STATE): void;
 }
@@ -20,6 +22,11 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
       <PaymentDirectionsStyled>
         <SelectTipMethodText />
       </PaymentDirectionsStyled>
+      {props.isStripeConnected && props.usdToSpend < 2 && (
+        <PaymentOptionDescription warning={true}>
+          <PayWithCardMinimumText />
+        </PaymentOptionDescription>
+      )}
       {props.isStripeConnected && (
         <>
           <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)}>

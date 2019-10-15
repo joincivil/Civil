@@ -13,7 +13,7 @@ import { PAYMENT_STATE } from "./types";
 export interface PaymentsWrapperProps {
   showBackBtn: boolean;
   backState: PAYMENT_STATE;
-  usdToSpend: number;
+  usdToSpend?: number;
   children: any;
   handleBack(backState: PAYMENT_STATE): void;
 }
@@ -24,10 +24,12 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
       <PaymentHeader>
         {props.showBackBtn && <PaymentBackBtn onClick={() => props.handleBack(props.backState)}>Back</PaymentBackBtn>}
         <CivilIcon width={50} height={13} />
-        <PaymentAmountWrapper>
-          <YourTipText />
-          <PaymentAmount>{"$" + props.usdToSpend}</PaymentAmount>
-        </PaymentAmountWrapper>
+        {props.usdToSpend && (
+          <PaymentAmountWrapper>
+            <YourTipText />
+            <PaymentAmount>{"$" + props.usdToSpend}</PaymentAmount>
+          </PaymentAmountWrapper>
+        )}
       </PaymentHeader>
       {props.children}
     </PaymentWrapperStyled>

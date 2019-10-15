@@ -4,6 +4,7 @@ import { colors, fonts, mediaQueries } from "../styleConstants";
 import { Button, InvertedButton } from "../Button";
 import { CivilIcon } from "../icons";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
+import { InputBase } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
   padding: 20px;
@@ -76,12 +77,16 @@ export const PaymentDirectionsStyled = styled.p`
   }
 `;
 
+export interface PaymentOptionProps {
+  warning?: boolean;
+}
+
 export const PaymentOptionDescription = styled.p`
-  color: ${colors.accent.CIVIL_GRAY_1};
+  color: ${(props: PaymentOptionProps) => (props.warning ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_1)};
   font-family: ${fonts.SANS_SERIF};
   font-size: 13px;
   line-height: 18px;
-  margin: 6px 0 25px;
+  margin: ${(props: PaymentOptionProps) => (props.warning ? "6px 0" : "6px 0 25px")};
 
   a {
     color: ${colors.accent.CIVIL_BLUE};
@@ -292,6 +297,7 @@ export const PaymentsRadioBtn = styled.button`
   font-weight: 600;
   height: 75px;
   padding: 10px;
+  transition: border 0.2s ease;
   width: 70px;
 
   span {
@@ -319,21 +325,31 @@ export const PaymentAmountInfo = styled.p`
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-spacing: 17px;
-  margin: 0 0 20px;
+  margin: 0 0 15px;
   text-align: center;
+`;
+
+export const PaymentAmountUserInput = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+
+  label {
+    display: none;
+  }
+
+  ${InputBase} {
+    width: 150px;
+  }
 `;
 
 export const PaymentAmountUserOptions = styled.div`
   margin: 20px 0;
 
-  input {
-    margin-right: 8px;
-  }
-
   label {
     color: ${colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
     font-size: 14px;
-    line-spacing: 17px;
+    margin-right: 8px;
   }
 `;

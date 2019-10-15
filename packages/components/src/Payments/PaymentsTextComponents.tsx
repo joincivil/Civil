@@ -13,6 +13,10 @@ export const SelectTipMethodText: React.FunctionComponent = props => <>Select ho
 
 export const PayWithCardText: React.FunctionComponent = props => <>Pay with card</>;
 
+export const PayWithCardMinimumText: React.FunctionComponent = props => (
+  <>The tip minimum for cards is $2.00. Your tip will be increased when you pay with a card.</>
+);
+
 export const PayWithCardDescriptionText: React.FunctionComponent = props => (
   <>
     Continue with adding your payment information. Your payment information will be processed through{" "}

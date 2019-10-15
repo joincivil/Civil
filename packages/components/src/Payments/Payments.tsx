@@ -57,7 +57,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           backState={PAYMENT_STATE.SELECT_AMOUNT}
           handleBack={this.handleNavigate}
         >
-          <PaymentsOptions isStripeConnected={isStripeConnected} handleNext={this.handleNavigate} />
+          <PaymentsOptions
+            usdToSpend={usdToSpend}
+            isStripeConnected={isStripeConnected}
+            handleNext={this.handleNavigate}
+          />
         </PaymentsWrapper>
       );
     }
@@ -107,13 +111,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     return (
       <PaymentsWrapper
-        usdToSpend={usdToSpend}
         showBackBtn={false}
         backState={PAYMENT_STATE.SELECT_AMOUNT}
         handleBack={this.handleNavigate}
       >
         <PaymentsAmount
-          usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
           handleAmount={this.handleAmount}

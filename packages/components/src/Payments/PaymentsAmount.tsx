@@ -4,9 +4,10 @@ import {
   PaymentAmountHeader,
   PaymentAmountInfo,
   PaymentAmountUserOptions,
+  PaymentAmountUserInput,
 } from "./PaymentsStyledComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
-import { RadioInput } from "@joincivil/elements";
+import { RadioInput, CurrencyInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
 
 export interface SuggestedAmounts {
@@ -14,7 +15,6 @@ export interface SuggestedAmounts {
 }
 
 export interface PaymentsAmountProps {
-  usdToSpend: number;
   newsroomName: string;
   suggestedAmounts: SuggestedAmounts[];
   handleAmount(usdToSpend: number, hideUserName: boolean): void;
@@ -30,7 +30,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     super(props);
     this.state = {
       hideUserName: false,
-      usdToSpend: this.props.usdToSpend,
+      usdToSpend: 0,
     };
   }
 
@@ -48,6 +48,9 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
             </PaymentsRadio>
           ))}
         </RadioInput>
+        <PaymentAmountUserInput>
+          <CurrencyInput icon={<></>} name="CurrencyInput" onChange={this.handleInput} />
+        </PaymentAmountUserInput>
         <PaymentAmountUserOptions>
           <Checkbox
             id="hideUserName"
@@ -75,7 +78,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     this.setState({ usdToSpend: value });
   };
 
-  private handleInput = (amount: number) => {
-    this.setState({ usdToSpend: amount });
+  private handleInput = (name: string, value: any) => {
+    this.setState({ usdToSpend: value });
   };
 }
