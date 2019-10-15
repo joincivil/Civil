@@ -30,7 +30,7 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
           />
         </span>
         <span
-          className="sc-LzNsa hxCDaJ"
+          className="sc-LzNsa emHPZw"
         >
           30
            Boosters
@@ -718,7 +718,7 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
         <label
           className="sc-LzNrw eiAPBy"
         >
-          Recent Contributors
+          Recent Boosters
         </label>
         <div
           className="sc-LzNrU dVmJvp"

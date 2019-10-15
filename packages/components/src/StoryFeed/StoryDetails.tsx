@@ -14,6 +14,7 @@ import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 // import { Share } from "../Social";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
 import { StoryNewsroomData, OpenGraphData } from "./types";
+// import { PaymentButton } from "@joincivil/elements";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;
@@ -47,7 +48,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryDetailsFlex>
         <StoryDescription>{openGraphData.description}</StoryDescription>
-        <Contributors label={"Recent Contributors"} sortedContributors={props.sortedContributors} />
+        <Contributors sortedContributors={props.sortedContributors} />
         <ContributorCount
           totalContributors={props.totalContributors}
           displayedContributors={props.displayedContributors}
@@ -55,7 +56,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         {/* <Share /> */}
       </StoryModalContent>
       <StoryModalFooter>
-        {/* <Button>Tips</Button> */}
+        {/* <PaymentButton /> */}
         <BlueLinkBtn href={openGraphData.url} target="_blank">
           Read More
         </BlueLinkBtn>

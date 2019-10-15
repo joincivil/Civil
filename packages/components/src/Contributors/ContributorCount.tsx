@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ContributorCountStyled, ContributorCountTotal, ContributorCountAvatars } from "./ContributorsStyledComponents";
+import { ContributorCountStyled, ContributorsLabel, ContributorCountAvatars } from "./ContributorsStyledComponents";
 import { ContributorData } from "./types";
 
 export interface ContributorsCountProps {
@@ -14,7 +14,7 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
         {this.props.totalContributors !== 0 ? (
           this.renderContributers()
         ) : (
-          <ContributorCountTotal>Be the first to Boost</ContributorCountTotal>
+          <ContributorsLabel>Be the first to Boost</ContributorsLabel>
         )}
       </ContributorCountStyled>
     );
@@ -27,10 +27,10 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
             return <img src={contributor.payerChannel.tiny72AvatarDataUrl} key={i} />;
           })}
         </ContributorCountAvatars>
-        <ContributorCountTotal>
+        <ContributorsLabel>
           {this.props.totalContributors}
           {this.props.totalContributors === 1 ? " Booster" : " Boosters"}
-        </ContributorCountTotal>
+        </ContributorsLabel>
       </>
     );
   };
