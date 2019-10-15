@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
 
 export interface BoostStyleProps {
@@ -57,7 +58,7 @@ BoostTitle.defaultProps = {
   theme: {},
 };
 
-export const BoostWrapperLink = styled.a`
+export const BoostWrapperLink = styled(Link)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   display: block;
   font-family: ${fonts.SANS_SERIF};
