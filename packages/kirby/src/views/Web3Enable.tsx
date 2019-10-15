@@ -13,7 +13,7 @@ interface Web3EnableProps extends RouteComponentProps {
 
 const WAITING_FOR_CONNECTION = "Waiting for Web3 Wallet Connection...";
 
-export const Web3Enable: React.FC<Web3EnableProps> = ({ network }) => {
+export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => {
   const ctx = React.useContext(CoreContext);
   const [status, setStatus] = React.useState("provided");
 
@@ -24,21 +24,24 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network }) => {
   });
 
   React.useEffect(() => {
-    const queryParams = queryString.parse(window.location.search);
-    if (queryParams.providerPreference) {
-      selection(queryParams.providerPreference as string).catch(err => console.log("error with selection", err));
-    } else {
-      setStatus("select");
+    if (requestID) {
+      const queryParams = queryString.parse(location!.search);
+      if (queryParams.providerPreference) {
+        selection(queryParams.providerPreference as string).catch(err => console.log("error with selection", err));
+      } else {
+        setStatus("select");
+      }
     }
-  }, []);
+  }, [requestID]);
 
   async function selection(provider: string): Promise<void> {
     const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
-    console.log("selected:", provider);
+    console.log("selected:", provider, requestID, network);
     try {
       setStatus("enabling provider");
       await ethPlugin.enableWeb3(requestID, provider, network as any);
       setStatus("done");
+
       (ctx.core.plugins.view as ViewPlugin).completeView();
     } catch (err) {
       console.log("error with enableWeb3: ", err);
