@@ -17,7 +17,7 @@ export const PaymentBtnStyled = styled.button`
   justify-content: center;
   line-spacing: 1;
   outline: none;
-  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "0" : "5px 10px")};
+  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "5px" : "5px 10px")};
 
   svg {
     margin-right: 2px;
