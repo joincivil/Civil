@@ -14,12 +14,13 @@ import {
   OBSectionHeader,
   OBSectionDescription,
   HollowGreenCheck,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage } from "@joincivil/utils";
 import { Civil, EthAddress, CharterData } from "@joincivil/core";
 import { Map } from "immutable";
 import styled from "styled-components";
-import { CivilContext, CivilContextValue } from "../CivilContext";
 import { EthSignedMessage } from "@joincivil/typescript-types";
 import { IpfsObject } from "../Newsroom";
 import { StyledHr, StepSectionCounter } from "../styledComponents";
@@ -111,6 +112,9 @@ class SignConstitutionComponent extends React.Component<
   DispatchProp<any> & SignConstitutionReduxProps,
   SignConstitutionState
 > {
+  public static contextType = CivilContext;
+  public context: ICivilContext;
+
   constructor(props: SignConstitutionReduxProps & DispatchProp<any>) {
     super(props);
     this.state = {
@@ -170,25 +174,22 @@ class SignConstitutionComponent extends React.Component<
       "To sign the constitution, you need to confirm in your MetaMask wallet. You will not be able to proceed without signing the constitution.";
 
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <MetaMaskModal
-            waiting={false}
-            denied={true}
-            denialText={denialMessage}
-            cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransactions(value.civil!, true)}
-          >
-            <ModalHeading>{message}</ModalHeading>
-          </MetaMaskModal>
-        )}
-      </CivilContext.Consumer>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={() => this.cancelTransaction()}
+        restartTransactions={this.getTransactions(this.context.civil!, true)}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
     );
   }
 
   public render(): JSX.Element {
     const content = this.props.government ? this.props.government.get("constitutionContent") : "";
     const hasSigned = this.props.charter.signatures && this.props.charter.signatures.length;
+    console.log("render", this.context);
     return (
       <>
         <OBSectionHeader>Review the Civil Constitution</OBSectionHeader>
@@ -221,38 +222,31 @@ class SignConstitutionComponent extends React.Component<
           </label>
         </p>
         <StepFormSection>
-          <CivilContext.Consumer>
-            {(value: CivilContextValue) => {
-              return (
-                <>
-                  <h4>Add signature and complete your charter</h4>
-                  <StepDescription>
-                    You will now cryptographically sign the constitution and add the signature to your charter and then
-                    save the charter to your newsroom smart contract. You will see two windows: one to sign this message
-                    and the other to confirm.
-                  </StepDescription>
-                  {hasSigned ? (
-                    <SignedMessage>
-                      {" "}
-                      <StyledCheck /> <div>Civil Constitution Signed</div>
-                    </SignedMessage>
-                  ) : (
-                    <TransactionButtonNoModal
-                      disabled={!this.state.agreedToConstitution}
-                      Button={props => {
-                        return (
-                          <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
-                            Complete Your Charter
-                          </MetaMaskLogoButton>
-                        );
-                      }}
-                      transactions={this.getTransactions(value.civil!)}
-                    />
-                  )}
-                </>
-              );
-            }}
-          </CivilContext.Consumer>
+          <h4>Add signature and complete your charter</h4>
+          <StepDescription>
+            You will now cryptographically sign the constitution and add the signature to your charter and then save the
+            charter to your newsroom smart contract. You will see two windows: one to sign this message and the other to
+            confirm.
+          </StepDescription>
+          {hasSigned ? (
+            <SignedMessage>
+              {" "}
+              <StyledCheck /> <div>Civil Constitution Signed</div>
+            </SignedMessage>
+          ) : (
+            <TransactionButtonNoModal
+              disabled={!this.state.agreedToConstitution}
+              Button={props => {
+                return (
+                  <MetaMaskLogoButton disabled={props.disabled} onClick={props.onClick}>
+                    Complete Your Charter
+                  </MetaMaskLogoButton>
+                );
+              }}
+              transactions={this.getTransactions(this.context.civil!)}
+            />
+          )}
+
           {this.renderPreSignModal()}
           {this.renderWaitingSignModal()}
           {this.renderMetaMaskRejectionModal()}

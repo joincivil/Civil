@@ -97,25 +97,25 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderWithdrawalEvent(wrappedEvent: any): JSX.Element {
-    const { withdrew } = wrappedEvent.returnValues;
+    const { withdrew } = wrappedEvent.args || wrappedEvent.returnValues;
     const formattedDeposit = getFormattedTokenBalance(withdrew);
     return <WithdrawalEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderDepositEvent(wrappedEvent: any): JSX.Element {
-    const { added } = wrappedEvent.returnValues;
+    const { added } = wrappedEvent.args || wrappedEvent.returnValues;
     const formattedDeposit = getFormattedTokenBalance(added);
     return <DepositEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderApplicationEvent(wrappedEvent: any): JSX.Element {
-    const { deposit } = wrappedEvent.returnValues;
+    const { deposit } = wrappedEvent.args || wrappedEvent.returnValues;
     const formattedDeposit = getFormattedTokenBalance(deposit);
     return <ApplicationEvent timestamp={(wrappedEvent as any).timestamp} deposit={formattedDeposit} />;
   }
 
   private renderChallengeEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID, challenger } = wrappedEvent.returnValues;
+    const { challengeID, challenger } = wrappedEvent.args || wrappedEvent.returnValues;
     const challengeURI = formatRoute(routes.CHALLENGE, {
       listingAddress: this.props.listing,
       challengeID: challengeID.toString(),
@@ -131,7 +131,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeFailedEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID } = wrappedEvent.returnValues;
+    const { challengeID } = wrappedEvent.args || wrappedEvent.returnValues;
     const ChallengeFailedComponent = challengeCompletedEventContainer(
       ChallengeFailedEventComponent,
     ) as React.ComponentClass<ListingHistoryEventTimestampProps & ChallengeContainerProps>;
@@ -140,7 +140,7 @@ class ListingEvent extends React.Component<ListingEventProps> {
   }
 
   private renderChallengeSucceededEvent(wrappedEvent: any): JSX.Element {
-    const { challengeID } = wrappedEvent.returnValues;
+    const { challengeID } = wrappedEvent.args || wrappedEvent.returnValues;
     const ChallengeSucceededComponent = challengeCompletedEventContainer(ChallengeSucceededEventComponent);
 
     return <ChallengeSucceededComponent timestamp={wrappedEvent.timestamp} challengeID={challengeID} />;

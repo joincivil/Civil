@@ -44,7 +44,7 @@ export interface DashboardReduxProps {
 const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
   const { civil } = React.useContext(CivilContext);
 
-  let enableEthereum: () => void | undefined;
+  let enableEthereum: () => Promise<void> | undefined;
   if (civil && civil.currentProvider) {
     enableEthereum = async () => {
       await civil.currentProviderEnable();
@@ -86,9 +86,6 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
           return (
             <StyledAuthButtonContainer>
               <p>Sign Up or Login to view Your Civil Registry Dashboard</p>
-              <Button to="/auth/signup" size={buttonSizes.SMALL}>
-                Sign Up | Login
-              </Button>
             </StyledAuthButtonContainer>
           );
         }}

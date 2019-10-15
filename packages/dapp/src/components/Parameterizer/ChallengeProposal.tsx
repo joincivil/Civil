@@ -10,7 +10,7 @@ import {
   ModalListItem,
 } from "@joincivil/components";
 
-import { approveForProposalChallenge, challengeReparameterization } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 export interface ChallengeProposalProps extends ChallengeProposalComponentProps {
@@ -82,6 +82,8 @@ const transactionStatusModalConfig = {
 };
 
 class ChallengeProposal extends React.Component<ChallengeProposalProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.props.handleClose);
@@ -109,7 +111,7 @@ class ChallengeProposal extends React.Component<ChallengeProposalProps & Injecte
             isTransactionRejectionModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_PROPOSAL_CHALLENGE,
           });
-          return approveForProposalChallenge();
+          return this.context.approveForProposalChallenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -150,7 +152,7 @@ class ChallengeProposal extends React.Component<ChallengeProposalProps & Injecte
   };
 
   private challengeProposal = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    return challengeReparameterization(this.props.challengeProposalID!.toString());
+    return this.context.challengeReparameterization(this.props.challengeProposalID!.toString());
   };
 }
 

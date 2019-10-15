@@ -38,6 +38,23 @@ export const ChallengesWonLabelText: React.FunctionComponent = props => <>Challe
 
 export const RewardsClaimedLabelText: React.FunctionComponent = props => <>Rewards Claimed</>;
 
+export const NoTasks: React.FunctionComponent = props => (
+  <StyledTransferTokenTitle>
+    <h3>No Tasks</h3>
+    <p>
+      You don't have any tasks right now. Tasks represent actions you need to take (or have taken) related to Civil's
+      governance. Action items will appear here if you participate in a Newsroom Challenge.
+    </p>
+  </StyledTransferTokenTitle>
+);
+
+export const NoChallenges: React.FunctionComponent = props => (
+  <StyledTransferTokenTitle>
+    <h3>No Challenges</h3>
+    <p>You haven't participated in any challenges yet.</p>
+  </StyledTransferTokenTitle>
+);
+
 export const TransferTokenText: React.FunctionComponent = props => (
   <StyledTransferTokenTitle>
     <h3>Transfer Tokens</h3>

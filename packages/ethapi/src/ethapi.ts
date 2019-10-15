@@ -1,8 +1,7 @@
 import { CivilErrors, delay, hashPersonalMessage } from "@joincivil/utils";
 import * as Debug from "debug";
 import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
-import { Observable } from "rxjs/Observable";
-import { ReplaySubject } from "rxjs/ReplaySubject";
+import { ReplaySubject, Observable } from "rxjs";
 import {
   ContractOptions,
   BigNumber,
@@ -35,8 +34,8 @@ export class EthApi {
   // Initialized for sure by the helper method setProvider used in constructor
   private web3!: Web3;
   private abiDecoder: AbiDecoder;
-  private accountObservable: Observable<EthAddress | undefined>;
-  private networkObservable: Observable<number>;
+  private accountObservable: ReplaySubject<EthAddress | undefined>;
+  private networkObservable: ReplaySubject<number>;
   private rpcId: number = 10000; // HACK(ritave): Ids that shouldn't collide with web3, get rid of web3
 
   // TODO(ritave): Use abi decoding seperatly in just the generated smart-contracts
@@ -44,29 +43,50 @@ export class EthApi {
     this.currentProvider = provider;
     this.abiDecoder = new AbiDecoder(abis);
 
-    // Lazy polling
-    // When anyone wants to listen to updates concerning network and accounts,
-    // the polling starts, and the results are given to all listeners.
-    // If all listeners stop listening - the polling stops
-    // There is a cached version of the poll last result, which is invalidated after POLL_MILLISECONDS
-    // FYI for dev: shareReplay doesn't unsubscribe properly
-    const lazyPoll = <T extends any>(method: string, map: (result: any) => T): Observable<T> =>
-      Observable.timer(0, POLL_MILLISECONDS)
-        .exhaustMap(async _ => this.rpc(method)) // Waits for the last rpc request to finish before sending a new one
-        .map(map)
-        .multicast(() => new ReplaySubject(1, POLL_MILLISECONDS)) // Do only one rpc call for everyone wanting updates, cache the last output
-        .refCount() // Stop polling if everybody unsubscribes
-        .distinctUntilChanged();
+    this.accountObservable = new ReplaySubject<EthAddress | undefined>(1);
 
-    this.networkObservable = lazyPoll("net_version", res => {
-      return Number.parseInt(res as string, 10);
-    });
-    this.accountObservable = lazyPoll("eth_accounts", res => {
-      const accounts = res as EthAddress[];
-      const account = accounts && accounts.length > 0 ? accounts[0] : null;
-      this.web3.eth.defaultAccount = account!;
-      return account === null ? undefined : account;
-    });
+    this.web3.eth
+      .getAccounts()
+      .then(accounts => {
+        const account = accounts && accounts.length > 0 ? accounts[0] : undefined;
+        this.web3.eth.defaultAccount = account!;
+        if (account) {
+          this.accountObservable.next(account);
+        }
+      })
+      .catch(err => {
+        console.error("error getting accounts", err);
+      });
+
+    // @ts-ignore `on` exists for providers that support subscriptions
+    if (provider.on) {
+      // @ts-ignore `on` exists for providers that support subscriptions
+      provider.on("accountsChanged", accounts => {
+        const account = accounts && accounts.length > 0 ? accounts[0] : undefined;
+        this.web3.eth.defaultAccount = account!;
+        if (account) {
+          this.accountObservable.next(account);
+        }
+      });
+    }
+
+    this.networkObservable = new ReplaySubject<number>(1);
+    this.web3.eth.net
+      .getId()
+      .then(network => {
+        this.networkObservable.next(network);
+      })
+      .catch(err => {
+        console.error("error getting network", err);
+      });
+
+    // @ts-ignore `on` exists for providers that support subscriptions
+    if (provider.on) {
+      // @ts-ignore `on` exists for providers that support subscriptions
+      provider.on("networkChanged", network => {
+        this.networkObservable.next(network);
+      });
+    }
   }
 
   public get currentProvider(): Web3["currentProvider"] {
@@ -88,23 +108,9 @@ export class EthApi {
   }
 
   public async network(): Promise<number> {
-    // @ts-ignore typescript types are wrong
-    // https://web3js.readthedocs.io/en/v1.2.1/web3-eth-net.html#getnetworktype
-    const network = await this.web3.eth.net.getNetworkType();
+    const network = await this.networkObservable.first().toPromise();
 
-    switch (network.toLowerCase()) {
-      case "main":
-        return 1;
-      case "rinkeby":
-        return 4;
-      case "unknown":
-        return 50;
-      default:
-        console.log("unrecognized network", network);
-        return 50;
-    }
-
-    // return Number.parseInt(this.web3.currentProvider.networkVersion, 10);
+    return network;
   }
 
   public async getAccount(): Promise<string | null> {

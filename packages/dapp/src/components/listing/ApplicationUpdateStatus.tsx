@@ -1,6 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { updateStatus } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { InApplicationResolveCard, ModalContent } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
@@ -47,6 +47,9 @@ const transactionStatusModalConfig = {
 class ApplicationUpdateStatus extends React.Component<
   ApplicationUpdateStatusProps & InjectedTransactionStatusModalProps
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentDidMount(): void {
     this.props.setTransactions(this.getTransactions());
   }
@@ -92,7 +95,7 @@ class ApplicationUpdateStatus extends React.Component<
   };
 
   private update = async (): Promise<TwoStepEthTransaction<any>> => {
-    return updateStatus(this.props.listingAddress);
+    return this.context.updateStatus(this.props.listingAddress);
   };
 }
 

@@ -11,28 +11,28 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
-      className="sc-LzMDW eANFIa"
+      className="sc-LzMCM idoVHD"
     >
       <h2
-        className="sc-LzMCj coGyxb"
+        className="sc-LzMBw eUeypn"
       >
         Can we switch to a different browser?
       </h2>
       <p
-        className="sc-LzMCI sc-LzMEb kEaivI"
+        className="sc-LzMBy sc-LzMDo joVfJM"
       >
         Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
       </p>
       <p
-        className="sc-LzMCI sc-LzMEb kEaivI"
+        className="sc-LzMBy sc-LzMDo joVfJM"
       >
         In the meantime, please…
       </p>
       <div
-        className="sc-LzMDY ipsVXx"
+        className="sc-LzMCO jlXeIi"
       >
         <a
-          className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzMCP dgfxMB"
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -44,31 +44,13 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-LzMDX TZSde"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            className="sc-LzMCN bxgtqL"
+            src="test-file-stub"
           />
           Get Google Chrome
         </a>
         <a
-          className="sc-fzXfMD sc-fzXfNc sc-LzMDZ lagnGg"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzMCP dgfxMB"
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -80,41 +62,23 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-LzMDX TZSde"
-            src={
-              Object {
-                "0": "t",
-                "1": "e",
-                "10": "s",
-                "11": "t",
-                "12": "u",
-                "13": "b",
-                "2": "s",
-                "3": "t",
-                "4": "-",
-                "5": "f",
-                "6": "i",
-                "7": "l",
-                "8": "e",
-                "9": "-",
-                "default": "test-file-stub",
-              }
-            }
+            className="sc-LzMCN bxgtqL"
+            src="test-file-stub"
           />
           Get Firefox
         </a>
       </div>
       <p
-        className="sc-LzMCJ sc-LzMCL hGWlgk"
+        className="sc-LzMBz sc-LzMBB hKamHZ"
       >
         <a
-          className="sc-LzMEa kGqwzi"
+          className="sc-LzMCQ kKvsxE"
           href="mailto:support@civil.co"
         >
           Contact Us
         </a>
         <a
-          className="sc-LzMEa kGqwzi"
+          className="sc-LzMCQ kKvsxE"
           href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
           target="_blank"
         >

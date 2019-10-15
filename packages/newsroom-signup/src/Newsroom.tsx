@@ -1,6 +1,5 @@
 import * as qs from "querystring";
 import { BigNumber } from "@joincivil/typescript-types";
-import { Parameters } from "@joincivil/utils";
 import {
   ButtonTheme,
   colors,
@@ -34,10 +33,9 @@ import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
 import { Tutorial } from "./Tutorial";
-import { CivilContext } from "./CivilContext";
-import { PurchaseTokens } from "./PurchaseTokens";
+import { PurchaseTokens } from "./PurchaseTokens/index";
 import { RepublishCharterNotice } from "./RepublishCharterNotice";
-import { ApplyToTCRStep as ApplyToTCR } from "./ApplyToTCR/index";
+import { ApplyToTCRStep } from "./ApplyToTCR/index";
 import { StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
 import { Wrapper, DEFAULT_THEME } from "./styledComponents";
@@ -149,6 +147,8 @@ export interface NewsroomGqlProps {
   quizStatus?: string;
   saveAddress: MutationFunc;
   saveSteps: MutationFunc;
+  minDeposit: BigNumber;
+  applyStageLen: BigNumber;
   persistCharter(charter: Partial<CharterData>): Promise<any>;
 }
 
@@ -282,23 +282,14 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
             contact a newsroom officer in order to be added.
           </ErrorP>
         )}
-        <CivilContext.Provider
-          value={{
-            civil: this.props.civil,
-            currentNetwork: this.props.currentNetwork,
-            requiredNetwork: this.props.requiredNetwork || "rinkeby|ganache",
-            account: this.props.account,
-          }}
+        <StepProcessTopNavNoButtons
+          activeIndex={STEP_TO_SECTION[this.state.currentStep]}
+          onActiveTabChange={this.navigateToSection}
+          contentPrepend={this.renderRepublishCharter()}
+          fullyControlledIndex={true}
         >
-          <StepProcessTopNavNoButtons
-            activeIndex={STEP_TO_SECTION[this.state.currentStep]}
-            onActiveTabChange={this.navigateToSection}
-            contentPrepend={this.renderRepublishCharter()}
-            fullyControlledIndex={true}
-          >
-            {this.renderSteps()}
-          </StepProcessTopNavNoButtons>
-        </CivilContext.Provider>
+          {this.renderSteps()}
+        </StepProcessTopNavNoButtons>
       </>
     );
   }
@@ -335,14 +326,20 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
         <Tutorial navigate={this.navigate} />
       </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
-        <PurchaseTokens navigate={this.navigate} grantApproved={this.props.grantApproved} />
+        <PurchaseTokens
+          navigate={this.navigate}
+          grantApproved={this.props.grantApproved}
+          minDeposit={this.props.minDeposit}
+        />
       </StepNoButtons>,
       <StepNoButtons title={"Apply to Registry"} disabled={this.getDisabled(SECTION.APPLY)()} key="atr">
-        <ApplyToTCR
+        <ApplyToTCRStep
           navigate={this.navigate}
           newsroom={this.props.newsroom!}
           address={this.props.newsroomAddress}
           civil={this.props.civil}
+          minDeposit={this.props.minDeposit}
+          applyStageLen={this.props.applyStageLen}
         />
       </StepNoButtons>,
     ];
@@ -530,13 +527,13 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
-  const { user, parameters } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
+  const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
   let hasMinDeposit;
   let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
-  if (user && user.account && user.account.balance && parameters && parameters[Parameters.minDeposit]) {
+  if (user && user.account && user.account.balance && ownProps.minDeposit) {
     const userBalance = new BigNumber(user.account.balance);
-    const minDeposit = new BigNumber(parameters[Parameters.minDeposit]);
+    const minDeposit = new BigNumber(ownProps.minDeposit);
     hasMinDeposit = userBalance.gte(minDeposit);
     waitingOnGrant = waitingOnGrant && !hasMinDeposit;
   }

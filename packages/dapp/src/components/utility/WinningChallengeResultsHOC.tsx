@@ -28,6 +28,7 @@ import {
 import { BigNumber } from "@joincivil/typescript-types";
 
 import { getAppealChallenge, getProposalChallengeByChallengeID } from "../../selectors";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface WinningChallengeResultsProps {
   displayExplanation?: boolean;
@@ -92,19 +93,19 @@ export const getAppealChallengeViewProps = (appealChallenge: AppealChallengeData
 
   if (didAppealChallengeSucceed(appealChallenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
-    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
+    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
     votesPercent = totalVotes.isZero()
       ? "0"
-      : appealChallenge.poll.votesAgainst
+      : appealChallenge.poll.votesFor
           .div(totalVotes)
           .mul(new BigNumber(100))
           .toString();
   } else {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.UPHOLD;
-    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
+    votesCount = getFormattedTokenBalance(appealChallenge.poll.votesAgainst);
     votesPercent = totalVotes.isZero()
       ? "0"
-      : appealChallenge.poll.votesFor
+      : appealChallenge.poll.votesAgainst
           .div(totalVotes)
           .mul(new BigNumber(100))
           .toString();
@@ -198,6 +199,9 @@ export const connectWinningChallengeResults = <
       WinningChallengeResultsProps &
       DispatchProp<any>
   > {
+    public static contextType = CivilHelperContext;
+    public context: CivilHelper;
+
     public componentDidMount(): void {
       this.ensureHasChallengeData();
     }
@@ -224,7 +228,7 @@ export const connectWinningChallengeResults = <
 
     private ensureHasChallengeData = (): void => {
       if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.props.challengeID.toString()));
+        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
       }
     };
   }

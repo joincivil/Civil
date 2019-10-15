@@ -1,7 +1,5 @@
 import * as React from "react";
-import { TrendsIcon } from "../icons/TrendsIcon";
-import { NetworkIcon } from "../icons/NetworkIcon";
-import { TokenWalletIcon } from "../icons/TokenWalletIcon";
+import { NetworkIcon, TrendsIcon, TokenWalletIcon } from "@joincivil/elements";
 import {
   Topic1Intro,
   Topic2Intro,

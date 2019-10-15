@@ -11,18 +11,18 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
     }
   >
     <div
-      className="sc-LzMiY fmfpuH"
+      className="sc-LzMko esCWBd"
     >
       <div
-        className="sc-LzMiZ fcmKNj"
+        className="sc-LzMkp glUdFr"
       >
         <h2
-          className="sc-LzMja bjABjP"
+          className="sc-LzMkq ksdTNc"
         >
           The Civil Registry
         </h2>
         <div
-          className="sc-LzMjb dYSzmx"
+          className="sc-LzMkr dgOwwq"
         >
           <p>
             A community-driven space for curating quality journalism.
@@ -40,10 +40,10 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
           </p>
         </div>
         <div
-          className="sc-LzMjc RrYCS"
+          className="sc-LzMks eYUoRr"
         >
           <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMjd iBXrCk"
+            className="sc-fzXfLO sc-fzXfLS sc-LzMkt ciCbOu"
             href="#buy-tokens"
             size="SMALL"
             theme={
@@ -59,7 +59,7 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
             Join as a member
           </a>
           <a
-            className="sc-fzXfMD sc-fzXfNe sc-LzMjd iBXrCk"
+            className="sc-fzXfLO sc-fzXfLS sc-LzMkt ciCbOu"
             href="#apply"
             size="SMALL"
             theme={
@@ -76,7 +76,7 @@ exports[`Storyshots Registry / Hero Homepage 1`] = `
           </a>
         </div>
         <div
-          className="sc-LzMje hcGMZJ"
+          className="sc-LzMku fAyPmW"
         >
           Explore The Civil Registry
           <div>

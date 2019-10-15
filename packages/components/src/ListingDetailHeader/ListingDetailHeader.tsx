@@ -7,7 +7,7 @@ import { buttonSizes } from "../Button";
 import { StyledContentRow } from "../Layout";
 import ListingPhaseLabel from "../ListingSummary/ListingPhaseLabel";
 import { colors } from "../styleConstants";
-import * as defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
+import defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 
 import {
   ListingDetailOuter,

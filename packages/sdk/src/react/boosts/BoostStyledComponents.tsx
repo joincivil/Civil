@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, Button, InvertedButton } from "@joincivil/components";
+import { Link } from "react-router-dom";
+import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
 
 export interface BoostStyleProps {
   open?: boolean;
@@ -8,7 +9,7 @@ export interface BoostStyleProps {
 }
 
 export const MobileStyle = styled.span`
-  display: none:
+  display: none;
 
   ${mediaQueries.MOBILE} {
     display: inline;
@@ -40,14 +41,24 @@ export const BoostTitle = styled.h2`
   margin: 0 0 8px;
   transition: color 0.25s ease;
 
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    "white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"}
+
   ${mediaQueries.MOBILE} {
-    font-size: 16px;
-    line-height: 22px;
     margin: 0 0 12px;
   }
+  ${mediaQueries.MOBILE_SMALL} {
+    font-size: 16px;
+    line-height: 22px;
+  }
 `;
+// Suppress unncessary styled-components console.error from https://github.com/styled-components/styled-components/commit/f1f62440668af2e9ad9b9376f052cac8416672dd:
+BoostTitle.defaultProps = {
+  theme: {},
+};
 
-export const BoostWrapperLink = styled.a`
+export const BoostWrapperLink = styled(Link)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   display: block;
   font-family: ${fonts.SANS_SERIF};
@@ -135,6 +146,11 @@ export const BoostLinkBtn = styled.a`
 
 export const BoostBack = styled.div`
   margin: 0 0 30px;
+
+  ${mediaQueries.MOBILE} {
+    margin: 16px 0;
+    ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && `margin-top: 0;`};
+  }
 `;
 
 export const BoostImgDiv = styled.div`
@@ -157,10 +173,10 @@ export const BoostImgDivMobile = styled.div`
   display: none;
 
   img {
-    height: ${(props: BoostStyleProps) => (props.open ? "64px" : "32px")};
+    height: ${(props: BoostStyleProps) => (props.open ? "64px" : "48px")};
     margin-right: 10px;
     object-fit: contain;
-    width: ${(props: BoostStyleProps) => (props.open ? "64px" : "32px")};
+    width: ${(props: BoostStyleProps) => (props.open ? "64px" : "48px")};
   }
 
   ${mediaQueries.MOBILE} {
@@ -196,22 +212,69 @@ export const BoostNewsroomInfo = styled.div`
   }
 `;
 
-export const BoostNewsroomName = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 18px;
-  line-height: 26px;
-  font-weight: 200;
-  margin-right: 20px;
+export const BoostNewsroomName = styled.a`
+  // override <a> specificity
+  && {
+    color: ${colors.accent.CIVIL_GRAY_0} !important;
+    font-family: ${fonts.SANS_SERIF};
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 200;
+    margin-right: 20px;
+
+    &:hover {
+      color: ${colors.primary.CIVIL_BLUE_1};
+    }
+  }
 
   ${mediaQueries.MOBILE} {
     font-size: 14px;
   }
 `;
 
+export const BoostDescShareFlex = styled.div`
+  display: flex;
+  ${mediaQueries.MOBILE_SMALL} {
+    flex-direction: column-reverse;
+  }
+`;
+
+export const BoostShareHeading = styled.h3`
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 19px;
+  margin: 5px 0 10px;
+  white-space: nowrap;
+
+  ${mediaQueries.MOBILE} {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    line-height: 28px;
+    margin-top: 1px;
+  }
+`;
+
+export const BoostCardShare = styled.div`
+  width: 245px;
+
+  ${mediaQueries.MOBILE} {
+    display: none;
+  }
+`;
+
+export const BoostPaymentShare = styled.span`
+  display: block;
+  margin: 10px auto 8px;
+  width: 100px;
+`;
+
 export const BoostDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 10px;
+  }
 
   h3 {
     font-size: 14px;
@@ -250,6 +313,7 @@ export const BoostDescription = styled.div`
 export const BoostDescriptionWhy = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
+  width: 500px;
 
   p {
     font-size: 18px;
@@ -335,6 +399,10 @@ export const BoostPayCardDetails = styled.div`
 
   p {
     margin-top: 0;
+
+    ${mediaQueries.MOBILE_SMALL} {
+      margin-bottom: 8px;
+    }
   }
 
   a {
@@ -380,6 +448,9 @@ export const LearnMore = styled.div`
     letter-spacing: -0.07px;
     line-height: 18px;
   }
+  ${mediaQueries.MOBILE_SMALL} {
+    padding: 5px 15px;
+  }
 
   a {
     cursor: pointer;
@@ -407,7 +478,7 @@ export const BoostPayFormTitle = styled.div`
   line-height: 22px;
 `;
 
-export const BoostFlexStart = styled.div`
+export const BoostPayFormFlex = styled.div`
   align-items: flex-start;
   display: flex;
   justify-content: space-between;
@@ -415,6 +486,20 @@ export const BoostFlexStart = styled.div`
   ${mediaQueries.MOBILE} {
     display: block;
   }
+
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    ${mediaQueries.MOBILE} {
+      display: flex;
+      flex-direction: column-reverse;
+
+      ${SubmitInstructions} {
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  `}
 `;
 
 export const BoostFlexStartMobile = styled.div`
@@ -455,6 +540,12 @@ export const BoostFlexEth = styled.div`
 
   button {
     margin: 9px 0 0 15px;
+    ${mediaQueries.MOBILE} {
+      margin-left: 0;
+    }
+    ${mediaQueries.MOBILE_SMALL} {
+      margin-top: 0;
+    }
   }
 
   label {
@@ -553,6 +644,7 @@ export const BoostNotice = styled.div`
   ${mediaQueries.MOBILE} {
     font-size: 12px;
     line-height: 18px;
+    margin-bottom: 12px;
   }
 `;
 
@@ -754,15 +846,32 @@ export const BoostUserInfoForm = styled.div`
   max-width: 500px;
   width: 100%;
 
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 8px;
+  }
+
   label {
     display: block;
     font-size: 16px;
     font-weight: 500;
     line-height: 22px;
     margin-bottom: 5px;
+
+    ${mediaQueries.MOBILE} {
+      margin-bottom: 8px;
+    }
   }
 
   input {
     width: 100%;
   }
+`;
+
+export interface CurrencyLabelProps {
+  secondary?: boolean;
+}
+export const CurrencyLabel = styled.span`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: ${(props: CurrencyLabelProps) => (props.secondary ? 500 : 600)};
 `;

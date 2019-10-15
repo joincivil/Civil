@@ -10,7 +10,6 @@ export interface BoostPermissionsOuterProps {
 
 export interface BoostPermissionsInjectedProps {
   boostOwner?: boolean;
-  walletConnected?: boolean;
   newsroom?: NewsroomInstance;
   setNewsroomContractAddress(address: EthAddress): void;
 }
@@ -18,7 +17,6 @@ export interface BoostPermissionsInjectedProps {
 export interface BoostPermissionsState {
   waitingForEthEnable?: boolean;
   boostOwner?: boolean;
-  walletConnected?: boolean;
   checkingIfOwner?: boolean;
   userEthAddress?: EthAddress;
   newsroomOwners?: EthAddress[];
@@ -27,18 +25,19 @@ export interface BoostPermissionsState {
 }
 
 /** Usage: Wrap component with this HOC and make sure to call the injected prop `setNewsroomContractAddress` with the newsroom address once that is loaded. */
-export const withBoostPermissions = <TOriginalProps extends {}>(
-  WrappedComponent: React.ComponentType<TOriginalProps & BoostPermissionsInjectedProps>,
+export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProps>(
+  WrappedComponent: React.ComponentType<TProps>,
   requirePermissions?: boolean,
 ) => {
+  type TOriginalProps = Omit<TProps, keyof BoostPermissionsInjectedProps>;
   return class ComponentWithBoostPermissions extends React.Component<
     BoostPermissionsOuterProps & TOriginalProps,
     BoostPermissionsState
   > {
-    public static contextType: React.Context<ICivilContext> = CivilContext;
-    public context!: React.ContextType<typeof CivilContext>;
+    public static contextType = CivilContext;
+    public context!: ICivilContext;
 
-    constructor(props: TOriginalProps & BoostPermissionsInjectedProps) {
+    constructor(props: BoostPermissionsOuterProps & TOriginalProps) {
       super(props);
       this.state = {
         checkingIfOwner: true,
@@ -46,12 +45,11 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
     }
 
     public async componentDidMount(): Promise<void> {
-      // @TODO/loginV2 migrate away from window.ethereum
-      if ((window as any).ethereum) {
+      if (!this.props.disableOwnerCheck && this.context.civil) {
         this.setState({
           waitingForEthEnable: true,
         });
-        await (window as any).ethereum.enable();
+        await this.context.civil.currentProviderEnable();
         this.setState({
           waitingForEthEnable: false,
         });
@@ -96,11 +94,10 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
 
       return (
         <WrappedComponent
+          {...(this.props as TProps)}
           boostOwner={this.state.boostOwner}
-          walletConnected={this.state.walletConnected}
           newsroom={this.state.newsroom}
           setNewsroomContractAddress={this.setNewsroomContractAddress}
-          {...this.props}
         />
       );
     }
@@ -145,7 +142,7 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
             add you to the newsroom contract.
           </p>
           <p>
-            <a href={"https://registry.civil.co/listing/" + this.state.newsroomContractAddress}>
+            <a href={`${document.location.origin}/listing/${this.state.newsroomContractAddress}`}>
               View newsroom information.
             </a>
           </p>
@@ -164,12 +161,7 @@ export const withBoostPermissions = <TOriginalProps extends {}>(
 
         if (user) {
           this.setState({
-            walletConnected: true,
             userEthAddress: user,
-          });
-        } else {
-          this.setState({
-            walletConnected: true,
           });
         }
       }

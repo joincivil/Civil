@@ -1,7 +1,7 @@
 import * as React from "react";
 import { isValidEmail } from "@joincivil/utils";
 import {
-  BoostFlexStart,
+  BoostPayFormFlex,
   BoostPayFormWrapper,
   SubmitInstructions,
   SubmitWarning,
@@ -13,6 +13,7 @@ import {
   progressModalStates,
   CivilContext,
   ICivilContext,
+  RENDER_CONTEXT,
 } from "@joincivil/components";
 import { InputValidationUI, INPUT_STATE } from "./InputValidationUI";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
@@ -25,6 +26,7 @@ export interface BoostPayFormEthProps {
   etherToSpend: number;
   usdToSpend: number;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
   savePayment: MutationFunc;
   handlePaymentSuccess(): void;
@@ -37,8 +39,8 @@ export interface BoostPayFormEthState {
 }
 
 export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, BoostPayFormEthState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   constructor(props: BoostPayFormEthProps) {
     super(props);
@@ -65,6 +67,9 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
           etherToSpend={this.props.etherToSpend}
           usdToSpend={this.props.usdToSpend}
           handlePaymentSuccess={this.props.handlePaymentSuccess}
+          boostId={this.props.boostId}
+          newsroom={this.props.newsroomName}
+          title={this.props.title}
         />
       ),
       [progressModalStates.ERROR]: <PaymentErrorModalText />,
@@ -74,12 +79,19 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
       <BoostPayFormWrapper>
         <form>
           <BoostUserInfoForm>
-            <label>Email (optional)</label>
+            {this.context.renderContext !== RENDER_CONTEXT.EMBED && <label>Email (optional)</label>}
             <InputValidationUI inputState={this.state.emailState} width={"500px"}>
-              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder={this.context.renderContext === RENDER_CONTEXT.EMBED ? "Email (optional)" : undefined}
+                maxLength={254}
+                onBlur={() => this.handleOnBlur(event)}
+              />
             </InputValidationUI>
           </BoostUserInfoForm>
-          <BoostFlexStart>
+          <BoostPayFormFlex>
             <SubmitInstructions>
               All proceeds of the Boost go directly to the newsroom. If a Boost goal is not met, the proceeds will still
               go to fund the selected newsroom. Refunds are not possible.
@@ -104,7 +116,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
                 transaction. There are small fees charged by the Ethereum network.
               </SubmitWarning>
             </div>
-          </BoostFlexStart>
+          </BoostPayFormFlex>
         </form>
       </BoostPayFormWrapper>
     );
@@ -130,9 +142,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
     this.context.fireAnalyticsEvent("boosts", "start submit ETH support", this.props.boostId, this.props.usdToSpend);
     // @TODO/loginV2 migrate away from window.ethereum
     if (this.context.civil && (window as any).ethereum) {
-      const amount = this.context.civil.toBigNumber(this.props.etherToSpend);
-
-      return this.context.civil.simplePayment(this.props.paymentAddr, amount);
+      return this.context.civil.simplePayment(this.props.paymentAddr, this.props.etherToSpend.toString());
     } else {
       // TODO: pop dialog telling them to install metamask/web3
     }

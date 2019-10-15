@@ -16,13 +16,14 @@ import {
 import { getFormattedTokenBalance, Parameters, urlConstants as links } from "@joincivil/utils";
 
 import { routes } from "../../constants";
-import { commitVote, approveVotingRightsForCommit } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { fetchSalt } from "../../helpers/salt";
 import { saveVote } from "../../helpers/vote";
 import {
   ChallengeContainerProps,
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 } from "../utility/HigherOrderComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 import { AppealChallengeDetailProps, ChallengeVoteState } from "./AppealChallengeDetail";
@@ -105,12 +106,16 @@ const AppealChallengeCommitVoteCard = compose<
 >(
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 )(AppealChallengeCommitVoteCardComponent);
 
 class AppealChallengeCommitVote extends React.Component<
   AppealChallengeDetailProps & InjectedTransactionStatusModalProps,
   ChallengeVoteState & AppealCommitCardKeyState
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -130,7 +135,7 @@ class AppealChallengeCommitVote extends React.Component<
     const { appealChallenge } = this.props;
 
     const endTime = appealChallenge.poll.commitEndDate.toNumber();
-    const phaseLength = this.props.parameters[Parameters.challengeAppealCommitLen];
+    const phaseLength = this.props.parameters.get(Parameters.challengeAppealCommitLen);
 
     const tokenBalance = parseFloat(formatEther(this.props.balance || bigNumberify(0)));
     const votingTokenBalance = parseFloat(formatEther(this.props.votingBalance || bigNumberify(0)));
@@ -293,8 +298,8 @@ class AppealChallengeCommitVote extends React.Component<
   };
 
   private approveVotingRights = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    const numTokens = parseEther(this.state.numTokens!);
-    return approveVotingRightsForCommit(numTokens);
+    const numTokens = parseEther(this.state.numTokens!.toString());
+    return this.context.approveVotingRightsForCommit(numTokens);
   };
 
   private commitVoteOnChallenge = async (): Promise<TwoStepEthTransaction<any>> => {
@@ -302,9 +307,9 @@ class AppealChallengeCommitVote extends React.Component<
     const pollID = this.props.appealChallengeID;
     const saltStr = fetchSalt(pollID, this.props.user);
     const salt: BigNumber = new BigNumber(saltStr as string);
-    const numTokens: BigNumber = parseEther(this.state.numTokens!);
+    const numTokens: BigNumber = parseEther(this.state.numTokens!.toString());
     saveVote(pollID, this.props.user, voteOption);
-    return commitVote(pollID, voteOption, salt, numTokens);
+    return this.context.commitVote(pollID, voteOption, salt, numTokens);
   };
 }
 

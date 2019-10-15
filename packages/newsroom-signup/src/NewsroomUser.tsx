@@ -18,7 +18,6 @@ import styled from "styled-components";
 import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";
 import { connect, DispatchProp } from "react-redux";
-import { CivilContext, CivilContextValue } from "./CivilContext";
 import { removeEditor, fetchNewsroom } from "./actionCreators";
 
 export enum UserTypes {
@@ -144,19 +143,15 @@ export class NewsroomUserComponent extends React.Component<
         : "To remove a Civil Officer, you need to confirm the transaction in your MetaMask wallet.";
 
     return (
-      <CivilContext.Consumer>
-        {(value: CivilContextValue) => (
-          <MetaMaskModal
-            waiting={false}
-            denied={true}
-            denialText={denialMessage}
-            cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransaction(true)}
-          >
-            <ModalHeading>{message}</ModalHeading>
-          </MetaMaskModal>
-        )}
-      </CivilContext.Consumer>
+      <MetaMaskModal
+        waiting={false}
+        denied={true}
+        denialText={denialMessage}
+        cancelTransaction={() => this.cancelTransaction()}
+        restartTransactions={this.getTransaction(true)}
+      >
+        <ModalHeading>{message}</ModalHeading>
+      </MetaMaskModal>
     );
   }
 

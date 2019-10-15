@@ -8,13 +8,14 @@ import {
   ChallengePhaseProps,
   AppealDecisionProps,
 } from "@joincivil/components";
-import { urlConstants as links } from "@joincivil/utils";
+import { urlConstants as links, Parameters } from "@joincivil/utils";
 
 import { routes } from "../../constants";
 import {
   ChallengeContainerProps,
   connectChallengePhase,
   connectChallengeResults,
+  connectParameters,
 } from "../utility/HigherOrderComponents";
 
 import { AppealDetailProps } from "./AppealDetail";
@@ -30,6 +31,7 @@ const AppealDecisionCard = compose<
 >(
   connectChallengeResults,
   connectChallengePhase,
+  connectParameters,
 )(AppealDecisionCardComponent);
 
 class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
@@ -37,7 +39,7 @@ class AppealSubmitChallenge extends React.Component<AppealDetailProps> {
     const appeal = this.props.appeal;
     const appealGranted = appeal.appealGranted;
     const endTime = appeal.appealOpenToChallengeExpiry.toNumber();
-    const phaseLength = this.props.parameters.challengeAppealLen;
+    const phaseLength = this.props.parameters.get(Parameters.challengeAppealLen);
     const appealGrantedStatementURI = appeal.appealGrantedStatementURI;
 
     const submitAppealChallengeURI = formatRoute(routes.SUBMIT_APPEAL_CHALLENGE, {

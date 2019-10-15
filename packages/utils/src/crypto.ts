@@ -10,7 +10,6 @@ import {
 } from "ethereumjs-util";
 import { recoverPersonalSignature } from "eth-sig-util";
 import { soliditySHA3 } from "ethereumjs-abi";
-import { detect } from "detect-browser";
 import { Hex, EthSignedMessageRecovery, EthAddress } from "@joincivil/typescript-types";
 
 const SIGN_PREFFIX = "\u0019Ethereum Signed Message:\n";
@@ -73,33 +72,9 @@ export function isWellFormattedAddress(address: EthAddress): boolean {
   return /^(0x)?[0-9a-f]{40}$/i.test(address);
 }
 
-export async function ethereumEnable(): Promise<boolean | EthAddress[]> {
-  if ((window as any).ethereum && (window as any).ethereum.enable) {
-    try {
-      return await (window as any).ethereum.enable();
-    } catch (e) {
-      return false;
-    }
-  } else {
-    return true;
-  }
-}
-
 /** Return true if web3 provider is present or browser is known to support a wallet extension - currently just desktop chrome, firefox, and opera. */
+// @deprecated - all browsers are compatible with kirby
 export function isBrowserCompatible(): boolean {
-  if ((window as any).web3) {
-    return true;
-  }
-
-  const browser = detect() || { name: "", os: "" };
-
-  if (["chrome", "firefox", "opera"].indexOf(browser.name) === -1) {
-    return false;
-  }
-  if (["android", "Android OS", "iOS", "Windows Mobile"].indexOf(browser.os as string) !== -1) {
-    return false;
-  }
-
   return true;
 }
 
@@ -115,6 +90,6 @@ export function isWalletOnboarded(
     civilInstantiated &&
     !!metamaskWalletAddress &&
     !wrongNetwork &&
-    metamaskWalletAddress === profileWalletAddress
+    metamaskWalletAddress.toLowerCase() === profileWalletAddress
   );
 }

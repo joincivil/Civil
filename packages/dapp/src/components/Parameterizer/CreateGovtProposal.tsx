@@ -9,7 +9,7 @@ import {
   ModalContent,
 } from "@joincivil/components";
 
-import { updateGovernmentParameter } from "../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
 
 import { amountParams } from "./constants";
@@ -64,6 +64,9 @@ const transactionStatusModalConfig = {
 };
 
 class CreateGovtProposal extends React.Component<CreateGovtProposalProps & InjectedTransactionStatusModalProps> {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public componentWillMount(): void {
     this.props.setTransactions(this.getTransactions());
     this.props.setHandleTransactionSuccessButtonClick(this.props.handleClose);
@@ -117,7 +120,7 @@ class CreateGovtProposal extends React.Component<CreateGovtProposalProps & Injec
     if (amountParams.includes(this.props.createProposalParameterName!)) {
       newValue = newValue.mul(1e18);
     }
-    return updateGovernmentParameter(this.props.createProposalParameterName!, newValue);
+    return this.context.updateGovernmentParameter(this.props.createProposalParameterName!, newValue);
   };
 }
 

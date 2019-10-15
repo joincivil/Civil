@@ -35,6 +35,7 @@ export const boostQuery = gql`
           id
           channelType
           isStripeConnected
+          stripeAccountID
           newsroom {
             contractAddress
           }
@@ -67,6 +68,17 @@ export const boostNewsroomQuery = gql`
       charter {
         uri
       }
+    }
+  }
+`;
+
+export const boostProceedsQuery = gql`
+  query proceeds($channelID: String!) {
+    getChannelTotalProceeds(channelID: $channelID) {
+      totalAmount
+      usd
+      ethUsdAmount
+      ether
     }
   }
 `;

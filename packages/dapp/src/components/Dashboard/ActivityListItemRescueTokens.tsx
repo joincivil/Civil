@@ -20,6 +20,7 @@ import {
   makeGetProposalByChallengeID,
 } from "../../selectors";
 import { getContent } from "../../redux/actionCreators/newsrooms";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 export interface ActivityListItemRescueTokensOwnProps {
   challengeID?: string;
@@ -53,6 +54,9 @@ type ProposalItemRescueTokensComponentProps = ActivityListItemRescueTokensOwnPro
 class ActivityListItemRescueTokensComponent extends React.Component<
   ActivityListItemRescueTokensComponentProps & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public async componentDidMount(): Promise<void> {
     await this.ensureListingAndNewsroomData();
   }
@@ -84,10 +88,10 @@ class ActivityListItemRescueTokensComponent extends React.Component<
   private ensureListingAndNewsroomData = async (): Promise<void> => {
     const { newsroom, challengeID, challenge, challengeDataRequestStatus, dispatch } = this.props;
     if (newsroom) {
-      dispatch!(await getContent(newsroom.wrapper.data.charterHeader!));
+      dispatch!(await getContent(this.context, newsroom.wrapper.data.charterHeader!));
     }
     if (challengeID && !challenge && !challengeDataRequestStatus) {
-      dispatch!(fetchAndAddChallengeData(challengeID! as string));
+      dispatch!(fetchAndAddChallengeData(this.context, challengeID! as string));
     }
   };
 }
@@ -95,11 +99,14 @@ class ActivityListItemRescueTokensComponent extends React.Component<
 class ProposalRescueTokensComponent extends React.Component<
   ProposalItemRescueTokensComponentProps & DispatchProp<any>
 > {
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
   public render(): JSX.Element {
     const { proposal, challenge, challengeDataRequestStatus, challengeID, userChallengeData } = this.props;
 
     if (!challenge && !challengeDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddParameterProposalChallengeData(challengeID! as string));
+      this.props.dispatch!(fetchAndAddParameterProposalChallengeData(this.context, challengeID! as string));
     }
 
     let title = "Parameter Proposal Challenge";

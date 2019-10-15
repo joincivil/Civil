@@ -5,7 +5,7 @@ import {
   TutorialContentWrap,
   TutorialBtn,
 } from "./TutorialStyledComponents";
-import { HollowGreenCheck } from "../icons/HollowGreenCheck";
+import { HollowGreenCheck } from "@joincivil/elements";
 
 export interface TutorialTopicCompletedProps {
   completedHeader: string | JSX.Element;

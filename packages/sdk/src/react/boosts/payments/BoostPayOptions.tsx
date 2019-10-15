@@ -1,5 +1,13 @@
 import * as React from "react";
-import { colors, fonts, mediaQueries, FeatureFlag, CivilContext, ICivilContext } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  mediaQueries,
+  FeatureFlag,
+  CivilContext,
+  ICivilContext,
+  RENDER_CONTEXT,
+} from "@joincivil/components";
 import { BoostPayEth } from "./BoostPayEth";
 import { BoostPayStripe } from "./BoostPayStripe";
 import styled from "styled-components";
@@ -17,9 +25,10 @@ export interface BoostPayOptionsProps {
   boostId: string;
   usdToSpend: number;
   newsroomName: string;
+  title: string;
   paymentAddr: EthAddress;
-  walletConnected: boolean;
   isStripeConnected: boolean;
+  stripeAccountID: string;
   handlePaymentSuccess(): void;
 }
 
@@ -32,8 +41,10 @@ const BoostInstructions = styled.div`
   margin: 0 0 20px 20px;
 
   ${mediaQueries.MOBILE} {
-    margin: 0 0 20px;
+    margin-left: 0;
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && `display: none;`};
 `;
 
 const BoostPayFooter = styled.div`
@@ -52,6 +63,10 @@ const BoostPayFooterSection = styled.div`
   font-size: 14px;
   line-height: 19px;
   margin: 0 0 40px;
+
+  ${mediaQueries.MOBILE} {
+    margin-bottom: 16px;
+  }
 
   h3 {
     font-size: 14px;
@@ -85,8 +100,8 @@ export interface BoostPayOptionsStates {
 }
 
 export class BoostPayOptions extends React.Component<BoostPayOptionsProps, BoostPayOptionsStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   public constructor(props: BoostPayOptionsProps) {
     super(props);
     this.state = {
@@ -126,7 +141,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
   }
 
   private getPaymentTypes = () => {
-    const { isStripeConnected, boostId, newsroomName, paymentAddr, walletConnected, handlePaymentSuccess } = this.props;
+    const { isStripeConnected, boostId, newsroomName, paymentAddr, handlePaymentSuccess } = this.props;
     const { selectedEth, selectedStripe, etherToSpend, usdToSpend } = this.state;
     let isEthSelected = false;
 
@@ -141,6 +156,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             selected={true}
             boostId={boostId}
             newsroomName={newsroomName}
+            title={this.props.title}
             paymentType={PAYMENT_TYPE.ETH}
             optionLabel={<PaymentLabelEthText />}
             handleNext={() => this.handleEthNext(etherToSpend, usdToSpend)}
@@ -148,7 +164,6 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             etherToSpend={etherToSpend}
             usdToSpend={usdToSpend}
             paymentAddr={paymentAddr}
-            walletConnected={walletConnected}
             handlePaymentSuccess={handlePaymentSuccess}
           />
         );
@@ -159,9 +174,11 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             usdToSpend={usdToSpend}
             selected={true}
             newsroomName={newsroomName}
+            title={this.props.title}
             optionLabel={<PaymentLabelCardText />}
             paymentType={PAYMENT_TYPE.STRIPE}
             paymentStarted={true}
+            stripeAccountID={this.props.stripeAccountID}
             handleNext={this.handleStripeNext}
             handlePaymentSuccess={handlePaymentSuccess}
           />
@@ -174,12 +191,12 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
               optionLabel={<PaymentLabelEthText />}
               boostId={boostId}
               newsroomName={newsroomName}
+              title={this.props.title}
               paymentType={PAYMENT_TYPE.ETH}
               etherToSpend={etherToSpend}
               usdToSpend={usdToSpend}
               handleNext={this.handleEthNext}
               paymentAddr={paymentAddr}
-              walletConnected={walletConnected}
               handlePaymentSuccess={handlePaymentSuccess}
               handlePaymentSelected={this.handlePaymentSelected}
             />
@@ -190,8 +207,10 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
                   usdToSpend={usdToSpend}
                   selected={selectedStripe}
                   newsroomName={newsroomName}
+                  title={this.props.title}
                   optionLabel={<PaymentLabelCardText />}
                   paymentType={PAYMENT_TYPE.STRIPE}
+                  stripeAccountID={this.props.stripeAccountID}
                   handleNext={this.handleStripeNext}
                   handlePaymentSuccess={handlePaymentSuccess}
                   handlePaymentSelected={this.handlePaymentSelected}

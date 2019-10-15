@@ -60,9 +60,10 @@ export const CREATE_NEWSROOM_CHANNEL_MUTATION = gql`
 `;
 
 /** Usage: The component returned by this HOC will require the `newsroomAddress` or `newsroomContractAddress` prop and will pass `channelData` to the wrapped component, or instead will show loading or error states as necessary. If the newsroom channel does not yet exist, it will attempt to create it. */
-export const withNewsroomChannel = <TOriginalProps extends {}>(
-  WrappedComponent: React.ComponentType<TOriginalProps & NewsroomChannelInjectedProps>,
+export const withNewsroomChannel = <TProps extends NewsroomChannelInjectedProps>(
+  WrappedComponent: React.ComponentType<TProps>,
 ) => {
+  type TOriginalProps = Omit<TProps, keyof NewsroomChannelInjectedProps>;
   return class ComponentWithNewsroomChannel extends React.Component<
     WithNewsroomChannelOuterProps & TOriginalProps,
     WithNewsroomChannelState
@@ -79,7 +80,7 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
     }
     public render(): JSX.Element {
       return (
-        <Query query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.state.newsroomAddress }}>
+        <Query<any> query={CHANNEL_BY_NEWSROOM_QUERY} variables={{ contractAddress: this.state.newsroomAddress }}>
           {({ loading, error, data }) => {
             if (loading) {
               return <LoadingMessage>Loading</LoadingMessage>;
@@ -99,7 +100,7 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
               );
             }
 
-            return <WrappedComponent channelData={data.channelsGetByNewsroomAddress} {...this.props} />;
+            return <WrappedComponent {...(this.props as TProps)} channelData={data.channelsGetByNewsroomAddress} />;
           }}
         </Query>
       );
@@ -107,7 +108,7 @@ export const withNewsroomChannel = <TOriginalProps extends {}>(
 
     public renderNoChannel(): JSX.Element {
       return (
-        <Mutation
+        <Mutation<any>
           mutation={CREATE_NEWSROOM_CHANNEL_MUTATION}
           variables={{ newsroomContractAddress: this.state.newsroomAddress }}
           refetchQueries={[

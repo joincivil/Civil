@@ -11,9 +11,9 @@ import {
   MetaMaskSideIcon,
   MetaMaskLogoButton,
 } from ".";
-import * as metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
-import * as confirmButton from "./images/img-metamask-confirm@2x.png";
-import * as signImage from "./images/img-metamaskmodal-new-signature.png";
+import metaMaskModalUrl from "./images/img-metamask-modalconfirm@2x.png";
+import confirmButton from "./images/img-metamask-confirm@2x.png";
+import signImage from "./images/img-metamaskmodal-new-signature.png";
 
 const ModalP = styled.p`
   font-size: 16px;
@@ -95,19 +95,21 @@ const SpanWithMargin = styled.span`
 export interface MetaMaskModalProps {
   waiting?: boolean;
   alert?: boolean;
+  errored?: boolean;
   denied?: boolean;
   signing?: boolean;
   ipfsPost?: boolean;
   bodyText?: string;
   denialText?: string;
-  denialRestartTransactions?: Transaction[];
+  errorText?: string;
+  restartTransactions?: Transaction[];
   cancelTransaction?(): void;
   startTransaction?(): void;
 }
 
 export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props => {
   let buttonSection;
-  if (props.ipfsPost) {
+  if (props.ipfsPost && !props.restartTransactions) {
   } else if (props.alert) {
     buttonSection = (
       <ButtonContainer>
@@ -120,8 +122,8 @@ export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props 
     buttonSection = (
       <ButtonContainer>
         <IB onClick={props.cancelTransaction}>Cancel</IB>
-        {props.denied ? (
-          <TransactionButtonNoModal transactions={props.denialRestartTransactions!} Button={MetaMaskLogoButton}>
+        {props.restartTransactions ? (
+          <TransactionButtonNoModal transactions={props.restartTransactions!} Button={MetaMaskLogoButton}>
             {" "}
             Try Again{" "}
           </TransactionButtonNoModal>
@@ -181,11 +183,23 @@ export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props 
       </HalfPWrapper>
     );
   }
+  if (props.errored) {
+    paragraph = (
+      <HalfPWrapper>
+        <ModalP>There was an error executing this transaction.</ModalP>
+        {!!props.errorText && (
+          <ModalP>
+            <code>{props.errorText}</code>
+          </ModalP>
+        )}
+      </HalfPWrapper>
+    );
+  }
 
   let image;
   if (props.ipfsPost || props.alert) {
     image = undefined;
-  } else if (props.denied) {
+  } else if (props.denied || props.errored) {
     image = <MainImg src={confirmButton} />;
   } else {
     image = (
@@ -198,7 +212,7 @@ export const MetaMaskModal: React.FunctionComponent<MetaMaskModalProps> = props 
   return (
     <Modal width={560} padding={"8px 26px 0 26px"}>
       {props.children}
-      <ContentSectionWrapper row={props.denied}>
+      <ContentSectionWrapper row={props.denied || props.errored}>
         {paragraph}
         {image}
       </ContentSectionWrapper>

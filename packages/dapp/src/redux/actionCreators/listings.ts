@@ -1,12 +1,12 @@
-import { CivilTCR, ListingWrapper, TimestampedEvent } from "@joincivil/core";
+import { ListingWrapper, TimestampedEvent, CivilTCR } from "@joincivil/core";
 import { List } from "immutable";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
 import { Subscription } from "rxjs";
-import { getTCR } from "../../helpers/civilInstance";
 import { getNewsroom } from "../../helpers/listingEvents";
 import { addChallenge } from "./challenges";
 import { BigNumber } from "@joincivil/typescript-types";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum listingActions {
   ADD_OR_UPDATE_LISTING = "ADD_OR_UPDATE_LISTING",
@@ -163,7 +163,7 @@ export const fetchListingComplete = (listingID: string): AnyAction => {
   };
 };
 
-export const fetchAndAddListingData = (listingID: string): any => {
+export const fetchAndAddListingData = (helper: CivilHelper, listingID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { listingsFetching } = getState().networkDependent;
     const challengeRequest = listingsFetching.get(listingID);
@@ -171,12 +171,11 @@ export const fetchAndAddListingData = (listingID: string): any => {
     // Never fetched this before, so let's fetch it
     if (challengeRequest === undefined) {
       dispatch(fetchListing(listingID));
-
-      const tcr = await getTCR();
+      const tcr = await helper.getTCR();
       const listing = tcr.getListing(listingID);
       const wrappedListing = await listing.getListingWrapper();
-      dispatch(await setupListingHistorySubscription(listingID));
-      await getNewsroom(dispatch, listingID);
+      dispatch(await setupListingHistorySubscription(helper, listingID));
+      await getNewsroom(helper, dispatch, listingID);
       dispatch(addListing(wrappedListing));
 
       return dispatch(fetchListingComplete(listingID));
@@ -193,8 +192,8 @@ export const fetchAndAddListingData = (listingID: string): any => {
   };
 };
 
-export const setupListingHistorySubscription = async (listingID: string): Promise<any> => {
-  const tcr = await getTCR();
+export const setupListingHistorySubscription = async (helper: CivilHelper, listingID: string): Promise<any> => {
+  const tcr = await helper.getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
     const { histories, listingHistorySubscriptions } = getState().networkDependent;
     if (!listingHistorySubscriptions.get(listingID)) {
@@ -212,8 +211,11 @@ export const setupListingHistorySubscription = async (listingID: string): Promis
   };
 };
 
-export const setupRejectedListingLatestChallengeSubscription = async (listingID: string): Promise<any> => {
-  const tcr = await getTCR();
+export const setupRejectedListingLatestChallengeSubscription = async (
+  helper: CivilHelper,
+  listingID: string,
+): Promise<any> => {
+  const tcr = await helper.getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
     const { rejectedListingLatestChallengeSubscriptions } = getState().networkDependent;
     if (!rejectedListingLatestChallengeSubscriptions.get(listingID)) {
@@ -231,8 +233,8 @@ export const setupRejectedListingLatestChallengeSubscription = async (listingID:
   };
 };
 
-export const setupRejectedListingRemovedSubscription = async (listingID: string): Promise<any> => {
-  const tcr = await getTCR();
+export const setupRejectedListingRemovedSubscription = async (helper: CivilHelper, listingID: string): Promise<any> => {
+  const tcr = await helper.getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
     const { rejectedListingRemovedSubscriptions } = getState().networkDependent;
     if (!rejectedListingRemovedSubscriptions.get(listingID)) {
@@ -250,8 +252,8 @@ export const setupRejectedListingRemovedSubscription = async (listingID: string)
   };
 };
 
-export const setupListingWhitelistedSubscription = async (listingID: string): Promise<any> => {
-  const tcr = await getTCR();
+export const setupListingWhitelistedSubscription = async (helper: CivilHelper, listingID: string): Promise<any> => {
+  const tcr = await helper.getTCR();
   return (dispatch: Dispatch<any>, getState: any): any => {
     const { whitelistedSubscriptions } = getState().networkDependent;
     if (!whitelistedSubscriptions.get(listingID)) {

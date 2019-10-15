@@ -1,10 +1,11 @@
 import * as React from "react";
 import { BigNumber } from "@joincivil/typescript-types";
-import { ParamProposalState } from "@joincivil/core";
 import { getFormattedParameterValue } from "@joincivil/utils";
-import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer } from "@joincivil/components";
+import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer, ICivilContext } from "@joincivil/components";
 
 import { StyledHiddenOnMobile } from "./Parameter";
+import { POLL_QUERY } from "../../helpers/queryTransformations";
+import { Query } from "react-apollo";
 
 export interface ProposalProps {
   proposal: any;
@@ -15,6 +16,7 @@ export interface ProposalProps {
 
 export class Proposal extends React.Component<ProposalProps> {
   public static contextType = CivilContext;
+  public context: ICivilContext;
 
   public render(): JSX.Element {
     return (
@@ -28,20 +30,15 @@ export class Proposal extends React.Component<ProposalProps> {
   }
 
   private renderProposalStageActions = (): JSX.Element => {
-    const propState = this.props.proposal.state;
-    switch (propState) {
-      case ParamProposalState.APPLYING:
-        return this.renderCanBeChallenged();
-      case ParamProposalState.CHALLENGED_IN_COMMIT_VOTE_PHASE:
-        return this.renderCommitState();
-      case ParamProposalState.CHALLENGED_IN_REVEAL_VOTE_PHASE:
-        return this.renderRevealState();
-      case ParamProposalState.READY_TO_PROCESS:
+    const { pollID, applicationExpiry } = this.props.proposal;
+    if (!pollID || pollID.eq(0)) {
+      if (new Date(applicationExpiry * 1000).valueOf() < Date.now().valueOf()) {
         return this.renderUpdateParam();
-      case ParamProposalState.READY_TO_RESOLVE_CHALLENGE:
-        return this.renderResolveChallenge();
-      default:
-        return <></>;
+      } else {
+        return this.renderCanBeChallenged();
+      }
+    } else {
+      return this.renderChallenge();
     }
   };
 
@@ -49,12 +46,12 @@ export class Proposal extends React.Component<ProposalProps> {
     return (
       <>
         <Td>
-          <TextCountdownTimer endTime={this.props.proposal.applicationExpiry.valueOf() / 1000} />
+          <TextCountdownTimer endTime={new Date(this.props.proposal.applicationExpiry * 1000).valueOf() / 1000} />
         </Td>
         <Td align="right">
           <StyledHiddenOnMobile>
             <StyledTableAccentText strong>
-              <span onClick={this.onProposalAction}>Challenge Proposal</span>
+              <span onClick={() => this.onProposalAction("challenge")}>Challenge Proposal</span>
             </StyledTableAccentText>
           </StyledHiddenOnMobile>
         </Td>
@@ -66,12 +63,12 @@ export class Proposal extends React.Component<ProposalProps> {
     return (
       <>
         <Td>
-          <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
+          <TextCountdownTimer endTime={new Date(this.props.proposal.applicationExpiry * 1000).valueOf() / 1000} />
         </Td>
         <Td align="right">
           <StyledHiddenOnMobile>
             <StyledTableAccentText strong>
-              <span onClick={this.onProposalAction}>Update Parameter</span>
+              <span onClick={() => this.onProposalAction("update")}>Update Parameter</span>
             </StyledTableAccentText>
           </StyledHiddenOnMobile>
         </Td>
@@ -79,16 +76,40 @@ export class Proposal extends React.Component<ProposalProps> {
     );
   };
 
-  private renderResolveChallenge = (): JSX.Element => {
+  private renderChallenge = (): JSX.Element => {
+    const pollID = this.props.proposal.pollID.toNumber();
+    return (
+      <Query query={POLL_QUERY} variables={{ input: pollID }}>
+        {({ loading, error, data }) => {
+          if (loading || error) {
+            return <></>;
+          }
+          const nowTimestamp = Date.now().valueOf();
+          const commitEndTimestamp = new Date(data.poll.commitEndDate * 1000).valueOf();
+          const revealEndTimestamp = new Date(data.poll.revealEndDate * 1000).valueOf();
+
+          if (nowTimestamp < commitEndTimestamp) {
+            return this.renderCommitState(commitEndTimestamp);
+          } else if (nowTimestamp < revealEndTimestamp) {
+            return this.renderRevealState(revealEndTimestamp);
+          } else {
+            return this.renderResolveChallenge(revealEndTimestamp);
+          }
+        }}
+      </Query>
+    );
+  };
+
+  private renderResolveChallenge = (endTimestamp: number): JSX.Element => {
     return (
       <>
         <Td>
-          <TextCountdownTimer endTime={this.props.proposal.propProcessByExpiry.valueOf() / 1000} />
+          <TextCountdownTimer endTime={endTimestamp / 1000} />
         </Td>
         <Td align="right">
           <StyledHiddenOnMobile>
             <StyledTableAccentText strong>
-              <span onClick={this.onProposalAction}>Resolve Challenge</span>
+              <span onClick={() => this.onProposalAction("resolve")}>Resolve Challenge</span>
             </StyledTableAccentText>
           </StyledHiddenOnMobile>
         </Td>
@@ -96,16 +117,16 @@ export class Proposal extends React.Component<ProposalProps> {
     );
   };
 
-  private renderCommitState = (): JSX.Element => {
+  private renderCommitState = (endTimestamp: number): JSX.Element => {
     return (
       <>
         <Td>
-          <TextCountdownTimer endTime={this.props.proposal.challenge.challengeCommitExpiry.valueOf() / 1000} />
+          <TextCountdownTimer endTime={endTimestamp / 1000} />
         </Td>
         <Td align="right">
           <StyledHiddenOnMobile>
             <StyledTableAccentText strong>
-              <span onClick={this.onProposalAction}>Commit Vote</span>
+              <span onClick={() => this.onProposalAction("commit")}>Commit Vote</span>
             </StyledTableAccentText>
           </StyledHiddenOnMobile>
         </Td>
@@ -113,16 +134,16 @@ export class Proposal extends React.Component<ProposalProps> {
     );
   };
 
-  private renderRevealState = (): JSX.Element => {
+  private renderRevealState = (endTimestamp: number): JSX.Element => {
     return (
       <>
         <Td>
-          <TextCountdownTimer endTime={this.props.proposal.challenge.challengeRevealExpiry.valueOf() / 1000} />
+          <TextCountdownTimer endTime={endTimestamp / 1000} />
         </Td>
         <Td align="right">
           <StyledHiddenOnMobile>
             <StyledTableAccentText strong>
-              <span onClick={this.onProposalAction}>Reveal Vote</span>
+              <span onClick={() => this.onProposalAction("reveal")}>Reveal Vote</span>
             </StyledTableAccentText>
           </StyledHiddenOnMobile>
         </Td>
@@ -130,12 +151,13 @@ export class Proposal extends React.Component<ProposalProps> {
     );
   };
 
-  private onProposalAction = (event: any) => {
+  private onProposalAction = (actionType: string) => {
     this.props.handleProposalAction(
       this.props.parameterName,
       this.getFormattedValue(this.props.parameterValue),
       this.getFormattedValue(this.props.proposal!.propValue),
       this.props.proposal,
+      actionType,
     );
   };
 

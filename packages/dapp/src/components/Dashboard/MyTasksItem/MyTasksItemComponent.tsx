@@ -10,11 +10,18 @@ import DashboardItemChallengeResults from "../ChallengeSummary";
 const MyTasksItemComponent: React.FunctionComponent<MyTasksItemOwnProps & MyTasksItemReduxProps> = props => {
   const { listingAddress: address, listing, newsroom, charter, challengeID, userChallengeData, challengeState } = props;
 
-  if (!userChallengeData || !challengeState) {
+  if (!challengeState) {
     return <></>;
   }
 
-  const { canUserCollect, canUserRescue, didUserCommit } = userChallengeData;
+  let canUserCollect = false;
+  let canUserRescue = false;
+  let didUserCommit = false;
+  if (userChallengeData) {
+    canUserCollect = userChallengeData.canUserCollect;
+    canUserRescue = userChallengeData.canUserRescue;
+    didUserCommit = userChallengeData.didUserCommit;
+  }
   const { inCommitPhase, inRevealPhase } = challengeState;
 
   if (listing && listing.data && newsroom) {

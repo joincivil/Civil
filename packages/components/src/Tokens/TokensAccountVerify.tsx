@@ -10,7 +10,7 @@ import {
   CloseBtn,
 } from "./TokensStyledComponents";
 import { TokenVerifySectionText, TokenQuizSectionText, TokenQuizBtnText } from "./TokensTextComponents";
-import { CivilTutorialIcon } from "../icons/CivilTutorialIcon";
+import { CivilTutorialIcon } from "@joincivil/elements";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { TokenTutorial } from "../TokenTutorial";
 import { colors } from "../styleConstants";
@@ -52,7 +52,7 @@ export class UserTokenAccountVerify extends React.Component<TokenAccountVerifyPr
               <CivilTutorialIcon />
             </TokenRequirementIcon>
             <TokenQuizSectionText />
-            <Query query={getCurrentUserQuery}>
+            <Query<any> query={getCurrentUserQuery}>
               {({ loading, error, data }) => {
                 const quizPayload = loading || error ? {} : data.currentUser.quizPayload;
 

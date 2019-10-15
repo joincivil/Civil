@@ -4,8 +4,9 @@ import { formatRoute } from "react-router-named-routes";
 import { Link } from "react-router-dom";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
 import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
-import { CivilContext, DashboardNewsroom } from "@joincivil/components";
+import { DashboardNewsroom, LoadingMessage } from "@joincivil/components";
 import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
+import { NewsroomWithdraw } from "@joincivil/sdk";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
@@ -15,6 +16,7 @@ import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
 import PhaseCountdown from "./MyTasksItemPhaseCountdown";
+import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 export interface NewsroomsListItemOwnProps {
   listingAddress: string;
@@ -32,10 +34,21 @@ export interface NewsroomsListItemReduxProps {
   listingPhaseState?: any;
 }
 
+export interface NewsroomsListItemListingReduxState {
+  loading?: boolean;
+}
+
 class NewsroomsListItemListingRedux extends React.Component<
-  NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>
+  NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>,
+  NewsroomsListItemListingReduxState
 > {
-  public static contextType = CivilContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
+
+  constructor(props: NewsroomsListItemOwnProps & NewsroomsListItemReduxProps & DispatchProp<any>) {
+    super(props);
+    this.state = {};
+  }
 
   public async componentDidUpdate(): Promise<void> {
     await this.hydrateData();
@@ -162,9 +175,14 @@ class NewsroomsListItemListingRedux extends React.Component<
         manageNewsroomURL,
         newsroomDeposit: getFormattedTokenBalance(listing.data.unstakedDeposit, true),
         etherscanBaseURL,
+        boostProceeds: <NewsroomWithdraw newsroomAddress={listingAddress} />,
       };
 
       return <DashboardNewsroom {...displayProps} {...newsroomStatusOnRegistry} />;
+    }
+
+    if (this.state.loading) {
+      return <LoadingMessage />;
     }
 
     return <></>;
@@ -175,17 +193,26 @@ class NewsroomsListItemListingRedux extends React.Component<
     const { civil } = this.context;
 
     if (!listing && !listingDataRequestStatus) {
-      this.props.dispatch!(fetchAndAddListingData(listingAddress!));
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
+      this.props.dispatch!(fetchAndAddListingData(this.context, listingAddress!));
     }
     if (newsroom) {
       if (newsroom.multisigAddress) {
         this.props.dispatch!(await getNewsroomMultisigBalance(listingAddress!, newsroom.multisigAddress, civil));
       }
     } else if (charter) {
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
       this.props.dispatch!(await getNewsroom(listingAddress!, civil, charter));
     }
     if (newsroomCharterHeader && !charter) {
-      this.props.dispatch!(await getContent(newsroomCharterHeader!));
+      if (!this.state.loading) {
+        this.setState({ loading: true });
+      }
+      this.props.dispatch!(await getContent(this.context, newsroomCharterHeader!));
     }
   };
 }

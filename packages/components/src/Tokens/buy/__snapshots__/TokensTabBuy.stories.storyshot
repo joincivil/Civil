@@ -11,10 +11,10 @@ exports[`Storyshots Storefront / Buy Tab Buy Complete 1`] = `
     }
   >
     <div
-      className="sc-LzNvO jbFWBi"
+      className="sc-LzNOl iHrpKA"
     >
       <div
-        className="sc-LzNai bAuLUF"
+        className="sc-LzMYY bqSIfQ"
       >
         <svg
           height="48"
@@ -514,17 +514,17 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
     }
   >
     <div
-      className="sc-LzNvO jbFWBi"
+      className="sc-LzNOl iHrpKA"
     >
       <div
-        className="sc-LzMmn fHYouw"
+        className="sc-LzMlA fSmtGi"
         type={2}
       >
         <div
-          className="sc-LzMmo hlksOB"
+          className="sc-LzMlB fkXWpb"
         />
         <div
-          className="sc-LzMmp llVVjy"
+          className="sc-LzMlC eNqdlI"
         >
           <p>
             To buy Civil tokens (CVL), you must have Ether (ETH). Then, you will be able to exchange ETH for CVL. If you don't have enough ETH, you can buy ETH on 
@@ -552,10 +552,10 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzMZB cVnGVB"
+        className="sc-LzMYr cwCzKQ"
       >
         <div
-          className="sc-LzMZB cVnGVB"
+          className="sc-LzMYr cwCzKQ"
         >
           <h3>
             Contribute to the Civil Foundation
@@ -571,12 +571,12 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             </a>
           </p>
           <div
-            className="sc-fzXfLR kuSXJs"
+            className="sc-fzXfOr euVzQj"
           >
             <div />
           </div>
           <div
-            className="sc-LzNrY kaUCsk"
+            className="sc-LzNcj bTzHgm"
           >
             <span>
               You are 
@@ -589,7 +589,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             </h4>
           </div>
           <button
-            className="sc-fzXfMD sc-fzXfME eqxXLm"
+            className="sc-fzXfLO sc-fzXfLP ewtwbh"
             onClick={[Function]}
             theme={
               Object {
@@ -608,7 +608,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
             Buy CVL from Civil Media Company in Airswap
           </button>
           <div
-            className="sc-LzNan bBvOik"
+            className="sc-LzMZA bkTpJP"
           >
             By clicking buy to purchase Civil tokens, you agree to the
              
@@ -621,7 +621,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzMZD cbLduD"
+          className="sc-LzMYt euHECC"
         >
           <p>
             or
@@ -637,7 +637,7 @@ exports[`Storyshots Storefront / Buy Tab Buy Tab 1`] = `
           <div />
         </div>
         <div
-          className="sc-LzNan bBvOik"
+          className="sc-LzMZA bkTpJP"
         >
           By clicking buy to purchase Civil tokens, you agree to the
            
@@ -1079,10 +1079,10 @@ exports[`Storyshots Storefront / Buy Tab Buy from Airswap 1`] = `
     }
   >
     <div
-      className="sc-LzNvO jbFWBi"
+      className="sc-LzNOl iHrpKA"
     >
       <button
-        className="sc-fzXfMD sc-fzXfME eqxXLm"
+        className="sc-fzXfLO sc-fzXfLP ewtwbh"
         onClick={[Function]}
         theme={
           Object {
@@ -1530,7 +1530,7 @@ exports[`Storyshots Storefront / Buy Tab Buy from Uniswap 1`] = `
     }
   >
     <div
-      className="sc-LzNvO jbFWBi"
+      className="sc-LzNOl iHrpKA"
     >
       <div>
         loading price...

@@ -4,13 +4,11 @@ export interface MyTasksProposalItemOwnProps {
   challengeID?: string;
   queryUserChallengeData?: UserChallengeData;
   queryUserAppealChallengeData?: UserChallengeData;
-  useGraphQL?: boolean;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }
 
 export interface MyTasksProposalItemWrapperReduxProps {
-  useGraphQL?: boolean;
   userAcct: EthAddress;
 }
 

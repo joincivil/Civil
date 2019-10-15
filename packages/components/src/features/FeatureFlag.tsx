@@ -8,7 +8,8 @@ export interface FeatureFlagProps {
   children: any;
 }
 export class FeatureFlag extends React.Component<FeatureFlagProps> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   public render(): JSX.Element {
     const { feature, children, replacement, replacementComponent } = this.props;

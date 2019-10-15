@@ -1,8 +1,8 @@
-import { EthAddress, UserChallengeData, WrappedChallengeData, TxDataAll } from "@joincivil/core";
+import { EthAddress, UserChallengeData, WrappedChallengeData } from "@joincivil/core";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
-import { getTCR } from "../../helpers/civilInstance";
 import { bigNumberify } from "@joincivil/typescript-types";
+import { CivilHelper } from "../../apis/CivilHelper";
 
 export enum challengeActions {
   ADD_OR_UPDATE_CHALLENGE = "ADD_OR_UPDATE_CHALLENGE",
@@ -20,7 +20,7 @@ export enum challengeActions {
   LINK_APPEAL_CHALLENGE_TO_CHALLENGE = "LINK_APPEAL_CHALLENGE_TO_CHALLENGE",
 }
 
-export const addGrantAppealTx = (listingAddress: EthAddress, txData: TxDataAll): AnyAction => {
+export const addGrantAppealTx = (listingAddress: EthAddress, txData: any): AnyAction => {
   return {
     type: challengeActions.ADD_GRANT_APPEAL_TX,
     data: { listingAddress, txData },
@@ -112,7 +112,7 @@ export const linkAppealChallengeToChallenge = (appealChallengeID: string, challe
   };
 };
 
-export const fetchAndAddChallengeData = (challengeID: string): any => {
+export const fetchAndAddChallengeData = (helper: CivilHelper, challengeID: string): any => {
   return async (dispatch: Dispatch<any>, getState: any): Promise<AnyAction> => {
     const { challengesFetching } = getState().networkDependent;
     const challengeRequest = challengesFetching.get(challengeID);
@@ -121,7 +121,7 @@ export const fetchAndAddChallengeData = (challengeID: string): any => {
     if (challengeRequest === undefined) {
       dispatch(fetchChallenge(challengeID));
 
-      const tcr = await getTCR();
+      const tcr = await helper.getTCR();
       const challengeIDBN = bigNumberify(challengeID);
       const wrappedChallenge = await tcr.getChallengeData(challengeIDBN);
       dispatch(addChallenge(wrappedChallenge));
@@ -140,10 +140,10 @@ export const fetchAndAddChallengeData = (challengeID: string): any => {
   };
 };
 
-export const fetchAndAddGrantAppealTx = (listingAddress: string): any => {
+export const fetchAndAddGrantAppealTx = (helper: CivilHelper, listingAddress: string): any => {
   return async (dispatch: Dispatch<any>): Promise<AnyAction> => {
     dispatch(fetchGrantAppealTx(listingAddress));
-    const tcr = await getTCR();
+    const tcr = await helper.getTCR();
     const grantAppealTx = await tcr.getRawGrantAppealTxData(listingAddress);
 
     return dispatch(addGrantAppealTx(listingAddress, grantAppealTx));

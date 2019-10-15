@@ -10,8 +10,8 @@ import {
   ManagerSectionHeading,
 } from "./";
 import styled from "styled-components";
-import * as metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
-import * as metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
+import metaMaskNetworkSwitchUrl from "./images/img-metamask-networkswitch@2x.png";
+import metaMaskLoginUrl from "./images/img-metamask-login@2x.png";
 
 export interface WalletOnboardingProps {
   civil?: Civil;

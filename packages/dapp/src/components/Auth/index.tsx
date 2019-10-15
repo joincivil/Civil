@@ -4,6 +4,8 @@ import { AuthenticatedRoute } from "@joincivil/components";
 import AsyncComponent from "../utility/AsyncComponent";
 import * as qs from "querystring";
 import { routes } from "../../constants";
+import SetUsername from "./SetUsername";
+import ConfirmEmail from "./ConfirmEmail";
 
 const AuthLogin = React.lazy(async () => import("./Login"));
 const AuthWeb3Login = React.lazy(async () => import("./AuthWeb3Login"));
@@ -23,7 +25,6 @@ interface AuthenticatedRedirectRouteParams {
 }
 
 const TOKEN_PARAM = "jwt";
-const REDIRECT_PARAM = "next";
 
 function getTokenFromSearch(search: string): string | undefined {
   try {
@@ -31,18 +32,6 @@ function getTokenFromSearch(search: string): string | undefined {
     const parsed = qs.parse(search.substr(1));
 
     return parsed[TOKEN_PARAM] as string;
-  } catch (err) {
-    console.error("Error parsing query:", err);
-    return undefined;
-  }
-}
-
-function getRedirectFromString(search: string): string | undefined {
-  try {
-    // Needs substr since search includes the ?
-    const parsed = qs.parse(search.substr(1));
-
-    return parsed[REDIRECT_PARAM] as string;
   } catch (err) {
     console.error("Error parsing query:", err);
     return undefined;
@@ -57,7 +46,6 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
       redirectTo: routes.TOKEN_STOREFRONT,
       authUrl: routes.AUTH_SIGNUP,
     };
-
     return (
       <>
         <Switch>
@@ -72,6 +60,30 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
             render={AsyncComponent(AuthEthConnected, { onAuthentication: this.handleOnAddWallet })}
           />
           <AuthenticatedRoute
+            path={routes.SET_HANDLE}
+            exact
+            render={(props: RouteComponentProps) => {
+              return AsyncComponent(SetUsername)({
+                onSendAgain: () => this.handleOnSendAgain(false),
+              });
+            }}
+          />
+          <Route
+            path={routes.CONFIRM_EMAIL}
+            render={(props: RouteComponentProps) => {
+              const token = getTokenFromSearch(props.location.search);
+              return AsyncComponent(ConfirmEmail)({
+                token,
+                onConfirmEmailContinue: () => {
+                  this.props.history.push({
+                    pathname: "/",
+                    state: {},
+                  });
+                },
+              });
+            }}
+          />
+          <AuthenticatedRoute
             {...routeProps}
             onlyAllowUnauthenticated
             path={`${match.path}/`}
@@ -81,12 +93,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   path={`${match.path}/login/web3`}
                   exact
                   render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
-                    let onAuthenticationContinue = this.handleOnAuthenticationContinue;
-                    const redirect = getRedirectFromString(props.location.search);
-                    if (redirect) {
-                      onAuthenticationContinue = () => this.handleOnAuthenticationContinue(false, redirect);
-                    }
-                    return AsyncComponent(AuthWeb3Login)({ onAuthenticationContinue });
+                    return AsyncComponent(AuthWeb3Login)({ onSignUpContinue: this.handleOnSignupContinue });
                   }}
                 />
                 <Route
@@ -121,12 +128,7 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
                   path={`${match.path}/signup/web3`}
                   exact
                   render={(props: RouteComponentProps<AuthenticatedRedirectRouteParams>) => {
-                    let onAuthenticationContinue = this.handleOnAuthenticationContinue;
-                    const redirect = getRedirectFromString(props.location.search);
-                    if (redirect) {
-                      onAuthenticationContinue = () => this.handleOnAuthenticationContinue(false, redirect);
-                    }
-                    return AsyncComponent(AuthWeb3Signup)({ onAuthenticationContinue });
+                    return AsyncComponent(AuthWeb3Signup)({ onSignUpContinue: this.handleOnSignupContinue });
                   }}
                 />
                 <Route
@@ -184,6 +186,15 @@ export class AuthRouter extends React.Component<RouteComponentProps> {
 
     history.push({
       pathname: redirectUrl || routes.TOKEN_STOREFRONT,
+      state: {},
+    });
+  };
+
+  public handleOnSignupContinue = (): void => {
+    const { history } = this.props;
+
+    history.push({
+      pathname: routes.SET_HANDLE,
       state: {},
     });
   };

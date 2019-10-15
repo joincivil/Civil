@@ -41,7 +41,8 @@ const userEthAddressQuery = gql`
 `;
 
 export class AccountEthAuth extends React.Component<AccountEthAuthProps, AccountEthAuthState> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
 
   private _isMounted?: boolean;
 
@@ -81,7 +82,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
 
   private renderTransactionUI(): JSX.Element {
     return (
-      <Mutation
+      <Mutation<any>
         mutation={setEthAddressMutation}
         update={(cache, { data: { userSetEthAddress } }) => {
           cache.writeQuery({
@@ -139,7 +140,7 @@ export class AccountEthAuth extends React.Component<AccountEthAuthProps, Account
         denied={true}
         denialText="To authenticate that you own your wallet address, you need to sign the message in your MetaMask wallet."
         cancelTransaction={this.cancelTransaction}
-        denialRestartTransactions={this.signTransactions(userSetEthAddress)}
+        restartTransactions={this.signTransactions(userSetEthAddress)}
       >
         <ModalHeading>Failed to authenticate your wallet address</ModalHeading>
       </MetaMaskModal>

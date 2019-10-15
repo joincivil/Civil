@@ -3,12 +3,10 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
-import { BigNumber } from "@joincivil/typescript-types";
 
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
   colors,
-  CivilContext,
   Modal,
   ModalHeading,
   ModalContent,
@@ -26,7 +24,7 @@ import { getFormattedParameterValue, Parameters, urlConstants as links } from "@
 import { State } from "../../../redux/reducers";
 import { routes } from "../../../constants";
 import ScrollToTopOnMount from "../../utility/ScrollToTop";
-import { approveForChallenge, publishContent, challengeListingWithUri } from "../../../apis/civilTCR";
+import { CivilHelper, CivilHelperContext } from "../../../apis/CivilHelper";
 import {
   InjectedTransactionStatusModalProps,
   hasTransactionStatusModals,
@@ -38,6 +36,7 @@ import {
   SubmitChallengeReduxParametersProps,
 } from "./SubmitChallengeTypes";
 import InsufficientBalanceSnackBar from "./InsufficientBalanceSnackBar";
+import { connectParameters, ParametersProps } from "../../utility/HigherOrderComponents";
 
 const StyledConfirmModalContent = styled.p`
   color: ${colors.primary.CIVIL_GRAY_1};
@@ -137,10 +136,12 @@ class SubmitChallengeComponent extends React.Component<
     SubmitChallengeReduxProps &
     SubmitChallengeReduxParametersProps &
     InjectedTransactionStatusModalProps &
-    DispatchProp<any>,
+    DispatchProp<any> &
+    ParametersProps,
   SubmitChallengeState
 > {
-  public static contextType = CivilContext;
+  public static contextType = CivilHelperContext;
+  public context: CivilHelper;
 
   public state = {
     challengeStatementSummaryValue: undefined,
@@ -165,27 +166,28 @@ class SubmitChallengeComponent extends React.Component<
   }
 
   public render(): JSX.Element {
-    const {
-      listingURI,
-      newsroomName,
-      governanceGuideURI,
-      minDeposit,
-      commitStageLen,
-      revealStageLen,
-      balance: balanceBN,
-    } = this.props;
+    const { listingURI, newsroomName, governanceGuideURI, balance: balanceBN } = this.props;
 
     const { civil } = this.context;
-    const displayMinDeposit = getFormattedParameterValue(Parameters.minDeposit, civil.toBigNumber(minDeposit));
+
+    const displayMinDeposit = getFormattedParameterValue(
+      Parameters.minDeposit,
+      civil.toBigNumber(this.props.parameters.get(Parameters.minDeposit)),
+    );
     const displayCommitStageLen = getFormattedParameterValue(
       Parameters.commitStageLen,
-      civil.toBigNumber(commitStageLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.commitStageLen)),
     );
     const displayRevealStageLen = getFormattedParameterValue(
       Parameters.revealStageLen,
-      civil.toBigNumber(revealStageLen),
+      civil.toBigNumber(this.props.parameters.get(Parameters.revealStageLen)),
     );
-    const isInsufficientBalance = balanceBN.lt(minDeposit);
+    let isInsufficientBalance;
+    if (!balanceBN) {
+      isInsufficientBalance = true;
+    } else {
+      isInsufficientBalance = balanceBN.lt(this.props.parameters.get(Parameters.minDeposit));
+    }
 
     const props: SubmitChallengeStatementProps = {
       listingURI,
@@ -203,7 +205,7 @@ class SubmitChallengeComponent extends React.Component<
     return (
       <>
         <ScrollToTopOnMount />
-        {isInsufficientBalance && minDeposit && (
+        {isInsufficientBalance && this.props.parameters.get(Parameters.minDeposit) && (
           <InsufficientBalanceSnackBar minDeposit={displayMinDeposit!} buyCVLURL="/tokens" />
         )}
         <SubmitChallengeStatementComponent {...props} />
@@ -238,7 +240,6 @@ class SubmitChallengeComponent extends React.Component<
     return [
       {
         transaction: async () => {
-          console.log("getTransactions", approveForChallenge);
           this.props.updateTransactionStatusModalsState({
             isWaitingTransactionModalOpen: true,
             isTransactionProgressModalOpen: false,
@@ -247,7 +248,7 @@ class SubmitChallengeComponent extends React.Component<
             isTransactionRejectionModalOpen: false,
             transactionType: TransactionTypes.APPROVE_FOR_CHALLENGE,
           });
-          return approveForChallenge();
+          return this.context.approveForChallenge();
         },
         handleTransactionHash: (txHash: TxHash) => {
           this.props.updateTransactionStatusModalsState({
@@ -359,11 +360,11 @@ class SubmitChallengeComponent extends React.Component<
       details: (challengeStatementDetailsValue as any).toString("html"),
       charterRevisionId,
     };
-    return publishContent(JSON.stringify(jsonToSave));
+    return this.context.publishContent(JSON.stringify(jsonToSave));
   };
 
   private challenge = async (): Promise<TwoStepEthTransaction<any>> => {
-    return challengeListingWithUri(this.props.listingAddress, this.state.challengeStatementUri!);
+    return this.context.challengeListingWithUri(this.props.listingAddress, this.state.challengeStatementUri!);
   };
 }
 
@@ -372,25 +373,14 @@ const mapStateToProps = (
   state: State,
   ownProps: SubmitChallengeProps & SubmitChallengeReduxProps,
 ): SubmitChallengeProps & SubmitChallengeReduxParametersProps => {
-  const { parameters, user } = state.networkDependent;
+  const { user } = state.networkDependent;
 
-  let minDeposit = new BigNumber(0);
-  let commitStageLen = new BigNumber(0);
-  let revealStageLen = new BigNumber(0);
-  if (parameters && Object.keys(parameters).length) {
-    minDeposit = parameters[Parameters.minDeposit];
-    commitStageLen = parameters[Parameters.commitStageLen];
-    revealStageLen = parameters[Parameters.revealStageLen];
-  }
   let balance;
   if (user && user.account && user.account.balance) {
     balance = user.account.balance;
   }
 
   return {
-    minDeposit,
-    commitStageLen,
-    revealStageLen,
     balance,
     ...ownProps,
   };
@@ -399,4 +389,5 @@ const mapStateToProps = (
 export default compose(
   connect(mapStateToProps),
   hasTransactionStatusModals(transactionStatusModalConfig),
+  connectParameters,
 )(SubmitChallengeComponent) as React.ComponentClass<SubmitChallengeProps>;

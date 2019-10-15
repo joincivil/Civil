@@ -36,6 +36,9 @@ export function setApolloSession(session: AuthLoginResponse): void {
 export function clearApolloSession(): void {
   const sessionKey = getApolloSessionKey();
   removeItem(sessionKey);
+  setTimeout(async () => {
+    await resetApolloStore();
+  }, 300);
 }
 
 export function getNetwork(): number {
@@ -161,6 +164,18 @@ export const getCurrentUserQuery = gql`
       ethAddress
       quizPayload
       quizStatus
+      channels {
+        role
+      }
+      userChannel {
+        handle
+        id
+        EmailAddressRestricted
+        avatarDataUrl
+        tiny72AvatarDataUrl
+      }
+      userChannelAvatarPromptSeen
+      userChannelEmailPromptSeen
     }
   }
 `;

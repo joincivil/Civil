@@ -1,3 +1,7 @@
+export enum embedRoutes {
+  BOOST = "/embed/boost/:boostId/:payment?",
+}
+
 export enum routes {
   REGISTRY_HOME = "/registry/:listingType/:subListingType?",
   REGISTRY_HOME_ROOT = "/registry",
@@ -22,14 +26,16 @@ export enum routes {
   AUTH_LOGIN_WEB3 = "/auth/login/web3",
   AUTH_LOGOUT = "/auth/logout",
   WALLET_HOME = "/auth/wallet",
+  CONFIRM_EMAIL = "/auth/confirm-email",
   TOKEN_STOREFRONT = "/tokens",
   BOOST_FEED = "/boosts",
-  BOOST_CREATE = "/launch-boost",
   BOOST = "/boosts/:boostId",
   BOOST_EDIT = "/boosts/:boostId/edit",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
   CHANNEL_ADMIN = "/admin/:reference",
   MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",
+  SET_HANDLE = "/auth/set-handle",
+  STORY_FEED = "/storyfeed",
 }
 
 export enum registryListingTypes {
@@ -72,7 +78,7 @@ export enum dashboardSubTabs {
   TASKS_RESCUE_TOKENS = "rescue-tokens",
   TASKS_TRANSFER_VOTING_TOKENS = "transfer-voting-tokens",
   CHALLENGES_COMPLETED = "completed",
-  CHALLENGES_STAKED = "completed",
+  CHALLENGES_STAKED = "staked",
 }
 
 export type TDashboardTab =

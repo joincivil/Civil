@@ -12,26 +12,26 @@ exports[`Storyshots Common / Tabs Default Tabs 1`] = `
   >
     <div>
       <nav
-        className="sc-LzLPx hXETGe"
+        className="sc-LzLRk hLoWaj"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <li
-            className="sc-LzLPt jYWoJY"
+            className="sc-LzLQJ ikBpbH"
             onClick={[Function]}
           >
             Index
           </li>
           <li
-            className="sc-LzLPt jRjOwF"
+            className="sc-LzLQJ ceHhEg"
             onClick={[Function]}
           >
             Sign
           </li>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg
@@ -638,44 +638,44 @@ exports[`Storyshots Common / Tabs Round Pill Tab 1`] = `
   >
     <div>
       <div
-        className="sc-LzLQa dgnrdF"
+        className="sc-LzLRq fxrZUu"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <li
-            className="sc-LzLQb JyDSQ"
+            className="sc-LzLRr Ngznh"
             onClick={[Function]}
           >
             All
           </li>
           <li
-            className="sc-LzLQb dIyIuN"
+            className="sc-LzLRr geFlVS"
             onClick={[Function]}
           >
             Accepting Votes
           </li>
           <li
-            className="sc-LzLQb dIyIuN"
+            className="sc-LzLRr geFlVS"
             onClick={[Function]}
           >
             Verifying Votes
           </li>
           <li
-            className="sc-LzLQb dIyIuN"
+            className="sc-LzLRr geFlVS"
             onClick={[Function]}
           >
             Request Appeal
           </li>
           <li
-            className="sc-LzLQb dIyIuN"
+            className="sc-LzLRr geFlVS"
             onClick={[Function]}
           >
             Ready to Complete
           </li>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg
@@ -1961,38 +1961,38 @@ exports[`Storyshots Common / Tabs Square Pill Tab 1`] = `
   >
     <div>
       <div
-        className="sc-LzLPY fypOaL"
+        className="sc-LzLRo eGwIGr"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <li
-            className="sc-LzLPZ heVzcX"
+            className="sc-LzLRp lhUeQK"
             onClick={[Function]}
           >
             New Applications
           </li>
           <li
-            className="sc-LzLPZ hvGGkp"
+            className="sc-LzLRp ivvbyQ"
             onClick={[Function]}
           >
             Under Challenge
           </li>
           <li
-            className="sc-LzLPZ hvGGkp"
+            className="sc-LzLRp ivvbyQ"
             onClick={[Function]}
           >
             Appeal to Council
           </li>
           <li
-            className="sc-LzLPZ hvGGkp"
+            className="sc-LzLRp ivvbyQ"
             onClick={[Function]}
           >
             Challenge Council Appeal
           </li>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg
@@ -3129,13 +3129,13 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
   >
     <div>
       <div
-        className="sc-LzLPw fwxhBw"
+        className="sc-LzLQM gXcLun"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <li
-            className="sc-LzLPX cZhMNk"
+            className="sc-LzLRn fwzoEQ"
             onClick={[Function]}
           >
             <svg
@@ -3159,7 +3159,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
              Approved Newsrooms
           </li>
           <li
-            className="sc-LzLPX kQOWvl"
+            className="sc-LzLRn BXWqB"
             onClick={[Function]}
           >
             <svg
@@ -3177,7 +3177,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
              Newsrooms In Progress
           </li>
           <li
-            className="sc-LzLPX kQOWvl"
+            className="sc-LzLRn BXWqB"
             onClick={[Function]}
           >
             <svg
@@ -3195,7 +3195,7 @@ exports[`Storyshots Common / Tabs Styled Large Tab 1`] = `
           </li>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg
@@ -4180,32 +4180,32 @@ exports[`Storyshots Common / Tabs Styled Tab 1`] = `
   >
     <div>
       <nav
-        className="sc-LzLPx hXETGe"
+        className="sc-LzLRk hLoWaj"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <li
-            className="sc-LzLQc cjXIGi"
+            className="sc-LzLRs haSXMr"
             onClick={[Function]}
           >
             About
           </li>
           <li
-            className="sc-LzLQc fggywd"
+            className="sc-LzLRs JkZYu"
             onClick={[Function]}
           >
             Discussions
           </li>
           <li
-            className="sc-LzLQc fggywd"
+            className="sc-LzLRs JkZYu"
             onClick={[Function]}
           >
             History
           </li>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg
@@ -5078,32 +5078,32 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
   >
     <div>
       <nav
-        className="sc-LzLPx hXETGe"
+        className="sc-LzLRk hLoWaj"
       >
         <ul
-          className="sc-LzLPW jyndRi"
+          className="sc-LzLRm hExdrO"
         >
           <span
-            className="sc-LzNwv ictmGf"
+            className="sc-LzNOR bqSRff"
           >
             <span>
               before!
             </span>
           </span>
           <li
-            className="sc-LzLPt jYWoJY"
+            className="sc-LzLQJ ikBpbH"
             onClick={[Function]}
           >
             Index
           </li>
           <li
-            className="sc-LzLPt jRjOwF"
+            className="sc-LzLQJ ceHhEg"
             onClick={[Function]}
           >
             Sign
           </li>
           <span
-            className="sc-LzNwv ictmGf"
+            className="sc-LzNOR bqSRff"
           >
             <span>
               after!
@@ -5111,7 +5111,7 @@ exports[`Storyshots Common / Tabs Tabs with before/after elements in nav 1`] = `
           </span>
         </ul>
         <div
-          className="sc-LzLPy kWjbGC"
+          className="sc-LzLRl kXTcEX"
           onClick={[Function]}
         >
           <svg

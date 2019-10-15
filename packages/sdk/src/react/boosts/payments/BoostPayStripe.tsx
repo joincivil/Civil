@@ -11,11 +11,13 @@ import { BoostPayOption } from "./BoostPayOption";
 export interface BoostPayStripeProps {
   boostId: string;
   newsroomName: string;
+  title: string;
   usdToSpend: number;
   selected: boolean;
   paymentType: string;
   optionLabel: string | JSX.Element;
   paymentStarted?: boolean;
+  stripeAccountID: string;
   handleNext(usdToSpend: number): void;
   handlePaymentSelected?(paymentType: string): void;
   handlePaymentSuccess(): void;
@@ -27,8 +29,8 @@ export interface BoostPayStripeStates {
 }
 
 export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPayStripeStates> {
-  public static contextType: React.Context<ICivilContext> = CivilContext;
-  public context!: React.ContextType<typeof CivilContext>;
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
   constructor(props: BoostPayStripeProps) {
     super(props);
     this.state = {
@@ -77,7 +79,7 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
-        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY}>
+        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.props.stripeAccountID}>
           <Elements>
             <Mutation mutation={boostPayStripeMutation}>
               {(paymentsCreateStripePayment: MutationFunc) => {
@@ -85,6 +87,7 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
                   <BoostPayFormStripe
                     boostId={this.props.boostId}
                     newsroomName={this.props.newsroomName}
+                    title={this.props.title}
                     usdToSpend={this.props.usdToSpend}
                     paymentType={this.props.paymentType}
                     optionLabel={this.props.optionLabel}

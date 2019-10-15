@@ -11,6 +11,7 @@ export interface BoostData {
     id: string;
     channelType: string;
     isStripeConnected: boolean;
+    stripeAccountID: string;
     newsroom: {
       contractAddress: string;
     };

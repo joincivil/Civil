@@ -164,7 +164,7 @@ class NameAndAddressComponent extends React.Component<NameAndAddressProps & Disp
             denied={true}
             denialText={denialMessage}
             cancelTransaction={() => this.cancelTransaction()}
-            denialRestartTransactions={this.getTransactions(value.civil!, true)}
+            restartTransactions={this.getTransactions(value.civil!, true)}
           >
             <ModalHeading>{message}</ModalHeading>
           </MetaMaskModal>
