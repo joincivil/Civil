@@ -1,6 +1,6 @@
 import React from "react";
 import { KirbyChildProvider, overrideTheme } from "@kirby-web3/child-react";
-import { EthereumChildPlugin, SignatureInterceptorPlugin } from "@kirby-web3/plugin-ethereum";
+import { EthereumChildPlugin, SignatureInterceptorPlugin, IDToNetwork } from "@kirby-web3/plugin-ethereum";
 import { ConnextChildPlugin } from "@kirby-web3/plugin-connext";
 
 import { Viewport } from "./viewport/Viewport";
@@ -29,6 +29,7 @@ export interface KirbyAppProps {
   config: {
     INFURA_APP_KEY: string;
     PORTIS_APP_ID: string;
+    DEFAULT_ETHEREUM_NETWORK: string;
   };
 }
 const KirbyApp: React.FunctionComponent<KirbyAppProps> = ({ config }) => {
@@ -48,7 +49,7 @@ const KirbyApp: React.FunctionComponent<KirbyAppProps> = ({ config }) => {
           mainnet: "wss://mainnet.infura.io/ws/v3/" + config.INFURA_APP_KEY,
           rinkeby: "wss://rinkeby.infura.io/ws/v3/" + config.INFURA_APP_KEY,
         },
-        defaultNetwork: "rinkeby",
+        defaultNetwork: IDToNetwork[parseInt(config.DEFAULT_ETHEREUM_NETWORK, 10)],
         portis: {
           appID: config.PORTIS_APP_ID,
         },
