@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story 1`] = `
     }
   >
     <div
-      className="sc-LzNOj bvEEsM"
+      className="sc-LzNOj gdFHNo"
     >
       <a
         className="sc-LzNsD iVPUXh"
@@ -565,7 +565,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNOj bvEEsM"
+      className="sc-LzNOj gdFHNo"
     >
       <div
         className="sc-LzNtR ciphxM"
@@ -644,7 +644,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
               <div
                 className="sc-LzNrW bFbkzu"
               >
-                $2.50
+                $2.5
               </div>
             </div>
           </div>
@@ -664,7 +664,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
               <div
                 className="sc-LzNrW bFbkzu"
               >
-                $5.00
+                $3
               </div>
             </div>
           </div>
@@ -684,7 +684,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
               <div
                 className="sc-LzNrW bFbkzu"
               >
-                0.009214 ETH
+                $5
               </div>
             </div>
           </div>
@@ -693,7 +693,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           className="sc-LzNrX bRxIJl"
         >
           <span
-            className="sc-LzNrY ckqbJM"
+            className="sc-LzNrY bCncDX"
           >
             <img
               src="https://picsum.photos/50"
@@ -708,7 +708,8 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           <span
             className="sc-LzNrZ fxVtRF"
           >
-            30 contributors
+            30
+             contributors
           </span>
         </div>
       </div>
@@ -1366,19 +1367,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  2.5
                                 </span>
                                 ,
                                 <span>
@@ -1389,42 +1389,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'violetnight13'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'violetnight13'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '$2.50'
                                 </span>
                                 }
                               </span>
@@ -1447,19 +1469,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  3
                                 </span>
                                 ,
                                 <span>
@@ -1470,42 +1491,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'CaryRay'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'CaryRay'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '$5.00'
                                 </span>
                                 }
                               </span>
@@ -1528,19 +1571,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  5
                                 </span>
                                 ,
                                 <span>
@@ -1551,42 +1593,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'ronburgundy'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'ronburgundy'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '0.009214 ETH'
                                 </span>
                                 }
                               </span>
@@ -1638,19 +1702,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  2.5
                                 </span>
                                 ,
                                 <span>
@@ -1661,42 +1724,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'violetnight13'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'violetnight13'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '$2.50'
                                 </span>
                                 }
                               </span>
@@ -1719,19 +1804,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  3
                                 </span>
                                 ,
                                 <span>
@@ -1742,42 +1826,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'CaryRay'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'CaryRay'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '$5.00'
                                 </span>
                                 }
                               </span>
@@ -1800,19 +1906,18 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    avatar
+                                    usdEquivalent
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#a11",
                                     }
                                   }
                                 >
-                                  'https://picsum.photos/50'
+                                  5
                                 </span>
                                 ,
                                 <span>
@@ -1823,42 +1928,64 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
                                       }
                                     }
                                   >
-                                    username
+                                    payerChannel
                                   </span>
                                 </span>
                                 : 
                                 <span
                                   style={
                                     Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                      "color": "#666",
                                     }
                                   }
                                 >
-                                  'ronburgundy'
-                                </span>
-                                ,
-                                <span>
+                                  {
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      handle
+                                    </span>
+                                  </span>
+                                  : 
                                   <span
                                     style={
                                       Object {
-                                        "color": "#666",
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
                                       }
                                     }
                                   >
-                                    amount
+                                    'ronburgundy'
                                   </span>
-                                </span>
-                                : 
-                                <span
-                                  style={
-                                    Object {
-                                      "color": "#22a",
-                                      "wordBreak": "break-word",
+                                  ,
+                                  <span>
+                                    <span
+                                      style={
+                                        Object {
+                                          "color": "#666",
+                                        }
+                                      }
+                                    >
+                                      tiny72AvatarDataUrl
+                                    </span>
+                                  </span>
+                                  : 
+                                  <span
+                                    style={
+                                      Object {
+                                        "color": "#22a",
+                                        "wordBreak": "break-word",
+                                      }
                                     }
+                                  >
+                                    'https://picsum.photos/50'
+                                  </span>
                                   }
-                                >
-                                  '0.009214 ETH'
                                 </span>
                                 }
                               </span>
@@ -2048,7 +2175,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNOj bvEEsM"
+      className="sc-LzNOj gdFHNo"
     >
       <div
         className="sc-LzNtQ fDvXKB"
