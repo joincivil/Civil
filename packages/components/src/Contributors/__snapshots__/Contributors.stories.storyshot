@@ -981,33 +981,6 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
                       <span
                         style={Object {}}
                       >
-                        label
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            Recent Contributors
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
                         sortedContributors
                       </span>
                       <span>
