@@ -16,7 +16,7 @@ export interface AuthLoginDropdownProps {
   target?: JSX.Element;
 }
 
-export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps> = props => {
+export const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => {
   return (
     <AuthWeb3
       messagePrefix="Log in to Civil"
@@ -26,10 +26,6 @@ export const AuthWeb3LoginComponent: React.FunctionComponent<AuthWeb3LoginProps>
       onUserSelectSignUp={props.onUserSelectSignUp}
     />
   );
-};
-
-const AuthWeb3LoginPage: React.FunctionComponent<AuthWeb3LoginProps> = props => {
-  return <AuthWeb3LoginComponent {...props} />;
 };
 
 export default AuthWeb3LoginPage;

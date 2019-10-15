@@ -53,6 +53,7 @@ storiesOf("Boosts", module)
           handleBackToListing={handlePaymentSuccess}
           handlePaymentSuccess={handlePaymentSuccess}
           isStripeConnected={true}
+          stripeAccountID={"acct_id_00000"}
           history={{}}
         />
       </>

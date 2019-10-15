@@ -75,6 +75,7 @@ const BoostDetails = styled.div`
 
 export interface BoostPaymentsProps {
   isStripeConnected: boolean;
+  stripeAccountID: string;
   paymentAddr: EthAddress;
   boostId: string;
   title: string;
@@ -127,6 +128,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         title={props.title}
         boostId={props.boostId}
         isStripeConnected={props.isStripeConnected}
+        stripeAccountID={props.stripeAccountID}
         handlePaymentSuccess={() => props.handlePaymentSuccess()}
       />
     </BoostWrapper>

@@ -17,6 +17,7 @@ export interface BoostPayStripeProps {
   paymentType: string;
   optionLabel: string | JSX.Element;
   paymentStarted?: boolean;
+  stripeAccountID: string;
   handleNext(usdToSpend: number): void;
   handlePaymentSelected?(paymentType: string): void;
   handlePaymentSuccess(): void;
@@ -78,7 +79,7 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
-        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY}>
+        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.props.stripeAccountID}>
           <Elements>
             <Mutation mutation={boostPayStripeMutation}>
               {(paymentsCreateStripePayment: MutationFunc) => {
