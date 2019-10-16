@@ -6,7 +6,7 @@ export const ContributorsStyled = styled.div`
   margin-bottom: 15px;
 `;
 
-export const ContributorsLabel = styled.label`
+export const ContributorsTitle = styled.label`
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 10px;
@@ -75,10 +75,14 @@ export const ContributorCountAvatars = styled.span`
   }
 `;
 
-export const ContributorCountTotal = styled.span`
+export const ContributorsLabel = styled.span`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+
+  svg {
+    opacity: 0.3;
+  }
 `;

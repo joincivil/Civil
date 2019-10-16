@@ -5,9 +5,10 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
-import { StoryFeedItemWrap, TipButton, StoryElements } from "./StoryFeedStyledComponents";
+import { StoryFeedItemWrap, StoryElements } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
+import { PaymentButton } from "@joincivil/elements";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -59,7 +60,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <StoryElements>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
-            <TipButton onClick={this.openPayments}>Tip $</TipButton>
+            <PaymentButton onClick={this.openPayments} />
           </StoryElements>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
@@ -82,7 +83,6 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}
-            usdToSpend={3}
             isStripeConnected={this.props.isStripeConnected}
           />
         </StoryModal>

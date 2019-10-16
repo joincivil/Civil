@@ -35,6 +35,7 @@ export const urlConstants = {
   // Payments
   STRIPE: "https://stripe.com/",
   METAMASK: "https://metamask.io/",
+  PORTIS: "https://www.portis.io/",
 
   // FAQ
   FAQ_HOME: FAQ_BASE_URL,

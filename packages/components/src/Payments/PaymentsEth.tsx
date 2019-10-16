@@ -21,6 +21,7 @@ import {
 } from "./PaymentsTextComponents";
 import { PaymentsModal } from "./PaymentsModal";
 import { PaymentsEthForm } from "./PaymentsEthForm";
+import { PAYMENT_STATE } from "./types";
 
 export enum MODEL_CONTENT {
   WHY_ETH,
@@ -32,10 +33,11 @@ export interface PaymentsEthProps {
   postId: string;
   newsroomName: string;
   paymentAddress: EthAddress;
+  shouldPublicize: boolean;
   userAddress?: EthAddress;
   usdToSpend: number;
   isWalletConnected: boolean;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsEthStates {
@@ -113,6 +115,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
                 postId={this.props.postId}
                 paymentAddress={this.props.paymentAddress}
                 userAddress={this.props.userAddress}
+                shouldPublicize={this.props.shouldPublicize}
                 savePayment={paymentsCreateEtherPayment}
                 etherToSpend={this.state.etherToSpend}
                 usdToSpend={this.state.usdToSpend}

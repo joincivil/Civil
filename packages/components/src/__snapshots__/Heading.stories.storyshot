@@ -11,26 +11,26 @@ exports[`Storyshots Pattern Library / Typography / Headings Headings 1`] = `
     }
   >
     <div
-      className="sc-LzNMZ gAfHBo"
+      className="sc-LzNNE jqEtQU"
     >
       <div>
         <h1
-          className="sc-fzXfNj kUPNgZ"
+          className="sc-fzXfNk dIlFpG"
         >
           Heading
         </h1>
         <h2
-          className="sc-fzXfNl bSjXiR"
+          className="sc-fzXfNJ ddsvwX"
         >
           Sub Heading
         </h2>
         <h1
-          className="sc-fzXfNk lptpkx"
+          className="sc-fzXfNl jBZHMO"
         >
           Section Heading
         </h1>
         <h3
-          className="sc-fzXfNJ huYVOT"
+          className="sc-fzXfNK DVLRY"
         >
           Block Heading
         </h3>

@@ -3,23 +3,6 @@ import styled from "styled-components";
 import { colors, fonts } from "../styleConstants";
 import { InvertedButton } from "../Button";
 
-export const TipButton = styled.button`
-  background-color: transparent;
-  border: 1px solid ${colors.accent.CIVIL_GRAY_2};
-  border-radius: 2px;
-  color: ${colors.accent.CIVIL_GRAY_1};
-  cursor: pointer;
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 14px;
-  line-height: 17px;
-  padding: 5px 15px;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: ${colors.accent.CIVIL_BLUE};
-  }
-`;
-
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 30px 0;
