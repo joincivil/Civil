@@ -2,19 +2,23 @@ import * as React from "react";
 import {
   StoryTitle,
   TimeStamp,
+  TimeStampDot,
   StoryDetailsFlex,
+  StoryDetailsFlexLeft,
   StoryDescription,
+  StoryPostedAt,
   StoryImgWide,
-  StoryModalFullBleedHeader,
-  StoryModalContent,
-  StoryModalFooter,
+  StoryDetailsFullBleedHeader,
+  StoryDetailsContent,
+  StoryDetailsFooter,
+  StoryDetailsFooterFlex,
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 // import { Share } from "../Social";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
 import { StoryNewsroomData, OpenGraphData } from "./types";
-// import { PaymentButton } from "@joincivil/elements";
+import { PaymentButton, ShareButton } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryDetailsProps {
@@ -25,6 +29,8 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  handleShare(): void;
+  handlePayments(): void;
   handleOpenNewsroom(): void;
 }
 
@@ -34,36 +40,48 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
 
   return (
     <>
-      <StoryModalFullBleedHeader>
-        <StoryImgWide>
-          <img src={openGraphData.images[0].url} />
-        </StoryImgWide>
-      </StoryModalFullBleedHeader>
-      <StoryModalContent>
-        <StoryTitle>{openGraphData.title}</StoryTitle>
+      {openGraphData.images && (
+        <StoryDetailsFullBleedHeader>
+          <StoryImgWide>
+            <img src={openGraphData.images[0].url} />
+          </StoryImgWide>
+        </StoryDetailsFullBleedHeader>
+      )}
+      <StoryDetailsContent>
         <StoryDetailsFlex>
+          <StoryTitle>{openGraphData.title}</StoryTitle>
+          <ShareButton onClick={() => props.handleShare} textBottom={true}></ShareButton>
+        </StoryDetailsFlex>
+        <StoryDetailsFlexLeft>
           <StoryNewsroomStatus
             newsroom={props.newsroom}
             activeChallenge={props.activeChallenge}
-            handleOpenNewsroom={props.handleOpenNewsroom}
+            handleOpenNewsroom={() => props.handleOpenNewsroom}
           />
-          <TimeStamp>{props.createdAt}</TimeStamp>
-        </StoryDetailsFlex>
+          <TimeStamp>
+            <TimeStampDot>&#183;</TimeStampDot> {props.createdAt}
+          </TimeStamp>
+        </StoryDetailsFlexLeft>
         <StoryDescription>{openGraphData.description}</StoryDescription>
-        {publishedTime && <TimeStamp>{publishedTime}</TimeStamp>}
+        <StoryPostedAt>{publishedTime && <TimeStamp>Posted on Civil {publishedTime}</TimeStamp>}</StoryPostedAt>
         <Contributors sortedContributors={props.sortedContributors} />
-        <ContributorCount
-          totalContributors={props.totalContributors}
-          displayedContributors={props.displayedContributors}
-        />
-        {/* <Share /> */}
-      </StoryModalContent>
-      <StoryModalFooter>
-        {/* <PaymentButton /> */}
-        <BlueLinkBtn href={openGraphData.url} target="_blank">
-          Read More
-        </BlueLinkBtn>
-      </StoryModalFooter>
+        {props.totalContributors !== 0 ? (
+          <ContributorCount
+            totalContributors={props.totalContributors}
+            displayedContributors={props.displayedContributors}
+          />
+        ) : (
+          <></>
+        )}
+      </StoryDetailsContent>
+      <StoryDetailsFooter>
+        <StoryDetailsFooterFlex>
+          <PaymentButton onClick={() => props.handlePayments} border={true} />
+          <BlueLinkBtn href={openGraphData.url} target="_blank">
+            Read More
+          </BlueLinkBtn>
+        </StoryDetailsFooterFlex>
+      </StoryDetailsFooter>
     </>
   );
 };

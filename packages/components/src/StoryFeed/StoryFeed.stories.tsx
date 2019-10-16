@@ -95,6 +95,8 @@ storiesOf("Pulse / Story Feed", module)
           displayedContributors={contributors}
           sortedContributors={contributors}
           totalContributors={30}
+          handleShare={onClickFunc}
+          handlePayments={onClickFunc}
           handleOpenNewsroom={onClickFunc}
         />
       </Container>

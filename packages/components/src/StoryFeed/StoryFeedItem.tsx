@@ -82,6 +82,8 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             displayedContributors={displayedContributors}
             sortedContributors={sortedContributors}
             totalContributors={totalContributors}
+            handleShare={this.openShare}
+            handlePayments={this.openPayments}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
         </StoryModal>

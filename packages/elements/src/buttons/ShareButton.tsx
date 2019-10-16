@@ -21,7 +21,7 @@ export const ShareBtnStyled = styled.button`
   padding: 0;
 
   svg {
-    margin: ${(props: ShareBtnStyleProps) => (props.textBottom ? "0 0 2px" : "0 2px 0 0")};
+    margin: ${(props: ShareBtnStyleProps) => (props.textBottom ? "0" : "0 2px 0 0")};
 
     path {
       fill: ${colors.accent.CIVIL_GRAY_0};

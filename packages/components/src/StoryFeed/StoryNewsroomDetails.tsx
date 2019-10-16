@@ -5,9 +5,9 @@ import { CivilIcon } from "../icons";
 import {
   RegistryStatusTag,
   StoryModalHeader,
-  StoryModalContent,
+  StoryDetailsContent,
   StoryNewsroomSection,
-  StoryModalFooter,
+  StoryDetailsFooter,
   StoryRegistryLabel,
   StoryNewsroomName,
   StoryNewsroomURL,
@@ -40,7 +40,7 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
           <RegistryStatusTag activeChallenge={false}>Approved</RegistryStatusTag>
         )}
       </StoryModalHeader>
-      <StoryModalContent>
+      <StoryDetailsContent>
         <StoryRegistryDetails activeChallenge={props.activeChallenge} />
         <StoryNewsroomSection>
           <h2>About</h2>
@@ -54,12 +54,12 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
           <h3>Public Wallet Address</h3>
           <StoryETHAddress>{newsroom.multisigAddress}</StoryETHAddress>
         </StoryNewsroomSection>
-      </StoryModalContent>
-      <StoryModalFooter>
+      </StoryDetailsContent>
+      <StoryDetailsFooter>
         <BlueLinkBtn href={links.REGISTRY + newsroom.contractAddress} target="_blank">
           See Civil Registry Profile
         </BlueLinkBtn>
-      </StoryModalFooter>
+      </StoryDetailsFooter>
     </>
   );
 };
