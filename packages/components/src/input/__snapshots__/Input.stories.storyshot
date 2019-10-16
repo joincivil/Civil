@@ -28,11 +28,11 @@ exports[`Storyshots Pattern Library / Inputs Currency Input 1`] = `
           </span>
         }
         label="Currency Input"
-        min="0.01"
+        min="2"
         name="CurrencyInput"
         onChange={[Function]}
         placeholder="$0.00"
-        step="1"
+        step="2"
         type="number"
       />
       <label
@@ -316,13 +316,11 @@ exports[`Storyshots Pattern Library / Inputs Currency Input With Button 1`] = `
       >
         <input
           className="sc-fzXfMC haCwAp"
-          min="0.01"
           name="CurrencyInputWithButton"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
           placeholder="Enter an amount"
-          step="0.01"
           type="number"
         />
       </div>
