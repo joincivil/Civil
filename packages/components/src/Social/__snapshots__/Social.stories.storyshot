@@ -11,16 +11,16 @@ exports[`Storyshots Pattern Library / Social Follow component 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <div
-        className="sc-LzNsB byNxiZ"
+        className="sc-LzNsD cppnuL"
       >
         <label>
           Follow
         </label>
         <div
-          className="sc-LzNsC ZqgqW"
+          className="sc-LzNsE kzLAvU"
         >
           <a
             href="https://www.facebook.com/JoinCivil/"
@@ -428,7 +428,7 @@ exports[`Storyshots Pattern Library / Social Follow on Facebook 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <a
         href="https://facebook.com/Civil"
@@ -790,7 +790,7 @@ exports[`Storyshots Pattern Library / Social Follow on Twitter 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <a
         href="https://www.facebook.com/JoinCivil/"
@@ -1152,16 +1152,16 @@ exports[`Storyshots Pattern Library / Social Share component 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <div
-        className="sc-LzNsB byNxiZ"
+        className="sc-LzNsD cppnuL"
       >
         <label>
           Follow
         </label>
         <div
-          className="sc-LzNsC ZqgqW"
+          className="sc-LzNsE kzLAvU"
         >
           <a
             onClick={[Function]}
@@ -1595,7 +1595,7 @@ exports[`Storyshots Pattern Library / Social Share on Twitter 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <a
         onClick={[Function]}
@@ -1956,7 +1956,7 @@ exports[`Storyshots Pattern Library / Social Share via Email 1`] = `
     }
   >
     <div
-      className="sc-LzNOV kozMRI"
+      className="sc-LzNPu kHhAqE"
     >
       <a
         onClick={[Function]}

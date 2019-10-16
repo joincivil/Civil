@@ -11,13 +11,13 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-LzNOg aZKkh"
+      className="sc-LzNOi kDkVSX"
     >
       <div
-        className="sc-LzMXa eSroID"
+        className="sc-LzMXc bYYuAF"
       >
         <div
-          className="sc-LzMWY eokcfq"
+          className="sc-LzMXa jiRMKn"
         >
           <svg
             height="24"
@@ -39,31 +39,31 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
            Get the Civil Registry Alerts
         </div>
         <p
-          className="sc-LzMWZ hawdue"
+          className="sc-LzMXb jNIvbj"
         >
           Receive real-time email alerts when a new event occurs on the Civil Registry. These events include new applications, challenges, when voting begins / ends and more. By subscribing, you'll ensure you have maximum time to make decisions about how you will participate in Civil's governance.
         </p>
         <div
-          className="sc-fzXfOx bBJwxb"
+          className="sc-fzXfOz hVdsPB"
         >
           <div
-            className="sc-fzXfOy gjAmZm"
+            className="sc-fzXfOX PahLZ"
           >
             <div
-              className=" sc-fzXfMD fCMMQq"
+              className=" sc-fzXfNc cGOosW"
             >
               <input
-                className="sc-fzXfMD fCMMQq"
+                className="sc-fzXfNc cGOosW"
                 name="EmailSignupTextInput"
                 onChange={[Function]}
                 type="text"
               />
             </div>
             <div
-              className="sc-fzXfOX bQLGzB"
+              className="sc-fzXfOZ YjpzT"
             >
               <span
-                className="sc-fzXfOY frrMkL"
+                className="sc-fzXfPa hhVziM"
               >
                 <button
                   className="sc-fzXfLO sc-fzXfLP JmPHO"
@@ -90,7 +90,7 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           </div>
         </div>
         <p
-          className="sc-LzMWZ hawdue"
+          className="sc-LzMXb jNIvbj"
         >
           <b>
             Follow us on twitter for alerts
@@ -472,10 +472,10 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
     }
   >
     <div
-      className="sc-LzNOg aZKkh"
+      className="sc-LzNOi kDkVSX"
     >
       <div
-        className="sc-LzMXa sc-LzMXb jDEOyq"
+        className="sc-LzMXc sc-LzMXd lejntV"
       >
         <svg
           height="36"
@@ -497,17 +497,17 @@ exports[`Storyshots Registry / Mailing List Signup Component Mailing List Signup
           />
         </svg>
         <div
-          className="sc-LzMWY eokcfq"
+          className="sc-LzMXa jiRMKn"
         >
           Thanks for signing up!
         </div>
         <p
-          className="sc-LzMWZ hawdue"
+          className="sc-LzMXb jNIvbj"
         >
           Please check your email to confirm your subscription.
         </p>
         <p
-          className="sc-LzMWZ hawdue"
+          className="sc-LzMXb jNIvbj"
         >
           <b>
             Follow us on twitter for alerts
