@@ -38,12 +38,10 @@ exports[`Storyshots Common / Currency / Currency Converter CVL to ETH 1`] = `
               >
                 <input
                   className="sc-fzXfMD fCMMQq"
-                  min="0.01"
                   name="Convert currency"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  step="0.01"
                   type="number"
                 />
               </div>
@@ -762,12 +760,10 @@ exports[`Storyshots Common / Currency / Currency Converter USD to ETH 1`] = `
               >
                 <input
                   className="sc-fzXfMD fCMMQq"
-                  min="0.01"
                   name="Convert currency"
                   onBlur={[Function]}
                   onChange={[Function]}
                   onFocus={[Function]}
-                  step="0.01"
                   type="number"
                   value="3"
                 />
