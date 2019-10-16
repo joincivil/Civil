@@ -136,6 +136,8 @@ export interface InputProps {
     | ((instance: HTMLInputElement | HTMLTextAreaElement | null) => void)
     | React.RefObject<HTMLInputElement | HTMLTextAreaElement>;
   type?: string;
+  min?: string;
+  step?: string;
   onBlur?(ev: any): void;
   onFocus?(ev: any): void;
   onKeyPress?(ev: any): void;
@@ -147,7 +149,7 @@ export const TextInput = (props: InputProps) => {
 };
 
 export const NumericInput = (props: InputProps) => {
-  return <InputBase type="number" min="0.01" step="0.01" {...props} />;
+  return <InputBase type="number" {...props} />;
 };
 
 export interface CurrencyProps extends InputProps {
@@ -155,7 +157,7 @@ export interface CurrencyProps extends InputProps {
 }
 export const CurrencyInput = (props: InputProps) => {
   const icon = props.icon || <span>USD</span>;
-  return <InputBase type="number" min="0.01" step="1" {...props} icon={icon} />;
+  return <InputBase type="number" {...props} icon={icon} />;
 };
 
 export interface TextProps extends InputProps {
