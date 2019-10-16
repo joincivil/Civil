@@ -3,10 +3,12 @@ import {
   ContributorsStyled,
   ContributorsTitle,
   ContributorsLabel,
+  ContributorsPrompt,
   ContributorItem,
   ContributorAvatar,
   ContributorUserName,
   ContributorAmount,
+  ContributorsIconBorder,
 } from "./ContributorsStyledComponents";
 import { ContributorData } from "./types";
 import { TipIcon } from "@joincivil/elements";
@@ -32,9 +34,12 @@ export const Contributors: React.FunctionComponent<LeaderboardProps> = props => 
           );
         })
       ) : (
-        <ContributorsLabel>
-          <TipIcon width={16} height={16} /> Be the first to Boost
-        </ContributorsLabel>
+        <ContributorsPrompt>
+          <ContributorsIconBorder>
+            <TipIcon width={18} height={18} />
+          </ContributorsIconBorder>
+          <ContributorsLabel>Be the first to Boost</ContributorsLabel>
+        </ContributorsPrompt>
       )}
     </ContributorsStyled>
   );

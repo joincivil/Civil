@@ -19,6 +19,7 @@ export const ShareBtnStyled = styled.button`
   line-spacing: 1;
   outline: none;
   padding: 0;
+  transition: color 0.2s ease;
 
   svg {
     margin: ${(props: ShareBtnStyleProps) => (props.textBottom ? "0" : "0 2px 0 0")};
@@ -30,6 +31,8 @@ export const ShareBtnStyled = styled.button`
   }
 
   &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+
     svg path {
       fill: ${colors.accent.CIVIL_BLUE};
     }

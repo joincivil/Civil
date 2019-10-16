@@ -11,7 +11,7 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
     }
   >
     <div
-      className="sc-LzNNE cbhTra"
+      className="sc-LzNNG grseJQ"
     >
       <div
         className="sc-LzNsa ewABiH"
@@ -30,7 +30,7 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
           />
         </span>
         <span
-          className="sc-LzNsc fbLIMY"
+          className="sc-LzNsc dsSAqB"
         >
           30
            Boosters
@@ -710,7 +710,7 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
     }
   >
     <div
-      className="sc-LzNNE cbhTra"
+      className="sc-LzNNG grseJQ"
     >
       <div
         className="sc-LzNrU ksaDFo"

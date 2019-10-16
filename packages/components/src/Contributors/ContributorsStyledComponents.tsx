@@ -81,6 +81,20 @@ export const ContributorsLabel = styled.span`
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+`;
+
+export const ContributorsPrompt = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+export const ContributorsIconBorder = styled.div`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 50%;
+  height: 26px;
+  margin-right: 6px;
+  padding: 3px;
+  width: 26px;
 
   svg {
     opacity: 0.3;
