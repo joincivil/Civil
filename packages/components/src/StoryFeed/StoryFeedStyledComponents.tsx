@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts } from "@joincivil/elements";
 
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};

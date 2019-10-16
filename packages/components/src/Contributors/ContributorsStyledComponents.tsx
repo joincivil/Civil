@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts } from "@joincivil/elements";
 
 export const ContributorsStyled = styled.div`
   margin-bottom: 15px;
@@ -57,21 +57,21 @@ export const ContributorCountStyled = styled.div`
 `;
 
 export const ContributorCountAvatars = styled.span`
+  left: 0;
+  position: relative;
+
+  &:nth-of-type(2) {
+    left: -4px;
+  }
+
+  &:nth-of-type(3) {
+    left: -8px;
+  }
   img {
     border: 1px solid ${colors.basic.WHITE};
     border-radius: 50%;
     height: 17px;
-    left: 0;
-    position: relative;
     width: 17px;
-
-    &:nth-of-type(2) {
-      left: -4px;
-    }
-
-    &:nth-of-type(3) {
-      left: -8px;
-    }
   }
 `;
 

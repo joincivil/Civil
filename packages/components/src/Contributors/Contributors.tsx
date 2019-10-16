@@ -12,12 +12,13 @@ import {
 } from "./ContributorsStyledComponents";
 import { ContributorData } from "./types";
 import { TipIcon } from "@joincivil/elements";
+import { ContributorsDefaultAvatar } from "./ContributorsDefaultAvatar";
 
-export interface LeaderboardProps {
+export interface ContributorsProps {
   sortedContributors: ContributorData[];
 }
 
-export const Contributors: React.FunctionComponent<LeaderboardProps> = props => {
+export const Contributors: React.FunctionComponent<ContributorsProps> = props => {
   return (
     <ContributorsStyled>
       <ContributorsTitle>Recent Boosters</ContributorsTitle>
@@ -25,7 +26,11 @@ export const Contributors: React.FunctionComponent<LeaderboardProps> = props => 
         props.sortedContributors.slice(0, 3).map((contributor: any, i: number) => {
           return (
             <ContributorItem key={i}>
-              <ContributorAvatar src={contributor.payerChannel.tiny72AvatarDataUrl} />
+              {contributor.payerChannel.tiny72AvatarDataUrl ? (
+                <ContributorAvatar src={contributor.payerChannel.tiny72AvatarDataUrl} />
+              ) : (
+                <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={32} />
+              )}
               <div>
                 <ContributorUserName>{contributor.payerChannel.handle}</ContributorUserName>
                 <ContributorAmount>{"$" + contributor.usdEquivalent}</ContributorAmount>

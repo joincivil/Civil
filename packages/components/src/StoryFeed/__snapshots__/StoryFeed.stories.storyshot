@@ -11,10 +11,10 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
     }
   >
     <div
-      className="sc-LzNPu jkSGEd"
+      className="sc-LzNPv fLmUBa"
     >
       <div
-        className="sc-LzNsF cMOdWO"
+        className="sc-LzNsG lnWiHL"
       >
         <a
           onClick={[Function]}
@@ -46,25 +46,25 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
         </a>
       </div>
       <a
-        className="sc-LzNsH cSVUJO"
+        className="sc-LzNsI jWrksE"
         onClick={[Function]}
       >
         <div
-          className="sc-LzNsI dzEBJf"
+          className="sc-LzNsJ hYjWFM"
         >
           <h2
-            className="sc-LzNsG ixUhNL"
+            className="sc-LzNsH gNEWAA"
           >
             How TikTok opened a window into China’s police state
           </h2>
           <div
-            className="sc-LzNsJ bzveVg"
+            className="sc-LzNsK esSmKJ"
           >
             1 min ago
           </div>
         </div>
         <div
-          className="sc-LzNtk fGCNnS"
+          className="sc-LzNtl eUqYCr"
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -72,20 +72,28 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
         </div>
       </a>
       <div
-        className="sc-LzNtm jBoAPp"
+        className="sc-LzNtn cKlqSu"
       >
         <div
           className="sc-LzNsa ewABiH"
         >
           <span
-            className="sc-LzNsb gDZbpd"
+            className="sc-LzNsb cdbWTB"
           >
             <img
               src="https://picsum.photos/50"
             />
+          </span>
+          <span
+            className="sc-LzNsb cdbWTB"
+          >
             <img
               src="https://picsum.photos/50"
             />
+          </span>
+          <span
+            className="sc-LzNsb cdbWTB"
+          >
             <img
               src="https://picsum.photos/50"
             />
@@ -98,7 +106,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
           </span>
         </div>
         <div
-          className="sc-LzNtm jBoAPp"
+          className="sc-LzNtn cKlqSu"
         >
           <button
             className="sc-fzXfLX ivNkUv"
@@ -1645,13 +1653,13 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNPu jkSGEd"
+      className="sc-LzNPv fLmUBa"
     >
       <div
-        className="sc-LzNtY opOPu"
+        className="sc-LzNuw jogfnZ"
       >
         <div
-          className="sc-LzNtl euLSeX"
+          className="sc-LzNtm hAjGOI"
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -1659,13 +1667,13 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzNuw iTPtUP"
+        className="sc-LzNux eqUdgQ"
       >
         <div
-          className="sc-LzNtP kxurkm"
+          className="sc-LzNtQ gFRKwU"
         >
           <h2
-            className="sc-LzNsG ixUhNL"
+            className="sc-LzNsH gNEWAA"
           >
             How TikTok opened a window into China’s police state
           </h2>
@@ -1700,10 +1708,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           </button>
         </div>
         <div
-          className="sc-LzNtQ jAXQGd"
+          className="sc-LzNtR gLVVHH"
         >
           <div
-            className="sc-LzNsF cMOdWO"
+            className="sc-LzNsG lnWiHL"
           >
             <a
               onClick={[Function]}
@@ -1735,10 +1743,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             </a>
           </div>
           <div
-            className="sc-LzNsJ bzveVg"
+            className="sc-LzNsK esSmKJ"
           >
             <span
-              className="sc-LzNsK gaqriT"
+              className="sc-LzNti juKSmm"
             >
               ·
             </span>
@@ -1747,15 +1755,15 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNti fZBITC"
+          className="sc-LzNtj iSYQJf"
         >
           Uyghurs are gaming TikTok’s algorithm to find a loophole in Xinjiangs’s information lockdown
         </div>
         <div
-          className="sc-LzNtj aKTvO"
+          className="sc-LzNtk kvIsdc"
         >
           <div
-            className="sc-LzNsJ bzveVg"
+            className="sc-LzNsK esSmKJ"
           >
             Posted on Civil 
             1 min ago
@@ -1834,14 +1842,22 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
           className="sc-LzNsa ewABiH"
         >
           <span
-            className="sc-LzNsb gDZbpd"
+            className="sc-LzNsb cdbWTB"
           >
             <img
               src="https://picsum.photos/50"
             />
+          </span>
+          <span
+            className="sc-LzNsb cdbWTB"
+          >
             <img
               src="https://picsum.photos/50"
             />
+          </span>
+          <span
+            className="sc-LzNsb cdbWTB"
+          >
             <img
               src="https://picsum.photos/50"
             />
@@ -1855,10 +1871,10 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzNux cxeiuS"
+        className="sc-LzNuy laMrPz"
       >
         <div
-          className="sc-LzNuy doatwX"
+          className="sc-LzNuz bVciwI"
         >
           <button
             className="sc-fzXfLX dPqYoc"
@@ -1896,7 +1912,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             Boost
           </button>
           <a
-            className="sc-LzNtR iakUmz"
+            className="sc-LzNtS kLXfZE"
             href="https://codastory.com/authoritarian-tech/tiktok-uyghur-china/"
             target="_blank"
           >
@@ -3413,13 +3429,13 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNPu jkSGEd"
+      className="sc-LzNPv fLmUBa"
     >
       <div
-        className="sc-LzNtX eiwgVg"
+        className="sc-LzNtY kCbjzV"
       >
         <div
-          className="sc-LzNtn wgXhF"
+          className="sc-LzNto kVNrqm"
         >
           <svg
             className="sc-AykKC fCEzAm"
@@ -3441,16 +3457,16 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
            Registry
         </div>
         <div
-          className="sc-LzNtP kxurkm"
+          className="sc-LzNtQ gFRKwU"
         >
           <div>
             <div
-              className="sc-LzNto iTSnZM"
+              className="sc-LzNtp jziFCt"
             >
               Coda Story
             </div>
             <a
-              className="sc-LzNtp dUVGDf"
+              className="sc-LzNtq fNNrFU"
               href="https://codastory.com"
               target="_blank"
             >
@@ -3458,20 +3474,20 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
             </a>
           </div>
           <span
-            className="sc-LzNtU SArXY"
+            className="sc-LzNtV gacqax"
           >
             Approved
           </span>
         </div>
       </div>
       <div
-        className="sc-LzNuw iTPtUP"
+        className="sc-LzNux eqUdgQ"
       >
         <div
-          className="sc-LzNtS fBerZc"
+          className="sc-LzNtT iyVUtt"
         >
           <div
-            className="sc-LzNtT hADhAc"
+            className="sc-LzNtU gsckMJ"
           >
             <p>
               This Newsroom maintains the standards and journalistic principles set by the
@@ -3511,7 +3527,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNtq lehoBx"
+          className="sc-LzNtr fmSbDa"
         >
           <h2>
             About
@@ -3521,35 +3537,35 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
           </p>
         </div>
         <div
-          className="sc-LzNtq lehoBx"
+          className="sc-LzNtr fmSbDa"
         >
           <h3>
             Smart Contract Address
           </h3>
           <span
-            className="sc-LzNtr VnVLR"
+            className="sc-LzNtP deWrin"
           >
             0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7
           </span>
         </div>
         <div
-          className="sc-LzNtq lehoBx"
+          className="sc-LzNtr fmSbDa"
         >
           <h3>
             Public Wallet Address
           </h3>
           <span
-            className="sc-LzNtr VnVLR"
+            className="sc-LzNtP deWrin"
           >
             0xe1e345504d9cd4d19bee9c0300a8c8265e62b17c
           </span>
         </div>
       </div>
       <div
-        className="sc-LzNux cxeiuS"
+        className="sc-LzNuy laMrPz"
       >
         <a
-          className="sc-LzNtR iakUmz"
+          className="sc-LzNtS kLXfZE"
           href="https://registry.civil.co/0x224b07d2ff8ca3c3757fdfc101922fb4792cc2d7"
           target="_blank"
         >
