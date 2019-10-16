@@ -81,6 +81,10 @@ export const ContributorsLabel = styled.span`
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+
+  svg {
+    opacity: 0.3;
+  }
 `;
 
 export const ContributorsPrompt = styled.div`

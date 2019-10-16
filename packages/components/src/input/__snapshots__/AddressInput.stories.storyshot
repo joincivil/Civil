@@ -11,15 +11,15 @@ exports[`Storyshots Pattern Library / inputs / AddressInput invalid 1`] = `
     }
   >
     <div
-      className="civil-input-error sc-fzXfNc cGOosW"
+      className="civil-input-error sc-fzXfMD fCMMQq"
     >
       <small
-        className="sc-fzXfME eVBAxv"
+        className="sc-fzXfMC iydItJ"
       >
         The address you have entered is invalid
       </small>
       <input
-        className="sc-fzXfNc cGOosW"
+        className="sc-fzXfMD fCMMQq"
         label="Wallet Address"
         name="EditorWalletInput"
         onChange={[Function]}
@@ -28,7 +28,7 @@ exports[`Storyshots Pattern Library / inputs / AddressInput invalid 1`] = `
         value="0x8c722b8ac728add7780a66017e"
       />
       <label
-        className="sc-fzXfMD dFIQwm"
+        className="sc-fzXfMB cpmbbE"
       >
         Wallet Address
       </label>
@@ -334,10 +334,10 @@ exports[`Storyshots Pattern Library / inputs / AddressInput valid 1`] = `
     }
   >
     <div
-      className=" sc-fzXfNc cGOosW"
+      className=" sc-fzXfMD fCMMQq"
     >
       <input
-        className="sc-fzXfNc cGOosW"
+        className="sc-fzXfMD fCMMQq"
         label="Wallet Address"
         name="EditorWalletInput"
         onChange={[Function]}
@@ -346,7 +346,7 @@ exports[`Storyshots Pattern Library / inputs / AddressInput valid 1`] = `
         value="0x8c722b8ac728add7780a66017e8dadba530ee261"
       />
       <label
-        className="sc-fzXfMD dFIQwm"
+        className="sc-fzXfMB cpmbbE"
       >
         Wallet Address
       </label>

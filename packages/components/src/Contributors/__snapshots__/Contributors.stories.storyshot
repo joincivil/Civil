@@ -11,34 +11,34 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
     }
   >
     <div
-      className="sc-LzNNH cRMsGN"
+      className="sc-LzNNF jQXQMT"
     >
       <div
-        className="sc-LzNsa ewABiH"
+        className="sc-LzNrY cKGLbK"
       >
         <span
-          className="sc-LzNsb cdbWTB"
+          className="sc-LzNrZ gQzgxQ"
         >
           <img
             src="https://picsum.photos/50"
           />
         </span>
         <span
-          className="sc-LzNsb cdbWTB"
+          className="sc-LzNrZ gQzgxQ"
         >
           <img
             src="https://picsum.photos/50"
           />
         </span>
         <span
-          className="sc-LzNsb cdbWTB"
+          className="sc-LzNrZ gQzgxQ"
         >
           <img
             src="https://picsum.photos/50"
           />
         </span>
         <span
-          className="sc-LzNsc dsSAqB"
+          className="sc-LzNsa hGgtXK"
         >
           30
            Boosters
@@ -718,10 +718,10 @@ exports[`Storyshots Common / Contributors Contributor Default Avatar 1`] = `
     }
   >
     <div
-      className="sc-LzNNH cRMsGN"
+      className="sc-LzNNF jQXQMT"
     >
       <div
-        className="sc-LzNsC dHhKlW"
+        className="sc-LzNsd bbBurz"
         size={17}
       >
         v
@@ -1210,71 +1210,71 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
     }
   >
     <div
-      className="sc-LzNNH cRMsGN"
+      className="sc-LzNNF jQXQMT"
     >
       <div
-        className="sc-LzNrU ksaDFo"
+        className="sc-LzNrv lkKdJF"
       >
         <label
-          className="sc-LzNrV iFRHud"
+          className="sc-LzNrw eiAPBy"
         >
           Recent Boosters
         </label>
         <div
-          className="sc-LzNrW dXnEkD"
+          className="sc-LzNrU dVmJvp"
         >
           <img
-            className="sc-LzNrX kklmqI"
+            className="sc-LzNrV bIobcO"
             src="https://picsum.photos/50"
           />
           <div>
             <div
-              className="sc-LzNrY lhmmLG"
+              className="sc-LzNrW jWFDGs"
             >
               violetnight13
             </div>
             <div
-              className="sc-LzNrZ klsHUd"
+              className="sc-LzNrX eyysoX"
             >
               $2.5
             </div>
           </div>
         </div>
         <div
-          className="sc-LzNrW dXnEkD"
+          className="sc-LzNrU dVmJvp"
         >
           <img
-            className="sc-LzNrX kklmqI"
+            className="sc-LzNrV bIobcO"
             src="https://picsum.photos/50"
           />
           <div>
             <div
-              className="sc-LzNrY lhmmLG"
+              className="sc-LzNrW jWFDGs"
             >
               CaryRay
             </div>
             <div
-              className="sc-LzNrZ klsHUd"
+              className="sc-LzNrX eyysoX"
             >
               $3
             </div>
           </div>
         </div>
         <div
-          className="sc-LzNrW dXnEkD"
+          className="sc-LzNrU dVmJvp"
         >
           <img
-            className="sc-LzNrX kklmqI"
+            className="sc-LzNrV bIobcO"
             src="https://picsum.photos/50"
           />
           <div>
             <div
-              className="sc-LzNrY lhmmLG"
+              className="sc-LzNrW jWFDGs"
             >
               ronburgundy
             </div>
             <div
-              className="sc-LzNrZ klsHUd"
+              className="sc-LzNrX eyysoX"
             >
               $5
             </div>

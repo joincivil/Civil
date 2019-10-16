@@ -11,12 +11,12 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNR ftqpec"
+      className="sc-fzXfNP yyZrC"
     >
       Email Address Confirmed!
     </h2>
     <div
-      className="sc-fzXfNS sc-fzXfOr hBMDoG"
+      className="sc-fzXfNQ sc-fzXfNS bJjlSO"
     >
       Thanks for confirming your email address.
     </div>
@@ -30,7 +30,7 @@ exports[`Storyshots Common / Auth / VerifyToken Complete 1`] = `
     >
       <div>
         <div
-          className="sc-LzNxg sc-LzNxh kdPDup"
+          className="sc-LzNxe sc-LzNxf iYGefP"
         />
       </div>
     </div>
@@ -373,12 +373,12 @@ exports[`Storyshots Common / Auth / VerifyToken Error 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNR ftqpec"
+      className="sc-fzXfNP yyZrC"
     >
       Uh oh.
     </h2>
     <div
-      className="sc-fzXfNS sc-fzXfOr hBMDoG"
+      className="sc-fzXfNQ sc-fzXfNS bJjlSO"
     >
       <strong>
         Error is bad
@@ -693,7 +693,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     }
   >
     <h2
-      className="sc-fzXfNR ftqpec"
+      className="sc-fzXfNP yyZrC"
     >
       Confirming your email address...
     </h2>
@@ -707,7 +707,7 @@ exports[`Storyshots Common / Auth / VerifyToken Loading 1`] = `
     >
       <div>
         <div
-          className="sc-LzNxg sc-LzNxh kdPDup"
+          className="sc-LzNxe sc-LzNxf iYGefP"
         />
       </div>
     </div>
