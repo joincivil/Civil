@@ -125,24 +125,26 @@ export const StoryElementsFlex = styled.div`
 `;
 
 export const StoryRegistryLabel = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 22px;
   margin-bottom: 20px;
 `;
 
 export const StoryNewsroomName = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   font-size: 17px;
   font-weight: 700;
-  line-height: 25px;
-  margin-bottom: 2px;
+  line-height: 20px;
+  margin-bottom: 5px;
 `;
 
 export const StoryNewsroomURL = styled.a`
   color: ${colors.accent.CIVIL_BLUE};
   display: block;
+  font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 22px;
-  margin-bottom: 10px;
   text-decoration: none;
 
   &:hover {
@@ -151,6 +153,7 @@ export const StoryNewsroomURL = styled.a`
 `;
 
 export const StoryNewsroomSection = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 12px;
   width: 100%;
 
@@ -221,8 +224,9 @@ export const BlueLinkBtn = styled.a`
   font-weight: 700;
   justify-content: center;
   letter-spacing: 0.2px;
-  padding: 8px;
+  min-height: 20px;
   opacity: 1;
+  padding: 8px;
   text-decoration: none;
   transition: opactiy 0.2s ease;
   width: 100%;
@@ -236,8 +240,8 @@ export const BlueLinkBtn = styled.a`
 export const StoryRegistryDetailsStyled = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-bottom: 15px;
-  padding: 15px 0;
+  margin-bottom: 20px;
+  padding: 20px 0;
 `;
 
 export interface StoryRegistryStatusProps {
@@ -248,12 +252,26 @@ export const StoryRegistryStatusTextWrap = styled.div`
   border-left: 1px solid
     ${(props: StoryRegistryStatusProps) =>
       props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL};
-  padding: 0 15px;
+  padding: 0 50px 0 15px;
+  position: relative;
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+  }
+
+  svg {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 20px);
+  }
 `;
 
 export const RegistryStatusTag = styled.span`
   background-color: ${(props: StoryRegistryStatusProps) =>
-    props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL};
+    props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL_DARK};
   color: ${(props: StoryRegistryStatusProps) =>
     props.activeChallenge ? colors.accent.CIVIL_GRAY_0 : colors.basic.WHITE};
   font-family: ${fonts.SANS_SERIF};
@@ -285,8 +303,9 @@ export const StoryModalCloseBtn = styled.div`
   z-index: 1;
 `;
 
-export const StoryModalHeader = styled.div`
-  padding: 20px;
+export const StoryDetailsHeader = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 20px 0;
 `;
 
 export const StoryDetailsFullBleedHeader = styled.div`
@@ -297,6 +316,7 @@ export const StoryDetailsFullBleedHeader = styled.div`
 
 export const StoryDetailsContent = styled.div`
   background-color: ${colors.basic.WHITE};
+  font-family: ${fonts.SANS_SERIF};
   padding: 20px;
 `;
 

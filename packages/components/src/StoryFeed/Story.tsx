@@ -11,7 +11,7 @@ export interface StoryProps {
 export const Story: React.FunctionComponent<StoryProps> = props => {
   return (
     <>
-      <StoryLink onClick={() => props.handleOpenStory}>
+      <StoryLink onClick={props.handleOpenStory}>
         <StoryLinkLeft>
           <StoryTitle>{props.openGraphData.title}</StoryTitle>
           <TimeStamp>{props.createdAt}</TimeStamp>

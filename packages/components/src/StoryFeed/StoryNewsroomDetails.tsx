@@ -4,7 +4,7 @@ import { urlConstants as links } from "@joincivil/utils";
 import { CivilIcon } from "../icons";
 import {
   RegistryStatusTag,
-  StoryModalHeader,
+  StoryDetailsHeader,
   StoryDetailsContent,
   StoryNewsroomSection,
   StoryDetailsFooter,
@@ -13,6 +13,7 @@ import {
   StoryNewsroomURL,
   BlueLinkBtn,
   StoryETHAddress,
+  StoryDetailsFlex,
 } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData } from "./types";
 
@@ -26,25 +27,29 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
 
   return (
     <>
-      <StoryModalHeader>
+      <StoryDetailsHeader>
         <StoryRegistryLabel>
           <CivilIcon width={42} height={11} /> Registry
         </StoryRegistryLabel>
-        <StoryNewsroomName>{newsroom.charter.name}</StoryNewsroomName>
-        <StoryNewsroomURL href={newsroom.charter.newsroomUrl} target="_blank">
-          {newsroom.charter.newsroomUrl}
-        </StoryNewsroomURL>
-        {props.activeChallenge ? (
-          <RegistryStatusTag activeChallenge={true}>Challenged</RegistryStatusTag>
-        ) : (
-          <RegistryStatusTag activeChallenge={false}>Approved</RegistryStatusTag>
-        )}
-      </StoryModalHeader>
+        <StoryDetailsFlex>
+          <div>
+            <StoryNewsroomName>{newsroom.charter.name}</StoryNewsroomName>
+            <StoryNewsroomURL href={newsroom.charter.newsroomUrl} target="_blank">
+              {newsroom.charter.newsroomUrl}
+            </StoryNewsroomURL>
+          </div>
+          {props.activeChallenge ? (
+            <RegistryStatusTag activeChallenge={true}>Challenged</RegistryStatusTag>
+          ) : (
+            <RegistryStatusTag activeChallenge={false}>Approved</RegistryStatusTag>
+          )}
+        </StoryDetailsFlex>
+      </StoryDetailsHeader>
       <StoryDetailsContent>
         <StoryRegistryDetails activeChallenge={props.activeChallenge} />
         <StoryNewsroomSection>
           <h2>About</h2>
-          {newsroom.charter.mission.purpose}
+          <p>{newsroom.charter.mission.purpose}</p>
         </StoryNewsroomSection>
         <StoryNewsroomSection>
           <h3>Smart Contract Address</h3>
@@ -57,7 +62,7 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
       </StoryDetailsContent>
       <StoryDetailsFooter>
         <BlueLinkBtn href={links.REGISTRY + newsroom.contractAddress} target="_blank">
-          See Civil Registry Profile
+          View on Civil Registry
         </BlueLinkBtn>
       </StoryDetailsFooter>
     </>

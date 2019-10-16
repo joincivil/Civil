@@ -50,13 +50,13 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <StoryDetailsContent>
         <StoryDetailsFlex>
           <StoryTitle>{openGraphData.title}</StoryTitle>
-          <ShareButton onClick={() => props.handleShare} textBottom={true}></ShareButton>
+          <ShareButton onClick={props.handleShare} textBottom={true}></ShareButton>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
           <StoryNewsroomStatus
             newsroom={props.newsroom}
             activeChallenge={props.activeChallenge}
-            handleOpenNewsroom={() => props.handleOpenNewsroom}
+            handleOpenNewsroom={props.handleOpenNewsroom}
           />
           <TimeStamp>
             <TimeStampDot>&#183;</TimeStampDot> {props.createdAt}
@@ -76,7 +76,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryDetailsContent>
       <StoryDetailsFooter>
         <StoryDetailsFooterFlex>
-          <PaymentButton onClick={() => props.handlePayments} border={true} />
+          <PaymentButton onClick={props.handlePayments} border={true} />
           <BlueLinkBtn href={openGraphData.url} target="_blank">
             Read More
           </BlueLinkBtn>
