@@ -146,7 +146,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
             size="SMALL"
           >
             <input
-              checked={true}
+              checked={false}
               id="shouldPublicize"
               onChange={[Function]}
               type="checkbox"

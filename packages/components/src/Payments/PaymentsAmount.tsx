@@ -67,7 +67,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
           <Checkbox
             id="shouldPublicize"
             onClick={this.handleCheckBox}
-            checked={this.state.shouldPublicize}
+            checked={this.state.shouldPublicizeChecked}
             size={CheckboxSizes.SMALL}
           />
           <label htmlFor="shouldPublicize">
