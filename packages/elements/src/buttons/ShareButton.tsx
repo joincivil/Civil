@@ -18,7 +18,7 @@ export const ShareBtnStyled = styled.button`
   justify-content: center;
   line-spacing: 1;
   outline: none;
-  padding: 5px;
+  padding: 0;
 
   svg {
     margin: ${(props: ShareBtnStyleProps) => (props.textBottom ? "0 0 2px" : "0 2px 0 0")};

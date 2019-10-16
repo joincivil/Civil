@@ -15,6 +15,7 @@ import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 // import { PaymentButton } from "@joincivil/elements";
+import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;
@@ -29,6 +30,7 @@ export interface StoryDetailsProps {
 
 export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
   const { openGraphData } = props;
+  const publishedTime = getTimeSince(openGraphData.article.published_time);
 
   return (
     <>
@@ -48,6 +50,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryDetailsFlex>
         <StoryDescription>{openGraphData.description}</StoryDescription>
+        {publishedTime && <TimeStamp>{publishedTime}</TimeStamp>}
         <Contributors sortedContributors={props.sortedContributors} />
         <ContributorCount
           totalContributors={props.totalContributors}

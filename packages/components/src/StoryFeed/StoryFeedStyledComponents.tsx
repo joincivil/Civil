@@ -9,16 +9,16 @@ export const StoryFeedItemWrap = styled.div`
 `;
 
 export const StoryNewsroomStatusStyled = styled.div`
-  align-items: center;
-  display: flex;
   font-family: ${fonts.SANS_SERIF};
   font-size: 13px;
   font-weight: 600;
   line-height: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 
   a {
+    align-items: center;
     color: ${colors.primary.BLACK};
+    display: flex;
     transition: color 0.2s ease;
 
     &:hover {
@@ -27,7 +27,7 @@ export const StoryNewsroomStatusStyled = styled.div`
   }
 
   svg {
-    margin-left: 8px;
+    margin-left: 5px;
   }
 `;
 
@@ -37,7 +37,7 @@ export const StoryTitle = styled.h2`
   font-size: 17px;
   font-weight: 700;
   line-height: 25px;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   transition: color 0.2s ease;
 `;
 
@@ -45,7 +45,7 @@ export const StoryLink = styled.a`
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 100%;
 
   &:hover {
@@ -68,11 +68,15 @@ export const StoryDescription = styled.div`
 `;
 
 export const StoryImgSquare = styled.div`
+  display: flex;
   height: 90px;
+  justify-content: center;
+  overflow: hidden;
   width: 90px;
 
   img {
-    width: 100%;
+    height: 100%;
+    width: auto;
   }
 `;
 
@@ -85,10 +89,14 @@ export const StoryImgWide = styled.div`
   }
 `;
 
-export const StoryElements = styled.div`
+export const StoryElementsFlex = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
+
+  button:first-of-type {
+    margin-right: 10px;
+  }
 `;
 
 export const StoryRegistryLabel = styled.div`
@@ -156,7 +164,7 @@ export const StoryETHAddress = styled.span`
 `;
 
 export const TimeStamp = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_1};
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: 400;

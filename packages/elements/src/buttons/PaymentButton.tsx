@@ -10,14 +10,14 @@ export interface PaymentBtnStyleProps {
 export const PaymentBtnStyled = styled.button`
   align-items: center;
   border: ${(props: PaymentBtnStyleProps) => (props.border ? "1px solid" + colors.accent.CIVIL_BLUE : "none")};
-  color: ${(props: PaymentBtnStyleProps) => (props.border ? colors.accent.CIVIL_GRAY_2 : colors.accent.CIVIL_GRAY_0)};
+  color: ${(props: PaymentBtnStyleProps) => (props.border ? colors.accent.CIVIL_GRAY_0 : colors.accent.CIVIL_GRAY_2)};
   cursor: pointer;
   display: flex;
   font-size: ${(props: PaymentBtnStyleProps) => (props.border ? "13px" : "12px")};
   justify-content: center;
   line-spacing: 1;
   outline: none;
-  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "5px" : "5px 10px")};
+  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "5px 10px" : "0")};
 
   svg {
     margin-right: 2px;

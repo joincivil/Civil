@@ -5,7 +5,7 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
-import { StoryFeedItemWrap, StoryElements } from "./StoryFeedStyledComponents";
+import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
 import { PaymentButton, ShareButton } from "@joincivil/elements";
@@ -60,14 +60,18 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story createdAt={timeSinceArticleCreated} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
-          <StoryElements>
+          <Story
+            createdAt={timeSinceArticleCreated}
+            openGraphData={openGraphData}
+            handleOpenStory={this.openStoryDetails}
+          />
+          <StoryElementsFlex>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
-            <div>
+            <StoryElementsFlex>
               <PaymentButton onClick={this.openPayments} />
               <ShareButton onClick={this.openShare} />
-            </div>
-          </StoryElements>
+            </StoryElementsFlex>
+          </StoryElementsFlex>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails

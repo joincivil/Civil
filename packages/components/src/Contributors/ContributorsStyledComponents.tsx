@@ -76,7 +76,7 @@ export const ContributorCountAvatars = styled.span`
 `;
 
 export const ContributorsLabel = styled.span`
-  color: ${colors.accent.CIVIL_GRAY_1};
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: 400;
