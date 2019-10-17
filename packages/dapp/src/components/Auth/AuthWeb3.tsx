@@ -65,6 +65,9 @@ export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3
         setOnErrContinue({ cb: props.onLogInNoUserExists });
       } else if (err.toString().includes(CANCELLED)) {
         setOnErrContinue({ cb: props.onOuterClicked });
+        if (props.onOuterClicked) {
+          props.onOuterClicked();
+        }
       } else if (err.toString().includes(SWITCH_TO_SIGNUP)) {
         if (props.onUserSelectSignUp) {
           props.onUserSelectSignUp();
