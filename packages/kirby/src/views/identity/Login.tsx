@@ -2,13 +2,14 @@ import * as React from "react";
 import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
 import { RouteComponentProps } from "@reach/router";
 
-import { RadioGroup, RadioCardInput, Portis, MetaMask, ClipLoader } from "@joincivil/elements";
+import { ClipLoader } from "@joincivil/elements";
 
 import { Notice } from "../../common/text";
-import { EthereumChildPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
+import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
 import { WaitingForConnectionDiv, SwitchAuthTypeDiv } from "../../common/containers/layouts";
+import { WalletOptions } from "../../common/input/WalletOptions";
 
 const CIVIL_DOMAINS = [
   "http://localhost:3000",
@@ -26,7 +27,6 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
   const service = useKirbySelector((state: any) => state.civilid.pendingLoginRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
-  const hasInjectedWeb3 = (window as any).ethereum;
   const [hideSelections, setHideSelections] = React.useState(false);
   const [selectionProcess, setSelectionProcess] = React.useState("none");
 
@@ -60,9 +60,6 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
     (ctx.core.plugins.view as ViewPlugin).completeView();
   }
 
-  const metaMaskSubheading = hasInjectedWeb3
-    ? "Your browser has Web3 built-in! Click here to use your built-in Web3 wallet."
-    : "To use this option, you can install the MetaMask extension, or use another Web3 browser.";
   return (
     <CenteredPage>
       {isCivil ? null : (
@@ -79,22 +76,7 @@ export const Login: React.FunctionComponent<RouteComponentProps> = () => {
       )}
       {!hideSelections && (
         <>
-          <RadioGroup name="LoginProvider" onChange={(_: string, provider: string) => selection(provider)}>
-            <RadioCardInput
-              image={<MetaMask />}
-              value={ProviderTypes.METAMASK}
-              heading="Log in with MetaMask"
-              subheading={metaMaskSubheading}
-              disabled={!hasInjectedWeb3}
-              prioritized={hasInjectedWeb3}
-            />
-            <RadioCardInput
-              image={<Portis />}
-              value={ProviderTypes.PORTIS}
-              heading="Log in with Portis"
-              subheading="Web3 Wallet that does not require any downloads"
-            />
-          </RadioGroup>
+          <WalletOptions optionPrefix="Log in with " onChange={selection} />
           <SwitchAuthTypeDiv>
             Not a Civil member?{" "}
             <a

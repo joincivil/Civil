@@ -18,16 +18,18 @@ import {
   PaymentEthNoticeText,
   PaymentEthTermsText,
 } from "./PaymentsTextComponents";
+import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsEthFormProps {
   postId: string;
   etherToSpend: number;
   usdToSpend: number;
+  shouldPublicize: boolean;
   newsroomName: string;
   paymentAddress: EthAddress;
   userAddress?: EthAddress;
   savePayment: MutationFunc;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsEthFormState {
@@ -50,7 +52,9 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   public render(): JSX.Element {
     const PAY_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
       [progressModalStates.IN_PROGRESS]: <PaymentInProgressText />,
-      [progressModalStates.SUCCESS]: <PaymentSuccessText />,
+      [progressModalStates.SUCCESS]: (
+        <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.props.usdToSpend} />
+      ),
       [progressModalStates.ERROR]: <PaymentErrorText />,
     };
 
@@ -120,6 +124,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           amount: this.props.etherToSpend,
           usdAmount: this.props.usdToSpend.toString(),
           emailAddress: this.state.email,
+          shouldPublicize: this.props.shouldPublicize,
         },
       },
     });

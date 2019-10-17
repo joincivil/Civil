@@ -2,10 +2,11 @@ import * as React from "react";
 import queryString from "query-string";
 import { RouteComponentProps } from "@reach/router";
 
-import { LogInWithMetaMask, LogInWithPortis, CoreContext, useSelector, CenteredPage } from "@kirby-web3/child-react";
+import { CoreContext, useSelector, CenteredPage } from "@kirby-web3/child-react";
 import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
 import { ViewPlugin } from "@kirby-web3/child-core";
 import { ClipLoader } from "@joincivil/elements";
+import { WalletOptions } from "../common/input/WalletOptions";
 
 interface Web3EnableProps extends RouteComponentProps {
   network?: string;
@@ -62,8 +63,8 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
 
   return (
     <CenteredPage>
-      <LogInWithMetaMask onSelection={selection} />
-      <LogInWithPortis onSelection={selection} />
+      <strong>Enable your web3 wallet</strong>
+      <WalletOptions onChange={selection} />
     </CenteredPage>
   );
 };

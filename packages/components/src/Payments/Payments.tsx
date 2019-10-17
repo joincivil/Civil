@@ -3,12 +3,14 @@ import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsWrapper } from "./PaymentsWrapper";
+import { PaymentsAmount } from "./PaymentsAmount";
 import { EthAddress } from "@joincivil/core";
 import { CivilContext, ICivilContext } from "../";
+import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
+import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 export interface PaymentsProps {
   postId: string;
-  usdToSpend: number;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
@@ -17,9 +19,9 @@ export interface PaymentsProps {
 export interface PaymentsStates {
   isWalletConnected: boolean;
   userAddress?: EthAddress;
-  payEth: boolean;
-  payStripe: boolean;
-  isPaymentSuccessfull: boolean;
+  usdToSpend: number;
+  shouldPublicize: boolean;
+  paymentState: PAYMENT_STATE;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -30,9 +32,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     super(props);
     this.state = {
       isWalletConnected: false,
-      payEth: false,
-      payStripe: false,
-      isPaymentSuccessfull: false,
+      usdToSpend: 0,
+      shouldPublicize: false,
+      paymentState: PAYMENT_STATE.SELECT_AMOUNT,
     };
   }
 
@@ -45,62 +47,76 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   }
 
   public render(): JSX.Element {
-    if (this.state.payEth) {
+    const { isWalletConnected, userAddress, usdToSpend, shouldPublicize, paymentState } = this.state;
+    const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
+
+    if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
-        <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={true} handleBack={this.handleBack}>
-          <PaymentsEth
-            postId={this.props.postId}
-            newsroomName={this.props.newsroomName}
-            paymentAddress={this.props.paymentAddress}
-            userAddress={this.state.userAddress}
-            usdToSpend={this.props.usdToSpend}
-            isWalletConnected={this.state.isWalletConnected}
-            handlePaymentSuccess={this.handlePaymentSuccess}
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+          <PaymentsOptions
+            usdToSpend={usdToSpend}
+            isStripeConnected={isStripeConnected}
+            handleNext={this.handleUpdateState}
           />
         </PaymentsWrapper>
       );
     }
 
-    if (this.state.payStripe) {
+    if (paymentState === PAYMENT_STATE.ETH_PAYMENT) {
       return (
-        <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={true} handleBack={this.handleBack}>
-          <PaymentsStripe
-            postId={this.props.postId}
-            newsroomName={this.props.newsroomName}
-            usdToSpend={this.props.usdToSpend}
-            handlePaymentSuccess={this.handlePaymentSuccess}
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+          <PaymentsEth
+            postId={postId}
+            newsroomName={newsroomName}
+            paymentAddress={paymentAddress}
+            shouldPublicize={shouldPublicize}
+            userAddress={userAddress}
+            usdToSpend={usdToSpend}
+            isWalletConnected={isWalletConnected}
+            handlePaymentSuccess={this.handleUpdateState}
           />
         </PaymentsWrapper>
       );
     }
-    if (this.state.isPaymentSuccessfull) {
-      return <>Payment Successful!</>;
+
+    if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT) {
+      return (
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+          <PaymentsStripe
+            postId={postId}
+            newsroomName={newsroomName}
+            shouldPublicize={shouldPublicize}
+            usdToSpend={usdToSpend}
+            handlePaymentSuccess={this.handleUpdateState}
+          />
+        </PaymentsWrapper>
+      );
+    }
+
+    if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
+      return <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.state.usdToSpend} />;
     }
 
     return (
-      <PaymentsWrapper usdToSpend={this.props.usdToSpend} showBackBtn={false}>
-        <PaymentsOptions
-          isStripeConnected={this.props.isStripeConnected}
-          handlePayEth={this.handlePayEth}
-          handlePayStripe={this.handlePayStripe}
+      <PaymentsWrapper newsroomName={newsroomName}>
+        <PaymentsAmount
+          newsroomName={newsroomName}
+          suggestedAmounts={SuggestedPaymentAmounts}
+          handleAmount={this.handleAmount}
         />
       </PaymentsWrapper>
     );
   }
 
-  private handleBack = () => {
-    this.setState({ payEth: false, payStripe: false, isPaymentSuccessfull: false });
+  private handleUpdateState = (paymentState: PAYMENT_STATE) => {
+    if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {
+      this.setState({ paymentState, usdToSpend: 2 });
+    } else {
+      this.setState({ paymentState });
+    }
   };
 
-  private handlePayEth = () => {
-    this.setState({ payEth: true, payStripe: false, isPaymentSuccessfull: false });
-  };
-
-  private handlePayStripe = () => {
-    this.setState({ payStripe: true, payEth: false, isPaymentSuccessfull: false });
-  };
-
-  private handlePaymentSuccess = () => {
-    this.setState({ isPaymentSuccessfull: true, payEth: false, payStripe: false });
+  private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+    this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
   };
 }

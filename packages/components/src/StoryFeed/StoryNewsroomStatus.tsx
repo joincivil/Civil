@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StoryNewsroomStatusStyled } from "./StoryFeedStyledComponents";
-import { colors } from "../styleConstants";
+import { ChallengeMarkIcon, TrustMarkIcon } from "@joincivil/elements";
 import { StoryNewsroomData } from "./types";
 
 export interface StoryNewsroomStatusProps {
@@ -14,15 +14,10 @@ export const StoryNewsroomStatus: React.FunctionComponent<StoryNewsroomStatusPro
     <StoryNewsroomStatusStyled>
       <a onClick={props.handleOpenNewsroom}>
         {props.newsroom.charter.name}
-        {/* TODO(suddy) get approved/challenged icons */}
         {props.activeChallenge ? (
-          <svg height="14" width="14">
-            <circle cx="7" cy="7" r="7" fill={colors.accent.CIVIL_YELLOW} />
-          </svg>
+          <ChallengeMarkIcon width={20} height={20} />
         ) : (
-          <svg height="14" width="14">
-            <circle cx="7" cy="7" r="7" fill={colors.accent.CIVIL_TEAL} />
-          </svg>
+          <TrustMarkIcon width={20} height={20} />
         )}
       </a>
     </StoryNewsroomStatusStyled>
