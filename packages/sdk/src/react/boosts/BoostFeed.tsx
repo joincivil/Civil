@@ -38,7 +38,7 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
             return "Error loading Boosts.";
           }
 
-          if (!feedQueryData.postsSearch.posts.length) {
+          if (!feedQueryData.postsSearch.posts || !feedQueryData.postsSearch.posts.length) {
             return <NoBoostsText />;
           }
 
