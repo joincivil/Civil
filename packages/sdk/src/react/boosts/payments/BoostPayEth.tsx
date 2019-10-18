@@ -73,24 +73,19 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     };
   }
 
-  public async componentDidUpdate(prevProps: BoostPayEthProps): Promise<void> {
-    if (!prevProps.selected && this.props.selected && !this.state.ethEnableCalled && this.context.civil) {
-      this.setState({
-        ethEnableCalled: true,
-      });
-      await this.context.civil.currentProviderEnable();
-      this.setState({
-        walletConnected: true,
-        // they clearly have a wallet, so:
-        isMobileWalletModalOpen: false,
-      });
-    }
-  }
-
   public async componentDidMount(): Promise<void> {
     this.setState({
       isMobileWalletModalOpen: this.showMobileWalletModal(),
     });
+    if (this.props.selected) {
+      await this.ensureEthEnabled();
+    }
+  }
+
+  public async componentDidUpdate(prevProps: BoostPayEthProps): Promise<void> {
+    if (!prevProps.selected && this.props.selected) {
+      await this.ensureEthEnabled();
+    }
   }
 
   public render(): JSX.Element {
@@ -99,6 +94,16 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     }
 
     return <>{this.renderDefaultOption()}</>;
+  }
+
+  private async ensureEthEnabled(): Promise<void> {
+    if (this.state.ethEnableCalled || !this.context.civil) {
+      return;
+    }
+
+    this.setState({ ethEnableCalled: true });
+    await this.context.civil.currentProviderEnable();
+    this.setState({ walletConnected: true });
   }
 
   private renderDefaultOption = (): JSX.Element => {
@@ -155,7 +160,10 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
           </BoostButton>
         </BoostFlexEth>
 
-        <BoostModal open={this.state.isMobileWalletModalOpen} handleClose={this.handleClose}>
+        <BoostModal
+          open={this.state.isMobileWalletModalOpen && !this.state.walletConnected}
+          handleClose={this.handleClose}
+        >
           <BoostMobileWalletModalText />
         </BoostModal>
       </>
