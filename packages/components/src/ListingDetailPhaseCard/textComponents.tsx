@@ -191,13 +191,13 @@ export const WhitelistedNewroomsToolTipText: React.FunctionComponent = props => 
   return (
     <>
       <p>
-        This Newsroom has been approved to be on the Civil Registry, on condition they commit to uphold the values of
-        the Civil Constitution.
+        This Newsroom has committed to uphold the values of the Civil Constitution and has been approved by the Civil
+        community to be on the Civil Registry.
       </p>
       <p>
-        CVL token holders are the stewards of ethical journalism on the Civil Registry. If for any reason you believe
-        that a Newsroom has violated either the Civil Constitution or the Newsroom's own stated mission and charter, you
-        may challenge them at any time.
+        The community of CVL token holders are the stewards of ethical journalism on the Civil Registry. If for any
+        reason you believe that a Newsroom has violated either the Civil Constitution or the Newsroom's own stated
+        mission and charter, you may challenge them at any time.
       </p>
     </>
   );

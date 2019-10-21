@@ -8,8 +8,10 @@ import { BoostShareHeading } from "./BoostStyledComponents";
 const Wrapper = styled.div`
   position: relative;
   z-index: 10;
+  margin-left: 24px;
   ${mediaQueries.MOBILE_SMALL} {
     display: flex;
+    margin-bottom: 8px;
   }
 `;
 

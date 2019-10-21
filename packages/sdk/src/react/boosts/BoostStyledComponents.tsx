@@ -313,8 +313,6 @@ export const BoostDescription = styled.div`
 export const BoostDescriptionWhy = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
-  width: 500px;
-  max-width: 100%;
 
   p {
     font-size: 18px;
@@ -407,8 +405,9 @@ export const BoostPayCardDetails = styled.div`
   }
 
   a {
-    color: ${colors.accent.CIVIL_BLUE}
+    color: ${colors.accent.CIVIL_BLUE};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;

@@ -29,6 +29,7 @@ export interface BoostPayOptionsProps {
   paymentAddr: EthAddress;
   isStripeConnected: boolean;
   stripeAccountID: string;
+  handleBackToListing(): void;
   handlePaymentSuccess(): void;
 }
 
@@ -179,6 +180,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
             paymentType={PAYMENT_TYPE.STRIPE}
             paymentStarted={true}
             stripeAccountID={this.props.stripeAccountID}
+            handleBackToListing={this.props.handleBackToListing}
             handleNext={this.handleStripeNext}
             handlePaymentSuccess={handlePaymentSuccess}
           />
@@ -211,6 +213,7 @@ export class BoostPayOptions extends React.Component<BoostPayOptionsProps, Boost
                   optionLabel={<PaymentLabelCardText />}
                   paymentType={PAYMENT_TYPE.STRIPE}
                   stripeAccountID={this.props.stripeAccountID}
+                  handleBackToListing={this.props.handleBackToListing}
                   handleNext={this.handleStripeNext}
                   handlePaymentSuccess={handlePaymentSuccess}
                   handlePaymentSelected={this.handlePaymentSelected}
