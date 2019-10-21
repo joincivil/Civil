@@ -4,9 +4,13 @@ import styled from "styled-components";
 import { Story } from "./Story";
 import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
+import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
+import { ContributorCount } from "../Contributors";
+import { PaymentButton, ShareButton } from "@joincivil/elements";
+import { StoryElementsFlex } from "./StoryFeedStyledComponents";
 
 const Container = styled.div`
-  width: 400px;
+  width: 360px;
 `;
 
 const contributors = [
@@ -55,6 +59,9 @@ const openGraphData = {
   ],
   title: "How TikTok opened a window into China’s police state",
   url: "https://codastory.com/authoritarian-tech/tiktok-uyghur-china/",
+  article: {
+    published_time: "2 days ago",
+  },
 };
 
 const onClickFunc = () => {
@@ -62,10 +69,18 @@ const onClickFunc = () => {
 };
 
 storiesOf("Pulse / Story Feed", module)
-  .add("Story", () => {
+  .add("Story Card", () => {
     return (
       <Container>
-        <Story createdAt={"2019-08-28T15:58:32Z"} openGraphData={openGraphData} handleOpenStory={onClickFunc} />
+        <StoryNewsroomStatus newsroom={newsroom} activeChallenge={false} handleOpenNewsroom={onClickFunc} />
+        <Story createdAt={"1 min ago"} openGraphData={openGraphData} handleOpenStory={onClickFunc} />
+        <StoryElementsFlex>
+          <ContributorCount totalContributors={15} displayedContributors={contributors} />
+          <StoryElementsFlex>
+            <PaymentButton onClick={onClickFunc} />
+            <ShareButton onClick={onClickFunc} />
+          </StoryElementsFlex>
+        </StoryElementsFlex>
       </Container>
     );
   })
@@ -74,12 +89,14 @@ storiesOf("Pulse / Story Feed", module)
       <Container>
         <StoryDetails
           activeChallenge={false}
-          createdAt={"2019-08-28T15:58:32Z"}
+          createdAt={"1 min ago"}
           newsroom={newsroom}
           openGraphData={openGraphData}
           displayedContributors={contributors}
           sortedContributors={contributors}
           totalContributors={30}
+          handleShare={onClickFunc}
+          handlePayments={onClickFunc}
           handleOpenNewsroom={onClickFunc}
         />
       </Container>

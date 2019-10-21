@@ -15,9 +15,9 @@ export const StoryNewsroomStatus: React.FunctionComponent<StoryNewsroomStatusPro
       <a onClick={props.handleOpenNewsroom}>
         {props.newsroom.charter.name}
         {props.activeChallenge ? (
-          <ChallengeMarkIcon width={20} height={20} />
+          <ChallengeMarkIcon width={18} height={18} />
         ) : (
-          <TrustMarkIcon width={20} height={20} />
+          <TrustMarkIcon width={18} height={18} />
         )}
       </a>
     </StoryNewsroomStatusStyled>

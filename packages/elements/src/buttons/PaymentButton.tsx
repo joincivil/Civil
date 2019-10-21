@@ -10,14 +10,16 @@ export interface PaymentBtnStyleProps {
 export const PaymentBtnStyled = styled.button`
   align-items: center;
   border: ${(props: PaymentBtnStyleProps) => (props.border ? "1px solid" + colors.accent.CIVIL_BLUE : "none")};
-  color: ${(props: PaymentBtnStyleProps) => (props.border ? colors.accent.CIVIL_GRAY_2 : colors.accent.CIVIL_GRAY_0)};
+  border-radius: 2px;
+  color: ${(props: PaymentBtnStyleProps) => (props.border ? colors.accent.CIVIL_GRAY_0 : colors.accent.CIVIL_GRAY_2)};
   cursor: pointer;
   display: flex;
   font-size: ${(props: PaymentBtnStyleProps) => (props.border ? "13px" : "12px")};
+  font-weight: ${(props: PaymentBtnStyleProps) => (props.border ? "700" : "400")};
   justify-content: center;
-  line-spacing: 1;
   outline: none;
-  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "0" : "5px 10px")};
+  padding: ${(props: PaymentBtnStyleProps) => (props.border ? "3px 8px" : "0")};
+  transition: color 0.2s ease;
 
   svg {
     margin-right: 2px;
@@ -29,6 +31,8 @@ export const PaymentBtnStyled = styled.button`
   }
 
   &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+
     svg path {
       fill: ${colors.accent.CIVIL_BLUE};
     }

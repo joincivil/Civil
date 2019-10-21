@@ -21,6 +21,9 @@ export const STORY_FEED_QUERY = gql`
             images {
               url
             }
+            article {
+              published_time
+            }
           }
           channel {
             isStripeConnected

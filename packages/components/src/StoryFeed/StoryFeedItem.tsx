@@ -5,10 +5,11 @@ import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
-import { StoryFeedItemWrap, StoryElements } from "./StoryFeedStyledComponents";
+import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
-import { PaymentButton } from "@joincivil/elements";
+import { PaymentButton, ShareButton } from "@joincivil/elements";
+import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -49,6 +50,8 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       totalContributors,
     } = this.props;
 
+    const timeSinceArticleCreated = getTimeSince(createdAt);
+
     return (
       <>
         <StoryFeedItemWrap>
@@ -57,21 +60,30 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story createdAt={createdAt} openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
-          <StoryElements>
+          <Story
+            createdAt={timeSinceArticleCreated}
+            openGraphData={openGraphData}
+            handleOpenStory={this.openStoryDetails}
+          />
+          <StoryElementsFlex>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
-            <PaymentButton onClick={this.openPayments} />
-          </StoryElements>
+            <StoryElementsFlex>
+              <PaymentButton onClick={this.openPayments} />
+              <ShareButton onClick={this.openShare} />
+            </StoryElementsFlex>
+          </StoryElementsFlex>
         </StoryFeedItemWrap>
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
             activeChallenge={activeChallenge}
-            createdAt={createdAt}
+            createdAt={timeSinceArticleCreated}
             newsroom={newsroom}
             openGraphData={openGraphData}
             displayedContributors={displayedContributors}
             sortedContributors={sortedContributors}
             totalContributors={totalContributors}
+            handleShare={this.openShare}
+            handlePayments={this.openPayments}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
         </StoryModal>
@@ -92,6 +104,10 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
 
   private openPayments = () => {
     this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+  };
+
+  private openShare = () => {
+    console.log("share TKTK");
   };
 
   private openStoryDetails = () => {

@@ -16,9 +16,11 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
           <StoryTitle>{props.openGraphData.title}</StoryTitle>
           <TimeStamp>{props.createdAt}</TimeStamp>
         </StoryLinkLeft>
-        <StoryImgSquare>
-          <img src={props.openGraphData.images[0].url} />
-        </StoryImgSquare>
+        {props.openGraphData.images && (
+          <StoryImgSquare>
+            <img src={props.openGraphData.images[0].url} />
+          </StoryImgSquare>
+        )}
       </StoryLink>
     </>
   );
