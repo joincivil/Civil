@@ -68,7 +68,7 @@ storiesOf("Pattern Library / Inputs", module)
     return (
       <ControlComponent>
         {(state: any, onChange: changeCallback) => (
-          <CurrencyInput label="Currency Input" placeholder="$0.00" name="CurrencyInput" onChange={onChange} />
+          <CurrencyInput label="Currency Input" placeholder="$0.00" min="2" step="2" name="CurrencyInput" onChange={onChange} />
         )}
       </ControlComponent>
     );

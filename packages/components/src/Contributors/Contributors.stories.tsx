@@ -36,7 +36,7 @@ storiesOf("Common / Contributors", module)
   .add("Contributors", () => {
     return (
       <Container>
-        <Contributors label={"Recent Contributors"} sortedContributors={contributors} />
+        <Contributors sortedContributors={contributors} />
       </Container>
     );
   })
