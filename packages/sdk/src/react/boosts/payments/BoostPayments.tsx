@@ -129,6 +129,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         boostId={props.boostId}
         isStripeConnected={props.isStripeConnected}
         stripeAccountID={props.stripeAccountID}
+        handleBackToListing={props.handleBackToListing}
         handlePaymentSuccess={() => props.handlePaymentSuccess()}
       />
     </BoostWrapper>

@@ -1,12 +1,20 @@
 import * as React from "react";
+import styled from "styled-components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { boostPayStripeMutation } from "../queries";
 import makeAsyncScriptLoader from "react-async-script";
 import { BoostPayCardDetails, BoostFlexCenter, BoostButton } from "../BoostStyledComponents";
 import { StripeProvider, Elements } from "react-stripe-elements";
 import BoostPayFormStripe from "./BoostPayFormStripe";
-import { CivilContext, ICivilContext, LoadingMessage } from "@joincivil/components";
+import { CivilContext, ICivilContext, LoadingMessage, ChevronAnchor, colors } from "@joincivil/components";
 import { BoostPayOption } from "./BoostPayOption";
+
+export const MinPayWarning = styled.p`
+  color: ${colors.accent.CIVIL_RED};
+  a {
+    display: inline-block;
+  }
+`;
 
 export interface BoostPayStripeProps {
   boostId: string;
@@ -18,6 +26,7 @@ export interface BoostPayStripeProps {
   optionLabel: string | JSX.Element;
   paymentStarted?: boolean;
   stripeAccountID: string;
+  handleBackToListing(): void;
   handleNext(usdToSpend: number): void;
   handlePaymentSelected?(paymentType: string): void;
   handlePaymentSuccess(): void;
@@ -66,9 +75,20 @@ export class BoostPayStripe extends React.Component<BoostPayStripeProps, BoostPa
                 .
               </p>
               {this.props.selected && (
-                <BoostButton onClick={() => this.props.handleNext(this.props.usdToSpend)}>Next</BoostButton>
+                <BoostButton
+                  onClick={() => this.props.handleNext(this.props.usdToSpend)}
+                  disabled={this.props.usdToSpend < 2}
+                >
+                  Next
+                </BoostButton>
               )}
             </BoostFlexCenter>
+            {this.props.selected && this.props.usdToSpend < 2 && (
+              <MinPayWarning>
+                Due to credit card processing fees, the minimum boost amount for cards is $2.00.{" "}
+                <ChevronAnchor onClick={this.props.handleBackToListing}>Change boost amount</ChevronAnchor>
+              </MinPayWarning>
+            )}
           </BoostPayCardDetails>
         </BoostPayOption>
       </>

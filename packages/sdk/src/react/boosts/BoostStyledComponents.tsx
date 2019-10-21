@@ -405,8 +405,9 @@ export const BoostPayCardDetails = styled.div`
   }
 
   a {
-    color: ${colors.accent.CIVIL_BLUE}
+    color: ${colors.accent.CIVIL_BLUE};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;
