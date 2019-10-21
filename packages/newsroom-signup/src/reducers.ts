@@ -83,11 +83,24 @@ export function newsrooms(
         isEditor: action.data.isEditor,
       });
     case newsroomActions.SET_MULTISIG_ADDRESS:
+      if (
+        state.get(action.data.address) &&
+        state.get(action.data.address).multisigAddress === action.data.multisigAddress
+      ) {
+        return state;
+      }
       return state.set(action.data.address, {
         ...state.get(action.data.address),
         multisigAddress: action.data.multisigAddress,
       });
     case newsroomActions.SET_MULTISIG_BALANCE:
+      if (
+        state.get(action.data.address) &&
+        state.get(action.data.address).multisigBalance &&
+        state.get(action.data.address).multisigBalance!.toString() === action.data.multisigBalance.toString()
+      ) {
+        return state;
+      }
       return state.set(action.data.address, {
         ...state.get(action.data.address),
         multisigBalance: action.data.multisigBalance,
