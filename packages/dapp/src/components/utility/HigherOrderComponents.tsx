@@ -18,6 +18,7 @@ import {
   PHASE_TYPE_FLAVOR_TEXT,
   AppealChallengeResultsProps,
   AppealChallengePhaseProps,
+  ErrorLoadingData,
 } from "@joincivil/components";
 import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
 import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
@@ -194,8 +195,11 @@ export const connectParameters = <TOriginalProps extends any>(
       return (
         <Query query={PARAMETERS_QUERY} variables={{ input: parametersArray }}>
           {({ loading, error, data }) => {
-            if (loading || error) {
+            if (loading) {
               return <></>;
+            } else if (error) {
+              console.error("error retrieving parameters: ", error);
+              return <ErrorLoadingData />;
             }
             const parameters = Map<string, BigNumber>(
               data.parameters.map(param => {
