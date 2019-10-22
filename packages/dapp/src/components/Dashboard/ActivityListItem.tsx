@@ -6,7 +6,7 @@ import { BigNumber } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { ListingWrapper, WrappedChallengeData, UserChallengeData, CharterData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
-import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag, colors } from "@joincivil/components";
+import { DashboardActivityItem, PHASE_TYPE_NAMES, FeatureFlag } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { routes } from "../../constants";

@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
-import { ErrorIcon } from "../icons";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
@@ -20,7 +19,6 @@ import {
   StyledDashboardNewsroomTokensContainer,
   StyledDashboardNewsroomTokensLabel,
   StyledCVLLabel,
-  StyledWarningText,
 } from "./DashboardStyledComponents";
 import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 import { DashboardNewsroomSubmitLink } from "./DashboardNewsroomSubmitLink";

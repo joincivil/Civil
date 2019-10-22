@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Prompt } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   colors,
@@ -269,8 +270,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
             if (!userLoading && !user) {
               return (
                 <BoostWrapper>
-                  {/*@TODO/auth Add redirect param when we one day implement that.*/}
-                  You must <a href="/auth/login">login</a> to edit a Boost.
+                  You must log in to edit a Boost. Please use the "Log In" link in the header to do so.
                 </BoostWrapper>
               );
             }
@@ -301,8 +301,8 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                     return (
                       <BoostWrapper>
                         Your newsroom <b>{this.props.newsroomData.name}</b> has not yet applied to the Civil Registry.
-                        Please <a href="/apply-to-registry">continue your newsroom application</a> and then, once you
-                        have applied and your newsroom has been approved, you can return to create a Boost.
+                        Please <Link to="/apply-to-registry">continue your newsroom application</Link> and then, once
+                        you have applied and your newsroom has been approved, you can return to create a Boost.
                       </BoostWrapper>
                     );
                   }
@@ -311,8 +311,8 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                     return (
                       <BoostWrapper>
                         Your newsroom <b>{this.props.newsroomData.name}</b> is not currently approved on the Civil
-                        Registry. Please <a href="/dashboard/newsrooms">visit your newsroom dashboard</a> to check on
-                        the status of your application. Once your newsroom is approved, you can return to create a
+                        Registry. Please <Link to="/dashboard/newsrooms">visit your newsroom dashboard</Link> to check
+                        on the status of your application. Once your newsroom is approved, you can return to create a
                         Boost.
                       </BoostWrapper>
                     );
