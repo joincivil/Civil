@@ -100,23 +100,6 @@ const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNews
 const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStatusBase);
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
-  const { isUnderChallenge } = props;
-  const renderEditLink = () => {
-    if (isUnderChallenge) {
-      return (
-        <StyledWarningText>
-          <ErrorIcon width={16} height={16} /> Your charter is locked until the challenge period has ended.
-        </StyledWarningText>
-      );
-    }
-
-    return (
-      <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
-        Manage Newsroom
-      </ChevronAnchor>
-    );
-  };
-
   return (
     <StyledDashboardNewsroom>
       <StyledDashboardNewsroomSection>
@@ -124,7 +107,9 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomName>{props.newsroomName}</StyledDashboardNewsroomName>
 
           <StyledDashboardNewsroomLinks>
-            {renderEditLink()}
+            <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
+              Manage Newsroom
+            </ChevronAnchor>
             <ChevronAnchor component={Link} to={props.listingDetailURL}>
               View on Registry
             </ChevronAnchor>
