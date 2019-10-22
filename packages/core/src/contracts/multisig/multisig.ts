@@ -174,7 +174,7 @@ export class Multisig extends BaseWrapper<MultiSigWalletContract> {
         try {
           id = new BigNumber(idFromReceipt).toNumber();
         } catch (err) {
-          // @TODO We used to get transaction ID from `event.returnValues.transactionId` and convert it to number and pass into `this.transaction`. Since web3 update, `event.returnValues` doesn't exist, but there is `event.args.transactionId`, but it's too big a number to be converted into a number. Not sure how this return value is being used or if it'll be an issue to leave it as a string, but just leaving it for now to get newsroom withdraw to work.
+          // @TODO We used to get transaction ID from `event.returnValues.transactionId` and convert it to number and pass into `this.transaction`. Since web3 update, `event.returnValues` doesn't exist, but there is `event.args.transactionId`, but it's too big a number to be converted into a number. Not sure how this return value is being used or if it'll be an issue to leave it as a string, but just leaving it for now to get newsroom withdraw to work. Also an issue in `core/src/contracts/multisig/basemultisigproxy.ts`.
           console.warn(
             "Failed to convert receipt log event transaction ID into number to create MultisigTransaction to return in receipt. Error:",
             err,
