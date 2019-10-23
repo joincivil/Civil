@@ -112,16 +112,16 @@ exports[`Storyshots Common / Share Share Story 1`] = `
             >
               <g
                 fill="none"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 stroke="none"
-                stroke-width="1"
+                strokeWidth="1"
               >
                 <polygon
                   points="4 4 28 4 28 28 4 28"
                 />
                 <g
                   fill="#191919"
-                  fill-rule="nonzero"
+                  fillRule="nonzero"
                   transform="translate(7, 7)"
                 >
                   <path
