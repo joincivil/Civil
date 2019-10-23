@@ -81,9 +81,11 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
                     </g>
                   </svg>
                   <br />
-                  <p>
+                  <span
+                    className="sc-fzXfPL ixpthI"
+                  >
                     Drag and drop an image here
-                  </p>
+                  </span>
                 </div>
               </section>
               or

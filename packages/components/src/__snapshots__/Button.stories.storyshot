@@ -12,10 +12,6 @@ exports[`Storyshots Pattern Library / Buttons Button 1`] = `
   >
     <div
       className="sc-LzNNE iWSyiS"
-    >
-      <button
-        className="sc-fzXfLO sc-fzXfLP ewtwbh"
-        theme={
           Object {
             "primaryButtonBackground": "#2B56FF",
             "primaryButtonColor": "#FFFFFF",
@@ -506,21 +502,13 @@ exports[`Storyshots Pattern Library / Buttons CardTransactionButton 1`] = `
     >
       <p>
         This is a Transaction Button styled as a Card, and can contain any markup
-      </p>
-      <div
-        className="sc-fzXfQo sc-fzXfQp jAVnEs"
-        onClick={[Function]}
-      >
+      className="sc-LzNNE iWSyiS"
         Transaction
       </div>
     </div>
   </div>
   <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
+        className="sc-fzXfQo sc-fzXfQp jAVnEs"
         "border": "none",
         "borderRadius": "0 0 0 5px",
         "color": "#fff",
@@ -955,11 +943,7 @@ exports[`Storyshots Pattern Library / Buttons DarkButton 1`] = `
             "darkButtonHoverColor": "#FFFFFF",
             "darkButtonTextTransform": "none",
           }
-        }
-        type="button"
-      >
-        Dark Button
-      </button>
+      className="sc-LzNNE iWSyiS"
     </div>
   </div>
   <button
@@ -1406,11 +1390,7 @@ exports[`Storyshots Pattern Library / Buttons InvertedButton 1`] = `
       </button>
     </div>
   </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
+      className="sc-LzNNE iWSyiS"
         "background": "#027ac5",
         "border": "none",
         "borderRadius": "0 0 0 5px",
@@ -1854,17 +1834,10 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
         }
         type="button"
       >
-        <div
-          className="sc-LzMWs fAaGun"
-        >
-          <img
-            className="sc-AykKH jXAxor"
-            src="test-file-stub"
-          />
-        </div>
-        MetaMaskLogo Transaction Button
-      </button>
-    </div>
+      className="sc-LzNNE iWSyiS"
+    >
+      <button
+        className="sc-fzXfLO sc-fzXfLP sc-LzMWr irHCVp"
   </div>
   <button
     className="info__show-button"
@@ -1882,11 +1855,7 @@ exports[`Storyshots Pattern Library / Buttons MetaMaskLogoButton 1`] = `
         "padding": "5px 15px",
         "position": "fixed",
         "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
+          className="sc-LzMWs fAaGun"
     Show Info
   </button>
   <div
@@ -2325,11 +2294,7 @@ exports[`Storyshots Pattern Library / Buttons SecondaryButton 1`] = `
         "cursor": "pointer",
         "display": "block",
         "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
+      className="sc-LzNNE iWSyiS"
       }
     }
     type="button"
@@ -2776,11 +2741,7 @@ exports[`Storyshots Pattern Library / Buttons sizes 1`] = `
             "primaryButtonHoverBackground": "#4066FF",
             "primaryButtonTextTransform": "uppercase",
             "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-          }
-        }
-        type="button"
-      >
-        medium
+      className="sc-LzNNE iWSyiS"
       </button>
       <br />
       <button

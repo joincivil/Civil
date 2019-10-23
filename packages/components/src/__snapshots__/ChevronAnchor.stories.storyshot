@@ -12,10 +12,6 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed 1
   >
     <div
       className="sc-LzNNH ZehFe"
-    >
-      <a
-        href="#"
-      >
         Check this out
         <svg
           height={14}
@@ -428,21 +424,13 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed, 
     >
       <a
         href="#"
-      >
-        <svg
-          className="sc-fzXfQq gEFInO"
-          height={14}
-          version="1.1"
+      className="sc-LzNNH ZehFe"
           viewBox="0 0 14 14"
           width={14}
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
-            fill="none"
-            fillRule="evenodd"
-            stroke="none"
-            strokeWidth="1"
-          >
+          className="sc-fzXfQq gEFInO"
             <polygon
               points="0 0 18 0 18 18 0 18"
             />
