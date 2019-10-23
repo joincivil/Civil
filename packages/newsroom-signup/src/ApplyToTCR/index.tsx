@@ -1,12 +1,20 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "@joincivil/typescript-types";
-import { Civil, EthAddress, ListingWrapper, isInApplicationPhase, NewsroomInstance } from "@joincivil/core";
+import {
+  Civil,
+  EthAddress,
+  ListingWrapper,
+  isInApplicationPhase,
+  isWhitelisted,
+  NewsroomInstance,
+} from "@joincivil/core";
 import { Parameters, getFormattedParameterValue } from "@joincivil/utils";
 import { NextBack } from "../styledComponents";
 import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
+import ApplyToTCRWhitelisted from "./ApplyToTCRWhitelisted";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
@@ -46,6 +54,9 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
 
   public renderApply(): JSX.Element {
     const { listing, applyStageLenDisplay } = this.props;
+    if (listing && listing.data && isWhitelisted(listing.data)) {
+      return <ApplyToTCRWhitelisted listing={listing} />;
+    }
     if (listing && listing.data && isInApplicationPhase(listing.data) && applyStageLenDisplay) {
       return <ApplyToTCRSuccess listing={listing} applyStageLenDisplay={applyStageLenDisplay} />;
     }
