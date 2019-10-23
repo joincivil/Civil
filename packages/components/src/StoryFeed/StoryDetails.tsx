@@ -15,7 +15,6 @@ import {
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
-// import { Share } from "../Social";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { PaymentButton, ShareButton } from "@joincivil/elements";
