@@ -4,12 +4,14 @@ import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsAmount } from "./PaymentsAmount";
+import { PaymentsLogin } from "./PaymentsLogin";
 import { EthAddress } from "@joincivil/core";
 import { CivilContext, ICivilContext } from "../";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 export interface PaymentsProps {
+  loggedIn: boolean;
   postId: string;
   paymentAddress: string;
   newsroomName: string;
@@ -51,6 +53,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
+      if (!this.props.loggedIn) {
+        return <PaymentsLogin handleNext={this.handleUpdateState} handleLogin={this.handleLogin} />;
+      }
+
       return (
         <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsOptions
@@ -118,5 +124,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
     this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+  };
+
+  private handleLogin = () => {
+    console.log("login");
   };
 }

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsWrapper } from "./PaymentsWrapper";
+import { PaymentsLogin } from "./PaymentsLogin";
 
 const Container = styled.div`
   width: 400px;
@@ -31,6 +32,13 @@ storiesOf("Pulse / Payments", module)
         <PaymentsWrapper newsroomName={"Coda Story"}>
           <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
         </PaymentsWrapper>
+      </Container>
+    );
+  })
+  .add("Payment Login", () => {
+    return (
+      <Container>
+        <PaymentsLogin />
       </Container>
     );
   });

@@ -101,6 +101,17 @@ export const PaymentBtn = styled(Button)`
   width: 100%;
 `;
 
+export const PaymentInvertedBtn = styled(InvertedButton)`
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  padding: 10px 40px;
+  text-transform: none;
+  width: 100%;
+`;
+
 export const PaymentNotice = styled.p`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 13px;
@@ -371,4 +382,45 @@ export const PaymentAmountUserOptions = styled.div`
     font-size: 14px;
     margin-right: 8px;
   }
+`;
+
+export const PaymentLoginTitle = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-bottom: 40px;
+  text-align: center;
+`;
+
+export const PaymentLoginOption = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+
+  &:last-of-type {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    margin-bottom: 12px;
+  }
+`;
+
+export const PaymentLoginType = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  margin-bottom: 12px;
+`;
+
+export const PaymentLoginDescription = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 13px;
+  line-height: 16px;
+  margin-bottom: 12px;
 `;
