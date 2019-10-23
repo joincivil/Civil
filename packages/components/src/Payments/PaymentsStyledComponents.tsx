@@ -384,6 +384,10 @@ export const PaymentAmountUserOptions = styled.div`
   }
 `;
 
+export const PaymentLoginWrapper = styled.div`
+  padding: 20px;
+`;
+
 export const PaymentLoginTitle = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 18px;

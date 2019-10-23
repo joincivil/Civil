@@ -38,7 +38,7 @@ storiesOf("Pulse / Payments", module)
   .add("Payment Login", () => {
     return (
       <Container>
-        <PaymentsLogin />
+        <PaymentsLogin handleNext={onClickFunc} handleLogin={onClickFunc} />
       </Container>
     );
   });

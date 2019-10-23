@@ -10,6 +10,7 @@ import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
 import { PaymentButton, ShareButton } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
+import { EthAddress } from "@joincivil/core";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -21,6 +22,9 @@ export interface StoryFeedItemProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  isLoggedIn: boolean;
+  userAccount?: EthAddress;
+  handleLogin(): void;
 }
 
 export interface StoryFeedItemStates {
@@ -92,10 +96,12 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         </StoryModal>
         <StoryModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
           <Payments
+            isLoggedIn={this.props.isLoggedIn}
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
+            handleLogin={this.props.handleLogin}
           />
         </StoryModal>
       </>

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { PAYMENT_STATE } from "./types";
 import {
+  PaymentLoginWrapper,
   PaymentLoginTitle,
   PaymentLoginOption,
   PaymentLoginType,
@@ -16,7 +17,7 @@ export interface PaymentsLoginProps {
 
 export const PaymentsLogin: React.FunctionComponent<PaymentsLoginProps> = props => {
   return (
-    <>
+    <PaymentLoginWrapper>
       <PaymentLoginTitle>Welcome to Civil!</PaymentLoginTitle>
       <PaymentLoginOption>
         <PaymentLoginType>Log in to give a Boost 🚀</PaymentLoginType>
@@ -32,6 +33,6 @@ export const PaymentsLogin: React.FunctionComponent<PaymentsLoginProps> = props 
           Continue as a Guest
         </PaymentInvertedBtn>
       </PaymentLoginOption>
-    </>
+    </PaymentLoginWrapper>
   );
 };
