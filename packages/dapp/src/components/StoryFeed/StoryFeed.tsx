@@ -1,13 +1,12 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { ICivilContext, CivilContext, ClipLoader, StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../redux/reducers";
-import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
+import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import { Helmet } from "react-helmet";
-import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 export const STORY_FEED_QUERY = gql`
   query Post($search: PostSearchInput!) {
@@ -74,7 +73,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
     // context still loading
     return <></>;
   }
-  const civil = civilCtx.civil;
 
   // redux
   const dispatch = useDispatch();
@@ -92,14 +90,13 @@ const StoryFeedPage: React.FunctionComponent = props => {
     if (civilUser && !userAccount) {
       civilCtx.civil!.currentProviderEnable().catch(err => console.log("error enabling ethereum", err));
     }
-  }, [civil, civilUser, userAccount]);
+  }, [civilUser, userAccount]);
 
   const search = { postType: "externallink" };
 
   return (
     <>
       <Helmet title="Civil Story Feed - The Civil Registry" />
-      <ScrollToTopOnMount />
       <StoryFeedWrapper>
         <StoryFeedHeader>Story Feed</StoryFeedHeader>
         <Query query={STORY_FEED_QUERY} variables={{ search }}>
