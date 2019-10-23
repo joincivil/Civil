@@ -8,7 +8,7 @@ import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
-import { PaymentButton, ShareButton } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryFeedItemProps {
@@ -27,6 +27,7 @@ export interface StoryFeedItemStates {
   isStoryModalOpen: boolean;
   isStoryNewsroomModalOpen: boolean;
   isPaymentsModalOpen: boolean;
+  isShareModalOpen: boolean;
 }
 
 export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeedItemStates> {
@@ -36,6 +37,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       isStoryModalOpen: false,
       isStoryNewsroomModalOpen: false,
       isPaymentsModalOpen: false,
+      isShareModalOpen: false,
     };
   }
 
@@ -98,27 +100,55 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             isStripeConnected={this.props.isStripeConnected}
           />
         </StoryModal>
+        <StoryModal open={this.state.isShareModalOpen} handleClose={this.handleClose}>
+          <ShareStory title={openGraphData.title} url={openGraphData.url} />
+        </StoryModal>
       </>
     );
   }
 
   private openPayments = () => {
-    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+    this.setState({
+      isPaymentsModalOpen: true,
+      isStoryModalOpen: false,
+      isStoryNewsroomModalOpen: false,
+      isShareModalOpen: false,
+    });
   };
 
   private openShare = () => {
-    console.log("share TKTK");
+    this.setState({
+      isShareModalOpen: true,
+      isPaymentsModalOpen: false,
+      isStoryModalOpen: false,
+      isStoryNewsroomModalOpen: false,
+    });
   };
 
   private openStoryDetails = () => {
-    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({
+      isStoryModalOpen: true,
+      isStoryNewsroomModalOpen: false,
+      isPaymentsModalOpen: false,
+      isShareModalOpen: false,
+    });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({
+      isStoryNewsroomModalOpen: true,
+      isStoryModalOpen: false,
+      isPaymentsModalOpen: false,
+      isShareModalOpen: false,
+    });
   };
 
   private handleClose = () => {
-    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({
+      isStoryModalOpen: false,
+      isStoryNewsroomModalOpen: false,
+      isPaymentsModalOpen: false,
+      isShareModalOpen: false,
+    });
   };
 }

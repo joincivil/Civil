@@ -11,23 +11,23 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
     }
   >
     <div
-      className="sc-LzNMs bPUeyX"
+      className="sc-LzNMR eeSvGG"
     >
       <form
         onSubmit={[Function]}
       >
         <div
-          className="sc-LzNMS tUVMC"
+          className="sc-LzNMU eClntA"
         >
           <div
-            className="sc-LzNMt jRqDoV"
+            className="sc-LzNMS epBANQ"
           >
             <div
-              className="sc-fzXfPK gwIUgC"
+              className="sc-fzXfQl fKaNiM"
             >
               <section>
                 <div
-                  className="sc-fzXfPJ hRbTBt"
+                  className="sc-fzXfPN jkehkR"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragEnter={[Function]}
@@ -117,10 +117,10 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
         </div>
       </form>
       <div
-        className="sc-LzNxf fYWEjA"
+        className="sc-LzNxh dcfQCa"
       >
         <span
-          className="sc-LzNMZ gMHJkV"
+          className="sc-LzNNy lfqYYF"
           onClick={[Function]}
         >
           Skip for now

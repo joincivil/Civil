@@ -18,7 +18,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
           Default:
         </label>
         <label
-          className="sc-fzXfPe frUBNg"
+          className="sc-fzXfPF fyKeQE"
         >
           <input
             checked={false}
@@ -27,7 +27,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
             type="checkbox"
           />
           <span
-            className="sc-fzXfPd Eozvq"
+            className="sc-fzXfPE iPmphP"
           />
         </label>
       </li>
@@ -38,7 +38,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
           Default checked:
         </label>
         <label
-          className="sc-fzXfPe frUBNg"
+          className="sc-fzXfPF fyKeQE"
         >
           <input
             checked={true}
@@ -47,7 +47,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
             type="checkbox"
           />
           <span
-            className="sc-fzXfPd Eozvq"
+            className="sc-fzXfPE iPmphP"
           />
         </label>
       </li>
@@ -58,7 +58,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
           Small:
         </label>
         <label
-          className="sc-fzXfPe gjQYXW"
+          className="sc-fzXfPF gqGCbu"
           size="SMALL"
         >
           <input
@@ -68,7 +68,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
             type="checkbox"
           />
           <span
-            className="sc-fzXfPd WMGVn"
+            className="sc-fzXfPE ioBPw"
             size="SMALL"
           />
         </label>
@@ -80,7 +80,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
           Small checked:
         </label>
         <label
-          className="sc-fzXfPe gjQYXW"
+          className="sc-fzXfPF gqGCbu"
           size="SMALL"
         >
           <input
@@ -90,7 +90,7 @@ exports[`Storyshots Pattern Library / inputs / check box checkboxes 1`] = `
             type="checkbox"
           />
           <span
-            className="sc-fzXfPd WMGVn"
+            className="sc-fzXfPE ioBPw"
             size="SMALL"
           />
         </label>
@@ -1262,7 +1262,7 @@ exports[`Storyshots Pattern Library / inputs / check box slide check box 1`] = `
     }
   >
     <label
-      className="sc-fzXfPc kAKnNa"
+      className="sc-fzXfPg fhIVeu"
     >
       <input
         checked={false}
@@ -1270,7 +1270,7 @@ exports[`Storyshots Pattern Library / inputs / check box slide check box 1`] = `
         type="checkbox"
       />
       <span
-        className="sc-fzXfPb imIksu"
+        className="sc-fzXfPf igGDrC"
       />
     </label>
   </div>
