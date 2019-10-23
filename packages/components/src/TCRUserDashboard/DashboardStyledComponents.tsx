@@ -258,6 +258,7 @@ export const StyledTransferTokenTitle = styled.div`
   font-family: ${fonts.SANS_SERIF};
   text-align: center;
   margin: 0 0 40px;
+  padding: 20px;
 
   h3 {
     font-size: 20px;

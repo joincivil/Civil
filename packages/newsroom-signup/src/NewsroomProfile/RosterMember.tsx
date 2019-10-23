@@ -74,7 +74,7 @@ const ImageArea = styled.div`
 `;
 
 const EmailHelpText = styled(HelperText)`
-  margin: 0;
+  margin: 0 0 8px;
   padding: 0;
 `;
 

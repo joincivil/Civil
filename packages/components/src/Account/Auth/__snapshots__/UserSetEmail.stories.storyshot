@@ -94,7 +94,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       className="sc-LzNxh dcfQCa"
     >
       <span
-        className="sc-LzNNB uPOUb"
+        className="sc-LzNNB eruCPJ"
         onClick={[Function]}
       >
         Skip for now
