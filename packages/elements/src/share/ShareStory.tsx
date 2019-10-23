@@ -3,9 +3,14 @@ import styled from "styled-components";
 import { ShareEmailIcon, LinkIcon, ShareTwitterIcon } from "../icons";
 import { colors } from "../colors";
 import { fonts } from "../text";
+import { mediaQueries } from "../containers";
 
 const ShareWrapper = styled.div`
   width: 300px;
+
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
 
 const ShareHeader = styled.div`
