@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { urlConstants } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
-import { ErrorIcon } from "../icons";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
@@ -20,7 +19,6 @@ import {
   StyledDashboardNewsroomTokensContainer,
   StyledDashboardNewsroomTokensLabel,
   StyledCVLLabel,
-  StyledWarningText,
 } from "./DashboardStyledComponents";
 import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 import { DashboardNewsroomSubmitLink } from "./DashboardNewsroomSubmitLink";
@@ -100,23 +98,6 @@ const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNews
 const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStatusBase);
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
-  const { isUnderChallenge } = props;
-  const renderEditLink = () => {
-    if (isUnderChallenge) {
-      return (
-        <StyledWarningText>
-          <ErrorIcon width={16} height={16} /> Your charter is locked until the challenge period has ended.
-        </StyledWarningText>
-      );
-    }
-
-    return (
-      <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
-        Manage Newsroom
-      </ChevronAnchor>
-    );
-  };
-
   return (
     <StyledDashboardNewsroom>
       <StyledDashboardNewsroomSection>
@@ -124,7 +105,9 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           <StyledDashboardNewsroomName>{props.newsroomName}</StyledDashboardNewsroomName>
 
           <StyledDashboardNewsroomLinks>
-            {renderEditLink()}
+            <ChevronAnchor component={Link} to={props.manageNewsroomURL}>
+              Manage Newsroom
+            </ChevronAnchor>
             <ChevronAnchor component={Link} to={props.listingDetailURL}>
               View on Registry
             </ChevronAnchor>

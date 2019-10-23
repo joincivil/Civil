@@ -16,6 +16,8 @@ import {
 } from "@joincivil/components";
 import { NewsroomManager } from "@joincivil/newsroom-signup";
 import { routes } from "../../../constants";
+import { getListingPhaseState } from "../../../selectors";
+import { LISTING_QUERY, transformGraphQLDataIntoListing } from "../../../helpers/queryTransformations";
 
 const ManageQuery = gql`
   query($id: String!) {
@@ -119,37 +121,62 @@ const ManageNewsroomComponent: React.FunctionComponent<
         const charter = data.channelsGetByID.newsroom.charter;
 
         return (
-          <>
-            <Tabs
-              TabsNavComponent={StyledTabNav}
-              TabComponent={StyledTabLarge}
-              activeIndex={activeTabIndex}
-              onActiveTabChange={(tab: number) => {
-                props.history.push(
-                  formatRoute(props.match.path, { newsroomAddress: props.newsroomAddress, activeTab: TABS[tab] }),
+          <Query query={LISTING_QUERY} variables={{ addr: props.newsroomAddress }} pollInterval={10000}>
+            {({ loading: listingLoading, error: listingError, data: listingData }: any) => {
+              if (listingLoading) {
+                return <LoadingMessage>Loading your Newsroom</LoadingMessage>;
+              }
+              if (listingError) {
+                console.error("error querying listing:", listingError);
+                return (
+                  <>
+                    Error loading newsroom listing: <code>{listingError.message || JSON.stringify(listingError)}</code>
+                  </>
                 );
-              }}
-            >
-              <Tab title={"Edit Charter"}>
-                <NewsroomManager newsroomAddress={newsroom.contractAddress} publishedCharter={charter} />
-              </Tab>
-              <Tab title={"Launch Boost"}>
-                <BoostForm
-                  channelID={data.channelsGetByID.id}
-                  newsroomData={{
-                    name: charter.name,
-                    url: charter && charter.newsroomUrl,
-                    owner: newsroom.multisigAddress,
-                  }}
-                  newsroomContractAddress={newsroom.contractAddress}
-                  newsroomAddress={newsroom.contractAddress}
-                  newsroomListingUrl={`${document.location.origin}${listingRoute}`}
-                  newsroomTagline={charter && charter.tagline}
-                  newsroomLogoUrl={charter && charter.logoUrl}
-                />
-              </Tab>
-            </Tabs>
-          </>
+              }
+
+              const listing = transformGraphQLDataIntoListing(listingData.listing, props.newsroomAddress);
+              const listingPhaseState = getListingPhaseState(listing);
+
+              return (
+                <>
+                  <Tabs
+                    TabsNavComponent={StyledTabNav}
+                    TabComponent={StyledTabLarge}
+                    activeIndex={activeTabIndex}
+                    onActiveTabChange={(tab: number) => {
+                      props.history.push(
+                        formatRoute(props.match.path, { newsroomAddress: props.newsroomAddress, activeTab: TABS[tab] }),
+                      );
+                    }}
+                  >
+                    <Tab title={"Edit Charter"}>
+                      <NewsroomManager
+                        newsroomAddress={newsroom.contractAddress}
+                        publishedCharter={charter}
+                        listingPhaseState={listingPhaseState}
+                      />
+                    </Tab>
+                    <Tab title={"Launch Boost"}>
+                      <BoostForm
+                        channelID={data.channelsGetByID.id}
+                        newsroomData={{
+                          name: charter.name,
+                          url: charter && charter.newsroomUrl,
+                          owner: newsroom.multisigAddress,
+                        }}
+                        newsroomContractAddress={newsroom.contractAddress}
+                        newsroomAddress={newsroom.contractAddress}
+                        newsroomListingUrl={`${document.location.origin}${listingRoute}`}
+                        newsroomTagline={charter && charter.tagline}
+                        newsroomLogoUrl={charter && charter.logoUrl}
+                      />
+                    </Tab>
+                  </Tabs>
+                </>
+              );
+            }}
+          </Query>
         );
       }}
     </Query>
