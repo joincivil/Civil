@@ -46,9 +46,9 @@ const ModalInner = styled.div`
     max-height: 100%;
     max-width: 100%;
     overflow: scroll;
-    padding-top: 65px;
-    margin-right: 10px;
-    margin-left: 10px;
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 `;
 
