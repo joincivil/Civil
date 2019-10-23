@@ -23,7 +23,7 @@ export interface StoryFeedItemProps {
   sortedContributors: ContributorData[];
   totalContributors: number;
   isLoggedIn: boolean;
-  userAccount?: EthAddress;
+  userAddress?: EthAddress;
   handleLogin(): void;
 }
 
@@ -97,6 +97,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
           <Payments
             isLoggedIn={this.props.isLoggedIn}
+            userAddress={this.props.userAddress}
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}

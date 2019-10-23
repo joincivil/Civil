@@ -112,7 +112,7 @@ const StoryFeedPage: React.FunctionComponent = props => {
               <StoryFeedItem
                 key={i}
                 isLoggedIn={civilUser ? true : false}
-                userAccount={userAccount}
+                userAddress={userAccount}
                 storyId={storyData.id}
                 activeChallenge={false}
                 createdAt={storyData.createdAt}

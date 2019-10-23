@@ -11,16 +11,16 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
     }
   >
     <div
-      className="sc-LzNMs bPUeyX"
+      className="sc-LzNMV bvRiTq"
     >
       <form
         onSubmit={[Function]}
       >
         <div
-          className="sc-LzNMS tUVMC"
+          className="sc-LzNMY bDwniA"
         >
           <div
-            className="sc-LzNMt jRqDoV"
+            className="sc-LzNMW dnvqYs"
           >
             <div
               className="sc-fzXfPK gwIUgC"
@@ -117,10 +117,10 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
         </div>
       </form>
       <div
-        className="sc-LzNxf fYWEjA"
+        className="sc-LzNMn QtUZV"
       >
         <span
-          className="sc-LzNMZ beuvNT"
+          className="sc-LzNNC gDQZSt"
           onClick={[Function]}
         >
           Skip for now
