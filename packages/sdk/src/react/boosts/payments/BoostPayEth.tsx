@@ -72,6 +72,15 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     };
   }
 
+  public async componentDidMount(): Promise<void> {
+    if (this.context.civil) {
+      const account = await this.context.civil.accountStream.first().toPromise();
+      if (account) {
+        this.setState({ walletConnected: true });
+      }
+    }
+  }
+
   public render(): JSX.Element {
     if (this.props.paymentStarted) {
       return <>{this.renderPaymentForm(this.state.etherToSpend, this.state.usdToSpend)}</>;
@@ -127,16 +136,15 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
         />
 
         {this.state.walletConnected ? (
-          <BoostButton
-            disabled={disableBtn}
-            onClick={() => this.props.handleNext(this.state.etherToSpend, this.state.usdToSpend)}
-          >
+          <BoostButton disabled={disableBtn} onClick={this.goNext}>
             Next
           </BoostButton>
         ) : (
           <div>
-            <BoostButton onClick={this.enableEth}>Select&nbsp;Wallet</BoostButton>
-            <BoostConnectWalletWarningText />
+            <BoostButton onClick={this.enableEth}>
+              {this.context.currentUser ? "Enable" : "Select"}&nbsp;Wallet
+            </BoostButton>
+            {!this.context.currentUser && <BoostConnectWalletWarningText />}
           </div>
         )}
       </>
@@ -192,9 +200,17 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     this.setState({ notEnoughEthError: error });
   };
 
+  private goNext = () => {
+    if (this.state.usdToSpend <= 0) {
+      return;
+    }
+    this.props.handleNext(this.state.etherToSpend, this.state.usdToSpend);
+  };
+
   private enableEth = async () => {
     await this.context.civil!.currentProviderEnable();
     this.setState({ walletConnected: true });
+    this.goNext();
   };
 
   private renderInfoModal = () => {
