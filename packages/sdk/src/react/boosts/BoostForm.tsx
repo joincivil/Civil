@@ -46,7 +46,6 @@ const PageWrapper = styled.div`
   font-weight: normal;
   margin: auto;
   max-width: 880px;
-  padding: 50px 20px 20px;
 
   p {
     margin-top: 15px;

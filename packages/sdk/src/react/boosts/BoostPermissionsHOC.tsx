@@ -1,7 +1,23 @@
 import * as React from "react";
-import { EthAddress, NewsroomInstance } from "@joincivil/core";
-import { LoadingMessage, CivilContext, ICivilContext } from "@joincivil/components";
+import { Link } from "react-router-dom";
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import { EthAddress } from "@joincivil/core";
+import { LoadingMessage, CivilContext, ICivilContext, ErrorIcon } from "@joincivil/components";
 import { BoostWrapper } from "./BoostStyledComponents";
+
+export const IS_NEWSROOM_ADMIN_QUERY = gql`
+  query($contractAddress: String!) {
+    channelsGetByNewsroomAddress(contractAddress: $contractAddress) {
+      currentUserIsAdmin
+      newsroom {
+        charter {
+          name
+        }
+      }
+    }
+  }
+`;
 
 export interface BoostPermissionsOuterProps {
   disableOwnerCheck?: boolean;
@@ -10,17 +26,11 @@ export interface BoostPermissionsOuterProps {
 
 export interface BoostPermissionsInjectedProps {
   boostOwner?: boolean;
-  newsroom?: NewsroomInstance;
   setNewsroomContractAddress(address: EthAddress): void;
 }
 
 export interface BoostPermissionsState {
-  waitingForEthEnable?: boolean;
-  boostOwner?: boolean;
-  checkingIfOwner?: boolean;
   userEthAddress?: EthAddress;
-  newsroomOwners?: EthAddress[];
-  newsroom?: NewsroomInstance;
   newsroomContractAddress?: EthAddress;
 }
 
@@ -39,68 +49,63 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
 
     constructor(props: BoostPermissionsOuterProps & TOriginalProps) {
       super(props);
-      this.state = {
-        checkingIfOwner: true,
-      };
+      this.state = {};
     }
 
     public async componentDidMount(): Promise<void> {
-      if (!this.props.disableOwnerCheck && this.context.civil) {
-        this.setState({
-          waitingForEthEnable: true,
-        });
-        await this.context.civil.currentProviderEnable();
-        this.setState({
-          waitingForEthEnable: false,
-        });
-        await this.getUserEthAddress();
-      } else {
-        this.setState({
-          checkingIfOwner: false,
-        });
-      }
-    }
-
-    public async componentDidUpdate(
-      prevProps: BoostPermissionsOuterProps,
-      prevState: BoostPermissionsState,
-    ): Promise<void> {
-      if (
-        prevState.userEthAddress !== this.state.userEthAddress ||
-        prevState.newsroomContractAddress !== this.state.newsroomContractAddress
-      ) {
-        await this.checkIfBoostOwner();
-      }
+      await this.getUserEthAddress();
     }
 
     public render(): JSX.Element {
+      if (!this.state.newsroomContractAddress || this.props.disableOwnerCheck) {
+        return (
+          <WrappedComponent {...(this.props as TProps)} setNewsroomContractAddress={this.setNewsroomContractAddress} />
+        );
+      }
+
+      return (
+        <Query query={IS_NEWSROOM_ADMIN_QUERY} variables={{ contractAddress: this.state.newsroomContractAddress }}>
+          {this.renderWithQuery}
+        </Query>
+      );
+    }
+
+    public renderWithQuery = ({ error, loading, data }: { error?: any; loading?: any; data?: any }): JSX.Element => {
+      const isBoostOwner =
+        data && data.channelsGetByNewsroomAddress && data.channelsGetByNewsroomAddress.currentUserIsAdmin;
+
       // If editMode/requirePermissions then entire view depends on if user is owner, so block everything and show loading or permissions messages:
       if ((this.props.editMode || requirePermissions) && this.state.newsroomContractAddress) {
-        if (this.state.waitingForEthEnable) {
-          return this.renderNotConnected();
-        }
-
-        if (this.state.checkingIfOwner) {
+        if (loading) {
           return this.renderLoading();
-        }
-
-        if (!this.state.boostOwner) {
+        } else if (error || !data || !data.channelsGetByNewsroomAddress) {
+          console.error(
+            "error loading channel data for",
+            this.state.newsroomContractAddress,
+            " error:",
+            error,
+            "data:",
+            data,
+          );
+          return this.renderError(
+            "Sorry, there was an error loading your newsroom information. Please try again later.",
+          );
+        } else if (!isBoostOwner) {
           if (!this.state.userEthAddress) {
             return this.renderNotConnected();
           }
-          return this.renderNotOnContract();
+          return this.renderNotChannelAdmin(data.channelsGetByNewsroomAddress.newsroom.charter.name);
         }
       }
 
       return (
         <WrappedComponent
           {...(this.props as TProps)}
-          boostOwner={this.state.boostOwner}
-          newsroom={this.state.newsroom}
+          boostOwner={isBoostOwner}
           setNewsroomContractAddress={this.setNewsroomContractAddress}
         />
       );
-    }
+    };
 
     public renderLoading(): JSX.Element {
       return (
@@ -110,86 +115,50 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
       );
     }
 
+    public renderError(message: string): JSX.Element {
+      return (
+        <BoostWrapper open={true}>
+          <ErrorIcon width={16} height={16} /> {message}
+        </BoostWrapper>
+      );
+    }
+
     public renderNotConnected(): JSX.Element {
       return (
         <BoostWrapper open={true}>
           <p>
-            Please connect your Ethereum account via a browser wallet such as MetaMask so that we can verify your
-            ability to create and edit Boosts for this newsroom.
+            Please ensure that you are logged in to Civil and have connected your Ethereum account via a browser wallet
+            such as MetaMask so that we can verify your ability to create and edit Boosts for this newsroom.
           </p>
         </BoostWrapper>
       );
     }
 
-    public renderNotOnContract(): JSX.Element {
+    public renderNotChannelAdmin(newsroomName: string): JSX.Element {
       return (
         <BoostWrapper open={true}>
           <p>
-            Your ETH address <code>{this.state.userEthAddress}</code> doesn't have permissions to create and edit Boosts
-            for this newsroom, which is owned by the following address(es):
+            Your account and ETH address <code>{this.state.userEthAddress}</code> don't have permissions to create and
+            edit Boosts for "{newsroomName}". You can view the newsrooms you have access to at your{" "}
+            <Link to="/dashboard/newsrooms">Newsroom Dashboard</Link>. Please verify that you are logged in to the
+            correct Civil account and ethereum wallet.
           </p>
-          {this.state.newsroomOwners && (
-            <ul>
-              {this.state.newsroomOwners.map(owner => (
-                <li key={owner}>
-                  <code>{owner}</code>
-                </li>
-              ))}
-            </ul>
-          )}
+          <p>Alternately, please contact the newsroom and request that an officer add your account.</p>
           <p>
-            If you own one of these wallets, please switch to it. Otherwise, please request that one of these officers
-            add you to the newsroom contract.
-          </p>
-          <p>
-            <a href={`${document.location.origin}/listing/${this.state.newsroomContractAddress}`}>
-              View newsroom information.
-            </a>
+            <Link to={`/listing/${this.state.newsroomContractAddress}`}>View newsroom information.</Link>
           </p>
         </BoostWrapper>
       );
     }
 
     public async getUserEthAddress(): Promise<void> {
-      if (this.props.disableOwnerCheck) {
+      if (this.props.disableOwnerCheck || !this.context.civil) {
         return;
       }
 
-      let user;
-      if (this.context.civil) {
-        user = await this.context.civil.accountStream.first().toPromise();
-
-        if (user) {
-          this.setState({
-            userEthAddress: user,
-          });
-        }
-      }
-
-      if (!user) {
-        this.setState({
-          checkingIfOwner: false,
-          boostOwner: false,
-        });
-      }
-    }
-
-    public async checkIfBoostOwner(): Promise<void> {
-      if (this.props.disableOwnerCheck) {
-        return;
-      }
-
-      if (this.state.userEthAddress && this.state.newsroomContractAddress && this.context.civil) {
-        const newsroom = await this.context.civil.newsroomAtUntrusted(this.state.newsroomContractAddress);
-        const newsroomOwners = (await newsroom.getNewsroomData()).owners.map(owner => owner.toLowerCase());
-
-        this.setState({
-          checkingIfOwner: false,
-          boostOwner: newsroomOwners && newsroomOwners.indexOf(this.state.userEthAddress.toLowerCase()) !== -1,
-          newsroomOwners,
-          newsroom,
-        });
-      }
+      this.setState({
+        userEthAddress: await this.context.civil.accountStream.first().toPromise(),
+      });
     }
 
     public setNewsroomContractAddress = (newsroomContractAddress: EthAddress) => {
