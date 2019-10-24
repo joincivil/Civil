@@ -14,6 +14,7 @@ import {
   LoadingMessage,
   LoadingIndicator,
   metaMaskLoginImgUrl,
+  ErrorIcon,
 } from "@joincivil/components";
 
 import { StateWithNewsroom } from "../reducers";
@@ -28,6 +29,7 @@ import { ApplicationSoFarPage } from "../NewsroomProfile/ApplicationSoFarPage";
 export interface NewsroomManagerExternalProps {
   newsroomAddress: EthAddress;
   publishedCharter: Partial<CharterData>;
+  listingPhaseState: any;
   theme?: ButtonTheme;
 }
 
@@ -71,6 +73,14 @@ const SaveNotice = styled(RepublishCharterNotice)`
 const SaveButtonWrapper = styled.div`
   display: inline-block;
   margin: 8px auto 0;
+`;
+
+const LockedWarning = styled.span`
+  color: ${colors.accent.CIVIL_RED};
+
+  & svg {
+    margin: 0 2px -3px 0;
+  }
 `;
 
 const DEFAULT_DIRTY_MESSAGE = "Are you sure you want to leave this page? Your changes have not been saved.";
@@ -132,7 +142,12 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
           <Prompt when={!!this.unsavedWarning()} message={DEFAULT_DIRTY_MESSAGE} />
 
           <p>
-            {this.state.saving ? (
+            {this.props.listingPhaseState.isUnderChallenge ? (
+              <LockedWarning>
+                <ErrorIcon width={16} height={16} /> Your newsroom is under challenge. Your charter is locked from
+                editing until the challenge period has ended.
+              </LockedWarning>
+            ) : this.state.saving ? (
               <>
                 Saving <LoadingIndicator inline={true} />
               </>

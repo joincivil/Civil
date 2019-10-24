@@ -56,6 +56,10 @@ const Twitter = styled(Link)`
 
 const Bio = styled.div`
   margin-top: 6px;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 // From gravatar for now

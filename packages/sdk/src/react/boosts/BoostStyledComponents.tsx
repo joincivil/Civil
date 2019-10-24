@@ -105,8 +105,13 @@ export const BoostButton = styled(Button)`
   text-transform: none;
 
   ${mediaQueries.MOBILE} {
+    display: block;
     margin-bottom: 20px;
     width: 100%;
+  }
+
+  ${mediaQueries.MOBILE_SMALL} {
+    margin-bottom: 10px;
   }
 `;
 
@@ -313,8 +318,6 @@ export const BoostDescription = styled.div`
 export const BoostDescriptionWhy = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 30px;
-  width: 500px;
-  max-width: 100%;
 
   p {
     font-size: 18px;
@@ -407,8 +410,9 @@ export const BoostPayCardDetails = styled.div`
   }
 
   a {
-    color: ${colors.accent.CIVIL_BLUE}
+    color: ${colors.accent.CIVIL_BLUE};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: underline;
@@ -528,30 +532,6 @@ export const BoostFlexEnd = styled.div`
   align-items: flex-end;
   display: flex;
   justify-content: space-between;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-`;
-
-export const BoostFlexEth = styled.div`
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-
-  button {
-    margin: 9px 0 0 15px;
-    ${mediaQueries.MOBILE} {
-      margin-left: 0;
-    }
-    ${mediaQueries.MOBILE_SMALL} {
-      margin-top: 0;
-    }
-  }
-
-  label {
-    display: none;
-  }
 
   ${mediaQueries.MOBILE} {
     display: block;
@@ -688,7 +668,7 @@ export const BoostWarningLabel = styled.div`
   color: ${colors.accent.CIVIL_RED};
   font-size: 14px;
   line-height: 22px;
-  margin-bottom: 15px;
+  margin: 10px 0;
 
   svg {
     vertical-align: sub;

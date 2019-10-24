@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../styleConstants";
+import { colors, fonts } from "@joincivil/elements";
 
 export const ContributorsStyled = styled.div`
   margin-bottom: 15px;
@@ -57,30 +57,48 @@ export const ContributorCountStyled = styled.div`
 `;
 
 export const ContributorCountAvatars = styled.span`
+  left: 0;
+  position: relative;
+
+  &:nth-of-type(2) {
+    left: -4px;
+  }
+
+  &:nth-of-type(3) {
+    left: -8px;
+  }
   img {
     border: 1px solid ${colors.basic.WHITE};
     border-radius: 50%;
     height: 17px;
-    left: 0;
-    position: relative;
     width: 17px;
-
-    &:nth-of-type(2) {
-      left: -4px;
-    }
-
-    &:nth-of-type(3) {
-      left: -8px;
-    }
   }
 `;
 
 export const ContributorsLabel = styled.span`
-  color: ${colors.accent.CIVIL_GRAY_1};
+  color: ${colors.accent.CIVIL_GRAY_2};
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;
+
+  svg {
+    opacity: 0.3;
+  }
+`;
+
+export const ContributorsPrompt = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
+export const ContributorsIconBorder = styled.div`
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 50%;
+  height: 26px;
+  margin-right: 6px;
+  padding: 3px;
+  width: 26px;
 
   svg {
     opacity: 0.3;

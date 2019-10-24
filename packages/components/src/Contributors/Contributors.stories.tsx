@@ -3,6 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Contributors } from "./Contributors";
 import { ContributorCount } from "./ContributorCount";
+import { ContributorsDefaultAvatar } from "./ContributorsDefaultAvatar";
 
 const Container = styled.div`
   width: 400px;
@@ -44,6 +45,13 @@ storiesOf("Common / Contributors", module)
     return (
       <Container>
         <ContributorCount displayedContributors={contributors} totalContributors={30} />
+      </Container>
+    );
+  })
+  .add("Contributor Default Avatar", () => {
+    return (
+      <Container>
+        <ContributorsDefaultAvatar contributor={contributors[0]} index={1} size={17} />
       </Container>
     );
   });

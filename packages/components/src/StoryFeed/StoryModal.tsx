@@ -1,8 +1,7 @@
 import * as React from "react";
 import { StoryModalContain, StoryModalCloseBtn } from "./StoryFeedStyledComponents";
 import { FullScreenModal } from "../FullscreenModal";
-import { CloseXIcon } from "../icons";
-import { colors } from "../styleConstants";
+import { CloseXButton } from "@joincivil/elements";
 
 export interface StoryModalProps {
   open: boolean;
@@ -17,8 +16,8 @@ export const StoryModal: React.FunctionComponent<StoryModalProps> = props => {
       <FullScreenModal open={props.open}>
         <StoryModalContain maxHeight={maxHeight}>
           {props.handleClose && (
-            <StoryModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
-              <CloseXIcon color={colors.accent.CIVIL_GRAY_2} width={32} height={32} />
+            <StoryModalCloseBtn>
+              <CloseXButton onClick={() => props.handleClose && props.handleClose()} />
             </StoryModalCloseBtn>
           )}
           {props.children}

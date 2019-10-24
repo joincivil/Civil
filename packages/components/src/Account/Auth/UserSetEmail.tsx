@@ -39,6 +39,7 @@ const SubHeaderDiv = styled.div`
 `;
 
 const SkipButton = styled.span`
+  cursor: pointer;
   color: #2b56ff;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;

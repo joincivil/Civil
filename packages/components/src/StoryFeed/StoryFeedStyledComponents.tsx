@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "../styleConstants";
-import { InvertedButton } from "../Button";
+import { colors, fonts } from "@joincivil/elements";
 
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -9,16 +8,17 @@ export const StoryFeedItemWrap = styled.div`
 `;
 
 export const StoryNewsroomStatusStyled = styled.div`
-  align-items: center;
-  display: flex;
   font-family: ${fonts.SANS_SERIF};
   font-size: 13px;
   font-weight: 600;
   line-height: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 
   a {
+    align-items: center;
     color: ${colors.primary.BLACK};
+    cursor: pointer;
+    display: flex;
     transition: color 0.2s ease;
 
     &:hover {
@@ -27,7 +27,7 @@ export const StoryNewsroomStatusStyled = styled.div`
   }
 
   svg {
-    margin-left: 8px;
+    margin-left: 5px;
   }
 `;
 
@@ -37,7 +37,7 @@ export const StoryTitle = styled.h2`
   font-size: 17px;
   font-weight: 700;
   line-height: 25px;
-  margin-bottom: 8px;
+  margin: 0 0 8px;
   transition: color 0.2s ease;
 `;
 
@@ -45,7 +45,7 @@ export const StoryLink = styled.a`
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   width: 100%;
 
   &:hover {
@@ -59,25 +59,54 @@ export const StoryLinkLeft = styled.div`
   width: calc(100% - 100px);
 `;
 
+export const TimeStamp = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_3};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+`;
+
+export const TimeStampDot = styled.span`
+  font-weight: 800;
+  margin-right: 6px;
+`;
+
 export const StoryDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 18px;
-  margin: 0 0 10px;
+  margin: 0 0 15px;
+`;
+
+export const StoryPostedAt = styled.div`
+  margin: 0 0 16px;
+
+  ${TimeStamp} {
+    font-size: 11px;
+    line-height: 13px;
+  }
 `;
 
 export const StoryImgSquare = styled.div`
+  display: flex;
   height: 90px;
+  justify-content: center;
+  overflow: hidden;
   width: 90px;
 
   img {
-    width: 100%;
+    height: 100%;
+    width: auto;
   }
 `;
 
 export const StoryImgWide = styled.div`
-  height: 90px;
+  align-items: center;
+  display: flex;
+  height: 100px;
+  overflow: hidden;
   width: 100%;
 
   img {
@@ -85,31 +114,37 @@ export const StoryImgWide = styled.div`
   }
 `;
 
-export const StoryElements = styled.div`
+export const StoryElementsFlex = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
+
+  button:first-of-type {
+    margin-right: 10px;
+  }
 `;
 
 export const StoryRegistryLabel = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 22px;
   margin-bottom: 20px;
 `;
 
 export const StoryNewsroomName = styled.div`
+  font-family: ${fonts.SANS_SERIF};
   font-size: 17px;
   font-weight: 700;
-  line-height: 25px;
-  margin-bottom: 2px;
+  line-height: 20px;
+  margin-bottom: 5px;
 `;
 
 export const StoryNewsroomURL = styled.a`
   color: ${colors.accent.CIVIL_BLUE};
   display: block;
+  font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 22px;
-  margin-bottom: 10px;
   text-decoration: none;
 
   &:hover {
@@ -118,6 +153,7 @@ export const StoryNewsroomURL = styled.a`
 `;
 
 export const StoryNewsroomSection = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
   margin-bottom: 12px;
   width: 100%;
 
@@ -155,35 +191,42 @@ export const StoryETHAddress = styled.span`
   margin-bottom: 10px;
 `;
 
-export const TimeStamp = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14px;
+export const StoryDetailsFlex = styled.div`
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+
+  ${StoryTitle} {
+    width: calc(100% - 45px);
+  }
 `;
 
-export const StoryDetailsFlex = styled.div`
+export const StoryDetailsFlexLeft = styled.div`
+  align-items: center;
   display: flex;
   margin-bottom: 10px;
 
   ${StoryNewsroomStatusStyled} {
-    margin-right: 10px;
+    margin: 0 6px 0 0;
   }
 `;
 
 export const BlueLinkBtn = styled.a`
+  align-items: center;
   background-color: ${colors.accent.CIVIL_BLUE};
   border-radius: 2px;
   color: ${colors.basic.WHITE};
-  curcor: pointer;
+  cursor: pointer;
+  display: flex;
   font-family: ${fonts.SANS_SERIF};
   font-size: 13px;
   font-weight: 700;
+  justify-content: center;
   letter-spacing: 0.2px;
-  line-height: 14px;
-  padding: 15px;
+  min-height: 20px;
   opacity: 1;
+  padding: 8px;
   text-decoration: none;
   transition: opactiy 0.2s ease;
   width: 100%;
@@ -197,8 +240,8 @@ export const BlueLinkBtn = styled.a`
 export const StoryRegistryDetailsStyled = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-bottom: 15px;
-  padding: 15px 0;
+  margin-bottom: 20px;
+  padding: 20px 0;
 `;
 
 export interface StoryRegistryStatusProps {
@@ -209,12 +252,26 @@ export const StoryRegistryStatusTextWrap = styled.div`
   border-left: 1px solid
     ${(props: StoryRegistryStatusProps) =>
       props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL};
-  padding: 0 15px;
+  padding: 0 50px 0 15px;
+  position: relative;
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_0};
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+  }
+
+  svg {
+    position: absolute;
+    right: 0;
+    top: calc(50% - 20px);
+  }
 `;
 
 export const RegistryStatusTag = styled.span`
   background-color: ${(props: StoryRegistryStatusProps) =>
-    props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL};
+    props.activeChallenge ? colors.accent.CIVIL_ORANGE : colors.accent.CIVIL_TEAL_DARK};
   color: ${(props: StoryRegistryStatusProps) =>
     props.activeChallenge ? colors.accent.CIVIL_GRAY_0 : colors.basic.WHITE};
   font-family: ${fonts.SANS_SERIF};
@@ -239,47 +296,41 @@ export const StoryModalContain = styled.div`
   width: 100%;
 `;
 
-export const StoryModalCloseBtn = styled(InvertedButton)`
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-radius: 50%;
-  padding: 0;
-  height: 32px;
+export const StoryModalCloseBtn = styled.div`
   position: absolute;
   right: 15px;
   top: 15px;
-  width: 32px;
   z-index: 1;
-
-  svg path {
-    transition: fill 0.2s ease;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: ${colors.basic.WHITE};
-
-    svg path {
-      fill: ${colors.accent.CIVIL_BLUE};
-    }
-  }
 `;
 
-export const StoryModalHeader = styled.div`
-  padding: 20px;
+export const StoryDetailsHeader = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 20px 0;
 `;
 
-export const StoryModalFullBleedHeader = styled.div`
-  height: 110px;
+export const StoryDetailsFullBleedHeader = styled.div`
+  height: 100px;
   overflow: hidden;
   width: 100%;
 `;
 
-export const StoryModalContent = styled.div`
+export const StoryDetailsContent = styled.div`
   background-color: ${colors.basic.WHITE};
+  font-family: ${fonts.SANS_SERIF};
   padding: 20px;
 `;
 
-export const StoryModalFooter = styled.div`
+export const StoryDetailsFooter = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding: 30px 20px;
+  padding: 20px;
+`;
+
+export const StoryDetailsFooterFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  button,
+  a {
+    width: 48%;
+  }
 `;

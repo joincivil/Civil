@@ -1,9 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries } from "../styleConstants";
-import { Button, InvertedButton } from "../Button";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
-import { InputBase, InputIcon } from "@joincivil/elements";
+import { InputBase, InputIcon, Button, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
   padding: 20px;

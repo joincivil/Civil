@@ -97,7 +97,21 @@ export class BaseMultisigProxy {
         if (submissionLogs.length !== 1) {
           throw new Error("Too many Submission events than expected in multisig");
         }
-        return new BigNumber(submissionLogs[0].returnValues.transactionId).toNumber();
+        const idFromReceipt = (submissionLogs[0].returnValues || submissionLogs[0].args).transactionId;
+        let id: number;
+        try {
+          id = new BigNumber(idFromReceipt).toNumber();
+        } catch (err) {
+          // @TODO We used to get transaction ID from `submissionLogs[0].returnValues.transactionId` and convert it to number and return. Since web3 update, `returnValues` doesn't exist, but there is `args.transactionId`, but it's too big a number to be converted into a number. Not sure how this return value is being used or if it'll be an issue to leave it as a string, but just leaving it for now to get multisig transactions to work. Also an issue in `core/src/contracts/multisig/multisig.ts`.
+          console.warn(
+            "Failed to convert receipt log event transaction ID into number to create MultisigTransaction to return in receipt. Error:",
+            err,
+            "Log event:",
+            submissionLogs[0],
+          );
+          id = idFromReceipt as any; // it's a string with a very long number
+        }
+        return id;
       },
     };
   }

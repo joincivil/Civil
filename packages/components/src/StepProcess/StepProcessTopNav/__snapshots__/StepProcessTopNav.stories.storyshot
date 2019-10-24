@@ -12,81 +12,81 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) StepProcessTopN
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             >
               <div
-                className="sc-LzLqD sc-LzLqE jeQXxS"
+                className="sc-LzLqK sc-LzLqL lfoukh"
               />
             </div>
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -94,14 +94,14 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) StepProcessTopN
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <p>
           Content
         </p>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       />
     </div>
   </div>
@@ -1440,78 +1440,78 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) StepProcessTopN
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             />
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC fIUcHn"
+            className="sc-LzLqJ fRFqJm"
             disabled={true}
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -1519,14 +1519,14 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) StepProcessTopN
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <p>
           Content
         </p>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP ewtwbh"
@@ -3067,78 +3067,78 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) scrolls to top 
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             />
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC fIUcHn"
+            className="sc-LzLqJ fRFqJm"
             disabled={true}
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -3146,7 +3146,7 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) scrolls to top 
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <div>
           <p>
@@ -3239,7 +3239,7 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) scrolls to top 
         </div>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP ewtwbh"
@@ -8746,81 +8746,81 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 2 1`] = `
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC ZgNoB"
+            className="sc-LzLqJ edaNLw"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD kYyYSj"
+              className="sc-LzLqK dDUrYO"
             >
               <div
-                className="sc-LzLqD sc-LzLqE cEwLRn"
+                className="sc-LzLqK sc-LzLqL enhNyW"
               />
             </div>
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             />
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -8828,14 +8828,14 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 2 1`] = `
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <p>
           Content
         </p>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       />
     </div>
   </div>
@@ -10202,81 +10202,81 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 3 1`] = `
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC ZgNoB"
+            className="sc-LzLqJ edaNLw"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD kYyYSj"
+              className="sc-LzLqK dDUrYO"
             >
               <div
-                className="sc-LzLqD sc-LzLqE cEwLRn"
+                className="sc-LzLqK sc-LzLqL enhNyW"
               />
             </div>
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC ZgNoB"
+            className="sc-LzLqJ edaNLw"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD kYyYSj"
+              className="sc-LzLqK dDUrYO"
             />
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -10284,14 +10284,14 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 3 1`] = `
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <p>
           Content
         </p>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       />
     </div>
   </div>
@@ -11658,85 +11658,85 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 3 2 comple
   >
     <div>
       <div
-        className="sc-LzLqF CtmtW"
+        className="sc-LzLrj ianIz"
       >
         <ul
-          className="sc-LzLqG dSQpef"
+          className="sc-LzLrk iWDauA"
         >
           <li
-            className="sc-LzLqC ZgNoB"
+            className="sc-LzLqJ edaNLw"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD kYyYSj"
+              className="sc-LzLqK dDUrYO"
             >
               <div
-                className="sc-LzLqD sc-LzLqE cEwLRn"
+                className="sc-LzLqK sc-LzLqL enhNyW"
               />
             </div>
              
             Step 1
           </li>
           <li
-            className="sc-LzLqC ZgNoB"
+            className="sc-LzLqJ edaNLw"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD kYyYSj"
+              className="sc-LzLqK dDUrYO"
             >
               <div
-                className="sc-LzLqD sc-LzLqE cEwLRn"
+                className="sc-LzLqK sc-LzLqL enhNyW"
               />
             </div>
              
             Step 2
           </li>
           <li
-            className="sc-LzLqC fsbguU"
+            className="sc-LzLqJ fAMuwT"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD fQfYPI"
+              className="sc-LzLqK gIdEyD"
             />
              
             Step 3
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 4
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 5
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 6
           </li>
           <li
-            className="sc-LzLqC gWiEdb"
+            className="sc-LzLqJ heTSfa"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLqD jHIxxe"
+              className="sc-LzLqK cndQDJ"
             />
              
             Step 7
@@ -11744,14 +11744,14 @@ exports[`Storyshots Common / Steps / Step Process (with buttons) step 3 2 comple
         </ul>
       </div>
       <div
-        className="sc-LzLqH eoDYxN"
+        className="sc-LzLrl cWTfEW"
       >
         <p>
           Content
         </p>
       </div>
       <div
-        className="sc-LzLqI AqlJu"
+        className="sc-LzLrm keLYtP"
       />
     </div>
   </div>

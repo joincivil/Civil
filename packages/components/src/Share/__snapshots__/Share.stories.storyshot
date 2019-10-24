@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Common / Share Share Story 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNPx dNPKz"
+    >
+      <div
+        className="sc-fzXfNJ kjMqF"
+      >
+        <div
+          className="sc-fzXfNK gXWZCz"
+        >
+          <h2>
+            Share
+          </h2>
+          <p
+            className="sc-fzXfNL eAUiqc"
+          >
+            Memes and Satire on Hong Kong’s Front Lines
+            <a
+              href="https://civil.co"
+              target="_blank"
+            >
+              https://civil.co
+            </a>
+          </p>
+        </div>
+        <div
+          className="sc-fzXfNM kIJLfN"
+        >
+          <a
+            href="https://twitter.com/intent/tweet?text=Memes%20and%20Satire%20on%20Hong%20Kong%E2%80%99s%20Front%20Lines&url=https://civil.co"
+          >
+            Share to Twitter
+            <svg
+              height="32"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="m28.954 8.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124-4.09-.193-7.715-2.157-10.141-5.126-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548z"
+                fill="#191919"
+                fillRule="nonzero"
+              />
+            </svg>
+          </a>
+          <a
+            href="mailto:?subject=Memes%20and%20Satire%20on%20Hong%20Kong%E2%80%99s%20Front%20Lines&body=https://civil.co"
+          >
+            Share via Email
+            <svg
+              height="32"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <g
+                  transform="translate(-977.000000, -505.000000)"
+                >
+                  <g
+                    transform="translate(931.000000, 482.000000)"
+                  >
+                    <g
+                      transform="translate(0.000000, 23.000000)"
+                    >
+                      <g
+                        transform="translate(46.000000, 0.000000)"
+                      >
+                        <g>
+                          <polygon
+                            points="4 4 28 4 28 28 4 28"
+                          />
+                          <path
+                            d="M24,8 L8,8 C6.9,8 6.01,8.9 6.01,10 L6,22 C6,23.1 6.9,24 8,24 L24,24 C25.1,24 26,23.1 26,22 L26,10 C26,8.9 25.1,8 24,8 Z M23.6,12.25 L16.53,16.67 C16.21,16.87 15.79,16.87 15.47,16.67 L8.4,12.25 C8.15,12.09 8,11.82 8,11.53 C8,10.86 8.73,10.46 9.3,10.81 L16,15 L22.7,10.81 C23.27,10.46 24,10.86 24,11.53 C24,11.82 23.85,12.09 23.6,12.25 Z"
+                            fill="#191919"
+                            fillRule="nonzero"
+                          />
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </a>
+          <button
+            onClick={[Function]}
+          >
+            Copy Link
+            <svg
+              height="32"
+              version="1.1"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <polygon
+                  points="4 4 28 4 28 28 4 28"
+                />
+                <g
+                  fill="#191919"
+                  fillRule="nonzero"
+                  transform="translate(7, 7)"
+                >
+                  <path
+                    d="M4.68779528,8.21176934 C5.00935039,8.53326117 5.03614665,9.03931313 4.76818406,9.39156498 L4.68779528,9.48356623 L2.59370079,11.5772486 C2.07992126,12.0873844 1.8,12.7675654 1.8,13.4902578 C1.8,14.2129502 2.08346457,14.8931313 2.59370079,15.4032671 C3.60561024,16.4149774 5.22605192,16.457132 6.28867239,15.5297309 L6.42401575,15.4032671 L8.51811024,13.3095847 C8.86889764,12.9588664 9.43937008,12.9588664 9.79370079,13.3166699 C10.1152559,13.6381618 10.1420522,14.1442137 9.87408957,14.4964656 L9.79370079,14.5884668 L7.6996063,16.6821492 C6.82086614,17.5607164 5.66574803,18 4.51062992,18 C3.35551181,18 2.2003937,17.5607164 1.32165354,16.6821492 C0.467716535,15.8283802 0,14.6982877 0,13.4938004 C0,12.3696123 0.410519685,11.3071443 1.15665722,10.4792128 L1.32165354,10.3054517 L3.41574803,8.21176934 C3.76653543,7.86105097 4.33700787,7.86105097 4.68779528,8.21176934 Z M12.3413386,5.66463295 C12.6628937,5.98612478 12.68969,6.49217674 12.4217274,6.84442859 L12.3413386,6.93642984 L6.94133858,12.3353671 C6.76417323,12.5089549 6.53385827,12.5975202 6.30354331,12.5975202 C6.07322835,12.5975202 5.84291339,12.5124975 5.66574803,12.3353671 C5.34419291,12.0138752 5.31739665,11.5078233 5.58535925,11.1555714 L5.66574803,11.0635702 L11.065748,5.66463295 C11.4165354,5.31037197 11.9870079,5.31037197 12.3413386,5.66463295 Z M13.4929134,0 C14.6976378,0 15.8314961,0.471167093 16.6818898,1.32139343 C18.4393701,3.07852785 18.4393701,5.93741389 16.6818898,7.69454832 L16.6818898,7.69454832 L14.5877953,9.78823066 C14.4106299,9.96181854 14.180315,10.0503838 13.95,10.0503838 C13.719685,10.0503838 13.4893701,9.96536115 13.3122047,9.78823066 C12.9614173,9.4375123 12.9614173,8.86715214 13.3122047,8.51643377 L13.3122047,8.51643377 L15.4062992,6.42275143 C16.4622047,5.36705373 16.4622047,3.64888801 15.4062992,2.59319032 C14.3822835,1.56937611 12.6,1.56937611 11.5759843,2.59319032 L11.5759843,2.59319032 L9.48188976,4.68687266 C9.13110236,5.03759103 8.56062992,5.03759103 8.20984252,4.68687266 C7.85905512,4.3361543 7.85905512,3.76579414 8.20984252,3.41507577 L8.20984252,3.41507577 L10.303937,1.32139343 C11.157874,0.467624483 12.288189,0 13.4929134,0 Z"
+                  />
+                </g>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Common / Share
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Share Story
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    ShareStory
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        title
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            Memes and Satire on Hong Kong’s Front Lines
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        url
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            https://civil.co
+                          </span>
+                          "
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              ShareStory
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

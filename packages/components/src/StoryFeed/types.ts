@@ -16,6 +16,9 @@ export interface StoryNewsroomData {
 }
 
 export interface OpenGraphData {
+  article: {
+    published_time: string;
+  };
   description: string;
   images: OpenGraphImageData[];
   title: string;
