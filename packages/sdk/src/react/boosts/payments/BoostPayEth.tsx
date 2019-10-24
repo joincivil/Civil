@@ -141,8 +141,10 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
           </BoostButton>
         ) : (
           <div>
-            <BoostButton onClick={this.enableEth}>Select&nbsp;Wallet</BoostButton>
-            <BoostConnectWalletWarningText />
+            <BoostButton onClick={this.enableEth}>
+              {this.context.currentUser ? "Enable" : "Select"}&nbsp;Wallet
+            </BoostButton>
+            {!this.context.currentUser && <BoostConnectWalletWarningText />}
           </div>
         )}
       </>
