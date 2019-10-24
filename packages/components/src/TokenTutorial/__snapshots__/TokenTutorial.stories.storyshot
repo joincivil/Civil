@@ -11,16 +11,16 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
     }
   >
     <div
-      className="sc-LzNag jhTFYa"
+      className="sc-LzNah jZYTyP"
     >
       <div
-        className="sc-LzNak wKHU"
+        className="sc-LzNal kZxmdN"
       >
         <h2>
           Choose a topic below to get started
         </h2>
         <div
-          className="sc-LzNal iOdDSA"
+          className="sc-LzNam cThZGR"
         >
           <svg
             height="18"
@@ -46,13 +46,13 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </div>
       </div>
       <div
-        className="sc-LzNam hxvpiU"
+        className="sc-LzNan jNFlWp"
       >
         <p>
           If you’ve read the Civil Constitution and FAQ, skip to the quiz.
         </p>
         <button
-          className="sc-fzXfLO sc-fzXfLQ sc-LzNan kOwLMy"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzNao bWztXD"
           onClick={[Function]}
           theme={
             Object {
@@ -66,10 +66,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-LzNao gmBSPs"
+        className="sc-LzNap yVlRB"
       >
         <button
-          className="sc-fzXfLO sc-fzXfLQ sc-LzNaN hIWttf"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzNaO hdrGAO"
           disabled={false}
           onClick={[Function]}
           theme={
@@ -81,7 +81,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-LzNap cAxYfx"
+            className="sc-LzNaN hCKVUr"
           >
             <div>
               <svg
@@ -128,7 +128,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-LzNaO ePwjRm"
+            className="sc-LzNaP fphYpT"
           >
             You have 
             4
@@ -136,19 +136,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-LzNaP ckfsIo"
+              className="sc-LzNaQ clfQcV"
             >
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <b>
                 0
@@ -160,10 +160,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-LzNao gmBSPs"
+        className="sc-LzNap yVlRB"
       >
         <button
-          className="sc-fzXfLO sc-fzXfLQ sc-LzNaN kgvDFK disabled"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzNaO hVEvrB disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -175,7 +175,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-LzNap cAxYfx"
+            className="sc-LzNaN hCKVUr"
           >
             <div>
               <svg
@@ -225,7 +225,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-LzNaO ePwjRm"
+            className="sc-LzNaP fphYpT"
           >
             You have 
             4
@@ -233,19 +233,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-LzNaP ckfsIo"
+              className="sc-LzNaQ clfQcV"
             >
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <b>
                 0
@@ -257,10 +257,10 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
         </button>
       </div>
       <div
-        className="sc-LzNao gmBSPs"
+        className="sc-LzNap yVlRB"
       >
         <button
-          className="sc-fzXfLO sc-fzXfLQ sc-LzNaN kgvDFK disabled"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzNaO hVEvrB disabled"
           disabled={true}
           onClick={[Function]}
           theme={
@@ -272,7 +272,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
           type="button"
         >
           <div
-            className="sc-LzNap cAxYfx"
+            className="sc-LzNaN hCKVUr"
           >
             <div>
               <svg
@@ -329,7 +329,7 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             </svg>
           </div>
           <div
-            className="sc-LzNaO ePwjRm"
+            className="sc-LzNaP fphYpT"
           >
             You have 
             4
@@ -337,19 +337,19 @@ exports[`Storyshots Storefront / Token Tutorial Tutorial Landing 1`] = `
             s
              left
             <div
-              className="sc-LzNaP ckfsIo"
+              className="sc-LzNaQ clfQcV"
             >
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <div
-                className="sc-LzNaQ epHKJr"
+                className="sc-LzNaR dFtsAM"
               />
               <b>
                 0
