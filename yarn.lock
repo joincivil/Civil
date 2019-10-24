@@ -2478,13 +2478,14 @@
     redux-dynamic-middlewares "^1.0.0"
     redux-thunk "^2.3.0"
 
-"@kirby-web3/ethereum-react@^1.2.2":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.11.tgz#e7ee325c0a1bf8c1adafec6b5b9d6dd6aaa5036a"
+"@kirby-web3/ethereum-react@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.12.tgz#78f99f0e359490191f46e2dfd1e9774f20bdee81"
+  integrity sha512-jZ2VIXQ4haLB9eS0bIfiS00SyEG1nyYIePq2DxfZg0nSUyI5Z5yLLNhIJXaVXJHrXMkBJ1TsmHlcxriC+QswfQ==
   dependencies:
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/parent-react" "1.2.11"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/parent-react" "1.2.12"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
 
 "@kirby-web3/parent-core@1.3.1":
   version "1.3.1"
@@ -2510,23 +2511,25 @@
     web3-providers-http "^1.2.0"
     web3-providers-ws "^1.2.0"
 
-"@kirby-web3/parent-react@1.2.11":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.11.tgz#8a3ac00082aa67dce9077171efd3e396707a3786"
+"@kirby-web3/parent-react@1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.12.tgz#51e4bb62f3756c5a2fd268793b7b58099730e183"
+  integrity sha512-hWq/5X2eKDXgMmaskEuRUiDDC2omr9etAX7yVUqLcdurCijv9Amge7Jc2OZvpmfzS8wVJs5O8MW0KJSDGZEtFg==
   dependencies:
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
     react-redux "^7.1.1"
     redux "^4.0.4"
 
-"@kirby-web3/plugin-connext@^1.1.2":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.8.tgz#5a55c40d4292b1cd26d7f9bf018fbee48c14733c"
+"@kirby-web3/plugin-connext@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.9.tgz#ef02e34fa713c1a064b78f16963eeac753b189e2"
+  integrity sha512-QtzK5/b1A4OQn/HS0pIhU7xlUqhQoOtGw9wkH/1M6d6pDuZ019TYtUWR+snu5hUPffMrnctXfLChDq/3W0BIzg==
   dependencies:
     "@kirby-web3/child-core" "1.6.0"
     "@kirby-web3/common" "1.2.0"
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
     "@portis/web3" "^2.0.0-beta.36"
     burner-provider "^1.0.5"
     debug "^4.1.1"
@@ -2537,9 +2540,10 @@
     web3-providers-ws "^1.2.0"
     web3-utils "^1.2.1"
 
-"@kirby-web3/plugin-ethereum@1.10.2", "@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.2.tgz#3304565e9de02c92a48a28b63426b3951c0daeb6"
+"@kirby-web3/plugin-ethereum@1.10.3", "@kirby-web3/plugin-ethereum@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.3.tgz#286c6622d2f0f65618a341ef7edf0bf2056a526c"
+  integrity sha512-RIwTazt17x5kJFjy8rLHAEPuypGy3+3BWLJI1KmT0XBWdX9j38REq9CywsH7eKi06IRf9EzD9t9T4QlL0M0tFg==
   dependencies:
     "@kirby-web3/child-core" "1.6.0"
     "@kirby-web3/common" "1.2.0"
@@ -11400,57 +11404,10 @@ ethereumjs-wallet@^0.6.3:
     utf8 "^3.0.0"
     uuid "^3.3.2"
 
-ethers@3.0.27:
-  version "3.0.27"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-3.0.27.tgz#f9e89bb43a7265a65512d3142c51f26489667f53"
-  integrity sha512-Ymop12NYKLTejQKv3l4a4vwwZNG+V0D2KmBGuSMa0eEguPJYCouNUoJ/8IiDTwqxKsthoSeCRrcXIz5HJDbHqA==
-  dependencies:
-    aes-js "3.0.0"
-    bn.js "^4.4.0"
-    elliptic "6.3.3"
-    hash.js "^1.0.0"
-    inherits "2.0.1"
-    js-sha3 "0.5.7"
-    scrypt-js "2.0.3"
-    setimmediate "1.0.4"
-    uuid "2.0.1"
-    xmlhttprequest "1.8.0"
-
-ethers@4.0.0-beta.3:
-  version "4.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.0-beta.3.tgz#15bef14e57e94ecbeb7f9b39dd0a4bd435bc9066"
-  integrity sha512-YYPogooSknTwvHg3+Mv71gM/3Wcrx+ZpCzarBj3mqs9njjRkrOo2/eufzhHloOCo3JSoNI4TQJJ6yU5ABm3Uog==
-  dependencies:
-    "@types/node" "^10.3.2"
-    aes-js "3.0.0"
-    bn.js "^4.4.0"
-    elliptic "6.3.3"
-    hash.js "1.1.3"
-    js-sha3 "0.5.7"
-    scrypt-js "2.0.3"
-    setimmediate "1.0.4"
-    uuid "2.0.1"
-    xmlhttprequest "1.8.0"
-
-ethers@^4.0.27, ethers@~4.0.4:
+ethers@3.0.27, ethers@4.0.0-beta.3, ethers@4.0.27, ethers@^4.0.27, ethers@^4.0.33, ethers@^4.0.36, ethers@^4.0.37, ethers@~4.0.4:
   version "4.0.27"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.27.tgz#e570b0da9d805ad65c83d81919abe02b2264c6bf"
-  dependencies:
-    "@types/node" "^10.3.2"
-    aes-js "3.0.0"
-    bn.js "^4.4.0"
-    elliptic "6.3.3"
-    hash.js "1.1.3"
-    js-sha3 "0.5.7"
-    scrypt-js "2.0.4"
-    setimmediate "1.0.4"
-    uuid "2.0.1"
-    xmlhttprequest "1.8.0"
-
-ethers@^4.0.33, ethers@^4.0.36, ethers@^4.0.37:
-  version "4.0.38"
-  resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.38.tgz#3fabafb4f79c435205b143b66b4a1af035043e37"
-  integrity sha512-l7l7RIfk2/rIFgRRVLFY3H06S9dhXXPUdMlYm6SCelB6oG+ABmoRig7xSVOLcHLayBfSwssjAAYLKxf1jWhbuQ==
+  integrity sha512-+DXZLP/tyFnXWxqr2fXLT67KlGUfLuvDkHSOtSC9TUVG9OIj6yrG5JPeXRMYo15xkOYwnjgdMKrXp5V94rtjJA==
   dependencies:
     "@types/node" "^10.3.2"
     aes-js "3.0.0"
@@ -22333,11 +22290,6 @@ schema-utils@^2.0.0, schema-utils@^2.0.1:
   dependencies:
     ajv "^6.10.2"
     ajv-keywords "^3.4.1"
-
-scrypt-js@2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-2.0.3.tgz#bb0040be03043da9a012a2cea9fc9f852cfc87d4"
-  integrity sha1-uwBAvgMEPamgEqLOqfyfhSz8h9Q=
 
 scrypt-js@2.0.4:
   version "2.0.4"
