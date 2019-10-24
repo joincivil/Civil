@@ -11,14 +11,14 @@ exports[`Storyshots Pattern Library / Notices Alert 1`] = `
     }
   >
     <div
-      className="sc-LzMlH cPiFFd"
+      className="sc-LzMlI cswWiG"
       type={2}
     >
       <div
-        className="sc-LzMlI fuqtHq"
+        className="sc-LzMlJ fvHTnH"
       />
       <div
-        className="sc-LzMlJ bSOmVP"
+        className="sc-LzMmh jKkYFO"
       >
         This is an alert notice
       </div>
@@ -337,14 +337,14 @@ exports[`Storyshots Pattern Library / Notices Attention 1`] = `
     }
   >
     <div
-      className="sc-LzMlH bkWfAR"
+      className="sc-LzMlI jULzfq"
       type={3}
     >
       <div
-        className="sc-LzMlI fuqtHq"
+        className="sc-LzMlJ fvHTnH"
       />
       <div
-        className="sc-LzMlJ bSOmVP"
+        className="sc-LzMmh jKkYFO"
       >
         This is an attention notice
       </div>
@@ -663,11 +663,11 @@ exports[`Storyshots Pattern Library / Notices Error 1`] = `
     }
   >
     <div
-      className="sc-LzMlH ieKGWj"
+      className="sc-LzMlI deuwFE"
       type={1}
     >
       <div
-        className="sc-LzMlI fuqtHq"
+        className="sc-LzMlJ fvHTnH"
       >
         <svg
           height="28"
@@ -694,7 +694,7 @@ exports[`Storyshots Pattern Library / Notices Error 1`] = `
         </svg>
       </div>
       <div
-        className="sc-LzMlJ bSOmVP"
+        className="sc-LzMmh jKkYFO"
       >
         This is an error notice
       </div>
@@ -1013,14 +1013,14 @@ exports[`Storyshots Pattern Library / Notices Info 1`] = `
     }
   >
     <div
-      className="sc-LzMlH jKnIbN"
+      className="sc-LzMlI jnNPpG"
       type={0}
     >
       <div
-        className="sc-LzMlI fuqtHq"
+        className="sc-LzMlJ fvHTnH"
       />
       <div
-        className="sc-LzMlJ bSOmVP"
+        className="sc-LzMmh jKkYFO"
       >
         This is an info notice
       </div>
@@ -1339,27 +1339,27 @@ exports[`Storyshots Pattern Library / Notices Notice - All types 1`] = `
     }
   >
     <div
-      className="sc-LzNOT guxQGn"
+      className="sc-LzNOU jhmdBc"
     >
       <div
-        className="sc-LzMlH jKnIbN"
+        className="sc-LzMlI jnNPpG"
         type={0}
       >
         <div
-          className="sc-LzMlI fuqtHq"
+          className="sc-LzMlJ fvHTnH"
         />
         <div
-          className="sc-LzMlJ bSOmVP"
+          className="sc-LzMmh jKkYFO"
         >
           This is an info notice
         </div>
       </div>
       <div
-        className="sc-LzMlH ieKGWj"
+        className="sc-LzMlI deuwFE"
         type={1}
       >
         <div
-          className="sc-LzMlI fuqtHq"
+          className="sc-LzMlJ fvHTnH"
         >
           <svg
             height="28"
@@ -1386,33 +1386,33 @@ exports[`Storyshots Pattern Library / Notices Notice - All types 1`] = `
           </svg>
         </div>
         <div
-          className="sc-LzMlJ bSOmVP"
+          className="sc-LzMmh jKkYFO"
         >
           This is an error notice
         </div>
       </div>
       <div
-        className="sc-LzMlH cPiFFd"
+        className="sc-LzMlI cswWiG"
         type={2}
       >
         <div
-          className="sc-LzMlI fuqtHq"
+          className="sc-LzMlJ fvHTnH"
         />
         <div
-          className="sc-LzMlJ bSOmVP"
+          className="sc-LzMmh jKkYFO"
         >
           This is an alert notice
         </div>
       </div>
       <div
-        className="sc-LzMlH bkWfAR"
+        className="sc-LzMlI jULzfq"
         type={3}
       >
         <div
-          className="sc-LzMlI fuqtHq"
+          className="sc-LzMlJ fvHTnH"
         />
         <div
-          className="sc-LzMlJ bSOmVP"
+          className="sc-LzMmh jKkYFO"
         >
           This is an attention notice
         </div>
@@ -2090,11 +2090,11 @@ exports[`Storyshots Pattern Library / Notices foundation action 1`] = `
     }
   >
     <div
-      className="sc-LzMlH jMvOGC"
+      className="sc-LzMlI epzzpH"
       type={4}
     >
       <div
-        className="sc-LzMlI fuqtHq"
+        className="sc-LzMlJ fvHTnH"
       >
         <svg
           height="48"
@@ -2132,7 +2132,7 @@ exports[`Storyshots Pattern Library / Notices foundation action 1`] = `
         </svg>
       </div>
       <div
-        className="sc-LzMlJ bSOmVP"
+        className="sc-LzMmh jKkYFO"
       >
          
         This is a foundation action notice

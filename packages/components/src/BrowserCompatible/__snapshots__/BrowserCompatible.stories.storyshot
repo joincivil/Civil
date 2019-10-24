@@ -11,28 +11,28 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
     }
   >
     <div
-      className="sc-LzMDq tiOEU"
+      className="sc-LzMDr hGyrIp"
     >
       <h2
-        className="sc-LzMCa kPuYbW"
+        className="sc-LzMCb bdqWzr"
       >
         Can we switch to a different browser?
       </h2>
       <p
-        className="sc-LzMCc sc-LzMDv kpNDln"
+        className="sc-LzMCd sc-LzMDw NQjEY"
       >
         Civil Registry applications and token purchases currently only work in browsers with Ethereum wallet support, like desktop Chrome and Firefox. We’re working to support other browsers.
       </p>
       <p
-        className="sc-LzMCc sc-LzMDv kpNDln"
+        className="sc-LzMCd sc-LzMDw NQjEY"
       >
         In the meantime, please…
       </p>
       <div
-        className="sc-LzMDs fUsVPr"
+        className="sc-LzMDt hYBeFQ"
       >
         <a
-          className="sc-fzXfLO sc-fzXfLQ sc-LzMDt dnsRpm"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzMDu bXsOln"
           href="https://www.google.com/chrome/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -44,13 +44,13 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-LzMDr gqWfQI"
+            className="sc-LzMDs bqJXYJ"
             src="test-file-stub"
           />
           Get Google Chrome
         </a>
         <a
-          className="sc-fzXfLO sc-fzXfLQ sc-LzMDt dnsRpm"
+          className="sc-fzXfLO sc-fzXfLQ sc-LzMDu bXsOln"
           href="https://www.mozilla.org/en-US/firefox/"
           size="MEDIUM_WIDE"
           target="_blank"
@@ -62,23 +62,23 @@ exports[`Storyshots Common / Browser Compatible Message Browser Compatible 1`] =
           }
         >
           <img
-            className="sc-LzMDr gqWfQI"
+            className="sc-LzMDs bqJXYJ"
             src="test-file-stub"
           />
           Get Firefox
         </a>
       </div>
       <p
-        className="sc-LzMCd sc-LzMCf loqCZW"
+        className="sc-LzMCe sc-LzMCg hdJacf"
       >
         <a
-          className="sc-LzMDu iRREiV"
+          className="sc-LzMDv iYXzEi"
           href="mailto:support@civil.co"
         >
           Contact Us
         </a>
         <a
-          className="sc-LzMDu iRREiV"
+          className="sc-LzMDv iYXzEi"
           href="https://help.civil.co/hc/en-us/articles/360022147571-Browser-Support"
           target="_blank"
         >

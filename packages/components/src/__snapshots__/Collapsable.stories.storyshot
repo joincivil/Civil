@@ -11,24 +11,40 @@ exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
     }
   >
     <div
-      className="sc-LzNOf kGGxYS"
+      className="sc-LzNOg hUnCNz"
     >
       <div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLtf CqeMK"
+          onClick={[Function]}
+        >
+          <h3>
+            Hello
+          </h3>
+           
+          <div
+            className="sc-LzLte feBpDJ"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsF hWFNFX"
+          className="sc-LzLsG iDUFKU"
           height={null}
           open={false}
-            className="sc-LzLsG hGwRne"
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
       </div>
     </div>
   </div>
   <button
-          className="sc-LzLsF hWFNFX"
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
         "border": "none",
         "borderRadius": "0 0 0 5px",
         "color": "#fff",
@@ -480,11 +496,11 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
     }
   >
     <div
-      className="sc-LzNOf kGGxYS"
+      className="sc-LzNOg hUnCNz"
     >
       <div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLtf CqeMK"
           onClick={[Function]}
         >
           <h3>
@@ -492,15 +508,23 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
           </h3>
            
           <div
-            className="sc-LzLsG giSCu"
+            className="sc-LzLte iTJarV"
             disabled={true}
             open={false}
           />
-      className="sc-LzNOf kGGxYS"
-    >
-      <div>
+        </div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLsG iDUFKU"
+          height={null}
+          open={false}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
   <button
     className="info__show-button"
     onClick={[Function]}
@@ -508,13 +532,21 @@ exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
       Object {
         "background": "#027ac5",
         "border": "none",
-            className="sc-LzLsG giSCu"
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
         "fontSize": "12px",
         "padding": "5px 15px",
         "position": "fixed",
         "right": 0,
         "top": 0,
-          className="sc-LzLsF hWFNFX"
+      }
+    }
+    type="button"
+  >
+    Show Info
   </button>
   <div
     className="info__overlay"
@@ -958,11 +990,11 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     }
   >
     <div
-      className="sc-LzNOf kGGxYS"
+      className="sc-LzNOg hUnCNz"
     >
       <div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLtf CqeMK"
           onClick={[Function]}
         >
           <h3>
@@ -970,12 +1002,12 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
           </h3>
            
           <div
-            className="sc-LzLsG dlQNp"
+            className="sc-LzLte iQLYCQ"
             open={true}
           />
         </div>
         <div
-          className="sc-LzLsF kNhtZK"
+          className="sc-LzLsG hxmBOH"
           height={null}
           open={true}
         >
@@ -990,11 +1022,19 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     className="info__show-button"
     onClick={[Function]}
     style={
-      className="sc-LzNOf kGGxYS"
-    >
-      <div>
-        <div
-          className="sc-LzLte qjHyl"
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
       }
     }
     type="button"
@@ -1002,12 +1042,20 @@ exports[`Storyshots Pattern Library / Collapsable open 1`] = `
     Show Info
   </button>
   <div
-            className="sc-LzLsG dlQNp"
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
         "display": "none",
         "height": "100vh",
         "left": 0,
         "overflow": "auto",
-          className="sc-LzLsF kNhtZK"
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
     }
   >
     <button
@@ -1409,22 +1457,22 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     }
   >
     <div
-      className="sc-LzNOf kGGxYS"
+      className="sc-LzNOg hUnCNz"
     >
       <div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLtf CqeMK"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-LzNPC inFadx"
+            className="sc-LzNQa kFloWs"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsF hWFNFX"
+          className="sc-LzLsG iDUFKU"
           height={null}
           open={false}
         >
@@ -1457,22 +1505,38 @@ exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
     type="button"
   >
     Show Info
-      className="sc-LzNOf kGGxYS"
-    >
-      <div>
-        <div
-          className="sc-LzLte qjHyl"
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
         "width": "100vw",
         "zIndex": 99999,
       }
     }
   >
-            className="sc-LzNPC inFadx"
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
           "background": "#027ac5",
           "border": "none",
           "borderRadius": "0 0 0 5px",
           "color": "#fff",
-          className="sc-LzLsF hWFNFX"
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
           "position": "fixed",
           "right": 0,
           "top": 0,
@@ -1992,22 +2056,22 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
     }
   >
     <div
-      className="sc-LzNOf kGGxYS"
+      className="sc-LzNOg hUnCNz"
     >
       <div>
         <div
-          className="sc-LzLte qjHyl"
+          className="sc-LzLtf CqeMK"
           onClick={[Function]}
         >
           Hello
            
           <div
-            className="sc-LzLsG hGwRne"
+            className="sc-LzLte feBpDJ"
             open={false}
           />
         </div>
         <div
-          className="sc-LzLsF hWFNFX"
+          className="sc-LzLsG iDUFKU"
           height={null}
           open={false}
         >
@@ -2056,22 +2120,38 @@ exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
         "width": "100vw",
         "zIndex": 99999,
       }
-      className="sc-LzNOf kGGxYS"
-    >
-      <div>
-        <div
-          className="sc-LzLte qjHyl"
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
           "fontFamily": "sans-serif",
           "fontSize": "12px",
           "padding": "5px 15px",
           "position": "fixed",
           "right": 0,
-            className="sc-LzLsG hGwRne"
+          "top": 0,
+        }
+      }
+      type="button"
+    >
       ×
     </button>
     <div>
       <div
-          className="sc-LzLsF hWFNFX"
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
             "color": "black",
             "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
             "fontSize": "15px",
