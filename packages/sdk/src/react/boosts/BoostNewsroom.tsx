@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import {
   defaultNewsroomImgUrl,
   HelmetHelper,
@@ -86,7 +87,7 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
             {this.props.open && (
               <>
                 {this.props.boostOwner && (
-                  <ChevronAnchor href={`/boosts/${this.props.boostId}/edit`}>
+                  <ChevronAnchor component={Link} to={`/boosts/${this.props.boostId}/edit`}>
                     <b>Edit Boost</b>
                   </ChevronAnchor>
                 )}

@@ -80,8 +80,6 @@ const BalanceAndButton = styled.div`
 
 export interface NewsroomWithdrawProps {
   newsroomAddress: EthAddress;
-  /** Pass newsroom instance if handy to avoid unecessary instantiation. */
-  newsroom?: NewsroomInstance;
   isStripeConnected?: boolean;
 }
 
@@ -97,17 +95,12 @@ export class NewsroomWithdraw extends React.Component<NewsroomWithdrawProps, New
 
   public constructor(props: NewsroomWithdrawProps) {
     super(props);
-    this.state = {
-      newsroom: props.newsroom,
-    };
+    this.state = {};
   }
 
   public async componentDidMount(): Promise<void> {
     const userAccount = await this.context.civil!.accountStream.first().toPromise();
-    let newsroom = this.props.newsroom;
-    if (!newsroom) {
-      newsroom = await this.context.civil!.newsroomAtUntrusted(this.props.newsroomAddress);
-    }
+    const newsroom = await this.context.civil!.newsroomAtUntrusted(this.props.newsroomAddress);
 
     const multisigAddress = await newsroom!.getMultisigAddress();
     if (!multisigAddress) {
