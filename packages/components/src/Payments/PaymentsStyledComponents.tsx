@@ -4,8 +4,6 @@ import { CurrencyErrorMsg } from "../CurrencyConverter";
 import { InputBase, InputIcon, Button, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
-  padding: 20px;
-
   ${CurrencyErrorMsg} {
     bottom: 10px;
   }

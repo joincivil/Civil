@@ -8,7 +8,7 @@ import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
-import { PaymentButton, ShareButton, ShareStory } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory, Panel } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryFeedItemProps {
@@ -92,14 +92,14 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
           <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
-        <StoryModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
+        <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
           <Payments
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
           />
-        </StoryModal>
+        </Panel>
         <StoryModal open={this.state.isShareModalOpen} handleClose={this.handleClose}>
           <ShareStory title={openGraphData.title} url={openGraphData.url} />
         </StoryModal>
