@@ -1,20 +1,12 @@
 import * as React from "react";
-import { detect as detectBrowser } from "detect-browser";
-import {
-  BoostPayCardDetails,
-  LearnMore,
-  BoostFlexEth,
-  BoostButton,
-  BoostEthConfirm,
-  BoostAmount,
-} from "../BoostStyledComponents";
+import styled from "styled-components";
+import { BoostPayCardDetails, LearnMore, BoostButton, BoostEthConfirm, BoostAmount } from "../BoostStyledComponents";
 import {
   WhyEthModalText,
   WhatIsEthModalText,
   CanUseCVLText,
   BoostConnectWalletWarningText,
   BoostPayWalletText,
-  BoostMobileWalletModalText,
 } from "../BoostTextComponents";
 import { BoostModal } from "../BoostModal";
 import { BoostPayFormEth } from "./BoostPayFormEth";
@@ -23,6 +15,15 @@ import { EthAddress } from "@joincivil/core";
 import { Mutation, MutationFunc } from "react-apollo";
 import { boostPayEthMutation } from "../queries";
 import { BoostPayOption } from "./BoostPayOption";
+
+const StyledUsdEthConverter = styled(UsdEthConverter)`
+  margin-bottom: -15px;
+  max-width: 500px;
+
+  label {
+    display: none;
+  }
+`;
 
 export enum MODEL_CONTENT {
   WHY_ETH = "why eth",
@@ -47,14 +48,12 @@ export interface BoostPayEthProps {
 }
 
 export interface BoostPayEthStates {
-  isMobileWalletModalOpen: boolean;
   isInfoModalOpen: boolean;
   modalContent: string;
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
   walletConnected: boolean;
-  ethEnableCalled?: boolean;
 }
 
 export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthStates> {
@@ -64,7 +63,6 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   public constructor(props: BoostPayEthProps) {
     super(props);
     this.state = {
-      isMobileWalletModalOpen: false,
       isInfoModalOpen: false,
       modalContent: "",
       etherToSpend: this.props.etherToSpend || 0,
@@ -74,37 +72,12 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     };
   }
 
-  public async componentDidMount(): Promise<void> {
-    this.setState({
-      isMobileWalletModalOpen: this.showMobileWalletModal(),
-    });
-    if (this.props.selected) {
-      await this.ensureEthEnabled();
-    }
-  }
-
-  public async componentDidUpdate(prevProps: BoostPayEthProps): Promise<void> {
-    if (!prevProps.selected && this.props.selected) {
-      await this.ensureEthEnabled();
-    }
-  }
-
   public render(): JSX.Element {
     if (this.props.paymentStarted) {
       return <>{this.renderPaymentForm(this.state.etherToSpend, this.state.usdToSpend)}</>;
     }
 
     return <>{this.renderDefaultOption()}</>;
-  }
-
-  private async ensureEthEnabled(): Promise<void> {
-    if (this.state.ethEnableCalled || !this.context.civil) {
-      return;
-    }
-
-    this.setState({ ethEnableCalled: true });
-    await this.context.civil.currentProviderEnable();
-    this.setState({ walletConnected: true });
   }
 
   private renderDefaultOption = (): JSX.Element => {
@@ -139,34 +112,33 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
 
     return (
       <>
-        {!this.state.walletConnected && <BoostConnectWalletWarningText />}
         <LearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.CAN_USE_CVL)}>Can I use CVL?</a>
         </LearnMore>
+
         <h3>Boost Amount</h3>
-        <BoostFlexEth>
-          <UsdEthConverter
-            fromValue={this.state.usdToSpend.toString()}
-            onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
-            onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
-            displayErrorMsg={this.state.walletConnected}
-          />
+        <StyledUsdEthConverter
+          fromValue={this.state.usdToSpend.toString()}
+          onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
+          onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
+          displayErrorMsg={this.state.walletConnected}
+        />
+
+        {this.state.walletConnected ? (
           <BoostButton
             disabled={disableBtn}
             onClick={() => this.props.handleNext(this.state.etherToSpend, this.state.usdToSpend)}
           >
             Next
           </BoostButton>
-        </BoostFlexEth>
-
-        <BoostModal
-          open={this.state.isMobileWalletModalOpen && !this.state.walletConnected}
-          handleClose={this.handleClose}
-        >
-          <BoostMobileWalletModalText />
-        </BoostModal>
+        ) : (
+          <div>
+            <BoostButton onClick={this.enableEth}>Select&nbsp;Wallet</BoostButton>
+            <BoostConnectWalletWarningText />
+          </div>
+        )}
       </>
     );
   };
@@ -220,17 +192,9 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     this.setState({ notEnoughEthError: error });
   };
 
-  private showMobileWalletModal = () => {
-    let showMobileWalletModal = false;
-
-    const browser = detectBrowser();
-    const isMobile = browser && browser.os && ["Android", "iOS", "Windows Mobile"].indexOf(browser.os) !== -1;
-
-    if (isMobile && !this.state.walletConnected) {
-      showMobileWalletModal = true;
-    }
-
-    return showMobileWalletModal;
+  private enableEth = async () => {
+    await this.context.civil!.currentProviderEnable();
+    this.setState({ walletConnected: true });
   };
 
   private renderInfoModal = () => {
@@ -251,6 +215,6 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   };
 
   private handleClose = () => {
-    this.setState({ isInfoModalOpen: false, isMobileWalletModalOpen: false });
+    this.setState({ isInfoModalOpen: false });
   };
 }

@@ -12,6 +12,7 @@ const ethPriceQuery = gql`
 export interface UsdEthConverterProps {
   fromValue?: string;
   displayErrorMsg?: boolean;
+  className?: string;
   onNotEnoughEthError?(error: boolean): void;
   onConversion(usdValue: number, ethValue: number): void;
 }
@@ -25,6 +26,7 @@ export const UsdEthConverter = (props: UsdEthConverterProps) => {
         return (
           <>
             <CurrencyConverter
+              className={props.className}
               fromValue={props.fromValue}
               currencyCodeFrom="USD"
               currencyLabelFrom="Enter USD Amount"

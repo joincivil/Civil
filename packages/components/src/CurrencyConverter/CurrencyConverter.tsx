@@ -21,6 +21,7 @@ export interface CurrencyConverterProps {
   currencyLabelTo?: string | JSX.Element;
   displayErrorMsg?: boolean;
   fromValue?: string;
+  className?: string;
   doConversion(fromValue: number): Promise<number>;
   onConversion(fromValue: number, toValue: number): void;
   onNotEnoughEthError?(error: boolean): void;
@@ -71,7 +72,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
 
   public render(): JSX.Element {
     return (
-      <CurrencyConverterContain>
+      <CurrencyConverterContain className={this.props.className}>
         <CurrencyContain>
           <CurrencyLabel>{this.props.currencyLabelFrom}</CurrencyLabel>
           <StyledCurrencyInputWithButton>
