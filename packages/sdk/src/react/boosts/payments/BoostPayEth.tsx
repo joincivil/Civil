@@ -1,4 +1,5 @@
 import * as React from "react";
+import { detect as detectBrowser } from "detect-browser";
 import {
   BoostPayCardDetails,
   LearnMore,
@@ -222,8 +223,10 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
   private showMobileWalletModal = () => {
     let showMobileWalletModal = false;
 
-    // TODO(sruddy) do we have a check for mobile browser util?
-    if (window.innerWidth < 800 && !this.state.walletConnected) {
+    const browser = detectBrowser();
+    const isMobile = browser && browser.os && ["Android", "iOS", "Windows Mobile"].indexOf(browser.os) !== -1;
+
+    if (isMobile && !this.state.walletConnected) {
       showMobileWalletModal = true;
     }
 
