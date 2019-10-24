@@ -72,6 +72,15 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
     };
   }
 
+  public async componentDidMount(): Promise<void> {
+    if (this.context.civil) {
+      const account = await this.context.civil.accountStream.first().toPromise();
+      if (account) {
+        this.setState({ walletConnected: true });
+      }
+    }
+  }
+
   public render(): JSX.Element {
     if (this.props.paymentStarted) {
       return <>{this.renderPaymentForm(this.state.etherToSpend, this.state.usdToSpend)}</>;
