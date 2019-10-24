@@ -105,8 +105,13 @@ export const BoostButton = styled(Button)`
   text-transform: none;
 
   ${mediaQueries.MOBILE} {
+    display: block;
     margin-bottom: 20px;
     width: 100%;
+  }
+
+  ${mediaQueries.MOBILE_SMALL} {
+    margin-bottom: 10px;
   }
 `;
 
@@ -533,30 +538,6 @@ export const BoostFlexEnd = styled.div`
   }
 `;
 
-export const BoostFlexEth = styled.div`
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-
-  button {
-    margin: 9px 0 0 15px;
-    ${mediaQueries.MOBILE} {
-      margin-left: 0;
-    }
-    ${mediaQueries.MOBILE_SMALL} {
-      margin-top: 0;
-    }
-  }
-
-  label {
-    display: none;
-  }
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-`;
-
 export const BoostModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
   overflow: scroll;
@@ -687,7 +668,7 @@ export const BoostWarningLabel = styled.div`
   color: ${colors.accent.CIVIL_RED};
   font-size: 14px;
   line-height: 22px;
-  margin-bottom: 15px;
+  margin: 10px 0;
 
   svg {
     vertical-align: sub;
