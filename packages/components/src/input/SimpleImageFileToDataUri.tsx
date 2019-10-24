@@ -110,15 +110,19 @@ export class SimpleImageFileToDataUri extends React.Component<SimpleImageFileToD
   }
 
   private createDataUrlFromFile = (acceptedFiles: any) => {
+    this.loadAsDataURLFromFile(acceptedFiles[0]);
+  };
+
+  private createDataUrlFromFile2 = (e: any) => {
+    this.loadAsDataURLFromFile(e.target.files[0]);
+  };
+
+  private loadAsDataURLFromFile = (file: any) => {
     const reader = new FileReader();
     reader.onload = (event: any) => {
       this.props.onChange(event.target!.result);
       this.setState({ modalOpen: false });
     };
-    reader.readAsDataURL(acceptedFiles[0]);
-  };
-
-  private createDataUrlFromFile2 = (e: any) => {
-    this.props.onChange(e.target.files[0]);
+    reader.readAsDataURL(file);
   };
 }

@@ -125,6 +125,7 @@ export interface PreviewImageState {
 
 export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAvatarState> {
   public editor: AvatarEditor | null;
+
   constructor(props: UserSetAvatarProps) {
     super(props);
     const useSmallAvatarEditor = window.innerWidth < 500;
@@ -272,19 +273,19 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
 
     const img = document.createElement("img");
     img.onload = async (): Promise<void> => {
-      const startingX = img.width * croppingRect.x;
-      const startingY = img.height * croppingRect.y;
-      const startingWidth = img.width * croppingRect.width;
-      const startingHeight = img.height * croppingRect.height;
-
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = 336;
-      canvas.height = 336;
-      ctx!.drawImage(img, startingX, startingY, startingWidth, startingHeight, 0, 0, 336, 336);
-      const avatarDataURL = canvas.toDataURL();
-
       try {
+        const startingX = img.width * croppingRect.x;
+        const startingY = img.height * croppingRect.y;
+        const startingWidth = img.width * croppingRect.width;
+        const startingHeight = img.height * croppingRect.height;
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 336;
+        canvas.height = 336;
+        ctx!.drawImage(img, startingX, startingY, startingWidth, startingHeight, 0, 0, 336, 336);
+        const avatarDataURL = canvas.toDataURL();
+
         const res: any = await mutation({
           variables: {
             input: { channelID, avatarDataURL },
@@ -302,7 +303,6 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
         return;
       } catch (err) {
         const errorMessage = "Unknown Error when setting avatar. Please contact support@civil.co if problem persists.";
-
         this.setState({ errorMessage, saveInProgress: false });
       }
     };
