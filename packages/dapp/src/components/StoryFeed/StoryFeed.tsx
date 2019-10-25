@@ -76,20 +76,28 @@ class StoryFeedPage extends React.Component {
                 return "Error loading Story Feed.";
               }
 
-              return feedQueryData.postsSearch.posts.map((storyData: any, i: number) => (
-                <StoryFeedItem
-                  key={i}
-                  storyId={storyData.id}
-                  activeChallenge={false}
-                  createdAt={storyData.createdAt}
-                  isStripeConnected={storyData.channel.isStripeConnected}
-                  newsroom={storyData.channel.newsroom}
-                  openGraphData={storyData.openGraphData}
-                  displayedContributors={storyData.groupedSanitizedPayments}
-                  sortedContributors={storyData.groupedSanitizedPayments}
-                  totalContributors={storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0}
-                />
-              ));
+              return feedQueryData.postsSearch.posts.map((storyData: any, i: number) => {
+                return (
+                  <>
+                    {storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url && (
+                      <StoryFeedItem
+                        key={i}
+                        storyId={storyData.id}
+                        activeChallenge={false}
+                        createdAt={storyData.createdAt}
+                        isStripeConnected={storyData.channel.isStripeConnected}
+                        newsroom={storyData.channel.newsroom}
+                        openGraphData={storyData.openGraphData}
+                        displayedContributors={storyData.groupedSanitizedPayments}
+                        sortedContributors={storyData.groupedSanitizedPayments}
+                        totalContributors={
+                          storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
+                        }
+                      />
+                    )}
+                  </>
+                );
+              });
             }}
           </Query>
         </StoryFeedWrapper>
