@@ -44,6 +44,7 @@ export const ModalInner = styled.div`
     left: 0;
     overflow: auto;
     position: fixed;
+    top: 54px;
     width: 100%;
   }
 `;
