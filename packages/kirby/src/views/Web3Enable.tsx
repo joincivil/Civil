@@ -7,6 +7,7 @@ import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
 import { ViewPlugin } from "@kirby-web3/child-core";
 import { ClipLoader } from "@joincivil/elements";
 import { WalletOptions } from "../common/input/WalletOptions";
+import { SwitchAuthTypeDiv } from "../common/containers/layouts";
 
 interface Web3EnableProps extends RouteComponentProps {
   network?: string;
@@ -17,6 +18,7 @@ const WAITING_FOR_CONNECTION = "Waiting for Web3 Wallet Connection...";
 export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => {
   const ctx = React.useContext(CoreContext);
   const [status, setStatus] = React.useState("provided");
+  const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
 
   const requestID = useSelector((state: any) => {
     if (state.view && state.view.queue && state.view.queue[0]) {
@@ -36,7 +38,6 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
   }, [requestID]);
 
   async function selection(provider: string): Promise<void> {
-    const ethPlugin = ctx.core.plugins.ethereum as EthereumChildPlugin;
     console.log("selected:", provider, requestID, network);
     try {
       setStatus("enabling provider");
@@ -65,6 +66,17 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
     <CenteredPage>
       <strong>Enable your web3 wallet</strong>
       <WalletOptions onChange={selection} />
+      <SwitchAuthTypeDiv>
+        Don't want to connect a Web3 wallet at this time?{" "}
+        <a
+          onClick={() => {
+            ethPlugin.cancelEnableWeb3(requestID);
+            (ctx.core.plugins.view as ViewPlugin).completeView();
+          }}
+        >
+          Close
+        </a>
+      </SwitchAuthTypeDiv>
     </CenteredPage>
   );
 };

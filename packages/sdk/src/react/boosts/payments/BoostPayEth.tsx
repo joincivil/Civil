@@ -209,8 +209,15 @@ export class BoostPayEth extends React.Component<BoostPayEthProps, BoostPayEthSt
 
   private enableEth = async () => {
     await this.context.civil!.currentProviderEnable();
-    this.setState({ walletConnected: true });
-    this.goNext();
+    await this.context.civil!.accountStream.first().toPromise();
+
+    // only do this stuff if wallet not currently connected, possible to get multiple
+    // promises that resolve immediately after user enables if they cancel
+    // wallet selection multiple times before going through with it
+    if (!this.state.walletConnected) {
+      this.setState({ walletConnected: true });
+      this.goNext();
+    }
   };
 
   private renderInfoModal = () => {
