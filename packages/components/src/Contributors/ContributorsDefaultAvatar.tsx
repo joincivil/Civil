@@ -31,7 +31,7 @@ export const ContributorsDefaultAvatarStyled = styled.div`
 
 export const ContributorsDefaultAvatar: React.FunctionComponent<ContributorsDefaultAvatarProps> = props => {
   const avatarColors = ["#EF6B4A", "#9452B5", "#A5CE52"];
-  let initial = "?"
+  let initial = "?";
 
   if (props.contributor && props.contributor.payerChannel && props.contributor.payerChannel.handle) {
     initial = props.contributor.payerChannel.handle.charAt(0);
