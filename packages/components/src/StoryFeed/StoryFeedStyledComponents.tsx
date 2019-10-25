@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "@joincivil/elements";
+import { colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -294,6 +294,11 @@ export const StoryModalContain = styled.div`
   max-height: ${(props: StoryModalProps) => props.maxHeight + "px"};
   max-width: 500px;
   width: 100%;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    height: 100%;
+    max-height: 100%;
+  }
 `;
 
 export const StoryModalCloseBtn = styled.div`

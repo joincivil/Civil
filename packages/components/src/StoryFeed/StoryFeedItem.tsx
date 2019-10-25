@@ -8,7 +8,7 @@ import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
-import { PaymentButton, ShareButton, ShareStory, Panel } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory, Panel, SharePanel } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryFeedItemProps {
@@ -100,9 +100,9 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             isStripeConnected={this.props.isStripeConnected}
           />
         </Panel>
-        <StoryModal open={this.state.isShareModalOpen} handleClose={this.handleClose}>
+        <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleClose}>
           <ShareStory title={openGraphData.title} url={openGraphData.url} />
-        </StoryModal>
+        </SharePanel>
       </>
     );
   }

@@ -5,7 +5,7 @@ import { colors } from "../colors";
 import { CloseXButton } from "../buttons";
 import { mediaQueries } from "./";
 
-const PanelWrapper = styled.div`
+const PanelStyled = styled.div`
   background-color: ${colors.basic.WHITE};
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_4};
   box-shadow: 0 0 10px 0 rgba(0,0,0,0.35);
@@ -16,7 +16,7 @@ const PanelWrapper = styled.div`
   right: 0;
   top: 74px;
   width: 360px;
-  z-index: 3;
+  z-index: 1;
 
   &.panel-enter {
     transform: translate(100%, 0);
@@ -31,6 +31,10 @@ const PanelWrapper = styled.div`
   &.panel-exit-active {
     transform: translate(100%, 0);
     transition: transform 300ms;
+  }
+
+  ${mediaQueries.MOBILE} {
+    top: 54px;
   }
 
   ${mediaQueries.MOBILE_SMALL} {
@@ -69,14 +73,14 @@ export interface PanelProps {
 export const Panel: React.FunctionComponent<PanelProps> = props => {
   return (
     <CSSTransition in={props.open} timeout={300} classNames="panel" unmountOnExit>
-      <PanelWrapper>
+      <PanelStyled>
         {props.handleClose && (
           <PanelClose>
             <CloseXButton onClick={props.handleClose} />
           </PanelClose>
         )}
         {props.children}
-      </PanelWrapper>
+      </PanelStyled>
     </CSSTransition>
   );
 };
