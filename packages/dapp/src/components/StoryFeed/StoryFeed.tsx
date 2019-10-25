@@ -44,7 +44,7 @@ export const STORY_FEED_QUERY = gql`
               }
             }
           }
-          payments {
+          groupedSanitizedPayments {
             usdEquivalent
             payerChannel {
               handle
@@ -85,9 +85,9 @@ class StoryFeedPage extends React.Component {
                   isStripeConnected={storyData.channel.isStripeConnected}
                   newsroom={storyData.channel.newsroom}
                   openGraphData={storyData.openGraphData}
-                  displayedContributors={storyData.payments}
-                  sortedContributors={storyData.payments}
-                  totalContributors={storyData.payments ? storyData.payments.length : 0}
+                  displayedContributors={storyData.groupedSanitizedPayments}
+                  sortedContributors={storyData.groupedSanitizedPayments}
+                  totalContributors={storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0}
                 />
               ));
             }}
