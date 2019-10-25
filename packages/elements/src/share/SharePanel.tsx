@@ -5,6 +5,22 @@ import { colors } from "../colors";
 import { CloseXButton } from "../buttons";
 import { mediaQueries } from "../containers";
 
+const SharePanelInner = styled.div`
+  background-color: ${colors.basic.WHITE};
+  opacity: 0;
+  overflow: auto;
+  padding: 10px 0;
+  position: relative;
+  width: 360px;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    width: 100%;
+  }
+`;
+
 const SharePanelOuter = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.4);
@@ -19,18 +35,24 @@ const SharePanelOuter = styled.div`
   z-index: 3;
 
   &.share-enter > div {
-    transform: translate(100%, 0);
+    opacity: 0;
+    transform: scale(0.9);
   }
   &.share-enter-active > div {
-    transform: translate(0);
-    transition: transform 300ms;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  &.share-enter-done > div {
+    opacity: 1;
   }
   &.share-exit > div {
-    transform: translate(0);
+    opacity: 1;
   }
   &.share-exit-active > div {
-    transform: translate(100%, 0);
-    transition: transform 300ms;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
   }
 
   ${mediaQueries.MOBILE} {
@@ -41,7 +63,8 @@ const SharePanelOuter = styled.div`
     align-items: flex-end;
 
     &.share-enter > div {
-      transform: translate(0, 100%);
+      opacity: 1;
+      transform: translate(0, 100%) scale(1);
     }
     &.share-enter-active > div {
       transform: translate(0);
@@ -51,22 +74,10 @@ const SharePanelOuter = styled.div`
       transform: translate(0);
     }
     &.share-exit-active > div {
-      transform: translate(0, 100%);
+      opacity: 1;
+      transform: translate(0, 100%) scale(1);
       transition: transform 300ms;
     }
-  }
-`;
-const SharePanelInner = styled.div`
-  background-color: ${colors.basic.WHITE};
-  padding: 20px;
-  overflow: auto;
-  width: 360px;
-
-  ${mediaQueries.MOBILE_SMALL} {
-    bottom: 0;
-    right: 0;
-    position: fixed;
-    width: 100%;
   }
 `;
 

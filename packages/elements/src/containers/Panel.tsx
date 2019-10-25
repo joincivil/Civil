@@ -8,7 +8,7 @@ import { mediaQueries } from "./";
 const PanelStyled = styled.div`
   background-color: ${colors.basic.WHITE};
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.35);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.35);
   bottom: 0;
   padding: 20px;
   position: fixed;

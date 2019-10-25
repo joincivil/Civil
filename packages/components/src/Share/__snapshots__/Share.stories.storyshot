@@ -11,19 +11,19 @@ exports[`Storyshots Common / Share Share Story 1`] = `
     }
   >
     <div
-      className="sc-LzNPx dNPKz"
+      className="sc-LzNPC ewwJhO"
     >
       <div
-        className="sc-fzXfNJ kjMqF"
+        className="sc-fzXfNL bvUmxB"
       >
         <div
-          className="sc-fzXfNK gXWZCz"
+          className="sc-fzXfNM fhYGZF"
         >
           <h2>
             Share
           </h2>
           <p
-            className="sc-fzXfNL eAUiqc"
+            className="sc-fzXfNN DEnni"
           >
             Memes and Satire on Hong Kong’s Front Lines
             <a
@@ -35,7 +35,7 @@ exports[`Storyshots Common / Share Share Story 1`] = `
           </p>
         </div>
         <div
-          className="sc-fzXfNM kIJLfN"
+          className="sc-fzXfNO iNpLjf"
         >
           <a
             href="https://twitter.com/intent/tweet?text=Memes%20and%20Satire%20on%20Hong%20Kong%E2%80%99s%20Front%20Lines&url=https://civil.co"

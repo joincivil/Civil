@@ -11,10 +11,10 @@ exports[`Storyshots Common / Copy Copy URL 1`] = `
     }
   >
     <div
-      className="sc-LzNOi kwBefK"
+      className="sc-LzNOn enUfpr"
     >
       <button
-        className="sc-fzXfLO sc-fzXfLQ sc-LzNrX kcTsLj"
+        className="sc-fzXfLO sc-fzXfLQ sc-LzNsc dOQOSP"
         onClick={[Function]}
         theme={
           Object {

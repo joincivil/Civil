@@ -6,7 +6,7 @@ import { fonts } from "../text";
 import { mediaQueries } from "../containers";
 
 const ShareWrapper = styled.div`
-  width: 300px;
+  width: 360px;
 
   ${mediaQueries.MOBILE} {
     width: 100%;
@@ -36,7 +36,9 @@ const ShareContent = styled.p`
   a {
     color: ${colors.accent.CIVIL_BLUE};
     display: block;
+    overflow-wrap: break-word;
     text-decoration: none;
+    word-wrap: break-word;
 
     &:hover {
       color: ${colors.accent.CIVIL_BLUE};
@@ -51,6 +53,7 @@ const ShareOptions = styled.div`
   a,
   button {
     align-items: center;
+    background-color: ${colors.basic.WHITE};
     border: none;
     border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
     color: ${colors.primary.BLACK};

@@ -93,7 +93,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             isStripeConnected={this.props.isStripeConnected}
           />
         </Panel>
-        <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleClose}>
+        <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>
           <ShareStory title={openGraphData.title} url={openGraphData.url} />
         </SharePanel>
       </>
@@ -101,47 +101,26 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
   }
 
   private openPayments = () => {
-    this.setState({
-      isPaymentsModalOpen: true,
-      isStoryModalOpen: false,
-      isStoryNewsroomModalOpen: false,
-      isShareModalOpen: false,
-    });
-  };
-
-  private openShare = () => {
-    this.setState({
-      isShareModalOpen: true,
-      isPaymentsModalOpen: false,
-      isStoryModalOpen: false,
-      isStoryNewsroomModalOpen: false,
-    });
+    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
   };
 
   private openStoryDetails = () => {
-    this.setState({
-      isStoryModalOpen: true,
-      isStoryNewsroomModalOpen: false,
-      isPaymentsModalOpen: false,
-      isShareModalOpen: false,
-    });
+    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({
-      isStoryNewsroomModalOpen: true,
-      isStoryModalOpen: false,
-      isPaymentsModalOpen: false,
-      isShareModalOpen: false,
-    });
+    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private handleClose = () => {
-    this.setState({
-      isStoryModalOpen: false,
-      isStoryNewsroomModalOpen: false,
-      isPaymentsModalOpen: false,
-      isShareModalOpen: false,
-    });
+    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+  };
+
+  private openShare = () => {
+    this.setState({ isShareModalOpen: true });
+  };
+
+  private handleCloseShare = () => {
+    this.setState({ isShareModalOpen: false });
   };
 }
