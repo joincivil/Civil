@@ -1,9 +1,9 @@
 import * as React from "react";
 import { StoryLink, StoryLinkLeft, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
 import { OpenGraphData } from "./types";
+import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryProps {
-  createdAt: string;
   openGraphData: OpenGraphData;
   handleOpenStory(): void;
 }
@@ -14,7 +14,9 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
       <StoryLink onClick={props.handleOpenStory}>
         <StoryLinkLeft>
           <StoryTitle>{props.openGraphData.title}</StoryTitle>
-          <TimeStamp>{props.createdAt}</TimeStamp>
+          {props.openGraphData.article && props.openGraphData.article.published_time && (
+            <TimeStamp>{getTimeSince(props.openGraphData.article.published_time)}</TimeStamp>
+          )}
         </StoryLinkLeft>
         {props.openGraphData.images && (
           <StoryImgSquare>

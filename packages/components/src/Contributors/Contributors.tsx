@@ -33,7 +33,7 @@ export const Contributors: React.FunctionComponent<ContributorsProps> = props =>
               )}
               <div>
                 <ContributorUserName>{contributor.payerChannel.handle}</ContributorUserName>
-                <ContributorAmount>{"$" + contributor.usdEquivalent}</ContributorAmount>
+                <ContributorAmount>{"$" + contributor.usdEquivalent.toFixed(2)}</ContributorAmount>
               </div>
             </ContributorItem>
           );
