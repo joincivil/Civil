@@ -37,8 +37,8 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
             </BoostModalContent>
             <EmbedCode>
               &lt;iframe src="{document.location.origin}/embed/boost/{props.boostId}" style="display: block; width:
-              100%; height: 525px; margin: 32px 0; border: 1px solid {colors.accent.CIVIL_GRAY_4}; border-radius:
-              4px;"&gt;&lt;/iframe&gt;
+              100%; height: 525px !important; margin: 32px 0; border: 1px solid {colors.accent.CIVIL_GRAY_4};
+              border-radius: 4px;"&gt;&lt;/iframe&gt;
             </EmbedCode>
           </ModalContain>
         </Modal>

@@ -5,12 +5,12 @@ import { Button, InvertedButton, buttonSizes } from "../../Button";
 import { SkipForNowButtonContainer } from "./AuthStyledComponents";
 import AvatarEditor from "react-avatar-editor";
 import styled from "styled-components";
-import { AvatarDragAndDrop } from "./AvatarDragAndDrop";
 import ApolloClient from "apollo-client";
-import { fonts } from "../../styleConstants";
+import { fonts, mediaQueries } from "../../styleConstants";
 import Slider from "react-input-slider";
 import { colors, ZoomInIcon, ZoomOutIcon } from "@joincivil/elements";
 import { ClipLoader } from "../../ClipLoader";
+import { SimpleImageFileToDataUri } from "../../input";
 
 const setAvatarMutation = gql`
   mutation($input: ChannelsSetAvatarInput!) {
@@ -30,6 +30,9 @@ const skipSetAvatarMutation = gql`
 
 const UserSetAvatarContainer = styled.div`
   width: 400px;
+  ${mediaQueries.MOBILE} {
+    width: 280px;
+  }
 `;
 
 const AvatarEditorDiv = styled.div`
@@ -62,6 +65,9 @@ const ZoomContainer = styled.div`
   align-items: center;
   justify-content: space-around;
   width: 336px;
+  ${mediaQueries.MOBILE} {
+    width: 200px;
+  }
   margin-top: 10px;
 `;
 
@@ -74,6 +80,9 @@ const SaveButtonContainer = styled.div`
 
 const SkipAndSaveButtonsContainer = styled.div`
   width: 400px;
+  ${mediaQueries.MOBILE} {
+    width: 280px;
+  }
   display: flex;
   justify-content: flex-end;
 `;
@@ -102,6 +111,7 @@ export interface UserSetAvatarState {
   image?: any;
   preview?: PreviewImageState;
   saveInProgress: boolean;
+  useSmallAvatarEditor: boolean;
 }
 
 export interface PreviewImageState {
@@ -115,20 +125,22 @@ export interface PreviewImageState {
 
 export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAvatarState> {
   public editor: AvatarEditor | null;
+
   constructor(props: UserSetAvatarProps) {
     super(props);
+    const useSmallAvatarEditor = window.innerWidth < 500;
     this.state = {
       avatarDataURL: "",
       errorMessage: undefined,
       scale: 1.4,
       saveInProgress: false,
+      useSmallAvatarEditor,
     };
     this.editor = null;
   }
 
   public render(): JSX.Element {
     const { headerComponent, channelID } = this.props;
-
     return (
       <UserSetAvatarContainer>
         {headerComponent}
@@ -168,7 +180,6 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
             );
           }}
         </Mutation>
-
         {!this.state.image && (
           <SkipForNowButtonContainer>
             <ApolloConsumer>
@@ -209,10 +220,10 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
                   this.editor = el;
                 }}
                 image={this.state.image ? this.state.image : ""}
-                width={336}
-                height={336}
+                width={this.state.useSmallAvatarEditor ? 200 : 336}
+                height={this.state.useSmallAvatarEditor ? 200 : 336}
                 border={0}
-                borderRadius={168}
+                borderRadius={this.state.useSmallAvatarEditor ? 100 : 168}
                 color={[255, 255, 255, 0.6]} // RGBA
                 scale={this.state.scale}
                 rotate={0}
@@ -246,7 +257,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
         )}
         {!this.state.image && (
           <AvatarEditorDiv>
-            <AvatarDragAndDrop onChange={this.handleNewImage} />
+            <SimpleImageFileToDataUri onChange={this.handleNewImage} />
           </AvatarEditorDiv>
         )}
       </AvatarEditorContainerDiv>
@@ -258,28 +269,43 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
 
     this.setState({ errorMessage: undefined, saveInProgress: true });
 
-    const avatarDataURL = this.editor!.getImageScaledToCanvas().toDataURL();
+    const croppingRect = this.editor!.getCroppingRect();
 
-    try {
-      const res: any = await mutation({
-        variables: {
-          input: { channelID, avatarDataURL },
-        },
-      });
+    const img = document.createElement("img");
+    img.onload = async (): Promise<void> => {
+      try {
+        const startingX = img.width * croppingRect.x;
+        const startingY = img.height * croppingRect.y;
+        const startingWidth = img.width * croppingRect.width;
+        const startingHeight = img.height * croppingRect.height;
 
-      if (res.data && res.data.channelsSetAvatar && res.data.channelsSetAvatar.id === channelID) {
-        if (this.props.onSetAvatarComplete) {
-          this.props.onSetAvatarComplete();
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = 336;
+        canvas.height = 336;
+        ctx!.drawImage(img, startingX, startingY, startingWidth, startingHeight, 0, 0, 336, 336);
+        const avatarDataURL = canvas.toDataURL();
+
+        const res: any = await mutation({
+          variables: {
+            input: { channelID, avatarDataURL },
+          },
+        });
+
+        if (res.data && res.data.channelsSetAvatar && res.data.channelsSetAvatar.id === channelID) {
+          if (this.props.onSetAvatarComplete) {
+            this.props.onSetAvatarComplete();
+          }
         }
+        if (res.error) {
+          console.log("res.error: ", res.error);
+        }
+        return;
+      } catch (err) {
+        const errorMessage = "Unknown Error when setting avatar. Please contact support@civil.co if problem persists.";
+        this.setState({ errorMessage, saveInProgress: false });
       }
-      if (res.error) {
-        console.log("res.error: ", res.error);
-      }
-      return;
-    } catch (err) {
-      const errorMessage = "Unknown Error when setting avatar. Please contact support@civil.co if problem persists.";
-
-      this.setState({ errorMessage, saveInProgress: false });
-    }
+    };
+    img.src = this.state.image!;
   }
 }

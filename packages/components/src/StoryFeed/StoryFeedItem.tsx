@@ -9,7 +9,6 @@ import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponent
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
 import { PaymentButton, ShareButton, ShareStory, Panel, SharePanel } from "@joincivil/elements";
-import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -52,8 +51,6 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       totalContributors,
     } = this.props;
 
-    const timeSinceArticleCreated = getTimeSince(createdAt);
-
     return (
       <>
         <StoryFeedItemWrap>
@@ -62,11 +59,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story
-            createdAt={timeSinceArticleCreated}
-            openGraphData={openGraphData}
-            handleOpenStory={this.openStoryDetails}
-          />
+          <Story openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <StoryElementsFlex>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
             <StoryElementsFlex>
@@ -78,7 +71,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
             activeChallenge={activeChallenge}
-            createdAt={timeSinceArticleCreated}
+            createdAt={createdAt}
             newsroom={newsroom}
             openGraphData={openGraphData}
             displayedContributors={displayedContributors}

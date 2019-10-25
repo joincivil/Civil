@@ -103,7 +103,7 @@ export const StoryImgSquare = styled.div`
 `;
 
 export const StoryImgWide = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   height: 100px;
   overflow: hidden;

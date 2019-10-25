@@ -2478,13 +2478,14 @@
     redux-dynamic-middlewares "^1.0.0"
     redux-thunk "^2.3.0"
 
-"@kirby-web3/ethereum-react@^1.2.2":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.11.tgz#e7ee325c0a1bf8c1adafec6b5b9d6dd6aaa5036a"
+"@kirby-web3/ethereum-react@^1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.12.tgz#78f99f0e359490191f46e2dfd1e9774f20bdee81"
+  integrity sha512-jZ2VIXQ4haLB9eS0bIfiS00SyEG1nyYIePq2DxfZg0nSUyI5Z5yLLNhIJXaVXJHrXMkBJ1TsmHlcxriC+QswfQ==
   dependencies:
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/parent-react" "1.2.11"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/parent-react" "1.2.12"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
 
 "@kirby-web3/parent-core@1.3.1":
   version "1.3.1"
@@ -2510,23 +2511,25 @@
     web3-providers-http "^1.2.0"
     web3-providers-ws "^1.2.0"
 
-"@kirby-web3/parent-react@1.2.11":
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.11.tgz#8a3ac00082aa67dce9077171efd3e396707a3786"
+"@kirby-web3/parent-react@1.2.12":
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.12.tgz#51e4bb62f3756c5a2fd268793b7b58099730e183"
+  integrity sha512-hWq/5X2eKDXgMmaskEuRUiDDC2omr9etAX7yVUqLcdurCijv9Amge7Jc2OZvpmfzS8wVJs5O8MW0KJSDGZEtFg==
   dependencies:
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
     react-redux "^7.1.1"
     redux "^4.0.4"
 
-"@kirby-web3/plugin-connext@^1.1.2":
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.8.tgz#5a55c40d4292b1cd26d7f9bf018fbee48c14733c"
+"@kirby-web3/plugin-connext@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.9.tgz#ef02e34fa713c1a064b78f16963eeac753b189e2"
+  integrity sha512-QtzK5/b1A4OQn/HS0pIhU7xlUqhQoOtGw9wkH/1M6d6pDuZ019TYtUWR+snu5hUPffMrnctXfLChDq/3W0BIzg==
   dependencies:
     "@kirby-web3/child-core" "1.6.0"
     "@kirby-web3/common" "1.2.0"
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/plugin-ethereum" "1.10.2"
+    "@kirby-web3/plugin-ethereum" "1.10.3"
     "@portis/web3" "^2.0.0-beta.36"
     burner-provider "^1.0.5"
     debug "^4.1.1"
@@ -2537,9 +2540,10 @@
     web3-providers-ws "^1.2.0"
     web3-utils "^1.2.1"
 
-"@kirby-web3/plugin-ethereum@1.10.2", "@kirby-web3/plugin-ethereum@^1.0.0", "@kirby-web3/plugin-ethereum@^1.8.2":
-  version "1.10.2"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.2.tgz#3304565e9de02c92a48a28b63426b3951c0daeb6"
+"@kirby-web3/plugin-ethereum@1.10.3", "@kirby-web3/plugin-ethereum@^1.10.3":
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.3.tgz#286c6622d2f0f65618a341ef7edf0bf2056a526c"
+  integrity sha512-RIwTazt17x5kJFjy8rLHAEPuypGy3+3BWLJI1KmT0XBWdX9j38REq9CywsH7eKi06IRf9EzD9t9T4QlL0M0tFg==
   dependencies:
     "@kirby-web3/child-core" "1.6.0"
     "@kirby-web3/common" "1.2.0"
@@ -9918,6 +9922,11 @@ detect-browser@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-4.1.0.tgz#4f1cd47952be8fb16511053c37275f513b96d74a"
 
+detect-browser@^4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/detect-browser/-/detect-browser-4.7.0.tgz#982429971b68cffcdfa03267e91e3de7e194a9f0"
+  integrity sha512-x+7zkRxwEiQ8qLKKfln9pTa4n87fbPHVpHyImmpEQn5lAmKurWBVbg0tb99ruAHqSA0ejrXMp0MahKEulE7LqA==
+
 detect-file@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/detect-file/-/detect-file-1.0.0.tgz#f0d66d03672a825cb1b73bdb3fe62310c8e552b7"
@@ -11435,6 +11444,7 @@ ethers@4.0.0-beta.3:
 ethers@^4.0.27, ethers@~4.0.4:
   version "4.0.27"
   resolved "https://registry.yarnpkg.com/ethers/-/ethers-4.0.27.tgz#e570b0da9d805ad65c83d81919abe02b2264c6bf"
+  integrity sha512-+DXZLP/tyFnXWxqr2fXLT67KlGUfLuvDkHSOtSC9TUVG9OIj6yrG5JPeXRMYo15xkOYwnjgdMKrXp5V94rtjJA==
   dependencies:
     "@types/node" "^10.3.2"
     aes-js "3.0.0"
@@ -25777,7 +25787,6 @@ websocket@^1.0.28:
   dependencies:
     debug "^2.2.0"
     es5-ext "^0.10.50"
-    gulp "^4.0.2"
     nan "^2.14.0"
     typedarray-to-buffer "^3.1.5"
     yaeti "^0.0.6"

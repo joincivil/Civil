@@ -43,6 +43,9 @@ export const SkipForNowButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 20px;
+  ${mediaQueries.MOBILE} {
+    padding-top: 5px;
+  }
 `;
 
 export const CheckEmailLetterIcon = styled.div`
