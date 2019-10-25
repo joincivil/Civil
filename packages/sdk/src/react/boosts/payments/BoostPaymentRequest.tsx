@@ -35,17 +35,27 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       requestPayerName: true,
       requestPayerEmail: true,
     });
+    console.log("paymment request: ", paymentRequest);
 
-    paymentRequest.on("token", (token: any, complete: any, payerName: string, payerEmail: string) => {
-      if (!payerName) {
-        complete("invalid_payer_name");
-      } else if (!payerEmail) {
-        complete("invalid_payer_email");
-      } else {
-        // tslint:disable-next-line
-        this.handlePaymentRequest(token, complete);
-      }
-    });
+    // paymentRequest.on("token", (token: any, complete: any, payerName: string, payerEmail: string) => {
+    //   console.log("on token!.");
+    //   if (!payerName) {
+    //     console.log("bad payer name!.");
+    //     complete("invalid_payer_name");
+    //   } else if (!payerEmail) {
+    //     console.log("bad payer email!.");
+    //     complete("invalid_payer_email");
+    //   } else {
+    //     console.log("go handlePaymentRequest.");
+    //     // tslint:disable-next-line
+    //     this.handlePaymentRequest(token, complete);
+    //   }
+    // });
+
+    paymentRequest.on("token", async (ev: any) => {
+      console.log("onToken. ev: ", ev);
+      this.handlePaymentRequest(ev.token, ev.complete)
+    })
 
     paymentRequest.canMakePayment().then((result: any) => {
       this.setState({ canMakePayment: !!result });
