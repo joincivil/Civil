@@ -85,7 +85,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
           postID: this.props.boostId,
           input: {
             // @ts-ignore
-            paymentToken: token.token.id,
+            paymentToken: token.id,
             amount: this.props.usdToSpend,
             currencyCode: "usd",
           },
