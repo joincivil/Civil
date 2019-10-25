@@ -60,7 +60,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
           <div
             className="sc-LzNtk kwgdZi"
           >
-            1 min ago
+            NaNm ago
           </div>
         </div>
         <div
@@ -637,33 +637,6 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
                     Story
                   </span>
                   <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        createdAt
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            1 min ago
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
                     <span>
                        
                       <span
@@ -1659,7 +1632,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
         className="sc-LzNuz beRFbg"
       >
         <div
-          className="sc-LzNtp fBhpsT"
+          className="sc-LzNtp iSsITk"
         >
           <img
             src="https://codastory.com/wp-content/uploads/2019/09/Still-Header-.png"
@@ -1751,7 +1724,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
               ·
             </span>
              
-            1 min ago
+            NaNm ago
           </div>
         </div>
         <div
