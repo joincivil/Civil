@@ -85,7 +85,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
           <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
-        <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
+        <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClosePayments}>
           <Payments
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
@@ -100,20 +100,24 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
     );
   }
 
-  private openPayments = () => {
-    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
-  };
-
   private openStoryDetails = () => {
-    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false });
   };
 
   private handleClose = () => {
-    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+  };
+
+  private openPayments = () => {
+    this.setState({ isPaymentsModalOpen: true });
+  };
+
+  private handleClosePayments = () => {
+    this.setState({ isPaymentsModalOpen: false });
   };
 
   private openShare = () => {

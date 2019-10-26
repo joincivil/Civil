@@ -292,12 +292,16 @@ export const StoryModalContain = styled.div`
   overflow: scroll;
   position: relative;
   max-height: ${(props: StoryModalProps) => props.maxHeight + "px"};
-  max-width: 500px;
-  width: 100%;
+  width: 500px;
+
+  ${mediaQueries.MOBILE} {
+    width: 450px;
+  }
 
   ${mediaQueries.MOBILE_SMALL} {
     height: 100%;
     max-height: 100%;
+    width: 100%;
   }
 `;
 

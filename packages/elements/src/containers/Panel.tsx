@@ -16,7 +16,7 @@ const PanelStyled = styled.div`
   right: 0;
   top: 74px;
   width: 360px;
-  z-index: 1;
+  z-index: 3;
 
   &.panel-enter {
     transform: translate(100%, 0);

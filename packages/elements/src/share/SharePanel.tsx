@@ -32,7 +32,7 @@ const SharePanelOuter = styled.div`
   overflow: auto;
   right: 0;
   top: 74px;
-  z-index: 3;
+  z-index: 4;
 
   &.share-enter > div {
     opacity: 0;
