@@ -5,10 +5,11 @@ import {
   PaymentAmountUserInput,
   PaymentsShowInputBtn,
   PaymentDirectionsStyled,
+  PaymentAmountUserComment,
 } from "./PaymentsStyledComponents";
 import { SelectPaymentAmountText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
-import { RadioInput, CurrencyInput } from "@joincivil/elements";
+import { RadioInput, CurrencyInput, TextareaInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
 
 export interface SuggestedAmounts {
@@ -18,7 +19,7 @@ export interface SuggestedAmounts {
 export interface PaymentsAmountProps {
   newsroomName: string;
   suggestedAmounts: SuggestedAmounts[];
-  handleAmount(usdToSpend: number, shouldPublicize: boolean): void;
+  handleAmount(usdToSpend: number, shouldPublicize: boolean, comment: string): void;
 }
 
 export interface PaymentsAmountStates {
@@ -26,6 +27,7 @@ export interface PaymentsAmountStates {
   shouldPublicizeChecked: boolean;
   shouldPublicize: boolean;
   usdToSpend: number;
+  comment: string;
 }
 
 export class PaymentsAmount extends React.Component<PaymentsAmountProps, PaymentsAmountStates> {
@@ -36,6 +38,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
       shouldPublicizeChecked: false,
       shouldPublicize: true,
       usdToSpend: 0,
+      comment: "",
     };
   }
 
@@ -56,13 +59,23 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
         </RadioInput>
         <PaymentAmountUserInput>
           {this.state.showInput ? (
-            <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleInput} />
+            <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleAmountInput} />
           ) : (
             <PaymentsShowInputBtn onClick={this.handleShowInput}>
               <EnterCustomAmountText />
             </PaymentsShowInputBtn>
           )}
         </PaymentAmountUserInput>
+        <PaymentAmountUserComment>
+          <TextareaInput
+            label=""
+            height="85"
+            maxLength="140"
+            placeholder="Add a message with your Boost…"
+            name="UserComment"
+            onChange={this.handleCommentInput}
+          />
+        </PaymentAmountUserComment>
         <PaymentAmountUserOptions>
           <Checkbox
             id="shouldPublicize"
@@ -75,7 +88,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
           </label>
         </PaymentAmountUserOptions>
         <PaymentBtn
-          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.shouldPublicize)}
+          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.shouldPublicize, this.state.comment)}
           disabled={disableNext}
         >
           Next
@@ -99,7 +112,11 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     this.setState({ usdToSpend: value });
   };
 
-  private handleInput = (name: string, value: any) => {
+  private handleAmountInput = (name: string, value: any) => {
     this.setState({ usdToSpend: value });
+  };
+
+  private handleCommentInput = (name: string, value: any) => {
+    this.setState({ comment: value });
   };
 }

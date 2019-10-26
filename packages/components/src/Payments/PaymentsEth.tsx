@@ -36,6 +36,7 @@ export interface PaymentsEthProps {
   shouldPublicize: boolean;
   userAddress?: EthAddress;
   usdToSpend: number;
+  comment?: string;
   isWalletConnected: boolean;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
@@ -119,6 +120,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
                 savePayment={paymentsCreateEtherPayment}
                 etherToSpend={this.state.etherToSpend}
                 usdToSpend={this.state.usdToSpend}
+                comment={this.props.comment}
                 newsroomName={this.props.newsroomName}
                 handlePaymentSuccess={this.props.handlePaymentSuccess}
               />

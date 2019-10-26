@@ -23,6 +23,7 @@ export interface PaymentsStates {
   usdToSpend: number;
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
+  comment?: string;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -36,7 +37,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   }
 
   public render(): JSX.Element {
-    const { usdToSpend, shouldPublicize, paymentState } = this.state;
+    const { usdToSpend, shouldPublicize, paymentState, comment } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress } = this.props;
     const isWalletConnected = userAddress ? true : false;
 
@@ -66,6 +67,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             shouldPublicize={shouldPublicize}
             userAddress={userAddress}
             usdToSpend={usdToSpend}
+            comment={comment}
             isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
           />
@@ -81,6 +83,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
             usdToSpend={usdToSpend}
+            comment={comment}
             handlePaymentSuccess={this.handleUpdateState}
           />
         </PaymentsWrapper>
@@ -110,11 +113,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
   };
 
-  private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+  private handleAmount = (usdToSpend: number, shouldPublicize: boolean, comment: string) => {
     if (this.props.isLoggedIn) {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize, comment });
     } else {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_LOGIN, shouldPublicize });
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_LOGIN, shouldPublicize, comment });
     }
   };
 }

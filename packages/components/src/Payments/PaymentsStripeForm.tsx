@@ -169,6 +169,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   newsroomName: string;
   shouldPublicize: boolean;
   usdToSpend: number;
+  comment?: string;
   savePayment: MutationFunc;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
@@ -453,6 +454,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
                 currencyCode: "usd",
                 emailAddress: this.state.email,
                 shouldPublicize: this.props.shouldPublicize,
+                comment: this.props.comment,
               },
             },
           });

@@ -24,6 +24,7 @@ export interface PaymentsEthFormProps {
   postId: string;
   etherToSpend: number;
   usdToSpend: number;
+  comment?: string;
   shouldPublicize: boolean;
   newsroomName: string;
   paymentAddress: EthAddress;
@@ -125,6 +126,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           usdAmount: this.props.usdToSpend.toString(),
           emailAddress: this.state.email,
           shouldPublicize: this.props.shouldPublicize,
+          comment: this.props.comment,
         },
       },
     });

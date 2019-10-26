@@ -341,8 +341,8 @@ export const PaymentsShowInputBtn = styled.button`
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
-  line-spacing: 17px;
-  padding: none;
+  line-height: 17px;
+  padding: 0;
 
   &:hover {
     text-decoration: underline;
@@ -352,7 +352,7 @@ export const PaymentsShowInputBtn = styled.button`
 export const PaymentAmountUserInput = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0 0;
+  margin: 20px 0 30px;
 
   > div {
     padding: 0;
@@ -374,7 +374,17 @@ export const PaymentAmountUserInput = styled.div`
   }
 `;
 
+export const PaymentAmountUserComment = styled.div`
+  margin-bottom: 50px;
+
+  ${InputBase} > textarea {
+    border-radius: 4px;
+    margin: 0;
+  }
+`;
+
 export const PaymentAmountUserOptions = styled.div`
+  display: flex;
   margin: 20px 0;
 
   label {
