@@ -4,8 +4,6 @@ import { CurrencyErrorMsg } from "../CurrencyConverter";
 import { InputBase, InputIcon, Button, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
-  padding: 20px;
-
   ${CurrencyErrorMsg} {
     bottom: 10px;
   }
@@ -277,7 +275,8 @@ export const PaymentEthLearnMore = styled.div`
 
 export const PaymentsRadioBtnContain = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
-  margin-right: 10px;
+  margin-right: 4%;
+  width: 22%;
 
   input {
     display: none;
@@ -293,6 +292,7 @@ export const PaymentsRadioBtnContain = styled.div`
 `;
 
 export const PaymentsRadioBtn = styled.button`
+  background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 4px;
   cursor pointer;
@@ -301,7 +301,7 @@ export const PaymentsRadioBtn = styled.button`
   height: 75px;
   padding: 10px;
   transition: border 0.2s ease;
-  width: 70px;
+  width: 100%;
 
   span {
     display: block;
@@ -334,6 +334,7 @@ export const PaymentAmountNewsroom = styled.div`
 `;
 
 export const PaymentsShowInputBtn = styled.button`
+  background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_BLUE};
   cursor: pointer;

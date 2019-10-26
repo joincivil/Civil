@@ -46,7 +46,7 @@ export const STORY_FEED_QUERY = gql`
               }
             }
           }
-          payments {
+          groupedSanitizedPayments {
             usdEquivalent
             payerChannel {
               handle

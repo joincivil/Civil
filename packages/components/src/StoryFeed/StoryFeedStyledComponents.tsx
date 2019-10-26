@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "@joincivil/elements";
+import { colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -103,7 +103,7 @@ export const StoryImgSquare = styled.div`
 `;
 
 export const StoryImgWide = styled.div`
-  align-items: center;
+  align-items: flex-start;
   display: flex;
   height: 100px;
   overflow: hidden;
@@ -292,8 +292,17 @@ export const StoryModalContain = styled.div`
   overflow: scroll;
   position: relative;
   max-height: ${(props: StoryModalProps) => props.maxHeight + "px"};
-  max-width: 500px;
-  width: 100%;
+  width: 500px;
+
+  ${mediaQueries.MOBILE} {
+    width: 450px;
+  }
+
+  ${mediaQueries.MOBILE_SMALL} {
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+  }
 `;
 
 export const StoryModalCloseBtn = styled.div`

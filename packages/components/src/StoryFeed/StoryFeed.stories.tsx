@@ -73,7 +73,7 @@ storiesOf("Pulse / Story Feed", module)
     return (
       <Container>
         <StoryNewsroomStatus newsroom={newsroom} activeChallenge={false} handleOpenNewsroom={onClickFunc} />
-        <Story createdAt={"1 min ago"} openGraphData={openGraphData} handleOpenStory={onClickFunc} />
+        <Story openGraphData={openGraphData} handleOpenStory={onClickFunc} />
         <StoryElementsFlex>
           <ContributorCount totalContributors={15} displayedContributors={contributors} />
           <StoryElementsFlex>

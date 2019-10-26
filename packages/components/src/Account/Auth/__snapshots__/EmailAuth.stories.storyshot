@@ -14,10 +14,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
       onSubmit={[Function]}
     >
       <div
-        className=" sc-fzXfNc cGOosW"
+        className=" sc-fzXfNe laEExU"
       >
         <input
-          className="sc-fzXfNc cGOosW"
+          className="sc-fzXfNe laEExU"
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
@@ -27,14 +27,14 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNxh kxSQvZ"
+        className="sc-LzNMr byIcJA"
       >
         <li
-          className="sc-LzNMk bkFLPs"
+          className="sc-LzNMs gCxuSo"
         >
           <label>
             <label
-              className="sc-fzXfPe gjQYXW"
+              className="sc-fzXfPK jXaXTO"
               size="SMALL"
             >
               <input
@@ -43,12 +43,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfPd WMGVn"
+                className="sc-fzXfPJ gRUfFJ"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNMl dxdCDR"
+              className="sc-LzNMt gWFVbZ"
             >
               I agree to Civil's 
               <a
@@ -61,11 +61,11 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
-          className="sc-LzNMk bkFLPs"
+          className="sc-LzNMs gCxuSo"
         >
           <label>
             <label
-              className="sc-fzXfPe gjQYXW"
+              className="sc-fzXfPK jXaXTO"
               size="SMALL"
             >
               <input
@@ -74,12 +74,12 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfPd WMGVn"
+                className="sc-fzXfPJ gRUfFJ"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNMl dxdCDR"
+              className="sc-LzNMt gWFVbZ"
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -87,7 +87,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNMm coPoQI"
+        className="sc-LzNMR idHBEh"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb disabled"

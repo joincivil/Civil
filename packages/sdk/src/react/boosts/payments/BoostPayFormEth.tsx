@@ -140,11 +140,8 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
     this.context.fireAnalyticsEvent("boosts", "start submit ETH support", this.props.boostId, this.props.usdToSpend);
-    // @TODO/loginV2 migrate away from window.ethereum
-    if (this.context.civil && (window as any).ethereum) {
+    if (this.context.civil) {
       return this.context.civil.simplePayment(this.props.paymentAddr, this.props.etherToSpend.toString());
-    } else {
-      // TODO: pop dialog telling them to install metamask/web3
     }
   };
 

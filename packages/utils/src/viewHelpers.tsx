@@ -51,7 +51,8 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
 export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
   // @ts-ignore types are wrong, commify exists
   const balanceEther = formatEther(balance, { commify: true, pad: true });
-  const formattedBalance = balanceEther.slice(0, balanceEther.indexOf(".") + decimals + 1);
+  const decimalsCutOff = decimals ? decimals + 1 : 0;
+  const formattedBalance = balanceEther.slice(0, balanceEther.indexOf(".") + decimalsCutOff);
 
   return `${formattedBalance} ${!!noCVLLabel ? "" : "CVL"}`;
 }

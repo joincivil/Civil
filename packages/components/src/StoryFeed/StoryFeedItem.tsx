@@ -8,8 +8,7 @@ import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
-import { PaymentButton, ShareButton } from "@joincivil/elements";
-import { getTimeSince } from "@joincivil/utils";
+import { PaymentButton, ShareButton, ShareStory, Panel, SharePanel } from "@joincivil/elements";
 import { EthAddress } from "@joincivil/core";
 
 export interface StoryFeedItemProps {
@@ -31,6 +30,7 @@ export interface StoryFeedItemStates {
   isStoryModalOpen: boolean;
   isStoryNewsroomModalOpen: boolean;
   isPaymentsModalOpen: boolean;
+  isShareModalOpen: boolean;
 }
 
 export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeedItemStates> {
@@ -40,6 +40,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       isStoryModalOpen: false,
       isStoryNewsroomModalOpen: false,
       isPaymentsModalOpen: false,
+      isShareModalOpen: false,
     };
   }
 
@@ -54,8 +55,6 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       totalContributors,
     } = this.props;
 
-    const timeSinceArticleCreated = getTimeSince(createdAt);
-
     return (
       <>
         <StoryFeedItemWrap>
@@ -64,11 +63,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
-          <Story
-            createdAt={timeSinceArticleCreated}
-            openGraphData={openGraphData}
-            handleOpenStory={this.openStoryDetails}
-          />
+          <Story openGraphData={openGraphData} handleOpenStory={this.openStoryDetails} />
           <StoryElementsFlex>
             <ContributorCount totalContributors={totalContributors} displayedContributors={displayedContributors} />
             <StoryElementsFlex>
@@ -80,7 +75,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryModalOpen} handleClose={this.handleClose}>
           <StoryDetails
             activeChallenge={activeChallenge}
-            createdAt={timeSinceArticleCreated}
+            createdAt={createdAt}
             newsroom={newsroom}
             openGraphData={openGraphData}
             displayedContributors={displayedContributors}
@@ -94,7 +89,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
           <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
-        <StoryModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
+        <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClosePayments}>
           <Payments
             isLoggedIn={this.props.isLoggedIn}
             userAddress={this.props.userAddress}
@@ -104,28 +99,39 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             isStripeConnected={this.props.isStripeConnected}
             handleLogin={this.props.handleLogin}
           />
-        </StoryModal>
+        </Panel>
+        <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>
+          <ShareStory title={openGraphData.title} url={openGraphData.url} />
+        </SharePanel>
       </>
     );
   }
 
-  private openPayments = () => {
-    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
-  };
-
-  private openShare = () => {
-    console.log("share TKTK");
-  };
-
   private openStoryDetails = () => {
-    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false });
   };
 
   private handleClose = () => {
-    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
+    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+  };
+
+  private openPayments = () => {
+    this.setState({ isPaymentsModalOpen: true });
+  };
+
+  private handleClosePayments = () => {
+    this.setState({ isPaymentsModalOpen: false });
+  };
+
+  private openShare = () => {
+    this.setState({ isShareModalOpen: true });
+  };
+
+  private handleCloseShare = () => {
+    this.setState({ isShareModalOpen: false });
   };
 }

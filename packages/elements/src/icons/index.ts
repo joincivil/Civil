@@ -37,6 +37,7 @@ export * from "./HollowGrayNotGranted";
 export * from "./HollowGreenCheck";
 export * from "./HollowRedNoGood";
 export * from "./InstagramIcon";
+export * from "./LinkIcon";
 export * from "./LockOpenIcon";
 export * from "./MediumIcon";
 export * from "./MetaMaskIcons";

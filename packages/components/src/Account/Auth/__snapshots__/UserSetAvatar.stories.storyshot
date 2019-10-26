@@ -11,23 +11,23 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
     }
   >
     <div
-      className="sc-LzNMV bvRiTq"
+      className="sc-LzNNA fvDtHR"
     >
       <form
         onSubmit={[Function]}
       >
         <div
-          className="sc-LzNMY bDwniA"
+          className="sc-LzNND dWyWaw"
         >
           <div
-            className="sc-LzNMW dnvqYs"
+            className="sc-LzNNB hcNDY"
           >
             <div
-              className="sc-fzXfPK gwIUgC"
+              className="sc-fzXfQq cROQPL"
             >
               <section>
                 <div
-                  className="sc-fzXfPJ hRbTBt"
+                  className="sc-fzXfQp hRnTh"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onDragEnter={[Function]}
@@ -81,9 +81,11 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
                     </g>
                   </svg>
                   <br />
-                  <p>
+                  <span
+                    className="sc-fzXfQr liOHnX"
+                  >
                     Drag and drop an image here
-                  </p>
+                  </span>
                 </div>
               </section>
               or
@@ -117,10 +119,10 @@ exports[`Storyshots Common / Web3Auth UserSetAvatar 1`] = `
         </div>
       </form>
       <div
-        className="sc-LzNMn QtUZV"
+        className="sc-LzNMS hOycvn"
       >
         <span
-          className="sc-LzNNC gDQZSt"
+          className="sc-LzNOh dLwCpR"
           onClick={[Function]}
         >
           Skip for now

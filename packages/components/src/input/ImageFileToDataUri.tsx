@@ -15,6 +15,8 @@ export interface ImageFileToDataUriProps {
 }
 
 const DropArea = styled.div`
+  cursor: pointer;
+  outline: none;
   width: 100%;
   box-sizing: border-box;
   height: 200px;
@@ -25,6 +27,9 @@ const DropArea = styled.div`
   justify-content: center;
   align-items: center;
   padding: 30px;
+  &:hover {
+    border-color: ${colors.primary.CIVIL_BLUE_1};
+  }
   p {
     font-size: 18px;
     font-family: ${fonts.SANS_SERIF};
