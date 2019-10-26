@@ -4,6 +4,7 @@ import { colors } from "../colors/index";
 import { CloseXIcon } from "../icons/index";
 
 export const CloseXBtnStyled = styled.button`
+  background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 50%;
   cursor: pointer;
