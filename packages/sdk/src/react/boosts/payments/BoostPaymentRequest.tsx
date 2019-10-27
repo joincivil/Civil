@@ -14,6 +14,8 @@ export interface BoostPaymentRequestProps extends ReactStripeElements.InjectedSt
   savePayment: MutationFunc;
   boostId: string;
   usdToSpend: number;
+  onPayRequestSuccess?(): void;
+  onPayRequestError?(): void;
 }
 
 export interface BoostPaymentRequestStates {
@@ -36,26 +38,15 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
       requestPayerEmail: true,
     });
 
-    console.log("paymment request: ", paymentRequest);
-
-    // paymentRequest.on("token", (token: any, complete: any, payerName: string, payerEmail: string) => {
-    //   console.log("on token!.");
-    //   if (!payerName) {
-    //     console.log("bad payer name!.");
-    //     complete("invalid_payer_name");
-    //   } else if (!payerEmail) {
-    //     console.log("bad payer email!.");
-    //     complete("invalid_payer_email");
-    //   } else {
-    //     console.log("go handlePaymentRequest.");
-    //     // tslint:disable-next-line
-    //     this.handlePaymentRequest(token, complete);
-    //   }
-    // });
-
     paymentRequest.on("token", async (ev: any) => {
-      console.log("onToken. ev: ", ev);
-      return this.handlePaymentRequest(ev.token, ev.complete)
+      if (ev && ev.token && ev.complete && ev.payerEmail) {
+        return this.handlePaymentRequest(ev.token, ev.complete, ev.payerEmail)
+      } else {
+        console.error("Error processing Payment Request");
+        if (this.props.onPayRequestError) {
+          this.props.onPayRequestError();
+        }
+      }
     })
 
     paymentRequest.canMakePayment().then((result: any) => {
@@ -78,7 +69,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
     );
   }
 
-  private async handlePaymentRequest(token: any, complete: any): Promise<void> {
+  private async handlePaymentRequest(token: any, complete: any, email: string): Promise<void> {
     try {
       await this.props.savePayment({
         variables: {
@@ -88,13 +79,20 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
             paymentToken: token.id,
             amount: this.props.usdToSpend,
             currencyCode: "usd",
+            emailAddress: email,
           },
         },
       });
       complete("success");
+      if (this.props.onPayRequestSuccess) {
+        this.props.onPayRequestSuccess();
+      }
     } catch (err) {
       console.error(err);
       complete("fail");
+      if (this.props.onPayRequestError) {
+        this.props.onPayRequestError();
+      }
     }
   }
 }
