@@ -9,6 +9,7 @@ export interface ShareBtnStyleProps {
 
 export const ShareBtnStyled = styled.button`
   align-items: center;
+  background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_GRAY_2};
   cursor: pointer;

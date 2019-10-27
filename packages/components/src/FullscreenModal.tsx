@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
 import styled from "styled-components";
-import { colors, fonts } from "./styleConstants";
+import { colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export interface ModalWrapperProps {
   solidBackground?: boolean;
@@ -21,6 +21,10 @@ export const ModalWrapper = styled.div`
   right: 0;
   top: 0;
   z-index: ${(props: ModalWrapperProps) => (props.solidBackground ? "9999999" : "2")};
+
+  ${mediaQueries.MOBILE_SMALL} {
+    display: block;
+  }
 `;
 
 export const ModalInner = styled.div`
@@ -34,6 +38,15 @@ export const ModalInner = styled.div`
   margin: auto;
   min-width: 250px;
   ${(props: ModalWrapperProps) => (props.solidBackground ? "width: 100%" : "")};
+
+  ${mediaQueries.MOBILE_SMALL} {
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    top: 54px;
+    width: 100%;
+  }
 `;
 
 export interface FullScreenModalProps {

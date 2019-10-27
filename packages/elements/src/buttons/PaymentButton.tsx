@@ -9,6 +9,7 @@ export interface PaymentBtnStyleProps {
 
 export const PaymentBtnStyled = styled.button`
   align-items: center;
+  background-color: ${colors.basic.WHITE};
   border: ${(props: PaymentBtnStyleProps) => (props.border ? "1px solid" + colors.accent.CIVIL_BLUE : "none")};
   border-radius: 2px;
   color: ${(props: PaymentBtnStyleProps) => (props.border ? colors.accent.CIVIL_GRAY_0 : colors.accent.CIVIL_GRAY_2)};
