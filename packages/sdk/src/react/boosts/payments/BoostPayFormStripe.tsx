@@ -260,6 +260,8 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
               savePayment={this.props.savePayment}
               boostId={this.props.boostId}
               usdToSpend={this.props.usdToSpend}
+              onPayRequestSuccess={this.handlePayRequestSuccess}
+              onPayRequestError={this.handlePayRequestError}
             />
           </FeatureFlag>
           <StripeWrapper>
@@ -405,6 +407,14 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
         </FullScreenModal>
       </form>
     );
+  }
+
+  private handlePayRequestSuccess = () => {
+    this.setState({isSuccessModalOpen: true});
+  }
+
+  private handlePayRequestError = () => {
+    this.setState({ isErrorModalOpen: true });
   }
 
   private hideModal = () => {
