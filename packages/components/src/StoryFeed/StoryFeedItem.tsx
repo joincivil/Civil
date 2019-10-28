@@ -23,6 +23,7 @@ export interface StoryFeedItemProps {
   totalContributors: number;
   isLoggedIn: boolean;
   userAddress?: EthAddress;
+  userEmail?: string;
   handleLogin(): void;
 }
 
@@ -93,6 +94,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           <Payments
             isLoggedIn={this.props.isLoggedIn}
             userAddress={this.props.userAddress}
+            userEmail={this.props.userEmail}
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}

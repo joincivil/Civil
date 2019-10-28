@@ -8,3 +8,9 @@ export enum PAYMENT_STATE {
   STRIPE_PAYMENT,
   PAYMENT_SUCCESS,
 }
+
+export enum INPUT_STATE {
+  EMPTY = "empty",
+  VALID = "valid",
+  INVALID = "invalid",
+}

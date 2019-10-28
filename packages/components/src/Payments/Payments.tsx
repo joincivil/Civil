@@ -16,6 +16,7 @@ export interface PaymentsProps {
   newsroomName: string;
   isStripeConnected: boolean;
   userAddress?: EthAddress;
+  userEmail?: string;
   handleLogin(): void;
 }
 
@@ -38,7 +39,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   public render(): JSX.Element {
     const { usdToSpend, shouldPublicize, paymentState, comment } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress } = this.props;
+    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
     const isWalletConnected = userAddress ? true : false;
 
     if (paymentState === PAYMENT_STATE.PAYMENT_LOGIN) {
@@ -66,6 +67,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
             userAddress={userAddress}
+            userEmail={userEmail}
             usdToSpend={usdToSpend}
             comment={comment}
             isWalletConnected={isWalletConnected}
@@ -82,6 +84,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             postId={postId}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
+            userEmail={userEmail}
             usdToSpend={usdToSpend}
             comment={comment}
             handlePaymentSuccess={this.handleUpdateState}

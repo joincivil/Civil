@@ -14,6 +14,7 @@ export interface PaymentsStripeProps {
   postId: string;
   newsroomName: string;
   shouldPublicize: boolean;
+  userEmail?: string;
   usdToSpend: number;
   comment?: string;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
@@ -41,7 +42,6 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
         <PaymentTypeLabel>
           <PayWithCardText />
         </PaymentTypeLabel>
-        <>Apple Pay / Google Pay TKTK</>
         {this.renderStripePaymentForm()}
       </>
     );
@@ -60,6 +60,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                     postId={this.props.postId}
                     newsroomName={this.props.newsroomName}
                     shouldPublicize={this.props.shouldPublicize}
+                    userEmail={this.props.userEmail}
                     usdToSpend={this.props.usdToSpend}
                     comment={this.props.comment}
                     savePayment={paymentsCreateStripePayment}

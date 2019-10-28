@@ -5,6 +5,7 @@ import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsLogin } from "./PaymentsLogin";
+import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 const Container = styled.div`
   width: 400px;
@@ -39,6 +40,13 @@ storiesOf("Pulse / Payments", module)
     return (
       <Container>
         <PaymentsLogin handleNext={onClickFunc} handleLogin={onClickFunc} />
+      </Container>
+    );
+  })
+  .add("Payment Success", () => {
+    return (
+      <Container>
+        <PaymentSuccessText newsroomName={"Coda Story"} usdToSpend={2} />
       </Container>
     );
   });

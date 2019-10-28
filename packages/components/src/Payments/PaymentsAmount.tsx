@@ -68,8 +68,6 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
         </PaymentAmountUserInput>
         <PaymentAmountUserComment>
           <TextareaInput
-            label=""
-            height="85"
             maxLength="140"
             placeholder="Add a message with your Boost…"
             name="UserComment"

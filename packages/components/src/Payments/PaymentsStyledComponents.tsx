@@ -143,7 +143,6 @@ export const PaymentTerms = styled.p`
 `;
 
 export const PaymentTypeLabel = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 15px;
   line-height: 20px;
   font-weight: 700;
@@ -173,6 +172,12 @@ export const PaymentsUserInfoForm = styled.div`
   input {
     width: 100%;
   }
+`;
+
+export const PaymentInputLabel = styled.label`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 16px;
 `;
 
 export const PaymentWarning = styled.div`
@@ -377,9 +382,20 @@ export const PaymentAmountUserInput = styled.div`
 export const PaymentAmountUserComment = styled.div`
   margin-bottom: 50px;
 
-  ${InputBase} > textarea {
-    border-radius: 4px;
-    margin: 0;
+  ${InputBase} {
+    margin-bottom: 0;
+
+    label {
+      display: none;
+    }
+
+    textarea {
+      border-radius: 4px;
+      font-size: 15px;
+      height: 85px;
+      line-height: 18px;
+      margin: 0;
+    }
   }
 `;
 

@@ -2,7 +2,7 @@ import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { isValidEmail } from "@joincivil/utils";
-import { PaymentNotice, PaymentTerms, PaymentEthUserInfoForm } from "./PaymentsStyledComponents";
+import { PaymentNotice, PaymentTerms, PaymentEthUserInfoForm, PaymentInputLabel } from "./PaymentsStyledComponents";
 import {
   TransactionButton,
   TransactionButtonModalContentComponentsProps,
@@ -10,7 +10,7 @@ import {
   CivilContext,
   ICivilContext,
 } from "../";
-import { InputValidationUI, INPUT_STATE } from "./PaymentsInputValidationUI";
+import { InputValidationUI } from "./PaymentsInputValidationUI";
 import {
   PaymentInProgressText,
   PaymentSuccessText,
@@ -18,7 +18,7 @@ import {
   PaymentEthNoticeText,
   PaymentEthTermsText,
 } from "./PaymentsTextComponents";
-import { PAYMENT_STATE } from "./types";
+import { PAYMENT_STATE, INPUT_STATE } from "./types";
 
 export interface PaymentsEthFormProps {
   postId: string;
@@ -29,6 +29,7 @@ export interface PaymentsEthFormProps {
   newsroomName: string;
   paymentAddress: EthAddress;
   userAddress?: EthAddress;
+  userEmail?: string;
   savePayment: MutationFunc;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
@@ -62,9 +63,20 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
     return (
       <form>
         <PaymentEthUserInfoForm>
-          <label>Email address (optional)</label>
-          <InputValidationUI inputState={this.state.emailState} width={"500px"}>
-            <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
+          <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
+          <InputValidationUI inputState={this.state.emailState}>
+            {this.props.userEmail ? (
+              <input
+                id="email"
+                name="email"
+                value={this.props.userEmail}
+                type="email"
+                maxLength={254}
+                onBlur={() => this.handleOnBlur(event)}
+              />
+            ) : (
+              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
+            )}
           </InputValidationUI>
         </PaymentEthUserInfoForm>
         <PaymentNotice>
@@ -81,7 +93,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           ]}
           modalContentComponents={PAY_MODAL_COMPONENTS}
         >
-          Tip
+          Complete Boost
         </TransactionButton>
         <PaymentTerms>
           <PaymentEthTermsText />

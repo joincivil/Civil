@@ -1,42 +1,37 @@
 import * as React from "react";
-import { colors, fonts, mediaQueries, ErrorIcon } from "../";
+import { INPUT_STATE } from "./types";
+import { colors, fonts, ErrorIcon } from "../";
 import styled from "styled-components";
-
-export enum INPUT_STATE {
-  EMPTY = "empty",
-  VALID = "valid",
-  INVALID = "invalid",
-}
 
 export interface InputValidationStyleProps {
   inputState?: string;
-  width?: string;
 }
+
+export const StripeElement = styled.div`
+  border: 1px solid
+    ${(props: InputValidationStyleProps) =>
+      props.inputState === INPUT_STATE.INVALID ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_3};
+  border-radius: 3px;
+  padding: 12px;
+`;
 
 const InputWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
-  width: ${(props: InputValidationStyleProps) => (props.width ? props.width : "100%")};
-
-  ${mediaQueries.MOBILE} {
-    width: 100%;
-  }
+  width: 100%;
 
   input {
     border: 1px solid
       ${(props: InputValidationStyleProps) =>
         props.inputState === INPUT_STATE.INVALID ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_3};
-    border-radius: 2px;
+    border-radius: 3px;
+    font-size: 13px;
     padding: 10px 35px 10px 12px;
     width: 100%;
 
     &:focus {
       border-color: ${colors.accent.CIVIL_BLUE};
       outline: none;
-    }
-
-    ${mediaQueries.MOBILE} {
-      width: 100%;
     }
   }
 
@@ -46,9 +41,10 @@ const InputWrapper = styled.div`
     border: 1px solid
       ${(props: InputValidationStyleProps) =>
         props.inputState === INPUT_STATE.INVALID ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_3};
-    border-radius: 2px;
+    border-radius: 3px;
     display: block;
     font-family: ${fonts.SANS_SERIF};
+    font-size: 13px;
     line-height: 16px;
     margin: 0;
     padding: 11px 12px 12px;
@@ -66,9 +62,42 @@ const InputWrapper = styled.div`
       border-color: ${colors.accent.CIVIL_BLUE};
       outline: none;
     }
+  }
 
-    ${mediaQueries.MOBILE} {
-      width: 100%;
+  &.positionTop {
+    margin-bottom: 0;
+
+    ${StripeElement},
+    input,
+    select {
+      border-radius: 3px 3px 0 0;
+    }
+  }
+
+  &.positionBottom {
+    ${StripeElement},
+    input,
+    select {
+      border-radius: 0 0 3px 3px;
+      border-width: 0 1px 1px 1px;
+    }
+  }
+
+  &.positionBottomLeft {
+    ${StripeElement},
+    input,
+    select {
+      border-radius: 0 0 0 3px;
+      border-width: 0 0 1px 1px;
+    }
+  }
+
+  &.positionBottomRight {
+    ${StripeElement},
+    input,
+    select {
+      border-radius: 0 0 3px;
+      border-width: 0 1px 1px 1px;
     }
   }
 `;
@@ -82,14 +111,14 @@ const InputErrorIcon = styled.div`
 
 export interface InputValidationUIProps {
   children: any;
+  className?: string;
   inputState: string;
-  width?: string;
 }
 
 export const InputValidationUI: React.FunctionComponent<InputValidationUIProps> = props => {
   return (
     <>
-      <InputWrapper inputState={props.inputState} width={props.width}>
+      <InputWrapper inputState={props.inputState} className={props.className}>
         {props.children}
         <InputErrorIcon inputState={props.inputState}>
           <ErrorIcon width={20} height={20} />

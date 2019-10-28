@@ -113,6 +113,7 @@ const StoryFeedPage: React.FunctionComponent = props => {
                 key={i}
                 isLoggedIn={civilUser ? true : false}
                 userAddress={userAccount}
+                userEmail={civilUser.email}
                 storyId={storyData.id}
                 activeChallenge={false}
                 createdAt={storyData.createdAt}

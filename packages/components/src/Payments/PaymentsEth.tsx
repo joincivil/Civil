@@ -35,6 +35,7 @@ export interface PaymentsEthProps {
   paymentAddress: EthAddress;
   shouldPublicize: boolean;
   userAddress?: EthAddress;
+  userEmail?: string;
   usdToSpend: number;
   comment?: string;
   isWalletConnected: boolean;
@@ -116,6 +117,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
                 postId={this.props.postId}
                 paymentAddress={this.props.paymentAddress}
                 userAddress={this.props.userAddress}
+                userEmail={this.props.userEmail}
                 shouldPublicize={this.props.shouldPublicize}
                 savePayment={paymentsCreateEtherPayment}
                 etherToSpend={this.state.etherToSpend}
