@@ -33,7 +33,7 @@ const StripeCardInfoFlex = styled.div`
   display: flex;
 
   & > div {
-      width: 50%;
+    width: 50%;
   }
 `;
 
@@ -152,7 +152,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           <PaymentInputLabel>Card information</PaymentInputLabel>
           <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
             <StripeElement inputState={this.state.cardNumberState}>
-              <CardNumberElement id="card-number" onBlur={() => this.handleOnBlurStripe()} />
+              <CardNumberElement
+                id="card-number"
+                style={{ base: { fontSize: "13px" } }}
+                onBlur={() => this.handleOnBlurStripe()}
+              />
             </StripeElement>
             <CreditCardIconsWrap inputState={this.state.cardNumberState}>
               <CCAmexIcon />
@@ -164,12 +168,20 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           <StripeCardInfoFlex>
             <InputValidationUI inputState={this.state.cardExpiryState} className={"positionBottomLeft"}>
               <StripeElement inputState={this.state.cardExpiryState}>
-                <CardExpiryElement id="card-expiry" onBlur={() => this.handleOnBlurStripe()} />
+                <CardExpiryElement
+                  id="card-expiry"
+                  style={{ base: { fontSize: "13px" } }}
+                  onBlur={() => this.handleOnBlurStripe()}
+                />
               </StripeElement>
             </InputValidationUI>
             <InputValidationUI inputState={this.state.cardCVCState} className={"positionBottomRight"}>
               <StripeElement inputState={this.state.cardCVCState}>
-                <CardCvcElement id="card-cvc" onBlur={() => this.handleOnBlurStripe()} />
+                <CardCvcElement
+                  id="card-cvc"
+                  style={{ base: { fontSize: "13px" } }}
+                  onBlur={() => this.handleOnBlurStripe()}
+                />
               </StripeElement>
               <CreditCardCVCWrap inputState={this.state.cardCVCState}>
                 <CCSecurityCodeIcon />
@@ -197,7 +209,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
             </DropDownWrap>
           </InputValidationUI>
           <InputValidationUI inputState={this.state.postalCodeState} className={"positionBottom"}>
-            <input id="zip" name="zip" maxLength={12} onBlur={() => this.handleOnBlur(event)} />
+            <input id="zip" name="zip" maxLength={12} placeholder="Zip code" onBlur={() => this.handleOnBlur(event)} />
           </InputValidationUI>
         </StripeWrapper>
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>

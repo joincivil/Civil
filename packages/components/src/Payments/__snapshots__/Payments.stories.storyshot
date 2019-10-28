@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
     }
   >
     <div
-      className="sc-LzNQb gRLyYC"
+      className="sc-LzNPC ewwJhO"
     >
       <div
         className="sc-LzNvf bVXTsu"
@@ -47,7 +47,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
         >
           <div>
             <div
-              className="sc-LzNwu rHrFH"
+              className="sc-LzNwv cxtKlc"
             >
               <input
                 name="SuggestedAmounts"
@@ -56,7 +56,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
                 value="1"
               />
               <button
-                className="sc-LzNwv iYKENM"
+                className="sc-LzNww kTaUed"
                 onClick={[Function]}
               >
                 $
@@ -67,7 +67,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwu rHrFH"
+              className="sc-LzNwv cxtKlc"
             >
               <input
                 name="SuggestedAmounts"
@@ -76,7 +76,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
                 value="2"
               />
               <button
-                className="sc-LzNwv iYKENM"
+                className="sc-LzNww kTaUed"
                 onClick={[Function]}
               >
                 $
@@ -87,7 +87,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwu rHrFH"
+              className="sc-LzNwv cxtKlc"
             >
               <input
                 name="SuggestedAmounts"
@@ -96,7 +96,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
                 value="3"
               />
               <button
-                className="sc-LzNwv iYKENM"
+                className="sc-LzNww kTaUed"
                 onClick={[Function]}
               >
                 $
@@ -107,7 +107,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwu rHrFH"
+              className="sc-LzNwv cxtKlc"
             >
               <input
                 name="SuggestedAmounts"
@@ -116,7 +116,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
                 value="5"
               />
               <button
-                className="sc-LzNwv iYKENM"
+                className="sc-LzNww kTaUed"
                 onClick={[Function]}
               >
                 $
@@ -129,17 +129,38 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNwy egHUiy"
+          className="sc-LzNwz RnrES"
         >
           <button
-            className="sc-LzNwx eIlHNn"
+            className="sc-LzNwy iiZaiE"
             onClick={[Function]}
           >
             Or enter a custom amount
           </button>
         </div>
         <div
-          className="sc-LzNwz kkjAyU"
+          className="sc-LzNwA ddlcfb"
+        >
+          <div
+            className=" sc-fzXfNe laEExU"
+          >
+            <textarea
+              className="sc-fzXfNe laEExU"
+              maxLength="140"
+              name="UserComment"
+              onChange={[Function]}
+              placeholder="Add a message with your Boost…"
+              type="textarea"
+            />
+            <label
+              className="sc-fzXfNc CbDly"
+            >
+              Add a message with your Boost…
+            </label>
+          </div>
+        </div>
+        <div
+          className="sc-LzNwY blWPCr"
         >
           <label
             className="sc-fzXfPK jXaXTO"
@@ -807,21 +828,21 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
     }
   >
     <div
-      className="sc-LzNQb gRLyYC"
+      className="sc-LzNPC ewwJhO"
     >
       <div
-        className="sc-LzNwA hLjjFs"
+        className="sc-LzNwZ hadsqh"
       >
         <div
-          className="sc-LzNwY clNpKn"
+          className="sc-LzNxa fDMmLY"
         >
           Welcome to Civil!
         </div>
         <div
-          className="sc-LzNwZ gMYTVo"
+          className="sc-LzNxb kciZyd"
         >
           <div
-            className="sc-LzNxa kIrymm"
+            className="sc-LzNxc flvaIw"
           >
             Log in to give a Boost 🚀
           </div>
@@ -845,21 +866,21 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
             Log In / Sign Up
           </button>
           <div
-            className="sc-LzNxb lhxXLL"
+            className="sc-LzNxd fKBAhV"
           >
             You’ll be able to keep track of your contributions and your username may be listed on the Boost leaderboard.
           </div>
         </div>
         <div
-          className="sc-LzNwZ gMYTVo"
+          className="sc-LzNxb kciZyd"
         >
           <div
-            className="sc-LzNxa kIrymm"
+            className="sc-LzNxc flvaIw"
           >
             Guest
           </div>
           <div
-            className="sc-LzNxb lhxXLL"
+            className="sc-LzNxd fKBAhV"
           >
             Proceed to Boost and become a Civil member later.
           </div>
@@ -1235,6 +1256,389 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
 </div>
 `;
 
+exports[`Storyshots Pulse / Payments Payment Success 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNPC ewwJhO"
+    >
+      <h2>
+        Boost payment successful!
+      </h2>
+      <p>
+        Thank you for being a contributor.
+      </p>
+      <p>
+        Coda Story
+         has received your Boost of $
+        2
+        . You’ll receive an email with your Boost details.
+      </p>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pulse / Payments
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            Payment Success
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 33,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    PaymentSuccessText
+                  </span>
+                  <span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        newsroomName
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          "
+                          <span
+                            style={
+                              Object {
+                                "color": "#22a",
+                                "wordBreak": "break-word",
+                              }
+                            }
+                          >
+                            Coda Story
+                          </span>
+                          "
+                        </span>
+                      </span>
+                    </span>
+                    <span>
+                       
+                      <span
+                        style={Object {}}
+                      >
+                        usdToSpend
+                      </span>
+                      <span>
+                        =
+                        <span
+                          style={Object {}}
+                        >
+                          {
+                          <span
+                            style={
+                              Object {
+                                "color": "#a11",
+                              }
+                            }
+                          >
+                            2
+                          </span>
+                          }
+                        </span>
+                      </span>
+                       
+                    </span>
+                  </span>
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    /&gt;
+                  </span>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              PaymentSuccessText
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Pulse / Payments Payment Type 1`] = `
 <div>
   <div
@@ -1246,7 +1650,7 @@ exports[`Storyshots Pulse / Payments Payment Type 1`] = `
     }
   >
     <div
-      className="sc-LzNQb gRLyYC"
+      className="sc-LzNPC ewwJhO"
     >
       <div
         className="sc-LzNvf bVXTsu"

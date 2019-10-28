@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
     }
   >
     <div
-      className="sc-LzNQg kGNQrA"
+      className="sc-LzNQe gqDEYK"
     >
       <div
         className="sc-LzNtl jfLrYN"
@@ -1626,7 +1626,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNQg kGNQrA"
+      className="sc-LzNQe gqDEYK"
     >
       <div
         className="sc-LzNuE kbeZHr"
@@ -3402,7 +3402,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNQg kGNQrA"
+      className="sc-LzNQe gqDEYK"
     >
       <div
         className="sc-LzNuD hZoamV"

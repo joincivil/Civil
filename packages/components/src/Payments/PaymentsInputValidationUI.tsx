@@ -29,6 +29,10 @@ const InputWrapper = styled.div`
     padding: 10px 35px 10px 12px;
     width: 100%;
 
+    &::placeholder {
+      color: ${colors.accent.CIVIL_GRAY_1};
+    }
+
     &:focus {
       border-color: ${colors.accent.CIVIL_BLUE};
       outline: none;
