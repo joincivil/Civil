@@ -65,6 +65,8 @@ export const Main: React.FunctionComponent = () => {
   const networkRedux = useSelector((state: any) => state.network);
   const networkIsSupported = isNetworkSupported(networkRedux);
 
+  window.alert("123");
+
   React.useEffect(() => {
     setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = civilCtx.civil!;
