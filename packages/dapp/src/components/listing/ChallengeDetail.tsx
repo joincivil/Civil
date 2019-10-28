@@ -175,11 +175,7 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
         variables={{ userAddr: this.props.user, pollID: this.props.challengeID.toString() }}
         pollInterval={30000}
       >
-        {({
-          loading: userChallengeLoading,
-          error: userChallengeError,
-          data: userChallengeData,
-        }: any): JSX.Element => {
+        {({ loading: userChallengeLoading, error: userChallengeError, data: userChallengeData }: any): JSX.Element => {
           if (userChallengeLoading || userChallengeError) {
             console.log("challenge detail render 3.");
             return this.renderAllStages(renderState);
@@ -205,7 +201,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
                         userAppealChallengeData,
                       );
                       console.log("challenge detail render 5.");
-                      return this.renderAllStages(renderState, transformedUserChallengeData, transformedUserAppealChallengeData);
+                      return this.renderAllStages(
+                        renderState,
+                        transformedUserChallengeData,
+                        transformedUserAppealChallengeData,
+                      );
                     }
                   }}
                 </Query>

@@ -17,11 +17,9 @@ import {
   PHASE_TYPE_LABEL,
   PHASE_TYPE_FLAVOR_TEXT,
   AppealChallengeResultsProps,
-  AppealChallengePhaseProps,
   ErrorLoadingData,
 } from "@joincivil/components";
 import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
-import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
 import {

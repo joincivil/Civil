@@ -1,8 +1,5 @@
 import { combineReducers, AnyAction } from "redux";
-import {
-  grantAppealTxs,
-  grantAppealTxsFetching,
-} from "./challenges";
+import { grantAppealTxs, grantAppealTxsFetching } from "./challenges";
 import {
   government,
   govtParameters,
@@ -18,13 +15,7 @@ import { network, networkName } from "./network";
 import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, Map } from "immutable";
-import {
-  EthAddress,
-  MultisigTransaction,
-  EthContentHeader,
-  ContentData,
-  TxDataAll,
-} from "@joincivil/core";
+import { EthAddress, MultisigTransaction, EthContentHeader, ContentData, TxDataAll } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
 import {
   newsrooms,

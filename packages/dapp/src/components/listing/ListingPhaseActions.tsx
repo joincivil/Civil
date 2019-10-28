@@ -139,7 +139,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
 
     if (!data.prevChallenge) {
       console.error("Error loading Listing prevChallenge data. listing address: ", this.props.listing.address);
-      return <ErrorLoadingDataMsg />
+      return <ErrorLoadingDataMsg />;
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
       let appealChallengeResultsProps;
