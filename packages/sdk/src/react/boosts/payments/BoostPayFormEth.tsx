@@ -146,6 +146,7 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
   };
 
   private handleTransactionHash = async (txHash: TxHash) => {
+    console.log("handle transaction hash.");
     this.context.fireAnalyticsEvent("boosts", "ETH support submitted", this.props.boostId, this.props.usdToSpend);
     await this.props.savePayment({
       variables: {
@@ -163,10 +164,12 @@ export class BoostPayFormEth extends React.Component<BoostPayFormEthProps, Boost
   };
 
   private onTransactionError = (err: string) => {
+    console.log("onTransactionError.");
     this.context.fireAnalyticsEvent("boosts", "ETH support rejected", this.props.boostId, this.props.usdToSpend);
   };
 
   private postTransaction = () => {
+    console.log("post transaction.");
     this.context.fireAnalyticsEvent("boosts", "ETH support confirmed", this.props.boostId, this.props.usdToSpend);
   };
 }

@@ -1,8 +1,4 @@
 import * as React from "react";
-import { List } from "immutable";
-import { connect, DispatchProp } from "react-redux";
-import { State } from "../../redux/reducers";
-import { getListingHistory } from "../../selectors";
 import ListingEvent from "./ListingEvent";
 import { ListingTabHeading } from "./styledComponents";
 
@@ -11,10 +7,6 @@ import gql from "graphql-tag";
 
 export interface ListingHistoryProps {
   listingAddress: string;
-}
-
-export interface ListingHistoryReduxProps extends ListingHistoryProps {
-  listingHistory: List<any>;
 }
 
 export interface ListingHistoryState {
@@ -34,8 +26,8 @@ const LISTING_QUERY = gql`
   }
 `;
 
-class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryReduxProps, ListingHistoryState> {
-  constructor(props: DispatchProp<any> & ListingHistoryReduxProps) {
+class ListingHistory extends React.Component<ListingHistoryProps, ListingHistoryState> {
+  constructor(props: ListingHistoryProps) {
     super(props);
     this.state = {
       error: undefined,
@@ -90,11 +82,4 @@ class ListingHistory extends React.Component<DispatchProp<any> & ListingHistoryR
   };
 }
 
-const mapToStateToProps = (state: State, ownProps: ListingHistoryProps): ListingHistoryReduxProps => {
-  return {
-    ...ownProps,
-    listingHistory: getListingHistory(state, ownProps),
-  };
-};
-
-export default connect(mapToStateToProps)(ListingHistory);
+export default ListingHistory;

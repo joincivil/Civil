@@ -21,8 +21,6 @@ import {
   ErrorLoadingData,
 } from "@joincivil/components";
 import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
-import { setupRejectedListingLatestChallengeSubscription } from "../../redux/actionCreators/listings";
-import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { makeGetLatestChallengeSucceededChallengeID, getChallengeState } from "../../selectors";
 import { State } from "../../redux/reducers";
 import { Query } from "react-apollo";
@@ -374,16 +372,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
     public static contextType = CivilHelperContext;
     public context: CivilHelper;
 
-    public async componentDidMount(): Promise<void> {
-      this.ensureHasChallengeData();
-      await this.setupChallengeSubscription();
-    }
-
-    public async componentDidUpdate(): Promise<void> {
-      this.ensureHasChallengeData();
-      await this.setupChallengeSubscription();
-    }
-
     public render(): JSX.Element | null {
       const challengeResultsProps = getChallengeResultsProps(
         this.props.challengeData && (this.props.challengeData as any).challenge,
@@ -443,23 +431,6 @@ export const connectLatestChallengeSucceededResults = <TOriginalProps extends Li
         </>
       );
     }
-
-    private ensureHasChallengeData = (): void => {
-      if (
-        this.props.challengeID &&
-        !this.props.challengeData &&
-        !this.props.challengeDataRequestStatus &&
-        !this.props.challengeDataRequestStatus
-      ) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
-      }
-    };
-
-    private setupChallengeSubscription = async (): Promise<void> => {
-      this.props.dispatch!(
-        await setupRejectedListingLatestChallengeSubscription(this.context, this.props.listingAddress!),
-      );
-    };
   }
 
   return connect(makeMapStateToProps)(HOChallengeResultsContainer);

@@ -1,31 +1,5 @@
 import { combineReducers, AnyAction } from "redux";
 import {
-  listings,
-  listingsExtendedMetadata,
-  listingsFetching,
-  histories,
-  applications,
-  whitelistedListings,
-  readyToWhitelistListings,
-  inChallengeCommitListings,
-  inChallengeRevealListings,
-  awaitingAppealRequestListings,
-  awaitingAppealJudgmentListings,
-  awaitingAppealChallengeListings,
-  appealChallengeCommitPhaseListings,
-  appealChallengeRevealPhaseListings,
-  resolveChallengeListings,
-  resolveAppealListings,
-  rejectedListings,
-  ListingWrapperWithExpiry,
-  ListingExtendedMetadata,
-  listingHistorySubscriptions,
-  rejectedListingLatestChallengeSubscriptions,
-  whitelistedSubscriptions,
-  rejectedListingRemovedSubscriptions,
-  loadingFinished,
-} from "./listings";
-import {
   appealChallengeUserData,
   challenges,
   challengesFetching,
@@ -50,9 +24,8 @@ import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
-import { Set, List, Map } from "immutable";
+import { Set, Map } from "immutable";
 import {
-  TimestampedEvent,
   WrappedChallengeData,
   UserChallengeData,
   EthAddress,
@@ -92,24 +65,6 @@ export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<string, ContentData>;
   contentFetched: Map<string, EthContentHeader>;
-  listings: Map<string, ListingWrapperWithExpiry>;
-  listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
-  listingsFetching: Map<string, any>;
-  histories: Map<string, List<TimestampedEvent<any>>>;
-  applications: Set<string>;
-  whitelistedListings: Set<string>;
-  readyToWhitelistListings: Set<string>;
-  inChallengeCommitListings: Set<string>;
-  inChallengeRevealListings: Set<string>;
-  awaitingAppealRequestListings: Set<string>;
-  awaitingAppealJudgmentListings: Set<string>;
-  awaitingAppealChallengeListings: Set<string>;
-  appealChallengeCommitPhaseListings: Set<string>;
-  appealChallengeRevealPhaseListings: Set<string>;
-  resolveChallengeListings: Set<string>;
-  resolveAppealListings: Set<string>;
-  rejectedListings: Set<string>;
-  loadingFinished: boolean;
   user: { account: any };
   govtParameters: object;
   govtProposals: Map<string, object>;
@@ -140,24 +95,6 @@ const networkDependentReducers = combineReducers({
   content,
   contentFetched,
   charterRevisions,
-  listings,
-  listingsExtendedMetadata,
-  listingsFetching,
-  histories,
-  applications,
-  whitelistedListings,
-  readyToWhitelistListings,
-  inChallengeCommitListings,
-  inChallengeRevealListings,
-  awaitingAppealRequestListings,
-  awaitingAppealJudgmentListings,
-  awaitingAppealChallengeListings,
-  appealChallengeCommitPhaseListings,
-  appealChallengeRevealPhaseListings,
-  resolveChallengeListings,
-  resolveAppealListings,
-  rejectedListings,
-  loadingFinished,
   user,
   govtParameters,
   govtProposals,
@@ -175,10 +112,6 @@ const networkDependentReducers = combineReducers({
   appellate,
   controller,
   appellateMembers,
-  listingHistorySubscriptions,
-  rejectedListingRemovedSubscriptions,
-  rejectedListingLatestChallengeSubscriptions,
-  whitelistedSubscriptions,
   councilMultisigTransactions,
   contractAddresses,
 });
