@@ -70,6 +70,7 @@ class ActivityListItemComponent extends React.Component<
   }
 
   public async componentDidMount(): Promise<void> {
+    console.log("activity list item.");
     if (!this.props.listing && !this.props.listingDataRequestStatus) {
       this.props.dispatch!(fetchAndAddListingData(this.context, this.props.listingAddress!));
     }

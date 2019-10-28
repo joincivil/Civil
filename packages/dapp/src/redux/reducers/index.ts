@@ -1,14 +1,7 @@
 import { combineReducers, AnyAction } from "redux";
 import {
-  appealChallengeUserData,
-  challenges,
-  challengesFetching,
-  challengesVotedOnByUser,
-  challengesStartedByUser,
-  challengeUserData,
   grantAppealTxs,
   grantAppealTxsFetching,
-  appealChallengeIDsToChallengeIDs,
 } from "./challenges";
 import {
   government,
@@ -26,8 +19,6 @@ import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, Map } from "immutable";
 import {
-  WrappedChallengeData,
-  UserChallengeData,
   EthAddress,
   MultisigTransaction,
   EthContentHeader,
@@ -44,7 +35,6 @@ import {
   grantApplication,
 } from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
-import { Subscription } from "rxjs";
 
 export interface State {
   networkDependent: NetworkDependentState;
@@ -68,24 +58,13 @@ export interface NetworkDependentState {
   user: { account: any };
   govtParameters: object;
   govtProposals: Map<string, object>;
-  challenges: Map<string, WrappedChallengeData>;
-  challengesFetching: Map<string, any>;
-  challengesVotedOnByUser: Map<string, Set<string>>;
-  challengesStartedByUser: Map<string, Set<string>>;
-  challengeUserData: Map<string, Map<string, UserChallengeData>>;
   grantAppealTxs: Map<string, TxDataAll>;
   grantAppealTxsFetching: Map<string, boolean>;
-  appealChallengeIDsToChallengeIDs: Map<string, string>;
-  appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
   constitution: Map<string, string>;
   appellate: string;
   controller: string;
   appellateMembers: string[];
-  listingHistorySubscriptions: Map<string, Subscription>;
-  rejectedListingRemovedSubscriptions: Map<string, Subscription>;
-  rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
-  whitelistedSubscriptions: Map<string, Subscription>;
   councilMultisigTransactions: Map<string, MultisigTransaction>;
   contractAddresses: Map<string, EthAddress>;
 }
@@ -98,15 +77,8 @@ const networkDependentReducers = combineReducers({
   user,
   govtParameters,
   govtProposals,
-  challenges,
-  challengesFetching,
-  challengesVotedOnByUser,
-  challengesStartedByUser,
-  challengeUserData,
   grantAppealTxs,
   grantAppealTxsFetching,
-  appealChallengeIDsToChallengeIDs,
-  appealChallengeUserData,
   government,
   constitution,
   appellate,

@@ -79,25 +79,13 @@ export const connectChallengeResults = <TOriginalProps extends ChallengeContaine
     | React.FunctionComponent<TOriginalProps & ChallengeResultsProps>,
 ) => {
   const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
-    const { challenges, challengesFetching, user } = state.networkDependent;
-    let challengeData;
-    let challengeID = ownProps.challengeID;
-    if (challengeID) {
-      challengeID = (challengeID.toString && challengeID.toString()) || challengeID;
-      challengeData = challenges.get(challengeID as string);
-    }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID as string);
-    }
+    const { user } = state.networkDependent;
+
     const userAcct = user.account;
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
     return Object.assign({}, ownProps, {
-      challengeID,
-      challengeData,
-      challengeDataRequestStatus,
       user: userAcct.account,
     });
   };
@@ -315,125 +303,6 @@ export const connectPhaseCountdownTimer = <TOriginalProps extends ChallengeConta
     connectParameters,
     connect(mapStateToProps),
   )(HOContainer);
-};
-
-/**
- * Generates a HO-Component Container for that gets the results latest Challenge Succeeded
- * and passes those results to a Presentation Component -- most likely a component that
- * displays a Rejected listing
- */
-export const connectLatestChallengeSucceededResults = <TOriginalProps extends ListingContainerProps>(
-  PresentationComponent:
-    | React.ComponentClass<
-        TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
-      >
-    | React.FunctionComponent<
-        TOriginalProps & ChallengeResultsProps & AppealChallengePhaseProps & AppealChallengeResultsProps
-      >,
-) => {
-  const makeMapStateToProps = () => {
-    const getLatestChallengeSucceededChallengeID = makeGetLatestChallengeSucceededChallengeID();
-
-    const mapStateToProps = (
-      state: State,
-      ownProps: TOriginalProps & ChallengeContainerProps,
-    ): TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps => {
-      const { challenges, challengesFetching, user } = state.networkDependent;
-      const challengeID = getLatestChallengeSucceededChallengeID(state, ownProps);
-      let challengeData;
-      let challengeDataRequestStatus;
-      if (challengeID) {
-        challengeData = challenges.get(challengeID.toString());
-        challengeDataRequestStatus = challengesFetching.get(challengeID.toString());
-      }
-      let challengeState;
-      if (challengeData) {
-        challengeState = getChallengeState(challengeData);
-      }
-      const userAcct = user.account;
-      // Can't use spread here b/c of TS issue with spread and generics
-      // https://github.com/Microsoft/TypeScript/pull/13288
-      // tslint:disable-next-line:prefer-object-spread
-      return Object.assign({}, ownProps, {
-        challengeData,
-        challengeState,
-        challengeID,
-        challengeDataRequestStatus,
-        user: userAcct.account,
-      });
-    };
-
-    return mapStateToProps;
-  };
-
-  class HOChallengeResultsContainer extends React.Component<
-    TOriginalProps & ChallengeContainerProps & ChallengeContainerReduxProps & DispatchProp<any>
-  > {
-    public static contextType = CivilHelperContext;
-    public context: CivilHelper;
-
-    public render(): JSX.Element | null {
-      const challengeResultsProps = getChallengeResultsProps(
-        this.props.challengeData && (this.props.challengeData as any).challenge,
-      ) as ChallengeResultsProps;
-      const { challengeState } = this.props;
-
-      let doesChallengeHaveAppeal;
-      let isAwaitingAppealJudgement;
-      if (challengeState) {
-        doesChallengeHaveAppeal = challengeState.doesChallengeHaveAppeal;
-        isAwaitingAppealJudgement = challengeState.isAwaitingAppealJudgement;
-      }
-
-      let appealPhaseProps = {};
-      if (this.props.challengeData && this.props.challengeData.challenge.appeal) {
-        const { appeal } = this.props.challengeData.challenge;
-        appealPhaseProps = {
-          appeal,
-          appealRequested: !this.props.challengeData.challenge.appeal.appealFeePaid.isZero(),
-          appealGranted: this.props.challengeData.challenge.appeal.appealGranted,
-          doesChallengeHaveAppeal,
-          isAwaitingAppealJudgement,
-        };
-      }
-      let appealChallengePhaseProps = {};
-      if (
-        this.props.challengeData &&
-        this.props.challengeData.challenge.appeal &&
-        this.props.challengeData.challenge.appeal.appealChallengeID
-      ) {
-        appealChallengePhaseProps = {
-          appealChallengeID: this.props.challengeData.challenge.appeal.appealChallengeID.toString(),
-        };
-      }
-      let appealChallengeResultsProps = {};
-      if (
-        this.props.challengeData &&
-        this.props.challengeData.challenge.appeal &&
-        this.props.challengeData.challenge.appeal.appealChallenge
-      ) {
-        appealChallengeResultsProps = getAppealChallengeResultsProps(
-          this.props.challengeData.challenge.appeal.appealChallenge,
-        ) as AppealChallengeResultsProps;
-      }
-      const challengeID = this.props.challengeID && this.props.challengeID.toString();
-
-      return (
-        <>
-          <PresentationComponent
-            {...this.props}
-            {...challengeResultsProps}
-            {...appealPhaseProps}
-            {...appealChallengePhaseProps}
-            {...appealChallengeResultsProps}
-            challengeID={challengeID}
-          />
-        </>
-      );
-    }
-  }
-
-  return connect(makeMapStateToProps)(HOChallengeResultsContainer);
 };
 
 /**

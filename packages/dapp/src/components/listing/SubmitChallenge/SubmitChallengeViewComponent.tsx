@@ -305,7 +305,7 @@ class SubmitChallengeComponent extends React.Component<
         </>,
         <>
           <ModalContent>
-            vote. To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting
+            To prevent decision bias, all votes will be hidden using a secret phrase, until the end of the voting
             period.
           </ModalContent>
           <ModalContent>

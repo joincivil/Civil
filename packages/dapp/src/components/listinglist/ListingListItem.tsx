@@ -1,6 +1,5 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
 import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
@@ -12,11 +11,11 @@ import {
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { routes } from "../../constants";
-import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import WhitelistedListingItem from "./WhitelistedListingItem";
 import { getContent, getBareContent } from "../../redux/actionCreators/newsrooms";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 export interface ListingListItemOwnProps {
   listingAddress?: string;
@@ -154,10 +153,7 @@ const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & Listing
   const listingViewProps = transformListingSummaryViewProps(props, true);
   const data = listing!.data!;
   if (!data.prevChallenge) {
-    const ListingSummaryRejected = compose<React.ComponentClass<ListingContainerProps & {}>>(
-      connectLatestChallengeSucceededResults,
-    )(ListingSummaryRejectedComponent);
-    return <ListingSummaryRejected {...listingViewProps} />;
+    return <ErrorLoadingDataMsg />
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
     return (

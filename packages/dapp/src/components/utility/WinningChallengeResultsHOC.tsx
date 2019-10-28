@@ -17,7 +17,6 @@ import {
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
-import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 
 import {
   ChallengeContainerProps,
@@ -227,8 +226,8 @@ export const connectWinningChallengeResults = <
     }
 
     private ensureHasChallengeData = (): void => {
-      if (this.props.challengeID && !this.props.challengeData && !this.props.challengeDataRequestStatus) {
-        this.props.dispatch!(fetchAndAddChallengeData(this.context, this.props.challengeID.toString()));
+      if (this.props.challengeID && !this.props.challengeData) {
+        console.error("HOCHallengeResultsContainer found without challengeData.");
       }
     };
   }

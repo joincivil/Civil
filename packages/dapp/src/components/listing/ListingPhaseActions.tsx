@@ -1,5 +1,4 @@
 import * as React from "react";
-import { compose } from "redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
@@ -20,10 +19,10 @@ import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../
 import ChallengeDetailContainer from "./ChallengeDetail";
 import ChallengeResolve from "./ChallengeResolve";
 import { routes } from "../../constants";
-import { ListingContainerProps, connectLatestChallengeSucceededResults } from "../utility/HigherOrderComponents";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
 import { BigNumber } from "@joincivil/typescript-types";
+import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 const StyledContainer = styled.div`
   margin: 0 0 80px;
@@ -137,13 +136,10 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
   private renderRejected(): JSX.Element {
     const data = this.props.listing.data;
     const lastUpdatedDate = this.props.listing.data.lastUpdatedDate;
-    const lastUpdatedDateAsDate = lastUpdatedDate ? new Date(lastUpdatedDate.mul(1000).toNumber()) : new BigNumber(0);
-    if (!data.prevChallenge) {
-      const RejectedCard = compose<React.ComponentClass<ListingContainerProps & {}>>(
-        connectLatestChallengeSucceededResults,
-      )(RejectedCardComponent);
 
-      return <RejectedCard listingAddress={this.props.listing.address} listingRemovedDate={lastUpdatedDateAsDate} />;
+    if (!data.prevChallenge) {
+      console.error("Error loading Listing prevChallenge data. listing address: ", this.props.listing.address);
+      return <ErrorLoadingDataMsg />
     } else {
       const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!) as ChallengeResultsProps;
       let appealChallengeResultsProps;
@@ -173,7 +169,7 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
           {...appealProps}
           {...appealChallengeResultsProps}
           {...appealChallengePhaseProps}
-          listingRemovedDate={lastUpdatedDateAsDate}
+          listingRemovedTimestamp={lastUpdatedDate!.toNumber()}
         />
       );
     }
