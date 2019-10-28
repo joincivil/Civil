@@ -40,14 +40,14 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
 
     paymentRequest.on("token", async (ev: any) => {
       if (ev && ev.token && ev.complete && ev.payerEmail) {
-        return this.handlePaymentRequest(ev.token, ev.complete, ev.payerEmail)
+        return this.handlePaymentRequest(ev.token, ev.complete, ev.payerEmail);
       } else {
         console.error("Error processing Payment Request");
         if (this.props.onPayRequestError) {
           this.props.onPayRequestError();
         }
       }
-    })
+    });
 
     paymentRequest.canMakePayment().then((result: any) => {
       this.setState({ canMakePayment: !!result });

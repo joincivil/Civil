@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsWrapper } from "./PaymentsWrapper";
-import { PaymentsLogin } from "./PaymentsLogin";
+import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 const Container = styled.div`
@@ -36,10 +36,10 @@ storiesOf("Pulse / Payments", module)
       </Container>
     );
   })
-  .add("Payment Login", () => {
+  .add("Payment Login or Guest Selection", () => {
     return (
       <Container>
-        <PaymentsLogin handleNext={onClickFunc} handleLogin={onClickFunc} />
+        <PaymentsLoginOrGuest handleNext={onClickFunc} handleLogin={onClickFunc} />
       </Container>
     );
   })

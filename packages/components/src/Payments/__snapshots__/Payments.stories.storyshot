@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
     }
   >
     <div
-      className="sc-LzNPC ewwJhO"
+      className="sc-LzNPB hWcvkR"
     >
       <div
         className="sc-LzNvf bVXTsu"
@@ -139,28 +139,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
           </button>
         </div>
         <div
-          className="sc-LzNwA ddlcfb"
-        >
-          <div
-            className=" sc-fzXfNe laEExU"
-          >
-            <textarea
-              className="sc-fzXfNe laEExU"
-              maxLength="140"
-              name="UserComment"
-              onChange={[Function]}
-              placeholder="Add a message with your Boost…"
-              type="textarea"
-            />
-            <label
-              className="sc-fzXfNc CbDly"
-            >
-              Add a message with your Boost…
-            </label>
-          </div>
-        </div>
-        <div
-          className="sc-LzNwY blWPCr"
+          className="sc-LzNwA buHVIH"
         >
           <label
             className="sc-fzXfPK jXaXTO"
@@ -817,7 +796,7 @@ exports[`Storyshots Pulse / Payments Payment Amount 1`] = `
 </div>
 `;
 
-exports[`Storyshots Pulse / Payments Payment Login 1`] = `
+exports[`Storyshots Pulse / Payments Payment Login or Guest Selection 1`] = `
 <div>
   <div
     style={
@@ -828,21 +807,21 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
     }
   >
     <div
-      className="sc-LzNPC ewwJhO"
+      className="sc-LzNPB hWcvkR"
     >
       <div
-        className="sc-LzNwZ hadsqh"
+        className="sc-LzNwY jpbJxQ"
       >
         <div
-          className="sc-LzNxa fDMmLY"
+          className="sc-LzNwZ kpzwYg"
         >
           Welcome to Civil!
         </div>
         <div
-          className="sc-LzNxb kciZyd"
+          className="sc-LzNxa iqbNPo"
         >
           <div
-            className="sc-LzNxc flvaIw"
+            className="sc-LzNxb hWTmxr"
           >
             Log in to give a Boost 🚀
           </div>
@@ -866,21 +845,21 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
             Log In / Sign Up
           </button>
           <div
-            className="sc-LzNxd fKBAhV"
+            className="sc-LzNxc ivZLWQ"
           >
             You’ll be able to keep track of your contributions and your username may be listed on the Boost leaderboard.
           </div>
         </div>
         <div
-          className="sc-LzNxb kciZyd"
+          className="sc-LzNxa iqbNPo"
         >
           <div
-            className="sc-LzNxc flvaIw"
+            className="sc-LzNxb hWTmxr"
           >
             Guest
           </div>
           <div
-            className="sc-LzNxd fKBAhV"
+            className="sc-LzNxc ivZLWQ"
           >
             Proceed to Boost and become a Civil member later.
           </div>
@@ -1012,7 +991,7 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
               }
             }
           >
-            Payment Login
+            Payment Login or Guest Selection
           </h2>
         </div>
         
@@ -1091,7 +1070,7 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
                     }
                   >
                     &lt;
-                    PaymentsLogin
+                    PaymentsLoginOrGuest
                   </span>
                   <span>
                     <span>
@@ -1226,7 +1205,7 @@ exports[`Storyshots Pulse / Payments Payment Login 1`] = `
               }
             >
               "
-              PaymentsLogin
+              PaymentsLoginOrGuest
               " Component
             </h3>
             <small>
@@ -1267,7 +1246,7 @@ exports[`Storyshots Pulse / Payments Payment Success 1`] = `
     }
   >
     <div
-      className="sc-LzNPC ewwJhO"
+      className="sc-LzNPB hWcvkR"
     >
       <h2>
         Boost payment successful!
@@ -1650,7 +1629,7 @@ exports[`Storyshots Pulse / Payments Payment Type 1`] = `
     }
   >
     <div
-      className="sc-LzNPC ewwJhO"
+      className="sc-LzNPB hWcvkR"
     >
       <div
         className="sc-LzNvf bVXTsu"

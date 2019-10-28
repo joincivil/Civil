@@ -124,7 +124,7 @@ export const PaymentStripeTermsText: React.FunctionComponent = props => (
     <a href={links.PRIVACY_POLICY} target="_blank">
       Privacy Policy
     </a>
-    . Depending on your selection, your email and comment may be visible to the newsroom.
+    . Depending on your selection, your email may be visible to the newsroom.
   </>
 );
 

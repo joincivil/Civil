@@ -379,26 +379,6 @@ export const PaymentAmountUserInput = styled.div`
   }
 `;
 
-export const PaymentAmountUserComment = styled.div`
-  margin-bottom: 50px;
-
-  ${InputBase} {
-    margin-bottom: 0;
-
-    label {
-      display: none;
-    }
-
-    textarea {
-      border-radius: 4px;
-      font-size: 15px;
-      height: 85px;
-      line-height: 18px;
-      margin: 0;
-    }
-  }
-`;
-
 export const PaymentAmountUserOptions = styled.div`
   display: flex;
   margin: 20px 0;
@@ -411,11 +391,11 @@ export const PaymentAmountUserOptions = styled.div`
   }
 `;
 
-export const PaymentLoginWrapper = styled.div`
+export const PaymentLoginOrGuestWrapper = styled.div`
   padding: 20px;
 `;
 
-export const PaymentLoginTitle = styled.div`
+export const PaymentLoginOrGuestTitle = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 18px;
   font-weight: 600;
@@ -424,7 +404,7 @@ export const PaymentLoginTitle = styled.div`
   text-align: center;
 `;
 
-export const PaymentLoginOption = styled.div`
+export const PaymentLoginOrGuestOption = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   margin-bottom: 20px;
   padding-bottom: 15px;
@@ -440,7 +420,7 @@ export const PaymentLoginOption = styled.div`
   }
 `;
 
-export const PaymentLoginType = styled.div`
+export const PaymentLoginOrGuestType = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 16px;
   font-weight: 600;
@@ -448,7 +428,7 @@ export const PaymentLoginType = styled.div`
   margin-bottom: 12px;
 `;
 
-export const PaymentLoginDescription = styled.div`
+export const PaymentLoginOrGuestDescription = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   font-family: ${fonts.SANS_SERIF};
   font-size: 13px;

@@ -4,7 +4,7 @@ import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsAmount } from "./PaymentsAmount";
-import { PaymentsLogin } from "./PaymentsLogin";
+import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { EthAddress } from "@joincivil/core";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentSuccessText } from "./PaymentsTextComponents";
@@ -24,7 +24,6 @@ export interface PaymentsStates {
   usdToSpend: number;
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
-  comment?: string;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -38,12 +37,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   }
 
   public render(): JSX.Element {
-    const { usdToSpend, shouldPublicize, paymentState, comment } = this.state;
+    const { usdToSpend, shouldPublicize, paymentState } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
     const isWalletConnected = userAddress ? true : false;
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_LOGIN) {
-      return <PaymentsLogin handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
+    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
+      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
     }
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
@@ -69,7 +68,6 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             userAddress={userAddress}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            comment={comment}
             isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
           />
@@ -86,7 +84,6 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             shouldPublicize={shouldPublicize}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            comment={comment}
             handlePaymentSuccess={this.handleUpdateState}
           />
         </PaymentsWrapper>
@@ -116,11 +113,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
   };
 
-  private handleAmount = (usdToSpend: number, shouldPublicize: boolean, comment: string) => {
+  private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
     if (this.props.isLoggedIn) {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize, comment });
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
     } else {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_LOGIN, shouldPublicize, comment });
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });
     }
   };
 }
