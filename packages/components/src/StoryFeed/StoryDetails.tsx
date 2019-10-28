@@ -23,7 +23,7 @@ import { getTimeSince } from "@joincivil/utils";
 export interface StoryDetailsProps {
   activeChallenge: boolean;
   createdAt: string;
-  newsroom: StoryNewsroomData;
+  newsroomName: string;
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
@@ -52,7 +52,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
           <StoryNewsroomStatus
-            newsroom={props.newsroom}
+            newsroomName={props.newsroomName}
             activeChallenge={props.activeChallenge}
             handleOpenNewsroom={props.handleOpenNewsroom}
           />
