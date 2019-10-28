@@ -192,10 +192,10 @@ class NewsroomsListItemListingRedux extends React.Component<
     const { civil } = this.context;
 
     if (!listing && !listingDataRequestStatus) {
+      console.error("hydrate data hit without listing. listingAddress: ", listingAddress);
       if (!this.state.loading) {
         this.setState({ loading: true });
       }
-      console.error("WHAT.");
     }
     if (newsroom) {
       if (newsroom.multisigAddress) {
