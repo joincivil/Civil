@@ -10,8 +10,8 @@ import Web3 from "web3";
 
 export const Container = styled.div`
   align-items: center;
-  diplay: flex;
-  justifiy-content: center;
+  display: flex;
+  justify-content: center;
   width: 100%;
   max-width: 720px;
 `;
@@ -80,7 +80,6 @@ storiesOf("Common / Auth / ETH", module)
       <CivilContext.Provider value={civilContext}>
         <Container>
           <AccountEthAuth
-            civil={civilContext.civil!}
             onAuthenticated={() => {
               alert("authenticated successfully");
             }}
