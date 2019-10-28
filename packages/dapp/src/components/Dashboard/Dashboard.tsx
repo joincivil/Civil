@@ -50,7 +50,6 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
       await civil.currentProviderEnable();
     };
   }
-  console.log("Dashboard Component.");
   return (
     <>
       <Helmet title="My Dashboard - The Civil Registry" />

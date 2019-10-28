@@ -163,12 +163,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       appealExists,
     };
 
-    console.log("challenge detail render 1.");
     if (!this.props.user) {
       return this.renderAllStages(renderState, {});
     }
 
-    console.log("challenge detail render 2.");
     return (
       <Query
         query={USER_CHALLENGE_DATA_QUERY}
@@ -177,7 +175,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
       >
         {({ loading: userChallengeLoading, error: userChallengeError, data: userChallengeData }: any): JSX.Element => {
           if (userChallengeLoading || userChallengeError) {
-            console.log("challenge detail render 3.");
             return this.renderAllStages(renderState);
           } else {
             const transformedUserChallengeData = transformGraphQLDataIntoSpecificUserChallenge(userChallengeData);
@@ -194,13 +191,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
                     data: userAppealChallengeData,
                   }: any): JSX.Element => {
                     if (userAppealChallengeLoading || userAppealChallengeError) {
-                      console.log("challenge detail render 4.");
                       return this.renderAllStages(renderState, transformedUserChallengeData);
                     } else {
                       const transformedUserAppealChallengeData = transformGraphQLDataIntoSpecificUserChallenge(
                         userAppealChallengeData,
                       );
-                      console.log("challenge detail render 5.");
                       return this.renderAllStages(
                         renderState,
                         transformedUserChallengeData,
@@ -211,7 +206,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
                 </Query>
               );
             } else {
-              console.log("challenge detail render 6.");
               return this.renderAllStages(renderState, transformedUserChallengeData);
             }
           }
@@ -225,7 +219,6 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
     userChallengeData?: UserChallengeData,
     userAppealChallengeData?: UserChallengeData,
   ): JSX.Element {
-    console.log("renderState: ", renderState);
     const { inCommitPhase, inRevealPhase, inCanRequestAppeal, canShowResult, appealExists } = renderState;
 
     const canShowRewardsForm = didUserCommit(userChallengeData) && this.props.challenge.resolved;
@@ -357,15 +350,11 @@ class ChallengeContainer extends React.Component<
 
   public render(): JSX.Element | null {
     const challenge = this.props.challengeData && this.props.challengeData.challenge;
-    console.log("render 1.");
     if (!challenge && this.props.showNotFoundMessage) {
-      console.log("render 2.");
       return this.renderNoChallengeFound();
     } else if (!challenge) {
-      console.log("render 3.");
       return null;
     }
-    console.log("render 4.");
     return (
       <ChallengeDetail
         listingAddress={this.props.listingAddress}
@@ -401,7 +390,6 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: ChallengeDetailContainerProps,
   ): ChallengeContainerReduxProps & ChallengeDetailContainerProps => {
-    console.log("ChallengeDetail ownProps: ", ownProps);
     const {
       user,
       govtParameters,

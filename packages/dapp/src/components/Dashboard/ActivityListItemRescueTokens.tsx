@@ -57,7 +57,6 @@ class ActivityListItemRescueTokensComponent extends React.Component<
   public context: CivilHelper;
 
   public async componentDidMount(): Promise<void> {
-    console.log("activity list item rescue tokens.");
     await this.ensureListingAndNewsroomData();
   }
 
@@ -137,7 +136,6 @@ const makeChallengeMapStateToProps = () => {
     state: State,
     ownProps: ActivityListItemRescueTokensOwnProps,
   ): ActivityListItemRescueTokensComponentProps => {
-    console.log("ActivityListItemRescueTokens 1. props: ", ownProps);
     const { newsrooms } = state;
 
     let listingAddress;

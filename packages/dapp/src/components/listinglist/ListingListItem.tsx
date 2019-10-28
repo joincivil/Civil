@@ -153,6 +153,7 @@ const RejectedListing: React.FunctionComponent<ListingListItemOwnProps & Listing
   const listingViewProps = transformListingSummaryViewProps(props, true);
   const data = listing!.data!;
   if (!data.prevChallenge) {
+    console.error("No prevChallenge found for rejected listing. listing address: ", listing!.address);
     return <ErrorLoadingDataMsg />;
   } else {
     const challengeResultsProps = getChallengeResultsProps(data.prevChallenge!);
