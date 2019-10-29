@@ -26,17 +26,17 @@ const getBaseChallengeResults = (
   totalVotes = getFormattedTokenBalance(totalVotesBN);
   votesFor = getFormattedTokenBalance(challengeData.poll.votesFor);
   votesAgainst = getFormattedTokenBalance(challengeData.poll.votesAgainst);
-  if (challengeData.poll.votesAgainst.isZero()) {
-    percentFor = "100";
-    percentAgainst = "0";
+  if (challengeData.poll.votesFor.isZero()) {
+    percentFor = "0";
+    percentAgainst = "100";
   } else {
     percentFor = challengeData.poll.votesFor
-      .div(totalVotesBN)
       .mul(hundred)
+      .div(totalVotesBN)
       .toString();
     percentAgainst = challengeData.poll.votesAgainst
-      .div(totalVotesBN)
       .mul(hundred)
+      .div(totalVotesBN)
       .toString();
   }
 
