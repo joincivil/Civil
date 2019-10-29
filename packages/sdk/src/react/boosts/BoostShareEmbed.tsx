@@ -18,6 +18,15 @@ export interface BoostShareEmbedProps {
   boostId: string;
 }
 
+const EMBED_STYLES = `
+  display: block;
+  width: 100%;
+  height: 525px !important;
+  margin: 32px 0;
+  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-radius: 4px;
+`.replace(/\s+/g, " ");
+
 export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
   const [modalOpen, setModalOpen] = React.useState(false);
   return (
@@ -36,9 +45,8 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
               Copy and paste this HTML code into your website where you would like this Boost to embedded:
             </BoostModalContent>
             <EmbedCode>
-              &lt;iframe src="{document.location.origin}/embed/boost/{props.boostId}" style="display: block; width:
-              100%; height: 525px !important; margin: 32px 0; border: 1px solid {colors.accent.CIVIL_GRAY_4};
-              border-radius: 4px;"&gt;&lt;/iframe&gt;
+              &lt;iframe src="{document.location.origin}/embed/boost/{props.boostId}" style="{EMBED_STYLES}"
+              sandbox="allow-popups allow-scripts allow-same-origin"&gt;&lt;/iframe&gt;
             </EmbedCode>
           </ModalContain>
         </Modal>
