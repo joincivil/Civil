@@ -16,7 +16,7 @@ import {
 } from "./StoryFeedStyledComponents";
 import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 import { Contributors, ContributorCount, ContributorData } from "../Contributors";
-import { StoryNewsroomData, OpenGraphData } from "./types";
+import { OpenGraphData } from "./types";
 import { PaymentButton, ShareButton } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 
