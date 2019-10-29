@@ -410,12 +410,12 @@ class BoostPayFormStripe extends React.Component<BoostPayFormStripeProps, BoostP
   }
 
   private handlePayRequestSuccess = () => {
-    this.setState({isSuccessModalOpen: true});
-  }
+    this.setState({ isSuccessModalOpen: true });
+  };
 
   private handlePayRequestError = () => {
     this.setState({ isErrorModalOpen: true });
-  }
+  };
 
   private hideModal = () => {
     this.setState({ isErrorModalOpen: false, paymentProcessing: false });

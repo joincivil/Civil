@@ -56,7 +56,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
         </RadioInput>
         <PaymentAmountUserInput>
           {this.state.showInput ? (
-            <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleInput} />
+            <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleAmountInput} />
           ) : (
             <PaymentsShowInputBtn onClick={this.handleShowInput}>
               <EnterCustomAmountText />
@@ -99,7 +99,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     this.setState({ usdToSpend: value });
   };
 
-  private handleInput = (name: string, value: any) => {
+  private handleAmountInput = (name: string, value: any) => {
     this.setState({ usdToSpend: value });
   };
 }

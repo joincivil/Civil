@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsWrapper } from "./PaymentsWrapper";
+import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
+import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 const Container = styled.div`
   width: 400px;
@@ -31,6 +33,20 @@ storiesOf("Pulse / Payments", module)
         <PaymentsWrapper newsroomName={"Coda Story"}>
           <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
         </PaymentsWrapper>
+      </Container>
+    );
+  })
+  .add("Payment Login or Guest Selection", () => {
+    return (
+      <Container>
+        <PaymentsLoginOrGuest handleNext={onClickFunc} handleLogin={onClickFunc} />
+      </Container>
+    );
+  })
+  .add("Payment Success", () => {
+    return (
+      <Container>
+        <PaymentSuccessText newsroomName={"Coda Story"} usdToSpend={2} />
       </Container>
     );
   });

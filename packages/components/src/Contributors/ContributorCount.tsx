@@ -25,11 +25,11 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
       <>
         {this.props.displayedContributors.slice(0, 3).map((contributor: any, i: number) => {
           return (
-            <ContributorCountAvatars>
+            <ContributorCountAvatars key={i}>
               {contributor.payerChannel.tiny72AvatarDataUrl ? (
-                <img key={i} src={contributor.payerChannel.tiny72AvatarDataUrl} />
+                <img src={contributor.payerChannel.tiny72AvatarDataUrl} />
               ) : (
-                <ContributorsDefaultAvatar key={i} contributor={contributor[i]} index={i} size={17} />
+                <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={17} />
               )}
             </ContributorCountAvatars>
           );
