@@ -81,6 +81,7 @@ const StoryFeedPage: React.FunctionComponent = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const civilUser = civilContext.currentUser;
   const userAccount = account ? account.account : undefined;
+  const userEmail = civilUser ? civilUser.email : undefined;
 
   async function onLoginPressed(): Promise<any> {
     dispatch!(await showWeb3LoginModal());
@@ -113,7 +114,7 @@ const StoryFeedPage: React.FunctionComponent = props => {
                 key={i}
                 isLoggedIn={civilUser ? true : false}
                 userAddress={userAccount}
-                userEmail={civilUser.email}
+                userEmail={userEmail}
                 storyId={storyData.id}
                 activeChallenge={false}
                 createdAt={storyData.createdAt}
