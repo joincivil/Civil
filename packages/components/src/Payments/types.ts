@@ -2,8 +2,15 @@ export const SuggestedPaymentAmounts = [{ amount: "1" }, { amount: "2" }, { amou
 
 export enum PAYMENT_STATE {
   SELECT_AMOUNT,
+  PAYMENT_CHOOSE_LOGIN_OR_GUEST,
   SELECT_PAYMENT_TYPE,
   ETH_PAYMENT,
   STRIPE_PAYMENT,
   PAYMENT_SUCCESS,
+}
+
+export enum INPUT_STATE {
+  EMPTY = "empty",
+  VALID = "valid",
+  INVALID = "invalid",
 }

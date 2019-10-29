@@ -4,51 +4,46 @@ import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsAmount } from "./PaymentsAmount";
+import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { EthAddress } from "@joincivil/core";
-import { CivilContext, ICivilContext } from "../";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentSuccessText } from "./PaymentsTextComponents";
 
 export interface PaymentsProps {
+  isLoggedIn: boolean;
   postId: string;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
+  userAddress?: EthAddress;
+  userEmail?: string;
+  handleLogin(): void;
 }
 
 export interface PaymentsStates {
-  isWalletConnected: boolean;
-  userAddress?: EthAddress;
   usdToSpend: number;
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
-  public static contextType = CivilContext;
-  public context!: ICivilContext;
-
   constructor(props: any) {
     super(props);
     this.state = {
-      isWalletConnected: false,
       usdToSpend: 0,
       shouldPublicize: false,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
     };
   }
 
-  public async componentDidMount(): Promise<void> {
-    const civil = this.context.civil;
-    if (civil) {
-      const account = await civil.accountStream.first().toPromise();
-      this.setState({ userAddress: account, isWalletConnected: true });
-    }
-  }
-
   public render(): JSX.Element {
-    const { isWalletConnected, userAddress, usdToSpend, shouldPublicize, paymentState } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
+    const { usdToSpend, shouldPublicize, paymentState } = this.state;
+    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
+    const isWalletConnected = userAddress ? true : false;
+
+    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
+      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
+    }
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
@@ -71,6 +66,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
             userAddress={userAddress}
+            userEmail={userEmail}
             usdToSpend={usdToSpend}
             isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
@@ -86,6 +82,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             postId={postId}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
+            userEmail={userEmail}
             usdToSpend={usdToSpend}
             handlePaymentSuccess={this.handleUpdateState}
           />
@@ -117,6 +114,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
-    this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+    if (this.props.isLoggedIn) {
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+    } else {
+      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });
+    }
   };
 }

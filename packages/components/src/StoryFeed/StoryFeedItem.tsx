@@ -9,6 +9,7 @@ import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponent
 import { StoryNewsroomData, OpenGraphData } from "./types";
 import { Payments } from "../Payments";
 import { PaymentButton, ShareButton, ShareStory, Panel, SharePanel } from "@joincivil/elements";
+import { EthAddress } from "@joincivil/core";
 
 export interface StoryFeedItemProps {
   storyId: string;
@@ -20,6 +21,10 @@ export interface StoryFeedItemProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  isLoggedIn: boolean;
+  userAddress?: EthAddress;
+  userEmail?: string;
+  handleLogin(): void;
 }
 
 export interface StoryFeedItemStates {
@@ -87,10 +92,14 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         </StoryModal>
         <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClosePayments}>
           <Payments
+            isLoggedIn={this.props.isLoggedIn}
+            userAddress={this.props.userAddress}
+            userEmail={this.props.userEmail}
             postId={this.props.storyId}
             newsroomName={this.props.newsroom.charter.name}
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
+            handleLogin={this.props.handleLogin}
           />
         </Panel>
         <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>

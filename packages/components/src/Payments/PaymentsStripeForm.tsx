@@ -9,18 +9,15 @@ import {
 } from "react-stripe-elements";
 import styled from "styled-components";
 import { DropdownArrow, CCAmexIcon, CCDiscoverIcon, CCMastercardIcon, CCVisaIcon, CCSecurityCodeIcon } from "../icons";
-import { CivilContext, ICivilContext, colors, fonts, mediaQueries } from "../";
+import { CivilContext, ICivilContext, mediaQueries } from "../";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
-import { PaymentNotice, PaymentTerms, PaymentBtn } from "./PaymentsStyledComponents";
+import { PaymentNotice, PaymentTerms, PaymentBtn, PaymentInputLabel } from "./PaymentsStyledComponents";
 import { PaymentStripeNoticeText, PaymentStripeTermsText, PaymentErrorText } from "./PaymentsTextComponents";
-import { InputValidationUI, InputValidationStyleProps, INPUT_STATE } from "./PaymentsInputValidationUI";
-import { PAYMENT_STATE } from "./types";
+import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
+import { PAYMENT_STATE, INPUT_STATE } from "./types";
+import PaymentRequestForm from "./PaymentsRequest";
 
 const StripeWrapper = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_1};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 16px;
-  line-height: 22px;
   margin: 20px 0 0;
   max-width: 575px;
   width: 100%;
@@ -32,104 +29,11 @@ const StripeWrapper = styled.div`
   }
 `;
 
-const StripeCardEmailWrap = styled.div`
-  margin-bottom: 20px;
-
-  input {
-    width: 100%;
-  }
-`;
-
-const StripeCardInfoWrap = styled.div`
-  width: 100%;
-
-  & > div {
-    margin-bottom: 10px;
-  }
-`;
-
-const StripeElement = styled.div`
-  border: 1px solid
-    ${(props: InputValidationStyleProps) =>
-      props.inputState === INPUT_STATE.INVALID ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_3};
-  border-radius: 2px;
-  padding: 12px;
-`;
-
 const StripeCardInfoFlex = styled.div`
   display: flex;
 
-  & > div:first-of-type {
-      margin-right: 10px;
-    }
-  }
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-
-    > div {
-      &:first-of-type {
-        margin: 0 0 10px;
-      }
-    }
-  }
-`;
-
-const StripeUserInfoWrap = styled.div`
-  margin-bottom: 10px;
-  width: 100%;
-
   & > div {
-    margin-bottom: 20px;
-
-    ${mediaQueries.MOBILE} {
-      width: 100%;
-    }
-  }
-`;
-
-const StripeUserInfoFlex = styled.div`
-  display: flex;
-  margin-bottom: 10px;
-
-  & > div {
-    &:first-of-type {
-      margin-right: 10px;
-    }
-
-    &:last-of-type {
-      width: 130px;
-
-      input {
-        width: 100%;
-      }
-    }
-  }
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-
-    div {
-      &:first-of-type {
-        margin: 0 0 10px;
-      }
-    }
-  }
-`;
-
-const StripePolicy = styled.div`
-  a {
-    color: ${colors.accent.CIVIL_GRAY_1};
-    font-size: 14px;
-    line-height: 19px;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    &:first-of-type {
-      margin-right: 15px;
-    }
+    width: 50%;
   }
 `;
 
@@ -168,6 +72,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   postId: string;
   newsroomName: string;
   shouldPublicize: boolean;
+  userEmail?: string;
   usdToSpend: number;
   savePayment: MutationFunc;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
@@ -216,122 +121,98 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
   }
 
   public render(): JSX.Element {
-    let postalCodeVisible = false;
-    // Stripe recommends getting the zip/postal codes for the US, UK, and Canada
-    if (this.state.country === "USA" || this.state.country === "CAN" || this.state.country === "GBR") {
-      postalCodeVisible = true;
-    }
-
     return (
       <form>
-        <StripeWrapper>
-          <StripeCardEmailWrap>
-            <label>Email</label>
-            <InputValidationUI inputState={this.state.emailState}>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-                required
-              />
-            </InputValidationUI>
-          </StripeCardEmailWrap>
-          <StripeCardInfoWrap>
-            <label>Card information</label>
-            <InputValidationUI inputState={this.state.cardNumberState} width={"500px"}>
-              <StripeElement inputState={this.state.cardNumberState}>
-                <CardNumberElement id="card-number" onBlur={() => this.handleOnBlurStripe()} />
-              </StripeElement>
-              <CreditCardIconsWrap inputState={this.state.cardNumberState}>
-                <CCAmexIcon />
-                <CCDiscoverIcon />
-                <CCMastercardIcon />
-                <CCVisaIcon />
-              </CreditCardIconsWrap>
-            </InputValidationUI>
-            <StripeCardInfoFlex>
-              <InputValidationUI inputState={this.state.cardExpiryState} width={"170px"}>
-                <StripeElement inputState={this.state.cardExpiryState}>
-                  <CardExpiryElement id="card-expiry" onBlur={() => this.handleOnBlurStripe()} />
-                </StripeElement>
-              </InputValidationUI>
-              <InputValidationUI inputState={this.state.cardCVCState} width={"130px"}>
-                <StripeElement inputState={this.state.cardCVCState}>
-                  <CardCvcElement id="card-cvc" onBlur={() => this.handleOnBlurStripe()} />
-                </StripeElement>
-                <CreditCardCVCWrap inputState={this.state.cardCVCState}>
-                  <CCSecurityCodeIcon />
-                </CreditCardCVCWrap>
-              </InputValidationUI>
-            </StripeCardInfoFlex>
-          </StripeCardInfoWrap>
-          <StripeUserInfoWrap>
-            <label>Name on card</label>
-            <InputValidationUI inputState={this.state.nameState} width={"300px"}>
-              <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
-            </InputValidationUI>
-            <StripeUserInfoFlex>
-              <div>
-                <label>Country or region</label>
-                <InputValidationUI inputState={this.state.countryState} width={"300px"}>
-                  <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
-                    <option value=""></option>
-                    {STRIPE_COUNTRIES.map((country: any, i: number) => {
-                      return (
-                        <option key={i} value={country.value}>
-                          {country.name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                  <DropDownWrap inputState={this.state.countryState}>
-                    <DropdownArrow />
-                  </DropDownWrap>
-                </InputValidationUI>
-              </div>
-              <div>
-                {postalCodeVisible &&
-                  (this.state.country === "USA" ? (
-                    <>
-                      <label>Zip Code</label>
-                      <InputValidationUI inputState={this.state.postalCodeState} width={"150px"}>
-                        <input
-                          type="number"
-                          id="zip"
-                          name="zip"
-                          maxLength={12}
-                          onBlur={() => this.handleOnBlur(event)}
-                        />
-                      </InputValidationUI>
-                    </>
-                  ) : (
-                    <>
-                      <label>Postal Code</label>
-                      <InputValidationUI inputState={this.state.postalCodeState} width={"150px"}>
-                        <input id="zip" name="zip" maxLength={12} onBlur={() => this.handleOnBlur(event)} />
-                      </InputValidationUI>
-                    </>
-                  ))}
-              </div>
-            </StripeUserInfoFlex>
-          </StripeUserInfoWrap>
-          <StripePolicy>
-            <a href="https://stripe.com/" target="_blank">
-              Powered by Stripe
-            </a>
-            <a href="https://stripe.com/privacy" target="_blank">
-              Privacy and Terms
-            </a>
-          </StripePolicy>
-        </StripeWrapper>
-
         <PaymentNotice>
           <PaymentStripeNoticeText />
         </PaymentNotice>
+        <PaymentRequestForm
+          savePayment={this.props.savePayment}
+          boostId={this.props.postId}
+          usdToSpend={this.props.usdToSpend}
+          handlePaymentSuccess={this.props.handlePaymentSuccess}
+        />
+        <StripeWrapper>
+          <PaymentInputLabel>Email</PaymentInputLabel>
+          <InputValidationUI inputState={this.state.emailState}>
+            {this.props.userEmail ? (
+              <input
+                id="email"
+                name="email"
+                value={this.props.userEmail}
+                type="email"
+                maxLength={254}
+                onBlur={() => this.handleOnBlur(event)}
+              />
+            ) : (
+              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
+            )}
+          </InputValidationUI>
+          <PaymentInputLabel>Card information</PaymentInputLabel>
+          <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
+            <StripeElement inputState={this.state.cardNumberState}>
+              <CardNumberElement
+                id="card-number"
+                style={{ base: { fontSize: "13px" } }}
+                onBlur={() => this.handleOnBlurStripe()}
+              />
+            </StripeElement>
+            <CreditCardIconsWrap inputState={this.state.cardNumberState}>
+              <CCAmexIcon />
+              <CCDiscoverIcon />
+              <CCMastercardIcon />
+              <CCVisaIcon />
+            </CreditCardIconsWrap>
+          </InputValidationUI>
+          <StripeCardInfoFlex>
+            <InputValidationUI inputState={this.state.cardExpiryState} className={"positionBottomLeft"}>
+              <StripeElement inputState={this.state.cardExpiryState}>
+                <CardExpiryElement
+                  id="card-expiry"
+                  style={{ base: { fontSize: "13px" } }}
+                  onBlur={() => this.handleOnBlurStripe()}
+                />
+              </StripeElement>
+            </InputValidationUI>
+            <InputValidationUI inputState={this.state.cardCVCState} className={"positionBottomRight"}>
+              <StripeElement inputState={this.state.cardCVCState}>
+                <CardCvcElement
+                  id="card-cvc"
+                  style={{ base: { fontSize: "13px" } }}
+                  onBlur={() => this.handleOnBlurStripe()}
+                />
+              </StripeElement>
+              <CreditCardCVCWrap inputState={this.state.cardCVCState}>
+                <CCSecurityCodeIcon />
+              </CreditCardCVCWrap>
+            </InputValidationUI>
+          </StripeCardInfoFlex>
+          <PaymentInputLabel>Name on card</PaymentInputLabel>
+          <InputValidationUI inputState={this.state.nameState}>
+            <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
+          </InputValidationUI>
+          <PaymentInputLabel>Country or region</PaymentInputLabel>
+          <InputValidationUI inputState={this.state.countryState} className={"positionTop"}>
+            <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
+              <option value=""></option>
+              {STRIPE_COUNTRIES.map((country: any, i: number) => {
+                return (
+                  <option key={i} value={country.value}>
+                    {country.name}
+                  </option>
+                );
+              })}
+            </select>
+            <DropDownWrap inputState={this.state.countryState}>
+              <DropdownArrow />
+            </DropDownWrap>
+          </InputValidationUI>
+          <InputValidationUI inputState={this.state.postalCodeState} className={"positionBottom"}>
+            <input id="zip" name="zip" maxLength={12} placeholder="Zip code" onBlur={() => this.handleOnBlur(event)} />
+          </InputValidationUI>
+        </StripeWrapper>
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
-          {this.state.paymentProcessing ? "Payment processing..." : "Tip newsroom"}
+          {this.state.paymentProcessing ? "Payment processing..." : "Complete Boost"}
         </PaymentBtn>
         {this.state.isPaymentError && <PaymentErrorText />}
         <PaymentTerms>
@@ -381,6 +262,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     const can = /^[ABCEGHJKLMNPRSTVXY]\d[ -]?\d[A-Za-z]\d$/;
     const gbr = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
 
+    // Stripe recommends getting the zip/postal codes for the US, UK, and Canada
     switch (this.state.country) {
       case "USA":
         return usa.test(postalCode);
