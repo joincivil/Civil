@@ -92,6 +92,9 @@ export const NavUser = styled.div`
   ${mediaQueries.MOBILE} {
     border-left: none;
   }
+  ${mediaQueries.MOBILE_SMALL} {
+    padding-left: 0;
+  }
 `;
 
 export const CvlContainer = styled.div`
@@ -100,6 +103,10 @@ export const CvlContainer = styled.div`
   box-sizing: border-box;
   justify-content: space-between;
   padding-left: 20px;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    padding-left: 0;
+  }
 `;
 
 export const BalancesContainer = styled.span`
@@ -127,12 +134,23 @@ export const AvatarContainer = styled.div`
   align-items: center;
   display: flex;
   width: 60px;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    width: auto;
+  }
 `;
 
 export const HandleContainer = styled.div`
-  align-items: center;
-  display: flex;
   margin-right: 16px;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    display: inline;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 75px;
+    margin-right: 8px;
+  }
 `;
 
 export const UserAvatarFigure = styled.figure`
@@ -165,6 +183,7 @@ export const LogInButton = styled(Button)`
 `;
 
 export const BorderlessNavBarButton = styled(DarkButton)`
+  white-space: nowrap;
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 1px;
@@ -173,6 +192,7 @@ export const BorderlessNavBarButton = styled(DarkButton)`
 `;
 
 export const NavBarButton = styled(DarkButton)`
+  white-space: nowrap;
   border: 2px solid ${colors.basic.WHITE};
   font-size: 14px;
   font-weight: bold;
