@@ -72,7 +72,11 @@ storiesOf("Pulse / Story Feed", module)
   .add("Story Card", () => {
     return (
       <Container>
-        <StoryNewsroomStatus newsroom={newsroom} activeChallenge={false} handleOpenNewsroom={onClickFunc} />
+        <StoryNewsroomStatus
+          newsroomName={newsroom.charter.name}
+          activeChallenge={false}
+          handleOpenNewsroom={onClickFunc}
+        />
         <Story openGraphData={openGraphData} handleOpenStory={onClickFunc} />
         <StoryElementsFlex>
           <ContributorCount totalContributors={15} displayedContributors={contributors} />
@@ -90,7 +94,7 @@ storiesOf("Pulse / Story Feed", module)
         <StoryDetails
           activeChallenge={false}
           createdAt={"1 min ago"}
-          newsroom={newsroom}
+          newsroomName={newsroom.charter.name}
           openGraphData={openGraphData}
           displayedContributors={contributors}
           sortedContributors={contributors}

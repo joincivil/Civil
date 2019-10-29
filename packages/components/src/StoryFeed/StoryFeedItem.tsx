@@ -60,7 +60,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       <>
         <StoryFeedItemWrap>
           <StoryNewsroomStatus
-            newsroom={newsroom}
+            newsroomName={newsroom.charter.name}
             activeChallenge={activeChallenge}
             handleOpenNewsroom={this.openStoryNewsroomDetails}
           />
@@ -77,7 +77,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           <StoryDetails
             activeChallenge={activeChallenge}
             createdAt={createdAt}
-            newsroom={newsroom}
+            newsroomName={newsroom.charter.name}
             openGraphData={openGraphData}
             displayedContributors={displayedContributors}
             sortedContributors={sortedContributors}
