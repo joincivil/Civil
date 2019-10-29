@@ -1,8 +1,9 @@
 import * as React from "react";
 import ReactDOMServer from "react-dom/server";
+import { copyToClipboard } from "@joincivil/utils";
 import { EmbedIcon, ModalHeading, colors, Modal, CloseXIcon, loadingImgUrl } from "@joincivil/components";
 import styled from "styled-components";
-import { BoostModalContent, BoostModalCloseBtn } from "./BoostStyledComponents";
+import { BoostButton, BoostModalContent, BoostModalCloseBtn } from "./BoostStyledComponents";
 
 const EmbedCode = styled.pre`
   white-space: pre-wrap;
@@ -20,7 +21,7 @@ export interface BoostShareEmbedProps {
 }
 
 // Not using styled-components so that we can get the actual styles in `renderToStaticMarkup`.
-const EMBED_WRAPPER_STYLES = {
+const EMBED_WRAPPER_STYLES: React.CSSProperties = {
   position: "relative",
   display: "block",
   width: "100%",
@@ -29,8 +30,8 @@ const EMBED_WRAPPER_STYLES = {
   border: `1px solid ${colors.accent.CIVIL_GRAY_4}`,
   borderRadius: "4px",
   textAlign: "center",
-} as React.CSSProperties;
-const EMBED_IFRAME_STYLES = {
+};
+const EMBED_IFRAME_STYLES: React.CSSProperties = {
   position: "absolute",
   width: "100%",
   height: "523px !important", // 523px to make room for 1px border
@@ -38,23 +39,24 @@ const EMBED_IFRAME_STYLES = {
   top: 0,
   left: 0,
   zIndex: 1,
-} as React.CSSProperties;
-const EMBED_LOADING_IMG_STYLES = {
+};
+const EMBED_LOADING_IMG_STYLES: React.CSSProperties = {
   display: "block",
   margin: "72px auto 36px",
-} as React.CSSProperties;
-const EMBED_NOT_LOADED_STYLES = {
+};
+const EMBED_NOT_LOADED_STYLES: React.CSSProperties = {
   position: "absolute",
   color: "#9B9B9B",
   fontSize: "smaller",
   bottom: 0,
   padding: 16,
-} as React.CSSProperties;
+};
 
 export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
-  let embedCode;
+  let embedCode = "";
   if (modalOpen) {
     const embed = (
       <div style={EMBED_WRAPPER_STYLES}>
@@ -94,6 +96,7 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
               Copy and paste this HTML code into your website where you would like this Boost to embedded:
             </BoostModalContent>
             <EmbedCode>{embedCode}</EmbedCode>
+            <BoostButton onClick={() => setCopied(copyToClipboard(embedCode))}>Copy</BoostButton> {copied && "Copied!"}
           </ModalContain>
         </Modal>
       )}

@@ -1,5 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { useSelector } from "react-redux";
+import { ICivilContext, CivilContext } from "@joincivil/components";
+import { copyToClipboard, getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
 import { buttonSizes, Button } from "@joincivil/elements";
 
 // import { QuestionToolTip } from "../QuestionToolTip";
@@ -31,9 +34,6 @@ import {
   NavDrawerSubmittedChallengesText,
   NavDrawerVotedChallengesText,
 } from "./textComponents";
-import { ICivilContext, CivilContext } from "@joincivil/components";
-import { getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
-import { useSelector } from "react-redux";
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 
@@ -94,7 +94,7 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
           <NavDrawerUserAddessText />
         </NavDrawerSectionHeader>
         <UserAddress>{userEthAddress}</UserAddress>
-        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipBoard()}>
+        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipboard(userEthAddress.replace(/ /g, ""))}>
           <NavDrawerCopyBtnText />
         </CopyButton>
       </NavDrawerSection>
@@ -165,15 +165,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
       </NavDrawerSection>
     </StyledNavDrawer>
   );
-
-  function copyToClipBoard(): void {
-    const textArea = document.createElement("textarea");
-    textArea.innerText = userEthAddress.replace(/ /g, "");
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    textArea.remove();
-  }
 };
 
 class NavDrawer extends React.Component<NavDrawerProps> {
