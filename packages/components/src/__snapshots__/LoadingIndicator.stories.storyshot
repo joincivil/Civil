@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Default Size (
     }
   >
     <div
-      className="sc-LzNPu kadlBW"
+      className="sc-LzNPt jNSzJp"
     >
       <div>
         <svg
@@ -393,7 +393,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Indicator Prop-defined s
     }
   >
     <div
-      className="sc-LzNPu kadlBW"
+      className="sc-LzNPt jNSzJp"
     >
       <div>
         <svg
