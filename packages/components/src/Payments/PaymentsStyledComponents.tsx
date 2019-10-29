@@ -51,8 +51,8 @@ export const PaymentHeaderBoostLabel = styled.span`
 
 export const PaymentHeaderAmount = styled.span`
   font-size: 18px;
-  line-height: 22px;
   font-weight: 700;
+  line-height: 22px;
 `;
 
 export const PaymentDirectionsStyled = styled.p`
@@ -144,8 +144,8 @@ export const PaymentTerms = styled.p`
 
 export const PaymentTypeLabel = styled.div`
   font-size: 15px;
-  line-height: 20px;
   font-weight: 700;
+  line-height: 20px;
   margin-bottom: 20px;
 `;
 
@@ -222,8 +222,8 @@ export const PaymentsModalContain = styled.div`
 export const PaymentsModalCloseBtn = styled(InvertedButton)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 50%;
-  padding: 0;
   height: 32px;
+  padding: 0;
   position: absolute;
   right: 15px;
   top: 15px;
@@ -300,7 +300,7 @@ export const PaymentsRadioBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 4px;
-  cursor pointer;
+  cursor: pointer;
   font-size: 18px;
   font-weight: 600;
   height: 75px;
@@ -324,7 +324,7 @@ export const PaymentAmountNewsroom = styled.div`
     font-family: ${fonts.SANS_SERIF};
     font-size: 18px;
     font-weight: 600;
-    line-spacing: 22px;
+    line-height: 22px;
     margin: 0 0 10px;
   }
 
@@ -332,7 +332,7 @@ export const PaymentAmountNewsroom = styled.div`
     color: ${colors.accent.CIVIL_GRAY_1};
     font-family: ${fonts.SANS_SERIF};
     font-size: 14px;
-    line-spacing: 17px;
+    line-height: 17px;
     margin: 0 0 15px;
     text-align: center;
   }

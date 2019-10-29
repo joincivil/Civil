@@ -1,6 +1,7 @@
 import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
-import { ClipLoader, ErrorIcon, TokenWalletIcon } from "../";
+import { ErrorIcon, TokenWalletIcon } from "@joincivil/elements";
+import { ClipLoader } from "../ClipLoader";
 import { PaymentWarning } from "./PaymentsStyledComponents";
 
 export interface PaymentsTextProps {

@@ -100,6 +100,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
             handleLogin={this.props.handleLogin}
+            handleClose={this.handleClosePayments}
           />
         </Panel>
         <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>

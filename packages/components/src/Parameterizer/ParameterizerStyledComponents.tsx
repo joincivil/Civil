@@ -9,7 +9,7 @@ export const StyledParameterizerContainer = styled.div`
 export const StyledCreateProposalContainer = styled.div`
   background: ${colors.accent.CIVIL_GRAY_4};
   bottom: 0;
-  border: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   font-family: ${fonts.SANS_SERIF};
   right: 0;
   top: 0;
@@ -19,7 +19,7 @@ export const StyledCreateProposalContainer = styled.div`
 export const StyledChallengeProposalContainer = styled.div`
   background: ${colors.basic.WHITE};
   bottom: 0;
-  border: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   font-family: ${fonts.SANS_SERIF};
   overflow-y: scroll;
   right: 0;
@@ -30,7 +30,7 @@ export const StyledChallengeProposalContainer = styled.div`
 export const StyledCreateProposalOuter = styled.div`
   background: ${colors.basic.WHITE}9a; // 9a is hex for 60^
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  bottom 0;
+  bottom: 0;
   left: 0;
   position: fixed;
   overflow-y: scroll;

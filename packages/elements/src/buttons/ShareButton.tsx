@@ -17,7 +17,7 @@ export const ShareBtnStyled = styled.button`
   flex-direction: ${(props: ShareBtnStyleProps) => (props.textBottom ? "column" : "row")};
   font-size: 12px;
   justify-content: center;
-  line-spacing: 1;
+  line-height: 1;
   outline: none;
   padding: 0;
   transition: color 0.2s ease;

@@ -7,7 +7,7 @@ import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { EthAddress } from "@joincivil/core";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
-import { PaymentSuccessText } from "./PaymentsTextComponents";
+import { PaymentsSuccess } from "./PaymentsSuccess";
 
 export interface PaymentsProps {
   isLoggedIn: boolean;
@@ -18,6 +18,7 @@ export interface PaymentsProps {
   userAddress?: EthAddress;
   userEmail?: string;
   handleLogin(): void;
+  handleClose(): void;
 }
 
 export interface PaymentsStates {
@@ -91,7 +92,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
-      return <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.state.usdToSpend} />;
+      return (
+        <PaymentsWrapper newsroomName={newsroomName}>
+          <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={this.props.handleClose} />
+        </PaymentsWrapper>
+      );
     }
 
     return (
