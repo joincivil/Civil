@@ -99,6 +99,17 @@ export const PaymentBtn = styled(Button)`
   width: 100%;
 `;
 
+export const PaymentInvertedBtn = styled(InvertedButton)`
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 19px;
+  padding: 10px 40px;
+  text-transform: none;
+  width: 100%;
+`;
+
 export const PaymentNotice = styled.p`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 13px;
@@ -132,7 +143,6 @@ export const PaymentTerms = styled.p`
 `;
 
 export const PaymentTypeLabel = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 15px;
   line-height: 20px;
   font-weight: 700;
@@ -162,6 +172,12 @@ export const PaymentsUserInfoForm = styled.div`
   input {
     width: 100%;
   }
+`;
+
+export const PaymentInputLabel = styled.label`
+  color: ${colors.accent.CIVIL_GRAY_1};
+  font-size: 13px;
+  line-height: 16px;
 `;
 
 export const PaymentWarning = styled.div`
@@ -330,8 +346,8 @@ export const PaymentsShowInputBtn = styled.button`
   display: block;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
-  line-spacing: 17px;
-  padding: none;
+  line-height: 17px;
+  padding: 0;
 
   &:hover {
     text-decoration: underline;
@@ -341,7 +357,7 @@ export const PaymentsShowInputBtn = styled.button`
 export const PaymentAmountUserInput = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0 0;
+  margin: 20px 0 30px;
 
   > div {
     padding: 0;
@@ -364,6 +380,7 @@ export const PaymentAmountUserInput = styled.div`
 `;
 
 export const PaymentAmountUserOptions = styled.div`
+  display: flex;
   margin: 20px 0;
 
   label {
@@ -372,4 +389,49 @@ export const PaymentAmountUserOptions = styled.div`
     font-size: 14px;
     margin-right: 8px;
   }
+`;
+
+export const PaymentLoginOrGuestWrapper = styled.div`
+  padding: 20px;
+`;
+
+export const PaymentLoginOrGuestTitle = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-bottom: 40px;
+  text-align: center;
+`;
+
+export const PaymentLoginOrGuestOption = styled.div`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+
+  &:last-of-type {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    margin-bottom: 12px;
+  }
+`;
+
+export const PaymentLoginOrGuestType = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  margin-bottom: 12px;
+`;
+
+export const PaymentLoginOrGuestDescription = styled.div`
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 13px;
+  line-height: 16px;
+  margin-bottom: 12px;
 `;

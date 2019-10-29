@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed 1
     }
   >
     <div
-      className="sc-LzNOk bPcGcC"
+      className="sc-LzNOm eyAbso"
     >
       <a
         href="#"
@@ -424,7 +424,7 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed, 
     }
   >
     <div
-      className="sc-LzNOk bPcGcC"
+      className="sc-LzNOm eyAbso"
     >
       <a
         href="#"
