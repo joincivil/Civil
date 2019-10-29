@@ -7,7 +7,6 @@ import { State } from "../../redux/reducers";
 import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import { Helmet } from "react-helmet";
-import { StoryBoost } from "@joincivil/sdk";
 
 export const STORY_FEED_QUERY = gql`
   query Post($search: PostSearchInput!) {
@@ -99,13 +98,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
     <>
       <Helmet title="Civil Story Feed - The Civil Registry" />
       <StoryFeedWrapper>
-        <StoryBoost
-          boostId={"00fa3a91-ba07-4cc1-bba9-42c9ff55b8e0"}
-          isLoggedIn={civilUser ? true : false}
-          userAddress={userAccount}
-          userEmail={civilUser.email}
-          handleLogin={onLoginPressed}
-        />
         <StoryFeedHeader>Story Feed</StoryFeedHeader>
         <Query query={STORY_FEED_QUERY} variables={{ search }}>
           {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData }) => {
