@@ -9,6 +9,9 @@ import applicationSubmittedImgUrl from "./images/img-application-submitted@2x.pn
 import grantSubmittedImgUrl from "./images/img-grant-submitted@2x.png";
 import defaultNewsroomImgUrl from "./images/img-default-newsroom@2x.png";
 
+// So that we can host this image and access it from embed code instead of inlining huge svg string:
+import loadingImgUrl from "./images/loading.svg";
+
 export {
   metaMaskNetworkSwitchImgUrl,
   metaMaskLoginImgUrl,
@@ -19,4 +22,5 @@ export {
   applicationSubmittedImgUrl,
   grantSubmittedImgUrl,
   defaultNewsroomImgUrl,
+  loadingImgUrl,
 };
