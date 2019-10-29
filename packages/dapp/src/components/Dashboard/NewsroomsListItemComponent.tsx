@@ -12,7 +12,6 @@ import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import { getChallengeByListingAddress, getListingPhaseState, makeGetListing, getChallengeState } from "../../selectors";
 
-import { fetchAndAddListingData } from "../../redux/actionCreators/listings";
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
 import PhaseCountdown from "./MyTasksItemPhaseCountdown";
@@ -193,10 +192,10 @@ class NewsroomsListItemListingRedux extends React.Component<
     const { civil } = this.context;
 
     if (!listing && !listingDataRequestStatus) {
+      console.error("hydrate data hit without listing. listingAddress: ", listingAddress);
       if (!this.state.loading) {
         this.setState({ loading: true });
       }
-      this.props.dispatch!(fetchAndAddListingData(this.context, listingAddress!));
     }
     if (newsroom) {
       if (newsroom.multisigAddress) {

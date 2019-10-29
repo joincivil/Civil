@@ -5,7 +5,6 @@ import { UserChallengeData } from "@joincivil/core";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
-import { fetchAndAddChallengeData } from "../../redux/actionCreators/challenges";
 import { fetchAndAddParameterProposalChallengeData } from "../../redux/actionCreators/parameterizer";
 import { State } from "../../redux/reducers";
 import {
@@ -86,12 +85,12 @@ class ActivityListItemRescueTokensComponent extends React.Component<
   }
 
   private ensureListingAndNewsroomData = async (): Promise<void> => {
-    const { newsroom, challengeID, challenge, challengeDataRequestStatus, dispatch } = this.props;
+    const { newsroom, challengeID, challenge, dispatch } = this.props;
     if (newsroom) {
       dispatch!(await getContent(this.context, newsroom.wrapper.data.charterHeader!));
     }
-    if (challengeID && !challenge && !challengeDataRequestStatus) {
-      dispatch!(fetchAndAddChallengeData(this.context, challengeID! as string));
+    if (challengeID && !challenge) {
+      console.error("ActivityListItemRescueTokens without challenge data. challengeID: ", challengeID);
     }
   };
 }
@@ -137,7 +136,6 @@ const makeChallengeMapStateToProps = () => {
     state: State,
     ownProps: ActivityListItemRescueTokensOwnProps,
   ): ActivityListItemRescueTokensComponentProps => {
-    const { challengesFetching } = state.networkDependent;
     const { newsrooms } = state;
 
     let listingAddress;
@@ -161,17 +159,11 @@ const makeChallengeMapStateToProps = () => {
     if (rescueTokensAmountBN) {
       rescueTokensAmount = getFormattedTokenBalance(rescueTokensAmountBN);
     }
-    let challengeDataRequestStatus;
-    if (ownProps.challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(ownProps.challengeID as string);
-    }
 
     return {
       listingAddress,
       newsroom,
       challenge,
-      challengeDataRequestStatus,
-      userChallengeData,
       rescueTokensAmount,
       ...ownProps,
     };
