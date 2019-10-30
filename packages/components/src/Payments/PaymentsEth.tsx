@@ -3,21 +3,13 @@ import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import {
-  PaymentDirectionsStyled,
-  PaymentEthLearnMore,
-  PaymentBtn,
-  PaymentAmountEth,
-  PaymentTypeLabel,
-} from "./PaymentsStyledComponents";
+import { PaymentEthLearnMore, PaymentBtn, PaymentAmountEth, PaymentTypeLabel } from "./PaymentsStyledComponents";
 import {
   PayWithEthText,
   WhyEthInfoText,
   WhatIsEthInfoText,
   CanUseCVLInfoText,
   ConnectWalletWarningText,
-  ConnectMobileWalletModalText,
-  PayWithEthDescriptionText,
 } from "./PaymentsTextComponents";
 import { PaymentsModal } from "./PaymentsModal";
 import { PaymentsEthForm } from "./PaymentsEthForm";
@@ -42,7 +34,6 @@ export interface PaymentsEthProps {
 }
 
 export interface PaymentsEthStates {
-  isMobileWalletModalOpen: boolean;
   isInfoModalOpen: boolean;
   modalContent?: MODEL_CONTENT;
   etherToSpend: number;
@@ -55,7 +46,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   public constructor(props: PaymentsEthProps) {
     super(props);
     this.state = {
-      isMobileWalletModalOpen: this.showMobileWalletModal(),
       isInfoModalOpen: false,
       etherToSpend: 0,
       usdToSpend: this.props.usdToSpend,
@@ -74,9 +64,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
         <PaymentTypeLabel>
           <PayWithEthText />
         </PaymentTypeLabel>
-        <PaymentDirectionsStyled>
-          <PayWithEthDescriptionText />
-        </PaymentDirectionsStyled>
         {!this.props.isWalletConnected && <ConnectWalletWarningText />}
         <PaymentEthLearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
@@ -127,10 +114,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
             );
           }}
         </Mutation>
-
-        <PaymentsModal open={this.state.isMobileWalletModalOpen} handleClose={this.handleClose}>
-          <ConnectMobileWalletModalText />
-        </PaymentsModal>
       </>
     );
   };
@@ -146,16 +129,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
   private handlePaymentStarted = () => {
     this.setState({ paymentStarted: true });
-  };
-
-  private showMobileWalletModal = () => {
-    let showMobileWalletModal = false;
-
-    if (window.innerWidth < 800 && !this.props.isWalletConnected) {
-      showMobileWalletModal = true;
-    }
-
-    return showMobileWalletModal;
   };
 
   private renderInfoModal = () => {
@@ -176,6 +149,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   };
 
   private handleClose = () => {
-    this.setState({ isInfoModalOpen: false, isMobileWalletModalOpen: false });
+    this.setState({ isInfoModalOpen: false });
   };
 }

@@ -13,10 +13,10 @@ import {
 import { InputValidationUI } from "./PaymentsInputValidationUI";
 import {
   PaymentInProgressText,
-  PaymentSuccessText,
   PaymentErrorText,
   PaymentEthNoticeText,
-  PaymentEthTermsText,
+  PaymentTermsText,
+  PaymentEmailConfirmationText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE, INPUT_STATE } from "./types";
 
@@ -45,7 +45,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   constructor(props: PaymentsEthFormProps) {
     super(props);
     this.state = {
-      email: "",
+      email: this.props.userEmail || "",
       emailState: INPUT_STATE.EMPTY,
     };
   }
@@ -53,9 +53,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   public render(): JSX.Element {
     const PAY_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
       [progressModalStates.IN_PROGRESS]: <PaymentInProgressText />,
-      [progressModalStates.SUCCESS]: (
-        <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.props.usdToSpend} />
-      ),
+      [progressModalStates.SUCCESS]: <></>,
       [progressModalStates.ERROR]: <PaymentErrorText />,
     };
 
@@ -64,18 +62,15 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
         <PaymentEthUserInfoForm>
           <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
-            {this.props.userEmail ? (
-              <input
-                id="email"
-                name="email"
-                value={this.props.userEmail}
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-              />
-            ) : (
-              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
-            )}
+            <input
+              defaultValue={this.state.email}
+              id="email"
+              name="email"
+              type="email"
+              maxLength={254}
+              onBlur={() => this.handleOnBlur(event)}
+            />
+            <PaymentEmailConfirmationText />
           </InputValidationUI>
         </PaymentEthUserInfoForm>
         <PaymentNotice>
@@ -95,7 +90,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           Complete Boost
         </TransactionButton>
         <PaymentTerms>
-          <PaymentEthTermsText />
+          <PaymentTermsText />
         </PaymentTerms>
       </form>
     );
@@ -148,5 +143,6 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private postTransaction = () => {
     this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
+    this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
   };
 }

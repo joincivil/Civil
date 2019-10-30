@@ -435,3 +435,55 @@ export const PaymentLoginOrGuestDescription = styled.div`
   line-height: 16px;
   margin-bottom: 12px;
 `;
+
+export const PaymentInfoStyled = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
+  padding: 20px 0;
+
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17px;
+    margin: 0 0 5px;
+  }
+
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+  }
+`;
+
+export const PaymentExpress = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.accent.CIVIL_GRAY_1};
+  display: block;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 12px;
+  padding: 20px 0 15px;
+  text-align: center;
+  width: 100%;
+
+  label {
+    line-height: 14px;
+    margin-bottom: 10px;
+  }
+`;
+
+export const PaymentOrBorder = styled.div`
+  height: 1px;
+  margin: 10px 10%;
+  position: relative;
+  width: 90%;
+
+  &:after {
+    content: "Or";
+    left: calc(50% - 25px);
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 25px);
+    width: 50px;
+  }
+`;

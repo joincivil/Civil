@@ -1,6 +1,6 @@
 import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
-import { ErrorIcon, TokenWalletIcon } from "@joincivil/elements";
+import { ErrorIcon } from "@joincivil/elements";
 import { ClipLoader } from "../ClipLoader";
 import { PaymentWarning } from "./PaymentsStyledComponents";
 
@@ -21,66 +21,30 @@ export const PublicizeUserText: React.FunctionComponent = props => <>Hide my use
 
 export const SelectPaymentAmountText: React.FunctionComponent = props => <>Select how much you would like to Boost</>;
 
-export const SelectPaymentMethodText: React.FunctionComponent = props => <>How would you like to pay?</>;
+export const SelectPaymentMethodText: React.FunctionComponent = props => <>Select how you'd like to pay</>;
+
+export const ExpressPayText: React.FunctionComponent = props => <label>Express payment</label>;
 
 export const PayWithCardText: React.FunctionComponent = props => <>Pay with card</>;
+
+export const PaymentInfoText: React.FunctionComponent = props => (
+  <>
+    <h3>Payment Information</h3>
+    <p>
+      Boosts procceded are funded using ETH or Debit/Credit Cards. Civil does not collect any fees on Boosts. All
+      proceeds go directly to the newsroom minus Stripe processing fees and/or Ethereum network fees.
+    </p>
+  </>
+);
 
 export const PayWithCardMinimumText: React.FunctionComponent = props => (
   <>The tip minimum for cards is $2.00. Your tip will be increased when you pay with a card.</>
 );
 
-export const PayWithCardDescriptionText: React.FunctionComponent = props => (
-  <>
-    Continue with adding your payment information. Your payment information will be processed through{" "}
-    <a href={links.STRIPE} target="_blank">
-      Stripe
-    </a>
-    .
-  </>
-);
-
 export const PayWithEthText: React.FunctionComponent = props => <>Pay with Eth</>;
 
-export const PayWithEthDescriptionText: React.FunctionComponent = props => (
-  <>
-    You will be sending a Boost using your wallet such as{" "}
-    <a href={links.METAMASK} target="_blank">
-      MetaMask
-    </a>{" "}
-    or{" "}
-    <a href={links.PORTIS} target="_blank">
-      Portis
-    </a>
-    .
-  </>
-);
-
-export const PaymentInfoText: React.FunctionComponent = props => (
-  <>
-    Boosts procceded are funded using ETH or Debit/Credit Cards. Civil does not collect any fees on Boosts and your
-    support goes directly to the newsroom.
-  </>
-);
-
 export const PaymentEthNoticeText: React.FunctionComponent = props => (
-  <>
-    Once your Boost is sent, we’ll send you a confirmation email, if selected, of your completed transaction. All
-    proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
-  </>
-);
-
-export const PaymentEthTermsText: React.FunctionComponent = props => (
-  <>
-    By sending a tip, you agree to Civil’s{" "}
-    <a href={links.TERMS} target="_blank">
-      Terms of Use
-    </a>{" "}
-    and{" "}
-    <a href={links.PRIVACY_POLICY} target="_blank">
-      Privacy Policy
-    </a>
-    . Civil does not charge any fees for this transaction. There are small fees charged by the Ethereum network.
-  </>
+  <>There are small transaction fees added by the Ethereum network. Refunds are not possible.</>
 );
 
 export const ConnectWalletWarningText: React.FunctionComponent = props => (
@@ -89,33 +53,15 @@ export const ConnectWalletWarningText: React.FunctionComponent = props => (
   </PaymentWarning>
 );
 
-export const ConnectMobileWalletModalText: React.FunctionComponent = props => (
-  <>
-    <h2>
-      <TokenWalletIcon width={48} height={42} />A Web3 enabled browser and secure digital wallet are required.
-    </h2>
-    <p>
-      In order to tip a newsroom with ETH, please install a secure cryptocurrency wallet such as{" "}
-      <a href="https://www.coinbase.com/mobile" target="_blank">
-        Coinbase Wallet
-      </a>
-      If you'd like help getting a wallet, take a look at our{" "}
-      <a target="_blank" href={links.FAQ_WALLETS}>
-        FAQ Guide
-      </a>
-      .
-    </p>
-  </>
+export const PaymentEmailConfirmationText: React.FunctionComponent = props => (
+  <>We’ll be sending you a confirmation email of your completed transaction.</>
 );
 
 export const PaymentStripeNoticeText: React.FunctionComponent = props => (
-  <>
-    Once your Boost is sent, we’ll send you a confirmation email of your completed transaction. All proceeds of the
-    Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
-  </>
+  <>Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.</>
 );
 
-export const PaymentStripeTermsText: React.FunctionComponent = props => (
+export const PaymentTermsText: React.FunctionComponent = props => (
   <>
     By sending a Boost, you agree to Civil’s{" "}
     <a href={links.TERMS} target="_blank">

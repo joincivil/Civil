@@ -12,10 +12,14 @@ import { DropdownArrow, CCAmexIcon, CCDiscoverIcon, CCMastercardIcon, CCVisaIcon
 import { CivilContext, ICivilContext, mediaQueries } from "../";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
 import { PaymentNotice, PaymentTerms, PaymentBtn, PaymentInputLabel } from "./PaymentsStyledComponents";
-import { PaymentStripeNoticeText, PaymentStripeTermsText, PaymentErrorText } from "./PaymentsTextComponents";
+import {
+  PaymentStripeNoticeText,
+  PaymentEmailConfirmationText,
+  PaymentTermsText,
+  PaymentErrorText,
+} from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
 import { PAYMENT_STATE, INPUT_STATE } from "./types";
-import PaymentRequestForm from "./PaymentsRequest";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
@@ -101,7 +105,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
   constructor(props: any) {
     super(props);
     this.state = {
-      email: "",
+      email: this.props.userEmail || "",
       emailState: INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
@@ -126,27 +130,18 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         <PaymentNotice>
           <PaymentStripeNoticeText />
         </PaymentNotice>
-        <PaymentRequestForm
-          savePayment={this.props.savePayment}
-          boostId={this.props.postId}
-          usdToSpend={this.props.usdToSpend}
-          handlePaymentSuccess={this.props.handlePaymentSuccess}
-        />
         <StripeWrapper>
           <PaymentInputLabel>Email</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
-            {this.props.userEmail ? (
-              <input
-                id="email"
-                name="email"
-                value={this.props.userEmail}
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-              />
-            ) : (
-              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
-            )}
+            <input
+              defaultValue={this.state.email}
+              id="email"
+              name="email"
+              type="email"
+              maxLength={254}
+              onBlur={() => this.handleOnBlur(event)}
+            />
+            <PaymentEmailConfirmationText />
           </InputValidationUI>
           <PaymentInputLabel>Card information</PaymentInputLabel>
           <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
@@ -216,7 +211,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         </PaymentBtn>
         {this.state.isPaymentError && <PaymentErrorText />}
         <PaymentTerms>
-          <PaymentStripeTermsText />
+          <PaymentTermsText />
         </PaymentTerms>
       </form>
     );

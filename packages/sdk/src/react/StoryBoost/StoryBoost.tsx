@@ -107,7 +107,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
               </StoryBoostContent>
               <StoryBoostFooter>
                 <span>Support this newsroom</span>
-                <PaymentButton onClick={this.handlePayment} />
+                <PaymentButton onClick={this.handleStartPayment} />
               </StoryBoostFooter>
               <StoryModal open={this.state.paymentsOpen}>
                 <Payments
@@ -119,6 +119,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   userAddress={this.props.userAddress}
                   userEmail={this.props.userEmail}
                   handleLogin={this.props.handleLogin}
+                  handleClose={this.handleEndPayment}
                 />
               </StoryModal>
             </>
@@ -128,7 +129,11 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
     );
   }
 
-  private handlePayment = () => {
+  private handleStartPayment = () => {
     this.setState({ paymentsOpen: true });
+  };
+
+  private handleEndPayment = () => {
+    this.setState({ paymentsOpen: false });
   };
 }

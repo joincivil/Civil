@@ -37,8 +37,7 @@ export const StyledCreateProposalOuter = styled.div`
   right: 0;
   top: 56px;
 
-  & ${StyledCreateProposalContainer},
-  & ${StyledChallengeProposalContainer} {
+  & ${StyledCreateProposalContainer}, & ${StyledChallengeProposalContainer} {
     position: absolute;
   }
 `;

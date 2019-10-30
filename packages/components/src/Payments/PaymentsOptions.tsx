@@ -1,12 +1,17 @@
 import * as React from "react";
-import { PaymentDirectionsStyled, PaymentOptionDescription, PaymentBtn } from "./PaymentsStyledComponents";
+// import PaymentRequestForm from "./PaymentsRequest";
+import {
+  PaymentDirectionsStyled,
+  PaymentOptionDescription,
+  PaymentBtn,
+  PaymentInfoStyled,
+} from "./PaymentsStyledComponents";
 import {
   SelectPaymentMethodText,
   PayWithCardText,
   PayWithCardMinimumText,
-  PayWithCardDescriptionText,
   PayWithEthText,
-  PayWithEthDescriptionText,
+  PaymentInfoText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE } from "./types";
 
@@ -22,6 +27,14 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
       <PaymentDirectionsStyled>
         <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
+      {/*
+      <PaymentRequestForm
+        savePayment={props.savePayment}
+        boostId={props.postId}
+        usdToSpend={props.usdToSpend}
+        handlePaymentSuccess={props.handlePaymentSuccess}
+      />
+      */}
       {props.isStripeConnected && props.usdToSpend < 2 && (
         <PaymentOptionDescription warning={true}>
           <PayWithCardMinimumText />
@@ -32,19 +45,16 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
           <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)}>
             <PayWithCardText />
           </PaymentBtn>
-          <PaymentOptionDescription>
-            <PayWithCardDescriptionText />
-          </PaymentOptionDescription>
         </>
       )}
       <>
         <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.ETH_PAYMENT)}>
           <PayWithEthText />
         </PaymentBtn>
-        <PaymentOptionDescription>
-          <PayWithEthDescriptionText />
-        </PaymentOptionDescription>
       </>
+      <PaymentInfoStyled>
+        <PaymentInfoText />
+      </PaymentInfoStyled>
     </>
   );
 };

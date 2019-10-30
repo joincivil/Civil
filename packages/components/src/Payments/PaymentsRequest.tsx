@@ -4,6 +4,8 @@ import { injectStripe, ReactStripeElements, PaymentRequestButtonElement } from "
 import styled from "styled-components";
 import { colors } from "@joincivil/elements";
 import { PAYMENT_STATE } from "./types";
+import { PaymentExpress, PaymentOrBorder } from "./PaymentsStyledComponents";
+import { ExpressPayText } from "./PaymentsTextComponents";
 
 const StripePaymentRequest = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_2};
@@ -11,7 +13,7 @@ const StripePaymentRequest = styled.div`
   padding: 10px 0;
 `;
 
-export interface BoostPaymentRequestProps extends ReactStripeElements.InjectedStripeProps {
+export interface PaymentRequestProps extends ReactStripeElements.InjectedStripeProps {
   savePayment: MutationFunc;
   boostId: string;
   usdToSpend: number;
@@ -19,12 +21,12 @@ export interface BoostPaymentRequestProps extends ReactStripeElements.InjectedSt
   onPayRequestError?(): void;
 }
 
-export interface BoostPaymentRequestStates {
+export interface PaymentRequestStates {
   canMakePayment: boolean;
   paymentRequest: any;
 }
 
-class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, BoostPaymentRequestStates> {
+class PaymentRequestForm extends React.Component<PaymentRequestProps, PaymentRequestStates> {
   constructor(props: any) {
     super(props);
 
@@ -62,9 +64,13 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
 
   public render(): JSX.Element {
     return this.state.canMakePayment ? (
-      <StripePaymentRequest>
-        <PaymentRequestButtonElement paymentRequest={this.state.paymentRequest} className="PaymentRequestButton" />
-      </StripePaymentRequest>
+      <PaymentExpress>
+        <ExpressPayText />
+        <StripePaymentRequest>
+          <PaymentRequestButtonElement paymentRequest={this.state.paymentRequest} className="PaymentRequestButton" />
+        </StripePaymentRequest>
+        <PaymentOrBorder />
+      </PaymentExpress>
     ) : (
       <></>
     );
