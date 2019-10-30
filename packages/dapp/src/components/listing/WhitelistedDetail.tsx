@@ -7,7 +7,6 @@ import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardP
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
-import { setupListingWhitelistedSubscription } from "../../redux/actionCreators/listings";
 import { makeGetLatestWhitelistedTimestamp } from "../../selectors";
 import { ListingContainerProps } from "../utility/HigherOrderComponents";
 import { BigNumber } from "@joincivil/typescript-types";
@@ -33,11 +32,6 @@ class WhitelistedDetail extends React.Component<
 > {
   public static contextType = CivilHelperContext;
   public context: CivilHelper;
-  public async componentDidMount(): Promise<void> {
-    if (!this.props.useGraphQL) {
-      this.props.dispatch!(await setupListingWhitelistedSubscription(this.context, this.props.listingAddress));
-    }
-  }
 
   public render(): JSX.Element {
     const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listingAddress });

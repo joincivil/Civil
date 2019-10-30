@@ -1,41 +1,5 @@
 import { combineReducers, AnyAction } from "redux";
-import {
-  listings,
-  listingsExtendedMetadata,
-  listingsFetching,
-  histories,
-  applications,
-  whitelistedListings,
-  readyToWhitelistListings,
-  inChallengeCommitListings,
-  inChallengeRevealListings,
-  awaitingAppealRequestListings,
-  awaitingAppealJudgmentListings,
-  awaitingAppealChallengeListings,
-  appealChallengeCommitPhaseListings,
-  appealChallengeRevealPhaseListings,
-  resolveChallengeListings,
-  resolveAppealListings,
-  rejectedListings,
-  ListingWrapperWithExpiry,
-  ListingExtendedMetadata,
-  listingHistorySubscriptions,
-  rejectedListingLatestChallengeSubscriptions,
-  whitelistedSubscriptions,
-  rejectedListingRemovedSubscriptions,
-  loadingFinished,
-} from "./listings";
-import {
-  appealChallengeUserData,
-  challenges,
-  challengesFetching,
-  challengesVotedOnByUser,
-  challengesStartedByUser,
-  challengeUserData,
-  grantAppealTxs,
-  grantAppealTxsFetching,
-  appealChallengeIDsToChallengeIDs,
-} from "./challenges";
+import { grantAppealTxs, grantAppealTxsFetching } from "./challenges";
 import {
   government,
   govtParameters,
@@ -50,17 +14,8 @@ import { user } from "./userAccount";
 import { network, networkName } from "./network";
 import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
-import { Set, List, Map } from "immutable";
-import {
-  TimestampedEvent,
-  WrappedChallengeData,
-  UserChallengeData,
-  EthAddress,
-  MultisigTransaction,
-  EthContentHeader,
-  ContentData,
-  TxDataAll,
-} from "@joincivil/core";
+import { Set, Map } from "immutable";
+import { EthAddress, MultisigTransaction, EthContentHeader, ContentData, TxDataAll } from "@joincivil/core";
 import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
 import {
   newsrooms,
@@ -71,7 +26,6 @@ import {
   grantApplication,
 } from "@joincivil/newsroom-signup";
 import { networkActions } from "../actionCreators/network";
-import { Subscription } from "rxjs";
 
 export interface State {
   networkDependent: NetworkDependentState;
@@ -92,45 +46,16 @@ export interface NetworkDependentState {
   currentUserNewsrooms: Set<string>;
   content: Map<string, ContentData>;
   contentFetched: Map<string, EthContentHeader>;
-  listings: Map<string, ListingWrapperWithExpiry>;
-  listingsExtendedMetadata: Map<string, ListingExtendedMetadata>;
-  listingsFetching: Map<string, any>;
-  histories: Map<string, List<TimestampedEvent<any>>>;
-  applications: Set<string>;
-  whitelistedListings: Set<string>;
-  readyToWhitelistListings: Set<string>;
-  inChallengeCommitListings: Set<string>;
-  inChallengeRevealListings: Set<string>;
-  awaitingAppealRequestListings: Set<string>;
-  awaitingAppealJudgmentListings: Set<string>;
-  awaitingAppealChallengeListings: Set<string>;
-  appealChallengeCommitPhaseListings: Set<string>;
-  appealChallengeRevealPhaseListings: Set<string>;
-  resolveChallengeListings: Set<string>;
-  resolveAppealListings: Set<string>;
-  rejectedListings: Set<string>;
-  loadingFinished: boolean;
   user: { account: any };
   govtParameters: object;
   govtProposals: Map<string, object>;
-  challenges: Map<string, WrappedChallengeData>;
-  challengesFetching: Map<string, any>;
-  challengesVotedOnByUser: Map<string, Set<string>>;
-  challengesStartedByUser: Map<string, Set<string>>;
-  challengeUserData: Map<string, Map<string, UserChallengeData>>;
   grantAppealTxs: Map<string, TxDataAll>;
   grantAppealTxsFetching: Map<string, boolean>;
-  appealChallengeIDsToChallengeIDs: Map<string, string>;
-  appealChallengeUserData: Map<string, Map<string, UserChallengeData>>;
   government: Map<string, string>;
   constitution: Map<string, string>;
   appellate: string;
   controller: string;
   appellateMembers: string[];
-  listingHistorySubscriptions: Map<string, Subscription>;
-  rejectedListingRemovedSubscriptions: Map<string, Subscription>;
-  rejectedListingLatestChallengeSubscriptions: Map<string, Subscription>;
-  whitelistedSubscriptions: Map<string, Subscription>;
   councilMultisigTransactions: Map<string, MultisigTransaction>;
   contractAddresses: Map<string, EthAddress>;
 }
@@ -140,45 +65,16 @@ const networkDependentReducers = combineReducers({
   content,
   contentFetched,
   charterRevisions,
-  listings,
-  listingsExtendedMetadata,
-  listingsFetching,
-  histories,
-  applications,
-  whitelistedListings,
-  readyToWhitelistListings,
-  inChallengeCommitListings,
-  inChallengeRevealListings,
-  awaitingAppealRequestListings,
-  awaitingAppealJudgmentListings,
-  awaitingAppealChallengeListings,
-  appealChallengeCommitPhaseListings,
-  appealChallengeRevealPhaseListings,
-  resolveChallengeListings,
-  resolveAppealListings,
-  rejectedListings,
-  loadingFinished,
   user,
   govtParameters,
   govtProposals,
-  challenges,
-  challengesFetching,
-  challengesVotedOnByUser,
-  challengesStartedByUser,
-  challengeUserData,
   grantAppealTxs,
   grantAppealTxsFetching,
-  appealChallengeIDsToChallengeIDs,
-  appealChallengeUserData,
   government,
   constitution,
   appellate,
   controller,
   appellateMembers,
-  listingHistorySubscriptions,
-  rejectedListingRemovedSubscriptions,
-  rejectedListingLatestChallengeSubscriptions,
-  whitelistedSubscriptions,
   councilMultisigTransactions,
   contractAddresses,
 });

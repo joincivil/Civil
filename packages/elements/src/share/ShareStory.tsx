@@ -127,10 +127,10 @@ export class ShareStory extends React.Component<ShareStoryProps> {
     return twitterShare;
   };
 
+  // @TODO This should ideally re-use `copyToClipboard` from `utils`, but `elements` shouldn't depend on `utils`. Either this should be in `components`, or should be in some new package that has fewer deps than `components` but more than `elements`, and/or we break out some stuff from `utils` because right now `utils` depends on everything too.
   private copyURL = () => {
     const textArea = document.createElement("textarea");
-    const storyURL = this.props.url;
-    textArea.innerText = storyURL.replace(/ /g, "");
+    textArea.innerText = this.props.url;
     document.body.appendChild(textArea);
     textArea.select();
     document.execCommand("copy");

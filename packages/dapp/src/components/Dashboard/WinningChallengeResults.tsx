@@ -1,14 +1,7 @@
 import * as React from "react";
-import { compose } from "redux";
 import { AppealChallengeData } from "@joincivil/core";
 import { VoteTypeSummaryRow as PartialChallengeResultsComponent } from "@joincivil/components";
-import { ChallengeContainerProps, AppealChallengeContainerProps } from "../utility/HigherOrderComponents";
-import {
-  connectWinningChallengeResults,
-  WinningChallengeResultsProps,
-  getChallengeViewProps,
-  getAppealChallengeViewProps,
-} from "../utility/WinningChallengeResultsHOC";
+import { getChallengeViewProps, getAppealChallengeViewProps } from "../utility/WinningChallengeResultsHOC";
 
 export interface WinningChallengeWrapperResultsProps {
   challengeID?: string;
@@ -18,12 +11,8 @@ export interface WinningChallengeWrapperResultsProps {
   isProposalChallenge?: boolean;
 }
 
-const WinningChallengeResultsRedux = compose(connectWinningChallengeResults)(
-  PartialChallengeResultsComponent,
-) as React.ComponentClass<ChallengeContainerProps & AppealChallengeContainerProps & WinningChallengeResultsProps>;
-
 const WinningChallengeResults: React.FunctionComponent<WinningChallengeWrapperResultsProps> = props => {
-  const { challengeID, appealChallengeID, challenge, appealChallenge, isProposalChallenge } = props;
+  const { challengeID, challenge, appealChallenge, isProposalChallenge } = props;
   let viewProps;
   if (appealChallenge) {
     viewProps = getAppealChallengeViewProps(appealChallenge);
@@ -35,9 +24,11 @@ const WinningChallengeResults: React.FunctionComponent<WinningChallengeWrapperRe
 
   if (viewProps) {
     return <PartialChallengeResultsComponent {...viewProps} />;
+  } else {
+    console.error("no winning challenge results found. challengeID: ", challengeID);
   }
 
-  return <WinningChallengeResultsRedux challengeID={challengeID} appealChallengeID={appealChallengeID} />;
+  return <></>;
 };
 
 export default WinningChallengeResults;

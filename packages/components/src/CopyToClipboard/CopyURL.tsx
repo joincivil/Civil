@@ -1,4 +1,5 @@
 import * as React from "react";
+import { copyToClipboard } from "@joincivil/utils";
 import { CopyBtn, CopyURLSuccess } from "./CopyStyledComponents";
 import { HollowGreenCheck } from "../icons";
 
@@ -27,18 +28,11 @@ export class CopyURL extends React.Component<CopyURLProps, CopyURLStates> {
       );
     }
 
-    return <CopyBtn onClick={(ev: any) => this.copyToClipBoard()}>{this.props.copyText || "Copy the URL"}</CopyBtn>;
+    return <CopyBtn onClick={(ev: any) => this.copy()}>{this.props.copyText || "Copy the URL"}</CopyBtn>;
   }
 
-  private copyToClipBoard = () => {
-    const textArea = document.createElement("textarea");
-    const currentURL = window.location.href;
-    textArea.innerText = currentURL.replace(/ /g, "");
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    textArea.remove();
-
+  private copy = () => {
+    copyToClipboard(window.location.href);
     this.setState({
       copied: true,
     });
