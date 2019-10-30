@@ -15,6 +15,9 @@ import { Boost } from "@joincivil/sdk";
 import { embedRoutes } from "../constants";
 import AppProvider from "../components/providers/AppProvider";
 
+const EmbedWrapper = styled.div`
+  background: white; // obscure embed loading message outside iframe
+`;
 const CivilLogoLink = styled.a`
   position: absolute;
   display: inline-block;
@@ -57,14 +60,14 @@ const BoostLoaderComponent: React.FunctionComponent = () => {
   const { boostId, payment } = useRouteMatch<BoostLoaderParams>(embedRoutes.BOOST)!.params;
 
   return (
-    <>
+    <EmbedWrapper>
       <CivilLogoLink href="https://registry.civil.co" target="_blank">
         <CivilIcon />
       </CivilLogoLink>
       <ThemeProvider theme={theme}>
         <Boost boostId={boostId} open={true} payment={!!payment} disableOwnerCheck={true} />
       </ThemeProvider>
-    </>
+    </EmbedWrapper>
   );
 };
 

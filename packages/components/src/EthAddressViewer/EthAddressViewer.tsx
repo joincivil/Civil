@@ -1,4 +1,5 @@
 import * as React from "react";
+import { copyToClipboard } from "@joincivil/utils";
 
 import { colors } from "../styleConstants";
 import { Button, InvertedButton, buttonSizes } from "../Button";
@@ -20,15 +21,6 @@ export interface EthAddressViewerProps {
 export const EthAddressViewer: React.FunctionComponent<EthAddressViewerProps> = props => {
   const { address, displayName, etherscanBaseURL } = props;
 
-  const copyToClipBoard = () => {
-    const textArea = document.createElement("textarea");
-    textArea.innerText = props.address.replace(/ /g, "")!;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand("copy");
-    textArea.remove();
-  };
-
   const etherscanURL = etherscanBaseURL && `${etherscanBaseURL}/address/${address.replace(/ /g, "")}`;
 
   return (
@@ -36,12 +28,7 @@ export const EthAddressViewer: React.FunctionComponent<EthAddressViewerProps> = 
       <StyledDisplayName>{displayName}</StyledDisplayName>
       <StyledEthAddressContainer>
         <StyledEthAddress>{props.address}</StyledEthAddress>
-        <Button
-          size={buttonSizes.SMALL}
-          onClick={() => {
-            copyToClipBoard();
-          }}
-        >
+        <Button size={buttonSizes.SMALL} onClick={() => copyToClipboard(address.replace(/ /g, ""))}>
           Copy
         </Button>
         {!!etherscanURL && (

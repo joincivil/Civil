@@ -1,4 +1,5 @@
 import * as React from "react";
+import { copyToClipboard } from "@joincivil/utils";
 import styled from "styled-components";
 import { colors } from "./styleConstants";
 import { SecondaryButton, buttonSizes } from "./Button";
@@ -38,21 +39,10 @@ export class AddressWithCopyButton extends React.Component<AddressWithCopyButton
     return (
       <Wrapper>
         <Box ref={(el: HTMLDivElement) => (this.addressBox = el)}>{this.props.address}</Box>
-        <Button size={buttonSizes.SMALL} onClick={this.copy}>
+        <Button size={buttonSizes.SMALL} onClick={() => copyToClipboard(this.addressBox!.textContent!)}>
           Copy
         </Button>
       </Wrapper>
     );
   }
-  private copy = (): void => {
-    const el: HTMLTextAreaElement = document.createElement("textarea");
-    el.value = this.addressBox!.textContent!;
-    el.setAttribute("readonly", "");
-    el.style.position = "absolute";
-    el.style.left = "-9999px";
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  };
 }
