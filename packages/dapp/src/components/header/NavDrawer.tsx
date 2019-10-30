@@ -14,7 +14,6 @@ import {
   NavDrawerRow,
   NavDrawerRowLabel,
   NavDrawerRowInfo,
-  NavDrawerPill,
   NavDrawerCvlBalance,
   UserAddress,
   NavDrawerBuyCvlBtn,
@@ -28,21 +27,9 @@ import {
   // NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
   NavDrawerBuyCvlBtnText,
-  NavDrawerDashboardText,
-  NavDrawerRevealVotesText,
-  NavDrawerClaimRewardsText,
-  NavDrawerSubmittedChallengesText,
-  NavDrawerVotedChallengesText,
 } from "./textComponents";
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
-
-import {
-  getChallengesStartedByUser,
-  getChallengesVotedOnByUser,
-  getUserChallengesWithUnrevealedVotes,
-  getUserChallengesWithUnclaimedRewards,
-} from "../../selectors";
 
 export interface NavDrawerProps {
   userAccountElRef?: any;
@@ -59,10 +46,6 @@ function maybeAccount(state: State): any {
 export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const account: any | undefined = useSelector(maybeAccount);
-  const currentUserChallengesStarted = useSelector(getChallengesStartedByUser);
-  const currentUserChallengesVotedOn = useSelector(getChallengesVotedOnByUser);
-  const userChallengesWithUnrevealedVotes = useSelector(getUserChallengesWithUnrevealedVotes);
-  const userChallengesWithUnclaimedRewards = useSelector(getUserChallengesWithUnclaimedRewards);
   const userAccount = account ? account.account : undefined;
   const userEthAddress = userAccount && getFormattedEthAddress(userAccount);
   const balance = account ? getFormattedTokenBalance(account.balance) : "loading...";
@@ -74,10 +57,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
     civilContext.auth.logout();
   }
 
-  const userRevealVotesCount = userChallengesWithUnrevealedVotes!.count();
-  const userClaimRewardsCount = userChallengesWithUnclaimedRewards!.count();
-  const userChallengesStartedCount = currentUserChallengesStarted.count();
-  const userChallengesVotedOnCount = currentUserChallengesVotedOn.count();
   if (!userEthAddress) {
     return <></>;
   }
@@ -101,11 +80,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
       <NavDrawerSection>
         <Button size={buttonSizes.SMALL} to={routes.DASHBOARD_ROOT}>
           View My Dashboard
-        </Button>
-      </NavDrawerSection>
-      <NavDrawerSection>
-        <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>
-          Logout
         </Button>
       </NavDrawerSection>
       <NavDrawerSection>
@@ -135,33 +109,9 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         </NavDrawerBuyCvlBtn>
       </NavDrawerSection>
       <NavDrawerSection>
-        <NavDrawerSectionHeader>
-          <NavDrawerDashboardText />
-        </NavDrawerSectionHeader>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerRevealVotesText />
-          </NavDrawerRowLabel>
-          <NavDrawerPill>{userRevealVotesCount || 0}</NavDrawerPill>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerClaimRewardsText />
-          </NavDrawerRowLabel>
-          <NavDrawerPill>{userClaimRewardsCount || 0}</NavDrawerPill>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerSubmittedChallengesText />
-          </NavDrawerRowLabel>
-          <NavDrawerPill>{userChallengesStartedCount || 0}</NavDrawerPill>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerVotedChallengesText />
-          </NavDrawerRowLabel>
-          <NavDrawerPill>{userChallengesVotedOnCount || 0}</NavDrawerPill>
-        </NavDrawerRow>
+        <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>
+          Logout
+        </Button>
       </NavDrawerSection>
     </StyledNavDrawer>
   );
