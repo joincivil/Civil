@@ -2445,7 +2445,7 @@
     keccakjs "^0.2.1"
     minimist "^1.2.0"
 
-"@kirby-web3/child-core@1.6.0", "@kirby-web3/child-core@^1.0.0":
+"@kirby-web3/child-core@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@kirby-web3/child-core/-/child-core-1.6.0.tgz#ec2334898e1010446224a8ef00e07a7f66211584"
   dependencies:
@@ -2455,11 +2455,23 @@
     js-cookie "^2.2.1"
     redux "^4.0.4"
 
-"@kirby-web3/child-react@^1.1.8":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/child-react/-/child-react-1.1.9.tgz#97260db101ca964e321560981bda01f68ae21b9c"
+"@kirby-web3/child-core@1.6.1", "@kirby-web3/child-core@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/child-core/-/child-core-1.6.1.tgz#448522a6922af39ef17a20a15db4d3e3400b8521"
+  integrity sha512-V5tSUuDY0k54a1M+W3EbPTipPcSXL2/vepn21+vksPOZYpxdBr4bUfs/JfmhcafnzestiZzATHwJvNZNeqS+lw==
   dependencies:
-    "@kirby-web3/child-core" "1.6.0"
+    "@kirby-web3/common" "1.2.0"
+    "@types/debug" "^4.1.5"
+    debug "^4.1.1"
+    js-cookie "^2.2.1"
+    redux "^4.0.4"
+
+"@kirby-web3/child-react@^1.1.9":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/child-react/-/child-react-1.1.10.tgz#3605263bc70a7163e27c8bbdc9c9d51893086a1b"
+  integrity sha512-eurQQeakrem5Gtr5p2WDh3gTL42NwXBt7psvV6eEYhLU457vw6xHzosZJATLQ45+4qUB1Za2e+JkaAnb5updBw==
+  dependencies:
+    "@kirby-web3/child-core" "1.6.1"
     "@types/react" "^16.8.23"
     "@types/react-redux" "^7.1.2"
     "@types/styled-components" "^4.1.18"
@@ -2486,6 +2498,15 @@
     "@kirby-web3/parent-core" "1.3.1"
     "@kirby-web3/parent-react" "1.2.12"
     "@kirby-web3/plugin-ethereum" "1.10.3"
+
+"@kirby-web3/ethereum-react@^1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/ethereum-react/-/ethereum-react-1.2.13.tgz#7450bc91cbbd36ddb5cb9f79ad208ea45c4d2c6e"
+  integrity sha512-pWiSIYJ0LzvfTyHz4rAGsVvMLP3ihcQ5vQMaZzcf+mmcl0WWvbvf1KJzRliAQ30UKiY0Oy3/ma5s+ErSTdveeQ==
+  dependencies:
+    "@kirby-web3/parent-core" "1.3.1"
+    "@kirby-web3/parent-react" "1.2.13"
+    "@kirby-web3/plugin-ethereum" "1.10.4"
 
 "@kirby-web3/parent-core@1.3.1":
   version "1.3.1"
@@ -2521,15 +2542,25 @@
     react-redux "^7.1.1"
     redux "^4.0.4"
 
-"@kirby-web3/plugin-connext@^1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.9.tgz#ef02e34fa713c1a064b78f16963eeac753b189e2"
-  integrity sha512-QtzK5/b1A4OQn/HS0pIhU7xlUqhQoOtGw9wkH/1M6d6pDuZ019TYtUWR+snu5hUPffMrnctXfLChDq/3W0BIzg==
+"@kirby-web3/parent-react@1.2.13":
+  version "1.2.13"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/parent-react/-/parent-react-1.2.13.tgz#fbd3820f98bc4a8a75c0327cfae02bf73ee12ae1"
+  integrity sha512-AKnghl/3woIOISqA48uJAVa5eU/vTsGSwg/XqUek3oTOv3NyVezdi7f4NjgfsAE+6lFFe8FP3O2bLN9DVuHYjw==
   dependencies:
-    "@kirby-web3/child-core" "1.6.0"
+    "@kirby-web3/parent-core" "1.3.1"
+    "@kirby-web3/plugin-ethereum" "1.10.4"
+    react-redux "^7.1.1"
+    redux "^4.0.4"
+
+"@kirby-web3/plugin-connext@^1.1.10":
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-connext/-/plugin-connext-1.1.10.tgz#2af4030239f4a81ca162775c4f1d23b6478a0508"
+  integrity sha512-e8irtxMQaY9UCVc7B5liT1g00kH/liGdhM3DZw3CDWz0a3WBg7TRkskWhYDTlrH8lW2ug3fAnLskh6ODF5sSDw==
+  dependencies:
+    "@kirby-web3/child-core" "1.6.1"
     "@kirby-web3/common" "1.2.0"
     "@kirby-web3/parent-core" "1.3.1"
-    "@kirby-web3/plugin-ethereum" "1.10.3"
+    "@kirby-web3/plugin-ethereum" "1.10.4"
     "@portis/web3" "^2.0.0-beta.36"
     burner-provider "^1.0.5"
     debug "^4.1.1"
@@ -2540,12 +2571,30 @@
     web3-providers-ws "^1.2.0"
     web3-utils "^1.2.1"
 
-"@kirby-web3/plugin-ethereum@1.10.3", "@kirby-web3/plugin-ethereum@^1.10.3":
+"@kirby-web3/plugin-ethereum@1.10.3":
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.3.tgz#286c6622d2f0f65618a341ef7edf0bf2056a526c"
   integrity sha512-RIwTazt17x5kJFjy8rLHAEPuypGy3+3BWLJI1KmT0XBWdX9j38REq9CywsH7eKi06IRf9EzD9t9T4QlL0M0tFg==
   dependencies:
     "@kirby-web3/child-core" "1.6.0"
+    "@kirby-web3/common" "1.2.0"
+    "@kirby-web3/parent-core" "1.3.1"
+    "@portis/web3" "^2.0.0-beta.36"
+    burner-provider "^1.0.5"
+    debug "^4.1.1"
+    ethers "^4.0.37"
+    redux "^4.0.4"
+    web3 "^1.2.1"
+    web3-providers-http "^1.2.0"
+    web3-providers-ws "^1.2.0"
+    web3-utils "^1.2.1"
+
+"@kirby-web3/plugin-ethereum@1.10.4", "@kirby-web3/plugin-ethereum@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@kirby-web3/plugin-ethereum/-/plugin-ethereum-1.10.4.tgz#73f638eb8a16de440578094578f34e19a58f7e28"
+  integrity sha512-RKP08PKXR3pkUePmIpaD22bqjt5IbLetGdHXoUiMKpny6uX9sLKxd9gAxitIv0vuibR1DTtB50X9mLiTy8gTzg==
+  dependencies:
+    "@kirby-web3/child-core" "1.6.1"
     "@kirby-web3/common" "1.2.0"
     "@kirby-web3/parent-core" "1.3.1"
     "@portis/web3" "^2.0.0-beta.36"
