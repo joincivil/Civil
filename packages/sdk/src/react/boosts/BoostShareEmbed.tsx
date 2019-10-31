@@ -43,6 +43,7 @@ const EMBED_IFRAME_STYLES: React.CSSProperties = {
 const EMBED_LOADING_IMG_STYLES: React.CSSProperties = {
   display: "block",
   margin: "72px auto 36px",
+  height: 32,
 };
 const EMBED_NOT_LOADED_STYLES: React.CSSProperties = {
   position: "absolute",
@@ -65,8 +66,13 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
           src={`${document.location.origin}/embed/boost/${props.boostId}`}
           sandbox="allow-popups allow-scripts allow-same-origin"
         ></iframe>
-        <img style={EMBED_LOADING_IMG_STYLES} src={`${document.location.origin}${loadingImgUrl}`} />
-        <p>Loading Boost</p>
+        {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
+        <object
+          style={EMBED_LOADING_IMG_STYLES}
+          data={`${document.location.origin}${loadingImgUrl}`}
+          type="image/svg+xml"
+        ></object>
+        <p>Loading Boost&hellip;</p>
         <p style={EMBED_NOT_LOADED_STYLES}>
           Boost not loading? You may have privacy protection such as the Privacy Badger extension or Brave Shields
           enabled. Ensure that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
