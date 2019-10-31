@@ -85,10 +85,6 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
             );
           }
 
-          if (this.state.paymentSuccess) {
-            void refetch();
-          }
-
           const boostData = data.postsGet as BoostData;
           const newsroomContractAddress = boostData.channel.newsroom.contractAddress;
 
@@ -129,7 +125,10 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                       newsroomName={newsroomData.name}
                       paymentAddr={newsroomData.owner}
                       handleBackToListing={this.handleBackToListing}
-                      handlePaymentSuccess={this.handlePaymentSuccess}
+                      handlePaymentSuccess={async () => {
+                        await refetch();
+                        this.handlePaymentSuccess();
+                      }}
                       isStripeConnected={boostData.channel.isStripeConnected}
                       stripeAccountID={boostData.channel.stripeAccountID}
                       history={this.props.history}
