@@ -3,9 +3,10 @@ import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import { PaymentEthLearnMore, PaymentBtn, PaymentAmountEth, PaymentTypeLabel } from "./PaymentsStyledComponents";
+import { PaymentEthLearnMore, PaymentBtn } from "./PaymentsStyledComponents";
 import {
   PayWithEthText,
+  PaymentEthNoticeText,
   WhyEthInfoText,
   WhatIsEthInfoText,
   CanUseCVLInfoText,
@@ -13,6 +14,7 @@ import {
 } from "./PaymentsTextComponents";
 import { PaymentsModal } from "./PaymentsModal";
 import { PaymentsEthForm } from "./PaymentsEthForm";
+import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import { PAYMENT_STATE } from "./types";
 
 export enum MODEL_CONTENT {
@@ -60,10 +62,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
     }
 
     return (
-      <>
-        <PaymentTypeLabel>
-          <PayWithEthText />
-        </PaymentTypeLabel>
+      <PaymentsFormWrapper payWithText={<PayWithEthText />} paymentNoticeText={<PaymentEthNoticeText />}>
         {!this.props.isWalletConnected && <ConnectWalletWarningText />}
         <PaymentEthLearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
@@ -82,20 +81,13 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
         <PaymentsModal open={this.state.isInfoModalOpen} handleClose={this.handleClose}>
           {this.renderInfoModal()}
         </PaymentsModal>
-      </>
+      </PaymentsFormWrapper>
     );
   }
 
   private renderPaymentForm = (): JSX.Element => {
     return (
       <>
-        <PaymentTypeLabel>
-          <PayWithEthText />
-        </PaymentTypeLabel>
-        <PaymentAmountEth>
-          Tip amount: {this.state.etherToSpend + " ETH"} ({"$" + this.state.usdToSpend})
-        </PaymentAmountEth>
-
         <Mutation mutation={PAYMENTS_ETH_MUTATION}>
           {(paymentsCreateEtherPayment: MutationFunc) => {
             return (

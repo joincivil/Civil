@@ -1,10 +1,12 @@
 import * as React from "react";
+import { PaymentsAmount } from "./PaymentsAmount";
+import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
+import { PaymentsApplePay } from "./PaymentsApplePay";
+import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
-import { PaymentsAmount } from "./PaymentsAmount";
-import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { EthAddress } from "@joincivil/core";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
@@ -23,6 +25,8 @@ export interface PaymentsProps {
 
 export interface PaymentsStates {
   usdToSpend: number;
+  selectedUsdToSpend?: number;
+  paymentAdjusted: boolean;
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
 }
@@ -32,13 +36,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     super(props);
     this.state = {
       usdToSpend: 0,
+      paymentAdjusted: false,
       shouldPublicize: false,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
     };
   }
 
   public render(): JSX.Element {
-    const { usdToSpend, shouldPublicize, paymentState } = this.state;
+    const { usdToSpend, shouldPublicize, paymentState, selectedUsdToSpend, paymentAdjusted } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
     const isWalletConnected = userAddress ? true : false;
 
@@ -78,7 +83,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          paymentAdjusted={paymentAdjusted}
+          selectedUsdToSpend={selectedUsdToSpend}
+        >
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
@@ -87,6 +97,22 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             usdToSpend={usdToSpend}
             handlePaymentSuccess={this.handleUpdateState}
           />
+        </PaymentsWrapper>
+      );
+    }
+
+    if (paymentState === PAYMENT_STATE.APPLE_PAY) {
+      return (
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+          <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
+        </PaymentsWrapper>
+      );
+    }
+
+    if (paymentState === PAYMENT_STATE.GOOGLE_PAY) {
+      return (
+        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+          <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
       );
     }
@@ -112,9 +138,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {
-      this.setState({ paymentState, usdToSpend: 2 });
+      this.setState({ paymentState, usdToSpend: 2, selectedUsdToSpend: this.state.usdToSpend, paymentAdjusted: true });
     } else {
-      this.setState({ paymentState });
+      this.setState({ paymentState, paymentAdjusted: false });
     }
   };
 

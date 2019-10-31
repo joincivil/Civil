@@ -9,7 +9,7 @@ export interface PaymentsTextProps {
   usdToSpend?: number;
 }
 
-export const SendPaymentHdrText: React.FunctionComponent = props => <>Send a Boost</>;
+export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
 
 export const PaymentToNewsroomsTipText: React.FunctionComponent = props => (
   <>Your Boost goes directly to the newsroom.</>
@@ -25,26 +25,41 @@ export const SelectPaymentMethodText: React.FunctionComponent = props => <>Selec
 
 export const ExpressPayText: React.FunctionComponent = props => <label>Express payment</label>;
 
-export const PayWithCardText: React.FunctionComponent = props => <>Pay with card</>;
-
 export const PaymentInfoText: React.FunctionComponent = props => (
   <>
-    <h3>Payment Information</h3>
-    <p>
-      Boosts procceded are funded using ETH or Debit/Credit Cards. Civil does not collect any fees on Boosts. All
-      proceeds go directly to the newsroom minus Stripe processing fees and/or Ethereum network fees.
-    </p>
+    <span>Payment Information</span>
+    Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
   </>
 );
 
-export const PayWithCardMinimumText: React.FunctionComponent = props => (
-  <>The tip minimum for cards is $2.00. Your tip will be increased when you pay with a card.</>
+export const PayWithCardText: React.FunctionComponent = props => <>Pay with Card</>;
+
+export const PayWithAppleText: React.FunctionComponent = props => <>Pay with Apple Pay</>;
+
+export const PayWithGoogleText: React.FunctionComponent = props => <>Pay with Google Pay</>;
+
+export const PaymentStripeNoticeText: React.FunctionComponent = props => (
+  <>Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.</>
 );
 
-export const PayWithEthText: React.FunctionComponent = props => <>Pay with Eth</>;
+export const PayWithEthText: React.FunctionComponent = props => <>Pay with ETH</>;
 
 export const PaymentEthNoticeText: React.FunctionComponent = props => (
   <>There are small transaction fees added by the Ethereum network. Refunds are not possible.</>
+);
+
+export const PayWithCardMinimumText: React.FunctionComponent = props => (
+  <p>
+    <span>The Boost minimum for cards is $2.00.</span>
+    Your new Boost amount will be increased to $2.00 when you complete your Boost. This is due to Credit Card processing
+    fees. You can select ETH for smaller amounts.
+  </p>
+);
+
+export const PayWithCardAdjustedText: React.FunctionComponent = props => (
+  <>
+    Adjusted <span>$2</span>
+  </>
 );
 
 export const ConnectWalletWarningText: React.FunctionComponent = props => (
@@ -54,11 +69,7 @@ export const ConnectWalletWarningText: React.FunctionComponent = props => (
 );
 
 export const PaymentEmailConfirmationText: React.FunctionComponent = props => (
-  <>We’ll be sending you a confirmation email of your completed transaction.</>
-);
-
-export const PaymentStripeNoticeText: React.FunctionComponent = props => (
-  <>Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.</>
+  <p>We’ll be sending you a confirmation email of your completed transaction.</p>
 );
 
 export const PaymentTermsText: React.FunctionComponent = props => (

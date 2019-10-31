@@ -7,12 +7,21 @@ import {
   PaymentHeaderBoostLabel,
   PaymentHeaderAmount,
   PaymentHeaderTip,
+  PaymentAdjustedNotice,
+  PaymentAdjustedNoticeFtr,
 } from "./PaymentsStyledComponents";
-import { SendPaymentHdrText, PaymentToNewsroomsTipText } from "./PaymentsTextComponents";
+import {
+  SendPaymentHdrText,
+  PaymentToNewsroomsTipText,
+  PayWithCardMinimumText,
+  PayWithCardAdjustedText,
+} from "./PaymentsTextComponents";
 
 export interface PaymentsWrapperProps {
   newsroomName: string;
   usdToSpend?: number;
+  selectedUsdToSpend?: number;
+  paymentAdjusted?: boolean;
   children: any;
 }
 
@@ -20,15 +29,15 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
   return (
     <PaymentWrapperStyled>
       <PaymentHeader>
-        <h2>
-          <SendPaymentHdrText />
-        </h2>
+        <SendPaymentHdrText />
         <PaymentHeaderFlex>
           <PaymentHeaderNewsroom>{props.newsroomName}</PaymentHeaderNewsroom>
           {props.usdToSpend && (
             <div>
-              <PaymentHeaderBoostLabel>Boost</PaymentHeaderBoostLabel>
-              <PaymentHeaderAmount>{"$" + props.usdToSpend}</PaymentHeaderAmount>
+              <PaymentHeaderBoostLabel>{props.paymentAdjusted ? "Selected Boost" : "Boost"}</PaymentHeaderBoostLabel>
+              <PaymentHeaderAmount>
+                ${props.paymentAdjusted ? props.selectedUsdToSpend : <b>{props.usdToSpend}</b>}
+              </PaymentHeaderAmount>
             </div>
           )}
         </PaymentHeaderFlex>
@@ -36,6 +45,14 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
           <PaymentToNewsroomsTipText />
         </PaymentHeaderTip>
       </PaymentHeader>
+      {props.paymentAdjusted && (
+        <PaymentAdjustedNotice>
+          <PayWithCardMinimumText />
+          <PaymentAdjustedNoticeFtr>
+            <PayWithCardAdjustedText />
+          </PaymentAdjustedNoticeFtr>
+        </PaymentAdjustedNotice>
+      )}
       {props.children}
     </PaymentWrapperStyled>
   );

@@ -2,7 +2,7 @@ import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { isValidEmail } from "@joincivil/utils";
-import { PaymentNotice, PaymentTerms, PaymentEthUserInfoForm, PaymentInputLabel } from "./PaymentsStyledComponents";
+import { PaymentAmountEth, PaymentTerms, PaymentInputLabel } from "./PaymentsStyledComponents";
 import {
   TransactionButton,
   TransactionButtonModalContentComponentsProps,
@@ -10,8 +10,10 @@ import {
   CivilContext,
   ICivilContext,
 } from "../";
+import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import { InputValidationUI } from "./PaymentsInputValidationUI";
 import {
+  PayWithEthText,
   PaymentInProgressText,
   PaymentErrorText,
   PaymentEthNoticeText,
@@ -58,8 +60,12 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
     };
 
     return (
-      <form>
-        <PaymentEthUserInfoForm>
+      <>
+        <PaymentsFormWrapper payWithText={<PayWithEthText />} paymentNoticeText={<PaymentEthNoticeText />}>
+          <PaymentAmountEth>
+            <label>Boost</label>
+            {this.props.etherToSpend + " ETH"} <span>&asymp; {"$" + this.props.usdToSpend}</span>
+          </PaymentAmountEth>
           <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
             <input
@@ -72,10 +78,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
             />
             <PaymentEmailConfirmationText />
           </InputValidationUI>
-        </PaymentEthUserInfoForm>
-        <PaymentNotice>
-          <PaymentEthNoticeText />
-        </PaymentNotice>
+        </PaymentsFormWrapper>
         <TransactionButton
           transactions={[
             {
@@ -92,7 +95,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
         <PaymentTerms>
           <PaymentTermsText />
         </PaymentTerms>
-      </form>
+      </>
     );
   }
 

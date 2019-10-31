@@ -1,18 +1,7 @@
 import * as React from "react";
 // import PaymentRequestForm from "./PaymentsRequest";
-import {
-  PaymentDirectionsStyled,
-  PaymentOptionDescription,
-  PaymentBtn,
-  PaymentInfoStyled,
-} from "./PaymentsStyledComponents";
-import {
-  SelectPaymentMethodText,
-  PayWithCardText,
-  PayWithCardMinimumText,
-  PayWithEthText,
-  PaymentInfoText,
-} from "./PaymentsTextComponents";
+import { PaymentDirectionsStyled, PaymentTypeSelect, PaymentBtn, PaymentInfoStyled } from "./PaymentsStyledComponents";
+import { SelectPaymentMethodText, PayWithCardText, PayWithEthText, PaymentInfoText } from "./PaymentsTextComponents";
 import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsOptionsProps {
@@ -27,31 +16,24 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
       <PaymentDirectionsStyled>
         <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
-      {/*
-      <PaymentRequestForm
-        savePayment={props.savePayment}
-        boostId={props.postId}
-        usdToSpend={props.usdToSpend}
-        handlePaymentSuccess={props.handlePaymentSuccess}
-      />
-      */}
-      {props.isStripeConnected && props.usdToSpend < 2 && (
-        <PaymentOptionDescription warning={true}>
-          <PayWithCardMinimumText />
-        </PaymentOptionDescription>
-      )}
-      {props.isStripeConnected && (
-        <>
-          <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)}>
+      <PaymentTypeSelect>
+        {/*
+        <PaymentRequestForm
+          savePayment={props.savePayment}
+          boostId={props.postId}
+          usdToSpend={props.usdToSpend}
+          handlePaymentSuccess={props.handlePaymentSuccess}
+        />
+        */}
+        {props.isStripeConnected && (
+          <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)} backgroundColor={"#26CD41"}>
             <PayWithCardText />
           </PaymentBtn>
-        </>
-      )}
-      <>
+        )}
         <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.ETH_PAYMENT)}>
           <PayWithEthText />
         </PaymentBtn>
-      </>
+      </PaymentTypeSelect>
       <PaymentInfoStyled>
         <PaymentInfoText />
       </PaymentInfoStyled>

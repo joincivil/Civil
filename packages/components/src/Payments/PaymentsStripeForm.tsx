@@ -8,11 +8,21 @@ import {
   CardCvcElement,
 } from "react-stripe-elements";
 import styled from "styled-components";
-import { DropdownArrow, CCAmexIcon, CCDiscoverIcon, CCMastercardIcon, CCVisaIcon, CCSecurityCodeIcon } from "../icons";
-import { CivilContext, ICivilContext, mediaQueries } from "../";
-import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
-import { PaymentNotice, PaymentTerms, PaymentBtn, PaymentInputLabel } from "./PaymentsStyledComponents";
+import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import {
+  mediaQueries,
+  DropdownArrow,
+  CCAmexIcon,
+  CCDiscoverIcon,
+  CCMastercardIcon,
+  CCVisaIcon,
+  CCSecurityCodeIcon,
+} from "@joincivil/elements";
+import { CivilContext, ICivilContext } from "../context";
+import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
+import { PaymentTerms, PaymentBtn, PaymentInputLabel } from "./PaymentsStyledComponents";
+import {
+  PayWithCardText,
   PaymentStripeNoticeText,
   PaymentEmailConfirmationText,
   PaymentTermsText,
@@ -23,14 +33,8 @@ import { PAYMENT_STATE, INPUT_STATE } from "./types";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
-  max-width: 575px;
+  max-width: 500px;
   width: 100%;
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    width: 100%;
-  }
 `;
 
 const StripeCardInfoFlex = styled.div`
@@ -126,86 +130,95 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
 
   public render(): JSX.Element {
     return (
-      <form>
-        <PaymentNotice>
-          <PaymentStripeNoticeText />
-        </PaymentNotice>
-        <StripeWrapper>
-          <PaymentInputLabel>Email</PaymentInputLabel>
-          <InputValidationUI inputState={this.state.emailState}>
-            <input
-              defaultValue={this.state.email}
-              id="email"
-              name="email"
-              type="email"
-              maxLength={254}
-              onBlur={() => this.handleOnBlur(event)}
-            />
-            <PaymentEmailConfirmationText />
-          </InputValidationUI>
-          <PaymentInputLabel>Card information</PaymentInputLabel>
-          <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
-            <StripeElement inputState={this.state.cardNumberState}>
-              <CardNumberElement
-                id="card-number"
-                style={{ base: { fontSize: "13px" } }}
-                onBlur={() => this.handleOnBlurStripe()}
+      <>
+        <PaymentsFormWrapper
+          payWithText={<PayWithCardText />}
+          paymentNoticeText={<PaymentStripeNoticeText />}
+          showSecureIcon={true}
+        >
+          <StripeWrapper>
+            <PaymentInputLabel>Email</PaymentInputLabel>
+            <InputValidationUI inputState={this.state.emailState}>
+              <input
+                defaultValue={this.state.email}
+                id="email"
+                name="email"
+                type="email"
+                maxLength={254}
+                onBlur={() => this.handleOnBlur(event)}
               />
-            </StripeElement>
-            <CreditCardIconsWrap inputState={this.state.cardNumberState}>
-              <CCAmexIcon />
-              <CCDiscoverIcon />
-              <CCMastercardIcon />
-              <CCVisaIcon />
-            </CreditCardIconsWrap>
-          </InputValidationUI>
-          <StripeCardInfoFlex>
-            <InputValidationUI inputState={this.state.cardExpiryState} className={"positionBottomLeft"}>
-              <StripeElement inputState={this.state.cardExpiryState}>
-                <CardExpiryElement
-                  id="card-expiry"
+              <PaymentEmailConfirmationText />
+            </InputValidationUI>
+            <PaymentInputLabel>Card information</PaymentInputLabel>
+            <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
+              <StripeElement inputState={this.state.cardNumberState}>
+                <CardNumberElement
+                  id="card-number"
                   style={{ base: { fontSize: "13px" } }}
                   onBlur={() => this.handleOnBlurStripe()}
                 />
               </StripeElement>
+              <CreditCardIconsWrap inputState={this.state.cardNumberState}>
+                <CCAmexIcon />
+                <CCDiscoverIcon />
+                <CCMastercardIcon />
+                <CCVisaIcon />
+              </CreditCardIconsWrap>
             </InputValidationUI>
-            <InputValidationUI inputState={this.state.cardCVCState} className={"positionBottomRight"}>
-              <StripeElement inputState={this.state.cardCVCState}>
-                <CardCvcElement
-                  id="card-cvc"
-                  style={{ base: { fontSize: "13px" } }}
-                  onBlur={() => this.handleOnBlurStripe()}
-                />
-              </StripeElement>
-              <CreditCardCVCWrap inputState={this.state.cardCVCState}>
-                <CCSecurityCodeIcon />
-              </CreditCardCVCWrap>
+            <StripeCardInfoFlex>
+              <InputValidationUI inputState={this.state.cardExpiryState} className={"positionBottomLeft"}>
+                <StripeElement inputState={this.state.cardExpiryState}>
+                  <CardExpiryElement
+                    id="card-expiry"
+                    style={{ base: { fontSize: "13px" } }}
+                    onBlur={() => this.handleOnBlurStripe()}
+                  />
+                </StripeElement>
+              </InputValidationUI>
+              <InputValidationUI inputState={this.state.cardCVCState} className={"positionBottomRight"}>
+                <StripeElement inputState={this.state.cardCVCState}>
+                  <CardCvcElement
+                    id="card-cvc"
+                    style={{ base: { fontSize: "13px" } }}
+                    onBlur={() => this.handleOnBlurStripe()}
+                  />
+                </StripeElement>
+                <CreditCardCVCWrap inputState={this.state.cardCVCState}>
+                  <CCSecurityCodeIcon />
+                </CreditCardCVCWrap>
+              </InputValidationUI>
+            </StripeCardInfoFlex>
+            <PaymentInputLabel>Name on card</PaymentInputLabel>
+            <InputValidationUI inputState={this.state.nameState}>
+              <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
             </InputValidationUI>
-          </StripeCardInfoFlex>
-          <PaymentInputLabel>Name on card</PaymentInputLabel>
-          <InputValidationUI inputState={this.state.nameState}>
-            <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
-          </InputValidationUI>
-          <PaymentInputLabel>Country or region</PaymentInputLabel>
-          <InputValidationUI inputState={this.state.countryState} className={"positionTop"}>
-            <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
-              <option value=""></option>
-              {STRIPE_COUNTRIES.map((country: any, i: number) => {
-                return (
-                  <option key={i} value={country.value}>
-                    {country.name}
-                  </option>
-                );
-              })}
-            </select>
-            <DropDownWrap inputState={this.state.countryState}>
-              <DropdownArrow />
-            </DropDownWrap>
-          </InputValidationUI>
-          <InputValidationUI inputState={this.state.postalCodeState} className={"positionBottom"}>
-            <input id="zip" name="zip" maxLength={12} placeholder="Zip code" onBlur={() => this.handleOnBlur(event)} />
-          </InputValidationUI>
-        </StripeWrapper>
+            <PaymentInputLabel>Country or region</PaymentInputLabel>
+            <InputValidationUI inputState={this.state.countryState} className={"positionTop"}>
+              <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
+                <option value=""></option>
+                {STRIPE_COUNTRIES.map((country: any, i: number) => {
+                  return (
+                    <option key={i} value={country.value}>
+                      {country.name}
+                    </option>
+                  );
+                })}
+              </select>
+              <DropDownWrap inputState={this.state.countryState}>
+                <DropdownArrow />
+              </DropDownWrap>
+            </InputValidationUI>
+            <InputValidationUI inputState={this.state.postalCodeState} className={"positionBottom"}>
+              <input
+                id="zip"
+                name="zip"
+                maxLength={12}
+                placeholder="Zip code"
+                onBlur={() => this.handleOnBlur(event)}
+              />
+            </InputValidationUI>
+          </StripeWrapper>
+        </PaymentsFormWrapper>
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
           {this.state.paymentProcessing ? "Payment processing..." : "Complete Boost"}
         </PaymentBtn>
@@ -213,7 +226,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         <PaymentTerms>
           <PaymentTermsText />
         </PaymentTerms>
-      </form>
+      </>
     );
   }
 
