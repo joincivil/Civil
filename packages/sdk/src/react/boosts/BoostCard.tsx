@@ -20,6 +20,7 @@ import {
   BoostAmountInputWrap,
   BoostAmountInput,
   BoostDescShareFlex,
+  BoostCardShare,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
 import { BoostNewsroom } from "./BoostNewsroom";
@@ -27,7 +28,6 @@ import { BoostCompleted } from "./BoostCompleted";
 import * as boostCardImage from "../../images/boost-card.png";
 import { urlConstants } from "../urlConstants";
 import { BoostCardListView } from "./BoostCardListView";
-import { BoostShare } from "./BoostShare";
 
 export interface BoostCardProps {
   boostData: BoostData;
@@ -167,7 +167,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
           <BoostDescShareFlex>
             <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
             <div>
-              <BoostShare
+              <BoostCardShare
                 boostId={this.props.boostId}
                 newsroom={this.props.newsroomData.name}
                 title={boostData.title}
