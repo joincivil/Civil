@@ -103,14 +103,7 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
 
 const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyToTCRStepProps => {
   const newsroom = state.newsrooms.get(ownProps.address);
-  const { listings, user } = state.networkDependent;
-  const listingWrapperWithExpiry: { listing: ListingWrapper; expiry: number } | undefined = listings.get(
-    ownProps.address,
-  );
-  let listing;
-  if (listingWrapperWithExpiry) {
-    listing = listingWrapperWithExpiry.listing;
-  }
+  const { user } = state.networkDependent;
 
   const multisigAddress = newsroom && newsroom.multisigAddress;
   const multisigBalance = (newsroom && newsroom.multisigBalance) || new BigNumber(0);
@@ -130,7 +123,6 @@ const mapStateToProps = (state: any, ownProps: ApplyToTCRStepOwnProps): TApplyTo
   return {
     ...ownProps,
     newsroom: newsroom ? newsroom.newsroom : null,
-    listing,
     userBalance,
     multisigAddress,
     multisigBalance,
