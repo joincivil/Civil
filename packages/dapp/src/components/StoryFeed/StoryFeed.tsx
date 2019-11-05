@@ -1,12 +1,14 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../redux/reducers";
 import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
+import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
-import { Helmet } from "react-helmet";
+import styled from "styled-components";
 
 export const STORY_FEED_QUERY = gql`
   query Storyfeed($cursor: String) {
@@ -65,6 +67,13 @@ export const STORY_FEED_QUERY = gql`
   }
 `;
 
+const LoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+`;
+
 function maybeAccount(state: State): any {
   const { user } = state.networkDependent;
   if (user.account && user.account.account && user.account.account !== "") {
@@ -115,7 +124,9 @@ const StoryFeedPage: React.FunctionComponent = props => {
               return "There are no stories yet.";
             }
 
-            return data.postsStoryfeed.edges.map((story: any, i: number) => {
+            const { postsStoryfeed } = data;
+
+            const storyfeed = postsStoryfeed.edges.map((story: any, i: number) => {
               const storyData = story.post;
 
               if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
@@ -141,6 +152,42 @@ const StoryFeedPage: React.FunctionComponent = props => {
 
               return null;
             });
+
+            return (
+              <>
+                {storyfeed}
+                {postsStoryfeed.pageInfo.hasNextPage && (
+                  <LoadMoreContainer>
+                    <Button
+                      size={buttonSizes.SMALL}
+                      onClick={() =>
+                        fetchMore({
+                          variables: {
+                            cursor: postsStoryfeed.pageInfo.endCursor,
+                          },
+                          updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                            const newEdges = fetchMoreResult.postsStoryfeed.edges;
+                            const pageInfo = fetchMoreResult.postsStoryfeed.pageInfo;
+
+                            return newEdges.length
+                              ? {
+                                  postsStoryfeed: {
+                                    edges: [...previousResult.postsStoryfeed.edges, ...newEdges],
+                                    pageInfo,
+                                    __typename: previousResult.postsStoryfeed.__typename,
+                                  },
+                                }
+                              : previousResult;
+                          },
+                        })
+                      }
+                    >
+                      Load More
+                    </Button>
+                  </LoadMoreContainer>
+                )}
+              </>
+            );
           }}
         </Query>
       </StoryFeedWrapper>
