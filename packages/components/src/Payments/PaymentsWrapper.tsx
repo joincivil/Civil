@@ -9,6 +9,8 @@ import {
   PaymentHeaderTip,
   PaymentAdjustedNotice,
   PaymentAdjustedNoticeFtr,
+  PaymentsGhostBtn,
+  PaymentsEdit,
 } from "./PaymentsStyledComponents";
 import {
   SendPaymentHdrText,
@@ -26,6 +28,7 @@ export interface PaymentsWrapperProps {
   paymentAdjustedEth?: boolean;
   paymentAdjustedStripe?: boolean;
   children: any;
+  handleEditPaymentType?(): void;
 }
 
 export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = props => {
@@ -69,6 +72,12 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
             <PayWithCardAdjustedText />
           </PaymentAdjustedNoticeFtr>
         </PaymentAdjustedNotice>
+      )}
+      {props.handleEditPaymentType && (
+        <PaymentsEdit onClick={props.handleEditPaymentType}>
+          Payment
+          <PaymentsGhostBtn>Edit</PaymentsGhostBtn>
+        </PaymentsEdit>
       )}
       {props.children}
     </PaymentWrapperStyled>

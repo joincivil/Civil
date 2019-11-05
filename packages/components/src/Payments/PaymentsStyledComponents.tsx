@@ -373,7 +373,7 @@ export const PaymentAmountNewsroom = styled.div`
   }
 `;
 
-export const PaymentsShowInputBtn = styled.button`
+export const PaymentsGhostBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_BLUE};
@@ -517,6 +517,14 @@ export const PaymentOrBorder = styled.div`
     top: calc(50% - 25px);
     width: 50px;
   }
+`;
+
+export const PaymentsEdit = styled.div`
+  align-items: center;
+  display: flex;
+  font-size: 15px;
+  justify-content: space-between;
+  margin-bottom: 8px;
 `;
 
 export const PaymentsHide = styled.div`

@@ -56,8 +56,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   }
 
   public render(): JSX.Element {
-    console.log("etherToSpend: " + this.state.etherToSpend);
-
     if (!this.props.isWalletConnected) {
       return (
         <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>

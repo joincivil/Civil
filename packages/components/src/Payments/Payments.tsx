@@ -84,6 +84,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
+          handleEditPaymentType={this.handleEditPaymentType}
         >
           <PaymentsEth
             postId={postId}
@@ -110,6 +111,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
+          handleEditPaymentType={this.handleEditPaymentType}
         >
           <PaymentsStripe
             postId={postId}
@@ -125,7 +127,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.APPLE_PAY) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          handleEditPaymentType={this.handleEditPaymentType}
+        >
           <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
       );
@@ -133,7 +139,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.GOOGLE_PAY) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          handleEditPaymentType={this.handleEditPaymentType}
+        >
           <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
       );
@@ -189,5 +199,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe: false,
       resetEthPayments: true,
     });
+  };
+
+  private handleEditPaymentType = () => {
+    this.setState({ paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE });
   };
 }
