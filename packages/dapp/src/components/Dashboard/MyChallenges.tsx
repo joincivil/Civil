@@ -18,7 +18,6 @@ export interface MyChallengesProps {
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
   activeSubTabIndex: number;
-  useGraphQL?: boolean;
   setActiveSubTabIndex(activeSubIndex: number): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
@@ -32,7 +31,6 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
     currentUserChallengesStarted,
     userChallengeData,
     challengeToAppealChallengeMap,
-    useGraphQL,
     activeSubTabIndex,
     setActiveSubTabIndex,
     showClaimRewardsTab,
@@ -62,7 +60,6 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
               proposalChallenges={allProposalChallengesVotedOn}
               userChallengeData={userChallengeData}
               challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-              useGraphQL={useGraphQL}
               showClaimRewardsTab={showClaimRewardsTab}
               showRescueTokensTab={showRescueTokensTab}
             />

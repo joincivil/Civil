@@ -9,6 +9,7 @@ import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../
 
 import { ChallengeContainerProps, ChallengeContainerReduxProps } from "./HigherOrderComponents";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
+import ErrorLoadingDataMsg from "./ErrorLoadingData";
 
 /**
  * Given a `challengeID`, this container fetches the complete challenge data, including appeal and appeal challenge data from the Redux store or GraphQL
@@ -24,25 +25,18 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
       >,
 ) => {
   const mapStateToProps = (state: State, ownProps: TOriginalProps): TOriginalProps & ChallengeContainerReduxProps => {
-    const { challenges, challengesFetching, user } = state.networkDependent;
-    let challengeData;
+    const { user } = state.networkDependent;
     let challengeID = ownProps.challengeID;
     if (challengeID) {
       challengeID = (challengeID.toString && challengeID.toString()) || challengeID;
-      challengeData = challenges.get(challengeID as string);
     }
-    let challengeDataRequestStatus;
-    if (challengeID) {
-      challengeDataRequestStatus = challengesFetching.get(challengeID as string);
-    }
+
     const userAcct = user.account;
     // Can't use spread here b/c of TS issue with spread and generics
     // https://github.com/Microsoft/TypeScript/pull/13288
     // tslint:disable-next-line:prefer-object-spread
     return Object.assign({}, ownProps, {
       challengeID,
-      challengeData,
-      challengeDataRequestStatus,
       user: userAcct.account,
     });
   };
@@ -61,7 +55,8 @@ export const connectCompleteChallengeResults = <TOriginalProps extends Challenge
               return null;
             }
             if (error) {
-              return null;
+              console.error("Eror loading Challenge Results. challengeID: ", this.props.challengeID);
+              return <ErrorLoadingDataMsg />;
             }
             const challenge = transformGraphQLDataIntoChallenge(data.challenge);
             const challengeResultsProps = getChallengeResultsProps(challenge!) as ChallengeResultsProps;

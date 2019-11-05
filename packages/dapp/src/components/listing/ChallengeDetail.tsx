@@ -33,8 +33,6 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
 import {
-  makeGetAppealChallengeState,
-  makeGetListingAddressByChallengeID,
   getIsMemberOfAppellate,
   getChallengeState,
 } from "../../selectors";
@@ -93,7 +91,7 @@ export interface ChallengeDetailContainerProps {
 
 export interface ChallengeContainerReduxProps {
   challengeState: any;
-  appealChallengeState: any;
+  appealChallengeState?: any;
   user: EthAddress;
   balance: BigNumber;
   votingBalance: BigNumber;
@@ -102,7 +100,6 @@ export interface ChallengeContainerReduxProps {
   txIdToConfirm?: number;
   grantAppealTxDataFetching?: boolean;
   grantAppealTxData?: any;
-  useGraphQL: boolean;
 }
 
 export interface ChallengeDetailProps {
@@ -112,7 +109,7 @@ export interface ChallengeDetailProps {
   challenge: ChallengeData;
   challengeState: any;
   appealChallengeID?: BigNumber;
-  appealChallengeState: any;
+  appealChallengeState?: any;
   govtParameters?: any;
   userChallengeData?: UserChallengeData;
   userAppealChallengeData?: UserChallengeData;
@@ -121,7 +118,6 @@ export interface ChallengeDetailProps {
   votingBalance?: BigNumber;
   isMemberOfAppellate: boolean;
   txIdToConfirm?: number;
-  useGraphQL: boolean;
   onMobileTransactionClick?(): any;
 }
 
@@ -372,7 +368,6 @@ class ChallengeContainer extends React.Component<
         isMemberOfAppellate={this.props.isMemberOfAppellate}
         txIdToConfirm={this.props.txIdToConfirm}
         onMobileTransactionClick={this.props.onMobileTransactionClick}
-        useGraphQL={this.props.useGraphQL}
       />
     );
   }
@@ -383,9 +378,6 @@ class ChallengeContainer extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getAppealChallengeState = makeGetAppealChallengeState();
-  const getListingAddressByChallengeID = makeGetListingAddressByChallengeID();
-
   const mapStateToProps = (
     state: State,
     ownProps: ChallengeDetailContainerProps,
@@ -397,7 +389,6 @@ const makeMapStateToProps = () => {
       grantAppealTxs,
       grantAppealTxsFetching,
     } = state.networkDependent;
-    const useGraphQL = state.useGraphQL;
     let txIdToConfirm;
     const challengeData = ownProps.challengeData;
 
@@ -410,9 +401,9 @@ const makeMapStateToProps = () => {
         txIdToConfirm = councilMultisigTransactions.get(key).id;
       }
     }
-    let listingAddress: string | undefined = ownProps.listingAddress;
+    const listingAddress = ownProps.listingAddress;
     if (!listingAddress) {
-      listingAddress = getListingAddressByChallengeID(state, ownProps);
+      console.error("no listing address found!");
     }
     const userAcct = user.account;
 
@@ -421,7 +412,6 @@ const makeMapStateToProps = () => {
     return {
       challengeData,
       challengeState: getChallengeState(challengeData!),
-      appealChallengeState: getAppealChallengeState(state, ownProps),
       user: userAcct.account,
       balance: user.account.balance,
       votingBalance: user.account.votingBalance,
@@ -429,7 +419,6 @@ const makeMapStateToProps = () => {
       isMemberOfAppellate,
       txIdToConfirm,
       grantAppealTxDataFetching,
-      useGraphQL,
       ...ownProps,
     };
   };
