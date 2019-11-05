@@ -94,11 +94,7 @@ class ReclaimTokensComponent extends React.Component<
           </StyledTransferTokenFormElement>
 
           <FormGroup>
-            <TransactionButtonNoModal
-              transactions={this.getTransactions()}
-            >
-              Transfer
-            </TransactionButtonNoModal>
+            <TransactionButtonNoModal transactions={this.getTransactions()}>Transfer</TransactionButtonNoModal>
           </FormGroup>
         </>
       </>
@@ -145,4 +141,6 @@ class ReclaimTokensComponent extends React.Component<
   };
 }
 
-export default hasTransactionStatusModals(transactionStatusModalConfig)(ReclaimTokensComponent) as React.ComponentClass<ReclaimTokenProps & InjectedTransactionStatusModalProps>;
+export default hasTransactionStatusModals(transactionStatusModalConfig)(ReclaimTokensComponent) as React.ComponentClass<
+  ReclaimTokenProps & InjectedTransactionStatusModalProps
+>;

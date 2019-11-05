@@ -244,14 +244,23 @@ export const PaymentWarning = styled.div`
   }
 `;
 
+export interface PaymentsModalProps {
+  maxHeight: number;
+}
+
 export const PaymentsModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  max-height: 600px;
-  max-width: 500px;
   overflow: scroll;
-  padding: 20px;
   position: relative;
-  width: 100%;
+  max-height: ${(props: PaymentsModalProps) => props.maxHeight + "px"};
+  padding: 20px;
+  width: 400px;
+
+  ${mediaQueries.MOBILE_SMALL} {
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+  }
 `;
 
 export const PaymentsModalCloseBtn = styled(InvertedButton)`

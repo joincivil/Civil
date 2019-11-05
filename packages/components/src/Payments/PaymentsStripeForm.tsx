@@ -98,7 +98,6 @@ export interface PaymentStripeFormStates {
   cardNumberState: string;
   cardExpiryState: string;
   cardCVCState: string;
-  isPaymentSuccess: boolean;
   isPaymentError: boolean;
   paymentProcessing: boolean;
 }
@@ -120,7 +119,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       cardNumberState: INPUT_STATE.EMPTY,
       cardExpiryState: INPUT_STATE.EMPTY,
       cardCVCState: INPUT_STATE.EMPTY,
-      isPaymentSuccess: false,
       isPaymentError: false,
       paymentProcessing: false,
     };
@@ -325,7 +323,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       this.state.cardExpiryState === INPUT_STATE.VALID &&
       this.state.cardCVCState === INPUT_STATE.VALID
     ) {
-      this.setState({ paymentProcessing: true, isPaymentSuccess: false, isPaymentError: false });
+      this.setState({ paymentProcessing: true, isPaymentError: false });
       if (this.props.stripe) {
         try {
           const token = await this.props.stripe.createToken({

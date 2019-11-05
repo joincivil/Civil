@@ -32,10 +32,7 @@ import ChallengeRewardsDetail from "./ChallengeRewardsDetail";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
-import {
-  getIsMemberOfAppellate,
-  getChallengeState,
-} from "../../selectors";
+import { getIsMemberOfAppellate, getChallengeState } from "../../selectors";
 import { fetchAndAddGrantAppealTx } from "../../redux/actionCreators/challenges";
 import {
   ChallengeContainerProps,
