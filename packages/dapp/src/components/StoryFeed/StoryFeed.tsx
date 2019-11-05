@@ -9,51 +9,57 @@ import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import { Helmet } from "react-helmet";
 
 export const STORY_FEED_QUERY = gql`
-  query Post($search: PostSearchInput!) {
-    postsSearch(search: $search) {
-      posts {
-        ... on PostExternalLink {
-          id
-          channelID
-          createdAt
-          openGraphData {
-            url
-            title
-            description
-            images {
+  query Storyfeed($cursor: String) {
+    postsStoryfeed(first: 15, after: $cursor) {
+      edges {
+        post {
+          ... on PostExternalLink {
+            id
+            channelID
+            createdAt
+            openGraphData {
               url
+              title
+              description
+              images {
+                url
+              }
+              article {
+                published_time
+              }
             }
-            article {
-              published_time
-            }
-          }
-          channel {
-            isStripeConnected
-            newsroom {
-              contractAddress
-              multisigAddress
-              charter {
-                name
-                newsroomUrl
-                mission {
-                  purpose
-                }
-                socialUrls {
-                  twitter
-                  facebook
-                  email
+            channel {
+              isStripeConnected
+              newsroom {
+                contractAddress
+                multisigAddress
+                charter {
+                  name
+                  newsroomUrl
+                  mission {
+                    purpose
+                  }
+                  socialUrls {
+                    twitter
+                    facebook
+                    email
+                  }
                 }
               }
             }
-          }
-          groupedSanitizedPayments {
-            usdEquivalent
-            payerChannel {
-              handle
-              tiny72AvatarDataUrl
+            groupedSanitizedPayments {
+              usdEquivalent
+              payerChannel {
+                handle
+                tiny72AvatarDataUrl
+              }
             }
           }
         }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
       }
     }
   }
@@ -93,40 +99,48 @@ const StoryFeedPage: React.FunctionComponent = props => {
     }
   }, [civilUser, userAccount]);
 
-  const search = { postType: "externallink" };
-
   return (
     <>
-      <Helmet title="Civil Story Feed - The Civil Registry" />
+      <Helmet title="Civil Stories - The Civil Registry" />
       <StoryFeedWrapper>
-        <StoryFeedHeader>Story Feed</StoryFeedHeader>
-        <Query query={STORY_FEED_QUERY} variables={{ search }}>
-          {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData }) => {
-            if (feedQueryLoading) {
-              return <LoadingMessage>Loading Story Feed</LoadingMessage>;
-            } else if (feedQueryError || !feedQueryData || !feedQueryData.postsSearch) {
-              console.error("error loading Story Feed data. error:", feedQueryError, "data:", feedQueryData);
-              return "Error loading Story Feed.";
+        <StoryFeedHeader>Stories</StoryFeedHeader>
+        <Query query={STORY_FEED_QUERY}>
+          {({ loading, error, data, fetchMore }) => {
+            if (loading) {
+              return <LoadingMessage>Loading Stories</LoadingMessage>;
+            } else if (error || !data || !data.postsStoryfeed) {
+              console.error("error loading Story Feed data. error:", error, "data:", data);
+              return "Error loading stories.";
+            } else if (!data.postsStoryfeed.edges) {
+              return "There are no stories yet.";
             }
 
-            return feedQueryData.postsSearch.posts.map((storyData: any, i: number) => (
-              <StoryFeedItem
-                key={i}
-                isLoggedIn={civilUser ? true : false}
-                userAddress={userAccount}
-                userEmail={userEmail}
-                storyId={storyData.id}
-                activeChallenge={false}
-                createdAt={storyData.createdAt}
-                isStripeConnected={storyData.channel.isStripeConnected}
-                newsroom={storyData.channel.newsroom}
-                openGraphData={storyData.openGraphData}
-                displayedContributors={storyData.payments}
-                sortedContributors={storyData.payments}
-                totalContributors={storyData.payments ? storyData.payments.length : 0}
-                handleLogin={onLoginPressed}
-              />
-            ));
+            return data.postsStoryfeed.edges.map((story: any, i: number) => {
+              const storyData = story.post;
+
+              if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
+                return (
+                  <StoryFeedItem
+                    key={i}
+                    isLoggedIn={civilUser ? true : false}
+                    userAddress={userAccount}
+                    userEmail={userEmail}
+                    storyId={storyData.id}
+                    activeChallenge={false}
+                    createdAt={storyData.createdAt}
+                    isStripeConnected={storyData.channel.isStripeConnected}
+                    newsroom={storyData.channel.newsroom}
+                    openGraphData={storyData.openGraphData}
+                    displayedContributors={storyData.payments}
+                    sortedContributors={storyData.payments}
+                    totalContributors={storyData.payments ? storyData.payments.length : 0}
+                    handleLogin={onLoginPressed}
+                  />
+                );
+              }
+
+              return null;
+            });
           }}
         </Query>
       </StoryFeedWrapper>
