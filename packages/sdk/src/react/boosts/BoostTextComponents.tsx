@@ -215,6 +215,7 @@ export const PaymentInProgressModalText: React.FunctionComponent = props => (
 );
 
 export const PaymentSuccessModalText: React.FunctionComponent<BoostPaymentTextProps & BoostShareTextProps> = props => {
+  const [isLoading, setLoading] = React.useState(false);
   return (
     <>
       <PaymentSuccessText />
@@ -224,7 +225,17 @@ export const PaymentSuccessModalText: React.FunctionComponent<BoostPaymentTextPr
         etherToSpend={props.etherToSpend}
       />
       <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} title={props.title} />
-      <BoostButton onClick={props.handlePaymentSuccess}>Done</BoostButton>
+      <BoostButton
+        onClick={() => {
+          if (props.handlePaymentSuccess) {
+            setLoading(true);
+            props.handlePaymentSuccess();
+          }
+        }}
+        loading={isLoading}
+      >
+        Done
+      </BoostButton>
     </>
   );
 };
@@ -247,12 +258,23 @@ export const PaymentErrorModalText: React.FunctionComponent<BoostPaymentTextProp
 export const PaymentSuccessCardModalText: React.FunctionComponent<
   BoostPaymentTextProps & BoostShareTextProps
 > = props => {
+  const [isLoading, setLoading] = React.useState(false);
   return (
     <>
       <PaymentSuccessText />
       <PaymentCardConfirmationText newsroomName={props.newsroomName} usdToSpend={props.usdToSpend} />
       <PaymentShareText boostId={props.boostId} newsroom={props.newsroom} title={props.title} />
-      <BoostButton onClick={props.handlePaymentSuccess}>Done</BoostButton>
+      <BoostButton
+        onClick={() => {
+          if (props.handlePaymentSuccess) {
+            setLoading(true);
+            props.handlePaymentSuccess();
+          }
+        }}
+        loading={isLoading}
+      >
+        Done
+      </BoostButton>
     </>
   );
 };

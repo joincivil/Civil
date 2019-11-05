@@ -7,7 +7,7 @@ import { StyledInPageMsgContainer } from "./styledComponents";
 const ErrorLoadingDataMsg = () => {
   return (
     <StyledInPageMsgContainer>
-      <ErrorLoadingData useGraphQL={false} />
+      <ErrorLoadingData />
     </StyledInPageMsgContainer>
   );
 };

@@ -300,7 +300,7 @@ class DashboardActivity extends React.Component<
               showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
             };
 
-            return <MyChallenges {...myTasksViewProps} useGraphQL={true} />;
+            return <MyChallenges {...myTasksViewProps} />;
           }
           return <LoadingMessage />;
         }}

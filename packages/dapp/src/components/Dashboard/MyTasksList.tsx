@@ -8,7 +8,6 @@ export interface MyTasksListOwnProps {
   proposalChallenges?: Set<string>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
-  useGraphQL?: boolean;
   refetchUserChallengeData?(): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;

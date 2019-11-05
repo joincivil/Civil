@@ -1,11 +1,9 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
 import { NoNewsrooms, LoadingMessage } from "@joincivil/components";
 import { routes } from "../../constants";
-import { State } from "../../redux/reducers";
 import {
   LISTING_QUERY,
   transformGraphQLDataIntoNewsroom,
@@ -27,10 +25,6 @@ interface ApplicationProgressData {
 interface NewsroomListItemOwnProps {
   listingAddress: EthAddress;
   applicationProgressData?: ApplicationProgressData;
-}
-
-interface NewsroomListItemReduxProps {
-  useGraphQL: boolean;
 }
 
 const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps> = props => {
@@ -77,27 +71,9 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
   );
 };
 
-const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps & NewsroomListItemReduxProps> = props => {
-  const { listingAddress, applicationProgressData, useGraphQL } = props;
-
-  if (useGraphQL) {
-    return (
-      <NewsroomsListItemGraphQL listingAddress={listingAddress} applicationProgressData={applicationProgressData} />
-    );
-  }
-
-  return <NewsroomsListItemComponent listingAddress={listingAddress} />;
+const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps> = props => {
+  const { listingAddress, applicationProgressData } = props;
+  return <NewsroomsListItemGraphQL listingAddress={listingAddress} applicationProgressData={applicationProgressData} />;
 };
 
-const mapNewsroomListItemStateToProps = (
-  state: State,
-  ownProps: NewsroomListItemOwnProps,
-): NewsroomListItemOwnProps & NewsroomListItemReduxProps => {
-  const { useGraphQL } = state;
-  return {
-    useGraphQL,
-    ...ownProps,
-  };
-};
-
-export default connect(mapNewsroomListItemStateToProps)(NewsroomListItem);
+export default NewsroomListItem;

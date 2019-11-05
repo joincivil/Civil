@@ -12,7 +12,7 @@ import {
 } from "./government";
 import { user } from "./userAccount";
 import { network, networkName } from "./network";
-import { ui, useGraphQL, showWeb3AuthModal, web3AuthType } from "./ui";
+import { ui, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, Map } from "immutable";
 import { EthAddress, MultisigTransaction, EthContentHeader, ContentData, TxDataAll } from "@joincivil/core";
@@ -32,7 +32,6 @@ export interface State {
   network: string;
   networkName: string;
   ui: Map<string, any>;
-  useGraphQL: boolean;
   showWeb3AuthModal: boolean;
   web3AuthType: string;
   newsrooms: Map<string, NewsroomState>;
@@ -99,7 +98,6 @@ export default (history: any) =>
     network,
     networkName,
     ui,
-    useGraphQL,
     showWeb3AuthModal,
     web3AuthType,
   });

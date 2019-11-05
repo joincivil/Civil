@@ -7,12 +7,8 @@ import { BoostShareHeading } from "./BoostStyledComponents";
 
 const Wrapper = styled.div`
   position: relative;
+  width: 150px;
   z-index: 10;
-  margin-left: 24px;
-  ${mediaQueries.MOBILE_SMALL} {
-    display: flex;
-    margin-bottom: 8px;
-  }
 `;
 
 const IconsWrapper = styled.span`
@@ -45,6 +41,7 @@ export interface BoostShareProps {
   newsroom: string;
   title: string;
   boostId: string;
+  className?: string;
 }
 
 export class BoostShare extends React.Component<BoostShareProps> {
@@ -54,7 +51,7 @@ export class BoostShare extends React.Component<BoostShareProps> {
     const emailShare = this.getEmailURL(boostUrl);
 
     return (
-      <Wrapper>
+      <Wrapper className={this.props.className}>
         <BoostShareHeading>Share this Boost</BoostShareHeading>
         <IconsWrapper>
           <a href={twitterShare} target="_blank">

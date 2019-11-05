@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
+import { BoostShare } from "./BoostShare";
 
 export interface BoostStyleProps {
   open?: boolean;
@@ -96,6 +97,8 @@ export const BoostWrapperFullWidthHr = styled.hr`
 `;
 
 export const BoostButton = styled(Button)`
+  position: relative;
+  z-index: 1;
   cursor: pointer;
   font-size: 14px;
   font-weight: bold;
@@ -259,18 +262,19 @@ export const BoostShareHeading = styled.h3`
   }
 `;
 
-export const BoostCardShare = styled.div`
-  width: 245px;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
+export const BoostCardShare = styled(BoostShare)`
+  width: auto;
+  margin-left: 24px;
+  ${mediaQueries.MOBILE_SMALL} {
+    display: flex;
+    margin-bottom: 8px;
   }
 `;
 
 export const BoostPaymentShare = styled.span`
-  display: block;
+  display: flex;
+  justify-content: center;
   margin: 10px auto 8px;
-  width: 100px;
 `;
 
 export const BoostDescription = styled.div`
