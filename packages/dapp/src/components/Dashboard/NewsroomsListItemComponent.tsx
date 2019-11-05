@@ -10,7 +10,7 @@ import { NewsroomWithdraw } from "@joincivil/sdk";
 
 import { routes } from "../../constants";
 import { State } from "../../redux/reducers";
-import { getChallengeByListingAddress, getListingPhaseState, makeGetListing, getChallengeState } from "../../selectors";
+import { getListingPhaseState } from "../../selectors";
 
 import { getContent } from "../../redux/actionCreators/newsrooms";
 
@@ -217,8 +217,6 @@ class NewsroomsListItemListingRedux extends React.Component<
 }
 
 const makeMapStateToProps = () => {
-  const getListing = makeGetListing();
-
   const mapStateToProps = (
     state: State,
     ownProps: NewsroomsListItemOwnProps,
@@ -227,18 +225,6 @@ const makeMapStateToProps = () => {
     const { network, newsrooms } = state;
     const { content } = state.networkDependent;
     const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
-
-    let listingRedux;
-    if (!listing) {
-      listingRedux = getListing(state, ownProps);
-    }
-
-    const challenge = getChallengeByListingAddress(state, ownProps);
-    let challengeState;
-
-    if (challenge) {
-      challengeState = getChallengeState(challenge);
-    }
 
     let charter;
     let charterURI;
@@ -255,14 +241,12 @@ const makeMapStateToProps = () => {
     }
 
     return {
-      listing: listing || listingRedux,
+      listing,
       network,
       newsroom,
       newsroomCharterHeader,
       charter,
       listingPhaseState: getListingPhaseState(listing),
-      challenge,
-      challengeState,
       ...ownProps,
     };
   };

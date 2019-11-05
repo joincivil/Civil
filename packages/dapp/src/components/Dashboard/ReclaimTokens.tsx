@@ -1,20 +1,14 @@
 import * as React from "react";
-import { compose } from "redux";
-import { connect } from "react-redux";
 import { parseEther } from "@joincivil/typescript-types";
-import { Set } from "immutable";
 import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import {
-  StyledDashboardActivityDescription,
   TransactionButtonNoModal,
   CurrencyInput,
   ModalContent,
   TransferTokenTipsText,
   StyledTransferTokenFormElement,
 } from "@joincivil/components";
-import { State } from "../../redux/reducers";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
-import { getUserChallengesWithRescueTokens } from "../../selectors";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { FormGroup } from "../utility/FormElements";
 
@@ -60,23 +54,19 @@ export interface ReclaimTokenProps {
   onMobileTransactionClick?(): any;
 }
 
-export interface ReclaimTokenReduxProps {
-  numUserChallengesWithRescueTokens: number;
-}
-
 interface ReclaimTokensState {
   numTokens?: string;
   isReclaimAmountValid?: boolean;
 }
 
 class ReclaimTokensComponent extends React.Component<
-  ReclaimTokenProps & ReclaimTokenReduxProps & InjectedTransactionStatusModalProps,
+  ReclaimTokenProps & InjectedTransactionStatusModalProps,
   ReclaimTokensState
 > {
   public static contextType = CivilHelperContext;
   public context: CivilHelper;
 
-  constructor(props: ReclaimTokenReduxProps & InjectedTransactionStatusModalProps) {
+  constructor(props: ReclaimTokenProps & InjectedTransactionStatusModalProps) {
     super(props);
     this.state = {
       numTokens: "0",
@@ -91,11 +81,6 @@ class ReclaimTokensComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        {!!this.props.numUserChallengesWithRescueTokens && (
-          <StyledDashboardActivityDescription>
-            "Please rescue tokens from all of your unrevealed votes before transferring"
-          </StyledDashboardActivityDescription>
-        )}
         <>
           <StyledTransferTokenFormElement>
             <CurrencyInput
@@ -110,7 +95,6 @@ class ReclaimTokensComponent extends React.Component<
 
           <FormGroup>
             <TransactionButtonNoModal
-              disabled={!!this.props.numUserChallengesWithRescueTokens}
               transactions={this.getTransactions()}
             >
               Transfer
@@ -161,15 +145,4 @@ class ReclaimTokensComponent extends React.Component<
   };
 }
 
-const mapStateToProps = (state: State): ReclaimTokenReduxProps => {
-  const userChallengesWithRescueTokens: Set<string> = getUserChallengesWithRescueTokens(state)!;
-
-  return {
-    numUserChallengesWithRescueTokens: userChallengesWithRescueTokens.count(),
-  };
-};
-
-export default compose(
-  connect(mapStateToProps),
-  hasTransactionStatusModals(transactionStatusModalConfig),
-)(ReclaimTokensComponent) as React.ComponentClass<ReclaimTokenProps>;
+export default hasTransactionStatusModals(transactionStatusModalConfig)(ReclaimTokensComponent) as React.ComponentClass<ReclaimTokenProps & InjectedTransactionStatusModalProps>;

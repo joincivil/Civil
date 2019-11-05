@@ -15,13 +15,11 @@ export interface MyTasksItemOwnProps {
   challengeID?: string;
   queryUserChallengeData?: UserChallengeData;
   queryUserAppealChallengeData?: UserChallengeData;
-  useGraphQL?: boolean;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }
 
 export interface MyTasksItemWrapperReduxProps {
-  useGraphQL?: boolean;
   userAcct: EthAddress;
   content: Map<string, ContentData>;
   getCharterContent(charterHeader: EthContentHeader): Promise<void>;

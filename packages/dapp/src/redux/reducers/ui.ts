@@ -11,17 +11,6 @@ export function ui(state: Map<string, any> = Map<string, any>(), action: AnyActi
   }
 }
 
-export function useGraphQL(state: boolean = true, action: AnyAction): boolean {
-  switch (action.type) {
-    case uiActions.TOGGLE_USE_GRAPH_QL:
-      return !state;
-    case uiActions.DISABLE_GRAPHL_QL:
-      return false;
-    default:
-      return state;
-  }
-}
-
 export function web3AuthType(state: string = "", action: AnyAction): string {
   switch (action.type) {
     case uiActions.HIDE_WEB3_AUTH_MODAL:

@@ -4,7 +4,6 @@ import sanitizeHtml from "sanitize-html";
 import styled from "styled-components";
 import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
-import { getChallengeByListingAddress } from "../../selectors";
 import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";
 import { getBareContent } from "../../redux/actionCreators/newsrooms";
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
@@ -197,14 +196,11 @@ const mapToStateToProps = (
   state: State,
   ownProps: ListingChallengeStatementProps,
 ): ListingChallengeStatementProps & ListingChallengeStatementReduxProps => {
-  let challenge = getChallengeByListingAddress(state, ownProps);
-  if (!challenge) {
-    challenge = {
-      challenge: ownProps.listing!.data.challenge!,
-      listingAddress: ownProps.listingAddress,
-      challengeID: ownProps.listing!.data.challengeID,
-    };
-  }
+  const challenge = {
+    challenge: ownProps.listing!.data.challenge!,
+    listingAddress: ownProps.listingAddress,
+    challengeID: ownProps.listing!.data.challengeID,
+  };
 
   const { content } = state.networkDependent;
   let challengeStatement: any = "";

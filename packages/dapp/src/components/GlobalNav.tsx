@@ -28,7 +28,6 @@ const GlobalNavComponent: React.FunctionComponent = props => {
 
   // redux
   const dispatch = useDispatch();
-  const useGraphQL = useSelector((state: State) => state.useGraphQL);
   const currentUserChallengesStarted = useSelector(getChallengesStartedByUser);
   const currentUserChallengesVotedOn = useSelector(getChallengesVotedOnByUser);
   const userChallengesWithUnrevealedVotes = useSelector(getUserChallengesWithUnrevealedVotes);
@@ -46,7 +45,6 @@ const GlobalNavComponent: React.FunctionComponent = props => {
     userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
     userChallengesStartedCount: currentUserChallengesStarted.count(),
     userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    useGraphQL,
     authenticationURL: "/auth/login",
     buyCvlUrl: "/tokens",
     joinAsMemberUrl: "https://civil.co/become-a-member",
