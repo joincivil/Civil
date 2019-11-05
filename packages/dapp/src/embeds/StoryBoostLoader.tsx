@@ -12,7 +12,7 @@ import {
 import { mediaQueries } from "@joincivil/elements";
 import { StoryBoost } from "@joincivil/sdk";
 
-import { embedRoutes } from "../constants";
+import { routes, embedRoutes } from "../constants";
 import AppProvider from "../components/providers/AppProvider";
 
 const EmbedWrapper = styled.div`
@@ -59,7 +59,7 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
 
   return (
     <EmbedWrapper>
-      <CivilLogoLink href="https://registry.civil.co" target="_blank">
+      <CivilLogoLink href={routes.HOMEPAGE} target="_blank">
         <CivilIcon />
       </CivilLogoLink>
       <ThemeProvider theme={theme}>
