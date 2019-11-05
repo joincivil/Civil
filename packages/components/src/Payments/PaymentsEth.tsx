@@ -3,25 +3,12 @@ import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import { PaymentEthLearnMore, PaymentBtn } from "./PaymentsStyledComponents";
-import {
-  PayWithEthText,
-  PaymentEthNoticeText,
-  WhyEthInfoText,
-  WhatIsEthInfoText,
-  CanUseCVLInfoText,
-  ConnectWalletWarningText,
-} from "./PaymentsTextComponents";
-import { PaymentsModal } from "./PaymentsModal";
+import { PaymentBtn, PaymentsHide } from "./PaymentsStyledComponents";
+import { ConnectWalletWarningText } from "./PaymentsTextComponents";
 import { PaymentsEthForm } from "./PaymentsEthForm";
-import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
+import { PaymentsEthUpdateAmount } from "./PaymentsEthUpdateAmount";
+import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
 import { PAYMENT_STATE } from "./types";
-
-export enum MODEL_CONTENT {
-  WHY_ETH,
-  WHAT_IS_ETH,
-  CAN_USE_CVL,
-}
 
 export interface PaymentsEthProps {
   postId: string;
@@ -30,85 +17,103 @@ export interface PaymentsEthProps {
   shouldPublicize: boolean;
   userAddress?: EthAddress;
   userEmail?: string;
+  etherToSpend?: number;
   usdToSpend: number;
   isWalletConnected: boolean;
+  resetEthPayments: boolean;
+  handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
   handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
 }
 
 export interface PaymentsEthStates {
-  isInfoModalOpen: boolean;
-  modalContent?: MODEL_CONTENT;
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
-  paymentStarted: boolean;
 }
 
 export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthStates> {
+  public static getDerivedStateFromProps(props: PaymentsEthProps, state: PaymentsEthStates): PaymentsEthStates {
+    if (props.resetEthPayments) {
+      return {
+        etherToSpend: props.etherToSpend || 0,
+        usdToSpend: props.usdToSpend,
+        notEnoughEthError: false,
+      };
+    }
+
+    return {
+      ...state,
+    };
+  }
+
   public constructor(props: PaymentsEthProps) {
     super(props);
     this.state = {
-      isInfoModalOpen: false,
-      etherToSpend: 0,
+      etherToSpend: this.props.etherToSpend || 0,
       usdToSpend: this.props.usdToSpend,
       notEnoughEthError: false,
-      paymentStarted: false,
     };
   }
 
   public render(): JSX.Element {
-    if (this.state.paymentStarted) {
-      return <>{this.renderPaymentForm()}</>;
+    console.log("etherToSpend: " + this.state.etherToSpend);
+
+    if (!this.props.isWalletConnected) {
+      return (
+        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+          <ConnectWalletWarningText />
+          <PaymentBtn>Select Wallet</PaymentBtn>
+        </PaymentsEthWrapper>
+      );
+    }
+
+    if (this.state.notEnoughEthError) {
+      return (
+        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+          <PaymentsEthUpdateAmount
+            etherToSpend={this.state.etherToSpend}
+            usdToSpend={this.state.usdToSpend}
+            handleBoostUpdate={this.props.handleBoostUpdate}
+          />
+        </PaymentsEthWrapper>
+      );
+    }
+
+    if (this.state.etherToSpend === 0) {
+      return (
+        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+          <PaymentsHide>
+            <UsdEthConverter
+              fromValue={this.state.usdToSpend.toString()}
+              onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
+              onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
+            />
+          </PaymentsHide>
+        </PaymentsEthWrapper>
+      );
     }
 
     return (
-      <PaymentsFormWrapper payWithText={<PayWithEthText />} paymentNoticeText={<PaymentEthNoticeText />}>
-        {!this.props.isWalletConnected && <ConnectWalletWarningText />}
-        <PaymentEthLearnMore>
-          <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
-          <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>
-          <a onClick={() => this.openInfoModal(MODEL_CONTENT.CAN_USE_CVL)}>Can I use CVL?</a>
-        </PaymentEthLearnMore>
-        <UsdEthConverter
-          fromValue={this.state.usdToSpend.toString()}
-          onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
-          onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
-        />
-        <PaymentBtn onClick={this.handlePaymentStarted} disabled={this.state.notEnoughEthError}>
-          Next
-        </PaymentBtn>
-
-        <PaymentsModal open={this.state.isInfoModalOpen} handleClose={this.handleClose}>
-          {this.renderInfoModal()}
-        </PaymentsModal>
-      </PaymentsFormWrapper>
+      <Mutation mutation={PAYMENTS_ETH_MUTATION}>
+        {(paymentsCreateEtherPayment: MutationFunc) => {
+          return (
+            <PaymentsEthForm
+              postId={this.props.postId}
+              paymentAddress={this.props.paymentAddress}
+              userAddress={this.props.userAddress}
+              userEmail={this.props.userEmail}
+              shouldPublicize={this.props.shouldPublicize}
+              savePayment={paymentsCreateEtherPayment}
+              etherToSpend={this.state.etherToSpend}
+              usdToSpend={this.state.usdToSpend}
+              newsroomName={this.props.newsroomName}
+              handlePaymentSuccess={this.props.handlePaymentSuccess}
+            />
+          );
+        }}
+      </Mutation>
     );
   }
-
-  private renderPaymentForm = (): JSX.Element => {
-    return (
-      <>
-        <Mutation mutation={PAYMENTS_ETH_MUTATION}>
-          {(paymentsCreateEtherPayment: MutationFunc) => {
-            return (
-              <PaymentsEthForm
-                postId={this.props.postId}
-                paymentAddress={this.props.paymentAddress}
-                userAddress={this.props.userAddress}
-                userEmail={this.props.userEmail}
-                shouldPublicize={this.props.shouldPublicize}
-                savePayment={paymentsCreateEtherPayment}
-                etherToSpend={this.state.etherToSpend}
-                usdToSpend={this.state.usdToSpend}
-                newsroomName={this.props.newsroomName}
-                handlePaymentSuccess={this.props.handlePaymentSuccess}
-              />
-            );
-          }}
-        </Mutation>
-      </>
-    );
-  };
 
   private setConvertedAmount(usdToSpend: number, etherToSpend: number): void {
     const eth = parseFloat(etherToSpend.toFixed(6));
@@ -117,30 +122,5 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
   private notEnoughEthError = (error: boolean) => {
     this.setState({ notEnoughEthError: error });
-  };
-
-  private handlePaymentStarted = () => {
-    this.setState({ paymentStarted: true });
-  };
-
-  private renderInfoModal = () => {
-    switch (this.state.modalContent) {
-      case MODEL_CONTENT.WHY_ETH:
-        return <WhyEthInfoText />;
-      case MODEL_CONTENT.WHAT_IS_ETH:
-        return <WhatIsEthInfoText />;
-      case MODEL_CONTENT.CAN_USE_CVL:
-        return <CanUseCVLInfoText />;
-      default:
-        return <></>;
-    }
-  };
-
-  private openInfoModal = (modelContent: any) => {
-    this.setState({ isInfoModalOpen: true, modalContent: modelContent });
-  };
-
-  private handleClose = () => {
-    this.setState({ isInfoModalOpen: false });
   };
 }

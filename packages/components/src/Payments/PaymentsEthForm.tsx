@@ -2,7 +2,7 @@ import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { isValidEmail } from "@joincivil/utils";
-import { PaymentAmountEth, PaymentTerms, PaymentInputLabel } from "./PaymentsStyledComponents";
+import { PaymentTerms, PaymentInputLabel } from "./PaymentsStyledComponents";
 import {
   TransactionButton,
   TransactionButtonModalContentComponentsProps,
@@ -10,15 +10,14 @@ import {
   CivilContext,
   ICivilContext,
 } from "../";
-import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
+import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
 import { InputValidationUI } from "./PaymentsInputValidationUI";
 import {
-  PayWithEthText,
   PaymentInProgressText,
   PaymentErrorText,
-  PaymentEthNoticeText,
   PaymentTermsText,
   PaymentEmailConfirmationText,
+  EnoughETHInWalletText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE, INPUT_STATE } from "./types";
 
@@ -61,11 +60,8 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
     return (
       <>
-        <PaymentsFormWrapper payWithText={<PayWithEthText />} paymentNoticeText={<PaymentEthNoticeText />}>
-          <PaymentAmountEth>
-            <label>Boost</label>
-            {this.props.etherToSpend + " ETH"} <span>&asymp; {"$" + this.props.usdToSpend}</span>
-          </PaymentAmountEth>
+        <PaymentsEthWrapper etherToSpend={this.props.etherToSpend} usdToSpend={this.props.usdToSpend}>
+          <EnoughETHInWalletText />
           <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
             <input
@@ -78,7 +74,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
             />
             <PaymentEmailConfirmationText />
           </InputValidationUI>
-        </PaymentsFormWrapper>
+        </PaymentsEthWrapper>
         <TransactionButton
           transactions={[
             {

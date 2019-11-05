@@ -14,14 +14,17 @@ import {
   SendPaymentHdrText,
   PaymentToNewsroomsTipText,
   PayWithCardMinimumText,
+  PaymentUpdatedByEthText,
   PayWithCardAdjustedText,
 } from "./PaymentsTextComponents";
 
 export interface PaymentsWrapperProps {
   newsroomName: string;
   usdToSpend?: number;
+  etherToSpend?: number;
   selectedUsdToSpend?: number;
-  paymentAdjusted?: boolean;
+  paymentAdjustedEth?: boolean;
+  paymentAdjustedStripe?: boolean;
   children: any;
 }
 
@@ -34,9 +37,15 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
           <PaymentHeaderNewsroom>{props.newsroomName}</PaymentHeaderNewsroom>
           {props.usdToSpend && (
             <div>
-              <PaymentHeaderBoostLabel>{props.paymentAdjusted ? "Selected Boost" : "Boost"}</PaymentHeaderBoostLabel>
+              <PaymentHeaderBoostLabel>
+                {props.paymentAdjustedEth || props.paymentAdjustedStripe ? "Selected Boost" : "Boost"}
+              </PaymentHeaderBoostLabel>
               <PaymentHeaderAmount>
-                ${props.paymentAdjusted ? props.selectedUsdToSpend : <b>{props.usdToSpend}</b>}
+                {props.paymentAdjustedEth || props.paymentAdjustedStripe ? (
+                  "$" + props.selectedUsdToSpend
+                ) : (
+                  <b>{"$" + props.usdToSpend}</b>
+                )}
               </PaymentHeaderAmount>
             </div>
           )}
@@ -45,9 +54,17 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
           <PaymentToNewsroomsTipText />
         </PaymentHeaderTip>
       </PaymentHeader>
-      {props.paymentAdjusted && (
+      {props.paymentAdjustedStripe && (
         <PaymentAdjustedNotice>
           <PayWithCardMinimumText />
+          <PaymentAdjustedNoticeFtr>
+            <PayWithCardAdjustedText />
+          </PaymentAdjustedNoticeFtr>
+        </PaymentAdjustedNotice>
+      )}
+      {props.paymentAdjustedEth && (
+        <PaymentAdjustedNotice>
+          <PaymentUpdatedByEthText usdToSpend={props.usdToSpend} etherToSpend={props.etherToSpend} />
           <PaymentAdjustedNoticeFtr>
             <PayWithCardAdjustedText />
           </PaymentAdjustedNoticeFtr>

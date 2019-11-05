@@ -25,10 +25,13 @@ export interface PaymentsProps {
 
 export interface PaymentsStates {
   usdToSpend: number;
+  etherToSpend?: number;
   selectedUsdToSpend?: number;
-  paymentAdjusted: boolean;
+  paymentAdjustedStripe: boolean;
+  paymentAdjustedEth: boolean;
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
+  resetEthPayments: boolean;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -36,14 +39,24 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     super(props);
     this.state = {
       usdToSpend: 0,
-      paymentAdjusted: false,
+      paymentAdjustedStripe: false,
+      paymentAdjustedEth: false,
       shouldPublicize: false,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
+      resetEthPayments: false,
     };
   }
 
   public render(): JSX.Element {
-    const { usdToSpend, shouldPublicize, paymentState, selectedUsdToSpend, paymentAdjusted } = this.state;
+    const {
+      usdToSpend,
+      etherToSpend,
+      shouldPublicize,
+      paymentState,
+      selectedUsdToSpend,
+      paymentAdjustedStripe,
+      paymentAdjustedEth,
+    } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
     const isWalletConnected = userAddress ? true : false;
 
@@ -65,7 +78,13 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.ETH_PAYMENT) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          paymentAdjustedEth={paymentAdjustedEth}
+          selectedUsdToSpend={selectedUsdToSpend}
+          etherToSpend={etherToSpend}
+        >
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
@@ -76,6 +95,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             usdToSpend={usdToSpend}
             isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
+            etherToSpend={this.state.etherToSpend}
+            resetEthPayments={this.state.resetEthPayments}
+            handleBoostUpdate={this.handleUpdateBoostFromEth}
           />
         </PaymentsWrapper>
       );
@@ -86,7 +108,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          paymentAdjusted={paymentAdjusted}
+          paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
         >
           <PaymentsStripe
@@ -138,9 +160,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {
-      this.setState({ paymentState, usdToSpend: 2, selectedUsdToSpend: this.state.usdToSpend, paymentAdjusted: true });
+      this.setState({
+        paymentState,
+        usdToSpend: 2,
+        selectedUsdToSpend: this.state.usdToSpend,
+        paymentAdjustedStripe: true,
+        paymentAdjustedEth: true,
+      });
     } else {
-      this.setState({ paymentState, paymentAdjusted: false });
+      this.setState({ paymentState, paymentAdjustedStripe: false, paymentAdjustedEth: false });
     }
   };
 
@@ -150,5 +178,16 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     } else {
       this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });
     }
+  };
+
+  private handleUpdateBoostFromEth = (newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number) => {
+    this.setState({
+      usdToSpend: newUsdToSpend,
+      selectedUsdToSpend,
+      etherToSpend,
+      paymentAdjustedEth: true,
+      paymentAdjustedStripe: false,
+      resetEthPayments: true,
+    });
   };
 }

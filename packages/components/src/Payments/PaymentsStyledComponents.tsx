@@ -229,9 +229,13 @@ export const PaymentInputLabel = styled.label`
   margin-bottom: 5px;
 `;
 
+export interface PaymentWarningProps {
+  redText?: boolean;
+}
+
 export const PaymentWarning = styled.div`
-  color: ${colors.accent.CIVIL_RED};
-  font-size: 14px;
+  color: ${(props: PaymentWarningProps) => (props.redText ? colors.accent.CIVIL_RED : colors.accent.CIVIL_GRAY_1)};
+  font-size: 13px;
   line-height: 22px;
   margin-bottom: 15px;
 
@@ -513,4 +517,8 @@ export const PaymentOrBorder = styled.div`
     top: calc(50% - 25px);
     width: 50px;
   }
+`;
+
+export const PaymentsHide = styled.div`
+  visibility: hidden;
 `;

@@ -1,13 +1,8 @@
 import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
-import { ErrorIcon } from "@joincivil/elements";
+import { ErrorIcon, HollowGreenCheck } from "@joincivil/elements";
 import { ClipLoader } from "../ClipLoader";
 import { PaymentWarning } from "./PaymentsStyledComponents";
-
-export interface PaymentsTextProps {
-  newsroomName: string;
-  usdToSpend?: number;
-}
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
 
@@ -56,6 +51,18 @@ export const PayWithCardMinimumText: React.FunctionComponent = props => (
   </p>
 );
 
+export interface PaymentsUpdatedTextProps {
+  etherToSpend?: number;
+  usdToSpend?: number;
+}
+
+export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentsUpdatedTextProps> = props => (
+  <p>
+    <span>Your Boost amount was updated.</span>
+    Your new Boost amount will be {props.etherToSpend} &asymp; {props.usdToSpend} when you complete your Boost.
+  </p>
+);
+
 export const PayWithCardAdjustedText: React.FunctionComponent = props => (
   <>
     Adjusted <span>$2</span>
@@ -63,8 +70,21 @@ export const PayWithCardAdjustedText: React.FunctionComponent = props => (
 );
 
 export const ConnectWalletWarningText: React.FunctionComponent = props => (
-  <PaymentWarning>
+  <PaymentWarning redText={true}>
     <ErrorIcon height={15} width={15} /> You need a digital wallet to continue.
+  </PaymentWarning>
+);
+
+export const EnoughETHInWalletText: React.FunctionComponent = props => (
+  <PaymentWarning>
+    <HollowGreenCheck height={15} width={15} /> You have enough ETH in your connected wallet.
+  </PaymentWarning>
+);
+
+export const NotEnoughETHInWalletText: React.FunctionComponent = props => (
+  <PaymentWarning>
+    <ErrorIcon height={15} width={15} /> You don't have enough ETH in your connected wallet. You can update your Boost
+    or purchase more ETH in your wallet.
   </PaymentWarning>
 );
 
@@ -92,6 +112,11 @@ export const PaymentInProgressText: React.FunctionComponent = props => (
     <ClipLoader />
   </>
 );
+
+export interface PaymentsTextProps {
+  newsroomName: string;
+  usdToSpend?: number;
+}
 
 export const PaymentSuccessText: React.FunctionComponent<PaymentsTextProps> = props => (
   <>

@@ -6,7 +6,7 @@ import {
   Contributors,
   ContributorCount,
   Payments,
-  StoryModal,
+  PaymentsModal,
   StoryNewsroomStatus,
 } from "@joincivil/components";
 import { StoryBoostData } from "./types";
@@ -109,7 +109,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 <span>Support this newsroom</span>
                 <PaymentButton onClick={this.handleStartPayment} />
               </StoryBoostFooter>
-              <StoryModal open={this.state.paymentsOpen}>
+              <PaymentsModal open={this.state.paymentsOpen}>
                 <Payments
                   postId={this.props.boostId}
                   newsroomName={storyBoostData.channel.newsroom.name}
@@ -121,7 +121,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   handleLogin={this.props.handleLogin}
                   handleClose={this.handleEndPayment}
                 />
-              </StoryModal>
+              </PaymentsModal>
             </>
           );
         }}
