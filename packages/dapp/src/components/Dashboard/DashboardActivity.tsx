@@ -335,6 +335,7 @@ class DashboardActivity extends React.Component<
             const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
               data.allChallenges,
               USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+              true,
             );
 
             const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(

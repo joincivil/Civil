@@ -438,10 +438,18 @@ export function transformGraphQLDataIntoDashboardChallengesSet(
   return allChallenges;
 }
 
-export function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollType: string): Set<string> {
+export function getUserChallengeDataSetByPollType(
+  queryUserChallengeData: any[],
+  pollType: string,
+  filterAvailableActions?: boolean,
+): Set<string> {
   const challengeIDs = queryUserChallengeData
     .filter(challengeData => {
-      return challengeData.pollType === pollType;
+      return userChallengeDataFilter(
+        challengeData,
+        pollType,
+        filterAvailableActions,
+      );
     })
     .map(challengeData => {
       return challengeData.pollID;
