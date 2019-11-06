@@ -9,7 +9,7 @@ import {
   EthAddress,
   EthContentHeader,
 } from "@joincivil/core";
-import { NewsroomState } from "@joincivil/newsroom-signup";
+// import { NewsroomState } from "@joincivil/newsroom-signup";
 
 export interface MyTasksItemOwnProps {
   challengeID?: string;
