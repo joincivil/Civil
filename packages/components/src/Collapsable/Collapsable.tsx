@@ -85,8 +85,8 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
     return (
       <div className={this.props.className}>
         <HeaderWrapper onClick={this.open} isOpen={this.state.open}>
-          {HeaderComponent && <HeaderComponent isOpen={this.state.open} count={this.props.count}/>}
-          {header && <>{header}{" "}</>}
+          {HeaderComponent && <HeaderComponent isOpen={this.state.open} count={this.props.count} />}
+          {header && <>{header} </>}
           {this.props.ArrowComponent ? (
             <this.props.ArrowComponent disabled={this.props.disabled} open={this.state.open} />
           ) : (

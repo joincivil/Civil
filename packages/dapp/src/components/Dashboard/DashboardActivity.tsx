@@ -187,7 +187,6 @@ class DashboardActivity extends React.Component<
 
   public render(): JSX.Element {
     return (
-
       <WithNewsroomChannelAdminList>
         {({ newsroomAddresses }) => {
           return (
@@ -195,24 +194,37 @@ class DashboardActivity extends React.Component<
               {({ loading: nrsignupLoading, error: nrsignupError, data: nrsignupData }: any): JSX.Element => {
                 return (
                   <Query query={USER_CHALLENGE_DASHBOARD_QUERY} variables={{ userAddress: this.props.userAccount }}>
-                    {({ loading: challengeLoading, error: challengeError, data: challengeData, challengeRefetch }: any): JSX.Element => {
+                    {({
+                      loading: challengeLoading,
+                      error: challengeError,
+                      data: challengeData,
+                      challengeRefetch,
+                    }: any): JSX.Element => {
                       if (nrsignupLoading || challengeLoading) {
-                        console.log("loading.")
+                        console.log("loading.");
                         return <LoadingMessage />;
                       }
                       if (nrsignupError && !nrsignupError.toString().includes(NO_JSONB)) {
                         console.log("error loading user nrsignup: ", nrsignupError);
-                        return <ErrorLoadingDataMsg />
+                        return <ErrorLoadingDataMsg />;
                       }
                       if (challengeError && !challengeError.toString().includes(NO_RESULTS)) {
                         console.log("error loading user challenges: ", challengeError);
-                        return <ErrorLoadingDataMsg />
+                        return <ErrorLoadingDataMsg />;
                       }
 
                       const myChallengesViewProps = this.getMyChallengesViewProps(challengeError, challengeData);
-                      const myTasksViewProps = this.getMyTasksViewProps(challengeError, challengeData, challengeRefetch);
+                      const myTasksViewProps = this.getMyTasksViewProps(
+                        challengeError,
+                        challengeData,
+                        challengeRefetch,
+                      );
 
-                      const numUserNewsrooms = newsroomAddresses.count() + ((nrsignupData && nrsignupData.nrsignupNewsroom) ? nrsignupData.nrsignupNewsroom.newsroomAddress.size() : 0);
+                      const numUserNewsrooms =
+                        newsroomAddresses.count() +
+                        (nrsignupData && nrsignupData.nrsignupNewsroom
+                          ? nrsignupData.nrsignupNewsroom.newsroomAddress.size()
+                          : 0);
 
                       console.log("myTasksViewProps.numUserTasks: ", myTasksViewProps.numUserTasks);
                       console.log("myChallengesViewProps.numUserChallenges: ", myChallengesViewProps.numUserChallenges);
@@ -223,7 +235,11 @@ class DashboardActivity extends React.Component<
                           <DashboardActivityComponent
                             userVotes={this.renderUserVotes(challengeError, myTasksViewProps)}
                             numUserVotes={myTasksViewProps.numUserTasks}
-                            userNewsrooms={this.renderWithNrsignupNewsrooms(newsroomAddresses, nrsignupError, nrsignupData)}
+                            userNewsrooms={this.renderWithNrsignupNewsrooms(
+                              newsroomAddresses,
+                              nrsignupError,
+                              nrsignupData,
+                            )}
                             numUserNewsrooms={numUserNewsrooms}
                             userChallenges={this.renderUserChallenges(challengeError, myChallengesViewProps)}
                             numUserChallenges={myChallengesViewProps.numUserChallenges}
@@ -234,14 +250,15 @@ class DashboardActivity extends React.Component<
                         </>
                       );
                     }}
-                  </Query>) }}
-
+                  </Query>
+                );
+              }}
             </Query>
           );
         }}
       </WithNewsroomChannelAdminList>
-      );
-    }
+    );
+  }
 
   private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>, error: any, data: any): JSX.Element => {
     const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
@@ -282,7 +299,7 @@ class DashboardActivity extends React.Component<
   private getMyChallengesViewProps = (error: any, data: any): any => {
     if (error) {
       console.log("EARLY RETURN!!!");
-      return {}
+      return {};
     }
     const allCompletedChallengesVotedOn = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
     const allProposalChallengesVotedOn = getUserChallengeDataSetByPollType(
@@ -302,9 +319,7 @@ class DashboardActivity extends React.Component<
       }
     });
 
-    const currentUserChallengesStarted = Set<string>(
-      data.challengesStarted.map(challenge => challenge.challengeID),
-    );
+    const currentUserChallengesStarted = Set<string>(data.challengesStarted.map(challenge => challenge.challengeID));
 
     const numUserChallenges =
       allCompletedChallengesVotedOn!.count() +
@@ -326,7 +341,7 @@ class DashboardActivity extends React.Component<
     };
 
     return myTasksViewProps;
-  }
+  };
 
   private renderUserChallenges = (error: any, myTasksViewProps: any): JSX.Element => {
     if (error) {
@@ -345,7 +360,7 @@ class DashboardActivity extends React.Component<
       refetch();
     };
     if (error) {
-      return {}
+      return {};
     }
     const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
       data.allChallenges,
@@ -359,9 +374,7 @@ class DashboardActivity extends React.Component<
       true,
     );
 
-    const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
-      data.challengesToReveal,
-    );
+    const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(data.challengesToReveal);
     const proposalChallengesWithUnrevealedVotes = getUserChallengeDataSetByPollType(
       data.challengesToReveal,
       USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
@@ -391,9 +404,7 @@ class DashboardActivity extends React.Component<
       }
     });
 
-    const numUserTasks =
-      allChallengesWithAvailableActions!.count() +
-      proposalChallengesWithAvailableActions!.count();
+    const numUserTasks = allChallengesWithAvailableActions!.count() + proposalChallengesWithAvailableActions!.count();
 
     const myTasksProps = {
       userChallengeData: userChallengeDataMap,
@@ -418,7 +429,7 @@ class DashboardActivity extends React.Component<
     };
 
     return myTasksProps;
-  }
+  };
 
   private renderUserVotes = (error: any, myTasksViewProps: any): JSX.Element => {
     if (error) {

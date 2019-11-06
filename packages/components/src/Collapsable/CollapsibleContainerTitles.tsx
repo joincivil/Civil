@@ -7,11 +7,7 @@ export interface CollapsibleContainerTitleProps {
 }
 
 const CollapsibleContainerTitle: React.FunctionComponent<CollapsibleContainerTitleProps> = props => {
-  return (
-    <div>
-      {props.children}
-    </div>
-  );
+  return <div>{props.children}</div>;
 };
 
 export const TasksTitle: React.FunctionComponent<CollapsibleContainerTitleProps> = props => {

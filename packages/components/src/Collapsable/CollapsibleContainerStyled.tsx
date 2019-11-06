@@ -44,12 +44,12 @@ export interface StyledResponsiveCollapsibleContainersToggleButtonProps {
 }
 
 export const StyledResponsiveCollapsibleContainersToggleButton = styled.div`
-
   display: block;
   position: absolute;
   right: 16px;
   top: 16px;
-  transform: ${(props: StyledResponsiveCollapsibleContainersToggleButtonProps) => (props.isOpen ? "rotate(180deg)" : "rotate(0)")};
+  transform: ${(props: StyledResponsiveCollapsibleContainersToggleButtonProps) =>
+    props.isOpen ? "rotate(180deg)" : "rotate(0)"};
   z-index: 2;
 
   & svg {

@@ -13,7 +13,7 @@ import {
 
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
-import TransferCivilTokens from "./TransferCivilTokens";
+// import TransferCivilTokens from "./TransferCivilTokens";
 
 export interface MyTasksProps {
   allChallengesWithAvailableActions: Set<string>;
@@ -57,69 +57,73 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
   } = props;
 
   const revealTasksCount = allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count();
-  const revealVoteTabTitle = (
-    <RevealVoteDashboardTabTitle
-      count={revealTasksCount}
-    />
-  );
+  const revealVoteTabTitle = <RevealVoteDashboardTabTitle count={revealTasksCount} />;
 
-  const claimRewardsCount = userChallengesWithUnclaimedRewards!.count() +
+  const claimRewardsCount =
+    userChallengesWithUnclaimedRewards!.count() +
     userAppealChallengesWithUnclaimedRewards!.count() +
-    proposalChallengesWithUnclaimedRewards!.count()
-  const claimRewardsTabTitle = (
-    <ClaimRewardsDashboardTabTitle
-      count={claimRewardsCount}
-    />
-  );
+    proposalChallengesWithUnclaimedRewards!.count();
+  const claimRewardsTabTitle = <ClaimRewardsDashboardTabTitle count={claimRewardsCount} />;
 
-  const rescueTokensCount = userChallengesWithRescueTokens!.count() +
+  const rescueTokensCount =
+    userChallengesWithRescueTokens!.count() +
     userAppealChallengesWithRescueTokens!.count() +
-    proposalChallengesWithRescueTokens!.count()
-  const rescueTokensTabTitle = (
-    <RescueTokensDashboardTabTitle
-      count={rescueTokensCount}
-    />
-  );
+    proposalChallengesWithRescueTokens!.count();
+  const rescueTokensTabTitle = <RescueTokensDashboardTabTitle count={rescueTokensCount} />;
 
   return (
     <>
-      <Collapsable header={revealVoteTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={revealTasksCount > 0}>
-          <MyTasksList
-            challenges={allChallengesWithUnrevealedVotes}
-            proposalChallenges={proposalChallengesWithUnrevealedVotes}
-            userChallengeData={userChallengeData}
-            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-            refetchUserChallengeData={refetchUserChallengeData}
-            showClaimRewardsTab={showClaimRewardsTab}
-            showRescueTokensTab={showRescueTokensTab}
-          />
+      <Collapsable
+        header={revealVoteTabTitle}
+        headerWrapper={SmallStyledCollapsibleContainerHeader}
+        open={revealTasksCount > 0}
+      >
+        <MyTasksList
+          challenges={allChallengesWithUnrevealedVotes}
+          proposalChallenges={proposalChallengesWithUnrevealedVotes}
+          userChallengeData={userChallengeData}
+          challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+          refetchUserChallengeData={refetchUserChallengeData}
+          showClaimRewardsTab={showClaimRewardsTab}
+          showRescueTokensTab={showRescueTokensTab}
+        />
       </Collapsable>
-      <Collapsable header={claimRewardsTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={claimRewardsCount > 0}>
-          <ChallengesWithRewardsToClaim
-            challenges={userChallengesWithUnclaimedRewards}
-            appealChallenges={userAppealChallengesWithUnclaimedRewards}
-            proposalChallenges={proposalChallengesWithUnclaimedRewards}
-            userChallengeData={userChallengeData}
-            refetchUserChallengeData={refetchUserChallengeData}
-            onMobileTransactionClick={showNoMobileTransactionsModal}
-          />
+      <Collapsable
+        header={claimRewardsTabTitle}
+        headerWrapper={SmallStyledCollapsibleContainerHeader}
+        open={claimRewardsCount > 0}
+      >
+        <ChallengesWithRewardsToClaim
+          challenges={userChallengesWithUnclaimedRewards}
+          appealChallenges={userAppealChallengesWithUnclaimedRewards}
+          proposalChallenges={proposalChallengesWithUnclaimedRewards}
+          userChallengeData={userChallengeData}
+          refetchUserChallengeData={refetchUserChallengeData}
+          onMobileTransactionClick={showNoMobileTransactionsModal}
+        />
       </Collapsable>
-      <Collapsable header={rescueTokensTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={rescueTokensCount > 0}>
-          <ChallengesWithTokensToRescue
-            challenges={userChallengesWithRescueTokens}
-            appealChallenges={userAppealChallengesWithRescueTokens}
-            proposalChallenges={proposalChallengesWithRescueTokens}
-            userChallengeData={userChallengeData}
-            refetchUserChallengeData={refetchUserChallengeData}
-            onMobileTransactionClick={showNoMobileTransactionsModal}
-          />
+      <Collapsable
+        header={rescueTokensTabTitle}
+        headerWrapper={SmallStyledCollapsibleContainerHeader}
+        open={rescueTokensCount > 0}
+      >
+        <ChallengesWithTokensToRescue
+          challenges={userChallengesWithRescueTokens}
+          appealChallenges={userAppealChallengesWithRescueTokens}
+          proposalChallenges={proposalChallengesWithRescueTokens}
+          userChallengeData={userChallengeData}
+          refetchUserChallengeData={refetchUserChallengeData}
+          onMobileTransactionClick={showNoMobileTransactionsModal}
+        />
       </Collapsable>
     </>
   );
 };
 
-{/* <Collapsable header={<SubTabReclaimTokensText />} headerWrapper={SmallStyledCollapsibleContainerHeader} open={false}>
+{
+  /* <Collapsable header={<SubTabReclaimTokensText />} headerWrapper={SmallStyledCollapsibleContainerHeader} open={false}>
   <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
-</Collapsable> */}
+</Collapsable> */
+}
 
 export default MyTasks;

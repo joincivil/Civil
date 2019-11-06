@@ -42,7 +42,7 @@ export class CollapsibleContainer extends React.Component<CollapsibleContainerPr
     super(props);
     this.state = {
       isOpen: props.isOpen,
-    }
+    };
   }
   public render(): JSX.Element {
     const { Title } = this.props;
@@ -56,13 +56,11 @@ export class CollapsibleContainer extends React.Component<CollapsibleContainerPr
           <Title isOpen={this.state.isOpen} />
           <Arrow2 isOpen={this.state.isOpen} />
         </Header>
-        {this.state.isOpen && (<>
-          {this.props.children}
-        </>)}
+        {this.state.isOpen && <>{this.props.children}</>}
       </CollapsibleContainerDiv>
     );
   }
   private onClick = () => {
-    this.setState({isOpen: !this.state.isOpen})
+    this.setState({ isOpen: !this.state.isOpen });
   };
 }

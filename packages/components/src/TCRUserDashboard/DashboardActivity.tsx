@@ -1,9 +1,12 @@
 import * as React from "react";
-import { Collapsable, StyledCollapsibleContainerHeader, TasksTitle, HistoryTitle, NewsroomsTitle } from "../Collapsable";
 import {
-  StyledUserActivity,
-  StyledUserActivityContent,
-} from "./DashboardStyledComponents";
+  Collapsable,
+  StyledCollapsibleContainerHeader,
+  TasksTitle,
+  HistoryTitle,
+  NewsroomsTitle,
+} from "../Collapsable";
+import { StyledUserActivity, StyledUserActivityContent } from "./DashboardStyledComponents";
 
 export interface DashboardActivityProps {
   userVotes: JSX.Element;
@@ -24,14 +27,29 @@ export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> 
   console.log("tasksOpen: ", tasksOpen);
   return (
     <StyledUserActivity>
-      <Collapsable headerComponent={TasksTitle} headerWrapper={StyledCollapsibleContainerHeader} open={tasksOpen} count={props.numUserVotes}>
-          <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
+      <Collapsable
+        headerComponent={TasksTitle}
+        headerWrapper={StyledCollapsibleContainerHeader}
+        open={tasksOpen}
+        count={props.numUserVotes}
+      >
+        <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
       </Collapsable>
-      <Collapsable headerComponent={NewsroomsTitle} headerWrapper={StyledCollapsibleContainerHeader} open={newsroomsOpen} count={props.numUserNewsrooms || 0}>
-          <StyledUserActivityContent>{props.userNewsrooms}</StyledUserActivityContent>
+      <Collapsable
+        headerComponent={NewsroomsTitle}
+        headerWrapper={StyledCollapsibleContainerHeader}
+        open={newsroomsOpen}
+        count={props.numUserNewsrooms || 0}
+      >
+        <StyledUserActivityContent>{props.userNewsrooms}</StyledUserActivityContent>
       </Collapsable>
-      <Collapsable headerComponent={HistoryTitle} headerWrapper={StyledCollapsibleContainerHeader} open={false} count={props.numUserChallenges}>
-          <StyledUserActivityContent>{props.userChallenges}</StyledUserActivityContent>
+      <Collapsable
+        headerComponent={HistoryTitle}
+        headerWrapper={StyledCollapsibleContainerHeader}
+        open={false}
+        count={props.numUserChallenges}
+      >
+        <StyledUserActivityContent>{props.userChallenges}</StyledUserActivityContent>
       </Collapsable>
     </StyledUserActivity>
   );

@@ -16,11 +16,11 @@ export const StyledUserActivity = styled.div`
   background-color: ${colors.basic.WHITE};
   max-width: 1000px;
   margin-right: 30px;
-  margin-left:  30px;
+  margin-left: 30px;
   ${mediaQueries.MOBILE} {
     max-width: 100%;
     margin-right: 0px;
-    margin-left:  0px;
+    margin-left: 0px;
   }
 `;
 

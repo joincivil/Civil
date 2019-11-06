@@ -445,11 +445,7 @@ export function getUserChallengeDataSetByPollType(
 ): Set<string> {
   const challengeIDs = queryUserChallengeData
     .filter(challengeData => {
-      return userChallengeDataFilter(
-        challengeData,
-        pollType,
-        filterAvailableActions,
-      );
+      return userChallengeDataFilter(challengeData, pollType, filterAvailableActions);
     })
     .map(challengeData => {
       return challengeData.pollID;

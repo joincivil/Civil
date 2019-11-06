@@ -10,23 +10,23 @@ storiesOf("Common / CollapsibleContainers", module)
     return (
       <CollapsibleContainer Title={<span>"Index"</span>}>
         <p>Some Content</p>
-      </CollapsibleContainer >
-    )
+      </CollapsibleContainer>
+    );
   })
   .add("Unstyled Stacked Large CollapsibleContainer", () => {
     return (
       <>
         <CollapsibleContainer Title={<TasksText />}>
-        <p>Some Content</p>
-      </CollapsibleContainer>
+          <p>Some Content</p>
+        </CollapsibleContainer>
         <CollapsibleContainer Title={<NewsroomsText />}>
-        <p>Some other Content</p>
-      </CollapsibleContainer>
-        <CollapsibleContainer Title={<HistoryText/>}>
-        <p>3rd bit of Content</p>
-      </CollapsibleContainer>
+          <p>Some other Content</p>
+        </CollapsibleContainer>
+        <CollapsibleContainer Title={<HistoryText />}>
+          <p>3rd bit of Content</p>
+        </CollapsibleContainer>
       </>
-    )
+    );
   })
   .add("Stacked Large StyledCollapsibleContainerHeader", () => {
     return (
@@ -41,5 +41,5 @@ storiesOf("Common / CollapsibleContainers", module)
           <p>3rd bit of Content</p>
         </CollapsibleContainer>
       </>
-    )
-  })
+    );
+  });

@@ -35,14 +35,18 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
   } = props;
 
   const completedChallengesCount = allCompletedChallengesVotedOn.count();
-  const completedChallengesTitle = <ChallengesCompletedDashboardTabTitle count={completedChallengesCount}/>;
+  const completedChallengesTitle = <ChallengesCompletedDashboardTabTitle count={completedChallengesCount} />;
 
   const challengesStartedCount = currentUserChallengesStarted.count();
   const stakedChallengesTitle = <ChallengesStakedDashboardTabTitle count={challengesStartedCount} />;
 
   return (
     <>
-      <Collapsable header={completedChallengesTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={completedChallengesCount > 0}>
+      <Collapsable
+        header={completedChallengesTitle}
+        headerWrapper={SmallStyledCollapsibleContainerHeader}
+        open={completedChallengesCount > 0}
+      >
         <>
           <MyTasksList
             challenges={allCompletedChallengesVotedOn}
@@ -55,7 +59,11 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
           />
         </>
       </Collapsable>
-      <Collapsable header={stakedChallengesTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={challengesStartedCount > 0}>
+      <Collapsable
+        header={stakedChallengesTitle}
+        headerWrapper={SmallStyledCollapsibleContainerHeader}
+        open={challengesStartedCount > 0}
+      >
         <>
           <MyTasksList
             userChallengeData={userChallengeData}
