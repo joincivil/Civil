@@ -110,6 +110,72 @@ const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
       numTokens
       voterReward
       parentChallengeID
+      challenge {
+        challengeID
+        listingAddress
+        listing {
+          name
+          owner
+          ownerAddresses
+          contractAddress
+          whitelisted
+          lastGovState
+          lastUpdatedDate
+          charter {
+            uri
+            contentID
+            revisionID
+            signature
+            author
+            contentHash
+            timestamp
+          }
+          unstakedDeposit
+          appExpiry
+          approvalDate
+        }
+        statement
+        rewardPool
+        challenger
+        resolved
+        stake
+        totalTokens
+        poll {
+          commitEndDate
+          revealEndDate
+          voteQuorum
+          votesFor
+          votesAgainst
+        }
+        requestAppealExpiry
+        lastUpdatedDateTs
+        appeal {
+          requester
+          appealFeePaid
+          appealPhaseExpiry
+          appealGranted
+          appealOpenToChallengeExpiry
+          statement
+          appealChallengeID
+          appealGrantedStatementURI
+          appealChallenge {
+            challengeID
+            statement
+            rewardPool
+            challenger
+            resolved
+            stake
+            totalTokens
+            poll {
+              commitEndDate
+              revealEndDate
+              voteQuorum
+              votesFor
+              votesAgainst
+            }
+          }
+        }
+      }
     }
     challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
       pollID
