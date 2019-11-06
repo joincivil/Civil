@@ -30,24 +30,40 @@ import { CivilHelperContext } from "../apis/CivilHelper";
 
 import { initializeContractAddresses } from "../helpers/contractAddresses";
 // PAGES
-const ChallengePage = React.lazy(async () => import("./listing/Challenge"));
-const Listing = React.lazy(async () => import("./listing/Listing"));
-const Listings = React.lazy(async () => import("./listinglist/Listings"));
-const NewsroomManagementV1 = React.lazy(async () => import("./newsroom/NewsroomManagement"));
-const Parameterizer = React.lazy(async () => import("./Parameterizer"));
-const Government = React.lazy(async () => import("./council/Government"));
-const SubmitChallengePage = React.lazy(async () => import("./listing/SubmitChallenge"));
-const SubmitAppealChallengePage = React.lazy(async () => import("./listing/SubmitAppealChallenge"));
-const RequestAppealPage = React.lazy(async () => import("./listing/RequestAppeal"));
-const ContractAddresses = React.lazy(async () => import("./ContractAddresses"));
-const SignUpNewsroom = React.lazy(async () => import("./SignUpNewsroom"));
-const StorefrontPage = React.lazy(async () => import("./Tokens/StorefrontPage"));
-const DashboardPage = React.lazy(async () => import("./Dashboard/DashboardPage"));
-const BoostPage = React.lazy(async () => import("./Boosts/Boost"));
-const BoostFeedPage = React.lazy(async () => import("./Boosts/BoostFeed"));
-const StoryFeedPage = React.lazy(async () => import("./StoryFeed/StoryFeed"));
+const ChallengePage = React.lazy(async () => import(/* webpackChunkName: "challenge-page" */ "./listing/Challenge"));
+const Listing = React.lazy(async () => import(/* webpackChunkName: "listing-page" */ "./listing/Listing"));
+const Listings = React.lazy(async () => import(/* webpackChunkName: "listings-page" */ "./listinglist/Listings"));
+const NewsroomManagementV1 = React.lazy(async () =>
+  import(/* webpackChunkName: "newsroom-mgmt-page" */ "./newsroom/NewsroomManagement"),
+);
+const Parameterizer = React.lazy(async () => import(/* webpackChunkName: "parameterizer-page" */ "./Parameterizer"));
+const Government = React.lazy(async () => import(/* webpackChunkName: "government-page" */ "./council/Government"));
+const SubmitChallengePage = React.lazy(async () =>
+  import(/* webpackChunkName: "submit-challenge-page" */ "./listing/SubmitChallenge"),
+);
+const SubmitAppealChallengePage = React.lazy(async () =>
+  import(/* webpackChunkName: "challenge-page" */ "./listing/SubmitAppealChallenge"),
+);
+const RequestAppealPage = React.lazy(async () =>
+  import(/* webpackChunkName: "request-appeal-page" */ "./listing/RequestAppeal"),
+);
+const ContractAddresses = React.lazy(async () =>
+  import(/* webpackChunkName: "contract-addresses-page" */ "./ContractAddresses"),
+);
+const SignUpNewsroom = React.lazy(async () =>
+  import(/* webpackChunkName: "signup-newsroom-page" */ "./SignUpNewsroom"),
+);
+const StorefrontPage = React.lazy(async () =>
+  import(/* webpackChunkName: "storefront-page" */ "./Tokens/StorefrontPage"),
+);
+const DashboardPage = React.lazy(async () =>
+  import(/* webpackChunkName: "dashboard-page" */ "./Dashboard/DashboardPage"),
+);
+const BoostPage = React.lazy(async () => import(/* webpackChunkName: "boost-page" */ "./Boosts/Boost"));
+const BoostFeedPage = React.lazy(async () => import(/* webpackChunkName: "boost-feed-page" */ "./Boosts/BoostFeed"));
+const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeed"));
 const ManageNewsroomChannelPage = React.lazy(async () =>
-  import("./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
+  import(/* webpackChunkName: "manage-newsroom-channel" */ "./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
 );
 
 export interface MainReduxProps {

@@ -7,14 +7,14 @@ import { routes } from "../../constants";
 import SetUsername from "./SetUsername";
 import ConfirmEmail from "./ConfirmEmail";
 
-const AuthLogin = React.lazy(async () => import("./Login"));
-const AuthWeb3Login = React.lazy(async () => import("./AuthWeb3Login"));
-const AuthWeb3Signup = React.lazy(async () => import("./AuthWeb3Signup"));
-const AuthEthConnected = React.lazy(async () => import("./Eth"));
-const AuthSignup = React.lazy(async () => import("./Signup"));
-const AuthCheckEmail = React.lazy(async () => import("./CheckEmail"));
-const AuthVerifyToken = React.lazy(async () => import("./VerifyToken"));
-const AuthLogout = React.lazy(async () => import("./AuthLogout"));
+const AuthLogin = React.lazy(async () => import(/* webpackChunkName: "auth-login" */ "./Login"));
+const AuthWeb3Login = React.lazy(async () => import(/* webpackChunkName: "auth-web3login" */ "./AuthWeb3Login"));
+const AuthWeb3Signup = React.lazy(async () => import(/* webpackChunkName: "auth-web3-signup" */ "./AuthWeb3Signup"));
+const AuthEthConnected = React.lazy(async () => import(/* webpackChunkName: "auth-eth" */ "./Eth"));
+const AuthSignup = React.lazy(async () => import(/* webpackChunkName: "auth-signup" */ "./Signup"));
+const AuthCheckEmail = React.lazy(async () => import(/* webpackChunkName: "auth-check-email" */ "./CheckEmail"));
+const AuthVerifyToken = React.lazy(async () => import(/* webpackChunkName: "auth-verify-token" */ "./VerifyToken"));
+const AuthLogout = React.lazy(async () => import(/* webpackChunkName: "auth-logout" */ "./AuthLogout"));
 
 interface AuthVerifyTokenRouteParams {
   token: string;
