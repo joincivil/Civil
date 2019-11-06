@@ -3,7 +3,7 @@ import { Set, Map } from "immutable";
 import NewsroomsListItem from "./NewsroomsListItem";
 
 export interface NewsroomsListOwnProps {
-  listings?: Set<string>;
+  listings?: Set<any>;
   newsroomsApplicationProgressData?: Map<string, any>;
 }
 
@@ -13,11 +13,11 @@ const NewsroomsList: React.FunctionComponent<NewsroomsListOwnProps> = props => {
     <>
       {listings &&
         listings.map(l => {
-          let applicationProgressData;
-          if (newsroomsApplicationProgressData) {
-            applicationProgressData = newsroomsApplicationProgressData.get(l!);
-          }
-          return <NewsroomsListItem key={l} listingAddress={l!} applicationProgressData={applicationProgressData} />;
+          // let applicationProgressData;
+          // if (newsroomsApplicationProgressData) {
+          //   applicationProgressData = newsroomsApplicationProgressData.get(l!);
+          // }
+          return <NewsroomsListItem key={l} listing={l!.listing!} />;
         })}
     </>
   );

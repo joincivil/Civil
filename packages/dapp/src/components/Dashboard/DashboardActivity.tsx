@@ -256,7 +256,7 @@ class DashboardActivity extends React.Component<
   public render(): JSX.Element {
     return (
       <WithNewsroomChannelAdminList>
-        {({ newsroomAddresses }) => {
+        {({ newsrooms }) => {
           return (
             <Query query={USER_NRSIGNUP_QUERY}>
               {({ loading: nrsignupLoading, error: nrsignupError, data: nrsignupData }: any): JSX.Element => {
@@ -289,10 +289,9 @@ class DashboardActivity extends React.Component<
                       );
 
                       const numUserNewsrooms =
-                        newsroomAddresses.count() +
+                        newsrooms.count() ||
                         (nrsignupData && nrsignupData.nrsignupNewsroom
-                          ? nrsignupData.nrsignupNewsroom.newsroomAddress.size()
-                          : 0);
+                          && nrsignupData.nrsignupNewsroom.newsroomAddress ? 1 : 0);
 
                       if (!this.state.hasActiveTabIndexBeenSet) {
                         let activeIndex = 0;
@@ -309,7 +308,7 @@ class DashboardActivity extends React.Component<
                             userVotes={this.renderUserVotes(challengeError, myTasksViewProps)}
                             numUserVotes={myTasksViewProps.numUserTasks}
                             userNewsrooms={this.renderWithNrsignupNewsrooms(
-                              newsroomAddresses,
+                              newsrooms,
                               nrsignupError,
                               nrsignupData,
                             )}
@@ -333,40 +332,40 @@ class DashboardActivity extends React.Component<
     );
   }
 
-  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>, error: any, data: any): JSX.Element => {
+  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<any>, error: any, data: any): JSX.Element => {
     const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
 
     if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
-    let newsrooms = channelNewsrooms;
+    const newsrooms = channelNewsrooms;
 
-    let newsroomsApplicationProgressData;
-    let hasAppInProgress;
-    if (data && data.nrsignupNewsroom) {
-      if (data.nrsignupNewsroom.newsroomAddress) {
-        newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
-        newsroomsApplicationProgressData = Map<EthAddress, any>();
-        newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
-          data.nrsignupNewsroom.newsroomAddress,
-          data.nrsignupNewsroom,
-        );
-      } else if (data.nrsignupNewsroom.charter) {
-        hasAppInProgress = true;
-      }
-    }
+    // let newsroomsApplicationProgressData;
+    // let hasAppInProgress;
+    // if (data && data.nrsignupNewsroom) {
+    //   if (data.nrsignupNewsroom.newsroomAddress) {
+    //     newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
+    //     newsroomsApplicationProgressData = Map<EthAddress, any>();
+    //     newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+    //       data.nrsignupNewsroom.newsroomAddress,
+    //       data.nrsignupNewsroom,
+    //     );
+    //   } else if (data.nrsignupNewsroom.charter) {
+    //     hasAppInProgress = true;
+    //   }
+    // }
 
     if (!newsrooms.size) {
-      return <NoNewsrooms hasInProgressApplication={hasAppInProgress} applyToRegistryURL={registryUrl} />;
+      return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
     return (
       <>
-        <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
-        {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
+        <NewsroomsList listings={newsrooms} />
       </>
     );
+    // {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
   };
 
   private getMyChallengesViewProps = (error: any, data: any): any => {

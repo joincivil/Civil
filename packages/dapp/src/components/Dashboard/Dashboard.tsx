@@ -14,11 +14,11 @@ import DashboardActivity from "./DashboardActivity";
 
 const StyledDashboardActivityContainer = styled.div`
   box-sizing: border-box;
-  padding: 0 0 0px 0px;
   margin-top: 40px;
+
   ${mediaQueries.MOBILE} {
     max-width: 100%;
-    margin-top: 0px;
+    margin: 0;
   }
 `;
 
