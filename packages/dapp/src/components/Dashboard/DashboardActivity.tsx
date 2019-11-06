@@ -80,10 +80,11 @@ export const StyledBatchButtonContainer = styled.div`
 `;
 
 const NO_RESULTS = "No results from persister";
+const NO_JSONB = "No jsonb found";
 
-const NRSIGNUP_NEWSROOMS_QUERY = gql`
+const USER_NRSIGNUP_QUERY = gql`
   query {
-    nrsignupNewsroom {
+    nrsignupNewsroom: nrsignupNewsroom {
       charter {
         name
       }
@@ -93,7 +94,7 @@ const NRSIGNUP_NEWSROOMS_QUERY = gql`
   }
 `;
 
-const DASHBOARD_USER_CHALLENGE_DATA_QUERY = gql`
+const USER_CHALLENGE_DASHBOARD_QUERY = gql`
   query($userAddress: String!) {
     allChallenges: userChallengeData(userAddr: $userAddress) {
       pollID
@@ -186,217 +187,245 @@ class DashboardActivity extends React.Component<
 
   public render(): JSX.Element {
     return (
-      <>
-        <DashboardActivityComponent
-          userVotes={this.renderUserVotes()}
-          userNewsrooms={this.renderUserNewsrooms()}
-          userChallenges={this.renderUserChallenges()}
-          activeIndex={this.state.activeTabIndex}
-          onTabChange={this.setActiveTabIndex}
-        />
-        {this.renderNoMobileTransactions()}
-      </>
-    );
-  }
 
-  private renderUserNewsrooms = (): JSX.Element => {
-    return (
       <WithNewsroomChannelAdminList>
-        {({ newsroomAddresses }) => this.renderWithNrsignupNewsrooms(newsroomAddresses)}
-      </WithNewsroomChannelAdminList>
-    );
-  };
-
-  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>): JSX.Element => {
-    const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
-    return (
-      <Query query={NRSIGNUP_NEWSROOMS_QUERY}>
-        {({ loading, error, data }: any): JSX.Element => {
-          if (loading) {
-            return <LoadingMessage />;
-          }
-          if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
-            return <NoNewsrooms applyToRegistryURL={registryUrl} />;
-          }
-
-          let newsrooms = channelNewsrooms;
-
-          let newsroomsApplicationProgressData;
-          let hasAppInProgress;
-          if (data && data.nrsignupNewsroom) {
-            if (data.nrsignupNewsroom.newsroomAddress) {
-              newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
-              newsroomsApplicationProgressData = Map<EthAddress, any>();
-              newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
-                data.nrsignupNewsroom.newsroomAddress,
-                data.nrsignupNewsroom,
-              );
-            } else if (data.nrsignupNewsroom.charter) {
-              hasAppInProgress = true;
-            }
-          }
-
-          if (!newsrooms.size) {
-            return <NoNewsrooms hasInProgressApplication={hasAppInProgress} applyToRegistryURL={registryUrl} />;
-          }
-
+        {({ newsroomAddresses }) => {
           return (
-            <>
-              <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
-              {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
-            </>
+            <Query query={USER_NRSIGNUP_QUERY}>
+              {({ loading: nrsignupLoading, error: nrsignupError, data: nrsignupData }: any): JSX.Element => {
+                return (
+                  <Query query={USER_CHALLENGE_DASHBOARD_QUERY} variables={{ userAddress: this.props.userAccount }}>
+                    {({ loading: challengeLoading, error: challengeError, data: challengeData, challengeRefetch }: any): JSX.Element => {
+                      if (nrsignupLoading || challengeLoading) {
+                        console.log("loading.")
+                        return <LoadingMessage />;
+                      }
+                      if (nrsignupError && !nrsignupError.toString().includes(NO_JSONB)) {
+                        console.log("error loading user nrsignup: ", nrsignupError);
+                        return <ErrorLoadingDataMsg />
+                      }
+                      if (challengeError && !challengeError.toString().includes(NO_RESULTS)) {
+                        console.log("error loading user challenges: ", challengeError);
+                        return <ErrorLoadingDataMsg />
+                      }
+
+                      const myChallengesViewProps = this.getMyChallengesViewProps(challengeError, challengeData);
+                      const myTasksViewProps = this.getMyTasksViewProps(challengeError, challengeData, challengeRefetch);
+
+                      console.log("myTasksViewProps.numUserTasks: ", myTasksViewProps.numUserTasks);
+                      console.log("myChallengesViewProps.numUserChallenges: ", myChallengesViewProps.numUserChallenges);
+
+                      return (
+                        <>
+                          <DashboardActivityComponent
+                            userVotes={this.renderUserVotes(challengeError, myTasksViewProps)}
+                            numUserVotes={myTasksViewProps.numUserTasks}
+                            userNewsrooms={this.renderWithNrsignupNewsrooms(newsroomAddresses, nrsignupError, nrsignupData)}
+                            userChallenges={this.renderUserChallenges(challengeError, myChallengesViewProps)}
+                            numUserChallenges={myChallengesViewProps.numUserChallenges}
+                            activeIndex={this.state.activeTabIndex}
+                            onTabChange={this.setActiveTabIndex}
+                          />
+                          {this.renderNoMobileTransactions()}
+                        </>
+                      );
+                    }}
+                  </Query>) }}
+
+            </Query>
           );
         }}
-      </Query>
+      </WithNewsroomChannelAdminList>
+      );
+    }
+
+  private renderWithNrsignupNewsrooms = (channelNewsrooms: Set<EthAddress>, error: any, data: any): JSX.Element => {
+    const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
+
+    if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
+      return <NoNewsrooms applyToRegistryURL={registryUrl} />;
+    }
+
+    let newsrooms = channelNewsrooms;
+
+    let newsroomsApplicationProgressData;
+    let hasAppInProgress;
+    if (data && data.nrsignupNewsroom) {
+      if (data.nrsignupNewsroom.newsroomAddress) {
+        newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
+        newsroomsApplicationProgressData = Map<EthAddress, any>();
+        newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
+          data.nrsignupNewsroom.newsroomAddress,
+          data.nrsignupNewsroom,
+        );
+      } else if (data.nrsignupNewsroom.charter) {
+        hasAppInProgress = true;
+      }
+    }
+
+    if (!newsrooms.size) {
+      return <NoNewsrooms hasInProgressApplication={hasAppInProgress} applyToRegistryURL={registryUrl} />;
+    }
+
+    return (
+      <>
+        <NewsroomsList listings={newsrooms} newsroomsApplicationProgressData={newsroomsApplicationProgressData} />
+        {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
+      </>
     );
   };
 
-  private renderUserChallenges = (): JSX.Element => {
-    return (
-      <Query query={DASHBOARD_USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
-        {({ loading, error, data }: any): JSX.Element => {
-          if (error) {
-            if (error.toString().includes(NO_RESULTS)) {
-              return <NoChallenges />;
-            } else {
-              return <ErrorLoadingDataMsg />;
-            }
-          }
-          if (loading || !data) {
-            return <LoadingMessage />;
-          }
-          if (data) {
-            const allCompletedChallengesVotedOn = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
-            const allProposalChallengesVotedOn = getUserChallengeDataSetByPollType(
-              data.allChallenges,
-              USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
-            );
-
-            let userChallengeDataMap = Map<string, any>();
-            let challengeToAppealChallengeMap = Map<string, string>();
-            data.allChallenges.forEach((challengeData: any) => {
-              userChallengeDataMap = userChallengeDataMap.set(challengeData.pollID, challengeData);
-              if (challengeData.pollType === "APPEAL_CHALLENGE") {
-                challengeToAppealChallengeMap = challengeToAppealChallengeMap.set(
-                  challengeData.parentChallengeID,
-                  challengeData.pollID,
-                );
-              }
-            });
-
-            const currentUserChallengesStarted = Set<string>(
-              data.challengesStarted.map(challenge => challenge.challengeID),
-            );
-            const myTasksViewProps = {
-              userChallengeData: userChallengeDataMap,
-              challengeToAppealChallengeMap,
-              allCompletedChallengesVotedOn,
-              allProposalChallengesVotedOn,
-              currentUserChallengesStarted,
-              activeSubTabIndex: this.state.activeSubTabIndex,
-              setActiveSubTabIndex: this.setActiveSubTabIndex,
-              showClaimRewardsTab: this.showClaimRewardsTab,
-              showRescueTokensTab: this.showRescueTokensTab,
-              showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
-            };
-
-            return <MyChallenges {...myTasksViewProps} useGraphQL={true} />;
-          }
-          return <LoadingMessage />;
-        }}
-      </Query>
+  private getMyChallengesViewProps = (error: any, data: any): any => {
+    if (error) {
+      console.log("EARLY RETURN!!!");
+      return {}
+    }
+    const allCompletedChallengesVotedOn = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
+    const allProposalChallengesVotedOn = getUserChallengeDataSetByPollType(
+      data.allChallenges,
+      USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
     );
+
+    let userChallengeDataMap = Map<string, any>();
+    let challengeToAppealChallengeMap = Map<string, string>();
+    data.allChallenges.forEach((challengeData: any) => {
+      userChallengeDataMap = userChallengeDataMap.set(challengeData.pollID, challengeData);
+      if (challengeData.pollType === "APPEAL_CHALLENGE") {
+        challengeToAppealChallengeMap = challengeToAppealChallengeMap.set(
+          challengeData.parentChallengeID,
+          challengeData.pollID,
+        );
+      }
+    });
+
+    const currentUserChallengesStarted = Set<string>(
+      data.challengesStarted.map(challenge => challenge.challengeID),
+    );
+
+    const numUserChallenges =
+      allCompletedChallengesVotedOn!.count() +
+      allProposalChallengesVotedOn!.count() +
+      currentUserChallengesStarted!.count();
+
+    const myTasksViewProps = {
+      userChallengeData: userChallengeDataMap,
+      challengeToAppealChallengeMap,
+      allCompletedChallengesVotedOn,
+      allProposalChallengesVotedOn,
+      currentUserChallengesStarted,
+      activeSubTabIndex: this.state.activeSubTabIndex,
+      setActiveSubTabIndex: this.setActiveSubTabIndex,
+      showClaimRewardsTab: this.showClaimRewardsTab,
+      showRescueTokensTab: this.showRescueTokensTab,
+      showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+      numUserChallenges,
+    };
+
+    return myTasksViewProps;
+  }
+
+  private renderUserChallenges = (error: any, myTasksViewProps: any): JSX.Element => {
+    if (error) {
+      if (error.toString().includes(NO_RESULTS)) {
+        return <NoChallenges />;
+      } else {
+        return <ErrorLoadingDataMsg />;
+      }
+    }
+
+    return <MyChallenges {...myTasksViewProps} useGraphQL={true} />;
   };
 
-  private renderUserVotes = (): JSX.Element => {
-    return (
-      <Query query={DASHBOARD_USER_CHALLENGE_DATA_QUERY} variables={{ userAddress: this.props.userAccount }}>
-        {({ loading, error, data, refetch }: any): JSX.Element => {
-          const refetchUserChallengeData = (): void => {
-            refetch();
-          };
-          if (error) {
-            if (error.toString().includes(NO_RESULTS)) {
-              return <NoTasks />;
-            } else {
-              return <ErrorLoadingDataMsg />;
-            }
-          }
-          if (loading || !data) {
-            return <LoadingMessage />;
-          }
-          if (data) {
-            const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
-              data.allChallenges,
-              true,
-              data.challengesToReveal,
-              data.challengesToRescue,
-            );
-            const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
-              data.allChallenges,
-              USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
-              true,
-            );
-
-            const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
-              data.challengesToReveal,
-            );
-            const proposalChallengesWithUnrevealedVotes = getUserChallengeDataSetByPollType(
-              data.challengesToReveal,
-              USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
-            );
-
-            const allChallengesWithUnclaimedRewards: [
-              Set<string>,
-              Set<string>,
-              Set<string>,
-            ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
-
-            const allChallengesWithRescueTokens: [
-              Set<string>,
-              Set<string>,
-              Set<string>,
-            ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
-
-            let userChallengeDataMap = Map<string, any>();
-            let challengeToAppealChallengeMap = Map<string, string>();
-            data.allChallenges.forEach((challengeData: any) => {
-              userChallengeDataMap = userChallengeDataMap.set(challengeData.pollID, challengeData);
-              if (challengeData.pollType === "APPEAL_CHALLENGE") {
-                challengeToAppealChallengeMap = challengeToAppealChallengeMap.set(
-                  challengeData.parentChallengeID,
-                  challengeData.pollID,
-                );
-              }
-            });
-
-            const myTasksProps = {
-              userChallengeData: userChallengeDataMap,
-              challengeToAppealChallengeMap,
-              allChallengesWithAvailableActions,
-              proposalChallengesWithAvailableActions,
-              allChallengesWithUnrevealedVotes,
-              proposalChallengesWithUnrevealedVotes,
-              userChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[0],
-              userAppealChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[1],
-              proposalChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[2],
-              userChallengesWithRescueTokens: allChallengesWithRescueTokens[0],
-              userAppealChallengesWithRescueTokens: allChallengesWithRescueTokens[1],
-              proposalChallengesWithRescueTokens: allChallengesWithRescueTokens[2],
-              activeSubTabIndex: this.state.activeSubTabIndex,
-              setActiveSubTabIndex: this.setActiveSubTabIndex,
-              showClaimRewardsTab: this.showClaimRewardsTab,
-              showRescueTokensTab: this.showRescueTokensTab,
-              showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
-              refetchUserChallengeData,
-            };
-
-            return <MyTasks {...myTasksProps} />;
-          }
-          return <LoadingMessage />;
-        }}
-      </Query>
+  private getMyTasksViewProps = (error: any, data: any, refetch: any): any => {
+    const refetchUserChallengeData = (): void => {
+      refetch();
+    };
+    if (error) {
+      return {}
+    }
+    const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
+      data.allChallenges,
+      true,
+      data.challengesToReveal,
+      data.challengesToRescue,
     );
+    const proposalChallengesWithAvailableActions = getUserChallengeDataSetByPollType(
+      data.allChallenges,
+      USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+      true,
+    );
+
+    const allChallengesWithUnrevealedVotes = transformGraphQLDataIntoDashboardChallengesSet(
+      data.challengesToReveal,
+    );
+    const proposalChallengesWithUnrevealedVotes = getUserChallengeDataSetByPollType(
+      data.challengesToReveal,
+      USER_CHALLENGE_DATA_POLL_TYPES.PARAMETER_PROPOSAL_CHALLENGE,
+    );
+
+    const allChallengesWithUnclaimedRewards: [
+      Set<string>,
+      Set<string>,
+      Set<string>,
+    ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesWithRewards);
+
+    const allChallengesWithRescueTokens: [
+      Set<string>,
+      Set<string>,
+      Set<string>,
+    ] = transformGraphQLDataIntoDashboardChallengesByTypeSets(data.challengesToRescue);
+
+    let userChallengeDataMap = Map<string, any>();
+    let challengeToAppealChallengeMap = Map<string, string>();
+    data.allChallenges.forEach((challengeData: any) => {
+      userChallengeDataMap = userChallengeDataMap.set(challengeData.pollID, challengeData);
+      if (challengeData.pollType === "APPEAL_CHALLENGE") {
+        challengeToAppealChallengeMap = challengeToAppealChallengeMap.set(
+          challengeData.parentChallengeID,
+          challengeData.pollID,
+        );
+      }
+    });
+
+    const numUserTasks =
+      allChallengesWithAvailableActions!.count() +
+      proposalChallengesWithAvailableActions!.count();
+
+    const myTasksProps = {
+      userChallengeData: userChallengeDataMap,
+      challengeToAppealChallengeMap,
+      allChallengesWithAvailableActions,
+      proposalChallengesWithAvailableActions,
+      allChallengesWithUnrevealedVotes,
+      proposalChallengesWithUnrevealedVotes,
+      userChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[0],
+      userAppealChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[1],
+      proposalChallengesWithUnclaimedRewards: allChallengesWithUnclaimedRewards[2],
+      userChallengesWithRescueTokens: allChallengesWithRescueTokens[0],
+      userAppealChallengesWithRescueTokens: allChallengesWithRescueTokens[1],
+      proposalChallengesWithRescueTokens: allChallengesWithRescueTokens[2],
+      activeSubTabIndex: this.state.activeSubTabIndex,
+      setActiveSubTabIndex: this.setActiveSubTabIndex,
+      showClaimRewardsTab: this.showClaimRewardsTab,
+      showRescueTokensTab: this.showRescueTokensTab,
+      showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+      refetchUserChallengeData,
+      numUserTasks,
+    };
+
+    return myTasksProps;
+  }
+
+  private renderUserVotes = (error: any, myTasksViewProps: any): JSX.Element => {
+    if (error) {
+      if (error.toString().includes(NO_RESULTS)) {
+        return <NoTasks />;
+      } else {
+        return <ErrorLoadingDataMsg />;
+      }
+    }
+
+    return <MyTasks {...myTasksViewProps} />;
   };
 
   private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {

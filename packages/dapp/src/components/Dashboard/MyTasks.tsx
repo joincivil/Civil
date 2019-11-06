@@ -12,6 +12,8 @@ import {
   RescueTokensDashboardTabTitle,
   StyledDashboardSubTab,
   SubTabReclaimTokensText,
+  Collapsable,
+  SmallStyledCollapsibleContainerHeader,
 } from "@joincivil/components";
 
 import { StyledTabsComponent } from "./DashboardActivity";
@@ -64,55 +66,34 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     refetchUserChallengeData,
   } = props;
 
-  const allVotesTabTitle = (
-    <AllChallengesDashboardTabTitle
-      count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
-    />
-  );
+  const revealTasksCount = allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count();
   const revealVoteTabTitle = (
     <RevealVoteDashboardTabTitle
-      count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
+      count={revealTasksCount}
     />
   );
+
+  const claimRewardsCount = userChallengesWithUnclaimedRewards!.count() +
+    userAppealChallengesWithUnclaimedRewards!.count() +
+    proposalChallengesWithUnclaimedRewards!.count()
   const claimRewardsTabTitle = (
     <ClaimRewardsDashboardTabTitle
-      count={
-        userChallengesWithUnclaimedRewards!.count() +
-        userAppealChallengesWithUnclaimedRewards!.count() +
-        proposalChallengesWithUnclaimedRewards!.count()
-      }
+      count={claimRewardsCount}
     />
   );
+
+  const rescueTokensCount = userChallengesWithRescueTokens!.count() +
+    userAppealChallengesWithRescueTokens!.count() +
+    proposalChallengesWithRescueTokens!.count()
   const rescueTokensTabTitle = (
     <RescueTokensDashboardTabTitle
-      count={
-        userChallengesWithRescueTokens!.count() +
-        userAppealChallengesWithRescueTokens!.count() +
-        proposalChallengesWithRescueTokens!.count()
-      }
+      count={rescueTokensCount}
     />
   );
 
   return (
     <>
-      <Tabs
-        TabComponent={StyledDashboardSubTab}
-        TabsNavComponent={StyledTabsComponent}
-        activeIndex={activeSubTabIndex}
-        onActiveTabChange={setActiveSubTabIndex}
-      >
-        <Tab title={allVotesTabTitle}>
-          <MyTasksList
-            challenges={allChallengesWithAvailableActions}
-            proposalChallenges={proposalChallengesWithAvailableActions}
-            userChallengeData={userChallengeData}
-            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-            refetchUserChallengeData={refetchUserChallengeData}
-            showClaimRewardsTab={showClaimRewardsTab}
-            showRescueTokensTab={showRescueTokensTab}
-          />
-        </Tab>
-        <Tab title={revealVoteTabTitle}>
+      <Collapsable header={revealVoteTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={revealTasksCount > 0}>
           <MyTasksList
             challenges={allChallengesWithUnrevealedVotes}
             proposalChallenges={proposalChallengesWithUnrevealedVotes}
@@ -122,8 +103,8 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
           />
-        </Tab>
-        <Tab title={claimRewardsTabTitle}>
+      </Collapsable>
+      <Collapsable header={claimRewardsTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={claimRewardsCount > 0}>
           <ChallengesWithRewardsToClaim
             challenges={userChallengesWithUnclaimedRewards}
             appealChallenges={userAppealChallengesWithUnclaimedRewards}
@@ -132,8 +113,8 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
-        </Tab>
-        <Tab title={rescueTokensTabTitle}>
+      </Collapsable>
+      <Collapsable header={rescueTokensTabTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={rescueTokensCount > 0}>
           <ChallengesWithTokensToRescue
             challenges={userChallengesWithRescueTokens}
             appealChallenges={userAppealChallengesWithRescueTokens}
@@ -142,11 +123,10 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
-        </Tab>
-        <Tab title={<SubTabReclaimTokensText />}>
+      </Collapsable>
+      <Collapsable header={<SubTabReclaimTokensText />} headerWrapper={SmallStyledCollapsibleContainerHeader} open={false}>
           <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
-        </Tab>
-      </Tabs>
+      </Collapsable>
     </>
   );
 };

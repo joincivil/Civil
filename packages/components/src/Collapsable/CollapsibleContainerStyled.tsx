@@ -81,3 +81,29 @@ export const StyledCollapsibleContainerHeader = styled.div`
 
   position: relative;
 `;
+
+export const SmallStyledCollapsibleContainerHeader = styled.div`
+  border-bottom: ${(props: CollapsibleContainerProps) =>
+    props.isOpen ? "2px solid " + colors.accent.CIVIL_BLUE : "1px solid " + colors.accent.CIVIL_GRAY_1};
+  border-top: "1px solid ${colors.accent.CIVIL_GRAY_1}";
+  color: ${(props: CollapsibleContainerProps) => (props.isOpen ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_2)};
+  cursor: pointer;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 10px;
+  letter-spacing: -0.12px;
+  margin-right: 0px;
+  margin-left: 15px;
+  padding: 5px 0 5px;
+  text-align: left;
+  text-decoration: none;
+  transition: background-color 500ms, border 500ms, color 500ms;
+
+  ${mediaQueries.HOVER} {
+    &:hover {
+      border-bottom: 2px solid ${colors.accent.CIVIL_BLUE};
+      color: ${colors.primary.BLACK};
+    }
+  }
+
+  position: relative;
+`;

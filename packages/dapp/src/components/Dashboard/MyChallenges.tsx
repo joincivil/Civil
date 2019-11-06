@@ -7,6 +7,8 @@ import {
   ChallengesCompletedDashboardTabTitle,
   StyledDashboardSubTab,
   StyledDashboardActivityDescription,
+  Collapsable,
+  SmallStyledCollapsibleContainerHeader,
 } from "@joincivil/components";
 import { StyledTabsComponent } from "./DashboardActivity";
 import MyTasksList from "./MyTasksList";
@@ -39,47 +41,37 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
     showRescueTokensTab,
   } = props;
 
-  const completedChallengesTitle = (
-    <ChallengesCompletedDashboardTabTitle count={allCompletedChallengesVotedOn.count()} />
-  );
-  const stakedChallengesTitle = <ChallengesStakedDashboardTabTitle count={currentUserChallengesStarted.count()} />;
+  const completedChallengesCount = allCompletedChallengesVotedOn.count();
+  const completedChallengesTitle = <ChallengesCompletedDashboardTabTitle count={completedChallengesCount}/>;
+
+  const challengesStartedCount = currentUserChallengesStarted.count();
+  const stakedChallengesTitle = <ChallengesStakedDashboardTabTitle count={challengesStartedCount} />;
 
   return (
     <>
-      <Tabs
-        TabComponent={StyledDashboardSubTab}
-        TabsNavComponent={StyledTabsComponent}
-        activeIndex={activeSubTabIndex}
-        onActiveTabChange={setActiveSubTabIndex}
-      >
-        <Tab title={completedChallengesTitle}>
-          <>
-            <StyledDashboardActivityDescription>
-              Summary of completed challenges you voted in
-            </StyledDashboardActivityDescription>
-            <MyTasksList
-              challenges={allCompletedChallengesVotedOn}
-              proposalChallenges={allProposalChallengesVotedOn}
-              userChallengeData={userChallengeData}
-              challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-              useGraphQL={useGraphQL}
-              showClaimRewardsTab={showClaimRewardsTab}
-              showRescueTokensTab={showRescueTokensTab}
-            />
-          </>
-        </Tab>
-        <Tab title={stakedChallengesTitle}>
-          <>
-            <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
-            <MyTasksList
-              userChallengeData={userChallengeData}
-              challenges={currentUserChallengesStarted}
-              showClaimRewardsTab={showClaimRewardsTab}
-              showRescueTokensTab={showRescueTokensTab}
-            />
-          </>
-        </Tab>
-      </Tabs>
+      <Collapsable header={completedChallengesTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={completedChallengesCount > 0}>
+        <>
+          <MyTasksList
+            challenges={allCompletedChallengesVotedOn}
+            proposalChallenges={allProposalChallengesVotedOn}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+            useGraphQL={useGraphQL}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+          />
+        </>
+      </Collapsable>
+      <Collapsable header={stakedChallengesTitle} headerWrapper={SmallStyledCollapsibleContainerHeader} open={challengesStartedCount > 0}>
+        <>
+          <MyTasksList
+            userChallengeData={userChallengeData}
+            challenges={currentUserChallengesStarted}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+          />
+        </>
+      </Collapsable>
     </>
   );
 };
