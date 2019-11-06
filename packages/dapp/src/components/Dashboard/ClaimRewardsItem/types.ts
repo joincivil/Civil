@@ -1,5 +1,5 @@
 import { BigNumber } from "@joincivil/typescript-types";
-import { UserChallengeData } from "@joincivil/core";
+// import { UserChallengeData } from "@joincivil/core";
 
 export interface ClaimRewardsItemOwnProps {
   challengeID?: string;

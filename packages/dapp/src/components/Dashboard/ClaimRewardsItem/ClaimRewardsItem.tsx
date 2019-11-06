@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ClaimRewardsItemOwnProps } from "./types";
-import ClaimRewardsItemApolloQueryWrapper from "./ClaimRewardsApolloQueryWrapper";
 import { ProposalClaimRewardsViewComponent, ClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 import { BigNumber } from "@joincivil/typescript-types";
 
@@ -10,21 +9,13 @@ const ClaimRewardsItemWrapper: React.FunctionComponent<ClaimRewardsItemOwnProps>
     appealChallengeID,
     isProposalChallenge,
     queryUserChallengeData,
-    queryUserAppealChallengeData,
+    // queryUserAppealChallengeData,
     toggleSelect,
   } = props;
 
-  // return (
-  //   <ClaimRewardsItemApolloQueryWrapper
-  //     {...viewProps}
-  //     queryUserChallengeData={queryUserChallengeData}
-  //     queryUserAppealChallengeData={queryUserAppealChallengeData}
-  //   />
-  // );
-
   console.log("claim rewards item props: ", props);
 
-  if (!(queryUserChallengeData!.challenge)) {
+  if ((queryUserChallengeData!.pollType === "PARAMETER_PROPOSAL_CHALLENGE")) {
     console.log("in here!");
     const proposalViewProps = {
       challengeID,

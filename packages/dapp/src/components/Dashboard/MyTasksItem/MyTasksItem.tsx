@@ -1,25 +1,25 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { EthContentHeader } from "@joincivil/core";
+// import { EthContentHeader } from "@joincivil/core";
 
 import { State } from "../../../redux/reducers";
-import { getContent } from "../../../redux/actionCreators/newsrooms";
+// import { getContent } from "../../../redux/actionCreators/newsrooms";
 import { MyTasksItemOwnProps, MyTasksItemWrapperReduxProps } from "./MyTasksItemTypes";
-import MyTasksItemApolloQueryWrapper from "./MyTasksItemApolloQueryWrapper";
-import { CivilHelperContext } from "../../../apis/CivilHelper";
+// import MyTasksItemApolloQueryWrapper from "./MyTasksItemApolloQueryWrapper";
+// import { CivilHelperContext } from "../../../apis/CivilHelper";
 
 const MyTasksItemWrapper: React.FunctionComponent<
   MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>
 > = props => {
   const {
-    challengeID,
-    showClaimRewardsTab,
-    showRescueTokensTab,
+    // challengeID,
+    // showClaimRewardsTab,
+    // showRescueTokensTab,
     queryUserChallengeData,
-    queryUserAppealChallengeData,
-    userAcct,
-    content,
-    dispatch,
+    // queryUserAppealChallengeData,
+    // userAcct,
+    // content,
+    // dispatch,
   } = props;
 
   // const viewProps = {
