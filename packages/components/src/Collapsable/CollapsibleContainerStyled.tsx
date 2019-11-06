@@ -60,7 +60,7 @@ export const StyledResponsiveCollapsibleContainersToggleButton = styled.div`
 
 export const StyledCollapsibleContainerHeader = styled.div`
   border-bottom: ${(props: CollapsibleContainerProps) =>
-    props.isOpen ? "2px solid " + colors.accent.CIVIL_BLUE : "2px solid transparent"};
+    props.isOpen ? "2px solid " + colors.accent.CIVIL_BLUE : "1px solid " + colors.accent.CIVIL_GRAY_1};
   color: ${(props: CollapsibleContainerProps) => (props.isOpen ? colors.primary.BLACK : colors.accent.CIVIL_GRAY_2)};
   cursor: pointer;
   font-family: ${fonts.SANS_SERIF};

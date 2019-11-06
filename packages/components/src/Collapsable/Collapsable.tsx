@@ -38,7 +38,7 @@ export const Arrow = styled.div<ArrowProps>`
   transform: ${props => (props.open ? "rotate(135deg)" : "rotate(-45deg)")};
   transition: transform 1s;
   position: absolute;
-  right: 0;
+  right: 10px;
   top: 10px;
 `;
 
