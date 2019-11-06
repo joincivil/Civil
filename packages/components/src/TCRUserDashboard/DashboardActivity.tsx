@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tabs, Tab } from "../Tabs";
+import { CollapsibleContainer } from "../CollapsibleContainer";
 import {
   StyledUserActivity,
   StyledDashboardTabsContainer,
@@ -19,22 +19,15 @@ export interface DashboardActivityProps {
 export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> = props => {
   return (
     <StyledUserActivity>
-      <Tabs
-        TabsNavComponent={StyledDashboardTabsContainer}
-        TabComponent={StyledDashboardTab}
-        activeIndex={props.activeIndex}
-        onActiveTabChange={props.onTabChange}
-      >
-        <Tab title={<MyVotingTabText />}>
+        <CollapsibleContainer Title={<MyVotingTabText />}>
           <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
-        </Tab>
-        <Tab title={<MyNewsroomsTabText />}>
+      </CollapsibleContainer>
+      <CollapsibleContainer Title={<MyNewsroomsTabText />}>
           <StyledUserActivityContent>{props.userNewsrooms}</StyledUserActivityContent>
-        </Tab>
-        <Tab title={<MyChallengesTabText />}>
+      </CollapsibleContainer>
+      <CollapsibleContainer Title={<MyChallengesTabText />}>
           <StyledUserActivityContent>{props.userChallenges}</StyledUserActivityContent>
-        </Tab>
-      </Tabs>
+      </CollapsibleContainer>
     </StyledUserActivity>
   );
 };

@@ -36,6 +36,7 @@ export * from "./imageUrls";
 export * from "./icons";
 export * from "./theme";
 export * from "./Tabs";
+export * from  "./CollapsibleContainer";
 export * from "./Hero";
 export * from "./ClipLoader";
 export * from "./ClaimRewards";
