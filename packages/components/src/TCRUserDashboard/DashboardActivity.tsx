@@ -10,7 +10,9 @@ import { MyVotingTabText, MyNewsroomsTabText, MyChallengesTabText } from "./Dash
 
 export interface DashboardActivityProps {
   userVotes: JSX.Element;
+  numUserVotes: number;
   userNewsrooms: JSX.Element;
+  numUserNewsrooms: number;
   userChallenges: JSX.Element;
   activeIndex: number;
   onTabChange(activeIndex: number): void;
