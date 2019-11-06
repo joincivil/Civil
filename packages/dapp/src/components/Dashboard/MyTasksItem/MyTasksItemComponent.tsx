@@ -8,7 +8,7 @@ import MyTasksItemPhaseCountdown from "../MyTasksItemPhaseCountdown";
 import DashboardItemChallengeResults from "../ChallengeSummary";
 
 const MyTasksItemComponent: React.FunctionComponent<MyTasksItemOwnProps & MyTasksItemReduxProps> = props => {
-  const { listingAddress: address, listing, newsroom, charter, challengeID, userChallengeData, challengeState } = props;
+  const { listingAddress: address, newsroomName, charter, challengeID, userChallengeData, challengeState } = props;
 
   if (!challengeState) {
     return <></>;
@@ -18,17 +18,16 @@ const MyTasksItemComponent: React.FunctionComponent<MyTasksItemOwnProps & MyTask
   let canUserRescue = false;
   let didUserCommit = false;
   if (userChallengeData) {
-    canUserCollect = userChallengeData.canUserCollect;
-    canUserRescue = userChallengeData.canUserRescue;
-    didUserCommit = userChallengeData.didUserCommit;
+    canUserCollect = userChallengeData.canUserCollect!;
+    canUserRescue = userChallengeData.canUserRescue!;
+    didUserCommit = userChallengeData.didUserCommit!;
   }
   const { inCommitPhase, inRevealPhase } = challengeState;
 
-  if (listing && listing.data && newsroom) {
-    const newsroomData = newsroom.wrapper.data;
+  if (newsroomName) {
     const listingDetailURL = formatRoute(routes.LISTING, { listingAddress: address });
     let viewDetailURL = listingDetailURL;
-    const title = `${newsroomData.name} Challenge #${challengeID}`;
+    const title = `${newsroomName} Challenge #${challengeID}`;
     const logoUrl = charter && charter.logoUrl;
 
     if (canUserCollect || canUserRescue) {
