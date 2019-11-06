@@ -4,19 +4,13 @@ import { Map, Set } from "immutable";
 import MyTasksList from "./MyTasksList";
 
 import {
-  Tabs,
-  Tab,
-  AllChallengesDashboardTabTitle,
   RevealVoteDashboardTabTitle,
   ClaimRewardsDashboardTabTitle,
   RescueTokensDashboardTabTitle,
-  StyledDashboardSubTab,
-  SubTabReclaimTokensText,
   Collapsable,
   SmallStyledCollapsibleContainerHeader,
 } from "@joincivil/components";
 
-import { StyledTabsComponent } from "./DashboardActivity";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import TransferCivilTokens from "./TransferCivilTokens";
@@ -46,18 +40,14 @@ export interface MyTasksProps {
 
 const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
   const {
-    allChallengesWithAvailableActions,
     allChallengesWithUnrevealedVotes,
     userChallengesWithUnclaimedRewards,
     userChallengesWithRescueTokens,
     userAppealChallengesWithRescueTokens,
     userAppealChallengesWithUnclaimedRewards,
-    proposalChallengesWithAvailableActions,
     proposalChallengesWithUnrevealedVotes,
     proposalChallengesWithUnclaimedRewards,
     proposalChallengesWithRescueTokens,
-    activeSubTabIndex,
-    setActiveSubTabIndex,
     showClaimRewardsTab,
     showRescueTokensTab,
     showNoMobileTransactionsModal,
@@ -124,11 +114,12 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
       </Collapsable>
-      <Collapsable header={<SubTabReclaimTokensText />} headerWrapper={SmallStyledCollapsibleContainerHeader} open={false}>
-          <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
-      </Collapsable>
     </>
   );
 };
+
+{/* <Collapsable header={<SubTabReclaimTokensText />} headerWrapper={SmallStyledCollapsibleContainerHeader} open={false}>
+  <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
+</Collapsable> */}
 
 export default MyTasks;

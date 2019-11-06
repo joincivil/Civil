@@ -2,11 +2,8 @@ import * as React from "react";
 import { Collapsable, StyledCollapsibleContainerHeader, TasksTitle, HistoryTitle, NewsroomsTitle } from "../Collapsable";
 import {
   StyledUserActivity,
-  StyledDashboardTabsContainer,
-  StyledDashboardTab,
   StyledUserActivityContent,
 } from "./DashboardStyledComponents";
-import { MyVotingTabText, MyNewsroomsTabText, MyChallengesTabText } from "./DashboardTextComponents";
 
 export interface DashboardActivityProps {
   userVotes: JSX.Element;
@@ -22,7 +19,7 @@ export interface DashboardActivityProps {
 export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> = props => {
   const tasksOpen = props.numUserVotes > 0;
   const newsroomsOpen = props.numUserNewsrooms! > 0;
-  const challengesOpen = props.numUserChallenges > 0;
+  // const challengesOpen = props.numUserChallenges > 0;
   console.log("props.numUserVotes: ", props.numUserVotes);
   console.log("tasksOpen: ", tasksOpen);
   return (

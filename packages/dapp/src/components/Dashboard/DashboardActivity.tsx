@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { Map, Set } from "immutable";
-import styled, { StyledComponentClass } from "styled-components";
+import styled from "styled-components";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress } from "@joincivil/core";
 import {
@@ -212,8 +212,11 @@ class DashboardActivity extends React.Component<
                       const myChallengesViewProps = this.getMyChallengesViewProps(challengeError, challengeData);
                       const myTasksViewProps = this.getMyTasksViewProps(challengeError, challengeData, challengeRefetch);
 
+                      const numUserNewsrooms = newsroomAddresses.count() + ((nrsignupData && nrsignupData.nrsignupNewsroom) ? nrsignupData.nrsignupNewsroom.newsroomAddress.size() : 0);
+
                       console.log("myTasksViewProps.numUserTasks: ", myTasksViewProps.numUserTasks);
                       console.log("myChallengesViewProps.numUserChallenges: ", myChallengesViewProps.numUserChallenges);
+                      console.log("numUserNewsrooms: ", numUserNewsrooms);
 
                       return (
                         <>
@@ -221,6 +224,7 @@ class DashboardActivity extends React.Component<
                             userVotes={this.renderUserVotes(challengeError, myTasksViewProps)}
                             numUserVotes={myTasksViewProps.numUserTasks}
                             userNewsrooms={this.renderWithNrsignupNewsrooms(newsroomAddresses, nrsignupError, nrsignupData)}
+                            numUserNewsrooms={numUserNewsrooms}
                             userChallenges={this.renderUserChallenges(challengeError, myChallengesViewProps)}
                             numUserChallenges={myChallengesViewProps.numUserChallenges}
                             activeIndex={this.state.activeTabIndex}

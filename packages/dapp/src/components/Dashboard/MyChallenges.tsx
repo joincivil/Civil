@@ -1,16 +1,11 @@
 import * as React from "react";
 import { Map, Set } from "immutable";
 import {
-  Tabs,
-  Tab,
   ChallengesStakedDashboardTabTitle,
   ChallengesCompletedDashboardTabTitle,
-  StyledDashboardSubTab,
-  StyledDashboardActivityDescription,
   Collapsable,
   SmallStyledCollapsibleContainerHeader,
 } from "@joincivil/components";
-import { StyledTabsComponent } from "./DashboardActivity";
 import MyTasksList from "./MyTasksList";
 
 export interface MyChallengesProps {
@@ -35,8 +30,6 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
     userChallengeData,
     challengeToAppealChallengeMap,
     useGraphQL,
-    activeSubTabIndex,
-    setActiveSubTabIndex,
     showClaimRewardsTab,
     showRescueTokensTab,
   } = props;
