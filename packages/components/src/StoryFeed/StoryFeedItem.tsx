@@ -7,8 +7,8 @@ import { StoryModal } from "./StoryModal";
 import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
-import { Payments } from "../Payments";
-import { PaymentButton, ShareButton, ShareStory, Panel, SharePanel } from "@joincivil/elements";
+import { Payments, PaymentsModal } from "../Payments";
+import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/elements";
 import { EthAddress } from "@joincivil/core";
 
 export interface StoryFeedItemProps {
@@ -90,7 +90,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
         <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.handleClose}>
           <StoryNewsroomDetails activeChallenge={activeChallenge} newsroom={newsroom} />
         </StoryModal>
-        <Panel open={this.state.isPaymentsModalOpen} handleClose={this.handleClosePayments}>
+        <PaymentsModal open={this.state.isPaymentsModalOpen} handleClose={this.handleClose}>
           <Payments
             isLoggedIn={this.props.isLoggedIn}
             userAddress={this.props.userAddress}
@@ -100,8 +100,9 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
             handleLogin={this.props.handleLogin}
+            handleClose={this.handleClose}
           />
-        </Panel>
+        </PaymentsModal>
         <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>
           <ShareStory title={openGraphData.title} url={openGraphData.url} />
         </SharePanel>
@@ -110,23 +111,19 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
   }
 
   private openStoryDetails = () => {
-    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false });
+    this.setState({ isStoryModalOpen: true, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private openStoryNewsroomDetails = () => {
-    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false });
+    this.setState({ isStoryNewsroomModalOpen: true, isStoryModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private handleClose = () => {
-    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
+    this.setState({ isStoryModalOpen: false, isStoryNewsroomModalOpen: false, isPaymentsModalOpen: false });
   };
 
   private openPayments = () => {
     this.setState({ isPaymentsModalOpen: true });
-  };
-
-  private handleClosePayments = () => {
-    this.setState({ isPaymentsModalOpen: false });
   };
 
   private openShare = () => {

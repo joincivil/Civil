@@ -5,7 +5,9 @@ import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
-import { PaymentSuccessText } from "./PaymentsTextComponents";
+import { PaymentsSuccess } from "./PaymentsSuccess";
+import { PaymentsApplePay } from "./PaymentsApplePay";
+import { PaymentsGooglePay } from "./PaymentsGooglePay";
 
 const Container = styled.div`
   width: 400px;
@@ -17,7 +19,7 @@ const onClickFunc = () => {
   console.log("clicked");
 };
 
-storiesOf("Pulse / Payments", module)
+storiesOf("Boost / Payments", module)
   .add("Payment Type", () => {
     return (
       <Container>
@@ -46,7 +48,21 @@ storiesOf("Pulse / Payments", module)
   .add("Payment Success", () => {
     return (
       <Container>
-        <PaymentSuccessText newsroomName={"Coda Story"} usdToSpend={2} />
+        <PaymentsSuccess newsroomName={"Coda Story"} usdToSpend={2} handleClose={onClickFunc} />
+      </Container>
+    );
+  })
+  .add("Apple Pay Screen", () => {
+    return (
+      <Container>
+        <PaymentsApplePay newsroomName={"Coda Story"} usdToSpend={2} />
+      </Container>
+    );
+  })
+  .add("Google Pay Screen", () => {
+    return (
+      <Container>
+        <PaymentsGooglePay newsroomName={"Coda Story"} usdToSpend={2} />
       </Container>
     );
   });

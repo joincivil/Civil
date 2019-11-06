@@ -68,7 +68,7 @@ const onClickFunc = () => {
   console.log("clicked");
 };
 
-storiesOf("Pulse / Story Feed", module)
+storiesOf("Boost / Story Feed", module)
   .add("Story Card", () => {
     return (
       <Container>

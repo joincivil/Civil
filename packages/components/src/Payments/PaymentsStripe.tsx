@@ -3,8 +3,6 @@ import { StripeProvider, Elements } from "react-stripe-elements";
 import { Mutation, MutationFunc } from "react-apollo";
 import { PAYMENTS_STRIPE_MUTATION } from "./queries";
 import makeAsyncScriptLoader from "react-async-script";
-import { PaymentTypeLabel } from "./PaymentsStyledComponents";
-import { PayWithCardText } from "./PaymentsTextComponents";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
@@ -36,17 +34,6 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
   }
 
   public render(): JSX.Element {
-    return (
-      <>
-        <PaymentTypeLabel>
-          <PayWithCardText />
-        </PaymentTypeLabel>
-        {this.renderStripePaymentForm()}
-      </>
-    );
-  }
-
-  private renderStripePaymentForm = (): JSX.Element => {
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
@@ -79,5 +66,5 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
         }}
       />
     );
-  };
+  }
 }

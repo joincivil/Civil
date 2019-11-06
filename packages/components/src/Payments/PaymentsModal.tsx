@@ -11,10 +11,11 @@ export interface PaymentsModalProps {
 }
 
 export const PaymentsModal: React.FunctionComponent<PaymentsModalProps> = props => {
+  const maxHeight = window.innerHeight - 200;
   return (
     <>
       <FullScreenModal open={props.open}>
-        <PaymentsModalContain>
+        <PaymentsModalContain maxHeight={maxHeight}>
           {props.handleClose && (
             <PaymentsModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
               <CloseXIcon color={colors.accent.CIVIL_GRAY_2} width={32} height={32} />

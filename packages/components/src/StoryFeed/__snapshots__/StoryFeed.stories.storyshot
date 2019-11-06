@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
+exports[`Storyshots Boost / Story Feed Story Card 1`] = `
 <div>
   <div
     style={
@@ -11,7 +11,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
     }
   >
     <div
-      className="sc-LzNQc cattFU"
+      className="sc-LzNQI cwUXqa"
     >
       <div
         className="sc-LzNtl jfLrYN"
@@ -144,7 +144,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
             Boost
           </button>
           <button
-            className="sc-fzXfMv fTvUGj"
+            className="sc-fzXfMv iAUiKn"
             onClick={[Function]}
           >
             <svg
@@ -275,7 +275,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
               }
             }
           >
-            Pulse / Story Feed
+            Boost / Story Feed
           </h1>
           <h2
             style={
@@ -1457,7 +1457,7 @@ exports[`Storyshots Pulse / Story Feed Story Card 1`] = `
 </div>
 `;
 
-exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
+exports[`Storyshots Boost / Story Feed Story Details 1`] = `
 <div>
   <div
     style={
@@ -1468,7 +1468,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
     }
   >
     <div
-      className="sc-LzNQc cattFU"
+      className="sc-LzNQI cwUXqa"
     >
       <div
         className="sc-LzNuE kbeZHr"
@@ -1493,7 +1493,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
             How TikTok opened a window into China’s police state
           </h2>
           <button
-            className="sc-fzXfMv gyIvtz"
+            className="sc-fzXfMv doqPEr"
             onClick={[Function]}
           >
             <svg
@@ -1836,7 +1836,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
               }
             }
           >
-            Pulse / Story Feed
+            Boost / Story Feed
           </h1>
           <h2
             style={
@@ -3075,7 +3075,7 @@ exports[`Storyshots Pulse / Story Feed Story Details 1`] = `
 </div>
 `;
 
-exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
+exports[`Storyshots Boost / Story Feed Story Newsroom Details 1`] = `
 <div>
   <div
     style={
@@ -3086,7 +3086,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
     }
   >
     <div
-      className="sc-LzNQc cattFU"
+      className="sc-LzNQI cwUXqa"
     >
       <div
         className="sc-LzNuD hZoamV"
@@ -3330,7 +3330,7 @@ exports[`Storyshots Pulse / Story Feed Story Newsroom Details 1`] = `
               }
             }
           >
-            Pulse / Story Feed
+            Boost / Story Feed
           </h1>
           <h2
             style={

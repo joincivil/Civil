@@ -2,21 +2,15 @@ import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { isValidEmail } from "@joincivil/utils";
-import { PaymentNotice, PaymentTerms, PaymentEthUserInfoForm, PaymentInputLabel } from "./PaymentsStyledComponents";
-import {
-  TransactionButton,
-  TransactionButtonModalContentComponentsProps,
-  progressModalStates,
-  CivilContext,
-  ICivilContext,
-} from "../";
+import { PaymentTerms, PaymentInputLabel } from "./PaymentsStyledComponents";
+import { TransactionButtonNoModal, CivilContext, ICivilContext } from "../";
+import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
 import { InputValidationUI } from "./PaymentsInputValidationUI";
 import {
-  PaymentInProgressText,
-  PaymentSuccessText,
   PaymentErrorText,
-  PaymentEthNoticeText,
-  PaymentEthTermsText,
+  PaymentTermsText,
+  PaymentEmailConfirmationText,
+  EnoughETHInWalletText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE, INPUT_STATE } from "./types";
 
@@ -36,6 +30,7 @@ export interface PaymentsEthFormProps {
 export interface PaymentsEthFormState {
   email: string;
   emailState: string;
+  isPaymentError: boolean;
 }
 
 export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, PaymentsEthFormState> {
@@ -45,43 +40,31 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   constructor(props: PaymentsEthFormProps) {
     super(props);
     this.state = {
-      email: "",
+      email: this.props.userEmail || "",
       emailState: INPUT_STATE.EMPTY,
+      isPaymentError: false,
     };
   }
 
   public render(): JSX.Element {
-    const PAY_MODAL_COMPONENTS: TransactionButtonModalContentComponentsProps = {
-      [progressModalStates.IN_PROGRESS]: <PaymentInProgressText />,
-      [progressModalStates.SUCCESS]: (
-        <PaymentSuccessText newsroomName={this.props.newsroomName} usdToSpend={this.props.usdToSpend} />
-      ),
-      [progressModalStates.ERROR]: <PaymentErrorText />,
-    };
-
     return (
-      <form>
-        <PaymentEthUserInfoForm>
+      <>
+        <PaymentsEthWrapper etherToSpend={this.props.etherToSpend} usdToSpend={this.props.usdToSpend}>
+          <EnoughETHInWalletText />
           <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
-            {this.props.userEmail ? (
-              <input
-                id="email"
-                name="email"
-                value={this.props.userEmail}
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-              />
-            ) : (
-              <input id="email" name="email" type="email" maxLength={254} onBlur={() => this.handleOnBlur(event)} />
-            )}
+            <input
+              defaultValue={this.state.email}
+              id="email"
+              name="email"
+              type="email"
+              maxLength={254}
+              onBlur={() => this.handleOnBlur(event)}
+            />
+            <PaymentEmailConfirmationText />
           </InputValidationUI>
-        </PaymentEthUserInfoForm>
-        <PaymentNotice>
-          <PaymentEthNoticeText />
-        </PaymentNotice>
-        <TransactionButton
+        </PaymentsEthWrapper>
+        <TransactionButtonNoModal
           transactions={[
             {
               transaction: this.sendPayment,
@@ -90,14 +73,14 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
               postTransaction: this.postTransaction,
             },
           ]}
-          modalContentComponents={PAY_MODAL_COMPONENTS}
         >
           Complete Boost
-        </TransactionButton>
+        </TransactionButtonNoModal>
+        {this.state.isPaymentError && <PaymentErrorText />}
         <PaymentTerms>
-          <PaymentEthTermsText />
+          <PaymentTermsText />
         </PaymentTerms>
-      </form>
+      </>
     );
   }
 
@@ -144,9 +127,11 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private onTransactionError = (err: string) => {
     this.context.fireAnalyticsEvent("tips", "ETH support rejected", this.props.postId, this.props.usdToSpend);
+    this.setState({ isPaymentError: true });
   };
 
   private postTransaction = () => {
     this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
+    this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
   };
 }

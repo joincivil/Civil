@@ -20,6 +20,13 @@ const InputWrapper = styled.div`
   position: relative;
   width: 100%;
 
+  p {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 13px;
+    line-height: 18px;
+    margin: 5px 0 0;
+  }
+
   input {
     border: 1px solid
       ${(props: InputValidationStyleProps) =>

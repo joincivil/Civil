@@ -7,28 +7,49 @@ import {
   PaymentHeaderBoostLabel,
   PaymentHeaderAmount,
   PaymentHeaderTip,
+  PaymentAdjustedNotice,
+  PaymentAdjustedNoticeFtr,
+  PaymentsGhostBtn,
+  PaymentsEdit,
 } from "./PaymentsStyledComponents";
-import { SendPaymentHdrText, PaymentToNewsroomsTipText } from "./PaymentsTextComponents";
+import {
+  SendPaymentHdrText,
+  PaymentToNewsroomsTipText,
+  PayWithCardMinimumText,
+  PaymentUpdatedByEthText,
+  PayWithCardAdjustedText,
+} from "./PaymentsTextComponents";
 
 export interface PaymentsWrapperProps {
   newsroomName: string;
   usdToSpend?: number;
+  etherToSpend?: number;
+  selectedUsdToSpend?: number;
+  paymentAdjustedEth?: boolean;
+  paymentAdjustedStripe?: boolean;
   children: any;
+  handleEditPaymentType?(): void;
 }
 
 export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = props => {
   return (
     <PaymentWrapperStyled>
       <PaymentHeader>
-        <h2>
-          <SendPaymentHdrText />
-        </h2>
+        <SendPaymentHdrText />
         <PaymentHeaderFlex>
           <PaymentHeaderNewsroom>{props.newsroomName}</PaymentHeaderNewsroom>
           {props.usdToSpend && (
             <div>
-              <PaymentHeaderBoostLabel>Boost</PaymentHeaderBoostLabel>
-              <PaymentHeaderAmount>{"$" + props.usdToSpend}</PaymentHeaderAmount>
+              <PaymentHeaderBoostLabel>
+                {props.paymentAdjustedEth || props.paymentAdjustedStripe ? "Selected Boost" : "Boost"}
+              </PaymentHeaderBoostLabel>
+              <PaymentHeaderAmount>
+                {props.paymentAdjustedEth || props.paymentAdjustedStripe ? (
+                  "$" + props.selectedUsdToSpend
+                ) : (
+                  <b>{"$" + props.usdToSpend}</b>
+                )}
+              </PaymentHeaderAmount>
             </div>
           )}
         </PaymentHeaderFlex>
@@ -36,6 +57,28 @@ export const PaymentsWrapper: React.FunctionComponent<PaymentsWrapperProps> = pr
           <PaymentToNewsroomsTipText />
         </PaymentHeaderTip>
       </PaymentHeader>
+      {props.paymentAdjustedStripe && (
+        <PaymentAdjustedNotice>
+          <PayWithCardMinimumText />
+          <PaymentAdjustedNoticeFtr>
+            <PayWithCardAdjustedText />
+          </PaymentAdjustedNoticeFtr>
+        </PaymentAdjustedNotice>
+      )}
+      {props.paymentAdjustedEth && (
+        <PaymentAdjustedNotice>
+          <PaymentUpdatedByEthText usdToSpend={props.usdToSpend} etherToSpend={props.etherToSpend} />
+          <PaymentAdjustedNoticeFtr>
+            <PayWithCardAdjustedText />
+          </PaymentAdjustedNoticeFtr>
+        </PaymentAdjustedNotice>
+      )}
+      {props.handleEditPaymentType && (
+        <PaymentsEdit onClick={props.handleEditPaymentType}>
+          Payment
+          <PaymentsGhostBtn>Edit</PaymentsGhostBtn>
+        </PaymentsEdit>
+      )}
       {props.children}
     </PaymentWrapperStyled>
   );
