@@ -4,7 +4,7 @@ import { fonts, mediaQueries } from "@joincivil/components";
 
 export const StoryFeedWrapper = styled.div`
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 600px;
   padding: 50px 0;
   width: 100%;
 
