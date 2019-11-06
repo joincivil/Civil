@@ -2,6 +2,9 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { Collapsable } from "./Collapsable";
+import { TasksText, NewsroomsText, HistoryText } from "./textComponents";
+import { StyledCollapsibleContainerHeader } from "./CollapsibleContainerStyled";
+import { TasksTitle, NewsroomsTitle, HistoryTitle } from "./CollapsibleContainerTitles";
 
 const Wrapper = styled.div`
   margin: 50px;
@@ -59,6 +62,15 @@ storiesOf("Pattern Library / Collapsable", module)
     return (
       <Wrapper>
         <Collapsable header={"Hello"} headerOpen={"goodbye"} open={false}>
+          <p> Some Content </p>
+        </Collapsable>
+      </Wrapper>
+    );
+  })
+  .add("with top level dashboard styled", () => {
+    return (
+      <Wrapper>
+        <Collapsable headerWrapper={StyledCollapsibleContainerHeader} headerComponent={TasksTitle} open={false}>
           <p> Some Content </p>
         </Collapsable>
       </Wrapper>

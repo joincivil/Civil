@@ -78,4 +78,6 @@ export const StyledCollapsibleContainerHeader = styled.div`
       color: ${colors.primary.BLACK};
     }
   }
+
+  position: relative;
 `;

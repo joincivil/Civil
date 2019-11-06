@@ -23,7 +23,7 @@ const CollapsibleContainerDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-export const Arrow = styled.div<OpenProps>`
+export const Arrow2 = styled.div<OpenProps>`
   width: 8px;
   height: 8px;
   border-left: 3px solid ${colors.primary.CIVIL_GRAY_1};
@@ -54,7 +54,7 @@ export class CollapsibleContainer extends React.Component<CollapsibleContainerPr
       <CollapsibleContainerDiv>
         <Header onClick={this.onClick} isOpen={this.state.isOpen}>
           <Title isOpen={this.state.isOpen} />
-          <Arrow isOpen={this.state.isOpen} />
+          <Arrow2 isOpen={this.state.isOpen} />
         </Header>
         {this.state.isOpen && (<>
           {this.props.children}

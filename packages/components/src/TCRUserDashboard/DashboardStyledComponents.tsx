@@ -13,7 +13,7 @@ export const DashboardStylesNoticeContainer = styled.div`
 `;
 
 export const StyledUserActivity = styled.div`
-  background-color: transparent;
+  background-color: ${colors.basic.WHITE};
   width: 700px;
   ${mediaQueries.MOBILE} {
     max-width: 100%;

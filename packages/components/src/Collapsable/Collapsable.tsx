@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors } from "./styleConstants";
+import { colors } from "../styleConstants";
 
 export interface OpenBool {
   open: boolean;
@@ -11,7 +11,9 @@ export interface ArrowProps extends OpenBool {
 }
 
 export interface CollapsableProps extends OpenBool {
-  header: React.ReactNode;
+  headerWrapper?: any;
+  header?: React.ReactNode;
+  headerComponent?: any;
   headerOpen?: React.ReactNode;
   ArrowComponent?: any;
   disabled?: boolean;
@@ -40,7 +42,7 @@ export const Arrow = styled.div<ArrowProps>`
   top: 10px;
 `;
 
-export const HeaderWrapper = styled.div`
+export const DefaultHeaderWrapper = styled.div`
   position: relative;
   cursor: pointer;
 `;
@@ -77,10 +79,13 @@ export class Collapsable extends React.Component<CollapsableProps, CollapseAreaP
     if (this.state.open && this.props.headerOpen) {
       header = this.props.headerOpen;
     }
+    const HeaderComponent = this.props.headerComponent;
+    const HeaderWrapper = this.props.headerWrapper || DefaultHeaderWrapper;
     return (
       <div className={this.props.className}>
-        <HeaderWrapper onClick={this.open}>
-          {header}{" "}
+        <HeaderWrapper onClick={this.open} isOpen={this.state.open}>
+          {HeaderComponent && <HeaderComponent isOpen={this.state.open}/>}
+          {header && <>header {" "}</>}
           {this.props.ArrowComponent ? (
             <this.props.ArrowComponent disabled={this.props.disabled} open={this.state.open} />
           ) : (

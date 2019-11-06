@@ -12,7 +12,7 @@ import {
 } from "./styledComponents";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "./constants";
 import { VoteTypeSummaryRow } from "./VoteTypeSummaryRow";
-import { Collapsable } from "../Collapsable";
+import { Collapsable } from "../Collapsable/Collapsable";
 
 const DefaultHeader = styled(StyledListingDetailPhaseCardSectionHeader)`
   & + ${VoteTypeSummaryContainer} {

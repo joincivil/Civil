@@ -1,5 +1,5 @@
 import * as React from "react";
-import { CollapsibleContainer } from "../CollapsibleContainer";
+import { Collapsable, StyledCollapsibleContainerHeader } from "../Collapsable";
 import {
   StyledUserActivity,
   StyledDashboardTabsContainer,
@@ -19,15 +19,15 @@ export interface DashboardActivityProps {
 export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> = props => {
   return (
     <StyledUserActivity>
-        <CollapsibleContainer Title={<MyVotingTabText />}>
+      <Collapsable headerComponent={MyVotingTabText} headerWrapper={StyledCollapsibleContainerHeader} open={false}>
           <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
-      </CollapsibleContainer>
-      <CollapsibleContainer Title={<MyNewsroomsTabText />}>
+      </Collapsable>
+      <Collapsable headerComponent={MyNewsroomsTabText} headerWrapper={StyledCollapsibleContainerHeader} open={false}>
           <StyledUserActivityContent>{props.userNewsrooms}</StyledUserActivityContent>
-      </CollapsibleContainer>
-      <CollapsibleContainer Title={<MyChallengesTabText />}>
+      </Collapsable>
+      <Collapsable headerComponent={MyChallengesTabText} headerWrapper={StyledCollapsibleContainerHeader} open={false}>
           <StyledUserActivityContent>{props.userChallenges}</StyledUserActivityContent>
-      </CollapsibleContainer>
+      </Collapsable>
     </StyledUserActivity>
   );
 };
