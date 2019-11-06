@@ -1,13 +1,13 @@
 import * as React from "react";
-import { Query } from "react-apollo";
+// import { Query } from "react-apollo";
 import { BigNumber } from "@joincivil/typescript-types";
-import { CharterData, WrappedChallengeData } from "@joincivil/core";
+import { /*CharterData,*/ WrappedChallengeData } from "@joincivil/core";
 
 import {
-  CHALLENGE_QUERY,
-  LISTING_QUERY,
-  transformGraphQLDataIntoListing,
-  transformGraphQLDataIntoNewsroom,
+  // CHALLENGE_QUERY,
+  // LISTING_QUERY,
+  // transformGraphQLDataIntoListing,
+  // transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoChallenge,
   transfromGraphQLDataIntoUserChallengeData,
 } from "../../../helpers/queryTransformations";
@@ -23,8 +23,8 @@ const MyTasksItemApolloQueryWrapper: React.FunctionComponent<
     challengeID,
     queryUserChallengeData,
     queryUserAppealChallengeData,
-    content,
-    getCharterContent,
+    // content,
+    // getCharterContent,
     showClaimRewardsTab,
     showRescueTokensTab,
   } = props;
