@@ -111,6 +111,15 @@ const USER_CHALLENGE_DASHBOARD_QUERY = gql`
       numTokens
       voterReward
       parentChallengeID
+      challenge {
+        challengeID
+        rewardPool
+        totalTokens
+        statement
+        listing {
+          name
+        }
+      }
     }
     challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
       pollID

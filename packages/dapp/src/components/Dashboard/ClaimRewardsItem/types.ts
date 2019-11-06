@@ -5,20 +5,19 @@ export interface ClaimRewardsItemOwnProps {
   challengeID?: string;
   appealChallengeID?: string;
   isProposalChallenge?: boolean;
-  queryUserChallengeData?: UserChallengeData;
-  queryUserAppealChallengeData?: UserChallengeData;
+  queryUserChallengeData?: any;
+  queryUserAppealChallengeData?: any;
   toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 
 export interface ClaimRewardsViewComponentProps {
-  listingAddress?: string;
-  newsroom?: any;
-  userChallengeData?: UserChallengeData;
+  newsroomName?: string;
+  userChallengeData?: any;
   unclaimedRewardAmount: BigNumber;
 }
 
 export interface ProposalClaimRewardsComponentProps {
   proposal?: any;
-  userChallengeData?: UserChallengeData;
+  userChallengeData?: any;
   unclaimedRewardAmount: BigNumber;
 }

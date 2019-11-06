@@ -22,28 +22,31 @@ const MyTasksItemWrapper: React.FunctionComponent<
     dispatch,
   } = props;
 
-  const viewProps = {
-    challengeID,
-    showClaimRewardsTab,
-    showRescueTokensTab,
-    userAcct,
-    content,
-  };
+  // const viewProps = {
+  //   challengeID,
+  //   showClaimRewardsTab,
+  //   showRescueTokensTab,
+  //   userAcct,
+  //   content,
+  // };
 
-  const helper = React.useContext(CivilHelperContext);
+  // const helper = React.useContext(CivilHelperContext);
 
-  const getCharterContent = async (charterHeader: EthContentHeader) => {
-    dispatch!(await getContent(helper!, charterHeader));
-  };
+  // const getCharterContent = async (charterHeader: EthContentHeader) => {
+  //   dispatch!(await getContent(helper!, charterHeader));
+  // };
 
-  return (
-    <MyTasksItemApolloQueryWrapper
-      {...viewProps}
-      queryUserChallengeData={queryUserChallengeData}
-      queryUserAppealChallengeData={queryUserAppealChallengeData}
-      getCharterContent={getCharterContent}
-    />
-  );
+  console.log("queryUserChallengeData: ", queryUserChallengeData);
+  return <>something</>
+
+  // return (
+  //   <MyTasksItemApolloQueryWrapper
+  //     {...viewProps}
+  //     queryUserChallengeData={queryUserChallengeData}
+  //     queryUserAppealChallengeData={queryUserAppealChallengeData}
+  //     getCharterContent={getCharterContent}
+  //   />
+  // );
 };
 
 const mapStateToPropsMyTasksItemWrapper = (

@@ -6,20 +6,18 @@ import { ClaimRewardsItemOwnProps, ClaimRewardsViewComponentProps, ProposalClaim
 export const ClaimRewardsViewComponent: React.FunctionComponent<
   ClaimRewardsItemOwnProps & ClaimRewardsViewComponentProps
 > = props => {
-  const { challengeID, appealChallengeID, toggleSelect, newsroom, userChallengeData, unclaimedRewardAmount } = props;
+  const { challengeID, appealChallengeID, toggleSelect, newsroomName, userChallengeData, unclaimedRewardAmount } = props;
   let salt;
   if (userChallengeData) {
     salt = userChallengeData.salt;
   }
 
-  if (!(newsroom && (challengeID || appealChallengeID))) {
+  if (!(newsroomName && (challengeID || appealChallengeID))) {
     return null;
   }
 
-  const newsroomData = newsroom.wrapper.data;
-
   const viewProps = {
-    title: newsroomData.name,
+    title: newsroomName,
     challengeID,
     appealChallengeID,
     salt,
