@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address mismatch 1`] = `
+exports[`Storyshots Pattern Library / Collapsable closed 1`] = `
 <div>
   <div
     style={
@@ -11,2231 +11,2604 @@ exports[`Storyshots Common / Wallet Onboarding CMS profile vs. MetaMask address 
     }
   >
     <div
-      className="sc-LzMDv hCLGAy"
+      className="sc-LzNOS gixpMj"
     >
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        Wallet Connected
-      </h4>
-      <p
-        style={
-          Object {
-            "color": "#f2524a",
-          }
-        }
-      >
-        Your WordPress user profile wallet address does not match your MetaMask wallet address
-      </p>
-      <p
-        className="sc-LzMDY cJSljI"
-      >
-        Profile wallet address
-      </p>
-      <span
-        className="sc-LzMDV eEWUqP"
-      >
-        0x123abc00000000000000000000000000000x123abc
-      </span>
-       
-      <p
-        className="sc-LzMDY cJSljI"
-      >
-        Connected wallet address
-      </p>
-      <div
-        className="sc-LzLtT kJyvFA"
-      >
+      <div>
         <div
-          className="sc-LzLtU jLGxqH"
-        >
-          <img
-            className="sc-AykKH jXAxor"
-            src="test-file-stub"
-          />
-          0xabc1230000000000000000000000000000abc123
-        </div>
-      </div>
-       
-      <div
-        className="sc-LzMDX gAFEEf"
-      >
-        <button
-          className="sc-fzXfLO sc-fzXfLP gPnInO"
+          className="sc-LzLtn cvpIYC"
           onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
         >
-          Update Profile Address
-        </button>
-      </div>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            CMS profile vs. MetaMask address mismatch
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                      <span>
-                        <br />
-                          
-                      </span>
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                      <span>
-                        <br />
-                          
-                      </span>
-                      <span
-                        style={Object {}}
-                      >
-                        metamaskWalletAddress
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            0xabc1230000000000000000000000000000abc123
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                      <span>
-                        <br />
-                          
-                      </span>
-                      <span
-                        style={Object {}}
-                      >
-                        profileWalletAddress
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            0x123abc00000000000000000000000000000x123abc
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                      <span>
-                        <br />
-                          
-                      </span>
-                      <span
-                        style={Object {}}
-                      >
-                        saveAddressToProfile
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            saveAddressToProfile
-                          </span>
-                          }
-                        </span>
-                      </span>
-                      <br />
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding Connected 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        Wallet Connected
-      </h4>
-      <p
-        className="sc-LzMDY cJSljI"
-      >
-        Your wallet address
-      </p>
-      <div
-        className="sc-LzLtT kJyvFA"
-      >
-        <div
-          className="sc-LzLtU jLGxqH"
-        >
-          <img
-            className="sc-AykKH jXAxor"
-            src="test-file-stub"
-          />
-          0xabc1230000000000000000000000000000abc123
-        </div>
-      </div>
-       
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Connected
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        metamaskWalletAddress
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            0xabc1230000000000000000000000000000abc123
-                          </span>
-                          "
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding Locked 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <img
-        className="sc-LzMEa iHpJiR"
-        src="test-file-stub"
-      />
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        Not logged in to wallet
-      </h4>
-      <p>
-        Please open the MetaMask extension and follow the instructions to log in to your wallet. After you are logged in, you can continue with your newsroom smart contract.
-         
-        <a
-          target="_blank"
-        >
-          Need help?
-        </a>
-      </p>
-      <p>
-        Once you are on logged in, refresh this page.
-      </p>
-      <p>
-        <button
-          className="sc-fzXfLO sc-fzXfLP sc-LzMDw jMKFag"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
-        >
-          Refresh
-        </button>
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Locked
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        walletLocked
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding No Provider 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        It looks like you aren’t logged in to your wallet
-      </h4>
-      <p>
-        New to using a digital wallet? Having a wallet is mandatory and we recommend
-         
-        <a
-          href="https://metamask.io/"
-          target="_blank"
-        >
-          MetaMask
-        </a>
-         
-        <img
-          className="sc-AykKH jXAxor sc-LzMDZ evlPgi"
-          src="test-file-stub"
-        />
-         to manage your transactions.
-         
-        <a
-          target="_blank"
-        >
-          Read this FAQ
-        </a>
-        .
-      </p>
-      <p>
-        <a
-          className="sc-fzXfLO sc-fzXfLP gPnInO"
-          href="https://metamask.io/"
-          size="MEDIUM_WIDE"
-          target="_blank"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-        >
-          Open MetaMask.io
+          <h3>
+            Hello
+          </h3>
            
-          <span
-            className="sc-LzMDW esreuU"
+          <div
+            className="sc-LzLtm bAHObK"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLtl iklmxi"
+          height={null}
+          open={false}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
           >
+            Pattern Library / Collapsable
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            closed
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          header
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              &lt;h3 /&gt;
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              false
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        p
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Collapsable
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Collapsable disabled 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNOS gixpMj"
+    >
+      <div>
+        <div
+          className="sc-LzLtn cvpIYC"
+          onClick={[Function]}
+        >
+          <h3>
+            Hello
+          </h3>
+           
+          <div
+            className="sc-LzLtm dcaNHG"
+            disabled={true}
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLtl iklmxi"
+          height={null}
+          open={false}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Collapsable
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            disabled
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          disabled
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          header
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              &lt;h3 /&gt;
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              false
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        p
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Collapsable
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Collapsable open 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNOS gixpMj"
+    >
+      <div>
+        <div
+          className="sc-LzLtn cvpIYC"
+          onClick={[Function]}
+        >
+          <h3>
+            Hello
+          </h3>
+           
+          <div
+            className="sc-LzLtm cBDpBp"
+            open={true}
+          />
+        </div>
+        <div
+          className="sc-LzLtl bYAIzd"
+          height={null}
+          open={true}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Collapsable
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            open
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          header
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              &lt;h3 /&gt;
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        p
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Collapsable
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Collapsable with custom arrow 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNOS gixpMj"
+    >
+      <div>
+        <div
+          className="sc-LzLtn cvpIYC"
+          onClick={[Function]}
+        >
+          Hello
+           
+          <div
+            className="sc-LzNQM eyUaMM"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLtl iklmxi"
+          height={null}
+          open={false}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Collapsable
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            with custom arrow
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          header
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Hello
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          ArrowComponent
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  $$typeof
+                                </span>
+                              </span>
+                              : 
+                              <span>
+                                …
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  render
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#170",
+                                  }
+                                }
+                              >
+                                forwardRef
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  attrs
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                [
+                                ]
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              false
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        p
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Collapsable
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Collapsable with open text 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNOS gixpMj"
+    >
+      <div>
+        <div
+          className="sc-LzLtn cvpIYC"
+          onClick={[Function]}
+        >
+          Hello
+           
+          <div
+            className="sc-LzLtm bAHObK"
+            open={false}
+          />
+        </div>
+        <div
+          className="sc-LzLtl iklmxi"
+          height={null}
+          open={false}
+        >
+          <p>
+             Some Content 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button
+    className="info__show-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#027ac5",
+        "border": "none",
+        "borderRadius": "0 0 0 5px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "block",
+        "fontFamily": "sans-serif",
+        "fontSize": "12px",
+        "padding": "5px 15px",
+        "position": "fixed",
+        "right": 0,
+        "top": 0,
+      }
+    }
+    type="button"
+  >
+    Show Info
+  </button>
+  <div
+    className="info__overlay"
+    style={
+      Object {
+        "background": "white",
+        "bottom": 0,
+        "display": "none",
+        "height": "100vh",
+        "left": 0,
+        "overflow": "auto",
+        "position": "fixed",
+        "top": 0,
+        "width": "100vw",
+        "zIndex": 99999,
+      }
+    }
+  >
+    <button
+      className="info__close-button"
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "#027ac5",
+          "border": "none",
+          "borderRadius": "0 0 0 5px",
+          "color": "#fff",
+          "cursor": "pointer",
+          "display": "block",
+          "fontFamily": "sans-serif",
+          "fontSize": "12px",
+          "padding": "5px 15px",
+          "position": "fixed",
+          "right": 0,
+          "top": 0,
+        }
+      }
+      type="button"
+    >
+      ×
+    </button>
+    <div>
+      <div
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid #eee",
+            "borderRadius": "2px",
+            "color": "black",
+            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
+            "fontSize": "15px",
+            "fontWeight": 300,
+            "lineHeight": 1.45,
+            "marginBottom": "20px",
+            "marginTop": "20px",
+            "padding": "20px 40px 40px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "borderBottom": "1px solid #eee",
+              "marginBottom": 10,
+              "paddingTop": 10,
+            }
+          }
+        >
+          <h1
+            style={
+              Object {
+                "fontSize": "35px",
+                "margin": 0,
+                "padding": 0,
+              }
+            }
+          >
+            Pattern Library / Collapsable
+          </h1>
+          <h2
+            style={
+              Object {
+                "fontSize": "22px",
+                "fontWeight": 400,
+                "margin": "0 0 10px 0",
+                "padding": 0,
+              }
+            }
+          >
+            with open text
+          </h2>
+        </div>
+        
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Story Source
+          </h1>
+          <pre
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#fafafa",
+                "display": "flex",
+                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
+                "fontSize": ".88em",
+                "justifyContent": "space-between",
+                "lineHeight": 1.5,
+                "overflowX": "scroll",
+                "padding": ".5rem",
+              }
+            }
+          >
+            <div>
+              <div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;
+                    styled.div
+                  </span>
+                  <span />
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &gt;
+                  </span>
+                </div>
+                <div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          header
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Hello
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          headerOpen
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              goodbye
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              false
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;
+                        p
+                      </span>
+                      <span />
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
+                </div>
+                <div
+                  style={
+                    Object {
+                      "paddingLeft": 18,
+                      "paddingRight": 3,
+                    }
+                  }
+                >
+                  <span
+                    style={
+                      Object {
+                        "color": "#444",
+                      }
+                    }
+                  >
+                    &lt;/
+                    styled.div
+                    &gt;
+                  </span>
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={[Function]}
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                  "backgroundColor": "rgb(255, 255, 255)",
+                  "borderColor": "rgb(238, 238, 238)",
+                  "borderImage": "initial",
+                  "borderRadius": "3px",
+                  "borderStyle": "solid",
+                  "borderWidth": "1px",
+                  "cursor": "pointer",
+                  "flexShrink": "0",
+                  "fontSize": "13px",
+                  "overflow": "hidden",
+                  "padding": "3px 10px",
+                }
+              }
+              type="button"
+            >
+              Copy
+            </button>
+          </pre>
+        </div>
+        <div>
+          <h1
+            style={
+              Object {
+                "borderBottom": "1px solid #EEE",
+                "fontSize": "25px",
+                "margin": "20px 0 0 0",
+                "padding": "0 0 5px 0",
+              }
+            }
+          >
+            Prop Types
+          </h1>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              Collapsable
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
+              styled.div
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Pattern Library / Collapsable with top level dashboard styled 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "position": "relative",
+        "zIndex": 0,
+      }
+    }
+  >
+    <div
+      className="sc-LzNOS gixpMj"
+    >
+      <div>
+        <div
+          className="sc-LzLtO drLHGv"
+          onClick={[Function]}
+        >
+          <div>
             <svg
-              height="11"
-              viewBox="0 0 11 11"
-              width="11"
+              height="18"
+              viewBox="0 0 18 18"
+              width="18"
               xmlns="http://www.w3.org/2000/svg"
             >
+              <circle
+                cx="9"
+                cy="9"
+                fill="none"
+                r="8.25"
+                stroke="#7D7373"
+              />
               <path
-                d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
-                fill="#23282d"
-                fillRule="evenodd"
+                d="M12.6 5l-5.13 5.17L5.4 8.09 4 9.5 7.47 13 14 6.41z"
+                fill="#7D7373"
               />
             </svg>
-          </span>
-        </a>
-        <span
-          style={
-            Object {
-              "fontSize": 13,
-              "marginLeft": 16,
-            }
-          }
-        >
-          Once the extension is installed,
-           
-          <a
-            href="javascript:void(0)"
-            onClick={[Function]}
-          >
-            refresh this page
-          </a>
-          .
-        </span>
-      </p>
-      <p>
-        After you've set up MetaMask, you'll receive a wallet address and you'll be able to buy ETH with your bank or credit card. We recommend purchasing USD$50 of ETH to start. Note: Processing times can vary, and it can take up to 7 days for the ETH to be deposited in your wallet.
-      </p>
-      <p>
-        You will use your MetaMask wallet to set up and manage your smart contract, as well as sign, index, and archive posts to the Ethereum blockchain. Make sure you've saved your
-         
-        <a
-          href="undefinedarticles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
-          target="_blank"
-        >
-          seed phrase
-        </a>
-         
-        from MetaMask in a safe place.
-      </p>
-      <p
-        style={
-          Object {
-            "fontSize": 13,
-          }
-        }
-      >
-        <span
-          style={
-            Object {
-              "color": "#23282d",
-              "fontWeight": 600,
-            }
-          }
-        >
-          Already have a wallet?
-        </span>
-        <span
-          style={
-            Object {
-              "color": "#72777c",
-              "marginLeft": 12,
-            }
-          }
-        >
-          Make sure it's unlocked and connected to the 
-          , and then
-           
-          <a
-            href="javascript:void(0)"
-            onClick={[Function]}
-          >
-            refresh this page
-          </a>
-          .
-        </span>
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            No Provider
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        noProvider
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
+             Tasks
           </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding Not Enabled 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        MetaMask not enabled
-      </h4>
-      <p>
-        Press this button to enable MetaMask for this domain.
-      </p>
-      <p>
-        <button
-          className="sc-fzXfLO sc-fzXfLP sc-LzMDw jMKFag"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
-        >
-          Enable
-        </button>
-      </p>
-      <p>
-        If you do not see the MetaMask popup, please click the 
-        <img
-          className="sc-AykKH jXAxor sc-LzMDZ evlPgi"
-          src="test-file-stub"
-        />
-         icon in your browser address bar.
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Not Enabled
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        notEnabled
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        Wallet Connected
-      </h4>
-      <p>
-        Your wallet is connected. Now you can add your public wallet address to your WordPress user profile.
-      </p>
-      <p
-        className="sc-LzMDY cJSljI"
-      >
-        Your wallet address
-      </p>
-      <div
-        className="sc-LzLtT kJyvFA"
-      >
-        <div
-          className="sc-LzLtU jLGxqH"
-        >
-          <img
-            className="sc-AykKH jXAxor"
-            src="test-file-stub"
+          <div
+            className="sc-LzLtm bAHObK"
+            open={false}
           />
-          0xabc1230000000000000000000000000000abc123
         </div>
-      </div>
-       
-      <div
-        className="sc-LzMDX gAFEEf"
-      >
-        <button
-          className="sc-fzXfLO sc-fzXfLP gPnInO"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
+        <div
+          className="sc-LzLtl iklmxi"
+          height={null}
+          open={false}
         >
-          Save to Your Profile
-        </button>
+          <p>
+             Some Content 
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -2338,7 +2711,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
               }
             }
           >
-            Common / Wallet Onboarding
+            Pattern Library / Collapsable
           </h1>
           <h2
             style={
@@ -2350,7 +2723,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
               }
             }
           >
-            Save address to CMS profile
+            with top level dashboard styled
           </h2>
         </div>
         
@@ -2400,7 +2773,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
                     }
                   >
                     &lt;
-                    StorybookProvider
+                    styled.div
                   </span>
                   <span />
                   <span
@@ -2413,115 +2786,294 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
                     &gt;
                   </span>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
+                <div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      Collapsable
+                    </span>
                     <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
                       <span>
-                        =
+                         
                         <span
                           style={Object {}}
                         >
-                          {
+                          headerWrapper
+                        </span>
+                        <span>
+                          =
                           <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
+                            style={Object {}}
                           >
-                            enable
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  $$typeof
+                                </span>
+                              </span>
+                              : 
+                              <span>
+                                …
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  render
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#170",
+                                  }
+                                }
+                              >
+                                forwardRef
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  attrs
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#666",
+                                  }
+                                }
+                              >
+                                [
+                                ]
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
+                            </span>
+                            }
                           </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          headerComponent
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              TasksTitle
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          open
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              false
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
+                    </span>
+                  </div>
+                  <div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
                           }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
+                        }
                       >
-                        metamaskWalletAddress
+                        &lt;
+                        p
                       </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            0xabc1230000000000000000000000000000abc123
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
+                      <span />
                       <span
-                        style={Object {}}
-                      >
-                        saveAddressToProfile
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            saveAddressToProfile
-                          </span>
+                        style={
+                          Object {
+                            "color": "#444",
                           }
-                        </span>
+                        }
+                      >
+                        &gt;
                       </span>
-                       
-                    </span>
-                  </span>
-                  <span
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 63,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                         Some Content 
+                      </span>
+                    </div>
+                    <div
+                      style={
+                        Object {
+                          "paddingLeft": 48,
+                          "paddingRight": 3,
+                        }
+                      }
+                    >
+                      <span
+                        style={
+                          Object {
+                            "color": "#444",
+                          }
+                        }
+                      >
+                        &lt;/
+                        p
+                        &gt;
+                      </span>
+                    </div>
+                  </div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    /&gt;
-                  </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      Collapsable
+                      &gt;
+                    </span>
+                  </div>
                 </div>
                 <div
                   style={
@@ -2539,7 +3091,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
                     }
                   >
                     &lt;/
-                    StorybookProvider
+                    styled.div
                     &gt;
                   </span>
                 </div>
@@ -2591,7 +3143,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
               }
             >
               "
-              StorybookProvider
+              Collapsable
               " Component
             </h3>
             <small>
@@ -2607,439 +3159,7 @@ exports[`Storyshots Common / Wallet Onboarding Save address to CMS profile 1`] =
               }
             >
               "
-              WalletOnboarding
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Common / Wallet Onboarding Wrong Network 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzMDv hCLGAy"
-    >
-      <img
-        className="sc-LzMEa iHpJiR"
-        src="test-file-stub"
-      />
-      <h4
-        className="sc-fzXfOu krRwNC"
-      >
-        Change your network
-      </h4>
-      <p>
-        Looks like you’re using an unsupported Ethereum network. Make sure you're using the
-         
-        Main Ethereum Network
-        .
-         
-        <a
-          href="undefinedarticles/360017414812-How-do-I-switch-networks-in-MetaMask-"
-          target="_blank"
-        >
-          Read this tutorial
-        </a>
-         
-        to switch networks in MetaMask 
-        <img
-          className="sc-AykKH jXAxor sc-LzMDZ evlPgi"
-          src="test-file-stub"
-        />
-      </p>
-      <p>
-        Once you are on the correct network, refresh this page.
-      </p>
-      <p>
-        <button
-          className="sc-fzXfLO sc-fzXfLP sc-LzMDw jMKFag"
-          onClick={[Function]}
-          size="MEDIUM_WIDE"
-          theme={
-            Object {
-              "primaryButtonBackground": "#2B56FF",
-              "primaryButtonColor": "#FFFFFF",
-              "primaryButtonDisabledBackground": "rgba(43, 86, 255, 0.5)",
-              "primaryButtonDisabledColor": "#FFFFFF",
-              "primaryButtonFontWeight": "normal",
-              "primaryButtonHoverBackground": "#4066FF",
-              "primaryButtonTextTransform": "uppercase",
-              "sansSerifFont": "\\"Libre Franklin\\", sans-serif",
-            }
-          }
-          type="button"
-        >
-          Refresh
-        </button>
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Common / Wallet Onboarding
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Wrong Network
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    StorybookProvider
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    WalletOnboarding
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        enable
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            enable
-                          </span>
-                          }
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        wrongNetwork
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        requiredNetworkNiceName
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            Main Ethereum Network
-                          </span>
-                          "
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    StorybookProvider
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              StorybookProvider
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              WalletOnboarding
+              styled.div
               " Component
             </h3>
             <small>

@@ -11,40 +11,40 @@ exports[`Storyshots Registry / Listing / Listing Summary Card 1`] = `
     }
   >
     <div
-      className="sc-LzNOV gooqem"
+      className="sc-LzNPA jeNctS"
     >
       <div>
         <div
-          className="sc-LzLtU uDToq"
+          className="sc-LzLuz deXfRY"
         >
           <a
             href="/listing/0x0a"
             onClick={[Function]}
           >
             <div
-              className="sc-LzLus iHxxHC"
+              className="sc-LzLuA eVbnJO"
             >
               <div
-                className="sc-LzLut gLExjt"
+                className="sc-LzLuB FygET"
               >
                 <figure
-                  className="sc-LzLvb hvTjFE"
+                  className="sc-LzLvG iZrWTB"
                 />
                 <div>
                   <h1
-                    className="sc-fzXfOq sc-LzLuA eWfaJf"
+                    className="sc-fzXfOq sc-LzLvf eIZqQF"
                   >
                     Block Club Chicago
                   </h1>
                   <div
-                    className="sc-LzLuB fBSSnz"
+                    className="sc-LzLvg CUyMl"
                   >
                     Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...
                   </div>
                 </div>
               </div>
               <div
-                className="sc-LzLuz jLzMMH"
+                className="sc-LzLve iBRixz"
               >
                 <button
                   className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -494,44 +494,44 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
     }
   >
     <div
-      className="sc-LzNOV gooqem"
+      className="sc-LzNPA jeNctS"
     >
       <div>
         <div
-          className="sc-LzLtT gVSigx"
+          className="sc-LzLuy jPuLlj"
         >
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0a"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Block Club Chicago
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -553,36 +553,36 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0b"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Cannabis Wire
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -604,36 +604,36 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0c"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Documented
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -655,36 +655,36 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0d"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Block Club Chicago
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Block Club Chicago is a nonprofit, neighborhood news organization dedicated to delivering reliable, nonpartisan and esse...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -706,36 +706,36 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0e"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Cannabis Wire
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Cannabis Wire is an independent publication covering the multi-billion dollar cannabis industry, focusing on investigati...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -757,36 +757,36 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Grid 1`] = `
           </div>
           <div>
             <div
-              className="sc-LzLtU uDToq"
+              className="sc-LzLuz deXfRY"
             >
               <a
                 href="/listing/0x0f"
                 onClick={[Function]}
               >
                 <div
-                  className="sc-LzLus iHxxHC"
+                  className="sc-LzLuA eVbnJO"
                 >
                   <div
-                    className="sc-LzLut gLExjt"
+                    className="sc-LzLuB FygET"
                   >
                     <figure
-                      className="sc-LzLvb hvTjFE"
+                      className="sc-LzLvG iZrWTB"
                     />
                     <div>
                       <h1
-                        className="sc-fzXfOq sc-LzLuA eWfaJf"
+                        className="sc-fzXfOq sc-LzLvf eIZqQF"
                       >
                         Documented
                       </h1>
                       <div
-                        className="sc-LzLuB fBSSnz"
+                        className="sc-LzLvg CUyMl"
                       >
                         Documented covers New York City’s immigrants and the policies that affect their lives. We are an independent and nonpart...
                       </div>
                     </div>
                   </div>
                   <div
-                    className="sc-LzLuz jLzMMH"
+                    className="sc-LzLve iBRixz"
                   >
                     <button
                       className="sc-fzXfLO sc-fzXfLQ ioNMHg"
@@ -1238,7 +1238,7 @@ exports[`Storyshots Registry / Listing / Listing Summary Card Rejected 1`] = `
     }
   >
     <div
-      className="sc-LzNOV gooqem"
+      className="sc-LzNPA jeNctS"
     >
       <div />
     </div>
