@@ -1,8 +1,10 @@
 import * as React from "react";
 import { RegistryShell } from "./RegistryShell";
 
-const AppProvider = React.lazy(async () => import("../components/providers/AppProvider"));
-const RegistryApp = React.lazy(async () => import("./RegistryApp"));
+const AppProvider = React.lazy(async () =>
+  import(/* webpackChunkName: "app-provider" */ "../components/providers/AppProvider"),
+);
+const RegistryApp = React.lazy(async () => import(/* webpackChunkName: "registry" */ "./RegistryApp"));
 
 const LazyRegistryApp = () => {
   return (

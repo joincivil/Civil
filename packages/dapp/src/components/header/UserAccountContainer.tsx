@@ -1,6 +1,6 @@
 import * as React from "react";
 
-const UserAccount = React.lazy(async () => import("./UserAccount"));
+const UserAccount = React.lazy(async () => import(/* webpackChunkName: "user-account" */ "./UserAccount"));
 
 export const UserAccountContainer: React.FunctionComponent = () => {
   return (

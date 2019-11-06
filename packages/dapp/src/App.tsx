@@ -26,19 +26,19 @@ const GlobalStyle = createGlobalStyle`
 // apps
 const LazyRegistryApp = React.lazy(async () => {
   console.log("loading registry");
-  return import("./registry/LazyRegistryApp");
+  return import(/* webpackChunkName: "registry-app" */ "./registry/LazyRegistryApp");
 });
 const EmbedsApp = React.lazy(async () => {
   console.log("loading embed");
-  return import("./embeds/EmbedsApp");
+  return import(/* webpackChunkName: "embeds-app" */ "./embeds/EmbedsApp");
 });
 const StoriesApp = React.lazy(async () => {
   console.log("loading stories");
-  return import("./stories/StoriesApp");
+  return import(/* webpackChunkName: "stories-app" */ "./stories/StoriesApp");
 });
 const KirbyApp = React.lazy(async () => {
   console.log("loading kirby");
-  return import("@joincivil/kirby");
+  return import(/* webpackChunkName: "kirby-app" */ "@joincivil/kirby");
 });
 
 export const App = () => {
