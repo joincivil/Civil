@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { fonts, colors } from "../styleConstants";
+import { colors } from "../styleConstants";
 
 export interface OpenProps {
   isOpen?: boolean;

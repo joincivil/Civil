@@ -2,9 +2,8 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
 import { Collapsable } from "./Collapsable";
-import { TasksText, NewsroomsText, HistoryText } from "./textComponents";
 import { StyledCollapsibleContainerHeader } from "./CollapsibleContainerStyled";
-import { TasksTitle, NewsroomsTitle, HistoryTitle } from "./CollapsibleContainerTitles";
+import { TasksTitle } from "./CollapsibleContainerTitles";
 
 const Wrapper = styled.div`
   margin: 50px;
