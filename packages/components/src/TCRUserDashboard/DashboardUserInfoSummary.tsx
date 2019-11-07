@@ -63,31 +63,31 @@ export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) =
         </StyledUserInfoSectionValue>
       </StyledUserInfoSection>
 
-      <StyledUserInfoSection>
-        {challengesWonTotalCvl && (
-          <>
-            <StyledUserInfoSectionLabel>
-              <ChallengesWonLabelText />
-            </StyledUserInfoSectionLabel>
-            <StyledUserInfoSectionValue>
-              <strong>{challengesWonTotalCvl}</strong>
-            </StyledUserInfoSectionValue>
-          </>
-        )}
-      </StyledUserInfoSection>
+      {challengesWonTotalCvl && (
+        <StyledUserInfoSection>
+            <>
+              <StyledUserInfoSectionLabel>
+                <ChallengesWonLabelText />
+              </StyledUserInfoSectionLabel>
+              <StyledUserInfoSectionValue>
+                <strong>{challengesWonTotalCvl}</strong>
+              </StyledUserInfoSectionValue>
+            </>
+        </StyledUserInfoSection>
+      )}
 
-      <StyledUserInfoSection>
-        {rewardsEarned && (
-          <>
-            <StyledUserInfoSectionLabel>
-              <RewardsClaimedLabelText />
-            </StyledUserInfoSectionLabel>
-            <StyledUserInfoSectionValue>
-              <strong>{rewardsEarned}</strong>
-            </StyledUserInfoSectionValue>
-          </>
-        )}
-      </StyledUserInfoSection>
+      {rewardsEarned && (
+        <StyledUserInfoSection>
+            <>
+              <StyledUserInfoSectionLabel>
+                <RewardsClaimedLabelText />
+              </StyledUserInfoSectionLabel>
+              <StyledUserInfoSectionValue>
+                <strong>{rewardsEarned}</strong>
+              </StyledUserInfoSectionValue>
+            </>
+        </StyledUserInfoSection>
+      )}
 
       <StyledUserInfoButtonSection>
         <Button size={buttonSizes.MEDIUM_WIDE} {...buyBtnProps}>

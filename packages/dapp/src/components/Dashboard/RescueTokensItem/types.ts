@@ -5,8 +5,8 @@ export interface RescueTokensItemOwnProps {
   challengeID?: string;
   appealChallengeID?: string;
   isProposalChallenge?: boolean;
-  queryUserChallengeData?: UserChallengeData;
-  queryUserAppealChallengeData?: UserChallengeData;
+  queryUserChallengeData?: any;
+  queryUserAppealChallengeData?: any;
   toggleSelect?(challengeID: string, isSelected: boolean, salt: BigNumber): void;
 }
 

@@ -18,9 +18,9 @@ const MyTasksItemComponent: React.FunctionComponent<MyTasksItemOwnProps & MyTask
   let canUserRescue = false;
   let didUserCommit = false;
   if (userChallengeData) {
-    canUserCollect = userChallengeData.canUserCollect;
-    canUserRescue = userChallengeData.canUserRescue;
-    didUserCommit = userChallengeData.didUserCommit;
+    canUserCollect = userChallengeData.canUserCollect!;
+    canUserRescue = userChallengeData.canUserRescue!;
+    didUserCommit = userChallengeData.didUserCommit!;
   }
   const { inCommitPhase, inRevealPhase } = challengeState;
 

@@ -2,8 +2,7 @@ import { UserChallengeData, EthAddress } from "@joincivil/core";
 
 export interface MyTasksProposalItemOwnProps {
   challengeID?: string;
-  queryUserChallengeData?: UserChallengeData;
-  queryUserAppealChallengeData?: UserChallengeData;
+  queryUserChallengeData?: any;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }

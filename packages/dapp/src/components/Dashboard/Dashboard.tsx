@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/core";
-import { buttonSizes, Button, CivilContext, UserDashboardHeader, LoadUser } from "@joincivil/components";
+import { buttonSizes, Button, CivilContext, UserDashboardHeader, LoadUser, mediaQueries, colors } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
@@ -14,9 +14,12 @@ import DashboardActivity from "./DashboardActivity";
 
 const StyledDashboardActivityContainer = styled.div`
   box-sizing: border-box;
-  padding: 0 0 200px 396px;
-  margin: -550px auto 0;
-  width: 1200px;
+  margin-top: 40px;
+
+  ${mediaQueries.MOBILE} {
+    max-width: 100%;
+    margin: 0;
+  }
 `;
 
 const StyledAuthButtonContainer = styled.div`
@@ -30,6 +33,15 @@ const StyledAuthButtonContainer = styled.div`
     font-weight: bold;
     line-height: 33px;
   }
+`;
+
+const DashboardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  ${mediaQueries.MOBILE} {
+    flex-direction: column;
+  }
+  background-color: ${colors.accent.CIVIL_BLUE_VERY_FADED_2};
 `;
 
 export interface DashboardProps {
@@ -62,14 +74,14 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
 
           if (civilUser && props.userAccount) {
             return (
-              <>
+              <DashboardContainer>
                 <UserDashboardHeader>
                   <UserInfoSummary />
                 </UserDashboardHeader>
                 <StyledDashboardActivityContainer>
                   <DashboardActivity match={props.match} history={props.history} />
                 </StyledDashboardActivityContainer>
-              </>
+              </DashboardContainer>
             );
           } else if (civilUser && enableEthereum) {
             return (

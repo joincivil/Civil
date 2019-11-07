@@ -1,16 +1,13 @@
 import * as React from "react";
-import { Query } from "react-apollo";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
-import { NoNewsrooms, LoadingMessage } from "@joincivil/components";
+import { NoNewsrooms } from "@joincivil/components";
 import { routes } from "../../constants";
 import {
-  LISTING_QUERY,
   transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoListing,
 } from "../../helpers/queryTransformations";
 
-import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 
 import NewsroomsListItemComponent from "./NewsroomsListItemComponent";
@@ -23,57 +20,48 @@ interface ApplicationProgressData {
 }
 
 interface NewsroomListItemOwnProps {
-  listingAddress: EthAddress;
+  listing: any;
   applicationProgressData?: ApplicationProgressData;
 }
 
 const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps> = props => {
-  const { listingAddress, applicationProgressData } = props;
-  return (
-    <Query query={LISTING_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
-      {({ loading, error, data }: any): JSX.Element => {
-        if (loading) {
-          return <LoadingMessage />;
-        }
-        if (error) {
-          console.error("Error querying listing", error);
-          return <ErrorLoadingDataMsg />;
-        }
-        if (!data.listing) {
-          if (applicationProgressData) {
-            const { tcrApplyTx } = applicationProgressData;
-            if (!tcrApplyTx || !tcrApplyTx.length) {
-              return (
-                <NoNewsrooms
-                  hasInProgressApplication={true}
-                  applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)}
-                />
-              );
-            }
-          }
-          console.error("Error querying listing: no listing returned");
-          return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
-        }
-        const listing = transformGraphQLDataIntoListing(data.listing, listingAddress);
-        const newsroom = transformGraphQLDataIntoNewsroom(data.listing, listingAddress);
-        const charterHeader = newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader;
+  const { listing, applicationProgressData } = props;
+
+  if (!listing) {
+    if (applicationProgressData) {
+      const { tcrApplyTx } = applicationProgressData;
+      if (!tcrApplyTx || !tcrApplyTx.length) {
         return (
-          <>
-            <NewsroomsListItemComponent
-              listingAddress={listingAddress}
-              listing={listing}
-              newsroomCharterHeader={charterHeader}
-            />
-          </>
+          <NoNewsrooms
+            hasInProgressApplication={true}
+            applyToRegistryURL={formatRoute(routes.APPLY_TO_REGISTRY)}
+          />
         );
-      }}
-    </Query>
+      }
+    }
+    console.error("Error querying listing: no listing returned");
+    return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
+  }
+
+  const listingData = transformGraphQLDataIntoListing(listing, listing.contractAddress);
+  const newsroom = transformGraphQLDataIntoNewsroom(listing, listing.contractAddress);
+  const charterHeader = newsroom && newsroom.data && newsroom.data.charterHeader && newsroom.data.charterHeader;
+  return (
+    <>
+      <NewsroomsListItemComponent
+        listingAddress={listing.contractAddress}
+        listing={listingData}
+        newsroom={newsroom}
+        newsroomCharterHeader={charterHeader}
+      />
+    </>
   );
+
 };
 
 const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps> = props => {
-  const { listingAddress, applicationProgressData } = props;
-  return <NewsroomsListItemGraphQL listingAddress={listingAddress} applicationProgressData={applicationProgressData} />;
+  const { listing, applicationProgressData } = props;
+  return <NewsroomsListItemGraphQL listing={listing} applicationProgressData={applicationProgressData} />;
 };
 
 export default NewsroomListItem;
