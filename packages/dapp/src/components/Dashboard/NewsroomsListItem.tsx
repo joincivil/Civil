@@ -51,6 +51,7 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
       <NewsroomsListItemComponent
         listingAddress={listing.contractAddress}
         listing={listingData}
+        newsroom={newsroom}
         newsroomCharterHeader={charterHeader}
       />
     </>

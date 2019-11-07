@@ -21,12 +21,13 @@ export interface NewsroomsListItemOwnProps {
   listingAddress: string;
   listing?: ListingWrapper | undefined;
   newsroomCharterHeader?: EthContentHeader;
+  newsroom: any;
 }
 
 export interface NewsroomsListItemReduxProps {
   network: string;
   listingDataRequestStatus?: any;
-  newsroom?: NewsroomState;
+  // newsroom?: NewsroomState;
   charter?: Partial<CharterData>;
   challenge?: WrappedChallengeData;
   challengeState?: any;
@@ -151,24 +152,28 @@ class NewsroomsListItemListingRedux extends React.Component<
       };
     };
 
-    if (listing && newsroom && newsroom.wrapper && listingPhaseState) {
-      const newsroomData = newsroom.wrapper.data;
+    console.log("listing:  ", listing);
+    console.log("newsroom:  ", newsroom);
+    // console.log("newsroom.wrapper:  ", newsroom.wrapper);
+    if (listing /*&& newsroom && newsroom.wrapper*/ && listingPhaseState) {
+      // const newsroomData = newsroom.wrapper.data;
 
       const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
       const manageNewsroomURL = formatRoute(routes.MANAGE_NEWSROOM, { newsroomAddress: listingAddress });
 
       let newsroomMultiSigBalance = "0.00";
-      if (newsroom.multisigBalance) {
+      if (newsroom && newsroom.multisigBalance) {
         newsroomMultiSigBalance = getFormattedTokenBalance(newsroom.multisigBalance, true);
       }
       const etherscanBaseURL = getEtherscanBaseURL(network);
 
       const newsroomStatusOnRegistry = getNewsroomStatusOnRegistry();
+      const newsroomName = (newsroom && newsroom.data && newsroom.data.name) ? newsroom.data.name : "loading...";
 
       const displayProps = {
-        newsroomName: newsroomData.name,
+        newsroomName, // newsroomData.name,
         newsroomAddress: listingAddress,
-        newsroomMultiSigAddress: newsroom.multisigAddress,
+        newsroomMultiSigAddress: listing.data.owner,
         newsroomMultiSigBalance,
         listingDetailURL,
         manageNewsroomURL,
@@ -201,11 +206,6 @@ class NewsroomsListItemListingRedux extends React.Component<
       if (newsroom.multisigAddress) {
         this.props.dispatch!(await getNewsroomMultisigBalance(listingAddress!, newsroom.multisigAddress, civil));
       }
-    } else if (charter) {
-      if (!this.state.loading) {
-        this.setState({ loading: true });
-      }
-      this.props.dispatch!(await getNewsroom(listingAddress!, civil, charter));
     }
     if (newsroomCharterHeader && !charter) {
       if (!this.state.loading) {
@@ -221,10 +221,9 @@ const makeMapStateToProps = () => {
     state: State,
     ownProps: NewsroomsListItemOwnProps,
   ): NewsroomsListItemReduxProps & NewsroomsListItemOwnProps => {
-    const { listingAddress, listing } = ownProps;
-    const { network, newsrooms } = state;
+    const { listing, newsroom } = ownProps;
+    const { network } = state;
     const { content } = state.networkDependent;
-    const newsroom = listingAddress ? newsrooms.get(listingAddress) : undefined;
 
     let charter;
     let charterURI;
@@ -233,8 +232,8 @@ const makeMapStateToProps = () => {
       newsroomCharterHeader = ownProps.newsroomCharterHeader;
       charterURI = newsroomCharterHeader.uri;
     } else if (newsroom) {
-      newsroomCharterHeader = newsroom.wrapper.data.charterHeader;
-      charterURI = newsroom.wrapper.data.charterHeader!.uri;
+      newsroomCharterHeader = newsroom.data.charterHeader;
+      charterURI = newsroom.data.charterHeader!.uri;
     }
     if (charterURI) {
       charter = content.get(charterURI) as CharterData;

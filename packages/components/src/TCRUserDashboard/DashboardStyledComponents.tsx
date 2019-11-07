@@ -5,6 +5,7 @@ import { colors, fonts } from "../styleConstants";
 import { LoadingMessage } from "../LoadingMessage";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
+import { mediaQueries } from "@joincivil/elements";
 
 export const DashboardStylesNoticeContainer = styled.div`
   padding: 24px;
@@ -13,6 +14,11 @@ export const DashboardStylesNoticeContainer = styled.div`
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
+  flex-grow: 1;
+  padding-right: 50px;
+  ${mediaQueries.MOBILE} {
+    padding: 0;
+  }
 `;
 
 export const StyledUserActivityContent = styled.div`

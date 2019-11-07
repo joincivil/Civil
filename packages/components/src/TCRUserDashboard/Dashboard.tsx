@@ -7,8 +7,10 @@ const StyledDashboardHeaderOuter = styled.div`
   padding: 62px 0 38px;
   justify-content: center;
   width: 400px;
+  min-width: 400px;
   ${mediaQueries.MOBILE}  {
     width: 100%;
+    min-width: 0;
   }
 `;
 
