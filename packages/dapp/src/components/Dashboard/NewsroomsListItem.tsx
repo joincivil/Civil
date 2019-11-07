@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Query } from "react-apollo";
 import { formatRoute } from "react-router-named-routes";
 import { EthAddress } from "@joincivil/core";
 import { NoNewsrooms } from "@joincivil/components";

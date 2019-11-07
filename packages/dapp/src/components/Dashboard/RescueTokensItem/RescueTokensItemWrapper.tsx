@@ -1,9 +1,6 @@
 import * as React from "react";
-import { Query } from "react-apollo";
 
 import {
-  CHALLENGE_QUERY,
-  LISTING_QUERY,
   transformGraphQLDataIntoNewsroom,
   transfromGraphQLDataIntoUserChallengeData,
 } from "../../../helpers/queryTransformations";

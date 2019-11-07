@@ -8,7 +8,7 @@ export interface NewsroomsListOwnProps {
 }
 
 const NewsroomsList: React.FunctionComponent<NewsroomsListOwnProps> = props => {
-  const { listings, newsroomsApplicationProgressData } = props;
+  const { listings/*, newsroomsApplicationProgressData*/ } = props;
   return (
     <>
       {listings &&

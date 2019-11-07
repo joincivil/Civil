@@ -1,8 +1,6 @@
 import * as React from "react";
-import styled from "styled-components";
 import { Query } from "react-apollo";
 import { Set } from "immutable";
-import { EthAddress } from "@joincivil/core";
 import { LoadingMessage } from "@joincivil/components";
 import gql from "graphql-tag";
 import { LISTING_FRAGMENT } from "../../../helpers/queryTransformations";
