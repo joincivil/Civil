@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Map } from "immutable";
 import { diffSentences } from "diff";
 import {

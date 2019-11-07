@@ -2,7 +2,7 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { BigNumber } from "@joincivil/typescript-types";
 import {
   canRequestAppeal,

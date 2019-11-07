@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { fonts, colors } from "@joincivil/components";
 import { RosterMember } from "@joincivil/core";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";

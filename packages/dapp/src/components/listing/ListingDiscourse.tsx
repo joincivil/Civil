@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 import { EthAddress } from "@joincivil/core";
 import { colors, FeatureFlag, LoadingMessage, ChevronAnchor } from "@joincivil/components";

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import config from "./helpers/config";
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components/macro";
 
 import { fonts, colors } from "@joincivil/elements";
 

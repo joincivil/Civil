@@ -13,7 +13,7 @@ import {
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import { NewsroomListing } from "@joincivil/core";
 import { RejectedTabDescription } from "./TabDescriptions";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const LISTINGS_QUERY = gql`
   query Listings($rejectedOnly: Boolean!, $sortBy: ListingSort, $cursor: String) {
