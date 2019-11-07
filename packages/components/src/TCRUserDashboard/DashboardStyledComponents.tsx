@@ -546,9 +546,13 @@ export const StyledCVLLabel = styled.span`
 // No Content
 export const StyledDashboardNoContent = styled.div`
   margin: 0 auto;
-  padding: 60px 0 0;
+  padding: 60px 0 60px;
   text-align: center;
-  max-width: 485px;
+  flex-grow: 1;
+  width: 740px;
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
 
 export const StyledDashboardNoContentHdr = styled.div`

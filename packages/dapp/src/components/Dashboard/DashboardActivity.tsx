@@ -341,20 +341,9 @@ class DashboardActivity extends React.Component<
 
     const newsrooms = channelNewsrooms;
 
-    // let newsroomsApplicationProgressData;
-    // let hasAppInProgress;
-    // if (data && data.nrsignupNewsroom) {
-    //   if (data.nrsignupNewsroom.newsroomAddress) {
-    //     newsrooms = channelNewsrooms.add(data.nrsignupNewsroom.newsroomAddress);
-    //     newsroomsApplicationProgressData = Map<EthAddress, any>();
-    //     newsroomsApplicationProgressData = newsroomsApplicationProgressData.set(
-    //       data.nrsignupNewsroom.newsroomAddress,
-    //       data.nrsignupNewsroom,
-    //     );
-    //   } else if (data.nrsignupNewsroom.charter) {
-    //     hasAppInProgress = true;
-    //   }
-    // }
+    if (!newsrooms.size && data && data.nrsignupNewsroom) {
+      return (<NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />)
+    }
 
     if (!newsrooms.size) {
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
@@ -365,7 +354,6 @@ class DashboardActivity extends React.Component<
         <NewsroomsList listings={newsrooms} />
       </>
     );
-    // {hasAppInProgress && <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />}
   };
 
   private getMyChallengesViewProps = (error: any, data: any): any => {

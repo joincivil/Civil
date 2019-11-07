@@ -4,19 +4,14 @@ import NewsroomsListItem from "./NewsroomsListItem";
 
 export interface NewsroomsListOwnProps {
   listings?: Set<any>;
-  newsroomsApplicationProgressData?: Map<string, any>;
 }
 
 const NewsroomsList: React.FunctionComponent<NewsroomsListOwnProps> = props => {
-  const { listings/*, newsroomsApplicationProgressData*/ } = props;
+  const { listings } = props;
   return (
     <>
       {listings &&
         listings.map(l => {
-          // let applicationProgressData;
-          // if (newsroomsApplicationProgressData) {
-          //   applicationProgressData = newsroomsApplicationProgressData.get(l!);
-          // }
           return <NewsroomsListItem key={l} listing={l!.listing!} />;
         })}
     </>
