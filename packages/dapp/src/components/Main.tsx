@@ -195,15 +195,8 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.PARAMETERIZER} component={AsyncComponent(Parameterizer)} />
           <Route path={routes.APPLY_TO_REGISTRY} component={AsyncComponent(SignUpNewsroom)} />
           <Route path={routes.GOVERNMENT} component={AsyncComponent(Government)} />
-          <Redirect
-            exact
-            path={routes.DASHBOARD_ROOT}
-            to={formatRoute(routes.DASHBOARD, {
-              activeDashboardTab: dashboardTabs.TASKS,
-              activeDashboardSubTab: dashboardSubTabs.TASKS_ALL,
-            })}
-          />
           <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
+          <Route path={routes.DASHBOARD_ROOT} component={AsyncComponent(DashboardPage)} />
           <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
           <Route path={routes.AUTH} component={AuthRouter} />>
           <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />

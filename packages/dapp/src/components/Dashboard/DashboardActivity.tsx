@@ -66,7 +66,7 @@ export interface DashboardActivityState {
   isNoMobileTransactionVisible: boolean;
   activeTabIndex: number;
   activeSubTabIndex: number;
-  hasActiveTabIndexBeenSet: boolean;
+  tabWasSet: boolean;
 }
 
 export const StyledTabsComponent = styled.div`
@@ -237,7 +237,7 @@ class DashboardActivity extends React.Component<
     isNoMobileTransactionVisible: false,
     activeTabIndex: 0,
     activeSubTabIndex: 0,
-    hasActiveTabIndexBeenSet: false,
+    tabWasSet: false,
   };
 
   public componentWillMount(): void {
@@ -249,6 +249,7 @@ class DashboardActivity extends React.Component<
       if (activeDashboardSubTab && subTabs) {
         tabState.activeSubTabIndex = subTabs.indexOf(activeDashboardSubTab) || 0;
       }
+      tabState.tabWasSet = true;
     }
     this.setState({ ...this.state, ...tabState });
   }
@@ -293,15 +294,6 @@ class DashboardActivity extends React.Component<
                         (nrsignupData && nrsignupData.nrsignupNewsroom
                           && nrsignupData.nrsignupNewsroom.newsroomAddress ? 1 : 0);
 
-                      if (!this.state.hasActiveTabIndexBeenSet) {
-                        let activeIndex = 0;
-                        if (myTasksViewProps.numUserTasks === 0 && numUserNewsrooms > 0) {
-                          activeIndex = 1;
-                        }
-                        this.setState({hasActiveTabIndexBeenSet: true });
-                        this.setActiveTabIndex(activeIndex);
-                      }
-
                       return (
                         <>
                           <DashboardActivityComponent
@@ -314,9 +306,10 @@ class DashboardActivity extends React.Component<
                             )}
                             numUserNewsrooms={numUserNewsrooms}
                             userChallenges={this.renderUserChallenges(challengeError, myChallengesViewProps)}
-                            numUserChallenges={myChallengesViewProps.numUserChallenges}
                             activeIndex={this.state.activeTabIndex}
                             onTabChange={this.setActiveTabIndex}
+                            onTabsLoadChange={this.setActiveTabIndexNoHistoryPush}
+                            preventStartingTabOverride={this.state.tabWasSet}
                           />
                           {this.renderNoMobileTransactions()}
                         </>
@@ -502,16 +495,22 @@ class DashboardActivity extends React.Component<
     return <MyTasks {...myTasksViewProps} />;
   };
 
-  private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0): void => {
+  private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0, shouldPushHistory: boolean = true): void => {
     const tabName = TABS[activeTabIndex];
     this.setState({ activeTabIndex, activeSubTabIndex });
     const subTabName =
       (SUB_TABS[tabName] && SUB_TABS[tabName]![activeSubTabIndex] && `/${SUB_TABS[tabName]![activeSubTabIndex]}`) || "";
-    this.props.history.push(`/dashboard/${tabName}${subTabName}`);
+    if (shouldPushHistory) {
+      this.props.history.push(`/dashboard/${tabName}${subTabName}`);
+    }
   };
 
   private setActiveTabIndex = (activeTabIndex: number): void => {
     this.setActiveTabAndSubTabIndex(activeTabIndex);
+  };
+
+  private setActiveTabIndexNoHistoryPush = (activeTabIndex: number): void => {
+    this.setActiveTabAndSubTabIndex(activeTabIndex, 0, false);
   };
 
   private setActiveSubTabIndex = (activeSubTabIndex: number): void => {
