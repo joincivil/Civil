@@ -73,7 +73,7 @@ const DropDownWrap = styled.div`
   position: absolute;
   right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
   top: 8px;
-  z-index: -1;
+  z-index: 0;
 `;
 
 export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
@@ -112,7 +112,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       emailState: INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
-      country: "",
+      country: "USA",
       countryState: INPUT_STATE.EMPTY,
       postalCode: "",
       postalCodeState: INPUT_STATE.VALID,
@@ -193,7 +193,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
             <PaymentInputLabel>Country or region</PaymentInputLabel>
             <InputValidationUI inputState={this.state.countryState} className={"positionTop"}>
               <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
-                <option value=""></option>
                 {STRIPE_COUNTRIES.map((country: any, i: number) => {
                   return (
                     <option key={i} value={country.value}>

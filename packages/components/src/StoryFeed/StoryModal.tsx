@@ -13,7 +13,7 @@ export const StoryModal: React.FunctionComponent<StoryModalProps> = props => {
   const maxHeight = window.innerHeight - 200;
   return (
     <>
-      <FullScreenModal open={props.open}>
+      <FullScreenModal open={props.open} dismissOnOutsideClick={true} handleClose={props.handleClose}>
         <StoryModalContain maxHeight={maxHeight}>
           {props.handleClose && (
             <StoryModalCloseBtn>

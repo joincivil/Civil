@@ -59,7 +59,9 @@ const InputWrapper = styled.div`
     line-height: 16px;
     margin: 0;
     padding: 11px 12px 12px;
+    position: relative;
     width: 100%;
+    z-index: 1;
 
     &::-ms-expand {
       display: none;

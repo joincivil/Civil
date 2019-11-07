@@ -11,12 +11,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
     }
   >
     <div
-      className="sc-LzNOo iJYQjq"
+      className="sc-LzNOM gKdcTE"
     >
       Almost done!
     </div>
     <div
-      className="sc-LzNOM hPhWMM"
+      className="sc-LzNON gBfnFJ"
     >
       To receive payment confirmations and account-related alerts, please enter your email address.
     </div>
@@ -37,14 +37,14 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNMU loVKIr"
+        className="sc-LzNMV kXqNdU"
       >
         <li
-          className="sc-LzNMV cKYUCX"
+          className="sc-LzNMW ePhdtw"
         >
           <label>
             <label
-              className="sc-fzXfPK jXaXTO"
+              className="sc-fzXfPL kIKmHS"
               size="SMALL"
             >
               <input
@@ -53,12 +53,12 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
                 type="checkbox"
               />
               <span
-                className="sc-fzXfPJ gRUfFJ"
+                className="sc-fzXfPK buXQoO"
                 size="SMALL"
               />
             </label>
             <span
-              className="sc-LzNMW fDWpEs"
+              className="sc-LzNMX gaGrUt"
             >
               Also get email alerts when new events occur on the Civil Registry to help participate in Civil's governance.
             </span>
@@ -66,7 +66,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNMX kCEWgD"
+        className="sc-LzNMY jejCpQ"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb"
@@ -91,10 +91,10 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       </div>
     </form>
     <div
-      className="sc-LzNMY fbNuSh"
+      className="sc-LzNMZ eDYGEG"
     >
       <span
-        className="sc-LzNON cefGqK"
+        className="sc-LzNOO doOcRj"
         onClick={[Function]}
       >
         Skip for now

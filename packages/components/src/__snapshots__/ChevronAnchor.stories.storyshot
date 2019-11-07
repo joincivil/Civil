@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed 1
     }
   >
     <div
-      className="sc-LzNOS dzUMSC"
+      className="sc-LzNOT eRGxAv"
     >
       <a
         href="#"
@@ -424,13 +424,13 @@ exports[`Storyshots Pattern Library / Typography / Chevron Anchor Civil Themed, 
     }
   >
     <div
-      className="sc-LzNOS dzUMSC"
+      className="sc-LzNOT eRGxAv"
     >
       <a
         href="#"
       >
         <svg
-          className="sc-fzXfQT iUJwGp"
+          className="sc-fzXfQU dsXWWq"
           height={14}
           version="1.1"
           viewBox="0 0 14 14"
