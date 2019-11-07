@@ -125,7 +125,7 @@ const InputErrorIcon = styled.div`
 export interface InputValidationUIProps {
   children: any;
   className?: string;
-  inputState: string;
+  inputState?: string;
 }
 
 export const InputValidationUI: React.FunctionComponent<InputValidationUIProps> = props => {
