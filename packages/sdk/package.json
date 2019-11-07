@@ -88,7 +88,7 @@
     "lint": "tslint --project ./",
     "clean": "rimraf build/package",
     "copy:images": "mkdir -p build/package/images && cp -a src/images/. build/package/images",
-    "prepublishOnly": "yarn package:build",
+    "prepublishOnly": "yarn build",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
     "prettier:lint": "prettier --config .prettierrc.yaml --list-different './**/*.{ts,tsx,json,md}'",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
