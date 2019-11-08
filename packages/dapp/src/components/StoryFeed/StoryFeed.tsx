@@ -8,7 +8,7 @@ import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
 import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const STORY_FEED_QUERY = gql`
   query Storyfeed($cursor: String) {

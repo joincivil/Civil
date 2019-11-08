@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { State } from "../../redux/reducers";
 import { connect, DispatchProp } from "react-redux";
 import { PageView, ViewModule, ViewModuleHeader } from "../utility/ViewModules";

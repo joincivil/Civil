@@ -13,7 +13,7 @@ import {
 } from "../../helpers/queryTransformations";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import { WhitelistedTabDescription } from "./TabDescriptions";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const LISTINGS_QUERY = gql`
   query Listings($whitelistedOnly: Boolean!, $sortBy: ListingSort, $cursor: String) {
