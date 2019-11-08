@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { Link } from "react-router-dom";
 import { ListingWrapper, WrappedChallengeData, EthContentHeader, CharterData } from "@joincivil/core";
-import { NewsroomState, getNewsroom, getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
+import { getNewsroomMultisigBalance } from "@joincivil/newsroom-signup";
 import { DashboardNewsroom, LoadingMessage } from "@joincivil/components";
 import { getFormattedTokenBalance, getEtherscanBaseURL, getLocalDateTimeStrings } from "@joincivil/utils";
 import { NewsroomWithdraw } from "@joincivil/sdk";

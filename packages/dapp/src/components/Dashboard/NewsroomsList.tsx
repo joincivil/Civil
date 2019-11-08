@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Set, Map } from "immutable";
+import { Set } from "immutable";
 import NewsroomsListItem from "./NewsroomsListItem";
 
 export interface NewsroomsListOwnProps {

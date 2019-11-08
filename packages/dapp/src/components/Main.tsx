@@ -8,7 +8,7 @@ import { CivilErrors, setNetworkValue } from "@joincivil/utils";
 import { CivilContext, StyledMainContainer, ICivilContext } from "@joincivil/components";
 import { BigNumber } from "@joincivil/typescript-types";
 
-import { routes, registryListingTypes, registrySubListingTypes, dashboardTabs, dashboardSubTabs } from "../constants";
+import { routes, registryListingTypes, registrySubListingTypes } from "../constants";
 import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { catchWindowOnError } from "../redux/actionCreators/errors";
