@@ -5,6 +5,7 @@ import { colors, fonts } from "../styleConstants";
 import { LoadingMessage } from "../LoadingMessage";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
+import { mediaQueries } from "@joincivil/elements";
 
 export const DashboardStylesNoticeContainer = styled.div`
   padding: 24px;
@@ -13,13 +14,17 @@ export const DashboardStylesNoticeContainer = styled.div`
 
 export const StyledUserActivity = styled.div`
   background-color: transparent;
+  flex-grow: 1;
+  padding-right: 50px;
+  ${mediaQueries.MOBILE} {
+    padding: 0;
+  }
 `;
 
 export const StyledUserActivityContent = styled.div`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: none;
-  min-height: 400px;
 `;
 
 export const StyledDashboardTabsContainer = styled.div`
@@ -541,9 +546,13 @@ export const StyledCVLLabel = styled.span`
 // No Content
 export const StyledDashboardNoContent = styled.div`
   margin: 0 auto;
-  padding: 60px 0 0;
+  padding: 60px 0 60px;
   text-align: center;
-  max-width: 485px;
+  flex-grow: 1;
+  width: 740px;
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
 `;
 
 export const StyledDashboardNoContentHdr = styled.div`

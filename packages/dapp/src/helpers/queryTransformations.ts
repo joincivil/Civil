@@ -236,7 +236,7 @@ export function transformGraphQLDataIntoListing(listing: any, listingAddress: st
       isWhitelisted: listing.whitelisted,
       owner: listing.owner,
       unstakedDeposit: new BigNumber(listing.unstakedDeposit),
-      challengeID: new BigNumber(listing.challengeID),
+      challengeID: new BigNumber(listing.challengeID ? listing.challengeID : 0),
       challenge: transformGraphQLDataIntoChallenge(listing.challenge),
       prevChallengeID: transformGraphQLDataIntoPrevChallengeID(listing.prevChallenge),
       prevChallenge: transformGraphQLDataIntoChallenge(listing.prevChallenge),
@@ -438,10 +438,18 @@ export function transformGraphQLDataIntoDashboardChallengesSet(
   return allChallenges;
 }
 
-export function getUserChallengeDataSetByPollType(queryUserChallengeData: any[], pollType: string): Set<string> {
+export function getUserChallengeDataSetByPollType(
+  queryUserChallengeData: any[],
+  pollType: string,
+  filterAvailableActions?: boolean,
+): Set<string> {
   const challengeIDs = queryUserChallengeData
     .filter(challengeData => {
-      return challengeData.pollType === pollType;
+      return userChallengeDataFilter(
+        challengeData,
+        pollType,
+        filterAvailableActions,
+      );
     })
     .map(challengeData => {
       return challengeData.pollID;

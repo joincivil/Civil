@@ -5,10 +5,10 @@ import { EthContentHeader } from "@joincivil/core";
 import { State } from "../../../redux/reducers";
 import { getContent } from "../../../redux/actionCreators/newsrooms";
 import { MyTasksItemOwnProps, MyTasksItemWrapperReduxProps } from "./MyTasksItemTypes";
-import MyTasksItemApolloQueryWrapper from "./MyTasksItemApolloQueryWrapper";
+import MyTasksItemWrapper from "./MyTasksItemWrapper";
 import { CivilHelperContext } from "../../../apis/CivilHelper";
 
-const MyTasksItemWrapper: React.FunctionComponent<
+const MyTasksItem: React.FunctionComponent<
   MyTasksItemOwnProps & MyTasksItemWrapperReduxProps & DispatchProp<any>
 > = props => {
   const {
@@ -37,7 +37,7 @@ const MyTasksItemWrapper: React.FunctionComponent<
   };
 
   return (
-    <MyTasksItemApolloQueryWrapper
+    <MyTasksItemWrapper
       {...viewProps}
       queryUserChallengeData={queryUserChallengeData}
       queryUserAppealChallengeData={queryUserAppealChallengeData}
@@ -46,7 +46,7 @@ const MyTasksItemWrapper: React.FunctionComponent<
   );
 };
 
-const mapStateToPropsMyTasksItemWrapper = (
+const mapStateToPropsMyTasksItem = (
   state: State,
   ownProps: MyTasksItemOwnProps,
 ): MyTasksItemOwnProps & MyTasksItemWrapperReduxProps => {
@@ -55,4 +55,4 @@ const mapStateToPropsMyTasksItemWrapper = (
   return { content, userAcct, ...ownProps };
 };
 
-export default connect(mapStateToPropsMyTasksItemWrapper)(MyTasksItemWrapper);
+export default connect(mapStateToPropsMyTasksItem)(MyTasksItem);

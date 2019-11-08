@@ -1,8 +1,8 @@
 import * as React from "react";
 import { RescueTokensItemOwnProps } from "./types";
-import RescueTokensItemApolloQueryWrapper from "./RescueTokensApolloQueryWrapper";
+import RescueTokensItemWrapper from "./RescueTokensItemWrapper";
 
-const RescueTokensItemWrapper: React.FunctionComponent<RescueTokensItemOwnProps> = props => {
+const RescueTokensItem: React.FunctionComponent<RescueTokensItemOwnProps> = props => {
   const {
     challengeID,
     appealChallengeID,
@@ -20,7 +20,7 @@ const RescueTokensItemWrapper: React.FunctionComponent<RescueTokensItemOwnProps>
   };
 
   return (
-    <RescueTokensItemApolloQueryWrapper
+    <RescueTokensItemWrapper
       {...viewProps}
       queryUserChallengeData={queryUserChallengeData}
       queryUserAppealChallengeData={queryUserAppealChallengeData}
@@ -28,4 +28,4 @@ const RescueTokensItemWrapper: React.FunctionComponent<RescueTokensItemOwnProps>
   );
 };
 
-export default RescueTokensItemWrapper;
+export default RescueTokensItem;

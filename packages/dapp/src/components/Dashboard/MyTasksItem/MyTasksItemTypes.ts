@@ -13,8 +13,8 @@ import { NewsroomState } from "@joincivil/newsroom-signup";
 
 export interface MyTasksItemOwnProps {
   challengeID?: string;
-  queryUserChallengeData?: UserChallengeData;
-  queryUserAppealChallengeData?: UserChallengeData;
+  queryUserChallengeData?: any;
+  queryUserAppealChallengeData?: any;
   showClaimRewardsTab?(): void;
   showRescueTokensTab?(): void;
 }

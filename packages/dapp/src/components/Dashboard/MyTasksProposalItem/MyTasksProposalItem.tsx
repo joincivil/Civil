@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 
 import { State } from "../../../redux/reducers";
 import { MyTasksProposalItemOwnProps, MyTasksProposalItemWrapperReduxProps } from "./MyTasksProposalItemTypes";
-import MyTasksProposalItemApolloQueryWrapper from "./MyTasksProposalItemApolloQueryWrapper";
+import MyTasksProposalItemWrapper from "./MyTasksProposalItemWrapper";
 
-const MyTasksProposalItemWrapper: React.FunctionComponent<
+const MyTasksProposalItem: React.FunctionComponent<
   MyTasksProposalItemOwnProps & MyTasksProposalItemWrapperReduxProps
 > = props => {
   const { challengeID, showClaimRewardsTab, showRescueTokensTab, queryUserChallengeData, userAcct } = props;
@@ -16,10 +16,10 @@ const MyTasksProposalItemWrapper: React.FunctionComponent<
     showRescueTokensTab,
     userAcct,
   };
-  return <MyTasksProposalItemApolloQueryWrapper {...viewProps} queryUserChallengeData={queryUserChallengeData} />;
+  return <MyTasksProposalItemWrapper {...viewProps} queryUserChallengeData={queryUserChallengeData} />;
 };
 
-const mapStateToPropsMyTasksProposalItemWrapper = (
+const mapStateToPropsMyTasksProposalItem = (
   state: State,
   ownProps: MyTasksProposalItemOwnProps,
 ): MyTasksProposalItemOwnProps & MyTasksProposalItemWrapperReduxProps => {
@@ -28,4 +28,4 @@ const mapStateToPropsMyTasksProposalItemWrapper = (
   return { userAcct, ...ownProps };
 };
 
-export default connect(mapStateToPropsMyTasksProposalItemWrapper)(MyTasksProposalItemWrapper);
+export default connect(mapStateToPropsMyTasksProposalItem)(MyTasksProposalItem);
