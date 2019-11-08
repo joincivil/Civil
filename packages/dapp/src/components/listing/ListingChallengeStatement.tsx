@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import sanitizeHtml from "sanitize-html";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
 import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";

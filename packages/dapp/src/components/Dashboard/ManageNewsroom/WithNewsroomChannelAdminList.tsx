@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { Query } from "react-apollo";
 import { Set } from "immutable";
 import { EthAddress } from "@joincivil/core";

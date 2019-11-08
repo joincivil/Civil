@@ -195,8 +195,7 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
   }
 
   private renderStripeConnectButton(linkText?: string): JSX.Element {
-    // @TODO/toby Remove `stripe-admin` feature flag query string param when launched
-    const redirectUrl = `${document.location.origin}/dashboard/newsrooms?feature-flag=stripe-admin`;
+    const redirectUrl = `${document.location.origin}/dashboard/newsrooms`;
     const oauthUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${
       this.context.config.STRIPE_CLIENT_ID
     }&scope=read_write&redirect_uri=${encodeURIComponent(redirectUrl)}`;

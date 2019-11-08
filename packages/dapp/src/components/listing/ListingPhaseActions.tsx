@@ -1,6 +1,6 @@
 import * as React from "react";
 import { formatRoute } from "react-router-named-routes";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
 import {
   InApplicationCard,

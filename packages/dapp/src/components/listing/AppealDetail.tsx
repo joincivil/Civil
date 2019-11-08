@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { AppealData, ChallengeData, EthAddress, NewsroomWrapper, UserChallengeData } from "@joincivil/core";
 import { BigNumber } from "@joincivil/typescript-types";
 import AppealChallengeDetail from "./AppealChallengeDetail";

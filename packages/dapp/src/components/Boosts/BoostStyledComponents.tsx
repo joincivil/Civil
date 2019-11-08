@@ -1,5 +1,5 @@
 import * as React from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { colors, fonts, mediaQueries, ChevronAnchor } from "@joincivil/components";
 
 export const ComingSoonText: React.FunctionComponent = props => <ComingSoon>Coming soon!</ComingSoon>;

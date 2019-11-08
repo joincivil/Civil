@@ -50,6 +50,7 @@ class PaymentRequestForm extends React.Component<BoostPaymentRequestProps, Boost
     });
 
     paymentRequest.canMakePayment().then((result: any) => {
+      console.log("canMakePayment result: ", result);
       this.setState({ canMakePayment: !!result });
     });
 

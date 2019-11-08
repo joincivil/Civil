@@ -1,4 +1,5 @@
 export enum embedRoutes {
+  STORY_BOOST = "/embed/boost/story/:boostId",
   BOOST = "/embed/boost/:boostId/:payment?",
 }
 

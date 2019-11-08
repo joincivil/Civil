@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber } from "@joincivil/typescript-types";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import {
   EthAddress,
   ListingWrapper,
