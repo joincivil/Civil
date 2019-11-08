@@ -71,9 +71,9 @@ const CreditCardCVCWrap = styled.div`
 
 const DropDownWrap = styled.div`
   position: absolute;
-  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
+  right: 10px;
   top: 8px;
-  z-index: -1;
+  z-index: 0;
 `;
 
 export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
@@ -92,7 +92,6 @@ export interface PaymentStripeFormStates {
   name: string;
   nameState: string;
   country: string;
-  countryState: string;
   postalCode: string;
   postalCodeState: string;
   cardNumberState: string;
@@ -112,8 +111,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       emailState: INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
-      country: "",
-      countryState: INPUT_STATE.EMPTY,
+      country: "USA",
       postalCode: "",
       postalCodeState: INPUT_STATE.VALID,
       cardNumberState: INPUT_STATE.EMPTY,
@@ -191,9 +189,8 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
             </InputValidationUI>
             <PaymentInputLabel>Country or region</PaymentInputLabel>
-            <InputValidationUI inputState={this.state.countryState} className={"positionTop"}>
+            <InputValidationUI className={"positionTop"}>
               <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
-                <option value=""></option>
                 {STRIPE_COUNTRIES.map((country: any, i: number) => {
                   return (
                     <option key={i} value={country.value}>
@@ -202,7 +199,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
                   );
                 })}
               </select>
-              <DropDownWrap inputState={this.state.countryState}>
+              <DropDownWrap>
                 <DropdownArrow />
               </DropDownWrap>
             </InputValidationUI>
@@ -244,12 +241,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         validName
           ? this.setState({ name: value, nameState: INPUT_STATE.VALID })
           : this.setState({ nameState: INPUT_STATE.INVALID });
-        break;
-      case "country":
-        const validCountry = value !== "";
-        validCountry
-          ? this.setState({ country: value, countryState: INPUT_STATE.VALID })
-          : this.setState({ countryState: INPUT_STATE.INVALID });
         break;
       case "zip":
         const validPostalCode = this.isValidPostalCode(value);
@@ -317,7 +308,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     if (
       this.state.emailState === INPUT_STATE.VALID &&
       this.state.nameState === INPUT_STATE.VALID &&
-      this.state.countryState === INPUT_STATE.VALID &&
       this.state.postalCodeState === INPUT_STATE.VALID &&
       this.state.cardNumberState === INPUT_STATE.VALID &&
       this.state.cardExpiryState === INPUT_STATE.VALID &&

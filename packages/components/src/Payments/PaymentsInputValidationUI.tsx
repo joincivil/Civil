@@ -59,7 +59,9 @@ const InputWrapper = styled.div`
     line-height: 16px;
     margin: 0;
     padding: 11px 12px 12px;
+    position: relative;
     width: 100%;
+    z-index: 1;
 
     &::-ms-expand {
       display: none;
@@ -123,7 +125,7 @@ const InputErrorIcon = styled.div`
 export interface InputValidationUIProps {
   children: any;
   className?: string;
-  inputState: string;
+  inputState?: string;
 }
 
 export const InputValidationUI: React.FunctionComponent<InputValidationUIProps> = props => {

@@ -142,9 +142,11 @@ const StoryFeedPage: React.FunctionComponent = props => {
                     isStripeConnected={storyData.channel.isStripeConnected}
                     newsroom={storyData.channel.newsroom}
                     openGraphData={storyData.openGraphData}
-                    displayedContributors={storyData.payments}
-                    sortedContributors={storyData.payments}
-                    totalContributors={storyData.payments ? storyData.payments.length : 0}
+                    displayedContributors={storyData.groupedSanitizedPayments}
+                    sortedContributors={storyData.groupedSanitizedPayments}
+                    totalContributors={
+                      storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
+                    }
                     handleLogin={onLoginPressed}
                   />
                 );

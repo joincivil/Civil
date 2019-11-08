@@ -65,7 +65,7 @@ export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentsUpdatedTex
 
 export const PayWithCardAdjustedText: React.FunctionComponent = props => (
   <>
-    Adjusted <span>$2</span>
+    Adjusted <span>$2.00</span>
   </>
 );
 

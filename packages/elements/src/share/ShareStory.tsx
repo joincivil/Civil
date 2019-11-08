@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { ShareEmailIcon, LinkIcon, ShareTwitterIcon } from "../icons";
+import { ShareEmailIcon, LinkIcon, ShareTwitterIcon, HollowGreenCheck } from "../icons";
 import { colors } from "../colors";
 import { fonts } from "../text";
 import { mediaQueries } from "../containers";
@@ -65,7 +65,7 @@ const ShareOptions = styled.div`
     line-height: 17px;
     padding: 15px 0;
     text-decoration: none;
-    transition: color: 0.2s ease;
+    transition: color 0.2s ease;
     width: 100%;
 
     &:hover {
@@ -74,12 +74,35 @@ const ShareOptions = styled.div`
   }
 `;
 
+const ShareCopyFeedback = styled.div`
+  align-items: center;
+  display: flex;
+  font-size: 13px;
+  margin-top: 5px;
+  width: 100%;
+
+  svg {
+    margin-right: 3px;
+  }
+`;
+
 export interface ShareStoryProps {
   title: string;
   url: string;
 }
 
-export class ShareStory extends React.Component<ShareStoryProps> {
+export interface ShareStoryState {
+  copied: boolean;
+}
+
+export class ShareStory extends React.Component<ShareStoryProps, ShareStoryState> {
+  public constructor(props: ShareStoryProps) {
+    super(props);
+    this.state = {
+      copied: false,
+    };
+  }
+
   public render(): JSX.Element {
     return (
       <ShareWrapper>
@@ -87,9 +110,16 @@ export class ShareStory extends React.Component<ShareStoryProps> {
           <h2>Share</h2>
           <ShareContent>
             {this.props.title}
-            <a href={this.props.url} target="_blank">
-              {this.props.url}
-            </a>
+            {this.state.copied ? (
+              <ShareCopyFeedback>
+                <HollowGreenCheck width={15} height={15} />
+                copied
+              </ShareCopyFeedback>
+            ) : (
+              <a href={this.props.url} target="_blank">
+                {this.props.url}
+              </a>
+            )}
           </ShareContent>
         </ShareHeader>
         <ShareOptions>
@@ -135,5 +165,7 @@ export class ShareStory extends React.Component<ShareStoryProps> {
     textArea.select();
     document.execCommand("copy");
     textArea.remove();
+
+    this.setState({ copied: true });
   };
 }

@@ -123,7 +123,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
   };
 
   private openPayments = () => {
-    this.setState({ isPaymentsModalOpen: true });
+    this.setState({ isPaymentsModalOpen: true, isStoryModalOpen: false, isStoryNewsroomModalOpen: false });
   };
 
   private openShare = () => {

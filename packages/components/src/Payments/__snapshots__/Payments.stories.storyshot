@@ -11,28 +11,28 @@ exports[`Storyshots Boost / Payments Apple Pay Screen 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNvm ipDNJP"
+        className="sc-LzNvK cEKLMl"
       >
         <div
-          className="sc-LzNvS eyiDIg"
+          className="sc-LzNvT iNJHWV"
         >
           <div
-            className="sc-LzNwr elcXzi"
+            className="sc-LzNws dAOFqD"
           >
             Pay with Apple Pay
           </div>
         </div>
         <p
-          className="sc-LzNvQ hpQgAu"
+          className="sc-LzNvR pWKpX"
         >
           Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
         </p>
       </div>
       <p
-        className="sc-LzNvR dOzgtb"
+        className="sc-LzNvS fUlyYw"
       >
         By sending a Boost, you agree to Civil’s
          
@@ -422,28 +422,28 @@ exports[`Storyshots Boost / Payments Google Pay Screen 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNvm ipDNJP"
+        className="sc-LzNvK cEKLMl"
       >
         <div
-          className="sc-LzNvS eyiDIg"
+          className="sc-LzNvT iNJHWV"
         >
           <div
-            className="sc-LzNwr elcXzi"
+            className="sc-LzNws dAOFqD"
           >
             Pay with Google Pay
           </div>
         </div>
         <p
-          className="sc-LzNvQ hpQgAu"
+          className="sc-LzNvR pWKpX"
         >
           Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
         </p>
       </div>
       <p
-        className="sc-LzNvR dOzgtb"
+        className="sc-LzNvS fUlyYw"
       >
         By sending a Boost, you agree to Civil’s
          
@@ -833,34 +833,34 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNvf bVXTsu"
+        className="sc-LzNvg iBNqIg"
       >
         <div
-          className="sc-LzNvg VOAEI"
+          className="sc-LzNvh fCDCNp"
         >
           <h2>
             Send a Boost
           </h2>
           <div
-            className="sc-LzNvh kXuRmY"
+            className="sc-LzNvi iIvjth"
           >
             <div
-              className="sc-LzNvi dkbqRI"
+              className="sc-LzNvj cxKgBd"
             >
               Coda Story
             </div>
           </div>
           <div
-            className="sc-LzNvj iDPrQr"
+            className="sc-LzNvk hRyhzM"
           >
             Your Boost goes directly to the newsroom.
           </div>
         </div>
         <p
-          className="sc-LzNvM jTTvyW"
+          className="sc-LzNvN krpJzD"
         >
           Select how much you would like to Boost
         </p>
@@ -869,7 +869,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
         >
           <div>
             <div
-              className="sc-LzNwy iOEObn"
+              className="sc-LzNwz kUrgGI"
             >
               <input
                 name="SuggestedAmounts"
@@ -878,7 +878,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                 value="1"
               />
               <button
-                className="sc-LzNwz hyawMy"
+                className="sc-LzNwA jCWvgp"
                 onClick={[Function]}
               >
                 $
@@ -889,7 +889,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwy iOEObn"
+              className="sc-LzNwz kUrgGI"
             >
               <input
                 name="SuggestedAmounts"
@@ -898,7 +898,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                 value="2"
               />
               <button
-                className="sc-LzNwz hyawMy"
+                className="sc-LzNwA jCWvgp"
                 onClick={[Function]}
               >
                 $
@@ -909,7 +909,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwy iOEObn"
+              className="sc-LzNwz kUrgGI"
             >
               <input
                 name="SuggestedAmounts"
@@ -918,7 +918,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                 value="3"
               />
               <button
-                className="sc-LzNwz hyawMy"
+                className="sc-LzNwA jCWvgp"
                 onClick={[Function]}
               >
                 $
@@ -929,7 +929,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
               </button>
             </div>
             <div
-              className="sc-LzNwy iOEObn"
+              className="sc-LzNwz kUrgGI"
             >
               <input
                 name="SuggestedAmounts"
@@ -938,7 +938,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                 value="5"
               />
               <button
-                className="sc-LzNwz hyawMy"
+                className="sc-LzNwA jCWvgp"
                 onClick={[Function]}
               >
                 $
@@ -951,20 +951,20 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
           </div>
         </div>
         <div
-          className="sc-LzNwZ kHyzWK"
+          className="sc-LzNxa gSnQge"
         >
           <button
-            className="sc-LzNwY dmBmeo"
+            className="sc-LzNwZ efnejl"
             onClick={[Function]}
           >
             Or enter a custom amount
           </button>
         </div>
         <div
-          className="sc-LzNxa bUakkY"
+          className="sc-LzNxb gEuJDN"
         >
           <label
-            className="sc-fzXfPK jXaXTO"
+            className="sc-fzXfPL kIKmHS"
             size="SMALL"
           >
             <input
@@ -974,7 +974,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
               type="checkbox"
             />
             <span
-              className="sc-fzXfPJ gRUfFJ"
+              className="sc-fzXfPK buXQoO"
               size="SMALL"
             />
           </label>
@@ -985,7 +985,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
           </label>
         </div>
         <button
-          className="sc-LzNvN iyOYLn"
+          className="sc-LzNvO gvGisQ"
           disabled={true}
           onClick={[Function]}
         >
@@ -1616,51 +1616,51 @@ exports[`Storyshots Boost / Payments Payment Login or Guest Selection 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNxb dDLpeW"
+        className="sc-LzNxc boMXXn"
       >
         <div
-          className="sc-LzNxc kvOROO"
+          className="sc-LzNxd hkfpDL"
         >
           Welcome to Civil!
         </div>
         <div
-          className="sc-LzNxd clbNqL"
+          className="sc-LzNxe dXiYZA"
         >
           <div
-            className="sc-LzNxe ldUmDC"
+            className="sc-LzNxf iswaOH"
           >
             Log in to give a Boost 🚀
           </div>
           <button
-            className="sc-LzNvN iyOYLn"
+            className="sc-LzNvO gvGisQ"
             onClick={[Function]}
           >
             Log In / Sign Up
           </button>
           <div
-            className="sc-LzNxf nFcEf"
+            className="sc-LzNxg iRCAog"
           >
             You’ll be able to keep track of your contributions and your username may be listed on the Boost leaderboard.
           </div>
         </div>
         <div
-          className="sc-LzNxd clbNqL"
+          className="sc-LzNxe dXiYZA"
         >
           <div
-            className="sc-LzNxe ldUmDC"
+            className="sc-LzNxf iswaOH"
           >
             Guest
           </div>
           <div
-            className="sc-LzNxf nFcEf"
+            className="sc-LzNxg iRCAog"
           >
             Proceed to Boost and become a Civil member later.
           </div>
           <button
-            className="sc-fzXfLO sc-fzXfLQ sc-LzNvO hLUgYK"
+            className="sc-fzXfLO sc-fzXfLQ sc-LzNvP hyDuXz"
             onClick={[Function]}
             theme={
               Object {
@@ -2042,10 +2042,10 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNMS fKWfwS"
+        className="sc-LzNMT cVqoeL"
       >
         <svg
           height="48"
@@ -2075,7 +2075,7 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
           </g>
         </svg>
         <div
-          className="sc-LzNMT QQUuz"
+          className="sc-LzNMU glrfwI"
         >
           <h2>
             Boost payment successful!
@@ -2091,7 +2091,7 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
           </p>
         </div>
         <button
-          className="sc-LzNvN iyOYLn"
+          className="sc-LzNvO gvGisQ"
           onClick={[Function]}
         >
           Done
@@ -2492,33 +2492,33 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
     }
   >
     <div
-      className="sc-LzNQg JeAij"
+      className="sc-LzNQh iyUxEc"
     >
       <div
-        className="sc-LzNvf bVXTsu"
+        className="sc-LzNvg iBNqIg"
       >
         <div
-          className="sc-LzNvg VOAEI"
+          className="sc-LzNvh fCDCNp"
         >
           <h2>
             Send a Boost
           </h2>
           <div
-            className="sc-LzNvh kXuRmY"
+            className="sc-LzNvi iIvjth"
           >
             <div
-              className="sc-LzNvi dkbqRI"
+              className="sc-LzNvj cxKgBd"
             >
               Coda Story
             </div>
             <div>
               <span
-                className="sc-LzNvK eFAmmH"
+                className="sc-LzNvL kVwyJw"
               >
                 Boost
               </span>
               <span
-                className="sc-LzNvL gsJaOH"
+                className="sc-LzNvM jqADiY"
               >
                 <b>
                   $3
@@ -2527,34 +2527,34 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
             </div>
           </div>
           <div
-            className="sc-LzNvj iDPrQr"
+            className="sc-LzNvk hRyhzM"
           >
             Your Boost goes directly to the newsroom.
           </div>
         </div>
         <p
-          className="sc-LzNvM jTTvyW"
+          className="sc-LzNvN krpJzD"
         >
           Select how you'd like to pay
         </p>
         <div
-          className="sc-LzNvP fqLRXn"
+          className="sc-LzNvQ fYaKck"
         >
           <button
-            className="sc-LzNvN YAvWk"
+            className="sc-LzNvO kkNpcJ"
             onClick={[Function]}
           >
             Pay with Card
           </button>
           <button
-            className="sc-LzNvN iyOYLn"
+            className="sc-LzNvO gvGisQ"
             onClick={[Function]}
           >
             Pay with ETH
           </button>
         </div>
         <div
-          className="sc-LzNxg dFiRZm"
+          className="sc-LzNxh exUKej"
         >
           <span>
             Payment Information
