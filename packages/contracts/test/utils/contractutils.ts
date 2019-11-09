@@ -4,10 +4,10 @@ import { getVoteSaltHash } from "@joincivil/utils";
 import * as fs from "fs";
 import { promisify } from "util";
 // We're just using types from web3
-import Web3 = require("web3");
+import Web3 from "web3";
 import ethApi from "./getethapi";
-import { TransactionReceipt } from "web3/types";
-import { Block, Transaction } from "web3/eth/types";
+import { TransactionReceipt } from "web3-core";
+import { Block } from "web3-eth";
 
 import { BN } from "bn.js";
 
@@ -58,7 +58,7 @@ export async function getBlockTimestamp(): Promise<any> {
   return (await getBlock(blockNumber)).timestamp;
 }
 
-export async function timestampFromTx(web3: Web3, tx: Transaction | TransactionReceipt): Promise<number> {
+export async function timestampFromTx(web3: Web3, tx: TransactionReceipt): Promise<number> {
   if (tx.blockNumber === null) {
     throw new Error("Transaction not yet mined");
   }
