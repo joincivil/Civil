@@ -38,7 +38,7 @@ import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
 import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
-import { Tx as TransactionConfig } from "web3/eth/types";
+import { TransactionConfig } from "web3-core";
 
 const debug = Debug("civil:tcr");
 

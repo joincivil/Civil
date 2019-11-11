@@ -1,4 +1,4 @@
-import { currentNetwork, EthApi, requireAccount, Provider } from "@joincivil/ethapi";
+import { currentNetwork, EthApi, requireAccount } from "@joincivil/ethapi";
 import { BigNumber, EthAddress, EthSignedMessage, TxHash, parseEther } from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import * as Debug from "debug";
@@ -13,6 +13,8 @@ import { Council } from "./contracts/tcr/council";
 import { ContentData, StorageHeader } from "./types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
 import { CVLToken } from "./contracts/tcr/cvltoken";
+
+import { provider as Provider } from "web3-core";
 
 // See debug in npm, you can use `localStorage.debug = "civil:*" to enable logging
 const debug = Debug("civil:main");

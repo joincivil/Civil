@@ -2,9 +2,8 @@ import * as chaiAsPromised from "chai-as-promised";
 import * as dirtyChai from "dirty-chai";
 import chaiBignumber from "./bignumber-chai";
 
-import Web3 = require("web3");
-
-import { TransactionReceipt, Log } from "web3/types";
+import { TransactionReceipt, Log } from "web3-core";
+import { HttpProvider } from "web3-providers-http";
 
 export function configureChai(chai: any): void {
   chai.config.includeStack = true;
@@ -15,7 +14,7 @@ export function configureChai(chai: any): void {
 
 // TODO(ritave): Create a mock provider
 export function dummyWeb3Provider(): any {
-  return new Web3.providers.HttpProvider("http://localhost:8545");
+  return new HttpProvider("http://localhost:8545");
 }
 
 // TODO(ritave): Duplicated code, use web3wrapper's rpc
