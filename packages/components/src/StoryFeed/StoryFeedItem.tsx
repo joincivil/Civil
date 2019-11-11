@@ -24,6 +24,7 @@ export interface StoryFeedItemProps {
   civilUser?: any;
   userAddress?: EthAddress;
   handleLogin(): void;
+  handleLogout(): void;
 }
 
 export interface StoryFeedItemStates {
@@ -98,6 +99,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
             paymentAddress={this.props.newsroom.multisigAddress}
             isStripeConnected={this.props.isStripeConnected}
             handleLogin={this.props.handleLogin}
+            handleLogout={this.props.handleLogout}
             handleClose={this.handleClose}
           />
         </PaymentsModal>

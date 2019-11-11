@@ -3,7 +3,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
-import { PaymentsWrapper } from "./PaymentsWrapper";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsSuccess } from "./PaymentsSuccess";
 import { PaymentsApplePay } from "./PaymentsApplePay";

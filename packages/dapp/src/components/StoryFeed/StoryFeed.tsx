@@ -103,6 +103,10 @@ const StoryFeedPage: React.FunctionComponent = props => {
     dispatch!(await showWeb3LoginModal());
   }
 
+  async function onLogoutPressed(): Promise<any> {
+    civilCtx.auth.logout();
+  }
+
   React.useEffect(() => {
     if (civilUser && !userAccount) {
       civilCtx.civil!.currentProviderEnable().catch(err => console.log("error enabling ethereum", err));
@@ -148,6 +152,7 @@ const StoryFeedPage: React.FunctionComponent = props => {
                       storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
                     }
                     handleLogin={onLoginPressed}
+                    handleLogout={onLogoutPressed}
                   />
                 );
               }

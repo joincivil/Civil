@@ -2,6 +2,7 @@ import * as React from "react";
 import { AvatarGenericIcon, DropdownArrow, colors } from "@joincivil/elements";
 import styled from "styled-components";
 import { CivilUserData } from "./types";
+import { urlConstants as links } from "@joincivil/utils";
 
 const AvatarLoginWrapper = styled.div`
   position: relative;
@@ -71,6 +72,8 @@ const AvatarLoginOptionLink = styled.a`
 
 export interface PaymentLoginAvatarProps {
   civilUser?: CivilUserData;
+  handleLogin(): void;
+  handleLogout(): void;
 }
 
 export const AvatarLogin: React.FunctionComponent<PaymentLoginAvatarProps> = props => {
@@ -90,8 +93,10 @@ export const AvatarLogin: React.FunctionComponent<PaymentLoginAvatarProps> = pro
           </AvatarLoginAvatarBtn>
           {isOpen && (
             <AvatarLoginDropdown>
-              <AvatarLoginOptionLink>Your Profile</AvatarLoginOptionLink>
-              <AvatarLoginOptionBtn>Logout</AvatarLoginOptionBtn>
+              <AvatarLoginOptionLink href={links.DASHBOARD} target="_blank">
+                Your Profile
+              </AvatarLoginOptionLink>
+              <AvatarLoginOptionBtn onClick={props.handleLogout}>Logout</AvatarLoginOptionBtn>
             </AvatarLoginDropdown>
           )}
         </>
@@ -103,7 +108,7 @@ export const AvatarLogin: React.FunctionComponent<PaymentLoginAvatarProps> = pro
           </AvatarLoginAvatarBtn>
           {isOpen && (
             <AvatarLoginDropdown>
-              <AvatarLoginOptionBtn>Log In / Sign Up</AvatarLoginOptionBtn>
+              <AvatarLoginOptionBtn onClick={props.handleLogin}>Log In / Sign Up</AvatarLoginOptionBtn>
             </AvatarLoginDropdown>
           )}
         </>

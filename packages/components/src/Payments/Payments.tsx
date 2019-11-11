@@ -20,6 +20,7 @@ export interface PaymentsProps {
   userAvatar?: string;
   userAddress?: EthAddress;
   civilUser?: CivilUserData;
+  handleLogout(): void;
   handleLogin(): void;
   handleClose(): void;
 }
@@ -81,6 +82,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           renderContext={this.context.renderContext}
           civilUser={civilUser}
           handleEditAmount={this.handleUpdateState}
+          handleLogin={this.props.handleLogin}
+          handleLogout={this.props.handleLogout}
         >
           <PaymentsOptions
             usdToSpend={usdToSpend}
@@ -102,6 +105,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           renderContext={this.context.renderContext}
           civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
+          handleLogin={this.props.handleLogin}
+          handleLogout={this.props.handleLogout}
         >
           <PaymentsEth
             postId={postId}
@@ -131,6 +136,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           renderContext={this.context.renderContext}
           civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
+          handleLogin={this.props.handleLogin}
+          handleLogout={this.props.handleLogout}
         >
           <PaymentsStripe
             postId={postId}
@@ -152,6 +159,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           renderContext={this.context.renderContext}
           civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
+          handleLogin={this.props.handleLogin}
+          handleLogout={this.props.handleLogout}
         >
           <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
@@ -166,6 +175,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           renderContext={this.context.renderContext}
           civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
+          handleLogin={this.props.handleLogin}
+          handleLogout={this.props.handleLogout}
         >
           <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>

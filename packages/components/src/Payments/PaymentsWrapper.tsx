@@ -38,6 +38,8 @@ export interface PaymentsWrapperProps {
   children: any;
   handleEditPaymentType?(paymentState: PAYMENT_STATE): void;
   handleEditAmount?(paymentState: PAYMENT_STATE): void;
+  handleLogin?(): void;
+  handleLogout?(): void;
 }
 
 export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
@@ -56,7 +58,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
     return (
       <PaymentWrapperStyled>
         <PaymentHeader>
-          {renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderEmbedHeader()}
+          {renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderHeader()}
         </PaymentHeader>
         {paymentAdjustedWarning && handleEditAmount && <PayWithCardMinimumText handleEditAmount={handleEditAmount} />}
         {paymentAdjustedStripe && <PayWithCardMinimumAdjustedText />}
@@ -90,7 +92,13 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />
           </PaymentCivilLogo>
-          {this.props.civilUser && <AvatarLogin civilUser={this.props.civilUser} />}
+          {this.props.civilUser && this.props.handleLogin && this.props.handleLogout && (
+            <AvatarLogin
+              civilUser={this.props.civilUser}
+              handleLogin={this.props.handleLogin}
+              handleLogout={this.props.handleLogout}
+            />
+          )}
         </PaymentHeaderFlex>
         <PaymentHeaderCenter>
           {!this.props.usdToSpend && (

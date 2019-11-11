@@ -55,6 +55,7 @@ export interface StoryBoostProps {
   civilUser?: any;
   userAddress?: string;
   handleLogin(): void;
+  handleLogout(): void;
 }
 
 export interface StoryBoostState {
@@ -117,6 +118,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   civilUser={this.props.civilUser}
                   userAddress={this.props.userAddress}
                   handleLogin={this.props.handleLogin}
+                  handleLogout={this.props.handleLogout}
                   handleClose={this.handleEndPayment}
                 />
               </PaymentsModal>
