@@ -52,9 +52,8 @@ const StoryBoostFooter = styled.div`
 
 export interface StoryBoostProps {
   boostId: string;
-  isLoggedIn: boolean;
+  civilUser?: any;
   userAddress?: string;
-  userEmail?: string;
   handleLogin(): void;
 }
 
@@ -115,9 +114,8 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
-                  isLoggedIn={this.props.isLoggedIn}
+                  civilUser={this.props.civilUser}
                   userAddress={this.props.userAddress}
-                  userEmail={this.props.userEmail}
                   handleLogin={this.props.handleLogin}
                   handleClose={this.handleEndPayment}
                 />

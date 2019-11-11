@@ -4,6 +4,7 @@ export * from "./ArticleIndexIcon";
 export * from "./ArticleIndexPanelIcon";
 export * from "./ArticleSignIcon";
 export * from "./ArticleSignPanelIcon";
+export * from "./AvatarGenericIcon";
 export * from "./BellIcon";
 export * from "./BookreaderIcon";
 export * from "./BrainIcon";

@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
+import { RENDER_CONTEXT } from "../context";
 import { InputBase, InputIcon, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
@@ -12,6 +13,7 @@ export const PaymentWrapperStyled = styled.div`
 export const PaymentHeader = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin-bottom: 25px;
+  position: relative;
 
   h2 {
     border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -20,7 +22,15 @@ export const PaymentHeader = styled.div`
     line-height: 22px;
     margin-bottom: 12px;
     padding-bottom: 10px;
+
+    ${props => props.theme.renderContext !== RENDER_CONTEXT.EMBED && "border-bottom: none; padding-bottom: 0;"}
   }
+`;
+
+export const PaymentCivilLogo = styled.div`
+  left: calc(50% - 25px);
+  position: absolute;
+  top: 10px;
 `;
 
 export const PaymentHeaderFlex = styled.div`
@@ -28,6 +38,11 @@ export const PaymentHeaderFlex = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+`;
+
+export const PaymentHeaderCenter = styled.div`
+  margin-bottom: 10px;
+  text-align: center;
 `;
 
 export const PaymentHeaderNewsroom = styled.div`
@@ -130,6 +145,7 @@ export const PaymentBtn = styled.button`
   font-weight: 700;
   line-height: 19px;
   opacity: 1;
+  outline: none;
   padding: 10px 40px;
   transition: opacity 250ms;
   width: 100%;
@@ -261,6 +277,8 @@ export const PaymentModalContain = styled.div`
     max-height: 100%;
     width: 100%;
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "max-height: 100%;"}
 `;
 
 export const PaymentModalCloseBtn = styled(InvertedButton)`
@@ -285,6 +303,8 @@ export const PaymentModalCloseBtn = styled(InvertedButton)`
       fill: ${colors.accent.CIVIL_BLUE};
     }
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "display: none;"}
 `;
 
 export const PaymentEthLearnMore = styled.div`
@@ -348,6 +368,7 @@ export const PaymentRadioBtn = styled.button`
   font-size: 18px;
   font-weight: 600;
   height: 75px;
+  outline: none;
   padding: 10px;
   transition: border 0.2s ease;
   width: 100%;
@@ -391,6 +412,7 @@ export const PaymentGhostBtn = styled.button`
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 17px;
+  outline: none;
   padding: 0;
 
   &:hover {
@@ -538,4 +560,24 @@ export const PaymentEdit = styled.div`
 
 export const PaymentHide = styled.div`
   visibility: hidden;
+`;
+
+export const PaymentBackBtn = styled.button`
+  background-color: ${colors.basic.WHITE};
+  border: none;
+  color: ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
+  display: block;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 17px;
+  opacity: 0.5;
+  outline: none;
+  padding: 0;
+  transition: color 250ms, opacity 250ms;
+
+  &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+    opacity: 1;
+  }
 `;

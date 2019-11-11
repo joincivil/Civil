@@ -2,10 +2,20 @@ import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
 import { ErrorIcon, HollowGreenCheck } from "@joincivil/elements";
 import { ClipLoader } from "../ClipLoader";
-import { PaymentWarning, PaymentGhostBtn, PaymentEdit } from "./PaymentsStyledComponents";
+import {
+  PaymentWarning,
+  PaymentGhostBtn,
+  PaymentEdit,
+  PaymentAdjustedNotice,
+  PaymentAdjustedNoticeFtr,
+} from "./PaymentsStyledComponents";
 import { PAYMENT_STATE } from "./types";
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
+
+export const SendPaymentHdrEmbedText: React.FunctionComponent<PaymentTextProps> = props => (
+  <h2>Send a Boost to {props.newsroomName}</h2>
+);
 
 export const PaymentToNewsroomsTipText: React.FunctionComponent = props => (
   <>Your Boost goes directly to the newsroom.</>
@@ -49,20 +59,27 @@ export interface PaymentAmountTextProps {
 }
 
 export const PayWithCardMinimumText: React.FunctionComponent<PaymentAmountTextProps> = props => (
-  <p>
-    <span>The Boost minimum for cards is $2.00.</span>
-    Boosts amount will be increased to $2.00 if you pay with a card. Select ETH for smaller amounts.{" "}
-    <a onClick={() => props.handleEditAmount(PAYMENT_STATE.SELECT_AMOUNT)}>You can edit your Boost</a> amount or
-    continue.
-  </p>
+  <PaymentAdjustedNotice>
+    <p>
+      <span>The Boost minimum for cards is $2.00.</span>
+      Boosts amount will be increased to $2.00 if you pay with a card. Select ETH for smaller amounts.{" "}
+      <a onClick={() => props.handleEditAmount(PAYMENT_STATE.SELECT_AMOUNT)}>You can edit your Boost</a> amount or
+      continue.
+    </p>
+  </PaymentAdjustedNotice>
 );
 
 export const PayWithCardMinimumAdjustedText: React.FunctionComponent = props => (
-  <p>
-    <span>The Boost minimum for cards is $2.00.</span>
-    Your new Boost amount will be increased to $2.00 when you complete your Boost. This is due to Credit Card processing
-    fees. You can select ETH for smaller amounts.
-  </p>
+  <PaymentAdjustedNotice>
+    <p>
+      <span>The Boost minimum for cards is $2.00.</span>
+      Your new Boost amount will be increased to $2.00 when you complete your Boost. This is due to Credit Card
+      processing fees. You can select ETH for smaller amounts.
+    </p>
+    <PaymentAdjustedNoticeFtr>
+      Adjusted <span>$2.00</span>
+    </PaymentAdjustedNoticeFtr>
+  </PaymentAdjustedNotice>
 );
 
 export interface PaymentUpdatedTextProps {
@@ -71,16 +88,15 @@ export interface PaymentUpdatedTextProps {
 }
 
 export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentUpdatedTextProps> = props => (
-  <p>
-    <span>Your Boost amount was updated.</span>
-    Your new Boost amount will be {props.etherToSpend} &asymp; {props.usdToSpend} when you complete your Boost.
-  </p>
-);
-
-export const PayWithCardAdjustedText: React.FunctionComponent = props => (
-  <>
-    Adjusted <span>$2.00</span>
-  </>
+  <PaymentAdjustedNotice>
+    <p>
+      <span>Your Boost amount was updated.</span>
+      Your new Boost amount will be {props.etherToSpend} ETH &asymp; ${props.usdToSpend} when you complete your Boost.
+    </p>
+    <PaymentAdjustedNoticeFtr>
+      Adjusted <span>${props.usdToSpend}</span>
+    </PaymentAdjustedNoticeFtr>
+  </PaymentAdjustedNotice>
 );
 
 export interface PaymentSelectTextProps {

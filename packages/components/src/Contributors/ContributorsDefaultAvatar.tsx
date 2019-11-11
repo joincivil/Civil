@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts } from "@joincivil/elements";
+import { colors, fonts, AvatarGenericIcon } from "@joincivil/elements";
 
 export interface ContributorsDefaultAvatarProps {
   contributor: any;
@@ -29,16 +29,27 @@ export const ContributorsDefaultAvatarStyled = styled.div`
   width: ${(props: ContributorsDefaultAvatarStyledProps) => props.size + "px"};
 `;
 
+const AvatarGenericIconStyled = styled.div`
+  margin-right: 10px;
+`;
+
 export const ContributorsDefaultAvatar: React.FunctionComponent<ContributorsDefaultAvatarProps> = props => {
   const avatarColors = ["#EF6B4A", "#9452B5", "#A5CE52"];
-  let initial = "?";
 
+  // user has an account but no avatar
   if (props.contributor && props.contributor.payerChannel && props.contributor.payerChannel.handle) {
-    initial = props.contributor.payerChannel.handle.charAt(0);
+    const initial = props.contributor.payerChannel.handle.charAt(0);
+    return (
+      <ContributorsDefaultAvatarStyled backgroundColor={avatarColors[props.index]} size={props.size}>
+        {initial}
+      </ContributorsDefaultAvatarStyled>
+    );
   }
+
+  // guest user, no handle
   return (
-    <ContributorsDefaultAvatarStyled backgroundColor={avatarColors[props.index]} size={props.size}>
-      {initial}
-    </ContributorsDefaultAvatarStyled>
+    <AvatarGenericIconStyled>
+      <AvatarGenericIcon size={props.size} />
+    </AvatarGenericIconStyled>
   );
 };

@@ -16,3 +16,11 @@ export enum INPUT_STATE {
   VALID = "valid",
   INVALID = "invalid",
 }
+
+export interface CivilUserData {
+  email: string;
+  ethAddress: string;
+  userChannel: {
+    tiny72AvatarDataUrl: string;
+  };
+}

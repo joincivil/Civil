@@ -23,18 +23,14 @@ storiesOf("Boost / Payments", module)
   .add("Payment Type", () => {
     return (
       <Container>
-        <PaymentsWrapper newsroomName={"Coda Story"} usdToSpend={3}>
-          <PaymentsOptions usdToSpend={1} isStripeConnected={true} handleNext={onClickFunc} />
-        </PaymentsWrapper>
+        <PaymentsOptions usdToSpend={1} isStripeConnected={true} handleNext={onClickFunc} />
       </Container>
     );
   })
   .add("Payment Amount", () => {
     return (
       <Container>
-        <PaymentsWrapper newsroomName={"Coda Story"}>
-          <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
-        </PaymentsWrapper>
+        <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
       </Container>
     );
   })

@@ -8,17 +8,18 @@ import { PaymentsApplePay } from "./PaymentsApplePay";
 import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { EthAddress } from "@joincivil/core";
-import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
+import { CivilUserData, SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
+import { CivilContext, ICivilContext } from "../context";
 
 export interface PaymentsProps {
-  isLoggedIn: boolean;
   postId: string;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
+  userAvatar?: string;
   userAddress?: EthAddress;
-  userEmail?: string;
+  civilUser?: CivilUserData;
   handleLogin(): void;
   handleClose(): void;
 }
@@ -36,6 +37,9 @@ export interface PaymentsStates {
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
+  public static contextType = CivilContext;
+  public context!: ICivilContext;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -60,8 +64,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe,
       paymentAdjustedEth,
     } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
+    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, civilUser } = this.props;
     const isWalletConnected = userAddress ? true : false;
+    const userEmail = civilUser ? civilUser.email : undefined;
 
     if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
       return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
@@ -73,6 +78,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedWarning={paymentAdjustedWarning}
+          renderContext={this.context.renderContext}
+          civilUser={civilUser}
           handleEditAmount={this.handleUpdateState}
         >
           <PaymentsOptions
@@ -92,6 +99,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
+          renderContext={this.context.renderContext}
+          civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsEth
@@ -119,6 +128,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
+          renderContext={this.context.renderContext}
+          civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsStripe
@@ -138,6 +149,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          renderContext={this.context.renderContext}
+          civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
@@ -150,6 +163,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          renderContext={this.context.renderContext}
+          civilUser={civilUser}
           handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
@@ -159,14 +174,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
       return (
-        <PaymentsWrapper newsroomName={newsroomName}>
+        <PaymentsWrapper newsroomName={newsroomName} renderContext={this.context.renderContext}>
           <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={this.props.handleClose} />
         </PaymentsWrapper>
       );
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName}>
+      <PaymentsWrapper newsroomName={newsroomName} renderContext={this.context.renderContext}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
@@ -192,7 +207,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
     const paymentAdjustedWarning = usdToSpend < 2 ? true : false;
-    if (this.props.isLoggedIn) {
+    if (this.props.civilUser) {
       this.setState({
         usdToSpend,
         paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE,
