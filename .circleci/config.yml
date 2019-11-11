@@ -26,6 +26,9 @@ jobs:
                 command:  yarn build
                 no_output_timeout: 30m
             - run:
+                name: Copying boost loader script
+                command:  yarn copy:boost-loader
+            - run:
                 name: Ensuring prettified
                 command: yarn prettier
             - run:
