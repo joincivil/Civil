@@ -30,17 +30,21 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
     if (requestID) {
       const queryParams = queryString.parse(location!.search);
       if (queryParams.providerPreference) {
-        selection(queryParams.providerPreference as string).catch(err => console.log("error with selection", err));
+        selection(queryParams.providerPreference as string, true).catch(err => console.log("error with selection", err));
       } else {
         setStatus("select");
       }
     }
   }, [requestID]);
 
-  async function selection(provider: string): Promise<void> {
+  async function selection(provider: string, providerKnown: boolean = false): Promise<void> {
     console.log("selected:", provider, requestID, network);
     try {
-      setStatus("enabling provider");
+      if (providerKnown) {
+        setStatus("enabling known provider");
+      } else {
+        setStatus("enabling provider");
+      }
       await ethPlugin.enableWeb3(requestID, provider, network as any);
       setStatus("done");
 
@@ -52,6 +56,8 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
   }
 
   if (status === "provided") {
+    return <></>;
+  } else if (status === "enabling known provider") {
     return <></>;
   } else if (status === "enabling provider") {
     return (
