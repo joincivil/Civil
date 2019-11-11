@@ -2,7 +2,9 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "outDir": "build/",
-    "declarationDir": "build/"
+    "declarationDir": "build/",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "include": ["./src/**/*.ts"] // https://github.com/ReactiveX/rxjs/issues/3031
 }

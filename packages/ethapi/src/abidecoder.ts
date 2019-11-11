@@ -2,16 +2,21 @@ import { isUndefined } from "lodash";
 
 import { AbiType, DecodedLogEntry } from "@joincivil/typescript-types";
 
-import Web3 = require("web3");
-import { Log, Callback } from "web3/types";
-import { ABIDefinition as AbiItem } from "web3/eth/abi";
-import { JsonRPCRequest, JsonRPCResponse } from "web3/providers";
+import Web3 from "web3";
+import { Log } from "web3-core";
+import { AbiItem } from "web3-utils";
+import { JsonRpcPayload } from "web3-core-helpers";
+
+// JsonRpcResponse is in the latest version of web3-core-helpers but not released yet
+type JsonRpcResponse = any;
 
 const stubProvider = {
-  send: (payload: JsonRPCRequest, callback: Callback<JsonRPCResponse>) => ({}),
+  send: (payload: JsonRpcPayload, callback: JsonRpcResponse) => ({}),
   host: "x",
   supportsSubscriptions: () => false,
   sendBatch: async (methods: any, moduleInstance: any) => Promise.reject([]),
+  connected: false,
+  disconnect: () => true,
 };
 
 export class AbiDecoder {
@@ -30,6 +35,7 @@ export class AbiDecoder {
       // @ts-ignore
       return log;
     }
+    // @ts-ignore
     const decoded = new Web3(stubProvider).eth.abi.decodeLog(event.inputs!, log.data, log.topics);
     return ({
       ...log,

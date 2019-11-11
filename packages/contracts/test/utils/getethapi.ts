@@ -3,6 +3,7 @@ import "@joincivil/utils";
 import Web3 = require("web3");
 
 function getEthApi(): EthApi {
+  // @ts-ignore
   const provider = new Web3.providers.HttpProvider(DEFAULT_HTTP_NODE);
   const ethApi = new EthApi(provider as any, []);
   return ethApi;

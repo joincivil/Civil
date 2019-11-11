@@ -30,10 +30,10 @@
     "handlebars": "^4.0.11",
     "mkdirp": "^0.5.1",
     "to-snake-case": "^1.0.0",
-    "web3": "^1.2.1",
-    "web3-core": "^1.2.1",
+    "web3": "^1.2.2",
+    "web3-core": "^1.2.2",
     "web3-provider-engine": "^14.0.6",
-    "web3-providers-http": "^1.2.1"
+    "web3-providers-http": "^1.2.2"
   },
   "devDependencies": {
     "@joincivil/tslint-rules": "^2.7.1",

@@ -7,7 +7,7 @@ import { BaseWrapper } from "../basewrapper";
 import { MultiSigWallet, MultiSigWalletContract } from "../generated/wrappers/multi_sig_wallet";
 import { createTwoStepSimple, createTwoStepTransaction, isDecodedLog } from "../utils/contracts";
 import { MultisigTransaction } from "./multisigtransaction";
-import { Tx as TransactionConfig } from "web3/eth/types";
+import { TransactionConfig } from "web3-core";
 import { ethers } from "ethers";
 
 export class Multisig extends BaseWrapper<MultiSigWalletContract> {

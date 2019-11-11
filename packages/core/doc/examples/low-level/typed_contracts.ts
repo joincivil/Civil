@@ -4,8 +4,10 @@ import "rxjs/add/operator/distinctUntilChanged";
 import { Artifact, artifacts } from "../../../src/contracts/generated/artifacts";
 import { NewsroomContract } from "../../../src/contracts/generated/wrappers/newsroom";
 import Web3 = require("web3");
+import { sha3 } from "web3-utils";
 
 const web3 = new EthApi(
+  // @ts-ignore
   new Web3.providers.HttpProvider("http://localhost:8545"),
   Object.values<Artifact>(artifacts).map(a => a.abi),
 );
@@ -24,7 +26,7 @@ const web3 = new EthApi(
     web3,
     "My Test Newsroom",
     "http://foo.bar",
-    Web3.utils.sha3("test"),
+    sha3("test"),
     data,
   );
 
