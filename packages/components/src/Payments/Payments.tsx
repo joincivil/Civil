@@ -27,6 +27,7 @@ export interface PaymentsStates {
   usdToSpend: number;
   etherToSpend?: number;
   selectedUsdToSpend?: number;
+  paymentAdjustedWarning: boolean;
   paymentAdjustedStripe: boolean;
   paymentAdjustedEth: boolean;
   shouldPublicize: boolean;
@@ -39,6 +40,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     super(props);
     this.state = {
       usdToSpend: 0,
+      paymentAdjustedWarning: false,
       paymentAdjustedStripe: false,
       paymentAdjustedEth: false,
       shouldPublicize: false,
@@ -54,6 +56,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       shouldPublicize,
       paymentState,
       selectedUsdToSpend,
+      paymentAdjustedWarning,
       paymentAdjustedStripe,
       paymentAdjustedEth,
     } = this.state;
@@ -66,7 +69,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          paymentAdjustedWarning={paymentAdjustedWarning}
+          handleEditAmount={this.handleUpdateState}
+        >
           <PaymentsOptions
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
@@ -84,7 +92,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsEth
             postId={postId}
@@ -111,7 +119,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsStripe
             postId={postId}
@@ -130,7 +138,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
@@ -142,7 +150,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleEditPaymentType={this.handleUpdateState}
         >
           <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
         </PaymentsWrapper>
@@ -183,10 +191,21 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+    const paymentAdjustedWarning = usdToSpend < 2 ? true : false;
     if (this.props.isLoggedIn) {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+      this.setState({
+        usdToSpend,
+        paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE,
+        shouldPublicize,
+        paymentAdjustedWarning,
+      });
     } else {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });
+      this.setState({
+        usdToSpend,
+        paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST,
+        shouldPublicize,
+        paymentAdjustedWarning,
+      });
     }
   };
 
@@ -199,9 +218,5 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe: false,
       resetEthPayments: true,
     });
-  };
-
-  private handleEditPaymentType = () => {
-    this.setState({ paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE });
   };
 }

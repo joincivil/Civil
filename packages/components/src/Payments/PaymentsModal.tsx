@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PaymentsModalContain, PaymentsModalCloseBtn } from "./PaymentsStyledComponents";
+import { PaymentModalContain, PaymentModalCloseBtn } from "./PaymentsStyledComponents";
 import { FullScreenModal } from "../FullscreenModal";
 import { CloseXIcon } from "../icons";
 import { colors } from "../styleConstants";
@@ -15,14 +15,14 @@ export const PaymentsModal: React.FunctionComponent<PaymentsModalProps> = props 
   return (
     <>
       <FullScreenModal open={props.open}>
-        <PaymentsModalContain maxHeight={maxHeight}>
+        <PaymentModalContain maxHeight={maxHeight}>
           {props.handleClose && (
-            <PaymentsModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
+            <PaymentModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
               <CloseXIcon color={colors.accent.CIVIL_GRAY_2} width={32} height={32} />
-            </PaymentsModalCloseBtn>
+            </PaymentModalCloseBtn>
           )}
           {props.children}
-        </PaymentsModalContain>
+        </PaymentModalContain>
       </FullScreenModal>
     </>
   );

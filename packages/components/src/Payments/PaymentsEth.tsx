@@ -3,7 +3,7 @@ import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import { PaymentBtn, PaymentsHide } from "./PaymentsStyledComponents";
+import { PaymentBtn, PaymentHide } from "./PaymentsStyledComponents";
 import { ConnectWalletWarningText } from "./PaymentsTextComponents";
 import { PaymentsEthForm } from "./PaymentsEthForm";
 import { PaymentsEthUpdateAmount } from "./PaymentsEthUpdateAmount";
@@ -80,13 +80,13 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
     if (this.state.etherToSpend === 0) {
       return (
         <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
-          <PaymentsHide>
+          <PaymentHide>
             <UsdEthConverter
               fromValue={this.state.usdToSpend.toString()}
               onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
               onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
             />
-          </PaymentsHide>
+          </PaymentHide>
         </PaymentsEthWrapper>
       );
     }

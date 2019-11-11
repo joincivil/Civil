@@ -244,15 +244,15 @@ export const PaymentWarning = styled.div`
   }
 `;
 
-export interface PaymentsModalProps {
+export interface PaymentModalProps {
   maxHeight: number;
 }
 
-export const PaymentsModalContain = styled.div`
+export const PaymentModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
   overflow: scroll;
   position: relative;
-  max-height: ${(props: PaymentsModalProps) => props.maxHeight + "px"};
+  max-height: ${(props: PaymentModalProps) => props.maxHeight + "px"};
   padding: 20px;
   width: 400px;
 
@@ -263,7 +263,7 @@ export const PaymentsModalContain = styled.div`
   }
 `;
 
-export const PaymentsModalCloseBtn = styled(InvertedButton)`
+export const PaymentModalCloseBtn = styled(InvertedButton)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 50%;
   height: 32px;
@@ -322,7 +322,7 @@ export const PaymentEthLearnMore = styled.div`
   }
 `;
 
-export const PaymentsRadioBtnContain = styled.div`
+export const PaymentRadioBtnContain = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-right: 4%;
   width: 22%;
@@ -340,7 +340,7 @@ export const PaymentsRadioBtnContain = styled.div`
   }
 `;
 
-export const PaymentsRadioBtn = styled.button`
+export const PaymentRadioBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 4px;
@@ -382,7 +382,7 @@ export const PaymentAmountNewsroom = styled.div`
   }
 `;
 
-export const PaymentsGhostBtn = styled.button`
+export const PaymentGhostBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_BLUE};
@@ -528,7 +528,7 @@ export const PaymentOrBorder = styled.div`
   }
 `;
 
-export const PaymentsEdit = styled.div`
+export const PaymentEdit = styled.div`
   align-items: center;
   display: flex;
   font-size: 15px;
@@ -536,6 +536,6 @@ export const PaymentsEdit = styled.div`
   margin-bottom: 8px;
 `;
 
-export const PaymentsHide = styled.div`
+export const PaymentHide = styled.div`
   visibility: hidden;
 `;

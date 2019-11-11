@@ -4,7 +4,15 @@ import styled from "styled-components/macro";
 import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/core";
-import { buttonSizes, Button, CivilContext, UserDashboardHeader, LoadUser, mediaQueries, colors } from "@joincivil/components";
+import {
+  buttonSizes,
+  Button,
+  CivilContext,
+  UserDashboardHeader,
+  LoadUser,
+  mediaQueries,
+  colors,
+} from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
 import ScrollToTopOnMount from "../utility/ScrollToTop";

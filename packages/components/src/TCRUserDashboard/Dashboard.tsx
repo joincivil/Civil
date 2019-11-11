@@ -8,7 +8,7 @@ const StyledDashboardHeaderOuter = styled.div`
   justify-content: center;
   width: 400px;
   min-width: 400px;
-  ${mediaQueries.MOBILE}  {
+  ${mediaQueries.MOBILE} {
     width: 100%;
     min-width: 0;
   }

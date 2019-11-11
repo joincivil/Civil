@@ -3,7 +3,7 @@ import {
   PaymentBtn,
   PaymentAmountUserOptions,
   PaymentAmountUserInput,
-  PaymentsGhostBtn,
+  PaymentGhostBtn,
   PaymentDirectionsStyled,
 } from "./PaymentsStyledComponents";
 import { SelectPaymentAmountText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
@@ -58,9 +58,9 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
           {this.state.showInput ? (
             <CurrencyInput icon={<>$</>} name="CurrencyInput" onChange={this.handleAmountInput} />
           ) : (
-            <PaymentsGhostBtn onClick={this.handleShowInput}>
+            <PaymentGhostBtn onClick={this.handleShowInput}>
               <EnterCustomAmountText />
-            </PaymentsGhostBtn>
+            </PaymentGhostBtn>
           )}
         </PaymentAmountUserInput>
         <PaymentAmountUserOptions>
