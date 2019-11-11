@@ -267,7 +267,7 @@ class DashboardActivity extends React.Component<
                       loading: challengeLoading,
                       error: challengeError,
                       data: challengeData,
-                      challengeRefetch,
+                      refetch: challengeRefetch,
                     }: any): JSX.Element => {
                       if (nrsignupLoading || challengeLoading) {
                         console.log("loading.");
