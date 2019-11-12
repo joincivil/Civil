@@ -377,7 +377,6 @@ class DashboardActivity extends React.Component<
     });
 
     const currentUserChallengesStarted = Set<any>(data.challengesStarted);
-    console.log("currentUserChallengesStarted: ", currentUserChallengesStarted);
 
     const numUserChallenges =
       allCompletedChallengesVotedOn!.count() +
