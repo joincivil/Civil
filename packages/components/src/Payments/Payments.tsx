@@ -125,6 +125,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             isWalletConnected={isWalletConnected}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
+            context={this.context}
             handleBoostUpdate={this.handleUpdateBoostFromEth}
             handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}

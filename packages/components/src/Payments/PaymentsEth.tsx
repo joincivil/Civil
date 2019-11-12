@@ -20,6 +20,7 @@ export interface PaymentsEthProps {
   usdToSpend: number;
   isWalletConnected: boolean;
   resetEthPayments: boolean;
+  context: any;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
   handlePaymentSuccess(): void;
   handleEditPaymentType(): void;
@@ -29,6 +30,7 @@ export interface PaymentsEthStates {
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
+  isWalletConnected: boolean;
 }
 
 export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthStates> {
@@ -38,6 +40,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
         etherToSpend: props.etherToSpend || 0,
         usdToSpend: props.usdToSpend,
         notEnoughEthError: false,
+        isWalletConnected: state.isWalletConnected,
       };
     }
 
@@ -49,9 +52,10 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   public constructor(props: PaymentsEthProps) {
     super(props);
     this.state = {
-      etherToSpend: this.props.etherToSpend || 0,
-      usdToSpend: this.props.usdToSpend,
+      etherToSpend: props.etherToSpend || 0,
+      usdToSpend: props.usdToSpend,
       notEnoughEthError: false,
+      isWalletConnected: props.isWalletConnected
     };
   }
 
@@ -64,7 +68,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
           usdToSpend={this.state.usdToSpend}
         >
           <ConnectWalletWarningText />
-          <PaymentBtn>Select Wallet</PaymentBtn>
+          <PaymentBtn onClick={this.enableEth}>Select Wallet</PaymentBtn>
         </PaymentsEthWrapper>
       );
     }
@@ -125,6 +129,18 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       </Mutation>
     );
   }
+
+  private enableEth = async () => {
+    await this.props.context.civil!.currentProviderEnable();
+    await this.props.context.civil!.accountStream.first().toPromise();
+
+    // only do this stuff if wallet not currently connected, possible to get multiple
+    // promises that resolve immediately after user enables if they cancel
+    // wallet selection multiple times before going through with it
+    if (!this.state.isWalletConnected) {
+      this.setState({ isWalletConnected: true });
+    }
+  };
 
   private setConvertedAmount(usdToSpend: number, etherToSpend: number): void {
     const eth = parseFloat(etherToSpend.toFixed(6));
