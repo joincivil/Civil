@@ -98,6 +98,7 @@ const USER_NRSIGNUP_QUERY = gql`
 const CHALLENGE_FRAGMENT = gql`
   fragment ChallengeFragment on Challenge {
     challengeID
+    challengeType
     listingAddress
     listing {
       name

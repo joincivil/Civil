@@ -41,20 +41,18 @@ const MyChallengesItemComponent: React.FunctionComponent<MyChallengesItemOwnProp
       viewDetailURL,
     };
 
-    if (canUserCollect || canUserRescue || didUserCommit) {
-      return (
-        <DashboardActivityItemTask {...viewProps}>
-          <MyTasksItemPhaseCountdown {...props} />
-          {!inCommitPhase && !inRevealPhase && (
-            <DashboardItemChallengeResults
-              listingDetailURL={listingDetailURL}
-              viewDetailURL={viewDetailURL}
-              {...props}
-            />
-          )}
-        </DashboardActivityItemTask>
-      );
-    }
+    return (
+      <DashboardActivityItemTask {...viewProps}>
+        <MyTasksItemPhaseCountdown {...props} />
+        {!inCommitPhase && !inRevealPhase && (
+          <DashboardItemChallengeResults
+            listingDetailURL={listingDetailURL}
+            viewDetailURL={viewDetailURL}
+            {...props}
+          />
+        )}
+      </DashboardActivityItemTask>
+    );
   }
 
   return <></>;

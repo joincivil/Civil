@@ -25,98 +25,106 @@ const MyChallengesItemWrapper: React.FunctionComponent<
     showRescueTokensTab,
   } = props;
 
-  if (!queryUserChallengeData) {
-    console.error("MyChallengesItemWrapper: no queryUserChallengeData found");
-    return <></>;
-  }
-  const { pollType, challenge } = queryUserChallengeData;
-  if (!pollType) {
-    console.error("MyChallengesItemWrapper: no pollType found");
-    return <></>;
-  }
-
-  if (pollType === "CHALLENGE") {
-    if (challenge) {
-      const challengeData = transformGraphQLDataIntoChallenge(challenge);
-      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(
-        queryUserChallengeData,
-        challenge,
-      );
-      if (challengeData) {
-        const listingAddress = challenge!.listingAddress;
-        if (listingAddress && challenge.listing) {
-          const listing = transformGraphQLDataIntoListing(challenge.listing, listingAddress);
-          if (listing) {
-            const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress), address: listingAddress };
-            let appealUserChallengeData;
-            if (queryUserAppealChallengeData) {
-              appealUserChallengeData = transfromGraphQLDataIntoUserChallengeData(
-                queryUserAppealChallengeData,
-                challenge.appeal.appealChallenge,
-              );
-            }
-
-            let charter;
-            if (newsroom.wrapper && newsroom.wrapper.data.charterHeader) {
-              charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
-              if (!charter) {
-                void getCharterContent(newsroom.wrapper.data.charterHeader);
-              }
-            }
-
-            const wrappedChallenge = {
-              listingAddress,
-              challengeID: new BigNumber(challenge.challengeID!),
-              challenge: challengeData,
-            };
-
-            let appeal;
-            let appealChallenge;
-            let appealChallengeState;
-            let appealChallengeID;
-
-            if (challengeData) {
-              appeal = challengeData.appeal;
-
-              if (appeal) {
-                appealChallenge = appeal.appealChallenge;
-                if (appealChallenge) {
-                  appealChallengeID = appeal.appealChallengeID.toString();
-                  appealChallengeState = getAppealChallengeState(appealChallenge);
-                }
-              }
-            }
-
-            const challengeState = getChallengeState(wrappedChallenge as WrappedChallengeData);
-            const viewProps = {
-              challengeID: challenge.challengeID,
-              listingAddress,
-              listing,
-              newsroom,
-              charter,
-              challenge: wrappedChallenge,
-              challengeState,
-              userChallengeData,
-              appeal,
-              appealChallengeID,
-              appealChallenge,
-              appealChallengeState,
-              appealUserChallengeData,
-              showClaimRewardsTab,
-              showRescueTokensTab,
-            };
-
-            return <MyChallengesItemComponent {...viewProps} />;
-          }
-        } else {
-          console.log("no listing for challenge: ", challenge);
-        }
-      }
+  let challenge = props.challenge;
+  let challengeType;
+  if (!challenge) {
+    if (!queryUserChallengeData) {
+      console.error("MyChallengesItemWrapper: no data found");
+      return <></>;
     }
-
+    challenge = queryUserChallengeData.challenge;
+    if (!challenge) {
+      console.error("MyChallengesItemWrapper: no challenge data found on queryUserChallengedata");
+      return <></>;
+    }
+    challengeType = challenge.pollType;
+  } else {
+    challengeType = challenge.challengeType;
   }
-  console.error("MyChallengesItemWrapper: pollType !== CHALLENGE");
-  return <></>;
+
+  console.log("challengeType: ", challengeType);
+  if (challengeType !== "CHALLENGE") {
+    console.error("MyChallengesItemWrapper: challengeType unknown");
+    return <></>;
+  }
+
+  const challengeData = transformGraphQLDataIntoChallenge(challenge);
+
+  const userChallengeData = queryUserChallengeData ? transfromGraphQLDataIntoUserChallengeData(
+    queryUserChallengeData,
+    challenge,
+  ) : undefined;
+
+  if (challengeData) {
+    const listingAddress = challenge!.listingAddress;
+    if (listingAddress && challenge.listing) {
+      const listing = transformGraphQLDataIntoListing(challenge.listing, listingAddress);
+      if (listing) {
+        const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress), address: listingAddress };
+        let appealUserChallengeData;
+        if (queryUserAppealChallengeData) {
+          appealUserChallengeData = transfromGraphQLDataIntoUserChallengeData(
+            queryUserAppealChallengeData,
+            challenge.appeal.appealChallenge,
+          );
+        }
+
+        let charter;
+        if (newsroom.wrapper && newsroom.wrapper.data.charterHeader) {
+          charter = content.get(newsroom.wrapper.data.charterHeader.uri) as CharterData;
+          if (!charter) {
+            void getCharterContent(newsroom.wrapper.data.charterHeader);
+          }
+        }
+
+        const wrappedChallenge = {
+          listingAddress,
+          challengeID: new BigNumber(challenge.challengeID!),
+          challenge: challengeData,
+        };
+
+        let appeal;
+        let appealChallenge;
+        let appealChallengeState;
+        let appealChallengeID;
+
+        if (challengeData) {
+          appeal = challengeData.appeal;
+
+          if (appeal) {
+            appealChallenge = appeal.appealChallenge;
+            if (appealChallenge) {
+              appealChallengeID = appeal.appealChallengeID.toString();
+              appealChallengeState = getAppealChallengeState(appealChallenge);
+            }
+          }
+        }
+
+        const challengeState = getChallengeState(wrappedChallenge as WrappedChallengeData);
+        const viewProps = {
+          challengeID: challenge.challengeID,
+          listingAddress,
+          listing,
+          newsroom,
+          charter,
+          challenge: wrappedChallenge,
+          challengeState,
+          userChallengeData,
+          appeal,
+          appealChallengeID,
+          appealChallenge,
+          appealChallengeState,
+          appealUserChallengeData,
+          showClaimRewardsTab,
+          showRescueTokensTab,
+        };
+
+        return <MyChallengesItemComponent {...viewProps} />;
+      }
+    } else {
+      console.log("no listing for challenge: ", challenge);
+    }
+  }
 };
 
 export default MyChallengesItemWrapper;
