@@ -122,8 +122,9 @@ function init(): void {
                     );
                   }
 
-                  const newLinkEmbedUrl = `${dappOrigin}/embed/boost/story/${createData.postsCreateExternalLinkEmbedded.id}`;
-                  return <BoostEmbedIframe iframeSrc={newLinkEmbedUrl} fallbackUrl={newLinkEmbedUrl} />;
+                  const newBoostId = createData.postsCreateExternalLinkEmbedded.id;
+                  const newLinkEmbedUrl = `${dappOrigin}/embed/boost/story/${newBoostId}`;
+                  return <BoostEmbedIframe iframeSrc={newLinkEmbedUrl} fallbackUrl={newLinkEmbedUrl} iframeId={newBoostId} />;
                 }}
               </Mutation>
             );
@@ -138,7 +139,7 @@ function init(): void {
           const embedUrl = `${dappOrigin}/embed/boost/story/${boostId}`;
           return (
             // @TODO/tobek Since we don't have a permalink for story boost on dapp, for now the fallback URL can go directly to same embed URL, which should work outside iframe even if privacy badger or something is blocking in iframe.
-            <BoostEmbedIframe iframeSrc={embedUrl} fallbackUrl={embedUrl} />
+            <BoostEmbedIframe iframeSrc={embedUrl} fallbackUrl={embedUrl} iframeId={boostId} />
           );
         }}
       </Query>

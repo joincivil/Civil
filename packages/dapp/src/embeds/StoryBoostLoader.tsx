@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components/macro";
+// @ts-ignore iframe-resizer types are crap and it thinks this module isn't exported, ALSO we need to ts-ignore so linter doesn't complain about import being unused - just importing it activates it as a side effect.
+import { iframeResizerContentWindow } from "iframe-resizer";
 import { useRouteMatch } from "react-router";
 import {
   CivilContext,

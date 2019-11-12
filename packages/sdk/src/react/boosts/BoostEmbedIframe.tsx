@@ -1,4 +1,5 @@
 import * as React from "react";
+import IframeResizer from "iframe-resizer-react";
 
 // This can be gotten from `loadingImgUrl` from `@joincivil/components`, but it's not worth bringing in entire package for that. The hash is from the contents of the svg so it's stable unless we change the image or its name or location. It's too big to inline into copy-paste-able embed code. @TODO/tobek Should we just host this image somewhere else?
 const LOADING_IMAGE_URL = "https://registry.civil.co/static/media/loading.ba73811a.svg";
@@ -17,6 +18,7 @@ const EMBED_WRAPPER_STYLES: React.CSSProperties = {
 };
 const EMBED_IFRAME_STYLES: React.CSSProperties = {
   position: "absolute",
+  minWidth: "100%", // workaround for iOS bug that prevents iframe resizing
   width: "100%",
   height: "523px !important", // 523px to make room for 1px border
   border: 0,
@@ -44,6 +46,7 @@ export interface BoostEmbedIframeProps {
   iframeSrc?: string;
   noIframe?: boolean;
   error?: string;
+  iframeId?: string;
 }
 
 // When using `ReactDOMServer.renderToStaticMarkup`, the inlined important styles are included, but using `ReactDOM.render`, they are not. In the latter case, we can fix with this:
@@ -56,21 +59,23 @@ const setHeightImportant = (node: HTMLElement | null, height: string) => {
 export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => (
   <div style={EMBED_WRAPPER_STYLES} ref={node => setHeightImportant(node, "525px")}>
     {!props.noIframe && (
-      <iframe
-        ref={node => setHeightImportant(node, "523px")}
+      <IframeResizer
+        forwardRef={node => setHeightImportant(node, "523px")}
+        heightCalculationMethod="lowestElement"
         style={EMBED_IFRAME_STYLES}
+        id={props.iframeId}
         src={props.iframeSrc}
         sandbox="allow-popups allow-scripts allow-same-origin"
-      ></iframe>
+      ></IframeResizer>
     )}
 
     {props.error ? (
       <>
-        <p>
+        <p style={{ margin: "2rem 1rem"}}>
           Sorry, there was an error loading this Boost. Try viewing it{" "}
           <a href={props.fallbackUrl} target="_blank">
             on Civil
-          </a>
+          </a>.
         </p>
         <pre>{props.error}</pre>
       </>
