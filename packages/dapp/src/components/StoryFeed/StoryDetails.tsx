@@ -1,4 +1,8 @@
 import * as React from "react";
+import { Contributors, ContributorCount, ContributorData, StoryNewsroomStatus } from "@joincivil/components";
+import { PaymentButton, ShareButton } from "@joincivil/elements";
+import { getTimeSince } from "@joincivil/utils";
+import { OpenGraphData } from "./types";
 import {
   StoryTitle,
   TimeStamp,
@@ -14,11 +18,6 @@ import {
   StoryDetailsFooterFlex,
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
-import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
-import { Contributors, ContributorCount, ContributorData } from "../Contributors";
-import { OpenGraphData } from "./types";
-import { PaymentButton, ShareButton } from "@joincivil/elements";
-import { getTimeSince } from "@joincivil/utils";
 
 export interface StoryDetailsProps {
   activeChallenge: boolean;

@@ -1,13 +1,11 @@
 import * as React from "react";
-import { StoryNewsroomStatus } from "./StoryNewsroomStatus";
 import { Story } from "./Story";
 import { StoryDetails } from "./StoryDetails";
 import { StoryNewsroomDetails } from "./StoryNewsroomDetails";
 import { StoryModal } from "./StoryModal";
-import { ContributorCount, ContributorData } from "../Contributors";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
-import { Payments, PaymentsModal } from "../Payments";
+import { StoryNewsroomStatus, ContributorCount, ContributorData, Payments, PaymentsModal } from "@joincivil/components";
 import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/elements";
 
 export interface StoryFeedItemProps {

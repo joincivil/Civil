@@ -2,8 +2,9 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Helmet } from "react-helmet";
-import { StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { LoadingMessage } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
+import { StoryFeedItem } from "./StoryFeedItem";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import styled from "styled-components/macro";
 

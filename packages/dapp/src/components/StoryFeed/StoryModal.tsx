@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StoryModalContain, StoryModalCloseBtn } from "./StoryFeedStyledComponents";
-import { FullScreenModal } from "../FullscreenModal";
+import { FullScreenModal } from "@joincivil/components";
 import { CloseXButton } from "@joincivil/elements";
 
 export interface StoryModalProps {
