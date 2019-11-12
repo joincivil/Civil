@@ -70,11 +70,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
     const isWalletConnected = !!userAddress;
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
-      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
+    // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
+    const proceedToPaymentType =
+      paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !!this.context.currentUser;
+
+    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !proceedToPaymentType) {
+      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.context.auth.showWeb3Login} />;
     }
 
-    if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
+    if (proceedToPaymentType || paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
         <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsOptions
