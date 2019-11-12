@@ -16,8 +16,7 @@ import { BigNumber, parseEther } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
-import { Transaction, Tx as TransactionConfig, Tx as SendOptions } from "web3/eth/types";
-import { TransactionReceipt } from "web3/types";
+import { TransactionReceipt, TransactionConfig, TransactionConfig as SendOptions, Transaction } from "web3-core";
 import * as zlib from "zlib";
 import { ContentProvider } from "../content/contentprovider";
 import {

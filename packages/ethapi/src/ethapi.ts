@@ -1,5 +1,5 @@
 import { CivilErrors, delay, hashPersonalMessage } from "@joincivil/utils";
-import * as Debug from "debug";
+import Debug from "debug";
 import { bufferToHex, fromRpcSig, fromUtf8, toBuffer } from "ethereumjs-util";
 import { ReplaySubject, Observable } from "rxjs";
 import {
@@ -9,21 +9,17 @@ import {
   DecodedTransactionReceipt,
   EthAddress,
   EthSignedMessage,
-  Hex,
   TxHash,
 } from "@joincivil/typescript-types";
 
 import { AbiDecoder } from "./abidecoder";
 import { requireAccount } from "./helpers";
 
-import Web3 = require("web3");
-import { Log, TransactionReceipt } from "web3/types";
-import Contract from "web3/eth/contract";
-import { Tx as TransactionConfig, Block, Transaction } from "web3/eth/types";
-import { ABIDefinition as AbiItem } from "web3/eth/abi";
-import { JsonRPCResponse } from "web3/providers";
-
-export type Provider = Web3["currentProvider"];
+import Web3 from "web3";
+import Contract from "web3-eth-contract";
+import { Block } from "web3-eth";
+import { Transaction, TransactionConfig, Log, TransactionReceipt, provider as Provider } from "web3-core";
+import { AbiItem } from "web3-utils";
 
 const debug = Debug("civil:ethapi");
 
@@ -36,7 +32,6 @@ export class EthApi {
   private abiDecoder: AbiDecoder;
   private accountObservable: ReplaySubject<EthAddress | undefined>;
   private networkObservable: ReplaySubject<number>;
-  private rpcId: number = 10000; // HACK(ritave): Ids that shouldn't collide with web3, get rid of web3
 
   // TODO(ritave): Use abi decoding seperatly in just the generated smart-contracts
   constructor(provider: Provider, abis: any[][]) {
@@ -89,7 +84,7 @@ export class EthApi {
     }
   }
 
-  public get currentProvider(): Web3["currentProvider"] {
+  public get currentProvider(): Provider {
     return this.web3.currentProvider;
   }
 
@@ -144,32 +139,6 @@ export class EthApi {
     return this.web3.eth.getCode(address);
   }
 
-  public async rpc(method: string, ...params: any[]): Promise<any> {
-    this.rpcId++;
-    // use this for web3
-    // return this.currentProvider!.send(method, params);
-    return new Promise<JsonRPCResponse>((resolve, reject) => {
-      this.currentProvider!.send(
-        {
-          id: this.rpcId,
-          jsonrpc: "2.0",
-          method,
-          params,
-        },
-        // @ts-ignore typing on this is whacky
-        (err, res) => {
-          if (err) {
-            reject(err);
-          }
-          if ((res as any).error) {
-            reject((res as any).error);
-          }
-          resolve(res.result);
-        },
-      );
-    });
-  }
-
   public async sendTransaction(txData: TransactionConfig): Promise<TxHash> {
     // TOOD(dankins): handle rejection
     // tslint:disable-next-line:no-unbound-method
@@ -191,17 +160,8 @@ export class EthApi {
     const messageHex = fromUtf8(message);
 
     const signerAccount = account || (await requireAccount(this).toPromise());
-    let signature: Hex;
-    try {
-      // @ts-ignore types are wrong on personal sign
-      signature = await this.web3.eth.personal.sign(messageHex, signerAccount);
-    } catch (e) {
-      if (e.message.toLowerCase().includes("user denied")) {
-        throw e; // rethrow the metamask error to be handled in ui
-      } else {
-        signature = (await this.rpc("eth_sign", signerAccount, messageHex)).result;
-      }
-    }
+    // @ts-ignore types are wrong, password is not required
+    const signature = await this.web3.eth.personal.sign(messageHex, signerAccount);
 
     const rsv = fromRpcSig(signature);
 
@@ -240,16 +200,6 @@ export class EthApi {
     }
     return bigNumberify(amount);
   }
-  // public toBigNumber(numberOrHexString: number | string | BigNumber): any {
-  //   // @ts-ignore
-  //   // const rtn = this.web3.utils.toBN(numberOrHexString);
-  //   // @ts-ignore
-  //   // hack(dankins): this is to trick ethers.js into thinking this is a valid bignumber
-  //   // https://github.com/ethers-io/ethers.js/blob/master/src.ts/utils/bignumber.ts#L85
-  //   // rtn.toHexString = () => this.web3.utils.numberToHex(rtn);
-
-  //   return rtn;
-  // }
 
   public toWei(amount: number): BigNumber {
     const wei = this.web3.utils.toWei(amount.toString());
@@ -314,7 +264,7 @@ export class EthApi {
     return null;
   }
 
-  public getContractClass(abi: AbiItem[], address?: string, options?: ContractOptions | undefined): Contract {
+  public getContractClass(abi: AbiItem[], address?: string, options?: ContractOptions | undefined): typeof Contract {
     const contract = new this.web3.eth.Contract(abi, address, options);
 
     if (!contract.options.address) {

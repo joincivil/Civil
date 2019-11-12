@@ -1,5 +1,5 @@
-import { Log, TransactionReceipt } from "web3/types";
-import { ABIDefinition as AbiItem } from "web3/eth/abi";
+import { AbiItem } from "web3-utils";
+import { TransactionReceipt, Log } from "web3-core";
 
 // make sure that typescript-types/ethers is using the same version as web3's abi-encoder ether
 import { utils } from "ethers";
