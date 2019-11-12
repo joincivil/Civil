@@ -4,6 +4,7 @@ export const urlConstants = {
   // Marketing site  / Foundation
   MARKETING_SITE: "https://civil.co",
   REGISTRY: "https://registry.civil.co/",
+  DASHBOARD: "https://registry.civil.co/dashboard",
   CONSTITUTION: "https://civil.co/constitution",
   FOUNDATION: "https://civilfound.org",
   COUNCIL: "https://civilfound.org/#civil-council",

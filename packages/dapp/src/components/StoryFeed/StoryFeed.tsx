@@ -92,7 +92,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
 
             const storyfeed = postsStoryfeed.edges.map((story: any, i: number) => {
               const storyData = story.post;
-
               if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
                 return (
                   <StoryFeedItem

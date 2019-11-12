@@ -3,7 +3,6 @@ import { MutationFunc } from "react-apollo";
 import { injectStripe, ReactStripeElements, PaymentRequestButtonElement } from "react-stripe-elements";
 import styled from "styled-components";
 import { colors } from "@joincivil/elements";
-import { PAYMENT_STATE } from "./types";
 import { PaymentExpress, PaymentOrBorder } from "./PaymentsStyledComponents";
 import { ExpressPayText } from "./PaymentsTextComponents";
 
@@ -17,7 +16,7 @@ export interface PaymentRequestProps extends ReactStripeElements.InjectedStripeP
   savePayment: MutationFunc;
   boostId: string;
   usdToSpend: number;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
   onPayRequestError?(): void;
 }
 
@@ -91,7 +90,7 @@ class PaymentRequestForm extends React.Component<PaymentRequestProps, PaymentReq
         },
       });
       complete("success");
-      this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
+      this.props.handlePaymentSuccess();
     } catch (err) {
       console.error(err);
       complete("fail");

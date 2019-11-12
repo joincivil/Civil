@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PaymentsRadioBtnContain, PaymentsRadioBtn } from "./PaymentsStyledComponents";
+import { PaymentRadioBtnContain, PaymentRadioBtn } from "./PaymentsStyledComponents";
 
 export interface PaymentsRadioProps {
   onChange?: any;
@@ -18,9 +18,9 @@ export const PaymentsRadio: React.FunctionComponent<PaymentsRadioProps> = props 
   };
 
   return (
-    <PaymentsRadioBtnContain>
+    <PaymentRadioBtnContain>
       <input type="radio" value={value} onChange={onChange} name={name} ref={ref => (input = ref)} />
-      <PaymentsRadioBtn onClick={clickHandler}>{children}</PaymentsRadioBtn>
-    </PaymentsRadioBtnContain>
+      <PaymentRadioBtn onClick={clickHandler}>{children}</PaymentRadioBtn>
+    </PaymentRadioBtnContain>
   );
 };

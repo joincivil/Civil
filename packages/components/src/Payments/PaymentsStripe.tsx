@@ -6,15 +6,14 @@ import makeAsyncScriptLoader from "react-async-script";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
-import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsStripeProps {
   postId: string;
   newsroomName: string;
   shouldPublicize: boolean;
-  userEmail?: string;
   usdToSpend: number;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentsStripeStates {
@@ -34,6 +33,8 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
   }
 
   public render(): JSX.Element {
+    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
@@ -46,10 +47,12 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                     postId={this.props.postId}
                     newsroomName={this.props.newsroomName}
                     shouldPublicize={this.props.shouldPublicize}
-                    userEmail={this.props.userEmail}
+                    userEmail={userEmail}
+                    userChannelID={userChannelID}
                     usdToSpend={this.props.usdToSpend}
                     savePayment={paymentsCreateStripePayment}
                     handlePaymentSuccess={this.props.handlePaymentSuccess}
+                    handleEditPaymentType={this.props.handleEditPaymentType}
                   />
                 );
               }}

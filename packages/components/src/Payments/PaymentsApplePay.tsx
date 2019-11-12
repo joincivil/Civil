@@ -6,12 +6,17 @@ import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 export interface PaymentsApplePayProps {
   newsroomName: string;
   usdToSpend: number;
+  handleEditPaymentType(): void;
 }
 
 export const PaymentsApplePay: React.FunctionComponent<PaymentsApplePayProps> = props => {
   return (
     <>
-      <PaymentsFormWrapper payWithText={<PayWithAppleText />} paymentNoticeText={<PaymentStripeNoticeText />} />
+      <PaymentsFormWrapper
+        handleEditPaymentType={props.handleEditPaymentType}
+        payWithText={<PayWithAppleText />}
+        paymentNoticeText={<PaymentStripeNoticeText />}
+      />
       {/* Apple Pay TKTK */}
       <PaymentTerms>
         <PaymentTermsText />

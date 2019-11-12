@@ -52,10 +52,6 @@ const StoryBoostFooter = styled.div`
 
 export interface StoryBoostProps {
   boostId: string;
-  isLoggedIn: boolean;
-  userAddress?: string;
-  userEmail?: string;
-  handleLogin(): void;
 }
 
 export interface StoryBoostState {

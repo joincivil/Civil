@@ -1,827 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Boost / Payments Apple Pay Screen 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzNQh iyUxEc"
-    >
-      <div
-        className="sc-LzNvK cEKLMl"
-      >
-        <div
-          className="sc-LzNvT iNJHWV"
-        >
-          <div
-            className="sc-LzNws dAOFqD"
-          >
-            Pay with Apple Pay
-          </div>
-        </div>
-        <p
-          className="sc-LzNvR pWKpX"
-        >
-          Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
-        </p>
-      </div>
-      <p
-        className="sc-LzNvS fUlyYw"
-      >
-        By sending a Boost, you agree to Civil’s
-         
-        <a
-          href="https://civil.co/terms"
-          target="_blank"
-        >
-          Terms of Use
-        </a>
-         
-        and
-         
-        <a
-          href="https://civil.co/privacy"
-          target="_blank"
-        >
-          Privacy Policy
-        </a>
-        . Depending on your selection, your email may be visible to the newsroom.
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Boost / Payments
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Apple Pay Screen
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    styled.div
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    PaymentsApplePay
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        newsroomName
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            Coda Story
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        usdToSpend
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#a11",
-                              }
-                            }
-                          >
-                            2
-                          </span>
-                          }
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    styled.div
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              PaymentsApplePay
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              styled.div
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Storyshots Boost / Payments Google Pay Screen 1`] = `
-<div>
-  <div
-    style={
-      Object {
-        "position": "relative",
-        "zIndex": 0,
-      }
-    }
-  >
-    <div
-      className="sc-LzNQh iyUxEc"
-    >
-      <div
-        className="sc-LzNvK cEKLMl"
-      >
-        <div
-          className="sc-LzNvT iNJHWV"
-        >
-          <div
-            className="sc-LzNws dAOFqD"
-          >
-            Pay with Google Pay
-          </div>
-        </div>
-        <p
-          className="sc-LzNvR pWKpX"
-        >
-          Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.
-        </p>
-      </div>
-      <p
-        className="sc-LzNvS fUlyYw"
-      >
-        By sending a Boost, you agree to Civil’s
-         
-        <a
-          href="https://civil.co/terms"
-          target="_blank"
-        >
-          Terms of Use
-        </a>
-         
-        and
-         
-        <a
-          href="https://civil.co/privacy"
-          target="_blank"
-        >
-          Privacy Policy
-        </a>
-        . Depending on your selection, your email may be visible to the newsroom.
-      </p>
-    </div>
-  </div>
-  <button
-    className="info__show-button"
-    onClick={[Function]}
-    style={
-      Object {
-        "background": "#027ac5",
-        "border": "none",
-        "borderRadius": "0 0 0 5px",
-        "color": "#fff",
-        "cursor": "pointer",
-        "display": "block",
-        "fontFamily": "sans-serif",
-        "fontSize": "12px",
-        "padding": "5px 15px",
-        "position": "fixed",
-        "right": 0,
-        "top": 0,
-      }
-    }
-    type="button"
-  >
-    Show Info
-  </button>
-  <div
-    className="info__overlay"
-    style={
-      Object {
-        "background": "white",
-        "bottom": 0,
-        "display": "none",
-        "height": "100vh",
-        "left": 0,
-        "overflow": "auto",
-        "position": "fixed",
-        "top": 0,
-        "width": "100vw",
-        "zIndex": 99999,
-      }
-    }
-  >
-    <button
-      className="info__close-button"
-      onClick={[Function]}
-      style={
-        Object {
-          "background": "#027ac5",
-          "border": "none",
-          "borderRadius": "0 0 0 5px",
-          "color": "#fff",
-          "cursor": "pointer",
-          "display": "block",
-          "fontFamily": "sans-serif",
-          "fontSize": "12px",
-          "padding": "5px 15px",
-          "position": "fixed",
-          "right": 0,
-          "top": 0,
-        }
-      }
-      type="button"
-    >
-      ×
-    </button>
-    <div>
-      <div
-        style={
-          Object {
-            "backgroundColor": "#fff",
-            "border": "1px solid #eee",
-            "borderRadius": "2px",
-            "color": "black",
-            "fontFamily": "Helvetica Neue, Helvetica, Segoe UI, Arial, freesans, sans-serif",
-            "fontSize": "15px",
-            "fontWeight": 300,
-            "lineHeight": 1.45,
-            "marginBottom": "20px",
-            "marginTop": "20px",
-            "padding": "20px 40px 40px",
-          }
-        }
-      >
-        <div
-          style={
-            Object {
-              "borderBottom": "1px solid #eee",
-              "marginBottom": 10,
-              "paddingTop": 10,
-            }
-          }
-        >
-          <h1
-            style={
-              Object {
-                "fontSize": "35px",
-                "margin": 0,
-                "padding": 0,
-              }
-            }
-          >
-            Boost / Payments
-          </h1>
-          <h2
-            style={
-              Object {
-                "fontSize": "22px",
-                "fontWeight": 400,
-                "margin": "0 0 10px 0",
-                "padding": 0,
-              }
-            }
-          >
-            Google Pay Screen
-          </h2>
-        </div>
-        
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Story Source
-          </h1>
-          <pre
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#fafafa",
-                "display": "flex",
-                "fontFamily": "Menlo, Monaco, \\"Courier New\\", monospace",
-                "fontSize": ".88em",
-                "justifyContent": "space-between",
-                "lineHeight": 1.5,
-                "overflowX": "scroll",
-                "padding": ".5rem",
-              }
-            }
-          >
-            <div>
-              <div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    styled.div
-                  </span>
-                  <span />
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;
-                    PaymentsGooglePay
-                  </span>
-                  <span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        newsroomName
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            Coda Story
-                          </span>
-                          "
-                        </span>
-                      </span>
-                    </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        usdToSpend
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#a11",
-                              }
-                            }
-                          >
-                            2
-                          </span>
-                          }
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    /&gt;
-                  </span>
-                </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 18,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
-                    style={
-                      Object {
-                        "color": "#444",
-                      }
-                    }
-                  >
-                    &lt;/
-                    styled.div
-                    &gt;
-                  </span>
-                </div>
-              </div>
-            </div>
-            <button
-              onClick={[Function]}
-              style={
-                Object {
-                  "alignSelf": "flex-start",
-                  "backgroundColor": "rgb(255, 255, 255)",
-                  "borderColor": "rgb(238, 238, 238)",
-                  "borderImage": "initial",
-                  "borderRadius": "3px",
-                  "borderStyle": "solid",
-                  "borderWidth": "1px",
-                  "cursor": "pointer",
-                  "flexShrink": "0",
-                  "fontSize": "13px",
-                  "overflow": "hidden",
-                  "padding": "3px 10px",
-                }
-              }
-              type="button"
-            >
-              Copy
-            </button>
-          </pre>
-        </div>
-        <div>
-          <h1
-            style={
-              Object {
-                "borderBottom": "1px solid #EEE",
-                "fontSize": "25px",
-                "margin": "20px 0 0 0",
-                "padding": "0 0 5px 0",
-              }
-            }
-          >
-            Prop Types
-          </h1>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              PaymentsGooglePay
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-          <div>
-            <h3
-              style={
-                Object {
-                  "margin": "20px 0 0 0",
-                }
-              }
-            >
-              "
-              styled.div
-              " Component
-            </h3>
-            <small>
-              No propTypes defined!
-            </small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`Storyshots Boost / Payments Payment Amount 1`] = `
 <div>
   <div
@@ -833,165 +11,140 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
     }
   >
     <div
-      className="sc-LzNQh iyUxEc"
+      className="sc-LzNQO fvQplf"
     >
-      <div
-        className="sc-LzNvg iBNqIg"
+      <p
+        className="sc-LzNvQ uiQcC"
       >
-        <div
-          className="sc-LzNvh fCDCNp"
-        >
-          <h2>
-            Send a Boost
-          </h2>
+        Select how much you would like to Boost
+      </p>
+      <div
+        className="sc-fzXfNj brJHhZ"
+      >
+        <div>
           <div
-            className="sc-LzNvi iIvjth"
-          >
-            <div
-              className="sc-LzNvj cxKgBd"
-            >
-              Coda Story
-            </div>
-          </div>
-          <div
-            className="sc-LzNvk hRyhzM"
-          >
-            Your Boost goes directly to the newsroom.
-          </div>
-        </div>
-        <p
-          className="sc-LzNvN krpJzD"
-        >
-          Select how much you would like to Boost
-        </p>
-        <div
-          className="sc-fzXfNj brJHhZ"
-        >
-          <div>
-            <div
-              className="sc-LzNwz kUrgGI"
-            >
-              <input
-                name="SuggestedAmounts"
-                onChange={[Function]}
-                type="radio"
-                value="1"
-              />
-              <button
-                className="sc-LzNwA jCWvgp"
-                onClick={[Function]}
-              >
-                $
-                1
-                <span>
-                  USD
-                </span>
-              </button>
-            </div>
-            <div
-              className="sc-LzNwz kUrgGI"
-            >
-              <input
-                name="SuggestedAmounts"
-                onChange={[Function]}
-                type="radio"
-                value="2"
-              />
-              <button
-                className="sc-LzNwA jCWvgp"
-                onClick={[Function]}
-              >
-                $
-                2
-                <span>
-                  USD
-                </span>
-              </button>
-            </div>
-            <div
-              className="sc-LzNwz kUrgGI"
-            >
-              <input
-                name="SuggestedAmounts"
-                onChange={[Function]}
-                type="radio"
-                value="3"
-              />
-              <button
-                className="sc-LzNwA jCWvgp"
-                onClick={[Function]}
-              >
-                $
-                3
-                <span>
-                  USD
-                </span>
-              </button>
-            </div>
-            <div
-              className="sc-LzNwz kUrgGI"
-            >
-              <input
-                name="SuggestedAmounts"
-                onChange={[Function]}
-                type="radio"
-                value="5"
-              />
-              <button
-                className="sc-LzNwA jCWvgp"
-                onClick={[Function]}
-              >
-                $
-                5
-                <span>
-                  USD
-                </span>
-              </button>
-            </div>
-          </div>
-        </div>
-        <div
-          className="sc-LzNxa gSnQge"
-        >
-          <button
-            className="sc-LzNwZ efnejl"
-            onClick={[Function]}
-          >
-            Or enter a custom amount
-          </button>
-        </div>
-        <div
-          className="sc-LzNxb gEuJDN"
-        >
-          <label
-            className="sc-fzXfPL kIKmHS"
-            size="SMALL"
+            className="sc-LzNwZ lhlOjo"
           >
             <input
-              checked={false}
-              id="shouldPublicize"
+              name="SuggestedAmounts"
               onChange={[Function]}
-              type="checkbox"
+              type="radio"
+              value="1"
             />
-            <span
-              className="sc-fzXfPK buXQoO"
-              size="SMALL"
-            />
-          </label>
-          <label
-            htmlFor="shouldPublicize"
+            <button
+              className="sc-LzNxa hTjnzJ"
+              onClick={[Function]}
+            >
+              $
+              1
+              <span>
+                USD
+              </span>
+            </button>
+          </div>
+          <div
+            className="sc-LzNwZ lhlOjo"
           >
-            Hide my username from everyone but the newsroom
-          </label>
+            <input
+              name="SuggestedAmounts"
+              onChange={[Function]}
+              type="radio"
+              value="2"
+            />
+            <button
+              className="sc-LzNxa hTjnzJ"
+              onClick={[Function]}
+            >
+              $
+              2
+              <span>
+                USD
+              </span>
+            </button>
+          </div>
+          <div
+            className="sc-LzNwZ lhlOjo"
+          >
+            <input
+              name="SuggestedAmounts"
+              onChange={[Function]}
+              type="radio"
+              value="3"
+            />
+            <button
+              className="sc-LzNxa hTjnzJ"
+              onClick={[Function]}
+            >
+              $
+              3
+              <span>
+                USD
+              </span>
+            </button>
+          </div>
+          <div
+            className="sc-LzNwZ lhlOjo"
+          >
+            <input
+              name="SuggestedAmounts"
+              onChange={[Function]}
+              type="radio"
+              value="5"
+            />
+            <button
+              className="sc-LzNxa hTjnzJ"
+              onClick={[Function]}
+            >
+              $
+              5
+              <span>
+                USD
+              </span>
+            </button>
+          </div>
         </div>
+      </div>
+      <div
+        className="sc-LzNxd kBdKmV"
+      >
         <button
-          className="sc-LzNvO gvGisQ"
-          disabled={true}
+          className="sc-LzNxc hsIQga"
           onClick={[Function]}
         >
-          Next
+          Or enter a custom amount
         </button>
       </div>
+      <div
+        className="sc-LzNxe juiyjk"
+      >
+        <label
+          className="sc-fzXfPL kIKmHS"
+          size="SMALL"
+        >
+          <input
+            checked={false}
+            id="shouldPublicize"
+            onChange={[Function]}
+            type="checkbox"
+          />
+          <span
+            className="sc-fzXfPK buXQoO"
+            size="SMALL"
+          />
+        </label>
+        <label
+          htmlFor="shouldPublicize"
+        >
+          Hide my username from everyone but the newsroom
+        </label>
+      </div>
+      <button
+        className="sc-LzNvR cyDbMC"
+        disabled={true}
+        onClick={[Function]}
+      >
+        Next
+      </button>
     </div>
   </div>
   <button
@@ -1185,7 +338,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                       }
                     >
                       &lt;
-                      PaymentsWrapper
+                      ThemeProvider
                     </span>
                     <span>
                       <span>
@@ -1193,25 +346,121 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                         <span
                           style={Object {}}
                         >
-                          newsroomName
+                          theme
                         </span>
                         <span>
                           =
                           <span
                             style={Object {}}
                           >
-                            "
+                            {
                             <span
                               style={
                                 Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
+                                  "color": "#666",
                                 }
                               }
                             >
-                              Coda Story
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxInactiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#7D7373'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxActiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  primaryButtonBackground
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
                             </span>
-                            "
+                            }
                           </span>
                         </span>
                         
@@ -1486,7 +735,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
                       }
                     >
                       &lt;/
-                      PaymentsWrapper
+                      ThemeProvider
                       &gt;
                     </span>
                   </div>
@@ -1575,7 +824,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
               }
             >
               "
-              PaymentsWrapper
+              ThemeProvider
               " Component
             </h3>
             <small>
@@ -1616,51 +865,51 @@ exports[`Storyshots Boost / Payments Payment Login or Guest Selection 1`] = `
     }
   >
     <div
-      className="sc-LzNQh iyUxEc"
+      className="sc-LzNQO fvQplf"
     >
       <div
-        className="sc-LzNxc boMXXn"
+        className="sc-LzNxf fLnHZi"
       >
         <div
-          className="sc-LzNxd hkfpDL"
+          className="sc-LzNxg iQysvy"
         >
           Welcome to Civil!
         </div>
         <div
-          className="sc-LzNxe dXiYZA"
+          className="sc-LzNxh jhEHZT"
         >
           <div
-            className="sc-LzNxf iswaOH"
+            className="sc-LzNMk dcaSFV"
           >
             Log in to give a Boost 🚀
           </div>
           <button
-            className="sc-LzNvO gvGisQ"
+            className="sc-LzNvR cyDbMC"
             onClick={[Function]}
           >
             Log In / Sign Up
           </button>
           <div
-            className="sc-LzNxg iRCAog"
+            className="sc-LzNMl dBhsfu"
           >
             You’ll be able to keep track of your contributions and your username may be listed on the Boost leaderboard.
           </div>
         </div>
         <div
-          className="sc-LzNxe dXiYZA"
+          className="sc-LzNxh jhEHZT"
         >
           <div
-            className="sc-LzNxf iswaOH"
+            className="sc-LzNMk dcaSFV"
           >
             Guest
           </div>
           <div
-            className="sc-LzNxg iRCAog"
+            className="sc-LzNMl dBhsfu"
           >
             Proceed to Boost and become a Civil member later.
           </div>
           <button
-            className="sc-fzXfLO sc-fzXfLQ sc-LzNvP hyDuXz"
+            className="sc-fzXfLO sc-fzXfLQ sc-LzNvS gWtjrA"
             onClick={[Function]}
             theme={
               Object {
@@ -1850,88 +1099,264 @@ exports[`Storyshots Boost / Payments Payment Login or Guest Selection 1`] = `
                     &gt;
                   </span>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
+                <div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    &lt;
-                    PaymentsLoginOrGuest
-                  </span>
-                  <span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      ThemeProvider
+                    </span>
                     <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        handleNext
-                      </span>
                       <span>
-                        =
+                         
                         <span
                           style={Object {}}
                         >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            onClickFunc
-                          </span>
-                          }
+                          theme
                         </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxInactiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#7D7373'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxActiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  primaryButtonBackground
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
                       </span>
                     </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        handleLogin
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            onClickFunc
-                          </span>
-                          }
-                        </span>
-                      </span>
-                       
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
                     </span>
-                  </span>
-                  <span
+                  </div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    /&gt;
-                  </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      PaymentsLoginOrGuest
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          handleNext
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onClickFunc
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          handleLogin
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onClickFunc
+                            </span>
+                            }
+                          </span>
+                        </span>
+                         
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      /&gt;
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      ThemeProvider
+                      &gt;
+                    </span>
+                  </div>
                 </div>
                 <div
                   style={
@@ -2017,6 +1442,22 @@ exports[`Storyshots Boost / Payments Payment Login or Guest Selection 1`] = `
               }
             >
               "
+              ThemeProvider
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
               styled.div
               " Component
             </h3>
@@ -2042,10 +1483,10 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
     }
   >
     <div
-      className="sc-LzNQh iyUxEc"
+      className="sc-LzNQO fvQplf"
     >
       <div
-        className="sc-LzNMT cVqoeL"
+        className="sc-LzNNA iUvrgB"
       >
         <svg
           height="48"
@@ -2075,7 +1516,7 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
           </g>
         </svg>
         <div
-          className="sc-LzNMU glrfwI"
+          className="sc-LzNNB cIypIG"
         >
           <h2>
             Boost payment successful!
@@ -2091,7 +1532,7 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
           </p>
         </div>
         <button
-          className="sc-LzNvO gvGisQ"
+          className="sc-LzNvR cyDbMC"
           onClick={[Function]}
         >
           Done
@@ -2273,115 +1714,291 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
                     &gt;
                   </span>
                 </div>
-                <div
-                  style={
-                    Object {
-                      "paddingLeft": 33,
-                      "paddingRight": 3,
-                    }
-                  }
-                >
-                  <span
+                <div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    &lt;
-                    PaymentsSuccess
-                  </span>
-                  <span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      ThemeProvider
+                    </span>
                     <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        newsroomName
-                      </span>
                       <span>
-                        =
+                         
                         <span
                           style={Object {}}
                         >
-                          "
-                          <span
-                            style={
-                              Object {
-                                "color": "#22a",
-                                "wordBreak": "break-word",
-                              }
-                            }
-                          >
-                            Coda Story
-                          </span>
-                          "
+                          theme
                         </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#666",
+                                }
+                              }
+                            >
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxInactiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#7D7373'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxActiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  primaryButtonBackground
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        
                       </span>
                     </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        usdToSpend
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#a11",
-                              }
-                            }
-                          >
-                            2
-                          </span>
-                          }
-                        </span>
-                      </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &gt;
                     </span>
-                    <span>
-                       
-                      <span
-                        style={Object {}}
-                      >
-                        handleClose
-                      </span>
-                      <span>
-                        =
-                        <span
-                          style={Object {}}
-                        >
-                          {
-                          <span
-                            style={
-                              Object {
-                                "color": "#170",
-                              }
-                            }
-                          >
-                            onClickFunc
-                          </span>
-                          }
-                        </span>
-                      </span>
-                       
-                    </span>
-                  </span>
-                  <span
+                  </div>
+                  <div
                     style={
                       Object {
-                        "color": "#444",
+                        "paddingLeft": 48,
+                        "paddingRight": 3,
                       }
                     }
                   >
-                    /&gt;
-                  </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;
+                      PaymentsSuccess
+                    </span>
+                    <span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          newsroomName
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              Coda Story
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          usdToSpend
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              2
+                            </span>
+                            }
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                         
+                        <span
+                          style={Object {}}
+                        >
+                          handleClose
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#170",
+                                }
+                              }
+                            >
+                              onClickFunc
+                            </span>
+                            }
+                          </span>
+                        </span>
+                         
+                      </span>
+                    </span>
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      /&gt;
+                    </span>
+                  </div>
+                  <div
+                    style={
+                      Object {
+                        "paddingLeft": 33,
+                        "paddingRight": 3,
+                      }
+                    }
+                  >
+                    <span
+                      style={
+                        Object {
+                          "color": "#444",
+                        }
+                      }
+                    >
+                      &lt;/
+                      ThemeProvider
+                      &gt;
+                    </span>
+                  </div>
                 </div>
                 <div
                   style={
@@ -2467,6 +2084,22 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
               }
             >
               "
+              ThemeProvider
+              " Component
+            </h3>
+            <small>
+              No propTypes defined!
+            </small>
+          </div>
+          <div>
+            <h3
+              style={
+                Object {
+                  "margin": "20px 0 0 0",
+                }
+              }
+            >
+              "
               styled.div
               " Component
             </h3>
@@ -2492,75 +2125,36 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
     }
   >
     <div
-      className="sc-LzNQh iyUxEc"
+      className="sc-LzNQO fvQplf"
     >
-      <div
-        className="sc-LzNvg iBNqIg"
+      <p
+        className="sc-LzNvQ uiQcC"
       >
-        <div
-          className="sc-LzNvh fCDCNp"
+        Select how you'd like to pay
+      </p>
+      <div
+        className="sc-LzNvT hTTmrb"
+      >
+        <button
+          className="sc-LzNvR cVxtiD"
+          onClick={[Function]}
         >
-          <h2>
-            Send a Boost
-          </h2>
-          <div
-            className="sc-LzNvi iIvjth"
-          >
-            <div
-              className="sc-LzNvj cxKgBd"
-            >
-              Coda Story
-            </div>
-            <div>
-              <span
-                className="sc-LzNvL kVwyJw"
-              >
-                Boost
-              </span>
-              <span
-                className="sc-LzNvM jqADiY"
-              >
-                <b>
-                  $3
-                </b>
-              </span>
-            </div>
-          </div>
-          <div
-            className="sc-LzNvk hRyhzM"
-          >
-            Your Boost goes directly to the newsroom.
-          </div>
-        </div>
-        <p
-          className="sc-LzNvN krpJzD"
+          Pay with Card
+        </button>
+        <button
+          className="sc-LzNvR cyDbMC"
+          onClick={[Function]}
         >
-          Select how you'd like to pay
-        </p>
-        <div
-          className="sc-LzNvQ fYaKck"
-        >
-          <button
-            className="sc-LzNvO kkNpcJ"
-            onClick={[Function]}
-          >
-            Pay with Card
-          </button>
-          <button
-            className="sc-LzNvO gvGisQ"
-            onClick={[Function]}
-          >
-            Pay with ETH
-          </button>
-        </div>
-        <div
-          className="sc-LzNxh exUKej"
-        >
-          <span>
-            Payment Information
-          </span>
-          Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
-        </div>
+          Pay with ETH
+        </button>
+      </div>
+      <div
+        className="sc-LzNMm ilNrxx"
+      >
+        <span>
+          Payment Information
+        </span>
+        Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
       </div>
     </div>
   </div>
@@ -2755,7 +2349,7 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                       }
                     >
                       &lt;
-                      PaymentsWrapper
+                      ThemeProvider
                     </span>
                     <span>
                       <span>
@@ -2763,34 +2357,7 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                         <span
                           style={Object {}}
                         >
-                          newsroomName
-                        </span>
-                        <span>
-                          =
-                          <span
-                            style={Object {}}
-                          >
-                            "
-                            <span
-                              style={
-                                Object {
-                                  "color": "#22a",
-                                  "wordBreak": "break-word",
-                                }
-                              }
-                            >
-                              Coda Story
-                            </span>
-                            "
-                          </span>
-                        </span>
-                      </span>
-                      <span>
-                         
-                        <span
-                          style={Object {}}
-                        >
-                          usdToSpend
+                          theme
                         </span>
                         <span>
                           =
@@ -2801,11 +2368,108 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                             <span
                               style={
                                 Object {
-                                  "color": "#a11",
+                                  "color": "#666",
                                 }
                               }
                             >
-                              3
+                              {
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxInactiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#7D7373'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  checkboxActiveColor
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                <span
+                                  style={
+                                    Object {
+                                      "color": "#666",
+                                    }
+                                  }
+                                >
+                                  primaryButtonBackground
+                                </span>
+                              </span>
+                              : 
+                              <span
+                                style={
+                                  Object {
+                                    "color": "#22a",
+                                    "wordBreak": "break-word",
+                                  }
+                                }
+                              >
+                                '#2B56FF'
+                              </span>
+                              ,
+                              <span>
+                                <span>
+                                  <br />
+                                    
+                                    
+                                </span>
+                                …
+                              </span>
+                              <span>
+                                <br />
+                                  
+                              </span>
+                              }
                             </span>
                             }
                           </span>
@@ -2930,7 +2594,7 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                       }
                     >
                       &lt;/
-                      PaymentsWrapper
+                      ThemeProvider
                       &gt;
                     </span>
                   </div>
@@ -3019,7 +2683,7 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
               }
             >
               "
-              PaymentsWrapper
+              ThemeProvider
               " Component
             </h3>
             <small>

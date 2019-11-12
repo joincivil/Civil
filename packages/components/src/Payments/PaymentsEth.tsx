@@ -4,24 +4,23 @@ import { EthAddress } from "@joincivil/core";
 import { ICivilContext, CivilContext } from "../context";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
-import { PaymentBtn, PaymentsHide } from "./PaymentsStyledComponents";
+import { PaymentBtn, PaymentHide } from "./PaymentsStyledComponents";
 import { ConnectWalletWarningText } from "./PaymentsTextComponents";
 import { PaymentsEthForm } from "./PaymentsEthForm";
 import { PaymentsEthUpdateAmount } from "./PaymentsEthUpdateAmount";
 import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
-import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsEthProps {
   postId: string;
   newsroomName: string;
   paymentAddress: EthAddress;
   shouldPublicize: boolean;
-  userEmail?: string;
   etherToSpend?: number;
   usdToSpend: number;
   resetEthPayments: boolean;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentsEthStates {
@@ -52,8 +51,8 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   public constructor(props: PaymentsEthProps) {
     super(props);
     this.state = {
-      etherToSpend: this.props.etherToSpend || 0,
-      usdToSpend: this.props.usdToSpend,
+      etherToSpend: props.etherToSpend || 0,
+      usdToSpend: props.usdToSpend,
       notEnoughEthError: false,
     };
   }
@@ -66,12 +65,18 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   }
 
   public render(): JSX.Element {
+    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const userAddress =
       this.state.userAddress || (this.context && this.context.currentUser && this.context.currentUser.ethAddress);
 
     if (!userAddress) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
           <ConnectWalletWarningText />
           <PaymentBtn onClick={() => this.context.civil.currentProviderEnable()}>Select Wallet</PaymentBtn>
         </PaymentsEthWrapper>
@@ -80,7 +85,11 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
     if (this.state.notEnoughEthError) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
           <PaymentsEthUpdateAmount
             etherToSpend={this.state.etherToSpend}
             usdToSpend={this.state.usdToSpend}
@@ -92,14 +101,18 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
     if (this.state.etherToSpend === 0) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
-          <PaymentsHide>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
+          <PaymentHide>
             <UsdEthConverter
               fromValue={this.state.usdToSpend.toString()}
               onNotEnoughEthError={(error: boolean) => this.notEnoughEthError(error)}
               onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)}
             />
-          </PaymentsHide>
+          </PaymentHide>
         </PaymentsEthWrapper>
       );
     }
@@ -112,13 +125,15 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
               postId={this.props.postId}
               paymentAddress={this.props.paymentAddress}
               userAddress={userAddress}
-              userEmail={this.props.userEmail}
+              userEmail={userEmail}
+              userChannelID={userChannelID}
               shouldPublicize={this.props.shouldPublicize}
               savePayment={paymentsCreateEtherPayment}
               etherToSpend={this.state.etherToSpend}
               usdToSpend={this.state.usdToSpend}
               newsroomName={this.props.newsroomName}
               handlePaymentSuccess={this.props.handlePaymentSuccess}
+              handleEditPaymentType={this.props.handleEditPaymentType}
             />
           );
         }}

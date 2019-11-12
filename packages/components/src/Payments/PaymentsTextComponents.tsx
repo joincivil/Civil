@@ -2,9 +2,19 @@ import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
 import { ErrorIcon, HollowGreenCheck } from "@joincivil/elements";
 import { ClipLoader } from "../ClipLoader";
-import { PaymentWarning } from "./PaymentsStyledComponents";
+import {
+  PaymentWarning,
+  PaymentGhostBtn,
+  PaymentEdit,
+  PaymentAdjustedNotice,
+  PaymentAdjustedNoticeFtr,
+} from "./PaymentsStyledComponents";
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
+
+export const SendPaymentHdrEmbedText: React.FunctionComponent<PaymentTextProps> = props => (
+  <h2>Send a Boost to {props.newsroomName}</h2>
+);
 
 export const PaymentToNewsroomsTipText: React.FunctionComponent = props => (
   <>Your Boost goes directly to the newsroom.</>
@@ -43,30 +53,59 @@ export const PaymentEthNoticeText: React.FunctionComponent = props => (
   <>There are small transaction fees added by the Ethereum network. Refunds are not possible.</>
 );
 
-export const PayWithCardMinimumText: React.FunctionComponent = props => (
-  <p>
-    <span>The Boost minimum for cards is $2.00.</span>
-    Your new Boost amount will be increased to $2.00 when you complete your Boost. This is due to Credit Card processing
-    fees. You can select ETH for smaller amounts.
-  </p>
+export interface PaymentAmountTextProps {
+  handleEditAmount(): void;
+}
+
+export const PayWithCardMinimumText: React.FunctionComponent<PaymentAmountTextProps> = props => (
+  <PaymentAdjustedNotice>
+    <p>
+      <span>The Boost minimum for cards is $2.00.</span>
+      Boosts amount will be increased to $2.00 if you pay with a card. Select ETH for smaller amounts.{" "}
+      <a onClick={() => props.handleEditAmount()}>You can edit your Boost</a> amount or continue.
+    </p>
+  </PaymentAdjustedNotice>
 );
 
-export interface PaymentsUpdatedTextProps {
+export const PayWithCardMinimumAdjustedText: React.FunctionComponent = props => (
+  <PaymentAdjustedNotice>
+    <p>
+      <span>The Boost minimum for cards is $2.00.</span>
+      Your new Boost amount will be increased to $2.00 when you complete your Boost. This is due to Credit Card
+      processing fees. You can select ETH for smaller amounts.
+    </p>
+    <PaymentAdjustedNoticeFtr>
+      Adjusted <span>$2.00</span>
+    </PaymentAdjustedNoticeFtr>
+  </PaymentAdjustedNotice>
+);
+
+export interface PaymentUpdatedTextProps {
   etherToSpend?: number;
   usdToSpend?: number;
 }
 
-export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentsUpdatedTextProps> = props => (
-  <p>
-    <span>Your Boost amount was updated.</span>
-    Your new Boost amount will be {props.etherToSpend} &asymp; {props.usdToSpend} when you complete your Boost.
-  </p>
+export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentUpdatedTextProps> = props => (
+  <PaymentAdjustedNotice>
+    <p>
+      <span>Your Boost amount was updated.</span>
+      Your new Boost amount will be {props.etherToSpend} ETH &asymp; ${props.usdToSpend} when you complete your Boost.
+    </p>
+    <PaymentAdjustedNoticeFtr>
+      Adjusted <span>${props.usdToSpend}</span>
+    </PaymentAdjustedNoticeFtr>
+  </PaymentAdjustedNotice>
 );
 
-export const PayWithCardAdjustedText: React.FunctionComponent = props => (
-  <>
-    Adjusted <span>$2.00</span>
-  </>
+export interface PaymentSelectTextProps {
+  handleEditPaymentType(): void;
+}
+
+export const PaymentEditText: React.FunctionComponent<PaymentSelectTextProps> = props => (
+  <PaymentEdit>
+    Payment
+    <PaymentGhostBtn onClick={props.handleEditPaymentType}>Edit</PaymentGhostBtn>
+  </PaymentEdit>
 );
 
 export const ConnectWalletWarningText: React.FunctionComponent = props => (
@@ -113,12 +152,12 @@ export const PaymentInProgressText: React.FunctionComponent = props => (
   </>
 );
 
-export interface PaymentsTextProps {
+export interface PaymentTextProps {
   newsroomName: string;
   usdToSpend?: number;
 }
 
-export const PaymentSuccessText: React.FunctionComponent<PaymentsTextProps> = props => (
+export const PaymentSuccessText: React.FunctionComponent<PaymentTextProps> = props => (
   <>
     <h2>Boost payment successful!</h2>
     <p>Thank you for being a contributor.</p>

@@ -23,6 +23,7 @@ export interface PaymentsStates {
   usdToSpend: number;
   etherToSpend?: number;
   selectedUsdToSpend?: number;
+  paymentAdjustedWarning: boolean;
   paymentAdjustedStripe: boolean;
   paymentAdjustedEth: boolean;
   shouldPublicize: boolean;
@@ -38,6 +39,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     super(props);
     this.state = {
       usdToSpend: 0,
+      paymentAdjustedWarning: false,
       paymentAdjustedStripe: false,
       paymentAdjustedEth: false,
       shouldPublicize: false,
@@ -61,23 +63,35 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       shouldPublicize,
       paymentState,
       selectedUsdToSpend,
+      paymentAdjustedWarning,
       paymentAdjustedStripe,
       paymentAdjustedEth,
     } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
-    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
+    const showWeb3Login = this.context.auth.showWeb3Login;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
     const proceedToPaymentType =
       paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !!this.context.currentUser;
 
     if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !proceedToPaymentType) {
-      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.context.auth.showWeb3Login} />;
+      return (
+        <PaymentsLoginOrGuest
+          handleNext={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+          handleLogin={showWeb3Login}
+        />
+      );
     }
 
     if (proceedToPaymentType || paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
-        <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
+        <PaymentsWrapper
+          usdToSpend={usdToSpend}
+          newsroomName={newsroomName}
+          paymentAdjustedWarning={paymentAdjustedWarning}
+          handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
+        >
           <PaymentsOptions
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
@@ -95,19 +109,19 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
-            userEmail={userEmail}
             usdToSpend={usdToSpend}
-            handlePaymentSuccess={this.handleUpdateState}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
             handleBoostUpdate={this.handleUpdateBoostFromEth}
+            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
       );
@@ -120,15 +134,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
-            userEmail={userEmail}
             usdToSpend={usdToSpend}
-            handlePaymentSuccess={this.handleUpdateState}
+            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
       );
@@ -139,9 +153,13 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
-          <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
+          <PaymentsApplePay
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+          />
         </PaymentsWrapper>
       );
     }
@@ -151,9 +169,13 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          handleEditPaymentType={this.handleEditPaymentType}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
-          <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
+          <PaymentsGooglePay
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+          />
         </PaymentsWrapper>
       );
     }
@@ -167,7 +189,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName}>
+      <PaymentsWrapper newsroomName={newsroomName} handleBack={this.props.handleClose}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
@@ -192,10 +214,21 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+    const paymentAdjustedWarning = usdToSpend < 2 ? true : false;
     if (this.context && this.context.currentUser) {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
+      this.setState({
+        usdToSpend,
+        paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE,
+        shouldPublicize,
+        paymentAdjustedWarning,
+      });
     } else {
-      this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });
+      this.setState({
+        usdToSpend,
+        paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST,
+        shouldPublicize,
+        paymentAdjustedWarning,
+      });
     }
   };
 
@@ -208,9 +241,5 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe: false,
       resetEthPayments: true,
     });
-  };
-
-  private handleEditPaymentType = () => {
-    this.setState({ paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE });
   };
 }
