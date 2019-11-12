@@ -46,11 +46,10 @@ function getPostUrl(): string {
   }
 
   // @TODO/tobek dev/temp testing - we don't want to post a localhost dev page to civil, so pick another URL
+  const FALLBACK_STORY =
+    "https://blockclubchicago.org/2019/11/04/south-sides-own-sweet-potato-patch-will-deliver-healthy-food-to-homes-in-food-deserts/";
   if (document.location.origin.indexOf("localhost") !== -1) {
-    url = window.prompt(
-      "enter a URL to get/create",
-      "https://blockclubchicago.org/2019/11/04/south-sides-own-sweet-potato-patch-will-deliver-healthy-food-to-homes-in-food-deserts/",
-    )!;
+    url = window.prompt("enter a URL to get/create", FALLBACK_STORY) || FALLBACK_STORY;
   }
 
   return url;
@@ -77,14 +76,17 @@ function init(): void {
             return <BoostEmbedIframe noIframe={true} fallbackUrl={fallbackFallbackUrl} />;
           }
           if (getError) {
-            console.error("Error getting boost ID via postsGetByReference for url", url, "error:", getError);
-            return (
-              <BoostEmbedIframe
-                noIframe={true}
-                fallbackUrl={fallbackFallbackUrl}
-                error={"Error getting boost ID: " + getError.message || getError.toString()}
-              />
-            );
+            // If "could not find post" that's fine, we'll create it with mutation, but if it's a different error then bomb:
+            if (getError.message.indexOf("could not find post") === -1) {
+              console.error("Error getting boost ID via postsGetByReference for url", url, "error:", getError);
+              return (
+                <BoostEmbedIframe
+                  noIframe={true}
+                  fallbackUrl={fallbackFallbackUrl}
+                  error={"Error getting boost ID: " + getError.message || getError.toString()}
+                />
+              );
+            }
           }
           if (!getData || !getData.postsGetByReference || !getData.postsGetByReference.id) {
             return (
@@ -94,8 +96,8 @@ function init(): void {
               >
                 {(mutation, { loading: createLoading, data: createData, error: createError, called: createCalled }) => {
                   if (!createCalled && !createError) {
-                    console.warn("Posting external link to Civil", url);
-                    window.setImmediate(() => mutation().catch(() => {}));
+                    console.warn("Attempting to post external link to Civil:", url);
+                    window.setTimeout(mutation, 0);
                     return <BoostEmbedIframe noIframe={true} fallbackUrl={fallbackFallbackUrl} />;
                   }
                   if (createLoading) {

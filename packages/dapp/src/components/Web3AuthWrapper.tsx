@@ -18,6 +18,13 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const web3AuthType = useSelector((state: State) => state.web3AuthType);
   const showWeb3AuthModal = useSelector((state: State) => state.showWeb3AuthModal);
+  const userAddress: string | undefined = useSelector(
+    (state: State) =>
+      state.networkDependent &&
+      state.networkDependent.user &&
+      state.networkDependent.user.account &&
+      state.networkDependent.user.account.account,
+  );
 
   const showWeb3Signup = showWeb3AuthModal && web3AuthType === "signup";
   const showWeb3Login = showWeb3AuthModal && web3AuthType === "login";
@@ -77,6 +84,19 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   async function handleUpdateUser(): Promise<void> {
     return civilContext.auth.handleInitialState();
   }
+
+  React.useEffect(() => {
+    civilContext.auth.setShowWeb3Login(handleLoginClicked);
+    civilContext.auth.setShowWeb3Signup(handleSignUpClicked);
+  }, [dispatch]);
+
+  React.useEffect(() => {
+    civilContext.auth.setEnsureLoggedInUserEnabled(() => {
+      if (civilContext.currentUser && !userAddress) {
+        civilContext.civil!.currentProviderEnable().catch(err => console.error("error enabling ethereum", err));
+      }
+    });
+  }, [civilContext.currentUser, userAddress]);
 
   return (
     <>

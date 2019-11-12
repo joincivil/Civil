@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
-import { Web3AuthWrapper } from "../components/Web3AuthWrapper";
 import Main from "../components/Main";
 import Footer from "../components/footer/Footer";
 import { NavBar } from "../components/header/NavBar";
@@ -16,7 +15,6 @@ export const RegistrySection: React.FunctionComponent = () => {
               <NavBar />
               <Main />
               <Footer />
-              <Web3AuthWrapper />
             </>
           </Route>
         </Switch>

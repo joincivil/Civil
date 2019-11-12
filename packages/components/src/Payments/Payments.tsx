@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ICivilContext, CivilContext } from "../context";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsOptions } from "./PaymentsOptions";
@@ -7,19 +8,14 @@ import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsApplePay } from "./PaymentsApplePay";
 import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
-import { EthAddress } from "@joincivil/core";
 import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
 
 export interface PaymentsProps {
-  isLoggedIn: boolean;
   postId: string;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
-  userAddress?: EthAddress;
-  userEmail?: string;
-  handleLogin(): void;
   handleClose(): void;
 }
 
@@ -35,6 +31,9 @@ export interface PaymentsStates {
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -47,7 +46,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     };
   }
 
+  public componentDidMount(): void {
+    this.context.auth.ensureLoggedInUserEnabled();
+  }
+
   public render(): JSX.Element {
+    if (!this.context) {
+      return <></>;
+    }
+
     const {
       usdToSpend,
       etherToSpend,
@@ -57,14 +64,18 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe,
       paymentAdjustedEth,
     } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, userEmail } = this.props;
-    const isWalletConnected = userAddress ? true : false;
+    const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
-      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
+    // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
+    const proceedToPaymentType =
+      paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !!this.context.currentUser;
+
+    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !proceedToPaymentType) {
+      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.context.auth.showWeb3Login} />;
     }
 
-    if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
+    if (proceedToPaymentType || paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
         <PaymentsWrapper usdToSpend={usdToSpend} newsroomName={newsroomName}>
           <PaymentsOptions
@@ -91,10 +102,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
-            userAddress={userAddress}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
@@ -183,7 +192,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
-    if (this.props.isLoggedIn) {
+    if (this.context && this.context.currentUser) {
       this.setState({ usdToSpend, paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, shouldPublicize });
     } else {
       this.setState({ usdToSpend, paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST, shouldPublicize });

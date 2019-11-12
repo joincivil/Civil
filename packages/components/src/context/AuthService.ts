@@ -97,6 +97,26 @@ export class AuthService {
     return result.data.currentUser;
   }
 
+  public async showWeb3Login(): Promise<void> {
+    console.error("web3 auth not yet initialized");
+  }
+  public async showWeb3Signup(): Promise<void> {
+    console.error("web3 auth not yet initialized");
+  }
+  /** If user is logged in, but web3 not enabled, enable it. */
+  public ensureLoggedInUserEnabled(): void {
+    console.error("web3 auth not yet initialized");
+  }
+  public setShowWeb3Login(func: () => Promise<void>): void {
+    this.showWeb3Login = func;
+  }
+  public setShowWeb3Signup(func: () => Promise<void>): void {
+    this.showWeb3Signup = func;
+  }
+  public setEnsureLoggedInUserEnabled(func: () => void): void {
+    this.ensureLoggedInUserEnabled = func;
+  }
+
   private async graphqlLoginSignup(mutation: any, signature: any): Promise<any> {
     // TODO(dankins): graphql API requires messageHash, r,s,v but they aren't actually used
     const signatureWithHack = { ...signature, messageHash: "n/a", r: "n/a", s: "n/a", v: "n/a" };

@@ -13,9 +13,7 @@ import { getChallengeState, getAppealChallengeState } from "../../../selectors";
 import MyTasksItemComponent from "./MyTasksItemComponent";
 import { MyTasksItemOwnProps, MyTasksItemWrapperReduxProps } from "./MyTasksItemTypes";
 
-const MyTasksItemWrapper: React.FunctionComponent<
-  MyTasksItemOwnProps & MyTasksItemWrapperReduxProps
-> = props => {
+const MyTasksItemWrapper: React.FunctionComponent<MyTasksItemOwnProps & MyTasksItemWrapperReduxProps> = props => {
   const {
     challengeID,
     queryUserChallengeData,
@@ -39,16 +37,16 @@ const MyTasksItemWrapper: React.FunctionComponent<
   if (pollType === "CHALLENGE") {
     if (challenge) {
       const challengeData = transformGraphQLDataIntoChallenge(challenge);
-      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(
-        queryUserChallengeData,
-        challenge,
-      );
+      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(queryUserChallengeData, challenge);
       if (challengeData) {
         const listingAddress = challenge!.listingAddress;
         if (listingAddress && challenge.listing) {
           const listing = transformGraphQLDataIntoListing(challenge.listing, listingAddress);
           if (listing) {
-            const newsroom = { wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress), address: listingAddress };
+            const newsroom = {
+              wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress),
+              address: listingAddress,
+            };
             let appealUserChallengeData;
             if (queryUserAppealChallengeData) {
               appealUserChallengeData = transfromGraphQLDataIntoUserChallengeData(
@@ -114,7 +112,6 @@ const MyTasksItemWrapper: React.FunctionComponent<
         }
       }
     }
-
   }
   console.error("MyTasksItemWrapper: pollType !== CHALLENGE");
   return <></>;

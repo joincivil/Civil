@@ -16,7 +16,9 @@ import { routes, embedRoutes } from "../constants";
 import AppProvider from "../components/providers/AppProvider";
 
 const EmbedWrapper = styled.div`
-  background: white; // obscure embed loading message outside iframe
+  // obscure embed loading message outside iframe:
+  background: white;
+  min-height: 100vh;
 `;
 const CivilLogoLink = styled.a`
   position: absolute;
@@ -63,13 +65,7 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
         <CivilIcon />
       </CivilLogoLink>
       <ThemeProvider theme={theme}>
-        <StoryBoost
-          boostId={boostId}
-          isLoggedIn={false}
-          handleLogin={() => {
-            alert("@TODO/tobek");
-          }}
-        />
+        <StoryBoost boostId={boostId} />
       </ThemeProvider>
     </EmbedWrapper>
   );
