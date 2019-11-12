@@ -2,10 +2,7 @@ import * as React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Helmet } from "react-helmet";
-import { useSelector, useDispatch } from "react-redux";
-import { State } from "../../redux/reducers";
-import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
-import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import { StoryFeedItem, LoadingMessage } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
 import styled from "styled-components/macro";
@@ -74,40 +71,7 @@ const LoadMoreContainer = styled.div`
   width: 100%;
 `;
 
-function maybeAccount(state: State): any {
-  const { user } = state.networkDependent;
-  if (user.account && user.account.account && user.account.account !== "") {
-    return user.account;
-  }
-}
-
 const StoryFeedPage: React.FunctionComponent = props => {
-  // context
-  const civilCtx = React.useContext<ICivilContext>(CivilContext);
-  if (civilCtx === null) {
-    // context still loading
-    return <></>;
-  }
-
-  // redux
-  const dispatch = useDispatch();
-  const account: any | undefined = useSelector(maybeAccount);
-
-  const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const civilUser = civilContext.currentUser;
-  const userAccount = account ? account.account : undefined;
-  const userEmail = civilUser ? civilUser.email : undefined;
-
-  async function onLoginPressed(): Promise<any> {
-    dispatch!(await showWeb3LoginModal());
-  }
-
-  React.useEffect(() => {
-    if (civilUser && !userAccount) {
-      civilCtx.civil!.currentProviderEnable().catch(err => console.log("error enabling ethereum", err));
-    }
-  }, [civilUser, userAccount]);
-
   return (
     <>
       <Helmet title="Civil Stories - The Civil Registry" />
@@ -133,9 +97,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
                 return (
                   <StoryFeedItem
                     key={i}
-                    isLoggedIn={civilUser ? true : false}
-                    userAddress={userAccount}
-                    userEmail={userEmail}
                     storyId={storyData.id}
                     activeChallenge={false}
                     createdAt={storyData.createdAt}
@@ -147,7 +108,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
                     totalContributors={
                       storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
                     }
-                    handleLogin={onLoginPressed}
                   />
                 );
               }

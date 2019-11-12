@@ -115,10 +115,6 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
-                  isLoggedIn={this.props.isLoggedIn}
-                  userAddress={this.props.userAddress}
-                  userEmail={this.props.userEmail}
-                  handleLogin={this.props.handleLogin}
                   handleClose={this.handleEndPayment}
                 />
               </PaymentsModal>

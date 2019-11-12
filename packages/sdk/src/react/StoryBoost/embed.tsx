@@ -46,11 +46,10 @@ function getPostUrl(): string {
   }
 
   // @TODO/tobek dev/temp testing - we don't want to post a localhost dev page to civil, so pick another URL
+  const FALLBACK_STORY =
+    "https://blockclubchicago.org/2019/11/04/south-sides-own-sweet-potato-patch-will-deliver-healthy-food-to-homes-in-food-deserts/";
   if (document.location.origin.indexOf("localhost") !== -1) {
-    url = window.prompt(
-      "enter a URL to get/create",
-      "https://blockclubchicago.org/2019/11/04/south-sides-own-sweet-potato-patch-will-deliver-healthy-food-to-homes-in-food-deserts/",
-    )!;
+    url = window.prompt("enter a URL to get/create", FALLBACK_STORY) || FALLBACK_STORY;
   }
 
   return url;
