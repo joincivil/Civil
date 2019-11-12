@@ -21,8 +21,7 @@ import {
 } from "./PaymentsTextComponents";
 import { AvatarLogin } from "./AvatarLogin";
 import { CivilLogo, DisclosureArrowIcon } from "@joincivil/elements";
-import { CivilUserData } from "./types";
-import { RENDER_CONTEXT } from "../context";
+import { RENDER_CONTEXT, ICivilContext, CivilContext } from "../context";
 
 export interface PaymentsWrapperProps {
   newsroomName: string;
@@ -32,21 +31,20 @@ export interface PaymentsWrapperProps {
   paymentAdjustedWarning?: boolean;
   paymentAdjustedEth?: boolean;
   paymentAdjustedStripe?: boolean;
-  renderContext: any;
-  civilUser?: CivilUserData;
   children: any;
   handleEditAmount?(): void;
   handleBack?(): void;
-  handleLogin?(): void;
-  handleLogout?(): void;
 }
 
 export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   public render(): JSX.Element {
     return (
       <PaymentWrapperStyled>
         <PaymentHeader>
-          {this.props.renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderHeader()}
+          {this.context.renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderHeader()}
         </PaymentHeader>
         {this.props.paymentAdjustedWarning && this.props.handleEditAmount && (
           <PayWithCardMinimumText handleEditAmount={this.props.handleEditAmount} />
@@ -76,6 +74,9 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
   }
 
   public renderEmbedHeader(): JSX.Element {
+    const currentUser = this.context && this.context.currentUser;
+    const showWeb3Login = this.context.auth.showWeb3Login;
+    const logout = this.context.auth.logout;
     return (
       <>
         <PaymentHeaderFlex>
@@ -88,12 +89,8 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />
           </PaymentCivilLogo>
-          {this.props.civilUser && this.props.handleLogin && this.props.handleLogout && (
-            <AvatarLogin
-              civilUser={this.props.civilUser}
-              handleLogin={this.props.handleLogin}
-              handleLogout={this.props.handleLogout}
-            />
+          {currentUser && showWeb3Login && logout && (
+            <AvatarLogin civilUser={currentUser} handleLogin={showWeb3Login} handleLogout={logout} />
           )}
         </PaymentHeaderFlex>
         <PaymentHeaderCenter>

@@ -15,12 +15,9 @@ export interface PaymentsEthProps {
   newsroomName: string;
   paymentAddress: EthAddress;
   shouldPublicize: boolean;
-  userEmail?: string;
-  userChannelID?: string;
   etherToSpend?: number;
   usdToSpend: number;
   resetEthPayments: boolean;
-  context: any;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
   handlePaymentSuccess(): void;
   handleEditPaymentType(): void;
@@ -68,6 +65,8 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   }
 
   public render(): JSX.Element {
+    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const userAddress =
       this.state.userAddress || (this.context && this.context.currentUser && this.context.currentUser.ethAddress);
 
@@ -126,8 +125,8 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
               postId={this.props.postId}
               paymentAddress={this.props.paymentAddress}
               userAddress={userAddress}
-              userEmail={this.props.userEmail}
-              userChannelID={this.props.userChannelID}
+              userEmail={userEmail}
+              userChannelID={userChannelID}
               shouldPublicize={this.props.shouldPublicize}
               savePayment={paymentsCreateEtherPayment}
               etherToSpend={this.state.etherToSpend}

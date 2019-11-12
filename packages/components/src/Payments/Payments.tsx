@@ -68,11 +68,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedEth,
     } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
-    const currentUser = this.context && this.context.currentUser;
-    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
-    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const showWeb3Login = this.context.auth.showWeb3Login;
-    const logout = this.context.auth.logout;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
     const proceedToPaymentType =
@@ -93,12 +89,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedWarning={paymentAdjustedWarning}
-          renderContext={this.context.renderContext}
-          civilUser={currentUser}
           handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
-          handleLogin={showWeb3Login}
-          handleLogout={logout}
         >
           <PaymentsOptions
             usdToSpend={usdToSpend}
@@ -117,23 +109,16 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
-          renderContext={this.context.renderContext}
-          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={showWeb3Login}
-          handleLogout={logout}
         >
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
-            userEmail={userEmail}
-            userChannelID={userChannelID}
             usdToSpend={usdToSpend}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
-            context={this.context}
             handleBoostUpdate={this.handleUpdateBoostFromEth}
             handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -149,18 +134,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
-          renderContext={this.context.renderContext}
-          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={showWeb3Login}
-          handleLogout={logout}
         >
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
-            userEmail={userEmail}
-            userChannelID={userChannelID}
             usdToSpend={usdToSpend}
             handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -174,11 +153,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          renderContext={this.context.renderContext}
-          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={showWeb3Login}
-          handleLogout={logout}
         >
           <PaymentsApplePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -194,11 +169,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
-          renderContext={this.context.renderContext}
-          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={showWeb3Login}
-          handleLogout={logout}
         >
           <PaymentsGooglePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -211,18 +182,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
     if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
       return (
-        <PaymentsWrapper newsroomName={newsroomName} renderContext={this.context.renderContext}>
+        <PaymentsWrapper newsroomName={newsroomName}>
           <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={this.props.handleClose} />
         </PaymentsWrapper>
       );
     }
 
     return (
-      <PaymentsWrapper
-        newsroomName={newsroomName}
-        renderContext={this.context.renderContext}
-        handleBack={this.props.handleClose}
-      >
+      <PaymentsWrapper newsroomName={newsroomName} handleBack={this.props.handleClose}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
