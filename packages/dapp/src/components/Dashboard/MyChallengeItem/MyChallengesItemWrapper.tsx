@@ -45,16 +45,20 @@ const MyChallengesItemWrapper: React.FunctionComponent<
 
   console.log("challengeType: ", challengeType);
   if (challengeType !== "CHALLENGE" && challengeType !== "PARAMETER_PROPOSAL_CHALLENGE") {
-    console.error("MyChallengesItemWrapper: challengeType not supported. challengeType: " + challengeType + " - challengeID: " + challenge.challengeID);
+    console.error(
+      "MyChallengesItemWrapper: challengeType not supported. challengeType: " +
+        challengeType +
+        " - challengeID: " +
+        challenge.challengeID,
+    );
     return <></>;
   }
 
   const challengeData = transformGraphQLDataIntoChallenge(challenge);
 
-  const userChallengeData = queryUserChallengeData ? transfromGraphQLDataIntoUserChallengeData(
-    queryUserChallengeData,
-    challenge,
-  ) : undefined;
+  const userChallengeData = queryUserChallengeData
+    ? transfromGraphQLDataIntoUserChallengeData(queryUserChallengeData, challenge)
+    : undefined;
 
   if (challengeData) {
     const listingAddress = challenge!.listingAddress;
@@ -65,7 +69,10 @@ const MyChallengesItemWrapper: React.FunctionComponent<
     if (listingAddress && challenge.listing) {
       listing = transformGraphQLDataIntoListing(challenge.listing, listingAddress);
       if (listing) {
-        newsroom = { wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress), address: listingAddress };
+        newsroom = {
+          wrapper: transformGraphQLDataIntoNewsroom(challenge.listing, listingAddress),
+          address: listingAddress,
+        };
         if (queryUserAppealChallengeData) {
           appealUserChallengeData = transfromGraphQLDataIntoUserChallengeData(
             queryUserAppealChallengeData,

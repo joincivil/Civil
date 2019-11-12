@@ -47,4 +47,6 @@ export interface ViewDetailURLProps {
   viewDetailURL: string;
 }
 
-export type MyChallengesItemSubComponentProps = MyChallengesItemOwnProps & ViewDetailURLProps & MyChallengesItemReduxProps;
+export type MyChallengesItemSubComponentProps = MyChallengesItemOwnProps &
+  ViewDetailURLProps &
+  MyChallengesItemReduxProps;

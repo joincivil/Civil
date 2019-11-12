@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-  transformGraphQLDataIntoNewsroom,
-  transformGraphQLDataIntoListing,
-} from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoNewsroom, transformGraphQLDataIntoListing } from "../../helpers/queryTransformations";
 
 import NewsroomsListItemComponent from "./NewsroomsListItemComponent";
 
@@ -26,7 +23,6 @@ const NewsroomsListItemGraphQL: React.FunctionComponent<NewsroomListItemOwnProps
       />
     </>
   );
-
 };
 
 const NewsroomListItem: React.FunctionComponent<NewsroomListItemOwnProps> = props => {

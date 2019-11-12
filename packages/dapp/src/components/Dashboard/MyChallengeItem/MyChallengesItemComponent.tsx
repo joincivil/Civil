@@ -7,7 +7,9 @@ import { MyChallengesItemOwnProps, MyChallengesItemReduxProps } from "./MyChalle
 import MyTasksItemPhaseCountdown from "../MyTasksItemPhaseCountdown";
 import DashboardItemChallengeResults from "../ChallengeSummary";
 
-const MyChallengesItemComponent: React.FunctionComponent<MyChallengesItemOwnProps & MyChallengesItemReduxProps> = props => {
+const MyChallengesItemComponent: React.FunctionComponent<
+  MyChallengesItemOwnProps & MyChallengesItemReduxProps
+> = props => {
   const { listingAddress: address, listing, newsroom, charter, challenge, userChallengeData, challengeState } = props;
 
   if (!challengeState) {
@@ -16,11 +18,9 @@ const MyChallengesItemComponent: React.FunctionComponent<MyChallengesItemOwnProp
 
   let canUserCollect = false;
   let canUserRescue = false;
-  let didUserCommit = false;
   if (userChallengeData) {
     canUserCollect = userChallengeData.canUserCollect!;
     canUserRescue = userChallengeData.canUserRescue!;
-    didUserCommit = userChallengeData.didUserCommit!;
   }
   const { inCommitPhase, inRevealPhase } = challengeState;
 
@@ -45,11 +45,7 @@ const MyChallengesItemComponent: React.FunctionComponent<MyChallengesItemOwnProp
       <DashboardActivityItemTask {...viewProps}>
         <MyTasksItemPhaseCountdown {...props} />
         {!inCommitPhase && !inRevealPhase && (
-          <DashboardItemChallengeResults
-            listingDetailURL={listingDetailURL}
-            viewDetailURL={viewDetailURL}
-            {...props}
-          />
+          <DashboardItemChallengeResults listingDetailURL={listingDetailURL} viewDetailURL={viewDetailURL} {...props} />
         )}
       </DashboardActivityItemTask>
     );

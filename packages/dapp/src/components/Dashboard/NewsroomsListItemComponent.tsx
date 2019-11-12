@@ -162,7 +162,7 @@ class NewsroomsListItemListingRedux extends React.Component<
       const etherscanBaseURL = getEtherscanBaseURL(network);
 
       const newsroomStatusOnRegistry = getNewsroomStatusOnRegistry();
-      const newsroomName = (newsroom && newsroom.data && newsroom.data.name) ? newsroom.data.name : "loading...";
+      const newsroomName = newsroom && newsroom.data && newsroom.data.name ? newsroom.data.name : "loading...";
 
       const displayProps = {
         newsroomName,

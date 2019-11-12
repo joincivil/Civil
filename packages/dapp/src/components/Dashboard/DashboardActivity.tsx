@@ -240,7 +240,7 @@ export const getSalts = (challengeObj: ChallengesToProcess): BigNumber[] => {
 class DashboardActivity extends React.Component<
   DashboardActivityProps & DashboardActivityReduxProps,
   DashboardActivityState
-  > {
+> {
   public state = {
     isNoMobileTransactionVisible: false,
     activeTabIndex: 0,
@@ -299,19 +299,16 @@ class DashboardActivity extends React.Component<
 
                       const numUserNewsrooms =
                         newsrooms.count() ||
-                        (nrsignupData && nrsignupData.nrsignupNewsroom
-                          && nrsignupData.nrsignupNewsroom.newsroomAddress ? 1 : 0);
+                        (nrsignupData && nrsignupData.nrsignupNewsroom && nrsignupData.nrsignupNewsroom.newsroomAddress
+                          ? 1
+                          : 0);
 
                       return (
                         <>
                           <DashboardActivityComponent
                             userVotes={this.renderUserVotes(challengeError, myTasksViewProps)}
                             numUserVotes={myTasksViewProps.numUserTasks}
-                            userNewsrooms={this.renderWithNrsignupNewsrooms(
-                              newsrooms,
-                              nrsignupError,
-                              nrsignupData,
-                            )}
+                            userNewsrooms={this.renderWithNrsignupNewsrooms(newsrooms, nrsignupError, nrsignupData)}
                             numUserNewsrooms={numUserNewsrooms}
                             userChallenges={this.renderUserChallenges(challengeError, myChallengesViewProps)}
                             activeIndex={this.state.activeTabIndex}
@@ -343,7 +340,7 @@ class DashboardActivity extends React.Component<
     const newsrooms = channelNewsrooms;
 
     if (!newsrooms.size && data && data.nrsignupNewsroom) {
-      return (<NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />)
+      return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />;
     }
 
     if (!newsrooms.size) {
@@ -504,7 +501,11 @@ class DashboardActivity extends React.Component<
     return <MyTasks {...myTasksViewProps} />;
   };
 
-  private setActiveTabAndSubTabIndex = (activeTabIndex: number, activeSubTabIndex: number = 0, shouldPushHistory: boolean = true): void => {
+  private setActiveTabAndSubTabIndex = (
+    activeTabIndex: number,
+    activeSubTabIndex: number = 0,
+    shouldPushHistory: boolean = true,
+  ): void => {
     const tabName = TABS[activeTabIndex];
     this.setState({ activeTabIndex, activeSubTabIndex });
     const subTabName =
