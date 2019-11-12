@@ -5,6 +5,10 @@ import { RENDER_CONTEXT } from "../context";
 import { InputBase, InputIcon, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
+  margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
+
   ${CurrencyErrorMsg} {
     bottom: 10px;
   }
@@ -311,17 +315,12 @@ export const PaymentEthLearnMore = styled.div`
   background-color: rgba(255, 204, 0, 0.1);
   border-radius: 5px;
   display: flex;
-  font-size: 14px;
+  font-size: 12px;
   justify-content: center;
-  line-height: 19px;
+  letter-spacing: -0.07px;
+  line-height: 18px;
   margin-bottom: 20px;
   padding: 15px;
-
-  ${mediaQueries.MOBILE} {
-    font-size: 12px;
-    letter-spacing: -0.07px;
-    line-height: 18px;
-  }
 
   a {
     cursor: pointer;
