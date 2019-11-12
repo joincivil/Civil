@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
+import { ICivilContext, CivilContext } from "../context";
 import { PAYMENTS_ETH_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
 import { PaymentBtn, PaymentHide } from "./PaymentsStyledComponents";
@@ -14,11 +15,9 @@ export interface PaymentsEthProps {
   newsroomName: string;
   paymentAddress: EthAddress;
   shouldPublicize: boolean;
-  userAddress?: EthAddress;
   userEmail?: string;
   etherToSpend?: number;
   usdToSpend: number;
-  isWalletConnected: boolean;
   resetEthPayments: boolean;
   context: any;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
@@ -30,17 +29,19 @@ export interface PaymentsEthStates {
   etherToSpend: number;
   usdToSpend: number;
   notEnoughEthError: boolean;
-  isWalletConnected: boolean;
+  userAddress?: string;
 }
 
 export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthStates> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   public static getDerivedStateFromProps(props: PaymentsEthProps, state: PaymentsEthStates): PaymentsEthStates {
     if (props.resetEthPayments) {
       return {
         etherToSpend: props.etherToSpend || 0,
         usdToSpend: props.usdToSpend,
         notEnoughEthError: false,
-        isWalletConnected: state.isWalletConnected,
       };
     }
 
@@ -55,12 +56,21 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       etherToSpend: props.etherToSpend || 0,
       usdToSpend: props.usdToSpend,
       notEnoughEthError: false,
-      isWalletConnected: props.isWalletConnected,
     };
   }
 
+  public async componentDidMount(): Promise<void> {
+    // Grab user address after any `currentProviderEnable` call. For users who aren't logged in to Civil but are logged in to metamask, this is the only way we can get their address:
+    this.setState({
+      userAddress: await this.context.civil.accountStream.first().toPromise(),
+    });
+  }
+
   public render(): JSX.Element {
-    if (!this.props.isWalletConnected) {
+    const userAddress =
+      this.state.userAddress || (this.context && this.context.currentUser && this.context.currentUser.ethAddress);
+
+    if (!userAddress) {
       return (
         <PaymentsEthWrapper
           handleEditPaymentType={this.props.handleEditPaymentType}
@@ -68,7 +78,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
           usdToSpend={this.state.usdToSpend}
         >
           <ConnectWalletWarningText />
-          <PaymentBtn onClick={this.enableEth}>Select Wallet</PaymentBtn>
+          <PaymentBtn onClick={() => this.context.civil.currentProviderEnable()}>Select Wallet</PaymentBtn>
         </PaymentsEthWrapper>
       );
     }
@@ -114,7 +124,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
             <PaymentsEthForm
               postId={this.props.postId}
               paymentAddress={this.props.paymentAddress}
-              userAddress={this.props.userAddress}
+              userAddress={userAddress}
               userEmail={this.props.userEmail}
               shouldPublicize={this.props.shouldPublicize}
               savePayment={paymentsCreateEtherPayment}
@@ -129,18 +139,6 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       </Mutation>
     );
   }
-
-  private enableEth = async () => {
-    await this.props.context.civil!.currentProviderEnable();
-    await this.props.context.civil!.accountStream.first().toPromise();
-
-    // only do this stuff if wallet not currently connected, possible to get multiple
-    // promises that resolve immediately after user enables if they cancel
-    // wallet selection multiple times before going through with it
-    if (!this.state.isWalletConnected) {
-      this.setState({ isWalletConnected: true });
-    }
-  };
 
   private setConvertedAmount(usdToSpend: number, etherToSpend: number): void {
     const eth = parseFloat(etherToSpend.toFixed(6));

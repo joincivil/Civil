@@ -10,6 +10,7 @@ import { ErrorBoundry } from "../errors/ErrorBoundry";
 
 import config from "../../helpers/config";
 import { store, history } from "../../redux/store";
+import { Web3AuthWrapper } from "../Web3AuthWrapper";
 import AnalyticsProvider from "./AnalyticsProvider";
 
 import { Provider } from "react-redux";
@@ -41,7 +42,12 @@ export const AppProvider: React.FunctionComponent = ({ children }) => {
         <ApolloProvider client={client}>
           <CivilProvider pluginConfig={pluginConfig} featureFlags={featureFlags} config={config}>
             <AnalyticsProvider>
-              <ConnectedRouter history={history}>{children}</ConnectedRouter>
+              <ConnectedRouter history={history}>
+                <>
+                  {children}
+                  <Web3AuthWrapper />
+                </>
+              </ConnectedRouter>
             </AnalyticsProvider>
           </CivilProvider>
         </ApolloProvider>

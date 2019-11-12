@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ICivilContext, CivilContext } from "../context";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsOptions } from "./PaymentsOptions";
@@ -7,21 +8,14 @@ import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsApplePay } from "./PaymentsApplePay";
 import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
-import { EthAddress } from "@joincivil/core";
-import { CivilUserData, SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
+import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
-import { CivilContext, ICivilContext } from "../context";
 
 export interface PaymentsProps {
   postId: string;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
-  userAvatar?: string;
-  userAddress?: EthAddress;
-  civilUser?: CivilUserData;
-  handleLogout(): void;
-  handleLogin(): void;
   handleClose(): void;
 }
 
@@ -39,7 +33,7 @@ export interface PaymentsStates {
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   public static contextType = CivilContext;
-  public context!: ICivilContext;
+  public static context: ICivilContext;
 
   constructor(props: any) {
     super(props);
@@ -54,7 +48,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     };
   }
 
+  public componentDidMount(): void {
+    this.context.auth.ensureLoggedInUserEnabled();
+  }
+
   public render(): JSX.Element {
+    if (!this.context) {
+      return <></>;
+    }
+
     const {
       usdToSpend,
       etherToSpend,
@@ -65,31 +67,37 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe,
       paymentAdjustedEth,
     } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected, userAddress, civilUser } = this.props;
-    const isWalletConnected = userAddress ? true : false;
-    const userEmail = civilUser ? civilUser.email : undefined;
+    const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
+    const currentUser = this.context && this.context.currentUser;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
+    const showWeb3Login = this.context.auth.showWeb3Login;
+    const showWeb3Logout = this.context.auth.showWeb3Login;
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
+    // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
+    const proceedToPaymentType =
+      paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !!this.context.currentUser;
+
+    if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST && !proceedToPaymentType) {
       return (
         <PaymentsLoginOrGuest
           handleNext={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={this.props.handleLogin}
+          handleLogin={showWeb3Login}
         />
       );
     }
 
-    if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
+    if (proceedToPaymentType || paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
         <PaymentsWrapper
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedWarning={paymentAdjustedWarning}
           renderContext={this.context.renderContext}
-          civilUser={civilUser}
+          civilUser={currentUser}
           handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
+          handleLogin={showWeb3Login}
+          handleLogout={showWeb3Logout}
         >
           <PaymentsOptions
             usdToSpend={usdToSpend}
@@ -109,20 +117,18 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
           renderContext={this.context.renderContext}
-          civilUser={civilUser}
+          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
+          handleLogin={showWeb3Login}
+          handleLogout={showWeb3Logout}
         >
           <PaymentsEth
             postId={postId}
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
-            userAddress={userAddress}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            isWalletConnected={isWalletConnected}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
             context={this.context}
@@ -142,10 +148,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
           renderContext={this.context.renderContext}
-          civilUser={civilUser}
+          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
+          handleLogin={showWeb3Login}
+          handleLogout={showWeb3Logout}
         >
           <PaymentsStripe
             postId={postId}
@@ -166,10 +172,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           renderContext={this.context.renderContext}
-          civilUser={civilUser}
+          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
+          handleLogin={showWeb3Login}
+          handleLogout={showWeb3Logout}
         >
           <PaymentsApplePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -186,10 +192,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           renderContext={this.context.renderContext}
-          civilUser={civilUser}
+          civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          handleLogin={this.props.handleLogin}
-          handleLogout={this.props.handleLogout}
+          handleLogin={showWeb3Login}
+          handleLogout={showWeb3Logout}
         >
           <PaymentsGooglePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -239,7 +245,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
     const paymentAdjustedWarning = usdToSpend < 2 ? true : false;
-    if (this.props.civilUser) {
+    if (this.context && this.context.currentUser) {
       this.setState({
         usdToSpend,
         paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE,
