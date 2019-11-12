@@ -23,6 +23,7 @@ export interface PaymentsEthFormProps {
   paymentAddress: EthAddress;
   userAddress?: EthAddress;
   userEmail?: string;
+  userChannelID?: string;
   savePayment: MutationFunc;
   handlePaymentSuccess(): void;
   handleEditPaymentType(): void;
@@ -125,6 +126,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           usdAmount: this.props.usdToSpend.toString(),
           emailAddress: this.state.email,
           shouldPublicize: this.props.shouldPublicize,
+          payerChannelID: this.props.userChannelID,
         },
       },
     });

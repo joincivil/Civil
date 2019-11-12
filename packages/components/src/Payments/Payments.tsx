@@ -69,9 +69,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
     const currentUser = this.context && this.context.currentUser;
+    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
     const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const showWeb3Login = this.context.auth.showWeb3Login;
-    const showWeb3Logout = this.context.auth.showWeb3Login;
+    const logout = this.context.auth.logout;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
     const proceedToPaymentType =
@@ -97,7 +98,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleLogin={showWeb3Login}
-          handleLogout={showWeb3Logout}
+          handleLogout={logout}
         >
           <PaymentsOptions
             usdToSpend={usdToSpend}
@@ -120,7 +121,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={showWeb3Login}
-          handleLogout={showWeb3Logout}
+          handleLogout={logout}
         >
           <PaymentsEth
             postId={postId}
@@ -128,6 +129,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
             userEmail={userEmail}
+            userChannelID={userChannelID}
             usdToSpend={usdToSpend}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
@@ -151,13 +153,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={showWeb3Login}
-          handleLogout={showWeb3Logout}
+          handleLogout={logout}
         >
           <PaymentsStripe
             postId={postId}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
             userEmail={userEmail}
+            userChannelID={userChannelID}
             usdToSpend={usdToSpend}
             handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -175,7 +178,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={showWeb3Login}
-          handleLogout={showWeb3Logout}
+          handleLogout={logout}
         >
           <PaymentsApplePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -195,7 +198,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           civilUser={currentUser}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={showWeb3Login}
-          handleLogout={showWeb3Logout}
+          handleLogout={logout}
         >
           <PaymentsGooglePay
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}

@@ -12,6 +12,7 @@ export interface PaymentsStripeProps {
   newsroomName: string;
   shouldPublicize: boolean;
   userEmail?: string;
+  userChannelID?: string;
   usdToSpend: number;
   handlePaymentSuccess(): void;
   handleEditPaymentType(): void;
@@ -47,6 +48,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                     newsroomName={this.props.newsroomName}
                     shouldPublicize={this.props.shouldPublicize}
                     userEmail={this.props.userEmail}
+                    userChannelID={this.props.userChannelID}
                     usdToSpend={this.props.usdToSpend}
                     savePayment={paymentsCreateStripePayment}
                     handlePaymentSuccess={this.props.handlePaymentSuccess}
