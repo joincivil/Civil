@@ -1,5 +1,4 @@
 import * as React from "react";
-import { PAYMENT_STATE } from "./types";
 import {
   PaymentLoginOrGuestWrapper,
   PaymentLoginOrGuestTitle,
@@ -12,7 +11,7 @@ import {
 
 export interface PaymentsLoginProps {
   handleLogin(): void;
-  handleNext(paymentState: PAYMENT_STATE): void;
+  handleNext(): void;
 }
 
 export const PaymentsLoginOrGuest: React.FunctionComponent<PaymentsLoginProps> = props => {
@@ -31,9 +30,7 @@ export const PaymentsLoginOrGuest: React.FunctionComponent<PaymentsLoginProps> =
         <PaymentLoginOrGuestDescription>
           Proceed to Boost and become a Civil member later.
         </PaymentLoginOrGuestDescription>
-        <PaymentInvertedBtn onClick={() => props.handleNext(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}>
-          Continue as a Guest
-        </PaymentInvertedBtn>
+        <PaymentInvertedBtn onClick={props.handleNext}>Continue as a Guest</PaymentInvertedBtn>
       </PaymentLoginOrGuestOption>
     </PaymentLoginOrGuestWrapper>
   );

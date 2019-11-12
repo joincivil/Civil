@@ -12,7 +12,7 @@ import {
   PaymentEmailConfirmationText,
   EnoughETHInWalletText,
 } from "./PaymentsTextComponents";
-import { PAYMENT_STATE, INPUT_STATE } from "./types";
+import { INPUT_STATE } from "./types";
 
 export interface PaymentsEthFormProps {
   postId: string;
@@ -24,7 +24,8 @@ export interface PaymentsEthFormProps {
   userAddress?: EthAddress;
   userEmail?: string;
   savePayment: MutationFunc;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentsEthFormState {
@@ -49,7 +50,11 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   public render(): JSX.Element {
     return (
       <>
-        <PaymentsEthWrapper etherToSpend={this.props.etherToSpend} usdToSpend={this.props.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.props.etherToSpend}
+          usdToSpend={this.props.usdToSpend}
+        >
           <EnoughETHInWalletText />
           <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
           <InputValidationUI inputState={this.state.emailState}>
@@ -132,6 +137,6 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private postTransaction = () => {
     this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
-    this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
+    this.props.handlePaymentSuccess();
   };
 }

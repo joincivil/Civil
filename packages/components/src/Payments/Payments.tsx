@@ -70,7 +70,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     const userEmail = civilUser ? civilUser.email : undefined;
 
     if (paymentState === PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST) {
-      return <PaymentsLoginOrGuest handleNext={this.handleUpdateState} handleLogin={this.props.handleLogin} />;
+      return (
+        <PaymentsLoginOrGuest
+          handleNext={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+          handleLogin={this.props.handleLogin}
+        />
+      );
     }
 
     if (paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
@@ -81,7 +86,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedWarning={paymentAdjustedWarning}
           renderContext={this.context.renderContext}
           civilUser={civilUser}
-          handleEditAmount={this.handleUpdateState}
+          handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
         >
@@ -104,7 +110,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           etherToSpend={etherToSpend}
           renderContext={this.context.renderContext}
           civilUser={civilUser}
-          handleEditPaymentType={this.handleUpdateState}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
         >
@@ -117,10 +123,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             userEmail={userEmail}
             usdToSpend={usdToSpend}
             isWalletConnected={isWalletConnected}
-            handlePaymentSuccess={this.handleUpdateState}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
             handleBoostUpdate={this.handleUpdateBoostFromEth}
+            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
       );
@@ -135,7 +142,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           selectedUsdToSpend={selectedUsdToSpend}
           renderContext={this.context.renderContext}
           civilUser={civilUser}
-          handleEditPaymentType={this.handleUpdateState}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
         >
@@ -145,7 +152,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             shouldPublicize={shouldPublicize}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            handlePaymentSuccess={this.handleUpdateState}
+            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
       );
@@ -158,11 +166,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           renderContext={this.context.renderContext}
           civilUser={civilUser}
-          handleEditPaymentType={this.handleUpdateState}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
         >
-          <PaymentsApplePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
+          <PaymentsApplePay
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+          />
         </PaymentsWrapper>
       );
     }
@@ -174,11 +186,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           newsroomName={newsroomName}
           renderContext={this.context.renderContext}
           civilUser={civilUser}
-          handleEditPaymentType={this.handleUpdateState}
+          handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           handleLogin={this.props.handleLogin}
           handleLogout={this.props.handleLogout}
         >
-          <PaymentsGooglePay newsroomName={newsroomName} usdToSpend={usdToSpend} />
+          <PaymentsGooglePay
+            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+          />
         </PaymentsWrapper>
       );
     }
@@ -192,7 +208,11 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName} renderContext={this.context.renderContext}>
+      <PaymentsWrapper
+        newsroomName={newsroomName}
+        renderContext={this.context.renderContext}
+        handleBack={this.props.handleClose}
+      >
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}

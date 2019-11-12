@@ -6,7 +6,6 @@ import makeAsyncScriptLoader from "react-async-script";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
 import { LoadingMessage } from "../";
-import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsStripeProps {
   postId: string;
@@ -14,7 +13,8 @@ export interface PaymentsStripeProps {
   shouldPublicize: boolean;
   userEmail?: string;
   usdToSpend: number;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentsStripeStates {
@@ -50,6 +50,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                     usdToSpend={this.props.usdToSpend}
                     savePayment={paymentsCreateStripePayment}
                     handlePaymentSuccess={this.props.handlePaymentSuccess}
+                    handleEditPaymentType={this.props.handleEditPaymentType}
                   />
                 );
               }}

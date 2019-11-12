@@ -9,7 +9,6 @@ import {
   PaymentAdjustedNotice,
   PaymentAdjustedNoticeFtr,
 } from "./PaymentsStyledComponents";
-import { PAYMENT_STATE } from "./types";
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
 
@@ -55,7 +54,7 @@ export const PaymentEthNoticeText: React.FunctionComponent = props => (
 );
 
 export interface PaymentAmountTextProps {
-  handleEditAmount(paymentState: PAYMENT_STATE): void;
+  handleEditAmount(): void;
 }
 
 export const PayWithCardMinimumText: React.FunctionComponent<PaymentAmountTextProps> = props => (
@@ -63,8 +62,7 @@ export const PayWithCardMinimumText: React.FunctionComponent<PaymentAmountTextPr
     <p>
       <span>The Boost minimum for cards is $2.00.</span>
       Boosts amount will be increased to $2.00 if you pay with a card. Select ETH for smaller amounts.{" "}
-      <a onClick={() => props.handleEditAmount(PAYMENT_STATE.SELECT_AMOUNT)}>You can edit your Boost</a> amount or
-      continue.
+      <a onClick={() => props.handleEditAmount()}>You can edit your Boost</a> amount or continue.
     </p>
   </PaymentAdjustedNotice>
 );
@@ -100,15 +98,13 @@ export const PaymentUpdatedByEthText: React.FunctionComponent<PaymentUpdatedText
 );
 
 export interface PaymentSelectTextProps {
-  handleEditPaymentType(paymentState: PAYMENT_STATE): void;
+  handleEditPaymentType(): void;
 }
 
 export const PaymentEditText: React.FunctionComponent<PaymentSelectTextProps> = props => (
   <PaymentEdit>
     Payment
-    <PaymentGhostBtn onClick={() => props.handleEditPaymentType(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}>
-      Edit
-    </PaymentGhostBtn>
+    <PaymentGhostBtn onClick={props.handleEditPaymentType}>Edit</PaymentGhostBtn>
   </PaymentEdit>
 );
 

@@ -563,11 +563,12 @@ export const PaymentHide = styled.div`
 `;
 
 export const PaymentBackBtn = styled.button`
+  align-items: center;
   background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_GRAY_1};
   cursor: pointer;
-  display: block;
+  display: flex;
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 17px;
@@ -576,8 +577,22 @@ export const PaymentBackBtn = styled.button`
   padding: 0;
   transition: color 250ms, opacity 250ms;
 
+  svg {
+    margin-right: 5px;
+    transform: rotate(180deg);
+
+    g {
+      fill: ${colors.accent.CIVIL_GRAY_1};
+      transition: color 250ms, opacity 250ms;
+    }
+  }
+
   &:hover {
     color: ${colors.accent.CIVIL_BLUE};
     opacity: 1;
+
+    svg g {
+      fill: ${colors.accent.CIVIL_BLUE};
+    }
   }
 `;

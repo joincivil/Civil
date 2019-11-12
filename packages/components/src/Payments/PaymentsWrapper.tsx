@@ -18,11 +18,10 @@ import {
   PayWithCardMinimumText,
   PayWithCardMinimumAdjustedText,
   PaymentUpdatedByEthText,
-  PaymentEditText,
 } from "./PaymentsTextComponents";
 import { AvatarLogin } from "./AvatarLogin";
-import { CivilLogo } from "@joincivil/elements";
-import { PAYMENT_STATE, CivilUserData } from "./types";
+import { CivilLogo, DisclosureArrowIcon } from "@joincivil/elements";
+import { CivilUserData } from "./types";
 import { RENDER_CONTEXT } from "../context";
 
 export interface PaymentsWrapperProps {
@@ -36,35 +35,27 @@ export interface PaymentsWrapperProps {
   renderContext: any;
   civilUser?: CivilUserData;
   children: any;
-  handleEditPaymentType?(paymentState: PAYMENT_STATE): void;
-  handleEditAmount?(paymentState: PAYMENT_STATE): void;
+  handleEditAmount?(): void;
+  handleBack?(): void;
   handleLogin?(): void;
   handleLogout?(): void;
 }
 
 export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
   public render(): JSX.Element {
-    const {
-      usdToSpend,
-      etherToSpend,
-      paymentAdjustedWarning,
-      paymentAdjustedEth,
-      paymentAdjustedStripe,
-      renderContext,
-      children,
-      handleEditPaymentType,
-      handleEditAmount,
-    } = this.props;
     return (
       <PaymentWrapperStyled>
         <PaymentHeader>
-          {renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderHeader()}
+          {this.props.renderContext === RENDER_CONTEXT.EMBED ? this.renderEmbedHeader() : this.renderHeader()}
         </PaymentHeader>
-        {paymentAdjustedWarning && handleEditAmount && <PayWithCardMinimumText handleEditAmount={handleEditAmount} />}
-        {paymentAdjustedStripe && <PayWithCardMinimumAdjustedText />}
-        {paymentAdjustedEth && <PaymentUpdatedByEthText usdToSpend={usdToSpend} etherToSpend={etherToSpend} />}
-        {handleEditPaymentType && <PaymentEditText handleEditPaymentType={handleEditPaymentType} />}
-        {children}
+        {this.props.paymentAdjustedWarning && this.props.handleEditAmount && (
+          <PayWithCardMinimumText handleEditAmount={this.props.handleEditAmount} />
+        )}
+        {this.props.paymentAdjustedStripe && <PayWithCardMinimumAdjustedText />}
+        {this.props.paymentAdjustedEth && (
+          <PaymentUpdatedByEthText usdToSpend={this.props.usdToSpend} etherToSpend={this.props.etherToSpend} />
+        )}
+        {this.props.children}
       </PaymentWrapperStyled>
     );
   }
@@ -88,7 +79,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
     return (
       <>
         <PaymentHeaderFlex>
-          <PaymentBackBtn>Back</PaymentBackBtn>
+          {this.props.handleBack && <PaymentBackBtn onClick={this.props.handleBack}><DisclosureArrowIcon />Back</PaymentBackBtn>}
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />
           </PaymentCivilLogo>
@@ -116,20 +107,19 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
   }
 
   public renderBoostAmount(): JSX.Element {
-    const {
-      usdToSpend,
-      selectedUsdToSpend,
-      paymentAdjustedWarning,
-      paymentAdjustedEth,
-      paymentAdjustedStripe,
-    } = this.props;
     return (
       <div>
         <PaymentHeaderBoostLabel>
-          {paymentAdjustedWarning || paymentAdjustedEth || paymentAdjustedStripe ? "Selected Boost" : "Boost"}
+          {this.props.paymentAdjustedWarning || this.props.paymentAdjustedEth || this.props.paymentAdjustedStripe
+            ? "Selected Boost"
+            : "Boost"}
         </PaymentHeaderBoostLabel>
         <PaymentHeaderAmount>
-          {paymentAdjustedEth || paymentAdjustedStripe ? "$" + selectedUsdToSpend : <b>{"$" + usdToSpend}</b>}
+          {this.props.paymentAdjustedEth || this.props.paymentAdjustedStripe ? (
+            "$" + this.props.selectedUsdToSpend
+          ) : (
+            <b>{"$" + this.props.usdToSpend}</b>
+          )}
         </PaymentHeaderAmount>
       </div>
     );

@@ -29,7 +29,7 @@ import {
   PaymentErrorText,
 } from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
-import { PAYMENT_STATE, INPUT_STATE } from "./types";
+import { INPUT_STATE } from "./types";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
@@ -83,7 +83,8 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   userEmail?: string;
   usdToSpend: number;
   savePayment: MutationFunc;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentStripeFormStates {
@@ -128,6 +129,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     return (
       <>
         <PaymentsFormWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
           payWithText={<PayWithCardText />}
           paymentNoticeText={<PaymentStripeNoticeText />}
           showSecureIcon={true}
@@ -334,7 +336,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               },
             },
           });
-          this.props.handlePaymentSuccess(PAYMENT_STATE.PAYMENT_SUCCESS);
+          this.props.handlePaymentSuccess();
         } catch (err) {
           console.error(err);
           this.setState({ isPaymentError: true });

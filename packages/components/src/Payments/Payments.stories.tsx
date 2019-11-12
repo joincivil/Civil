@@ -50,14 +50,14 @@ storiesOf("Boost / Payments", module)
   .add("Apple Pay Screen", () => {
     return (
       <Container>
-        <PaymentsApplePay newsroomName={"Coda Story"} usdToSpend={2} />
+        <PaymentsApplePay newsroomName={"Coda Story"} usdToSpend={2} handleEditPaymentType={onClickFunc} />
       </Container>
     );
   })
   .add("Google Pay Screen", () => {
     return (
       <Container>
-        <PaymentsGooglePay newsroomName={"Coda Story"} usdToSpend={2} />
+        <PaymentsGooglePay newsroomName={"Coda Story"} usdToSpend={2} handleEditPaymentType={onClickFunc}  />
       </Container>
     );
   });

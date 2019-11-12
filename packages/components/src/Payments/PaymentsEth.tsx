@@ -8,7 +8,6 @@ import { ConnectWalletWarningText } from "./PaymentsTextComponents";
 import { PaymentsEthForm } from "./PaymentsEthForm";
 import { PaymentsEthUpdateAmount } from "./PaymentsEthUpdateAmount";
 import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
-import { PAYMENT_STATE } from "./types";
 
 export interface PaymentsEthProps {
   postId: string;
@@ -22,7 +21,8 @@ export interface PaymentsEthProps {
   isWalletConnected: boolean;
   resetEthPayments: boolean;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
-  handlePaymentSuccess(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
+  handleEditPaymentType(): void;
 }
 
 export interface PaymentsEthStates {
@@ -58,7 +58,11 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   public render(): JSX.Element {
     if (!this.props.isWalletConnected) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
           <ConnectWalletWarningText />
           <PaymentBtn>Select Wallet</PaymentBtn>
         </PaymentsEthWrapper>
@@ -67,7 +71,11 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
     if (this.state.notEnoughEthError) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
           <PaymentsEthUpdateAmount
             etherToSpend={this.state.etherToSpend}
             usdToSpend={this.state.usdToSpend}
@@ -79,7 +87,11 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
 
     if (this.state.etherToSpend === 0) {
       return (
-        <PaymentsEthWrapper etherToSpend={this.state.etherToSpend} usdToSpend={this.state.usdToSpend}>
+        <PaymentsEthWrapper
+          handleEditPaymentType={this.props.handleEditPaymentType}
+          etherToSpend={this.state.etherToSpend}
+          usdToSpend={this.state.usdToSpend}
+        >
           <PaymentHide>
             <UsdEthConverter
               fromValue={this.state.usdToSpend.toString()}
@@ -106,6 +118,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
               usdToSpend={this.state.usdToSpend}
               newsroomName={this.props.newsroomName}
               handlePaymentSuccess={this.props.handlePaymentSuccess}
+              handleEditPaymentType={this.props.handleEditPaymentType}
             />
           );
         }}
