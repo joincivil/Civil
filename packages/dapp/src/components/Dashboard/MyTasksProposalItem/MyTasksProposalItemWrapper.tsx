@@ -25,10 +25,7 @@ const MyTasksProposalItemWrapper: React.FunctionComponent<
 
   if (pollType === "PARAMETER_PROPOSAL_CHALLENGE") {
     if (challenge) {
-      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(
-        queryUserChallengeData,
-        challenge,
-      );
+      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(queryUserChallengeData, challenge);
       const challengeData = transformGraphQLDataIntoChallenge(challenge);
 
       const viewProps = {
@@ -44,7 +41,6 @@ const MyTasksProposalItemWrapper: React.FunctionComponent<
   }
   console.error("MyTasksProposalItemWrapper: pollType !== CHALLENGE");
   return <></>;
-
 };
 
 export default MyTasksProposalItemWrapper;

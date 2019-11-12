@@ -86,7 +86,6 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
   }
 
   React.useEffect(() => {
-    (window as any).context = civilContext; // @TODO/tobek tmp
     civilContext.auth.setShowWeb3Login(handleLoginClicked);
     civilContext.auth.setShowWeb3Signup(handleSignUpClicked);
   }, [dispatch]);

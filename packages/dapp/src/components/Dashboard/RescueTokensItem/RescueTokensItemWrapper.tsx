@@ -26,11 +26,7 @@ const RescueTokensItemWrapper: React.FunctionComponent<RescueTokensItemOwnProps>
 
   if (pollType === "CHALLENGE" || pollType === "APPEAL_CHALLENGE" || pollType === "PARAMETER_PROPOSAL_CHALLENGE") {
     if (challenge) {
-
-      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(
-        queryUserChallengeData,
-        challenge,
-      );
+      const userChallengeData = transfromGraphQLDataIntoUserChallengeData(queryUserChallengeData, challenge);
 
       const unclaimedRewardAmount = userChallengeData!.voterReward;
 

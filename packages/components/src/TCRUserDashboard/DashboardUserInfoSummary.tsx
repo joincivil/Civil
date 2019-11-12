@@ -65,27 +65,27 @@ export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) =
 
       {challengesWonTotalCvl && (
         <StyledUserInfoSection>
-            <>
-              <StyledUserInfoSectionLabel>
-                <ChallengesWonLabelText />
-              </StyledUserInfoSectionLabel>
-              <StyledUserInfoSectionValue>
-                <strong>{challengesWonTotalCvl}</strong>
-              </StyledUserInfoSectionValue>
-            </>
+          <>
+            <StyledUserInfoSectionLabel>
+              <ChallengesWonLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{challengesWonTotalCvl}</strong>
+            </StyledUserInfoSectionValue>
+          </>
         </StyledUserInfoSection>
       )}
 
       {rewardsEarned && (
         <StyledUserInfoSection>
-            <>
-              <StyledUserInfoSectionLabel>
-                <RewardsClaimedLabelText />
-              </StyledUserInfoSectionLabel>
-              <StyledUserInfoSectionValue>
-                <strong>{rewardsEarned}</strong>
-              </StyledUserInfoSectionValue>
-            </>
+          <>
+            <StyledUserInfoSectionLabel>
+              <RewardsClaimedLabelText />
+            </StyledUserInfoSectionLabel>
+            <StyledUserInfoSectionValue>
+              <strong>{rewardsEarned}</strong>
+            </StyledUserInfoSectionValue>
+          </>
         </StyledUserInfoSection>
       )}
 
