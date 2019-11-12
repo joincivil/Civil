@@ -30,7 +30,9 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
     if (requestID) {
       const queryParams = queryString.parse(location!.search);
       if (queryParams.providerPreference) {
-        selection(queryParams.providerPreference as string, true).catch(err => console.log("error with selection", err));
+        selection(queryParams.providerPreference as string, true).catch(err =>
+          console.log("error with selection", err),
+        );
       } else {
         setStatus("select");
       }

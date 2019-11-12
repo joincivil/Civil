@@ -23,7 +23,7 @@ export const PaymentHeader = styled.div`
     margin-bottom: 12px;
     padding-bottom: 10px;
 
-    ${props => props.theme.renderContext !== RENDER_CONTEXT.EMBED && "border-bottom: none; padding-bottom: 0;"}
+    ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "border-bottom: none; padding-bottom: 0;"}
   }
 `;
 
@@ -278,7 +278,7 @@ export const PaymentModalContain = styled.div`
     width: 100%;
   }
 
-  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "max-height: 100%;"}
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "height: 100%; max-height: 100%; width: 100%;"}
 `;
 
 export const PaymentModalCloseBtn = styled(InvertedButton)`

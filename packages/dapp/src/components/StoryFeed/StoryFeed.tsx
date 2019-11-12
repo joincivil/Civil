@@ -5,10 +5,18 @@ import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { State } from "../../redux/reducers";
 import { showWeb3LoginModal } from "../../redux/actionCreators/ui";
-import { ICivilContext, CivilContext, StoryFeedItem, LoadingMessage } from "@joincivil/components";
+import {
+  ICivilContext,
+  CivilContext,
+  StoryFeedItem,
+  LoadingMessage,
+  RENDER_CONTEXT,
+  DEFAULT_BUTTON_THEME,
+  DEFAULT_CHECKBOX_THEME,
+} from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedWrapper, StoryFeedHeader } from "./StoryFeedStyledComponents";
-import styled from "styled-components/macro";
+import styled, { ThemeProvider } from "styled-components/macro";
 
 export const STORY_FEED_QUERY = gql`
   query Storyfeed($cursor: String) {
@@ -111,90 +119,98 @@ const StoryFeedPage: React.FunctionComponent = props => {
     }
   }, [civilUser, userAccount]);
 
+  const theme = {
+    ...DEFAULT_CHECKBOX_THEME,
+    ...DEFAULT_BUTTON_THEME,
+    renderContext: RENDER_CONTEXT.DAPP,
+  };
+
   return (
     <>
       <Helmet title="Civil Stories - The Civil Registry" />
       <StoryFeedWrapper>
         <StoryFeedHeader>Stories</StoryFeedHeader>
-        <Query query={STORY_FEED_QUERY}>
-          {({ loading, error, data, fetchMore }) => {
-            if (loading) {
-              return <LoadingMessage>Loading Stories</LoadingMessage>;
-            } else if (error || !data || !data.postsStoryfeed) {
-              console.error("error loading Story Feed data. error:", error, "data:", data);
-              return "Error loading stories.";
-            } else if (!data.postsStoryfeed.edges) {
-              return "There are no stories yet.";
-            }
-
-            const { postsStoryfeed } = data;
-
-            const storyfeed = postsStoryfeed.edges.map((story: any, i: number) => {
-              const storyData = story.post;
-
-              if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
-                return (
-                  <StoryFeedItem
-                    key={i}
-                    civilUser={civilUser}
-                    userAddress={userAccount}
-                    storyId={storyData.id}
-                    activeChallenge={false}
-                    createdAt={storyData.createdAt}
-                    isStripeConnected={storyData.channel.isStripeConnected}
-                    newsroom={storyData.channel.newsroom}
-                    openGraphData={storyData.openGraphData}
-                    displayedContributors={storyData.groupedSanitizedPayments}
-                    sortedContributors={storyData.groupedSanitizedPayments}
-                    totalContributors={
-                      storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
-                    }
-                    handleLogin={onLoginPressed}
-                    handleLogout={onLogoutPressed}
-                  />
-                );
+        <ThemeProvider theme={theme}>
+          <Query query={STORY_FEED_QUERY}>
+            {({ loading, error, data, fetchMore }) => {
+              if (loading) {
+                return <LoadingMessage>Loading Stories</LoadingMessage>;
+              } else if (error || !data || !data.postsStoryfeed) {
+                console.error("error loading Story Feed data. error:", error, "data:", data);
+                return "Error loading stories.";
+              } else if (!data.postsStoryfeed.edges) {
+                return "There are no stories yet.";
               }
 
-              return null;
-            });
+              const { postsStoryfeed } = data;
 
-            return (
-              <>
-                {storyfeed}
-                {postsStoryfeed.pageInfo.hasNextPage && (
-                  <LoadMoreContainer>
-                    <Button
-                      size={buttonSizes.SMALL}
-                      onClick={() =>
-                        fetchMore({
-                          variables: {
-                            cursor: postsStoryfeed.pageInfo.endCursor,
-                          },
-                          updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
-                            const newEdges = fetchMoreResult.postsStoryfeed.edges;
-                            const pageInfo = fetchMoreResult.postsStoryfeed.pageInfo;
+              const storyfeed = postsStoryfeed.edges.map((story: any, i: number) => {
+                const storyData = story.post;
 
-                            return newEdges.length
-                              ? {
-                                  postsStoryfeed: {
-                                    edges: [...previousResult.postsStoryfeed.edges, ...newEdges],
-                                    pageInfo,
-                                    __typename: previousResult.postsStoryfeed.__typename,
-                                  },
-                                }
-                              : previousResult;
-                          },
-                        })
+                if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
+                  return (
+                    <StoryFeedItem
+                      key={i}
+                      civilUser={civilUser}
+                      userAddress={userAccount}
+                      storyId={storyData.id}
+                      activeChallenge={false}
+                      createdAt={storyData.createdAt}
+                      isStripeConnected={storyData.channel.isStripeConnected}
+                      newsroom={storyData.channel.newsroom}
+                      openGraphData={storyData.openGraphData}
+                      displayedContributors={storyData.groupedSanitizedPayments}
+                      sortedContributors={storyData.groupedSanitizedPayments}
+                      totalContributors={
+                        storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
                       }
-                    >
-                      Load More
-                    </Button>
-                  </LoadMoreContainer>
-                )}
-              </>
-            );
-          }}
-        </Query>
+                      handleLogin={onLoginPressed}
+                      handleLogout={onLogoutPressed}
+                    />
+                  );
+                }
+
+                return null;
+              });
+
+              return (
+                <>
+                  {storyfeed}
+                  {postsStoryfeed.pageInfo.hasNextPage && (
+                    <LoadMoreContainer>
+                      <Button
+                        size={buttonSizes.SMALL}
+                        onClick={() =>
+                          fetchMore({
+                            variables: {
+                              cursor: postsStoryfeed.pageInfo.endCursor,
+                            },
+                            updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                              const newEdges = fetchMoreResult.postsStoryfeed.edges;
+                              const pageInfo = fetchMoreResult.postsStoryfeed.pageInfo;
+
+                              return newEdges.length
+                                ? {
+                                    postsStoryfeed: {
+                                      edges: [...previousResult.postsStoryfeed.edges, ...newEdges],
+                                      pageInfo,
+                                      __typename: previousResult.postsStoryfeed.__typename,
+                                    },
+                                  }
+                                : previousResult;
+                            },
+                          })
+                        }
+                      >
+                        Load More
+                      </Button>
+                    </LoadMoreContainer>
+                  )}
+                </>
+              );
+            }}
+          </Query>
+        </ThemeProvider>
       </StoryFeedWrapper>
     </>
   );
