@@ -55,7 +55,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       etherToSpend: props.etherToSpend || 0,
       usdToSpend: props.usdToSpend,
       notEnoughEthError: false,
-      isWalletConnected: props.isWalletConnected
+      isWalletConnected: props.isWalletConnected,
     };
   }
 

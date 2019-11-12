@@ -79,7 +79,12 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
     return (
       <>
         <PaymentHeaderFlex>
-          {this.props.handleBack && <PaymentBackBtn onClick={this.props.handleBack}><DisclosureArrowIcon />Back</PaymentBackBtn>}
+          {this.props.handleBack && (
+            <PaymentBackBtn onClick={this.props.handleBack}>
+              <DisclosureArrowIcon />
+              Back
+            </PaymentBackBtn>
+          )}
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />
           </PaymentCivilLogo>

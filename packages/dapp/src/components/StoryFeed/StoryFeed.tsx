@@ -96,8 +96,6 @@ const StoryFeedPage: React.FunctionComponent = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const civilUser = civilContext.currentUser;
   const userAccount = account ? account.account : undefined;
-  console.log(civilUser);
-  console.log(account);
 
   async function onLoginPressed(): Promise<any> {
     dispatch!(await showWeb3LoginModal());

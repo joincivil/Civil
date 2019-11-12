@@ -109,7 +109,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     super(props);
     this.state = {
       email: this.props.userEmail || "",
-      emailState: INPUT_STATE.EMPTY,
+      emailState: this.props.userEmail ? INPUT_STATE.VALID : INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
       country: "USA",
