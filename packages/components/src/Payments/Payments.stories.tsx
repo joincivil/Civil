@@ -1,12 +1,13 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsSuccess } from "./PaymentsSuccess";
-import { PaymentsApplePay } from "./PaymentsApplePay";
-import { PaymentsGooglePay } from "./PaymentsGooglePay";
+import { RENDER_CONTEXT } from "../context";
+import { DEFAULT_CHECKBOX_THEME } from "../input";
+import { DEFAULT_BUTTON_THEME } from "../Button";
 
 const Container = styled.div`
   width: 400px;
@@ -18,46 +19,46 @@ const onClickFunc = () => {
   console.log("clicked");
 };
 
+const theme = {
+  ...DEFAULT_CHECKBOX_THEME,
+  ...DEFAULT_BUTTON_THEME,
+  renderContext: RENDER_CONTEXT.EMBED,
+};
+
 storiesOf("Boost / Payments", module)
   .add("Payment Type", () => {
     return (
       <Container>
-        <PaymentsOptions usdToSpend={1} isStripeConnected={true} handleNext={onClickFunc} />
+        <ThemeProvider theme={theme}>
+          <PaymentsOptions usdToSpend={1} isStripeConnected={true} handleNext={onClickFunc} />
+        </ThemeProvider>
       </Container>
     );
   })
   .add("Payment Amount", () => {
     return (
       <Container>
-        <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
+        <ThemeProvider theme={theme}>
+          <PaymentsAmount newsroomName={"Coda Story"} suggestedAmounts={suggestedAmounts} handleAmount={onClickFunc} />
+        </ThemeProvider>
       </Container>
     );
   })
   .add("Payment Login or Guest Selection", () => {
     return (
       <Container>
-        <PaymentsLoginOrGuest handleNext={onClickFunc} handleLogin={onClickFunc} />
+        <ThemeProvider theme={theme}>
+          <PaymentsLoginOrGuest handleNext={onClickFunc} handleLogin={onClickFunc} />
+        </ThemeProvider>
       </Container>
     );
   })
   .add("Payment Success", () => {
     return (
       <Container>
-        <PaymentsSuccess newsroomName={"Coda Story"} usdToSpend={2} handleClose={onClickFunc} />
-      </Container>
-    );
-  })
-  .add("Apple Pay Screen", () => {
-    return (
-      <Container>
-        <PaymentsApplePay newsroomName={"Coda Story"} usdToSpend={2} handleEditPaymentType={onClickFunc} />
-      </Container>
-    );
-  })
-  .add("Google Pay Screen", () => {
-    return (
-      <Container>
-        <PaymentsGooglePay newsroomName={"Coda Story"} usdToSpend={2} handleEditPaymentType={onClickFunc} />
+        <ThemeProvider theme={theme}>
+          <PaymentsSuccess newsroomName={"Coda Story"} usdToSpend={2} handleClose={onClickFunc} />
+        </ThemeProvider>
       </Container>
     );
   });
