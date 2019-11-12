@@ -55,9 +55,6 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       return <></>;
     }
 
-    const userAddress = this.context && this.context.currentUser && this.context.currentUser.ethAddress;
-    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
-
     const {
       usdToSpend,
       etherToSpend,
@@ -68,7 +65,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedEth,
     } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
-    const isWalletConnected = !!userAddress;
+    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
     const proceedToPaymentType =
@@ -105,10 +102,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             newsroomName={newsroomName}
             paymentAddress={paymentAddress}
             shouldPublicize={shouldPublicize}
-            userAddress={userAddress}
             userEmail={userEmail}
             usdToSpend={usdToSpend}
-            isWalletConnected={isWalletConnected}
             handlePaymentSuccess={this.handleUpdateState}
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
