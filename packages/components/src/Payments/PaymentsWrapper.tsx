@@ -74,9 +74,6 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
   }
 
   public renderEmbedHeader(): JSX.Element {
-    const currentUser = this.context && this.context.currentUser;
-    const showWeb3Login = this.context.auth.showWeb3Login;
-    const logout = this.context.auth.logout;
     return (
       <>
         <PaymentHeaderFlex>
@@ -89,9 +86,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />
           </PaymentCivilLogo>
-          {currentUser && showWeb3Login && logout && (
-            <AvatarLogin civilUser={currentUser} handleLogin={showWeb3Login} handleLogout={logout} />
-          )}
+          <AvatarLogin />
         </PaymentHeaderFlex>
         <PaymentHeaderCenter>
           {!this.props.usdToSpend && (

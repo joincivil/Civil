@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AvatarGenericIcon, DropdownArrow, colors } from "@joincivil/elements";
 import styled from "styled-components";
-import { CivilUserData } from "./types";
+import { ICivilContext, CivilContext } from "../context";
 import { urlConstants as links } from "@joincivil/utils";
 
 const AvatarLoginWrapper = styled.div`
@@ -70,49 +70,59 @@ const AvatarLoginOptionLink = styled.a`
   }
 `;
 
-export interface PaymentLoginAvatarProps {
-  civilUser?: CivilUserData;
-  handleLogin(): void;
-  handleLogout(): void;
+export interface AvatarLoginStates {
+  isOpen: boolean;
 }
 
-export const AvatarLogin: React.FunctionComponent<PaymentLoginAvatarProps> = props => {
-  const [isOpen, setOpen] = React.useState(false);
-  const { civilUser } = props;
-  return (
-    <AvatarLoginWrapper>
-      {civilUser ? (
-        <>
-          <AvatarLoginAvatarBtn onClick={() => setOpen(!isOpen)}>
-            {civilUser.userChannel.tiny72AvatarDataUrl ? (
-              <AvatarImg src={civilUser.userChannel.tiny72AvatarDataUrl} />
-            ) : (
-              <AvatarGenericIcon />
+export class AvatarLogin extends React.Component<{}, AvatarLoginStates> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
+  constructor(props: any) {
+    super(props);
+    this.state = { isOpen: false };
+  }
+
+  public render(): JSX.Element {
+    const currentUser = this.context && this.context.currentUser;
+    const showWeb3Login = this.context.auth.showWeb3Login;
+    const logout = this.context.auth.logout;
+
+    return (
+      <AvatarLoginWrapper>
+        {currentUser ? (
+          <>
+            <AvatarLoginAvatarBtn onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
+              {currentUser.userChannel.tiny72AvatarDataUrl ? (
+                <AvatarImg src={currentUser.userChannel.tiny72AvatarDataUrl} />
+              ) : (
+                <AvatarGenericIcon />
+              )}
+              <DropdownArrow />
+            </AvatarLoginAvatarBtn>
+            {this.state.isOpen && (
+              <AvatarLoginDropdown>
+                <AvatarLoginOptionLink href={links.DASHBOARD} target="_blank">
+                  Your Profile
+                </AvatarLoginOptionLink>
+                <AvatarLoginOptionBtn onClick={logout}>Logout</AvatarLoginOptionBtn>
+              </AvatarLoginDropdown>
             )}
-            <DropdownArrow />
-          </AvatarLoginAvatarBtn>
-          {isOpen && (
-            <AvatarLoginDropdown>
-              <AvatarLoginOptionLink href={links.DASHBOARD} target="_blank">
-                Your Profile
-              </AvatarLoginOptionLink>
-              <AvatarLoginOptionBtn onClick={props.handleLogout}>Logout</AvatarLoginOptionBtn>
-            </AvatarLoginDropdown>
-          )}
-        </>
-      ) : (
-        <>
-          <AvatarLoginAvatarBtn onClick={() => setOpen(!isOpen)}>
-            <AvatarGenericIcon />
-            <DropdownArrow />
-          </AvatarLoginAvatarBtn>
-          {isOpen && (
-            <AvatarLoginDropdown>
-              <AvatarLoginOptionBtn onClick={props.handleLogin}>Log In / Sign Up</AvatarLoginOptionBtn>
-            </AvatarLoginDropdown>
-          )}
-        </>
-      )}
-    </AvatarLoginWrapper>
-  );
-};
+          </>
+        ) : (
+          <>
+            <AvatarLoginAvatarBtn onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
+              <AvatarGenericIcon />
+              <DropdownArrow />
+            </AvatarLoginAvatarBtn>
+            {this.state.isOpen && (
+              <AvatarLoginDropdown>
+                <AvatarLoginOptionBtn onClick={showWeb3Login}>Log In / Sign Up</AvatarLoginOptionBtn>
+              </AvatarLoginDropdown>
+            )}
+          </>
+        )}
+      </AvatarLoginWrapper>
+    );
+  }
+}
