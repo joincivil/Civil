@@ -115,7 +115,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
-                  handleClose={this.handleEndPayment}
+                  handleClose={this.handleClose}
                 />
               </PaymentsModal>
             </>
@@ -127,9 +127,6 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
 
   private handleStartPayment = () => {
     this.setState({ paymentsOpen: true });
-  };
-  private handleEndPayment = () => {
-    this.setState({ paymentsOpen: false });
   };
   private handleClose = () => {
     this.setState({ paymentsOpen: false });
