@@ -94,7 +94,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
           } else if (civilUser && enableEthereum) {
             return (
               <StyledAuthButtonContainer>
-                <p>Enable Ethereum to view Your Civil Registry Dashboard</p>
+                <p>Enable Ethereum to view your Civil Registry dashboard</p>
                 <Button onClick={enableEthereum} size={buttonSizes.SMALL}>
                   Connect Wallet
                 </Button>
@@ -104,7 +104,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
 
           return (
             <StyledAuthButtonContainer>
-              <p>Sign Up or Login to view Your Civil Registry Dashboard</p>
+              <p>Sign Up or Log In to view your Civil Registry dashboard</p>
             </StyledAuthButtonContainer>
           );
         }}

@@ -52,10 +52,6 @@ const StoryBoostFooter = styled.div`
 
 export interface StoryBoostProps {
   boostId: string;
-  isLoggedIn: boolean;
-  userAddress?: string;
-  userEmail?: string;
-  handleLogin(): void;
 }
 
 export interface StoryBoostState {
@@ -109,17 +105,13 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 <span>Support this newsroom</span>
                 <PaymentButton onClick={this.handleStartPayment} />
               </StoryBoostFooter>
-              <PaymentsModal open={this.state.paymentsOpen}>
+              <PaymentsModal open={this.state.paymentsOpen} handleClose={this.handleClose}>
                 <Payments
                   postId={this.props.boostId}
                   newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
-                  isLoggedIn={this.props.isLoggedIn}
-                  userAddress={this.props.userAddress}
-                  userEmail={this.props.userEmail}
-                  handleLogin={this.props.handleLogin}
-                  handleClose={this.handleEndPayment}
+                  handleClose={this.handleClose}
                 />
               </PaymentsModal>
             </>
@@ -132,8 +124,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
   private handleStartPayment = () => {
     this.setState({ paymentsOpen: true });
   };
-
-  private handleEndPayment = () => {
+  private handleClose = () => {
     this.setState({ paymentsOpen: false });
   };
 }

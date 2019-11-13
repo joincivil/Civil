@@ -1,9 +1,14 @@
 import * as React from "react";
 import styled from "styled-components";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
+import { RENDER_CONTEXT } from "../context";
 import { InputBase, InputIcon, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
+  margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
+
   ${CurrencyErrorMsg} {
     bottom: 10px;
   }
@@ -12,6 +17,7 @@ export const PaymentWrapperStyled = styled.div`
 export const PaymentHeader = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin-bottom: 25px;
+  position: relative;
 
   h2 {
     border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -20,7 +26,15 @@ export const PaymentHeader = styled.div`
     line-height: 22px;
     margin-bottom: 12px;
     padding-bottom: 10px;
+
+    ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "border-bottom: none; padding-bottom: 0;"}
   }
+`;
+
+export const PaymentCivilLogo = styled.div`
+  left: calc(50% - 25px);
+  position: absolute;
+  top: 10px;
 `;
 
 export const PaymentHeaderFlex = styled.div`
@@ -28,6 +42,11 @@ export const PaymentHeaderFlex = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
+`;
+
+export const PaymentHeaderCenter = styled.div`
+  margin-bottom: 10px;
+  text-align: center;
 `;
 
 export const PaymentHeaderNewsroom = styled.div`
@@ -130,6 +149,7 @@ export const PaymentBtn = styled.button`
   font-weight: 700;
   line-height: 19px;
   opacity: 1;
+  outline: none;
   padding: 10px 40px;
   transition: opacity 250ms;
   width: 100%;
@@ -244,15 +264,15 @@ export const PaymentWarning = styled.div`
   }
 `;
 
-export interface PaymentsModalProps {
+export interface PaymentModalProps {
   maxHeight: number;
 }
 
-export const PaymentsModalContain = styled.div`
+export const PaymentModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
   overflow: scroll;
   position: relative;
-  max-height: ${(props: PaymentsModalProps) => props.maxHeight + "px"};
+  max-height: ${(props: PaymentModalProps) => props.maxHeight + "px"};
   padding: 20px;
   width: 400px;
 
@@ -261,9 +281,11 @@ export const PaymentsModalContain = styled.div`
     max-height: 100%;
     width: 100%;
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "height: 100%; max-height: 100%; width: 100%;"}
 `;
 
-export const PaymentsModalCloseBtn = styled(InvertedButton)`
+export const PaymentModalCloseBtn = styled(InvertedButton)`
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-radius: 50%;
   height: 32px;
@@ -285,23 +307,20 @@ export const PaymentsModalCloseBtn = styled(InvertedButton)`
       fill: ${colors.accent.CIVIL_BLUE};
     }
   }
+
+  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "display: none;"}
 `;
 
 export const PaymentEthLearnMore = styled.div`
   background-color: rgba(255, 204, 0, 0.1);
   border-radius: 5px;
   display: flex;
-  font-size: 14px;
+  font-size: 12px;
   justify-content: center;
-  line-height: 19px;
+  letter-spacing: -0.07px;
+  line-height: 18px;
   margin-bottom: 20px;
   padding: 15px;
-
-  ${mediaQueries.MOBILE} {
-    font-size: 12px;
-    letter-spacing: -0.07px;
-    line-height: 18px;
-  }
 
   a {
     cursor: pointer;
@@ -322,7 +341,7 @@ export const PaymentEthLearnMore = styled.div`
   }
 `;
 
-export const PaymentsRadioBtnContain = styled.div`
+export const PaymentRadioBtnContain = styled.div`
   color: ${colors.accent.CIVIL_GRAY_0};
   margin-right: 4%;
   width: 22%;
@@ -340,7 +359,7 @@ export const PaymentsRadioBtnContain = styled.div`
   }
 `;
 
-export const PaymentsRadioBtn = styled.button`
+export const PaymentRadioBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 4px;
@@ -348,6 +367,7 @@ export const PaymentsRadioBtn = styled.button`
   font-size: 18px;
   font-weight: 600;
   height: 75px;
+  outline: none;
   padding: 10px;
   transition: border 0.2s ease;
   width: 100%;
@@ -382,7 +402,7 @@ export const PaymentAmountNewsroom = styled.div`
   }
 `;
 
-export const PaymentsGhostBtn = styled.button`
+export const PaymentGhostBtn = styled.button`
   background-color: ${colors.basic.WHITE};
   border: none;
   color: ${colors.accent.CIVIL_BLUE};
@@ -391,6 +411,7 @@ export const PaymentsGhostBtn = styled.button`
   font-family: ${fonts.SANS_SERIF};
   font-size: 14px;
   line-height: 17px;
+  outline: none;
   padding: 0;
 
   &:hover {
@@ -528,7 +549,7 @@ export const PaymentOrBorder = styled.div`
   }
 `;
 
-export const PaymentsEdit = styled.div`
+export const PaymentEdit = styled.div`
   align-items: center;
   display: flex;
   font-size: 15px;
@@ -536,6 +557,41 @@ export const PaymentsEdit = styled.div`
   margin-bottom: 8px;
 `;
 
-export const PaymentsHide = styled.div`
+export const PaymentHide = styled.div`
   visibility: hidden;
+`;
+
+export const PaymentBackBtn = styled.button`
+  align-items: center;
+  background-color: ${colors.basic.WHITE};
+  border: none;
+  color: ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
+  display: flex;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 17px;
+  opacity: 0.5;
+  outline: none;
+  padding: 0;
+  transition: color 250ms, opacity 250ms;
+
+  svg {
+    margin-right: 5px;
+    transform: rotate(180deg);
+
+    g {
+      fill: ${colors.accent.CIVIL_GRAY_1};
+      transition: color 250ms, opacity 250ms;
+    }
+  }
+
+  &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+    opacity: 1;
+
+    svg g {
+      fill: ${colors.accent.CIVIL_BLUE};
+    }
+  }
 `;

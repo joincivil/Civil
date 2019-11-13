@@ -20,6 +20,7 @@ export interface PaymentsEthWrapperProps {
   etherToSpend: number;
   usdToSpend: number;
   children?: any;
+  handleEditPaymentType(): void;
 }
 export interface PaymentsEthWrapperStates {
   isInfoModalOpen: boolean;
@@ -36,7 +37,11 @@ export class PaymentsEthWrapper extends React.Component<PaymentsEthWrapperProps,
 
   public render(): JSX.Element {
     return (
-      <PaymentsFormWrapper payWithText={<PayWithEthText />} paymentNoticeText={<PaymentEthNoticeText />}>
+      <PaymentsFormWrapper
+        handleEditPaymentType={this.props.handleEditPaymentType}
+        payWithText={<PayWithEthText />}
+        paymentNoticeText={<PaymentEthNoticeText />}
+      >
         <PaymentEthLearnMore>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHAT_IS_ETH)}>What is ETH?</a>
           <a onClick={() => this.openInfoModal(MODEL_CONTENT.WHY_ETH)}>Why ETH?</a>

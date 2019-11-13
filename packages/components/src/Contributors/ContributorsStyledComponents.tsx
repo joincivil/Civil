@@ -60,6 +60,10 @@ export const ContributorCountAvatars = styled.span`
   left: 0;
   position: relative;
 
+  & > div {
+    margin: 0;
+  }
+
   &:nth-of-type(2) {
     left: -4px;
   }

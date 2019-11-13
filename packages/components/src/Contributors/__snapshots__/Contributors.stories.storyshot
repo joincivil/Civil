@@ -11,27 +11,27 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
     }
   >
     <div
-      className="sc-LzNOV ihqkcU"
+      className="sc-LzNPC ewwJhO"
     >
       <div
         className="sc-LzNsI gjiPEX"
       >
         <span
-          className="sc-LzNsJ jnglnt"
+          className="sc-LzNsJ dPxqnn"
         >
           <img
             src="https://picsum.photos/50"
           />
         </span>
         <span
-          className="sc-LzNsJ jnglnt"
+          className="sc-LzNsJ dPxqnn"
         >
           <img
             src="https://picsum.photos/50"
           />
         </span>
         <span
-          className="sc-LzNsJ jnglnt"
+          className="sc-LzNsJ dPxqnn"
         >
           <img
             src="https://picsum.photos/50"
@@ -718,7 +718,7 @@ exports[`Storyshots Common / Contributors Contributor Default Avatar 1`] = `
     }
   >
     <div
-      className="sc-LzNOV ihqkcU"
+      className="sc-LzNPC ewwJhO"
     >
       <div
         className="sc-LzNtk hPsqzH"
@@ -1210,7 +1210,7 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
     }
   >
     <div
-      className="sc-LzNOV ihqkcU"
+      className="sc-LzNPC ewwJhO"
     >
       <div
         className="sc-LzNsC hIgdvL"
