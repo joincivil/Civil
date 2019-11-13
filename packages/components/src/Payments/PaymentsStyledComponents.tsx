@@ -270,7 +270,7 @@ export interface PaymentModalProps {
 
 export const PaymentModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  overflow: scroll;
+  overflow: auto;
   position: relative;
   max-height: ${(props: PaymentModalProps) => props.maxHeight + "px"};
   padding: 20px;

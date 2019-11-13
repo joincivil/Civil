@@ -4905,6 +4905,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/iframe-resizer@^3.5.8":
+  version "3.5.8"
+  resolved "https://registry.yarnpkg.com/@types/iframe-resizer/-/iframe-resizer-3.5.8.tgz#d141f3cbebca951788e3b9a7654d46317bb9345b"
+  integrity sha512-gkdjvjShS1aKe3giEwOlKGJzUixA5kqMlFRT4zwjC+K+BZWiwGq5/HMSDFu2oeTBJlKP0iWABabssSYjc9PVuQ==
+
 "@types/is-function@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/is-function/-/is-function-1.0.0.tgz#1b0b819b1636c7baf0d6785d030d12edf70c3e83"
@@ -14254,6 +14259,11 @@ iferr@^0.1.5:
 iferr@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/iferr/-/iferr-1.0.2.tgz#e9fde49a9da06dc4a4194c6c9ed6d08305037a6d"
+
+iframe-resizer@^4.2.6:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/iframe-resizer/-/iframe-resizer-4.2.6.tgz#20da05e81d368bb2325bbffb02cd81efa6ee731f"
+  integrity sha512-ndt19c5uDvcbwnK0nnm+RsLRgAPOegcUh4rsbXJWFlXWWAO6IMEHx/xmu3CITOBWrF8/wbjhtPq9QIDBUK4WQw==
 
 ignore-walk@^3.0.1:
   version "3.0.3"
