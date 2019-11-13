@@ -315,7 +315,12 @@ const ChallengeSummary: React.FunctionComponent<MyTasksItemSubComponentProps> = 
     explanation = "The Civil Community voted to accept this Newsroom to The Civil Registry.";
   }
 
-  const { canUserCollect, canUserRescue } = userChallengeData!;
+  let canUserCollect = false;
+  let canUserRescue = false;
+  if (userChallengeData) {
+    canUserCollect = userChallengeData.canUserCollect;
+    canUserRescue = userChallengeData.canUserRescue;
+  }
 
   let onCTAButtonClick;
   if (canUserCollect) {
