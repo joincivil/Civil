@@ -124,7 +124,9 @@ function init(): void {
 
                   const newBoostId = createData.postsCreateExternalLinkEmbedded.id;
                   const newLinkEmbedUrl = `${dappOrigin}/embed/boost/story/${newBoostId}`;
-                  return <BoostEmbedIframe iframeSrc={newLinkEmbedUrl} fallbackUrl={newLinkEmbedUrl} iframeId={newBoostId} />;
+                  return (
+                    <BoostEmbedIframe iframeSrc={newLinkEmbedUrl} fallbackUrl={newLinkEmbedUrl} iframeId={newBoostId} />
+                  );
                 }}
               </Mutation>
             );

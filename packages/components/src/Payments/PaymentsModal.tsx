@@ -15,7 +15,8 @@ export const PaymentsModal: React.FunctionComponent<PaymentsModalProps> = props 
   return (
     <>
       <FullScreenModal open={props.open}>
-        <PaymentModalContain maxHeight={maxHeight}>
+        {/*iframe resizer used by embed looks for elements with `data-iframe-height` attribute and expands to fit even if they extend outside of `<body>` which this does*/}
+        <PaymentModalContain maxHeight={maxHeight} data-iframe-height>
           {props.handleClose && (
             <PaymentModalCloseBtn onClick={() => props.handleClose && props.handleClose()}>
               <CloseXIcon color={colors.accent.CIVIL_GRAY_2} width={32} height={32} />

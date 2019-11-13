@@ -1,5 +1,5 @@
 import * as React from "react";
-import IframeResizer from "iframe-resizer-react";
+import { iframeResizer } from "iframe-resizer";
 
 // This can be gotten from `loadingImgUrl` from `@joincivil/components`, but it's not worth bringing in entire package for that. The hash is from the contents of the svg so it's stable unless we change the image or its name or location. It's too big to inline into copy-paste-able embed code. @TODO/tobek Should we just host this image somewhere else?
 const LOADING_IMAGE_URL = "https://registry.civil.co/static/media/loading.ba73811a.svg";
@@ -56,44 +56,86 @@ const setHeightImportant = (node: HTMLElement | null, height: string) => {
   }
 };
 
-export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => (
-  <div style={EMBED_WRAPPER_STYLES} ref={node => setHeightImportant(node, "525px")}>
-    {!props.noIframe && (
-      <IframeResizer
-        forwardRef={node => setHeightImportant(node, "523px")}
-        heightCalculationMethod="lowestElement"
-        style={EMBED_IFRAME_STYLES}
-        id={props.iframeId}
-        src={props.iframeSrc}
-        sandbox="allow-popups allow-scripts allow-same-origin"
-      ></IframeResizer>
-    )}
+export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => {
+  const [isIframeSetUp, setIsIframeSetUp] = React.useState(false);
+  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [iframeHeight, setIframeHeight] = React.useState("");
 
-    {props.error ? (
-      <>
-        <p style={{ margin: "2rem 1rem"}}>
-          Sorry, there was an error loading this Boost. Try viewing it{" "}
-          <a href={props.fallbackUrl} target="_blank">
-            on Civil
-          </a>.
-        </p>
-        <pre>{props.error}</pre>
-      </>
-    ) : (
-      <>
-        {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
-        <object style={EMBED_LOADING_IMG_STYLES} data={LOADING_IMAGE_URL} type="image/svg+xml"></object>
-        <p>Loading Boost&hellip;</p>
-      </>
-    )}
+  const setUpIframeResizer = (el: HTMLIFrameElement | null, initialHeight: string) => {
+    if (el) {
+      setHeightImportant(el, initialHeight);
+      if (isIframeSetUp) {
+        return;
+      }
+      iframeResizer(
+        {
+          heightCalculationMethod: "taggedElement", // looks for elements with `data-iframe-height` attribute and resizes to fit them
+          tolerance: 25,
 
-    <p style={EMBED_NOT_LOADED_STYLES}>
-      Boost not loading? You may have privacy protection such as the Privacy Badger extension or Brave Shields enabled.
-      Ensure that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
-      <a href={props.fallbackUrl} target="_blank">
-        on Civil
-      </a>
-      .
-    </p>
-  </div>
-);
+          // @ts-ignore iframe-resizer types are missing the event handlers and some other options
+          warningTimeout: 20000,
+          // @ts-ignore
+          onResized: ({ iframe, height }: { iframe: HTMLIFrameElement; height: string }) => {
+            setIframeHeight(parseInt(height, 10) + 20 + "px");
+          },
+          // @ts-ignore
+          onInit: () => {
+            setIsLoaded(true);
+          },
+        },
+        el,
+      );
+      setIsIframeSetUp(true);
+    }
+  };
+
+  return (
+    <div
+      style={iframeHeight ? { ...EMBED_WRAPPER_STYLES, height: iframeHeight } : EMBED_WRAPPER_STYLES}
+      ref={node => setHeightImportant(node, iframeHeight || "525px")}
+    >
+      {!props.noIframe && (
+        <iframe
+          ref={node => setUpIframeResizer(node, iframeHeight || "525px")}
+          style={EMBED_IFRAME_STYLES}
+          key={props.iframeId}
+          id={props.iframeId}
+          src={props.iframeSrc}
+          sandbox="allow-popups allow-scripts allow-same-origin"
+        ></iframe>
+      )}
+
+      {!isLoaded && (
+        <>
+          {props.error ? (
+            <>
+              <p style={{ margin: "2rem 1rem" }}>
+                Sorry, there was an error loading this Boost. Try viewing it{" "}
+                <a href={props.fallbackUrl} target="_blank">
+                  on Civil
+                </a>
+                .
+              </p>
+              <pre>{props.error}</pre>
+            </>
+          ) : (
+            <>
+              {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
+              <object style={EMBED_LOADING_IMG_STYLES} data={LOADING_IMAGE_URL} type="image/svg+xml"></object>
+              <p>Loading Boost&hellip;</p>
+            </>
+          )}
+
+          <p style={EMBED_NOT_LOADED_STYLES}>
+            Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields enabled.
+            Please check that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
+            <a href={props.fallbackUrl} target="_blank">
+              on Civil
+            </a>
+            .
+          </p>
+        </>
+      )}
+    </div>
+  );
+};

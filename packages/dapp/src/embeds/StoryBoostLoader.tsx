@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components/macro";
-// @ts-ignore iframe-resizer types are crap and it thinks this module isn't exported, ALSO we need to ts-ignore so linter doesn't complain about import being unused - just importing it activates it as a side effect.
+// @ts-ignore iframe-resizer types are crap and it thinks this module isn't exported
 import { iframeResizerContentWindow } from "iframe-resizer";
 import { useRouteMatch } from "react-router";
 import {
@@ -20,7 +20,6 @@ import AppProvider from "../components/providers/AppProvider";
 const EmbedWrapper = styled.div`
   // obscure embed loading message outside iframe:
   background: white;
-  min-height: 100vh;
 `;
 const CivilLogoLink = styled.a`
   position: absolute;
@@ -45,6 +44,9 @@ const CivilLogoLink = styled.a`
   }
 `;
 
+// @HACK We don't need to do anything with this object, but if we don't reference it then it looks like it gets optimized out and doesn't work.
+console.log("iframeResizerContentWindow loaded", iframeResizerContentWindow);
+
 export interface StoryBoostLoaderParams {
   boostId: string;
 }
@@ -62,7 +64,7 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
   const { boostId } = useRouteMatch<StoryBoostLoaderParams>(embedRoutes.STORY_BOOST)!.params;
 
   return (
-    <EmbedWrapper>
+    <EmbedWrapper data-iframe-height>
       <CivilLogoLink href={routes.HOMEPAGE} target="_blank">
         <CivilIcon />
       </CivilLogoLink>
@@ -76,7 +78,7 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
 const StoryBoostLoader: React.FunctionComponent = () => {
   return (
     <React.Suspense fallback={<></>}>
-      <AppProvider>
+      <AppProvider data-iframe-height>
         <StoryBoostLoaderComponent />
       </AppProvider>
     </React.Suspense>
