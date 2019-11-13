@@ -27,6 +27,13 @@ export const StoryFeedHeader = styled.h1`
   }
 `;
 
+export const StoryLoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+`;
+
 export const StoryFeedItemWrap = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 30px 0;

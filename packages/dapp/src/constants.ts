@@ -36,7 +36,9 @@ export enum routes {
   CHANNEL_ADMIN = "/admin/:reference",
   MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",
   SET_HANDLE = "/auth/set-handle",
-  STORY_FEED = "/storyfeed",
+  STORY_FEED = "/storyfeed/:postId?",
+  STORY_BOOST_PAYMENT = "/storyfeed/:postId/payment",
+  STORY_BOOST_NEWSROOM = "/storyfeed/:postId/newsroom",
 }
 
 export enum registryListingTypes {
