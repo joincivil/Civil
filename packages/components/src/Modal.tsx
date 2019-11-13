@@ -39,13 +39,13 @@ const ModalInner = styled.div`
   background: #fff;
   ${(props: ModalInnerProps): string => {
     if (props.fullScreen) {
-      return "max-width: 100%; width: 100%; height: 100%; overflow: scroll;";
+      return "max-width: 100%; width: 100%; height: 100%; overflow: auto;";
     }
     return "";
   }} ${mediaQueries.MOBILE} {
     max-height: 100%;
     max-width: 100%;
-    overflow: scroll;
+    overflow: auto;
     padding-top: 15px;
     padding-right: 10px;
     padding-left: 10px;
