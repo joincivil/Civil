@@ -7,7 +7,7 @@ import { GovernmentContract } from "../generated/wrappers/government";
 import { Multisig, TransactionFilters } from "../multisig/multisig";
 import { MultisigTransaction } from "../multisig/multisigtransaction";
 import { Observable } from "rxjs";
-import { Tx as TransactionConfig } from "web3/eth/types";
+import { TransactionConfig } from "web3-core";
 
 const debug = Debug("civil:tcr");
 

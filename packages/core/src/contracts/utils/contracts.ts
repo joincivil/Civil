@@ -6,9 +6,8 @@ import { CivilTransactionReceipt, EthAddress, TwoStepEthTransaction, TxHash } fr
 import { artifacts } from "../generated/artifacts";
 import { OwnableContract } from "../interfaces/ownable";
 import { Contract as IContract } from "../interfaces/contract";
-import { EventLog as EventData, TransactionReceipt, Log } from "web3/types";
-import { Tx as TransactionConfig } from "web3/eth/types";
-import Contract from "web3/eth/contract";
+import { EventLog as EventData, TransactionReceipt, Log, TransactionConfig } from "web3-core";
+import { Contract } from "web3-eth-contract";
 
 // https://github.com/ethereum/web3.js/blob/2.x/packages/web3-eth-contract/types/index.d.ts#L108
 export interface EventOptions {

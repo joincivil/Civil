@@ -1,7 +1,7 @@
 import { Contract as IContract } from "./interfaces/contract";
 
-import Contract from "web3/eth/contract";
-import { Tx as SendOptions } from "web3/eth/types";
+import { Contract } from "web3-eth-contract";
+import { TransactionConfig as SendOptions } from "web3-core";
 import { EthApi } from "@joincivil/ethapi";
 
 export interface ContractConfiguration {

@@ -41,7 +41,6 @@
     "@types/debug": "0.0.30",
     "@types/ethereumjs-util": "^5.2.0",
     "@types/underscore": "^1.8.6",
-    "@types/web3": "^1.0.19",
     "copyfiles": "^2.1.0",
     "npm-run-all": ">=4.1.5",
     "rimraf": "^2.6.2",
@@ -58,7 +57,11 @@
     "events": "^3.0.0",
     "ipfs-http-client": "^29.1.1",
     "rxjs": "^5.5.6",
-    "web3": "^1.2.1"
+    "web3": "^1.2.2",
+    "web3-core": "^1.2.2",
+    "web3-eth-contract": "^1.2.2",
+    "web3-providers-http": "^1.2.2",
+    "web3-utils": "^1.2.2"
   },
   "publishConfig": {
     "access": "public"
