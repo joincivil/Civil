@@ -61,7 +61,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
           const theme = {
             ...DEFAULT_CHECKBOX_THEME,
             ...DEFAULT_BUTTON_THEME,
-            renderContext: RENDER_CONTEXT.EMBED,
+            renderContext: RENDER_CONTEXT.DAPP,
           };
 
           return (

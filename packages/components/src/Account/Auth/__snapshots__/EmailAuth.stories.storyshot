@@ -27,10 +27,10 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         />
       </div>
       <ul
-        className="sc-LzNNC gkZuTK"
+        className="sc-LzNxd AQXoR"
       >
         <li
-          className="sc-LzNND beutu"
+          className="sc-LzNxe dejVAJ"
         >
           <label>
             <label
@@ -48,7 +48,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               />
             </label>
             <span
-              className="sc-LzNNE QVoLL"
+              className="sc-LzNxf kdZvZi"
             >
               I agree to Civil's 
               <a
@@ -61,7 +61,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
           </label>
         </li>
         <li
-          className="sc-LzNND beutu"
+          className="sc-LzNxe dejVAJ"
         >
           <label>
             <label
@@ -79,7 +79,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
               />
             </label>
             <span
-              className="sc-LzNNE QVoLL"
+              className="sc-LzNxf kdZvZi"
             >
               Get notified of news and announcements from Civil.
             </span>
@@ -87,7 +87,7 @@ exports[`Storyshots Common / Auth / Email Signup Flow AccountEmailAuth 1`] = `
         </li>
       </ul>
       <div
-        className="sc-LzNNF lfnDNi"
+        className="sc-LzNxg eABksN"
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb disabled"
