@@ -78,6 +78,7 @@ export interface UserSetEmailState {
   errorMessage: UserSetEmailError;
   hasSelectedToAddToNewsletter: boolean;
   hasBlurred: boolean;
+  disabled: boolean;
 }
 
 export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmailState> {
@@ -88,6 +89,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
       errorMessage: undefined,
       hasSelectedToAddToNewsletter: true,
       hasBlurred: false,
+      disabled: false,
     };
   }
 
@@ -140,7 +142,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
                 {this.renderEmailInput()}
                 {this.renderCheckboxes()}
                 <ConfirmButtonContainer>
-                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"}>
+                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"} disabled={this.state.disabled}>
                     Save Email
                   </Button>
                 </ConfirmButtonContainer>
@@ -151,7 +153,11 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
         <SkipForNowButtonContainer>
           <ApolloConsumer>
-            {client => <SkipButton onClick={() => this.onSkipForNowClicked(client)}>Skip for now</SkipButton>}
+            {client => <SkipButton onClick={() => {
+              if (!this.state.disabled) {
+                this.onSkipForNowClicked(client)
+              }
+            }}>Skip for now</SkipButton>}
           </ApolloConsumer>
         </SkipForNowButtonContainer>
       </>
@@ -186,15 +192,17 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
   };
 
   private async onSkipForNowClicked(client: ApolloClient<any>): Promise<void> {
+    this.setState({disabled: true});
     const { error } = await client.mutate({
       mutation: skipSetEmailMutation,
     });
 
     if (error) {
-      this.setState({ errorMessage: error });
+      this.setState({ errorMessage: error, disabled: false });
     } else {
       if (this.props.onSetEmailComplete) {
         this.props.onSetEmailComplete();
+        this.setState({ disabled: false });
       }
     }
   }
@@ -202,7 +210,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
   private async handleSubmit(event: React.FormEvent, mutation: MutationFn): Promise<void> {
     event.preventDefault();
 
-    this.setState({ errorMessage: undefined, hasBlurred: true });
+    this.setState({ errorMessage: undefined, hasBlurred: true, disabled: true });
 
     const { emailAddress, hasSelectedToAddToNewsletter } = this.state;
     const { channelID } = this.props;
@@ -226,11 +234,12 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
       if (this.props.onSetEmailComplete) {
         this.props.onSetEmailComplete();
+        this.setState({disabled: false});
       }
 
       return;
     } catch (err) {
-      this.setState({ errorMessage: "unknown" });
+      this.setState({ errorMessage: "unknown", disabled: false });
     }
   }
 }
