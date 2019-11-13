@@ -95,6 +95,76 @@ const USER_NRSIGNUP_QUERY = gql`
   }
 `;
 
+const CHALLENGE_FRAGMENT = gql`
+  fragment ChallengeFragment on Challenge {
+    challengeID
+    challengeType
+    listingAddress
+    listing {
+      name
+      owner
+      ownerAddresses
+      contractAddress
+      whitelisted
+      lastGovState
+      lastUpdatedDate
+      charter {
+        uri
+        contentID
+        revisionID
+        signature
+        author
+        contentHash
+        timestamp
+      }
+      unstakedDeposit
+      appExpiry
+      approvalDate
+    }
+    statement
+    rewardPool
+    challenger
+    resolved
+    stake
+    totalTokens
+    poll {
+      commitEndDate
+      revealEndDate
+      voteQuorum
+      votesFor
+      votesAgainst
+    }
+    requestAppealExpiry
+    lastUpdatedDateTs
+    appeal {
+      requester
+      appealFeePaid
+      appealPhaseExpiry
+      appealGranted
+      appealOpenToChallengeExpiry
+      statement
+      appealChallengeID
+      appealGrantedStatementURI
+      appealChallenge {
+        challengeID
+        statement
+        rewardPool
+        challenger
+        resolved
+        stake
+        totalTokens
+        poll {
+          commitEndDate
+          revealEndDate
+          voteQuorum
+          votesFor
+          votesAgainst
+        }
+      }
+    }
+  }
+`;
+
 const USER_CHALLENGE_DASHBOARD_QUERY = gql`
   query($userAddress: String!) {
     allChallenges: userChallengeData(userAddr: $userAddress) {
@@ -113,70 +183,7 @@ const USER_CHALLENGE_DASHBOARD_QUERY = gql`
       voterReward
       parentChallengeID
       challenge {
-        challengeID
-        listingAddress
-        listing {
-          name
-          owner
-          ownerAddresses
-          contractAddress
-          whitelisted
-          lastGovState
-          lastUpdatedDate
-          charter {
-            uri
-            contentID
-            revisionID
-            signature
-            author
-            contentHash
-            timestamp
-          }
-          unstakedDeposit
-          appExpiry
-          approvalDate
-        }
-        statement
-        rewardPool
-        challenger
-        resolved
-        stake
-        totalTokens
-        poll {
-          commitEndDate
-          revealEndDate
-          voteQuorum
-          votesFor
-          votesAgainst
-        }
-        requestAppealExpiry
-        lastUpdatedDateTs
-        appeal {
-          requester
-          appealFeePaid
-          appealPhaseExpiry
-          appealGranted
-          appealOpenToChallengeExpiry
-          statement
-          appealChallengeID
-          appealGrantedStatementURI
-          appealChallenge {
-            challengeID
-            statement
-            rewardPool
-            challenger
-            resolved
-            stake
-            totalTokens
-            poll {
-              commitEndDate
-              revealEndDate
-              voteQuorum
-              votesFor
-              votesAgainst
-            }
-          }
-        }
+        ...ChallengeFragment
       }
     }
     challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
@@ -193,9 +200,10 @@ const USER_CHALLENGE_DASHBOARD_QUERY = gql`
       pollType
     }
     challengesStarted: challengesStartedByUser(addr: $userAddress) {
-      challengeID
+      ...ChallengeFragment
     }
   }
+  ${CHALLENGE_FRAGMENT}
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
@@ -368,7 +376,7 @@ class DashboardActivity extends React.Component<
       }
     });
 
-    const currentUserChallengesStarted = Set<string>(data.challengesStarted.map(challenge => challenge.challengeID));
+    const currentUserChallengesStarted = Set<any>(data.challengesStarted);
 
     const numUserChallenges =
       allCompletedChallengesVotedOn!.count() +

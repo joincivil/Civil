@@ -29,6 +29,7 @@
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
     "history": "^4.7.2",
+    "iframe-resizer": "^4.2.6",
     "immutable": "^3.8.2",
     "json-loader": "^0.5.7",
     "react": "^16.11.0",

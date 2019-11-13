@@ -14,7 +14,7 @@ import MyTasksList from "./MyTasksList";
 export interface MyChallengesProps {
   allCompletedChallengesVotedOn: Set<string>;
   allProposalChallengesVotedOn?: Set<string>;
-  currentUserChallengesStarted: Set<string>;
+  currentUserChallengesStarted: Set<any>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
   activeSubTabIndex: number;
@@ -70,7 +70,7 @@ const MyChallenges: React.FunctionComponent<MyChallengesProps> = props => {
             <StyledDashboardActivityDescription>Challenges you created</StyledDashboardActivityDescription>
             <MyTasksList
               userChallengeData={userChallengeData}
-              challenges={currentUserChallengesStarted}
+              fullChallenges={currentUserChallengesStarted}
               showClaimRewardsTab={showClaimRewardsTab}
               showRescueTokensTab={showRescueTokensTab}
             />

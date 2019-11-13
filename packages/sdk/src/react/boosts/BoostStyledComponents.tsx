@@ -544,7 +544,7 @@ export const BoostFlexEnd = styled.div`
 
 export const BoostModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  overflow: scroll;
+  overflow: auto;
   padding: 10px 30px 20px 30px;
   position: relative;
   text-align: ${(props: BoostStyleProps) => (props.textAlign ? props.textAlign : "left")};

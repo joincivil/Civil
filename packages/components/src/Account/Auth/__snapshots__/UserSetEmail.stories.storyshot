@@ -70,6 +70,7 @@ exports[`Storyshots Common / Web3Auth UserSetEmail 1`] = `
       >
         <button
           className="sc-fzXfLO sc-fzXfLP jQPtEb"
+          disabled={false}
           size="SMALL_WIDE"
           textTransform="none"
           theme={
