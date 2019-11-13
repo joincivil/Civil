@@ -297,7 +297,7 @@ export interface StoryModalProps {
 
 export const StoryModalContain = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  overflow: scroll;
+  overflow: auto;
   position: relative;
   max-height: ${(props: StoryModalProps) => props.maxHeight + "px"};
   width: 500px;
