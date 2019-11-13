@@ -153,9 +153,9 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
         <SkipForNowButtonContainer>
           <ApolloConsumer>
-            {client => <SkipButton onClick={() => {
+            {client => <SkipButton onClick={async () => {
               if (!this.state.disabled) {
-                this.onSkipForNowClicked(client)
+                await this.onSkipForNowClicked(client)
               }
             }}>Skip for now</SkipButton>}
           </ApolloConsumer>
