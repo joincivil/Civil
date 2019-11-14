@@ -1,5 +1,10 @@
 import * as React from "react";
-import { ContributorCountStyled, ContributorsLabel, ContributorCountAvatars } from "./ContributorsStyledComponents";
+import {
+  ContributorCountStyled,
+  ContributorsLabel,
+  ContributorCountAvatars,
+  ContributorCountAvatar,
+} from "./ContributorsStyledComponents";
 import { ContributorData } from "./types";
 import { ContributorsDefaultAvatar } from "./ContributorsDefaultAvatar";
 
@@ -23,17 +28,19 @@ export class ContributorCount extends React.Component<ContributorsCountProps> {
   private renderContributers = (): JSX.Element => {
     return (
       <>
-        {this.props.displayedContributors.slice(0, 3).map((contributor: any, i: number) => {
-          return (
-            <ContributorCountAvatars key={i}>
-              {contributor.payerChannel.tiny72AvatarDataUrl ? (
-                <img src={contributor.payerChannel.tiny72AvatarDataUrl} />
-              ) : (
-                <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={17} />
-              )}
-            </ContributorCountAvatars>
-          );
-        })}
+        <ContributorCountAvatars>
+          {this.props.displayedContributors.slice(0, 3).map((contributor: any, i: number) => {
+            return (
+              <ContributorCountAvatar key={i}>
+                {contributor.payerChannel.tiny72AvatarDataUrl ? (
+                  <img src={contributor.payerChannel.tiny72AvatarDataUrl} />
+                ) : (
+                  <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={15} />
+                )}
+              </ContributorCountAvatar>
+            );
+          })}
+        </ContributorCountAvatars>
         <ContributorsLabel>
           {this.props.totalContributors}
           {this.props.totalContributors === 1 ? " Booster" : " Boosters"}

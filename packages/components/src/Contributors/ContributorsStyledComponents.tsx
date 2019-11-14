@@ -57,20 +57,19 @@ export const ContributorCountStyled = styled.div`
 `;
 
 export const ContributorCountAvatars = styled.span`
-  left: 0;
-  position: relative;
+  margin-right: 5px;
+`;
 
+export const ContributorCountAvatar = styled.span`
   & > div {
     margin: 0;
   }
 
-  &:nth-of-type(2) {
-    left: -4px;
+  &:nth-of-type(2),
+  &:nth-of-type(3) {
+    margin-left: -4px;
   }
 
-  &:nth-of-type(3) {
-    left: -8px;
-  }
   img {
     border: 1px solid ${colors.basic.WHITE};
     border-radius: 50%;
