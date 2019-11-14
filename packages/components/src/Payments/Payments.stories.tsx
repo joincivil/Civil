@@ -30,7 +30,13 @@ storiesOf("Boost / Payments", module)
     return (
       <Container>
         <ThemeProvider theme={theme}>
-          <PaymentsOptions usdToSpend={1} isStripeConnected={true} handleNext={onClickFunc} />
+          <PaymentsOptions
+            postId={"jlasjdfkljsdf"}
+            usdToSpend={1}
+            isStripeConnected={true}
+            handleNext={onClickFunc}
+            renderContext={RENDER_CONTEXT.EMBED}
+          />
         </ThemeProvider>
       </Container>
     );

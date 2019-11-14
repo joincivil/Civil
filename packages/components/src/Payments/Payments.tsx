@@ -93,8 +93,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
         >
           <PaymentsOptions
+            postId={postId}
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
+            renderContext={this.context.renderContext}
             handleNext={this.handleUpdateState}
           />
         </PaymentsWrapper>

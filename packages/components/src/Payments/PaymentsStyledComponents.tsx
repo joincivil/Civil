@@ -602,3 +602,19 @@ export const PaymentBackBtn = styled.button`
     }
   }
 `;
+
+export const PayAppleGoogleOnCivilPrompt = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  a {
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
