@@ -5,6 +5,7 @@ import {
   TokenOrText,
   TokenAirswapExchangeTermsOfSaleText,
   TokenAirswapFoundationText,
+  TokenUniswapExchangeText,
 } from "../TokensTextComponents";
 import { UniswapBuySection } from "./UniswapBuySection";
 import { AirswapBuySection } from "./AirswapBuySection";
@@ -33,30 +34,32 @@ export class TokensTabBuyActive extends React.Component<TokensTabBuyActiveProps,
           <TokenBuyText />
         </Notice>
         <TokenAirswapSection>
-          <TokenAirswapSection>
-            <TokenAirswapFoundationText />
+          <FeatureFlag feature="uniswap">
+            <TokenUniswapExchangeText />
             <PaddedSection>
               <UsdEthConverter onConversion={(usd: number, eth: number) => this.setConvertedAmount(usd, eth)} />
             </PaddedSection>
-            <AirswapBuySection
-              foundationAddress={foundationAddress}
-              usdToSpend={this.state.usdToSpend}
-              ethToSpend={this.state.etherToSpend}
-              onBuyComplete={onBuyComplete}
-              network={network}
-            />
-          </TokenAirswapSection>
-
-          <FeatureFlag feature="uniswap">
-            <TokenOrBreak>
-              <TokenOrText />
-            </TokenOrBreak>
             <UniswapBuySection
               usdToSpend={this.state.usdToSpend}
               ethToSpend={this.state.etherToSpend}
               onBuyComplete={onBuyComplete}
             />
             <TokenAirswapExchangeTermsOfSaleText />
+          </FeatureFlag>
+          <FeatureFlag feature="airswap">
+            <TokenOrBreak>
+              <TokenOrText />
+            </TokenOrBreak>
+            <TokenAirswapSection>
+              <TokenAirswapFoundationText />
+              <AirswapBuySection
+                foundationAddress={foundationAddress}
+                usdToSpend={this.state.usdToSpend}
+                ethToSpend={this.state.etherToSpend}
+                onBuyComplete={onBuyComplete}
+                network={network}
+              />
+            </TokenAirswapSection>
           </FeatureFlag>
         </TokenAirswapSection>
       </>
