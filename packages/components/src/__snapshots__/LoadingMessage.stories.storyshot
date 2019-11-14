@@ -11,7 +11,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-LzNQI hvPleX"
+      className="sc-LzNOO eGRldP"
     >
       <div
         className="sc-fzXfQZ hIMhVq"
@@ -440,7 +440,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Default size (32
     }
   >
     <div
-      className="sc-LzNQI hvPleX"
+      className="sc-LzNOO eGRldP"
     >
       <div
         className="sc-fzXfQZ hIMhVq"
@@ -829,7 +829,7 @@ exports[`Storyshots Pattern Library / Loading / Loading Message Prop-defined siz
     }
   >
     <div
-      className="sc-LzNQI hvPleX"
+      className="sc-LzNOO eGRldP"
     >
       <div
         className="sc-fzXfQZ hIMhVq"

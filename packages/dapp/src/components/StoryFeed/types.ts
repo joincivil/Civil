@@ -1,3 +1,21 @@
+export interface StoryBoostData {
+  createdAt: string;
+  openGraphData: OpenGraphData;
+  channel: {
+    isStripeConnected: boolean;
+    newsroom: StoryNewsroomData;
+  };
+  groupedSanitizedPayments: StoryBoostPaymentsData[];
+}
+
+export interface StoryBoostPaymentsData {
+  usdEquivalent: number;
+  payerChannel: {
+    handle: string;
+    tiny72AvatarDataUrl: string;
+  };
+}
+
 export interface StoryNewsroomData {
   contractAddress: string;
   multisigAddress: string;
@@ -6,11 +24,6 @@ export interface StoryNewsroomData {
     newsroomUrl: string;
     mission: {
       purpose: string;
-    };
-    socialUrls?: {
-      twitter?: string;
-      facebook?: string;
-      email?: string;
     };
   };
 }

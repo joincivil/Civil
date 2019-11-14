@@ -204,6 +204,8 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.BOOST_PAYMENT} component={AsyncComponent(BoostPage, { payment: true })} />
           <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
           <Route path={routes.BOOST_FEED} component={AsyncComponent(BoostFeedPage)} />
+          <Route path={routes.STORY_BOOST_PAYMENT} component={AsyncComponent(StoryFeedPage, { payment: true })} />
+          <Route path={routes.STORY_BOOST_NEWSROOM} component={AsyncComponent(StoryFeedPage, { newsroom: true })} />
           <Route path={routes.STORY_FEED} component={AsyncComponent(StoryFeedPage)} />
           {/* TODO(jorgelo): Better 404 */}
           <Route path="*" render={() => <h1>404</h1>} />
