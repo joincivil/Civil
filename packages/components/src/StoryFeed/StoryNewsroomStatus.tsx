@@ -1,6 +1,30 @@
 import * as React from "react";
-import { StoryNewsroomStatusStyled } from "./StoryFeedStyledComponents";
-import { ChallengeMarkIcon, TrustMarkIcon } from "@joincivil/elements";
+import styled from "styled-components";
+import { ChallengeMarkIcon, TrustMarkIcon, colors, fonts } from "@joincivil/elements";
+
+export const StoryNewsroomStatusStyled = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  margin-bottom: 7px;
+
+  a {
+    align-items: center;
+    color: ${colors.primary.BLACK};
+    cursor: pointer;
+    display: flex;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: ${colors.accent.CIVIL_BLUE};
+    }
+  }
+
+  svg {
+    margin-left: 5px;
+  }
+`;
 
 export interface StoryNewsroomStatusProps {
   newsroomName: string;

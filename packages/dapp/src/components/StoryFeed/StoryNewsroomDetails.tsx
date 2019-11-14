@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StoryRegistryDetails } from "./StoryRegistryDetails";
 import { urlConstants as links } from "@joincivil/utils";
-import { CivilIcon } from "../icons";
+import { CivilIcon } from "@joincivil/elements";
 import {
   RegistryStatusTag,
   StoryDetailsHeader,
