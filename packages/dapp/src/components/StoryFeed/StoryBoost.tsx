@@ -24,6 +24,7 @@ export interface StoryBoostProps {
   openStoryDetails(): void;
   openPayments(): void;
   closeStoryBoost(): void;
+  handlePaymentSuccess(): void;
 }
 
 export interface StoryBoostState {
@@ -92,7 +93,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                     newsroomName={storyBoostData.channel.newsroom.charter.name}
                     paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                     isStripeConnected={storyBoostData.channel.isStripeConnected}
-                    handleClose={this.props.closeStoryBoost}
+                    handleClose={this.props.handlePaymentSuccess}
                   />
                 </ThemeProvider>
               </PaymentsModal>

@@ -24,7 +24,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
         <StoryFeedWrapper>
           <StoryFeedHeader>Stories</StoryFeedHeader>
           <Query query={STORY_FEED_QUERY}>
-            {({ loading, error, data, fetchMore }) => {
+            {({ loading, error, data, refetch, fetchMore }) => {
               if (loading) {
                 return <LoadingMessage>Loading Stories</LoadingMessage>;
               } else if (error || !data || !data.postsStoryfeed) {
@@ -99,6 +99,10 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                       payment={this.props.payment}
                       newsroom={this.props.newsroom}
                       closeStoryBoost={this.closeStoryBoost}
+                      handlePaymentSuccess={async () => {
+                        await refetch();
+                        this.closeStoryBoost();
+                      }}
                       openStoryDetails={() => this.openStoryDetails(postId)}
                       openPayments={() => this.openPayments(postId)}
                       openStoryNewsroomDetails={() => this.openStoryNewsroomDetails(postId)}

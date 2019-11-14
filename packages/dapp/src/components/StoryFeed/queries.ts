@@ -13,6 +13,9 @@ export const STORY_FEED_QUERY = gql`
               article {
                 published_time
               }
+              images {
+                url
+              }
             }
             channel {
               newsroom {
