@@ -56,7 +56,8 @@ export const ContributorCountStyled = styled.div`
   line-height: 13px;
 `;
 
-export const ContributorCountAvatars = styled.span`
+export const ContributorCountAvatars = styled.div`
+  display: flex;
   margin-right: 5px;
 `;
 
