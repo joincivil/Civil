@@ -32,7 +32,7 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
         <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
       <PaymentTypeSelect>
-        {props.renderContext === RENDER_CONTEXT.EMBED &&
+        {props.renderContext === RENDER_CONTEXT.DAPP &&
           {
             /*
         <PaymentRequestForm

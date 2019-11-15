@@ -11,7 +11,7 @@ exports[`Storyshots Storefront / Sell Tab Coming Soon 1`] = `
     }
   >
     <div
-      className="sc-LzNPA hccTyG"
+      className="sc-LzNPB vWAvn"
     />
   </div>
   <button
@@ -442,7 +442,7 @@ exports[`Storyshots Storefront / Sell Tab Need to Unlock 1`] = `
     }
   >
     <div
-      className="sc-LzNPA hccTyG"
+      className="sc-LzNPB vWAvn"
     >
       <p>
         You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible to sell them here.
@@ -925,7 +925,7 @@ exports[`Storyshots Storefront / Sell Tab Sell Tab 1`] = `
     }
   >
     <div
-      className="sc-LzNPA hccTyG"
+      className="sc-LzNPB vWAvn"
     >
       <div
         className="sc-LzMml cwOIuq"
@@ -1370,7 +1370,7 @@ exports[`Storyshots Storefront / Sell Tab Uniswap 1`] = `
     }
   >
     <div
-      className="sc-LzNPA hccTyG"
+      className="sc-LzNPB vWAvn"
     >
       <div>
         <div>

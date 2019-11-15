@@ -11,7 +11,7 @@ exports[`Storyshots Common / Contributors Contributor Count 1`] = `
     }
   >
     <div
-      className="sc-LzNOh bNvwuy"
+      className="sc-LzNOi jDltQr"
     >
       <div
         className="sc-LzNsI gjiPEX"
@@ -722,7 +722,7 @@ exports[`Storyshots Common / Contributors Contributor Default Avatar 1`] = `
     }
   >
     <div
-      className="sc-LzNOh bNvwuy"
+      className="sc-LzNOi jDltQr"
     >
       <div
         className="sc-LzNtl epmrTc"
@@ -1214,7 +1214,7 @@ exports[`Storyshots Common / Contributors Contributors 1`] = `
     }
   >
     <div
-      className="sc-LzNOh bNvwuy"
+      className="sc-LzNOi jDltQr"
     >
       <div
         className="sc-LzNsC hIgdvL"

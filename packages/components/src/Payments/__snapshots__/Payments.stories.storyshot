@@ -11,7 +11,7 @@ exports[`Storyshots Boost / Payments Payment Amount 1`] = `
     }
   >
     <div
-      className="sc-LzNPt cMPcxP"
+      className="sc-LzNPu kCEZTI"
     >
       <p
         className="sc-LzNtX hKhXNT"
@@ -865,7 +865,7 @@ exports[`Storyshots Boost / Payments Payment Login or Guest Selection 1`] = `
     }
   >
     <div
-      className="sc-LzNPt cMPcxP"
+      className="sc-LzNPu kCEZTI"
     >
       <div
         className="sc-LzNvK dSssFl"
@@ -1483,10 +1483,10 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
     }
   >
     <div
-      className="sc-LzNPt cMPcxP"
+      className="sc-LzNPu kCEZTI"
     >
       <div
-        className="sc-LzNxd ggnVoi"
+        className="sc-LzNxe dqIdWb"
       >
         <svg
           height="48"
@@ -1516,7 +1516,7 @@ exports[`Storyshots Boost / Payments Payment Success 1`] = `
           </g>
         </svg>
         <div
-          className="sc-LzNxe iYdxeL"
+          className="sc-LzNxf ddhYHY"
         >
           <h2>
             Boost payment successful!
@@ -2125,7 +2125,7 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
     }
   >
     <div
-      className="sc-LzNPt cMPcxP"
+      className="sc-LzNPu kCEZTI"
     >
       <p
         className="sc-LzNtX hKhXNT"
@@ -2149,12 +2149,29 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
         </button>
       </div>
       <div
-        className="sc-LzNvP ggqhTR"
+        className="sc-LzNws ixZNSw"
       >
-        <span>
-          Payment Information
-        </span>
-        Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
+        <p>
+          Want to pay with Apple Pay or Google Pay?
+        </p>
+        <a
+          href="/storyfeed/jlasjdfkljsdf/payment"
+          target="_blank"
+        >
+          Send your Boost on Civil 
+          <svg
+            height="11"
+            viewBox="0 0 11 11"
+            width="11"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="m10.098 7.998h-1.279v-4.823l-6.914 6.923-.905-.905 6.923-6.915h-4.823v-1.278h6.998z"
+              fill="#2B56FF"
+              fillRule="evenodd"
+            />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
@@ -2507,7 +2524,40 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                     </span>
                     <span>
                       <span>
-                         
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          postId
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            "
+                            <span
+                              style={
+                                Object {
+                                  "color": "#22a",
+                                  "wordBreak": "break-word",
+                                }
+                              }
+                            >
+                              jlasjdfkljsdf
+                            </span>
+                            "
+                          </span>
+                        </span>
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
                         <span
                           style={Object {}}
                         >
@@ -2533,7 +2583,10 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                         </span>
                       </span>
                       <span>
-                         
+                        <span>
+                          <br />
+                            
+                        </span>
                         <span
                           style={Object {}}
                         >
@@ -2541,7 +2594,10 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                         </span>
                       </span>
                       <span>
-                         
+                        <span>
+                          <br />
+                            
+                        </span>
                         <span
                           style={Object {}}
                         >
@@ -2565,7 +2621,36 @@ exports[`Storyshots Boost / Payments Payment Type 1`] = `
                             }
                           </span>
                         </span>
-                         
+                      </span>
+                      <span>
+                        <span>
+                          <br />
+                            
+                        </span>
+                        <span
+                          style={Object {}}
+                        >
+                          renderContext
+                        </span>
+                        <span>
+                          =
+                          <span
+                            style={Object {}}
+                          >
+                            {
+                            <span
+                              style={
+                                Object {
+                                  "color": "#a11",
+                                }
+                              }
+                            >
+                              1
+                            </span>
+                            }
+                          </span>
+                        </span>
+                        <br />
                       </span>
                     </span>
                     <span
