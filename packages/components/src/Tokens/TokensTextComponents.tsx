@@ -136,7 +136,7 @@ export const TokenAirswapFoundationText: React.FunctionComponent = props => (
   </>
 );
 
-export const TokenAirswapExchangeText: React.FunctionComponent = props => (
+export const TokenUniswapExchangeText: React.FunctionComponent = props => (
   <>
     <h3>Buy Civil tokens on the open market</h3>
     <p>
