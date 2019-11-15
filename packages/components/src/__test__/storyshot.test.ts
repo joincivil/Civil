@@ -1,5 +1,5 @@
-import initStoryshots, { multiSnapshotWithOptions } from "@storybook/addon-storyshots";
+import initStoryshots, { renderOnly } from "@storybook/addon-storyshots";
 
 initStoryshots({
-  test: multiSnapshotWithOptions(),
+  test: renderOnly,
 });

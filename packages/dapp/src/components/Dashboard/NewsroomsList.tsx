@@ -12,7 +12,7 @@ const NewsroomsList: React.FunctionComponent<NewsroomsListOwnProps> = props => {
     <>
       {listings &&
         listings.map(l => {
-          return <NewsroomsListItem key={l} listing={l!.listing!} />;
+          return <NewsroomsListItem key={l.id} listing={l!.listing!} />;
         })}
     </>
   );
