@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { compose } from "redux";
 import { BigNumber } from "@joincivil/typescript-types";
 import { EthAddress, TxHash } from "@joincivil/core";
@@ -67,7 +68,10 @@ const transactionSuccessContent = {
   ],
   [TransactionTypes.APPLY_TO_REGISTRY]: [
     "Transaction Successful",
-    <ModalContent>Your application to the registry has been recorded!</ModalContent>,
+    <ModalContent>
+      Your application to the registry has been recorded! You can follow the progress of your application on your{" "}
+      <Link to="/dashboard/newsrooms">Newsroom Dashboard</Link>.
+    </ModalContent>,
   ],
 };
 
