@@ -1,6 +1,6 @@
 import * as React from "react";
 import { urlConstants as links } from "@joincivil/utils";
-import { ErrorIcon, HollowGreenCheck } from "@joincivil/elements";
+import { ErrorIcon, HollowGreenCheck, NorthEastArrow, colors } from "@joincivil/elements";
 import { ClipLoader } from "../ClipLoader";
 import {
   PaymentWarning,
@@ -42,6 +42,19 @@ export const PayWithCardText: React.FunctionComponent = props => <>Pay with Card
 export const PayWithAppleText: React.FunctionComponent = props => <>Pay with Apple Pay</>;
 
 export const PayWithGoogleText: React.FunctionComponent = props => <>Pay with Google Pay</>;
+
+export interface PayOnCivilTextProps {
+  postId: string;
+}
+
+export const PayAppleGoogleOnCivilText: React.FunctionComponent<PayOnCivilTextProps> = props => (
+  <>
+    <p>Want to pay with Apple Pay or Google Pay?</p>
+    <a href={"/storyfeed/" + props.postId + "/payment"} target="_blank">
+      Send your Boost on Civil <NorthEastArrow color={colors.accent.CIVIL_BLUE} />
+    </a>
+  </>
+);
 
 export const PaymentStripeNoticeText: React.FunctionComponent = props => (
   <>Proceeds of the Boost go directly to the newsroom minus Stripe processing fees. Refunds are not possible.</>

@@ -29,7 +29,7 @@ export const Contributors: React.FunctionComponent<ContributorsProps> = props =>
               {contributor.payerChannel.tiny72AvatarDataUrl ? (
                 <ContributorAvatar src={contributor.payerChannel.tiny72AvatarDataUrl} />
               ) : (
-                <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={32} />
+                <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={25} />
               )}
               <div>
                 <ContributorUserName>{contributor.payerChannel.handle}</ContributorUserName>

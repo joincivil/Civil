@@ -30,6 +30,8 @@ export const ContributorsDefaultAvatarStyled = styled.div`
 `;
 
 const AvatarGenericIconStyled = styled.div`
+  border: 1px solid ${colors.basic.WHITE};
+  border-radius: 50%;
   margin-right: 10px;
 `;
 

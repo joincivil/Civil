@@ -241,6 +241,13 @@ export const PaymentAmountEth = styled.div`
   }
 `;
 
+export const PaymentError = styled.div`
+  color: ${colors.accent.CIVIL_RED};
+  font-size: 13px;
+  line-height: 22px;
+  margin-top: 10px;
+`;
+
 export const PaymentInputLabel = styled.label`
   color: ${colors.accent.CIVIL_GRAY_1};
   display: block;
@@ -592,6 +599,22 @@ export const PaymentBackBtn = styled.button`
 
     svg g {
       fill: ${colors.accent.CIVIL_BLUE};
+    }
+  }
+`;
+
+export const PayAppleGoogleOnCivilPrompt = styled.div`
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  a {
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
     }
   }
 `;

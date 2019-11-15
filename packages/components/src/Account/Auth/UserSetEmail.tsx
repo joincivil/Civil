@@ -142,7 +142,12 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
                 {this.renderEmailInput()}
                 {this.renderCheckboxes()}
                 <ConfirmButtonContainer>
-                  <Button size={buttonSizes.SMALL_WIDE} textTransform={"none"} type={"submit"} disabled={this.state.disabled}>
+                  <Button
+                    size={buttonSizes.SMALL_WIDE}
+                    textTransform={"none"}
+                    type={"submit"}
+                    disabled={this.state.disabled}
+                  >
                     Save Email
                   </Button>
                 </ConfirmButtonContainer>
@@ -153,11 +158,17 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
         <SkipForNowButtonContainer>
           <ApolloConsumer>
-            {client => <SkipButton onClick={async () => {
-              if (!this.state.disabled) {
-                await this.onSkipForNowClicked(client)
-              }
-            }}>Skip for now</SkipButton>}
+            {client => (
+              <SkipButton
+                onClick={async () => {
+                  if (!this.state.disabled) {
+                    await this.onSkipForNowClicked(client);
+                  }
+                }}
+              >
+                Skip for now
+              </SkipButton>
+            )}
           </ApolloConsumer>
         </SkipForNowButtonContainer>
       </>
@@ -192,7 +203,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
   };
 
   private async onSkipForNowClicked(client: ApolloClient<any>): Promise<void> {
-    this.setState({disabled: true});
+    this.setState({ disabled: true });
     const { error } = await client.mutate({
       mutation: skipSetEmailMutation,
     });
@@ -234,7 +245,7 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
 
       if (this.props.onSetEmailComplete) {
         this.props.onSetEmailComplete();
-        this.setState({disabled: false});
+        this.setState({ disabled: false });
       }
 
       return;

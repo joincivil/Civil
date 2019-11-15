@@ -20,7 +20,7 @@ import {
 } from "@joincivil/elements";
 import { CivilContext, ICivilContext } from "../context";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
-import { PaymentTerms, PaymentBtn, PaymentInputLabel } from "./PaymentsStyledComponents";
+import { PaymentTerms, PaymentBtn, PaymentInputLabel, PaymentError } from "./PaymentsStyledComponents";
 import {
   PayWithCardText,
   PaymentStripeNoticeText,
@@ -220,7 +220,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
           {this.state.paymentProcessing ? "Payment processing..." : "Complete Boost"}
         </PaymentBtn>
-        {this.state.isPaymentError && <PaymentErrorText />}
+        {this.state.isPaymentError && (
+          <PaymentError>
+            <PaymentErrorText />
+          </PaymentError>
+        )}
         <PaymentTerms>
           <PaymentTermsText />
         </PaymentTerms>
@@ -341,7 +345,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           this.props.handlePaymentSuccess();
         } catch (err) {
           console.error(err);
-          this.setState({ isPaymentError: true });
+          this.setState({ paymentProcessing: false, isPaymentError: true });
         }
       }
     }
