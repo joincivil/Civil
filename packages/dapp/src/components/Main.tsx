@@ -10,7 +10,6 @@ import { BigNumber } from "@joincivil/typescript-types";
 
 import { routes, registryListingTypes, registrySubListingTypes } from "../constants";
 import { addUser } from "../redux/actionCreators/userAccount";
-import { catchWindowOnError } from "../redux/actionCreators/errors";
 import {
   initializeGovernment,
   initializeGovernmentParamSubscription,
@@ -85,11 +84,6 @@ export const Main: React.FunctionComponent = () => {
     const civil = civilCtx.civil!;
     const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
     const accountSub = civil.accountStream.subscribe(onAccountUpdated);
-
-    (window as any).onerror = (message: string, source: string, lineNum: string, colNum: string, errorObj: any) => {
-      dispatch!(catchWindowOnError(message, source, lineNum, colNum, errorObj));
-      // return false;
-    };
 
     return function cleanup(): void {
       networkSub.unsubscribe();
