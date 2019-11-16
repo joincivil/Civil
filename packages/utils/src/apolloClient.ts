@@ -54,6 +54,14 @@ export function setNetworkValue(network: number): void {
   setItem(NETWORK_KEY, network);
 }
 
+/** Don't override explicitly set network value, but if none set, this will do. Handles possible race condition between web3 network change subscription firing vs. our default value for this based on environment. */
+export function setDefaultNetworkValue(network: number): void {
+  if (fetchItem(NETWORK_KEY)) {
+    return;
+  }
+  setItem(NETWORK_KEY, network);
+}
+
 export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloClient<NormalizedCacheObject> {
   if (client) {
     return client;

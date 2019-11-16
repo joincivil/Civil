@@ -4,12 +4,11 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 
 import { EthAddress } from "@joincivil/core";
-import { CivilErrors, setNetworkValue } from "@joincivil/utils";
+import { CivilErrors, setDefaultNetworkValue } from "@joincivil/utils";
 import { CivilContext, StyledMainContainer, ICivilContext } from "@joincivil/components";
 import { BigNumber } from "@joincivil/typescript-types";
 
 import { routes, registryListingTypes, registrySubListingTypes } from "../constants";
-import { setNetwork, setNetworkName } from "../redux/actionCreators/network";
 import { addUser } from "../redux/actionCreators/userAccount";
 import { catchWindowOnError } from "../redux/actionCreators/errors";
 import {
@@ -82,10 +81,9 @@ export const Main: React.FunctionComponent = () => {
   const networkIsSupported = isNetworkSupported(networkRedux);
 
   React.useEffect(() => {
-    setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
+    setDefaultNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = civilCtx.civil!;
     const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
-    const networkNameSub = civil.networkNameStream.subscribe(onNetworkNameUpdated);
     const accountSub = civil.accountStream.subscribe(onAccountUpdated);
 
     (window as any).onerror = (message: string, source: string, lineNum: string, colNum: string, errorObj: any) => {
@@ -95,15 +93,11 @@ export const Main: React.FunctionComponent = () => {
 
     return function cleanup(): void {
       networkSub.unsubscribe();
-      networkNameSub.unsubscribe();
       accountSub.unsubscribe();
     };
   }, [civilCtx]);
 
   async function onNetworkUpdated(network: number): Promise<void> {
-    dispatch!(setNetwork(network.toString()));
-    setNetworkValue(network);
-
     try {
       await initializeGovernment(civilHelper!, dispatch!);
       await initializeConstitution(civilHelper!, dispatch!);
@@ -119,25 +113,8 @@ export const Main: React.FunctionComponent = () => {
     }
   }
 
-  async function onNetworkNameUpdated(networkName: string): Promise<void> {
-    dispatch!(setNetworkName(networkName));
-  }
-
   const onAccountUpdated = async (account: EthAddress | undefined): Promise<void> => {
     const civil = civilCtx.civil!;
-    const currentUser = civilCtx.currentUser;
-    if (
-      account &&
-      currentUser &&
-      currentUser.ethAddress &&
-      account.toLowerCase() !== currentUser.ethAddress.toLowerCase()
-    ) {
-      console.log("web3 account does not match that of the logged in user, so logging out", {
-        web3Account: account,
-        currentUserAccount: currentUser.ethAddress,
-      });
-      civilCtx.auth.logout();
-    }
     if (account) {
       try {
         dispatch!(addUser(account, new BigNumber(0), new BigNumber(0))); // get user eth address into redux right away

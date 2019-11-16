@@ -3,7 +3,7 @@ import { ApolloProvider } from "react-apollo";
 import { ConnectedRouter } from "connected-react-router";
 
 import { INFURA_WEBSOCKET_HOSTS } from "@joincivil/ethapi";
-import { getApolloClient } from "@joincivil/utils";
+import { setNetworkValue, getApolloClient } from "@joincivil/utils";
 import { CivilProvider } from "@joincivil/components";
 
 import { ErrorBoundry } from "../errors/ErrorBoundry";
@@ -17,6 +17,9 @@ import { Provider } from "react-redux";
 
 console.log("using config:", config);
 
+if (config.DEFAULT_ETHEREUM_NETWORK) {
+  setNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK, 10));
+}
 const client = getApolloClient();
 
 const pluginConfig = {
