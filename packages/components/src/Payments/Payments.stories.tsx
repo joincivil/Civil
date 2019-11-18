@@ -2,7 +2,6 @@ import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { PaymentsAmount } from "./PaymentsAmount";
-import { PaymentsOptions } from "./PaymentsOptions";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
 import { PaymentsSuccess } from "./PaymentsSuccess";
 import { RENDER_CONTEXT } from "../context";
@@ -26,21 +25,6 @@ const theme = {
 };
 
 storiesOf("Boost / Payments", module)
-  .add("Payment Type", () => {
-    return (
-      <Container>
-        <ThemeProvider theme={theme}>
-          <PaymentsOptions
-            postId={"jlasjdfkljsdf"}
-            usdToSpend={1}
-            isStripeConnected={true}
-            handleNext={onClickFunc}
-            renderContext={RENDER_CONTEXT.EMBED}
-          />
-        </ThemeProvider>
-      </Container>
-    );
-  })
   .add("Payment Amount", () => {
     return (
       <Container>

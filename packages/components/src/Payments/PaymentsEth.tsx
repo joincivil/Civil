@@ -65,7 +65,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
   }
 
   public render(): JSX.Element {
-    const userChannelID = this.context && this.context.currentUser && this.context.currentUser.userChannel.id;
+    const userChannelID = (this.context && this.context.currentUser && this.context.currentUser.userChannel.id) || "";
     const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
     const userAddress =
       this.state.userAddress || (this.context && this.context.currentUser && this.context.currentUser.ethAddress);

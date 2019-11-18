@@ -16,6 +16,8 @@ export interface PaymentRequestProps extends ReactStripeElements.InjectedStripeP
   savePayment: MutationFunc;
   boostId: string;
   usdToSpend: number;
+  userChannelID?: string;
+  shouldPublicize: boolean;
   handlePaymentSuccess(): void;
   onPayRequestError?(): void;
 }
@@ -86,6 +88,8 @@ class PaymentRequestForm extends React.Component<PaymentRequestProps, PaymentReq
             amount: this.props.usdToSpend,
             currencyCode: "usd",
             emailAddress: email,
+            shouldPublicize: this.props.shouldPublicize,
+            payerChannelID: this.props.userChannelID,
           },
         },
       });

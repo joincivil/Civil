@@ -71,8 +71,8 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
             <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
               <StoryNewsroomDetails activeChallenge={false} newsroom={storyBoostData.channel.newsroom} />
             </StoryModal>
-            <PaymentsModal open={isPaymentsModalOpen} handleClose={props.closeStoryBoost}>
-              <ThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+              <PaymentsModal open={isPaymentsModalOpen} handleClose={props.closeStoryBoost}>
                 <Payments
                   postId={props.postId}
                   newsroomName={storyBoostData.channel.newsroom.charter.name}
@@ -80,8 +80,8 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
                   handleClose={props.handlePaymentSuccess}
                 />
-              </ThemeProvider>
-            </PaymentsModal>
+              </PaymentsModal>
+            </ThemeProvider>
           </>
         );
       }}
