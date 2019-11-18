@@ -74,7 +74,7 @@ const ShareOptions = styled.div`
   }
 `;
 
-const ShareCopyFeedback = styled.div`
+const ShareCopyFeedback = styled.span`
   align-items: center;
   display: flex;
   font-size: 13px;
