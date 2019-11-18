@@ -1,5 +1,4 @@
 import * as React from "react";
-// import PaymentRequestForm from "./PaymentsRequest";
 import {
   PaymentDirectionsStyled,
   PaymentTypeSelect,
@@ -15,34 +14,36 @@ import {
   PayAppleGoogleOnCivilText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE } from "./types";
-import { RENDER_CONTEXT } from "../context";
+import { RENDER_CONTEXT, CivilContext, ICivilContext } from "../context";
+import { PaymentsLoadStripePayRequest } from "./PaymentsLoadStripePayRequest";
 
 export interface PaymentsOptionsProps {
   postId: string;
   usdToSpend: number;
+  newsroomName: string;
+  shouldPublicize: boolean;
   isStripeConnected: boolean;
-  renderContext: RENDER_CONTEXT;
   handleNext(paymentState: PAYMENT_STATE): void;
+  handlePaymentSuccess(): void;
 }
 
 export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
+  const context = React.useContext<ICivilContext>(CivilContext);
   return (
     <>
       <PaymentDirectionsStyled>
         <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
       <PaymentTypeSelect>
-        {props.renderContext === RENDER_CONTEXT.DAPP &&
-          {
-            /*
-        <PaymentRequestForm
-          savePayment={props.savePayment}
-          boostId={props.postId}
-          usdToSpend={props.usdToSpend}
-          handlePaymentSuccess={props.handlePaymentSuccess}
-        />
-        */
-          }}
+        {context.renderContext === RENDER_CONTEXT.DAPP && (
+          <PaymentsLoadStripePayRequest
+            postId={props.postId}
+            newsroomName={props.newsroomName}
+            shouldPublicize={props.shouldPublicize}
+            usdToSpend={props.usdToSpend}
+            handlePaymentSuccess={props.handlePaymentSuccess}
+          />
+        )}
         {props.isStripeConnected && (
           <PaymentBtn onClick={() => props.handleNext(PAYMENT_STATE.STRIPE_PAYMENT)} backgroundColor={"#26CD41"}>
             <PayWithCardText />
@@ -52,12 +53,12 @@ export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = pr
           <PayWithEthText />
         </PaymentBtn>
       </PaymentTypeSelect>
-      {props.renderContext === RENDER_CONTEXT.DAPP && (
+      {context.renderContext === RENDER_CONTEXT.DAPP && (
         <PaymentInfoStyled>
           <PaymentInfoText />
         </PaymentInfoStyled>
       )}
-      {props.renderContext === RENDER_CONTEXT.EMBED && (
+      {context.renderContext === RENDER_CONTEXT.EMBED && (
         <PayAppleGoogleOnCivilPrompt>
           <PayAppleGoogleOnCivilText postId={props.postId} />
         </PayAppleGoogleOnCivilPrompt>

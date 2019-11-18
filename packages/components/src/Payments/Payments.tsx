@@ -96,8 +96,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             postId={postId}
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
-            renderContext={this.context.renderContext}
+            newsroomName={newsroomName}
+            shouldPublicize={shouldPublicize}
             handleNext={this.handleUpdateState}
+            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
           />
         </PaymentsWrapper>
       );
