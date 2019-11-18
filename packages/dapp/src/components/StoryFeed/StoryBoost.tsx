@@ -86,8 +86,8 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
               <StoryModal open={this.state.isStoryNewsroomModalOpen} handleClose={this.props.closeStoryBoost}>
                 <StoryNewsroomDetails activeChallenge={false} newsroom={storyBoostData.channel.newsroom} />
               </StoryModal>
-              <PaymentsModal open={this.state.isPaymentsModalOpen} handleClose={this.props.closeStoryBoost}>
-                <ThemeProvider theme={theme}>
+              <ThemeProvider theme={theme}>
+                <PaymentsModal open={this.state.isPaymentsModalOpen} handleClose={this.props.closeStoryBoost}>
                   <Payments
                     postId={this.props.postId}
                     newsroomName={storyBoostData.channel.newsroom.charter.name}
@@ -95,8 +95,8 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                     isStripeConnected={storyBoostData.channel.isStripeConnected}
                     handleClose={this.props.handlePaymentSuccess}
                   />
-                </ThemeProvider>
-              </PaymentsModal>
+                </PaymentsModal>
+              </ThemeProvider>
               <SharePanel open={this.state.isShareModalOpen} handleClose={this.handleCloseShare}>
                 <ShareStory title={storyBoostData.openGraphData.title} url={storyBoostData.openGraphData.url} />
               </SharePanel>
