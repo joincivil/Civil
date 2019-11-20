@@ -101,7 +101,9 @@ const SkipButton = styled.span`
 export interface UserSetAvatarProps {
   headerComponent?: JSX.Element;
   channelID: string;
+  isProfileEdit?: boolean; // true if component is displayed via profile edit flow (as opposed to sign up flow)
   onSetAvatarComplete?(): void;
+  onSetAvatarCancelled?(): void;
 }
 
 export interface UserSetAvatarState {
@@ -140,6 +142,7 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
   }
 
   public render(): JSX.Element {
+    const skipText = this.props.isProfileEdit ? "Cancel" : "Skip for now";
     const { headerComponent, channelID } = this.props;
     return (
       <UserSetAvatarContainer>
@@ -183,7 +186,19 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
         {!this.state.image && (
           <SkipForNowButtonContainer>
             <ApolloConsumer>
-              {client => <SkipButton onClick={() => this.onSkipForNowClicked(client)}>Skip for now</SkipButton>}
+              {client => (
+                <SkipButton
+                  onClick={async () => {
+                    if (this.props.isProfileEdit) {
+                      this.onCancelClicked();
+                    } else {
+                      await this.onSkipForNowClicked(client);
+                    }
+                  }}
+                >
+                  {skipText}
+                </SkipButton>
+              )}
             </ApolloConsumer>
           </SkipForNowButtonContainer>
         )}
@@ -206,6 +221,12 @@ export class UserSetAvatar extends React.Component<UserSetAvatarProps, UserSetAv
       if (this.props.onSetAvatarComplete) {
         this.props.onSetAvatarComplete();
       }
+    }
+  }
+
+  private onCancelClicked(): void {
+    if (this.props.onSetAvatarCancelled) {
+      this.props.onSetAvatarCancelled();
     }
   }
 

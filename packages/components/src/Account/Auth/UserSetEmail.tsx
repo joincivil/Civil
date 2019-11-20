@@ -68,7 +68,9 @@ const skipSetEmailMutation = gql`
 
 export interface UserSetEmailProps {
   channelID: string;
+  isProfileEdit?: boolean; // true if component is displayed via profile edit flow (as opposed to sign up flow)
   onSetEmailComplete?(): void;
+  onSetEmailCancelled?(): void;
 }
 
 export type UserSetEmailError = "unknown" | "emailexists" | "emailnotfound" | undefined;
@@ -128,10 +130,12 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
   }
 
   public render(): JSX.Element {
+    const headerText = this.props.isProfileEdit ? "Set Email" : "Almost done!";
+    const skipText = this.props.isProfileEdit ? "Cancel" : "Skip for now";
     return (
       <>
         {this.renderAuthError()}
-        <HeaderDiv>Almost done!</HeaderDiv>
+        <HeaderDiv>{headerText}</HeaderDiv>
         <SubHeaderDiv>
           To receive payment confirmations and account-related alerts, please enter your email address.
         </SubHeaderDiv>
@@ -162,11 +166,15 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
               <SkipButton
                 onClick={async () => {
                   if (!this.state.disabled) {
-                    await this.onSkipForNowClicked(client);
+                    if (this.props.isProfileEdit) {
+                      this.onCancelClicked();
+                    } else {
+                      await this.onSkipForNowClicked(client);
+                    }
                   }
                 }}
               >
-                Skip for now
+                {skipText}
               </SkipButton>
             )}
           </ApolloConsumer>
@@ -212,9 +220,18 @@ export class UserSetEmail extends React.Component<UserSetEmailProps, UserSetEmai
       this.setState({ errorMessage: error, disabled: false });
     } else {
       if (this.props.onSetEmailComplete) {
-        this.props.onSetEmailComplete();
         this.setState({ disabled: false });
+        this.props.onSetEmailComplete();
       }
+    }
+  }
+
+  private onCancelClicked(): void {
+    this.setState({ disabled: true });
+
+    if (this.props.onSetEmailCancelled) {
+      this.setState({ disabled: false });
+      this.props.onSetEmailCancelled();
     }
   }
 

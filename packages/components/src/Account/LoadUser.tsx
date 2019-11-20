@@ -6,6 +6,7 @@ import useStateWithLocalStorage from "../hooks/useStateWithLocalStorage";
 export interface LoadUserChildrenProps {
   user: any;
   loading: boolean;
+  refetch?: any;
 }
 
 export interface LoadUserProps {
@@ -26,12 +27,12 @@ export const LoadUser: React.FunctionComponent<LoadUserProps> = props => {
 
   return (
     <Query<any> query={getCurrentUserQuery}>
-      {({ loading, error, data }) => {
+      {({ loading, error, data, refetch }) => {
         if (loading || error) {
-          return renderFunction({ user: null, loading });
+          return renderFunction({ user: null, loading, refetch });
         }
 
-        return renderFunction({ user: data.currentUser, loading });
+        return renderFunction({ user: data.currentUser, loading, refetch });
       }}
     </Query>
   );
