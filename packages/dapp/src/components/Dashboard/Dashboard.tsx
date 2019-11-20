@@ -12,6 +12,7 @@ import {
   LoadUser,
   mediaQueries,
   colors,
+  ICivilContext,
 } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
@@ -19,6 +20,9 @@ import ScrollToTopOnMount from "../utility/ScrollToTop";
 
 import UserInfoSummary from "./UserInfoSummary";
 import DashboardActivity from "./DashboardActivity";
+import UserProfileSummary from "./UserProfileSummary";
+import SetEmail from "../Auth/SetEmail";
+import SetAvatar from "../Auth/SetAvatar";
 
 const StyledDashboardActivityContainer = styled.div`
   box-sizing: border-box;
@@ -62,7 +66,11 @@ export interface DashboardReduxProps {
 }
 
 const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
-  const { civil } = React.useContext(CivilContext);
+  const civilContext = React.useContext<ICivilContext>(CivilContext);
+  const { civil } = civilContext;
+  const [shouldShowSetEmailModal, setShouldShowSetEmailModal] = React.useState(false);
+  const [shouldShowSetAvatarModal, setShouldShowSetAvatarModal] = React.useState(false);
+  const [shouldShowConfirmEmailWarning, setShouldShowConfirmEmailWarning] = React.useState(false);
 
   let enableEthereum: () => Promise<void> | undefined;
   if (civil && civil.currentProvider) {
@@ -75,7 +83,7 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
       <Helmet title="My Dashboard - The Civil Registry" />
       <ScrollToTopOnMount />
       <LoadUser>
-        {({ loading, user: civilUser }) => {
+        {({ loading, user: civilUser, refetch }) => {
           if (loading) {
             return null;
           }
@@ -84,11 +92,40 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
             return (
               <DashboardContainer>
                 <UserDashboardHeader>
+                  <UserProfileSummary
+                    user={civilUser}
+                    onSetEmailClicked={() => setShouldShowSetEmailModal(true)}
+                    onSetAvatarClicked={() => setShouldShowSetAvatarModal(true)}
+                  />
+                  {shouldShowConfirmEmailWarning && <>Please check your email to confirm address</>}
                   <UserInfoSummary />
                 </UserDashboardHeader>
                 <StyledDashboardActivityContainer>
                   <DashboardActivity match={props.match} history={props.history} />
                 </StyledDashboardActivityContainer>
+                {shouldShowSetEmailModal && (
+                  <SetEmail
+                    channelID={civilUser.userChannel.id}
+                    isProfileEdit={true}
+                    onSetEmailComplete={() => {
+                      setShouldShowSetEmailModal(false);
+                      setShouldShowConfirmEmailWarning(true);
+                    }}
+                    onSetEmailCancelled={() => setShouldShowSetEmailModal(false)}
+                  />
+                )}
+                {shouldShowSetAvatarModal && (
+                  <SetAvatar
+                    channelID={civilUser.userChannel.id}
+                    isProfileEdit={true}
+                    onSetAvatarComplete={async () => {
+                      await refetch(); // TODO(nickreynolds): Dashboard should just use civil user from context so doesn't need to refetch here
+                      await civilContext.auth.handleInitialState(); // also update user$ in context so navbar avatar updates
+                      setShouldShowSetAvatarModal(false);
+                    }}
+                    onSetAvatarCancelled={() => setShouldShowSetAvatarModal(false)}
+                  />
+                )}
               </DashboardContainer>
             );
           } else if (civilUser && enableEthereum) {

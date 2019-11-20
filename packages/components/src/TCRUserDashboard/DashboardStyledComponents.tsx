@@ -78,7 +78,95 @@ export const StyledDashboardActivityDescription = styled.div<StyledDashboardActi
 `;
 
 export const StyledUserInfo = styled.div`
-  width: 277px;
+  width: 333px;
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
+`;
+
+export const StyledUserProfile = styled.div`
+  width: 333px;
+  ${mediaQueries.MOBILE} {
+    width: 100%;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 22px;
+`;
+
+export const StyledUserAvatar = styled.img`
+  width: 76px;
+  height: 76px;
+  border-radius: 38px;
+  margin-right: 15px;
+`;
+
+export const StyledUserNoAvatar = styled.figure`
+  width: 76px;
+  height: 76px;
+  border-radius: 38px;
+  margin-right: 15px;
+`;
+
+export const StyledUserHandleText = styled.span`
+  font-size: 19px;
+  font-weight: 600;
+  height: 23px;
+  letter-spacing: -0.04px;
+  line-height: 23px;
+  max-width: 242px;
+  text-overflow: ellipsis;
+`;
+
+export const StyledUserEmailText = styled.span`
+  font-size: 16px;
+  font-weight: 400;
+  height: 23px;
+  letter-spacing: -0.04px;
+  line-height: 23px;
+  max-width: 200px;
+  text-overflow: ellipsis;
+`;
+
+export const StyledUserSetEmailText = styled.span`
+  font-size: 12px;
+  font-weight: 300;
+  height: 23px;
+  letter-spacing: -0.04px;
+  line-height: 23px;
+  color: ${colors.accent.CIVIL_BLUE};
+`;
+
+export const StyledChangeUserEmailText = styled.span`
+  font-size: 12px;
+  font-weight: 300;
+  height: 23px;
+  letter-spacing: -0.04px;
+  line-height: 23px;
+  max-width: 42px;
+  margin: left: 2px;
+  color: ${colors.accent.CIVIL_BLUE};
+`;
+
+export const StyledChangeUserAvatarText = styled.span`
+  font-size: 12px;
+  font-weight: 300;
+  height: 23px;
+  letter-spacing: -0.04px;
+  line-height: 23px;
+  color: ${colors.accent.CIVIL_BLUE};
+`;
+
+export const StyledUserEmailContainer = styled.div`
+  flex-direction: column;
+`;
+
+export const StyledUserHandleAndEmailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 76px;
 `;
 
 export const StyledUserInfoSectionLabel = styled.div`

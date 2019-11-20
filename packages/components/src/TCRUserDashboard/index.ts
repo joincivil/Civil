@@ -1,5 +1,6 @@
 export * from "./Dashboard";
 export * from "./DashboardUserInfoSummary";
+export * from "./DashboardUserProfileSummary";
 export * from "./DashboardActivity";
 export * from "./DashboardActivityItem";
 export * from "./DashboardActivityItemTask";

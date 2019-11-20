@@ -3,7 +3,7 @@ import {
   DashboardUserInfoSummary as DashboardUserInfoSummaryComponent,
   DashboardUserInfoSummaryProps,
 } from "@joincivil/components";
-import { getFormattedEthAddress, getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
+import { getFormattedEthAddress, getFormattedTokenBalance} from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 
 const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
@@ -29,7 +29,6 @@ const mapStateToProps = (state: State): DashboardUserInfoSummaryProps => {
     balance,
     votingBalance,
     buyCvlUrl: "/tokens",
-    applyURL: links.APPLY,
   };
 };
 
