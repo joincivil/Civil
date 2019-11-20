@@ -3,6 +3,15 @@
 const path = require("path");
 
 module.exports = function override(config, env) {
+  if (process.env.CI) {
+    const threadLoader = config.module.rules[3].oneOf[1].use[0];
+    config.module.rules[3].oneOf[1].use[0] = {
+      loader: threadLoader,
+      options: {
+        workers: process.env.CIRCLE_NODE_TOTAL,
+      },
+    };
+  }
   return {
     ...config,
     resolve: {
