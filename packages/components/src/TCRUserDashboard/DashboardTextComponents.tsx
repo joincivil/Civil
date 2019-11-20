@@ -51,9 +51,7 @@ export const NoTasks: React.FunctionComponent = props => (
 export const NoVotesToReveal: React.FunctionComponent = props => (
   <StyledTransferTokenTitle>
     <h3>No Votes to Reveal</h3>
-    <p>
-      You don't have any votes to reveal right now.
-    </p>
+    <p>You don't have any votes to reveal right now.</p>
   </StyledTransferTokenTitle>
 );
 

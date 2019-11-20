@@ -99,7 +99,13 @@ class ChallengesWithRewardsToClaim extends React.Component<
     const transactions = this.getTransactions();
     const { resetChallengesToMultiClaim } = this;
     const { userChallengeData: allUserChallengeData, challenges, appealChallenges, proposalChallenges } = this.props;
-    const displayNoTasks = challenges && challenges.count() === 0 &&  appealChallenges && appealChallenges.count() === 0 && proposalChallenges && proposalChallenges.count() === 0;
+    const displayNoTasks =
+      challenges &&
+      challenges.count() === 0 &&
+      appealChallenges &&
+      appealChallenges.count() === 0 &&
+      proposalChallenges &&
+      proposalChallenges.count() === 0;
 
     return (
       <>

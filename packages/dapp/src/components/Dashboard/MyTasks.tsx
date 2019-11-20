@@ -194,7 +194,9 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
   const allVotesTabTitle =
     "All (" + (allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()) + ")";
   const revealVoteTabTitle =
-    "Reveal Votes (" + (allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()) + ")";
+    "Reveal Votes (" +
+    (allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()) +
+    ")";
   const claimRewardsTabTitle =
     "Claim Rewards (" +
     (userChallengesWithUnclaimedRewards!.count() +
@@ -208,63 +210,64 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
       proposalChallengesWithRescueTokens!.count()) +
     ")";
 
-  const titles = [
-    allVotesTabTitle,
-    revealVoteTabTitle,
-    claimRewardsTabTitle,
-    rescueTokensTabTitle,
-  ];
+  const titles = [allVotesTabTitle, revealVoteTabTitle, claimRewardsTabTitle, rescueTokensTabTitle];
 
   const ActiveDisplay = () => {
     switch (props.activeSubTabIndex) {
-    case 0:
-      return (<MyTasksList
-        challenges={allChallengesWithAvailableActions}
-        proposalChallenges={proposalChallengesWithAvailableActions}
-        userChallengeData={userChallengeData}
-        challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-        refetchUserChallengeData={refetchUserChallengeData}
-        showClaimRewardsTab={showClaimRewardsTab}
-        showRescueTokensTab={showRescueTokensTab}
-        noTasksComponent={<NoTasks />}
-      />);
-    case 1:
-      return (
-        <MyTasksList
-          challenges={allChallengesWithUnrevealedVotes}
-          proposalChallenges={proposalChallengesWithUnrevealedVotes}
-          userChallengeData={userChallengeData}
-          challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-          refetchUserChallengeData={refetchUserChallengeData}
-          showClaimRewardsTab={showClaimRewardsTab}
-          showRescueTokensTab={showRescueTokensTab}
-          noTasksComponent={<NoVotesToReveal />}
-        />
-      );
-    case 2:
-      return (<ChallengesWithRewardsToClaim
-          challenges={userChallengesWithUnclaimedRewards}
-          appealChallenges={userAppealChallengesWithUnclaimedRewards}
-          proposalChallenges={proposalChallengesWithUnclaimedRewards}
-          userChallengeData={userChallengeData}
-          refetchUserChallengeData={refetchUserChallengeData}
-          onMobileTransactionClick={showNoMobileTransactionsModal}
-        />);
-    case 3:
-      return (<ChallengesWithTokensToRescue
-        challenges={userChallengesWithRescueTokens}
-        appealChallenges={userAppealChallengesWithRescueTokens}
-        proposalChallenges={proposalChallengesWithRescueTokens}
-        userChallengeData={userChallengeData}
-        refetchUserChallengeData={refetchUserChallengeData}
-        onMobileTransactionClick={showNoMobileTransactionsModal}
-      />);
-    case 4:
-      return <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
-    default:
-      return <></>
+      case 0:
+        return (
+          <MyTasksList
+            challenges={allChallengesWithAvailableActions}
+            proposalChallenges={proposalChallengesWithAvailableActions}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+            refetchUserChallengeData={refetchUserChallengeData}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+            noTasksComponent={<NoTasks />}
+          />
+        );
+      case 1:
+        return (
+          <MyTasksList
+            challenges={allChallengesWithUnrevealedVotes}
+            proposalChallenges={proposalChallengesWithUnrevealedVotes}
+            userChallengeData={userChallengeData}
+            challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+            refetchUserChallengeData={refetchUserChallengeData}
+            showClaimRewardsTab={showClaimRewardsTab}
+            showRescueTokensTab={showRescueTokensTab}
+            noTasksComponent={<NoVotesToReveal />}
+          />
+        );
+      case 2:
+        return (
+          <ChallengesWithRewardsToClaim
+            challenges={userChallengesWithUnclaimedRewards}
+            appealChallenges={userAppealChallengesWithUnclaimedRewards}
+            proposalChallenges={proposalChallengesWithUnclaimedRewards}
+            userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
+            onMobileTransactionClick={showNoMobileTransactionsModal}
+          />
+        );
+      case 3:
+        return (
+          <ChallengesWithTokensToRescue
+            challenges={userChallengesWithRescueTokens}
+            appealChallenges={userAppealChallengesWithRescueTokens}
+            proposalChallenges={proposalChallengesWithRescueTokens}
+            userChallengeData={userChallengeData}
+            refetchUserChallengeData={refetchUserChallengeData}
+            onMobileTransactionClick={showNoMobileTransactionsModal}
+          />
+        );
+      case 4:
+        return <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />;
+      default:
+        return <></>;
     }
-  }
+  };
 
   return (
     <>
@@ -289,7 +292,7 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             </Dropdown>
           </StyledTasksFormGroup>
         )}
-        {activeSubTabIndex === 4 && (<Spacer/>)}
+        {activeSubTabIndex === 4 && <Spacer />}
         <TokenTransferButton
           size={buttonSizes.NEW_MEDIUM}
           onClick={() => {

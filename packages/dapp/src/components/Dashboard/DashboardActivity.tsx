@@ -11,7 +11,6 @@ import {
   ProgressModalContentMobileUnsupported,
   NoNewsrooms,
   LoadingMessage,
-  NoTasks,
   NoChallenges,
 } from "@joincivil/components";
 

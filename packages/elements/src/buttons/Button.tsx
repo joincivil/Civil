@@ -11,7 +11,7 @@ export enum buttonSizes {
   MEDIUM = "MEDIUM",
   MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
-  NEW_MEDIUM = "NEW_MEDIUM"
+  NEW_MEDIUM = "NEW_MEDIUM",
 }
 
 export interface ButtonProps {
@@ -265,7 +265,7 @@ export const NewPrimaryButton = styled(BaseButton)`
 
 NewPrimaryButton.defaultProps = {
   theme: NEW_PRIMARY_BUTTON_DEFAULT_THEME,
-}
+};
 
 export const SecondaryButton = styled(BaseButton)`
   background-color: ${props => props.theme.secondaryButtonBackground};
