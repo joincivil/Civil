@@ -29,6 +29,7 @@ export const colors = {
     CIVIL_GRAY_4: "#E9E9EA",
     CIVIL_GRAY_5: "#F4F4F4",
     CIVIL_GRAY_6: "#FCFCFC",
+    CIVIL_GRAY_7: "#9B9B9B", // NewPrimaryButton border color
     CIVIL_ORANGE: "#FFA716",
     CIVIL_GREEN: "#0D9D33",
     CIVIL_GREEN_1: "#29cb42",

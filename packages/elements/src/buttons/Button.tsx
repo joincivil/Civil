@@ -11,6 +11,7 @@ export enum buttonSizes {
   MEDIUM = "MEDIUM",
   MEDIUM_WIDE = "MEDIUM_WIDE",
   LARGE = "LARGE",
+  NEW_MEDIUM = "NEW_MEDIUM"
 }
 
 export interface ButtonProps {
@@ -76,6 +77,14 @@ const INVERTED_BUTTON_DEFAULT_THEME = {
   invertedButtonColor: colors.accent.CIVIL_BLUE,
 };
 
+const NEW_PRIMARY_BUTTON_DEFAULT_THEME = {
+  newPrimaryButtonBackground: colors.basic.WHITE,
+  newPrimaryButtonColor: colors.primary.BLACK,
+  newPrimaryButtonBorder: colors.accent.CIVIL_GRAY_7,
+  sansSerifFont: fonts.SANS_SERIF_BOLD,
+  newPrimaryButtonFontWeight: "700",
+};
+
 const SECONDARY_BUTTON_DEFAULT_THEME = {
   secondaryButtonBackground: colors.basic.WHITE,
   secondaryButtonColor: colors.accent.CIVIL_GRAY_2,
@@ -101,15 +110,17 @@ const BORDERLESS_BUTTON_DEFAULT_THEME = {
 export const DEFAULT_BUTTON_THEME = {
   ...PRIMARY_BUTTON_DEFAULT_THEME,
   ...INVERTED_BUTTON_DEFAULT_THEME,
+  ...NEW_PRIMARY_BUTTON_DEFAULT_THEME,
   ...SECONDARY_BUTTON_DEFAULT_THEME,
   ...DARK_BUTTON_DEFAULT_THEME,
   ...BORDERLESS_BUTTON_DEFAULT_THEME,
 };
 
-const sizesObject: { [index: string]: string } = {
+const paddingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "8px 12px",
   [buttonSizes.SMALL_WIDE]: "8px 60px",
   [buttonSizes.MEDIUM]: "10px 25px",
+  [buttonSizes.NEW_MEDIUM]: "10px 25px",
   [buttonSizes.MEDIUM_WIDE]: "9px 30px",
   [buttonSizes.LARGE]: "20px 50px",
 };
@@ -118,6 +129,7 @@ const spacingObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "0.5px",
   [buttonSizes.SMALL_WIDE]: "0.2px",
   [buttonSizes.MEDIUM]: "1px",
+  [buttonSizes.NEW_MEDIUM]: ".18px",
   [buttonSizes.MEDIUM_WIDE]: "0.2px",
   [buttonSizes.LARGE]: "3px",
 };
@@ -125,6 +137,15 @@ const spacingObject: { [index: string]: string } = {
 const fontObject: { [index: string]: string } = {
   [buttonSizes.SMALL]: "12px",
   [buttonSizes.MEDIUM]: "18px",
+  [buttonSizes.NEW_MEDIUM]: "12px",
+  [buttonSizes.MEDIUM_WIDE]: "14px",
+  [buttonSizes.LARGE]: "24px",
+};
+
+const lineHeight: { [index: string]: string } = {
+  [buttonSizes.SMALL]: "12px",
+  [buttonSizes.MEDIUM]: "18px",
+  [buttonSizes.NEW_MEDIUM]: "14px",
   [buttonSizes.MEDIUM_WIDE]: "14px",
   [buttonSizes.LARGE]: "24px",
 };
@@ -168,8 +189,8 @@ export const ButtonComponent = (props: ButtonProps) => {
 
 const BaseButton = styled(ButtonComponent)`
   text-decoration: none;
-  border-radius: 2px;
-  padding: ${(props: any) => sizesObject[props.size || buttonSizes.LARGE]};
+  border-radius: 3px;
+  padding: ${(props: any) => paddingObject[props.size || buttonSizes.LARGE]};
   font-family: ${(props: any) => props.theme.sansSerifFont};
   cursor: pointer;
   border: none;
@@ -233,6 +254,19 @@ InvertedButton.defaultProps = {
   theme: INVERTED_BUTTON_DEFAULT_THEME,
 };
 
+export const NewPrimaryButton = styled(BaseButton)`
+  background-color: ${props => props.theme.newPrimaryButtonBackground};
+  color: ${props => props.theme.newPrimaryButtonColor};
+  border: 1px solid ${props => props.theme.newPrimaryButtonBorder};
+  font-family: ${(props: any) => props.theme.sansSerifFont};
+  font-weight: ${props => props.theme.newPrimaryButtonFontWeight};
+  line-height: ${(props: any) => lineHeight[props.size || buttonSizes.NEW_MEDIUM]};
+`;
+
+NewPrimaryButton.defaultProps = {
+  theme: NEW_PRIMARY_BUTTON_DEFAULT_THEME,
+}
+
 export const SecondaryButton = styled(BaseButton)`
   background-color: ${props => props.theme.secondaryButtonBackground};
   color: ${props => props.theme.secondaryButtonColor};
@@ -295,7 +329,7 @@ export const BorderlessButton = styled(Button)`
   font-weight: 700;
   margin-left: 8px;
   letter-spacing: 0.7px;
-  padding: ${sizesObject[buttonSizes.SMALL]};
+  padding: ${paddingObject[buttonSizes.SMALL]};
   font-size: ${props => props.theme.borderlessButtonSize};
   background-color: transparent;
   &:focus,

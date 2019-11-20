@@ -489,12 +489,8 @@ class DashboardActivity extends React.Component<
   };
 
   private renderUserVotes = (error: any, myTasksViewProps: any): JSX.Element => {
-    if (error) {
-      if (error.toString().includes(NO_RESULTS)) {
-        return <NoTasks />;
-      } else {
-        return <ErrorLoadingDataMsg />;
-      }
+    if (error && !error.toString().includes(NO_RESULTS)) {
+      return <ErrorLoadingDataMsg />;
     }
 
     return <MyTasks {...myTasksViewProps} />;
