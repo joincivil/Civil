@@ -9,7 +9,9 @@ import {
   DropdownGroup,
   DropdownItem,
   InputBase,
-  InputIcon
+  InputIcon,
+  NoTasks,
+  NoVotesToReveal,
 } from "@joincivil/components";
 
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
@@ -134,7 +136,6 @@ const StyledDropdownArrow = styled.div`
 `;
 
 const SelectionContainer = styled.div`
-  width: 100%;
   height: 70px;
   display: flex;
   flex-direction: row;
@@ -225,17 +226,21 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
         refetchUserChallengeData={refetchUserChallengeData}
         showClaimRewardsTab={showClaimRewardsTab}
         showRescueTokensTab={showRescueTokensTab}
+        noTasksComponent={<NoTasks />}
       />);
     case 1:
-      return (<MyTasksList
-        challenges={allChallengesWithUnrevealedVotes}
-        proposalChallenges={proposalChallengesWithUnrevealedVotes}
-        userChallengeData={userChallengeData}
-        challengeToAppealChallengeMap={challengeToAppealChallengeMap}
-        refetchUserChallengeData={refetchUserChallengeData}
-        showClaimRewardsTab={showClaimRewardsTab}
-        showRescueTokensTab={showRescueTokensTab}
-      />);
+      return (
+        <MyTasksList
+          challenges={allChallengesWithUnrevealedVotes}
+          proposalChallenges={proposalChallengesWithUnrevealedVotes}
+          userChallengeData={userChallengeData}
+          challengeToAppealChallengeMap={challengeToAppealChallengeMap}
+          refetchUserChallengeData={refetchUserChallengeData}
+          showClaimRewardsTab={showClaimRewardsTab}
+          showRescueTokensTab={showRescueTokensTab}
+          noTasksComponent={<NoVotesToReveal />}
+        />
+      );
     case 2:
       return (<ChallengesWithRewardsToClaim
           challenges={userChallengesWithUnclaimedRewards}

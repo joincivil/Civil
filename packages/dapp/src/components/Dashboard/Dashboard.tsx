@@ -23,6 +23,7 @@ import DashboardActivity from "./DashboardActivity";
 const StyledDashboardActivityContainer = styled.div`
   box-sizing: border-box;
   margin-top: 40px;
+  flex-grow: 1;
 
   ${mediaQueries.MOBILE} {
     max-width: 100%;

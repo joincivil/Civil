@@ -12,6 +12,7 @@ import {
   ModalContent,
   StyledDashboardActivityDescription,
   TransactionButtonNoModal,
+  NoTokensToRescue,
 } from "@joincivil/components";
 
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
@@ -100,10 +101,14 @@ class ChallengesWithTokensToRescue extends React.Component<
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiRescue } = this;
-    const { userChallengeData: allUserChallengeData } = this.props;
+    const { userChallengeData: allUserChallengeData, challenges, appealChallenges, proposalChallenges } = this.props;
+    const displayNoTasks = challenges && challenges.count() === 0 &&  appealChallenges && appealChallenges.count() === 0 && proposalChallenges && proposalChallenges.count() === 0;
 
     return (
       <>
+        {displayNoTasks && <NoTokensToRescue />}
+        {!displayNoTasks && (
+          <>
         <StyledDashboardActivityDescription>
           <RescueTokensDescriptionText />
         </StyledDashboardActivityDescription>
@@ -178,6 +183,7 @@ class ChallengesWithTokensToRescue extends React.Component<
             Rescue Tokens
           </TransactionButtonNoModal>
         </StyledBatchButtonContainer>
+        </>)}
       </>
     );
   }

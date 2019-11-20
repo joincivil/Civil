@@ -10,6 +10,7 @@ export interface MyTasksListOwnProps {
   proposalChallenges?: Set<string>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
+  noTasksComponent: JSX.Element;
   refetchUserChallengeData?(): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
@@ -17,8 +18,13 @@ export interface MyTasksListOwnProps {
 
 const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
   const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap, refetchUserChallengeData } = props;
+  const hasNoChallenges = !props.fullChallenges || props.fullChallenges.count() === 0;
+  const hasNoProposalChallenges = !props.proposalChallenges || props.proposalChallenges.count() === 0;
+  const displayNoTasks = hasNoChallenges && hasNoProposalChallenges;
   return (
     <>
+      {displayNoTasks && props.noTasksComponent}
+      {!displayNoTasks && (<>
       {props.fullChallenges &&
         props.fullChallenges
           .sort((a, b) => parseInt(a.challengeID, 10) - parseInt(b.challengeID, 10))
@@ -106,6 +112,7 @@ const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
               />
             );
           })}
+      </>)}
     </>
   );
 };

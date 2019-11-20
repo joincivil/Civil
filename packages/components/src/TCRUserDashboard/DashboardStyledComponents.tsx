@@ -264,6 +264,7 @@ export const StyledTransferTokenTitle = styled.div`
   text-align: center;
   margin: 0 0 40px;
   padding: 20px;
+  flex-grow: 1;
 
   h3 {
     font-size: 20px;
