@@ -14,7 +14,7 @@ import {
   ChallengesWonLabelText,
   RewardsClaimedLabelText,
 } from "./DashboardTextComponents";
-import { Button, InvertedButton, buttonSizes } from "../Button";
+import { Button, buttonSizes } from "../Button";
 
 export interface DashboardUserInfoSummaryProps {
   userAccount: string;
@@ -23,19 +23,14 @@ export interface DashboardUserInfoSummaryProps {
   challengesWonTotalCvl?: string;
   rewardsEarned?: string;
   buyCvlUrl: string;
-  applyURL: string;
 }
 
 export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) => {
-  const { buyCvlUrl, applyURL, challengesWonTotalCvl, rewardsEarned } = props;
+  const { buyCvlUrl, challengesWonTotalCvl, rewardsEarned } = props;
 
   let buyBtnProps: any = { href: buyCvlUrl };
   if (buyCvlUrl.charAt(0) === "/") {
     buyBtnProps = { to: buyCvlUrl };
-  }
-  let applyBtnProps: any = { href: applyURL };
-  if (applyURL.charAt(0) === "/") {
-    applyBtnProps = { to: applyURL };
   }
 
   return (
@@ -93,10 +88,6 @@ export const DashboardUserInfoSummary = (props: DashboardUserInfoSummaryProps) =
         <Button size={buttonSizes.MEDIUM_WIDE} {...buyBtnProps}>
           Buy or Sell Civil Tokens
         </Button>
-
-        <InvertedButton size={buttonSizes.MEDIUM_WIDE} {...applyBtnProps}>
-          Join as a newsroom
-        </InvertedButton>
       </StyledUserInfoButtonSection>
     </StyledUserInfo>
   );

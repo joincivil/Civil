@@ -94,8 +94,8 @@ const USER_NRSIGNUP_QUERY = gql`
   }
 `;
 
-const CHALLENGE_FRAGMENT = gql`
-  fragment ChallengeFragment on Challenge {
+const DASHBOARD_CHALLENGE_FRAGMENT = gql`
+  fragment DashboardChallengeFragment on Challenge {
     challengeID
     challengeType
     listingAddress
@@ -182,7 +182,7 @@ const USER_CHALLENGE_DASHBOARD_QUERY = gql`
       voterReward
       parentChallengeID
       challenge {
-        ...ChallengeFragment
+        ...DashboardChallengeFragment
       }
     }
     challengesToReveal: userChallengeData(userAddr: $userAddress, canUserReveal: true) {
@@ -199,10 +199,10 @@ const USER_CHALLENGE_DASHBOARD_QUERY = gql`
       pollType
     }
     challengesStarted: challengesStartedByUser(addr: $userAddress) {
-      ...ChallengeFragment
+      ...DashboardChallengeFragment
     }
   }
-  ${CHALLENGE_FRAGMENT}
+  ${DASHBOARD_CHALLENGE_FRAGMENT}
 `;
 
 // We're storing which challenges to multi-claim in the state of this component, because
