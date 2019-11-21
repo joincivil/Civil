@@ -191,23 +191,37 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     refetchUserChallengeData,
   } = props;
 
+  const allVotesCount1 = allChallengesWithAvailableActions ? allChallengesWithAvailableActions.count() : 0;
+  const allVotesCount2 = proposalChallengesWithAvailableActions ? proposalChallengesWithAvailableActions.count() : 0;
+
+  const revealVotesCount1 = allChallengesWithUnrevealedVotes ? allChallengesWithUnrevealedVotes.count() : 0;
+  const revealVotesCount2 = proposalChallengesWithUnrevealedVotes ? proposalChallengesWithUnrevealedVotes.count() : 0;
+
+  const claimRewardsCount1 = userChallengesWithUnclaimedRewards ? userChallengesWithUnclaimedRewards.count() : 0;
+  const claimRewardsCount2 = userAppealChallengesWithUnclaimedRewards
+    ? userAppealChallengesWithUnclaimedRewards.count()
+    : 0;
+  const claimRewardsCount3 = proposalChallengesWithUnclaimedRewards
+    ? proposalChallengesWithUnclaimedRewards.count()
+    : 0;
+
+  const rescueTokensCount1 = userChallengesWithRescueTokens ? userChallengesWithRescueTokens.count() : 0;
+  const rescueTokensCount2 = userAppealChallengesWithRescueTokens ? userAppealChallengesWithRescueTokens.count() : 0;
+  const rescueTokensCount3 = proposalChallengesWithRescueTokens ? proposalChallengesWithRescueTokens.count() : 0;
+
   const allVotesTabTitle =
-    "All (" + (allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()) + ")";
+    "All (" + (allVotesCount1 + allVotesCount2) + ")";
   const revealVoteTabTitle =
     "Reveal Votes (" +
-    (allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()) +
+    (revealVotesCount1 + revealVotesCount2) +
     ")";
   const claimRewardsTabTitle =
     "Claim Rewards (" +
-    (userChallengesWithUnclaimedRewards!.count() +
-      userAppealChallengesWithUnclaimedRewards!.count() +
-      proposalChallengesWithUnclaimedRewards!.count()) +
+    (claimRewardsCount1 + claimRewardsCount2 + claimRewardsCount3) +
     ")";
   const rescueTokensTabTitle =
     "Reclaim Tokens (" +
-    (userChallengesWithRescueTokens!.count() +
-      userAppealChallengesWithRescueTokens!.count() +
-      proposalChallengesWithRescueTokens!.count()) +
+    (rescueTokensCount1 + rescueTokensCount2 + rescueTokensCount3) +
     ")";
 
   const titles = [allVotesTabTitle, revealVoteTabTitle, claimRewardsTabTitle, rescueTokensTabTitle];

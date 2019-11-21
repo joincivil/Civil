@@ -154,12 +154,17 @@ export const HandleContainer = styled.div`
 `;
 
 export const UserAvatarFigure = styled.figure`
-  background-color: ${colors.accent.CIVIL_TEAL};
+  background-color: #EF6B4A;
   border: 2px solid ${colors.basic.WHITE};
   border-radius: 50%;
   height: 36px;
   margin: 0 8px 0 0;
   width: 36px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: ${fonts.SANS_SERIF};
+  font-size: 25px;
 `;
 
 export const UserAvatar = styled.img`

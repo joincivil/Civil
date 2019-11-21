@@ -25,8 +25,7 @@ export interface DashboardUserProfileSummaryProps {
 
 export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryProps) => {
   const { userAvatarImgDataURL, userHandle, userEmailAddress, onSetEmailClicked, onSetAvatarClicked } = props;
-
-  const setAvatarText = userAvatarImgDataURL ? "change avatar" : "set avatar";
+  const initial = userHandle ? userHandle.charAt(0) : "?";
   return (
     <StyledUserProfile>
       {userAvatarImgDataURL && (
@@ -46,8 +45,9 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
             onSetAvatarClicked();
           }}
         >
-          <StyledUserNoAvatar />
-          <StyledEditAvatar>Edit</StyledEditAvatar>
+          <StyledUserNoAvatar>{initial}</StyledUserNoAvatar>
+          <StyledEditAvatar></StyledEditAvatar>
+          <StyledEditSpan>Edit</StyledEditSpan>
         </StyledAvatarContainer>
       )}
       <StyledUserHandleAndEmailContainer>

@@ -121,7 +121,6 @@ export const StyledEditAvatar = styled.figure`
   position: absolute;
   top: 40px;
   left: -40px;
-  color: #ffffff;
   background-color: #3e3e3e;
   opacity: 0.5;
   z-index: 10000;
@@ -139,19 +138,24 @@ export const StyledEditSpan = styled.span`
   left: 0px;
   font-size: 14px;
   line-height: 17px;
-  font-family: ${fonts.SANS_SERIF_BOLD}
+  font-family: ${fonts.SANS_SERIF_BOLD};
   font-weight: 700;
   letter-spacing: 0.22px;
-  color: #FFFFFF;
-  opacity: 1.0;
+  color: ${colors.basic.WHITE};
   z-index: 20000;
 `;
 
-export const StyledUserNoAvatar = styled.figure`
+export const StyledUserNoAvatar = styled.div`
+  display: flex;
+  justify-content: space-around;
   width: 76px;
   height: 76px;
-  border-radius: 38px;
-  margin-right: 15px;
+  align-items: center;
+  background-color: #EF6B4A;
+  font-family: ${fonts.SANS_SERIF};
+  color: ${colors.basic.WHITE};
+  text-transform: uppercase;
+  font-size: 50px;
 `;
 
 export const StyledUserHandleText = styled.span`
