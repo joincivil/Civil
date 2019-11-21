@@ -8,9 +8,7 @@ import {
   StyledUserEmailText,
   StyledUserSetEmailText,
   StyledChangeUserEmailText,
-  StyledUserEmailContainer,
   StyledUserNoAvatar,
-  StyledChangeUserAvatarText,
   StyledAvatarContainer,
   StyledEditSpan,
 } from "./DashboardStyledComponents";

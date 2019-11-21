@@ -33,7 +33,8 @@ export const StyledDashboardTabsContainer = styled.div`
 
 export const StyledDashboardTab = styled.li`
   color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.CIVIL_BLUE_1 : colors.primary.CIVIL_GRAY_1)};
-  border-bottom: ${(props: TabComponentProps) => (props.isActive ? "3px solid " + colors.primary.CIVIL_BLUE_1 : "none")};
+  border-bottom: ${(props: TabComponentProps) =>
+    props.isActive ? "3px solid " + colors.primary.CIVIL_BLUE_1 : "none"};
   cursor: pointer;
   font-size: 18px;
   font-weight: ${(props: TabComponentProps) => (props.isActive ? "bold" : "normal")};
@@ -151,7 +152,7 @@ export const StyledUserNoAvatar = styled.div`
   width: 76px;
   height: 76px;
   align-items: center;
-  background-color: #EF6B4A;
+  background-color: #ef6b4a;
   font-family: ${fonts.SANS_SERIF};
   color: ${colors.basic.WHITE};
   text-transform: uppercase;

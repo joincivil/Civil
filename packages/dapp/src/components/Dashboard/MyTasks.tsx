@@ -209,20 +209,11 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
   const rescueTokensCount2 = userAppealChallengesWithRescueTokens ? userAppealChallengesWithRescueTokens.count() : 0;
   const rescueTokensCount3 = proposalChallengesWithRescueTokens ? proposalChallengesWithRescueTokens.count() : 0;
 
-  const allVotesTabTitle =
-    "All (" + (allVotesCount1 + allVotesCount2) + ")";
-  const revealVoteTabTitle =
-    "Reveal Votes (" +
-    (revealVotesCount1 + revealVotesCount2) +
-    ")";
-  const claimRewardsTabTitle =
-    "Claim Rewards (" +
-    (claimRewardsCount1 + claimRewardsCount2 + claimRewardsCount3) +
-    ")";
+  const allVotesTabTitle = "All (" + (allVotesCount1 + allVotesCount2) + ")";
+  const revealVoteTabTitle = "Reveal Votes (" + (revealVotesCount1 + revealVotesCount2) + ")";
+  const claimRewardsTabTitle = "Claim Rewards (" + (claimRewardsCount1 + claimRewardsCount2 + claimRewardsCount3) + ")";
   const rescueTokensTabTitle =
-    "Reclaim Tokens (" +
-    (rescueTokensCount1 + rescueTokensCount2 + rescueTokensCount3) +
-    ")";
+    "Reclaim Tokens (" + (rescueTokensCount1 + rescueTokensCount2 + rescueTokensCount3) + ")";
 
   const titles = [allVotesTabTitle, revealVoteTabTitle, claimRewardsTabTitle, rescueTokensTabTitle];
 

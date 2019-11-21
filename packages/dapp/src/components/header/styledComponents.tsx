@@ -154,7 +154,7 @@ export const HandleContainer = styled.div`
 `;
 
 export const UserAvatarFigure = styled.figure`
-  background-color: #EF6B4A;
+  background-color: #ef6b4a;
   border: 2px solid ${colors.basic.WHITE};
   border-radius: 50%;
   height: 36px;
