@@ -27,6 +27,7 @@ import SetAvatar from "../Auth/SetAvatar";
 const StyledDashboardActivityContainer = styled.div`
   box-sizing: border-box;
   margin-top: 40px;
+  flex-grow: 1;
 
   ${mediaQueries.MOBILE} {
     max-width: 100%;

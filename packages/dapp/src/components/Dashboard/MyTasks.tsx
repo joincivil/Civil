@@ -1,20 +1,19 @@
 import * as React from "react";
 import { Map, Set } from "immutable";
-
+import { colors, DropdownArrow, buttonSizes, NewPrimaryButton } from "@joincivil/elements";
 import MyTasksList from "./MyTasksList";
+import styled from "styled-components";
 
 import {
-  Tabs,
-  Tab,
-  AllChallengesDashboardTabTitle,
-  RevealVoteDashboardTabTitle,
-  ClaimRewardsDashboardTabTitle,
-  RescueTokensDashboardTabTitle,
-  StyledDashboardSubTab,
-  SubTabReclaimTokensText,
+  Dropdown,
+  DropdownGroup,
+  DropdownItem,
+  InputBase,
+  InputIcon,
+  NoTasks,
+  NoVotesToReveal,
 } from "@joincivil/components";
 
-import { StyledTabsComponent } from "./DashboardActivity";
 import ChallengesWithRewardsToClaim from "./ChallengesWithRewardsToClaim";
 import ChallengesWithTokensToRescue from "./ChallengesWithTokensToRescue";
 import TransferCivilTokens from "./TransferCivilTokens";
@@ -42,6 +41,134 @@ export interface MyTasksProps {
   refetchUserChallengeData?(): void;
 }
 
+const StyledTasksFormGroup = styled.div`
+  flex-grow: 3;
+  margin-left: 16px;
+  height: 40px;
+  ${Dropdown} {
+    border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+    border-radius: 3px;
+    font-size: 15px;
+
+    & > div:nth-child(2) > div {
+      border-top: none;
+      box-shadow: none;
+      left: -1px;
+      top: -1px;
+      width: calc(100% + 2px);
+      max-width: unset;
+
+      :before,
+      :after {
+        display: none;
+      }
+    }
+
+    ${DropdownGroup} {
+      li {
+        border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    ${DropdownItem} {
+      padding: 0;
+
+      button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 17px 50px 17px 15px;
+        width: 100%;
+      }
+    }
+  }
+
+  ${InputBase} {
+    margin-bottom: 3px;
+    position: relative;
+
+    > input,
+    > textarea {
+      border: 1px solid ${colors.accent.CIVIL_GRAY_3};
+      border-radius: 3px;
+      padding: 15px;
+    }
+
+    > input:focus,
+    > textarea:focus {
+      border: 1px solid ${colors.accent.CIVIL_BLUE};
+    }
+  }
+
+  label {
+    color: ${colors.accent.CIVIL_GRAY_1};
+    font-size: 14px;
+  }
+
+  ${InputIcon} {
+    background-color: ${colors.basic.WHITE};
+    left: calc(100% - 50px);
+    position: absolute;
+    top: 22px;
+    z-index: 2;
+  }
+`;
+
+const StyledTasksDropdown = styled.div`
+  height: 40px;
+  position: relative;
+  padding-left: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const StyledDropdownArrow = styled.div`
+  align-items: center;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  display: flex;
+  justify-content: center;
+  padding-right: 12px;
+  position: absolute;
+  right: 0;
+`;
+
+const SelectionContainer = styled.div`
+  height: 70px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TokenTransferButton = styled(NewPrimaryButton)`
+  margin-right: 16px;
+  margin-left: 12px;
+  height: 40px;
+`;
+
+const Spacer = styled.div`
+  flex-grow: 3;
+  margin-left: 16px;
+  height: 40px;
+`;
+
+interface TasksDropdownSelectedProps {
+  label: string | JSX.Element;
+}
+
+const TasksDropdownSelected: React.FunctionComponent<TasksDropdownSelectedProps> = props => {
+  return (
+    <StyledTasksDropdown>
+      {props.label}
+      <StyledDropdownArrow>
+        <DropdownArrow />
+      </StyledDropdownArrow>
+    </StyledTasksDropdown>
+  );
+};
+
 const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
   const {
     allChallengesWithAvailableActions,
@@ -64,44 +191,31 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
     refetchUserChallengeData,
   } = props;
 
-  const allVotesTabTitle = (
-    <AllChallengesDashboardTabTitle
-      count={allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()}
-    />
-  );
-  const revealVoteTabTitle = (
-    <RevealVoteDashboardTabTitle
-      count={allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()}
-    />
-  );
-  const claimRewardsTabTitle = (
-    <ClaimRewardsDashboardTabTitle
-      count={
-        userChallengesWithUnclaimedRewards!.count() +
-        userAppealChallengesWithUnclaimedRewards!.count() +
-        proposalChallengesWithUnclaimedRewards!.count()
-      }
-    />
-  );
-  const rescueTokensTabTitle = (
-    <RescueTokensDashboardTabTitle
-      count={
-        userChallengesWithRescueTokens!.count() +
-        userAppealChallengesWithRescueTokens!.count() +
-        proposalChallengesWithRescueTokens!.count()
-      }
-    />
-  );
+  const allVotesTabTitle =
+    "All (" + (allChallengesWithAvailableActions.count() + proposalChallengesWithAvailableActions!.count()) + ")";
+  const revealVoteTabTitle =
+    "Reveal Votes (" +
+    (allChallengesWithUnrevealedVotes.count() + proposalChallengesWithUnrevealedVotes!.count()) +
+    ")";
+  const claimRewardsTabTitle =
+    "Claim Rewards (" +
+    (userChallengesWithUnclaimedRewards!.count() +
+      userAppealChallengesWithUnclaimedRewards!.count() +
+      proposalChallengesWithUnclaimedRewards!.count()) +
+    ")";
+  const rescueTokensTabTitle =
+    "Reclaim Tokens (" +
+    (userChallengesWithRescueTokens!.count() +
+      userAppealChallengesWithRescueTokens!.count() +
+      proposalChallengesWithRescueTokens!.count()) +
+    ")";
 
-  return (
-    <>
-      <Tabs
-        TabComponent={StyledDashboardSubTab}
-        TabsNavComponent={StyledTabsComponent}
-        activeIndex={activeSubTabIndex}
-        onActiveTabChange={setActiveSubTabIndex}
-      >
-        <Tab title={allVotesTabTitle}>
+  const titles = [allVotesTabTitle, revealVoteTabTitle, claimRewardsTabTitle, rescueTokensTabTitle];
+
+  const ActiveDisplay = () => {
+    switch (props.activeSubTabIndex) {
+      case 0:
+        return (
           <MyTasksList
             challenges={allChallengesWithAvailableActions}
             proposalChallenges={proposalChallengesWithAvailableActions}
@@ -110,9 +224,11 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
+            noTasksComponent={<NoTasks />}
           />
-        </Tab>
-        <Tab title={revealVoteTabTitle}>
+        );
+      case 1:
+        return (
           <MyTasksList
             challenges={allChallengesWithUnrevealedVotes}
             proposalChallenges={proposalChallengesWithUnrevealedVotes}
@@ -121,9 +237,11 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             showClaimRewardsTab={showClaimRewardsTab}
             showRescueTokensTab={showRescueTokensTab}
+            noTasksComponent={<NoVotesToReveal />}
           />
-        </Tab>
-        <Tab title={claimRewardsTabTitle}>
+        );
+      case 2:
+        return (
           <ChallengesWithRewardsToClaim
             challenges={userChallengesWithUnclaimedRewards}
             appealChallenges={userAppealChallengesWithUnclaimedRewards}
@@ -132,8 +250,9 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
-        </Tab>
-        <Tab title={rescueTokensTabTitle}>
+        );
+      case 3:
+        return (
           <ChallengesWithTokensToRescue
             challenges={userChallengesWithRescueTokens}
             appealChallenges={userAppealChallengesWithRescueTokens}
@@ -142,11 +261,53 @@ const MyTasks: React.FunctionComponent<MyTasksProps> = props => {
             refetchUserChallengeData={refetchUserChallengeData}
             onMobileTransactionClick={showNoMobileTransactionsModal}
           />
-        </Tab>
-        <Tab title={<SubTabReclaimTokensText />}>
-          <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />
-        </Tab>
-      </Tabs>
+        );
+      case 4:
+        return <TransferCivilTokens showNoMobileTransactionsModal={showNoMobileTransactionsModal} />;
+      default:
+        return <></>;
+    }
+  };
+
+  return (
+    <>
+      <SelectionContainer>
+        {activeSubTabIndex !== 4 && (
+          <StyledTasksFormGroup>
+            <Dropdown position="left" target={<TasksDropdownSelected label={titles[activeSubTabIndex]} />}>
+              <DropdownGroup>
+                <DropdownItem>
+                  <button onClick={() => setActiveSubTabIndex(0)}>{titles[0]}</button>
+                </DropdownItem>
+                <DropdownItem>
+                  <button onClick={() => setActiveSubTabIndex(1)}>{titles[1]}</button>
+                </DropdownItem>
+                <DropdownItem>
+                  <button onClick={() => setActiveSubTabIndex(2)}>{titles[2]}</button>
+                </DropdownItem>
+                <DropdownItem>
+                  <button onClick={() => setActiveSubTabIndex(3)}>{titles[3]}</button>
+                </DropdownItem>
+              </DropdownGroup>
+            </Dropdown>
+          </StyledTasksFormGroup>
+        )}
+        {activeSubTabIndex === 4 && <Spacer />}
+        <TokenTransferButton
+          size={buttonSizes.NEW_MEDIUM}
+          onClick={() => {
+            if (activeSubTabIndex === 4) {
+              setActiveSubTabIndex(0);
+            } else {
+              setActiveSubTabIndex(4);
+            }
+          }}
+        >
+          {activeSubTabIndex === 4 && "Back to All tasks"}
+          {activeSubTabIndex !== 4 && "Transfer Tokens"}
+        </TokenTransferButton>
+      </SelectionContainer>
+      <ActiveDisplay />
     </>
   );
 };

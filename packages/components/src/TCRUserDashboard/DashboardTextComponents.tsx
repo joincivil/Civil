@@ -48,6 +48,27 @@ export const NoTasks: React.FunctionComponent = props => (
   </StyledTransferTokenTitle>
 );
 
+export const NoVotesToReveal: React.FunctionComponent = props => (
+  <StyledTransferTokenTitle>
+    <h3>No Votes to Reveal</h3>
+    <p>You don't have any votes to reveal right now.</p>
+  </StyledTransferTokenTitle>
+);
+
+export const NoRewardsToClaim: React.FunctionComponent = props => (
+  <StyledTransferTokenTitle>
+    <h3>No Rewards to Claim</h3>
+    <p>You don't have any rewards to claim right now.</p>
+  </StyledTransferTokenTitle>
+);
+
+export const NoTokensToRescue: React.FunctionComponent = props => (
+  <StyledTransferTokenTitle>
+    <h3>No Tokens to Rescue</h3>
+    <p>You don't have any tokens to rescue right now.</p>
+  </StyledTransferTokenTitle>
+);
+
 export const NoChallenges: React.FunctionComponent = props => (
   <StyledTransferTokenTitle>
     <h3>No Challenges</h3>

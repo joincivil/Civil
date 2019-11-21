@@ -12,6 +12,7 @@ import {
   ModalContent,
   StyledDashboardActivityDescription,
   TransactionButtonNoModal,
+  NoRewardsToClaim,
 } from "@joincivil/components";
 
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
@@ -97,84 +98,96 @@ class ChallengesWithRewardsToClaim extends React.Component<
     const isClaimRewardsButtonDisabled = this.isEmpty(this.state.challengesToClaim);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiClaim } = this;
-    const { userChallengeData: allUserChallengeData } = this.props;
+    const { userChallengeData: allUserChallengeData, challenges, appealChallenges, proposalChallenges } = this.props;
+    const displayNoTasks =
+      challenges &&
+      challenges.count() === 0 &&
+      appealChallenges &&
+      appealChallenges.count() === 0 &&
+      proposalChallenges &&
+      proposalChallenges.count() === 0;
 
     return (
       <>
-        <StyledDashboardActivityDescription>
-          <ClaimRewardsDescriptionText />
-        </StyledDashboardActivityDescription>
+        {displayNoTasks && <NoRewardsToClaim />}
+        {!displayNoTasks && (
+          <>
+            <StyledDashboardActivityDescription>
+              <ClaimRewardsDescriptionText />
+            </StyledDashboardActivityDescription>
 
-        <Tabs
-          TabComponent={StyledDashboardSubTab}
-          TabsNavComponent={StyledTabsComponent}
-          onActiveTabChange={resetChallengesToMultiClaim}
-        >
-          <Tab title="Listing Challenges">
-            <>
-              {this.props.challenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <ClaimRewardsItem
-                      key={c}
-                      challengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiClaim}
-                    />
-                  );
-                })}
+            <Tabs
+              TabComponent={StyledDashboardSubTab}
+              TabsNavComponent={StyledTabsComponent}
+              onActiveTabChange={resetChallengesToMultiClaim}
+            >
+              <Tab title="Listing Challenges">
+                <>
+                  {this.props.challenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <ClaimRewardsItem
+                          key={c}
+                          challengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiClaim}
+                        />
+                      );
+                    })}
 
-              {this.props.appealChallenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <ClaimRewardsItem
-                      key={c}
-                      appealChallengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiClaim}
-                    />
-                  );
-                })}
-            </>
-          </Tab>
-          <Tab title="Parameter Proposal Challenges">
-            <>
-              {this.props.proposalChallenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <ClaimRewardsItem
-                      key={c}
-                      isProposalChallenge={true}
-                      challengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiClaim}
-                    />
-                  );
-                })}
-            </>
-          </Tab>
-        </Tabs>
+                  {this.props.appealChallenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <ClaimRewardsItem
+                          key={c}
+                          appealChallengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiClaim}
+                        />
+                      );
+                    })}
+                </>
+              </Tab>
+              <Tab title="Parameter Proposal Challenges">
+                <>
+                  {this.props.proposalChallenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <ClaimRewardsItem
+                          key={c}
+                          isProposalChallenge={true}
+                          challengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiClaim}
+                        />
+                      );
+                    })}
+                </>
+              </Tab>
+            </Tabs>
 
-        <StyledBatchButtonContainer>
-          <TransactionButtonNoModal disabled={isClaimRewardsButtonDisabled} transactions={transactions}>
-            Claim Rewards
-          </TransactionButtonNoModal>
-        </StyledBatchButtonContainer>
+            <StyledBatchButtonContainer>
+              <TransactionButtonNoModal disabled={isClaimRewardsButtonDisabled} transactions={transactions}>
+                Claim Rewards
+              </TransactionButtonNoModal>
+            </StyledBatchButtonContainer>
+          </>
+        )}
       </>
     );
   }

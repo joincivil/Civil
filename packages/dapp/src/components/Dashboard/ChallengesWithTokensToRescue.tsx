@@ -12,6 +12,7 @@ import {
   ModalContent,
   StyledDashboardActivityDescription,
   TransactionButtonNoModal,
+  NoTokensToRescue,
 } from "@joincivil/components";
 
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
@@ -100,84 +101,96 @@ class ChallengesWithTokensToRescue extends React.Component<
     const isRescueTokensButtonDisabled = this.isEmpty(this.state.challengesToRescue);
     const transactions = this.getTransactions();
     const { resetChallengesToMultiRescue } = this;
-    const { userChallengeData: allUserChallengeData } = this.props;
+    const { userChallengeData: allUserChallengeData, challenges, appealChallenges, proposalChallenges } = this.props;
+    const displayNoTasks =
+      challenges &&
+      challenges.count() === 0 &&
+      appealChallenges &&
+      appealChallenges.count() === 0 &&
+      proposalChallenges &&
+      proposalChallenges.count() === 0;
 
     return (
       <>
-        <StyledDashboardActivityDescription>
-          <RescueTokensDescriptionText />
-        </StyledDashboardActivityDescription>
+        {displayNoTasks && <NoTokensToRescue />}
+        {!displayNoTasks && (
+          <>
+            <StyledDashboardActivityDescription>
+              <RescueTokensDescriptionText />
+            </StyledDashboardActivityDescription>
 
-        <Tabs
-          TabComponent={StyledDashboardSubTab}
-          TabsNavComponent={StyledTabsComponent}
-          onActiveTabChange={resetChallengesToMultiRescue}
-        >
-          <Tab title="Listing Challenges">
-            <>
-              {this.props.challenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <RescueTokensItem
-                      key={c}
-                      challengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiRescue}
-                    />
-                  );
-                })}
+            <Tabs
+              TabComponent={StyledDashboardSubTab}
+              TabsNavComponent={StyledTabsComponent}
+              onActiveTabChange={resetChallengesToMultiRescue}
+            >
+              <Tab title="Listing Challenges">
+                <>
+                  {this.props.challenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <RescueTokensItem
+                          key={c}
+                          challengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiRescue}
+                        />
+                      );
+                    })}
 
-              {this.props.appealChallenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <RescueTokensItem
-                      key={c}
-                      appealChallengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiRescue}
-                    />
-                  );
-                })}
-            </>
-          </Tab>
-          <Tab title="Parameter Proposal Challenges">
-            <>
-              {this.props.proposalChallenges
-                .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
-                .map((c: string) => {
-                  let userChallengeData;
-                  if (allUserChallengeData) {
-                    userChallengeData = allUserChallengeData.get(c!);
-                  }
-                  return (
-                    <RescueTokensItem
-                      key={c}
-                      isProposalChallenge={true}
-                      challengeID={c!}
-                      queryUserChallengeData={userChallengeData}
-                      toggleSelect={this.setChallengesToMultiRescue}
-                    />
-                  );
-                })}
-            </>
-          </Tab>
-        </Tabs>
+                  {this.props.appealChallenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <RescueTokensItem
+                          key={c}
+                          appealChallengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiRescue}
+                        />
+                      );
+                    })}
+                </>
+              </Tab>
+              <Tab title="Parameter Proposal Challenges">
+                <>
+                  {this.props.proposalChallenges
+                    .sort((a: string, b: string) => parseInt(a, 10) - parseInt(b, 10))
+                    .map((c: string) => {
+                      let userChallengeData;
+                      if (allUserChallengeData) {
+                        userChallengeData = allUserChallengeData.get(c!);
+                      }
+                      return (
+                        <RescueTokensItem
+                          key={c}
+                          isProposalChallenge={true}
+                          challengeID={c!}
+                          queryUserChallengeData={userChallengeData}
+                          toggleSelect={this.setChallengesToMultiRescue}
+                        />
+                      );
+                    })}
+                </>
+              </Tab>
+            </Tabs>
 
-        <StyledBatchButtonContainer>
-          <TransactionButtonNoModal disabled={isRescueTokensButtonDisabled} transactions={transactions}>
-            Rescue Tokens
-          </TransactionButtonNoModal>
-        </StyledBatchButtonContainer>
+            <StyledBatchButtonContainer>
+              <TransactionButtonNoModal disabled={isRescueTokensButtonDisabled} transactions={transactions}>
+                Rescue Tokens
+              </TransactionButtonNoModal>
+            </StyledBatchButtonContainer>
+          </>
+        )}
       </>
     );
   }

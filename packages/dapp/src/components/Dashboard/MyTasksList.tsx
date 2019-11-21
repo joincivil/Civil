@@ -10,6 +10,7 @@ export interface MyTasksListOwnProps {
   proposalChallenges?: Set<string>;
   userChallengeData?: Map<string, any>;
   challengeToAppealChallengeMap?: Map<string, string>;
+  noTasksComponent: JSX.Element;
   refetchUserChallengeData?(): void;
   showClaimRewardsTab(): void;
   showRescueTokensTab(): void;
@@ -17,95 +18,103 @@ export interface MyTasksListOwnProps {
 
 const MyTasksList: React.FunctionComponent<MyTasksListOwnProps> = props => {
   const { userChallengeData: allUserChallengeData, challengeToAppealChallengeMap, refetchUserChallengeData } = props;
+  const hasNoChallenges = !props.fullChallenges || props.fullChallenges.count() === 0;
+  const hasNoProposalChallenges = !props.proposalChallenges || props.proposalChallenges.count() === 0;
+  const displayNoTasks = hasNoChallenges && hasNoProposalChallenges;
   return (
     <>
-      {props.fullChallenges &&
-        props.fullChallenges
-          .sort((a, b) => parseInt(a.challengeID, 10) - parseInt(b.challengeID, 10))
-          .map(c => {
-            let userChallengeData;
-            let appealChallengeUserData;
-            if (allUserChallengeData) {
-              userChallengeData = allUserChallengeData.get(c!.challengeID);
+      {displayNoTasks && props.noTasksComponent}
+      {!displayNoTasks && (
+        <>
+          {props.fullChallenges &&
+            props.fullChallenges
+              .sort((a, b) => parseInt(a.challengeID, 10) - parseInt(b.challengeID, 10))
+              .map(c => {
+                let userChallengeData;
+                let appealChallengeUserData;
+                if (allUserChallengeData) {
+                  userChallengeData = allUserChallengeData.get(c!.challengeID);
 
-              if (challengeToAppealChallengeMap) {
-                const childAppealChallengeID = challengeToAppealChallengeMap.get(c!.challengeID);
-                if (childAppealChallengeID) {
-                  appealChallengeUserData = allUserChallengeData.get(childAppealChallengeID);
+                  if (challengeToAppealChallengeMap) {
+                    const childAppealChallengeID = challengeToAppealChallengeMap.get(c!.challengeID);
+                    if (childAppealChallengeID) {
+                      appealChallengeUserData = allUserChallengeData.get(childAppealChallengeID);
+                    }
+                  }
                 }
-              }
-            }
-            return (
-              <MyChallengesItem
-                key={c!.challengeID}
-                challenge={c!}
-                queryUserChallengeData={userChallengeData}
-                queryUserAppealChallengeData={appealChallengeUserData}
-                refetchUserChallengeData={refetchUserChallengeData}
-                showClaimRewardsTab={() => {
-                  props.showClaimRewardsTab();
-                }}
-                showRescueTokensTab={() => {
-                  props.showRescueTokensTab();
-                }}
-              />
-            );
-          })}
-      {props.challenges &&
-        props.challenges
-          .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
-          .map(c => {
-            let userChallengeData;
-            let appealChallengeUserData;
-            if (allUserChallengeData) {
-              userChallengeData = allUserChallengeData.get(c!);
+                return (
+                  <MyChallengesItem
+                    key={c!.challengeID}
+                    challenge={c!}
+                    queryUserChallengeData={userChallengeData}
+                    queryUserAppealChallengeData={appealChallengeUserData}
+                    refetchUserChallengeData={refetchUserChallengeData}
+                    showClaimRewardsTab={() => {
+                      props.showClaimRewardsTab();
+                    }}
+                    showRescueTokensTab={() => {
+                      props.showRescueTokensTab();
+                    }}
+                  />
+                );
+              })}
+          {props.challenges &&
+            props.challenges
+              .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
+              .map(c => {
+                let userChallengeData;
+                let appealChallengeUserData;
+                if (allUserChallengeData) {
+                  userChallengeData = allUserChallengeData.get(c!);
 
-              if (challengeToAppealChallengeMap) {
-                const childAppealChallengeID = challengeToAppealChallengeMap.get(c!);
-                if (childAppealChallengeID) {
-                  appealChallengeUserData = allUserChallengeData.get(childAppealChallengeID);
+                  if (challengeToAppealChallengeMap) {
+                    const childAppealChallengeID = challengeToAppealChallengeMap.get(c!);
+                    if (childAppealChallengeID) {
+                      appealChallengeUserData = allUserChallengeData.get(childAppealChallengeID);
+                    }
+                  }
                 }
-              }
-            }
-            return (
-              <MyTasksItem
-                key={c}
-                challengeID={c!}
-                queryUserChallengeData={userChallengeData}
-                queryUserAppealChallengeData={appealChallengeUserData}
-                refetchUserChallengeData={refetchUserChallengeData}
-                showClaimRewardsTab={() => {
-                  props.showClaimRewardsTab();
-                }}
-                showRescueTokensTab={() => {
-                  props.showRescueTokensTab();
-                }}
-              />
-            );
-          })}
-      {props.proposalChallenges &&
-        props.proposalChallenges
-          .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
-          .map(c => {
-            let userChallengeData;
-            if (allUserChallengeData) {
-              userChallengeData = allUserChallengeData.get(c!);
-            }
-            return (
-              <MyTasksProposalItem
-                key={c}
-                challengeID={c!}
-                queryUserChallengeData={userChallengeData}
-                refetchUserChallengeData={refetchUserChallengeData}
-                showClaimRewardsTab={() => {
-                  props.showClaimRewardsTab();
-                }}
-                showRescueTokensTab={() => {
-                  props.showRescueTokensTab();
-                }}
-              />
-            );
-          })}
+                return (
+                  <MyTasksItem
+                    key={c}
+                    challengeID={c!}
+                    queryUserChallengeData={userChallengeData}
+                    queryUserAppealChallengeData={appealChallengeUserData}
+                    refetchUserChallengeData={refetchUserChallengeData}
+                    showClaimRewardsTab={() => {
+                      props.showClaimRewardsTab();
+                    }}
+                    showRescueTokensTab={() => {
+                      props.showRescueTokensTab();
+                    }}
+                  />
+                );
+              })}
+          {props.proposalChallenges &&
+            props.proposalChallenges
+              .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
+              .map(c => {
+                let userChallengeData;
+                if (allUserChallengeData) {
+                  userChallengeData = allUserChallengeData.get(c!);
+                }
+                return (
+                  <MyTasksProposalItem
+                    key={c}
+                    challengeID={c!}
+                    queryUserChallengeData={userChallengeData}
+                    refetchUserChallengeData={refetchUserChallengeData}
+                    showClaimRewardsTab={() => {
+                      props.showClaimRewardsTab();
+                    }}
+                    showRescueTokensTab={() => {
+                      props.showRescueTokensTab();
+                    }}
+                  />
+                );
+              })}
+        </>
+      )}
     </>
   );
 };
