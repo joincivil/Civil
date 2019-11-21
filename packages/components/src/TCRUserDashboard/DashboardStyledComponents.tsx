@@ -29,17 +29,22 @@ export const StyledUserActivityContent = styled.div`
 
 export const StyledDashboardTabsContainer = styled.div`
   background: ${colors.accent.CIVIL_GRAY_4};
-  padding: 25px 28px 13px;
 `;
 
 export const StyledDashboardTab = styled.li`
-  color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.BLACK : colors.primary.CIVIL_GRAY_1)};
+  color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.CIVIL_BLUE_1 : colors.primary.CIVIL_GRAY_1)};
+  border-bottom: ${(props: TabComponentProps) => (props.isActive ? "3px solid " + colors.primary.CIVIL_BLUE_1 : "none")};
   cursor: pointer;
   font-size: 18px;
   font-weight: ${(props: TabComponentProps) => (props.isActive ? "bold" : "normal")};
   line-height: 21px;
-  margin: 0 12px 12px;
   white-space: nowrap;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 62px;
 `;
 
 export const StyledSubTabCount = styled.span`
