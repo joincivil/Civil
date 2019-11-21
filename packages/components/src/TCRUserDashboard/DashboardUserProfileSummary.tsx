@@ -3,6 +3,7 @@ import {
   StyledUserProfile,
   StyledUserHandleAndEmailContainer,
   StyledUserAvatar,
+  StyledEditAvatar,
   StyledUserHandleText,
   StyledUserEmailText,
   StyledUserSetEmailText,
@@ -10,6 +11,8 @@ import {
   StyledUserEmailContainer,
   StyledUserNoAvatar,
   StyledChangeUserAvatarText,
+  StyledAvatarContainer,
+  StyledEditSpan,
 } from "./DashboardStyledComponents";
 
 export interface DashboardUserProfileSummaryProps {
@@ -27,33 +30,37 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
   return (
     <StyledUserProfile>
       {userAvatarImgDataURL && (
-        <StyledUserAvatar
-          src={userAvatarImgDataURL}
+        <StyledAvatarContainer
           onClick={() => {
             onSetAvatarClicked();
           }}
-        />
+        >
+          <StyledUserAvatar src={userAvatarImgDataURL} />
+          <StyledEditAvatar></StyledEditAvatar>
+          <StyledEditSpan>Edit</StyledEditSpan>
+        </StyledAvatarContainer>
       )}
       {!userAvatarImgDataURL && (
-        <StyledUserNoAvatar
+        <StyledAvatarContainer
           onClick={() => {
             onSetAvatarClicked();
           }}
-        />
+        >
+          <StyledUserNoAvatar />
+          <StyledEditAvatar>Edit</StyledEditAvatar>
+        </StyledAvatarContainer>
       )}
       <StyledUserHandleAndEmailContainer>
         <StyledUserHandleText>{userHandle}</StyledUserHandleText>
+        {userEmailAddress && <StyledUserEmailText>{userEmailAddress}</StyledUserEmailText>}
         {userEmailAddress && (
-          <StyledUserEmailContainer>
-            <StyledUserEmailText>{userEmailAddress}</StyledUserEmailText>
-            <StyledChangeUserEmailText
-              onClick={() => {
-                onSetEmailClicked();
-              }}
-            >
-              change
-            </StyledChangeUserEmailText>
-          </StyledUserEmailContainer>
+          <StyledChangeUserEmailText
+            onClick={() => {
+              onSetEmailClicked();
+            }}
+          >
+            change email
+          </StyledChangeUserEmailText>
         )}
         {!userEmailAddress && (
           <StyledUserSetEmailText
@@ -64,13 +71,6 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
             set email
           </StyledUserSetEmailText>
         )}
-        <StyledChangeUserAvatarText
-          onClick={() => {
-            onSetAvatarClicked();
-          }}
-        >
-          {setAvatarText}
-        </StyledChangeUserAvatarText>
       </StyledUserHandleAndEmailContainer>
     </StyledUserProfile>
   );

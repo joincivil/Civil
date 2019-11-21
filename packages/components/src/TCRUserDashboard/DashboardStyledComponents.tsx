@@ -100,11 +100,51 @@ export const StyledUserProfile = styled.div`
   margin-bottom: 22px;
 `;
 
+export const StyledAvatarContainer = styled.div`
+  width: 76px;
+  height: 76px;
+  margin-right: 15px;
+  position: relative;
+  clip-path: circle(38px at center);
+`;
+
 export const StyledUserAvatar = styled.img`
   width: 76px;
   height: 76px;
-  border-radius: 38px;
-  margin-right: 15px;
+  position: absolute;
+  z-index: 999;
+`;
+
+export const StyledEditAvatar = styled.figure`
+  width: 76px;
+  height: 20px;
+  position: absolute;
+  top: 40px;
+  left: -40px;
+  color: #ffffff;
+  background-color: #3e3e3e;
+  opacity: 0.5;
+  z-index: 10000;
+`;
+
+export const StyledEditSpan = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 76px;
+  height: 20px;
+  position: absolute;
+  top: 55px;
+  left: 0px;
+  font-size: 14px;
+  line-height: 17px;
+  font-family: ${fonts.SANS_SERIF_BOLD}
+  font-weight: 700;
+  letter-spacing: 0.22px;
+  color: #FFFFFF;
+  opacity: 1.0;
+  z-index: 20000;
 `;
 
 export const StyledUserNoAvatar = styled.figure`
@@ -130,8 +170,6 @@ export const StyledUserEmailText = styled.span`
   height: 23px;
   letter-spacing: -0.04px;
   line-height: 23px;
-  max-width: 200px;
-  text-overflow: ellipsis;
 `;
 
 export const StyledUserSetEmailText = styled.span`
@@ -149,7 +187,6 @@ export const StyledChangeUserEmailText = styled.span`
   height: 23px;
   letter-spacing: -0.04px;
   line-height: 23px;
-  max-width: 42px;
   margin: left: 2px;
   color: ${colors.accent.CIVIL_BLUE};
 `;
@@ -164,7 +201,7 @@ export const StyledChangeUserAvatarText = styled.span`
 `;
 
 export const StyledUserEmailContainer = styled.div`
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 export const StyledUserHandleAndEmailContainer = styled.div`
