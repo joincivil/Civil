@@ -2,6 +2,7 @@ import * as React from "react";
 import { StoryLink, StoryLinkLeft, StoryTitle, StoryImgSquare, TimeStamp } from "./StoryFeedStyledComponents";
 import { OpenGraphData } from "./types";
 import { getTimeSince } from "@joincivil/utils";
+import { storyPlaceholderImgUrl } from "@joincivil/components";
 
 export interface StoryProps {
   openGraphData: OpenGraphData;
@@ -18,11 +19,13 @@ export const Story: React.FunctionComponent<StoryProps> = props => {
             <TimeStamp>{getTimeSince(props.openGraphData.article.published_time)}</TimeStamp>
           )}
         </StoryLinkLeft>
-        {props.openGraphData.images && (
-          <StoryImgSquare>
+        <StoryImgSquare>
+          {props.openGraphData.images ? (
             <img src={props.openGraphData.images[0].url} />
-          </StoryImgSquare>
-        )}
+          ) : (
+            <img src={storyPlaceholderImgUrl} />
+          )}
+        </StoryImgSquare>
       </StoryLink>
     </>
   );
