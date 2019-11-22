@@ -66,6 +66,8 @@ const UserAccount: React.FunctionComponent = props => {
 
     const tiny72AvatarDataUrl = civilUser.userChannel!.tiny72AvatarDataUrl;
     const showFigure = !tiny72AvatarDataUrl;
+    const handle = civilUser.userChannel!.handle;
+    const initial = handle ? handle.charAt(0) : "?";
 
     return (
       <>
@@ -79,7 +81,7 @@ const UserAccount: React.FunctionComponent = props => {
             <CvlContainer>
               <AvatarContainer>
                 {tiny72AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny72AvatarDataUrl} />}
-                {showFigure && <UserAvatarFigure />}
+                {showFigure && <UserAvatarFigure>{initial}</UserAvatarFigure>}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
               <Arrow isOpen={isUserDrawerOpen} />
