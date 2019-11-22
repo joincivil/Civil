@@ -63,8 +63,8 @@
     "styled-components": "5.0.0-beta.8"
   },
   "scripts": {
-    "start": "react-app-rewired --max_old_space_size=4096 start",
-    "build": "CI=false react-app-rewired --max_old_space_size=4096 build",
+    "start": "react-app-rewired --max_old_space_size=5120 start",
+    "build": "CI=false react-app-rewired --max_old_space_size=5120 build",
     "test": "echo \"no tests\"",
     "eject": "react-scripts eject",
     "lint": "tslint --project ./",
