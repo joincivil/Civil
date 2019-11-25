@@ -19,7 +19,7 @@ export interface PaymentsEthProps {
   usdToSpend: number;
   resetEthPayments: boolean;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean): void;
   handleEditPaymentType(): void;
 }
 

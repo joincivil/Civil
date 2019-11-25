@@ -12,7 +12,7 @@ export interface PaymentsStripeProps {
   newsroomName: string;
   shouldPublicize: boolean;
   usdToSpend: number;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean): void;
   handleEditPaymentType(): void;
 }
 

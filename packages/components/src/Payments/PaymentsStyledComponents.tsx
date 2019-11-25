@@ -151,11 +151,16 @@ export const PaymentBtn = styled.button`
   opacity: 1;
   outline: none;
   padding: 10px 40px;
-  transition: opacity 250ms;
+  transition: background-color 250ms;
   width: 100%;
 
   &:hover {
-    opacity: 0.8;
+    background-color: ${colors.accent.CIVIL_BLUE_FADED};
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: ${colors.accent.CIVIL_BLUE_FADED};
   }
 `;
 
@@ -314,8 +319,6 @@ export const PaymentModalCloseBtn = styled(InvertedButton)`
       fill: ${colors.accent.CIVIL_BLUE};
     }
   }
-
-  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "display: none;"}
 `;
 
 export const PaymentEthLearnMore = styled.div`

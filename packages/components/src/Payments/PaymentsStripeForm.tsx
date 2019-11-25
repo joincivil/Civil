@@ -85,7 +85,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   userChannelID?: string;
   usdToSpend: number;
   savePayment: MutationFunc;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean): void;
   handleEditPaymentType(): void;
 }
 
@@ -139,22 +139,23 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           showSecureIcon={true}
         >
           <StripeWrapper>
-          {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email}/>}
-          {!this.state.wasEmailPrepopulated && (
-            <>
-            <PaymentInputLabel>Email</PaymentInputLabel>
-            <InputValidationUI inputState={this.state.emailState}>
-              <input
-                defaultValue={this.state.email}
-                id="email"
-                name="email"
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-              />
-              <PaymentEmailConfirmationText />
-            </InputValidationUI>
-            </>)}
+            {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
+            {!this.state.wasEmailPrepopulated && (
+              <>
+                <PaymentInputLabel>Email</PaymentInputLabel>
+                <InputValidationUI inputState={this.state.emailState}>
+                  <input
+                    defaultValue={this.state.email}
+                    id="email"
+                    name="email"
+                    type="email"
+                    maxLength={254}
+                    onBlur={() => this.handleOnBlur(event)}
+                  />
+                  <PaymentEmailConfirmationText />
+                </InputValidationUI>
+              </>
+            )}
             <PaymentInputLabel>Card information</PaymentInputLabel>
             <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
               <StripeElement inputState={this.state.cardNumberState}>
@@ -349,7 +350,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               },
             },
           });
-          this.props.handlePaymentSuccess();
+          this.props.handlePaymentSuccess(this.state.email !== "" && true);
         } catch (err) {
           console.error(err);
           this.setState({ paymentProcessing: false, isPaymentError: true });
