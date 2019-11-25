@@ -47,7 +47,7 @@ const StyledEventTitle = styled.div`
   font-size: 21px;
   font-weight: 600;
   line-height: 25px;
-  margin: 0 0 8px;
+  margin: 0 0 8px 12px;
 `;
 
 export const StyledEventCopy = styled.div`
