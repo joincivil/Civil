@@ -187,15 +187,16 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       );
     }
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
+    if (
+      paymentState === PAYMENT_STATE.PAYMENT_SUCCESS ||
+      paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL
+    ) {
       return (
         <PaymentsWrapper newsroomName={newsroomName}>
-          <PaymentsSuccess
-            newsroomName={newsroomName}
-            usdToSpend={usdToSpend}
-            userSubmittedEmail={userSubmittedEmail}
-            handleClose={handleClose}
-          />
+          <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={handleClose} userSubmittedEmail={userSubmittedEmail}/>
+          {paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL && (
+            <p>Please check your email to confirm your email address.</p>
+          )}
         </PaymentsWrapper>
       );
     }
@@ -211,8 +212,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     );
   }
 
-  private handlePaymentSuccess = (userSubmittedEmail: boolean, etherToSpend?: number) => {
-    this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail, etherToSpend });
+  private handlePaymentSuccess = (userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend?: number) => {
+    if (didSaveEmail) {
+      this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL, userSubmittedEmail, etherToSpend });
+    } else {
+      this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail, etherToSpend });
+    }
   };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {

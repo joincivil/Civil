@@ -621,3 +621,21 @@ export const PayAppleGoogleOnCivilPrompt = styled.div`
     }
   }
 `;
+
+export const CheckboxContainer = styled.ul`
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  max-width: 300px;
+`;
+
+export const CheckboxSection = styled.li`
+  margin-bottom: 10px;
+`;
+
+export const CheckboxLabel = styled.span`
+  color: ${colors.primary.CIVIL_GRAY_1};
+  font: 400 15px/20px ${fonts.SANS_SERIF};
+  padding-left: 7px;
+  vertical-align: middle;
+`;
