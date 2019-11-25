@@ -212,7 +212,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   }
 
   private handlePaymentSuccess = (userSubmittedEmail: boolean) => {
-    this.setState({ paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE, userSubmittedEmail });
+    this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail });
   };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
