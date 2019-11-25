@@ -15,3 +15,11 @@ export const PAYMENTS_STRIPE_MUTATION = gql`
     }
   }
 `;
+
+export const SET_EMAIL_MUTATION = gql`
+  mutation($input: ChannelsSetEmailInput!) {
+    userChannelSetEmail(input: $input) {
+      id
+    }
+  }
+`;

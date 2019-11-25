@@ -2,7 +2,7 @@ import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
 import { EthAddress } from "@joincivil/core";
 import { ICivilContext, CivilContext } from "../context";
-import { PAYMENTS_ETH_MUTATION } from "./queries";
+import { PAYMENTS_ETH_MUTATION, SET_EMAIL_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";
 import { PaymentBtn, PaymentHide } from "./PaymentsStyledComponents";
 import { ConnectWalletWarningText } from "./PaymentsTextComponents";
@@ -19,7 +19,7 @@ export interface PaymentsEthProps {
   usdToSpend: number;
   resetEthPayments: boolean;
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
-  handlePaymentSuccess(userSubmittedEmail: boolean, etherToSpend: number): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend: number): void;
   handleEditPaymentType(): void;
 }
 
@@ -123,20 +123,27 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
       <Mutation mutation={PAYMENTS_ETH_MUTATION}>
         {(paymentsCreateEtherPayment: MutationFunc) => {
           return (
-            <PaymentsEthForm
-              postId={this.props.postId}
-              paymentAddress={this.props.paymentAddress}
-              userAddress={userAddress}
-              userEmail={userEmail}
-              userChannelID={userChannelID}
-              shouldPublicize={this.props.shouldPublicize}
-              savePayment={paymentsCreateEtherPayment}
-              etherToSpend={this.state.etherToSpend}
-              usdToSpend={this.state.usdToSpend}
-              newsroomName={this.props.newsroomName}
-              handlePaymentSuccess={this.props.handlePaymentSuccess}
-              handleEditPaymentType={this.props.handleEditPaymentType}
-            />
+            <Mutation mutation={SET_EMAIL_MUTATION}>
+              {(setEmailMutation: MutationFunc) => {
+                return (
+                  <PaymentsEthForm
+                    postId={this.props.postId}
+                    paymentAddress={this.props.paymentAddress}
+                    userAddress={userAddress}
+                    userEmail={userEmail}
+                    userChannelID={userChannelID}
+                    shouldPublicize={this.props.shouldPublicize}
+                    savePayment={paymentsCreateEtherPayment}
+                    setEmail={setEmailMutation}
+                    etherToSpend={this.state.etherToSpend}
+                    usdToSpend={this.state.usdToSpend}
+                    newsroomName={this.props.newsroomName}
+                    handlePaymentSuccess={this.props.handlePaymentSuccess}
+                    handleEditPaymentType={this.props.handleEditPaymentType}
+                  />
+                );
+              }}
+            </Mutation>
           );
         }}
       </Mutation>

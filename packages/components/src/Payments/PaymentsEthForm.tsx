@@ -2,7 +2,13 @@ import * as React from "react";
 import { MutationFunc } from "react-apollo";
 import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
 import { isValidEmail } from "@joincivil/utils";
-import { PaymentTerms, PaymentInputLabel } from "./PaymentsStyledComponents";
+import {
+  PaymentTerms,
+  PaymentInputLabel,
+  CheckboxContainer,
+  CheckboxSection,
+  CheckboxLabel,
+} from "./PaymentsStyledComponents";
 import { TransactionButtonNoModal, CivilContext, ICivilContext } from "../";
 import { PaymentsEthWrapper } from "./PaymentsEthWrapper";
 import { InputValidationUI } from "./PaymentsInputValidationUI";
@@ -14,6 +20,7 @@ import {
   PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
 import { INPUT_STATE } from "./types";
+import { Checkbox, CheckboxSizes } from "../input";
 
 export interface PaymentsEthFormProps {
   postId: string;
@@ -26,15 +33,20 @@ export interface PaymentsEthFormProps {
   userEmail?: string;
   userChannelID?: string;
   savePayment: MutationFunc;
-  handlePaymentSuccess(userSubmittedEmail: boolean, etherToSpend: number): void;
+  setEmail: MutationFunc;
+  handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend: number): void;
   handleEditPaymentType(): void;
 }
 
 export interface PaymentsEthFormState {
   email: string;
   emailState: string;
+  saveEmailState: string;
   isPaymentError: boolean;
   wasEmailPrepopulated: boolean;
+  promptSaveEmail: boolean;
+  shouldSaveEmailToAccount: boolean;
+  shouldAddEmailToMailingList: boolean;
 }
 
 export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, PaymentsEthFormState> {
@@ -45,9 +57,13 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
     super(props);
     this.state = {
       email: this.props.userEmail || "",
+      promptSaveEmail: !props.userEmail && props.userChannelID ? true : false,
       wasEmailPrepopulated: this.props.userEmail ? true : false,
       emailState: INPUT_STATE.EMPTY,
+      saveEmailState: INPUT_STATE.EMPTY,
       isPaymentError: false,
+      shouldSaveEmailToAccount: true,
+      shouldAddEmailToMailingList: false,
     };
   }
 
@@ -72,21 +88,52 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
                   type="email"
                   maxLength={254}
                   onBlur={() => this.handleOnBlur(event)}
+                  onChange={() => this.handleOnChange(event)}
                 />
                 <PaymentEmailConfirmationText />
               </InputValidationUI>
             </>
           )}
         </PaymentsEthWrapper>
+        {this.state.promptSaveEmail && this.state.saveEmailState === INPUT_STATE.VALID && (
+          <>
+            <CheckboxContainer>
+              <CheckboxSection>
+                <label>
+                  <Checkbox
+                    size={CheckboxSizes.SMALL}
+                    checked={this.state.shouldSaveEmailToAccount}
+                    onClick={this.toggleShouldSaveEmailToAccount}
+                  />
+                  <CheckboxLabel>Save my email to my Civil account.</CheckboxLabel>
+                </label>
+              </CheckboxSection>
+            </CheckboxContainer>
+            <CheckboxContainer>
+              <CheckboxSection>
+                <label>
+                  <Checkbox
+                    size={CheckboxSizes.SMALL}
+                    checked={this.state.shouldAddEmailToMailingList}
+                    onClick={this.toggleShouldAddEmailToMailingList}
+                  />
+                  <CheckboxLabel>Receive the Civil newsletter to your inbox.</CheckboxLabel>
+                </label>
+              </CheckboxSection>
+            </CheckboxContainer>
+          </>
+        )}
         <TransactionButtonNoModal
           transactions={[
             {
+              preTransaction: this.saveEmail,
               transaction: this.sendPayment,
               handleTransactionHash: this.handleTransactionHash,
               onTransactionError: this.onTransactionError,
               postTransaction: this.postTransaction,
             },
           ]}
+          disabled={this.state.emailState === INPUT_STATE.INVALID}
         >
           Complete Boost
         </TransactionButtonNoModal>
@@ -97,6 +144,14 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
       </>
     );
   }
+
+  private toggleShouldSaveEmailToAccount = () => {
+    this.setState({ shouldSaveEmailToAccount: !this.state.shouldSaveEmailToAccount });
+  };
+
+  private toggleShouldAddEmailToMailingList = () => {
+    this.setState({ shouldAddEmailToMailingList: !this.state.shouldAddEmailToMailingList });
+  };
 
   private handleOnBlur = (event: any) => {
     const state = event.target.id;
@@ -111,6 +166,44 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
         break;
       default:
         break;
+    }
+  };
+
+  private handleOnChange = (event: any) => {
+    const state = event.target.id;
+    const value = event.target.value;
+
+    switch (state) {
+      case "email":
+        const validEmail = isValidEmail(event.target.value);
+        validEmail
+          ? this.setState({ email: value, saveEmailState: INPUT_STATE.VALID, emailState: INPUT_STATE.VALID })
+          : this.setState({ saveEmailState: INPUT_STATE.INVALID });
+        if (value === "") {
+          this.setState({ email: value, emailState: INPUT_STATE.VALID });
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  private saveEmail = async (): Promise<void> => {
+    if (
+      this.state.promptSaveEmail &&
+      this.state.emailState === INPUT_STATE.VALID &&
+      this.state.shouldSaveEmailToAccount
+    ) {
+      const variables = {
+        input: {
+          emailAddress: this.state.email,
+          channelID: this.props.userChannelID,
+          addToMailing: this.state.shouldAddEmailToMailingList,
+        },
+      };
+      await this.props.setEmail({
+        variables,
+      });
     }
   };
 
@@ -147,6 +240,8 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private postTransaction = () => {
     this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
-    this.props.handlePaymentSuccess(this.state.email !== "" && true, this.props.etherToSpend);
+    const didSaveEmail =
+      this.state.promptSaveEmail && this.state.email && this.state.shouldSaveEmailToAccount ? true : false;
+    this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail, this.props.etherToSpend);
   };
 }
