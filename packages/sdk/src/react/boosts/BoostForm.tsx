@@ -344,8 +344,8 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
       <>
         <Title>Let's get you started</Title>
         <p>
-          Create and launch your Project Boost. Project Boosts will be displayed on the Project Boost directory in addition to your Registry
-          listing.
+          Create and launch your Project Boost. Project Boosts will be displayed on the Project Boost directory in
+          addition to your Registry listing.
         </p>
       </>
     );
@@ -397,8 +397,8 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                 </BoostFormTitle>
                 <TextInput name="newsroomWallet" value={this.props.newsroomData.owner} disabled />
                 <p>
-                  Funds from your Project Boost will be deposited into the Newsroom Wallet. A Newsroom Officer will be able to
-                  widthdraw from the newsroom wallet and either deposit or exchange them into other currencies.{" "}
+                  Funds from your Project Boost will be deposited into the Newsroom Wallet. A Newsroom Officer will be
+                  able to widthdraw from the newsroom wallet and either deposit or exchange them into other currencies.{" "}
                   <a target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
                     Learn&nbsp;more
                   </a>
@@ -434,9 +434,9 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                 <EndDateNotice>Your Project Boost will end at 11:59PM on the date selected.</EndDateNotice>
                 {!this.props.channelData.isStripeConnected && (
                   <ConnectStripeNotice>
-                    <span>No Stripe account connected</span> Your Project Boost will be able to accept contributions in ETH, but
-                    if you connect a Stripe account you will also be able to accept credit card payments. If you'd like
-                    to connect Stripe you can do so from{" "}
+                    <span>No Stripe account connected</span> Your Project Boost will be able to accept contributions in
+                    ETH, but if you connect a Stripe account you will also be able to accept credit card payments. If
+                    you'd like to connect Stripe you can do so from{" "}
                     <a href="/dashboard/newsrooms" target="_blank">
                       your newsroom dashboard
                     </a>
@@ -474,7 +474,8 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                     </>
                   ) : (
                     <>
-                      Great work! Your Project Boost <b>{this.state.boost.title}</b> has successfully launched and is live.
+                      Great work! Your Project Boost <b>{this.state.boost.title}</b> has successfully launched and is
+                      live.
                     </>
                   )}
                 </BoostModalContent>
@@ -584,10 +585,10 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
               <td>
                 <BoostFormTitle>Project Boost Goal</BoostFormTitle>
                 <p>
-                  Your Project Boost goal is the amount you would like to raise. If your Project Boost does not reach its amount goal by
-                  the end date, the proceeds sent by supporters will still be collected into your Newsroom’s wallet.
-                  Once the Project Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
-                  wallet, or exchange to another currency.
+                  Your Project Boost goal is the amount you would like to raise. If your Project Boost does not reach
+                  its amount goal by the end date, the proceeds sent by supporters will still be collected into your
+                  Newsroom’s wallet. Once the Project Boost ends, you’ll be able to withdraw and either dispense or
+                  exchange the funds to your wallet, or exchange to another currency.
                 </p>
               </td>
               <ItemCostCell>

@@ -151,8 +151,8 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
           {!newsroomData.whitelisted && (
             <>
               <BoostNotice>
-                The newsroom that created this Project Boost has been removed from the registry, so users can no longer support
-                it via this Project Boost.
+                The newsroom that created this Project Boost has been removed from the registry, so users can no longer
+                support it via this Project Boost.
               </BoostNotice>
             </>
           )}

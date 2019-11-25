@@ -127,8 +127,8 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => {
           )}
 
           <p style={EMBED_NOT_LOADED_STYLES}>
-          Project Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields enabled.
-            Please check that all "civil.co" domains are whitelisted, or try viewing this Project Boost{" "}
+            Project Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields
+            enabled. Please check that all "civil.co" domains are whitelisted, or try viewing this Project Boost{" "}
             <a href={props.fallbackUrl} target="_blank">
               on Civil
             </a>

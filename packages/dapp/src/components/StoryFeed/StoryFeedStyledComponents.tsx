@@ -30,7 +30,7 @@ export const StoryFeedHeader = styled.h1`
 `;
 
 export const StoryBoostDescription = styled.p`
-border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   color: ${colors.accent.CIVIL_GRAY_0};
   font-size: 18px;
   font-weight: 200;

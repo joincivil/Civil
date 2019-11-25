@@ -60,7 +60,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           usdToSpend={this.props.usdToSpend}
         >
           <EnoughETHInWalletText />
-          {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email}/>}
+          {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
           {!this.state.wasEmailPrepopulated && (
             <>
               <PaymentInputLabel>Email address (optional)</PaymentInputLabel>

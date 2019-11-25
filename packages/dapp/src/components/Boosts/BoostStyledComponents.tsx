@@ -17,7 +17,7 @@ export const BoostHeaderWrapper = styled.div`
 export const BoostHeader = styled.div`
   font-family: ${fonts.SANS_SERIF};
   margin: 0 auto;
-  max-width: 900px;
+  max-width: 800px;
   position: relative;
 
   h1 {
@@ -52,7 +52,6 @@ export const BoostIntro = styled.p`
 
 export const BoostLearnMore = styled(ChevronAnchor)`
   color: ${colors.accent.CIVIL_BLUE};
-  display: block;
   font-size: 15px;
 
   ${mediaQueries.MOBILE} {
@@ -67,5 +66,5 @@ export const BoostLearnMore = styled(ChevronAnchor)`
 
 export const BoostWrapper = styled.div`
   margin: 0 auto;
-  max-width: 900px;
+  max-width: 800px;
 `;
