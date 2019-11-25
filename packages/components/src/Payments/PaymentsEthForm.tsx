@@ -11,6 +11,7 @@ import {
   PaymentTermsText,
   PaymentEmailConfirmationText,
   EnoughETHInWalletText,
+  PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
 import { INPUT_STATE } from "./types";
 
@@ -33,6 +34,7 @@ export interface PaymentsEthFormState {
   email: string;
   emailState: string;
   isPaymentError: boolean;
+  wasEmailPrepopulated: boolean;
 }
 
 export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, PaymentsEthFormState> {
@@ -43,6 +45,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
     super(props);
     this.state = {
       email: this.props.userEmail || "",
+      wasEmailPrepopulated: this.props.userEmail ? true : false,
       emailState: INPUT_STATE.EMPTY,
       isPaymentError: false,
     };
@@ -57,18 +60,23 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
           usdToSpend={this.props.usdToSpend}
         >
           <EnoughETHInWalletText />
-          <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
-          <InputValidationUI inputState={this.state.emailState}>
-            <input
-              defaultValue={this.state.email}
-              id="email"
-              name="email"
-              type="email"
-              maxLength={254}
-              onBlur={() => this.handleOnBlur(event)}
-            />
-            <PaymentEmailConfirmationText />
-          </InputValidationUI>
+          {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email}/>}
+          {!this.state.wasEmailPrepopulated && (
+            <>
+              <PaymentInputLabel>Email address (optional)</PaymentInputLabel>
+              <InputValidationUI inputState={this.state.emailState}>
+                <input
+                  defaultValue={this.state.email}
+                  id="email"
+                  name="email"
+                  type="email"
+                  maxLength={254}
+                  onBlur={() => this.handleOnBlur(event)}
+                />
+                <PaymentEmailConfirmationText />
+              </InputValidationUI>
+            </>
+          )}
         </PaymentsEthWrapper>
         <TransactionButtonNoModal
           transactions={[

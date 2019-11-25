@@ -34,7 +34,8 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
 
   public render(): JSX.Element {
     const userChannelID = (this.context && this.context.currentUser && this.context.currentUser.userChannel.id) || "";
-    const userEmail = this.context && this.context.currentUser && this.context.currentUser.email;
+    const userEmail =
+      this.context && this.context.currentUser && this.context.currentUser.userChannel.EmailAddressRestricted;
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
