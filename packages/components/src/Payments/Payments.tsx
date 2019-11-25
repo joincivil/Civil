@@ -193,7 +193,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     ) {
       return (
         <PaymentsWrapper newsroomName={newsroomName}>
-          <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={handleClose} userSubmittedEmail={userSubmittedEmail}/>
+          <PaymentsSuccess
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+            handleClose={handleClose}
+            userSubmittedEmail={userSubmittedEmail}
+          />
           {paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL && (
             <p>Please check your email to confirm your email address.</p>
           )}

@@ -15,7 +15,7 @@ export const DashboardStylesNoticeContainer = styled.div`
 export const StyledUserActivity = styled.div`
   background-color: transparent;
   flex-grow: 1;
-  max-width:  800px;
+  max-width: 800px;
   padding-right: 50px;
   ${mediaQueries.MOBILE} {
     padding: 0;
