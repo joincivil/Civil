@@ -155,12 +155,12 @@ export const PaymentBtn = styled.button`
   width: 100%;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
   }
 
   &:disabled {
     cursor: default;
-    opacity: .8;
+    opacity: 0.8;
   }
 `;
 
