@@ -151,16 +151,16 @@ export const PaymentBtn = styled.button`
   opacity: 1;
   outline: none;
   padding: 10px 40px;
-  transition: background-color 250ms;
+  transition: opacity 250ms;
   width: 100%;
 
   &:hover {
-    background-color: ${colors.accent.CIVIL_BLUE_FADED};
+    opacity: .8;
   }
 
   &:disabled {
     cursor: default;
-    background-color: ${colors.accent.CIVIL_BLUE_FADED};
+    opacity: .8;
   }
 `;
 

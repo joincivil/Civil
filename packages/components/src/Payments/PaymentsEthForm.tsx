@@ -26,7 +26,7 @@ export interface PaymentsEthFormProps {
   userEmail?: string;
   userChannelID?: string;
   savePayment: MutationFunc;
-  handlePaymentSuccess(userSubmittedEmail: boolean): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean, etherToSpend: number): void;
   handleEditPaymentType(): void;
 }
 
@@ -147,6 +147,6 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private postTransaction = () => {
     this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
-    this.props.handlePaymentSuccess(this.state.email !== "" && true);
+    this.props.handlePaymentSuccess(this.state.email !== "" && true, this.props.etherToSpend);
   };
 }

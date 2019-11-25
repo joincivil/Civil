@@ -211,8 +211,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     );
   }
 
-  private handlePaymentSuccess = (userSubmittedEmail: boolean) => {
-    this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail });
+  private handlePaymentSuccess = (userSubmittedEmail: boolean, etherToSpend?: number) => {
+    this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail, etherToSpend });
   };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
