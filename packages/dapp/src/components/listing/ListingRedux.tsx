@@ -187,7 +187,7 @@ class ListingPageComponent extends React.Component<
                 </ListingTabContent>
               </Tab>
 
-              <Tab title="Boosts">
+              <Tab title="Project Boosts">
                 <ListingTabContent>
                   <ListingBoosts listingAddress={this.props.listingAddress} newsroom={this.props.newsroom} />
                 </ListingTabContent>

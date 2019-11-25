@@ -52,7 +52,7 @@ export class BoostShare extends React.Component<BoostShareProps> {
 
     return (
       <Wrapper className={this.props.className}>
-        <BoostShareHeading>Share this Boost</BoostShareHeading>
+        <BoostShareHeading>Share this Project Boost</BoostShareHeading>
         <IconsWrapper>
           <a href={twitterShare} target="_blank">
             <ShareTwitterIcon />

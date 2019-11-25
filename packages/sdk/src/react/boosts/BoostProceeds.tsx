@@ -57,7 +57,7 @@ class BoostProceedsComponent extends React.Component<BoostProceedsProps & Newsro
             console.error("Error loading boost proceeds query:", error || "no data returned");
             return (
               <span style={{ color: "red" }}>
-                Error loading Boost proceed amounts: {JSON.stringify(error || "no data returned")}
+                Error loading Project Boost proceed amounts: {JSON.stringify(error || "no data returned")}
               </span>
             );
           }
@@ -74,7 +74,7 @@ class BoostProceedsComponent extends React.Component<BoostProceedsProps & Newsro
                 <div>
                   <TotalAmount>${totalAmount}</TotalAmount> <CurrencyLabel>USD</CurrencyLabel>
                 </div>
-                <div>Total Proceeds from Boosts</div>
+                <div>Total Proceeds from Project Boosts</div>
               </TotalProceeds>
               <Proceed>
                 <div>

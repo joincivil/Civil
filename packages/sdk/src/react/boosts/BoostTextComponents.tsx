@@ -1,14 +1,10 @@
 import * as React from "react";
-import { ModalHeading, ClipLoader, ErrorIcon, CopyURL, TokenWalletIcon, HollowGreenCheck } from "@joincivil/components";
+import { ModalHeading, ClipLoader, ErrorIcon, HollowGreenCheck } from "@joincivil/components";
 import {
   BoostButton,
-  BoostLinkBtn,
   BoostPayWallet,
   BoostPayWalletMobile,
   BoostWarningLabel,
-  BoostWalletOptions,
-  BoostCopyAddress,
-  BoostModalHeader,
   BoostModalContent,
   BoostNotification,
   NoBoostsTextStyled,
@@ -18,7 +14,7 @@ import { urlConstants } from "../urlConstants";
 import { BoostShare } from "./BoostShare";
 
 export const NoBoostsText: React.FunctionComponent = props => (
-  <NoBoostsTextStyled>There are no Boosts at this time.</NoBoostsTextStyled>
+  <NoBoostsTextStyled>There are no Project Boosts at this time.</NoBoostsTextStyled>
 );
 
 export const PaymentLabelCardText: React.FunctionComponent = props => <>Pay with card</>;
@@ -72,41 +68,6 @@ export const WhatIsEthModalText: React.FunctionComponent = props => (
   </>
 );
 
-export const BoostMobileWalletModalText: React.FunctionComponent = props => (
-  <>
-    <BoostModalHeader>
-      <TokenWalletIcon width={48} height={42} />A Web3 enabled browser and secure digital wallet required.
-    </BoostModalHeader>
-    <BoostModalContent textAlign="center">
-      In order to support a Civil Boosts, please install a secure cryptocurrency wallet such as{" "}
-      <a href="https://www.coinbase.com/mobile" target="_blank">
-        Coinbase Wallet
-      </a>
-      {/*or
-      <a href="https://alphawallet.com/" target="_blank">
-        Alpha Wallet
-      </a>*/}. If you'd like
-      help getting a wallet, take a look at our{" "}
-      <a target="_blank" href={urlConstants.FAQ_WALLETS}>
-        FAQ Guide
-      </a>
-      .
-    </BoostModalContent>
-    <BoostWalletOptions>
-      <BoostLinkBtn href={"https://www.coinbase.com/mobile"} target="_blank">
-        Coinbase Wallet
-      </BoostLinkBtn>
-      {/*<BoostLinkBtn href={"https://alphawallet.com/"} target="_blank">
-        Alpha Wallet
-      </BoostLinkBtn>*/}
-    </BoostWalletOptions>
-    <BoostCopyAddress>
-      <span>Already use a wallet?</span>
-      <CopyURL copyText={"Copy the URL to open in your own wallet"} />
-    </BoostCopyAddress>
-  </>
-);
-
 export const CanUseCVLText: React.FunctionComponent = props => (
   <>
     <ModalHeading>Can I use CVL to support a Boost?</ModalHeading>
@@ -128,8 +89,8 @@ export const PaymentInfoText: React.FunctionComponent = props => (
   <>
     <h3>Payment Information</h3>
     <p>
-      If the project does not meet its goals, your payment method will be still charged when the Boost ends. All
-      procceds of the Boost go directly to the newsroom.
+      If the project does not meet its goals, your payment method will be still charged when the Project Boost ends. All
+      procceds of the Project Boost go directly to the newsroom.
     </p>
   </>
 );
@@ -138,13 +99,13 @@ export const PaymentFAQText: React.FunctionComponent = props => (
   <>
     <h3>Frequently Asked Questions</h3>
     <a target="_blank" href={urlConstants.FAQ_BOOST_HOW_TO_SUPPORT}>
-      How do I support a Boost?
+      How do I support a Project Boost?
     </a>
     <a target="_blank" href={urlConstants.FAQ_BOOST_WHEN_CHARGED}>
       When is my payment charged?
     </a>
     <a target="_blank" href={urlConstants.FAQ_BOOST_CHARGED_IF_BOOST_FAILS}>
-      Am I still charged even if the Boost does not hit its target date?
+      Am I still charged even if the Project Boost does not hit its target date?
     </a>
     <a target="_blank" href={urlConstants.FAQ_BOOST_WHAT_PAYMENT_DATA}>
       What information can others see about my payment?
@@ -309,6 +270,6 @@ export const BoostConnectWalletWarningText: React.FunctionComponent = props => (
 
 export const BoostPaymentSuccess: React.FunctionComponent = props => (
   <BoostNotification>
-    <HollowGreenCheck /> You supported this Boost
+    <HollowGreenCheck /> You supported this Project Boost
   </BoostNotification>
 );

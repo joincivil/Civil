@@ -110,7 +110,7 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => {
           {props.error ? (
             <>
               <p style={{ margin: "2rem 1rem" }}>
-                Sorry, there was an error loading this Boost. Try viewing it{" "}
+                Sorry, there was an error loading this Project Boost. Try viewing it{" "}
                 <a href={props.fallbackUrl} target="_blank">
                   on Civil
                 </a>
@@ -122,13 +122,13 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps) => {
             <>
               {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
               <object style={EMBED_LOADING_IMG_STYLES} data={LOADING_IMAGE_URL} type="image/svg+xml"></object>
-              <p>Loading Boost&hellip;</p>
+              <p>Loading Project Boost&hellip;</p>
             </>
           )}
 
           <p style={EMBED_NOT_LOADED_STYLES}>
-            Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields enabled.
-            Please check that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
+            Project Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields
+            enabled. Please check that all "civil.co" domains are whitelisted, or try viewing this Project Boost{" "}
             <a href={props.fallbackUrl} target="_blank">
               on Civil
             </a>

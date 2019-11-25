@@ -5,7 +5,12 @@ import { LoadingMessage } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedItem } from "./StoryFeedItem";
 import { StoryBoost } from "./StoryBoost";
-import { StoryFeedWrapper, StoryFeedHeader, StoryLoadMoreContainer } from "./StoryFeedStyledComponents";
+import {
+  StoryFeedWrapper,
+  StoryFeedHeader,
+  StoryBoostDescription,
+  StoryLoadMoreContainer,
+} from "./StoryFeedStyledComponents";
 import { STORY_FEED_QUERY } from "./queries";
 
 export interface StoryFeedPageProps {
@@ -20,9 +25,12 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
 
     return (
       <>
-        <Helmet title="Civil Stories - The Civil Registry" />
+        <Helmet title="Civil Story Boosts - The Civil Registry" />
         <StoryFeedWrapper>
-          <StoryFeedHeader>Stories</StoryFeedHeader>
+          <StoryFeedHeader>Story Boosts</StoryFeedHeader>
+          <StoryBoostDescription>
+            Civil helps you discover new stories from trusted newsrooms on the Registry.
+          </StoryBoostDescription>
           <Query query={STORY_FEED_QUERY}>
             {({ loading, error, data, refetch, fetchMore }) => {
               if (loading) {

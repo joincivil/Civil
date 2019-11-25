@@ -15,15 +15,33 @@ export const StoryFeedWrapper = styled.div`
 `;
 
 export const StoryFeedHeader = styled.h1`
+  color: ${colors.accent.CIVIL_GRAY_0};
   font-family: ${fonts.SANS_SERIF};
   font-size: 36px;
   font-weight: bold;
   line-height: 49px;
-  margin-bottom: 20px;
+  margin: 0 0 10px;
 
   ${mediaQueries.MOBILE} {
+    color: ${colors.primary.BLACK};
     font-size: 24px;
     line-height: 30px;
+  }
+`;
+
+export const StoryBoostDescription = styled.p`
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 26px;
+  margin: 0;
+  padding: 0 0 50px;
+
+  ${mediaQueries.MOBILE} {
+    color: ${colors.primary.BLACK};
+    font-size: 16px;
+    line-height: 24px;
   }
 `;
 
