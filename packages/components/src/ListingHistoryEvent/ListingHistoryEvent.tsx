@@ -36,6 +36,9 @@ const StyledEventDetail = styled.div<StyledEventDetailProps>`
     z-index: 2;
   }
 
+`;
+
+const StyledEventCircle = styled.div<StyledEventDetailProps>`
   & circle {
     fill: ${props => (props.eventStyle ? eventColors[props.eventStyle] : colors.accent.CIVIL_GRAY_2)};
     stroke: ${props => (props.eventStyle ? eventColors[props.eventStyle] : colors.accent.CIVIL_GRAY_2)};
@@ -76,9 +79,11 @@ export const ListingHistoryEvent: React.FunctionComponent<ListingHistoryEventPro
 const EventDetail: React.FunctionComponent<ListingHistoryEventDetailsProps> = props => {
   return (
     <StyledEventDetail eventStyle={props.eventStyle}>
-      <svg viewBox="0 0 26 26" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="13" cy="13" r="7" />
-      </svg>
+      <StyledEventCircle eventStyle={props.eventStyle}>
+        <svg viewBox="0 0 26 26" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="13" cy="13" r="7" />
+        </svg>
+      </StyledEventCircle>
 
       <StyledEventTitle>{props.title}</StyledEventTitle>
       {props.children}
