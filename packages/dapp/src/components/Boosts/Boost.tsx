@@ -18,7 +18,7 @@ class BoostPage extends React.Component<BoostPageProps> {
   public render(): JSX.Element {
     return (
       <>
-        <Helmet title={(this.props.editMode ? "Edit " : "") + "Civil Boost - The Civil Registry"} />
+        <Helmet title={(this.props.editMode ? "Edit " : "") + "Civil Project Boost - The Civil Registry"} />
         <ScrollToTopOnMount />
         <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostWrapper>

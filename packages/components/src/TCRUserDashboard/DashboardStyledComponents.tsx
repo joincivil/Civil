@@ -384,7 +384,7 @@ export const StyledTransferTokenFormGroup = styled.div`
     border: 1px solid ${colors.accent.CIVIL_GRAY_3};
     border-radius: 3px;
     font-size: 15px;
-    margin-top 5px;
+    margin-top: 5px;
 
     & > div:nth-child(2) > div {
       border-top: none;
@@ -481,7 +481,7 @@ export const StyledTransferTokenBalance = styled.div`
 
 export const StyledDropdownArrow = styled.div`
   align-items: center;
-  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3};
   display: flex;
   justify-content: center;
   padding: 12px 15px 12px 14px;
@@ -493,7 +493,7 @@ export const StyledDropdownArrow = styled.div`
 export const StyledFromBalance = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 3px;
-  margin-top 5px;
+  margin-top: 5px;
   padding: 17px 15px;
 `;
 
@@ -564,6 +564,11 @@ export const StyledDashboardNewsroom = styled.div`
   box-sizing: border-box;
   padding: 25px 0;
   margin: 0 25px;
+
+  p {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 
 export const StyledDashboardNewsroomName = styled.div`
@@ -585,6 +590,14 @@ export const StyledDashboardNewsroomHdr = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 18px;
   line-height: 33px;
+  margin-bottom: 15px;
+`;
+
+export const StyledDashboardNewsroomSubHdr = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 25px;
 `;
 
 export const StyledDashboardNewsroomSectionContentRow = styled.div`
@@ -602,6 +615,11 @@ export const StyledDashboardNewsroomLinks = styled.div`
     line-height: 14px;
     margin: 0 0 20px;
   }
+`;
+
+export const StyledDashboardNewsroomBorder = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 10px 0 20px;
 `;
 
 export const StyledWarningText = styled.span`

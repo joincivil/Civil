@@ -113,15 +113,6 @@ export class DashboardNewsroomStripeConnectComponent extends React.Component<
   public render(): JSX.Element {
     return (
       <>
-        <StyledDashboardNewsroomHdr>Credit Card Payments Setup</StyledDashboardNewsroomHdr>
-        <p>
-          Connect a Stripe account to accept credit card payments for your Boosts. You can link your existing Stripe
-          account or start a new one.{" "}
-          <a href="#@TODO/tobek" target="_blank">
-            Learn more
-          </a>
-        </p>
-
         <StripeContainer>
           <StripeLogo src={stripeLogo} />
           {this.renderBody()}

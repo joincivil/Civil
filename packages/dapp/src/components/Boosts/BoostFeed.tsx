@@ -17,16 +17,16 @@ class BoostFeedPage extends React.Component {
   public render(): JSX.Element {
     return (
       <>
-        <Helmet title="Civil Boost - The Civil Registry" />
+        <Helmet title="Civil Project Boost - The Civil Registry" />
         <ScrollToTopOnMount />
         <FeatureFlag feature={"boosts-mvp"} replacement={<ComingSoonText />}>
           <BoostHeaderWrapper>
             <BoostHeader>
-              <h1>Boosts: support the work that journalists do.</h1>
+              <h1>Project Boosts: support the work that journalists do.</h1>
               <BoostIntro>
                 Newsrooms around the world need your help to fund and start new projects. These Newsrooms are setting up
-                Boosts to help get the word out about what they want to do and let their supporters and fans, like you,
-                help them do it. Support these newsrooms by funding their Boosts to help hit their goals. Good reporting
+                Project Boosts to help get the word out about what they want to do and let their supporters and fans, like you,
+                help them do it. Support these newsrooms by funding their Project Boosts to help hit their goals. Good reporting
                 costs money, and the Civil community is making it happen.
                 <BoostLearnMore href={urlConstants.FAQ_BOOSTS} target="_blank">
                   Learn More

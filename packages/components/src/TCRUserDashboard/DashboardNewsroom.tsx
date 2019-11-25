@@ -6,7 +6,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { ChevronAnchor } from "../ChevronAnchor";
-import { Button, buttonSizes } from "../Button";
+import { Button, InvertedButton, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
 import {
   StyledDashboardNewsroom,
@@ -14,6 +14,8 @@ import {
   StyledDashboardNewsroomSection,
   StyledDashboardNewsroomSectionContentRow,
   StyledDashboardNewsroomHdr,
+  StyledDashboardNewsroomSubHdr,
+  StyledDashboardNewsroomBorder,
   StyledChallengeIDKicker,
   StyledDashboardNewsroomLinks,
   StyledDashboardNewsroomTokensContainer,
@@ -155,55 +157,101 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
         />
       </StyledDashboardNewsroomSection>
 
-      <FeatureFlag feature={"pew"}>
-        <Query<any>
-          query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
-          variables={{ contractAddress: props.newsroomAddress }}
-        >
-          {({ loading, error, data }) => {
-            if (loading || error) {
-              return <></>;
-            }
-            return (
-              <StyledDashboardNewsroomSection>
-                <StyledDashboardNewsroomHdr>Pulse Story Feed</StyledDashboardNewsroomHdr>
-                <DashboardNewsroomSubmitLink channelID={data.channelsGetByNewsroomAddress.id} />
-              </StyledDashboardNewsroomSection>
-            );
-          }}
-        </Query>
-      </FeatureFlag>
-
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
+        <FeatureFlag feature={"pew"}>
+          <StyledDashboardNewsroomSubHdr>Story Boosts</StyledDashboardNewsroomSubHdr>
+          <p>
+            Story Boosts allow supporters to give you small, incremental proceeds using ETH or credit cards. When you
+            add the Story Boost embed, your stories will be included on the Civil storyfeed and you will be able to
+            collect proceeds from the feed as well as your own site.
+          </p>
+          <p>
+            Place the following code in your CMS where you'd like a Story Boost to be displayed on your site. You can
+            add it to each story or your CMS template.
+          </p>
+
+          {/*@TODO Copy embed code goes here */}
+
+          <p>
+            Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on
+            your site.
+          </p>
+
+          {/*@TODO Wordpress plugin link goes here */}
+          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
+            Get the Story Boost Plugin
+          </InvertedButton>
+
+          <Query<any>
+            query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
+            variables={{ contractAddress: props.newsroomAddress }}
+          >
+            {({ loading, error, data }) => {
+              if (loading || error) {
+                return <></>;
+              }
+              return (
+                <>
+                  <p>
+                    <b>Submit a Story</b>
+                  </p>
+                  <DashboardNewsroomSubmitLink channelID={data.channelsGetByNewsroomAddress.id} />
+                </>
+              );
+            }}
+          </Query>
+          <p>
+            <b>Proceeds collected from Story Boosts</b>
+          </p>
+          <StyledDashboardNewsroomBorder />
+        </FeatureFlag>
+
+        <StyledDashboardNewsroomSubHdr>Project Boosts</StyledDashboardNewsroomSubHdr>
         <p>
-          Connect with the Civil community eager to fund your newsroom projects.{" "}
+          Project Boosts lets your newsroom host one-off fundraisers anywhere on your website to fund and produce larger
+          journalism projects. Share your vision and how the money will be used so your readers can get behind it.
+        </p>
+        <p>
+          You can embed Projects Boosts on your site as well. You just need to copy the embed from each Project Boost.{" "}
           <a href={urlConstants.FAQ_BOOSTS} target="_blank">
             Learn more
           </a>
         </p>
 
-        {/*@HACK We need to include `NewsroomWithdraw` from `sdk` package, but this component is in `components` package which `sdk` uses so we'd have a circular dependency. @TODO/tobek all these TCR dashboard components should be moved into `dapp` package.*/}
-        {props.boostProceeds}
-
         {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
         <p>
           <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
-            Launch New Boost
+            Launch a New Project Boost
           </Button>
         </p>
         <p>
-          {/*@TODO Ideally we could link directly to that tab, see CIVIL-1021*/}
-          View your current Boosts on the "Boosts" tab on{" "}
-          <Link to={props.listingDetailURL}>your newsroom's Registry listing</Link>.
+          <InvertedButton
+            size={buttonSizes.MEDIUM_WIDE}
+            to={`${props.listingDetailURL}/${props.newsroomAddress}/boosts`}
+          >
+            View your Project Boosts
+          </InvertedButton>
+        </p>
+        <p>
+          <b>Proceeds collected from Project Boosts</b>
         </p>
       </StyledDashboardNewsroomSection>
-
-      <FeatureFlag feature={"stripe-admin"}>
-        <StyledDashboardNewsroomSection>
+      <StyledDashboardNewsroomSection>
+        <StyledDashboardNewsroomHdr>Payments</StyledDashboardNewsroomHdr>
+        {/*@HACK We need to include `NewsroomWithdraw` from `sdk` package, but this component is in `components` package which `sdk` uses so we'd have a circular dependency. @TODO/tobek all these TCR dashboard components should be moved into `dapp` package.*/}
+        {props.boostProceeds}
+        <StyledDashboardNewsroomBorder />
+        <StyledDashboardNewsroomSubHdr>Set Up Credit Card Proceeds</StyledDashboardNewsroomSubHdr>
+        <p>
+          Connect a Stripe account to accept Credit Cards payments for your Boosts. You can link your existing Stripe
+          account or start a new one. Any payments sent with credit cards with automatically be deposited into your
+          Stripe account.
+        </p>
+        <FeatureFlag feature={"stripe-admin"}>
           <DashboardNewsroomStripeConnect newsroomAddress={props.newsroomAddress} />
-        </StyledDashboardNewsroomSection>
-      </FeatureFlag>
+        </FeatureFlag>
+      </StyledDashboardNewsroomSection>
     </StyledDashboardNewsroom>
   );
 };
