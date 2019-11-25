@@ -19,6 +19,7 @@ export const colors = {
     CIVIL_TEAL_FADED_2: "#C1F8EB",
     CIVIL_TEAL_DARK: "#00C189",
     CIVIL_RED: "#FF0C1A", // Civil-wide accent color
+    CIVIL_RED_2: "#EF3F39",
     CIVIL_RED_FADED: "rgba(242, 82, 74, 0.56)",
     CIVIL_RED_VERY_FADED: "rgba(255, 12, 26, 0.10)",
     CIVIL_RED_ULTRA_FADED: "#FFF7F8",

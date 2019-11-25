@@ -20,16 +20,26 @@ import {
 } from "@joincivil/elements";
 import { CivilContext, ICivilContext } from "../context";
 import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
-import { PaymentTerms, PaymentBtn, PaymentInputLabel, PaymentError } from "./PaymentsStyledComponents";
+import {
+  PaymentTerms,
+  PaymentBtn,
+  PaymentInputLabel,
+  PaymentError,
+  CheckboxContainer,
+  CheckboxSection,
+  CheckboxLabel,
+} from "./PaymentsStyledComponents";
 import {
   PayWithCardText,
   PaymentStripeNoticeText,
   PaymentEmailConfirmationText,
   PaymentTermsText,
   PaymentErrorText,
+  PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
+import { Checkbox, CheckboxSizes } from "../input";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
@@ -84,7 +94,8 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   userChannelID?: string;
   usdToSpend: number;
   savePayment: MutationFunc;
-  handlePaymentSuccess(): void;
+  setEmail: MutationFunc;
+  handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean): void;
   handleEditPaymentType(): void;
 }
 
@@ -101,6 +112,10 @@ export interface PaymentStripeFormStates {
   cardCVCState: string;
   isPaymentError: boolean;
   paymentProcessing: boolean;
+  wasEmailPrepopulated: boolean;
+  promptSaveEmail: boolean;
+  shouldSaveEmailToAccount: boolean;
+  shouldAddEmailToMailingList: boolean;
 }
 
 class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentStripeFormStates> {
@@ -109,7 +124,9 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
   constructor(props: any) {
     super(props);
     this.state = {
-      email: this.props.userEmail || "",
+      email: props.userEmail || "",
+      wasEmailPrepopulated: props.userEmail ? true : false,
+      promptSaveEmail: !props.userEmail && props.userChannelID ? true : false,
       emailState: this.props.userEmail ? INPUT_STATE.VALID : INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
@@ -121,6 +138,8 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       cardCVCState: INPUT_STATE.EMPTY,
       isPaymentError: false,
       paymentProcessing: false,
+      shouldSaveEmailToAccount: true,
+      shouldAddEmailToMailingList: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -136,18 +155,23 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           showSecureIcon={true}
         >
           <StripeWrapper>
-            <PaymentInputLabel>Email</PaymentInputLabel>
-            <InputValidationUI inputState={this.state.emailState}>
-              <input
-                defaultValue={this.state.email}
-                id="email"
-                name="email"
-                type="email"
-                maxLength={254}
-                onBlur={() => this.handleOnBlur(event)}
-              />
-              <PaymentEmailConfirmationText />
-            </InputValidationUI>
+            {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
+            {!this.state.wasEmailPrepopulated && (
+              <>
+                <PaymentInputLabel>Email</PaymentInputLabel>
+                <InputValidationUI inputState={this.state.emailState}>
+                  <input
+                    defaultValue={this.state.email}
+                    id="email"
+                    name="email"
+                    type="email"
+                    maxLength={254}
+                    onBlur={() => this.handleOnBlur(event)}
+                  />
+                  <PaymentEmailConfirmationText />
+                </InputValidationUI>
+              </>
+            )}
             <PaymentInputLabel>Card information</PaymentInputLabel>
             <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
               <StripeElement inputState={this.state.cardNumberState}>
@@ -217,6 +241,34 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
             </InputValidationUI>
           </StripeWrapper>
         </PaymentsFormWrapper>
+        {this.state.promptSaveEmail && this.state.emailState === INPUT_STATE.VALID && (
+          <>
+            <CheckboxContainer>
+              <CheckboxSection>
+                <label>
+                  <Checkbox
+                    size={CheckboxSizes.SMALL}
+                    checked={this.state.shouldSaveEmailToAccount}
+                    onClick={this.toggleShouldSaveEmailToAccount}
+                  />
+                  <CheckboxLabel>Save my email to my Civil account.</CheckboxLabel>
+                </label>
+              </CheckboxSection>
+            </CheckboxContainer>
+            <CheckboxContainer>
+              <CheckboxSection>
+                <label>
+                  <Checkbox
+                    size={CheckboxSizes.SMALL}
+                    checked={this.state.shouldAddEmailToMailingList}
+                    onClick={this.toggleShouldAddEmailToMailingList}
+                  />
+                  <CheckboxLabel>Receive the Civil newsletter to your inbox.</CheckboxLabel>
+                </label>
+              </CheckboxSection>
+            </CheckboxContainer>
+          </>
+        )}
         <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
           {this.state.paymentProcessing ? "Payment processing..." : "Complete Boost"}
         </PaymentBtn>
@@ -231,6 +283,14 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       </>
     );
   }
+
+  private toggleShouldSaveEmailToAccount = () => {
+    this.setState({ shouldSaveEmailToAccount: !this.state.shouldSaveEmailToAccount });
+  };
+
+  private toggleShouldAddEmailToMailingList = () => {
+    this.setState({ shouldAddEmailToMailingList: !this.state.shouldAddEmailToMailingList });
+  };
 
   private handleOnBlur = (event: any) => {
     const state = event.target.id;
@@ -323,6 +383,20 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       this.setState({ paymentProcessing: true, isPaymentError: false });
       if (this.props.stripe) {
         try {
+          let didSaveEmail = false;
+          if (this.state.promptSaveEmail && this.state.email && this.state.shouldSaveEmailToAccount) {
+            didSaveEmail = true;
+            const variables = {
+              input: {
+                emailAddress: this.state.email,
+                channelID: this.props.userChannelID,
+                addToMailing: this.state.shouldAddEmailToMailingList,
+              },
+            };
+            await this.props.setEmail({
+              variables,
+            });
+          }
           const token = await this.props.stripe.createToken({
             name: this.state.name,
             address_country: this.state.country,
@@ -342,7 +416,8 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               },
             },
           });
-          this.props.handlePaymentSuccess();
+
+          this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail);
         } catch (err) {
           console.error(err);
           this.setState({ paymentProcessing: false, isPaymentError: true });

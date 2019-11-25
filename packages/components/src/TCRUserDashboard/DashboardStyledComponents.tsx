@@ -15,9 +15,11 @@ export const DashboardStylesNoticeContainer = styled.div`
 export const StyledUserActivity = styled.div`
   background-color: transparent;
   flex-grow: 1;
+  max-width: 800px;
   padding-right: 50px;
   ${mediaQueries.MOBILE} {
     padding: 0;
+    max-width: 100%;
   }
 `;
 
@@ -29,17 +31,23 @@ export const StyledUserActivityContent = styled.div`
 
 export const StyledDashboardTabsContainer = styled.div`
   background: ${colors.accent.CIVIL_GRAY_4};
-  padding: 25px 28px 13px;
 `;
 
 export const StyledDashboardTab = styled.li`
-  color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.BLACK : colors.primary.CIVIL_GRAY_1)};
+  color: ${(props: TabComponentProps) => (props.isActive ? colors.primary.CIVIL_BLUE_1 : colors.primary.CIVIL_GRAY_1)};
+  border-bottom: ${(props: TabComponentProps) =>
+    props.isActive ? "3px solid " + colors.primary.CIVIL_BLUE_1 : "none"};
   cursor: pointer;
   font-size: 18px;
   font-weight: ${(props: TabComponentProps) => (props.isActive ? "bold" : "normal")};
   line-height: 21px;
-  margin: 0 12px 12px;
   white-space: nowrap;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 62px;
 `;
 
 export const StyledSubTabCount = styled.span`
@@ -95,18 +103,63 @@ export const StyledUserProfile = styled.div`
   margin-bottom: 22px;
 `;
 
+export const StyledAvatarContainer = styled.div`
+  width: 76px;
+  height: 76px;
+  margin-right: 15px;
+  position: relative;
+  clip-path: circle(38px at center);
+`;
+
 export const StyledUserAvatar = styled.img`
   width: 76px;
   height: 76px;
-  border-radius: 38px;
-  margin-right: 15px;
+  position: absolute;
+  z-index: 999;
 `;
 
-export const StyledUserNoAvatar = styled.figure`
+export const StyledEditAvatar = styled.figure`
+  width: 76px;
+  height: 20px;
+  position: absolute;
+  top: 40px;
+  left: -40px;
+  background-color: #3e3e3e;
+  opacity: 0.5;
+  z-index: 10000;
+`;
+
+export const StyledEditSpan = styled.span`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 76px;
+  height: 20px;
+  position: absolute;
+  top: 55px;
+  left: 0px;
+  font-size: 14px;
+  line-height: 17px;
+  font-family: ${fonts.SANS_SERIF_BOLD};
+  font-weight: 700;
+  letter-spacing: 0.22px;
+  color: ${colors.basic.WHITE};
+  z-index: 20000;
+  cursor: pointer;
+`;
+
+export const StyledUserNoAvatar = styled.div`
+  display: flex;
+  justify-content: space-around;
   width: 76px;
   height: 76px;
-  border-radius: 38px;
-  margin-right: 15px;
+  align-items: center;
+  background-color: #ef6b4a;
+  font-family: ${fonts.SANS_SERIF};
+  color: ${colors.basic.WHITE};
+  text-transform: uppercase;
+  font-size: 50px;
 `;
 
 export const StyledUserHandleText = styled.span`
@@ -125,8 +178,6 @@ export const StyledUserEmailText = styled.span`
   height: 23px;
   letter-spacing: -0.04px;
   line-height: 23px;
-  max-width: 200px;
-  text-overflow: ellipsis;
 `;
 
 export const StyledUserSetEmailText = styled.span`
@@ -136,6 +187,7 @@ export const StyledUserSetEmailText = styled.span`
   letter-spacing: -0.04px;
   line-height: 23px;
   color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
 `;
 
 export const StyledChangeUserEmailText = styled.span`
@@ -144,9 +196,9 @@ export const StyledChangeUserEmailText = styled.span`
   height: 23px;
   letter-spacing: -0.04px;
   line-height: 23px;
-  max-width: 42px;
   margin: left: 2px;
   color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
 `;
 
 export const StyledChangeUserAvatarText = styled.span`
@@ -159,7 +211,7 @@ export const StyledChangeUserAvatarText = styled.span`
 `;
 
 export const StyledUserEmailContainer = styled.div`
-  flex-direction: column;
+  flex-direction: row;
 `;
 
 export const StyledUserHandleAndEmailContainer = styled.div`

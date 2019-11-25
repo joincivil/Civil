@@ -40,7 +40,7 @@ export const DashboardActivity: React.FunctionComponent<DashboardActivityProps> 
         activeIndex={props.activeIndex}
         onActiveTabChange={props.onTabChange}
       >
-        <Tab title={<MyVotingTabText />}>
+        <Tab title={<MyVotingTabText />} badgeNum={props.numUserVotes}>
           <StyledUserActivityContent>{props.userVotes}</StyledUserActivityContent>
         </Tab>
         <Tab title={<MyNewsroomsTabText />}>

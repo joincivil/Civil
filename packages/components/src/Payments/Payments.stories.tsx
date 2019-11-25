@@ -47,7 +47,13 @@ storiesOf("Boost / Payments", module)
     return (
       <Container>
         <ThemeProvider theme={theme}>
-          <PaymentsSuccess newsroomName={"Coda Story"} usdToSpend={2} handleClose={onClickFunc} />
+          <PaymentsSuccess
+            newsroomName={"Coda Story"}
+            etherToSpend={2}
+            usdToSpend={2}
+            userSubmittedEmail={true}
+            handleClose={onClickFunc}
+          />
         </ThemeProvider>
       </Container>
     );

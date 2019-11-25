@@ -73,14 +73,14 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
           if (loading) {
             return (
               <BoostWrapper open={this.props.open}>
-                <LoadingMessage>Loading Boost</LoadingMessage>
+                <LoadingMessage>Loading Project Boost</LoadingMessage>
               </BoostWrapper>
             );
           } else if (error) {
             console.error("error loading boost data. error:", error, "data:", data);
             return (
               <BoostWrapper open={this.props.open}>
-                Error loading Boost: {error ? JSON.stringify(error) : "No Boost data found"}
+                Error loading Project Boost: {error ? JSON.stringify(error) : "No Boost data found"}
               </BoostWrapper>
             );
           }
@@ -104,7 +104,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                   console.error("error loading newsroom data. error:", newsroomQueryError, "data:", newsroomQueryData);
                   return (
                     <BoostWrapper open={this.props.open}>
-                      Error loading Boost newsroom data:{" "}
+                      Error loading Project Boost newsroom data:{" "}
                       {newsroomQueryError
                         ? JSON.stringify(newsroomQueryError)
                         : `No newsroom listing found at ${newsroomContractAddress}`}

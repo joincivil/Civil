@@ -8,6 +8,7 @@ import {
   PaymentEdit,
   PaymentAdjustedNotice,
   PaymentAdjustedNoticeFtr,
+  PaymentNotice,
 } from "./PaymentsStyledComponents";
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
@@ -33,7 +34,7 @@ export const ExpressPayText: React.FunctionComponent = props => <label>Express p
 export const PaymentInfoText: React.FunctionComponent = props => (
   <>
     <span>Payment Information</span>
-    Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
+    Boosts procceds are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
   </>
 );
 
@@ -64,6 +65,13 @@ export const PayWithEthText: React.FunctionComponent = props => <>Pay with ETH</
 
 export const PaymentEthNoticeText: React.FunctionComponent = props => (
   <>There are small transaction fees added by the Ethereum network. Refunds are not possible.</>
+);
+
+export interface PaymentEmailPrepopulatedTextProps {
+  email: string;
+}
+export const PaymentEmailPrepopulatedText: React.FunctionComponent<PaymentEmailPrepopulatedTextProps> = props => (
+  <PaymentNotice>Your payment receipt will be sent to {props.email}</PaymentNotice>
 );
 
 export interface PaymentAmountTextProps {
@@ -167,7 +175,9 @@ export const PaymentInProgressText: React.FunctionComponent = props => (
 
 export interface PaymentTextProps {
   newsroomName: string;
+  etherToSpend?: number;
   usdToSpend?: number;
+  userSubmittedEmail?: boolean;
 }
 
 export const PaymentSuccessText: React.FunctionComponent<PaymentTextProps> = props => (
@@ -175,8 +185,15 @@ export const PaymentSuccessText: React.FunctionComponent<PaymentTextProps> = pro
     <h2>Boost payment successful!</h2>
     <p>Thank you for being a contributor.</p>
     <p>
-      {props.newsroomName} has received your Boost of ${props.usdToSpend}. You’ll receive an email with your Boost
-      details.
+      {props.newsroomName} has received your Boost of{" "}
+      {props.etherToSpend ? (
+        <>
+          {props.etherToSpend + " ETH"} &asymp; {"$" + props.usdToSpend}
+        </>
+      ) : (
+        <>${props.usdToSpend}</>
+      )}
+      . {props.userSubmittedEmail && <>You’ll receive an email with your Boost details.</>}
     </p>
   </>
 );

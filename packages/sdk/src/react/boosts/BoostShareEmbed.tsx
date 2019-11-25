@@ -46,9 +46,9 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
             <BoostModalCloseBtn onClick={() => setModalOpen(false)}>
               <CloseXIcon color={colors.accent.CIVIL_GRAY_2} />
             </BoostModalCloseBtn>
-            <ModalHeading>Embed Boost</ModalHeading>
+            <ModalHeading>Embed Project Boost</ModalHeading>
             <BoostModalContent>
-              Copy and paste this HTML code into your website where you would like this Boost to embedded:
+              Copy and paste this HTML code into your website where you would like this Project Boost to be embedded:
             </BoostModalContent>
             <EmbedCode>{embedCode}</EmbedCode>
             <BoostButton onClick={() => setCopied(copyToClipboard(embedCode))}>Copy</BoostButton> {copied && "Copied!"}

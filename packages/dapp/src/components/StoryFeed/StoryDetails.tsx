@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Contributors, ContributorCount, ContributorData, StoryNewsroomStatus } from "@joincivil/components";
+import {
+  Contributors,
+  ContributorCount,
+  ContributorData,
+  StoryNewsroomStatus,
+  storyPlaceholderImgUrl,
+} from "@joincivil/components";
 import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 import { OpenGraphData } from "./types";
@@ -39,13 +45,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
 
   return (
     <>
-      {openGraphData.images && (
-        <StoryDetailsFullBleedHeader>
-          <StoryImgWide>
-            <img src={openGraphData.images[0].url} />
-          </StoryImgWide>
-        </StoryDetailsFullBleedHeader>
-      )}
+      <StoryDetailsFullBleedHeader>
+        <StoryImgWide>
+          {openGraphData.images ? <img src={openGraphData.images[0].url} /> : <img src={storyPlaceholderImgUrl} />}
+        </StoryImgWide>
+      </StoryDetailsFullBleedHeader>
       <StoryDetailsContent>
         <StoryDetailsFlex>
           <StoryTitle>{openGraphData.title}</StoryTitle>

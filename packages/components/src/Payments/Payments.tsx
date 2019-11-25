@@ -29,6 +29,7 @@ export interface PaymentsStates {
   shouldPublicize: boolean;
   paymentState: PAYMENT_STATE;
   resetEthPayments: boolean;
+  userSubmittedEmail: boolean;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -45,6 +46,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       shouldPublicize: false,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
       resetEthPayments: false,
+      userSubmittedEmail: false,
     };
   }
 
@@ -66,8 +68,9 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedWarning,
       paymentAdjustedStripe,
       paymentAdjustedEth,
+      userSubmittedEmail,
     } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected } = this.props;
+    const { postId, paymentAddress, newsroomName, isStripeConnected, handleClose } = this.props;
     const showWeb3Login = this.context.auth.showWeb3Login;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
@@ -124,7 +127,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             etherToSpend={this.state.etherToSpend}
             resetEthPayments={this.state.resetEthPayments}
             handleBoostUpdate={this.handleUpdateBoostFromEth}
-            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handlePaymentSuccess={this.handlePaymentSuccess}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
@@ -145,7 +148,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
             usdToSpend={usdToSpend}
-            handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
+            handlePaymentSuccess={this.handlePaymentSuccess}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
         </PaymentsWrapper>
@@ -184,16 +187,27 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       );
     }
 
-    if (paymentState === PAYMENT_STATE.PAYMENT_SUCCESS) {
+    if (
+      paymentState === PAYMENT_STATE.PAYMENT_SUCCESS ||
+      paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL
+    ) {
       return (
         <PaymentsWrapper newsroomName={newsroomName}>
-          <PaymentsSuccess newsroomName={newsroomName} usdToSpend={usdToSpend} handleClose={this.props.handleClose} />
+          <PaymentsSuccess
+            newsroomName={newsroomName}
+            usdToSpend={usdToSpend}
+            handleClose={handleClose}
+            userSubmittedEmail={userSubmittedEmail}
+          />
+          {paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL && (
+            <p>Please check your email to confirm your email address.</p>
+          )}
         </PaymentsWrapper>
       );
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName} handleBack={this.props.handleClose}>
+      <PaymentsWrapper newsroomName={newsroomName} handleBack={handleClose}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
@@ -202,6 +216,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       </PaymentsWrapper>
     );
   }
+
+  private handlePaymentSuccess = (userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend?: number) => {
+    if (didSaveEmail) {
+      this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL, userSubmittedEmail, etherToSpend });
+    } else {
+      this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail, etherToSpend });
+    }
+  };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {

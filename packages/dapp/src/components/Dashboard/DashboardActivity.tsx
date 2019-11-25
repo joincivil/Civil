@@ -355,7 +355,13 @@ class DashboardActivity extends React.Component<
 
   private getMyChallengesViewProps = (error: any, data: any): any => {
     if (error) {
-      return {};
+      return {
+        activeSubTabIndex: this.state.activeSubTabIndex,
+        setActiveSubTabIndex: this.setActiveSubTabIndex,
+        showClaimRewardsTab: this.showClaimRewardsTab,
+        showRescueTokensTab: this.showRescueTokensTab,
+        showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+      };
     }
     const allCompletedChallengesVotedOn = transformGraphQLDataIntoDashboardChallengesSet(data.allChallenges);
     const allProposalChallengesVotedOn = getUserChallengeDataSetByPollType(
@@ -416,7 +422,14 @@ class DashboardActivity extends React.Component<
       refetch();
     };
     if (error) {
-      return {};
+      return {
+        activeSubTabIndex: this.state.activeSubTabIndex,
+        setActiveSubTabIndex: this.setActiveSubTabIndex,
+        showClaimRewardsTab: this.showClaimRewardsTab,
+        showRescueTokensTab: this.showRescueTokensTab,
+        showNoMobileTransactionsModal: this.showNoMobileTransactionsModal,
+        refetchUserChallengeData,
+      };
     }
     const allChallengesWithAvailableActions = transformGraphQLDataIntoDashboardChallengesSet(
       data.allChallenges,
