@@ -34,7 +34,9 @@ const PaymentSuccessTextStyled = styled.div`
 
 export interface PaymentsSuccessProps {
   newsroomName: string;
+  etherToSpend?: number;
   usdToSpend: number;
+  userSubmittedEmail: boolean;
   handleClose(): void;
 }
 
@@ -43,7 +45,12 @@ export const PaymentsSuccess: React.FunctionComponent<PaymentsSuccessProps> = pr
     <PaymentsSuccessStyled>
       <HollowGreenCheck width={48} height={48} />
       <PaymentSuccessTextStyled>
-        <PaymentSuccessText newsroomName={props.newsroomName} usdToSpend={props.usdToSpend} />
+        <PaymentSuccessText
+          newsroomName={props.newsroomName}
+          etherToSpend={props.etherToSpend}
+          usdToSpend={props.usdToSpend}
+          userSubmittedEmail={props.userSubmittedEmail}
+        />
       </PaymentSuccessTextStyled>
       <PaymentBtn onClick={props.handleClose}>Done</PaymentBtn>
     </PaymentsSuccessStyled>

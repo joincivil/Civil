@@ -105,7 +105,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 <span>Support this newsroom</span>
                 <PaymentButton onClick={this.handleStartPayment} />
               </StoryBoostFooter>
-              <PaymentsModal open={this.state.paymentsOpen} handleClose={this.handleClose}>
+              <PaymentsModal open={this.state.paymentsOpen}>
                 <Payments
                   postId={this.props.boostId}
                   newsroomName={storyBoostData.channel.newsroom.name}

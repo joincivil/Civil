@@ -157,6 +157,11 @@ export const PaymentBtn = styled.button`
   &:hover {
     opacity: 0.8;
   }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.8;
+  }
 `;
 
 export const PaymentInvertedBtn = styled(InvertedButton)`
@@ -314,8 +319,6 @@ export const PaymentModalCloseBtn = styled(InvertedButton)`
       fill: ${colors.accent.CIVIL_BLUE};
     }
   }
-
-  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "display: none;"}
 `;
 
 export const PaymentEthLearnMore = styled.div`

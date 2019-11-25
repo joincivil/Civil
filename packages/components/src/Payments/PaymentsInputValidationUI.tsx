@@ -119,7 +119,7 @@ const InputErrorIcon = styled.div`
   display: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "block" : "none")};
   position: absolute;
   right: 5px;
-  top: calc(50% - 10px);
+  top: 10px;
 `;
 
 export interface InputValidationUIProps {
