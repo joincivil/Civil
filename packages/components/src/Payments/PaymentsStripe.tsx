@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StripeProvider, Elements } from "react-stripe-elements";
 import { Mutation, MutationFunc } from "react-apollo";
-import { PAYMENTS_STRIPE_MUTATION } from "./queries";
+import { PAYMENTS_STRIPE_MUTATION, SET_EMAIL_MUTATION } from "./queries";
 import makeAsyncScriptLoader from "react-async-script";
 import PaymentStripeForm from "./PaymentsStripeForm";
 import { CivilContext, ICivilContext } from "../context";
@@ -12,7 +12,7 @@ export interface PaymentsStripeProps {
   newsroomName: string;
   shouldPublicize: boolean;
   usdToSpend: number;
-  handlePaymentSuccess(): void;
+  handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean): void;
   handleEditPaymentType(): void;
 }
 
@@ -44,17 +44,24 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
             <Mutation mutation={PAYMENTS_STRIPE_MUTATION}>
               {(paymentsCreateStripePayment: MutationFunc) => {
                 return (
-                  <PaymentStripeForm
-                    postId={this.props.postId}
-                    newsroomName={this.props.newsroomName}
-                    shouldPublicize={this.props.shouldPublicize}
-                    userEmail={userEmail}
-                    userChannelID={userChannelID}
-                    usdToSpend={this.props.usdToSpend}
-                    savePayment={paymentsCreateStripePayment}
-                    handlePaymentSuccess={this.props.handlePaymentSuccess}
-                    handleEditPaymentType={this.props.handleEditPaymentType}
-                  />
+                  <Mutation mutation={SET_EMAIL_MUTATION}>
+                    {(setEmailMutation: MutationFunc) => {
+                      return (
+                        <PaymentStripeForm
+                          postId={this.props.postId}
+                          newsroomName={this.props.newsroomName}
+                          shouldPublicize={this.props.shouldPublicize}
+                          userEmail={userEmail}
+                          userChannelID={userChannelID}
+                          usdToSpend={this.props.usdToSpend}
+                          savePayment={paymentsCreateStripePayment}
+                          setEmail={setEmailMutation}
+                          handlePaymentSuccess={this.props.handlePaymentSuccess}
+                          handleEditPaymentType={this.props.handleEditPaymentType}
+                        />
+                      );
+                    }}
+                  </Mutation>
                 );
               }}
             </Mutation>

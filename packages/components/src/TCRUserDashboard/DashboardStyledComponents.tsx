@@ -15,9 +15,11 @@ export const DashboardStylesNoticeContainer = styled.div`
 export const StyledUserActivity = styled.div`
   background-color: transparent;
   flex-grow: 1;
+  max-width: 800px;
   padding-right: 50px;
   ${mediaQueries.MOBILE} {
     padding: 0;
+    max-width: 100%;
   }
 `;
 
@@ -144,6 +146,7 @@ export const StyledEditSpan = styled.span`
   letter-spacing: 0.22px;
   color: ${colors.basic.WHITE};
   z-index: 20000;
+  cursor: pointer;
 `;
 
 export const StyledUserNoAvatar = styled.div`
@@ -184,6 +187,7 @@ export const StyledUserSetEmailText = styled.span`
   letter-spacing: -0.04px;
   line-height: 23px;
   color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
 `;
 
 export const StyledChangeUserEmailText = styled.span`
@@ -194,6 +198,7 @@ export const StyledChangeUserEmailText = styled.span`
   line-height: 23px;
   margin: left: 2px;
   color: ${colors.accent.CIVIL_BLUE};
+  cursor: pointer;
 `;
 
 export const StyledChangeUserAvatarText = styled.span`

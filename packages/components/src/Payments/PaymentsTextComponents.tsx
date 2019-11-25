@@ -34,7 +34,7 @@ export const ExpressPayText: React.FunctionComponent = props => <label>Express p
 export const PaymentInfoText: React.FunctionComponent = props => (
   <>
     <span>Payment Information</span>
-    Boosts procceded are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
+    Boosts procceds are funded using Debit/Credit Cards or ETH. Civil does not collect any fees on Boosts.
   </>
 );
 
@@ -175,7 +175,9 @@ export const PaymentInProgressText: React.FunctionComponent = props => (
 
 export interface PaymentTextProps {
   newsroomName: string;
+  etherToSpend?: number;
   usdToSpend?: number;
+  userSubmittedEmail?: boolean;
 }
 
 export const PaymentSuccessText: React.FunctionComponent<PaymentTextProps> = props => (
@@ -183,8 +185,15 @@ export const PaymentSuccessText: React.FunctionComponent<PaymentTextProps> = pro
     <h2>Boost payment successful!</h2>
     <p>Thank you for being a contributor.</p>
     <p>
-      {props.newsroomName} has received your Boost of ${props.usdToSpend}. You’ll receive an email with your Boost
-      details.
+      {props.newsroomName} has received your Boost of{" "}
+      {props.etherToSpend ? (
+        <>
+          {props.etherToSpend + " ETH"} &asymp; {"$" + props.usdToSpend}
+        </>
+      ) : (
+        <>${props.usdToSpend}</>
+      )}
+      . {props.userSubmittedEmail && <>You’ll receive an email with your Boost details.</>}
     </p>
   </>
 );
