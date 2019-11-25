@@ -27,6 +27,7 @@ import {
   PaymentEmailConfirmationText,
   PaymentTermsText,
   PaymentErrorText,
+  PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
 import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
@@ -101,6 +102,7 @@ export interface PaymentStripeFormStates {
   cardCVCState: string;
   isPaymentError: boolean;
   paymentProcessing: boolean;
+  wasEmailPrepopulated: boolean;
 }
 
 class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentStripeFormStates> {
@@ -110,6 +112,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     super(props);
     this.state = {
       email: this.props.userEmail || "",
+      wasEmailPrepopulated: this.props.userEmail ? true : false,
       emailState: this.props.userEmail ? INPUT_STATE.VALID : INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
@@ -136,6 +139,9 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           showSecureIcon={true}
         >
           <StripeWrapper>
+          {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email}/>}
+          {!this.state.wasEmailPrepopulated && (
+            <>
             <PaymentInputLabel>Email</PaymentInputLabel>
             <InputValidationUI inputState={this.state.emailState}>
               <input
@@ -148,6 +154,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               />
               <PaymentEmailConfirmationText />
             </InputValidationUI>
+            </>)}
             <PaymentInputLabel>Card information</PaymentInputLabel>
             <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
               <StripeElement inputState={this.state.cardNumberState}>

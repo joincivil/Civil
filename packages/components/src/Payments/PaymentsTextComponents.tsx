@@ -8,6 +8,7 @@ import {
   PaymentEdit,
   PaymentAdjustedNotice,
   PaymentAdjustedNoticeFtr,
+  PaymentNotice,
 } from "./PaymentsStyledComponents";
 
 export const SendPaymentHdrText: React.FunctionComponent = props => <h2>Send a Boost</h2>;
@@ -64,6 +65,13 @@ export const PayWithEthText: React.FunctionComponent = props => <>Pay with ETH</
 
 export const PaymentEthNoticeText: React.FunctionComponent = props => (
   <>There are small transaction fees added by the Ethereum network. Refunds are not possible.</>
+);
+
+export interface PaymentEmailPrepopulatedTextProps {
+  email: string;
+}
+export const PaymentEmailPrepopulatedText: React.FunctionComponent<PaymentEmailPrepopulatedTextProps> = props => (
+  <PaymentNotice>Your payment receipt will be sent to {props.email}</PaymentNotice>
 );
 
 export interface PaymentAmountTextProps {
