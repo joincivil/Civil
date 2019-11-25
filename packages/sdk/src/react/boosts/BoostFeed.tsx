@@ -18,9 +18,9 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
   return (
     <>
       <HelmetHelper
-        title={"Civil Boosts: Support the work that journalists do - The Civil Registry"}
+        title={"Civil Project Boosts: Support the work that journalists do - The Civil Registry"}
         description={
-          "Newsrooms around the world need your help to fund and start new projects. Support these newsrooms by funding their Boosts to help them hit their goals. Good reporting costs money, and the Civil community is making it happen."
+          "Newsrooms around the world need your help to fund and start new projects. Support these newsrooms by funding their Project Boosts to help them hit their goals. Good reporting costs money, and the Civil community is making it happen."
         }
         image={boostCardImage}
         meta={{
@@ -32,7 +32,7 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
       <Query query={boostFeedQuery} variables={{ search }}>
         {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData }) => {
           if (feedQueryLoading) {
-            return <LoadingMessage>Loading Boosts</LoadingMessage>;
+            return <LoadingMessage>Loading Project Boosts</LoadingMessage>;
           } else if (feedQueryError || !feedQueryData || !feedQueryData.postsSearch) {
             console.error("error loading Boost feed data. error:", feedQueryError, "data:", feedQueryData);
             return "Error loading Boosts.";
@@ -48,7 +48,7 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
                 if (newsroomQueryLoading) {
                   return (
                     <BoostWrapper open={false}>
-                      <LoadingMessage>Loading Boost</LoadingMessage>
+                      <LoadingMessage>Loading Project Boost</LoadingMessage>
                     </BoostWrapper>
                   );
                 } else if (newsroomQueryError || !newsroomQueryData || !newsroomQueryData.listing) {

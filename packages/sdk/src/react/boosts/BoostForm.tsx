@@ -250,9 +250,9 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
     return (
       <PageWrapper>
         <HelmetHelper
-          title={"Create Boost - The Civil Registry"}
+          title={"Create Project Boost - The Civil Registry"}
           description={
-            "Connect with the Civil community eager to fund your projects. Boosts are mini-fundraisers that build community around your work. Your Newsroom can use Boosts to let your audience know about what you’d like to do and engage supporters in making the project a reality."
+            "Connect with the Civil community eager to fund your projects. Project Boosts are mini-fundraisers that build community around your work. Your Newsroom can use Project Boosts to let your audience know about what you’d like to do and engage supporters in making the project a reality."
           }
           image={boostCardImage}
           meta={{
@@ -269,7 +269,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
             if (!userLoading && !user) {
               return (
                 <BoostWrapper>
-                  You must log in to edit a Boost. Please use the "Log In" link in the header to do so.
+                  You must log in to edit a Project Boost. Please use the "Log In" link in the header to do so.
                 </BoostWrapper>
               );
             }
@@ -301,7 +301,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                       <BoostWrapper>
                         Your newsroom <b>{this.props.newsroomData.name}</b> has not yet applied to the Civil Registry.
                         Please <Link to="/apply-to-registry">continue your newsroom application</Link> and then, once
-                        you have applied and your newsroom has been approved, you can return to create a Boost.
+                        you have applied and your newsroom has been approved, you can return to create a Project Boost.
                       </BoostWrapper>
                     );
                   }
@@ -312,7 +312,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                         Your newsroom <b>{this.props.newsroomData.name}</b> is not currently approved on the Civil
                         Registry. Please <Link to="/dashboard/newsrooms">visit your newsroom dashboard</Link> to check
                         on the status of your application. Once your newsroom is approved, you can return to create a
-                        Boost.
+                        Project Boost.
                       </BoostWrapper>
                     );
                   }
@@ -331,7 +331,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
     if (this.props.editMode) {
       return (
         <>
-          <Title>Edit Boost</Title>
+          <Title>Edit Project Boost</Title>
           <p>
             Note that after a boost has been launched, only text copy can be changed. Goal amounts and end date cannot
             be edited.
@@ -344,7 +344,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
       <>
         <Title>Let's get you started</Title>
         <p>
-          Create and launch your Boost. Boosts will be displayed on the Boost directory in addition to your Registry
+          Create and launch your Project Boost. Project Boosts will be displayed on the Project Boost directory in addition to your Registry
           listing.
         </p>
       </>
@@ -378,7 +378,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   <NewsroomDetailCell>
                     <BoostFormTitle>
                       Newsroom Name
-                      <QuestionToolTip explainerText="You can create a Boost for your newsroom only." />
+                      <QuestionToolTip explainerText="You can create a Project Boost for your newsroom only." />
                     </BoostFormTitle>
                     <TextInput name="newsroomName" value={this.props.newsroomData.name} disabled />
                   </NewsroomDetailCell>
@@ -393,27 +393,27 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                 </NewsroomDetailRow>
                 <BoostFormTitle>
                   Newsroom Wallet
-                  <QuestionToolTip explainerText="This is your newsroom wallet address where you will receive the funds from your Boost." />
+                  <QuestionToolTip explainerText="This is your newsroom wallet address where you will receive the funds from your Project Boost." />
                 </BoostFormTitle>
                 <TextInput name="newsroomWallet" value={this.props.newsroomData.owner} disabled />
                 <p>
-                  Funds from your Boost will be deposited into the Newsroom Wallet. A Newsroom Officer will be able to
+                  Funds from your Project Boost will be deposited into the Newsroom Wallet. A Newsroom Officer will be able to
                   widthdraw from the newsroom wallet and either deposit or exchange them into other currencies.{" "}
                   <a target="_blank" href={urlConstants.FAQ_BOOST_WITHDRAWL}>
                     Learn&nbsp;more
                   </a>
                 </p>
                 <BoostWrapperFullWidthHr />
-                <BoostFormTitle>Give your Boost a title</BoostFormTitle>
+                <BoostFormTitle>Give your Project Boost a title</BoostFormTitle>
                 <p>
                   What do you need? Start with an action verb to tell people how they can help. For example: “Help
                   [newsroom] do [thing].”
                 </p>
                 <TextareaInput name="title" value={this.state.boost.title} onChange={this.onInputChange} />
-                <BoostFormTitle>Describe your Boost</BoostFormTitle>
+                <BoostFormTitle>Describe your Project Boost</BoostFormTitle>
                 <p>
                   What are you raising funds to do, and why you need help. Tell people why they should be excited to
-                  support your Boost.
+                  support your Project Boost.
                 </p>
                 <TextareaInput name="why" value={this.state.boost.why} onChange={this.onInputChange} />
                 <BoostFormTitle>Describe what the outcome will be</BoostFormTitle>
@@ -431,10 +431,10 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   <QuestionToolTip explainerText="All proceeds go directly to the Newsroom. There are small fees charged by the Ethereum network." />
                 </BoostFormTitle>
                 {this.renderEndDate()}
-                <EndDateNotice>Your Boost will end at 11:59PM on the date selected.</EndDateNotice>
+                <EndDateNotice>Your Project Boost will end at 11:59PM on the date selected.</EndDateNotice>
                 {!this.props.channelData.isStripeConnected && (
                   <ConnectStripeNotice>
-                    <span>No Stripe account connected</span> Your Boost will be able to accept contributions in ETH, but
+                    <span>No Stripe account connected</span> Your Project Boost will be able to accept contributions in ETH, but
                     if you connect a Stripe account you will also be able to accept credit card payments. If you'd like
                     to connect Stripe you can do so from{" "}
                     <a href="/dashboard/newsrooms" target="_blank">
@@ -466,20 +466,20 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
               )}
 
               <SuccessModal open={!!this.state.success}>
-                <ModalHeading>Boost {this.props.editMode ? "Updated" : "Launched!"}</ModalHeading>
+                <ModalHeading>Project Boost {this.props.editMode ? "Updated" : "Launched!"}</ModalHeading>
                 <BoostModalContent>
                   {this.props.editMode ? (
                     <>
-                      Your Boost <b>{this.state.boost.title}</b> has been updated successfully.
+                      Your Project Boost <b>{this.state.boost.title}</b> has been updated successfully.
                     </>
                   ) : (
                     <>
-                      Great work! Your Boost <b>{this.state.boost.title}</b> has successfully launched and is live.
+                      Great work! Your Project Boost <b>{this.state.boost.title}</b> has successfully launched and is live.
                     </>
                   )}
                 </BoostModalContent>
                 <BoostModalContent>
-                  <b>Next step:</b> Share your Boost on social media to help get it funded!
+                  <b>Next step:</b> Share your Project Boost on social media to help get it funded!
                 </BoostModalContent>
                 <BoostShare
                   boostId={this.props.boostId || this.state.createdBoostId!}
@@ -520,7 +520,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
     return (
       <ItemsTableWrapper>
         <BoostFormTitle>
-          List the expenses this Boost can help cover
+          List the expenses this Project Boost can help cover
           <QuestionToolTip explainerText="Itemizing your costs helps educate your audience about the costs of journalism and running of your newsroom." />
         </BoostFormTitle>
         <table>
@@ -582,11 +582,11 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
           <tfoot>
             <tr>
               <td>
-                <BoostFormTitle>Boost Goal</BoostFormTitle>
+                <BoostFormTitle>Project Boost Goal</BoostFormTitle>
                 <p>
-                  Your Boost goal is the amount you would like to raise. If your Boost does not reach its amount goal by
+                  Your Project Boost goal is the amount you would like to raise. If your Project Boost does not reach its amount goal by
                   the end date, the proceeds sent by supporters will still be collected into your Newsroom’s wallet.
-                  Once the Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
+                  Once the Project Boost ends, you’ll be able to withdraw and either dispense or exchange the funds to your
                   wallet, or exchange to another currency.
                 </p>
               </td>

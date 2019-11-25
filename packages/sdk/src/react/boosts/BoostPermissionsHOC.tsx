@@ -128,7 +128,7 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
         <BoostWrapper open={true}>
           <p>
             Please ensure that you are logged in to Civil and have connected your Ethereum account via a browser wallet
-            such as MetaMask so that we can verify your ability to create and edit Boosts for this newsroom.
+            such as MetaMask so that we can verify your ability to create and edit Project Boosts for this newsroom.
           </p>
         </BoostWrapper>
       );
@@ -139,7 +139,7 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
         <BoostWrapper open={true}>
           <p>
             Your account and ETH address <code>{this.state.userEthAddress}</code> don't have permissions to create and
-            edit Boosts for "{newsroomName}". You can view the newsrooms you have access to at your{" "}
+            edit Project Boosts for "{newsroomName}". You can view the newsrooms you have access to at your{" "}
             <Link to="/dashboard/newsrooms">Newsroom Dashboard</Link>. Please verify that you are logged in to the
             correct Civil account and ethereum wallet.
           </p>
