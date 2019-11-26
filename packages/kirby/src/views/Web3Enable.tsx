@@ -47,7 +47,9 @@ export const Web3Enable: React.FC<Web3EnableProps> = ({ network, location }) => 
       } else {
         setStatus("enabling provider");
       }
+      console.log("GO ENABLE WEB3");
       await ethPlugin.enableWeb3(requestID, provider, network as any);
+      console.log("DONE ENABLE WEB3");
       setStatus("done");
 
       (ctx.core.plugins.view as ViewPlugin).completeView();
