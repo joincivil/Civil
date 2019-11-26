@@ -54,6 +54,8 @@ export const VotesPerTokenContainer = styled.div`
   display: flex;
   white-space: nowrap;
   width: 25%;
+  position: relative;
+  margin-left: 20px;
 `;
 
 export const TotalVotesLabelContainer = styled.div`
@@ -72,7 +74,7 @@ export const VotesPerTokenVote = styled.div<VotesPerTokenVoteProps>`
         ? colors.accent.CIVIL_TEAL
         : colors.accent.CIVIL_RED};
     margin-right: 4px;
-  ]
+  }
 `;
 
 export const VotesPerTokenTotal = styled(VotesPerTokenVote)`
