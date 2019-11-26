@@ -11,7 +11,7 @@ import {
 } from "@joincivil/components";
 import { StoryBoostData } from "./types";
 import { storyBoostQuery } from "./queries";
-import { fonts, colors, PaymentButton, CivilLogo } from "@joincivil/elements";
+import { fonts, colors, PaymentButton } from "@joincivil/elements";
 
 const StoryBoostHeader = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -86,7 +86,6 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
               <StoryBoostHeader>
                 <StoryBoostStatus>
                   <StoryNewsroomStatus newsroomName={storyBoostData.channel.newsroom.name} activeChallenge={false} />
-                  <CivilLogo height={13} width={50} />
                 </StoryBoostStatus>
                 <h2>{storyBoostData.openGraphData.title}</h2>
               </StoryBoostHeader>
