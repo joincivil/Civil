@@ -65,6 +65,9 @@ function init(): void {
   const url = getPostUrl();
 
   const renderContainer = document.createElement("div");
+  renderContainer.classList.add("civil-story-boost-wrapper");
+  renderContainer.style.maxWidth = "500px";
+  renderContainer.style.margin = "0 auto";
   currentScript!.parentNode!.insertBefore(renderContainer, currentScript);
 
   ReactDOM.render(
