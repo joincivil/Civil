@@ -86,7 +86,7 @@ export class AvatarLogin extends React.Component<{}, AvatarLoginStates> {
   public render(): JSX.Element {
     const currentUser = this.context && this.context.currentUser;
     const showWeb3Login = this.context.auth.showWeb3Login;
-    const logout = this.context.auth.logout;
+    const logout = this.context.auth.logout.bind(this.context.auth);
 
     return (
       <AvatarLoginWrapper>
