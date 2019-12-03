@@ -90,7 +90,7 @@ export class SmartContract extends React.Component<SmartContractProps> {
       </Mutation>,
       <AddMembersToContract
         charter={this.props.charter!}
-        newsroom={this.props.newsroom}
+        newsroom={this.props.newsroom!}
         updateCharter={this.props.updateCharter}
         profileWalletAddress={this.props.profileWalletAddress}
       />,

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Civil } from "@joincivil/core";
+import { Civil, NewsroomInstance } from "@joincivil/core";
 import { NewsroomRoles } from "@joincivil/utils";
 import {
   colors,
@@ -28,7 +28,7 @@ import { addAndHydrateEditor, addAndHydrateOwner, fetchNewsroom, removeEditor } 
 
 export interface AddMemberProps {
   civil: Civil;
-  newsroom: any;
+  newsroom: NewsroomInstance;
   name: string;
   index: number;
   memberAddress?: EthAddress;
@@ -38,6 +38,7 @@ export interface AddMemberProps {
   avatarUrl?: string;
   isOnContract?: boolean;
   profileWalletAddress?: EthAddress;
+  forceCharterUpdateForMissingAddress?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -346,16 +347,26 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
           <ExplainerText>
             To add this person to the Newsroom Smart Contract, please add their wallet address to their roster profile.
           </ExplainerText>
+          {this.props.forceCharterUpdateForMissingAddress && (
+            <ExplainerText>
+              {/* This is a terrible UX hack, but the post-apply smart contract manager isn't wired up to the publish charter flow so we can't just add it on the fly here. */}
+              To do this, first select the "Edit Charter" tab above, then edit this user in the "Roster" section to add
+              their ethereum wallet address. Once you have saved and published your updated charter, please return here
+              to assign this user their role.
+            </ExplainerText>
+          )}
         </AddAddressInfoSection>
-        <AddAddressSection>
-          <StyledInput
-            placeholder="Public Wallet Address"
-            name="walletAddress"
-            value={this.state.walletAddress}
-            onChange={(name: any, val: any) => this.setState({ walletAddress: val })}
-          />
-          <BorderlessButton onClick={this.addAddress}>Add Wallet Address</BorderlessButton>
-        </AddAddressSection>
+        {!this.props.forceCharterUpdateForMissingAddress && (
+          <AddAddressSection>
+            <StyledInput
+              placeholder="Public Wallet Address"
+              name="walletAddress"
+              value={this.state.walletAddress}
+              onChange={(name: any, val: any) => this.setState({ walletAddress: val })}
+            />
+            <BorderlessButton onClick={this.addAddress}>Add Wallet Address</BorderlessButton>
+          </AddAddressSection>
+        )}
       </>
     );
   }
@@ -591,8 +602,10 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
 
 const mapStateToProps = (state: StateWithNewsroom, ownProps: AddMemberProps): AddMemberProps => {
   const address = ownProps.newsroom ? ownProps.newsroom.address : "";
-  const newsroom = state.newsrooms.get(address || "") || { wrapper: { data: {} } };
-  const owners: UserData[] = (newsroom.wrapper.data.owners || []).map(getUserObject.bind(null, state));
+  const newsroom = state.newsrooms.get(address);
+  const owners: UserData[] = ((newsroom.wrapper && newsroom.wrapper.data && newsroom.wrapper.data.owners) || []).map(
+    getUserObject.bind(null, state),
+  );
   const editors: UserData[] = ((newsroom.editors && newsroom.editors.toArray()) || []).map(
     getUserObject.bind(null, state),
   );

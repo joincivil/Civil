@@ -11,6 +11,7 @@ import {
   ICivilContext,
 } from "@joincivil/components";
 import { CharterData, EthAddress } from "@joincivil/typescript-types";
+import { NewsroomInstance } from "@joincivil/core";
 import styled from "styled-components";
 import { AddMember } from "./AddMember";
 
@@ -38,8 +39,9 @@ const MemberUlLabel = styled.div`
 
 export interface AddMembersToContractProps {
   charter: Partial<CharterData>;
-  newsroom: any;
+  newsroom: NewsroomInstance;
   profileWalletAddress?: EthAddress;
+  managerMode?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
 }
 
@@ -52,9 +54,9 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
       <>
         <OBSectionHeader>Assign access to your Newsroom Smart Contract</OBSectionHeader>
         <OBSectionDescription>
-          Now you'll assign roles to key staff which will determine their level of access to the Newsroom Smart
-          Contract. We recommend adding at least two people as Officers to your Newsroom Smart Contract. This is for
-          your protection in the event you lose access to your wallet.
+          {this.props.managerMode ? "Here you can" : "Now you'll"} assign roles to key staff which will determine their
+          level of access to the Newsroom Smart Contract. We recommend adding at least two people as Officers to your
+          Newsroom Smart Contract. This is for your protection in the event you lose access to your wallet.
         </OBSectionDescription>
         <OBSectionDescription>
           If you are the only Officer on your contract and you lose access to your wallet, you will no longer you will
@@ -103,10 +105,20 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
                   updateCharter={this.props.updateCharter}
                   charter={this.props.charter}
                   profileWalletAddress={this.props.profileWalletAddress}
+                  forceCharterUpdateForMissingAddress={this.props.managerMode}
                 />
               );
             })}
         </MemberUL>
+        <OBSectionDescription>
+          To add additional users, please{" "}
+          {this.props.managerMode
+            ? 'select the "Edit Charter" tab above'
+            : 'use the links above to navigate back to the "Newsroom Roster" step'}{" "}
+          and first add the user there. Make sure you have the user's ethereum wallet address on hand so that you can
+          include it. Once you have {this.props.managerMode ? "published your updated charter" : "updated your charter"}
+          , you can return here and assign them a role on your Newsroom Smart Contract.
+        </OBSectionDescription>
       </>
     );
   }
