@@ -30,8 +30,10 @@ if (!currentScript) {
 const ENVIRONMENT =
   currentScript.src && currentScript.src.indexOf("registry.civil.co") !== -1 ? "production" : "staging";
 
-// const dappOrigin = "http://localhost:3000"; // if simultaneously working on/testing dapp embed locally
-const dappOrigin = ENVIRONMENT === "production" ? "https://registry.civil.co" : "https://staging.civil.app";
+let dappOrigin = ENVIRONMENT === "production" ? "https://registry.civil.co" : "https://staging.civil.app";
+if (currentScript.src.indexOf("localhost:3001") !== -1) {
+  dappOrigin = "http://localhost:3000";
+}
 const fallbackFallbackUrl = dappOrigin + "/storyfeed"; // if embed doesn't load, suggest they go here
 
 const apolloClient = new ApolloClient({
@@ -65,6 +67,9 @@ function init(): void {
   const url = getPostUrl();
 
   const renderContainer = document.createElement("div");
+  renderContainer.classList.add("civil-story-boost-wrapper");
+  renderContainer.style.maxWidth = "500px";
+  renderContainer.style.margin = "0 auto";
   currentScript!.parentNode!.insertBefore(renderContainer, currentScript);
 
   ReactDOM.render(

@@ -31,6 +31,8 @@ export const BoostShareEmbed = (props: BoostShareEmbedProps) => {
       <BoostEmbedIframe
         iframeSrc={`${document.location.origin}/embed/boost/${props.boostId}`}
         fallbackUrl={`${document.location.origin}/boosts/${props.boostId}`}
+        boostType="project"
+        initialHeight={525}
       />,
     );
   }
