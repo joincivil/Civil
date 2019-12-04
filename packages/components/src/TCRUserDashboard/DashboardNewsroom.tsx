@@ -105,9 +105,8 @@ const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStat
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   const [copied, setCopied] = React.useState(false);
-  // prettier-ignore
   const storyBoostEmbed = ReactDOMServer.renderToStaticMarkup(
-    <script src="http://registry.civil.co/loader/boost.js"></script>
+    <script src="http://registry.civil.co/loader/boost.js"></script>,
   );
 
   return (
@@ -184,7 +183,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           Copy
         </InvertedButton>{" "}
         {copied && "Copied!"}
-        {/* TODO get WordPress plugin url
+        {/* TODO waiting on WordPress plugin url
           <p>
             Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on
             your site.
