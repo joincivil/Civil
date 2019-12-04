@@ -1,7 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import { InApplicationResolveCard, ModalContent } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 

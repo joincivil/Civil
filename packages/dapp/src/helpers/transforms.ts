@@ -1,16 +1,7 @@
-import { getFormattedTokenBalance } from "@joincivil/utils";
-import {
-  AppealChallengeData,
-  ChallengeData,
-  didChallengeSucceed as getDidChallengeSucceed,
-  didAppealChallengeSucceed as getDidAppealChallengeSucceed,
-  didChallengeOriginallySucceed as getDidChallengeOriginallySucceed,
-  doesChallengeHaveAppeal as getDoesChallengeHaveAppeal,
-  isAppealAwaitingJudgment,
-} from "@joincivil/core";
+import { getFormattedTokenBalance, challengeHelpers, appealHelpers, appealChallengeHelpers } from "@joincivil/utils";
 import { ChallengeResultsProps } from "@joincivil/components";
 
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, AppealChallengeData, ChallengeData } from "@joincivil/typescript-types";
 
 const getBaseChallengeResults = (
   challengeData: ChallengeData | AppealChallengeData,
@@ -54,10 +45,11 @@ export const getChallengeResultsProps = (challengeData: ChallengeData): Challeng
     return {};
   }
   const baseChallengeResults = getBaseChallengeResults(challengeData);
-  const didChallengeSucceed = getDidChallengeSucceed(challengeData);
-  const didChallengeOriginallySucceed = getDidChallengeOriginallySucceed(challengeData);
-  const doesChallengeHaveAppeal = getDoesChallengeHaveAppeal(challengeData);
-  const isAwaitingAppealJudgement = challengeData.appeal && isAppealAwaitingJudgment(challengeData.appeal);
+  const didChallengeSucceed = challengeHelpers.didChallengeSucceed(challengeData);
+  const didChallengeOriginallySucceed = challengeHelpers.didChallengeOriginallySucceed(challengeData);
+  const doesChallengeHaveAppeal = challengeHelpers.doesChallengeHaveAppeal(challengeData);
+  const isAwaitingAppealJudgement =
+    challengeData.appeal && appealHelpers.isAppealAwaitingJudgment(challengeData.appeal);
 
   return {
     ...(baseChallengeResults as ChallengeResultsProps),
@@ -79,7 +71,7 @@ export const getAppealChallengeResultsProps = (appealChallengeData: AppealChalle
     percentFor: appealChallengePercentFor,
     percentAgainst: appealChallengePercentAgainst,
   } = getBaseChallengeResults(appealChallengeData);
-  const didAppealChallengeSucceed = getDidAppealChallengeSucceed(appealChallengeData);
+  const didAppealChallengeSucceed = appealChallengeHelpers.didAppealChallengeSucceed(appealChallengeData);
 
   return {
     appealChallengeTotalVotes,

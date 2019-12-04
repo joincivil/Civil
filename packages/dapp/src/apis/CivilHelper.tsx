@@ -1,6 +1,6 @@
 import * as React from "react";
-import { EthAddress, TwoStepEthTransaction, StorageHeader, Civil } from "@joincivil/core";
-import { BigNumber, EthSignedMessage } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction, Civil } from "@joincivil/core";
+import { EthAddress, BigNumber, EthSignedMessage, StorageHeader } from "@joincivil/typescript-types";
 import { CivilErrors, getVoteSaltHash } from "@joincivil/utils";
 import { CivilContext, ICivilContext } from "@joincivil/components";
 import { CivilTCR } from "@joincivil/core/build/src/contracts/tcr/civilTCR";

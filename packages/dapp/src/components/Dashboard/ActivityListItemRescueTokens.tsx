@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
-import { UserChallengeData } from "@joincivil/core";
+import { BigNumber, UserChallengeData } from "@joincivil/typescript-types";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { DashboardActivitySelectableItem } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";

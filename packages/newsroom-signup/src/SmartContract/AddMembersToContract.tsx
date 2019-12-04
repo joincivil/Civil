@@ -10,7 +10,7 @@ import {
   CivilContext,
   ICivilContext,
 } from "@joincivil/components";
-import { CharterData, EthAddress } from "@joincivil/core";
+import { CharterData, EthAddress } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { AddMember } from "./AddMember";
 

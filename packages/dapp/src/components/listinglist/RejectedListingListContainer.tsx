@@ -5,13 +5,9 @@ import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import {
-  LISTING_FRAGMENT,
-  transformGraphQLDataIntoListing,
-  transformGraphQLDataIntoNewsroom,
-} from "../../helpers/queryTransformations";
+import { LISTING_FRAGMENT, transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "@joincivil/utils";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
-import { NewsroomListing } from "@joincivil/core";
+import { NewsroomListing } from "@joincivil/typescript-types";
 import { RejectedTabDescription } from "./TabDescriptions";
 import styled from "styled-components/macro";
 

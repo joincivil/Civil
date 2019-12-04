@@ -1,8 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 
-import { EthAddress } from "@joincivil/core";
 import {
   StyledDashboardActivityDescription,
   Notice,

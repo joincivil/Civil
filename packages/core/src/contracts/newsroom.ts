@@ -22,21 +22,20 @@ import { ContentProvider } from "../content/contentprovider";
 import {
   ApprovedRevision,
   CharterContent,
-  CivilTransactionReceipt,
   ContentId,
   EthAddress,
   EthContentHeader,
   Hex,
   NewsroomContent,
   NewsroomData,
-  NewsroomRoles,
   NewsroomWrapper,
   RevisionId,
   StorageHeader,
-  TwoStepEthTransaction,
   TxHash,
   Uri,
-} from "../types";
+} from "@joincivil/typescript-types";
+import { CivilTransactionReceipt, TwoStepEthTransaction } from "../types";
+import { NewsroomRoles } from "@joincivil/utils";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";

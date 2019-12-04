@@ -10,7 +10,7 @@ import {
   BoostBack,
   MobileStyle,
 } from "../BoostStyledComponents";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 
 const BoostHeaderWrap = styled.div`
   margin: 0 0 0 20px;

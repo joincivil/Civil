@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { State } from "../../redux/reducers";
 import { getListingPhaseState } from "../../selectors";
-import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
+import { ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/typescript-types";
 import {
   ListingSummaryComponentProps,
   ListingSummaryComponent,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/typescript-types";
 
 import { NorthEastArrow, TwitterIcon, FacebookIcon } from "../icons";
 import { buttonSizes } from "../Button";

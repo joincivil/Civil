@@ -2,8 +2,8 @@ import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { EthAddress, BigNumber, TxHash } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   InsufficientCVLForAppealChallenge,
   ModalContent,

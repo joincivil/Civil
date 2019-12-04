@@ -1,4 +1,4 @@
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 
 export interface ListingDetailPhaseCardComponentProps {
   challenge?: any;

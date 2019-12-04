@@ -10,7 +10,7 @@ import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
-import { ContentData, StorageHeader } from "./types";
+import { ContentData, StorageHeader } from "@joincivil/typescript-types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
 import { CVLToken } from "./contracts/tcr/cvltoken";
 

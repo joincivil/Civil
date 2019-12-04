@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TxHash } from "@joincivil/core";
+import { TxHash } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { colors, fonts } from "./styleConstants";
 import { NorthEastArrow } from "./icons";

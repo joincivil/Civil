@@ -1,8 +1,8 @@
 import { EthApi } from "@joincivil/ethapi";
-import { DecodedLogEntry, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { DecodedLogEntry, DecodedLogEntryEvent, TxHash, EthAddress } from "@joincivil/typescript-types";
 import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
 import { Observable, Subscriber } from "rxjs";
-import { CivilTransactionReceipt, EthAddress, TwoStepEthTransaction, TxHash } from "../../types";
+import { CivilTransactionReceipt, TwoStepEthTransaction } from "../../types";
 import { artifacts } from "../generated/artifacts";
 import { OwnableContract } from "../interfaces/ownable";
 import { Contract as IContract } from "../interfaces/contract";

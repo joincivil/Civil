@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthSignedMessage, EthAddress, TxHash } from "@joincivil/typescript-types";
 import { Button, InvertedButton, DarkButton, buttonSizes } from "./Button";
 import { CivilContext, ICivilContext } from "./context";
 import { Modal } from "./Modal";

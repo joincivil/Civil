@@ -13,7 +13,8 @@ import {
   TransactionButtonInnerProps,
   ClipLoader,
 } from "@joincivil/components";
-import { EthAddress, NewsroomRoles, TxHash } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
+import { NewsroomRoles } from "@joincivil/utils";
 import styled from "styled-components";
 import { TertiaryButton as _TertiaryButton, FormSubhead, QuestionToolTip } from "./styledComponents";
 import { StateWithNewsroom } from "./reducers";

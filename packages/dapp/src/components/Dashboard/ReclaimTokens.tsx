@@ -1,6 +1,6 @@
 import * as React from "react";
-import { parseEther } from "@joincivil/typescript-types";
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { parseEther, TxHash } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   TransactionButtonNoModal,
   CurrencyInput,

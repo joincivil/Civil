@@ -1,7 +1,7 @@
 import * as React from "react";
 import { formatRoute } from "react-router-named-routes";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "@joincivil/components";
-import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData } from "@joincivil/typescript-types";
 import {
   getFormattedTokenBalance,
   getFormattedEthAddress,

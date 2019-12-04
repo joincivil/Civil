@@ -1,5 +1,5 @@
 import { EthApi } from "@joincivil/ethapi";
-import { ContentData, StorageHeader } from "../types";
+import { ContentData, StorageHeader } from "@joincivil/typescript-types";
 
 export interface ContentProvider {
   scheme(): string;

@@ -5,12 +5,8 @@ import ListingList from "./ListingList";
 import { EmptyRegistryTabContentComponent, REGISTRY_PHASE_TAB_TYPES } from "./EmptyRegistryTabContent";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { NewsroomListing } from "@joincivil/core";
-import {
-  LISTING_FRAGMENT,
-  transformGraphQLDataIntoListing,
-  transformGraphQLDataIntoNewsroom,
-} from "../../helpers/queryTransformations";
+import { NewsroomListing } from "@joincivil/typescript-types";
+import { LISTING_FRAGMENT, transformGraphQLDataIntoListing, transformGraphQLDataIntoNewsroom } from "@joincivil/utils";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import { WhitelistedTabDescription } from "./TabDescriptions";
 import styled from "styled-components/macro";

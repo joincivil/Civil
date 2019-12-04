@@ -1,4 +1,4 @@
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { StateWithNewsroom } from "./reducers";
 import { uiActions } from "./actionCreators";
 import { CmsUserData, UserData } from "./types";

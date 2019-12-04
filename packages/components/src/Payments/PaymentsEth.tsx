@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Mutation, MutationFunc } from "react-apollo";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { ICivilContext, CivilContext } from "../context";
 import { PAYMENTS_ETH_MUTATION, SET_EMAIL_MUTATION } from "./queries";
 import { UsdEthConverter } from "../";

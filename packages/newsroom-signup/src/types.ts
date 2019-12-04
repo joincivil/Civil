@@ -1,4 +1,4 @@
-import { RosterMember } from "@joincivil/core";
+import { RosterMember } from "@joincivil/typescript-types";
 
 /** Data about a wallet address that we get from the CMS. */
 export type CmsUserData =

@@ -1,14 +1,13 @@
 import * as React from "react";
 import {
-  isAppealChallengeInCommitStage,
-  isAppealChallengeInRevealStage,
   AppealData,
   AppealChallengeData,
   ChallengeData,
   EthAddress,
   UserChallengeData,
-} from "@joincivil/core";
-import { BigNumber } from "@joincivil/typescript-types";
+  BigNumber,
+} from "@joincivil/typescript-types";
+import { appealChallengeHelpers } from "@joincivil/utils";
 import AppealChallengeCommitVote from "./AppealChallengeCommitVote";
 import AppealChallengeRevealVote from "./AppealChallengeRevealVote";
 import AppealChallengeResolve from "./AppealChallengeResolve";
@@ -40,11 +39,13 @@ class AppealChallengeDetail extends React.Component<AppealChallengeDetailProps> 
   public render(): JSX.Element {
     const challenge = this.props.appealChallenge;
     const canResolveChallenge =
-      !isAppealChallengeInCommitStage(challenge) && !isAppealChallengeInRevealStage(challenge) && !challenge.resolved;
+      !appealChallengeHelpers.isAppealChallengeInCommitStage(challenge) &&
+      !appealChallengeHelpers.isAppealChallengeInRevealStage(challenge) &&
+      !challenge.resolved;
     return (
       <>
-        {isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
-        {isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
+        {appealChallengeHelpers.isAppealChallengeInCommitStage(challenge) && this.renderCommitStage()}
+        {appealChallengeHelpers.isAppealChallengeInRevealStage(challenge) && this.renderRevealStage()}
         {canResolveChallenge && this.renderResolveAppealChallenge()}
       </>
     );

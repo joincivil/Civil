@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 
 import { EthAddressViewer } from "../EthAddressViewer";
 import { Modal } from "../Modal";

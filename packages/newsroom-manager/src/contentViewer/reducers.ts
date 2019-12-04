@@ -1,6 +1,6 @@
 import { Map } from "immutable";
 import { AnyAction } from "redux";
-import { EthContentHeader } from "@joincivil/core";
+import { EthContentHeader } from "@joincivil/typescript-types";
 import { ADD_REVISION, ADD_REVISION_JSON } from "./actions";
 
 export interface ContentViewerReduxState {

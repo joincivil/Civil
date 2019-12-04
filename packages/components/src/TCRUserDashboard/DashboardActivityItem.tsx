@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { buttonSizes, InvertedButton } from "../Button";
-import { CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/typescript-types";
 import { SmallNewsroomIcon } from "../ListingSummary/styledComponents";
 import defaultNewsroomImgUrl from "../images/img-default-newsroom@2x.png";
 import {

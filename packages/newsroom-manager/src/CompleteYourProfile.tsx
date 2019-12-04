@@ -15,7 +15,8 @@ import {
   Modal,
   Button,
 } from "@joincivil/components";
-import { EthAddress, NewsroomRoles } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
+import { NewsroomRoles } from "@joincivil/utils";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";

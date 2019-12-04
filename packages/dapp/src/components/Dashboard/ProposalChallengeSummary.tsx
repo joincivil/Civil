@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-import { canParamPropChallengeBeResolved, didParamPropChallengeSucceed } from "@joincivil/core";
 import {
   UserVotingSummary,
   CHALLENGE_RESULTS_VOTE_TYPES,
@@ -13,7 +12,7 @@ import {
   StyledDashboardActivityItemAction,
   DashboardActivityProposalItemCTAButton,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, paramPropChallengeHelpers } from "@joincivil/utils";
 
 import WinningChallengeResults from "./WinningChallengeResults";
 import {
@@ -31,8 +30,8 @@ const CurrentChallengeStateExplanation: React.FunctionComponent<
   }
 
   const isResolved = challenge.resolved;
-  const canResolveChallenge = canParamPropChallengeBeResolved(challenge);
-  const didChallengeSucceed = didParamPropChallengeSucceed(challenge);
+  const canResolveChallenge = paramPropChallengeHelpers.canParamPropChallengeBeResolved(challenge);
+  const didChallengeSucceed = paramPropChallengeHelpers.didParamPropChallengeSucceed(challenge);
 
   const currentProposalStatus = didChallengeSucceed ? "reject" : "approve";
 
@@ -84,7 +83,7 @@ const ChallengeSummary: React.FunctionComponent<
     onCTAButtonClick = showRescueTokensTab;
   }
 
-  const canResolveChallenge = canParamPropChallengeBeResolved(challenge);
+  const canResolveChallenge = paramPropChallengeHelpers.canParamPropChallengeBeResolved(challenge);
 
   const buttonProps = {
     ...userChallengeData,

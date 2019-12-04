@@ -22,7 +22,7 @@ import {
   EthContentHeader,
   StorageHeader,
   ContentData,
-} from "@joincivil/core";
+} from "@joincivil/typescript-types";
 import { renderPTagsFromLineBreaks, getLocalDateTimeStrings } from "@joincivil/utils";
 import { State } from "../../redux/reducers";
 import { getContent } from "../../redux/actionCreators/newsrooms";

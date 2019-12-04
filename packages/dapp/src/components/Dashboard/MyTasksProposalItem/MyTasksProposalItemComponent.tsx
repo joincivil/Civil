@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isParamPropChallengeInCommitStage, isParamPropChallengeInRevealStage } from "@joincivil/core";
+import { paramPropChallengeHelpers } from "@joincivil/utils";
 import { DashboardActivityItemTask } from "@joincivil/components";
 
 import { routes } from "../../../constants";
@@ -28,8 +28,8 @@ const MyTasksProposalItemComponent: React.FunctionComponent<
     viewDetailURL: routes.PARAMETERIZER,
   };
 
-  const inCommitPhase = isParamPropChallengeInCommitStage(challenge);
-  const inRevealPhase = isParamPropChallengeInRevealStage(challenge);
+  const inCommitPhase = paramPropChallengeHelpers.isParamPropChallengeInCommitStage(challenge);
+  const inRevealPhase = paramPropChallengeHelpers.isParamPropChallengeInRevealStage(challenge);
 
   if (canUserReveal || canUserCollect || canUserRescue || didUserCommit) {
     return (

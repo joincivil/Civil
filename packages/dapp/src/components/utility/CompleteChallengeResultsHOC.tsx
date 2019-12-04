@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import { ChallengeResultsProps, AppealChallengeResultsProps, AppealChallengePhaseProps } from "@joincivil/components";
 
 import { State } from "../../redux/reducers";
-import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoChallenge, CHALLENGE_QUERY } from "@joincivil/utils";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 
 import { ChallengeContainerProps, ChallengeContainerReduxProps } from "./HigherOrderComponents";

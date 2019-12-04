@@ -1,6 +1,6 @@
 import { Map } from "immutable";
 import { AnyAction } from "redux";
-import { TxDataAll } from "@joincivil/core";
+import { TxDataAll } from "@joincivil/typescript-types";
 import { challengeActions } from "../actionCreators/challenges";
 
 export function grantAppealTxs(

@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
 
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import {
   Hero,
   HomepageHero,

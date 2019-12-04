@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { CivilContext, ICivilContext, MetaMaskModal, ModalHeading } from "@joincivil/components";
 import { KirbyEthereumContext, KirbyEthereum } from "@kirby-web3/ethereum-react";
 import { StyledAuthHeader } from "./authStyledComponents";

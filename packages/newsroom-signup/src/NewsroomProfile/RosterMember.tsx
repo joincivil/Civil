@@ -1,7 +1,6 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { colors, fonts } from "@joincivil/components";
-import { RosterMember as RosterMemberInterface } from "@joincivil/core";
 import { isValidHttpUrl } from "@joincivil/utils";
 import styled from "styled-components";
 import {
@@ -15,6 +14,7 @@ import {
 } from "../styledComponents";
 import { StateWithNewsroom } from "../reducers";
 import { UserData } from "../types";
+import { RosterMember as RosterMemberInterface } from "@joincivil/typescript-types";
 
 export interface RosterMemberProps {
   user: UserData;

@@ -1,7 +1,6 @@
 import * as store from "store";
 import { randomSalt } from "@joincivil/utils";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress } from "@joincivil/core";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 const SALT_WORD_LENGTH = 4;
 
 export function fetchSalt(

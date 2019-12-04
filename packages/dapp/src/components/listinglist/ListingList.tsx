@@ -2,7 +2,7 @@ import * as React from "react";
 import { Set } from "immutable";
 import ListingListItem from "./ListingListItem";
 import { StyledListingSummaryList } from "@joincivil/components";
-import { NewsroomListing } from "@joincivil/core";
+import { NewsroomListing } from "@joincivil/typescript-types";
 
 export interface ListingListOwnProps {
   ListingItemComponent?: any;

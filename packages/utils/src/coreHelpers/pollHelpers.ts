@@ -1,11 +1,12 @@
-import { PollData } from "../../types";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, PollData } from "@joincivil/typescript-types";
+
+export const pollHelpers = { isInCommitStage, isInRevealStage, isVotePassed };
 
 /**
  * Checks if a Poll is in the Commit stage
  * @param pollData the PollData to check
  */
-export function isInCommitStage(pollData: PollData): boolean {
+function isInCommitStage(pollData: PollData): boolean {
   return parseInt(pollData.commitEndDate.toString(), 10) > Date.now() / 1000;
 }
 
@@ -13,7 +14,7 @@ export function isInCommitStage(pollData: PollData): boolean {
  * Checks if a Poll is in the Reveal stage
  * @param pollData the PollData to check
  */
-export function isInRevealStage(pollData: PollData): boolean {
+function isInRevealStage(pollData: PollData): boolean {
   return !isInCommitStage(pollData) && parseInt(pollData.revealEndDate.toString(), 10) > Date.now() / 1000;
 }
 
@@ -21,7 +22,7 @@ export function isInRevealStage(pollData: PollData): boolean {
  * Checks if a Poll is passed
  * @param pollData the PollData to check
  */
-export function isVotePassed(pollData: PollData): boolean {
+function isVotePassed(pollData: PollData): boolean {
   if (isInCommitStage(pollData) || isInRevealStage(pollData)) {
     return false;
   }

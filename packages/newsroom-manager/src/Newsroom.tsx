@@ -12,7 +12,8 @@ import {
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
-import { Civil, EthAddress, TxHash, CharterData } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
+import { EthAddress, TxHash, CharterData } from "@joincivil/typescript-types";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";

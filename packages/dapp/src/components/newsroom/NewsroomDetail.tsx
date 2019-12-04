@@ -1,10 +1,9 @@
 import * as React from "react";
 import { List } from "immutable";
-import { EthAddress } from "@joincivil/core";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 
 export interface NewsroomDetailState {
   name: string;

@@ -1,11 +1,10 @@
 import * as React from "react";
 import { formatRoute } from "react-router-named-routes";
-import { EthAddress } from "@joincivil/core";
 import { urlConstants as links } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
 
 import { routes } from "../../constants";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface WhitelistedCardSubmitChallengeProps {

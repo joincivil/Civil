@@ -1,36 +1,14 @@
-import { BigNumber } from "@joincivil/typescript-types";
-import { createSelector } from "reselect";
-import { Set, Map } from "immutable";
 import {
-  canListingBeChallenged,
+  BigNumber,
   EthAddress,
-  canAppealBeResolved as getCanAppealBeResolved,
-  canBeWhitelisted as getCanBeWhitelisted,
-  canResolveChallenge as getCanResolveChallenge,
-  didChallengeSucceed as getDidChallengeSucceed,
-  didChallengeOriginallySucceed as getDidChallengeOriginallySucceed,
-  isInApplicationPhase,
-  isChallengeInCommitStage,
-  isChallengeInRevealStage,
-  isAwaitingAppealRequest as getIsAwaitingAppealRequest,
-  canRequestAppeal as getCanRequestAppeal,
-  doesChallengeHaveAppeal as getDoesChallengeHaveAppeal,
-  isListingAwaitingAppealJudgment as getIsListingAwaitingAppealJudgement,
-  isListingAwaitingAppealChallenge as getIsListingAwaitingAppealChallenge,
-  isAwaitingAppealChallenge as getIsAwaitingAppealChallenge,
-  isInAppealChallengeCommitPhase as getIsInAppealChallengeCommitPhase,
-  isInAppealChallengeRevealPhase as getIsInAppealChallengeRevealPhase,
-  canListingAppealChallengeBeResolved as getCanListingAppealChallengeBeResolved,
-  isAppealAwaitingJudgment,
-  isAppealChallengeInCommitStage as getIsAppealChallengeInCommitStage,
-  isAppealChallengeInRevealStage as getIsAppealChallengeInRevealStage,
-  canAppealChallengeBeResolved,
-  didAppealChallengeSucceed,
   ListingWrapper,
   WrappedChallengeData,
   AppealChallengeData,
   NewsroomWrapper,
-} from "@joincivil/core";
+} from "@joincivil/typescript-types";
+import { createSelector } from "reselect";
+import { Set, Map } from "immutable";
+import { listingHelpers, challengeHelpers, appealHelpers, appealChallengeHelpers } from "@joincivil/utils";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { State } from "../redux/reducers";
 
@@ -139,21 +117,25 @@ export const getProposalIDProp = (state: State, props: ProposalContainerProps) =
 export const getChallengeState = (challengeData: WrappedChallengeData) => {
   const challenge = challengeData && challengeData.challenge;
   const isResolved = challenge && challenge.resolved;
-  const inCommitPhase = challenge && isChallengeInCommitStage(challenge);
-  const inRevealPhase = challenge && isChallengeInRevealStage(challenge);
-  const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-  const canRequestAppeal = challenge && getCanRequestAppeal(challenge);
-  const doesChallengeHaveAppeal = challenge && getDoesChallengeHaveAppeal(challenge);
-  const isAwaitingAppealJudgement = challenge && challenge.appeal && isAppealAwaitingJudgment(challenge.appeal);
-  const canAppealBeResolved = challenge && challenge.appeal && getCanAppealBeResolved(challenge.appeal);
-  const isAwaitingAppealChallenge = challenge && challenge.appeal && getIsAwaitingAppealChallenge(challenge.appeal);
-  const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
-  const didChallengeOriginallySucceed = challenge && getDidChallengeOriginallySucceed(challenge);
+  const inCommitPhase = challenge && challengeHelpers.isChallengeInCommitStage(challenge);
+  const inRevealPhase = challenge && challengeHelpers.isChallengeInRevealStage(challenge);
+  const canResolveChallenge = challenge && challengeHelpers.canResolveChallenge(challenge);
+  const canRequestAppeal = challenge && challengeHelpers.canRequestAppeal(challenge);
+  const doesChallengeHaveAppeal = challenge && challengeHelpers.doesChallengeHaveAppeal(challenge);
+  const isAwaitingAppealJudgement =
+    challenge && challenge.appeal && appealHelpers.isAppealAwaitingJudgment(challenge.appeal);
+  const canAppealBeResolved = challenge && challenge.appeal && appealHelpers.canAppealBeResolved(challenge.appeal);
+  const isAwaitingAppealChallenge =
+    challenge && challenge.appeal && appealHelpers.isAwaitingAppealChallenge(challenge.appeal);
+  const didChallengeSucceed = challenge && challengeHelpers.didChallengeSucceed(challenge);
+  const didChallengeOriginallySucceed = challenge && challengeHelpers.didChallengeOriginallySucceed(challenge);
 
   const appealChallenge = challenge && challenge.appeal && challenge.appeal.appealChallenge;
 
-  const isAppealChallengeInCommitStage = appealChallenge && getIsAppealChallengeInCommitStage(appealChallenge);
-  const isAppealChallengeInRevealStage = appealChallenge && getIsAppealChallengeInRevealStage(appealChallenge);
+  const isAppealChallengeInCommitStage =
+    appealChallenge && appealChallengeHelpers.isAppealChallengeInCommitStage(appealChallenge);
+  const isAppealChallengeInRevealStage =
+    appealChallenge && appealChallengeHelpers.isAppealChallengeInRevealStage(appealChallenge);
 
   return {
     isResolved,
@@ -175,10 +157,10 @@ export const getChallengeState = (challengeData: WrappedChallengeData) => {
 export const getAppealChallengeState = (challengeData: AppealChallengeData) => {
   const challenge = challengeData;
   const isResolved = challenge && challenge.resolved;
-  const inCommitPhase = challenge && getIsAppealChallengeInCommitStage(challenge);
-  const inRevealPhase = challenge && getIsAppealChallengeInRevealStage(challenge);
-  const canResolveChallenge = challenge && canAppealChallengeBeResolved(challenge);
-  const didChallengeSucceed = challenge && didAppealChallengeSucceed(challenge);
+  const inCommitPhase = challenge && appealChallengeHelpers.isAppealChallengeInCommitStage(challenge);
+  const inRevealPhase = challenge && appealChallengeHelpers.isAppealChallengeInRevealStage(challenge);
+  const canResolveChallenge = challenge && appealChallengeHelpers.canAppealChallengeBeResolved(challenge);
+  const didChallengeSucceed = challenge && appealChallengeHelpers.didAppealChallengeSucceed(challenge);
 
   return {
     isResolved,
@@ -197,25 +179,25 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
   const challenge = listingData.challenge;
   const appeal = challenge && challenge.appeal;
 
-  const isInApplication = isInApplicationPhase(listingData);
-  const canBeChallenged = canListingBeChallenged(listingData);
-  const canBeWhitelisted = getCanBeWhitelisted(listingData);
+  const isInApplication = listingHelpers.isInApplicationPhase(listingData);
+  const canBeChallenged = listingHelpers.canListingBeChallenged(listingData);
+  const canBeWhitelisted = listingHelpers.canBeWhitelisted(listingData);
 
-  const inChallengeCommitVotePhase = challenge && isChallengeInCommitStage(challenge);
-  const inChallengeRevealPhase = challenge && isChallengeInRevealStage(challenge);
-  const isAwaitingAppealRequest = getIsAwaitingAppealRequest(listingData);
-  const canResolveChallenge = challenge && getCanResolveChallenge(challenge);
-  const didChallengeSucceed = challenge && getDidChallengeSucceed(challenge);
-  const didChallengeOriginallySucceed = challenge && getDidChallengeOriginallySucceed(challenge);
+  const inChallengeCommitVotePhase = challenge && challengeHelpers.isChallengeInCommitStage(challenge);
+  const inChallengeRevealPhase = challenge && challengeHelpers.isChallengeInRevealStage(challenge);
+  const isAwaitingAppealRequest = listingHelpers.isAwaitingAppealRequest(listingData);
+  const canResolveChallenge = challenge && challengeHelpers.canResolveChallenge(challenge);
+  const didChallengeSucceed = challenge && challengeHelpers.didChallengeSucceed(challenge);
+  const didChallengeOriginallySucceed = challenge && challengeHelpers.didChallengeOriginallySucceed(challenge);
 
-  const doesChallengeHaveAppeal = challenge && getDoesChallengeHaveAppeal(challenge);
-  const isAwaitingAppealJudgement = getIsListingAwaitingAppealJudgement(listingData);
-  const canListingAppealBeResolved = appeal && getCanAppealBeResolved(appeal);
+  const doesChallengeHaveAppeal = challenge && challengeHelpers.doesChallengeHaveAppeal(challenge);
+  const isAwaitingAppealJudgement = listingHelpers.isListingAwaitingAppealJudgment(listingData);
+  const canListingAppealBeResolved = appeal && appealHelpers.canAppealBeResolved(appeal);
 
-  const isAwaitingAppealChallenge = getIsListingAwaitingAppealChallenge(listingData);
-  const isInAppealChallengeCommitPhase = getIsInAppealChallengeCommitPhase(listingData);
-  const isInAppealChallengeRevealPhase = getIsInAppealChallengeRevealPhase(listingData);
-  const canListingAppealChallengeBeResolved = getCanListingAppealChallengeBeResolved(listingData);
+  const isAwaitingAppealChallenge = listingHelpers.isListingAwaitingAppealChallenge(listingData);
+  const isInAppealChallengeCommitPhase = listingHelpers.isInAppealChallengeCommitPhase(listingData);
+  const isInAppealChallengeRevealPhase = listingHelpers.isInAppealChallengeRevealPhase(listingData);
+  const canListingAppealChallengeBeResolved = listingHelpers.canListingAppealChallengeBeResolved(listingData);
 
   const isUnderChallenge = listingData.challenge && !listingData.challenge.resolved;
   const isWhitelisted = listingData.isWhitelisted;

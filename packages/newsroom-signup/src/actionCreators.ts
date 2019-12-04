@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { EthAddress, BigNumber, CharterData, ListingWrapper } from "@joincivil/typescript-types";
 import { Map } from "immutable";
-import { EthAddress, Civil, CharterData, ListingWrapper } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml, is0x0Address } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";
@@ -132,7 +132,7 @@ export const setNewsroomMultisigAddress = (address: EthAddress, multisigAddress:
   };
 };
 
-export const setNewsroomMultisigBalance = (address: EthAddress, multisigBalance: BigNumber): AnyAction => {
+const setNewsroomMultisigBalance = (address: EthAddress, multisigBalance: BigNumber): AnyAction => {
   return {
     type: newsroomActions.SET_MULTISIG_BALANCE,
     data: {

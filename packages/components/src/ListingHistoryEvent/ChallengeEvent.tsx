@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { ListingHistoryEventTimestampProps } from "./types";
 import { ListingEventTitles } from "./constants";
 import { ListingHistoryEvent, StyledEventCopy } from "./ListingHistoryEvent";

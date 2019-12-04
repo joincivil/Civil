@@ -2,7 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 
-import { doesChallengeHaveAppeal } from "@joincivil/core";
 import {
   colors,
   UserVotingSummary,
@@ -16,7 +15,7 @@ import {
   StyledDashboardActivityItemAction,
   DashboardActivityItemCTAButton,
 } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+import { getFormattedTokenBalance, challengeHelpers } from "@joincivil/utils";
 
 import WinningChallengeResults from "./WinningChallengeResults";
 import { MyTasksItemSubComponentProps } from "./MyTasksItem";
@@ -102,7 +101,7 @@ const CurrentChallengeStateExplanation: React.FunctionComponent<MyTasksItemSubCo
       );
       break;
 
-    case isResolved && doesChallengeHaveAppeal(challenge!.challenge):
+    case isResolved && challengeHelpers.doesChallengeHaveAppeal(challenge!.challenge):
       explanation = (
         <p>
           The Civil Council {currentNewsroomStatusPastTense} this newsroom via the appeal process, {councilDecision}ing
@@ -380,7 +379,7 @@ const DashboardItemChallengeDetails: React.FunctionComponent<MyTasksItemSubCompo
 
       {<ChallengeSummary {...props} />}
 
-      {doesChallengeHaveAppeal(challenge.challenge) && <AppealSummary {...props} />}
+      {challengeHelpers.doesChallengeHaveAppeal(challenge.challenge) && <AppealSummary {...props} />}
 
       {appealChallenge && <AppealChallengeSummary {...props} />}
     </>

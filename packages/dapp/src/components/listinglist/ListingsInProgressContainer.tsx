@@ -6,22 +6,9 @@ import {
   LISTING_FRAGMENT,
   transformGraphQLDataIntoListing,
   transformGraphQLDataIntoNewsroom,
-} from "../../helpers/queryTransformations";
-import {
-  isInApplicationPhase,
-  isInChallengedCommitVotePhase,
-  canBeWhitelisted,
-  isInChallengedRevealVotePhase,
-  isAwaitingAppealRequest,
-  isInAppealChallengeCommitPhase,
-  isInAppealChallengeRevealPhase,
-  isListingAwaitingAppealJudgment,
-  isListingAwaitingAppealChallenge,
-  canChallengeBeResolved,
-  canListingAppealBeResolved,
-  getNextTimerExpiry,
-  NewsroomListing,
-} from "@joincivil/core";
+  listingHelpers,
+} from "@joincivil/utils";
+import { NewsroomListing } from "@joincivil/typescript-types";
 import { LoadingMessage } from "@joincivil/components";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ListingsInProgress from "./ListingsInProgress";
@@ -73,7 +60,7 @@ class ListingsInProgressContainer extends React.Component<ListingsInProgressProp
 
           let soonestExpiry = Number.MAX_SAFE_INTEGER;
           allListings.forEach(listing => {
-            const expiry = getNextTimerExpiry(listing!.listing.data);
+            const expiry = listingHelpers.getNextTimerExpiry(listing!.listing.data);
             if (expiry > 0 && expiry < soonestExpiry) {
               soonestExpiry = expiry;
             }
@@ -82,46 +69,48 @@ class ListingsInProgressContainer extends React.Component<ListingsInProgressProp
           const delaySeconds = soonestExpiry - nowSeconds;
           setTimeout(this.onTimerExpiry, delaySeconds * 1000);
 
-          const applications = allListings.filter(listing => isInApplicationPhase(listing!.listing.data)).toSet();
+          const applications = allListings
+            .filter(listing => listingHelpers.isInApplicationPhase(listing!.listing.data))
+            .toSet();
 
           const readyToWhitelistListings = allListings
-            .filter(listing => canBeWhitelisted(listing!.listing.data))
+            .filter(listing => listingHelpers.canBeWhitelisted(listing!.listing.data))
             .toSet();
 
           const inChallengeCommitListings = allListings
-            .filter(listing => isInChallengedCommitVotePhase(listing!.listing.data))
+            .filter(listing => listingHelpers.isInChallengedCommitVotePhase(listing!.listing.data))
             .toSet();
 
           const inChallengeRevealListings = allListings
-            .filter(listing => isInChallengedRevealVotePhase(listing!.listing.data))
+            .filter(listing => listingHelpers.isInChallengedRevealVotePhase(listing!.listing.data))
             .toSet();
 
           const awaitingAppealRequestListings = allListings
-            .filter(listing => isAwaitingAppealRequest(listing!.listing.data))
+            .filter(listing => listingHelpers.isAwaitingAppealRequest(listing!.listing.data))
             .toSet();
 
           const awaitingAppealJudgmentListings = allListings
-            .filter(listing => isListingAwaitingAppealJudgment(listing!.listing.data))
+            .filter(listing => listingHelpers.isListingAwaitingAppealJudgment(listing!.listing.data))
             .toSet();
 
           const awaitingAppealChallengeListings = allListings
-            .filter(listing => isListingAwaitingAppealChallenge(listing!.listing.data))
+            .filter(listing => listingHelpers.isListingAwaitingAppealChallenge(listing!.listing.data))
             .toSet();
 
           const appealChallengeCommitPhaseListings = allListings
-            .filter(listing => isInAppealChallengeCommitPhase(listing!.listing.data))
+            .filter(listing => listingHelpers.isInAppealChallengeCommitPhase(listing!.listing.data))
             .toSet();
 
           const appealChallengeRevealPhaseListings = allListings
-            .filter(listing => isInAppealChallengeRevealPhase(listing!.listing.data))
+            .filter(listing => listingHelpers.isInAppealChallengeRevealPhase(listing!.listing.data))
             .toSet();
 
           const resolveChallengeListings = allListings
-            .filter(listing => canChallengeBeResolved(listing!.listing.data))
+            .filter(listing => listingHelpers.canChallengeBeResolved(listing!.listing.data))
             .toSet();
 
           const resolveAppealListings = allListings
-            .filter(listing => canListingAppealBeResolved(listing!.listing.data))
+            .filter(listing => listingHelpers.canListingAppealBeResolved(listing!.listing.data))
             .toSet();
 
           return (

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppealChallengeData } from "@joincivil/core";
+import { AppealChallengeData } from "@joincivil/typescript-types";
 import { VoteTypeSummaryRow as PartialChallengeResultsComponent } from "@joincivil/components";
 import { getChallengeViewProps, getAppealChallengeViewProps } from "../utility/WinningChallengeResultsHOC";
 

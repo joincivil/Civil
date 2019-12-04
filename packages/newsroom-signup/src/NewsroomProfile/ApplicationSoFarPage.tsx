@@ -9,7 +9,7 @@ import {
   HollowGreenCheck,
 } from "@joincivil/components";
 import { AvatarWrap, AvatarImg, noAvatar } from "../styledComponents";
-import { CharterData, RosterMember } from "@joincivil/core";
+import { CharterData, RosterMember } from "@joincivil/typescript-types";
 import { charterQuestions, questionsCopy } from "../constants";
 import { RosterMemberListItem } from "./RosterMemberListItem";
 

@@ -1,6 +1,6 @@
 import { Map, Set } from "immutable";
 import { AnyAction } from "redux";
-import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/core";
+import { NewsroomWrapper, EthAddress, CharterData } from "@joincivil/typescript-types";
 import { newsroomActions, uiActions, userActions, governmentActions } from "./actionCreators";
 import { CmsUserData } from "./types";
 

@@ -15,11 +15,11 @@ import {
   colors,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage, hashContent } from "@joincivil/utils";
-import { Civil, EthAddress, CharterData } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
 import { Map } from "immutable";
 import styled from "styled-components";
 import { CivilContext, CivilContextValue } from "./CivilContext";
-import { EthSignedMessage, TxHash } from "@joincivil/typescript-types";
+import { EthAddress, CharterData, EthSignedMessage, TxHash } from "@joincivil/typescript-types";
 import { IpfsObject } from "./Newsroom";
 import { toBuffer } from "ethereumjs-util";
 import { fetchNewsroom } from "./actionCreators";

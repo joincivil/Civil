@@ -1,13 +1,12 @@
 import * as React from "react";
-import { BigNumber } from "@joincivil/typescript-types";
-import { CharterData, WrappedChallengeData } from "@joincivil/core";
+import { BigNumber, CharterData, WrappedChallengeData } from "@joincivil/typescript-types";
 
 import {
   transformGraphQLDataIntoListing,
   transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoChallenge,
   transfromGraphQLDataIntoUserChallengeData,
-} from "../../../helpers/queryTransformations";
+} from "@joincivil/utils";
 import { getChallengeState, getAppealChallengeState } from "../../../selectors";
 
 import MyTasksItemComponent from "./MyTasksItemComponent";

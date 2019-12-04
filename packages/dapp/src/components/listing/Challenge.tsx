@@ -6,7 +6,7 @@ import { formatRoute } from "react-router-named-routes";
 
 import { routes } from "../../constants";
 import ChallengeDetailContainer from "./ChallengeDetail";
-import { CHALLENGE_QUERY, transformGraphQLDataIntoChallenge } from "../../helpers/queryTransformations";
+import { CHALLENGE_QUERY, transformGraphQLDataIntoChallenge } from "@joincivil/utils";
 
 const StyledPageOuter = styled.div`
   margin: 0 auto;
