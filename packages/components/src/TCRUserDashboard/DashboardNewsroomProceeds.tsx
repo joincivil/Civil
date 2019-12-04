@@ -1,68 +1,85 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Query } from "react-apollo";
-import {
-  LoadingIndicator,
-  colors,
-  fonts,
-  mediaQueries,
-  withNewsroomChannel,
-  NewsroomChannelInjectedProps,
-} from "@joincivil/components";
-import { boostProceedsQuery } from "./queries";
-import { CurrencyLabel } from "./BoostStyledComponents";
+import { LoadingIndicator } from "../LoadingIndicator";
+import { withNewsroomChannel, NewsroomChannelInjectedProps } from "../WithNewsroomChannelHOC";
+import { colors, fonts, mediaQueries } from "@joincivil/elements";
+import gql from "graphql-tag";
+
+const boostTypeProceedsQuery = gql`
+  query proceeds($channelID: String!, $boostType: String!) {
+    getChannelTotalProceedsByBoostType(channelID: $channelID, boostType: $boostType) {
+      totalAmount
+      usd
+      ethUsdAmount
+      ether
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin: 32px 0;
   font-size: 14px;
+  justify-content: space-between;
+  margin: 0 0 20px;
 
   ${mediaQueries.MOBILE} {
     display: block;
   }
 `;
+
 const Proceed = styled.div`
-  padding: 20px;
   flex: 1;
+  padding: 15px;
 `;
+
 const TotalProceeds = styled(Proceed)`
-  font-family: ${fonts.SANS_SERIF};
   border: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  font-family: ${fonts.SANS_SERIF};
 `;
 
 const Amount = styled.span`
   color: ${colors.primary.BLACK};
   font-size: 16px;
 `;
+
 const TotalAmount = styled(Amount)`
   font-size: 20px;
 `;
 
-export interface BoostProceedsProps {
+interface CurrencyLabelProps {
+  secondary?: boolean;
+}
+const CurrencyLabel = styled.span`
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 12px;
+  font-weight: ${(props: CurrencyLabelProps) => (props.secondary ? 500 : 600)};
+`;
+
+export interface NewsroomProceedsProps {
   newsroomAddress: string;
+  boostType: string;
 }
 
-class BoostProceedsComponent extends React.Component<BoostProceedsProps & NewsroomChannelInjectedProps> {
-  public constructor(props: BoostProceedsProps & NewsroomChannelInjectedProps) {
+class NewsroomProceedsComponent extends React.Component<NewsroomProceedsProps & NewsroomChannelInjectedProps> {
+  public constructor(props: NewsroomProceedsProps & NewsroomChannelInjectedProps) {
     super(props);
   }
   public render(): JSX.Element {
     return (
-      <Query query={boostProceedsQuery} variables={{ channelID: this.props.channelData.id }}>
+      <Query<any>
+        query={boostTypeProceedsQuery}
+        variables={{ channelID: this.props.channelData.id, boostType: this.props.boostType }}
+      >
         {({ loading, error, data }) => {
           if (loading) {
             return <LoadingIndicator />;
-          } else if (error || !data || !data.getChannelTotalProceeds) {
+          } else if (error || !data || !data.getChannelTotalProceedsByBoostType) {
             console.error("Error loading boost proceeds query:", error || "no data returned");
-            return (
-              <span style={{ color: "red" }}>
-                Error loading Project Boost proceed amounts: {JSON.stringify(error || "no data returned")}
-              </span>
-            );
+            return <span>Error loading proceed amounts: {JSON.stringify(error || "no data returned")}</span>;
           }
 
-          let { totalAmount, ether, ethUsdAmount, usd } = data.getChannelTotalProceeds;
+          let { totalAmount, ether, ethUsdAmount, usd } = data.getChannelTotalProceedsByBoostType;
           totalAmount = parseFloat(totalAmount || 0).toFixed(2);
           ether = parseFloat(ether || 0).toFixed(5);
           ethUsdAmount = parseFloat(ethUsdAmount || 0).toFixed(2);
@@ -97,6 +114,6 @@ class BoostProceedsComponent extends React.Component<BoostProceedsProps & Newsro
   }
 }
 
-export const BoostProceeds: React.ComponentType<BoostProceedsProps> = withNewsroomChannel(
-  BoostProceedsComponent,
+export const NewsroomProceeds: React.ComponentType<NewsroomProceedsProps> = withNewsroomChannel(
+  NewsroomProceedsComponent,
 ) as any;

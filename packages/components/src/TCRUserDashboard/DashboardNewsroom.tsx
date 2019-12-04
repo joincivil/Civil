@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { urlConstants } from "@joincivil/utils";
+import ReactDOMServer from "react-dom/server";
+import { urlConstants, copyToClipboard } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 
 import { ChevronAnchor } from "../ChevronAnchor";
-import { Button, InvertedButton, buttonSizes } from "../Button";
+import { InvertedButton, buttonSizes } from "../Button";
 import { FeatureFlag } from "../features";
 import {
   StyledDashboardNewsroom,
@@ -15,15 +16,18 @@ import {
   StyledDashboardNewsroomSectionContentRow,
   StyledDashboardNewsroomHdr,
   StyledDashboardNewsroomSubHdr,
+  StyledDashboardNewsroomTerHdr,
   StyledDashboardNewsroomBorder,
   StyledChallengeIDKicker,
   StyledDashboardNewsroomLinks,
   StyledDashboardNewsroomTokensContainer,
   StyledDashboardNewsroomTokensLabel,
   StyledCVLLabel,
+  StyledEmbedCode,
 } from "./DashboardStyledComponents";
 import { DashboardNewsroomStripeConnect } from "./DashboardNewsroomStripeConnect";
 import { DashboardNewsroomSubmitLink } from "./DashboardNewsroomSubmitLink";
+import { NewsroomProceeds } from "./DashboardNewsroomProceeds";
 
 export interface DashboardNewsroomProps {
   newsroomName: string;
@@ -100,6 +104,12 @@ const DashboardNewsroomRegistryStatusBase: React.FunctionComponent<DashboardNews
 const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStatusBase);
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
+  const [copied, setCopied] = React.useState(false);
+  // prettier-ignore
+  const storyBoostEmbed = ReactDOMServer.renderToStaticMarkup(
+    <script src="http://registry.civil.co/loader/boost.js"></script>
+  );
+
   return (
     <StyledDashboardNewsroom>
       <StyledDashboardNewsroomSection>
@@ -159,30 +169,31 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
 
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Boosts</StyledDashboardNewsroomHdr>
-        <FeatureFlag feature={"pew"}>
-          <StyledDashboardNewsroomSubHdr>Story Boosts</StyledDashboardNewsroomSubHdr>
-          <p>
-            Story Boosts allow supporters to give you small, incremental proceeds using ETH or credit cards. When you
-            add the Story Boost embed, your stories will be included on the Civil storyfeed and you will be able to
-            collect proceeds from the feed as well as your own site.
-          </p>
-          <p>
-            Place the following code in your CMS where you'd like a Story Boost to be displayed on your site. You can
-            add it to each story or your CMS template.
-          </p>
-
-          {/*@TODO Copy embed code goes here */}
-
+        <StyledDashboardNewsroomSubHdr>Story Boosts</StyledDashboardNewsroomSubHdr>
+        <p>
+          Story Boosts allow supporters to give you small, incremental proceeds using ETH or credit cards. When you add
+          the Story Boost embed, your stories will be included on the Civil storyfeed and you will be able to collect
+          proceeds from the feed as well as your own site.
+        </p>
+        <p>
+          Place the following code in your CMS where you'd like a Story Boost to be displayed on your site. You can add
+          it to each story or your CMS template.
+        </p>
+        <StyledEmbedCode>{storyBoostEmbed}</StyledEmbedCode>
+        <InvertedButton size={buttonSizes.MEDIUM_WIDE} onClick={() => setCopied(copyToClipboard(storyBoostEmbed))}>
+          Copy
+        </InvertedButton>{" "}
+        {copied && "Copied!"}
+        {/* TODO get WordPress plugin url
           <p>
             Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on
             your site.
           </p>
-
-          {/*@TODO Wordpress plugin link goes here */}
-          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
+          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={""}>
             Get the Story Boost Plugin
           </InvertedButton>
-
+          */}
+        <FeatureFlag feature={"pew"}>
           <Query<any>
             query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
             variables={{ contractAddress: props.newsroomAddress }}
@@ -193,20 +204,16 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
               }
               return (
                 <>
-                  <p>
-                    <b>Submit a Story</b>
-                  </p>
+                  <StyledDashboardNewsroomTerHdr>Submit a Story</StyledDashboardNewsroomTerHdr>
                   <DashboardNewsroomSubmitLink channelID={data.channelsGetByNewsroomAddress.id} />
                 </>
               );
             }}
           </Query>
-          <p>
-            <b>Proceeds collected from Story Boosts</b>
-          </p>
-          <StyledDashboardNewsroomBorder />
         </FeatureFlag>
-
+        <StyledDashboardNewsroomTerHdr>Proceeds collected from Story Boosts</StyledDashboardNewsroomTerHdr>
+        <NewsroomProceeds newsroomAddress={props.newsroomAddress} boostType={"externallink"} />
+        <StyledDashboardNewsroomBorder />
         <StyledDashboardNewsroomSubHdr>Project Boosts</StyledDashboardNewsroomSubHdr>
         <p>
           Project Boosts lets your newsroom host one-off fundraisers anywhere on your website to fund and produce larger
@@ -218,12 +225,11 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
             Learn more
           </a>
         </p>
-
         {/*@TODO Because we're in components we can't access dapp routes so we have to hard code the route*/}
         <p>
-          <Button size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
+          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={`/manage-newsroom/${props.newsroomAddress}/launch-boost`}>
             Launch a New Project Boost
-          </Button>
+          </InvertedButton>
         </p>
         <p>
           <InvertedButton
@@ -233,9 +239,8 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
             View your Project Boosts
           </InvertedButton>
         </p>
-        <p>
-          <b>Proceeds collected from Project Boosts</b>
-        </p>
+        <StyledDashboardNewsroomTerHdr>Proceeds collected from Project Boosts</StyledDashboardNewsroomTerHdr>
+        <NewsroomProceeds newsroomAddress={props.newsroomAddress} boostType={"boost"} />
       </StyledDashboardNewsroomSection>
       <StyledDashboardNewsroomSection>
         <StyledDashboardNewsroomHdr>Payments</StyledDashboardNewsroomHdr>

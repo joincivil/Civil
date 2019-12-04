@@ -10,7 +10,7 @@ import {
   NewsroomChannelInjectedProps,
   CHANNEL_BY_NEWSROOM_QUERY,
 } from "../WithNewsroomChannelHOC";
-import { StyledDashboardNewsroomHdr, StyledDashboardLoadingMessage } from "./DashboardStyledComponents";
+import { StyledDashboardLoadingMessage } from "./DashboardStyledComponents";
 import { ErrorIcon, NorthEastArrow } from "../icons";
 import { colors } from "../styleConstants";
 import { InvertedButton, buttonSizes } from "../Button";
