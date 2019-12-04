@@ -1,32 +1,42 @@
-import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
-import { ParamPropChallengeData, UserChallengeData } from "../../types";
-import { is0x0Address } from "@joincivil/utils";
+import { pollHelpers } from "./pollHelpers";
+import { ParamPropChallengeData, UserChallengeData } from "@joincivil/typescript-types";
+import { is0x0Address } from "../index";
+
+export const paramPropChallengeHelpers = {
+  isParamPropChallengeInCommitStage,
+  isParamPropChallengeInRevealStage,
+  didParamPropChallengeSucceed,
+  canParamPropChallengeBeResolved,
+  isUserParamPropChallengeWinner,
+  canUserCollectParamPropChallengeReward,
+  canRescueParamPropChallengeTokens,
+};
 
 /**
  * Checks in an Param Proposal is in the Commit stage
  * @param challengeData the ParamPropChallengeData to check
  */
-export function isParamPropChallengeInCommitStage(challengeData: ParamPropChallengeData): boolean {
-  return isInCommitStage(challengeData.poll);
+function isParamPropChallengeInCommitStage(challengeData: ParamPropChallengeData): boolean {
+  return pollHelpers.isInCommitStage(challengeData.poll);
 }
 
 /**
  * Checks in an Param Proposal is in the Reveal stage
  * @param challengeData the ParamPropChallengeData to check
  */
-export function isParamPropChallengeInRevealStage(challengeData: ParamPropChallengeData): boolean {
-  return isInRevealStage(challengeData.poll);
+function isParamPropChallengeInRevealStage(challengeData: ParamPropChallengeData): boolean {
+  return pollHelpers.isInRevealStage(challengeData.poll);
 }
 
 /**
  * Checks in an Param Proposal succeeded
  * @param challengeData the ParamPropChallengeData to check
  */
-export function didParamPropChallengeSucceed(challengeData: ParamPropChallengeData): boolean {
-  return !isVotePassed(challengeData.poll);
+function didParamPropChallengeSucceed(challengeData: ParamPropChallengeData): boolean {
+  return !pollHelpers.isVotePassed(challengeData.poll);
 }
 
-export function canParamPropChallengeBeResolved(challengeData: ParamPropChallengeData): boolean {
+function canParamPropChallengeBeResolved(challengeData: ParamPropChallengeData): boolean {
   return (
     !is0x0Address(challengeData.challenger) &&
     !isParamPropChallengeInCommitStage(challengeData) &&
@@ -35,7 +45,7 @@ export function canParamPropChallengeBeResolved(challengeData: ParamPropChalleng
   );
 }
 
-export function isUserParamPropChallengeWinner(
+function isUserParamPropChallengeWinner(
   challengeData: ParamPropChallengeData,
   userChallengeData: UserChallengeData,
 ): boolean {
@@ -47,14 +57,14 @@ export function isUserParamPropChallengeWinner(
   return false;
 }
 
-export function canUserCollectParamPropChallengeReward(
+function canUserCollectParamPropChallengeReward(
   challengeData: ParamPropChallengeData,
   userChallengeData: UserChallengeData,
 ): boolean {
   return isUserParamPropChallengeWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
 }
 
-export function canRescueParamPropChallengeTokens(
+function canRescueParamPropChallengeTokens(
   challengeData: ParamPropChallengeData,
   userChallengeData: UserChallengeData,
 ): boolean {

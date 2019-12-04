@@ -1,20 +1,21 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress, ListingWrapper } from "@joincivil/typescript-types";
+import { Civil, NewsroomInstance } from "@joincivil/core";
 import {
-  Civil,
-  EthAddress,
-  ListingWrapper,
-  isInApplicationPhase,
-  isWhitelisted,
-  NewsroomInstance,
-} from "@joincivil/core";
-import { Parameters, getFormattedParameterValue } from "@joincivil/utils";
+  Parameters,
+  getFormattedParameterValue,
+  listingHelpers,
+  LISTING_QUERY,
+  transformGraphQLDataIntoListing,
+} from "@joincivil/utils";
 import { NextBack } from "../styledComponents";
-import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
+import { getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
 import ApplyToTCRWhitelisted from "./ApplyToTCRWhitelisted";
+import { Query } from "react-apollo";
+import { ErrorLoadingData } from "@joincivil/components";
 
 export interface ApplyToTCRStepOwnProps {
   address?: EthAddress;
@@ -40,34 +41,61 @@ export type TApplyToTCRStepProps = ApplyToTCRStepOwnProps & ApplyToTCRStepReduxP
 class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & DispatchProp<any>> {
   public async componentDidMount(): Promise<void> {
     if (this.props.civil && this.props.address) {
-      await this.hydrateListing();
       await this.hydrateNewsroomMultisigBalance();
     }
   }
 
   public async componentDidUpdate(prevProps: TApplyToTCRStepProps & DispatchProp<any>): Promise<void> {
     if (prevProps.address !== this.props.address || prevProps.newsroom !== this.props.newsroom) {
-      await this.hydrateListing();
       await this.hydrateNewsroomMultisigBalance();
     }
   }
 
   public renderApply(): JSX.Element {
-    const { listing, applyStageLenDisplay } = this.props;
-    if (listing && listing.data && isWhitelisted(listing.data)) {
-      return <ApplyToTCRWhitelisted listing={listing} />;
+    const { address, applyStageLenDisplay } = this.props;
+    if (address) {
+      return (
+        <Query query={LISTING_QUERY} variables={{ addr: address }}>
+          {({ loading, error, data, refetch }: any): JSX.Element => {
+            if (loading) {
+              return <>Loading...</>;
+            }
+            if (error) {
+              console.error("Error Loading Listing Data on ApplyToTCR: ", error);
+              return <ErrorLoadingData />;
+            }
+            let listing;
+            if (data && data.listing) {
+              listing = transformGraphQLDataIntoListing(data.listing, address);
+            }
+            if (listing && listing.data && listingHelpers.isWhitelisted(listing.data)) {
+              return <ApplyToTCRWhitelisted listing={listing} />;
+            }
+            if (listing && listing.data && listingHelpers.isInApplicationPhase(listing.data) && applyStageLenDisplay) {
+              return <ApplyToTCRSuccess listing={listing} applyStageLenDisplay={applyStageLenDisplay} />;
+            }
+            return (
+              <ApplyToTCR
+                {...this.props}
+                postTransfer={this.hydrateNewsroomMultisigBalance}
+                postApplyToTCR={async () => {
+                  refetch();
+                  await this.postApplyToTCR();
+                }}
+              />
+            );
+          }}
+        </Query>
+      );
+    } else {
+      return (
+        <ApplyToTCR
+          {...this.props}
+          postTransfer={this.hydrateNewsroomMultisigBalance}
+          postApplyToTCR={this.postApplyToTCR}
+        />
+      );
     }
-    if (listing && listing.data && isInApplicationPhase(listing.data) && applyStageLenDisplay) {
-      return <ApplyToTCRSuccess listing={listing} applyStageLenDisplay={applyStageLenDisplay} />;
-    }
-
-    return (
-      <ApplyToTCR
-        {...this.props}
-        postTransfer={this.hydrateNewsroomMultisigBalance}
-        postApplyToTCR={this.postApplyToTCR}
-      />
-    );
   }
 
   public render(): JSX.Element {
@@ -90,14 +118,6 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
 
   private postApplyToTCR = async (): Promise<void> => {
     this.props.navigate(1);
-    await this.hydrateListing();
-  };
-
-  private hydrateListing = async (): Promise<void> => {
-    const { address } = this.props;
-    if (!this.props.listing && address) {
-      await this.props.dispatch!(getListing(address, this.props.civil!));
-    }
   };
 }
 

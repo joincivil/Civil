@@ -1,22 +1,16 @@
 import * as React from "react";
 import { ClaimRewards, RescueTokens } from "@joincivil/components";
 import { StyledFormContainer, FormGroup } from "../utility/FormElements";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import {
-  EthAddress,
-  TwoStepEthTransaction,
+  BigNumber,
+  AppealChallengeData,
   UserChallengeData,
   ChallengeData,
-  canUserCollectReward,
-  canRescueTokens,
-  isUserWinner,
-  AppealChallengeData,
-  isUserAppealChallengeWinner,
-  canUserCollectAppealChallengeReward,
-  canRescueAppealChallengeTokens,
-} from "@joincivil/core";
-import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
-import { BigNumber } from "@joincivil/typescript-types";
-import { getFormattedTokenBalance } from "@joincivil/utils";
+  EthAddress,
+} from "@joincivil/typescript-types";
+import { getFormattedTokenBalance, challengeHelpers, appealChallengeHelpers } from "@joincivil/utils";
 
 export interface ChallengeRewardsDetailProps {
   challengeID: BigNumber;
@@ -40,13 +34,19 @@ class ChallengeRewardsDetail extends React.Component<ChallengeRewardsDetailProps
       const challenge = this.props.challenge;
       const appealChallenge = this.props.appealChallenge;
       if (challenge) {
-        isWinner = isUserWinner(challenge, userChallengeData);
-        isClaimRewardsVisible = canUserCollectReward(challenge, userChallengeData);
-        isRescueTokensVisible = canRescueTokens(challenge, userChallengeData);
+        isWinner = challengeHelpers.isUserWinner(challenge, userChallengeData);
+        isClaimRewardsVisible = challengeHelpers.canUserCollectReward(challenge, userChallengeData);
+        isRescueTokensVisible = challengeHelpers.canRescueTokens(challenge, userChallengeData);
       } else if (appealChallenge) {
-        isWinner = isUserAppealChallengeWinner(appealChallenge, userChallengeData);
-        isClaimRewardsVisible = canUserCollectAppealChallengeReward(appealChallenge, userChallengeData);
-        isRescueTokensVisible = canRescueAppealChallengeTokens(appealChallenge, userChallengeData);
+        isWinner = appealChallengeHelpers.isUserAppealChallengeWinner(appealChallenge, userChallengeData);
+        isClaimRewardsVisible = appealChallengeHelpers.canUserCollectAppealChallengeReward(
+          appealChallenge,
+          userChallengeData,
+        );
+        isRescueTokensVisible = appealChallengeHelpers.canRescueAppealChallengeTokens(
+          appealChallenge,
+          userChallengeData,
+        );
       }
       isClaimedRewardVisible = userChallengeData.didCollectAmount;
     }

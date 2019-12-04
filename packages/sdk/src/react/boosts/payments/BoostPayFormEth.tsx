@@ -16,7 +16,8 @@ import {
   RENDER_CONTEXT,
 } from "@joincivil/components";
 import { InputValidationUI, INPUT_STATE } from "./InputValidationUI";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import { PaymentInProgressModalText, PaymentSuccessModalText, PaymentErrorModalText } from "../BoostTextComponents";
 import { MutationFunc } from "react-apollo";
 import { urlConstants } from "../../urlConstants";

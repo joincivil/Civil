@@ -1,4 +1,4 @@
-import { EthAddress } from "../types";
+import { EthAddress } from "@joincivil/typescript-types";
 import { EthApi } from "@joincivil/ethapi";
 import { BaseContract } from "./basecontract";
 

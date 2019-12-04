@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import { Map, Set } from "immutable";
 import styled from "styled-components/macro";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress } from "@joincivil/core";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 import {
   DashboardActivity as DashboardActivityComponent,
   Modal,
@@ -21,7 +20,7 @@ import {
   transformGraphQLDataIntoDashboardChallengesSet,
   transformGraphQLDataIntoDashboardChallengesByTypeSets,
   getUserChallengeDataSetByPollType,
-} from "../../helpers/queryTransformations";
+} from "@joincivil/utils";
 
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import NewsroomsList from "./NewsroomsList";
@@ -333,19 +332,23 @@ class DashboardActivity extends React.Component<
     const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
 
     if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
+      console.log("here 1");
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
     const newsrooms = channelNewsrooms;
 
     if (!newsrooms.size && data && data.nrsignupNewsroom) {
+      console.log("here 2");
       return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />;
     }
 
     if (!newsrooms.size) {
+      console.log("here 3");
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
+    console.log("here 4");
     return (
       <>
         <NewsroomsList listings={newsrooms} />

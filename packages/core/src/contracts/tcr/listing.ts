@@ -1,10 +1,10 @@
 import { Observable, Subscription, BehaviorSubject } from "rxjs";
 import { CivilTCRContract, CivilTCR } from "../generated/wrappers/civil_t_c_r";
 import { EthApi } from "@joincivil/ethapi";
-import { EthAddress, ListingWrapper, ListingData, TimestampedEvent } from "../../types";
+import { TimestampedEvent } from "../../types";
 import { createTimestampedEvent } from "../../utils/events";
 import { Challenge } from "./challenge";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress, ListingWrapper, ListingData } from "@joincivil/typescript-types";
 
 export class Listing {
   private ethApi: EthApi;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ListingWrapper } from "@joincivil/core";
+import { ListingWrapper } from "@joincivil/typescript-types";
 import {
   SubmitChallengeSuccessIcon as ApplicationSuccessIcon,
   OBSectionHeader,

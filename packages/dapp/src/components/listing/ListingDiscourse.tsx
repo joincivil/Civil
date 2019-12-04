@@ -4,7 +4,7 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import styled from "styled-components/macro";
 
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { colors, FeatureFlag, LoadingMessage, ChevronAnchor } from "@joincivil/components";
 
 import config from "../../helpers/config";

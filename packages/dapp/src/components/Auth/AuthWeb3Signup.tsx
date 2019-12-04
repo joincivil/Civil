@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import AuthWeb3 from "./AuthWeb3";
 
 export interface AuthWeb3SignUpProps {

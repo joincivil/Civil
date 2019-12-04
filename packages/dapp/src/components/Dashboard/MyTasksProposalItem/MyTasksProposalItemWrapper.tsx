@@ -1,9 +1,6 @@
 import * as React from "react";
 
-import {
-  transformGraphQLDataIntoChallenge,
-  transfromGraphQLDataIntoUserChallengeData,
-} from "../../../helpers/queryTransformations";
+import { transformGraphQLDataIntoChallenge, transfromGraphQLDataIntoUserChallengeData } from "@joincivil/utils";
 import { MyTasksProposalItemOwnProps, MyTasksProposalItemWrapperReduxProps } from "./MyTasksProposalItemTypes";
 
 import MyTasksProposalItemComponent from "./MyTasksProposalItemComponent";

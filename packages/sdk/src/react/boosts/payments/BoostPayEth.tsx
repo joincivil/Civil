@@ -11,7 +11,7 @@ import {
 import { BoostModal } from "../BoostModal";
 import { BoostPayFormEth } from "./BoostPayFormEth";
 import { UsdEthConverter, HollowGreenCheck, CivilContext, ICivilContext } from "@joincivil/components";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { Mutation, MutationFunc } from "react-apollo";
 import { boostPayEthMutation } from "../queries";
 import { BoostPayOption } from "./BoostPayOption";

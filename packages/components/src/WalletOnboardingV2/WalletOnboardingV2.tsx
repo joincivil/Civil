@@ -3,7 +3,8 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import { hasInjectedProvider } from "@joincivil/ethapi";
 import { isWalletOnboarded, getApolloClient, isBrowserCompatible, urlConstants as links } from "@joincivil/utils";
-import { Civil, EthAddress } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import {
   colors,
   AddressWithMetaMaskIcon,

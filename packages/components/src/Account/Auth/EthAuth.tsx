@@ -1,8 +1,8 @@
 import * as React from "react";
 import gql from "graphql-tag";
 import { Mutation, MutationFunc } from "react-apollo";
-import { Civil, EthAddress } from "@joincivil/core";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { Civil } from "@joincivil/core";
+import { EthSignedMessage, EthAddress } from "@joincivil/typescript-types";
 import {
   Transaction,
   TransactionButtonNoModal,

@@ -9,7 +9,7 @@ import {
   OBSectionHeader,
   OBSectionDescription,
 } from "@joincivil/components";
-import { CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/typescript-types";
 import { isValidHttpUrl } from "@joincivil/utils";
 import {
   FormSection,

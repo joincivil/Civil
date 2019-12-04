@@ -1,12 +1,12 @@
 import * as React from "react";
-import { EthAddress, ListingWrapper, TwoStepEthTransaction, TxHash, NewsroomWrapper } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { BigNumber, EthAddress, ListingWrapper, TxHash, NewsroomWrapper } from "@joincivil/typescript-types";
 import { TransactionButton } from "@joincivil/components";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { ViewModuleHeader } from "../utility/ViewModules";
 import { hasTransactionStatusModals, InjectedTransactionStatusModalProps } from "../utility/TransactionStatusModalsHOC";
 import { ModalContent } from "@joincivil/components/build/ReviewVote/styledComponents";
 import { compose } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { Subscription } from "rxjs";
 

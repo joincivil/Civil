@@ -1,19 +1,24 @@
-import { AppealData } from "../../types";
-import { isAppealChallengeInCommitStage, isAppealChallengeInRevealStage } from "./appealChallengeHelper";
-import { is0x0Address } from "@joincivil/utils";
-import { BigNumber } from "@joincivil/typescript-types";
+import { appealChallengeHelpers } from "./appealChallengeHelpers";
+import { is0x0Address } from "../index";
+import { BigNumber, AppealData } from "@joincivil/typescript-types";
+
+export const appealHelpers = {
+  canAppealBeResolved,
+  isAwaitingAppealChallenge,
+  isAppealAwaitingJudgment,
+};
 
 /**
  * Checks if an appeal can be resolved
  * @param appealData AppealData to check
  */
-export function canAppealBeResolved(appealData: AppealData): boolean {
+function canAppealBeResolved(appealData: AppealData): boolean {
   if (is0x0Address(appealData.requester)) {
     return false;
   } else if (appealData.appealChallenge && !is0x0Address(appealData.appealChallenge.challenger)) {
     // appeal challenge voting must be over (meaning commit & reveal stages are done)
-    const inCommit = isAppealChallengeInCommitStage(appealData.appealChallenge);
-    const inReveal = isAppealChallengeInRevealStage(appealData.appealChallenge);
+    const inCommit = appealChallengeHelpers.isAppealChallengeInCommitStage(appealData.appealChallenge);
+    const inReveal = appealChallengeHelpers.isAppealChallengeInRevealStage(appealData.appealChallenge);
     return !inCommit && !inReveal && !appealData.appealChallenge!.resolved;
   } else if (appealData.appealGranted) {
     // appeal challenge request phase must be over
@@ -31,7 +36,7 @@ export function canAppealBeResolved(appealData: AppealData): boolean {
  * Checks if an appeal is waiting to be challenged
  * @param appealData AppealData to check
  */
-export function isAwaitingAppealChallenge(appealData: AppealData): boolean {
+function isAwaitingAppealChallenge(appealData: AppealData): boolean {
   if (!appealData.appealGranted) {
     return false;
   }
@@ -45,7 +50,7 @@ export function isAwaitingAppealChallenge(appealData: AppealData): boolean {
   }
 }
 
-export function isAppealAwaitingJudgment(appealData: AppealData): boolean {
+function isAppealAwaitingJudgment(appealData: AppealData): boolean {
   if (appealData.appealGranted) {
     return false;
   } else {

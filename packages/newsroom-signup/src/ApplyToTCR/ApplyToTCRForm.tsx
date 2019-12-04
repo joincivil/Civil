@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { compose } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress, TxHash } from "@joincivil/core";
+import { BigNumber, EthAddress, TxHash } from "@joincivil/typescript-types";
 import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
 import {
   QuestionToolTip,
@@ -158,7 +157,6 @@ const ApplyToTCRForm: React.FunctionComponent<
           isTransactionSuccessModalOpen: true,
         });
         postApplyToTCR();
-
         // @TODO A hack until https://github.com/joincivil/Civil/pull/1148
         props.setHandleTransactionSuccessButtonClick(() => {
           document.location.reload();

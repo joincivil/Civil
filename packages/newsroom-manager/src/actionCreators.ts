@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { findIndex } from "lodash";
-import { EthAddress, Civil, CharterData, RosterMember } from "@joincivil/core";
+import { EthAddress, CharterData, RosterMember } from "@joincivil/typescript-types";
+import { Civil } from "@joincivil/core";
 import { getInfuraUrlFromIpfs, sanitizeConstitutionHtml } from "@joincivil/utils";
 import { NewsroomState, StateWithNewsroom } from "./reducers";
 import { CmsUserData } from "./types";

@@ -17,8 +17,8 @@ import {
   TransactionButtonModalFlowState,
   QuestionToolTip,
 } from "@joincivil/components";
-import { Civil, EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
-import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
+import { Civil, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";
@@ -26,6 +26,7 @@ import { changeName, updateNewsroom } from "./actionCreators";
 import { CivilContext, CivilContextValue } from "./CivilContext";
 import { StateWithNewsroom } from "./reducers";
 import { TransactionButtonInner } from "./TransactionButtonInner";
+import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 
 export interface NameAndAddressProps {
   userIsOwner?: boolean;

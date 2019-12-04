@@ -2,7 +2,7 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { isValidAddress } from "ethereumjs-util";
 import { colors, buttonSizes, ToolTip } from "@joincivil/components";
-import { EthAddress, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { EthAddress, RosterMember as RosterMemberInterface } from "@joincivil/typescript-types";
 import { isValidHttpUrl } from "@joincivil/utils";
 import styled from "styled-components";
 import {

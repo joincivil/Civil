@@ -15,7 +15,8 @@ import { network, networkName } from "./network";
 import { ui, showWeb3AuthModal, web3AuthType } from "./ui";
 import { contractAddresses } from "./contractAddresses";
 import { Set, Map } from "immutable";
-import { EthAddress, MultisigTransaction, EthContentHeader, ContentData, TxDataAll } from "@joincivil/core";
+import { MultisigTransaction } from "@joincivil/core";
+import { EthAddress, EthContentHeader, ContentData, TxDataAll } from "@joincivil/typescript-types";
 import { currentUserNewsrooms, content, contentFetched, charterRevisions } from "./newsrooms";
 import {
   newsrooms,

@@ -1,9 +1,13 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber, bigNumberify, formatEther } from "@joincivil/typescript-types";
-
-import { EthAddress, UserChallengeData, ParamPropChallengeData } from "@joincivil/core";
-import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
+import {
+  BigNumber,
+  bigNumberify,
+  formatEther,
+  EthAddress,
+  UserChallengeData,
+  ParamPropChallengeData,
+} from "@joincivil/typescript-types";
 
 import { State } from "../../redux/reducers";
 import { getIsMemberOfAppellate } from "../../selectors";
@@ -13,11 +17,13 @@ import ChallengeProposalRevealVote from "./ChallengeProposalRevealVote";
 import ChallengeProposalResolve from "./ChallengeProposalResolve";
 import { Query } from "react-apollo";
 import {
+  Parameters,
+  getFormattedTokenBalance,
   CHALLENGE_QUERY,
   transformGraphQLDataIntoParamPropChallenge,
   USER_CHALLENGE_DATA_QUERY,
   transfromGraphQLDataIntoUserChallengeData,
-} from "../../helpers/queryTransformations";
+} from "@joincivil/utils";
 import { compose } from "redux";
 import { connectParameters, ParametersProps } from "../utility/HigherOrderComponents";
 

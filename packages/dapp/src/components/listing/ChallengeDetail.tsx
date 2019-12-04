@@ -3,17 +3,14 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components/macro";
-import { BigNumber } from "@joincivil/typescript-types";
 import {
-  canRequestAppeal,
-  doesChallengeHaveAppeal,
+  BigNumber,
   ChallengeData,
   EthAddress,
   UserChallengeData,
   NewsroomWrapper,
   WrappedChallengeData,
-  didUserCommit,
-} from "@joincivil/core";
+} from "@joincivil/typescript-types";
 import {
   ChallengeRequestAppealCard,
   CompleteChallengeResults as CompleteChallengeResultsComponent,
@@ -23,7 +20,13 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
-import { urlConstants as links } from "@joincivil/utils";
+import {
+  urlConstants as links,
+  challengeHelpers,
+  userChallengeDataHelpers,
+  USER_CHALLENGE_DATA_QUERY,
+  transformGraphQLDataIntoSpecificUserChallenge,
+} from "@joincivil/utils";
 
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
@@ -42,10 +45,6 @@ import {
 } from "../utility/HigherOrderComponents";
 import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
 import { Query } from "react-apollo";
-import {
-  USER_CHALLENGE_DATA_QUERY,
-  transformGraphQLDataIntoSpecificUserChallenge,
-} from "../../helpers/queryTransformations";
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const withChallengeResults = (
@@ -143,10 +142,10 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   public render(): JSX.Element {
     const { challenge } = this.props;
     const { inCommitPhase, inRevealPhase } = this.props.challengeState;
-    const appealExists = doesChallengeHaveAppeal(challenge);
+    const appealExists = challengeHelpers.doesChallengeHaveAppeal(challenge);
     const canShowResult = challenge.resolved;
 
-    const inCanRequestAppeal = canRequestAppeal(challenge);
+    const inCanRequestAppeal = challengeHelpers.canRequestAppeal(challenge);
 
     const renderState = {
       inCommitPhase,
@@ -214,9 +213,11 @@ class ChallengeDetail extends React.Component<ChallengeDetailProps> {
   ): JSX.Element {
     const { inCommitPhase, inRevealPhase, inCanRequestAppeal, canShowResult, appealExists } = renderState;
 
-    const canShowRewardsForm = didUserCommit(userChallengeData) && this.props.challenge.resolved;
+    const canShowRewardsForm =
+      userChallengeDataHelpers.didUserCommit(userChallengeData) && this.props.challenge.resolved;
     const canShowAppealChallengeRewardsFrom =
-      didUserCommit(userAppealChallengeData) && this.props.challenge.appeal!.appealChallenge!.resolved;
+      userChallengeDataHelpers.didUserCommit(userAppealChallengeData) &&
+      this.props.challenge.appeal!.appealChallenge!.resolved;
 
     return (
       <>

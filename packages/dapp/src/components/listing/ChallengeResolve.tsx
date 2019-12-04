@@ -1,6 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import {
   ListingDetailPhaseCardComponentProps,
   ChallengeResolveCard as ChallengeResolveCardComponent,

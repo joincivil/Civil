@@ -18,10 +18,10 @@ import {
   ICivilContext,
 } from "@joincivil/components";
 import { prepareConstitutionSignMessage } from "@joincivil/utils";
-import { Civil, EthAddress, CharterData } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
 import { Map } from "immutable";
 import styled from "styled-components";
-import { EthSignedMessage } from "@joincivil/typescript-types";
+import { EthSignedMessage, EthAddress, CharterData } from "@joincivil/typescript-types";
 import { IpfsObject } from "../Newsroom";
 import { StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";

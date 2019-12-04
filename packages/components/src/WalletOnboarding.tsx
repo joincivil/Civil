@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Civil, EthAddress } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import {
   AddressWithMetaMaskIcon,
   NorthEastArrow,

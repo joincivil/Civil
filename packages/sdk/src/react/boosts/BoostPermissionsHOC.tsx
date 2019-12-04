@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { LoadingMessage, CivilContext, ICivilContext, ErrorIcon } from "@joincivil/components";
 import { BoostWrapper } from "./BoostStyledComponents";
 

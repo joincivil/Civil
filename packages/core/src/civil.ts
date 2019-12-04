@@ -1,5 +1,13 @@
 import { currentNetwork, EthApi, requireAccount } from "@joincivil/ethapi";
-import { BigNumber, EthAddress, EthSignedMessage, TxHash, parseEther } from "@joincivil/typescript-types";
+import {
+  BigNumber,
+  EthAddress,
+  EthSignedMessage,
+  TxHash,
+  parseEther,
+  ContentData,
+  StorageHeader,
+} from "@joincivil/typescript-types";
 import { CivilErrors, networkNames } from "@joincivil/utils";
 import * as Debug from "debug";
 import { Observable } from "rxjs/Observable";
@@ -10,7 +18,6 @@ import { Artifact, artifacts } from "./contracts/generated/artifacts";
 import { Newsroom } from "./contracts/newsroom";
 import { CivilTCR } from "./contracts/tcr/civilTCR";
 import { Council } from "./contracts/tcr/council";
-import { ContentData, StorageHeader } from "./types";
 import { createTwoStepSimple } from "./contracts/utils/contracts";
 import { CVLToken } from "./contracts/tcr/cvltoken";
 

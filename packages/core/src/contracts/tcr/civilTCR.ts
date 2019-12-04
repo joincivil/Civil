@@ -1,31 +1,19 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
-import { CivilErrors, getDefaultFromBlock, is0x0Address } from "@joincivil/utils";
-import { BigNumber } from "@joincivil/typescript-types";
-
-import * as Debug from "debug";
-import { Observable } from "rxjs/Observable";
-import {
-  canBeWhitelisted,
-  canChallengeBeResolved,
-  canListingAppealBeResolved,
-  isAwaitingAppealRequest,
-  isInAppealChallengeCommitPhase,
-  isInAppealChallengeRevealPhase,
-  isInChallengedCommitVotePhase,
-  isInChallengedRevealVotePhase,
-  isListingAwaitingAppealChallenge,
-  isListingAwaitingAppealJudgment,
-} from "../../";
-import { ContentProvider } from "../../content/contentprovider";
+import { CivilErrors, getDefaultFromBlock, is0x0Address, pollHelpers, listingHelpers } from "@joincivil/utils";
 import {
   EthAddress,
   ListingWrapper,
-  TwoStepEthTransaction,
+  BigNumber,
   UserChallengeData,
   WrappedChallengeData,
   WrappedAppealChallengeID,
   WrappedChallengeID,
-} from "../../types";
+} from "@joincivil/typescript-types";
+
+import * as Debug from "debug";
+import { Observable } from "rxjs/Observable";
+import { ContentProvider } from "../../content/contentprovider";
+import { TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilTCRMultisigProxy } from "../generated/multisig/civil_t_c_r";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
@@ -37,7 +25,6 @@ import { Government } from "./government";
 import { Listing } from "./listing";
 import { Parameterizer } from "./parameterizer";
 import { Voting } from "./voting";
-import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 import { TransactionConfig } from "web3-core";
 
 const debug = Debug("civil:tcr");
@@ -315,7 +302,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ApplicationStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => canBeWhitelisted(l.data));
+      .concatFilter(l => listingHelpers.canBeWhitelisted(l.data));
   }
 
   /**
@@ -332,7 +319,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isInChallengedCommitVotePhase(l.data));
+      .concatFilter(l => listingHelpers.isInChallengedCommitVotePhase(l.data));
   }
 
   /**
@@ -349,7 +336,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isInChallengedRevealVotePhase(l.data));
+      .concatFilter(l => listingHelpers.isInChallengedRevealVotePhase(l.data));
   }
 
   /**
@@ -366,7 +353,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isAwaitingAppealRequest(l.data));
+      .concatFilter(l => listingHelpers.isAwaitingAppealRequest(l.data));
   }
 
   public listingsWithChallengeToResolve(
@@ -377,7 +364,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => canChallengeBeResolved(l.data));
+      .concatFilter(l => listingHelpers.canChallengeBeResolved(l.data));
   }
 
   /**
@@ -394,7 +381,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isListingAwaitingAppealJudgment(l.data));
+      .concatFilter(l => listingHelpers.isListingAwaitingAppealJudgment(l.data));
   }
 
   /**
@@ -411,7 +398,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isListingAwaitingAppealChallenge(l.data));
+      .concatFilter(l => listingHelpers.isListingAwaitingAppealChallenge(l.data));
   }
 
   /**
@@ -428,7 +415,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isInAppealChallengeCommitPhase(l.data));
+      .concatFilter(l => listingHelpers.isInAppealChallengeCommitPhase(l.data));
   }
 
   /**
@@ -445,7 +432,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => isInAppealChallengeRevealPhase(l.data));
+      .concatFilter(l => listingHelpers.isInAppealChallengeRevealPhase(l.data));
   }
 
   /**
@@ -462,7 +449,7 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
       ._ChallengeStream({}, { fromBlock, toBlock })
       .map(e => new Listing(this.ethApi, this.instance, e.returnValues.listingAddress, this.defaultBlock))
       .concatMap(async l => l.getListingWrapper())
-      .concatFilter(l => canListingAppealBeResolved(l.data));
+      .concatFilter(l => listingHelpers.canListingAppealBeResolved(l.data));
   }
 
   /**
@@ -615,10 +602,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             didUserRescue = !(await this.voting.canRescueTokens(user, appealChallengeID));
           }
         } else {
-          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
+          canUserReveal = !didUserReveal && (await pollHelpers.isInRevealStage(pollData));
         }
         canUserRescue =
-          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+          !didUserReveal &&
+          !didUserRescue &&
+          !(await pollHelpers.isInCommitStage(pollData)) &&
+          !(await pollHelpers.isInRevealStage(pollData));
       }
     }
 
@@ -694,10 +684,13 @@ export class CivilTCR extends BaseWrapper<CivilTCRContract> {
             didUserRescue = !(await this.voting.canRescueTokens(user, challengeID));
           }
         } else {
-          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
+          canUserReveal = !didUserReveal && (await pollHelpers.isInRevealStage(pollData));
         }
         canUserRescue =
-          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+          !didUserReveal &&
+          !didUserRescue &&
+          !(await pollHelpers.isInCommitStage(pollData)) &&
+          !(await pollHelpers.isInRevealStage(pollData));
       }
     }
 

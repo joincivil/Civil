@@ -1,7 +1,6 @@
 import { EthApi } from "@joincivil/ethapi";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, AppealChallengeData } from "@joincivil/typescript-types";
 import * as Debug from "debug";
-import { AppealChallengeData } from "../../types";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
 import { Voting } from "./voting";
 import { getDefaultFromBlock } from "@joincivil/utils";

@@ -1,6 +1,6 @@
 import { TransactionButton } from "@joincivil/components";
-import { Civil, NewsroomRoles, TwoStepEthTransaction } from "@joincivil/core";
-import { CivilErrors } from "@joincivil/utils";
+import { Civil, TwoStepEthTransaction } from "@joincivil/core";
+import { CivilErrors, NewsroomRoles } from "@joincivil/utils";
 import { BigNumber } from "@joincivil/typescript-types";
 import { List } from "immutable";
 import * as React from "react";

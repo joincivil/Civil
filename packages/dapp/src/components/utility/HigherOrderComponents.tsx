@@ -1,14 +1,14 @@
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
 import styled from "styled-components/macro";
 import {
+  BigNumber,
   EthAddress,
   ListingWrapper,
   WrappedChallengeData,
   AppealChallengeData,
   ParamPropChallengeData,
-} from "@joincivil/core";
+} from "@joincivil/typescript-types";
 import {
   ChallengeResultsProps,
   ChallengePhaseProps,
@@ -19,14 +19,15 @@ import {
   AppealChallengeResultsProps,
   ErrorLoadingData,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, Parameters } from "@joincivil/utils";
-import { State } from "../../redux/reducers";
-import { Query } from "react-apollo";
 import {
+  getFormattedTokenBalance,
+  Parameters,
   transformGraphQLDataIntoChallenge,
   CHALLENGE_QUERY,
   PARAMETERS_QUERY,
-} from "../../helpers/queryTransformations";
+} from "@joincivil/utils";
+import { State } from "../../redux/reducers";
+import { Query } from "react-apollo";
 import { getChallengeResultsProps, getAppealChallengeResultsProps } from "../../helpers/transforms";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { Map } from "immutable";

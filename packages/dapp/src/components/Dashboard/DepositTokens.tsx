@@ -1,9 +1,9 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, TxHash } from "@joincivil/typescript-types";
 import styled from "styled-components/macro";
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   TransactionButtonNoModal,
   ModalContent,

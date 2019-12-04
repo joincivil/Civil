@@ -4,7 +4,7 @@ import { withRouter, RouteComponentProps } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { Query } from "react-apollo";
 import { BoostForm } from "@joincivil/sdk";
-import { EthAddress, CharterData } from "@joincivil/core";
+import { EthAddress, CharterData } from "@joincivil/typescript-types";
 import {
   Tabs,
   StyledTabLarge,
@@ -17,7 +17,7 @@ import {
 import { NewsroomManager } from "@joincivil/newsroom-signup";
 import { routes } from "../../../constants";
 import { getListingPhaseState } from "../../../selectors";
-import { LISTING_QUERY, transformGraphQLDataIntoListing } from "../../../helpers/queryTransformations";
+import { LISTING_QUERY, transformGraphQLDataIntoListing } from "@joincivil/utils";
 
 const ManageQuery = gql`
   query($id: String!) {

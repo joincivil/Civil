@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Civil, EthAddress, NewsroomRoles, CharterData } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
+import { NewsroomRoles } from "@joincivil/utils";
 import {
   colors,
   fonts,
@@ -22,6 +23,7 @@ import { connect, DispatchProp } from "react-redux";
 import { StateWithNewsroom } from "../reducers";
 import { getUserObject } from "../utils";
 import { UserData } from "../types";
+import { EthAddress, CharterData } from "@joincivil/typescript-types";
 import { addAndHydrateEditor, addAndHydrateOwner, fetchNewsroom, removeEditor } from "../actionCreators";
 
 export interface AddMemberProps {

@@ -59,6 +59,12 @@ export const CREATE_NEWSROOM_CHANNEL_MUTATION = gql`
   }
 `;
 
+export const NRSIGNUP_DELETE = gql`
+  mutation {
+    nrsignupDelete
+  }
+`;
+
 /** Usage: The component returned by this HOC will require the `newsroomAddress` or `newsroomContractAddress` prop and will pass `channelData` to the wrapped component, or instead will show loading or error states as necessary. If the newsroom channel does not yet exist, it will attempt to create it. */
 export const withNewsroomChannel = <TProps extends NewsroomChannelInjectedProps>(
   WrappedComponent: React.ComponentType<TProps>,

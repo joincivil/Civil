@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StepHeader, StepFormSection, BorderlessButton, WaitForApply, buttonSizes } from "@joincivil/components";
 import styled from "styled-components";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { connect } from "react-redux";
 
 export interface ApplyToTCRProps {

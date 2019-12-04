@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { StepProps, TextareaInput, OBSectionHeader, OBSectionDescription, colors } from "@joincivil/components";
-import { CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/typescript-types";
 import { FormSection, FormSubhead, StyledHr, StepSectionCounter } from "../styledComponents";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { charterQuestions, questionsCopy } from "../constants";

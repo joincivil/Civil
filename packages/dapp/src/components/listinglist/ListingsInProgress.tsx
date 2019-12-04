@@ -2,7 +2,7 @@ import * as React from "react";
 import { Helmet } from "react-helmet";
 import { Set } from "immutable";
 
-import { NewsroomListing } from "@joincivil/core";
+import { NewsroomListing } from "@joincivil/typescript-types";
 import {
   Tabs,
   Tab,

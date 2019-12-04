@@ -1,9 +1,6 @@
 import * as React from "react";
 
-import {
-  transformGraphQLDataIntoNewsroom,
-  transfromGraphQLDataIntoUserChallengeData,
-} from "../../../helpers/queryTransformations";
+import { transformGraphQLDataIntoNewsroom, transfromGraphQLDataIntoUserChallengeData } from "@joincivil/utils";
 import { ClaimRewardsItemOwnProps } from "./types";
 import { ClaimRewardsViewComponent, ProposalClaimRewardsViewComponent } from "./ClaimRewardsViewComponents";
 

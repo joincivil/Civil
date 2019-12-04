@@ -1,8 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber, formatEther, parseEther } from "@joincivil/typescript-types";
+import { BigNumber, formatEther, parseEther, TxHash } from "@joincivil/typescript-types";
 
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   ChallengeProposalCommitVote as ChallengeProposalCommitVoteComponent,
   TChallengeProposalCommitVoteProps as ChallengeProposalCommitVoteComponentProps,

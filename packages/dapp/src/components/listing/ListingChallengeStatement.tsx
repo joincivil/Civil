@@ -4,7 +4,7 @@ import sanitizeHtml from "sanitize-html";
 import styled from "styled-components/macro";
 import { State } from "../../redux/reducers";
 import { ListingTabHeading } from "./styledComponents";
-import { NewsroomWrapper, ListingWrapper } from "@joincivil/core";
+import { NewsroomWrapper, ListingWrapper } from "@joincivil/typescript-types";
 import { getBareContent } from "../../redux/actionCreators/newsrooms";
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 

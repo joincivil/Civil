@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TextInput } from "./Input";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { isWellFormattedAddress } from "@joincivil/utils";
 
 export interface AddressInputProps {

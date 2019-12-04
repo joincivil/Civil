@@ -1,4 +1,4 @@
-import { EthAddress, AppealData, CharterData } from "@joincivil/core";
+import { EthAddress, AppealData, CharterData } from "@joincivil/typescript-types";
 
 export interface ListingChallengeStatusProps {
   isInApplication?: boolean;

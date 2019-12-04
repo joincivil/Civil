@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { EthContentHeader } from "@joincivil/core";
+import { EthContentHeader } from "@joincivil/typescript-types";
 
 export const ADD_REVISION = "ADD_REVISION";
 export const ADD_REVISION_JSON = "ADD_REVISION_JSON";

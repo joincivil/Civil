@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 
 export enum contractAddressesActions {
   SET_CONTRACT_ADDRESS = "SET_CONTRACT_ADDRESS",

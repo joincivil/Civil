@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
-import { CharterData, Civil, IPFSProvider, TxHash, NewsroomInstance } from "@joincivil/core";
+import { Civil, IPFSProvider, NewsroomInstance } from "@joincivil/core";
+import { CharterData, TxHash } from "@joincivil/typescript-types";
 import {
   Notice,
   NoticeTypes,

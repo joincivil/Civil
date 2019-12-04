@@ -1,7 +1,7 @@
 import { Set, Map } from "immutable";
 import { AnyAction } from "redux";
 import { newsroomActions } from "../actionCreators/newsrooms";
-import { EthAddress, StorageHeader, EthContentHeader, ContentData } from "@joincivil/core";
+import { EthAddress, StorageHeader, EthContentHeader, ContentData } from "@joincivil/typescript-types";
 
 export function currentUserNewsrooms(state: Set<string> = Set<string>(), action: AnyAction): Set<string> {
   switch (action.type) {

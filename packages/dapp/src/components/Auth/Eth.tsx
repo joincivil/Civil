@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AuthOuterWrapper, CivilContext, WalletOnboardingV2, LoadUser } from "@joincivil/components";
 import { connect, DispatchProp } from "react-redux";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { State } from "../../redux/reducers";
 
 export interface AuthEthProps {

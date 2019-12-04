@@ -1,5 +1,6 @@
 import * as React from "react";
-import { EthAddress, CharterData, TxHash, NewsroomInstance } from "@joincivil/core";
+import { NewsroomInstance } from "@joincivil/core";
+import { EthAddress, CharterData, TxHash } from "@joincivil/typescript-types";
 import { NextBack } from "../styledComponents";
 import { LetsGetStartedPage } from "./LetsGetStartedPage";
 import { UnderstandingEth } from "./UnderstandingEth";

@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { EthAddress, ContentData, StorageHeader } from "@joincivil/core";
+import { EthAddress, ContentData, StorageHeader } from "@joincivil/typescript-types";
 import { getIPFSContent } from "../../helpers/listingEvents";
 import { CivilHelper } from "../../apis/CivilHelper";
 

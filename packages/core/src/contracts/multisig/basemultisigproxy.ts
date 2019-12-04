@@ -1,12 +1,13 @@
 import { isDefined, isDeployedBytecodeEqual } from "@joincivil/utils";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "../../types";
+import { TwoStepEthTransaction } from "../../types";
+import { BigNumber, EthAddress, TxHash } from "@joincivil/typescript-types";
+
 import { EthApi } from "@joincivil/ethapi";
 import { artifacts } from "../generated/artifacts";
 import { MultiSigWallet } from "../generated/wrappers/multi_sig_wallet";
 import { Contract } from "../interfaces/contract";
 import { createTwoStepSimple, isDecodedLog, isOwnableContract } from "../utils/contracts";
 import { Multisig } from "./multisig";
-import { BigNumber } from "@joincivil/typescript-types";
 
 /**
  * Proxies functionionality to a contract instance via multisig wallet. Also supports instantiation *without* multisig proxy, in which case calls are passed directly to the contract. If the wrapped contract has an `owner` property, it will be checked to see if the owner is a multisig wallet.

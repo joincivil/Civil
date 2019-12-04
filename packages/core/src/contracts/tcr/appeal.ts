@@ -1,9 +1,8 @@
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, AppealData } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { EthApi } from "@joincivil/ethapi";
 import { getDefaultFromBlock } from "@joincivil/utils";
 import { CivilTCRContract } from "../generated/wrappers/civil_t_c_r";
-import { AppealData } from "../../types";
 import { AppealChallenge } from "./appealChallenge";
 
 const debug = Debug("civil:appeal");

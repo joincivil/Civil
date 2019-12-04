@@ -1,6 +1,5 @@
 import * as store from "store";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress } from "@joincivil/core";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 
 export function fetchVote(challengeId: BigNumber, user: EthAddress | undefined): BigNumber | undefined {
   if (!user) {
