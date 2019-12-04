@@ -5,6 +5,7 @@ import {
   OBSectionHeader,
   OBSectionDescription,
   CREATE_NEWSROOM_CHANNEL_MUTATION,
+  NRSIGNUP_DELETE,
 } from "@joincivil/components";
 import { Mutation, MutationFunc } from "react-apollo";
 import { saveApplyTxMutation } from "../mutations";
@@ -57,19 +58,29 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
               <Mutation mutation={CREATE_NEWSROOM_CHANNEL_MUTATION}>
                 {(createChannel: MutationFunc) => {
                   return (
-                    <ApplyToTCRForm
-                      newsroomAddress={address!}
-                      minDeposit={minDeposit}
-                      multisigAddress={multisigAddress!}
-                      multisigHasMinDeposit={multisigHasMinDeposit}
-                      postApplyToTCR={postApplyToTCR}
-                      saveTxHash={async txHash => {
-                        await Promise.all([
-                          saveTxHash({ variables: { input: txHash } }),
-                          createChannel({ variables: { newsroomContractAddress: address! } }),
-                        ]);
+                    <Mutation mutation={NRSIGNUP_DELETE}>
+                      {(deleteNrsignup: MutationFunc) => {
+                        return (
+                          <ApplyToTCRForm
+                            newsroomAddress={address!}
+                            minDeposit={minDeposit}
+                            multisigAddress={multisigAddress!}
+                            multisigHasMinDeposit={multisigHasMinDeposit}
+                            postApplyToTCR={async () => {
+                              this.setState({ didApplicationSucceed: true });
+                              await createChannel({
+                                variables: { newsroomContractAddress: address! },
+                              });
+                              await deleteNrsignup();
+                              postApplyToTCR();
+                            }}
+                            saveTxHash={async txHash => {
+                              const saveTxResult = await saveTxHash({ variables: { input: txHash } });
+                            }}
+                          />
+                        );
                       }}
-                    />
+                    </Mutation>
                   );
                 }}
               </Mutation>

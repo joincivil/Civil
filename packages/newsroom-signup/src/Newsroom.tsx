@@ -1,5 +1,5 @@
 import * as qs from "querystring";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress, CharterData } from "@joincivil/typescript-types";
 import {
   ButtonTheme,
   colors,
@@ -8,7 +8,7 @@ import {
   WalletOnboardingV2,
   AuthApplicationEnum,
 } from "@joincivil/components";
-import { Civil, EthAddress, CharterData, NewsroomInstance } from "@joincivil/core";
+import { Civil, NewsroomInstance } from "@joincivil/core";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { debounce } from "lodash";
@@ -340,6 +340,7 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           civil={this.props.civil}
           minDeposit={this.props.minDeposit}
           applyStageLen={this.props.applyStageLen}
+          dashboardRoute={"/dashboard/newsrooms"}
         />
       </StepNoButtons>,
     ];
