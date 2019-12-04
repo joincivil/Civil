@@ -3665,6 +3665,7 @@ exports[`Storyshots Pattern Library / icons / SVG Icons Chevron 1`] = `
             points="0 0 18 0 18 18 0 18"
           />
           <polygon
+            className="chevron-icon"
             fill="#2B56FF"
             fillRule="nonzero"
             points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"

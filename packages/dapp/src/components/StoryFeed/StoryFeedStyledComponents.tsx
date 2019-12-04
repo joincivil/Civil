@@ -65,6 +65,11 @@ export const StoryTitle = styled.h2`
   line-height: 25px;
   margin: 0 0 8px;
   transition: color 0.2s ease;
+
+  .chevron-icon {
+    fill: ${colors.primary.BLACK};
+    transition: fill 0.2s ease;
+  }
 `;
 
 export const StoryLink = styled.a`
@@ -77,6 +82,9 @@ export const StoryLink = styled.a`
   &:hover {
     ${StoryTitle} {
       color: ${colors.accent.CIVIL_BLUE};
+    }
+    .chevron-icon {
+      fill: ${colors.accent.CIVIL_BLUE};
     }
   }
 `;

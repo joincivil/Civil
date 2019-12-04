@@ -24,6 +24,7 @@ export const Chevron = (props: ChevronProps) => {
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <polygon points="0 0 18 0 18 18 0 18"></polygon>
         <polygon
+          className="chevron-icon"
           fill={colors.primary.CIVIL_BLUE_1}
           fillRule="nonzero"
           points="7.5 4.5 6.4425 5.5575 9.8775 9 6.4425 12.4425 7.5 13.5 12 9"

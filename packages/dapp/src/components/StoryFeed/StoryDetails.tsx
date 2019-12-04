@@ -6,10 +6,11 @@ import {
   StoryNewsroomStatus,
   storyPlaceholderImgUrl,
 } from "@joincivil/components";
-import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory, SharePanel, Chevron } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 import { OpenGraphData } from "./types";
 import {
+  StoryLink,
   StoryTitle,
   TimeStamp,
   TimeStampDot,
@@ -52,7 +53,12 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryDetailsFullBleedHeader>
       <StoryDetailsContent>
         <StoryDetailsFlex>
-          <StoryTitle>{openGraphData.title}</StoryTitle>
+          <StoryLink href={openGraphData.url} target="_blank">
+            <StoryTitle>
+              {openGraphData.title}
+              <Chevron height={16} width={16} />
+            </StoryTitle>
+          </StoryLink>
           <ShareButton onClick={() => setShareModalOpen(true)} textBottom={true}></ShareButton>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
