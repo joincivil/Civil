@@ -2,14 +2,19 @@ import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import { BigNumber, EthAddress, ListingWrapper } from "@joincivil/typescript-types";
 import { Civil, NewsroomInstance } from "@joincivil/core";
-import { Parameters, getFormattedParameterValue, listingHelpers, LISTING_QUERY, transformGraphQLDataIntoListing } from "@joincivil/utils";
+import {
+  Parameters,
+  getFormattedParameterValue,
+  listingHelpers,
+  LISTING_QUERY,
+  transformGraphQLDataIntoListing,
+} from "@joincivil/utils";
 import { NextBack } from "../styledComponents";
-import { getListing, getNewsroomMultisigBalance } from "../actionCreators";
+import { getNewsroomMultisigBalance } from "../actionCreators";
 import ApplyToTCR from "./ApplyToTCR";
 import ApplyToTCRSuccess from "./ApplyToTCRSuccess";
 import ApplyToTCRWhitelisted from "./ApplyToTCRWhitelisted";
 import { Query } from "react-apollo";
-import gql from "graphql-tag";
 import { ErrorLoadingData } from "@joincivil/components";
 
 export interface ApplyToTCRStepOwnProps {
@@ -73,9 +78,9 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
               <ApplyToTCR
                 {...this.props}
                 postTransfer={this.hydrateNewsroomMultisigBalance}
-                postApplyToTCR={() => {
+                postApplyToTCR={async () => {
                   refetch();
-                  this.postApplyToTCR();
+                  await this.postApplyToTCR();
                 }}
               />
             );
@@ -83,13 +88,13 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
         </Query>
       );
     } else {
-        return (
-          <ApplyToTCR
-            {...this.props}
-            postTransfer={this.hydrateNewsroomMultisigBalance}
-            postApplyToTCR={this.postApplyToTCR}
-          />
-        );
+      return (
+        <ApplyToTCR
+          {...this.props}
+          postTransfer={this.hydrateNewsroomMultisigBalance}
+          postApplyToTCR={this.postApplyToTCR}
+        />
+      );
     }
   }
 

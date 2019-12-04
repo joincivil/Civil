@@ -9,8 +9,6 @@ import {
   ParamPropChallengeData,
 } from "@joincivil/typescript-types";
 
-import { Parameters, getFormattedTokenBalance } from "@joincivil/utils";
-
 import { State } from "../../redux/reducers";
 import { getIsMemberOfAppellate } from "../../selectors";
 
@@ -19,6 +17,8 @@ import ChallengeProposalRevealVote from "./ChallengeProposalRevealVote";
 import ChallengeProposalResolve from "./ChallengeProposalResolve";
 import { Query } from "react-apollo";
 import {
+  Parameters,
+  getFormattedTokenBalance,
   CHALLENGE_QUERY,
   transformGraphQLDataIntoParamPropChallenge,
   USER_CHALLENGE_DATA_QUERY,

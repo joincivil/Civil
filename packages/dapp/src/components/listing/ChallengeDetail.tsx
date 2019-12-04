@@ -20,7 +20,13 @@ import {
   ChallengeResultsProps,
   RequestAppealProps,
 } from "@joincivil/components";
-import { urlConstants as links, challengeHelpers, userChallengeDataHelpers } from "@joincivil/utils";
+import {
+  urlConstants as links,
+  challengeHelpers,
+  userChallengeDataHelpers,
+  USER_CHALLENGE_DATA_QUERY,
+  transformGraphQLDataIntoSpecificUserChallenge,
+} from "@joincivil/utils";
 
 import AppealDetail from "./AppealDetail";
 import ChallengeCommitVote from "./ChallengeCommitVote";
@@ -39,7 +45,6 @@ import {
 } from "../utility/HigherOrderComponents";
 import { connectCompleteChallengeResults } from "../utility/CompleteChallengeResultsHOC";
 import { Query } from "react-apollo";
-import { USER_CHALLENGE_DATA_QUERY, transformGraphQLDataIntoSpecificUserChallenge } from "@joincivil/utils";
 import { CivilHelperContext, CivilHelper } from "../../apis/CivilHelper";
 
 const withChallengeResults = (

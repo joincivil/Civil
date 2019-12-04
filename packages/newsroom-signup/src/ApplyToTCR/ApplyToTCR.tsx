@@ -75,7 +75,7 @@ class ApplyToTCR extends React.Component<TApplyToTCRProps> {
                               postApplyToTCR();
                             }}
                             saveTxHash={async txHash => {
-                              const saveTxResult = await saveTxHash({ variables: { input: txHash } });
+                              await saveTxHash({ variables: { input: txHash } });
                             }}
                           />
                         );

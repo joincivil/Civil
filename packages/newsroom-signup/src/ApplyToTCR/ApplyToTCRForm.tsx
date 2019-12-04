@@ -22,7 +22,6 @@ import {
 } from "../styledComponents";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../TransactionStatusModalsHOC";
 import { TransactionButtonInner } from "../TransactionButtonInner";
-import { Link } from "react-router-dom";
 
 enum TransactionTypes {
   APPROVE_FOR_APPLY = "APPROVE_FOR_APPLY",
@@ -167,7 +166,6 @@ const ApplyToTCRForm: React.FunctionComponent<
   ];
 
   props.setTransactions(transactions);
-
 
   return (
     <FormSection>

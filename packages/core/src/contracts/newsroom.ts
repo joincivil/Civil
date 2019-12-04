@@ -11,8 +11,8 @@ import {
   prepareUserFriendlyNewsroomMessage,
   promisify,
   recoverSigner,
+  NewsroomRoles,
 } from "@joincivil/utils";
-import { BigNumber, parseEther } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { addHexPrefix, bufferToHex, setLengthLeft, toBuffer } from "ethereumjs-util";
 import { Observable } from "rxjs";
@@ -20,6 +20,8 @@ import { TransactionReceipt, TransactionConfig, TransactionConfig as SendOptions
 import * as zlib from "zlib";
 import { ContentProvider } from "../content/contentprovider";
 import {
+  BigNumber,
+  parseEther,
   ApprovedRevision,
   CharterContent,
   ContentId,
@@ -35,7 +37,6 @@ import {
   Uri,
 } from "@joincivil/typescript-types";
 import { CivilTransactionReceipt, TwoStepEthTransaction } from "../types";
-import { NewsroomRoles } from "@joincivil/utils";
 import { BaseWrapper } from "./basewrapper";
 import { NewsroomMultisigProxy } from "./generated/multisig/newsroom";
 import { MultiSigWallet as MultisigEvents } from "./generated/wrappers/multi_sig_wallet";

@@ -340,7 +340,6 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           civil={this.props.civil}
           minDeposit={this.props.minDeposit}
           applyStageLen={this.props.applyStageLen}
-          dashboardRoute={"/dashboard/newsrooms"}
         />
       </StepNoButtons>,
     ];
