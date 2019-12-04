@@ -16,7 +16,7 @@ export const ErrorLoadingData: React.FunctionComponent<ErrorLoadingDataProps> = 
       </StyledErrorIconContainer>
 
       <StyledLargeModalText>
-        <b>Oops.</b> Looks like we're having trouble loading what you're looking for
+        <b>Oops.</b> Looks like we're having trouble loading what you're looking for.
       </StyledLargeModalText>
 
       <SuggestedAction {...props} />

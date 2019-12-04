@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { CurrencyErrorMsg } from "../CurrencyConverter";
 import { RENDER_CONTEXT } from "../context";
+import { FullScreenModal, ModalInner } from "../FullscreenModal";
 import { InputBase, InputIcon, InvertedButton, colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const PaymentWrapperStyled = styled.div`
@@ -276,6 +277,18 @@ export const PaymentWarning = styled.div`
   }
 `;
 
+export const PaymentFullscreenModal = styled(FullScreenModal)`
+  ${ModalInner} {
+    ${mediaQueries.MOBILE_SMALL} {
+      ${props =>
+        props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+        `
+        bottom: auto;
+      `}
+    }
+  }
+`;
+
 export interface PaymentModalProps {
   maxHeight: number;
 }
@@ -288,13 +301,28 @@ export const PaymentModalContain = styled.div`
   padding: 20px;
   width: 400px;
 
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+  `}
+
   ${mediaQueries.MOBILE_SMALL} {
     height: 100%;
     max-height: 100%;
     width: 100%;
-  }
 
-  ${props => props.theme.renderContext === RENDER_CONTEXT.EMBED && "height: 100%; max-height: 100%; width: 100%;"}
+    ${props =>
+      props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+      `
+      top: 0;
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    `}
+  }
 `;
 
 export const PaymentModalCloseBtn = styled(InvertedButton)`

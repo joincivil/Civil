@@ -77,11 +77,13 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
     return (
       <>
         <PaymentHeaderFlex>
-          {this.props.handleBack && (
+          {this.props.handleBack ? (
             <PaymentBackBtn onClick={this.props.handleBack}>
               <DisclosureArrowIcon />
               Back
             </PaymentBackBtn>
+          ) : (
+            <div>{/*spacer so flex remains the same with avatarlogin on right*/}</div>
           )}
           <PaymentCivilLogo>
             <CivilLogo width={50} height={13} />

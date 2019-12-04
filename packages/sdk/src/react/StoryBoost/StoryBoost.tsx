@@ -3,6 +3,7 @@ import { Query } from "react-apollo";
 import styled from "styled-components";
 import {
   LoadingMessage,
+  ErrorNotFound,
   Contributors,
   ContributorCount,
   Payments,
@@ -11,7 +12,15 @@ import {
 } from "@joincivil/components";
 import { StoryBoostData } from "./types";
 import { storyBoostQuery } from "./queries";
-import { fonts, colors, PaymentButton, CivilLogo } from "@joincivil/elements";
+import { fonts, colors, PaymentButton } from "@joincivil/elements";
+
+const StoryBoostLoading = styled(LoadingMessage)`
+  padding: 48px 0;
+`;
+const StoryBoostError = styled(ErrorNotFound)`
+  padding: 32px 16px 16px;
+  text-align: center;
+`;
 
 const StoryBoostHeader = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
@@ -73,10 +82,16 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
       <Query query={storyBoostQuery} variables={{ id }}>
         {({ loading, error, data }) => {
           if (loading) {
-            return <LoadingMessage>Loading Story Boost</LoadingMessage>;
+            return <StoryBoostLoading>Loading Story Boost</StoryBoostLoading>;
           } else if (error || !data || !data.postsGet) {
             console.error("error loading Story Feed data. error: ", error);
-            return "Error loading Story Boost.";
+            return (
+              <StoryBoostError>
+                There was an error loading this Story Boost:
+                <br />
+                <code>{error ? error.toString() : "no data returned"}</code>
+              </StoryBoostError>
+            );
           }
 
           const storyBoostData = data.postsGet as StoryBoostData;
@@ -86,7 +101,6 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
               <StoryBoostHeader>
                 <StoryBoostStatus>
                   <StoryNewsroomStatus newsroomName={storyBoostData.channel.newsroom.name} activeChallenge={false} />
-                  <CivilLogo height={13} width={50} />
                 </StoryBoostStatus>
                 <h2>{storyBoostData.openGraphData.title}</h2>
               </StoryBoostHeader>

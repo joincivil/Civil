@@ -90,7 +90,7 @@ export class FullScreenModal extends React.Component<FullScreenModalProps> {
     }
 
     return ReactDom.createPortal(
-      <ModalWrapper solidBackground={this.props.solidBackground}>
+      <ModalWrapper className={this.props.className} solidBackground={this.props.solidBackground}>
         <ModalInner solidBackground={this.props.solidBackground}>{this.props.children}</ModalInner>
       </ModalWrapper>,
       this.el,
