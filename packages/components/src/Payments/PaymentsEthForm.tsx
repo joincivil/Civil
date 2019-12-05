@@ -210,7 +210,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
     this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.postId, this.props.usdToSpend);
-    if (this.context.civil && (window as any).ethereum) {
+    if (this.context.civil) {
       return this.context.civil.simplePayment(this.props.paymentAddress, this.props.etherToSpend.toString());
     }
   };
