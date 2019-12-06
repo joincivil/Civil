@@ -1,6 +1,5 @@
 import * as React from "react";
 import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
-import { RouteComponentProps } from "@reach/router";
 
 import { ClipLoader } from "@joincivil/elements";
 
@@ -21,11 +20,12 @@ const CIVIL_DOMAINS = [
 const WAITING_FOR_CONNECTION = "Waiting for Web3 Wallet Connection...";
 const WAITING_FOR_SIGNATURE = "Waiting for Signature...";
 
-export const Login: React.FunctionComponent<RouteComponentProps> = () => {
+export const Login: React.FunctionComponent = () => {
   const ctx = React.useContext(CoreContext);
   const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
-  const service = useKirbySelector((state: any) => state.civilid.pendingLoginRequest.service);
+  const ready = useKirbySelector((state: any) => state.civilid.pendingLoginRequest);
+  const service = useKirbySelector((state: any) => ready && state.civilid.pendingLoginRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
   const [hideSelections, setHideSelections] = React.useState(false);
   const [selectionProcess, setSelectionProcess] = React.useState("none");

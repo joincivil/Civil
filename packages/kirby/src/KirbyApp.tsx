@@ -4,7 +4,6 @@ import { EthereumChildPlugin, SignatureInterceptorPlugin, IDToNetwork } from "@k
 import { ConnextChildPlugin } from "@kirby-web3/plugin-connext";
 
 import { Viewport } from "./viewport/Viewport";
-import { ReachRouterPlugin } from "./ReachRouterPlugin";
 import { createGlobalStyle } from "styled-components";
 import { CivilIDPlugin } from "./plugins/CivilID";
 
@@ -36,7 +35,6 @@ const KirbyApp: React.FunctionComponent<KirbyAppProps> = ({ config }) => {
   console.log("loading kirby with config", config);
   const plugins = React.useMemo(() => {
     return [
-      new ReachRouterPlugin(),
       new CivilIDPlugin(),
       new ConnextChildPlugin({
         ethProviderUrl: "https://rinkeby.infura.io/v3/" + config.INFURA_APP_KEY,

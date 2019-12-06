@@ -1,9 +1,8 @@
 import * as React from "react";
 import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
 import { SignatureInterceptorPlugin, ProviderTypes } from "@kirby-web3/plugin-ethereum";
-import { RouteComponentProps } from "@reach/router";
 
-export const SignatureConfirm: React.FunctionComponent<RouteComponentProps> = () => {
+export const SignatureConfirm: React.FunctionComponent = () => {
   // context
   const ctx = React.useContext(CoreContext);
   const sig = ctx.core.plugins.signatureInterceptor as SignatureInterceptorPlugin;
