@@ -1,13 +1,11 @@
 import * as React from "react";
+import styled from "styled-components";
 import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kirby-web3/child-react";
-import { RouteComponentProps } from "@reach/router";
-
-import { Notice } from "../../common/text";
 import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
-import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
 import { ClipLoader } from "@joincivil/elements";
-import styled from "styled-components";
+import { Notice } from "../../common/text";
+import { CivilIDPlugin } from "../../plugins/CivilID";
 import { SwitchAuthTypeDiv, WaitingForConnectionDiv } from "../../common/containers/layouts";
 import { WalletOptions } from "../../common/input/WalletOptions";
 
@@ -29,11 +27,12 @@ const SignupFooter = styled.div`
   font-size: 15px;
 `;
 
-export const Signup: React.FunctionComponent<RouteComponentProps> = () => {
+export const Signup: React.FunctionComponent = () => {
   const ctx = React.useContext(CoreContext);
   const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
-  const service = useKirbySelector((state: any) => state.civilid.pendingSignupRequest.service);
+  const ready = useKirbySelector((state: any) => state.civilid.pendingLoginRequest);
+  const service = useKirbySelector((state: any) => ready && state.civilid.pendingLoginRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
   const [hideSelections, setHideSelections] = React.useState(false);
   const [selectionProcess, setSelectionProcess] = React.useState("none");

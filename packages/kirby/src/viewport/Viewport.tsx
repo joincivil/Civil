@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Router } from "@reach/router";
+import { useSelector as useKirbySelector } from "@kirby-web3/child-react";
 
 import { Web3Enable } from "../views/Web3Enable";
 import { SignatureConfirm } from "../views/SignatureConfirm";
@@ -7,12 +7,23 @@ import { Login } from "../views/identity/Login";
 import { Signup } from "../views/identity/Signup";
 
 export const Viewport: React.FC = () => {
-  return (
-    <Router>
-      <Web3Enable path="/ethereum/web3enable/:network" />
-      <SignatureConfirm path="/ethereum/confirm-signature" />
-      <Login path="/identity/login" />
-      <Signup path="/identity/signup" />
-    </Router>
-  );
+  const view = useKirbySelector((state: any) => state.view.queue);
+
+  if (view.length === 0) {
+    return <div>empty queue</div>;
+  } else {
+    switch (view[0].route) {
+      case "/identity/login":
+        return <Login />;
+      case "/identity/signup":
+        return <Signup />;
+      case "/ethereum/confirm-signature":
+        return <SignatureConfirm />;
+      case "/ethereum/web3enable":
+        return <Web3Enable />;
+      default:
+        // @ts-ignore
+        return <div>error determining view</div>;
+    }
+  }
 };
