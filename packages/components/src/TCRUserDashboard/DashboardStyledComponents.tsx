@@ -1,11 +1,10 @@
 import * as React from "react";
 import styled from "styled-components";
 import { StyledTab, TabComponentProps } from "../Tabs";
-import { colors, fonts } from "../styleConstants";
 import { LoadingMessage } from "../LoadingMessage";
 import { Button, InvertedButton } from "../Button";
 import { Dropdown, DropdownGroup, InputBase, InputIcon, DropdownItem } from "../input";
-import { mediaQueries } from "@joincivil/elements";
+import { colors, fonts, mediaQueries } from "@joincivil/elements";
 
 export const DashboardStylesNoticeContainer = styled.div`
   padding: 24px;
@@ -196,7 +195,7 @@ export const StyledChangeUserEmailText = styled.span`
   height: 23px;
   letter-spacing: -0.04px;
   line-height: 23px;
-  margin: left: 2px;
+  margin-left: 2px;
   color: ${colors.accent.CIVIL_BLUE};
   cursor: pointer;
 `;
@@ -263,7 +262,7 @@ export const StyledUserInfoButtonSection = styled.div`
     margin: 0 0 19px;
     padding: 14px 0;
     text-align: center;
-    text-transfrom: none;
+    text-transform: none;
     width: 100%;
   }
 `;
@@ -332,7 +331,7 @@ export const StyledDashboardActivityItemAction = styled.div`
 export const StyledDashboardActivityItemTitle = styled.h4`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-weight: 800;
-  font-size: 18px
+  font-size: 18px;
   line-height: 21px;
   margin: 0 0 10px;
 `;
@@ -340,7 +339,7 @@ export const StyledDashboardActivityItemTitle = styled.h4`
 export const StyledDashboardActivityItemSubTitle = styled.h4`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-weight: 800;
-  font-size: 18px
+  font-size: 18px;
   line-height: 21px;
   margin: 10px 0;
 `;
@@ -375,7 +374,7 @@ export const StyledDashbaordActvityItemSectionInner = styled.div`
 export const StyledChallengeIDKicker = styled.div`
   color: ${colors.primary.CIVIL_GRAY_2};
   font-size: 12px;
-  font-weight: 600
+  font-weight: 600;
   line-height: 15px;
   margin: 0 0 3px;
   text-transform: uppercase;
@@ -383,7 +382,7 @@ export const StyledChallengeIDKicker = styled.div`
 
 export const StyledNewsroomName = styled.div`
   font-size: 18px;
-  font-weight: 600
+  font-weight: 600;
   line-height: 33px;
   margin: 0;
 `;
@@ -436,7 +435,7 @@ export const StyledTransferTokenFormGroup = styled.div`
     border: 1px solid ${colors.accent.CIVIL_GRAY_3};
     border-radius: 3px;
     font-size: 15px;
-    margin-top 5px;
+    margin-top: 5px;
 
     & > div:nth-child(2) > div {
       border-top: none;
@@ -533,7 +532,7 @@ export const StyledTransferTokenBalance = styled.div`
 
 export const StyledDropdownArrow = styled.div`
   align-items: center;
-  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3}
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_3};
   display: flex;
   justify-content: center;
   padding: 12px 15px 12px 14px;
@@ -545,7 +544,7 @@ export const StyledDropdownArrow = styled.div`
 export const StyledFromBalance = styled.div`
   border: 1px solid ${colors.accent.CIVIL_GRAY_3};
   border-radius: 3px;
-  margin-top 5px;
+  margin-top: 5px;
   padding: 17px 15px;
 `;
 
@@ -616,6 +615,11 @@ export const StyledDashboardNewsroom = styled.div`
   box-sizing: border-box;
   padding: 25px 0;
   margin: 0 25px;
+
+  p {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 
 export const StyledDashboardNewsroomName = styled.div`
@@ -637,6 +641,21 @@ export const StyledDashboardNewsroomHdr = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 18px;
   line-height: 33px;
+  margin-bottom: 15px;
+`;
+
+export const StyledDashboardNewsroomSubHdr = styled.div`
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 25px;
+`;
+
+export const StyledDashboardNewsroomTerHdr = styled.p`
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  margin: 30px 0 10px;
 `;
 
 export const StyledDashboardNewsroomSectionContentRow = styled.div`
@@ -654,6 +673,11 @@ export const StyledDashboardNewsroomLinks = styled.div`
     line-height: 14px;
     margin: 0 0 20px;
   }
+`;
+
+export const StyledDashboardNewsroomBorder = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  margin: 10px 0 20px;
 `;
 
 export const StyledWarningText = styled.span`
@@ -730,4 +754,13 @@ export const StyledDashboardLoadingMessage = styled(LoadingMessage)`
   p {
     margin-top: 18px;
   }
+`;
+
+export const StyledEmbedCode = styled.pre`
+  background: ${colors.accent.CIVIL_GRAY_5};
+  margin-bottom: 10px;
+  padding: 8px;
+  white-space: pre-wrap;
+  width: 100%;
+  word-break: break-word;
 `;
