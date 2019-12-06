@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import ReactDOMServer from "react-dom/server";
 import { urlConstants, copyToClipboard } from "@joincivil/utils";
 import { EthAddressViewer } from "../EthAddressViewer";
 import gql from "graphql-tag";
@@ -105,9 +104,7 @@ const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStat
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   const [copied, setCopied] = React.useState(false);
-  const storyBoostEmbed = ReactDOMServer.renderToStaticMarkup(
-    <script src="http://registry.civil.co/loader/boost.js"></script>,
-  );
+  const storyBoostEmbed = '<script src="http://registry.civil.co/loader/boost.js"></script>';
 
   return (
     <StyledDashboardNewsroom>
@@ -188,10 +185,17 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
             Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on
             your site.
           </p>
-          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={""}>
-            Get the Story Boost Plugin
-          </InvertedButton>
           */}
+        <p>
+          Download this zip file, navigate to the Plugins page in your admin dashboard, select Add New, then Upload
+          Plugin.
+        </p>
+        <InvertedButton
+          size={buttonSizes.MEDIUM_WIDE}
+          to={"https://drive.google.com/uc?export=download&id=1Rq4ZW-gwDMy5TLIr_aKJzFUYnSIVXpC6"}
+        >
+          Get the Story Boost Plugin
+        </InvertedButton>
         <FeatureFlag feature={"pew"}>
           <Query<any>
             query={CHANNEL_ID_FROM_NEWSROOM_ADDRESS_QUERY}
@@ -246,7 +250,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
         {/*@HACK We need to include `NewsroomWithdraw` from `sdk` package, but this component is in `components` package which `sdk` uses so we'd have a circular dependency. @TODO/tobek all these TCR dashboard components should be moved into `dapp` package.*/}
         {props.boostProceeds}
         <StyledDashboardNewsroomBorder />
-        <StyledDashboardNewsroomSubHdr>Set Up Credit Card Proceeds</StyledDashboardNewsroomSubHdr>
+        <StyledDashboardNewsroomSubHdr>Set Up Credit Card Payments</StyledDashboardNewsroomSubHdr>
         <p>
           Connect a Stripe account to accept Credit Cards payments for your Boosts. You can link your existing Stripe
           account or start a new one. Any payments sent with credit cards with automatically be deposited into your
