@@ -180,12 +180,10 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           Copy
         </InvertedButton>{" "}
         {copied && "Copied!"}
-        {/* TODO waiting on WordPress plugin url
-          <p>
-            Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on
-            your site.
-          </p>
-          */}
+        <p>
+          Use WordPress? You can download and install the Story Boost plugin to automatically embed Story Boosts on your
+          site.
+        </p>
         <p>
           Download this zip file, navigate to the Plugins page in your admin dashboard, select Add New, then Upload
           Plugin.
@@ -194,7 +192,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           size={buttonSizes.MEDIUM_WIDE}
           to={"https://drive.google.com/uc?export=download&id=1Rq4ZW-gwDMy5TLIr_aKJzFUYnSIVXpC6"}
         >
-          Get the Story Boost Plugin
+          Download Story Boost Plugin
         </InvertedButton>
         <FeatureFlag feature={"pew"}>
           <Query<any>

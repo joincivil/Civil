@@ -13,6 +13,7 @@ let EMBED_WRAPPER_STYLES: React.CSSProperties = {
   border: "1px solid #E9E9EA", // colors.accent.CIVIL_GRAY_4 but not worth importing entire package just for that
   borderRadius: "4px",
   textAlign: "center",
+  lineHeight: 1.1,
 };
 let EMBED_IFRAME_STYLES: React.CSSProperties = {
   position: "absolute",
@@ -33,7 +34,7 @@ const EMBED_LOADING_IMG_STYLES: React.CSSProperties = {
 const EMBED_NOT_LOADED_STYLES: React.CSSProperties = {
   position: "absolute",
   color: "#9B9B9B",
-  fontSize: "smaller",
+  fontSize: 12,
   bottom: 0,
   padding: 16,
   margin: 0,
@@ -41,6 +42,8 @@ const EMBED_NOT_LOADED_STYLES: React.CSSProperties = {
 const EMBED_ERROR_STYLES: React.CSSProperties = {
   whiteSpace: "pre-wrap",
   padding: "0 10px",
+  fontSize: 12,
+  lineHeight: 1.2,
 };
 
 export interface BoostEmbedIframeProps {
@@ -130,7 +133,7 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps & BoostEmbedIframe
                 <a href={props.fallbackUrl} target="_blank">
                   on Civil
                 </a>
-                .
+                . If the problem persists, please contact <a href="mailto:support@civil.co">support@civil.co</a>.
               </p>
               <pre style={EMBED_ERROR_STYLES}>{props.error}</pre>
             </>
