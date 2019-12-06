@@ -1,7 +1,7 @@
 import * as React from "react";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components/macro";
-import { ListingWrapper, NewsroomWrapper } from "@joincivil/core";
+import { BigNumber, ListingWrapper, NewsroomWrapper } from "@joincivil/typescript-types";
 import {
   InApplicationCard,
   RejectedCard as RejectedCardComponent,
@@ -21,7 +21,6 @@ import ChallengeResolve from "./ChallengeResolve";
 import { routes } from "../../constants";
 import ApplicationUpdateStatus from "./ApplicationUpdateStatus";
 import WhitelistedDetail from "./WhitelistedDetail";
-import { BigNumber } from "@joincivil/typescript-types";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 
 const StyledContainer = styled.div`

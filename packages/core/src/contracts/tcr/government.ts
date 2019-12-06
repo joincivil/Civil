@@ -1,9 +1,9 @@
 import { EthApi } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-import { BigNumber } from "@joincivil/typescript-types";
+import { EthAddress, Param, BigNumber, ParamProposalState } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
-import { EthAddress, Param, TwoStepEthTransaction, ParamProposalState } from "../../types";
+import { TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { GovernmentContract } from "../generated/wrappers/government";
 import { Multisig } from "../multisig/multisig";

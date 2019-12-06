@@ -22,7 +22,8 @@ import {
   CivilContext,
   ICivilContext,
 } from "@joincivil/components";
-import { Civil, IPFSProvider, EthAddress, TwoStepEthTransaction, TxHash, CharterData } from "@joincivil/core";
+import { Civil, IPFSProvider, TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash, CharterData } from "@joincivil/typescript-types";
 import * as React from "react";
 import { connect, DispatchProp } from "react-redux";
 import styled from "styled-components";

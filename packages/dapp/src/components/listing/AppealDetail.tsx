@@ -1,7 +1,13 @@
 import * as React from "react";
 import styled from "styled-components/macro";
-import { AppealData, ChallengeData, EthAddress, NewsroomWrapper, UserChallengeData } from "@joincivil/core";
-import { BigNumber } from "@joincivil/typescript-types";
+import {
+  BigNumber,
+  AppealData,
+  ChallengeData,
+  EthAddress,
+  NewsroomWrapper,
+  UserChallengeData,
+} from "@joincivil/typescript-types";
 import AppealChallengeDetail from "./AppealChallengeDetail";
 import AppealAwaitingDecision from "./AppealAwaitingDecision";
 import AppealResolve from "./AppealResolve";

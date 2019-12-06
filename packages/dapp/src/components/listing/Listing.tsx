@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
-import { EthAddress, ListingWrapper } from "@joincivil/core";
+import { EthAddress, ListingWrapper } from "@joincivil/typescript-types";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { LoadingMessage } from "@joincivil/components";
 
@@ -11,7 +11,7 @@ import {
   transformGraphQLDataIntoNewsroom,
   transformGraphQLDataIntoListing,
   transformGraphQLDataIntoCharterRevisions,
-} from "../../helpers/queryTransformations";
+} from "@joincivil/utils";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
 import ErrorLoadingDataMsg from "../utility/ErrorLoadingData";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";

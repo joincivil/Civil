@@ -42,6 +42,7 @@
     "ethereumjs-util": "^5.2.0",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.9.2",
+    "immutable": "^4.0.0-rc.12",
     "rxjs": "^5.5.6",
     "sanitize-html": "^1.20.0",
     "web3-utils": "^2.0.0-alpha"

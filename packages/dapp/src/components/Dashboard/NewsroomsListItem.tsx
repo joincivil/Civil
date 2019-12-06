@@ -1,5 +1,5 @@
 import * as React from "react";
-import { transformGraphQLDataIntoNewsroom, transformGraphQLDataIntoListing } from "../../helpers/queryTransformations";
+import { transformGraphQLDataIntoNewsroom, transformGraphQLDataIntoListing } from "@joincivil/utils";
 
 import NewsroomsListItemComponent from "./NewsroomsListItemComponent";
 

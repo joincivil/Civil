@@ -1,12 +1,11 @@
 import * as React from "react";
 import { Mutation, Query, MutationFunc, FetchResult } from "react-apollo";
-import { EthAddress, CharterData } from "@joincivil/core";
 import { NewsroomGqlProps } from "./Newsroom";
 import { userDataQuery, getCharterQuery } from "./queries";
 import { saveCharterMutation, SaveAddressMutation, saveStepsMutation } from "./mutations";
 import { Parameters } from "@joincivil/utils";
 import gql from "graphql-tag";
-import { BigNumber } from "@joincivil/typescript-types";
+import { EthAddress, CharterData, BigNumber } from "@joincivil/typescript-types";
 
 export interface DataWrapperProps {
   children(props: NewsroomGqlProps): any;

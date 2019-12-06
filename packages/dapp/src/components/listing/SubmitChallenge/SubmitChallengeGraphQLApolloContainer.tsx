@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { LoadingMessage } from "@joincivil/components";
-import { LISTING_QUERY, transformGraphQLDataIntoNewsroom } from "../../../helpers/queryTransformations";
+import { LISTING_QUERY, transformGraphQLDataIntoNewsroom } from "@joincivil/utils";
 import ErrorLoadingDataMsg from "../../utility/ErrorLoadingData";
 
 import { SubmitChallengeProps } from "./SubmitChallengeTypes";

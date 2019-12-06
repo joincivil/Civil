@@ -3,7 +3,8 @@ import { connect, DispatchProp } from "react-redux";
 import { Prompt } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 
-import { EthAddress, CharterData, NewsroomInstance } from "@joincivil/core";
+import { NewsroomInstance } from "@joincivil/core";
+import { EthAddress, CharterData } from "@joincivil/typescript-types";
 import {
   ButtonTheme,
   CivilContext,

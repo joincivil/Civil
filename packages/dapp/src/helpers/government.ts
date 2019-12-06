@@ -1,4 +1,4 @@
-import { Param, ParamProposalState } from "@joincivil/core";
+import { Param, ParamProposalState } from "@joincivil/typescript-types";
 import { Dispatch } from "react-redux";
 import { GovernmentParameters } from "@joincivil/utils";
 import {

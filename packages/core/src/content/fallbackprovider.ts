@@ -1,7 +1,7 @@
 import * as Debug from "debug";
 
 import { ContentProvider, ContentProviderOptions, ContentProviderCreator } from "./contentprovider";
-import { StorageHeader, ContentData } from "../types";
+import { StorageHeader, ContentData } from "@joincivil/typescript-types";
 
 const debug = Debug("civil:fallbackprovider");
 

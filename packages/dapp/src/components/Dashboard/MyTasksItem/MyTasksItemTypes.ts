@@ -8,7 +8,7 @@ import {
   CharterData,
   EthAddress,
   EthContentHeader,
-} from "@joincivil/core";
+} from "@joincivil/typescript-types";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 
 export interface MyTasksItemOwnProps {

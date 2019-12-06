@@ -1,4 +1,5 @@
-import { Civil, EthAddress } from "@joincivil/core";
+import { Civil } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { debounce } from "lodash";
 import * as React from "react";
 import { Subscription } from "rxjs/Subscription";

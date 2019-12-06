@@ -1,25 +1,24 @@
-import { BigNumber } from "@joincivil/typescript-types";
-import { Observable } from "rxjs";
-import * as Debug from "debug";
-import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-
 import {
   Bytes32,
   EthAddress,
-  TwoStepEthTransaction,
+  BigNumber,
   ParamProposalState,
   ParamProp,
   PollID,
   ParamPropChallengeData,
   UserChallengeData,
   WrappedPropID,
-} from "../../types";
+} from "@joincivil/typescript-types";
+import { Observable } from "rxjs";
+import * as Debug from "debug";
+import { CivilErrors, getDefaultFromBlock, pollHelpers } from "@joincivil/utils";
+
+import { TwoStepEthTransaction } from "../../types";
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { BaseWrapper } from "../basewrapper";
 import { CivilParameterizerContract } from "../generated/wrappers/civil_parameterizer";
 import { createTwoStepSimple } from "../utils/contracts";
 import { Voting } from "./voting";
-import { isInCommitStage, isInRevealStage } from "../../utils/listingDataHelpers/pollHelper";
 
 const debug = Debug("civil:tcr");
 
@@ -546,14 +545,17 @@ export class Parameterizer extends BaseWrapper<CivilParameterizerContract> {
           } else {
             didUserRescue =
               !(await this.voting.canRescueTokens(user, propChallengeID)) &&
-              !(await isInCommitStage(pollData)) &&
-              !(await isInRevealStage(pollData));
+              !(await pollHelpers.isInCommitStage(pollData)) &&
+              !(await pollHelpers.isInRevealStage(pollData));
           }
         } else {
-          canUserReveal = !didUserReveal && (await isInRevealStage(pollData));
+          canUserReveal = !didUserReveal && (await pollHelpers.isInRevealStage(pollData));
         }
         canUserRescue =
-          !didUserReveal && !didUserRescue && !(await isInCommitStage(pollData)) && !(await isInRevealStage(pollData));
+          !didUserReveal &&
+          !didUserRescue &&
+          !(await pollHelpers.isInCommitStage(pollData)) &&
+          !(await pollHelpers.isInRevealStage(pollData));
       }
     }
 

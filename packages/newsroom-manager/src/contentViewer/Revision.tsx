@@ -1,5 +1,5 @@
 import * as React from "react";
-import { EthContentHeader } from "@joincivil/core";
+import { EthContentHeader } from "@joincivil/typescript-types";
 import { connect, DispatchProp } from "react-redux";
 import { fetchRevisionJson } from "./actions";
 import styled from "styled-components";

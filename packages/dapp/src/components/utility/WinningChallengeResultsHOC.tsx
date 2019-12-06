@@ -1,13 +1,7 @@
-import {
-  didChallengeOriginallySucceed,
-  didAppealChallengeSucceed,
-  ChallengeData,
-  AppealChallengeData,
-} from "@joincivil/core";
+import { challengeHelpers, appealChallengeHelpers, getFormattedTokenBalance } from "@joincivil/utils";
 import { CHALLENGE_RESULTS_VOTE_TYPES } from "@joincivil/components";
-import { getFormattedTokenBalance } from "@joincivil/utils";
 
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, ChallengeData, AppealChallengeData } from "@joincivil/typescript-types";
 
 export interface WinningChallengeResultsProps {
   displayExplanation?: boolean;
@@ -20,7 +14,7 @@ export const getChallengeViewProps = (challenge: ChallengeData) => {
   let votesCount;
   let votesPercent;
 
-  if (didChallengeOriginallySucceed(challenge)) {
+  if (challengeHelpers.didChallengeOriginallySucceed(challenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.REMOVE;
     votesCount = getFormattedTokenBalance(challenge.poll.votesAgainst);
 
@@ -50,7 +44,7 @@ export const getAppealChallengeViewProps = (appealChallenge: AppealChallengeData
   let votesCount;
   let votesPercent;
 
-  if (didAppealChallengeSucceed(appealChallenge)) {
+  if (appealChallengeHelpers.didAppealChallengeSucceed(appealChallenge)) {
     voteType = CHALLENGE_RESULTS_VOTE_TYPES.OVERTURN;
     votesCount = getFormattedTokenBalance(appealChallenge.poll.votesFor);
     votesPercent = totalVotes.isZero()

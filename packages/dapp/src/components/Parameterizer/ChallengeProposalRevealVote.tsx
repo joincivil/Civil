@@ -1,8 +1,8 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, TxHash } from "@joincivil/typescript-types";
 
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   ChallengeProposalRevealVote as ChallengeProposalRevealVoteComponent,
   TChallengeProposalRevealVoteProps as ChallengeProposalRevealVoteComponentProps,

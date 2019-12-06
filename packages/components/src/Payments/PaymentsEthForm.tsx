@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MutationFunc } from "react-apollo";
-import { EthAddress, TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import { isValidEmail } from "@joincivil/utils";
 import {
   PaymentTerms,
@@ -209,7 +210,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
     this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.postId, this.props.usdToSpend);
-    if (this.context.civil && (window as any).ethereum) {
+    if (this.context.civil) {
       return this.context.civil.simplePayment(this.props.paymentAddress, this.props.etherToSpend.toString());
     }
   };

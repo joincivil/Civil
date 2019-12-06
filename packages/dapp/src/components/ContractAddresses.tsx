@@ -4,7 +4,7 @@ import { Map } from "immutable";
 import styled from "styled-components/macro";
 import { Helmet } from "react-helmet";
 
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { colors, mediaQueries, StyledMainContainer, EthAddressViewer } from "@joincivil/components";
 import { getFormattedEthAddress, getEtherscanBaseURL } from "@joincivil/utils";
 import { formattedNetworkNames } from "../helpers/networkHelpers";

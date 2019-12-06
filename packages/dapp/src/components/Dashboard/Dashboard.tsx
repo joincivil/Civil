@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components/macro";
 import { Helmet } from "react-helmet";
 
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import {
   buttonSizes,
   Button,

@@ -1,4 +1,4 @@
-import { StorageHeader } from "../types";
+import { StorageHeader } from "@joincivil/typescript-types";
 import { ContentProvider } from "./contentprovider";
 // tslint:disable-next-line
 import * as IPFS from "ipfs-http-client";

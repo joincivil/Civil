@@ -1,5 +1,5 @@
 import * as React from "react";
-import { WrappedChallengeData } from "@joincivil/core";
+import { WrappedChallengeData } from "@joincivil/typescript-types";
 import { PHASE_TYPE_NAMES } from "@joincivil/components";
 
 import { PhaseCountdownTimer } from "./PhaseCountdownTimer";

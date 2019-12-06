@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 
-import { EthAddress } from "@joincivil/core";
 import { CivilErrors, setDefaultNetworkValue } from "@joincivil/utils";
 import { CivilContext, StyledMainContainer, ICivilContext } from "@joincivil/components";
-import { BigNumber } from "@joincivil/typescript-types";
+import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 
 import { routes, registryListingTypes, registrySubListingTypes } from "../constants";
 import { addUser } from "../redux/actionCreators/userAccount";

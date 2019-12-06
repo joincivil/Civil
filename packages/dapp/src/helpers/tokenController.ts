@@ -1,4 +1,4 @@
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { CivilHelper } from "../apis/CivilHelper";
 
 export async function getCivilianWhitelist(helper: CivilHelper, user: EthAddress): Promise<boolean> {

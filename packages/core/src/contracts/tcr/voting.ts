@@ -1,9 +1,9 @@
 import { EthApi, requireAccount } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
-import { BigNumber, DecodedLogEntryEvent } from "@joincivil/typescript-types";
+import { Bytes32, EthAddress, PollData, BigNumber, DecodedLogEntryEvent } from "@joincivil/typescript-types";
 import * as Debug from "debug";
 import { Observable } from "rxjs";
-import { Bytes32, EthAddress, PollData, TwoStepEthTransaction } from "../../types";
+import { TwoStepEthTransaction } from "../../types";
 import { BaseWrapper } from "../basewrapper";
 import { CivilPLCRVotingContract, CivilPLCRVoting } from "../generated/wrappers/civil_p_l_c_r_voting";
 import { createTwoStepSimple } from "../utils/contracts";

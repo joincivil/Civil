@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import * as React from "react";
 import styled from "styled-components";
-import { CharterData } from "@joincivil/core";
+import { CharterData } from "@joincivil/typescript-types";
 import { ListingDetailHeader, ListingDetailHeaderProps } from "./ListingDetailHeader";
 
 const StyledDiv = styled.div`

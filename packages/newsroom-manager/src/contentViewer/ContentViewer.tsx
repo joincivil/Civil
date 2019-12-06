@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Map } from "immutable";
-import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 import { connect, DispatchProp } from "react-redux";
 import { addRevision } from "./actions";
-import { EthContentHeader } from "@joincivil/core";
+import { EthContentHeader } from "@joincivil/typescript-types";
 import { ContentViewerReduxState, RevisionAndJson } from "./reducers";
 import { ContentItem } from "./ContentItem";
+import { Newsroom } from "@joincivil/core/build/src/contracts/newsroom";
 
 export interface ContentViewerProps {
   newsroom: Newsroom;

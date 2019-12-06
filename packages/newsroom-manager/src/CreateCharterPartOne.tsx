@@ -3,7 +3,7 @@ import { connect, DispatchProp } from "react-redux";
 import { find, findIndex } from "lodash";
 import styled from "styled-components";
 import { colors, StepHeader, StepProps, StepDescription, QuestionToolTip } from "@joincivil/components";
-import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/core";
+import { EthAddress, CharterData, RosterMember as RosterMemberInterface } from "@joincivil/typescript-types";
 import { isValidHttpUrl } from "@joincivil/utils";
 import { RosterMember } from "./RosterMember";
 import {

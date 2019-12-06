@@ -11,11 +11,10 @@ import {
   mediaQueries,
   ICivilContext,
 } from "@joincivil/components";
-import { getFormattedParameterValue } from "@joincivil/utils";
+import { getFormattedParameterValue, transformGraphQLDataIntoParamProposal } from "@joincivil/utils";
 import { Proposal } from "./Proposal";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { transformGraphQLDataIntoParamProposal } from "../../helpers/queryTransformations";
 
 export const StyledHiddenOnMobile = styled.div`
   ${mediaQueries.MOBILE} {

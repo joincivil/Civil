@@ -3,7 +3,7 @@ import { Query } from "react-apollo";
 import { Set } from "immutable";
 import { LoadingMessage } from "@joincivil/components";
 import gql from "graphql-tag";
-import { LISTING_FRAGMENT } from "../../../helpers/queryTransformations";
+import { LISTING_FRAGMENT } from "@joincivil/utils";
 
 export const newsroomChannelAdminQuery = gql`
   query {

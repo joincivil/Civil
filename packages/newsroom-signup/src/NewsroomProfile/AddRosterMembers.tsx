@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LearnMoreButton } from "./LearnMoreButton";
 import { StyledHr, FormSection, StepSectionCounter } from "../styledComponents";
-import { CharterData, RosterMember as RosterMemberInterface, EthAddress } from "@joincivil/core";
+import { CharterData, RosterMember as RosterMemberInterface, EthAddress } from "@joincivil/typescript-types";
 import {
   InvertedButton,
   BorderlessButton,

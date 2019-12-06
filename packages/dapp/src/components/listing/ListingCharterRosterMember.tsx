@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components/macro";
 import { fonts, colors } from "@joincivil/components";
-import { RosterMember } from "@joincivil/core";
+import { RosterMember } from "@joincivil/typescript-types";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 
 export interface ListingCharterRosterMemberProps {

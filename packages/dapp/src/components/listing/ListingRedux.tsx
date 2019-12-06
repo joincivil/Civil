@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/core";
+import { EthAddress, ListingWrapper, NewsroomWrapper, CharterData, StorageHeader } from "@joincivil/typescript-types";
 import {
   Tabs,
   Tab,

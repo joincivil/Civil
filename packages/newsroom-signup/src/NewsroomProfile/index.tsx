@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NextBack } from "../styledComponents";
-import { CharterData, EthAddress } from "@joincivil/core";
+import { CharterData, EthAddress } from "@joincivil/typescript-types";
 import { STEP } from "../Newsroom";
 import { NewsroomBio } from "./NewsroomBio";
 import { AddRosterMember } from "./AddRosterMembers";

@@ -2,7 +2,7 @@ import { EthApi } from "@joincivil/ethapi";
 import { CivilErrors, getDefaultFromBlock } from "@joincivil/utils";
 import { EventStorage, EventStorageContract } from "../contracts/generated/wrappers/event_storage";
 import { findEventOrThrow } from "../contracts/utils/contracts";
-import { ContentData, StorageHeader } from "../types";
+import { ContentData, StorageHeader } from "@joincivil/typescript-types";
 import { ContentProvider, ContentProviderOptions } from "./contentprovider";
 
 export class EventStorageProvider implements ContentProvider {

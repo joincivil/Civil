@@ -1,30 +1,44 @@
-import { isInCommitStage, isInRevealStage, isVotePassed } from "./pollHelper";
-import { didAppealChallengeSucceed } from "./appealChallengeHelper";
-import { is0x0Address } from "@joincivil/utils";
-import { ChallengeData, UserChallengeData } from "../../types";
-import { BigNumber } from "@joincivil/typescript-types";
+import { pollHelpers } from "./pollHelpers";
+import { appealChallengeHelpers } from "./appealChallengeHelpers";
+import { is0x0Address } from "../index";
+import { BigNumber, ChallengeData, UserChallengeData } from "@joincivil/typescript-types";
+
+export const challengeHelpers = {
+  isChallengeInCommitStage,
+  isChallengeInRevealStage,
+  canRequestAppeal,
+  didChallengeOriginallySucceed,
+  didChallengeSucceed,
+  canResolveChallenge,
+  doesChallengeHaveAppeal,
+  canCollectRewardOrRescue,
+  isOriginalChallengeVoteOverturned,
+  isUserWinner,
+  canUserCollectReward,
+  canRescueTokens,
+};
 
 /**
  * Checks if a Challenge is in the Commit stage
  * @param challengeData the ChallengeData to check
  */
-export function isChallengeInCommitStage(challengeData: ChallengeData): boolean {
-  return isInCommitStage(challengeData.poll);
+function isChallengeInCommitStage(challengeData: ChallengeData): boolean {
+  return pollHelpers.isInCommitStage(challengeData.poll);
 }
 
 /**
  * Checks if a Challenge is in the Reveal stage
  * @param challengeData the ChallengeData to check
  */
-export function isChallengeInRevealStage(challengeData: ChallengeData): boolean {
-  return isInRevealStage(challengeData.poll);
+function isChallengeInRevealStage(challengeData: ChallengeData): boolean {
+  return pollHelpers.isInRevealStage(challengeData.poll);
 }
 
 /**
  * Checks if an Appeal can be requested for this challenge
  * @param challengeData the ChallengeData to check
  */
-export function canRequestAppeal(challengeData: ChallengeData): boolean {
+function canRequestAppeal(challengeData: ChallengeData): boolean {
   if (isChallengeInCommitStage(challengeData)) {
     return false;
   } else if (isChallengeInRevealStage(challengeData)) {
@@ -42,17 +56,20 @@ export function canRequestAppeal(challengeData: ChallengeData): boolean {
  * Checks if the originally Challenge succeeded, without taking appeal / appeal challenge into consideration
  * @param challengeData the ChallengeData to check
  */
-export function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
-  return !isVotePassed(challengeData.poll);
+function didChallengeOriginallySucceed(challengeData: ChallengeData): boolean {
+  return !pollHelpers.isVotePassed(challengeData.poll);
 }
 
 /**
  * Checks if a Challenge succeeded
  * @param challengeData the ChallengeData to check
  */
-export function didChallengeSucceed(challengeData: ChallengeData): boolean {
+function didChallengeSucceed(challengeData: ChallengeData): boolean {
   if (challengeData.appeal && challengeData.appeal.appealGranted) {
-    if (challengeData.appeal.appealChallenge && didAppealChallengeSucceed(challengeData.appeal.appealChallenge)) {
+    if (
+      challengeData.appeal.appealChallenge &&
+      appealChallengeHelpers.didAppealChallengeSucceed(challengeData.appeal.appealChallenge)
+    ) {
       return didChallengeOriginallySucceed(challengeData);
     } else {
       return !didChallengeOriginallySucceed(challengeData);
@@ -66,7 +83,7 @@ export function didChallengeSucceed(challengeData: ChallengeData): boolean {
  * Checks if a Challenge has no actionable active phase and can be resolved*
  * @param challengeData this ChallengeData to check
  */
-export function canResolveChallenge(challengeData: ChallengeData): boolean {
+function canResolveChallenge(challengeData: ChallengeData): boolean {
   return (
     challengeData &&
     !challengeData.resolved &&
@@ -81,19 +98,19 @@ export function canResolveChallenge(challengeData: ChallengeData): boolean {
  * Checks if a Challenge has an active appeal
  * @param challengeData this ChallengeData to check
  */
-export function doesChallengeHaveAppeal(challengeData: ChallengeData): boolean {
+function doesChallengeHaveAppeal(challengeData: ChallengeData): boolean {
   return challengeData.appeal! && !is0x0Address(challengeData!.appeal!.requester.toString());
 }
 
-export function canCollectRewardOrRescue(challengeData: ChallengeData): boolean {
+function canCollectRewardOrRescue(challengeData: ChallengeData): boolean {
   return challengeData && challengeData.resolved;
 }
 
-export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData): boolean {
+function isOriginalChallengeVoteOverturned(challengeData: ChallengeData): boolean {
   if (challengeData.appeal) {
     if (challengeData.appeal.appealGranted) {
       if (challengeData.appeal.appealChallenge) {
-        return !isVotePassed(challengeData.appeal.appealChallenge.poll);
+        return !pollHelpers.isVotePassed(challengeData.appeal.appealChallenge.poll);
       }
       return true;
     }
@@ -101,7 +118,7 @@ export function isOriginalChallengeVoteOverturned(challengeData: ChallengeData):
   return false;
 }
 
-export function isUserWinner(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+function isUserWinner(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
   if (challengeData.resolved && userChallengeData.didUserReveal) {
     const isOverturned = isOriginalChallengeVoteOverturned(challengeData);
     const isWinner = userChallengeData.isVoterWinner;
@@ -110,11 +127,11 @@ export function isUserWinner(challengeData: ChallengeData, userChallengeData: Us
   return false;
 }
 
-export function canUserCollectReward(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+function canUserCollectReward(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
   return isUserWinner(challengeData, userChallengeData) && !userChallengeData.didUserCollect;
 }
 
-export function canRescueTokens(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
+function canRescueTokens(challengeData: ChallengeData, userChallengeData: UserChallengeData): boolean {
   if (
     challengeData.resolved &&
     userChallengeData.didUserCommit &&

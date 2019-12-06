@@ -13,7 +13,7 @@ import { BoostPayStripe } from "./BoostPayStripe";
 import styled from "styled-components";
 import { BoostFlexCenter, BoostTextButton } from "../BoostStyledComponents";
 import { PaymentInfoText, PaymentFAQText, PaymentLabelCardText, PaymentLabelEthText } from "../BoostTextComponents";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 
 export enum PAYMENT_TYPE {
   DEFAULT = "",

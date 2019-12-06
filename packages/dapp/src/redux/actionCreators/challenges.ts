@@ -1,4 +1,4 @@
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { Dispatch } from "react-redux";
 import { AnyAction } from "redux";
 import { CivilHelper } from "../../apis/CivilHelper";

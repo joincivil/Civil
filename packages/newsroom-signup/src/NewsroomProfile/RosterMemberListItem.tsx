@@ -1,5 +1,5 @@
 import * as React from "react";
-import { RosterMember } from "@joincivil/core";
+import { RosterMember } from "@joincivil/typescript-types";
 import { colors, BorderlessButton, buttonSizes } from "@joincivil/components";
 import { AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
 import styled from "styled-components";

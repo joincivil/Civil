@@ -1,4 +1,4 @@
-import { UserChallengeData, EthAddress } from "@joincivil/core";
+import { UserChallengeData, EthAddress } from "@joincivil/typescript-types";
 
 export interface MyTasksProposalItemOwnProps {
   challengeID?: string;

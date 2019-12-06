@@ -1,6 +1,6 @@
 import * as React from "react";
 import AddToCalendar from "react-add-to-calendar";
-import { ListingWrapper } from "@joincivil/core";
+import { ListingWrapper } from "@joincivil/typescript-types";
 import {
   SubmitChallengeSuccessIcon as ApplicationSuccessIcon,
   OBSectionHeader,

@@ -1,6 +1,6 @@
 import * as React from "react";
 import AddToCalendar from "react-add-to-calendar";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import { saltToWords, getFormattedEthAddress, getLocalDateTimeStrings, padString } from "@joincivil/utils";
 import { FullScreenModal, FullScreenModalProps } from "../FullscreenModal";
 import { buttonSizes, CancelButton } from "../Button";

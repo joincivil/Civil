@@ -1,17 +1,13 @@
 import * as React from "react";
 import { compose } from "redux";
-import {
-  EthAddress,
-  TwoStepEthTransaction,
-  TxHash,
-  didAppealChallengeSucceed as getDidAppealChallengeSucceed,
-} from "@joincivil/core";
+import { TwoStepEthTransaction } from "@joincivil/core";
+import { EthAddress, TxHash } from "@joincivil/typescript-types";
 import {
   AppealChallengeResolveCard as AppealChallengeResolveCardComponent,
   AppealChallengeResolveCardProps,
   ModalContent,
 } from "@joincivil/components";
-import { getFormattedTokenBalance, urlConstants as links } from "@joincivil/utils";
+import { getFormattedTokenBalance, urlConstants as links, appealChallengeHelpers } from "@joincivil/utils";
 
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import { InjectedTransactionStatusModalProps, hasTransactionStatusModals } from "../utility/TransactionStatusModalsHOC";
@@ -96,7 +92,7 @@ class AppealChallengeResolve extends React.Component<AppealChallengeDetailProps 
       .div(appealChallengeTotalVotes)
       .toString();
 
-    const didAppealChallengeSucceed = getDidAppealChallengeSucceed(this.props.appealChallenge);
+    const didAppealChallengeSucceed = appealChallengeHelpers.didAppealChallengeSucceed(this.props.appealChallenge);
 
     const transactions = this.getTransactions();
 

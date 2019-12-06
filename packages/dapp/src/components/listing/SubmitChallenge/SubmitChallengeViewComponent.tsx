@@ -3,8 +3,8 @@ import { compose } from "redux";
 import { connect, DispatchProp } from "react-redux";
 import { formatRoute } from "react-router-named-routes";
 import styled from "styled-components/macro";
-
-import { TwoStepEthTransaction, TxHash } from "@joincivil/core";
+import { TxHash } from "@joincivil/typescript-types";
+import { TwoStepEthTransaction } from "@joincivil/core";
 import {
   colors,
   Modal,

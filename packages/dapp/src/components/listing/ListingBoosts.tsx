@@ -6,7 +6,7 @@ import { urlConstants } from "@joincivil/utils";
 import { ComingSoonText } from "../Boosts/BoostStyledComponents";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { NewsroomWrapper } from "@joincivil/core";
+import { NewsroomWrapper } from "@joincivil/typescript-types";
 
 export interface ListingBoostsProps {
   listingAddress: string;

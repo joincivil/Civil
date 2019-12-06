@@ -1,7 +1,6 @@
 import * as React from "react";
 import { compose } from "redux";
-import { BigNumber } from "@joincivil/typescript-types";
-import { EthAddress, TxHash } from "@joincivil/core";
+import { EthAddress, TxHash, BigNumber } from "@joincivil/typescript-types";
 import {
   OBCollapsable,
   OBCollapsableHeader,

@@ -1,10 +1,9 @@
 import * as React from "react";
 import { BigNumber } from "@joincivil/typescript-types";
-import { getFormattedParameterValue } from "@joincivil/utils";
+import { getFormattedParameterValue, POLL_QUERY } from "@joincivil/utils";
 import { CivilContext, Tr, Td, StyledTableAccentText, TextCountdownTimer, ICivilContext } from "@joincivil/components";
 
 import { StyledHiddenOnMobile } from "./Parameter";
-import { POLL_QUERY } from "../../helpers/queryTransformations";
 import { Query } from "react-apollo";
 
 export interface ProposalProps {

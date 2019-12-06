@@ -1,6 +1,6 @@
 import * as React from "react";
 import { OBSectionHeader, OBSectionDescription, colors, fonts } from "@joincivil/components";
-import { EthAddress } from "@joincivil/core";
+import { EthAddress } from "@joincivil/typescript-types";
 import styled from "styled-components";
 import { AboutSmartContractsButton } from "./AboutSmartContractsButton";
 
