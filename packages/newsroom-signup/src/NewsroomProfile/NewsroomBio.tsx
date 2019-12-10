@@ -90,7 +90,7 @@ export class NewsroomBio extends React.Component<NewsroomBioProps> {
               Newsroom Logo
               <QuestionToolTip
                 explainerText={
-                  "Minimum recommended size 260x260px, maximum file size 1MB. Image will be constrained to a square."
+                  "Recommended dimensions 260x260px, maximum file size 250KB. Image will be displayed constrained to a square."
                 }
               />
             </FormSubhead>
