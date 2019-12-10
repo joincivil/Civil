@@ -233,10 +233,7 @@ const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = p
           </InvertedButton>
         </p>
         <p>
-          <InvertedButton
-            size={buttonSizes.MEDIUM_WIDE}
-            to={`${props.listingDetailURL}/${props.newsroomAddress}/boosts`}
-          >
+          <InvertedButton size={buttonSizes.MEDIUM_WIDE} to={`${props.listingDetailURL}/boosts`}>
             View your Project Boosts
           </InvertedButton>
         </p>
