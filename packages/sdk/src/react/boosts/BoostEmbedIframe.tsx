@@ -5,6 +5,12 @@ import { iframeResizer } from "iframe-resizer";
 const LOADING_IMAGE_URL = "https://registry.civil.co/static/media/loading.ba73811a.svg";
 
 // Not using styled-components so that we can get the actual styles in `renderToStaticMarkup`.
+const INTRO_STYLES: React.CSSProperties = {
+  textAlign: "center",
+  maxWidth: 400,
+  margin: "0 auto -18px auto",
+  padding: "0 16px",
+};
 let EMBED_WRAPPER_STYLES: React.CSSProperties = {
   position: "relative",
   display: "block",
@@ -92,13 +98,13 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps & BoostEmbedIframe
       iframeResizer(
         {
           heightCalculationMethod: "taggedElement", // looks for elements with `data-iframe-height` attribute and resizes to fit them
-          tolerance: 25,
+          tolerance: 16,
 
           // @ts-ignore iframe-resizer types are missing the event handlers and some other options
           warningTimeout: 20000,
           // @ts-ignore
           onResized: ({ iframe, height }: { iframe: HTMLIFrameElement; height: string }) => {
-            setIframeHeight(parseInt(height, 10) + 20);
+            setIframeHeight(parseInt(height, 10));
           },
           // @ts-ignore
           onInit: () => {
@@ -112,50 +118,55 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps & BoostEmbedIframe
   };
 
   return (
-    <div style={EMBED_WRAPPER_STYLES} ref={node => setHeightImportant(node, iframeHeight)}>
-      {!props.noIframe && (
-        <iframe
-          ref={node => setUpIframeResizer(node, iframeHeight)}
-          style={EMBED_IFRAME_STYLES}
-          key={props.iframeId}
-          id={props.iframeId}
-          src={props.iframeSrc}
-          sandbox="allow-popups allow-scripts allow-same-origin"
-        ></iframe>
+    <>
+      {props.boostType === "story" && (
+        <p style={INTRO_STYLES}>Good journalism costs money. Support this newsroom by giving it a Boost.</p>
       )}
+      <div style={EMBED_WRAPPER_STYLES} ref={node => setHeightImportant(node, iframeHeight)}>
+        {!props.noIframe && (
+          <iframe
+            ref={node => setUpIframeResizer(node, iframeHeight)}
+            style={EMBED_IFRAME_STYLES}
+            key={props.iframeId}
+            id={props.iframeId}
+            src={props.iframeSrc}
+            sandbox="allow-popups allow-scripts allow-same-origin"
+          ></iframe>
+        )}
 
-      {!isLoaded && (
-        <>
-          {props.error ? (
-            <>
-              <p style={{ margin: "2rem 1rem" }}>
-                Sorry, there was an error loading this {boostTypeLabel} Boost. Try viewing it{" "}
-                <a href={props.fallbackUrl} target="_blank">
-                  on Civil
-                </a>
-                . If the problem persists, please contact <a href="mailto:support@civil.co">support@civil.co</a>.
-              </p>
-              <pre style={EMBED_ERROR_STYLES}>{props.error}</pre>
-            </>
-          ) : (
-            <>
-              {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
-              <object style={EMBED_LOADING_IMG_STYLES} data={LOADING_IMAGE_URL} type="image/svg+xml"></object>
-              <p>Loading {boostTypeLabel} Boost&hellip;</p>
-            </>
-          )}
+        {!isLoaded && (
+          <>
+            {props.error ? (
+              <>
+                <p style={{ margin: "2rem 1rem" }}>
+                  Sorry, there was an error loading this {boostTypeLabel} Boost. Try viewing it{" "}
+                  <a href={props.fallbackUrl} target="_blank">
+                    on Civil
+                  </a>
+                  . If the problem persists, please contact <a href="mailto:support@civil.co">support@civil.co</a>.
+                </p>
+                <pre style={EMBED_ERROR_STYLES}>{props.error}</pre>
+              </>
+            ) : (
+              <>
+                {/*Use `object` instead of `img` because if this domain is blocked or image otherwise fails to load, `img` will show a broken image icon, but `object` will show nothing.*/}
+                <object style={EMBED_LOADING_IMG_STYLES} data={LOADING_IMAGE_URL} type="image/svg+xml"></object>
+                <p>Loading {boostTypeLabel} Boost&hellip;</p>
+              </>
+            )}
 
-          <p style={EMBED_NOT_LOADED_STYLES}>
-            Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields enabled.
-            Please check that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
-            <a href={props.fallbackUrl} target="_blank">
-              on Civil
-            </a>
-            .
-          </p>
-        </>
-      )}
-    </div>
+            <p style={EMBED_NOT_LOADED_STYLES}>
+              Boost not loading? You may have blockers such as the Privacy Badger extension or Brave Shields enabled.
+              Please check that all "civil.co" domains are whitelisted, or try viewing this Boost{" "}
+              <a href={props.fallbackUrl} target="_blank">
+                on Civil
+              </a>
+              .
+            </p>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

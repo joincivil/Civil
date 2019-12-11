@@ -22,3 +22,8 @@ export const Notice = styled.div`
   margin: 10px 0;
   padding: 5px 10px;
 `;
+
+// Otherwise no href means no pointer.
+export const PointerAnchor = styled.a`
+  cursor: pointer;
+`;

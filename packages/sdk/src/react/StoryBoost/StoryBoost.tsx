@@ -25,12 +25,12 @@ const StoryBoostError = styled(ErrorNotFound)`
 const StoryBoostHeader = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   font-family: ${fonts.SANS_SERIF};
-  padding: 15px;
+  padding: 15px 15px 12px;
 
   h2 {
     font-size: 18px;
     font-weight: 600;
-    line-height: 22px;
+    line-height: 26px;
     margin: 0;
   }
 `;
@@ -38,7 +38,11 @@ const StoryBoostHeader = styled.div`
 const StoryBoostStatus = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 4px;
+
+  svg {
+    vertical-align: bottom;
+  }
 `;
 
 const StoryBoostContent = styled.div`
@@ -51,11 +55,34 @@ const StoryBoostFooter = styled.div`
   display: flex;
   font-family: ${fonts.SANS_SERIF};
   justify-content: space-between;
-  padding: 15px;
+  padding: 12px 15px;
 
   span {
     font-size: 16px;
     font-weight: 600;
+  }
+`;
+
+const SupportText = styled.span`
+  cursor: pointer;
+  &:hover {
+    color: ${colors.accent.CIVIL_BLUE};
+  }
+`;
+
+const StyledPaymentButton = styled(PaymentButton)`
+  background: ${colors.accent.CIVIL_BLUE};
+  width: 130px;
+  padding: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  &,
+  &:hover {
+    color: ${colors.basic.WHITE};
+    svg path {
+      fill: ${colors.basic.WHITE};
+    }
   }
 `;
 
@@ -116,8 +143,8 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 )}
               </StoryBoostContent>
               <StoryBoostFooter>
-                <span>Support this newsroom</span>
-                <PaymentButton onClick={this.handleStartPayment} />
+                <SupportText onClick={this.handleStartPayment}>Support this newsroom</SupportText>
+                <StyledPaymentButton onClick={this.handleStartPayment} />
               </StoryBoostFooter>
               <PaymentsModal open={this.state.paymentsOpen}>
                 <Payments

@@ -8,6 +8,7 @@ import {
 } from "./PaymentsStyledComponents";
 import { SelectPaymentAmountText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
+import { RENDER_CONTEXT, CivilContext, ICivilContext } from "../context";
 import { RadioInput, CurrencyInput } from "@joincivil/elements";
 import { Checkbox, CheckboxSizes } from "../input";
 
@@ -29,6 +30,9 @@ export interface PaymentsAmountStates {
 }
 
 export class PaymentsAmount extends React.Component<PaymentsAmountProps, PaymentsAmountStates> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -43,9 +47,11 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     const disableNext = this.state.usdToSpend === 0;
     return (
       <>
-        <PaymentDirectionsStyled>
-          <SelectPaymentAmountText />
-        </PaymentDirectionsStyled>
+        {(!this.context || this.context.renderContext !== RENDER_CONTEXT.EMBED) && (
+          <PaymentDirectionsStyled>
+            <SelectPaymentAmountText />
+          </PaymentDirectionsStyled>
+        )}
         <RadioInput onChange={this.handleRadioSelection} label="" name="SuggestedAmounts">
           {this.props.suggestedAmounts.map((item, i) => (
             <PaymentsRadio value={item.amount} key={i}>
