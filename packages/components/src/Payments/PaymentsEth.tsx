@@ -21,6 +21,7 @@ export interface PaymentsEthProps {
   handleBoostUpdate(newUsdToSpend: number, selectedUsdToSpend: number, etherToSpend: number): void;
   handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend: number): void;
   handleEditPaymentType(): void;
+  handlePaymentInProgress(ethPaymentInProgress: boolean, waitingForConfirmation: boolean): void;
 }
 
 export interface PaymentsEthStates {
@@ -140,6 +141,7 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
                     newsroomName={this.props.newsroomName}
                     handlePaymentSuccess={this.props.handlePaymentSuccess}
                     handleEditPaymentType={this.props.handleEditPaymentType}
+                    handlePaymentInProgress={this.props.handlePaymentInProgress}
                   />
                 );
               }}

@@ -30,6 +30,8 @@ export interface PaymentsStates {
   paymentState: PAYMENT_STATE;
   resetEthPayments: boolean;
   userSubmittedEmail: boolean;
+  paymentInProgress: boolean;
+  waitingForConfirmation: boolean;
 }
 
 export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
@@ -47,6 +49,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
       resetEthPayments: false,
       userSubmittedEmail: false,
+      paymentInProgress: false,
+      waitingForConfirmation: false,
     };
   }
 
@@ -69,6 +73,8 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedStripe,
       paymentAdjustedEth,
       userSubmittedEmail,
+      paymentInProgress,
+      waitingForConfirmation,
     } = this.state;
     const { postId, paymentAddress, newsroomName, isStripeConnected, handleClose } = this.props;
     const showWeb3Login = this.context.auth.showWeb3Login;
@@ -116,7 +122,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
+          paymentInProgress={paymentInProgress}
+          waitingForConfirmation={waitingForConfirmation}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+          handleClose={handleClose}
         >
           <PaymentsEth
             postId={postId}
@@ -129,6 +138,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             handleBoostUpdate={this.handleUpdateBoostFromEth}
             handlePaymentSuccess={this.handlePaymentSuccess}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+            handlePaymentInProgress={this.handlePaymentInProgress}
           />
         </PaymentsWrapper>
       );
@@ -223,6 +233,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     } else {
       this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS, userSubmittedEmail, etherToSpend });
     }
+  };
+
+  private handlePaymentInProgress = (paymentInProgress: boolean, waitingForConfirmation: boolean) => {
+    this.setState({ paymentInProgress, waitingForConfirmation });
   };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
