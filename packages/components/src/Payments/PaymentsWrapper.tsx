@@ -20,7 +20,7 @@ import {
   PaymentUpdatedByEthText,
 } from "./PaymentsTextComponents";
 import { AvatarLogin } from "./AvatarLogin";
-import { CivilLogo, DisclosureArrowIcon } from "@joincivil/elements";
+import { CivilLogo, DisclosureArrowIcon, CloseXButton } from "@joincivil/elements";
 import { RENDER_CONTEXT, ICivilContext, CivilContext } from "../context";
 
 export interface PaymentsWrapperProps {
@@ -31,9 +31,12 @@ export interface PaymentsWrapperProps {
   paymentAdjustedWarning?: boolean;
   paymentAdjustedEth?: boolean;
   paymentAdjustedStripe?: boolean;
+  paymentInProgress?: boolean;
+  waitingForConfirmation?: boolean;
   children: any;
   handleEditAmount?(): void;
   handleBack?(): void;
+  handleClose?(): void;
 }
 
 export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
@@ -78,10 +81,21 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
       <>
         <PaymentHeaderFlex>
           {this.props.handleBack ? (
-            <PaymentBackBtn onClick={this.props.handleBack}>
-              <DisclosureArrowIcon />
-              Back
-            </PaymentBackBtn>
+            this.props.paymentInProgress ? (
+              this.props.waitingForConfirmation ? (
+                <PaymentBackBtn disabled={true}>
+                  <DisclosureArrowIcon />
+                  Back
+                </PaymentBackBtn>
+              ) : (
+                <CloseXButton onClick={() => this.props.handleClose && this.props.handleClose()} />
+              )
+            ) : (
+              <PaymentBackBtn onClick={this.props.handleBack}>
+                <DisclosureArrowIcon />
+                Back
+              </PaymentBackBtn>
+            )
           ) : (
             <div>{/*spacer so flex remains the same with avatarlogin on right*/}</div>
           )}
