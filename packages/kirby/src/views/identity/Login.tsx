@@ -3,7 +3,7 @@ import { CoreContext, useSelector as useKirbySelector, CenteredPage } from "@kir
 
 import { ClipLoader } from "@joincivil/elements";
 
-import { Notice } from "../../common/text";
+import { Notice, PointerAnchor } from "../../common/text";
 import { EthereumChildPlugin } from "@kirby-web3/plugin-ethereum";
 import { CivilIDPlugin } from "../../plugins/CivilID";
 import { ViewPlugin } from "@kirby-web3/child-core";
@@ -79,14 +79,14 @@ export const Login: React.FunctionComponent = () => {
           <WalletOptions optionPrefix="Log in with " onChange={selection} />
           <SwitchAuthTypeDiv>
             Not a Civil member?{" "}
-            <a
+            <PointerAnchor
               onClick={() => {
                 identityPlugin.cancelLogin("switch to sign up");
                 (ctx.core.plugins.view as ViewPlugin).completeView();
               }}
             >
               Sign up to join
-            </a>
+            </PointerAnchor>
           </SwitchAuthTypeDiv>
         </>
       )}
