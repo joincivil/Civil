@@ -1,8 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Payments, colors, fonts, mediaQueries, ChevronAnchorLeft } from "@joincivil/components";
-import { BoostTitle, BoostTextButton, BoostBack } from "../BoostStyledComponents";
-import { PaymentFAQText } from "../BoostTextComponents";
+import { BoostTitle, BoostTextButton, BoostBack } from "./BoostStyledComponents";
+import { PaymentFAQText } from "./BoostTextComponents";
 import { EthAddress } from "@joincivil/typescript-types";
 
 const BoostPaymentsWrapper = styled.div`
