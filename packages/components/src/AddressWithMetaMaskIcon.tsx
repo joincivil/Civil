@@ -17,7 +17,7 @@ const Box = styled.div`
   position: relative;
   top: 4px;
   margin-top: -4px;
-  align-items: center
+  align-items: center;
   font-family: ${fonts.MONOSPACE};
   padding: 8px 12px 4px 8px;
   border: 1px solid #dddddd;

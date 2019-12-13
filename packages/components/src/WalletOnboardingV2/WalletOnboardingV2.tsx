@@ -111,7 +111,7 @@ const IntroText = styled(OBSectionDescription)`
 
 const InstructionsWrapper = styled(OBBorderedSection)`
   display: flex;
-  justify-contents: space-between;
+  justify-content: space-between;
   margin: 32px auto 18px;
   max-width: 550px;
   padding: 24px 12px 0 24px;

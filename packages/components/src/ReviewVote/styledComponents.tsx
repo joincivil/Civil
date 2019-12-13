@@ -90,7 +90,7 @@ export const MetaItemLabel = styled.div`
 `;
 
 export const MetaItemLabelSalt = styled(MetaItemLabel)`
-  color: ${colors.primary.BLACK}
+  color: ${colors.primary.BLACK};
   font-size: 18px;
   line-height: 21px;
   margin-bottom: 10px;

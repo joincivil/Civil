@@ -24,7 +24,7 @@ const eventColors: any = {
 };
 
 const StyledEventDetail = styled.div<StyledEventDetailProps>`
-  border-left: 4px solid ${colors.accent.CIVIL_GRAY_4}
+  border-left: 4px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 0 0 40px 33px;
   position: relative;
 

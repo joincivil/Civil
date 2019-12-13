@@ -112,7 +112,7 @@ export const UserVotingSummaryColumn = styled.div`
 
 export const UserVotingSummaryColHeader = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
-  font-size: 12px
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.93px;
   line-height: 15px;

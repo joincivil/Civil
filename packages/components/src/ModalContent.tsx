@@ -92,7 +92,7 @@ const ModalListItemStyles: ModalListItemColorsProps = {
 };
 
 export const ModalListItem = styled.li<ModalListItemProps>`
-  color: ${props => (props.type && ModalListItemStyles[props.type][0]) || colors.primary.CIVIL_GRAY_2}
+  color: ${props => (props.type && ModalListItemStyles[props.type][0]) || colors.primary.CIVIL_GRAY_2};
   font-style: ${props => (props.type && ModalListItemStyles[props.type][1]) || "normal"};
   font-weight: ${props => (props.type && ModalListItemStyles[props.type][2]) || "normal"};
   margin: 0 0 5px;
