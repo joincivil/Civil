@@ -9,6 +9,7 @@ export const storyBoostQuery = gql`
         }
         channel {
           isStripeConnected
+          stripeAccountID
           newsroom {
             name
             multisigAddress

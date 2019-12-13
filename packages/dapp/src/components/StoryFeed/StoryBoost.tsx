@@ -78,6 +78,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                   newsroomName={storyBoostData.channel.newsroom.charter.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
+                  stripeAccountID={storyBoostData.channel.stripeAccountID}
                   handleClose={props.handlePaymentSuccess}
                 />
               </PaymentsModal>

@@ -152,6 +152,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                   newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
+                  stripeAccountID={storyBoostData.channel.stripeAccountID}
                   handleClose={this.handleClose}
                 />
               </PaymentsModal>

@@ -1,23 +1,24 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, fonts, mediaQueries, QuestionToolTip, ChevronAnchorLeft } from "@joincivil/components";
-import { BoostPayOptions } from "./BoostPayOptions";
-import {
-  BoostWrapper,
-  BoostTitle,
-  BoostSmallPrint,
-  BoostTextButton,
-  BoostBack,
-  MobileStyle,
-} from "../BoostStyledComponents";
+import { Payments, colors, fonts, mediaQueries, ChevronAnchorLeft } from "@joincivil/components";
+import { BoostTitle, BoostTextButton, BoostBack } from "../BoostStyledComponents";
+import { PaymentFAQText } from "../BoostTextComponents";
 import { EthAddress } from "@joincivil/typescript-types";
 
-const BoostHeaderWrap = styled.div`
-  margin: 0 0 0 20px;
+const BoostPaymentsWrapper = styled.div`
+  margin: 0 auto 45px;
+  max-width: 400px;
+  padding: 45px 0 0;
+  width: 100%;
 
   ${mediaQueries.MOBILE} {
-    margin: 0;
+    margin: 0 auto 30px;
+    padding: 20px 15px;
   }
+`;
+
+const BoostHeaderWrap = styled.div`
+  margin: 0 0 20px;
 `;
 
 const BoostHeader = styled.h2`
@@ -36,39 +37,30 @@ const BoostHeader = styled.h2`
   }
 `;
 
-const BoostPayNewsroom = styled.div`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 16px;
-  line-height: 26px;
-  font-weight: 200;
-  margin-bottom: 20px;
-
-  ${mediaQueries.MOBILE} {
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-`;
-
-const BoostAmount = styled.p`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
-  margin-bottom: 20px;
-`;
-
-const BoostDetails = styled.div`
-  margin: 0 0 50px;
+const BoostPayFooterSection = styled.div`
+  margin: 20px 0 40px;
 
   ${mediaQueries.MOBILE} {
     margin-bottom: 16px;
+  }
 
-    ${BoostTitle},
-    ${BoostPayNewsroom},
-    ${BoostAmount} {
-      display: none;
+  h3 {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  a {
+    display: block;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 0 0 10px;
+    text-decoration: none;
+
+    &:hover {
+      color: ${colors.accent.CIVIL_BLUE};
+      text-decoration: underline;
     }
   }
 `;
@@ -86,52 +78,36 @@ export interface BoostPaymentsProps {
 }
 
 export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props => {
-  const { history } = props;
+  // TODO(sarah) confirm with Rob if the amount selection will stay on previous screen
+  /* const { history } = props;
   let usdToSpend = 0;
   if (history && history.location && history.location.state && history.location.state.usdToSpend) {
     usdToSpend = history.location.state.usdToSpend;
-  }
+  } */
 
   return (
-    <BoostWrapper open={true}>
+    <BoostPaymentsWrapper>
       <BoostHeaderWrap>
         <BoostBack>
           <ChevronAnchorLeft component={BoostTextButton} onClick={() => props.handleBackToListing()}>
             Back to Boost info
           </ChevronAnchorLeft>
         </BoostBack>
-        <BoostHeader>
-          Complete your Boost payment
-          <MobileStyle>
-            {" "}
-            of <b>${usdToSpend}</b> to <b>{props.newsroomName}</b>
-          </MobileStyle>
-        </BoostHeader>
-        <BoostDetails>
-          <BoostTitle>{props.title}</BoostTitle>
-          <BoostPayNewsroom>{props.newsroomName}</BoostPayNewsroom>
-          <BoostAmount>{"$" + usdToSpend}</BoostAmount>
-          <BoostSmallPrint margin={"0 0 20px"}>
-            All funds raised will go directly to the newsroom even if this goal is not met.
-            <QuestionToolTip
-              explainerText={
-                "Any money you give goes directly to the newsroom. Civil does not take a cut of any funds raised."
-              }
-            />
-          </BoostSmallPrint>
-        </BoostDetails>
+        <BoostHeader>Complete your Boost payment</BoostHeader>
+        <BoostTitle>{props.title}</BoostTitle>
       </BoostHeaderWrap>
-      <BoostPayOptions
-        usdToSpend={usdToSpend}
-        paymentAddr={props.paymentAddr}
+      <Payments
+        postId={props.boostId}
         newsroomName={props.newsroomName}
-        title={props.title}
-        boostId={props.boostId}
+        paymentAddress={props.paymentAddr}
         isStripeConnected={props.isStripeConnected}
         stripeAccountID={props.stripeAccountID}
-        handleBackToListing={props.handleBackToListing}
-        handlePaymentSuccess={() => props.handlePaymentSuccess()}
+        handleClose={props.handlePaymentSuccess}
+        boostType={"project"}
       />
-    </BoostWrapper>
+      <BoostPayFooterSection>
+        <PaymentFAQText />
+      </BoostPayFooterSection>
+    </BoostPaymentsWrapper>
   );
 };

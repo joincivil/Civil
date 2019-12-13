@@ -12,6 +12,7 @@ export interface PaymentsStripeProps {
   newsroomName: string;
   shouldPublicize: boolean;
   usdToSpend: number;
+  stripeAccountID: string;
   handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean): void;
   handleEditPaymentType(): void;
 }
@@ -39,7 +40,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
-        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY}>
+        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.props.stripeAccountID}>
           <Elements>
             <Mutation mutation={PAYMENTS_STRIPE_MUTATION}>
               {(paymentsCreateStripePayment: MutationFunc) => {

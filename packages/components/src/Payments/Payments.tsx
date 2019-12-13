@@ -13,9 +13,11 @@ import { PaymentsSuccess } from "./PaymentsSuccess";
 
 export interface PaymentsProps {
   postId: string;
+  boostType?: string;
   paymentAddress: string;
   newsroomName: string;
   isStripeConnected: boolean;
+  stripeAccountID: string;
   handleClose(): void;
 }
 
@@ -76,7 +78,15 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentInProgress,
       waitingForConfirmation,
     } = this.state;
-    const { postId, paymentAddress, newsroomName, isStripeConnected, handleClose } = this.props;
+    const {
+      postId,
+      paymentAddress,
+      newsroomName,
+      isStripeConnected,
+      stripeAccountID,
+      boostType,
+      handleClose,
+    } = this.props;
     const showWeb3Login = this.context.auth.showWeb3Login;
 
     // User logged in from PAYMENT_CHOOSE_LOGIN_OR_GUEST state, which will be reflected in context, and we should now show them SELECT_PAYMENT_TYPE state instead.
@@ -95,6 +105,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (proceedToPaymentType || paymentState === PAYMENT_STATE.SELECT_PAYMENT_TYPE) {
       return (
         <PaymentsWrapper
+          boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedWarning={paymentAdjustedWarning}
@@ -117,6 +128,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (paymentState === PAYMENT_STATE.ETH_PAYMENT) {
       return (
         <PaymentsWrapper
+          boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedEth={paymentAdjustedEth}
@@ -147,6 +159,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT) {
       return (
         <PaymentsWrapper
+          boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           paymentAdjustedStripe={paymentAdjustedStripe}
@@ -158,6 +171,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
             usdToSpend={usdToSpend}
+            stripeAccountID={stripeAccountID}
             handlePaymentSuccess={this.handlePaymentSuccess}
             handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
           />
@@ -168,6 +182,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (paymentState === PAYMENT_STATE.APPLE_PAY) {
       return (
         <PaymentsWrapper
+          boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -184,6 +199,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     if (paymentState === PAYMENT_STATE.GOOGLE_PAY) {
       return (
         <PaymentsWrapper
+          boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -202,7 +218,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL
     ) {
       return (
-        <PaymentsWrapper newsroomName={newsroomName}>
+        <PaymentsWrapper newsroomName={newsroomName} boostType={boostType}>
           <PaymentsSuccess
             newsroomName={newsroomName}
             usdToSpend={usdToSpend}
@@ -217,7 +233,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName} handleBack={handleClose}>
+      <PaymentsWrapper newsroomName={newsroomName} handleBack={handleClose} boostType={boostType}>
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}
