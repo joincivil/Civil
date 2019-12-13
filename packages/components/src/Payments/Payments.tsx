@@ -2,7 +2,7 @@ import * as React from "react";
 import { ICivilContext, CivilContext } from "../context";
 import { PaymentsAmount } from "./PaymentsAmount";
 import { PaymentsLoginOrGuest } from "./PaymentsLoginOrGuest";
-import { PaymentsOptions } from "./PaymentsOptions";
+import { PaymentsSelectType } from "./PaymentsSelectType";
 import { PaymentsEth } from "./PaymentsEth";
 import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsApplePay } from "./PaymentsApplePay";
@@ -112,7 +112,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
         >
-          <PaymentsOptions
+          <PaymentsSelectType
             postId={postId}
             usdToSpend={usdToSpend}
             isStripeConnected={isStripeConnected}
