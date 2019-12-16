@@ -137,7 +137,9 @@ export interface GrantApplicationOwnProps {
   navigate(go: 1 | -1): void;
 }
 
-class GrantApplicationComponent extends React.Component<GrantApplicationProps & GrantApplicationOwnProps & DispatchProp<any>> {
+class GrantApplicationComponent extends React.Component<
+  GrantApplicationProps & GrantApplicationOwnProps & DispatchProp<any>
+> {
   public renderGrantModal(): JSX.Element | null {
     if (!this.props.chooseGrant) {
       return null;
@@ -156,8 +158,8 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             completed its review
           </ModalLi>
           <ModalLi>
-            If approved, the Civil Foundation will create a newsroom, provide it with the Civil Tokens (CVL)
-            required, and apply to the Registry on your behalf, then transfer ownership of the newsroom to you
+            If approved, the Civil Foundation will create a newsroom, provide it with the Civil Tokens (CVL) required,
+            and apply to the Registry on your behalf, then transfer ownership of the newsroom to you
           </ModalLi>
           <ModalLi>We recommend you consult a tax professional about reporting a token-based grant</ModalLi>
           <ModalLi>
@@ -260,12 +262,16 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             create a newsroom and apply to the registry on your behalf, then transfer ownership of the newsroom to you.
           </SmallNote>
           <AccountWarning type={NoticeTypes.ALERT}>
-            <strong>Warning:</strong> Please take appropriate precautions to ensure you do not lose access to the Ethereum
-            account you use to log in to Civil. You will need this account to access your newsroom after the
+            <strong>Warning:</strong> Please take appropriate precautions to ensure you do not lose access to the
+            Ethereum account you use to log in to Civil. You will need this account to access your newsroom after the
             Foundation applies on your behalf. For more information about how to secure your account,{" "}
-              <a href="https://help.civil.co/hc/en-us/articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-" target="_blank">
-                click here
-              </a>.
+            <a
+              href="https://help.civil.co/hc/en-us/articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
+              target="_blank"
+            >
+              click here
+            </a>
+            .
           </AccountWarning>
           <CheckboxArea>
             <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} id="apply_for_grant" />
@@ -348,11 +354,14 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom, ownProps: GrantApplicationOwnProps): GrantApplicationProps & GrantApplicationOwnProps => {
+const mapStateToProps = (
+  state: StateWithNewsroom,
+  ownProps: GrantApplicationOwnProps,
+): GrantApplicationProps & GrantApplicationOwnProps => {
   return {
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
-    ...ownProps
+    ...ownProps,
   };
 };
 

@@ -529,7 +529,7 @@ const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): 
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
 
   const waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
-  const completedGrantFlow = (typeof ownProps.grantApproved === "boolean");
+  const completedGrantFlow = typeof ownProps.grantApproved === "boolean";
 
   return {
     ...ownProps,

@@ -69,8 +69,8 @@ export class WaitingForGrant extends React.Component {
         </OBSectionHeader>
 
         <MainText>
-          Your Registry Profile has been submitted to the Civil Foundation team and is now being reviewed for a
-          Civil Token Grant. We will be sending an email with next steps.
+          Your Registry Profile has been submitted to the Civil Foundation team and is now being reviewed for a Civil
+          Token Grant. We will be sending an email with next steps.
         </MainText>
         <MainText>
           You can come back to this page at any time to check in on the status of your grant application.
@@ -80,8 +80,8 @@ export class WaitingForGrant extends React.Component {
           More info:{" "}
           <a href={urlConstants.FAQ_WHAT_IS_SMART_CONTRACT} target="_blank">
             Newsroom Smart Contract
-          </a>
-          {" "}and{" "}
+          </a>{" "}
+          and{" "}
           <a href={urlConstants.FAQ_APPLICATION_DEPOSIT} target="_blank">
             Application Deposit
           </a>
