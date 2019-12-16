@@ -14,7 +14,6 @@ import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { setGrant, setSkip, grantSubmitted, grantSkipped } from "../actionCreators";
 import { StateWithNewsroom } from "../reducers";
-import { WaitingAfterSkip } from "./WaitingAfterSkip";
 import { WaitingForGrant } from "./WaitingForGrant";
 import { Mutation, MutationFunc, Query } from "react-apollo";
 import { grantQuery } from "../queries";
@@ -128,8 +127,11 @@ export interface GrantApplicationProps {
   chooseGrant: boolean;
   chooseSkip: boolean;
 }
+export interface GrantApplicationOwnProps {
+  navigate(go: 1 | -1): void;
+}
 
-class GrantApplicationComponent extends React.Component<GrantApplicationProps & DispatchProp<any>> {
+class GrantApplicationComponent extends React.Component<GrantApplicationProps & GrantApplicationOwnProps & DispatchProp<any>> {
   public renderGrantModal(): JSX.Element | null {
     if (!this.props.chooseGrant) {
       return null;
@@ -220,35 +222,17 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             You understand that your newsroom must submit to review and potential challenge by the Civil community
           </ModalLi>
         </ul>
-        <Mutation<any>
-          mutation={requestGrantMutation}
-          update={cache => {
-            cache.writeQuery({
-              query: grantQuery,
-              data: { nrsignupNewsroom: { grantRequested: false } },
-            });
-          }}
-        >
-          {(requestGrant: MutationFunc) => {
-            return (
-              <ButtonSection>
-                <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
-                <BorderlessButton
-                  onClick={async () => {
-                    this.props.dispatch!(grantSkipped());
-                    return requestGrant({
-                      variables: {
-                        input: false,
-                      },
-                    });
-                  }}
-                >
-                  Continue
-                </BorderlessButton>
-              </ButtonSection>
-            );
-          }}
-        </Mutation>
+        <ButtonSection>
+          <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
+          <BorderlessButton
+            onClick={() => {
+              this.props.dispatch!(grantSkipped());
+              this.props.navigate(1);
+            }}
+          >
+            Continue
+          </BorderlessButton>
+        </ButtonSection>
       </Modal>
     );
   }
@@ -336,8 +320,6 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
           }
           if (grantRequested === true) {
             return <WaitingForGrant />;
-          } else if (grantRequested === false) {
-            return <WaitingAfterSkip />;
           } else {
             return this.renderOptions();
           }
@@ -360,10 +342,11 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom): GrantApplicationProps => {
+const mapStateToProps = (state: StateWithNewsroom, ownProps: GrantApplicationOwnProps): GrantApplicationProps & GrantApplicationOwnProps => {
   return {
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
+    ...ownProps
   };
 };
 

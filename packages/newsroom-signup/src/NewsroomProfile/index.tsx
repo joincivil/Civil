@@ -82,7 +82,7 @@ export class NewsroomProfile extends React.Component<NewsroomProfileProps, Newsr
       <CharterQuestions charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <SignConstitution charter={this.props.charter} updateCharter={this.props.updateCharter} />,
       <ApplicationSoFarPage charter={this.props.charter} />,
-      <GrantApplication />,
+      <GrantApplication navigate={this.props.navigate}/>,
     ];
     return steps[this.props.currentStep];
   }

@@ -527,17 +527,9 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
 const mapStateToProps = (state: StateWithNewsroom, ownProps: NewsroomGqlProps): NewsroomReduxProps => {
   const { newsroomAddress } = ownProps;
   const newsroom = state.newsrooms.get(newsroomAddress || "") || { wrapper: { data: {} } };
-  const { user } = (state as any).networkDependent; // @TODO Should refactor to use a context here and elsewhere in this package that we pull this state from parent context
 
-  let hasMinDeposit;
-  let waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
-  if (user && user.account && user.account.balance && ownProps.minDeposit) {
-    const userBalance = new BigNumber(user.account.balance);
-    const minDeposit = new BigNumber(ownProps.minDeposit);
-    hasMinDeposit = userBalance.gte(minDeposit);
-    waitingOnGrant = waitingOnGrant && !hasMinDeposit;
-  }
-  const completedGrantFlow = hasMinDeposit || (typeof ownProps.grantRequested === "boolean" && !waitingOnGrant);
+  const waitingOnGrant = !!ownProps.grantRequested && typeof ownProps.grantApproved !== "boolean";
+  const completedGrantFlow = (typeof ownProps.grantApproved === "boolean");
 
   return {
     ...ownProps,
