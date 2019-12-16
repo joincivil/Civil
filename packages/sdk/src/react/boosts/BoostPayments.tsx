@@ -78,12 +78,11 @@ export interface BoostPaymentsProps {
 }
 
 export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props => {
-  // TODO(sarah) confirm with Rob if the amount selection will stay on previous screen
-  /* const { history } = props;
+  const { history } = props;
   let usdToSpend = 0;
   if (history && history.location && history.location.state && history.location.state.usdToSpend) {
     usdToSpend = history.location.state.usdToSpend;
-  } */
+  }
 
   return (
     <BoostPaymentsWrapper>
@@ -98,6 +97,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
       </BoostHeaderWrap>
       <Payments
         postId={props.boostId}
+        usdToSpend={usdToSpend}
         newsroomName={props.newsroomName}
         paymentAddress={props.paymentAddr}
         isStripeConnected={props.isStripeConnected}

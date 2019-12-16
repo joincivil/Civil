@@ -13,6 +13,7 @@ import { PaymentsSuccess } from "./PaymentsSuccess";
 
 export interface PaymentsProps {
   postId: string;
+  usdToSpend?: number;
   boostType?: string;
   paymentAddress: string;
   newsroomName: string;
@@ -43,7 +44,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   constructor(props: any) {
     super(props);
     this.state = {
-      usdToSpend: 0,
+      usdToSpend: props.usdToSpend || 0,
       paymentAdjustedWarning: false,
       paymentAdjustedStripe: false,
       paymentAdjustedEth: false,
@@ -58,6 +59,14 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
 
   public componentDidMount(): void {
     this.context.auth.ensureLoggedInUserEnabled();
+
+    if (this.props.boostType === "project") {
+      const paymentAdjustedWarning = this.props.usdToSpend && this.props.usdToSpend <= 2 ? true : false;
+      this.setState({
+        paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST,
+        paymentAdjustedWarning,
+      });
+    }
   }
 
   public render(): JSX.Element {
