@@ -252,7 +252,7 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
           <DialogueHeader>Apply for a Civil Token Grant</DialogueHeader>
           <DialogueDescription>
             Your grant will include enough Civil tokens (CVL) to pay your deposit to join the Civil Registry, and the
-            foundation will take care of making the initial blockchain transactions to get your newsroom set up.
+            Foundation will take care of making the initial blockchain transactions to get your newsroom set up.
           </DialogueDescription>
           <SmallNote>
             <strong>Note:</strong> The process can take up to 14 days. You will not be able to continue until the Civil
