@@ -4,6 +4,7 @@ export interface StoryBoostData {
   };
   channel: {
     isStripeConnected: boolean;
+    stripeAccountID: string;
     newsroom: {
       name: string;
       multisigAddress: string;

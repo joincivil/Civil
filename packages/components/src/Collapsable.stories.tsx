@@ -45,7 +45,7 @@ storiesOf("Pattern Library / Collapsable", module)
       transform: ${props => (props.open ? "rotate(135deg)" : "rotate(-45deg)")};
       transition: transform 1s;
       display: inline-block;
-      veritical-align: middle;
+      vertical-align: middle;
     `;
     return (
       <Wrapper>

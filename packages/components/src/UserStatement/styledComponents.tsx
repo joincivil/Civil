@@ -47,14 +47,14 @@ export const CopyLarge = styled.p`
 
 export const StyledLi = styled.li`
   font-size: 21px;
-  letter-sizing: 25px;
+  line-height: 25px;
   padding: 0;
   margin: 0 0 17px;
 `;
 
 export const StyledLiContent = styled.span`
   font-size: 18px;
-  letter-sizing: 33px;
+  line-height: 33px;
 `;
 
 export const StyledOl = styled.ol`
@@ -97,7 +97,7 @@ export const BodyHeader = styled.div`
   font-size: 24px;
   font-weight: bold;
   letter-spacing: -0.12px;
-  margin: 0 0 9px
+  margin: 0 0 9px;
   line-height: 33px;
 `;
 

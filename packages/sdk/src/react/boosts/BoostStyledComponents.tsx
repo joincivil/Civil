@@ -396,85 +396,6 @@ export const BoostProgressCol = styled.div`
   }
 `;
 
-export const BoostPayCardDetails = styled.div`
-  margin-top: 5px;
-  padding-left: 35px;
-
-  ${mediaQueries.MOBILE} {
-    margin-top: 15px;
-    padding-left: 0;
-  }
-
-  p {
-    margin-top: 0;
-
-    ${mediaQueries.MOBILE_SMALL} {
-      margin-bottom: 8px;
-    }
-  }
-
-  a {
-    color: ${colors.accent.CIVIL_BLUE};
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
-export const BoostPayWallet = styled.p`
-  display: block;
-  font-size: 14px;
-  line-height: 19px;
-
-  ${mediaQueries.MOBILE} {
-    display: none;
-  }
-`;
-
-export const BoostPayWalletMobile = styled.p`
-  display: none;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-    font-size: 14px;
-    line-height: 21px;
-  }
-`;
-
-export const LearnMore = styled.div`
-  border: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  border-radius: 5px;
-  font-size: 14px;
-  line-height: 19px;
-  padding: 15px;
-
-  ${mediaQueries.MOBILE} {
-    background-color: ${colors.accent.CIVIL_YELLOW_VERY_FADED};
-    font-size: 12px;
-    letter-spacing: -0.07px;
-    line-height: 18px;
-  }
-  ${mediaQueries.MOBILE_SMALL} {
-    padding: 5px 15px;
-  }
-
-  a {
-    cursor: pointer;
-    margin-right: 30px;
-
-    ${mediaQueries.MOBILE} {
-      margin-right: 15px;
-    }
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-`;
-
 export const BoostFormTitle = styled.div`
   font-size: 16px;
   font-weight: bold;
@@ -485,30 +406,6 @@ export const BoostPayFormTitle = styled.div`
   font-size: 16px;
   font-weight: 500;
   line-height: 22px;
-`;
-
-export const BoostPayFormFlex = styled.div`
-  align-items: flex-start;
-  display: flex;
-  justify-content: space-between;
-
-  ${mediaQueries.MOBILE} {
-    display: block;
-  }
-
-  ${props =>
-    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
-    `
-    ${mediaQueries.MOBILE} {
-      display: flex;
-      flex-direction: column-reverse;
-
-      ${SubmitInstructions} {
-        font-size: 12px;
-        line-height: 16px;
-      }
-    }
-  `}
 `;
 
 export const BoostFlexStartMobile = styled.div`
@@ -610,17 +507,6 @@ export const BoostAmount = styled.div`
   }
 `;
 
-export const BoostEthConfirm = styled.span`
-  display: block;
-  font-size: 13px;
-  margin-top: 15px;
-
-  svg {
-    margin-right: 3px;
-    vertical-align: sub;
-  }
-`;
-
 export const BoostNotice = styled.div`
   font-size: 14px;
   line-height: 22px;
@@ -668,40 +554,6 @@ export const BoostCompeletedWrapper = styled.div`
   }
 `;
 
-export const BoostWarningLabel = styled.div`
-  color: ${colors.accent.CIVIL_RED};
-  font-size: 14px;
-  line-height: 22px;
-  margin: 10px 0;
-
-  svg {
-    vertical-align: sub;
-  }
-`;
-
-export const BoostWalletOptions = styled.div`
-  padding: 15px;
-  text-align: center;
-
-  a {
-    display: block;
-    margin-bottom: 15px;
-  }
-`;
-
-export const BoostCopyAddress = styled.div`
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_2};
-  font-size: 13px;
-  line-height: 24px;
-  padding: 15px;
-  text-align: center;
-
-  span {
-    diplay: block;
-    margin-bottom: 15px;
-  }
-`;
-
 export const BoostNotificationContain = styled.div`
   padding: 20px;
 `;
@@ -724,24 +576,6 @@ export const NoBoostsTextStyled = styled.p`
   font-weight: bold;
   line-height: 33px;
   text-align: center;
-`;
-
-export const BoostPayFormWrapper = styled.div`
-  display: block;
-  font-family: ${fonts.SANS_SERIF};
-  margin: 0 0 0 20px;
-
-  button {
-    margin-bottom: 20px;
-
-    ${mediaQueries.MOBILE} {
-      width: 100%;
-    }
-  }
-
-  ${mediaQueries.MOBILE} {
-    margin: 0;
-  }
 `;
 
 export const SubmitInstructions = styled.p`
@@ -774,10 +608,6 @@ export const SubmitWarning = styled.p`
     font-size: 12px;
     line-height: 22px;
   }
-`;
-
-export const BoostPayFormContain = styled.div`
-  margin-bottom: 30px;
 `;
 
 export const CheckboxLabel = styled.span`

@@ -60,6 +60,7 @@ export const STORY_BOOST = gql`
         }
         channel {
           isStripeConnected
+          stripeAccountID
           newsroom {
             contractAddress
             multisigAddress

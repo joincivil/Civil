@@ -319,7 +319,7 @@ export const TokenAirswapSection = styled.div`
   }
 
   button {
-    diplay: block;
+    display: block;
     width: 100%;
   }
 `;
@@ -499,7 +499,7 @@ export const TokenBuySellComplete = styled.div`
   text-align: center;
 
   & > svg {
-    margin 0 auto 5px;
+    margin: 0 auto 5px;
   }
 
   h3 {
