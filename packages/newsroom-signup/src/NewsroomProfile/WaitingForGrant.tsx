@@ -69,7 +69,7 @@ export class WaitingForGrant extends React.Component {
         </OBSectionHeader>
 
         <MainText>
-          Your Registry Profile has been submitted to the Civil Foundation team and is now being reviewed for an ETH and
+          Your Registry Profile has been submitted to the Civil Foundation team and is now being reviewed for a
           Civil Token Grant. We will be sending an email with next steps.
         </MainText>
         <MainText>
@@ -77,15 +77,11 @@ export class WaitingForGrant extends React.Component {
         </MainText>
 
         <AddendaText>
-          After that there's three more steps before your Registry Application is complete —{" "}
+          More info:{" "}
           <a href={urlConstants.FAQ_WHAT_IS_SMART_CONTRACT} target="_blank">
             Newsroom Smart Contract
           </a>
-          ,{" "}
-          <a href={urlConstants.FAQ_WHAT_IS_TUTORIAL} target="_blank">
-            Civil Tutorial
-          </a>{" "}
-          and{" "}
+          {" "}and{" "}
           <a href={urlConstants.FAQ_APPLICATION_DEPOSIT} target="_blank">
             Application Deposit
           </a>
