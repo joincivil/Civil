@@ -8,6 +8,8 @@ import {
   OBSectionHeader,
   OBSectionDescription,
   QuestionToolTip,
+  Notice,
+  NoticeTypes,
 } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 import styled from "styled-components";
@@ -121,6 +123,10 @@ const ModalLi = styled.li`
 const ButtonSection = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const AccountWarning = styled(Notice)`
+  margin-bottom: 15px;
 `;
 
 export interface GrantApplicationProps {
@@ -253,14 +259,14 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             Foundation team has reviewed your application. If you application is accepted, the Civil Foundation will
             create a newsroom and apply to the registry on your behalf, then transfer ownership of the newsroom to you.
           </SmallNote>
-          <SmallNote>
+          <AccountWarning type={NoticeTypes.ALERT}>
             <strong>Warning:</strong> Please take appropriate precautions to ensure you do not lose access to the Ethereum
-            account you used to Login to Civil. You will need access to this account to access your newsroom after the
+            account you use to log in to Civil. You will need this account to access your newsroom after the
             Foundation applies on your behalf. For more information about how to secure your account,{" "}
               <a href="https://help.civil.co/hc/en-us/articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-" target="_blank">
                 click here
               </a>.
-          </SmallNote>
+          </AccountWarning>
           <CheckboxArea>
             <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} id="apply_for_grant" />
             <div>
