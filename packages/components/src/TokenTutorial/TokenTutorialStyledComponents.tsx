@@ -155,7 +155,7 @@ export const LaunchTopicTop = styled.div`
 
     svg {
       left: 0;
-      position: absolute
+      position: absolute;
       top: 5px;
     }
   }

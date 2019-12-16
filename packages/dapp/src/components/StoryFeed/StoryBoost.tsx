@@ -5,6 +5,8 @@ import {
   LoadingMessage,
   Payments,
   PaymentsModal,
+  CivilContext,
+  ICivilContext,
   RENDER_CONTEXT,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
@@ -31,6 +33,13 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
   const isStoryModalOpen = props.payment || props.newsroom ? false : true;
   const isStoryNewsroomModalOpen = props.newsroom || false;
   const isPaymentsModalOpen = props.payment || false;
+  const civilContext = React.useContext<ICivilContext>(CivilContext);
+  civilContext.renderContext = RENDER_CONTEXT.DAPP;
+  const theme = {
+    ...DEFAULT_CHECKBOX_THEME,
+    ...DEFAULT_BUTTON_THEME,
+    renderContext: RENDER_CONTEXT.DAPP,
+  };
 
   return (
     <Query query={STORY_BOOST} variables={{ id }}>
@@ -43,12 +52,6 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
         }
 
         const storyBoostData = data.postsGet as StoryBoostData;
-        const theme = {
-          ...DEFAULT_CHECKBOX_THEME,
-          ...DEFAULT_BUTTON_THEME,
-          renderContext: RENDER_CONTEXT.DAPP,
-        };
-
         return (
           <>
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>
@@ -78,6 +81,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                   newsroomName={storyBoostData.channel.newsroom.charter.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
+                  stripeAccountID={storyBoostData.channel.stripeAccountID}
                   handleClose={props.handlePaymentSuccess}
                 />
               </PaymentsModal>

@@ -6,7 +6,7 @@ import { CreateProposal } from "./CreateProposal";
 
 const StyledDiv = styled.div`
   display: flex;
-  width: 110pxpx;
+  width: 110px;
 `;
 
 const Container: React.FunctionComponent = ({ children }) => (

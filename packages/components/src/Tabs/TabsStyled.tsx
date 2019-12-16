@@ -116,23 +116,25 @@ export const StyledTabLarge = styled.li`
     padding: 20px 16px;
     margin: 0;
 
-
-  & svg {
-
-    ${(props: TabComponentProps) =>
-      props.isResponsiveAndVisible
-        ? `
-    box-shadow: inset 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_3}, inset 0 1px 0 0 ${colors.accent.CIVIL_GRAY_3}, 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_0};
-    `
-        : ""} &:last-of-type {
-      margin: 0;
-
+    & svg {
       ${(props: TabComponentProps) =>
         props.isResponsiveAndVisible
-          ? `
-          box-shadow: inset 0 -3px 0 0 ${colors.accent.CIVIL_BLUE}, 0 -1px 0 0 ${colors.accent.CIVIL_GRAY_0};
-      `
+          ? "box-shadow: inset 0 -1px 0 0 " +
+            colors.accent.CIVIL_GRAY_3 +
+            ", inset 0 1px 0 0 " +
+            colors.accent.CIVIL_GRAY_3 +
+            ", 0 -1px 0 0 " +
+            colors.accent.CIVIL_GRAY_0
           : ""};
+
+      &:last-of-type {
+        margin: 0;
+
+        ${(props: TabComponentProps) =>
+          props.isResponsiveAndVisible
+            ? "box-shadow: inset 0 -3px 0 0 " + colors.accent.CIVIL_BLUE + ", 0 -1px 0 0 " + colors.accent.CIVIL_GRAY_0
+            : ""};
+      }
     }
   }
 `;
@@ -249,7 +251,7 @@ export const StyledTab = styled.li`
     }
   }
   &.active {
-    border-bottom: ;
+    border-bottom: 2px solid ${colors.accent.CIVIL_BLUE};
     color: ${colors.primary.BLACK};
   }
 `;

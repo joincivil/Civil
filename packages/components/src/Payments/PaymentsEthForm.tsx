@@ -37,6 +37,7 @@ export interface PaymentsEthFormProps {
   setEmail: MutationFunc;
   handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend: number): void;
   handleEditPaymentType(): void;
+  handlePaymentInProgress(ethPaymentInProgress: boolean, waitingForConfirmation: boolean): void;
 }
 
 export interface PaymentsEthFormState {
@@ -210,6 +211,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
     this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.postId, this.props.usdToSpend);
+    this.props.handlePaymentInProgress(true, true);
     if (this.context.civil) {
       return this.context.civil.simplePayment(this.props.paymentAddress, this.props.etherToSpend.toString());
     }
@@ -217,6 +219,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
 
   private handleTransactionHash = async (txHash: TxHash) => {
     this.context.fireAnalyticsEvent("tips", "ETH support submitted", this.props.postId, this.props.usdToSpend);
+    this.props.handlePaymentInProgress(true, false);
     await this.props.savePayment({
       variables: {
         postID: this.props.postId,
@@ -237,6 +240,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   private onTransactionError = (err: string) => {
     this.context.fireAnalyticsEvent("tips", "ETH support rejected", this.props.postId, this.props.usdToSpend);
     this.setState({ isPaymentError: true });
+    this.props.handlePaymentInProgress(false, false);
   };
 
   private postTransaction = () => {

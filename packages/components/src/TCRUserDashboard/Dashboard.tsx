@@ -16,7 +16,7 @@ const StyledDashboardHeaderOuter = styled.div`
 
 const StyledDashboardHeader = styled.div`
   color: ${colors.primary.CIVIL_GRAY_1};
-  font-famliy: ${fonts.SERIF};
+  font-family: ${fonts.SERIF};
 `;
 
 export const UserDashboardHeader: React.FunctionComponent = props => {

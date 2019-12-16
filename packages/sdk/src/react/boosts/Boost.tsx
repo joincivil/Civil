@@ -6,7 +6,7 @@ import { boostQuery, boostNewsroomQuery } from "./queries";
 import { BoostData, BoostNewsroomData } from "./types";
 import { BoostCard } from "./BoostCard";
 import { BoostForm } from "./BoostForm";
-import { BoostPayments } from "./payments/BoostPayments";
+import { BoostPayments } from "./BoostPayments";
 import { BoostWrapper } from "./BoostStyledComponents";
 import { NewsroomWithdraw } from "../NewsroomWithdraw";
 import { BoostEmbedNoScroll } from "./BoostEmbedNoScroll";

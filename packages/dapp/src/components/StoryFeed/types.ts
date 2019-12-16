@@ -3,6 +3,7 @@ export interface StoryBoostData {
   openGraphData: OpenGraphData;
   channel: {
     isStripeConnected: boolean;
+    stripeAccountID: string;
     newsroom: StoryNewsroomData;
   };
   groupedSanitizedPayments: StoryBoostPaymentsData[];
