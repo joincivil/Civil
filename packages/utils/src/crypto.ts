@@ -89,7 +89,8 @@ export function isWalletOnboarded(
   return !!(
     civilInstantiated &&
     !!metamaskWalletAddress &&
+    !!profileWalletAddress &&
     !wrongNetwork &&
-    metamaskWalletAddress.toLowerCase() === profileWalletAddress
+    metamaskWalletAddress.toLowerCase() === profileWalletAddress.toLowerCase()
   );
 }
