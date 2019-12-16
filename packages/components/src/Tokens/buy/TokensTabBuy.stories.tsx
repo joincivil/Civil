@@ -14,9 +14,9 @@ import Web3 from "web3";
 
 export const Container = styled.div`
   align-items: center;
-  diplay: flex;
+  display: flex;
   height: 250px;
-  justifiy-content: center;
+  justify-content: center;
   width: 100%;
   max-width: 720px;
 `;

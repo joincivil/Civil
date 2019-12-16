@@ -24,6 +24,7 @@ import { CivilLogo, DisclosureArrowIcon, CloseXButton } from "@joincivil/element
 import { RENDER_CONTEXT, ICivilContext, CivilContext } from "../context";
 
 export interface PaymentsWrapperProps {
+  boostType?: string;
   newsroomName: string;
   usdToSpend?: number;
   etherToSpend?: number;
@@ -64,7 +65,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
   public renderHeader(): JSX.Element {
     return (
       <>
-        <SendPaymentHdrText />
+        {this.props.boostType !== "project" && <SendPaymentHdrText />}
         <PaymentHeaderFlex>
           <PaymentHeaderNewsroom>{this.props.newsroomName}</PaymentHeaderNewsroom>
           {this.props.usdToSpend && this.renderBoostAmount()}

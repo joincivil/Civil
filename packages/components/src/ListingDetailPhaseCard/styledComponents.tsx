@@ -56,7 +56,7 @@ export const StyledListingDetailPhaseCardSectionHeader = styled.h4`
 `;
 
 export const StyledPhaseKicker = styled.div`
-  color: ${colors.primary.CIVIL_GRAY_1}
+  color: ${colors.primary.CIVIL_GRAY_1};
   font-size: 12px;
   font-weight: bold;
   line-height: 15px;

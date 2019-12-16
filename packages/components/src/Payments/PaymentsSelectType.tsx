@@ -17,7 +17,7 @@ import { PAYMENT_STATE } from "./types";
 import { RENDER_CONTEXT, CivilContext, ICivilContext } from "../context";
 import { PaymentsLoadStripePayRequest } from "./PaymentsLoadStripePayRequest";
 
-export interface PaymentsOptionsProps {
+export interface PaymentsSelectTypeProps {
   postId: string;
   usdToSpend: number;
   newsroomName: string;
@@ -27,7 +27,7 @@ export interface PaymentsOptionsProps {
   handlePaymentSuccess(): void;
 }
 
-export const PaymentsOptions: React.FunctionComponent<PaymentsOptionsProps> = props => {
+export const PaymentsSelectType: React.FunctionComponent<PaymentsSelectTypeProps> = props => {
   const context = React.useContext<ICivilContext>(CivilContext);
   return (
     <>
