@@ -58,7 +58,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
               <StoryDetails
                 activeChallenge={false}
                 createdAt={storyBoostData.createdAt}
-                newsroomName={storyBoostData.channel.newsroom.charter.name}
+                newsroomName={storyBoostData.channel.newsroom.name}
                 title={storyBoostData.openGraphData.title}
                 url={storyBoostData.openGraphData.url}
                 openGraphData={storyBoostData.openGraphData}
@@ -78,7 +78,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
               <PaymentsModal open={isPaymentsModalOpen} handleClose={props.closeStoryBoost}>
                 <Payments
                   postId={props.postId}
-                  newsroomName={storyBoostData.channel.newsroom.charter.name}
+                  newsroomName={storyBoostData.channel.newsroom.name}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
                   stripeAccountID={storyBoostData.channel.stripeAccountID}
