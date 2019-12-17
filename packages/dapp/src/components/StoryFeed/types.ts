@@ -20,8 +20,8 @@ export interface StoryBoostPaymentsData {
 export interface StoryNewsroomData {
   contractAddress: string;
   multisigAddress: string;
+  name: string;
   charter: {
-    name: string;
     newsroomUrl: string;
     mission: {
       purpose: string;
