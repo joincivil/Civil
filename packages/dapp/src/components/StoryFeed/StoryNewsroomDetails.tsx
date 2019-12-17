@@ -33,7 +33,7 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
         </StoryRegistryLabel>
         <StoryDetailsFlex>
           <div>
-            <StoryNewsroomName>{newsroom.charter.name}</StoryNewsroomName>
+            <StoryNewsroomName>{newsroom.name}</StoryNewsroomName>
             <StoryNewsroomURL href={newsroom.charter.newsroomUrl} target="_blank">
               {newsroom.charter.newsroomUrl}
             </StoryNewsroomURL>
