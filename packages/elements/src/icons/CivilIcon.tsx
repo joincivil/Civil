@@ -7,6 +7,7 @@ export interface CivilIconProps {
   color?: string;
   height?: number;
   width?: number;
+  preventBlueOnHover?: boolean;
 }
 
 const _CivilIcon = (props: CivilIconProps) => {
@@ -29,6 +30,6 @@ const _CivilIcon = (props: CivilIconProps) => {
 
 export const CivilIcon = styled(_CivilIcon)`
   a &:hover g {
-    fill: ${colors.accent.CIVIL_BLUE};
+    fill: ${(p: CivilIconProps) => p.preventBlueOnHover ? p.color : colors.accent.CIVIL_BLUE};
   }
 `;
