@@ -66,7 +66,12 @@ export const StoryTitle = styled.h2`
   margin: 0 0 8px;
   transition: color 0.2s ease;
 
-  .chevron-icon {
+  svg {
+    margin-left: 5px;
+    vertical-align: text-bottom;
+  }
+
+  .open-new-icon {
     fill: ${colors.primary.BLACK};
     transition: fill 0.2s ease;
   }
@@ -83,7 +88,7 @@ export const StoryLink = styled.a`
     ${StoryTitle} {
       color: ${colors.accent.CIVIL_BLUE};
     }
-    .chevron-icon {
+    .open-new-icon {
       fill: ${colors.accent.CIVIL_BLUE};
     }
   }
@@ -264,6 +269,10 @@ export const BlueLinkBtn = styled.a`
   text-decoration: none;
   transition: opactiy 0.2s ease;
   width: 100%;
+
+  svg {
+    margin-right: 7px;
+  }
 
   &:hover {
     color: ${colors.basic.WHITE};
