@@ -263,7 +263,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
                     checked={this.state.shouldAddEmailToMailingList}
                     onClick={this.toggleShouldAddEmailToMailingList}
                   />
-                  <CheckboxLabel>Receive the Civil newsletter to your inbox.</CheckboxLabel>
+                  <CheckboxLabel>Receive the Civil Weekly newsletter in my inbox.</CheckboxLabel>
                 </label>
               </CheckboxSection>
             </CheckboxContainer>

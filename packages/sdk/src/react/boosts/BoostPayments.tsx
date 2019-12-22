@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Payments, colors, fonts, mediaQueries, ChevronAnchorLeft } from "@joincivil/components";
+import { Payments, colors, fonts, mediaQueries, ChevronAnchorLeft, RENDER_CONTEXT } from "@joincivil/components";
 import { BoostTitle, BoostTextButton, BoostBack } from "./BoostStyledComponents";
 import { PaymentFAQText } from "./BoostTextComponents";
 import { EthAddress } from "@joincivil/typescript-types";
@@ -15,6 +15,14 @@ const BoostPaymentsWrapper = styled.div`
     margin: 0 auto 30px;
     padding: 20px 15px;
   }
+
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    && {
+      margin-bottom: 0
+    }
+  `}
 `;
 
 const BoostHeaderWrap = styled.div`
