@@ -30,6 +30,6 @@ const _CivilIcon = (props: CivilIconProps) => {
 
 export const CivilIcon = styled(_CivilIcon)`
   a &:hover g {
-    fill: ${(p: CivilIconProps) => p.preventBlueOnHover ? p.color : colors.accent.CIVIL_BLUE};
+    fill: ${(p: CivilIconProps) => (p.preventBlueOnHover ? p.color : colors.accent.CIVIL_BLUE)};
   }
 `;

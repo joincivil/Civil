@@ -14,7 +14,7 @@ export const NavBar: React.FunctionComponent = () => {
         <NavInner>
           <NavLogo>
             <a href="https://civil.co">
-              <CivilLogo color={colors.basic.WHITE} preventBlueOnHover={true}/>
+              <CivilLogo color={colors.basic.WHITE} preventBlueOnHover={true} />
             </a>
           </NavLogo>
 
