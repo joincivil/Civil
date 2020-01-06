@@ -35,7 +35,7 @@ export const PaymentsSelectType: React.FunctionComponent<PaymentsSelectTypeProps
         <SelectPaymentMethodText />
       </PaymentDirectionsStyled>
       <PaymentTypeSelect>
-        {context.renderContext === RENDER_CONTEXT.DAPP && (
+        {props.isStripeConnected && context.renderContext === RENDER_CONTEXT.DAPP && (
           <PaymentsLoadStripePayRequest
             postId={props.postId}
             newsroomName={props.newsroomName}
@@ -58,7 +58,7 @@ export const PaymentsSelectType: React.FunctionComponent<PaymentsSelectTypeProps
           <PaymentInfoText />
         </PaymentInfoStyled>
       )}
-      {context.renderContext === RENDER_CONTEXT.EMBED && (
+      {props.isStripeConnected && context.renderContext === RENDER_CONTEXT.EMBED && (
         <PayAppleGoogleOnCivilPrompt>
           <PayAppleGoogleOnCivilText postId={props.postId} />
         </PayAppleGoogleOnCivilPrompt>

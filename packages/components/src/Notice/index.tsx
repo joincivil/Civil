@@ -30,7 +30,7 @@ const typeColors = {
   },
   [NoticeTypes.ALERT]: {
     border: "rgba(94,94,94,0.12)",
-    background: "#FFFDE9",
+    background: colors.accent.CIVIL_YELLOW_VERY_FADED,
     color: colors.primary.CIVIL_GRAY_1,
     weight: "400",
   },
