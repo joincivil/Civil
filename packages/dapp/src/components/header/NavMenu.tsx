@@ -7,10 +7,13 @@ import {
   NavLinkRegistryHomeText,
   NavLinkParameterizerText,
   NavLinkContractAddressesText,
-  NavLinkBoostsText,
+  NavLinkStoryBoostsText,
+  NavLinkProjectBoostsText,
   NavLinkConstitutionText,
   NavLinkFoundationText,
   NavLinkFaqText,
+  NavLinkStoryfeedText,
+  NavLinkPublishersText,
 } from "./textComponents";
 import { NavLink } from "./NavLink";
 import { NavDropDown } from "./NavDropDown";
@@ -29,9 +32,19 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
     <>
       <NavDropDown
         label={
-          <NavLink to="/registry" {...mobileOnClickProp}>
-            <NavLinkRegistryText />
-          </NavLink>
+          <NavLinkStoryfeedText />
+        }
+      >
+        <NavLink to="/storyfeed" {...mobileOnClickProp}>
+          <NavLinkStoryBoostsText />
+        </NavLink>
+        <NavLink to="/boosts" {...mobileOnClickProp}>
+          <NavLinkProjectBoostsText />
+        </NavLink>
+      </NavDropDown>
+      <NavDropDown
+        label={
+          <NavLinkRegistryText />
         }
       >
         <NavLink to="/registry" {...mobileOnClickProp}>
@@ -40,20 +53,20 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
         <NavLink to="/parameterizer" {...mobileOnClickProp}>
           <NavLinkParameterizerText />
         </NavLink>
+        <NavLink href="https://civilfound.org/" target="_blank">
+          <NavLinkFoundationText />
+        </NavLink>
+        <NavLink href="https://learn.civil.co/constitution/" target="_blank">
+          <NavLinkConstitutionText />
+        </NavLink>
         <NavLink to="/contract-addresses" {...mobileOnClickProp}>
           <NavLinkContractAddressesText />
         </NavLink>
       </NavDropDown>
-      <NavLink to="/boosts" {...mobileOnClickProp}>
-        <NavLinkBoostsText />
+      <NavLink href="https://learn.civil.co/boosts" target="_blank">
+        <NavLinkPublishersText />
       </NavLink>
-      <NavLink href="https://civil.co/constitution/">
-        <NavLinkConstitutionText />
-      </NavLink>
-      <NavLink href="https://civilfound.org/">
-        <NavLinkFoundationText />
-      </NavLink>
-      <NavLink href="https://help.civil.co/">
+      <NavLink href="https://help.civil.co/" target="_blank">
         <NavLinkFaqText />
       </NavLink>
     </>
