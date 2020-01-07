@@ -14,7 +14,7 @@ import {
   withNewsroomChannel,
   NewsroomChannelInjectedProps,
 } from "@joincivil/components";
-import { NewsroomManager } from "@joincivil/newsroom-signup";
+import { NewsroomManager, ManageContractMembers } from "@joincivil/newsroom-signup";
 import { routes } from "../../../constants";
 import { getListingPhaseState } from "../../../selectors";
 import { LISTING_QUERY, transformGraphQLDataIntoListing } from "@joincivil/utils";
@@ -74,9 +74,9 @@ interface ManageQueryVariables {
 }
 
 export interface ManageParams {
-  activeTab?: "edit-charter" | "launch-boost";
+  activeTab?: "edit-charter" | "smart-contract" | "launch-boost";
 }
-const TABS = ["edit-charter", "launch-boost"];
+const TABS = ["edit-charter", "smart-contract", "launch-boost"];
 
 export interface ManageNewsroomOwnProps extends RouteComponentProps<ManageParams> {
   newsroomAddress: string;
@@ -156,6 +156,9 @@ const ManageNewsroomComponent: React.FunctionComponent<
                         publishedCharter={charter}
                         listingPhaseState={listingPhaseState}
                       />
+                    </Tab>
+                    <Tab title={"Smart Contract"}>
+                      <ManageContractMembers charter={charter} newsroomAddress={props.newsroomAddress} />
                     </Tab>
                     <Tab title={"Launch Boost"}>
                       <BoostForm

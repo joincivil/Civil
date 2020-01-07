@@ -19,13 +19,15 @@ import {
 } from "@joincivil/components";
 
 import { StateWithNewsroom } from "../reducers";
-import { getNewsroom, updateCharter } from "../actionCreators";
+import { updateNewsroom, getNewsroom, updateCharter } from "../actionCreators";
 import { Wrapper, DEFAULT_THEME } from "../styledComponents";
 import { RepublishCharterNotice } from "../RepublishCharterNotice";
 import { NewsroomBio } from "../NewsroomProfile/NewsroomBio";
 import { AddRosterMember } from "../NewsroomProfile/AddRosterMembers";
 import { CharterQuestions } from "../NewsroomProfile/CharterQuestions";
 import { ApplicationSoFarPage } from "../NewsroomProfile/ApplicationSoFarPage";
+
+export { ManageContractMembers } from "./ManageContractMembers";
 
 export interface NewsroomManagerExternalProps {
   newsroomAddress: EthAddress;
@@ -57,6 +59,10 @@ const StyledHeader = styled(OBSectionHeader)`
   text-align: left;
 `;
 
+const EditLink = styled.a`
+  color: ${colors.primary.CIVIL_BLUE_1};
+  cursor: pointer;
+`;
 const SaveNoticeWrapper = styled.div`
   bottom: 0;
   left: 0;
@@ -112,9 +118,16 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
     window.addEventListener("beforeunload", this.unsavedWarning);
 
     this.context.civil.currentProviderEnable().then(() => this.setState({ web3Enabled: true }));
-    await this.props.dispatch!(
-      getNewsroom(this.props.newsroomAddress, this.context.civil!, this.props.publishedCharter),
-    );
+
+    // Hydrate redux:
+    if (!this.props.newsroom || !this.props.charter) {
+      // Dumb shenanigans to handle the fact that newsroom-signup uses mixed case `newsroom.address` from contract instance for keying redux. Making newsroom-signup use lowercase would be a massive multi-pronged find-and-replace job and I worry about missing something and tons of testing. So we accommodate this by instantiating contract here from lowercase address, and getting mixed case address from it. - @tobek
+      const newsroom = await this.context.civil.newsroomAtUntrusted(this.props.newsroomAddress);
+      // Pop this newsroom contract into redux keyed by lowercase `props.newsroomAddress` so we can pick it up in mapStateToProps:
+      this.props.dispatch!(updateNewsroom(this.props.newsroomAddress, { newsroom }));
+      // Now actually hydrate everything:
+      await this.props.dispatch!(getNewsroom(newsroom.address, this.context.civil!, this.props.publishedCharter));
+    }
   }
 
   public componentWillUnmount(): void {
@@ -124,7 +137,10 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
 
   public render(): JSX.Element {
     if (!this.props.charter) {
-      return <LoadingMessage>Loading charter</LoadingMessage>;
+      return <LoadingMessage>Loading Charter</LoadingMessage>;
+    }
+    if (!this.props.newsroom) {
+      return <LoadingMessage>Loading Newsroom</LoadingMessage>;
     }
     if (!this.state.web3Enabled) {
       // @TODO This logic should be lifted to something dapp-wide, and with a less hacky UI of course - or reuse wallet onboarding component
@@ -153,12 +169,9 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
                 Saving <LoadingIndicator inline={true} />
               </>
             ) : (
-              <a
-                href="javascript:void 0"
-                onClick={() => (this.state.editMode ? this.discardChanges() : this.enableEditMode())}
-              >
+              <EditLink onClick={() => (this.state.editMode ? this.discardChanges() : this.enableEditMode())}>
                 {this.state.editMode ? (this.state.dirty ? "Discard Changes" : "Cancel") : "Edit >"}
-              </a>
+              </EditLink>
             )}
           </p>
 
@@ -210,7 +223,7 @@ class NewsroomManagerComponent extends React.Component<NewsroomManagerProps, New
     if (!this.state.dirty) {
       this.setState({ dirty: true });
     }
-    this.props.dispatch!(updateCharter(this.props.newsroomAddress || "", charter, true));
+    this.props.dispatch!(updateCharter(this.props.newsroom!.address || "", charter, true));
   };
 
   private enableEditMode = () => {
@@ -245,7 +258,9 @@ const mapStateToProps = (
   ownProps: NewsroomManagerExternalProps,
 ): NewsroomManagerReduxProps => {
   const { newsroomAddress } = ownProps;
-  const newsroom = state.newsrooms.get(newsroomAddress);
+  const dummyNewsroom = state.newsrooms.get(newsroomAddress);
+  const casedNewsroomAddress = dummyNewsroom && dummyNewsroom.newsroom && dummyNewsroom.newsroom.address;
+  const newsroom = state.newsrooms.get(casedNewsroomAddress);
 
   return {
     ...ownProps,
