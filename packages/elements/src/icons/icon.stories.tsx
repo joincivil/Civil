@@ -34,6 +34,8 @@ import {
   HollowRedNoGood,
   InfoNotification,
   LockOpenIcon,
+  SecureLockIcon,
+  CircleLockIcon,
   MetaMaskSideIcon,
   MetaMaskFrontIcon,
   NetworkIcon,
@@ -291,6 +293,20 @@ storiesOf("Pattern Library / icons / SVG Icons", module)
     return (
       <Container>
         <LockOpenIcon />
+      </Container>
+    );
+  })
+  .add("SecureLockIcon", () => {
+    return (
+      <Container>
+        <SecureLockIcon />
+      </Container>
+    );
+  })
+  .add("CircleLockIcon", () => {
+    return (
+      <Container>
+        <CircleLockIcon />
       </Container>
     );
   })

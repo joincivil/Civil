@@ -40,6 +40,7 @@ export enum routes {
   STORY_FEED = "/storyfeed/:postId?",
   STORY_BOOST_PAYMENT = "/storyfeed/:postId/payment",
   STORY_BOOST_NEWSROOM = "/storyfeed/:postId/newsroom",
+  GET_STARTED = "/get-started",
 }
 
 export enum registryListingTypes {

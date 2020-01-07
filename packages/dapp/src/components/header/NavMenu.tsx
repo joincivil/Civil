@@ -30,11 +30,7 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
   }
   return (
     <>
-      <NavDropDown
-        label={
-          <NavLinkStoryfeedText />
-        }
-      >
+      <NavDropDown label={<NavLinkStoryfeedText />}>
         <NavLink to="/storyfeed" {...mobileOnClickProp}>
           <NavLinkStoryBoostsText />
         </NavLink>
@@ -42,11 +38,7 @@ const NavMenuLinksComponent: React.FunctionComponent<NavMenuCloseDrawerProp> = p
           <NavLinkProjectBoostsText />
         </NavLink>
       </NavDropDown>
-      <NavDropDown
-        label={
-          <NavLinkRegistryText />
-        }
-      >
+      <NavDropDown label={<NavLinkRegistryText />}>
         <NavLink to="/registry" {...mobileOnClickProp}>
           <NavLinkRegistryHomeText />
         </NavLink>

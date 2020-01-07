@@ -65,6 +65,7 @@ const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyf
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import(/* webpackChunkName: "manage-newsroom-channel" */ "./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
 );
+const GetStartedPage = React.lazy(async () => import(/* webpackChunkName: "get-started-page" */ "./GetStarted"));
 
 export interface MainReduxProps {
   network: string;
@@ -139,11 +140,7 @@ export const Main: React.FunctionComponent = () => {
     <StyledMainContainer>
       {networkIsSupported && (
         <Switch>
-          <Redirect
-            exact
-            path={routes.HOMEPAGE}
-            to={formatRoute(routes.STORY_FEED)}
-          />
+          <Redirect exact path={routes.HOMEPAGE} to={formatRoute(routes.STORY_FEED)} />
           <Redirect
             exact
             path={routes.REGISTRY_HOME_ROOT}
@@ -181,6 +178,7 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.STORY_BOOST_PAYMENT} component={AsyncComponent(StoryFeedPage, { payment: true })} />
           <Route path={routes.STORY_BOOST_NEWSROOM} component={AsyncComponent(StoryFeedPage, { newsroom: true })} />
           <Route path={routes.STORY_FEED} component={AsyncComponent(StoryFeedPage)} />
+          <Route path={routes.GET_STARTED} component={AsyncComponent(GetStartedPage)} />
           {/* TODO(jorgelo): Better 404 */}
           <Route path="*" render={() => <h1>404</h1>} />
         </Switch>
