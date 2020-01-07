@@ -58,6 +58,9 @@ const DashboardPage = React.lazy(async () =>
 );
 const BoostPage = React.lazy(async () => import(/* webpackChunkName: "boost-page" */ "./Boosts/Boost"));
 const BoostFeedPage = React.lazy(async () => import(/* webpackChunkName: "boost-feed-page" */ "./Boosts/BoostFeed"));
+const BoostSuccessPage = React.lazy(async () =>
+  import(/* webpackChunkName: "boost-success-page" */ "./Boosts/BoostSuccess"),
+);
 const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeed"));
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import(/* webpackChunkName: "manage-newsroom-channel" */ "./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
@@ -170,6 +173,7 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
           <Route path={routes.AUTH} component={AuthRouter} />>
           <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
+          <Route path={routes.BOOST_SUCCESS} component={AsyncComponent(BoostSuccessPage)} />
           <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />
           <Route path={routes.BOOST_PAYMENT} component={AsyncComponent(BoostPage, { payment: true })} />
           <Route path={routes.BOOST} component={AsyncComponent(BoostPage)} />
