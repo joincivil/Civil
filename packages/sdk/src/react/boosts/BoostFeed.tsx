@@ -1,12 +1,21 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { HelmetHelper, LoadingMessage } from "@joincivil/components";
+import { Button, buttonSizes } from "@joincivil/elements";
 import { BoostCard } from "./BoostCard";
 import { boostFeedQuery, boostNewsroomQuery } from "./queries";
 import { BoostNewsroomData } from "./types";
 import { BoostWrapper } from "./BoostStyledComponents";
 import { NoBoostsText } from "./BoostTextComponents";
 import * as boostCardImage from "../../images/boost-card.png";
+import styled from "styled-components";
+
+export const LoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+`;
 
 export interface BoostFeedProps {
   search?: any;
@@ -29,8 +38,8 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
           "twitter:card": "summary",
         }}
       />
-      <Query query={boostFeedQuery} variables={{ search }}>
-        {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData }) => {
+      <Query query={boostFeedQuery} variables={{ search, limit: 5 }}>
+        {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData, fetchMore }) => {
           if (feedQueryLoading) {
             return <LoadingMessage>Loading Project Boosts</LoadingMessage>;
           } else if (feedQueryError || !feedQueryData || !feedQueryData.postsSearch) {
@@ -42,7 +51,9 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
             return <NoBoostsText />;
           }
 
-          return feedQueryData.postsSearch.posts.map((boostData: any, i: number) => (
+          const { postsSearch } = feedQueryData;
+
+          const projectFeed = postsSearch.posts.map((boostData: any, i: number) => (
             <Query key={i} query={boostNewsroomQuery} variables={{ addr: boostData.channel.newsroom.contractAddress }}>
               {({ loading: newsroomQueryLoading, error: newsroomQueryError, data: newsroomQueryData }) => {
                 if (newsroomQueryLoading) {
@@ -72,6 +83,42 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
               }}
             </Query>
           ));
+
+          return (
+            <>
+              {projectFeed}
+              {postsSearch.pageInfo.hasNextPage && (
+                <LoadMoreContainer>
+                  <Button
+                    size={buttonSizes.SMALL}
+                    onClick={() =>
+                      fetchMore({
+                        variables: {
+                          cursor: postsSearch.afterCursor,
+                        },
+                        updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                          const newEdges = fetchMoreResult.postsSearch.posts;
+                          const pageInfo = fetchMoreResult.postsSearch;
+
+                          return newEdges.length
+                            ? {
+                                postsStoryfeed: {
+                                  edges: [...previousResult.postsSearch.edges, ...newEdges],
+                                  pageInfo,
+                                  __typename: previousResult.postsSearch.__typename,
+                                },
+                              }
+                            : previousResult;
+                        },
+                      })
+                    }
+                  >
+                    Load More
+                  </Button>
+                </LoadMoreContainer>
+              )}
+            </>
+          );
         }}
       </Query>
     </>
