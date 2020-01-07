@@ -32,6 +32,7 @@ export enum routes {
   BOOST_FEED = "/boosts",
   BOOST = "/boosts/:boostId",
   BOOST_EDIT = "/boosts/:boostId/edit",
+  BOOST_SUCCESS = "/boosts/:boostId/success",
   BOOST_PAYMENT = "/boosts/:boostId/payment",
   CHANNEL_ADMIN = "/admin/:reference",
   MANAGE_NEWSROOM = "/manage-newsroom/:newsroomAddress/:activeTab?",

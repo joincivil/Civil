@@ -68,3 +68,13 @@ export const BoostWrapper = styled.div`
   margin: 0 auto;
   max-width: 800px;
 `;
+
+export const BoostSuccessWrapper = styled.div`
+  margin: 130px auto;
+  max-width: 900px;
+  width: 100%;
+
+  ${mediaQueries.MOBILE} {
+    margin: 100px auto;
+  }
+`;

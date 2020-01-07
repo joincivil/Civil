@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Prompt } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import {
   colors,
@@ -18,7 +18,6 @@ import {
   LoadUser,
   withNewsroomChannel,
   NewsroomChannelInjectedProps,
-  ModalHeading,
 } from "@joincivil/components";
 import { Query, Mutation, MutationFunc } from "react-apollo";
 import { boostNewsroomQuery, createBoostMutation, editBoostMutation } from "./queries";
@@ -31,11 +30,8 @@ import {
   BoostPayFormTitle,
   BoostSmallPrint,
   BoostImgDiv,
-  BoostModalContent,
 } from "./BoostStyledComponents";
 import { BoostImg } from "./BoostImg";
-import { BoostModal } from "./BoostModal";
-import { BoostShare } from "./BoostShare";
 import { urlConstants } from "../urlConstants";
 import * as boostCardImage from "../../images/boost-card.png";
 import { withBoostPermissions, BoostPermissionsInjectedProps } from "./BoostPermissionsHOC";
@@ -188,16 +184,6 @@ const ConnectStripeNotice = styled.div`
   }
 `;
 
-const SuccessModal = styled(BoostModal)`
-  overflow: auto;
-`;
-const SuccessButton = styled(Button)`
-  width: 180px;
-  text-align: center;
-  float: right;
-  margin-top: 16px;
-`;
-
 export interface BoostFormInnerProps {
   channelID: string;
   newsroomData: BoostNewsroomData;
@@ -247,6 +233,11 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
   }
 
   public render(): JSX.Element {
+    if (this.state.success) {
+      const boostId = this.props.boostId || this.state.createdBoostId;
+      const successUrl = "/boosts/" + boostId + "/success";
+      return <Redirect to={successUrl} />;
+    }
     return (
       <PageWrapper>
         <HelmetHelper
@@ -464,36 +455,6 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
                   <Error>{this.state.error}</Error>
                 </ErrorContainer>
               )}
-
-              <SuccessModal open={!!this.state.success}>
-                <ModalHeading>Project Boost {this.props.editMode ? "Updated" : "Launched!"}</ModalHeading>
-                <BoostModalContent>
-                  {this.props.editMode ? (
-                    <>
-                      Your Project Boost <b>{this.state.boost.title}</b> has been updated successfully.
-                    </>
-                  ) : (
-                    <>
-                      Great work! Your Project Boost <b>{this.state.boost.title}</b> has successfully launched and is
-                      live.
-                    </>
-                  )}
-                </BoostModalContent>
-                <BoostModalContent>
-                  <b>Next step:</b> Share your Project Boost on social media to help get it funded!
-                </BoostModalContent>
-                <BoostShare
-                  boostId={this.props.boostId || this.state.createdBoostId!}
-                  newsroom={this.props.newsroomData.name}
-                  title={this.state.boost.title!}
-                />
-                <SuccessButton
-                  size={buttonSizes.MEDIUM_WIDE}
-                  to={"/boosts/" + (this.props.boostId || this.state.createdBoostId)}
-                >
-                  View Boost
-                </SuccessButton>
-              </SuccessModal>
             </form>
           );
         }}

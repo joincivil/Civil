@@ -35,7 +35,6 @@ const StyledEventDetail = styled.div<StyledEventDetailProps>`
     top: 0;
     z-index: 2;
   }
-
 `;
 
 const StyledEventCircle = styled.div<StyledEventDetailProps>`

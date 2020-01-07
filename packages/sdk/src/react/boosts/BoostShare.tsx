@@ -7,7 +7,8 @@ import { BoostShareHeading } from "./BoostStyledComponents";
 
 const Wrapper = styled.div`
   position: relative;
-  width: 150px;
+  text-align: center;
+  width: 170px;
   z-index: 10;
 `;
 
