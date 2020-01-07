@@ -18,11 +18,14 @@ export const LoadMoreContainer = styled.div`
 `;
 
 export interface BoostFeedProps {
-  search?: any;
+  limit?: number;
+  channelID?: string;
 }
 
 export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
-  const search = props.search || { postType: "boost" };
+  const channelID = props.channelID;
+  const limit = props.limit || 10;
+  const search = { postType: "boost", channelID, limit };
 
   return (
     <>
@@ -38,7 +41,7 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
           "twitter:card": "summary",
         }}
       />
-      <Query query={boostFeedQuery} variables={{ search, limit: 5 }}>
+      <Query query={boostFeedQuery} variables={{ search }}>
         {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData, fetchMore }) => {
           if (feedQueryLoading) {
             return <LoadingMessage>Loading Project Boosts</LoadingMessage>;
@@ -87,24 +90,32 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
           return (
             <>
               {projectFeed}
-              {postsSearch.pageInfo.hasNextPage && (
+              {postsSearch.afterCursor !== "" && (
                 <LoadMoreContainer>
                   <Button
                     size={buttonSizes.SMALL}
                     onClick={() =>
                       fetchMore({
+                        query: boostFeedQuery,
                         variables: {
-                          cursor: postsSearch.afterCursor,
+                          search: {
+                            postType: "boost",
+                            channelID,
+                            limit,
+                            afterCursor: postsSearch.afterCursor,
+                          },
                         },
                         updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
                           const newEdges = fetchMoreResult.postsSearch.posts;
-                          const pageInfo = fetchMoreResult.postsSearch;
+                          const beforeCursor = fetchMoreResult.postsSearch.beforeCursor;
+                          const afterCursor = fetchMoreResult.postsSearch.afterCursor;
 
                           return newEdges.length
                             ? {
-                                postsStoryfeed: {
-                                  edges: [...previousResult.postsSearch.edges, ...newEdges],
-                                  pageInfo,
+                                postsSearch: {
+                                  posts: [...previousResult.postsSearch.posts, ...newEdges],
+                                  beforeCursor,
+                                  afterCursor,
                                   __typename: previousResult.postsSearch.__typename,
                                 },
                               }

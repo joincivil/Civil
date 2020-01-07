@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const boostFeedQuery = gql`
-  query Post($cursor: String!, $limit: Int!, $search: PostSearchInput!) {
-    postsSearch(after: $cursor, limit: $limit, search: $search) {
+  query Post($search: PostSearchInput!) {
+    postsSearch(search: $search) {
       posts {
         ... on PostBoost {
           id
