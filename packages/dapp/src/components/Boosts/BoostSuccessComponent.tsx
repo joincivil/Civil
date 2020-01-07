@@ -249,7 +249,7 @@ export const BoostSuccess: React.FunctionComponent<BoostSuccessProps> = props =>
     "\n\n" +
     props.title +
     "\n\n" +
-    `${link.REGISTRY}` +
+    `${link.MARKETING_SITE}` +
     url +
     "\n\n" +
     "Thanks for supporting independent journalism projects!";
@@ -261,12 +261,12 @@ export const BoostSuccess: React.FunctionComponent<BoostSuccessProps> = props =>
     props.title +
     "” in just a few clicks.";
   const twitterShare =
-    "https://twitter.com/intent/tweet?text=" + encodeURI(twitterShareText) + "&url=" + `${link.REGISTRY}` + url;
+    "https://twitter.com/intent/tweet?text=" + encodeURI(twitterShareText) + "&url=" + `${link.MARKETING_SITE}` + url;
 
   const embedCode = ReactDOMServer.renderToStaticMarkup(
     <BoostEmbedIframe
-      iframeSrc={`${link.REGISTRY}/embed/boost/${props.boostId}`}
-      fallbackUrl={`${link.REGISTRY}/boosts/${props.boostId}`}
+      iframeSrc={`${link.MARKETING_SITE}/embed/boost/${props.boostId}`}
+      fallbackUrl={`${link.MARKETING_SITE}/boosts/${props.boostId}`}
       boostType="project"
       initialHeight={525}
     />,
