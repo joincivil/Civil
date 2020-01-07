@@ -8,13 +8,14 @@ import {
   OBSectionHeader,
   OBSectionDescription,
   QuestionToolTip,
+  Notice,
+  NoticeTypes,
 } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
 import styled from "styled-components";
 import { connect, DispatchProp } from "react-redux";
 import { setGrant, setSkip, grantSubmitted, grantSkipped } from "../actionCreators";
 import { StateWithNewsroom } from "../reducers";
-import { WaitingAfterSkip } from "./WaitingAfterSkip";
 import { WaitingForGrant } from "./WaitingForGrant";
 import { Mutation, MutationFunc, Query } from "react-apollo";
 import { grantQuery } from "../queries";
@@ -124,12 +125,21 @@ const ButtonSection = styled.div`
   justify-content: flex-end;
 `;
 
+const AccountWarning = styled(Notice)`
+  margin-bottom: 15px;
+`;
+
 export interface GrantApplicationProps {
   chooseGrant: boolean;
   chooseSkip: boolean;
 }
+export interface GrantApplicationOwnProps {
+  navigate(go: 1 | -1): void;
+}
 
-class GrantApplicationComponent extends React.Component<GrantApplicationProps & DispatchProp<any>> {
+class GrantApplicationComponent extends React.Component<
+  GrantApplicationProps & GrantApplicationOwnProps & DispatchProp<any>
+> {
   public renderGrantModal(): JSX.Element | null {
     if (!this.props.chooseGrant) {
       return null;
@@ -148,12 +158,8 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             completed its review
           </ModalLi>
           <ModalLi>
-            If approved, you will receive Civil Tokens (CVL) and a small amount of ETH to apply to the Civil Registry,
-            in the wallet associated with your Newsroom Smart Contract
-          </ModalLi>
-          <ModalLi>
-            You <strong>must</strong> complete a verification walkthrough tutorial and steps necessary to receive and
-            store Civil Tokens (CVL)
+            If approved, the Civil Foundation will create a newsroom, provide it with the Civil Tokens (CVL) required,
+            and apply to the Registry on your behalf, then transfer ownership of the newsroom to you
           </ModalLi>
           <ModalLi>We recommend you consult a tax professional about reporting a token-based grant</ModalLi>
           <ModalLi>
@@ -224,35 +230,17 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
             You understand that your newsroom must submit to review and potential challenge by the Civil community
           </ModalLi>
         </ul>
-        <Mutation<any>
-          mutation={requestGrantMutation}
-          update={cache => {
-            cache.writeQuery({
-              query: grantQuery,
-              data: { nrsignupNewsroom: { grantRequested: false } },
-            });
-          }}
-        >
-          {(requestGrant: MutationFunc) => {
-            return (
-              <ButtonSection>
-                <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
-                <BorderlessButton
-                  onClick={async () => {
-                    this.props.dispatch!(grantSkipped());
-                    return requestGrant({
-                      variables: {
-                        input: false,
-                      },
-                    });
-                  }}
-                >
-                  Continue
-                </BorderlessButton>
-              </ButtonSection>
-            );
-          }}
-        </Mutation>
+        <ButtonSection>
+          <BorderlessButton onClick={this.deselectSkip}>Cancel</BorderlessButton>
+          <BorderlessButton
+            onClick={() => {
+              this.props.dispatch!(grantSkipped());
+              this.props.navigate(1);
+            }}
+          >
+            Continue
+          </BorderlessButton>
+        </ButtonSection>
       </Modal>
     );
   }
@@ -265,13 +253,26 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
         <DialogueBox>
           <DialogueHeader>Apply for a Civil Token Grant</DialogueHeader>
           <DialogueDescription>
-            Your grant will include enough Civil tokens (CVL) to pay your deposit to join the Civil Registry, as well as
-            a small portion of ETH to cover the cost of your first several blockchain transactions.
+            Your grant will include enough Civil tokens (CVL) to pay your deposit to join the Civil Registry, and the
+            Foundation will take care of making the initial blockchain transactions to get your newsroom set up.
           </DialogueDescription>
           <SmallNote>
             <strong>Note:</strong> The process can take up to 14 days. You will not be able to continue until the Civil
-            Foundation team has reviewed your application.
+            Foundation team has reviewed your application. If you application is accepted, the Civil Foundation will
+            create a newsroom and apply to the registry on your behalf, then transfer ownership of the newsroom to you.
           </SmallNote>
+          <AccountWarning type={NoticeTypes.ALERT}>
+            <strong>Warning:</strong> Please take appropriate precautions to ensure you do not lose access to the
+            Ethereum account you use to log in to Civil. You will need this account to access your newsroom after the
+            Foundation applies on your behalf. For more information about how to secure your account,{" "}
+            <a
+              href="https://help.civil.co/hc/en-us/articles/360017414652-What-is-a-recovery-phrase-seed-and-why-is-it-important-to-secure-it-"
+              target="_blank"
+            >
+              click here
+            </a>
+            .
+          </AccountWarning>
           <CheckboxArea>
             <Checkbox checked={this.props.chooseGrant} onClick={this.selectGrant} id="apply_for_grant" />
             <div>
@@ -331,8 +332,6 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
           }
           if (grantRequested === true) {
             return <WaitingForGrant />;
-          } else if (grantRequested === false) {
-            return <WaitingAfterSkip />;
           } else {
             return this.renderOptions();
           }
@@ -355,10 +354,14 @@ class GrantApplicationComponent extends React.Component<GrantApplicationProps & 
   };
 }
 
-const mapStateToProps = (state: StateWithNewsroom): GrantApplicationProps => {
+const mapStateToProps = (
+  state: StateWithNewsroom,
+  ownProps: GrantApplicationOwnProps,
+): GrantApplicationProps & GrantApplicationOwnProps => {
   return {
     chooseGrant: state.grantApplication.get("chooseGrant"),
     chooseSkip: state.grantApplication.get("chooseSkip"),
+    ...ownProps,
   };
 };
 

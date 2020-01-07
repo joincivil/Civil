@@ -19,9 +19,7 @@ export const STORY_FEED_QUERY = gql`
             }
             channel {
               newsroom {
-                charter {
-                  name
-                }
+                name
               }
             }
             groupedSanitizedPayments {
@@ -64,8 +62,8 @@ export const STORY_BOOST = gql`
           newsroom {
             contractAddress
             multisigAddress
+            name
             charter {
-              name
               newsroomUrl
               mission {
                 purpose

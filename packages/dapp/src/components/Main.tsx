@@ -142,7 +142,7 @@ export const Main: React.FunctionComponent = () => {
           <Redirect
             exact
             path={routes.HOMEPAGE}
-            to={formatRoute(routes.REGISTRY_HOME, { listingType: registryListingTypes.APPROVED })}
+            to={formatRoute(routes.STORY_FEED)}
           />
           <Redirect
             exact
@@ -171,7 +171,7 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
           <Route path={routes.DASHBOARD_ROOT} component={AsyncComponent(DashboardPage)} />
           <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
-          <Route path={routes.AUTH} component={AuthRouter} />>
+          <Route path={routes.AUTH} component={AuthRouter} />
           <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
           <Route path={routes.BOOST_SUCCESS} component={AsyncComponent(BoostSuccessPage)} />
           <Route path={routes.BOOST_EDIT} component={AsyncComponent(BoostPage, { editMode: true })} />

@@ -34,7 +34,7 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
       <>
         <StoryFeedItemWrap>
           <StoryNewsroomStatus
-            newsroomName={this.props.newsroom.charter.name}
+            newsroomName={this.props.newsroom.name}
             activeChallenge={this.props.activeChallenge}
             handleOpenNewsroom={() => this.props.openStoryNewsroomDetails(this.props.postId)}
           />

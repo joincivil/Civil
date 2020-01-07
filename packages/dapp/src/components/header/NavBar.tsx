@@ -7,14 +7,14 @@ const UserAccountContainer = React.lazy(async () =>
   import(/* webpackChunkName: "user-account-container" */ "./UserAccountContainer"),
 );
 
-export const NavBar: React.FunctionComponent<NavBarProps> = () => {
+export const NavBar: React.FunctionComponent = () => {
   return (
     <NavContainer>
       <NavOuter>
         <NavInner>
           <NavLogo>
             <a href="https://civil.co">
-              <CivilLogo color={colors.basic.WHITE} />
+              <CivilLogo color={colors.basic.WHITE} preventBlueOnHover={true}/>
             </a>
           </NavLogo>
 

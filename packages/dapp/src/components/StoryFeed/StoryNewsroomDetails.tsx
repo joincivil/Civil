@@ -1,6 +1,6 @@
 import * as React from "react";
 import { StoryRegistryDetails } from "./StoryRegistryDetails";
-import { urlConstants as links } from "@joincivil/utils";
+import { renderPTagsFromLineBreaks, urlConstants as links } from "@joincivil/utils";
 import { CivilIcon } from "@joincivil/elements";
 import {
   RegistryStatusTag,
@@ -33,7 +33,7 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
         </StoryRegistryLabel>
         <StoryDetailsFlex>
           <div>
-            <StoryNewsroomName>{newsroom.charter.name}</StoryNewsroomName>
+            <StoryNewsroomName>{newsroom.name}</StoryNewsroomName>
             <StoryNewsroomURL href={newsroom.charter.newsroomUrl} target="_blank">
               {newsroom.charter.newsroomUrl}
             </StoryNewsroomURL>
@@ -49,7 +49,7 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
         <StoryRegistryDetails activeChallenge={props.activeChallenge} />
         <StoryNewsroomSection>
           <h2>About</h2>
-          <p>{newsroom.charter.mission.purpose}</p>
+          {renderPTagsFromLineBreaks(newsroom.charter.mission.purpose)}
         </StoryNewsroomSection>
         <StoryNewsroomSection>
           <h3>Smart Contract Address</h3>
