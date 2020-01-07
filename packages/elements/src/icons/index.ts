@@ -51,6 +51,7 @@ export * from "./RejectedNewsroomsIcon";
 export * from "./RevealVoteSuccessIcon";
 export * from "./ReviewIcon";
 export * from "./RequestAppealSuccessIcon";
+export * from "./CircleLockIcon";
 export * from "./SecureLockIcon";
 export * from "./ShareEmailIcon";
 export * from "./ShareTwitterIcon";

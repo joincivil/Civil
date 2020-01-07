@@ -8,6 +8,7 @@ export * from "./DashboardActivityItemCTAButton";
 export * from "./DashboardActivityProposalItemCTAButton";
 export * from "./DashboardActivitySelectableItem";
 export * from "./DashboardActivityTabTitle";
+export * from "./DashboardNewsroomStripeConnect";
 export * from "./DashboardStyledComponents";
 export * from "./DashboardTextComponents";
 export * from "./DashboardTransferTokenForm";
