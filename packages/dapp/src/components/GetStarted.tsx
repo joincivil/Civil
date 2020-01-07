@@ -157,11 +157,10 @@ const CTANotice = styled.div`
 
 const GetStartedPage = () => {
   const context = React.useContext<ICivilContext>(CivilContext);
-  if (!context || !context.auth) {
+  if (!context || !context.auth || context.auth.loading) {
     return <LoadingMessage />;
   }
   if (context.currentUser) {
-    // @TODO/tobek For logged-in users there's a flash of the page before redirect; there shouldn't be.
     return <Redirect to={routes.DASHBOARD_ROOT} />;
   }
 
@@ -202,8 +201,8 @@ const GetStartedPage = () => {
               Civil Registry. You can easily log in to Civil using MetaMask or Portis.
             </p>
             <p>
-              When you set up a wallet, it will create a public wallet address that identifies you as an owner of your
-              newsroom. This address is where you'll send and receive ETH to fund your wallet.
+              When you set up a wallet, it will create a public wallet address that identifies you on the Civil
+              Registry. You will also be able to send and receive ETH funds through your wallet.
             </p>
             <p>
               You will use your wallet to set up and manage your Newsroom Smart Contract, manage your tokens, as well as

@@ -137,11 +137,7 @@ export const Main: React.FunctionComponent = () => {
     <StyledMainContainer>
       {networkIsSupported && (
         <Switch>
-          <Redirect
-            exact
-            path={routes.HOMEPAGE}
-            to={formatRoute(routes.STORY_FEED)}
-          />
+          <Redirect exact path={routes.HOMEPAGE} to={formatRoute(routes.STORY_FEED)} />
           <Redirect
             exact
             path={routes.REGISTRY_HOME_ROOT}
