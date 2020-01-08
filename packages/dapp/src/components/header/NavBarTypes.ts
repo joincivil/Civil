@@ -7,7 +7,6 @@ export interface NavUserAccountProps {
 
 export interface NavAuthenticationProps {
   authenticationURL: string;
-  joinAsMemberUrl: string;
   applyURL: string;
   enableEthereum?(): void;
 }

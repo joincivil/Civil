@@ -28,9 +28,9 @@ if (!currentScript) {
   throw Error("Civil Boost Embed: Failed to get document.currentScript");
 }
 const ENVIRONMENT =
-  currentScript.src && currentScript.src.indexOf("registry.civil.co") !== -1 ? "production" : "staging";
+  currentScript.src && currentScript.src.indexOf("civil.co") !== -1 ? "production" : "staging";
 
-let dappOrigin = ENVIRONMENT === "production" ? "https://registry.civil.co" : "https://staging.civil.app";
+let dappOrigin = ENVIRONMENT === "production" ? "https://civil.co" : "https://staging.civil.app";
 if (currentScript.src.indexOf("localhost:3001") !== -1) {
   dappOrigin = "http://localhost:3000";
 }
