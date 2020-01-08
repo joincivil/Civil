@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { State } from "../redux/reducers";
 import { routes } from "../constants";
-import { getFormattedTokenBalance, getFormattedEthAddress, urlConstants as links } from "@joincivil/utils";
+import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
 import {
   getChallengesStartedByUser,
   getChallengesVotedOnByUser,
