@@ -1,19 +1,31 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { HelmetHelper, LoadingMessage } from "@joincivil/components";
+import { Button, buttonSizes } from "@joincivil/elements";
 import { BoostCard } from "./BoostCard";
 import { boostFeedQuery, boostNewsroomQuery } from "./queries";
 import { BoostNewsroomData } from "./types";
 import { BoostWrapper } from "./BoostStyledComponents";
 import { NoBoostsText } from "./BoostTextComponents";
 import * as boostCardImage from "../../images/boost-card.png";
+import styled from "styled-components";
+
+export const LoadMoreContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
+`;
 
 export interface BoostFeedProps {
-  search?: any;
+  limit?: number;
+  channelID?: string;
 }
 
 export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
-  const search = props.search || { postType: "boost" };
+  const channelID = props.channelID;
+  const limit = props.limit || 10;
+  const search = { postType: "boost", channelID, limit };
 
   return (
     <>
@@ -30,7 +42,7 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
         }}
       />
       <Query query={boostFeedQuery} variables={{ search }}>
-        {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData }) => {
+        {({ loading: feedQueryLoading, error: feedQueryError, data: feedQueryData, fetchMore }) => {
           if (feedQueryLoading) {
             return <LoadingMessage>Loading Project Boosts</LoadingMessage>;
           } else if (feedQueryError || !feedQueryData || !feedQueryData.postsSearch) {
@@ -42,7 +54,9 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
             return <NoBoostsText />;
           }
 
-          return feedQueryData.postsSearch.posts.map((boostData: any, i: number) => (
+          const { postsSearch } = feedQueryData;
+
+          const projectFeed = postsSearch.posts.map((boostData: any, i: number) => (
             <Query key={i} query={boostNewsroomQuery} variables={{ addr: boostData.channel.newsroom.contractAddress }}>
               {({ loading: newsroomQueryLoading, error: newsroomQueryError, data: newsroomQueryData }) => {
                 if (newsroomQueryLoading) {
@@ -72,6 +86,50 @@ export const BoostFeed: React.FunctionComponent<BoostFeedProps> = props => {
               }}
             </Query>
           ));
+
+          return (
+            <>
+              {projectFeed}
+              {postsSearch.afterCursor !== "" && (
+                <LoadMoreContainer>
+                  <Button
+                    size={buttonSizes.SMALL}
+                    onClick={() =>
+                      fetchMore({
+                        query: boostFeedQuery,
+                        variables: {
+                          search: {
+                            postType: "boost",
+                            channelID,
+                            limit,
+                            afterCursor: postsSearch.afterCursor,
+                          },
+                        },
+                        updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                          const newEdges = fetchMoreResult.postsSearch.posts;
+                          const beforeCursor = fetchMoreResult.postsSearch.beforeCursor;
+                          const afterCursor = fetchMoreResult.postsSearch.afterCursor;
+
+                          return newEdges.length
+                            ? {
+                                postsSearch: {
+                                  posts: [...previousResult.postsSearch.posts, ...newEdges],
+                                  beforeCursor,
+                                  afterCursor,
+                                  __typename: previousResult.postsSearch.__typename,
+                                },
+                              }
+                            : previousResult;
+                        },
+                      })
+                    }
+                  >
+                    Load More
+                  </Button>
+                </LoadMoreContainer>
+              )}
+            </>
+          );
         }}
       </Query>
     </>

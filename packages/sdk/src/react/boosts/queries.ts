@@ -22,6 +22,8 @@ export const boostFeedQuery = gql`
           why
         }
       }
+      beforeCursor
+      afterCursor
     }
   }
 `;
