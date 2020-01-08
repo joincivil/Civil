@@ -104,7 +104,7 @@ const DashboardNewsroomRegistryStatus = React.memo(DashboardNewsroomRegistryStat
 
 const DashboardNewsroomBase: React.FunctionComponent<DashboardNewsroomProps> = props => {
   const [copied, setCopied] = React.useState(false);
-  const storyBoostEmbed = '<script src="http://registry.civil.co/loader/boost.js"></script>';
+  const storyBoostEmbed = '<script src="http://civil.co/loader/boost.js"></script>';
 
   return (
     <StyledDashboardNewsroom>

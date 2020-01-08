@@ -1,9 +1,9 @@
 const FAQ_BASE_URL = "https://help.civil.co";
 export const links = {
   // Marketing site  / Foundation
-  MARKETING_SITE: "https://civil.co",
-  REGISTRY: "https://registry.civil.co/",
-  CONSTITUTION: "https://civil.co/constitution",
+  MARKETING_SITE: "https://learn.civil.co",
+  REGISTRY: "https://civil.co/",
+  CONSTITUTION: "https://learn.civil.co/constitution",
   FOUNDATION: "https://civilfound.org",
   COUNCIL: "https://civilfound.org/#civil-council",
   APPLY: "https://civil.co/join-as-a-newsroom",

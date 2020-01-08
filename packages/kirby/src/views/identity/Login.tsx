@@ -15,6 +15,7 @@ const CIVIL_DOMAINS = [
   "https://staging.civil.app",
   "https://test.civil.app",
   "https://registry.civil.co",
+  "https://civil.co",
 ];
 
 const WAITING_FOR_CONNECTION = "Waiting for Web3 Wallet Connection...";

@@ -2,7 +2,7 @@ import * as React from "react";
 import { iframeResizer } from "iframe-resizer";
 
 // This can be gotten from `loadingImgUrl` from `@joincivil/components`, but it's not worth bringing in entire package for that. The hash is from the contents of the svg so it's stable unless we change the image or its name or location. It's too big to inline into copy-paste-able embed code. @TODO/tobek Should we just host this image somewhere else?
-const LOADING_IMAGE_URL = "https://registry.civil.co/static/media/loading.ba73811a.svg";
+const LOADING_IMAGE_URL = "https://civil.co/static/media/loading.ba73811a.svg";
 
 // Not using styled-components so that we can get the actual styles in `renderToStaticMarkup`.
 const INTRO_STYLES: React.CSSProperties = {
