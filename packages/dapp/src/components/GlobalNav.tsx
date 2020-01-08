@@ -47,8 +47,6 @@ const GlobalNavComponent: React.FunctionComponent = props => {
     userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
     authenticationURL: "/auth/login",
     buyCvlUrl: "/tokens",
-    joinAsMemberUrl: "https://civil.co/become-a-member",
-    applyURL: links.APPLY,
     onLogoutPressed: async (): Promise<any> => {
       civilCtx.auth.logout();
     },
