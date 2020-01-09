@@ -45,13 +45,8 @@ function maybeAccount(state: State): any {
 
 export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const account: any | undefined = useSelector(maybeAccount);
-  const userAccount = account ? account.account : undefined;
-  const userEthAddress = userAccount && getFormattedEthAddress(userAccount);
-  const balance = account ? getFormattedTokenBalance(account.balance) : "loading...";
-  const votingBalance = account ? getFormattedTokenBalance(account.votingBalance) : "loading...";
-
-  const buyCvlUrl = "/tokens";
+  const civilUser = civilContext.currentUser;
+  const userEthAddress = civilUser && civilUser.ethAddress;
 
   async function onLogoutPressed(): Promise<any> {
     civilContext.auth.logout();
@@ -59,11 +54,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
 
   if (!userEthAddress) {
     return <></>;
-  }
-
-  let buyCvlBtnProps: any = { href: buyCvlUrl };
-  if (buyCvlUrl.charAt(0) === "/") {
-    buyCvlBtnProps = { to: buyCvlUrl };
   }
 
   return (
@@ -81,32 +71,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         <Button size={buttonSizes.SMALL} to={routes.DASHBOARD_ROOT}>
           View My Dashboard
         </Button>
-      </NavDrawerSection>
-      <NavDrawerSection>
-        <NavDrawerSectionHeader>
-          <NavDrawerBalanceText />
-        </NavDrawerSectionHeader>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerTotalBalanceText />
-          </NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlBalance>{balance}</NavDrawerCvlBalance>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerVotingBalanceText />
-            {/* TODO(dankins): move ToolTip into elements and add this back */}
-            {/* <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} /> */}
-          </NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlBalance>{votingBalance}</NavDrawerCvlBalance>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} {...buyCvlBtnProps}>
-          <NavDrawerBuyCvlBtnText />
-        </NavDrawerBuyCvlBtn>
       </NavDrawerSection>
       <NavDrawerSection>
         <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>

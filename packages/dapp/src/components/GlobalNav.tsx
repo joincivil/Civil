@@ -3,13 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { State } from "../redux/reducers";
 import { routes } from "../constants";
-import { getFormattedTokenBalance, getFormattedEthAddress } from "@joincivil/utils";
-import {
-  getChallengesStartedByUser,
-  getChallengesVotedOnByUser,
-  getUserChallengesWithUnrevealedVotes,
-  getUserChallengesWithUnclaimedRewards,
-} from "../selectors";
+import { getFormattedEthAddress } from "@joincivil/utils";
+
 import { NavBar, NavProps, CivilContext, ICivilContext } from "@joincivil/components";
 import { showWeb3LoginModal, showWeb3SignupModal, hideWeb3AuthModal } from "../redux/actionCreators/ui";
 import { withRouter } from "react-router";
@@ -28,24 +23,11 @@ const GlobalNavComponent: React.FunctionComponent = props => {
 
   // redux
   const dispatch = useDispatch();
-  const currentUserChallengesStarted = useSelector(getChallengesStartedByUser);
-  const currentUserChallengesVotedOn = useSelector(getChallengesVotedOnByUser);
-  const userChallengesWithUnrevealedVotes = useSelector(getUserChallengesWithUnrevealedVotes);
-  const userChallengesWithUnclaimedRewards = useSelector(getUserChallengesWithUnclaimedRewards);
   const account: any | undefined = useSelector(maybeAccount);
-  const balance = account ? getFormattedTokenBalance(account.balance) : "loading...";
-  const votingBalance = account ? getFormattedTokenBalance(account.votingBalance) : "loading...";
   const userAccount = account ? account.account : undefined;
 
   const navBarViewProps: NavProps = {
-    balance,
-    votingBalance,
     userEthAddress: userAccount && getFormattedEthAddress(userAccount),
-    userRevealVotesCount: userChallengesWithUnrevealedVotes!.count(),
-    userClaimRewardsCount: userChallengesWithUnclaimedRewards!.count(),
-    userChallengesStartedCount: currentUserChallengesStarted.count(),
-    userChallengesVotedOnCount: currentUserChallengesVotedOn.count(),
-    authenticationURL: "/auth/login",
     buyCvlUrl: "/tokens",
     onLogoutPressed: async (): Promise<any> => {
       civilCtx.auth.logout();
@@ -67,25 +49,11 @@ const GlobalNavComponent: React.FunctionComponent = props => {
     },
   };
 
-  if (civil && civil.currentProvider) {
-    navBarViewProps.enableEthereum = async () => {
-      await civil.currentProviderEnable();
-    };
-
-    if (civil && civil.currentProvider) {
-      navBarViewProps.enableEthereum = async () => {
-        await civil.currentProviderEnable();
-      };
-    }
-
-    return (
+  return (
       <>
         <NavBar {...navBarViewProps} />
       </>
     );
-  }
-
-  return null;
 };
 
 export const GlobalNav = withRouter(GlobalNavComponent);

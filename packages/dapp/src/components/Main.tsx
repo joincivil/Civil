@@ -11,9 +11,7 @@ import { routes, registryListingTypes, registrySubListingTypes } from "../consta
 import { addUser } from "../redux/actionCreators/userAccount";
 import {
   initializeGovernment,
-  initializeGovernmentParamSubscription,
   initializeConstitution,
-  initializeGovtProposalsSubscriptions,
 } from "../helpers/government";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { AuthRouter } from "./Auth";
@@ -83,10 +81,14 @@ export const Main: React.FunctionComponent = () => {
   const networkIsSupported = isNetworkSupported(networkRedux);
 
   React.useEffect(() => {
+    console.log("this useEffect.");
     setDefaultNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = civilCtx.civil!;
     const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
     const accountSub = civil.accountStream.subscribe(onAccountUpdated);
+    const currentUser = civilCtx.currentUser;
+    const userEthAddress = currentUser && currentUser.ethAddress;
+    onAccountUpdated(userEthAddress);
 
     return function cleanup(): void {
       networkSub.unsubscribe();
@@ -98,8 +100,6 @@ export const Main: React.FunctionComponent = () => {
     try {
       await initializeGovernment(civilHelper!, dispatch!);
       await initializeConstitution(civilHelper!, dispatch!);
-      await initializeGovernmentParamSubscription(civilHelper!, dispatch!);
-      await initializeGovtProposalsSubscriptions(civilHelper!, dispatch!);
       await initializeContractAddresses(civilHelper!, dispatch!);
     } catch (err) {
       if (err.message !== CivilErrors.UnsupportedNetwork) {
