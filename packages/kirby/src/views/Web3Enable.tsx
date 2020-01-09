@@ -21,7 +21,7 @@ export const Web3Enable: React.FC = () => {
   });
 
   React.useEffect(() => {
-    if (viewData.requestID && viewData.providerPreference) {
+    if (viewData.requestID) {
       if (viewData.providerPreference) {
         selection(viewData.providerPreference as string, true).catch(err => console.log("error with selection", err));
       } else {
