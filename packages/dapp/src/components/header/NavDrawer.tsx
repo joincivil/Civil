@@ -1,57 +1,31 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { useSelector } from "react-redux";
 import { ICivilContext, CivilContext } from "@joincivil/components";
-import { copyToClipboard, getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
+import { copyToClipboard, getFormattedEthAddress } from "@joincivil/utils";
 import { buttonSizes, Button } from "@joincivil/elements";
-
-// import { QuestionToolTip } from "../QuestionToolTip";
 
 import {
   StyledNavDrawer,
   NavDrawerSection,
   NavDrawerSectionHeader,
-  NavDrawerRow,
-  NavDrawerRowLabel,
-  NavDrawerRowInfo,
-  NavDrawerCvlBalance,
   UserAddress,
-  NavDrawerBuyCvlBtn,
   CopyButton,
 } from "./styledComponents";
 import {
   NavDrawerUserAddessText,
-  NavDrawerBalanceText,
-  NavDrawerTotalBalanceText,
-  NavDrawerVotingBalanceText,
-  // NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
-  NavDrawerBuyCvlBtnText,
 } from "./textComponents";
 import { routes } from "../../constants";
-import { State } from "../../redux/reducers";
 
 export interface NavDrawerProps {
   userAccountElRef?: any;
   handleOutsideClick(): void;
 }
 
-function maybeAccount(state: State): any {
-  const { user } = state.networkDependent;
-  if (user.account && user.account.account && user.account.account !== "") {
-    return user.account;
-  }
-}
-
 export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const account: any | undefined = useSelector(maybeAccount);
-  const userAccount = account ? account.account : undefined;
-  const userEthAddress = userAccount && getFormattedEthAddress(userAccount);
-  const balance = account ? getFormattedTokenBalance(account.balance) : "loading...";
-  const votingBalance = account ? getFormattedTokenBalance(account.votingBalance) : "loading...";
-
-  const buyCvlUrl = "/tokens";
+  const civilUser = civilContext.currentUser;
+  const userEthAddress = civilUser && civilUser.ethAddress;
 
   async function onLogoutPressed(): Promise<any> {
     civilContext.auth.logout();
@@ -61,19 +35,14 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
     return <></>;
   }
 
-  let buyCvlBtnProps: any = { href: buyCvlUrl };
-  if (buyCvlUrl.charAt(0) === "/") {
-    buyCvlBtnProps = { to: buyCvlUrl };
-  }
-
   return (
     <StyledNavDrawer>
       <NavDrawerSection>
         <NavDrawerSectionHeader>
           <NavDrawerUserAddessText />
         </NavDrawerSectionHeader>
-        <UserAddress>{userEthAddress}</UserAddress>
-        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipboard(userEthAddress.replace(/ /g, ""))}>
+        <UserAddress>{getFormattedEthAddress(userEthAddress)}</UserAddress>
+        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipboard(userEthAddress)}>
           <NavDrawerCopyBtnText />
         </CopyButton>
       </NavDrawerSection>
@@ -81,32 +50,6 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         <Button size={buttonSizes.SMALL} to={routes.DASHBOARD_ROOT}>
           View My Dashboard
         </Button>
-      </NavDrawerSection>
-      <NavDrawerSection>
-        <NavDrawerSectionHeader>
-          <NavDrawerBalanceText />
-        </NavDrawerSectionHeader>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerTotalBalanceText />
-          </NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlBalance>{balance}</NavDrawerCvlBalance>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerRow>
-          <NavDrawerRowLabel>
-            <NavDrawerVotingBalanceText />
-            {/* TODO(dankins): move ToolTip into elements and add this back */}
-            {/* <QuestionToolTip explainerText={<NavDrawerVotingBalanceToolTipText />} /> */}
-          </NavDrawerRowLabel>
-          <NavDrawerRowInfo>
-            <NavDrawerCvlBalance>{votingBalance}</NavDrawerCvlBalance>
-          </NavDrawerRowInfo>
-        </NavDrawerRow>
-        <NavDrawerBuyCvlBtn size={buttonSizes.SMALL} {...buyCvlBtnProps}>
-          <NavDrawerBuyCvlBtnText />
-        </NavDrawerBuyCvlBtn>
       </NavDrawerSection>
       <NavDrawerSection>
         <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>

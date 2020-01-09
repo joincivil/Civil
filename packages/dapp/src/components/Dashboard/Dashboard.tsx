@@ -5,8 +5,6 @@ import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/typescript-types";
 import {
-  buttonSizes,
-  Button,
   CivilContext,
   UserDashboardHeader,
   LoadUser,
@@ -68,17 +66,10 @@ export interface DashboardReduxProps {
 
 const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const { civil } = civilContext;
   const [shouldShowSetEmailModal, setShouldShowSetEmailModal] = React.useState(false);
   const [shouldShowSetAvatarModal, setShouldShowSetAvatarModal] = React.useState(false);
   const [shouldShowConfirmEmailWarning, setShouldShowConfirmEmailWarning] = React.useState(false);
 
-  let enableEthereum: () => Promise<void> | undefined;
-  if (civil && civil.currentProvider) {
-    enableEthereum = async () => {
-      await civil.currentProviderEnable();
-    };
-  }
   return (
     <>
       <Helmet title="My Dashboard - The Civil Registry" />
@@ -129,15 +120,9 @@ const DashboardComponent = (props: DashboardProps & DashboardReduxProps) => {
                 )}
               </DashboardContainer>
             );
-          } else if (civilUser && enableEthereum) {
-            return (
-              <StyledAuthButtonContainer>
-                <p>Enable Ethereum to view your Civil Registry dashboard</p>
-                <Button onClick={enableEthereum} size={buttonSizes.SMALL}>
-                  Connect Wallet
-                </Button>
-              </StyledAuthButtonContainer>
-            );
+          } else if (civilUser && !props.userAccount) {
+            // loading account info
+            return null;
           }
 
           return (

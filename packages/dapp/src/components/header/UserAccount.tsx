@@ -15,17 +15,9 @@ import {
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
 import { ICivilContext, CivilContext, ClipLoader } from "@joincivil/components";
-import { useSelector, useDispatch } from "react-redux";
-import { State } from "../../redux/reducers";
+import { useDispatch } from "react-redux";
 import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
 import NavDrawer from "./NavDrawer";
-
-function maybeAccount(state: State): any {
-  const { user } = state.networkDependent;
-  if (user.account && user.account.account && user.account.account !== "") {
-    return user.account;
-  }
-}
 
 const UserAccount: React.FunctionComponent = props => {
   // context
@@ -34,19 +26,20 @@ const UserAccount: React.FunctionComponent = props => {
     // context still loading
     return <></>;
   }
-  const civil = civilCtx.civil;
 
   // redux
   const dispatch = useDispatch();
-  const account: any | undefined = useSelector(maybeAccount);
 
-  const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const civilUser = civilContext.currentUser;
-  const userAccount = account ? account.account : undefined;
+  const civilUser = civilCtx.currentUser;
+  const userAccount = civilUser && civilUser.ethAddress;
 
   // state
   const [isUserDrawerOpen, setUserDrawerOpen] = React.useState(false);
-  const toggleDrawer = () => setUserDrawerOpen(!isUserDrawerOpen);
+  const toggleDrawer = () => {
+    if (userAccount) {
+      setUserDrawerOpen(!isUserDrawerOpen);
+    }
+  };
 
   async function onLoginPressed(): Promise<any> {
     dispatch!(await showWeb3LoginModal());
@@ -54,12 +47,6 @@ const UserAccount: React.FunctionComponent = props => {
   async function onSignupPressed(): Promise<any> {
     dispatch!(await showWeb3SignupModal());
   }
-
-  React.useEffect(() => {
-    if (civilUser && !userAccount) {
-      civilCtx.civil!.currentProviderEnable().catch(err => console.log("error enabling ethereum", err));
-    }
-  }, [civil, civilUser, userAccount]);
 
   if (civilUser) {
     const userAccountElRef = React.createRef<HTMLDivElement>();
