@@ -19,7 +19,6 @@ function maybeAccount(state: State): any {
 const GlobalNavComponent: React.FunctionComponent = props => {
   // context
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
-  const civil = civilCtx.civil;
 
   // redux
   const dispatch = useDispatch();
@@ -50,10 +49,10 @@ const GlobalNavComponent: React.FunctionComponent = props => {
   };
 
   return (
-      <>
-        <NavBar {...navBarViewProps} />
-      </>
-    );
+    <>
+      <NavBar {...navBarViewProps} />
+    </>
+  );
 };
 
 export const GlobalNav = withRouter(GlobalNavComponent);

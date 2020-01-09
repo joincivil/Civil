@@ -5,8 +5,6 @@ import { Helmet } from "react-helmet";
 
 import { EthAddress } from "@joincivil/typescript-types";
 import {
-  buttonSizes,
-  Button,
   CivilContext,
   UserDashboardHeader,
   LoadUser,

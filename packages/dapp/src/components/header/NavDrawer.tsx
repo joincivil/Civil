@@ -1,46 +1,25 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { useSelector } from "react-redux";
 import { ICivilContext, CivilContext } from "@joincivil/components";
-import { copyToClipboard, getFormattedEthAddress, getFormattedTokenBalance } from "@joincivil/utils";
+import { copyToClipboard, getFormattedEthAddress } from "@joincivil/utils";
 import { buttonSizes, Button } from "@joincivil/elements";
-
-// import { QuestionToolTip } from "../QuestionToolTip";
 
 import {
   StyledNavDrawer,
   NavDrawerSection,
   NavDrawerSectionHeader,
-  NavDrawerRow,
-  NavDrawerRowLabel,
-  NavDrawerRowInfo,
-  NavDrawerCvlBalance,
   UserAddress,
-  NavDrawerBuyCvlBtn,
   CopyButton,
 } from "./styledComponents";
 import {
   NavDrawerUserAddessText,
-  NavDrawerBalanceText,
-  NavDrawerTotalBalanceText,
-  NavDrawerVotingBalanceText,
-  // NavDrawerVotingBalanceToolTipText,
   NavDrawerCopyBtnText,
-  NavDrawerBuyCvlBtnText,
 } from "./textComponents";
 import { routes } from "../../constants";
-import { State } from "../../redux/reducers";
 
 export interface NavDrawerProps {
   userAccountElRef?: any;
   handleOutsideClick(): void;
-}
-
-function maybeAccount(state: State): any {
-  const { user } = state.networkDependent;
-  if (user.account && user.account.account && user.account.account !== "") {
-    return user.account;
-  }
 }
 
 export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props => {
@@ -62,8 +41,8 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         <NavDrawerSectionHeader>
           <NavDrawerUserAddessText />
         </NavDrawerSectionHeader>
-        <UserAddress>{userEthAddress}</UserAddress>
-        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipboard(userEthAddress.replace(/ /g, ""))}>
+        <UserAddress>{getFormattedEthAddress(userEthAddress)}</UserAddress>
+        <CopyButton size={buttonSizes.SMALL} onClick={(ev: any) => copyToClipboard(userEthAddress)}>
           <NavDrawerCopyBtnText />
         </CopyButton>
       </NavDrawerSection>

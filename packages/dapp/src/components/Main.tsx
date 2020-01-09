@@ -9,10 +9,7 @@ import { BigNumber, EthAddress } from "@joincivil/typescript-types";
 
 import { routes, registryListingTypes, registrySubListingTypes } from "../constants";
 import { addUser } from "../redux/actionCreators/userAccount";
-import {
-  initializeGovernment,
-  initializeConstitution,
-} from "../helpers/government";
+import { initializeGovernment, initializeConstitution } from "../helpers/government";
 import { initializeTokenSubscriptions } from "../helpers/tokenEvents";
 import { AuthRouter } from "./Auth";
 import WrongNetwork from "./WrongNetwork";
@@ -81,14 +78,15 @@ export const Main: React.FunctionComponent = () => {
   const networkIsSupported = isNetworkSupported(networkRedux);
 
   React.useEffect(() => {
-    console.log("this useEffect.");
     setDefaultNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));
     const civil = civilCtx.civil!;
     const networkSub = civil.networkStream.subscribe(onNetworkUpdated);
     const accountSub = civil.accountStream.subscribe(onAccountUpdated);
     const currentUser = civilCtx.currentUser;
     const userEthAddress = currentUser && currentUser.ethAddress;
-    onAccountUpdated(userEthAddress);
+
+    // tslint:disable-next-line
+    onAccountUpdated(userEthAddress)
 
     return function cleanup(): void {
       networkSub.unsubscribe();

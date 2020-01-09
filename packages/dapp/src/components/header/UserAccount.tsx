@@ -15,17 +15,9 @@ import {
 } from "./styledComponents";
 import { NavLinkDashboardText } from "./textComponents";
 import { ICivilContext, CivilContext, ClipLoader } from "@joincivil/components";
-import { useSelector, useDispatch } from "react-redux";
-import { State } from "../../redux/reducers";
+import { useDispatch } from "react-redux";
 import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
 import NavDrawer from "./NavDrawer";
-
-function maybeAccount(state: State): any {
-  const { user } = state.networkDependent;
-  if (user.account && user.account.account && user.account.account !== "") {
-    return user.account;
-  }
-}
 
 const UserAccount: React.FunctionComponent = props => {
   // context
@@ -34,13 +26,11 @@ const UserAccount: React.FunctionComponent = props => {
     // context still loading
     return <></>;
   }
-  const civil = civilCtx.civil;
 
   // redux
   const dispatch = useDispatch();
 
-  const civilContext = React.useContext<ICivilContext>(CivilContext);
-  const civilUser = civilContext.currentUser;
+  const civilUser = civilCtx.currentUser;
   const userAccount = civilUser && civilUser.ethAddress;
 
   // state
@@ -49,7 +39,7 @@ const UserAccount: React.FunctionComponent = props => {
     if (userAccount) {
       setUserDrawerOpen(!isUserDrawerOpen);
     }
-  }
+  };
 
   async function onLoginPressed(): Promise<any> {
     dispatch!(await showWeb3LoginModal());
