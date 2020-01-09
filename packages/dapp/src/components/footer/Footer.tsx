@@ -9,8 +9,7 @@ import {
   TwitterIcon,
   FacebookIcon,
   InstagramIcon,
-  MediumIcon,
-  TelegramIcon,
+  LinkedInIcon,
 } from "@joincivil/elements";
 
 import { links } from "../../helpers/links";
@@ -69,9 +68,9 @@ const StyledFooterNav = styled.nav`
   }
 
   ul {
-    margin: 0 20px;
+    margin: 0 15px;
     padding: 2px 0 0;
-    width: 120px;
+    width: 135px;
 
     ${mediaQueries.MOBILE} {
       margin: 0 0 15px;
@@ -128,17 +127,13 @@ const StyledFooterSocial = styled.div`
 
   ${TwitterIcon} path,
   ${FacebookIcon} path,
-  ${InstagramIcon} path,
-  ${MediumIcon} path,
-  ${TelegramIcon} path {
+  ${InstagramIcon} path {
     fill: ${colors.accent.CIVIL_GRAY_1};
   }
 
   ${TwitterIcon}:hover path,
   ${FacebookIcon}:hover path,
-  ${InstagramIcon}:hover path,
-  ${MediumIcon}:hover path,
-  ${TelegramIcon}:hover path {
+  ${InstagramIcon}:hover path {
     fill: ${colors.accent.CIVIL_BLUE};
   }
 
@@ -148,6 +143,10 @@ const StyledFooterSocial = styled.div`
 
   a {
     margin: 0 14px 0 0;
+
+    &:last-of-type {
+      margin: 0;
+    }
   }
 `;
 
@@ -174,6 +173,70 @@ export const Footer: React.FunctionComponent = () => {
             <div>
               <ul>
                 <li>
+                  <b>Civil</b>
+                </li>
+                <li>
+                  <a href={links.COMMUNITY} target="_blank">
+                    Community
+                  </a>
+                </li>
+                <li>
+                  <a href={links.CONSTITUTION} target="_blank">
+                    Constitution
+                  </a>
+                </li>
+                <li>
+                  <a href={links.FOUNDATION} target="_blank">
+                    Foundation
+                  </a>
+                </li>
+                <li>
+                  <a href={links.COUNCIL} target="_blank">
+                    Council
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  <b>Company</b>
+                </li>
+                <li>
+                  <a href={links.TEAM} target="_blank">
+                    Our Team
+                  </a>
+                </li>
+                <li>
+                  <a href={links.BLOG} target="_blank">
+                    Blog
+                  </a>
+                </li>
+                <li>
+                  <a href={links.PARTNERS} target="_blank">
+                    Partners
+                  </a>
+                </li>
+                <li>
+                  <a href={links.CAREERS} target="_blank">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href={links.PRIVACY_POLICY} target="_blank">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href={links.TERMS} target="_blank">
+                    Terms
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
                   <b>For Developers</b>
                 </li>
                 <li>
@@ -181,35 +244,14 @@ export const Footer: React.FunctionComponent = () => {
                     Github
                   </a>
                 </li>
-              </ul>
-            </div>
-            <div>
-              <ul>
                 <li>
-                  <b>About</b>
-                </li>
-                <li>
-                  <a href={links.MEDIUM} target="_blank">
-                    Blog
+                  <a href={links.DEVELOPERS_MAILTO} target="_blank">
+                    Developer Contact
                   </a>
                 </li>
                 <li>
-                  <a href={links.PRESS}>Press</a>
-                </li>
-                <li>
-                  <a href={links.TEAM}>Team</a>
-                </li>
-                <li>
-                  <a href={links.PARTNERS}>Partners</a>
-                </li>
-                <li>
-                  <a href={links.FOUNDATION} target="_blank">
-                    Civil Foundation
-                  </a>
-                </li>
-                <li>
-                  <a href={links.COUNCIL} target="_blank">
-                    Civil Council
+                  <a href={links.DEV_BLOG} target="_blank">
+                    Under The Hood
                   </a>
                 </li>
               </ul>
@@ -217,26 +259,22 @@ export const Footer: React.FunctionComponent = () => {
             <div>
               <ul>
                 <li>
-                  <b>Contact Us</b>
+                  <b>Contact</b>
                 </li>
                 <li>
-                  <a href={links.CONTACT}>Contact</a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <ul>
-                <li>
-                  <b>Other</b>
+                  <a href={links.FAQ_HOME} target="_blank">
+                    Help
+                  </a>
                 </li>
                 <li>
-                  <a href={links.TERMS}>Terms</a>
+                  <a href={links.CONTACT} target="_blank">
+                    Contact
+                  </a>
                 </li>
                 <li>
-                  <a href={links.PRIVACY_POLICY}>Privacy</a>
-                </li>
-                <li>
-                  <a href={links.CAREERS}>Careers</a>
+                  <a href={links.PRESS} target="_blank">
+                    Press
+                  </a>
                 </li>
               </ul>
             </div>
@@ -256,11 +294,8 @@ export const Footer: React.FunctionComponent = () => {
             <a href={links.INSTAGRAM} target="_blank">
               <InstagramIcon width={20} height={20} />
             </a>
-            <a href={links.TELEGRAM} target="_blank">
-              <TelegramIcon width={20} height={20} />
-            </a>
-            <a href={links.MEDIUM} target="_blank">
-              <MediumIcon width={20} height={20} />
+            <a href={links.LINKEDIN} target="_blank">
+              <LinkedInIcon width={20} height={20} />
             </a>
           </StyledFooterSocial>
 
