@@ -57,6 +57,7 @@ export class CurrencyConverter extends React.Component<CurrencyConverterProps, C
       await this.handleConversionDebounced(this.props.fromValue);
     }
     if (civil) {
+      await civil.currentProviderEnable();
       const account = await civil.accountStream.first().toPromise();
       if (account) {
         await this.setState({
