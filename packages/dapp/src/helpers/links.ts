@@ -18,7 +18,12 @@ export const links = {
   PRIVACY_POLICY: "https://learn.civil.co/privacy",
   CAREERS: "https://learn.civil.co/jobs",
 
+  // Blog
+  BLOG: "https://blog.civil.co",
+  DEV_BLOG: "https://blog.civil.co/category/under-the-hood/",
+
   // Social / Github
+  COMMUNITY: "https://community.civil.co/",
   GITHUB: "https://github.com/joincivil",
   MEDIUM: "https://blog.joincivil.com/",
   TWITTER: "https://twitter.com/civil",
@@ -26,10 +31,12 @@ export const links = {
   FACEBOOK: "https://facebook.com/joincivil",
   INSTAGRAM: "https://www.instagram.com/join_civil",
   TELEGRAM: "https://t.me/join_civil",
+  LINKEDIN: "https://www.linkedin.com/company/civil-media-company/",
 
   // Email
   EMAIL_SUPPORT: "support@civil.co",
   EMAIL_MAILTO: "mailto:support@civil.co",
+  DEVELOPERS_MAILTO: "mailto:developers@civil.co",
 
   // FAQ
   FAQ_HOME: FAQ_BASE_URL,
