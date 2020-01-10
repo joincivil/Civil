@@ -86,7 +86,7 @@ export const Main: React.FunctionComponent = () => {
     const userEthAddress = currentUser && currentUser.ethAddress;
 
     // tslint:disable-next-line
-    onAccountUpdated(userEthAddress)
+    onAccountUpdated(userEthAddress);
 
     return function cleanup(): void {
       networkSub.unsubscribe();
