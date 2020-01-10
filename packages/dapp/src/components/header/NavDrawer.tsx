@@ -4,17 +4,8 @@ import { ICivilContext, CivilContext } from "@joincivil/components";
 import { copyToClipboard, getFormattedEthAddress } from "@joincivil/utils";
 import { buttonSizes, Button } from "@joincivil/elements";
 
-import {
-  StyledNavDrawer,
-  NavDrawerSection,
-  NavDrawerSectionHeader,
-  UserAddress,
-  CopyButton,
-} from "./styledComponents";
-import {
-  NavDrawerUserAddessText,
-  NavDrawerCopyBtnText,
-} from "./textComponents";
+import { StyledNavDrawer, NavDrawerSection, NavDrawerSectionHeader, UserAddress, CopyButton } from "./styledComponents";
+import { NavDrawerUserAddessText, NavDrawerCopyBtnText } from "./textComponents";
 import { routes } from "../../constants";
 
 export interface NavDrawerProps {

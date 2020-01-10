@@ -6,43 +6,18 @@ import { StoryNewsroomStatusStyled } from "@joincivil/components";
 export const StoryFeedWrapper = styled.div`
   margin: 0 auto;
   max-width: 600px;
-  padding: 50px 0;
+  padding: 0 0 50px;
   width: 100%;
 
   ${mediaQueries.MOBILE} {
-    padding: 50px 20px;
+    padding: 0 20px 50px;
   }
 `;
 
-export const StoryFeedHeader = styled.h1`
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-family: ${fonts.SANS_SERIF};
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 49px;
-  margin: 0 0 10px;
-
-  ${mediaQueries.MOBILE} {
-    color: ${colors.primary.BLACK};
-    font-size: 24px;
-    line-height: 30px;
-  }
-`;
-
-export const StoryBoostDescription = styled.p`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  color: ${colors.accent.CIVIL_GRAY_0};
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 26px;
-  margin: 0;
-  padding: 0 0 50px;
-
-  ${mediaQueries.MOBILE} {
-    color: ${colors.primary.BLACK};
-    font-size: 16px;
-    line-height: 24px;
-  }
+export const StoryFeedLabel = styled.h3`
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
 `;
 
 export const StoryLoadMoreContainer = styled.div`

@@ -3,14 +3,10 @@ import { Query } from "react-apollo";
 import { Helmet } from "react-helmet";
 import { LoadingMessage } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
+import { StoryFeedMarquee } from "./StoryFeedMarquee";
 import { StoryFeedItem } from "./StoryFeedItem";
 import { StoryBoost } from "./StoryBoost";
-import {
-  StoryFeedWrapper,
-  StoryFeedHeader,
-  StoryBoostDescription,
-  StoryLoadMoreContainer,
-} from "./StoryFeedStyledComponents";
+import { StoryFeedWrapper, StoryFeedLabel, StoryLoadMoreContainer } from "./StoryFeedStyledComponents";
 import { STORY_FEED_QUERY } from "./queries";
 
 export interface StoryFeedPageProps {
@@ -26,11 +22,9 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
     return (
       <>
         <Helmet title="Civil Story Boosts - The Civil Registry" />
+        <StoryFeedMarquee />
         <StoryFeedWrapper>
-          <StoryFeedHeader>Story Boosts</StoryFeedHeader>
-          <StoryBoostDescription>
-            Civil helps you discover new stories from trusted newsrooms on the Registry.
-          </StoryBoostDescription>
+          <StoryFeedLabel>Recent Stories</StoryFeedLabel>
           <Query query={STORY_FEED_QUERY}>
             {({ loading, error, data, refetch, fetchMore }) => {
               if (loading) {
