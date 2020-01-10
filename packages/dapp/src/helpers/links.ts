@@ -17,7 +17,6 @@ export const links = {
   TERMS: "https://learn.civil.co/terms",
   PRIVACY_POLICY: "https://learn.civil.co/privacy",
   CAREERS: "https://learn.civil.co/jobs",
-  HELP: "https://learn.civil.co/jobs",
 
   // Blog
   BLOG: "https://blog.civil.co",
