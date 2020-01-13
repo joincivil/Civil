@@ -161,7 +161,7 @@ export const StoryFeedMarquee: React.FunctionComponent = props => {
         </MarqueeCol>
         <MarqueeCol>
           <label>Support</label>
-          <p>Give independent a financial boost in just a few taps.</p>
+          <p>Give independent journalism a financial boost in just a few taps.</p>
         </MarqueeCol>
       </MarqueeColFlex>
     </StoryFeedMarqueeWrap>
