@@ -1,12 +1,42 @@
 import gql from "graphql-tag";
 
 export const STORY_FEED_QUERY = gql`
-  query Storyfeed($cursor: String) {
-    postsStoryfeed(first: 15, after: $cursor) {
+  query Storyfeed($cursor: String, $filter: StoryfeedFilterInput) {
+    postsStoryfeed(first: 15, after: $cursor, filter: $filter) {
       edges {
         post {
+          postType
+          ... on PostBoost {
+            id
+            channel {
+              id
+              channelType
+              newsroom {
+                contractAddress
+                name
+              }
+              listing {
+                name
+                url
+                contractAddress
+                owner
+                whitelisted
+                charter {
+                  uri
+                }
+              }
+            }
+            channelID
+            currencyCode
+            goalAmount
+            paymentsTotal(currencyCode: "USD")
+            title
+            dateEnd
+            why
+          }
           ... on PostExternalLink {
             id
+            datePosted
             openGraphData {
               url
               title
