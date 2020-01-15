@@ -1,5 +1,7 @@
 export const SuggestedPaymentAmounts = [{ amount: "1" }, { amount: "2" }, { amount: "3" }, { amount: "5" }];
 
+export const CreditCardMin = 1;
+
 export enum PAYMENT_STATE {
   SELECT_AMOUNT,
   PAYMENT_CHOOSE_LOGIN_OR_GUEST,

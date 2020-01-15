@@ -8,7 +8,7 @@ import { PaymentsStripe } from "./PaymentsStripe";
 import { PaymentsApplePay } from "./PaymentsApplePay";
 import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
-import { SuggestedPaymentAmounts, PAYMENT_STATE } from "./types";
+import { SuggestedPaymentAmounts, CreditCardMin, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
 
 export interface PaymentsProps {
@@ -61,7 +61,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     this.context.auth.ensureLoggedInUserEnabled();
 
     if (this.props.boostType === "project") {
-      const paymentAdjustedWarning = this.props.usdToSpend && this.props.usdToSpend <= 2 ? true : false;
+      const paymentAdjustedWarning = this.props.usdToSpend && this.props.usdToSpend <= CreditCardMin ? true : false;
       this.setState({
         paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST,
         paymentAdjustedWarning,
@@ -265,10 +265,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleUpdateState = (paymentState: PAYMENT_STATE) => {
-    if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < 2) {
+    if (paymentState === PAYMENT_STATE.STRIPE_PAYMENT && this.state.usdToSpend < CreditCardMin) {
       this.setState({
         paymentState,
-        usdToSpend: 2,
+        usdToSpend: CreditCardMin,
         selectedUsdToSpend: this.state.usdToSpend,
         paymentAdjustedStripe: true,
         paymentAdjustedEth: true,
@@ -279,7 +279,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
   };
 
   private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
-    const paymentAdjustedWarning = usdToSpend < 2 ? true : false;
+    const paymentAdjustedWarning = usdToSpend < CreditCardMin ? true : false;
     if (this.context && this.context.currentUser) {
       this.setState({
         usdToSpend,
