@@ -8,6 +8,7 @@ import { StoryFeedItem } from "./StoryFeedItem";
 import { StoryBoost } from "./StoryBoost";
 import { StoryFeedWrapper, StoryFeedLabel, StoryLoadMoreContainer } from "./StoryFeedStyledComponents";
 import { STORY_FEED_QUERY } from "./queries";
+import { BoostCard, BoostNewsroomData } from "@joincivil/sdk";
 
 export interface StoryFeedPageProps {
   match: any;
@@ -25,7 +26,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
         <StoryFeedMarquee />
         <StoryFeedWrapper>
           <StoryFeedLabel>Recent Stories</StoryFeedLabel>
-          <Query query={STORY_FEED_QUERY}>
+          <Query query={STORY_FEED_QUERY} variables={{ filter:{alg: "vw_post_fair_with_interleaved_boosts_2" }}}>
             {({ loading, error, data, refetch, fetchMore }) => {
               if (loading) {
                 return <LoadingMessage>Loading Stories</LoadingMessage>;
@@ -37,28 +38,45 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
               }
 
               const { postsStoryfeed } = data;
-
-              const storyfeed = postsStoryfeed.edges.map((story: any, i: number) => {
-                const storyData = story.post;
-                if (storyData.openGraphData && storyData.openGraphData.title && storyData.openGraphData.url) {
+              const storyfeed = postsStoryfeed.edges.map((edge: any, i: number) => {
+                const postData = edge.post;
+                if (
+                  postData.postType === "externallink" &&
+                  postData.openGraphData &&
+                  postData.openGraphData.title &&
+                  postData.openGraphData.url
+                ) {
                   return (
                     <StoryFeedItem
                       key={i}
-                      postId={storyData.id}
+                      postId={postData.id}
                       activeChallenge={false}
-                      newsroom={storyData.channel.newsroom}
-                      openGraphData={storyData.openGraphData}
-                      displayedContributors={storyData.groupedSanitizedPayments}
+                      newsroom={postData.channel.newsroom}
+                      openGraphData={postData.openGraphData}
+                      displayedContributors={postData.groupedSanitizedPayments}
                       totalContributors={
-                        storyData.groupedSanitizedPayments ? storyData.groupedSanitizedPayments.length : 0
+                        postData.groupedSanitizedPayments ? postData.groupedSanitizedPayments.length : 0
                       }
                       openStoryNewsroomDetails={this.openStoryNewsroomDetails}
                       openStoryDetails={this.openStoryDetails}
                       openPayments={this.openPayments}
                     />
                   );
+                } else if (postData.postType === "boost") {
+                  const newsroomData = postData.channel.listing as BoostNewsroomData;
+                  return (
+                    <BoostCard
+                      boostData={postData}
+                      newsroomData={newsroomData}
+                      boostOwner={false}
+                      open={false}
+                      boostId={postData.id}
+                      handlePayments={() => null}
+                      paymentSuccess={false}
+                    />
+                  );
                 }
-
+                console.error("found post that can't be displayed. postID: ", postData.id);
                 return null;
               });
 
