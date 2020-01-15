@@ -26,7 +26,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
         <StoryFeedMarquee />
         <StoryFeedWrapper>
           <StoryFeedLabel>Recent Stories</StoryFeedLabel>
-          <Query query={STORY_FEED_QUERY} variables={{ filter:{alg: "vw_post_fair_with_interleaved_boosts_2" }}}>
+          <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: "vw_post_fair_with_interleaved_boosts_2" } }}>
             {({ loading, error, data, refetch, fetchMore }) => {
               if (loading) {
                 return <LoadingMessage>Loading Stories</LoadingMessage>;
