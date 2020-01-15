@@ -24,6 +24,7 @@ const Wrapper = styled.div`
   max-width: 1000px;
   padding: 75px 25px 50px;
   width: 100%;
+  color: #16161d;
 
   ${mediaQueries.MOBILE} {
     padding: 50px 20px;
@@ -50,6 +51,7 @@ const Info = styled.div`
 
   p {
     margin: 0 0 36px;
+    color: ${colors.accent.CIVIL_GRAY_0};
   }
 `;
 const InfoHeading = styled.div`
@@ -107,6 +109,7 @@ const MoreInfo = styled.div`
   margin-top: 48px;
   padding-top: 18px;
   border-top: 1px solid rgb(233, 233, 234);
+  color: ${colors.accent.CIVIL_GRAY_0};
 `;
 
 const CTA = styled.div`
@@ -126,6 +129,7 @@ const CTA = styled.div`
 const CTAShadow = styled.div`
   border-radius: 8px;
   box-shadow: 0px 15px 35px 0px rgba(0, 0, 0, 0.09);
+  color: ${colors.accent.CIVIL_GRAY_0};
 `;
 const CTATop = styled.div`
   padding: 28px 24px 32px;
