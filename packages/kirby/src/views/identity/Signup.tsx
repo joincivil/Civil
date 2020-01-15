@@ -32,8 +32,8 @@ export const Signup: React.FunctionComponent = () => {
   const ctx = React.useContext(CoreContext);
   const identityPlugin = ctx.core.plugins.civilid as CivilIDPlugin;
   const parentDomain = useKirbySelector((state: any) => state.iframe.parentDomain);
-  const ready = useKirbySelector((state: any) => state.civilid.pendingLoginRequest);
-  const service = useKirbySelector((state: any) => ready && state.civilid.pendingLoginRequest.service);
+  const ready = useKirbySelector((state: any) => state.civilid.pendingSignupRequest);
+  const service = useKirbySelector((state: any) => ready && state.civilid.pendingSignupRequest.service);
   const isCivil = service === "Civil" && CIVIL_DOMAINS.indexOf(parentDomain) > -1;
   const [hideSelections, setHideSelections] = React.useState(false);
   const [selectionProcess, setSelectionProcess] = React.useState("none");
@@ -74,7 +74,7 @@ export const Signup: React.FunctionComponent = () => {
     <CenteredPage>
       {isCivil ? null : (
         <Notice>
-          <b>{parentDomain} !</b> would like you to sign up to their service.
+          <b>{parentDomain}</b> would like you to sign up to their service.
         </Notice>
       )}
 
