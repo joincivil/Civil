@@ -3,6 +3,7 @@ import * as qs from "querystring";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import { LoadingMessage, CivilContext, ICivilContext, Collapsable, Arrow } from "@joincivil/components";
 import {
   Button,
@@ -159,16 +160,18 @@ const CTANotice = styled.div`
   font-size: 13px;
 `;
 
+const DEFAULT_NEXT = formatRoute(routes.DASHBOARD, { activeDashboardTab: "newsrooms" });
+
 const GetStartedPage = () => {
+  const qsParams = qs.parse(document.location.search.substr(1));
   const context = React.useContext<ICivilContext>(CivilContext);
   if (!context || !context.auth || context.auth.loading) {
     return <LoadingMessage />;
   }
   if (context.currentUser) {
-    return <Redirect to={routes.DASHBOARD_ROOT} />;
+    return <Redirect to={(qsParams.next as string) || DEFAULT_NEXT} />;
   }
 
-  const qsParams = qs.parse(document.location.search.substr(1));
   return (
     <Wrapper>
       <Helmet title="Get Started - The Civil Registry" />
