@@ -66,6 +66,9 @@ export const LISTING_FRAGMENT = gql`
       contentHash
       timestamp
     }
+    channel {
+      handle
+    }
     unstakedDeposit
     appExpiry
     approvalDate
@@ -92,8 +95,8 @@ export const CONTENT_REVISION_FRAGMENT = gql`
 `;
 
 export const LISTING_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
+  query($addr: String, $handle: String) {
+    tcrListing(addr: $addr, handle: $handle) {
       ...ListingFragment
     }
   }
@@ -101,11 +104,11 @@ export const LISTING_QUERY = gql`
 `;
 
 export const LISTING_WITH_CHARTER_REVISIONS_QUERY = gql`
-  query($addr: String!) {
-    listing(addr: $addr) {
+  query($addr: String, $handle: String) {
+    tcrListing(addr: $addr, handle: $handle) {
       ...ListingFragment
     }
-    charterRevisions: articles(addr: $addr, contentID: 0) {
+    charterRevisions: articles(addr: $addr, handle: $handle, contentID: 0) {
       ...ContentRevisionFragment
     }
   }

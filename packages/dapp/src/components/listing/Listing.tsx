@@ -20,7 +20,7 @@ import ListingRedux from "./ListingRedux";
 
 export interface ListingPageProps {
   match: any;
-  listingAddress: EthAddress;
+  listingAddress: string;
   history: any;
 }
 
@@ -31,27 +31,44 @@ export interface PreListingReduxProps {
 
 class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
-    const listingAddress = this.props.listingAddress;
+    const listingID = this.props.listingAddress;
+    console.log("listingID: ", listingID);
+    let addr;
+    let handle;
+    if (listingID.length < 42) {
+      handle = listingID;
+    } else {
+      addr = listingID;
+    }
+
     return (
-      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
+      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr, handle }} pollInterval={10000}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading || !data) {
             return <LoadingMessage />;
           }
           if (error) {
+            console.log("Error.")
             return <ErrorLoadingDataMsg />;
           }
-          if (!data.listing || !data.charterRevisions) {
+          if (!data.tcrListing || !data.charterRevisions) {
+            console.log("DATA: ", data);
+            console.log("listing? ", data.tcrListing);
+            console.log("charterRevisions? ", data.charterRevisions);
             return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
           }
-          const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
-          const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
+          const newsroom = transformGraphQLDataIntoNewsroom(data.tcrListing, data.tcrListing.contractAddress);
+          const listing = transformGraphQLDataIntoListing(data.tcrListing, data.tcrListing.contractAddress);
           const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
+
+          const listingAddress = listing.address;
+          console.log("listingAddress: ", listingAddress);
           return (
             <>
               <ScrollToTopOnMount />
               <ListingRedux
                 listingAddress={listingAddress}
+                listingId={listingID}
                 newsroom={newsroom}
                 listing={listing}
                 charterRevisions={charterRevisions}

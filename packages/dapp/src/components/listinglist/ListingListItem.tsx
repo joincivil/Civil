@@ -22,6 +22,7 @@ export interface ListingListItemOwnProps {
   ListingItemComponent?: any;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
+  handle?: string;
   even: boolean;
   user?: string;
   queryData?: any;
@@ -98,7 +99,8 @@ export const transformListingSummaryViewProps = (
   const appealOpenToChallengeExpiry = appeal && appeal.appealOpenToChallengeExpiry.toNumber();
 
   const newsroomData = newsroom!.data;
-  const listingDetailURL = formatRoute(routes.LISTING, { listingAddress });
+  const routeID = props.handle || listingAddress;
+  const listingDetailURL = formatRoute(routes.LISTING, { listingAddress: routeID });
 
   let challengeResultsProps = {};
 

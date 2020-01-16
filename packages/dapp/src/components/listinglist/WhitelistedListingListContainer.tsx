@@ -50,6 +50,7 @@ const WhitelistedListingListContainer = () => {
             return {
               listing: transformGraphQLDataIntoListing(edge.node, edge.node.contractAddress),
               newsroom: transformGraphQLDataIntoNewsroom(edge.node, edge.node.contractAddress),
+              handle: edge.node.channel.handle,
             };
           }),
         );

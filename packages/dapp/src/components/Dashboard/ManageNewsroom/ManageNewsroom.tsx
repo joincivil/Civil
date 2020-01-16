@@ -135,7 +135,7 @@ const ManageNewsroomComponent: React.FunctionComponent<
                 );
               }
 
-              const listing = transformGraphQLDataIntoListing(listingData.listing, props.newsroomAddress);
+              const listing = transformGraphQLDataIntoListing(listingData.tcrListing, props.newsroomAddress);
               const listingPhaseState = getListingPhaseState(listing);
 
               return (
