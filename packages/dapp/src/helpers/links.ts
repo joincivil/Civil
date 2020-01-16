@@ -12,7 +12,7 @@ export const links = {
   CODE_OF_CONDUCT: "https://learn.civil.co/code-of-conduct",
   CONTACT: "https://learn.civil.co/contact",
   PRESS: "https://learn.civil.co/press",
-  TEAM: "https://learn.civil.co/our-team",
+  TEAM: "https://learn.civil.co/team",
   PARTNERS: "https://learn.civil.co/partners",
   TERMS: "https://learn.civil.co/terms",
   PRIVACY_POLICY: "https://learn.civil.co/privacy",
