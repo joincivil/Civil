@@ -4,11 +4,11 @@ import { urlConstants as links } from "@joincivil/utils";
 import { ListingDetailPhaseCardComponentProps, WhitelistedCard, WhitelistedCardProps } from "@joincivil/components";
 
 import { routes } from "../../constants";
-import { BigNumber, EthAddress } from "@joincivil/typescript-types";
+import { BigNumber } from "@joincivil/typescript-types";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 
 export interface WhitelistedCardSubmitChallengeProps {
-  listingAddress: EthAddress;
+  listingAddress: string;
   constitutionURI?: string;
   approvalDate?: BigNumber;
   onMobileTransactionClick(): any;
@@ -22,7 +22,6 @@ class WhitelistedDetail extends React.Component<
 
   public render(): JSX.Element {
     const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listingAddress });
-
     return (
       <>
         <WhitelistedCard

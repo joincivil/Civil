@@ -40,6 +40,7 @@ export interface BoostNewsroomProps {
   newsroomContractAddress: string;
   newsroomData: BoostNewsroomData;
   disableHelmet?: boolean;
+  handle?: string;
 }
 
 export interface BoostNewsroomState {
@@ -93,7 +94,9 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
                 )}
                 {this.renderNewsroomURL()}
                 <ChevronAnchor
-                  href={`${document.location.origin}/listing/${this.props.newsroomContractAddress}`}
+                  href={`${document.location.origin}/listing/${
+                    this.props.handle ? this.props.handle : this.props.newsroomContractAddress
+                  }`}
                   target="_blank"
                 >
                   View on Civil Registry

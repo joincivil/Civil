@@ -40,6 +40,7 @@ class ListingList extends React.Component<ListingListOwnProps> {
                 key={l!.listing.address}
                 newsroom={l!.newsroom}
                 listing={l!.listing}
+                handle={l!.handle}
                 even={index % 2 === 0}
                 ListingItemComponent={this.props.ListingItemComponent}
               />

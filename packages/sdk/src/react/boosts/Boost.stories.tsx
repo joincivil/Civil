@@ -25,6 +25,7 @@ const boost = {
   channel: {
     id: "",
     channelType: "",
+    handle: "fake",
     isStripeConnected: true,
     stripeAccountID: "acct_id_00000",
     newsroom: {
@@ -74,6 +75,7 @@ storiesOf("Boosts", module)
       <BoostCard
         boostOwner={true}
         newsroomData={newsroomData}
+        handle={"fake"}
         boostData={boost}
         open={false}
         boostId={boost.id}
@@ -87,6 +89,7 @@ storiesOf("Boosts", module)
       <BoostCard
         boostData={boost}
         newsroomData={newsroomData}
+        handle={"fake"}
         boostOwner={true}
         open={true}
         boostId={boost.id}

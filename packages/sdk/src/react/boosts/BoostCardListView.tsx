@@ -20,6 +20,7 @@ export interface BoostCardListViewProps {
   disableHelmet?: boolean;
   timeRemaining: string;
   newsroomContractAddress: string;
+  handle?: string;
 }
 
 export class BoostCardListView extends React.Component<BoostCardListViewProps> {
@@ -33,6 +34,7 @@ export class BoostCardListView extends React.Component<BoostCardListViewProps> {
       disableHelmet,
       timeRemaining,
       newsroomContractAddress,
+      handle,
     } = this.props;
 
     return (
@@ -47,6 +49,7 @@ export class BoostCardListView extends React.Component<BoostCardListViewProps> {
           charterUri={newsroomData.charter && newsroomData.charter.uri}
           newsroomData={newsroomData}
           disableHelmet={disableHelmet}
+          handle={handle}
         />
         <BoostFlexCenter>
           <BoostProgressCol open={open}>

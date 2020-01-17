@@ -81,7 +81,13 @@ export class PaymentsEth extends React.Component<PaymentsEthProps, PaymentsEthSt
           usdToSpend={this.state.usdToSpend}
         >
           <ConnectWalletWarningText />
-          <PaymentBtn onClick={() => this.context.civil.currentProviderEnable()}>Select Wallet</PaymentBtn>
+          <PaymentBtn
+            onClick={async () => {
+              await this.context.civil.currentProviderEnable();
+            }}
+          >
+            Select Wallet
+          </PaymentBtn>
         </PaymentsEthWrapper>
       );
     }

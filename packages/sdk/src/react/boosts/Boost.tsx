@@ -87,6 +87,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
 
           const boostData = data.postsGet as BoostData;
           const newsroomContractAddress = boostData.channel.newsroom.contractAddress;
+          const handle = boostData.channel.handle;
 
           // Set up boost permissions checks HOC:
           this.props.setNewsroomContractAddress(newsroomContractAddress);
@@ -154,6 +155,7 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                     <BoostCard
                       boostData={boostData}
                       newsroomData={newsroomData}
+                      handle={handle}
                       boostOwner={this.props.boostOwner}
                       open={this.props.open}
                       boostId={id}

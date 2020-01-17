@@ -139,6 +139,7 @@ class ListingPageComponent extends React.Component<
         <StyledContentRow reverseDirection={true}>
           <StyledRightContentWell offsetTop={-100}>
             <ListingPhaseActions
+              listingAddress={this.props.listing!.address}
               listing={this.props.listing!}
               newsroom={this.props.newsroom!}
               listingPhaseState={this.props.listingPhaseState}
@@ -214,7 +215,7 @@ class ListingPageComponent extends React.Component<
   private onTabChange = (newActiveTabIndex: number): void => {
     const tabName = TABS[newActiveTabIndex];
     this.setState({ activeTabIndex: newActiveTabIndex });
-    this.props.history.push(`/listing/${this.props.listingAddress}/${tabName}`);
+    this.props.history.push(`/listing/${this.props.listingId}/${tabName}`);
   };
 
   private showCharterTab = (): void => {

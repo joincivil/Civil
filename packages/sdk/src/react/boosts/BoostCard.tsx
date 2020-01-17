@@ -32,6 +32,7 @@ import { BoostCardListView } from "./BoostCardListView";
 export interface BoostCardProps {
   boostData: BoostData;
   newsroomData: BoostNewsroomData;
+  handle?: string;
   open: boolean;
   boostId: string;
   paymentSuccess: boolean;
@@ -56,7 +57,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
     this.handleAmount = debounce(this.handleAmount.bind(this), 300);
   }
   public render(): JSX.Element {
-    const { open, boostData, newsroomData, boostId, paymentSuccess, boostOwner, disableHelmet } = this.props;
+    const { open, boostData, newsroomData, boostId, paymentSuccess, boostOwner, disableHelmet, handle } = this.props;
     const timeRemaining = this.timeRemaining(boostData.dateEnd);
     const timeEnded = timeRemaining === "Boost Ended";
     const goalReached = boostData.paymentsTotal >= boostData.goalAmount;
@@ -73,6 +74,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
           open={open}
           boostData={boostData}
           newsroomData={newsroomData}
+          handle={handle}
           boostId={boostId}
           boostOwner={boostOwner}
           disableHelmet={disableHelmet}
@@ -118,6 +120,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
             newsroomContractAddress={newsroomContractAddress}
             charterUri={newsroomData.charter && newsroomData.charter.uri}
             newsroomData={newsroomData}
+            handle={handle}
             disableHelmet={disableHelmet}
           />
 

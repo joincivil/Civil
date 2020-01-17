@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
-import { EthAddress, ListingWrapper } from "@joincivil/typescript-types";
+import { ListingWrapper } from "@joincivil/typescript-types";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { LoadingMessage } from "@joincivil/components";
 
@@ -20,7 +20,7 @@ import ListingRedux from "./ListingRedux";
 
 export interface ListingPageProps {
   match: any;
-  listingAddress: EthAddress;
+  listingAddress: string;
   history: any;
 }
 
@@ -31,9 +31,17 @@ export interface PreListingReduxProps {
 
 class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
-    const listingAddress = this.props.listingAddress;
+    const listingID = this.props.listingAddress;
+    let addr;
+    let handle;
+    if (listingID.length < 42) {
+      handle = listingID;
+    } else {
+      addr = listingID;
+    }
+
     return (
-      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr: listingAddress }} pollInterval={10000}>
+      <Query query={LISTING_WITH_CHARTER_REVISIONS_QUERY} variables={{ addr, handle }} pollInterval={10000}>
         {({ loading, error, data }: any): JSX.Element => {
           if (loading || !data) {
             return <LoadingMessage />;
@@ -41,17 +49,20 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
           if (error) {
             return <ErrorLoadingDataMsg />;
           }
-          if (!data.listing || !data.charterRevisions) {
+          if (!data.tcrListing || !data.charterRevisions) {
             return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
           }
-          const newsroom = transformGraphQLDataIntoNewsroom(data.listing, this.props.listingAddress);
-          const listing = transformGraphQLDataIntoListing(data.listing, this.props.listingAddress);
+          const newsroom = transformGraphQLDataIntoNewsroom(data.tcrListing, data.tcrListing.contractAddress);
+          const listing = transformGraphQLDataIntoListing(data.tcrListing, data.tcrListing.contractAddress);
           const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
+
+          const listingAddress = listing.address;
           return (
             <>
               <ScrollToTopOnMount />
               <ListingRedux
                 listingAddress={listingAddress}
+                listingId={listingID}
                 newsroom={newsroom}
                 listing={listing}
                 charterRevisions={charterRevisions}
