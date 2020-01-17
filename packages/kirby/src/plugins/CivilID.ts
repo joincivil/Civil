@@ -11,12 +11,12 @@ export interface ChildPluginState {
   pendingLoginRequest?: {
     requestID: number;
     message: string;
-    service: string;
+    domain: string;
   };
   pendingSignupRequest?: {
     requestID: number;
     message: string;
-    service: string;
+    domain: string;
   };
 }
 
@@ -60,9 +60,15 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
 
   public reducer(state: ChildPluginState = {}, action: any): any {
     if (action.type === PARENT_REQUEST && action.data.type === IDENTITY_LOGIN_REQUEST) {
-      return { ...state, pendingLoginRequest: this.buildLoginRequest(action.requestID, "Civil") };
+      return {
+        ...state,
+        pendingLoginRequest: this.buildSignatureRequest(action.requestID, this.dependencies.iframe.parentDomain),
+      };
     } else if (action.type === PARENT_REQUEST && action.data.type === IDENTITY_SIGNUP_REQUEST) {
-      return { ...state, pendingSignupRequest: this.buildSignupRequest(action.requestID, "Civil") };
+      return {
+        ...state,
+        pendingSignupRequest: this.buildSignatureRequest(action.requestID, this.dependencies.iframe.parentDomain),
+      };
     }
     return state;
   }
@@ -71,26 +77,18 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
     this.logger("starting up");
   }
 
-  public buildLoginRequest(requestID: string, service: string): any {
-    const message = `Log in to ${service} @ ${new Date().toISOString()}`;
+  public buildSignatureRequest(requestID: string, domain: string): any {
+    const message = `Authenticate to ${domain} @ ${new Date().toISOString()}`;
     return {
       message,
       requestID,
-      service,
-    };
-  }
-  public buildSignupRequest(requestID: string, service: string): any {
-    const message = `Sign up with ${service} @ ${new Date().toISOString()}`;
-    return {
-      message,
-      requestID,
-      service,
+      domain,
     };
   }
 
   public sendLoginResponse(signer: string, signature: string): void {
     const state = this.getState().civilid as ChildPluginState;
-    const { requestID, service, ...request } = state.pendingLoginRequest!;
+    const { requestID, domain, ...request } = state.pendingLoginRequest!;
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
   }
@@ -102,7 +100,7 @@ export class CivilIDPlugin extends ChildPlugin<any, ChildDependencies, ChildPlug
 
   public sendSignupResponse(signer: string, signature: string): void {
     const state = this.getState().civilid as ChildPluginState;
-    const { requestID, service, ...request } = state.pendingSignupRequest!;
+    const { requestID, domain, ...request } = state.pendingSignupRequest!;
     const response = { signer, signature, ...request };
     this.dependencies.iframe.respond(requestID, response);
   }
