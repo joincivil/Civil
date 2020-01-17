@@ -210,7 +210,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   };
 
   private sendPayment = async (): Promise<TwoStepEthTransaction<any> | void> => {
-    this.context.fireAnalyticsEvent("tips", "start submit ETH support", this.props.postId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("boost", "ETH submit clicked", this.props.postId, this.props.usdToSpend);
     this.props.handlePaymentInProgress(true, true);
     if (this.context.civil) {
       return this.context.civil.simplePayment(this.props.paymentAddress, this.props.etherToSpend.toString());
@@ -218,7 +218,7 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   };
 
   private handleTransactionHash = async (txHash: TxHash) => {
-    this.context.fireAnalyticsEvent("tips", "ETH support submitted", this.props.postId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("boost", "ETH transaction submitted", this.props.postId, this.props.usdToSpend);
     this.props.handlePaymentInProgress(true, false);
     await this.props.savePayment({
       variables: {
@@ -238,13 +238,13 @@ export class PaymentsEthForm extends React.Component<PaymentsEthFormProps, Payme
   };
 
   private onTransactionError = (err: string) => {
-    this.context.fireAnalyticsEvent("tips", "ETH support rejected", this.props.postId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("boost", "ETH transaction rejected", this.props.postId, this.props.usdToSpend);
     this.setState({ isPaymentError: true });
     this.props.handlePaymentInProgress(false, false);
   };
 
   private postTransaction = () => {
-    this.context.fireAnalyticsEvent("tips", "ETH support confirmed", this.props.postId, this.props.usdToSpend);
+    this.context.fireAnalyticsEvent("boost", "ETH transaction confirmed", this.props.postId, this.props.usdToSpend);
     const didSaveEmail =
       this.state.promptSaveEmail && this.state.email && this.state.shouldSaveEmailToAccount ? true : false;
     this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail, this.props.etherToSpend);

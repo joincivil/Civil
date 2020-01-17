@@ -143,8 +143,10 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 )}
               </StoryBoostContent>
               <StoryBoostFooter>
-                <SupportText onClick={this.handleStartPayment}>Support this newsroom</SupportText>
-                <StyledPaymentButton onClick={this.handleStartPayment} />
+                <SupportText onClick={() => this.handleStartPayment("Support this newsroom")}>
+                  Support this newsroom
+                </SupportText>
+                <StyledPaymentButton onClick={() => this.handleStartPayment("Boost")} />
               </StoryBoostFooter>
               <PaymentsModal open={this.state.paymentsOpen}>
                 <Payments
@@ -163,7 +165,12 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
     );
   }
 
-  private handleStartPayment = () => {
+  private handleStartPayment = (trackingLabel: string) => {
+    this.context.fireAnalyticsEvent(
+      "embedded story boost",
+      "boost payment clicked: " + trackingLabel,
+      this.props.boostId,
+    );
     this.setState({ paymentsOpen: true });
   };
   private handleClose = () => {

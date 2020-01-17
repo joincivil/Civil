@@ -27,6 +27,7 @@ import {
 } from "./StoryFeedStyledComponents";
 
 export interface StoryDetailsProps {
+  postId: string;
   activeChallenge: boolean;
   createdAt: string;
   newsroomName: string;
@@ -36,6 +37,7 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  fireTrackingEvent(category: string, event: string, label: string): void;
   handlePayments(): void;
   handleOpenNewsroom(): void;
 }
@@ -53,7 +55,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryDetailsFullBleedHeader>
       <StoryDetailsContent>
         <StoryDetailsFlex>
-          <StoryLink href={openGraphData.url} target="_blank">
+          <StoryLink
+            onClick={() => props.fireTrackingEvent("story boost", "story details: story title clicked", props.postId)}
+            href={openGraphData.url}
+            target="_blank"
+          >
             <StoryTitle>
               {openGraphData.title}
               <OpenInNewIcon />
@@ -90,7 +96,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <StoryDetailsFooter>
         <StoryDetailsFooterFlex>
           <PaymentButton onClick={props.handlePayments} border={true} />
-          <BlueLinkBtn href={openGraphData.url} target="_blank">
+          <BlueLinkBtn
+            onClick={() => props.fireTrackingEvent("story boost", "story details: read more clicked", props.postId)}
+            href={openGraphData.url}
+            target="_blank"
+          >
             <OpenInNewIcon color={colors.basic.WHITE} size={20} />
             Read More
           </BlueLinkBtn>

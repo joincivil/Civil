@@ -380,6 +380,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       this.state.cardExpiryState === INPUT_STATE.VALID &&
       this.state.cardCVCState === INPUT_STATE.VALID
     ) {
+      this.context.fireAnalyticsEvent("boost", "Stripe submit clicked", this.props.postId, this.props.usdToSpend);
       this.setState({ paymentProcessing: true, isPaymentError: false });
       if (this.props.stripe) {
         try {
@@ -416,10 +417,21 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
               },
             },
           });
-
+          this.context.fireAnalyticsEvent(
+            "boost",
+            "Stripe transaction confirmed",
+            this.props.postId,
+            this.props.usdToSpend,
+          );
           this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail);
         } catch (err) {
           console.error(err);
+          this.context.fireAnalyticsEvent(
+            "boost",
+            "Stripe transaction rejected",
+            this.props.postId,
+            this.props.usdToSpend,
+          );
           this.setState({ paymentProcessing: false, isPaymentError: true });
         }
       }

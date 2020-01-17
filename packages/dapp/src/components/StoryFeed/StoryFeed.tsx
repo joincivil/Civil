@@ -89,6 +89,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                         size={buttonSizes.SMALL}
                         onClick={() =>
                           fetchMore({
+                            query: STORY_FEED_QUERY,
                             variables: {
                               cursor: postsStoryfeed.pageInfo.endCursor,
                             },
@@ -118,6 +119,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                       postId={postId}
                       payment={this.props.payment}
                       newsroom={this.props.newsroom}
+                      fireTrackingEvent={this.fireTrackingEvent}
                       closeStoryBoost={this.closeStoryBoost}
                       handlePaymentSuccess={async () => {
                         await refetch();
@@ -146,6 +148,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -154,6 +157,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openPayments = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "boost button clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -162,11 +166,16 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryNewsroomDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "newsroom details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
       pathname: urlBase + "/storyfeed/" + postId + "/newsroom",
     });
+  };
+
+  private fireTrackingEvent = (category: string, event: string, label: string) => {
+    this.context.fireAnalyticsEvent(category, event, label);
   };
 }
 
