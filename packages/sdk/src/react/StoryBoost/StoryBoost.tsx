@@ -2,6 +2,8 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import styled from "styled-components";
 import {
+  CivilContext,
+  ICivilContext,
   LoadingMessage,
   ErrorNotFound,
   Contributors,
@@ -95,6 +97,9 @@ export interface StoryBoostState {
 }
 
 export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   public constructor(props: any) {
     super(props);
     this.state = {
