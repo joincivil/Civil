@@ -19,9 +19,6 @@ export const STORY_FEED_QUERY = gql`
               listing {
                 name
                 url
-                contractAddress
-                owner
-                whitelisted
                 charter {
                   uri
                 }
@@ -37,7 +34,7 @@ export const STORY_FEED_QUERY = gql`
           }
           ... on PostExternalLink {
             id
-            datePosted
+            publishedTime
             openGraphData {
               url
               title
