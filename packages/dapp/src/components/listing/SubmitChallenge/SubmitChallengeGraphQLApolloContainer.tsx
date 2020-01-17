@@ -19,7 +19,7 @@ const SubmitChallengeGraphQLApolloContainer: React.FunctionComponent<SubmitChall
           return <LoadingMessage />;
         }
 
-        const newsroom = transformGraphQLDataIntoNewsroom(data.listing, listingAddress);
+        const newsroom = transformGraphQLDataIntoNewsroom(data.tcrListing, listingAddress);
 
         const viewProps = {
           newsroomName: newsroom.data.name,

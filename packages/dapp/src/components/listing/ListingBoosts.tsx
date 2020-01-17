@@ -61,7 +61,6 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
                 </>
               );
             }
-
             return <BoostFeed channelID={channelData.channelsGetByNewsroomAddress.id} />;
           }}
         </Query>

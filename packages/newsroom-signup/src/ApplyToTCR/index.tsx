@@ -65,8 +65,8 @@ class ApplyToTCRStepComponent extends React.Component<TApplyToTCRStepProps & Dis
               return <ErrorLoadingData />;
             }
             let listing;
-            if (data && data.listing) {
-              listing = transformGraphQLDataIntoListing(data.listing, address);
+            if (data && data.tcrListing) {
+              listing = transformGraphQLDataIntoListing(data.tcrListing, address);
             }
             if (listing && listing.data && listingHelpers.isWhitelisted(listing.data)) {
               return <ApplyToTCRWhitelisted listing={listing} />;

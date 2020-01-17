@@ -11,6 +11,7 @@ export const STORY_FEED_QUERY = gql`
             channel {
               id
               channelType
+              handle
               newsroom {
                 contractAddress
                 name
@@ -18,9 +19,6 @@ export const STORY_FEED_QUERY = gql`
               listing {
                 name
                 url
-                contractAddress
-                owner
-                whitelisted
                 charter {
                   uri
                 }
@@ -36,7 +34,7 @@ export const STORY_FEED_QUERY = gql`
           }
           ... on PostExternalLink {
             id
-            datePosted
+            publishedTime
             openGraphData {
               url
               title
@@ -48,6 +46,7 @@ export const STORY_FEED_QUERY = gql`
               }
             }
             channel {
+              handle
               newsroom {
                 name
               }
@@ -89,6 +88,7 @@ export const STORY_BOOST = gql`
         channel {
           isStripeConnected
           stripeAccountID
+          handle
           newsroom {
             contractAddress
             multisigAddress

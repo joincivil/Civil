@@ -61,7 +61,10 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
         </StoryNewsroomSection>
       </StoryDetailsContent>
       <StoryDetailsFooter>
-        <BlueLinkBtn href={links.REGISTRY + "listing/" + newsroom.contractAddress} target="_blank">
+        <BlueLinkBtn
+          href={links.REGISTRY + "listing/" + (newsroom.handle ? newsroom.handle : newsroom.contractAddress)}
+          target="_blank"
+        >
           View on Civil Registry
         </BlueLinkBtn>
       </StoryDetailsFooter>
