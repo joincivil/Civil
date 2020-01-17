@@ -82,20 +82,14 @@ export class Civil {
   }
 
   public async currentProviderEnable(): Promise<boolean> {
-    console.log("currentProviderEnable. this.ethApi: ", this.ethApi);
-    console.log("currentProviderEnable. this.ethApi.currentProvider: ", this.ethApi.currentProvider);
     if (this.ethApi.currentProvider && (this.ethApi.currentProvider as any).enable) {
       try {
-        console.log("step 1");
         await (this.ethApi.currentProvider as any).enable();
-        console.log("step 2 return true");
         return true;
       } catch (e) {
-        console.log("step 3 return false");
         return false;
       }
     } else {
-      console.log("step 2=4 return true");
       return true;
     }
   }

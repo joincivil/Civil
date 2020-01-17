@@ -175,9 +175,6 @@ export const getListingPhaseState = (listing?: ListingWrapper) => {
   if (!listing) {
     return;
   }
-
-  console.log("getListingPhaseState listing: ", listing);
-
   const listingData = listing.data;
   const challenge = listingData.challenge;
   const appeal = challenge && challenge.appeal;

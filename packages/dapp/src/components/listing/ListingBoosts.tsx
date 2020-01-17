@@ -23,7 +23,6 @@ const CHANNEL_QUERY = gql`
 
 class ListingBoosts extends React.Component<ListingBoostsProps> {
   public render(): JSX.Element {
-    console.log("this.props.listingAddress: ", this.props.listingAddress);
     const contractAddress = this.props.listingAddress;
 
     return (
@@ -44,7 +43,6 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
             } else if (channelError || !channelData || !channelData.channelsGetByNewsroomAddress) {
               console.error("error loading channel data. error:", channelError, "data:", channelData);
               if (this.props.newsroom) {
-                console.log("newsroom yes. 1.");
                 return (
                   <>
                     {this.props.newsroom.data.name} has not created any Project Boosts.{" "}
@@ -54,7 +52,6 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
                   </>
                 );
               }
-              console.log("newsroom no. 2.");
               return (
                 <>
                   There are no Project Boosts associated with this newsroom.{" "}
@@ -64,7 +61,6 @@ class ListingBoosts extends React.Component<ListingBoostsProps> {
                 </>
               );
             }
-            console.log("channelData.channelsGetByNewsroomAddress.id: ", channelData.channelsGetByNewsroomAddress.id);
             return <BoostFeed channelID={channelData.channelsGetByNewsroomAddress.id} />;
           }}
         </Query>

@@ -63,7 +63,6 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                     />
                   );
                 } else if (postData.postType === "boost") {
-                  console.log("boost postData: ", postData);
                   const newsroomData = postData.channel.listing as BoostNewsroomData;
                   return (
                     <BoostCard

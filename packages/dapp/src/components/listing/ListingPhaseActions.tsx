@@ -180,7 +180,6 @@ class ListingPhaseActions extends React.Component<ListingPhaseActionsProps, List
     if (!endTime || !phaseLength) {
       return null;
     }
-    console.log("this.props.listing.address: ", this.props.listing.address);
     const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listing.address });
 
     return (

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Query } from "react-apollo";
-import { EthAddress, ListingWrapper } from "@joincivil/typescript-types";
+import { ListingWrapper } from "@joincivil/typescript-types";
 import { NewsroomState } from "@joincivil/newsroom-signup";
 import { LoadingMessage } from "@joincivil/components";
 
@@ -32,7 +32,6 @@ export interface PreListingReduxProps {
 class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
     const listingID = this.props.listingAddress;
-    console.log("listingID: ", listingID);
     let addr;
     let handle;
     if (listingID.length < 42) {
@@ -48,13 +47,9 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
             return <LoadingMessage />;
           }
           if (error) {
-            console.log("Error.")
             return <ErrorLoadingDataMsg />;
           }
           if (!data.tcrListing || !data.charterRevisions) {
-            console.log("DATA: ", data);
-            console.log("listing? ", data.tcrListing);
-            console.log("charterRevisions? ", data.charterRevisions);
             return <ErrorNotFoundMsg>We could not find the listing you were looking for.</ErrorNotFoundMsg>;
           }
           const newsroom = transformGraphQLDataIntoNewsroom(data.tcrListing, data.tcrListing.contractAddress);
@@ -62,7 +57,6 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
           const charterRevisions = transformGraphQLDataIntoCharterRevisions(data.charterRevisions);
 
           const listingAddress = listing.address;
-          console.log("listingAddress: ", listingAddress);
           return (
             <>
               <ScrollToTopOnMount />

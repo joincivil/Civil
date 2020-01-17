@@ -21,7 +21,6 @@ class WhitelistedDetail extends React.Component<
   public context: CivilHelper;
 
   public render(): JSX.Element {
-    console.log("this.props.listingAddress: ", this.props.listingAddress);
     const submitChallengeURI = formatRoute(routes.SUBMIT_CHALLENGE, { listingAddress: this.props.listingAddress });
     return (
       <>

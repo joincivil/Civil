@@ -27,6 +27,7 @@ export interface StoryNewsroomData {
       purpose: string;
     };
   };
+  handle: string;
 }
 
 export interface OpenGraphData {

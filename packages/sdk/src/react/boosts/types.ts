@@ -15,6 +15,7 @@ export interface BoostData {
     newsroom: {
       contractAddress: string;
     };
+    handle: string;
   };
   items: BoostCostItem[];
 }

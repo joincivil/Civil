@@ -70,7 +70,6 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
   }
 
   public render(): JSX.Element {
-    console.log("BoostNewsroom props: ", this.props);
     return (
       <>
         {/*data URIs are invalid for fb/twitter cards, so only put image in there if http URL:*/}
@@ -95,7 +94,9 @@ export class BoostNewsroom extends React.Component<BoostNewsroomProps, BoostNews
                 )}
                 {this.renderNewsroomURL()}
                 <ChevronAnchor
-                  href={`${document.location.origin}/listing/${(this.props.handle ? this.props.handle : this.props.newsroomContractAddress)}`}
+                  href={`${document.location.origin}/listing/${
+                    this.props.handle ? this.props.handle : this.props.newsroomContractAddress
+                  }`}
                   target="_blank"
                 >
                   View on Civil Registry

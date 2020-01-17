@@ -51,7 +51,6 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
           return "Error loading Story Boost.";
         }
 
-        console.log("data.postsGet: ", data.postsGet);
         const storyBoostData = data.postsGet as StoryBoostData;
         return (
           <>
@@ -73,7 +72,10 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
               />
             </StoryModal>
             <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
-              <StoryNewsroomDetails activeChallenge={false} newsroom={{...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle}} />
+              <StoryNewsroomDetails
+                activeChallenge={false}
+                newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
+              />
             </StoryModal>
             <ThemeProvider theme={theme}>
               <PaymentsModal open={isPaymentsModalOpen} handleClose={props.closeStoryBoost}>
