@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+  CivilContext,
+  ICivilContext,
   Contributors,
   ContributorCount,
   ContributorData,
@@ -37,12 +39,12 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
-  fireTrackingEvent(category: string, event: string, label: string): void;
   handlePayments(): void;
   handleOpenNewsroom(): void;
 }
 
 export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
+  const context = React.useContext<ICivilContext>(CivilContext);
   const [shareModalOpen, setShareModalOpen] = React.useState(false);
   const { openGraphData } = props;
 
@@ -56,7 +58,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <StoryDetailsContent>
         <StoryDetailsFlex>
           <StoryLink
-            onClick={() => props.fireTrackingEvent("story boost", "story details: story title clicked", props.postId)}
+            onClick={() =>
+              context.fireAnalyticsEvent("story boost", "story details: story title clicked", props.postId)
+            }
             href={openGraphData.url}
             target="_blank"
           >
@@ -97,7 +101,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         <StoryDetailsFooterFlex>
           <PaymentButton onClick={props.handlePayments} border={true} />
           <BlueLinkBtn
-            onClick={() => props.fireTrackingEvent("story boost", "story details: read more clicked", props.postId)}
+            onClick={() => context.fireAnalyticsEvent("story boost", "story details: read more clicked", props.postId)}
             href={openGraphData.url}
             target="_blank"
           >

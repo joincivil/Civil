@@ -21,7 +21,6 @@ export interface StoryBoostProps {
   postId: string;
   payment?: boolean;
   newsroom?: boolean;
-  fireTrackingEvent(category: string, event: string, label: string): void;
   openStoryNewsroomDetails(): void;
   openStoryDetails(): void;
   openPayments(): void;
@@ -69,7 +68,6 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 totalContributors={
                   storyBoostData.groupedSanitizedPayments ? storyBoostData.groupedSanitizedPayments.length : 0
                 }
-                fireTrackingEvent={props.fireTrackingEvent}
                 handlePayments={props.openPayments}
                 handleOpenNewsroom={props.openStoryNewsroomDetails}
               />

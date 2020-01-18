@@ -122,7 +122,6 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                       postId={postId}
                       payment={this.props.payment}
                       newsroom={this.props.newsroom}
-                      fireTrackingEvent={this.fireTrackingEvent}
                       closeStoryBoost={this.closeStoryBoost}
                       handlePaymentSuccess={async () => {
                         await refetch();
@@ -175,10 +174,6 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
     this.props.history.push({
       pathname: urlBase + "/storyfeed/" + postId + "/newsroom",
     });
-  };
-
-  private fireTrackingEvent = (category: string, event: string, label: string) => {
-    this.context.fireAnalyticsEvent(category, event, label);
   };
 }
 
