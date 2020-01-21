@@ -56,7 +56,7 @@ const BoostFeedPage = React.lazy(async () => import(/* webpackChunkName: "boost-
 const BoostSuccessPage = React.lazy(async () =>
   import(/* webpackChunkName: "boost-success-page" */ "./Boosts/BoostSuccess"),
 );
-const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeed"));
+const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeedPage"));
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import(/* webpackChunkName: "manage-newsroom-channel" */ "./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
 );
@@ -158,6 +158,11 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.SUBMIT_CHALLENGE} component={AsyncComponent(SubmitChallengePage)} />
           <Route path={routes.SUBMIT_APPEAL_CHALLENGE} component={AsyncComponent(SubmitAppealChallengePage)} />
           <Route path={routes.REQUEST_APPEAL} component={AsyncComponent(RequestAppealPage)} />
+          <Route path={routes.LISTING_STORY_BOOST_PAYMENT} component={AsyncComponent(Listing, { payment: true })} />
+          <Route
+            path={routes.LISTING_STORY_BOOST_NEWSROOM}
+            component={AsyncComponent(Listing, { newsroomDetails: true })}
+          />
           <Route path={routes.LISTING} component={AsyncComponent(Listing)} />
           <Route path={routes.NEWSROOM_MANAGEMENT_V1} component={AsyncComponent(NewsroomManagementV1)} />
           <Route path={routes.PARAMETERIZER} component={AsyncComponent(Parameterizer)} />

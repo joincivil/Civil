@@ -32,22 +32,27 @@ import { ListingTabContent } from "./styledComponents";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import { connectParameters } from "../utility/HigherOrderComponents";
+import StoryFeed from "../StoryFeed/StoryFeed";
 
 const TABS: TListingTab[] = [
   listingTabs.CHARTER,
   listingTabs.DISCUSSIONS,
   listingTabs.HISTORY,
-  listingTabs.BOOSTS,
+  listingTabs.STORYFEED,
   listingTabs.OWNER,
 ];
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
+  listingId: string;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
   charterRevisions?: Map<number, StorageHeader>;
   match?: any;
+  location: any;
   history: any;
+  payment?: boolean;
+  newsroomDetails?: boolean;
 }
 
 export interface ListingReduxProps {
@@ -119,6 +124,8 @@ class ListingPageComponent extends React.Component<
     const { listing, newsroom, listingPhaseState, charterRevisionId, charterRevisions } = this.props;
     const listingExistsAsNewsroom = listing && newsroom;
 
+    console.log("payment?: ", this.props.payment);
+
     if (!listingExistsAsNewsroom) {
       return <>{this.renderLoadingOrListingNotFound()}</>;
     }
@@ -188,9 +195,17 @@ class ListingPageComponent extends React.Component<
                 </ListingTabContent>
               </Tab>
 
-              <Tab title="Project Boosts">
+              <Tab title="Storyfeed">
                 <ListingTabContent>
-                  <ListingBoosts listingAddress={this.props.listingAddress} newsroom={this.props.newsroom} />
+                  <StoryFeed
+                    match={this.props.match}
+                    payment={this.props.payment}
+                    newsroom={this.props.newsroomDetails}
+                    onCloseStoryBoost={this.closeStoryBoost}
+                    onOpenStoryDetails={this.openStoryDetails}
+                    onOpenPayments={this.openPayments}
+                    onOpenNewsroomDetails={this.openStoryNewsroomDetails}
+                  />
                 </ListingTabContent>
               </Tab>
 
@@ -220,6 +235,38 @@ class ListingPageComponent extends React.Component<
 
   private showCharterTab = (): void => {
     this.onTabChange(0);
+  };
+
+  private closeStoryBoost = () => {
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed",
+    });
+  };
+
+  private openStoryDetails = (postId: string) => {
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId,
+    });
+  };
+
+  private openPayments = (postId: string) => {
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId + "/payment",
+    });
+  };
+
+  private openStoryNewsroomDetails = (postId: string) => {
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId + "/newsroom",
+    });
   };
 }
 

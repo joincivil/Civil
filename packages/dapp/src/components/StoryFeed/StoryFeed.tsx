@@ -10,13 +10,17 @@ import { StoryFeedWrapper, StoryFeedLabel, StoryLoadMoreContainer } from "./Stor
 import { STORY_FEED_QUERY } from "./queries";
 import { BoostCard, BoostNewsroomData } from "@joincivil/sdk";
 
-export interface StoryFeedPageProps {
+export interface StoryFeedProps {
   match: any;
   payment?: boolean;
   newsroom?: boolean;
+  onCloseStoryBoost(): void;
+  onOpenStoryDetails(postId: string): void;
+  onOpenPayments(postId: string): void;
+  onOpenNewsroomDetails(postId: string): void;
 }
 
-class StoryFeedPage extends React.Component<StoryFeedPageProps> {
+class StoryFeedPage extends React.Component<StoryFeedProps> {
   public static contextType = CivilContext;
   public static context: ICivilContext;
 
@@ -25,156 +29,114 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
 
     return (
       <>
-        <Helmet title="Civil Story Boosts - The Civil Registry" />
-        <StoryFeedMarquee />
-        <StoryFeedWrapper>
-          <StoryFeedLabel>Recent Stories</StoryFeedLabel>
-          <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: "vw_post_fair_with_interleaved_boosts_2" } }}>
-            {({ loading, error, data, refetch, fetchMore }) => {
-              if (loading) {
-                return <LoadingMessage>Loading Stories</LoadingMessage>;
-              } else if (error || !data || !data.postsStoryfeed) {
-                console.error("error loading Story Feed data. error:", error, "data:", data);
-                return "Error loading stories.";
-              } else if (!data.postsStoryfeed.edges) {
-                return "There are no stories yet.";
+        <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: "vw_post_fair_with_interleaved_boosts_2" } }}>
+          {({ loading, error, data, refetch, fetchMore }) => {
+            if (loading) {
+              return <LoadingMessage>Loading Stories</LoadingMessage>;
+            } else if (error || !data || !data.postsStoryfeed) {
+              console.error("error loading Story Feed data. error:", error, "data:", data);
+              return "Error loading stories.";
+            } else if (!data.postsStoryfeed.edges) {
+              return "There are no stories yet.";
+            }
+
+            const { postsStoryfeed } = data;
+            const storyfeed = postsStoryfeed.edges.map((edge: any, i: number) => {
+              const postData = edge.post;
+              if (
+                postData.postType === "externallink" &&
+                postData.openGraphData &&
+                postData.openGraphData.title &&
+                postData.openGraphData.url
+              ) {
+                return (
+                  <StoryFeedItem
+                    key={i}
+                    postId={postData.id}
+                    activeChallenge={false}
+                    newsroom={postData.channel.newsroom}
+                    openGraphData={postData.openGraphData}
+                    displayedContributors={postData.groupedSanitizedPayments}
+                    totalContributors={postData.groupedSanitizedPayments ? postData.groupedSanitizedPayments.length : 0}
+                    openStoryNewsroomDetails={this.props.onOpenNewsroomDetails}
+                    openStoryDetails={this.props.onOpenStoryDetails}
+                    openPayments={this.props.onOpenPayments}
+                  />
+                );
+              } else if (postData.postType === "boost") {
+                const newsroomData = postData.channel.listing as BoostNewsroomData;
+                return (
+                  <BoostCard
+                    boostData={postData}
+                    newsroomData={newsroomData}
+                    boostOwner={false}
+                    open={false}
+                    boostId={postData.id}
+                    handlePayments={() => null}
+                    paymentSuccess={false}
+                  />
+                );
               }
+              console.error("found post that can't be displayed. postID: ", postData.id);
+              return null;
+            });
 
-              const { postsStoryfeed } = data;
-              const storyfeed = postsStoryfeed.edges.map((edge: any, i: number) => {
-                const postData = edge.post;
-                if (
-                  postData.postType === "externallink" &&
-                  postData.openGraphData &&
-                  postData.openGraphData.title &&
-                  postData.openGraphData.url
-                ) {
-                  return (
-                    <StoryFeedItem
-                      key={i}
-                      postId={postData.id}
-                      activeChallenge={false}
-                      newsroom={postData.channel.newsroom}
-                      openGraphData={postData.openGraphData}
-                      displayedContributors={postData.groupedSanitizedPayments}
-                      totalContributors={
-                        postData.groupedSanitizedPayments ? postData.groupedSanitizedPayments.length : 0
+            return (
+              <>
+                {storyfeed}
+                {postsStoryfeed.pageInfo.hasNextPage && (
+                  <StoryLoadMoreContainer>
+                    <Button
+                      size={buttonSizes.SMALL}
+                      onClick={() =>
+                        fetchMore({
+                          query: STORY_FEED_QUERY,
+                          variables: {
+                            cursor: postsStoryfeed.pageInfo.endCursor,
+                          },
+                          updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
+                            const newEdges = fetchMoreResult.postsStoryfeed.edges;
+                            const pageInfo = fetchMoreResult.postsStoryfeed.pageInfo;
+
+                            return newEdges.length
+                              ? {
+                                  postsStoryfeed: {
+                                    edges: [...previousResult.postsStoryfeed.edges, ...newEdges],
+                                    pageInfo,
+                                    __typename: previousResult.postsStoryfeed.__typename,
+                                  },
+                                }
+                              : previousResult;
+                          },
+                        })
                       }
-                      openStoryNewsroomDetails={this.openStoryNewsroomDetails}
-                      openStoryDetails={this.openStoryDetails}
-                      openPayments={this.openPayments}
-                    />
-                  );
-                } else if (postData.postType === "boost") {
-                  const newsroomData = postData.channel.listing as BoostNewsroomData;
-                  return (
-                    <BoostCard
-                      boostData={postData}
-                      newsroomData={newsroomData}
-                      boostOwner={false}
-                      open={false}
-                      boostId={postData.id}
-                      handlePayments={() => null}
-                      paymentSuccess={false}
-                    />
-                  );
-                }
-                console.error("found post that can't be displayed. postID: ", postData.id);
-                return null;
-              });
-
-              return (
-                <>
-                  {storyfeed}
-                  {postsStoryfeed.pageInfo.hasNextPage && (
-                    <StoryLoadMoreContainer>
-                      <Button
-                        size={buttonSizes.SMALL}
-                        onClick={() =>
-                          fetchMore({
-                            query: STORY_FEED_QUERY,
-                            variables: {
-                              cursor: postsStoryfeed.pageInfo.endCursor,
-                            },
-                            updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
-                              const newEdges = fetchMoreResult.postsStoryfeed.edges;
-                              const pageInfo = fetchMoreResult.postsStoryfeed.pageInfo;
-
-                              return newEdges.length
-                                ? {
-                                    postsStoryfeed: {
-                                      edges: [...previousResult.postsStoryfeed.edges, ...newEdges],
-                                      pageInfo,
-                                      __typename: previousResult.postsStoryfeed.__typename,
-                                    },
-                                  }
-                                : previousResult;
-                            },
-                          })
-                        }
-                      >
-                        Load More
-                      </Button>
-                    </StoryLoadMoreContainer>
-                  )}
-                  {postId && (
-                    <StoryBoost
-                      postId={postId}
-                      payment={this.props.payment}
-                      newsroom={this.props.newsroom}
-                      closeStoryBoost={this.closeStoryBoost}
-                      handlePaymentSuccess={async () => {
-                        await refetch();
-                        this.closeStoryBoost();
-                      }}
-                      openStoryDetails={() => this.openStoryDetails(postId)}
-                      openPayments={() => this.openPayments(postId)}
-                      openStoryNewsroomDetails={() => this.openStoryNewsroomDetails(postId)}
-                    />
-                  )}
-                </>
-              );
-            }}
-          </Query>
-        </StoryFeedWrapper>
+                    >
+                      Load More
+                    </Button>
+                  </StoryLoadMoreContainer>
+                )}
+                {postId && (
+                  <StoryBoost
+                    postId={postId}
+                    payment={this.props.payment}
+                    newsroom={this.props.newsroom}
+                    closeStoryBoost={this.props.onCloseStoryBoost}
+                    handlePaymentSuccess={async () => {
+                      await refetch();
+                      this.props.onCloseStoryBoost();
+                    }}
+                    openStoryDetails={() => this.props.onOpenStoryDetails(postId)}
+                    openPayments={() => this.props.onOpenPayments(postId)}
+                    openStoryNewsroomDetails={() => this.props.onOpenNewsroomDetails(postId)}
+                  />
+                )}
+              </>
+            );
+          }}
+        </Query>
       </>
     );
   }
-
-  private closeStoryBoost = () => {
-    let urlBase = this.props.location.pathname;
-    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
-    this.props.history.push({
-      pathname: urlBase + "/storyfeed",
-    });
-  };
-
-  private openStoryDetails = (postId: string) => {
-    this.context.fireAnalyticsEvent("story boost", "story details clicked", postId);
-    let urlBase = this.props.location.pathname;
-    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
-    this.props.history.push({
-      pathname: urlBase + "/storyfeed/" + postId,
-    });
-  };
-
-  private openPayments = (postId: string) => {
-    this.context.fireAnalyticsEvent("story boost", "boost button clicked", postId);
-    let urlBase = this.props.location.pathname;
-    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
-    this.props.history.push({
-      pathname: urlBase + "/storyfeed/" + postId + "/payment",
-    });
-  };
-
-  private openStoryNewsroomDetails = (postId: string) => {
-    this.context.fireAnalyticsEvent("story boost", "newsroom details clicked", postId);
-    let urlBase = this.props.location.pathname;
-    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
-    this.props.history.push({
-      pathname: urlBase + "/storyfeed/" + postId + "/newsroom",
-    });
-  };
 }
 
-export default StoryFeedPage;
+export default StoryFeed;

@@ -22,6 +22,8 @@ export interface ListingPageProps {
   match: any;
   listingAddress: string;
   history: any;
+  payment?: boolean;
+  newsroomDetails?: boolean;
 }
 
 export interface PreListingReduxProps {
@@ -31,6 +33,7 @@ export interface PreListingReduxProps {
 
 class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
+    console.log("ListingPage payment?: ", this.props.payment);
     const listingID = this.props.listingAddress;
     let addr;
     let handle;
@@ -66,6 +69,8 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
                 newsroom={newsroom}
                 listing={listing}
                 charterRevisions={charterRevisions}
+                payment={this.props.payment}
+                newsroomDetails={this.props.newsroomDetails}
                 match={this.props.match}
                 history={this.props.history}
               />

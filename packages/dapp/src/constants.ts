@@ -8,7 +8,9 @@ export enum routes {
   REGISTRY_HOME_ROOT = "/registry",
   HOMEPAGE = "/",
   CONTRACT_ADDRESSES = "/contract-addresses",
-  LISTING = "/listing/:listingAddress/:activeTab?",
+  LISTING = "/listing/:listingAddress/:activeTab?/:postId?",
+  LISTING_STORY_BOOST_PAYMENT = "/listing/:listingAddress/:activeTab?/:postId/payment",
+  LISTING_STORY_BOOST_NEWSROOM = "/listing/:listingAddress/:activeTab?/:postId/newsroom",
   SUBMIT_CHALLENGE = "/listing/:listingAddress/submit-challenge",
   SUBMIT_APPEAL_CHALLENGE = "/listing/:listingAddress/submit-appeal-challenge",
   REQUEST_APPEAL = "/listing/:listingAddress/request-appeal",
@@ -106,6 +108,7 @@ export enum listingTabs {
   DISCUSSIONS = "discussions",
   HISTORY = "history",
   BOOSTS = "boosts",
+  STORYFEED = "storyfeed",
   OWNER = "owner-actions",
 }
 
