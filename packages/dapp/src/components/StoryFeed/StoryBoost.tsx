@@ -21,6 +21,7 @@ export interface StoryBoostProps {
   postId: string;
   payment?: boolean;
   newsroom?: boolean;
+  isListingPageFeed?: boolean;
   openStoryNewsroomDetails(): void;
   openStoryDetails(): void;
   openPayments(): void;
@@ -70,14 +71,17 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 }
                 handlePayments={props.openPayments}
                 handleOpenNewsroom={props.openStoryNewsroomDetails}
+                isListingPageFeed={props.isListingPageFeed}
               />
             </StoryModal>
-            <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
-              <StoryNewsroomDetails
-                activeChallenge={false}
-                newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
-              />
-            </StoryModal>
+            {!props.isListingPageFeed && (
+              <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
+                <StoryNewsroomDetails
+                  activeChallenge={false}
+                  newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
+                />
+              </StoryModal>
+            )}
             <ThemeProvider theme={theme}>
               <PaymentsModal open={isPaymentsModalOpen} handleClose={props.closeStoryBoost}>
                 <Payments

@@ -12,6 +12,7 @@ export interface StoryFeedItemProps {
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
   totalContributors: number;
+  isListingPageFeed?: boolean;
   openStoryNewsroomDetails(postId: string): void;
   openStoryDetails(postId: string): void;
   openPayments(postId: string): void;
@@ -33,11 +34,13 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
     return (
       <>
         <StoryFeedItemWrap>
-          <StoryNewsroomStatus
-            newsroomName={this.props.newsroom.name}
-            activeChallenge={this.props.activeChallenge}
-            handleOpenNewsroom={() => this.props.openStoryNewsroomDetails(this.props.postId)}
-          />
+          {!this.props.isListingPageFeed &&
+            <StoryNewsroomStatus
+              newsroomName={this.props.newsroom.name}
+              activeChallenge={this.props.activeChallenge}
+              handleOpenNewsroom={() => this.props.openStoryNewsroomDetails(this.props.postId)}
+            />
+          }
           <Story
             openGraphData={this.props.openGraphData}
             handleOpenStory={() => this.props.openStoryDetails(this.props.postId)}

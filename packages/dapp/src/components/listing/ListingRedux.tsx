@@ -205,6 +205,7 @@ class ListingPageComponent extends React.Component<
                     onOpenStoryDetails={this.openStoryDetails}
                     onOpenPayments={this.openPayments}
                     onOpenNewsroomDetails={this.openStoryNewsroomDetails}
+                    isListingPageFeed={true}
                   />
                 </ListingTabContent>
               </Tab>

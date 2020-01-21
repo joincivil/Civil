@@ -14,6 +14,7 @@ export interface StoryFeedProps {
   match: any;
   payment?: boolean;
   newsroom?: boolean;
+  isListingPageFeed?: boolean;
   onCloseStoryBoost(): void;
   onOpenStoryDetails(postId: string): void;
   onOpenPayments(postId: string): void;
@@ -61,6 +62,7 @@ class StoryFeedPage extends React.Component<StoryFeedProps> {
                     openStoryNewsroomDetails={this.props.onOpenNewsroomDetails}
                     openStoryDetails={this.props.onOpenStoryDetails}
                     openPayments={this.props.onOpenPayments}
+                    isListingPageFeed={this.props.isListingPageFeed}
                   />
                 );
               } else if (postData.postType === "boost") {
@@ -128,6 +130,7 @@ class StoryFeedPage extends React.Component<StoryFeedProps> {
                     openStoryDetails={() => this.props.onOpenStoryDetails(postId)}
                     openPayments={() => this.props.onOpenPayments(postId)}
                     openStoryNewsroomDetails={() => this.props.onOpenNewsroomDetails(postId)}
+                    isListingPageFeed={this.props.isListingPageFeed}
                   />
                 )}
               </>
