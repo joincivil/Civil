@@ -56,6 +56,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
           <>
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>
               <StoryDetails
+                postId={props.postId}
                 activeChallenge={false}
                 createdAt={storyBoostData.createdAt}
                 newsroomName={storyBoostData.channel.newsroom.name}

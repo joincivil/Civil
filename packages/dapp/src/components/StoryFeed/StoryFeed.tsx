@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Query } from "react-apollo";
 import { Helmet } from "react-helmet";
-import { LoadingMessage } from "@joincivil/components";
+import { LoadingMessage, CivilContext, ICivilContext } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
 import { StoryFeedMarquee } from "./StoryFeedMarquee";
 import { StoryFeedItem } from "./StoryFeedItem";
@@ -17,6 +17,9 @@ export interface StoryFeedPageProps {
 }
 
 class StoryFeedPage extends React.Component<StoryFeedPageProps> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   public render(): JSX.Element {
     const postId = this.props.match.params.postId;
 
@@ -89,6 +92,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
                         size={buttonSizes.SMALL}
                         onClick={() =>
                           fetchMore({
+                            query: STORY_FEED_QUERY,
                             variables: {
                               cursor: postsStoryfeed.pageInfo.endCursor,
                             },
@@ -146,6 +150,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -154,6 +159,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openPayments = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "boost button clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -162,6 +168,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryNewsroomDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "newsroom details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
