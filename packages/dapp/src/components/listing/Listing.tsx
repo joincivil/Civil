@@ -33,7 +33,6 @@ export interface PreListingReduxProps {
 
 class ListingPageComponent extends React.Component<ListingPageProps> {
   public render(): JSX.Element {
-    console.log("ListingPage payment?: ", this.props.payment);
     const listingID = this.props.listingAddress;
     let addr;
     let handle;
@@ -68,6 +67,7 @@ class ListingPageComponent extends React.Component<ListingPageProps> {
                 listingId={listingID}
                 newsroom={newsroom}
                 listing={listing}
+                channelID={data.tcrListing.channel.id}
                 charterRevisions={charterRevisions}
                 payment={this.props.payment}
                 newsroomDetails={this.props.newsroomDetails}

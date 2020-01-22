@@ -12,6 +12,8 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
@@ -52,6 +54,7 @@ export interface ListingPageComponentProps {
   history: any;
   payment?: boolean;
   newsroomDetails?: boolean;
+  channelID?: string;
 }
 
 export interface ListingReduxProps {
@@ -78,6 +81,8 @@ class ListingPageComponent extends React.Component<
   ListingPageComponentState
 > {
   public static contextType = CivilHelperContext;
+  public static civilContextType = CivilContext;
+  public static civilContext: ICivilContext;
   public context: CivilHelper;
 
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
@@ -120,16 +125,12 @@ class ListingPageComponent extends React.Component<
       activeTabIndex = 1;
     }
 
-    console.log("Set Active Tab Index: ", activeTabIndex);
-
     this.setState({ activeTabIndex });
   }
 
   public render(): JSX.Element {
     const { listing, newsroom, listingPhaseState, charterRevisionId, charterRevisions } = this.props;
     const listingExistsAsNewsroom = listing && newsroom;
-
-    console.log("payment?: ", this.props.payment);
 
     if (!listingExistsAsNewsroom) {
       return <>{this.renderLoadingOrListingNotFound()}</>;
@@ -168,13 +169,14 @@ class ListingPageComponent extends React.Component<
               <Tab title="Storyfeed">
                 <ListingTabContent>
                   <StoryFeed
+                    queryFilterAlg="vw_post_fair_with_interleaved_boosts_2"
+                    queryFilterChannelID={this.props.channelID}
                     match={this.props.match}
                     payment={this.props.payment}
                     newsroom={this.props.newsroomDetails}
                     onCloseStoryBoost={this.closeStoryBoost}
                     onOpenStoryDetails={this.openStoryDetails}
                     onOpenPayments={this.openPayments}
-                    onOpenNewsroomDetails={this.openStoryNewsroomDetails}
                     isListingPageFeed={true}
                   />
                 </ListingTabContent>
@@ -251,6 +253,7 @@ class ListingPageComponent extends React.Component<
   };
 
   private openStoryDetails = (postId: string) => {
+    this.civilContext.fireAnalyticsEvent("listing story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -259,18 +262,11 @@ class ListingPageComponent extends React.Component<
   };
 
   private openPayments = (postId: string) => {
+    this.civilContext.fireAnalyticsEvent("listing story boost", "boost button clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
       pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId + "/payment",
-    });
-  };
-
-  private openStoryNewsroomDetails = (postId: string) => {
-    let urlBase = this.props.location.pathname;
-    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
-    this.props.history.push({
-      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId + "/newsroom",
     });
   };
 }

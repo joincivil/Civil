@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { StoryFeedMarquee } from "./StoryFeedMarquee";
 import { StoryFeedWrapper, StoryFeedLabel } from "./StoryFeedStyledComponents";
 import StoryFeed from "./StoryFeed";
+import { CivilContext, ICivilContext } from "@joincivil/components";
 
 export interface StoryFeedPageProps {
   match: any;
@@ -13,6 +14,8 @@ export interface StoryFeedPageProps {
 }
 
 class StoryFeedPage extends React.Component<StoryFeedPageProps> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
   public render(): JSX.Element {
     return (
       <>
@@ -44,6 +47,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -52,6 +56,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openPayments = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "boost button clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -60,6 +65,7 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
   };
 
   private openStoryNewsroomDetails = (postId: string) => {
+    this.context.fireAnalyticsEvent("story boost", "newsroom details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
