@@ -120,7 +120,7 @@ class ListingPageComponent extends React.Component<
       activeTabIndex = 1;
     }
 
-    console.log("Set Active Tab Index: ", activeTabIndex)
+    console.log("Set Active Tab Index: ", activeTabIndex);
 
     this.setState({ activeTabIndex });
   }

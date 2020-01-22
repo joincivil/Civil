@@ -73,13 +73,13 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           <ShareButton onClick={() => setShareModalOpen(true)} textBottom={true}></ShareButton>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
-          {!props.isListingPageFeed &&
+          {!props.isListingPageFeed && (
             <StoryNewsroomStatus
               newsroomName={props.newsroomName}
               activeChallenge={props.activeChallenge}
               handleOpenNewsroom={props.handleOpenNewsroom}
             />
-          }
+          )}
           {openGraphData.article && openGraphData.article.published_time && (
             <TimeStamp>
               <TimeStampDot>&#183;</TimeStampDot> {getTimeSince(openGraphData.article.published_time)}

@@ -34,13 +34,13 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
     return (
       <>
         <StoryFeedItemWrap>
-          {!this.props.isListingPageFeed &&
+          {!this.props.isListingPageFeed && (
             <StoryNewsroomStatus
               newsroomName={this.props.newsroom.name}
               activeChallenge={this.props.activeChallenge}
               handleOpenNewsroom={() => this.props.openStoryNewsroomDetails(this.props.postId)}
             />
-          }
+          )}
           <Story
             openGraphData={this.props.openGraphData}
             handleOpenStory={() => this.props.openStoryDetails(this.props.postId)}

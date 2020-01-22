@@ -30,7 +30,10 @@ class StoryFeed extends React.Component<StoryFeedProps> {
 
     return (
       <>
-        <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: this.props.queryFilterAlg, channelID: this.props.queryFilterChannelID } }}>
+        <Query
+          query={STORY_FEED_QUERY}
+          variables={{ filter: { alg: this.props.queryFilterAlg, channelID: this.props.queryFilterChannelID } }}
+        >
           {({ loading, error, data, refetch, fetchMore }) => {
             if (loading) {
               return <LoadingMessage>Loading Stories</LoadingMessage>;
@@ -135,10 +138,10 @@ class StoryFeed extends React.Component<StoryFeedProps> {
                     payment={this.props.payment}
                     newsroom={this.props.newsroom}
                     closeStoryBoost={() => {
-                      if(this.props.onCloseStoryBoost) {
-                        this.props.onCloseStoryBoost()
-                      }}
-                    }
+                      if (this.props.onCloseStoryBoost) {
+                        this.props.onCloseStoryBoost();
+                      }
+                    }}
                     handlePaymentSuccess={async () => {
                       await refetch();
                       if (this.props.onCloseStoryBoost) {

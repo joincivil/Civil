@@ -52,11 +52,15 @@ const DashboardPage = React.lazy(async () =>
   import(/* webpackChunkName: "dashboard-page" */ "./Dashboard/DashboardPage"),
 );
 const BoostPage = React.lazy(async () => import(/* webpackChunkName: "boost-page" */ "./Boosts/Boost"));
-const BoostFeedPage = React.lazy(async () => import(/* webpackChunkName: "boost-feed-page" */ "./Boosts/BoostFeedPage"));
+const BoostFeedPage = React.lazy(async () =>
+  import(/* webpackChunkName: "boost-feed-page" */ "./Boosts/BoostFeedPage"),
+);
 const BoostSuccessPage = React.lazy(async () =>
   import(/* webpackChunkName: "boost-success-page" */ "./Boosts/BoostSuccess"),
 );
-const StoryFeedPage = React.lazy(async () => import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeedPage"));
+const StoryFeedPage = React.lazy(async () =>
+  import(/* webpackChunkName: "storyfeed-page" */ "./StoryFeed/StoryFeedPage"),
+);
 const ManageNewsroomChannelPage = React.lazy(async () =>
   import(/* webpackChunkName: "manage-newsroom-channel" */ "./Dashboard/ManageNewsroom/ManageNewsroomChannelPage"),
 );
