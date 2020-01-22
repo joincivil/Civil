@@ -68,6 +68,7 @@ export const LISTING_FRAGMENT = gql`
     }
     channel {
       handle
+      id
     }
     unstakedDeposit
     appExpiry

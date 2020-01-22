@@ -2,6 +2,8 @@ import * as React from "react";
 import { Query } from "react-apollo";
 import styled from "styled-components";
 import {
+  CivilContext,
+  ICivilContext,
   LoadingMessage,
   ErrorNotFound,
   Contributors,
@@ -95,6 +97,9 @@ export interface StoryBoostState {
 }
 
 export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState> {
+  public static contextType = CivilContext;
+  public static context: ICivilContext;
+
   public constructor(props: any) {
     super(props);
     this.state = {
@@ -143,8 +148,10 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 )}
               </StoryBoostContent>
               <StoryBoostFooter>
-                <SupportText onClick={this.handleStartPayment}>Support this newsroom</SupportText>
-                <StyledPaymentButton onClick={this.handleStartPayment} />
+                <SupportText onClick={() => this.handleStartPayment("Support this newsroom")}>
+                  Support this newsroom
+                </SupportText>
+                <StyledPaymentButton onClick={() => this.handleStartPayment("Boost")} />
               </StoryBoostFooter>
               <PaymentsModal open={this.state.paymentsOpen}>
                 <Payments
@@ -163,7 +170,12 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
     );
   }
 
-  private handleStartPayment = () => {
+  private handleStartPayment = (trackingLabel: string) => {
+    this.context.fireAnalyticsEvent(
+      "embedded story boost",
+      "boost payment clicked: " + trackingLabel,
+      this.props.boostId,
+    );
     this.setState({ paymentsOpen: true });
   };
   private handleClose = () => {

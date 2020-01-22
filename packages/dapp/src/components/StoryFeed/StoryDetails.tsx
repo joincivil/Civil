@@ -1,5 +1,7 @@
 import * as React from "react";
 import {
+  CivilContext,
+  ICivilContext,
   Contributors,
   ContributorCount,
   ContributorData,
@@ -27,6 +29,7 @@ import {
 } from "./StoryFeedStyledComponents";
 
 export interface StoryDetailsProps {
+  postId: string;
   activeChallenge: boolean;
   createdAt: string;
   newsroomName: string;
@@ -36,11 +39,13 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  isListingPageFeed?: boolean;
   handlePayments(): void;
   handleOpenNewsroom(): void;
 }
 
 export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props => {
+  const context = React.useContext<ICivilContext>(CivilContext);
   const [shareModalOpen, setShareModalOpen] = React.useState(false);
   const { openGraphData } = props;
 
@@ -53,7 +58,13 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       </StoryDetailsFullBleedHeader>
       <StoryDetailsContent>
         <StoryDetailsFlex>
-          <StoryLink href={openGraphData.url} target="_blank">
+          <StoryLink
+            onClick={() =>
+              context.fireAnalyticsEvent("story boost", "story details: story title clicked", props.postId)
+            }
+            href={openGraphData.url}
+            target="_blank"
+          >
             <StoryTitle>
               {openGraphData.title}
               <OpenInNewIcon />
@@ -62,11 +73,13 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           <ShareButton onClick={() => setShareModalOpen(true)} textBottom={true}></ShareButton>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
-          <StoryNewsroomStatus
-            newsroomName={props.newsroomName}
-            activeChallenge={props.activeChallenge}
-            handleOpenNewsroom={props.handleOpenNewsroom}
-          />
+          {!props.isListingPageFeed && (
+            <StoryNewsroomStatus
+              newsroomName={props.newsroomName}
+              activeChallenge={props.activeChallenge}
+              handleOpenNewsroom={props.handleOpenNewsroom}
+            />
+          )}
           {openGraphData.article && openGraphData.article.published_time && (
             <TimeStamp>
               <TimeStampDot>&#183;</TimeStampDot> {getTimeSince(openGraphData.article.published_time)}
@@ -90,7 +103,11 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <StoryDetailsFooter>
         <StoryDetailsFooterFlex>
           <PaymentButton onClick={props.handlePayments} border={true} />
-          <BlueLinkBtn href={openGraphData.url} target="_blank">
+          <BlueLinkBtn
+            onClick={() => context.fireAnalyticsEvent("story boost", "story details: read more clicked", props.postId)}
+            href={openGraphData.url}
+            target="_blank"
+          >
             <OpenInNewIcon color={colors.basic.WHITE} size={20} />
             Read More
           </BlueLinkBtn>

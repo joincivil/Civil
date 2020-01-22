@@ -12,6 +12,8 @@ import {
   StyledContentRow,
   StyledLeftContentWell,
   StyledRightContentWell,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { urlConstants as links } from "@joincivil/utils";
 
@@ -23,7 +25,6 @@ import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
-import ListingBoosts from "./ListingBoosts";
 import ListingHeader from "./ListingHeader";
 import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
@@ -32,22 +33,28 @@ import { ListingTabContent } from "./styledComponents";
 import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import { connectParameters } from "../utility/HigherOrderComponents";
+import StoryFeed from "../StoryFeed/StoryFeed";
 
 const TABS: TListingTab[] = [
+  listingTabs.STORYFEED,
   listingTabs.CHARTER,
   listingTabs.DISCUSSIONS,
   listingTabs.HISTORY,
-  listingTabs.BOOSTS,
   listingTabs.OWNER,
 ];
 
 export interface ListingPageComponentProps {
   listingAddress: EthAddress;
+  listingId: string;
   newsroom?: NewsroomWrapper;
   listing?: ListingWrapper;
   charterRevisions?: Map<number, StorageHeader>;
   match?: any;
+  location: any;
   history: any;
+  payment?: boolean;
+  newsroomDetails?: boolean;
+  channelID?: string;
 }
 
 export interface ListingReduxProps {
@@ -74,6 +81,8 @@ class ListingPageComponent extends React.Component<
   ListingPageComponentState
 > {
   public static contextType = CivilHelperContext;
+  public static civilContextType = CivilContext;
+  public static civilContext: ICivilContext;
   public context: CivilHelper;
 
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
@@ -108,7 +117,11 @@ class ListingPageComponent extends React.Component<
 
     if (activeTab) {
       activeTabIndex = TABS.indexOf(activeTab) || 0;
+    } else if (listing && listing.data.isWhitelisted) {
+      activeTabIndex = 0;
     } else if (listing && listing.data.challenge) {
+      activeTabIndex = 2;
+    } else {
       activeTabIndex = 1;
     }
 
@@ -153,6 +166,21 @@ class ListingPageComponent extends React.Component<
 
           <StyledLeftContentWell>
             <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTabIndex} onActiveTabChange={this.onTabChange}>
+              <Tab title="Storyfeed">
+                <ListingTabContent>
+                  <StoryFeed
+                    queryFilterAlg="vw_post_fair_with_interleaved_boosts_2"
+                    queryFilterChannelID={this.props.channelID}
+                    match={this.props.match}
+                    payment={this.props.payment}
+                    newsroom={this.props.newsroomDetails}
+                    onCloseStoryBoost={this.closeStoryBoost}
+                    onOpenStoryDetails={this.openStoryDetails}
+                    onOpenPayments={this.openPayments}
+                    isListingPageFeed={true}
+                  />
+                </ListingTabContent>
+              </Tab>
               <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
@@ -188,12 +216,6 @@ class ListingPageComponent extends React.Component<
                 </ListingTabContent>
               </Tab>
 
-              <Tab title="Project Boosts">
-                <ListingTabContent>
-                  <ListingBoosts listingAddress={this.props.listingAddress} newsroom={this.props.newsroom} />
-                </ListingTabContent>
-              </Tab>
-
               {(this.props.isUserNewsroomOwner && this.props.listing && (
                 <Tab title="Owner Actions">
                   <ListingTabContent>
@@ -220,6 +242,32 @@ class ListingPageComponent extends React.Component<
 
   private showCharterTab = (): void => {
     this.onTabChange(0);
+  };
+
+  private closeStoryBoost = () => {
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed",
+    });
+  };
+
+  private openStoryDetails = (postId: string) => {
+    this.civilContext.fireAnalyticsEvent("listing story boost", "story details clicked", postId);
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId,
+    });
+  };
+
+  private openPayments = (postId: string) => {
+    this.civilContext.fireAnalyticsEvent("listing story boost", "boost button clicked", postId);
+    let urlBase = this.props.location.pathname;
+    urlBase = urlBase.substring(0, urlBase.indexOf("/"));
+    this.props.history.push({
+      pathname: urlBase + "/listing/" + this.props.listingId + "/storyfeed/" + postId + "/payment",
+    });
   };
 }
 
