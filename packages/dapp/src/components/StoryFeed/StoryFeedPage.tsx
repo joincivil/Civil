@@ -21,13 +21,15 @@ class StoryFeedPage extends React.Component<StoryFeedPageProps> {
         <StoryFeedWrapper>
           <StoryFeedLabel>Recent Stories</StoryFeedLabel>
           <StoryFeed
+            queryFilterAlg="vw_post_fair_with_interleaved_boosts_2"
             match={this.props.match}
             payment={this.props.payment}
             newsroom={this.props.newsroom}
             onCloseStoryBoost={this.closeStoryBoost}
             onOpenStoryDetails={this.openStoryDetails}
             onOpenPayments={this.openPayments}
-            onOpenNewsroomDetails={this.openStoryNewsroomDetails}/>
+            onOpenNewsroomDetails={this.openStoryNewsroomDetails}
+          />
         </StoryFeedWrapper>
       </>
     );

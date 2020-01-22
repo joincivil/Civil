@@ -23,7 +23,6 @@ import EmailSignup from "./EmailSignup";
 import ListingOwnerActions from "./ListingOwnerActions";
 import ListingDiscourse from "./ListingDiscourse";
 import ListingHistory from "./ListingHistory";
-import ListingBoosts from "./ListingBoosts";
 import ListingHeader from "./ListingHeader";
 import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
@@ -35,10 +34,10 @@ import { connectParameters } from "../utility/HigherOrderComponents";
 import StoryFeed from "../StoryFeed/StoryFeed";
 
 const TABS: TListingTab[] = [
+  listingTabs.STORYFEED,
   listingTabs.CHARTER,
   listingTabs.DISCUSSIONS,
   listingTabs.HISTORY,
-  listingTabs.STORYFEED,
   listingTabs.OWNER,
 ];
 
@@ -113,9 +112,15 @@ class ListingPageComponent extends React.Component<
 
     if (activeTab) {
       activeTabIndex = TABS.indexOf(activeTab) || 0;
+    } else if (listing && listing.data.isWhitelisted) {
+      activeTabIndex = 0;
     } else if (listing && listing.data.challenge) {
+      activeTabIndex = 2;
+    } else {
       activeTabIndex = 1;
     }
+
+    console.log("Set Active Tab Index: ", activeTabIndex)
 
     this.setState({ activeTabIndex });
   }
@@ -160,6 +165,20 @@ class ListingPageComponent extends React.Component<
 
           <StyledLeftContentWell>
             <Tabs TabComponent={StyledTab} activeIndex={this.state.activeTabIndex} onActiveTabChange={this.onTabChange}>
+              <Tab title="Storyfeed">
+                <ListingTabContent>
+                  <StoryFeed
+                    match={this.props.match}
+                    payment={this.props.payment}
+                    newsroom={this.props.newsroomDetails}
+                    onCloseStoryBoost={this.closeStoryBoost}
+                    onOpenStoryDetails={this.openStoryDetails}
+                    onOpenPayments={this.openPayments}
+                    onOpenNewsroomDetails={this.openStoryNewsroomDetails}
+                    isListingPageFeed={true}
+                  />
+                </ListingTabContent>
+              </Tab>
               <Tab title="Charter">
                 <ListingTabContent>
                   <ListingCharter
@@ -192,21 +211,6 @@ class ListingPageComponent extends React.Component<
               <Tab title="History">
                 <ListingTabContent>
                   <ListingHistory listingAddress={this.props.listingAddress} />
-                </ListingTabContent>
-              </Tab>
-
-              <Tab title="Storyfeed">
-                <ListingTabContent>
-                  <StoryFeed
-                    match={this.props.match}
-                    payment={this.props.payment}
-                    newsroom={this.props.newsroomDetails}
-                    onCloseStoryBoost={this.closeStoryBoost}
-                    onOpenStoryDetails={this.openStoryDetails}
-                    onOpenPayments={this.openPayments}
-                    onOpenNewsroomDetails={this.openStoryNewsroomDetails}
-                    isListingPageFeed={true}
-                  />
                 </ListingTabContent>
               </Tab>
 

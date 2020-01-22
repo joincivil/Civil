@@ -9,9 +9,9 @@ import {
 } from "./BoostStyledComponents";
 import { Helmet } from "react-helmet";
 import ScrollToTopOnMount from "../utility/ScrollToTop";
-import { BoostFeed } from "@joincivil/sdk";
 import { FeatureFlag } from "@joincivil/components";
 import { urlConstants } from "@joincivil/utils";
+import StoryFeed from "../StoryFeed/StoryFeed";
 
 class BoostFeedPage extends React.Component {
   public render(): JSX.Element {
@@ -35,7 +35,12 @@ class BoostFeedPage extends React.Component {
             </BoostHeader>
           </BoostHeaderWrapper>
           <BoostWrapper>
-            <BoostFeed />
+            <StoryFeed
+              queryFilterAlg="vw_post_boost_chronological"
+              match={this.props.match}
+              payment={false}
+              newsroom={false}
+            />
           </BoostWrapper>
         </FeatureFlag>
       </>

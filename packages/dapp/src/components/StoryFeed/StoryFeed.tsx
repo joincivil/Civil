@@ -1,27 +1,27 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { Helmet } from "react-helmet";
 import { LoadingMessage, CivilContext, ICivilContext } from "@joincivil/components";
 import { Button, buttonSizes } from "@joincivil/elements";
-import { StoryFeedMarquee } from "./StoryFeedMarquee";
 import { StoryFeedItem } from "./StoryFeedItem";
 import { StoryBoost } from "./StoryBoost";
-import { StoryFeedWrapper, StoryFeedLabel, StoryLoadMoreContainer } from "./StoryFeedStyledComponents";
+import { StoryLoadMoreContainer } from "./StoryFeedStyledComponents";
 import { STORY_FEED_QUERY } from "./queries";
 import { BoostCard, BoostNewsroomData } from "@joincivil/sdk";
 
 export interface StoryFeedProps {
+  queryFilterAlg: string;
+  queryFilterChannelID?: string;
   match: any;
   payment?: boolean;
   newsroom?: boolean;
   isListingPageFeed?: boolean;
-  onCloseStoryBoost(): void;
-  onOpenStoryDetails(postId: string): void;
-  onOpenPayments(postId: string): void;
-  onOpenNewsroomDetails(postId: string): void;
+  onCloseStoryBoost?(): void;
+  onOpenStoryDetails?(postId: string): void;
+  onOpenPayments?(postId: string): void;
+  onOpenNewsroomDetails?(postId: string): void;
 }
 
-class StoryFeedPage extends React.Component<StoryFeedProps> {
+class StoryFeed extends React.Component<StoryFeedProps> {
   public static contextType = CivilContext;
   public static context: ICivilContext;
 
@@ -30,7 +30,7 @@ class StoryFeedPage extends React.Component<StoryFeedProps> {
 
     return (
       <>
-        <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: "vw_post_fair_with_interleaved_boosts_2" } }}>
+        <Query query={STORY_FEED_QUERY} variables={{ filter: { alg: this.props.queryFilterAlg, channelID: this.props.queryFilterChannelID } }}>
           {({ loading, error, data, refetch, fetchMore }) => {
             if (loading) {
               return <LoadingMessage>Loading Stories</LoadingMessage>;
@@ -59,9 +59,21 @@ class StoryFeedPage extends React.Component<StoryFeedProps> {
                     openGraphData={postData.openGraphData}
                     displayedContributors={postData.groupedSanitizedPayments}
                     totalContributors={postData.groupedSanitizedPayments ? postData.groupedSanitizedPayments.length : 0}
-                    openStoryNewsroomDetails={this.props.onOpenNewsroomDetails}
-                    openStoryDetails={this.props.onOpenStoryDetails}
-                    openPayments={this.props.onOpenPayments}
+                    openStoryNewsroomDetails={(id: string) => {
+                      if (this.props.onOpenNewsroomDetails) {
+                        this.props.onOpenNewsroomDetails(id);
+                      }
+                    }}
+                    openStoryDetails={(id: string) => {
+                      if (this.props.onOpenStoryDetails) {
+                        this.props.onOpenStoryDetails(id);
+                      }
+                    }}
+                    openPayments={(id: string) => {
+                      if (this.props.onOpenPayments) {
+                        this.props.onOpenPayments(id);
+                      }
+                    }}
                     isListingPageFeed={this.props.isListingPageFeed}
                   />
                 );
@@ -122,14 +134,32 @@ class StoryFeedPage extends React.Component<StoryFeedProps> {
                     postId={postId}
                     payment={this.props.payment}
                     newsroom={this.props.newsroom}
-                    closeStoryBoost={this.props.onCloseStoryBoost}
+                    closeStoryBoost={() => {
+                      if(this.props.onCloseStoryBoost) {
+                        this.props.onCloseStoryBoost()
+                      }}
+                    }
                     handlePaymentSuccess={async () => {
                       await refetch();
-                      this.props.onCloseStoryBoost();
+                      if (this.props.onCloseStoryBoost) {
+                        this.props.onCloseStoryBoost();
+                      }
                     }}
-                    openStoryDetails={() => this.props.onOpenStoryDetails(postId)}
-                    openPayments={() => this.props.onOpenPayments(postId)}
-                    openStoryNewsroomDetails={() => this.props.onOpenNewsroomDetails(postId)}
+                    openStoryNewsroomDetails={() => {
+                      if (this.props.onOpenNewsroomDetails) {
+                        this.props.onOpenNewsroomDetails(postId);
+                      }
+                    }}
+                    openStoryDetails={() => {
+                      if (this.props.onOpenStoryDetails) {
+                        this.props.onOpenStoryDetails(postId);
+                      }
+                    }}
+                    openPayments={() => {
+                      if (this.props.onOpenPayments) {
+                        this.props.onOpenPayments(postId);
+                      }
+                    }}
                     isListingPageFeed={this.props.isListingPageFeed}
                   />
                 )}
