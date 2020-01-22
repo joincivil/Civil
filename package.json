@@ -10,7 +10,7 @@
     "watch": "lerna run --parallel build:watch",
     "lint": "lerna run lint --parallel",
     "build:core": "lerna run --scope @joincivil/core build",
-    "copy:boost-loader": "mkdir -p packages/dapp/build/loader/ && cp packages/sdk/build/static/js/boost.js packages/dapp/build/loader/",
+    "copy:boost-loader": "mkdir -p packages/dapp/build/loader/ && cp packages/sdk/build/static/js/boost.js* packages/dapp/build/loader/",
     "coverage": "lerna run coverage --parallel",
     "coverage:submit": "lcov-result-merger 'packages/*/coverage/lcov.info' | coveralls",
     "prettier": "prettier --config .prettierrc.yaml --write --list-different './**/*.{ts,tsx,json,md}'",
