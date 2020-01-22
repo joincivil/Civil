@@ -156,6 +156,7 @@ export const withBoostPermissions = <TProps extends BoostPermissionsInjectedProp
         return;
       }
 
+      this.context.civil.currentProviderEnable();
       this.setState({
         userEthAddress: await this.context.civil.accountStream.first().toPromise(),
       });

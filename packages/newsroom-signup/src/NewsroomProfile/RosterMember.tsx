@@ -118,7 +118,7 @@ export class RosterMemberComponent extends React.Component<RosterMemberProps & D
             invalidMessage={"Too long"}
           />
           <HelperText>Maximum of 1000 characters</HelperText>
-          <FormSubhead optional>Public Wallet Address</FormSubhead>
+          <FormSubhead optionalForNonAdmin>Public Wallet Address</FormSubhead>
           <Input name="ethAddress" value={user.rosterData.ethAddress || ""} onChange={this.rosterInputChange} />
           <FormSubhead optional>Email Address</FormSubhead>
           <EmailHelpText>Email addresses will not be displayed on the Registry Profile page. </EmailHelpText>
