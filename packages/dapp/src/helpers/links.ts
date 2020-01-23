@@ -15,7 +15,7 @@ export const links = {
   TEAM: "https://learn.civil.co/team",
   PARTNERS: "https://learn.civil.co/partners",
   TERMS: "https://learn.civil.co/terms",
-  PRIVACY_POLICY: "https://learn.civil.co/privacy",
+  PRIVACY_POLICY: "https://learn.civil.co/privacy-policy",
   CAREERS: "https://learn.civil.co/jobs",
 
   // Blog

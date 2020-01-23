@@ -110,11 +110,11 @@ export const Signup: React.FunctionComponent = () => {
     return (
       <SignupFooter>
         By signing up, you accept Civil's
-        <a href="https://civil.co/terms" target="_blank">
+        <a href="https://learn.civil.co/terms" target="_blank">
           Terms of Use
         </a>{" "}
         and{" "}
-        <a href="https://civil.co/privacy" target="_blank">
+        <a href="https://learn.civil.co/privacy-policy" target="_blank">
           Privacy Policy
         </a>
         .
