@@ -41,5 +41,5 @@ export interface BoostSanitizedPaymentData {
   payerChannel: {
     handle: string;
     tiny72AvatarDataUrl: string;
-  }
+  };
 }

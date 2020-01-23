@@ -1,16 +1,14 @@
 import * as React from "react";
 import {
   PaymentBtn,
-  PaymentAmountUserOptions,
   PaymentAmountUserInput,
   PaymentGhostBtn,
   PaymentDirectionsStyled,
 } from "./PaymentsStyledComponents";
-import { SelectPaymentAmountText, EnterCustomAmountText, PublicizeUserText } from "./PaymentsTextComponents";
+import { SelectPaymentAmountText, EnterCustomAmountText } from "./PaymentsTextComponents";
 import { PaymentsRadio } from "./PaymentsRadio";
 import { RENDER_CONTEXT, CivilContext, ICivilContext } from "../context";
 import { RadioInput, CurrencyInput } from "@joincivil/elements";
-import { Checkbox, CheckboxSizes } from "../input";
 
 export interface SuggestedAmounts {
   amount: string;
@@ -19,13 +17,11 @@ export interface SuggestedAmounts {
 export interface PaymentsAmountProps {
   newsroomName: string;
   suggestedAmounts: SuggestedAmounts[];
-  handleAmount(usdToSpend: number, shouldPublicize: boolean): void;
+  handleAmount(usdToSpend: number): void;
 }
 
 export interface PaymentsAmountStates {
   showInput: boolean;
-  shouldPublicizeChecked: boolean;
-  shouldPublicize: boolean;
   usdToSpend: number;
 }
 
@@ -37,8 +33,6 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
     super(props);
     this.state = {
       showInput: false,
-      shouldPublicizeChecked: false,
-      shouldPublicize: true,
       usdToSpend: 0,
     };
   }
@@ -69,21 +63,7 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
             </PaymentGhostBtn>
           )}
         </PaymentAmountUserInput>
-        <PaymentAmountUserOptions>
-          <Checkbox
-            id="shouldPublicize"
-            onClick={this.handleCheckBox}
-            checked={this.state.shouldPublicizeChecked}
-            size={CheckboxSizes.SMALL}
-          />
-          <label htmlFor="shouldPublicize">
-            <PublicizeUserText />
-          </label>
-        </PaymentAmountUserOptions>
-        <PaymentBtn
-          onClick={() => this.props.handleAmount(this.state.usdToSpend, this.state.shouldPublicize)}
-          disabled={disableNext}
-        >
+        <PaymentBtn onClick={() => this.props.handleAmount(this.state.usdToSpend)} disabled={disableNext}>
           Next
         </PaymentBtn>
       </>
@@ -92,13 +72,6 @@ export class PaymentsAmount extends React.Component<PaymentsAmountProps, Payment
 
   private handleShowInput = () => {
     this.setState({ showInput: true });
-  };
-
-  private handleCheckBox = () => {
-    this.setState({
-      shouldPublicizeChecked: !this.state.shouldPublicizeChecked,
-      shouldPublicize: !this.state.shouldPublicize,
-    });
   };
 
   private handleRadioSelection = (name: string, value: any) => {
