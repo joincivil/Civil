@@ -2,31 +2,11 @@ import * as React from "react";
 import { Helmet } from "react-helmet";
 import { formatRoute } from "react-router-named-routes";
 import ScrollToTopOnMount from "../../utility/ScrollToTop";
-import styled from "styled-components/macro";
-import { Tabs, StyledTabLarge, StyledTabNav, Tab, colors, mediaQueries, } from "@joincivil/components";
+import { Tabs, Tab } from "@joincivil/components";
 import { AccountProfile } from "./AccountProfile";
 import { AccountPayments } from "./AccountPayments";
-
-export const AccountHeader = styled.div`
-  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin: 100px auto 50px;
-  max-width: 800px;
-
-  h1 {
-    color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 32px;
-    font-weight: bold;
-    height: 40px;
-    letter-spacing: -0.23px;
-    margin: 0 0 10px;
-
-    ${mediaQueries.MOBILE} {
-      color: ${colors.primary.BLACK};
-      font-size: 24px;
-      line-height: 30px;
-    }
-  }
-`;
+import { AccountHeader, AccountWrap, AccountTabNav, AccountTabs } from "./AccountStyledComponents";
+import { AccountTitleText, ProfileTabText, PaymentTabText } from "./AccountTextComponents";
 
 export interface AccountParams {
   activeTab?: "profile" | "payments";
@@ -34,6 +14,7 @@ export interface AccountParams {
 const TABS = ["profile", "payments"];
 
 export interface AccountProps {
+  userAccount?: string;
   history: any;
   match: any;
 }
@@ -53,23 +34,26 @@ const AccountPage: React.FunctionComponent<AccountProps> = props => {
       <Helmet title="Account - The Civil Registry" />
       <ScrollToTopOnMount />
       <AccountHeader>
-        <h1>Settings</h1>
+        <AccountTitleText />
       </AccountHeader>
-      <Tabs
-        TabsNavComponent={StyledTabNav}
-        TabComponent={StyledTabLarge}
-        activeIndex={activeTabIndex}
-        onActiveTabChange={(tab: number) => {
-          props.history.push(formatRoute(props.match.path, { activeTab: TABS[tab] }));
-        }}
-      >
-        <Tab title={"Profile"}>
-          <AccountProfile />
-        </Tab>
-        <Tab title={"Payment methods"}>
-          <AccountPayments />
-        </Tab>
-      </Tabs>
+      <AccountWrap>
+        <Tabs
+          TabsNavComponent={AccountTabNav}
+          TabComponent={AccountTabs}
+          activeIndex={activeTabIndex}
+          onActiveTabChange={(tab: number) => {
+            props.history.push(formatRoute(props.match.path, { activeTab: TABS[tab] }));
+          }}
+          flex={true}
+        >
+          <Tab title={<ProfileTabText />}>
+            <AccountProfile />
+          </Tab>
+          <Tab title={<PaymentTabText />}>
+            <AccountPayments />
+          </Tab>
+        </Tabs>
+      </AccountWrap>
     </>
   );
 };

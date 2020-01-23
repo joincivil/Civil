@@ -3,6 +3,14 @@ import styled from "styled-components";
 import { TabComponentProps } from "./Tab";
 import { colors, fonts, mediaQueries } from "../styleConstants";
 
+export interface StyledTabsContainerProps {
+  flex?: boolean;
+}
+
+export const StyledTabsContainer = styled.span`
+  display: ${(props: StyledTabsContainerProps) => (props.flex ? "flex" : "block")};
+`;
+
 export const StyledTabCount = styled.span`
   display: inline-block;
   border-radius: 31px;

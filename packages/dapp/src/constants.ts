@@ -21,6 +21,7 @@ export enum routes {
   GOVERNMENT = "/government",
   DASHBOARD = "/dashboard/:activeDashboardTab/:activeDashboardSubTab?",
   DASHBOARD_ROOT = "/dashboard",
+  ACCOUNT = "/account/:activeTab?",
   AUTH = "/auth",
   AUTH_SIGNUP = "/auth/signup",
   AUTH_SIGNUP_WEB3 = "/auth/signup/web3",

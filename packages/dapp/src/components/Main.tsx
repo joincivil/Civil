@@ -51,6 +51,9 @@ const StorefrontPage = React.lazy(async () =>
 const DashboardPage = React.lazy(async () =>
   import(/* webpackChunkName: "dashboard-page" */ "./Dashboard/DashboardPage"),
 );
+const AccountPage = React.lazy(async () =>
+  import(/* webpackChunkName: "account-page" */ "./Dashboard/Account/Account"),
+);
 const BoostPage = React.lazy(async () => import(/* webpackChunkName: "boost-page" */ "./Boosts/Boost"));
 const BoostFeedPage = React.lazy(async () =>
   import(/* webpackChunkName: "boost-feed-page" */ "./Boosts/BoostFeedPage"),
@@ -170,6 +173,7 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.GOVERNMENT} component={AsyncComponent(Government)} />
           <Route path={routes.DASHBOARD} component={AsyncComponent(DashboardPage)} />
           <Route path={routes.DASHBOARD_ROOT} component={AsyncComponent(DashboardPage)} />
+          <Route path={routes.ACCOUNT} component={AsyncComponent(AccountPage)} />
           <Route path={routes.MANAGE_NEWSROOM} component={AsyncComponent(ManageNewsroomChannelPage)} />
           <Route path={routes.AUTH} component={AuthRouter} />
           <Route path={routes.TOKEN_STOREFRONT} component={AsyncComponent(StorefrontPage)} />
