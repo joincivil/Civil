@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { colors, fonts, mediaQueries, Button, InvertedButton, RENDER_CONTEXT } from "@joincivil/components";
+import {
+  colors,
+  fonts,
+  mediaQueries,
+  Button,
+  InvertedButton,
+  RENDER_CONTEXT,
+  ContributorsTitle,
+} from "@joincivil/components";
 import { BoostShare } from "./BoostShare";
 
 export interface BoostStyleProps {
@@ -242,8 +250,30 @@ export const BoostNewsroomName = styled.a`
 
 export const BoostDescShareFlex = styled.div`
   display: flex;
+  justify-content: space-between;
+
   ${mediaQueries.MOBILE_SMALL} {
-    flex-direction: column-reverse;
+    display: block;
+  }
+`;
+
+export const BoostDescShareFlexRight = styled.div`
+  padding: 0 30px;
+
+  ${ContributorsTitle} {
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 19px;
+    text-transform: none;
+  }
+
+  ${mediaQueries.MOBILE} {
+    padding: 0 20px;
+  }
+
+  ${mediaQueries.MOBILE_SMALL} {
+    margin-bottom: 30px;
+    padding: 0;
   }
 `;
 
@@ -263,8 +293,9 @@ export const BoostShareHeading = styled.h3`
 `;
 
 export const BoostCardShare = styled(BoostShare)`
+  margin-bottom: 20px;
   width: auto;
-  margin-left: 24px;
+
   ${mediaQueries.MOBILE_SMALL} {
     display: flex;
     margin-bottom: 8px;

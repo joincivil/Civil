@@ -1,5 +1,6 @@
 import * as React from "react";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
+import { ContributorCount } from "@joincivil/components";
 import { BoostData, BoostNewsroomData } from "./types";
 import {
   BoostWrapperLink,
@@ -62,6 +63,10 @@ export class BoostCardListView extends React.Component<BoostCardListViewProps> {
           </BoostProgressCol>
         </BoostFlexCenter>
         <BoostDescriptionWhy>{this.truncateDescription(boostData.why)}</BoostDescriptionWhy>
+        <ContributorCount
+          totalContributors={boostData.groupedSanitizedPayments ? boostData.groupedSanitizedPayments.length : 0}
+          displayedContributors={boostData.groupedSanitizedPayments}
+        />
       </BoostWrapperLink>
     );
   }
