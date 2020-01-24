@@ -23,6 +23,25 @@ export const AccountHeader = styled.div`
   }
 `;
 
+export const AccountChangesSavedMessage = styled.div`
+  background-color: rgba(36, 162, 73, 0.2);
+  border-radius: 6px;
+  color: ${colors.accent.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 35px;
+  padding: 10px 15px;
+  position: relative;
+  width: 100%;
+`;
+
+export const AccountMessegeClose = styled.div`
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 2px;
+`;
+
 export const AccountWrap = styled.div`
   margin: 0 auto 50px;
   max-width: 980px;
@@ -30,6 +49,7 @@ export const AccountWrap = styled.div`
 `;
 
 export const AccountTabNav = styled.div`
+  flex-shrink: 0;
   margin: 0 75px 0 0;
   width: 200px;
 
@@ -51,7 +71,8 @@ export const AccountTabNav = styled.div`
 
 export const AccountTabs = styled.li`
   background-color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_GRAY_6 : colors.basic.WHITE)};
-  border-bottom: ${(props: TabComponentProps) => (props.isActive ? "1px solid #9013fe" : "1px solid transparent")};
+  border-bottom: ${(props: TabComponentProps) =>
+    props.isActive ? "1px solid" + colors.accent.CIVIL_PURPLE_1 : "1px solid transparent"};
   cursor: pointer;
   padding: 15px;
   text-decoration: none;
@@ -59,11 +80,11 @@ export const AccountTabs = styled.li`
 
   ${mediaQueries.HOVER} {
     &:hover {
-      border-bottom: 1px solid #9013fe;
+      border-bottom: 1px solid ${colors.accent.CIVIL_PURPLE_1};
     }
   }
   &.active {
-    border-bottom: 1px solid #9013fe;
+    border-bottom: 1px solid ${colors.accent.CIVIL_PURPLE_1};
   }
 `;
 
@@ -82,7 +103,7 @@ export const AccountTabText = styled.span`
 `;
 
 export const AccountSectionWrap = styled.div`
-  width: calc(100% - 150px);
+  width: 90%;
 
   ${BorderlessButton} {
     font-size: 13px;
@@ -234,5 +255,5 @@ export const AccountNoAvatar = styled.div`
 export const AccountUserInfoText = styled.span`
   color: ${colors.accent.CIVIL_GRAY_0};
   font-size: 14px;
-  line-height: 24px;
+  margin-right: 10px;
 `;

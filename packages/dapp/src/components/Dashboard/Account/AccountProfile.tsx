@@ -1,12 +1,15 @@
 import * as React from "react";
-import { CivilContext, ICivilContext } from "@joincivil/components";
+import { CivilContext, ICivilContext, colors } from "@joincivil/components";
+import { CloseXIcon } from "@joincivil/elements";
 import {
   AccountSectionWrap,
   AccountSectionHeader,
   AccountProfileTable,
   AccountUserInfoText,
+  AccountChangesSavedMessage,
+  AccountMessegeClose,
 } from "./AccountStyledComponents";
-import { ProfileTitleText } from "./AccountTextComponents";
+import { ProfileTitleText, AccountChangesSavedText } from "./AccountTextComponents";
 import { AccountUserAvatar } from "./AccountUserAvatarUpdate";
 import { AccountUserEmail } from "./AccountUserEmailUpdate";
 import SetEmail from "../../Auth/SetEmail";
@@ -17,11 +20,20 @@ export const AccountProfile: React.FunctionComponent = props => {
   const [shouldShowSetEmailModal, setShouldShowSetEmailModal] = React.useState(false);
   const [shouldShowSetAvatarModal, setShouldShowSetAvatarModal] = React.useState(false);
   const [shouldShowConfirmEmailWarning, setShouldShowConfirmEmailWarning] = React.useState(false);
+  const [shouldShowSavedConfirmation, setShouldShowSavedConfirmation] = React.useState(false);
   const currentUser = civilContext.currentUser;
 
   if (currentUser) {
     return (
       <AccountSectionWrap>
+        {shouldShowSavedConfirmation && (
+          <AccountChangesSavedMessage>
+            <AccountChangesSavedText />
+            <AccountMessegeClose onClick={() => setShouldShowSavedConfirmation(false)}>
+              <CloseXIcon color={colors.accent.CIVIL_GRAY_0} />
+            </AccountMessegeClose>
+          </AccountChangesSavedMessage>
+        )}
         <AccountSectionHeader>
           <ProfileTitleText />
         </AccountSectionHeader>
@@ -46,12 +58,13 @@ export const AccountProfile: React.FunctionComponent = props => {
             <tr>
               <th>Email address</th>
               <td>
-                {currentUser.userChannel.EmailAddressRestricted}
+                {shouldShowConfirmEmailWarning && (
+                  <AccountUserInfoText>Please check your email to confirm address</AccountUserInfoText>
+                )}
                 <AccountUserEmail
                   userEmailAddress={currentUser.userChannel.EmailAddressRestricted}
                   onSetEmailClicked={() => setShouldShowSetEmailModal(true)}
                 />
-                {shouldShowConfirmEmailWarning && <>Please check your email to confirm address</>}
               </td>
             </tr>
           </tbody>
@@ -63,6 +76,7 @@ export const AccountProfile: React.FunctionComponent = props => {
             onSetEmailComplete={() => {
               setShouldShowSetEmailModal(false);
               setShouldShowConfirmEmailWarning(true);
+              setShouldShowSavedConfirmation(true);
             }}
             onSetEmailCancelled={() => setShouldShowSetEmailModal(false)}
           />
@@ -74,6 +88,7 @@ export const AccountProfile: React.FunctionComponent = props => {
             onSetAvatarComplete={async () => {
               await civilContext.auth.handleInitialState();
               setShouldShowSetAvatarModal(false);
+              setShouldShowSavedConfirmation(true);
             }}
             onSetAvatarCancelled={() => setShouldShowSetAvatarModal(false)}
           />

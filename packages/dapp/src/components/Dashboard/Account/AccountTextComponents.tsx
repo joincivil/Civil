@@ -45,3 +45,7 @@ export const PaymentTitleText: React.FunctionComponent = props => {
     </>
   );
 };
+
+export const AccountChangesSavedText: React.FunctionComponent = props => {
+  return <>Your changes have been saved.</>;
+};

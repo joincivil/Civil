@@ -46,7 +46,7 @@ const SkipButton = styled.span`
   font-weight: 400;
   line-height: 26px;
   width: 82px;
-  text-align: left;
+  text-align: center;
   background-color: #ffffff;
 `;
 
