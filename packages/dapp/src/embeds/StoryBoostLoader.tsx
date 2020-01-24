@@ -7,41 +7,28 @@ import {
   CivilContext,
   ICivilContext,
   RENDER_CONTEXT,
-  CivilIcon,
+  AvatarLogin,
   DEFAULT_BUTTON_THEME,
   DEFAULT_CHECKBOX_THEME,
 } from "@joincivil/components";
-import { mediaQueries } from "@joincivil/elements";
 import { StoryBoost } from "@joincivil/sdk";
 
-import { routes, embedRoutes } from "../constants";
+import { embedRoutes } from "../constants";
 import AppProvider from "../components/providers/AppProvider";
 
 const EmbedWrapper = styled.div`
   // obscure embed loading message outside iframe:
   background: white;
 `;
-const CivilLogoLink = styled.a`
+const AvatarWrap = styled.div`
   position: absolute;
   display: inline-block;
   z-index: 2; // above basic stuff, below full screen modal mask
   top: 0;
   right: 0;
-  padding: 20px 30px 0 20px;
+  padding: 6px 6px 0 16px;
   background: rgb(255, 255, 255);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 35%);
-  ${mediaQueries.MOBILE} {
-    padding-right: 10px;
-  }
-  ${mediaQueries.MOBILE_SMALL} {
-    padding-top: 16px;
-    padding-left: 60px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 40%);
-  }
-  svg {
-    width: 50px;
-    height: auto;
-  }
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 25%);
 `;
 
 // @HACK We don't need to do anything with this object, but if we don't reference it then it looks like it gets optimized out and doesn't work.
@@ -65,9 +52,9 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
 
   return (
     <EmbedWrapper data-iframe-height>
-      <CivilLogoLink href={routes.HOMEPAGE} target="_blank">
-        <CivilIcon />
-      </CivilLogoLink>
+      <AvatarWrap>
+        <AvatarLogin />
+      </AvatarWrap>
       <ThemeProvider theme={theme}>
         <StoryBoost boostId={boostId} />
       </ThemeProvider>

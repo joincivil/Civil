@@ -10,8 +10,8 @@ const AvatarLoginWrapper = styled.div`
 
 const AvatarImg = styled.img`
   border-radius: 50%;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
 `;
 
 const AvatarLoginAvatarBtn = styled.button`
@@ -23,7 +23,7 @@ const AvatarLoginAvatarBtn = styled.button`
   justify-content: space-between;
   outline: none;
   padding: 5px;
-  width: 45px;
+  width: 50px;
 `;
 
 const AvatarLoginDropdown = styled.div`
