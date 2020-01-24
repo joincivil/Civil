@@ -8,7 +8,7 @@ import {
   StoryNewsroomStatus,
   storyPlaceholderImgUrl,
 } from "@joincivil/components";
-import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors, Button } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 import { OpenGraphData } from "./types";
 import {
@@ -27,6 +27,7 @@ import {
   StoryDetailsFooterFlex,
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
+import { StoryComments } from "./StoryComments";
 
 export interface StoryDetailsProps {
   postId: string;
@@ -39,6 +40,8 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  children: any[];
+  refetch: any;
   isListingPageFeed?: boolean;
   handlePayments(): void;
   handleOpenNewsroom(): void;
@@ -96,9 +99,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
             totalContributors={props.totalContributors}
             displayedContributors={props.displayedContributors}
           />
-        ) : (
-          <></>
-        )}
+        ) : (<></>)
+        }
+        <StoryComments postId={props.postId} children={props.children} refetch={props.refetch}/>
       </StoryDetailsContent>
       <StoryDetailsFooter>
         <StoryDetailsFooterFlex>
@@ -113,6 +116,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           </BlueLinkBtn>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
+      <></>
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />
       </SharePanel>

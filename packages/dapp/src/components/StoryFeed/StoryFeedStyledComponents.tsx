@@ -352,6 +352,16 @@ export const StoryDetailsFooter = styled.div`
   padding: 20px;
 `;
 
+export const StoryDetailsComments = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding: 20px;
+`;
+
+export const StoryComment = styled.div`
+  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding: 20px;
+`;
+
 export const StoryDetailsFooterFlex = styled.div`
   display: flex;
   justify-content: space-between;

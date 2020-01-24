@@ -115,6 +115,20 @@ export const STORY_BOOST = gql`
             tiny72AvatarDataUrl
           }
         }
+        children {
+          ... on PostComment {
+            id
+            authorID
+            channelID
+            text
+            commentType
+            badges
+            channel {
+              handle
+              tiny72AvatarDataUrl
+            }
+          }
+        }
       }
     }
   }

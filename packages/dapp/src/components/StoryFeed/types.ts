@@ -7,6 +7,7 @@ export interface StoryBoostData {
     newsroom: StoryNewsroomData;
   };
   groupedSanitizedPayments: StoryBoostPaymentsData[];
+  children: any[];
 }
 
 export interface StoryBoostPaymentsData {
