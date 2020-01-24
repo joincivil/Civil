@@ -60,6 +60,9 @@ export const PaymentHeaderNewsroom = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
+  svg {
+    vertical-align: bottom;
+  }
 `;
 
 export const PaymentHeaderTip = styled.div`

@@ -20,6 +20,7 @@ import {
   PaymentUpdatedByEthText,
 } from "./PaymentsTextComponents";
 import { AvatarLogin } from "./AvatarLogin";
+import { StoryNewsroomStatus } from "../StoryFeed";
 import { CivilLogo, DisclosureArrowIcon, CloseXButton } from "@joincivil/elements";
 import { RENDER_CONTEXT, ICivilContext, CivilContext } from "../context";
 
@@ -67,7 +68,9 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
       <>
         {this.props.boostType !== "project" && <SendPaymentHdrText />}
         <PaymentHeaderFlex>
-          <PaymentHeaderNewsroom>{this.props.newsroomName}</PaymentHeaderNewsroom>
+          <PaymentHeaderNewsroom>
+            <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+          </PaymentHeaderNewsroom>
           {this.props.usdToSpend && this.renderBoostAmount()}
         </PaymentHeaderFlex>
         <PaymentHeaderTip>
@@ -105,17 +108,21 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
           </PaymentCivilLogo>
           <AvatarLogin />
         </PaymentHeaderFlex>
-        <PaymentHeaderCenter>
-          {!this.props.usdToSpend && (
-            <>
-              <SendPaymentHdrEmbedText newsroomName={this.props.newsroomName} />
-              <PaymentHeaderTip>
-                <PaymentToNewsroomsTipText />
-              </PaymentHeaderTip>
-            </>
-          )}
-          {this.props.usdToSpend && this.renderBoostAmount()}
-        </PaymentHeaderCenter>
+        {!this.props.usdToSpend ? (
+          <PaymentHeaderCenter>
+            <SendPaymentHdrEmbedText newsroomName={this.props.newsroomName} />
+            <PaymentHeaderTip>
+              <PaymentToNewsroomsTipText />
+            </PaymentHeaderTip>
+          </PaymentHeaderCenter>
+        ) : (
+          <PaymentHeaderFlex>
+            <PaymentHeaderNewsroom>
+              <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+            </PaymentHeaderNewsroom>
+            {this.props.usdToSpend && this.renderBoostAmount()}
+          </PaymentHeaderFlex>
+        )}
       </>
     );
   }
