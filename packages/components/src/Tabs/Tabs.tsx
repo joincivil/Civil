@@ -5,10 +5,11 @@ import { colors } from "../styleConstants";
 import { ExpandDownArrow } from "../icons";
 
 import { TabProps } from "./Tab";
-import { StyledNav, StyledResponsiveTabsToggleButton, TabContainer } from "./TabsStyled";
+import { StyledTabsContainer, StyledNav, StyledResponsiveTabsToggleButton, TabContainer } from "./TabsStyled";
 
 export interface TabsProps {
   activeIndex?: number;
+  flex?: boolean;
   children: Array<React.ReactElement<TabProps>>;
   TabComponent?: any;
   TabsNavComponent?: any;
@@ -68,7 +69,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
     const arrowColor = this.state.isResponsiveTabsetVisible ? colors.accent.CIVIL_BLUE : colors.accent.CIVIL_GRAY_2;
 
     return (
-      <div>
+      <StyledTabsContainer flex={this.props.flex}>
         <TabsNavComponent>
           <TabContainer>
             {this.props.TabsNavBefore && <TabComponentOrnamental>{this.props.TabsNavBefore}</TabComponentOrnamental>}
@@ -84,7 +85,7 @@ export class Tabs extends React.Component<TabsProps, TabsState> {
           </StyledResponsiveTabsToggleButton>
         </TabsNavComponent>
         <div>{this.renderContent()}</div>
-      </div>
+      </StyledTabsContainer>
     );
   }
 
