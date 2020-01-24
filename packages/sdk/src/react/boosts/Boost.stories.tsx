@@ -32,6 +32,15 @@ const boost = {
       contractAddress: "0xabc123",
     },
   },
+  groupedSanitizedPayments: [
+    {
+      usdEquivalent: 20,
+      payerChannel: {
+        handle: "Sarah",
+        tiny72AvatarDataUrl: "https://placehold.it/100",
+      },
+    },
+  ],
 };
 
 const typeDefs = `

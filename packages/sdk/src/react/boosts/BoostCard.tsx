@@ -1,7 +1,7 @@
 import * as React from "react";
 import { debounce } from "lodash";
 
-import { QuestionToolTip, HelmetHelper, CurrencyInput } from "@joincivil/components";
+import { QuestionToolTip, HelmetHelper, CurrencyInput, Contributors, ContributorCount } from "@joincivil/components";
 import { renderPTagsFromLineBreaks } from "@joincivil/utils";
 
 import { BoostProgress } from "./BoostProgress";
@@ -20,6 +20,7 @@ import {
   BoostAmountInputWrap,
   BoostAmountInput,
   BoostDescShareFlex,
+  BoostDescShareFlexRight,
   BoostCardShare,
 } from "./BoostStyledComponents";
 import { BoostPaymentSuccess } from "./BoostTextComponents";
@@ -67,6 +68,7 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
       btnText = "Boost Ended";
     }
     const inputDisabled = timeEnded || !newsroomData.whitelisted;
+    const totalContributors = boostData.groupedSanitizedPayments ? boostData.groupedSanitizedPayments.length : 0;
 
     if (!open) {
       return (
@@ -169,13 +171,22 @@ export class BoostCard extends React.Component<BoostCardProps, BoostCardStates> 
           </BoostNotice>
           <BoostDescShareFlex>
             <BoostDescriptionWhy>{renderPTagsFromLineBreaks(boostData.why)}</BoostDescriptionWhy>
-            <div>
+            <BoostDescShareFlexRight>
               <BoostCardShare
                 boostId={this.props.boostId}
                 newsroom={this.props.newsroomData.name}
                 title={boostData.title}
               />
-            </div>
+              <Contributors sortedContributors={boostData.groupedSanitizedPayments} />
+              {totalContributors !== 0 ? (
+                <ContributorCount
+                  totalContributors={totalContributors}
+                  displayedContributors={boostData.groupedSanitizedPayments}
+                />
+              ) : (
+                <></>
+              )}
+            </BoostDescShareFlexRight>
           </BoostDescShareFlex>
           <BoostDescription>
             <h3>What the outcome will be</h3>

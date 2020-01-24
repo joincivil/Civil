@@ -5,6 +5,7 @@ import {
   PaymentBtn,
   PaymentInfoStyled,
   PayAppleGoogleOnCivilPrompt,
+  PaymentAmountUserOptions,
 } from "./PaymentsStyledComponents";
 import {
   SelectPaymentMethodText,
@@ -12,10 +13,12 @@ import {
   PayWithEthText,
   PaymentInfoText,
   PayAppleGoogleOnCivilText,
+  PublicizeUserText,
 } from "./PaymentsTextComponents";
 import { PAYMENT_STATE } from "./types";
 import { RENDER_CONTEXT, CivilContext, ICivilContext } from "../context";
 import { PaymentsLoadStripePayRequest } from "./PaymentsLoadStripePayRequest";
+import { Checkbox, CheckboxSizes } from "../input";
 
 export interface PaymentsSelectTypeProps {
   postId: string;
@@ -23,6 +26,7 @@ export interface PaymentsSelectTypeProps {
   newsroomName: string;
   shouldPublicize: boolean;
   isStripeConnected: boolean;
+  handleShouldPublicize(shouldPublicize: boolean): void;
   handleNext(paymentState: PAYMENT_STATE): void;
   handlePaymentSuccess(): void;
 }
@@ -53,6 +57,17 @@ export const PaymentsSelectType: React.FunctionComponent<PaymentsSelectTypeProps
           <PayWithEthText />
         </PaymentBtn>
       </PaymentTypeSelect>
+      <PaymentAmountUserOptions>
+        <Checkbox
+          id="shouldPublicize"
+          size={CheckboxSizes.SMALL}
+          checked={!props.shouldPublicize}
+          onClick={() => props.handleShouldPublicize(!props.shouldPublicize)}
+        />
+        <label htmlFor="shouldPublicize">
+          <PublicizeUserText />
+        </label>
+      </PaymentAmountUserOptions>
       {context.renderContext === RENDER_CONTEXT.DAPP && (
         <PaymentInfoStyled>
           <PaymentInfoText />

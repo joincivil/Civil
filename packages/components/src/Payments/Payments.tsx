@@ -48,7 +48,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentAdjustedWarning: false,
       paymentAdjustedStripe: false,
       paymentAdjustedEth: false,
-      shouldPublicize: false,
+      shouldPublicize: true,
       paymentState: PAYMENT_STATE.SELECT_AMOUNT,
       resetEthPayments: false,
       userSubmittedEmail: false,
@@ -127,6 +127,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
             isStripeConnected={isStripeConnected}
             newsroomName={newsroomName}
             shouldPublicize={shouldPublicize}
+            handleShouldPublicize={this.handleShouldPublicize}
             handleNext={this.handleUpdateState}
             handlePaymentSuccess={() => this.handleUpdateState(PAYMENT_STATE.PAYMENT_SUCCESS)}
           />
@@ -252,6 +253,10 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     );
   }
 
+  private handleShouldPublicize = (shouldPublicize: boolean) => {
+    this.setState({ shouldPublicize });
+  };
+
   private handlePaymentSuccess = (userSubmittedEmail: boolean, didSaveEmail: boolean, etherToSpend?: number) => {
     if (didSaveEmail) {
       this.setState({ paymentState: PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL, userSubmittedEmail, etherToSpend });
@@ -278,20 +283,18 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
   };
 
-  private handleAmount = (usdToSpend: number, shouldPublicize: boolean) => {
+  private handleAmount = (usdToSpend: number) => {
     const paymentAdjustedWarning = usdToSpend < CreditCardMin ? true : false;
     if (this.context && this.context.currentUser) {
       this.setState({
         usdToSpend,
         paymentState: PAYMENT_STATE.SELECT_PAYMENT_TYPE,
-        shouldPublicize,
         paymentAdjustedWarning,
       });
     } else {
       this.setState({
         usdToSpend,
         paymentState: PAYMENT_STATE.PAYMENT_CHOOSE_LOGIN_OR_GUEST,
-        shouldPublicize,
         paymentAdjustedWarning,
       });
     }

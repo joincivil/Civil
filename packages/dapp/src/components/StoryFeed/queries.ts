@@ -24,6 +24,13 @@ export const STORY_FEED_QUERY = gql`
                 }
               }
             }
+            groupedSanitizedPayments {
+              usdEquivalent
+              payerChannel {
+                handle
+                tiny72AvatarDataUrl
+              }
+            }
             channelID
             currencyCode
             goalAmount

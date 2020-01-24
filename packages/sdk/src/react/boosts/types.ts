@@ -18,6 +18,7 @@ export interface BoostData {
     handle: string;
   };
   items: BoostCostItem[];
+  groupedSanitizedPayments: BoostSanitizedPaymentData[];
 }
 
 export interface BoostCostItem {
@@ -32,5 +33,13 @@ export interface BoostNewsroomData {
   whitelisted: boolean;
   charter?: {
     uri: string;
+  };
+}
+
+export interface BoostSanitizedPaymentData {
+  usdEquivalent: number;
+  payerChannel: {
+    handle: string;
+    tiny72AvatarDataUrl: string;
   };
 }
