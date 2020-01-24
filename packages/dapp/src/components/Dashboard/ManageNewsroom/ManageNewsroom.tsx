@@ -1,11 +1,13 @@
+import styled from "styled-components";
 import * as React from "react";
 import gql from "graphql-tag";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
 import { Query } from "react-apollo";
 import { BoostForm } from "@joincivil/sdk";
 import { EthAddress, CharterData } from "@joincivil/typescript-types";
 import {
+  colors,
   Tabs,
   StyledTabLarge,
   StyledTabNav,
@@ -13,16 +15,33 @@ import {
   LoadingMessage,
   withNewsroomChannel,
   NewsroomChannelInjectedProps,
+  CivilContext,
+  ICivilContext,
 } from "@joincivil/components";
 import { NewsroomManager, ManageContractMembers } from "@joincivil/newsroom-signup";
 import { routes } from "../../../constants";
 import { getListingPhaseState } from "../../../selectors";
 import { LISTING_QUERY, transformGraphQLDataIntoListing } from "@joincivil/utils";
 
+const Notice = styled.div`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 16px;
+  text-align: center;
+  color: ${colors.primary.CIVIL_GRAY_0};
+  font-size: 16px;
+  line-height: 25px;
+  font-family: ${props => props.theme.sansSerifFont};
+`;
+const NotAdminNotice = styled(Notice)`
+  text-align: left;
+`;
+
 const ManageQuery = gql`
   query($id: String!) {
     channelsGetByID(id: $id) {
       id
+      currentUserIsAdmin
       newsroom {
         contractAddress
         multisigAddress
@@ -62,6 +81,7 @@ const ManageQuery = gql`
 interface ManageQueryData {
   channelsGetByID: {
     id: string;
+    currentUserIsAdmin: boolean;
     newsroom: {
       contractAddress: EthAddress;
       multisigAddress: EthAddress;
@@ -85,6 +105,17 @@ export interface ManageNewsroomOwnProps extends RouteComponentProps<ManageParams
 const ManageNewsroomComponent: React.FunctionComponent<
   ManageNewsroomOwnProps & NewsroomChannelInjectedProps
 > = props => {
+  const civilContext = React.useContext<ICivilContext>(CivilContext);
+  if (civilContext.auth.loading) {
+    return <LoadingMessage>Loading Permissions</LoadingMessage>;
+  } else if (!civilContext.auth.currentUser) {
+    return (
+      <Notice>
+        <p>Please Sign Up or Log In to manage your newsroom.</p>
+      </Notice>
+    );
+  }
+
   // Load tab from path:
   const [activeTabIndex, setActiveTabIndex] = React.useState<number>(0);
   React.useEffect(() => {
@@ -111,9 +142,24 @@ const ManageNewsroomComponent: React.FunctionComponent<
               Error loading newsroom: <code>{error.message || JSON.stringify(error)}</code>
             </>
           );
-        } else if (!data) {
+        } else if (!data || !data.channelsGetByID) {
           console.error("error querying channelsGetByID: no data returned");
           return <>Error loading newsroom: no newsroom data returned</>;
+        } else if (!data.channelsGetByID.currentUserIsAdmin) {
+          return (
+            <NotAdminNotice>
+              <p>
+                Your account with ETH address <code>{civilContext.auth.currentUser.ethAddress}</code> doesn't have
+                permissions to manage the newsroom "{data.channelsGetByID.newsroom.charter.name}". You can view the
+                newsrooms you have access to on your <Link to="/dashboard/newsrooms">Newsroom Dashboard</Link>. Please
+                verify that you are logged in to the correct Civil account and ethereum wallet.
+              </p>
+              <p>Alternately, please contact the newsroom and request that an officer add your account.</p>
+              <p>
+                <Link to={`/listing/${data.channelsGetByID.newsroom.contractAddress}`}>View newsroom information.</Link>
+              </p>
+            </NotAdminNotice>
+          );
         }
 
         const newsroom = data.channelsGetByID.newsroom;

@@ -46,6 +46,7 @@ export const FormTitle = styled.h4`
 
 export interface FormSubheadProps {
   optional?: any;
+  optionalForNonAdmin?: any;
 }
 export const FormSubhead = styled.h4<FormSubheadProps>`
   font-size: 14px;
@@ -59,6 +60,14 @@ export const FormSubhead = styled.h4<FormSubheadProps>`
     `
     &:after {
       content: " (optional)";
+      font-style: italic;
+    }
+  `};
+  ${props =>
+    props.optionalForNonAdmin &&
+    `
+    &:after {
+      content: " (optional, but required for officers)";
       font-style: italic;
     }
   `};
