@@ -5,6 +5,8 @@ import { ApolloProvider, Mutation, Query } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
+import * as Sentry from "@sentry/browser";
+import { SENTRY_DSN } from "../../constants";
 import { BoostEmbedIframe } from "../boosts/BoostEmbedIframe";
 
 const GET_LINK_QUERY = gql`
@@ -28,6 +30,16 @@ if (!currentScript) {
   throw Error("Civil Boost Embed: Failed to get document.currentScript");
 }
 const ENVIRONMENT = currentScript.src && currentScript.src.indexOf("civil.co") !== -1 ? "production" : "staging";
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+  environment: ENVIRONMENT,
+  // We don't want to capture errors by default since we are being loaded on a newsroom page.
+  defaultIntegrations: false,
+});
+Sentry.configureScope(scope => {
+  scope.setTag("embed-loader-origin", document.location.origin);
+});
 
 let dappOrigin = ENVIRONMENT === "production" ? "https://civil.co" : "https://staging.civil.app";
 if (currentScript.src.indexOf("localhost:3001") !== -1) {
@@ -83,6 +95,12 @@ function init(): void {
             // If "could not find post" that's fine, we'll create it with mutation, but if it's a different error then bomb:
             if (getError.message.indexOf("could not find post") === -1) {
               console.error("Error getting boost ID via postsGetByReference for url", url, "error:", getError);
+              Sentry.addBreadcrumb(getError);
+              Sentry.captureMessage(
+                "Error getting boost ID via postsGetByReference for url " + url,
+                Sentry.Severity.Error,
+              );
+
               return (
                 <BoostEmbedIframe
                   noIframe={true}
@@ -101,6 +119,7 @@ function init(): void {
                 {(mutation, { loading: createLoading, data: createData, error: createError, called: createCalled }) => {
                   if (!createCalled && !createError) {
                     console.warn("Attempting to post external link to Civil:", url);
+                    Sentry.captureMessage("Attempting to post external link to Civil: " + url, Sentry.Severity.Log);
                     window.setTimeout(mutation, 0);
                     return <BoostEmbedIframe noIframe={true} fallbackUrl={fallbackFallbackUrl} />;
                   }
@@ -114,6 +133,14 @@ function init(): void {
                       createError,
                       createData,
                     );
+                    if (createError) {
+                      Sentry.addBreadcrumb(createError);
+                    }
+                    Sentry.captureMessage(
+                      "Error posting link via postsCreateExternalLinkEmbedded " + url,
+                      Sentry.Severity.Error,
+                    );
+
                     return (
                       <BoostEmbedIframe
                         noIframe={true}
@@ -149,8 +176,17 @@ function init(): void {
   );
 }
 
+function wrappedInit(): void {
+  try {
+    init();
+  } catch (err) {
+    Sentry.captureException(err);
+    throw err;
+  }
+}
+
 if (document.readyState === "complete") {
-  init();
+  wrappedInit();
 } else {
-  window.addEventListener("load", init);
+  window.addEventListener("load", wrappedInit);
 }

@@ -55,6 +55,13 @@ export const boostQuery = gql`
           item
           cost
         }
+        groupedSanitizedPayments {
+          usdEquivalent
+          payerChannel {
+            handle
+            tiny72AvatarDataUrl
+          }
+        }
       }
     }
   }
