@@ -3,8 +3,10 @@
 const FAQ_BASE_URL = "https://help.civil.co";
 
 export const urlConstants = {
-  TERMS: "https://civil.co/terms",
-  PRIVACY_POLICY: "https://civil.co/privacy",
+  HOME: "https://civil.co",
+  HELP: "https://help.civil.co",
+  TERMS: "https://learn.civil.co/terms",
+  PRIVACY_POLICY: "https://learn.civil.co/privacy-policy",
 
   // FAQ Boosts
   FAQ_BOOSTS: FAQ_BASE_URL + "/hc/en-us/categories/360001939731-Boosts",

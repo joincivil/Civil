@@ -10,6 +10,12 @@ export const PaymentWrapperStyled = styled.div`
   max-width: 400px;
   width: 100%;
 
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    max-width: 100%;
+  `}
+
   ${CurrencyErrorMsg} {
     bottom: 10px;
   }
@@ -54,6 +60,9 @@ export const PaymentHeaderNewsroom = styled.div`
   font-size: 14px;
   font-weight: 600;
   line-height: 17px;
+  svg {
+    vertical-align: bottom;
+  }
 `;
 
 export const PaymentHeaderTip = styled.div`
@@ -283,6 +292,7 @@ export const PaymentFullscreenModal = styled(FullScreenModal)`
       ${props =>
         props.theme.renderContext === RENDER_CONTEXT.EMBED &&
         `
+        top: 0;
         bottom: auto;
       `}
     }
@@ -304,6 +314,7 @@ export const PaymentModalContain = styled.div`
   ${props =>
     props.theme.renderContext === RENDER_CONTEXT.EMBED &&
     `
+    padding: 8px 16px 32px;
     height: 100%;
     max-height: 100%;
     width: 100%;
