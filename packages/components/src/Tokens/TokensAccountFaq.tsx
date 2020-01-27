@@ -66,7 +66,7 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
               Gemini{" "}
             </a>{" "}
             (), you can return to Civil where we will walk you through how to complete your membership contribution. We
-            know this can be confusing. For more information, read this blog post or contact us at
+            know this can be confusing. For more information, read this blog post or contact us at{" "}
             <a href="mailto:support@civil.co">support@civil.co</a>.
           </p>
         </Collapsable>

@@ -49,28 +49,23 @@ class TransferCivilTokens extends React.Component<
   public render(): JSX.Element {
     const balance = getFormattedTokenBalance(this.props.balance);
     const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
-    const isCivilianWhitelist = getCivilianWhitelist(this.context, this.props.userAccount);
     const isUnlockedWhitelist = getUnlockedWhitelist(this.context, this.props.userAccount);
 
     return (
       <>
         {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
 
-        {isCivilianWhitelist ? (
-          <DashboardTransferTokenForm
-            renderTransferBalance={this.renderTransferBalance}
-            cvlAvailableBalance={balance}
-            cvlVotingBalance={votingBalance}
-          >
-            {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
-              <DepositTokens />
-            ) : (
-              <ReclaimTokens onMobileTransactionClick={this.props.showNoMobileTransactionsModal} />
-            )}
-          </DashboardTransferTokenForm>
-        ) : (
-          <DashboardTutorialWarning />
-        )}
+        <DashboardTransferTokenForm
+          renderTransferBalance={this.renderTransferBalance}
+          cvlAvailableBalance={balance}
+          cvlVotingBalance={votingBalance}
+        >
+          {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
+            <DepositTokens />
+          ) : (
+            <ReclaimTokens onMobileTransactionClick={this.props.showNoMobileTransactionsModal} />
+          )}
+        </DashboardTransferTokenForm>
       </>
     );
   }
