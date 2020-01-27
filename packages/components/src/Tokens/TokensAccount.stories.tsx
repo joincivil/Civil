@@ -5,7 +5,6 @@ import Web3HttpProvider from "web3-providers-http";
 
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
-import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { CivilContext, buildCivilContext } from "../context";
 import Web3 from "web3";
@@ -62,13 +61,6 @@ storiesOf("Storefront / User Token Account", module)
     return (
       <CivilContext.Provider value={civilContext}>
         <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />
-      </CivilContext.Provider>
-    );
-  })
-  .add("Tutorial Verify", () => {
-    return (
-      <CivilContext.Provider value={civilContext}>
-        <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />
       </CivilContext.Provider>
     );
   })
