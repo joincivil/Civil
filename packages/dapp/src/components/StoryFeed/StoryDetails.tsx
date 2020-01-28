@@ -40,7 +40,7 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
-  children: any[];
+  comments: any;
   refetch: any;
   isListingPageFeed?: boolean;
   handlePayments(): void;
@@ -99,9 +99,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
             totalContributors={props.totalContributors}
             displayedContributors={props.displayedContributors}
           />
-        ) : (<></>)
-        }
-        <StoryComments postId={props.postId} children={props.children} refetch={props.refetch}/>
+        ) : (
+          <></>
+        )}
       </StoryDetailsContent>
       <StoryDetailsFooter>
         <StoryDetailsFooterFlex>
@@ -116,7 +116,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           </BlueLinkBtn>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
-      <></>
+      <StoryComments postId={props.postId} comments={props.comments} refetch={props.refetch} />
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />
       </SharePanel>

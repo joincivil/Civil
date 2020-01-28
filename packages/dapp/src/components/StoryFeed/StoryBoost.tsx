@@ -63,7 +63,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 newsroomName={storyBoostData.channel.newsroom.name}
                 title={storyBoostData.openGraphData.title}
                 url={storyBoostData.openGraphData.url}
-                children={storyBoostData.children}
+                comments={storyBoostData.comments}
                 refetch={refetch}
                 openGraphData={storyBoostData.openGraphData}
                 displayedContributors={storyBoostData.groupedSanitizedPayments}

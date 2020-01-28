@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 
 export interface StoryCommentsProps {
   postId: string;
-  children: any[];
+  comments: any;
   refetch: any;
 }
 
@@ -76,8 +76,18 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
             );
           }}
         </Mutation>
-        {props.children.map(child => {
-          return <StoryComment>{child.text}</StoryComment>
+        {props.comments.edges.map(child => {
+          console.log("child.post: ", child.post);
+          console.log("child.post.channel: ", child.post.channel);
+          console.log("child.post.channel.tiny72AvatarDataUrl: ", child.post.channel.tiny72AvatarDataUrl);
+          return (
+            <StoryComment>
+              Avatar: <img src={child.post.channel.tiny72AvatarDataUrl}/>
+              Handle: {child.post.channel.handle}
+              <p>Type: {child.post.commentType}</p>
+              <p>Text: {child.post.text}</p>
+            </StoryComment>
+          );
         })}
       </StoryDetailsComments>
     </>
