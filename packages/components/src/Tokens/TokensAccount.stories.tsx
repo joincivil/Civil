@@ -13,10 +13,6 @@ const web3Provider = new Web3HttpProvider("http://localhost:8045");
 const web3 = new Web3(web3Provider);
 const civilContext = buildCivilContext({ web3, featureFlags: ["uniswap"], config: { DEFAULT_ETHEREUM_NETWORK: 4 } });
 
-const onClickFunc = () => {
-  console.log("clicked!");
-};
-
 const typeDefs = `
   type Query {
     storefrontEthPrice: Float

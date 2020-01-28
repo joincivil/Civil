@@ -223,10 +223,6 @@ class GrantApplicationComponent extends React.Component<
             You will also need to purchase enough Ether (ETH) to cover your transaction fees on the blockchain
           </ModalLi>
           <ModalLi>
-            You <strong>must</strong> complete a verification walkthrough tutorial to ensure you understand how to
-            purchase and store Civil tokens (CVL)
-          </ModalLi>
-          <ModalLi>
             You understand that your newsroom must submit to review and potential challenge by the Civil community
           </ModalLi>
         </ul>

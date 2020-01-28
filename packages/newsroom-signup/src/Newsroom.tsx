@@ -32,7 +32,6 @@ import { AuthWrapper } from "./AuthWrapper";
 import { DataWrapper } from "./DataWrapper";
 import { NewsroomProfile } from "./NewsroomProfile";
 import { SmartContract } from "./SmartContract";
-import { Tutorial } from "./Tutorial";
 import { PurchaseTokens } from "./PurchaseTokens/index";
 import { RepublishCharterNotice } from "./RepublishCharterNotice";
 import { ApplyToTCRStep } from "./ApplyToTCR/index";
@@ -44,7 +43,6 @@ import { MutationFunc } from "react-apollo";
 enum SECTION {
   PROFILE,
   CONTRACT,
-  TUTORIAL,
   TOKENS,
   APPLY,
 }
@@ -60,7 +58,6 @@ export enum STEP {
   CONTRACT_UNDERSTANDING_ETH,
   CONTRACT_CREATE,
   CONTRACT_ASSIGN,
-  TUTORIAL,
   TOKENS,
   APPLY,
   APPLIED, // @HACK: API needs distinct step for "has applied to TCR" state, which is not how we built it. This extra pseuo-step doesn't affect rendering but makes it easy to package with the rest of API's step-depenent logic.
@@ -77,7 +74,6 @@ const STEP_TO_SECTION = {
   [STEP.CONTRACT_UNDERSTANDING_ETH]: SECTION.CONTRACT,
   [STEP.CONTRACT_CREATE]: SECTION.CONTRACT,
   [STEP.CONTRACT_ASSIGN]: SECTION.CONTRACT,
-  [STEP.TUTORIAL]: SECTION.TUTORIAL,
   [STEP.TOKENS]: SECTION.TOKENS,
   [STEP.APPLY]: SECTION.APPLY,
 };
@@ -85,9 +81,8 @@ const STEP_TO_SECTION = {
 const SECTION_STARTS = {
   [SECTION.PROFILE]: 0,
   [SECTION.CONTRACT]: 6,
-  [SECTION.TUTORIAL]: 10,
-  [SECTION.TOKENS]: 11,
-  [SECTION.APPLY]: 12,
+  [SECTION.TOKENS]: 10,
+  [SECTION.APPLY]: 11,
 };
 
 export interface NewsroomComponentState {
@@ -144,7 +139,6 @@ export interface NewsroomGqlProps {
   persistedCharter?: Partial<CharterData>;
   savedStep: STEP;
   furthestStep: STEP;
-  quizStatus?: string;
   saveAddress: MutationFunc;
   saveSteps: MutationFunc;
   minDeposit: BigNumber;
@@ -322,9 +316,6 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
           newsroom={this.props.newsroom}
         />
       </StepNoButtons>,
-      <StepNoButtons title={"Tutorial"} disabled={this.getDisabled(SECTION.TUTORIAL)()} key="tutorial">
-        <Tutorial navigate={this.navigate} />
-      </StepNoButtons>,
       <StepNoButtons title={"Civil Tokens"} disabled={this.getDisabled(SECTION.TOKENS)()} key="ct">
         <PurchaseTokens
           navigate={this.navigate}
@@ -433,15 +424,12 @@ class NewsroomComponent extends React.Component<NewsroomProps, NewsroomComponent
       [SECTION.CONTRACT]: () => {
         return !this.props.completedGrantFlow;
       },
-      [SECTION.TUTORIAL]: () => {
-        return !this.props.newsroomAddress;
-      },
       [SECTION.TOKENS]: () => {
-        return !this.props.newsroomAddress || !this.props.quizStatus;
+        return !this.props.newsroomAddress;
       },
       [SECTION.APPLY]: () => {
         // Really it should be disabled if user's token balance is insufficient, but not worth rigging that up - this step handles insufficient tokens ok
-        return !this.props.newsroomAddress || !this.props.quizStatus;
+        return !this.props.newsroomAddress;
       },
     };
 

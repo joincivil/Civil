@@ -7,13 +7,12 @@ import {
   Notice,
   NoticeTypes,
   DashboardTransferTokenForm,
-  DashboardTutorialWarning,
   BalanceType,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
-import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
+import { getUnlockedWhitelist } from "../../helpers/tokenController";
 
 import DepositTokens from "./DepositTokens";
 import ReclaimTokens from "./ReclaimTokens";
