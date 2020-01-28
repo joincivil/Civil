@@ -142,7 +142,7 @@ export const BoostEmbedIframe = (props: BoostEmbedIframeProps & BoostEmbedIframe
             key={props.iframeId}
             id={props.iframeId}
             src={props.iframeSrc}
-            sandbox="allow-popups allow-scripts allow-same-origin"
+            sandbox="allow-forms allow-popups allow-scripts allow-same-origin"
           ></iframe>
         )}
 
