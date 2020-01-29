@@ -373,7 +373,9 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
   }
 
   public renderRemoveButton(): JSX.Element | null {
-    const isMe = this.props.profileWalletAddress && this.props.profileWalletAddress === this.props.memberAddress;
+    const isMe =
+      this.props.profileWalletAddress &&
+      this.props.profileWalletAddress.toLowerCase() === (this.props.memberAddress || "").toLowerCase();
     if (!this.props.isOnContract || isMe) {
       return null;
     }
