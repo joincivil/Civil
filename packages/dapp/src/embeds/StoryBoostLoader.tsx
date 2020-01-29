@@ -41,11 +41,6 @@ export interface StoryBoostLoaderParams {
 const StoryBoostLoaderComponent: React.FunctionComponent = () => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   civilContext.renderContext = RENDER_CONTEXT.EMBED;
-  const theme = {
-    ...DEFAULT_CHECKBOX_THEME,
-    ...DEFAULT_BUTTON_THEME,
-    renderContext: RENDER_CONTEXT.EMBED,
-  };
 
   // Due to a conflict between react-router v5's `BrowserRouter`, which we use, and react/redux `ConnectedRouter`, which we also use (and which would take an unknown/large refactor to change without breaking code splitting gains), neither `useParams` hook nor `withRouter` are receiving updates here, so we have to use `useRouteMatch` and manually provide the boost embed route. - @tobek
   const { boostId } = useRouteMatch<StoryBoostLoaderParams>(embedRoutes.STORY_BOOST)!.params;
@@ -55,19 +50,25 @@ const StoryBoostLoaderComponent: React.FunctionComponent = () => {
       <AvatarWrap>
         <AvatarLogin />
       </AvatarWrap>
-      <ThemeProvider theme={theme}>
-        <StoryBoost boostId={boostId} />
-      </ThemeProvider>
+      <StoryBoost boostId={boostId} />
     </EmbedWrapper>
   );
 };
 
 const StoryBoostLoader: React.FunctionComponent = () => {
+  const theme = {
+    ...DEFAULT_CHECKBOX_THEME,
+    ...DEFAULT_BUTTON_THEME,
+    renderContext: RENDER_CONTEXT.EMBED,
+  };
+
   return (
     <React.Suspense fallback={<></>}>
-      <AppProvider data-iframe-height>
-        <StoryBoostLoaderComponent />
-      </AppProvider>
+      <ThemeProvider theme={theme}>
+        <AppProvider data-iframe-height>
+          <StoryBoostLoaderComponent />
+        </AppProvider>
+      </ThemeProvider>
     </React.Suspense>
   );
 };
