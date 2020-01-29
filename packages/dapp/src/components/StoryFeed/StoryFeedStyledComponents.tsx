@@ -358,6 +358,8 @@ export const StoryDetailsComments = styled.div`
 `;
 
 export const StoryComment = styled.div`
+  display: flex;
+  flex-direction: column;
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 20px;
 `;
@@ -370,4 +372,44 @@ export const StoryDetailsFooterFlex = styled.div`
   a {
     width: 48%;
   }
+`;
+
+export const CivilCommentHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const CivilCommentHeaderLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 40px;
+`;
+
+export const CivilCommentHeaderRight = styled.div`
+  justify-content: flex-end;
+  height: 40px;
+`;
+
+export const CivilCommentContent = styled.div`
+`;
+
+export const CivilCommentFooter = styled.div`
+  display: flex;
+  flex-direction: row;
+  alight-items: flex: start;
+`;
+
+export const CivilCommentAvatarContainer = styled.div`
+  height: 40px;
+  width: 40px
+`;
+
+export const CivilCommentAvatar = styled.img`
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
 `;
