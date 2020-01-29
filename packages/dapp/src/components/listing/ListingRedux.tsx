@@ -30,7 +30,6 @@ import ListingCharter from "./ListingCharter";
 import ListingPhaseActions from "./ListingPhaseActions";
 import ListingChallengeStatement from "./ListingChallengeStatement";
 import { ListingTabContent } from "./styledComponents";
-import { CivilHelper, CivilHelperContext } from "../../apis/CivilHelper";
 import ErrorNotFoundMsg from "../utility/ErrorNotFound";
 import { connectParameters } from "../utility/HigherOrderComponents";
 import StoryFeed from "../StoryFeed/StoryFeed";
