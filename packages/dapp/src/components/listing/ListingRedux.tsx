@@ -80,10 +80,8 @@ class ListingPageComponent extends React.Component<
   ListingReduxProps & DispatchProp<any> & ListingPageComponentProps,
   ListingPageComponentState
 > {
-  public static contextType = CivilHelperContext;
-  public static civilContextType = CivilContext;
-  public static civilContext: ICivilContext;
-  public context: CivilHelper;
+  public static contextType = CivilContext;
+  public context: ICivilContext;
 
   constructor(props: ListingReduxProps & DispatchProp<any> & ListingPageComponentProps) {
     super(props);
@@ -253,7 +251,9 @@ class ListingPageComponent extends React.Component<
   };
 
   private openStoryDetails = (postId: string) => {
-    this.civilContext.fireAnalyticsEvent("listing story boost", "story details clicked", postId);
+    console.log("context: ", this.context);
+    console.log("civilcontext: ", this.civilContext);
+    this.context.fireAnalyticsEvent("listing story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
@@ -262,7 +262,7 @@ class ListingPageComponent extends React.Component<
   };
 
   private openPayments = (postId: string) => {
-    this.civilContext.fireAnalyticsEvent("listing story boost", "boost button clicked", postId);
+    this.context.fireAnalyticsEvent("listing story boost", "boost button clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
     this.props.history.push({
