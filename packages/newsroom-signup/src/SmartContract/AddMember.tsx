@@ -15,6 +15,7 @@ import {
   TextInput,
   BorderlessButton,
   ToolTip,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
 import styled from "styled-components";
@@ -30,7 +31,7 @@ import { addAndHydrateEditor, addAndHydrateOwner, fetchNewsroom, removeEditor } 
 export interface AddMemberProps {
   civil: Civil;
   newsroom: NewsroomInstance;
-  name: string;
+  name?: string;
   index: number;
   memberAddress?: EthAddress;
   charter: Partial<CharterData>;
@@ -38,6 +39,7 @@ export interface AddMemberProps {
   hasBothRoles?: boolean;
   avatarUrl?: string;
   isOnContract?: boolean;
+  notInCharter?: boolean;
   profileWalletAddress?: EthAddress;
   forceCharterUpdateForMissingAddress?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
@@ -407,7 +409,20 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
         <StyledLi>
           <SectionWrapper>
             <AvatarWrap>{this.props.avatarUrl ? <AvatarImg src={this.props.avatarUrl} /> : noAvatar}</AvatarWrap>
-            <StyledDisplayName>{this.props.name}</StyledDisplayName>
+            <StyledDisplayName>
+              {this.props.name}
+              {this.props.notInCharter && (
+                <>
+                  <i>not in charter</i>
+                  <QuestionToolTip
+                    explainerText={
+                      "This ETH address was found on your newsroom smart contract, but there is no roster member in your charter with that address. If you know who this ETH address belongs to, please update your charter accordingly."
+                    }
+                  />
+                </>
+              )}
+            </StyledDisplayName>
+          </SectionWrapper>
           <SectionWrapper>
             <ToolTip explainerText={<code>{this.props.memberAddress}</code>} width={310}>
               <code>{this.props.memberAddress && abbreviateAddress(this.props.memberAddress)}</code>
