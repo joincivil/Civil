@@ -53,6 +53,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
         }
 
         const storyBoostData = data.postsGet as StoryBoostData;
+        console.log("storyBoostdata: ", storyBoostData);
         return (
           <>
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>
@@ -64,6 +65,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 title={storyBoostData.openGraphData.title}
                 url={storyBoostData.openGraphData.url}
                 comments={storyBoostData.comments}
+                numComments={storyBoostData.numChildren}
                 refetch={refetch}
                 openGraphData={storyBoostData.openGraphData}
                 displayedContributors={storyBoostData.groupedSanitizedPayments}

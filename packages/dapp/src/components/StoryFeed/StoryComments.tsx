@@ -5,10 +5,13 @@ import {
 } from "./StoryFeedStyledComponents";
 import { Mutation, MutationFunc } from "react-apollo";
 import gql from "graphql-tag";
+import { CivilComment } from "./CivilComment";
+import { MoreComments } from "./MoreComments";
 
 export interface StoryCommentsProps {
   postId: string;
   comments: any;
+  numComments: number;
   refetch: any;
 }
 
@@ -23,6 +26,13 @@ const POST_COMMENT_MUTATION = gql`
 export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props => {
   const [commentText, setCommentText] = React.useState("");
 
+  console.log("StoryComments comments: ", props.comments);
+  const edgesLength = props.comments.edges.length;
+  // console.log("edges length: ", edgesLength);
+  const remainingChildren = props.numComments - edgesLength;
+  console.log("remainingChildren: ", remainingChildren);
+  const endCursor = props.comments.pageInfo.endCursor;
+  console.log("endCursor: ", endCursor);
   return (
     <>
       <StoryDetailsComments>
@@ -77,18 +87,11 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
           }}
         </Mutation>
         {props.comments.edges.map(child => {
-          console.log("child.post: ", child.post);
-          console.log("child.post.channel: ", child.post.channel);
-          console.log("child.post.channel.tiny72AvatarDataUrl: ", child.post.channel.tiny72AvatarDataUrl);
           return (
-            <StoryComment>
-              Avatar: <img src={child.post.channel.tiny72AvatarDataUrl}/>
-              Handle: {child.post.channel.handle}
-              <p>Type: {child.post.commentType}</p>
-              <p>Text: {child.post.text}</p>
-            </StoryComment>
+            <CivilComment comment={child} />
           );
         })}
+        <MoreComments postId={props.postId} prevEndCursor={props.comments.pageInfo.endCursor} numMoreComments={remainingChildren}/>
       </StoryDetailsComments>
     </>
   );

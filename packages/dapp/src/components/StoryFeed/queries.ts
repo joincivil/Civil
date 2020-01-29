@@ -76,6 +76,59 @@ export const STORY_FEED_QUERY = gql`
   }
 `;
 
+export const POST_COMMENTS = gql`
+  query PostComments($id: String!, $first: Int, $after: String) {
+    postsGetComments(id: $id, first: $first, after: $after) {
+      edges {
+        post {
+          ... on PostComment {
+            id
+            authorID
+            channelID
+            text
+            commentType
+            badges
+            channel {
+              handle
+              tiny72AvatarDataUrl
+            }
+            numChildren
+            comments {
+              edges {
+                post {
+                  ... on PostComment {
+                    id
+                    authorID
+                    channelID
+                    text
+                    commentType
+                    badges
+                    channel {
+                      handle
+                      tiny72AvatarDataUrl
+                    }
+                    numChildren
+                  }
+                }
+                cursor
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`
+
 export const STORY_BOOST = gql`
   query StoryBoost($id: String!) {
     postsGet(id: $id) {
