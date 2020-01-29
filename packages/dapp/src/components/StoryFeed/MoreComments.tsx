@@ -10,6 +10,7 @@ import { CivilComment } from "./CivilComment";
 export interface MoreCommentsProps {
   postId: string;
   numMoreComments: number;
+  level: number;
   prevEndCursor: string;
 }
 
@@ -47,7 +48,7 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
 
           const commentList = comments.edges.map(child => {
             return (
-              <CivilComment comment={child} />
+              <CivilComment comment={child} level={props.level}/>
             )
           })
           return (

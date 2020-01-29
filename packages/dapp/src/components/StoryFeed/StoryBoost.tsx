@@ -53,7 +53,6 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
         }
 
         const storyBoostData = data.postsGet as StoryBoostData;
-        console.log("storyBoostdata: ", storyBoostData);
         return (
           <>
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>

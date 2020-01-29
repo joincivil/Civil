@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { colors, fonts, mediaQueries } from "@joincivil/elements";
 import { StoryNewsroomStatusStyled } from "@joincivil/components";
+import { CivilCommentProps } from "./CivilComment";
 
 export const StoryFeedWrapper = styled.div`
   margin: 0 auto;
@@ -360,8 +361,10 @@ export const StoryDetailsComments = styled.div`
 export const StoryComment = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  padding: 20px;
+  border-left: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-left: ${(props: CivilCommentProps) => (props.level * 5) + "px"}
 `;
 
 export const StoryDetailsFooterFlex = styled.div`

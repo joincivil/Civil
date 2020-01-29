@@ -3,28 +3,22 @@ import { Button, TextareaInput, buttonSizes } from "@joincivil/elements";
 import {
   StoryDetailsComments, StoryComment,
 } from "./StoryFeedStyledComponents";
-import { Mutation, MutationFunc } from "react-apollo";
+import { Mutation, MutationFunc, Query } from "react-apollo";
 import gql from "graphql-tag";
 import { CivilComment } from "./CivilComment";
 import { MoreComments } from "./MoreComments";
+import { POST_COMMENT_MUTATION, COMMENT } from "./queries";
+import { LoadingMessage } from "@joincivil/components";
 
 export interface StoryCommentsProps {
   postId: string;
   comments: any;
   numComments: number;
-  refetch: any;
 }
-
-const POST_COMMENT_MUTATION = gql`
-  mutation($input: PostCreateCommentInput!) {
-    postsCreateComment(input: $input) {
-      id
-    }
-  }
-`;
 
 export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props => {
   const [commentText, setCommentText] = React.useState("");
+  const [myNewCommentIDs, setMyNewCommentIDs] = React.useState([]);
 
   console.log("StoryComments comments: ", props.comments);
   const edgesLength = props.comments.edges.length;
@@ -60,7 +54,7 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                         },
                       },
                     });
-                    props.refetch();
+                    setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
                   }}
                 >
                   Comment
@@ -68,7 +62,7 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                 <Button
                   size={buttonSizes.SMALL}
                   onClick={async () => {
-                    await postCommentMutation({
+                    const res = await postCommentMutation({
                       variables: {
                         input: {
                           parentID: props.postId,
@@ -77,7 +71,7 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                         },
                       },
                     });
-                    props.refetch();
+                    setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
                   }}
                 >
                   Announcement
@@ -86,12 +80,26 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
             );
           }}
         </Mutation>
+        {myNewCommentIDs.map(postID => {
+          return (<Query query={COMMENT} variables={{ id: postID }}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return <LoadingMessage>Loading Comment</LoadingMessage>;
+              } else if (error || !data || !data.postsGet) {
+                console.error("error loading comment data. error:", error, "data:", data);
+                return "Error loading comment.";
+              }
+              const comment = { post: data.postsGet }
+              return <CivilComment comment={comment} level={0} />
+            }}
+          </Query>)
+        })}
         {props.comments.edges.map(child => {
           return (
-            <CivilComment comment={child} />
+            <CivilComment comment={child} level={0}/>
           );
         })}
-        <MoreComments postId={props.postId} prevEndCursor={props.comments.pageInfo.endCursor} numMoreComments={remainingChildren}/>
+        <MoreComments postId={props.postId} prevEndCursor={props.comments.pageInfo.endCursor} numMoreComments={remainingChildren} level={0}/>
       </StoryDetailsComments>
     </>
   );

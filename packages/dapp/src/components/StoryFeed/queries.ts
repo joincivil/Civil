@@ -65,6 +65,7 @@ export const STORY_FEED_QUERY = gql`
                 tiny72AvatarDataUrl
               }
             }
+            numChildren
           }
         }
       }
@@ -76,38 +77,34 @@ export const STORY_FEED_QUERY = gql`
   }
 `;
 
+export const COMMENT_FRAGMENT = gql`
+  fragment CommentFragment on PostComment {
+    id
+    authorID
+    channelID
+    text
+    commentType
+    badges
+    channel {
+      handle
+      tiny72AvatarDataUrl
+    }
+    numChildren
+  }
+`
+
 export const POST_COMMENTS = gql`
   query PostComments($id: String!, $first: Int, $after: String) {
     postsGetComments(id: $id, first: $first, after: $after) {
       edges {
         post {
           ... on PostComment {
-            id
-            authorID
-            channelID
-            text
-            commentType
-            badges
-            channel {
-              handle
-              tiny72AvatarDataUrl
-            }
-            numChildren
+            ...CommentFragment
             comments {
               edges {
                 post {
                   ... on PostComment {
-                    id
-                    authorID
-                    channelID
-                    text
-                    commentType
-                    badges
-                    channel {
-                      handle
-                      tiny72AvatarDataUrl
-                    }
-                    numChildren
+                    ...CommentFragment
                   }
                 }
                 cursor
@@ -127,6 +124,7 @@ export const POST_COMMENTS = gql`
       }
     }
   }
+  ${COMMENT_FRAGMENT}
 `
 
 export const STORY_BOOST = gql`
@@ -173,32 +171,12 @@ export const STORY_BOOST = gql`
           edges {
             post {
               ... on PostComment {
-                id
-                authorID
-                channelID
-                text
-                commentType
-                badges
-                channel {
-                  handle
-                  tiny72AvatarDataUrl
-                }
-                numChildren
+                ...CommentFragment
                 comments {
                   edges {
                     post {
                       ... on PostComment {
-                        id
-                        authorID
-                        channelID
-                        text
-                        commentType
-                        badges
-                        channel {
-                          handle
-                          tiny72AvatarDataUrl
-                        }
-                        numChildren
+                        ...CommentFragment
                       }
                     }
                     cursor
@@ -220,4 +198,24 @@ export const STORY_BOOST = gql`
       }
     }
   }
+  ${COMMENT_FRAGMENT}
 `;
+
+export const POST_COMMENT_MUTATION = gql`
+  mutation($input: PostCreateCommentInput!) {
+    postsCreateComment(input: $input) {
+      id
+    }
+  }
+`;
+
+export const COMMENT = gql`
+  query StoryBoost($id: String!) {
+    postsGet(id: $id) {
+      ... on PostComment {
+        ...CommentFragment
+      }
+    }
+  }
+  ${COMMENT_FRAGMENT}
+`
