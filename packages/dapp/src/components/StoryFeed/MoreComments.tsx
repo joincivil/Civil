@@ -1,10 +1,8 @@
 import * as React from "react";
 import styled, { ThemeProvider } from "styled-components/macro";
 import { Query } from "react-apollo";
-import {
-  LoadingMessage, buttonSizes, Button,
-} from "@joincivil/components";
-import { POST_COMMENTS } from "./queries";
+import { LoadingMessage, buttonSizes, Button } from "@joincivil/components";
+import { POST_CHILDREN } from "./queries";
 import { CivilComment } from "./CivilComment";
 
 export interface MoreCommentsProps {
@@ -20,37 +18,30 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
   const [firstLoad, setFirstLoad] = React.useState(false);
 
   if (props.numMoreComments <= 0) {
-    return (
-      <></>
-    );
+    return <></>;
   }
   if (!firstLoad) {
     return (
-      <Button
-        size={buttonSizes.SMALL}
-        onClick={() => setFirstLoad(true)}
-      >
+      <Button size={buttonSizes.SMALL} onClick={() => setFirstLoad(true)}>
         Load More
       </Button>
     );
   } else {
     return (
-      <Query query={POST_COMMENTS} variables={{ id, first: 3, after: props.prevEndCursor }}>
+      <Query query={POST_CHILDREN} variables={{ id, first: 3, after: props.prevEndCursor }}>
         {({ loading, error, data, fetchMore }) => {
           if (loading) {
             return <LoadingMessage>Loading Comments</LoadingMessage>;
-          } else if (error || !data || !data.postsGetComments) {
-            console.error("error loading comments data. error:", error, "data:", data);
-            return "Error loading comments.";
+          } else if (error || !data || !data.postsGetChildren) {
+            console.error("error loading children data. error:", error, "data:", data);
+            return "Error loading children.";
           }
 
-          const comments = data.postsGetComments;
+          const comments = data.postsGetChildren;
 
           const commentList = comments.edges.map(child => {
-            return (
-              <CivilComment comment={child} level={props.level}/>
-            )
-          })
+            return <CivilComment comment={child} level={props.level} />;
+          });
           return (
             <>
               {commentList}
@@ -59,24 +50,24 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
                   size={buttonSizes.SMALL}
                   onClick={() =>
                     fetchMore({
-                      query: POST_COMMENTS,
+                      query: POST_CHILDREN,
                       variables: {
                         id,
                         first: 3,
                         after: comments.pageInfo.endCursor,
                       },
                       updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
-                        const newEdges = fetchMoreResult.postsGetComments.edges;
-                        const pageInfo = fetchMoreResult.postsGetComments.pageInfo;
+                        const newEdges = fetchMoreResult.postsGetChildren.edges;
+                        const pageInfo = fetchMoreResult.postsGetChildren.pageInfo;
 
                         return newEdges.length
                           ? {
-                            postsGetComments: {
-                              edges: [...previousResult.postsGetComments.edges, ...newEdges],
-                              pageInfo,
-                              __typename: previousResult.postsGetComments.__typename,
-                            },
-                          }
+                            postsGetChildren: {
+                              edges: [...previousResult.postsGetChildren.edges, ...newEdges],
+                                pageInfo,
+                                __typename: previousResult.postsGetChildren.__typename,
+                              },
+                            }
                           : previousResult;
                       },
                     })
@@ -86,7 +77,7 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
                 </Button>
               )}
             </>
-          )
+          );
         }}
       </Query>
     );

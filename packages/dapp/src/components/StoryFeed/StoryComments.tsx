@@ -1,8 +1,6 @@
 import * as React from "react";
 import { Button, TextareaInput, buttonSizes } from "@joincivil/elements";
-import {
-  StoryDetailsComments, StoryComment,
-} from "./StoryFeedStyledComponents";
+import { StoryDetailsComments, StoryComment } from "./StoryFeedStyledComponents";
 import { Mutation, MutationFunc, Query } from "react-apollo";
 import gql from "graphql-tag";
 import { CivilComment } from "./CivilComment";
@@ -45,7 +43,7 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                 <Button
                   size={buttonSizes.SMALL}
                   onClick={async () => {
-                    await postCommentMutation({
+                    const res = await postCommentMutation({
                       variables: {
                         input: {
                           parentID: props.postId,
@@ -81,25 +79,30 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
           }}
         </Mutation>
         {myNewCommentIDs.map(postID => {
-          return (<Query query={COMMENT} variables={{ id: postID }}>
-            {({ loading, error, data }) => {
-              if (loading) {
-                return <LoadingMessage>Loading Comment</LoadingMessage>;
-              } else if (error || !data || !data.postsGet) {
-                console.error("error loading comment data. error:", error, "data:", data);
-                return "Error loading comment.";
-              }
-              const comment = { post: data.postsGet }
-              return <CivilComment comment={comment} level={0} />
-            }}
-          </Query>)
-        })}
-        {props.comments.edges.map(child => {
           return (
-            <CivilComment comment={child} level={0}/>
+            <Query query={COMMENT} variables={{ id: postID }}>
+              {({ loading, error, data }) => {
+                if (loading) {
+                  return <LoadingMessage>Loading Comment</LoadingMessage>;
+                } else if (error || !data || !data.postsGet) {
+                  console.error("error loading comment data. error:", error, "data:", data);
+                  return "Error loading comment.";
+                }
+                const comment = { post: data.postsGet };
+                return <CivilComment comment={comment} level={0} />;
+              }}
+            </Query>
           );
         })}
-        <MoreComments postId={props.postId} prevEndCursor={props.comments.pageInfo.endCursor} numMoreComments={remainingChildren} level={0}/>
+        {props.comments.edges.map(child => {
+          return <CivilComment comment={child} level={0} />;
+        })}
+        <MoreComments
+          postId={props.postId}
+          prevEndCursor={props.comments.pageInfo.endCursor}
+          numMoreComments={remainingChildren}
+          level={0}
+        />
       </StoryDetailsComments>
     </>
   );

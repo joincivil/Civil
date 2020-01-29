@@ -1,6 +1,13 @@
 import * as React from "react";
 import {
-  StoryComment, CivilCommentHeader, CivilCommentContent, CivilCommentAvatarContainer, CivilCommentAvatar, CivilCommentHeaderLeft, CivilCommentHeaderRight, CivilCommentFooter,
+  StoryComment,
+  CivilCommentHeader,
+  CivilCommentContent,
+  CivilCommentAvatarContainer,
+  CivilCommentAvatar,
+  CivilCommentHeaderLeft,
+  CivilCommentHeaderRight,
+  CivilCommentFooter,
 } from "./StoryFeedStyledComponents";
 import { Mutation, MutationFunc, Query } from "react-apollo";
 import { POST_COMMENT_MUTATION, COMMENT } from "./queries";
@@ -14,14 +21,14 @@ export interface CivilCommentProps {
 }
 
 export const CivilComment: React.FunctionComponent<CivilCommentProps> = props => {
-  const { commentType, text, channel, id, comments, numChildren } = props.comment.post;
+  const { commentType, text, channel, id, children, numChildren } = props.comment.post;
   const { tiny72AvatarDataUrl, handle } = channel;
 
   const [showReplyForm, setShowReplyForm] = React.useState(false);
   const [commentText, setCommentText] = React.useState("");
   const [myNewCommentIDs, setMyNewCommentIDs] = React.useState([]);
 
-  const numChildrenRemaining = numChildren - (comments ? comments.edges.length : 0);
+  const numChildrenRemaining = numChildren - (children ? children.edges.length : 0);
 
   return (
     <StoryComment {...props}>
@@ -32,9 +39,7 @@ export const CivilComment: React.FunctionComponent<CivilCommentProps> = props =>
           </CivilCommentAvatarContainer>
           {"@" + handle}
         </CivilCommentHeaderLeft>
-        <CivilCommentHeaderRight>
-          {commentType === "comment_announcement" &&(<>ANNOUNCEMENT</>)}
-        </CivilCommentHeaderRight>
+        <CivilCommentHeaderRight>{commentType === "comment_announcement" && <>ANNOUNCEMENT</>}</CivilCommentHeaderRight>
       </CivilCommentHeader>
       <CivilCommentContent>
         <p>{text}</p>
@@ -42,61 +47,69 @@ export const CivilComment: React.FunctionComponent<CivilCommentProps> = props =>
       <CivilCommentFooter>
         <span onClick={() => setShowReplyForm(!showReplyForm)}>Reply</span>
       </CivilCommentFooter>
-      {showReplyForm && (<>
-        <Mutation mutation={POST_COMMENT_MUTATION}>
-          {(postCommentMutation: MutationFunc) => {
-            return (
-              <>
-                <TextareaInput
-                  name="post_comment_input"
-                  value={commentText}
-                  onChange={(name: any, value: string) => {
-                    setCommentText(value);
-                  }}
-                  maxLength={"500"}
-                />
-                <Button
-                  size={buttonSizes.SMALL}
-                  onClick={async () => {
-                    const res = await postCommentMutation({
-                      variables: {
-                        input: {
-                          parentID: id,
-                          commentType: "comment_default",
-                          text: commentText,
+      {showReplyForm && (
+        <>
+          <Mutation mutation={POST_COMMENT_MUTATION}>
+            {(postCommentMutation: MutationFunc) => {
+              return (
+                <>
+                  <TextareaInput
+                    name="post_comment_input"
+                    value={commentText}
+                    onChange={(name: any, value: string) => {
+                      setCommentText(value);
+                    }}
+                    maxLength={"500"}
+                  />
+                  <Button
+                    size={buttonSizes.SMALL}
+                    onClick={async () => {
+                      const res = await postCommentMutation({
+                        variables: {
+                          input: {
+                            parentID: id,
+                            commentType: "comment_default",
+                            text: commentText,
+                          },
                         },
-                      },
-                    });
-                    setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
-                  }}
-                >
-                  Comment
-                </Button>
-              </>
-            );
-          }}
-        </Mutation>
-      </>)}
+                      });
+                      setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
+                    }}
+                  >
+                    Comment
+                  </Button>
+                </>
+              );
+            }}
+          </Mutation>
+        </>
+      )}
       {myNewCommentIDs.map(postID => {
-        return (<Query query={COMMENT} variables={{id: postID}}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return <LoadingMessage>Loading Comment</LoadingMessage>;
-            } else if (error || !data || !data.postsGet) {
-              console.error("error loading comment data. error:", error, "data:", data);
-              return "Error loading comment.";
-            }
-            const comment = { post: data.postsGet }
-            return <CivilComment comment={comment} level={props.level + 1} />
-          }}
-        </Query>)
-      })}
-      {comments && comments.edges.map(child => {
         return (
-          <CivilComment comment={child} level={props.level + 1}/>
+          <Query query={COMMENT} variables={{ id: postID }}>
+            {({ loading, error, data }) => {
+              if (loading) {
+                return <LoadingMessage>Loading Comment</LoadingMessage>;
+              } else if (error || !data || !data.postsGet) {
+                console.error("error loading comment data. error:", error, "data:", data);
+                return "Error loading comment.";
+              }
+              const comment = { post: data.postsGet };
+              return <CivilComment comment={comment} level={props.level + 1} />;
+            }}
+          </Query>
         );
       })}
-      <MoreComments postId={id} prevEndCursor={comments ? comments.pageInfo.endCursor : ""} numMoreComments={numChildrenRemaining} level={props.level + 1}/>
+      {children &&
+        children.edges.map(child => {
+          return <CivilComment comment={child} level={props.level + 1} />;
+        })}
+      <MoreComments
+        postId={id}
+        prevEndCursor={children ? children.pageInfo.endCursor : ""}
+        numMoreComments={numChildrenRemaining}
+        level={props.level + 1}
+      />
     </StoryComment>
   );
 };

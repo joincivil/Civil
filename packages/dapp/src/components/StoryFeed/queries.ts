@@ -84,23 +84,22 @@ export const COMMENT_FRAGMENT = gql`
     channelID
     text
     commentType
-    badges
     channel {
       handle
       tiny72AvatarDataUrl
     }
     numChildren
   }
-`
+`;
 
-export const POST_COMMENTS = gql`
-  query PostComments($id: String!, $first: Int, $after: String) {
-    postsGetComments(id: $id, first: $first, after: $after) {
+export const POST_CHILDREN = gql`
+  query PostChildren($id: String!, $first: Int, $after: String) {
+    postsGetChildren(id: $id, first: $first, after: $after) {
       edges {
         post {
           ... on PostComment {
             ...CommentFragment
-            comments {
+            children {
               edges {
                 post {
                   ... on PostComment {
@@ -125,7 +124,7 @@ export const POST_COMMENTS = gql`
     }
   }
   ${COMMENT_FRAGMENT}
-`
+`;
 
 export const STORY_BOOST = gql`
   query StoryBoost($id: String!) {
@@ -167,12 +166,12 @@ export const STORY_BOOST = gql`
           }
         }
         numChildren
-        comments {
+        children {
           edges {
             post {
               ... on PostComment {
                 ...CommentFragment
-                comments {
+                children {
                   edges {
                     post {
                       ... on PostComment {
@@ -218,4 +217,4 @@ export const COMMENT = gql`
     }
   }
   ${COMMENT_FRAGMENT}
-`
+`;

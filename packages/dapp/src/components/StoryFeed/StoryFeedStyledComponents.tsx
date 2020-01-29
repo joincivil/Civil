@@ -364,7 +364,7 @@ export const StoryComment = styled.div`
   border-left: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding-left: 10px;
   padding-top: 10px;
-  margin-left: ${(props: CivilCommentProps) => (props.level * 5) + "px"}
+  margin-left: ${(props: CivilCommentProps) => props.level * 5 + "px"};
 `;
 
 export const StoryDetailsFooterFlex = styled.div`
@@ -397,8 +397,7 @@ export const CivilCommentHeaderRight = styled.div`
   height: 40px;
 `;
 
-export const CivilCommentContent = styled.div`
-`;
+export const CivilCommentContent = styled.div``;
 
 export const CivilCommentFooter = styled.div`
   display: flex;
@@ -408,7 +407,7 @@ export const CivilCommentFooter = styled.div`
 
 export const CivilCommentAvatarContainer = styled.div`
   height: 40px;
-  width: 40px
+  width: 40px;
 `;
 
 export const CivilCommentAvatar = styled.img`

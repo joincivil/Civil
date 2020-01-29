@@ -1,8 +1,5 @@
 import * as React from "react";
-import {
-  CommentsCountStyled,
-  CommentsLabel,
-} from "./CommentsStyledComponents";
+import { CommentsCountStyled, CommentsLabel } from "./CommentsStyledComponents";
 
 export interface CommentsCountProps {
   numComments: number;
@@ -15,7 +12,7 @@ export class CommentsCount extends React.Component<CommentsCountProps> {
         {this.props.numComments !== 0 ? (
           this.renderContributers()
         ) : (
-            <CommentsLabel>Be the first to Comment</CommentsLabel>
+          <CommentsLabel>Be the first to Comment</CommentsLabel>
         )}
       </CommentsCountStyled>
     );

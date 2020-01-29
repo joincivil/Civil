@@ -117,7 +117,12 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           </BlueLinkBtn>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
-      <StoryComments postId={props.postId} comments={props.comments} refetch={props.refetch} numComments={props.numComments} />
+      <StoryComments
+        postId={props.postId}
+        comments={props.comments}
+        refetch={props.refetch}
+        numComments={props.numComments}
+      />
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />
       </SharePanel>
