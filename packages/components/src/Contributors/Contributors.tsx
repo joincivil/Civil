@@ -26,13 +26,13 @@ export const Contributors: React.FunctionComponent<ContributorsProps> = props =>
         props.sortedContributors.slice(0, 3).map((contributor: any, i: number) => {
           return (
             <ContributorItem key={i}>
-              {contributor.payerChannel.tiny72AvatarDataUrl ? (
+              {contributor.payerChannel && contributor.payerChannel.tiny72AvatarDataUrl ? (
                 <ContributorAvatar src={contributor.payerChannel.tiny72AvatarDataUrl} />
               ) : (
                 <ContributorsDefaultAvatar contributor={contributor[i]} index={i} size={25} />
               )}
               <div>
-                <ContributorUserName>{contributor.payerChannel.handle}</ContributorUserName>
+                <ContributorUserName>{contributor.payerChannel && contributor.payerChannel.handle}</ContributorUserName>
                 <ContributorAmount>{"$" + contributor.usdEquivalent.toFixed(2)}</ContributorAmount>
               </div>
             </ContributorItem>
