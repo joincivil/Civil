@@ -250,8 +250,6 @@ class ListingPageComponent extends React.Component<
   };
 
   private openStoryDetails = (postId: string) => {
-    console.log("context: ", this.context);
-    console.log("civilcontext: ", this.civilContext);
     this.context.fireAnalyticsEvent("listing story boost", "story details clicked", postId);
     let urlBase = this.props.location.pathname;
     urlBase = urlBase.substring(0, urlBase.indexOf("/"));
