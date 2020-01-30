@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import styled from "styled-components";
 import { mediaQueries } from "./styleConstants";
+import { RENDER_CONTEXT } from "./context";
 
 interface ToggleDisplayEl {
   visible: boolean;
@@ -22,9 +23,14 @@ const ModalOuter = styled.div<ToggleDisplayEl & TextAlignProps>`
   justify-content: center;
   align-items: center;
   text-align: ${props => props.textAlign || "left"};
-  z-index: 100001;
+  z-index: 100001; // to beat wp tools
+  ${props =>
+    props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+    `
+    display: block;
+    text-align: center;
+  `}
 `;
-// z-index to beat wp tools
 
 interface ModalInnerProps {
   width?: number;
@@ -49,6 +55,15 @@ const ModalInner = styled.div`
     padding-top: 15px;
     padding-right: 10px;
     padding-left: 10px;
+
+    ${props =>
+      props.theme.renderContext === RENDER_CONTEXT.EMBED &&
+      `
+      max-height: none;
+      padding: 16px;
+      display: inline-block;
+      margin: 32px auto 16px;
+    `}
   }
 `;
 
@@ -92,6 +107,7 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
   public render(): React.ReactPortal {
     return ReactDOM.createPortal(
       <ModalOuter
+        data-iframe-height
         visible={this.state.visible!}
         textAlign={this.props.textAlign}
         onClick={() => {
@@ -101,6 +117,7 @@ export class Modal extends React.Component<ModalPropsAndState, ModalPropsAndStat
         }}
       >
         <ModalInner
+          data-iframe-height
           width={this.props.width}
           fullScreen={this.props.fullScreen}
           padding={this.props.padding}

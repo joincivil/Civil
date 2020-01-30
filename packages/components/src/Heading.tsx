@@ -66,9 +66,9 @@ export const PageHeadingCentered = styled.h2`
   font-family: ${fonts.SANS_SERIF};
   font-weight: 800;
   font-size: 28px;
-  line-height: 50px;
+  line-height: 34px;
   letter-spacing: -0.58px;
-  margin: 0;
+  margin: 8px 0;
   text-align: center;
 `;
 
