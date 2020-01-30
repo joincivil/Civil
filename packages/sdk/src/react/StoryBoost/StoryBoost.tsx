@@ -132,7 +132,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
             <>
               <StoryBoostHeader>
                 <StoryBoostStatus>
-                  <StoryNewsroomStatus newsroomName={storyBoostData.channel.newsroom.name} activeChallenge={false} />
+                  <StoryNewsroomStatus newsroomName={storyBoostData.channel.newsroom.name} />
                 </StoryBoostStatus>
                 <h2>{storyBoostData.openGraphData.title}</h2>
               </StoryBoostHeader>

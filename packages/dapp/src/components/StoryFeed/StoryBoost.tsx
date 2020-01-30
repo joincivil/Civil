@@ -58,7 +58,6 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>
               <StoryDetails
                 postId={props.postId}
-                activeChallenge={false}
                 createdAt={storyBoostData.createdAt}
                 newsroomName={storyBoostData.channel.newsroom.name}
                 title={storyBoostData.openGraphData.title}
@@ -77,8 +76,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
             {!props.isListingPageFeed && (
               <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
                 <StoryNewsroomDetails
-                  activeChallenge={false}
-                  newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
+                  newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.newsroom.handle }}
                 />
               </StoryModal>
             )}

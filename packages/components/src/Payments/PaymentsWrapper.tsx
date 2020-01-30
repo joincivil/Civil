@@ -69,7 +69,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
         {this.props.boostType !== "project" && <SendPaymentHdrText />}
         <PaymentHeaderFlex>
           <PaymentHeaderNewsroom>
-            <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+            <StoryNewsroomStatus newsroomName={this.props.newsroomName} />
           </PaymentHeaderNewsroom>
           {this.props.usdToSpend && this.renderBoostAmount()}
         </PaymentHeaderFlex>
@@ -118,7 +118,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
         ) : (
           <PaymentHeaderFlex>
             <PaymentHeaderNewsroom>
-              <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+              <StoryNewsroomStatus newsroomName={this.props.newsroomName} />
             </PaymentHeaderNewsroom>
             {this.props.usdToSpend && this.renderBoostAmount()}
           </PaymentHeaderFlex>

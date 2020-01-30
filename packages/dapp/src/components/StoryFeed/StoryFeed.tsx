@@ -57,7 +57,6 @@ class StoryFeed extends React.Component<StoryFeedProps> {
                   <StoryFeedItem
                     key={i}
                     postId={postData.id}
-                    activeChallenge={false}
                     newsroom={postData.channel.newsroom}
                     openGraphData={postData.openGraphData}
                     displayedContributors={postData.groupedSanitizedPayments}

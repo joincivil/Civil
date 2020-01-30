@@ -30,7 +30,6 @@ import {
 
 export interface StoryDetailsProps {
   postId: string;
-  activeChallenge: boolean;
   createdAt: string;
   newsroomName: string;
   title: string;
@@ -74,11 +73,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         </StoryDetailsFlex>
         <StoryDetailsFlexLeft>
           {!props.isListingPageFeed && (
-            <StoryNewsroomStatus
-              newsroomName={props.newsroomName}
-              activeChallenge={props.activeChallenge}
-              handleOpenNewsroom={props.handleOpenNewsroom}
-            />
+            <StoryNewsroomStatus newsroomName={props.newsroomName} handleOpenNewsroom={props.handleOpenNewsroom} />
           )}
           {openGraphData.article && openGraphData.article.published_time && (
             <TimeStamp>

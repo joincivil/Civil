@@ -1,5 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Query } from "react-apollo";
+import { LISTINGS_ACTIVE_CHALLENGE } from "./queries";
 import { ChallengeMarkIcon, TrustMarkIcon, colors, fonts } from "@joincivil/elements";
 
 export const StoryNewsroomStatusStyled = styled.div`
@@ -28,30 +30,51 @@ export const StoryNewsroomStatusStyled = styled.div`
 
 export interface StoryNewsroomStatusProps {
   newsroomName: string;
-  activeChallenge: boolean;
   handleOpenNewsroom?(): void;
 }
 
 export const StoryNewsroomStatus: React.FunctionComponent<StoryNewsroomStatusProps> = props => {
-  if (props.handleOpenNewsroom) {
-    return (
-      <StoryNewsroomStatusStyled>
-        <a onClick={props.handleOpenNewsroom}>
-          {props.newsroomName}
-          {props.activeChallenge ? (
-            <ChallengeMarkIcon width={18} height={18} />
-          ) : (
-            <TrustMarkIcon width={18} height={18} />
-          )}
-        </a>
-      </StoryNewsroomStatusStyled>
-    );
-  }
-
   return (
-    <StoryNewsroomStatusStyled>
-      {props.newsroomName}
-      {props.activeChallenge ? <ChallengeMarkIcon width={18} height={18} /> : <TrustMarkIcon width={18} height={18} />}
-    </StoryNewsroomStatusStyled>
+    <Query query={LISTINGS_ACTIVE_CHALLENGE} variables={{ activeChallenge: true }}>
+      {({ loading, error, data }: any): JSX.Element => {
+        if (loading) {
+          return <></>;
+        } else if (error || !data || !data.tcrListings) {
+          console.error("error loading listing data. error:", error, "data:", data);
+          return <></>;
+        }
+
+        const { tcrListings } = data;
+        let activeChallenge = false;
+        tcrListings.edges.map((edge: any) => {
+          if (edge.node.newsroomName === props.newsroomName) {
+            activeChallenge = true;
+            return;
+          }
+        });
+
+        if (props.handleOpenNewsroom) {
+          return (
+            <StoryNewsroomStatusStyled>
+              <a onClick={props.handleOpenNewsroom}>
+                {props.newsroomName}
+                {activeChallenge ? (
+                  <ChallengeMarkIcon width={18} height={18} />
+                ) : (
+                  <TrustMarkIcon width={18} height={18} />
+                )}
+              </a>
+            </StoryNewsroomStatusStyled>
+          );
+        }
+
+        return (
+          <StoryNewsroomStatusStyled>
+            {props.newsroomName}
+            {activeChallenge ? <ChallengeMarkIcon width={18} height={18} /> : <TrustMarkIcon width={18} height={18} />}
+          </StoryNewsroomStatusStyled>
+        );
+      }}
+    </Query>
   );
 };

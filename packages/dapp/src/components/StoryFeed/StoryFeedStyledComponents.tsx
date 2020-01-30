@@ -258,7 +258,7 @@ export const BlueLinkBtn = styled.a`
 export const StoryRegistryDetailsStyled = styled.div`
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
-  margin-bottom: 20px;
+  margin: 0 20px;
   padding: 20px 0;
 `;
 
@@ -332,7 +332,7 @@ export const StoryModalCloseBtn = styled.div`
 
 export const StoryDetailsHeader = styled.div`
   font-family: ${fonts.SANS_SERIF};
-  padding: 20px 20px 0;
+  padding: 20px;
 `;
 
 export const StoryDetailsFullBleedHeader = styled.div`

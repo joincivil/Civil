@@ -7,7 +7,6 @@ import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/e
 
 export interface StoryFeedItemProps {
   postId: string;
-  activeChallenge: boolean;
   newsroom: StoryNewsroomData;
   openGraphData: OpenGraphData;
   displayedContributors: ContributorData[];
@@ -37,7 +36,6 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
           {!this.props.isListingPageFeed && (
             <StoryNewsroomStatus
               newsroomName={this.props.newsroom.name}
-              activeChallenge={this.props.activeChallenge}
               handleOpenNewsroom={() => this.props.openStoryNewsroomDetails(this.props.postId)}
             />
           )}
