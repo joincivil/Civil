@@ -38,13 +38,10 @@ export const StoryNewsroomDetails: React.FunctionComponent<StoryNewsroomDetailsP
           }
 
           const { tcrListings } = data;
-          let activeChallenge = false;
-          tcrListings.edges.map((edge: any) => {
-            if (edge.node.newsroomName === newsroom.name) {
-              activeChallenge = true;
-              return;
-            }
+          const activeChallengeNewsrooms = tcrListings.edges.map((edge: any) => {
+            return edge.node.name;
           });
+          const activeChallenge = activeChallengeNewsrooms.includes(newsroom.name);
 
           return (
             <>

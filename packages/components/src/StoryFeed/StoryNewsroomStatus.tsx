@@ -45,13 +45,10 @@ export const StoryNewsroomStatus: React.FunctionComponent<StoryNewsroomStatusPro
         }
 
         const { tcrListings } = data;
-        let activeChallenge = false;
-        tcrListings.edges.map((edge: any) => {
-          if (edge.node.newsroomName === props.newsroomName) {
-            activeChallenge = true;
-            return;
-          }
+        const activeChallengeNewsrooms = tcrListings.edges.map((edge: any) => {
+          return edge.node.name;
         });
+        const activeChallenge = activeChallengeNewsrooms.includes(props.newsroomName);
 
         if (props.handleOpenNewsroom) {
           return (
