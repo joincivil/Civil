@@ -8,13 +8,14 @@ import { MoreComments } from "./MoreComments";
 import { POST_COMMENT_MUTATION, COMMENT } from "./queries";
 import { LoadingMessage } from "@joincivil/components";
 
-export interface StoryCommentsProps {
+export interface PostCommentsProps {
   postId: string;
   comments: any;
   numComments: number;
+  level: number;
 }
 
-export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props => {
+export const PostComments: React.FunctionComponent<PostCommentsProps> = props => {
   const [commentText, setCommentText] = React.useState("");
   const [myNewCommentIDs, setMyNewCommentIDs] = React.useState([]);
 
@@ -57,23 +58,25 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                 >
                   Comment
                 </Button>
-                <Button
-                  size={buttonSizes.SMALL}
-                  onClick={async () => {
-                    const res = await postCommentMutation({
-                      variables: {
-                        input: {
-                          parentID: props.postId,
-                          commentType: "comment_announcement",
-                          text: commentText,
+                {props.level === 0 && (
+                  <Button
+                    size={buttonSizes.SMALL}
+                    onClick={async () => {
+                      const res = await postCommentMutation({
+                        variables: {
+                          input: {
+                            parentID: props.postId,
+                            commentType: "comment_announcement",
+                            text: commentText,
+                          },
                         },
-                      },
-                    });
-                    setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
-                  }}
-                >
-                  Announcement
-                </Button>
+                      });
+                      setMyNewCommentIDs(myNewCommentIDs.concat(res.data.postsCreateComment.id));
+                    }}
+                  >
+                    Announcement
+                  </Button>
+                )}
               </>
             );
           }}
@@ -89,13 +92,13 @@ export const StoryComments: React.FunctionComponent<StoryCommentsProps> = props 
                   return "Error loading comment.";
                 }
                 const comment = { post: data.postsGet };
-                return <CivilComment comment={comment} level={0} />;
+                return <CivilComment comment={comment} level={props.level} />;
               }}
             </Query>
           );
         })}
         {props.comments.edges.map(child => {
-          return <CivilComment comment={child} level={0} />;
+          return <CivilComment comment={child} level={props.level} />;
         })}
         <MoreComments
           postId={props.postId}

@@ -28,7 +28,7 @@ import {
   StoryDetailsFooterFlex,
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
-import { StoryComments } from "./StoryComments";
+import { PostComments } from "./PostComments";
 
 export interface StoryDetailsProps {
   postId: string;
@@ -43,7 +43,6 @@ export interface StoryDetailsProps {
   totalContributors: number;
   comments: any;
   numComments: any;
-  refetch: any;
   isListingPageFeed?: boolean;
   handlePayments(): void;
   handleOpenNewsroom(): void;
@@ -119,10 +118,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
       <FeatureFlag feature={"comments-mvp"}>
-        <StoryComments
+        <PostComments
           postId={props.postId}
           comments={props.comments}
-          refetch={props.refetch}
           numComments={props.numComments}
         />
       </FeatureFlag>
