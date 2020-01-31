@@ -2,7 +2,7 @@ import * as React from "react";
 import { Story } from "./Story";
 import { StoryFeedItemWrap, StoryElementsFlex } from "./StoryFeedStyledComponents";
 import { StoryNewsroomData, OpenGraphData } from "./types";
-import { StoryNewsroomStatus, ContributorCount, ContributorData, CommentsCount } from "@joincivil/components";
+import { StoryNewsroomStatus, ContributorCount, ContributorData, CommentsCount, FeatureFlag } from "@joincivil/components";
 import { PaymentButton, ShareButton, ShareStory, SharePanel } from "@joincivil/elements";
 
 export interface StoryFeedItemProps {
@@ -51,7 +51,9 @@ export class StoryFeedItem extends React.Component<StoryFeedItemProps, StoryFeed
               totalContributors={this.props.totalContributors}
               displayedContributors={this.props.displayedContributors}
             />
-            <CommentsCount numComments={this.props.numComments} />
+            <FeatureFlag feature={"comments-mvp"}>
+              <CommentsCount numComments={this.props.numComments} />
+            </FeatureFlag>
             <StoryElementsFlex>
               <PaymentButton onClick={() => this.props.openPayments(this.props.postId)} />
               <ShareButton onClick={this.openShare} />

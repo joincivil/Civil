@@ -7,6 +7,7 @@ import {
   ContributorData,
   StoryNewsroomStatus,
   storyPlaceholderImgUrl,
+  FeatureFlag,
 } from "@joincivil/components";
 import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors, Button } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
@@ -117,12 +118,14 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           </BlueLinkBtn>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
-      <StoryComments
-        postId={props.postId}
-        comments={props.comments}
-        refetch={props.refetch}
-        numComments={props.numComments}
-      />
+      <FeatureFlag feature={"comments-mvp"}>
+        <StoryComments
+          postId={props.postId}
+          comments={props.comments}
+          refetch={props.refetch}
+          numComments={props.numComments}
+        />
+      </FeatureFlag>
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />
       </SharePanel>
