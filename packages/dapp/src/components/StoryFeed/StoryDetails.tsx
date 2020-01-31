@@ -41,8 +41,8 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
-  comments: any;
-  numComments: any;
+  children: any;
+  numChildren: any;
   isListingPageFeed?: boolean;
   handlePayments(): void;
   handleOpenNewsroom(): void;
@@ -120,8 +120,9 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
       <FeatureFlag feature={"comments-mvp"}>
         <PostComments
           postId={props.postId}
-          comments={props.comments}
-          numComments={props.numComments}
+          comments={props.children}
+          numComments={props.numChildren}
+          level={0}
         />
       </FeatureFlag>
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>

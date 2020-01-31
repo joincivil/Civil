@@ -355,6 +355,7 @@ export const StoryDetailsFooter = styled.div`
 
 export const StoryDetailsComments = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
+  border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding: 20px;
 `;
 

@@ -38,6 +38,7 @@ export const CivilComment: React.FunctionComponent<CivilCommentProps> = props =>
         postId={id}
         comments={children}
         numComments={numChildren}
+        level={props.level + 1}
       />
     </StoryComment>
   );
