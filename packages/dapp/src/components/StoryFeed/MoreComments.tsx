@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { LoadingMessage, buttonSizes, Button } from "@joincivil/components";
+import { LoadingMessage, buttonSizes, Button, colors } from "@joincivil/components";
 import { POST_CHILDREN } from "./queries";
 import { CivilComment } from "./CivilComment";
+import styled from "styled-components";
 
 export interface MoreCommentsProps {
   postId: string;
@@ -10,6 +11,18 @@ export interface MoreCommentsProps {
   level: number;
   prevEndCursor: string;
 }
+
+const TopLevelLoadMoreSpan = styled.span`
+  color: ${colors.accent.CIVIL_BLUE_FADED};
+  font-size: 12;
+  margin-left: 0;
+`;
+
+const ReplyLoadMoreSpan = styled.span`
+  color: ${colors.accent.CIVIL_BLUE_FADED};
+  font-size: 8;
+  margin-left: 0;
+`;
 
 export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props => {
   const id = props.postId;
@@ -19,11 +32,15 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
   if (props.numMoreComments <= 0) {
     return <></>;
   }
+
+  const LoadMoreSpan = props.level === 0 ? TopLevelLoadMoreSpan : ReplyLoadMoreSpan;
+  const loadMoreText = props.level === 0 ? "Load More Comments" : "Load More Replies";
+
   if (!firstLoad) {
     return (
-      <Button size={buttonSizes.SMALL} onClick={() => setFirstLoad(true)}>
-        Load More
-      </Button>
+      <LoadMoreSpan onClick={() => setFirstLoad(true)}>
+        {loadMoreText}
+      </LoadMoreSpan>
     );
   } else {
     return (
@@ -45,8 +62,7 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
             <>
               {commentList}
               {comments.pageInfo.hasNextPage && (
-                <Button
-                  size={buttonSizes.SMALL}
+                <LoadMoreSpan
                   onClick={() =>
                     fetchMore({
                       query: POST_CHILDREN,
@@ -72,8 +88,8 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
                     })
                   }
                 >
-                  Load More
-                </Button>
+                  {loadMoreText}
+                </LoadMoreSpan>
               )}
             </>
           );
