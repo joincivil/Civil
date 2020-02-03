@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Query } from "react-apollo";
-import { LoadingMessage, buttonSizes, Button, colors } from "@joincivil/components";
+import { LoadingMessage, colors } from "@joincivil/components";
 import { POST_CHILDREN } from "./queries";
 import { CivilComment } from "./CivilComment";
 import styled from "styled-components";
