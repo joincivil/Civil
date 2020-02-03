@@ -9,7 +9,7 @@ import {
   storyPlaceholderImgUrl,
   FeatureFlag,
 } from "@joincivil/components";
-import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors, Button } from "@joincivil/elements";
+import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
 import { OpenGraphData } from "./types";
 import {

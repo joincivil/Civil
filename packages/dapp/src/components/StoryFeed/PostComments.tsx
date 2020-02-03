@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Button, TextareaInput, buttonSizes, colors } from "@joincivil/elements";
-import { StoryDetailsComments, StoryComment } from "./StoryFeedStyledComponents";
+import { StoryDetailsComments } from "./StoryFeedStyledComponents";
 import { Mutation, MutationFunc, Query } from "react-apollo";
-import gql from "graphql-tag";
 import { CivilComment } from "./CivilComment";
 import { MoreComments } from "./MoreComments";
 import { POST_COMMENT_MUTATION, COMMENT } from "./queries";
@@ -39,6 +38,18 @@ export const PostComments: React.FunctionComponent<PostCommentsProps> = props =>
   return (
     <>
       <StoryDetailsComments>
+        {showReply && props.level === 0 && (
+          <TopLevelReplySpan onClick={() => setShowReply(false)}>Hide Comment Form</TopLevelReplySpan>
+        )}
+        {showReply && props.level !== 0 && (
+          <ReplySpan onClick={() => setShowReply(false)}>Hide Reply Form</ReplySpan>
+        )}
+        {!showReply && props.level === 0 && (
+          <TopLevelReplySpan onClick={() => setShowReply(true)}>Leave a Comment</TopLevelReplySpan>
+        )}
+        {!showReply && props.level !== 0 && (
+          <ReplySpan onClick={() => setShowReply(true)}>Reply</ReplySpan>
+        )}
         {showReply && (
           <Mutation mutation={POST_COMMENT_MUTATION}>
             {(postCommentMutation: MutationFunc) => {
@@ -92,18 +103,6 @@ export const PostComments: React.FunctionComponent<PostCommentsProps> = props =>
               );
             }}
           </Mutation>
-        )}
-        {showReply && props.level === 0 && (
-          <TopLevelReplySpan onClick={() => setShowReply(false)}>Hide Comment Form</TopLevelReplySpan>
-        )}
-        {showReply && props.level !== 0 && (
-          <ReplySpan onClick={() => setShowReply(false)}>Hide Reply Form</ReplySpan>
-        )}
-        {!showReply &&  props.level === 0 && (
-          <TopLevelReplySpan onClick={() => setShowReply(true)}>Leave a Comment</TopLevelReplySpan>
-        )}
-        {!showReply && props.level !== 0 && (
-          <ReplySpan onClick={() => setShowReply(true)}>Reply</ReplySpan>
         )}
         <br />
         {myNewCommentIDs.map(postID => {

@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled, { ThemeProvider } from "styled-components/macro";
 import { Query } from "react-apollo";
 import { LoadingMessage, buttonSizes, Button } from "@joincivil/components";
 import { POST_CHILDREN } from "./queries";
