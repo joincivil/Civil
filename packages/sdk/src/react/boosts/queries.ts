@@ -78,6 +78,9 @@ export const boostNewsroomQuery = gql`
       charter {
         uri
       }
+      challenge {
+        challengeID
+      }
     }
   }
 `;

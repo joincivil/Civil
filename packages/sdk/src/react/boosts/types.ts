@@ -34,6 +34,9 @@ export interface BoostNewsroomData {
   charter?: {
     uri: string;
   };
+  challenge?: {
+    challengeID: string;
+  };
 }
 
 export interface BoostSanitizedPaymentData {

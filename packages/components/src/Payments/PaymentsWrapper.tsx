@@ -27,6 +27,7 @@ import { RENDER_CONTEXT, ICivilContext, CivilContext } from "../context";
 export interface PaymentsWrapperProps {
   boostType?: string;
   newsroomName: string;
+  activeChallenge: boolean;
   usdToSpend?: number;
   etherToSpend?: number;
   selectedUsdToSpend?: number;
@@ -69,7 +70,7 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
         {this.props.boostType !== "project" && <SendPaymentHdrText />}
         <PaymentHeaderFlex>
           <PaymentHeaderNewsroom>
-            <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+            <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={this.props.activeChallenge} />
           </PaymentHeaderNewsroom>
           {this.props.usdToSpend && this.renderBoostAmount()}
         </PaymentHeaderFlex>
@@ -118,7 +119,10 @@ export class PaymentsWrapper extends React.Component<PaymentsWrapperProps> {
         ) : (
           <PaymentHeaderFlex>
             <PaymentHeaderNewsroom>
-              <StoryNewsroomStatus newsroomName={this.props.newsroomName} activeChallenge={false} />
+              <StoryNewsroomStatus
+                newsroomName={this.props.newsroomName}
+                activeChallenge={this.props.activeChallenge}
+              />
             </PaymentHeaderNewsroom>
             {this.props.usdToSpend && this.renderBoostAmount()}
           </PaymentHeaderFlex>

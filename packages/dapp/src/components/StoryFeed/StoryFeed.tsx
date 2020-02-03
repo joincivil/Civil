@@ -47,6 +47,9 @@ class StoryFeed extends React.Component<StoryFeedProps> {
             const { postsStoryfeed } = data;
             const storyfeed = postsStoryfeed.edges.map((edge: any, i: number) => {
               const postData = edge.post;
+              const activeChallenge =
+                postData.channel.listing.challenge && postData.channel.listing.challenge.challengeID ? true : false;
+
               if (
                 postData.postType === "externallink" &&
                 postData.openGraphData &&
@@ -57,7 +60,7 @@ class StoryFeed extends React.Component<StoryFeedProps> {
                   <StoryFeedItem
                     key={i}
                     postId={postData.id}
-                    activeChallenge={false}
+                    activeChallenge={activeChallenge}
                     newsroom={postData.channel.newsroom}
                     openGraphData={postData.openGraphData}
                     displayedContributors={postData.groupedSanitizedPayments}
