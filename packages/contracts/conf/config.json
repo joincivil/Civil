@@ -45,7 +45,7 @@
         "voteQuorum": 50,
         "pVoteQuorum": 50,
         "pProcessBy": 86400,
-        "appealFeeAmount": 100000000000000000000,
+        "appealFeeAmount": "100000000000000000000",
         "challengeAppealLength": 86400,
         "requestAppealPhaseLength": 86400,
         "judgeAppealPhaseLength": 345600,
