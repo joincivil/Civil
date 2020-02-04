@@ -44,7 +44,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
 
   return (
     <Query query={STORY_BOOST} variables={{ id }}>
-      {({ loading, error, data }) => {
+      {({ loading, error, data, refetch }) => {
         if (loading) {
           return <LoadingMessage>Loading Boost</LoadingMessage>;
         } else if (error || !data || !data.postsGet) {
@@ -67,6 +67,9 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 newsroomName={storyBoostData.channel.newsroom.name}
                 title={storyBoostData.openGraphData.title}
                 url={storyBoostData.openGraphData.url}
+                children={storyBoostData.children}
+                numChildren={storyBoostData.numChildren}
+                refetch={refetch}
                 openGraphData={storyBoostData.openGraphData}
                 displayedContributors={storyBoostData.groupedSanitizedPayments}
                 sortedContributors={storyBoostData.groupedSanitizedPayments}

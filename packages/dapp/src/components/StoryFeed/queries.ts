@@ -71,6 +71,7 @@ export const STORY_FEED_QUERY = gql`
                 tiny72AvatarDataUrl
               }
             }
+            numChildren
           }
         }
       }
@@ -80,6 +81,55 @@ export const STORY_FEED_QUERY = gql`
       }
     }
   }
+`;
+
+export const COMMENT_FRAGMENT = gql`
+  fragment CommentFragment on PostComment {
+    id
+    authorID
+    channelID
+    text
+    commentType
+    channel {
+      handle
+      tiny72AvatarDataUrl
+    }
+    numChildren
+  }
+`;
+
+export const POST_CHILDREN = gql`
+  query PostChildren($id: String!, $first: Int, $after: String) {
+    postsGetChildren(id: $id, first: $first, after: $after) {
+      edges {
+        post {
+          ... on PostComment {
+            ...CommentFragment
+            children {
+              edges {
+                post {
+                  ... on PostComment {
+                    ...CommentFragment
+                  }
+                }
+                cursor
+              }
+              pageInfo {
+                endCursor
+                hasNextPage
+              }
+            }
+          }
+        }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+  ${COMMENT_FRAGMENT}
 `;
 
 export const STORY_BOOST = gql`
@@ -127,7 +177,56 @@ export const STORY_BOOST = gql`
             tiny72AvatarDataUrl
           }
         }
+        numChildren
+        children {
+          edges {
+            post {
+              ... on PostComment {
+                ...CommentFragment
+                children {
+                  edges {
+                    post {
+                      ... on PostComment {
+                        ...CommentFragment
+                      }
+                    }
+                    cursor
+                  }
+                  pageInfo {
+                    endCursor
+                    hasNextPage
+                  }
+                }
+              }
+            }
+            cursor
+          }
+          pageInfo {
+            endCursor
+            hasNextPage
+          }
+        }
       }
     }
   }
+  ${COMMENT_FRAGMENT}
+`;
+
+export const POST_COMMENT_MUTATION = gql`
+  mutation($input: PostCreateCommentInput!) {
+    postsCreateComment(input: $input) {
+      id
+    }
+  }
+`;
+
+export const COMMENT = gql`
+  query StoryBoost($id: String!) {
+    postsGet(id: $id) {
+      ... on PostComment {
+        ...CommentFragment
+      }
+    }
+  }
+  ${COMMENT_FRAGMENT}
 `;

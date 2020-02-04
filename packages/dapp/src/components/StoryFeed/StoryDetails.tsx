@@ -7,6 +7,7 @@ import {
   ContributorData,
   StoryNewsroomStatus,
   storyPlaceholderImgUrl,
+  FeatureFlag,
 } from "@joincivil/components";
 import { PaymentButton, ShareButton, ShareStory, SharePanel, OpenInNewIcon, colors } from "@joincivil/elements";
 import { getTimeSince } from "@joincivil/utils";
@@ -27,6 +28,7 @@ import {
   StoryDetailsFooterFlex,
   BlueLinkBtn,
 } from "./StoryFeedStyledComponents";
+import { PostComments } from "./PostComments";
 
 export interface StoryDetailsProps {
   postId: string;
@@ -39,6 +41,8 @@ export interface StoryDetailsProps {
   displayedContributors: ContributorData[];
   sortedContributors: ContributorData[];
   totalContributors: number;
+  children: any;
+  numChildren: any;
   isListingPageFeed?: boolean;
   handlePayments(): void;
   handleOpenNewsroom(): void;
@@ -113,6 +117,14 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
           </BlueLinkBtn>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
+      <FeatureFlag feature={"comments-mvp"}>
+        <PostComments
+          postId={props.postId}
+          comments={props.children}
+          numComments={props.numChildren}
+          level={0}
+        />
+      </FeatureFlag>
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />
       </SharePanel>

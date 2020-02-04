@@ -81,6 +81,7 @@ class StoryFeed extends React.Component<StoryFeedProps> {
                       }
                     }}
                     isListingPageFeed={this.props.isListingPageFeed}
+                    numComments={postData.numChildren}
                   />
                 );
               } else if (postData.postType === "boost") {

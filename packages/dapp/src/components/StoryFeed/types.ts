@@ -12,6 +12,8 @@ export interface StoryBoostData {
     };
   };
   groupedSanitizedPayments: StoryBoostPaymentsData[];
+  children: any;
+  numChildren: number;
 }
 
 export interface StoryBoostPaymentsData {

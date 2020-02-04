@@ -71,5 +71,6 @@ export * from "./CopyToClipboard";
 export * from "./HelmetHelper";
 export * from "./WithNewsroomChannelHOC";
 export * from "./Contributors";
+export * from "./Comments";
 export * from "./StoryFeed";
 export * from "./Payments";
