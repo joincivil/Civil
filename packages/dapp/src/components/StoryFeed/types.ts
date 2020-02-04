@@ -5,6 +5,11 @@ export interface StoryBoostData {
     isStripeConnected: boolean;
     stripeAccountID: string;
     newsroom: StoryNewsroomData;
+    listing: {
+      challenge: {
+        challengeID: string;
+      };
+    };
   };
   groupedSanitizedPayments: StoryBoostPaymentsData[];
 }

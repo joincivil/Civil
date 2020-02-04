@@ -17,6 +17,7 @@ export interface PaymentsProps {
   boostType?: string;
   paymentAddress: string;
   newsroomName: string;
+  activeChallenge: boolean;
   isStripeConnected: boolean;
   stripeAccountID: string;
   handleClose(): void;
@@ -91,6 +92,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       postId,
       paymentAddress,
       newsroomName,
+      activeChallenge,
       isStripeConnected,
       stripeAccountID,
       boostType,
@@ -117,6 +119,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          activeChallenge={activeChallenge}
           paymentAdjustedWarning={paymentAdjustedWarning}
           handleEditAmount={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_AMOUNT)}
@@ -141,6 +144,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          activeChallenge={activeChallenge}
           paymentAdjustedEth={paymentAdjustedEth}
           selectedUsdToSpend={selectedUsdToSpend}
           etherToSpend={etherToSpend}
@@ -172,6 +176,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          activeChallenge={activeChallenge}
           paymentAdjustedStripe={paymentAdjustedStripe}
           selectedUsdToSpend={selectedUsdToSpend}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
@@ -195,6 +200,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          activeChallenge={activeChallenge}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
           <PaymentsApplePay
@@ -212,6 +218,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           boostType={boostType}
           usdToSpend={usdToSpend}
           newsroomName={newsroomName}
+          activeChallenge={activeChallenge}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
           <PaymentsGooglePay
@@ -228,7 +235,7 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
       paymentState === PAYMENT_STATE.PAYMENT_SUCCESS_WITH_SAVED_EMAIL
     ) {
       return (
-        <PaymentsWrapper newsroomName={newsroomName} boostType={boostType}>
+        <PaymentsWrapper newsroomName={newsroomName} activeChallenge={activeChallenge} boostType={boostType}>
           <PaymentsSuccess
             newsroomName={newsroomName}
             usdToSpend={usdToSpend}
@@ -243,7 +250,12 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
     }
 
     return (
-      <PaymentsWrapper newsroomName={newsroomName} handleBack={handleClose} boostType={boostType}>
+      <PaymentsWrapper
+        newsroomName={newsroomName}
+        activeChallenge={activeChallenge}
+        handleBack={handleClose}
+        boostType={boostType}
+      >
         <PaymentsAmount
           newsroomName={newsroomName}
           suggestedAmounts={SuggestedPaymentAmounts}

@@ -80,6 +80,7 @@ export interface BoostPaymentsProps {
   boostId: string;
   title: string;
   newsroomName: string;
+  activeChallenge: boolean;
   history: any;
   handleBackToListing(): void;
   handlePaymentSuccess(): void;
@@ -107,6 +108,7 @@ export const BoostPayments: React.FunctionComponent<BoostPaymentsProps> = props 
         postId={props.boostId}
         usdToSpend={usdToSpend}
         newsroomName={props.newsroomName}
+        activeChallenge={props.activeChallenge}
         paymentAddress={props.paymentAddr}
         isStripeConnected={props.isStripeConnected}
         stripeAccountID={props.stripeAccountID}

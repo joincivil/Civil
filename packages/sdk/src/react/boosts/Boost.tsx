@@ -119,11 +119,13 @@ class BoostComponent extends React.Component<BoostProps, BoostStates> {
                 }
 
                 if (this.props.payment) {
+                  const activeChallenge = newsroomData.challenge && newsroomData.challenge.challengeID ? true : false;
                   return (
                     <BoostPayments
                       boostId={id}
                       title={boostData.title}
                       newsroomName={newsroomData.name}
+                      activeChallenge={activeChallenge}
                       paymentAddr={newsroomData.owner}
                       handleBackToListing={this.handleBackToListing}
                       handlePaymentSuccess={async () => {
