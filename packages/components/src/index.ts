@@ -61,8 +61,6 @@ export * from "./Tokens";
 export * from "./ExecuteOnMount";
 export * from "./AuthenticatedRoute";
 export * from "./EthAddressViewer";
-export * from "./TokenTutorial";
-export * from "./Tutorial";
 export * from "./Notice";
 export * from "./CurrencyConverter";
 export * from "./GasEstimate";

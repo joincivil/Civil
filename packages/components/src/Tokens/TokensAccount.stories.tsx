@@ -5,7 +5,6 @@ import Web3HttpProvider from "web3-providers-http";
 
 import apolloStorybookDecorator from "apollo-storybook-react";
 import { UserTokenAccountSignup } from "./TokensAccountSignup";
-import { UserTokenAccountVerify } from "./TokensAccountVerify";
 import { UserTokenAccountBuy } from "./TokensAccountBuy";
 import { CivilContext, buildCivilContext } from "../context";
 import Web3 from "web3";
@@ -13,10 +12,6 @@ import Web3 from "web3";
 const web3Provider = new Web3HttpProvider("http://localhost:8045");
 const web3 = new Web3(web3Provider);
 const civilContext = buildCivilContext({ web3, featureFlags: ["uniswap"], config: { DEFAULT_ETHEREUM_NETWORK: 4 } });
-
-const onClickFunc = () => {
-  console.log("clicked!");
-};
 
 const typeDefs = `
   type Query {
@@ -62,13 +57,6 @@ storiesOf("Storefront / User Token Account", module)
     return (
       <CivilContext.Provider value={civilContext}>
         <UserTokenAccountSignup step={"active"} user={{}} signupPath="/auth/signup" addWalletPath="/auth/wallet" />
-      </CivilContext.Provider>
-    );
-  })
-  .add("Tutorial Verify", () => {
-    return (
-      <CivilContext.Provider value={civilContext}>
-        <UserTokenAccountVerify step={"active"} open={false} handleClose={onClickFunc} handleOpen={onClickFunc} />
       </CivilContext.Provider>
     );
   })

@@ -7,13 +7,12 @@ import {
   Notice,
   NoticeTypes,
   DashboardTransferTokenForm,
-  DashboardTutorialWarning,
   BalanceType,
 } from "@joincivil/components";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 
 import { State } from "../../redux/reducers";
-import { getCivilianWhitelist, getUnlockedWhitelist } from "../../helpers/tokenController";
+import { getUnlockedWhitelist } from "../../helpers/tokenController";
 
 import DepositTokens from "./DepositTokens";
 import ReclaimTokens from "./ReclaimTokens";
@@ -49,28 +48,23 @@ class TransferCivilTokens extends React.Component<
   public render(): JSX.Element {
     const balance = getFormattedTokenBalance(this.props.balance);
     const votingBalance = getFormattedTokenBalance(this.props.votingBalance);
-    const isCivilianWhitelist = getCivilianWhitelist(this.context, this.props.userAccount);
     const isUnlockedWhitelist = getUnlockedWhitelist(this.context, this.props.userAccount);
 
     return (
       <>
         {!isUnlockedWhitelist && this.renderTransferTokensMsg()}
 
-        {isCivilianWhitelist ? (
-          <DashboardTransferTokenForm
-            renderTransferBalance={this.renderTransferBalance}
-            cvlAvailableBalance={balance}
-            cvlVotingBalance={votingBalance}
-          >
-            {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
-              <DepositTokens />
-            ) : (
-              <ReclaimTokens onMobileTransactionClick={this.props.showNoMobileTransactionsModal} />
-            )}
-          </DashboardTransferTokenForm>
-        ) : (
-          <DashboardTutorialWarning />
-        )}
+        <DashboardTransferTokenForm
+          renderTransferBalance={this.renderTransferBalance}
+          cvlAvailableBalance={balance}
+          cvlVotingBalance={votingBalance}
+        >
+          {this.state.fromBalanceType === BalanceType.AVAILABLE_BALANCE ? (
+            <DepositTokens />
+          ) : (
+            <ReclaimTokens onMobileTransactionClick={this.props.showNoMobileTransactionsModal} />
+          )}
+        </DashboardTransferTokenForm>
       </>
     );
   }

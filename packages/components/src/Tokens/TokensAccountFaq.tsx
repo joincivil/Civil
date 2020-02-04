@@ -66,7 +66,7 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
               Gemini{" "}
             </a>{" "}
             (), you can return to Civil where we will walk you through how to complete your membership contribution. We
-            know this can be confusing. For more information, read this blog post or contact us at
+            know this can be confusing. For more information, read this blog post or contact us at{" "}
             <a href="mailto:support@civil.co">support@civil.co</a>.
           </p>
         </Collapsable>
@@ -115,12 +115,8 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
           <ul>
             <li>Anybody can receive tokens. There are only restrictions on SENDING tokens, but never on RECEIVING.</li>
             <li>
-              All token holders must complete the “Civil Tutorial” to use, send or sell their tokens. This ensures that
-              you know how to safely use Civil tokens and that you will to use them for their intended purpose.
-            </li>
-            <li>
-              After you complete the tutorial, you may send Civil tokens to newsrooms on the Registry. However, until
-              your account is unlocked, so you cannot sell or transfer Civil tokens to anyone else.
+              After you purchase Civil tokens you may send them to newsrooms on the Registry. However, until your
+              account is unlocked, you cannot sell or transfer Civil tokens to anyone else.
             </li>
             <li>
               In order to unlock your tokens, you must transfer tokens into the voting contract on the Civil Registry,

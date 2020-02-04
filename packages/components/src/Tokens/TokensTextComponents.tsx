@@ -62,45 +62,10 @@ export const TokenAuthText: React.FunctionComponent = props => (
 // TODO(jorgelo): Is this text okay?
 export const TokenAuthBtnText: React.FunctionComponent = props => <>Sign up or Log in</>;
 
-// Tutorial section
-
-export const TokenVerifySectionText: React.FunctionComponent = props => (
-  <>
-    <h3>Take the Civil Tutorial</h3>
-    <p>
-      Before you can use, buy or sell Civil tokens, you must complete a tutorial to ensure you understand how to use
-      Civil tokens and how the Civil Registry works.
-    </p>
-  </>
-);
-
-export const TokenQuizSectionText: React.FunctionComponent = props => (
-  <>
-    <h3>Civil Tutorial</h3>
-    <p>
-      Complete a walkthrough and answer a series of questions about Civil and how to use Civil tokens (CVL). This is a
-      standard procedure to help inform you of best practices with purchasing and using tokens.
-    </p>
-    <p>
-      It will take about 30 minutes to complete if you're a novice. If at any point you answer incorrectly, don’t worry.
-      You will be able to answer the questions again.
-    </p>
-  </>
-);
-
-export const TokenQuizBtnText: React.FunctionComponent = props => <>Start the Civil Tutorial</>;
-
-export const TokenQuizCompletedText: React.FunctionComponent = props => (
-  <h3>
-    <HollowGreenCheck />
-    Civil Tutorial Completed
-  </h3>
-);
-
 // Buy section
 
 export const TokenBuyTextDisabled: React.FunctionComponent = props => (
-  <p>Once you’ve completed the Civil tutorial, you will be eligible to use, share or buy Civil tokens.</p>
+  <p>Sign up or Log in to use, share or buy Civil tokens.</p>
 );
 
 export const TokenBuyBtnDisabledText: React.FunctionComponent = props => <>Buy CVL</>;

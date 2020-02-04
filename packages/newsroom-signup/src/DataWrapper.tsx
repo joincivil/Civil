@@ -133,7 +133,6 @@ export class DataWrapper extends React.Component<DataWrapperProps> {
                                           profileWalletAddress: userData.currentUser.ethAddress,
                                           savedStep: userData.currentUser.nrStep || 0,
                                           furthestStep: userData.currentUser.nrFurthestStep || 0,
-                                          quizStatus: userData.currentUser.quizStatus,
                                           persistedCharter,
                                           saveAddress,
                                           saveSteps,
