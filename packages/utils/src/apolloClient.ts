@@ -178,8 +178,6 @@ export const getCurrentUserQuery = gql`
       uid
       email
       ethAddress
-      quizPayload
-      quizStatus
       channels {
         role
       }
@@ -223,37 +221,9 @@ const setCurrentUserQuery = gql`
       uid
       email
       ethAddress
-      quizPayload
-      quizStatus
     }
   }
 `;
-
-// TODO(jorgelo): There should be a better interface for all "user" related input fields.
-export interface SetCurrentUserInput {
-  quizPayload: {};
-  quizStatus: "completed" | undefined;
-}
-
-export async function setCurrentUser(input: Partial<SetCurrentUserInput>): Promise<void> {
-  try {
-    const { data, error } = await client.mutate({
-      mutation: setCurrentUserQuery,
-      variables: { input },
-    });
-
-    if (error) {
-      throw error;
-    }
-
-    client.cache.writeQuery({
-      query: getCurrentUserQuery,
-      data: { currentUser: data.userUpdate },
-    });
-  } catch (err) {
-    console.error("Error setCurrentUser", { err, input });
-  }
-}
 
 export async function resetApolloStore(): Promise<void> {
   if (!client) {
@@ -261,19 +231,4 @@ export async function resetApolloStore(): Promise<void> {
   }
 
   await client.resetStore();
-}
-
-export async function updateQuizPayload(fields: {}, newQuizStatus?: string): Promise<any> {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    console.error("No user?", { user });
-    return;
-  }
-
-  const { quizPayload = {}, quizStatus } = user;
-
-  const updateParams = { quizPayload: { ...quizPayload, ...fields }, quizStatus: newQuizStatus || quizStatus };
-
-  await setCurrentUser(updateParams);
 }

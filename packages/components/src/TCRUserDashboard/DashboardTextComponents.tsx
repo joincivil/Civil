@@ -97,29 +97,3 @@ export const TransferTokenTipsText: React.FunctionComponent = props => (
 export const MetaMaskPopUpText: React.FunctionComponent = props => (
   <StyledTransferTokenTip>This will pop-up MetaMask window to confirm your transactions</StyledTransferTokenTip>
 );
-
-export const TransferTokenTutorialWarnText: React.FunctionComponent = props => (
-  <>
-    <h2>
-      <WarningIcon width={25} height={25} /> Take the Civil Tutorial
-    </h2>
-    <p>
-      Before you can transfer Civil tokens, you must complete a tutorial to ensure you understand how to use Civil
-      tokens and how the Civil Registry works.
-    </p>
-  </>
-);
-
-export const TransferTokenTakeTutorialText: React.FunctionComponent = props => (
-  <>
-    <h3>Civil Tutorial</h3>
-    <p>
-      You’ll be completing a series of questions about Civil and how to use Civil tokens (CVL). This is a standard
-      procedure to help inform you of best practices with purchasing and using tokens.
-    </p>
-    <p>
-      It will take about 30 minutes or less to complete. If at any point you answer incorrectly, don’t worry. You will
-      be able to answer the questions again.
-    </p>
-  </>
-);

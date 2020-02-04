@@ -548,67 +548,6 @@ export const StyledFromBalance = styled.div`
   padding: 17px 15px;
 `;
 
-export const StyledTutorialWarning = styled.div`
-  font-weight: 400;
-  padding: 35px;
-`;
-
-export const StyledWarningBox = styled.div`
-  background-color: ${colors.accent.CIVIL_RED_ULTRA_FADED};
-  border: 1px solid ${colors.accent.CIVIL_RED_FADED};
-  border-radius: 3px;
-  font-family: ${fonts.SANS_SERIF};
-  margin-bottom: 40px;
-  padding: 20px;
-  text-align: center;
-
-  h2 {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 32px;
-    margin: 0;
-
-    svg {
-      vertical-align: text-bottom;
-    }
-  }
-
-  p {
-    color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 16px;
-    line-height: 26px;
-    margin: 0 0 15px;
-  }
-`;
-
-export const StyledTutorialPrompt = styled.div`
-  font-family: ${fonts.SANS_SERIF};
-  text-align: left;
-
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: -0.12px;
-    line-height: 33px;
-    margin: 0;
-  }
-
-  p {
-    color: ${colors.accent.CIVIL_GRAY_0};
-    font-size: 14px;
-    line-height: 22px;
-    margin: 0 0 15px;
-  }
-
-  ${Button} {
-    font-size: 13px;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-    line-height: 14px;
-    text-transform: none;
-  }
-`;
-
 // Newsroom tab
 export const StyledDashboardNewsroom = styled.div`
   border-top: 1px solid ${colors.accent.CIVIL_GRAY_4};
