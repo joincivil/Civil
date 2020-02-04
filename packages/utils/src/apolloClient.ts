@@ -215,16 +215,6 @@ export async function getCurrentUser(): Promise<any> {
   }
 }
 
-const setCurrentUserQuery = gql`
-  mutation SetCurrentUser($input: UserUpdateInput!) {
-    userUpdate(input: $input) {
-      uid
-      email
-      ethAddress
-    }
-  }
-`;
-
 export async function resetApolloStore(): Promise<void> {
   if (!client) {
     return;

@@ -1,6 +1,5 @@
 import * as React from "react";
 import { StyledTransferTokenTitle, StyledTransferTokenTip } from "./DashboardStyledComponents";
-import { WarningIcon } from "../icons";
 
 export const SubTabAllChallengesVotedText: React.FunctionComponent = props => <>All</>;
 

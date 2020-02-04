@@ -115,8 +115,8 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
           <ul>
             <li>Anybody can receive tokens. There are only restrictions on SENDING tokens, but never on RECEIVING.</li>
             <li>
-              After you purchase Civil tokens you may send them to newsrooms on the Registry. However, until
-              your account is unlocked, you cannot sell or transfer Civil tokens to anyone else.
+              After you purchase Civil tokens you may send them to newsrooms on the Registry. However, until your
+              account is unlocked, you cannot sell or transfer Civil tokens to anyone else.
             </li>
             <li>
               In order to unlock your tokens, you must transfer tokens into the voting contract on the Civil Registry,
