@@ -53,12 +53,16 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
         }
 
         const storyBoostData = data.postsGet as StoryBoostData;
+        const activeChallenge =
+          storyBoostData.channel.listing.challenge && storyBoostData.channel.listing.challenge.challengeID
+            ? true
+            : false;
         return (
           <>
             <StoryModal open={isStoryModalOpen} handleClose={props.closeStoryBoost}>
               <StoryDetails
                 postId={props.postId}
-                activeChallenge={false}
+                activeChallenge={activeChallenge}
                 createdAt={storyBoostData.createdAt}
                 newsroomName={storyBoostData.channel.newsroom.name}
                 title={storyBoostData.openGraphData.title}
@@ -80,7 +84,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
             {!props.isListingPageFeed && (
               <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
                 <StoryNewsroomDetails
-                  activeChallenge={false}
+                  activeChallenge={activeChallenge}
                   newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
                 />
               </StoryModal>
@@ -90,6 +94,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
                 <Payments
                   postId={props.postId}
                   newsroomName={storyBoostData.channel.newsroom.name}
+                  activeChallenge={activeChallenge}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
                   stripeAccountID={storyBoostData.channel.stripeAccountID}

@@ -127,12 +127,19 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
           }
 
           const storyBoostData = data.postsGet as StoryBoostData;
+          const activeChallenge =
+            storyBoostData.channel.listing.challenge && storyBoostData.channel.listing.challenge.challengeID
+              ? true
+              : false;
 
           return (
             <>
               <StoryBoostHeader>
                 <StoryBoostStatus>
-                  <StoryNewsroomStatus newsroomName={storyBoostData.channel.newsroom.name} activeChallenge={false} />
+                  <StoryNewsroomStatus
+                    newsroomName={storyBoostData.channel.newsroom.name}
+                    activeChallenge={activeChallenge}
+                  />
                 </StoryBoostStatus>
                 <h2>{storyBoostData.openGraphData.title}</h2>
               </StoryBoostHeader>
@@ -157,6 +164,7 @@ export class StoryBoost extends React.Component<StoryBoostProps, StoryBoostState
                 <Payments
                   postId={this.props.boostId}
                   newsroomName={storyBoostData.channel.newsroom.name}
+                  activeChallenge={activeChallenge}
                   paymentAddress={storyBoostData.channel.newsroom.multisigAddress}
                   isStripeConnected={storyBoostData.channel.isStripeConnected}
                   stripeAccountID={storyBoostData.channel.stripeAccountID}

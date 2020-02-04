@@ -53,9 +53,15 @@ export const STORY_FEED_QUERY = gql`
               }
             }
             channel {
+              id
               handle
               newsroom {
                 name
+              }
+              listing {
+                challenge {
+                  challengeID
+                }
               }
             }
             groupedSanitizedPayments {
@@ -143,6 +149,7 @@ export const STORY_BOOST = gql`
           }
         }
         channel {
+          id
           isStripeConnected
           stripeAccountID
           handle
@@ -155,6 +162,11 @@ export const STORY_BOOST = gql`
               mission {
                 purpose
               }
+            }
+          }
+          listing {
+            challenge {
+              challengeID
             }
           }
         }

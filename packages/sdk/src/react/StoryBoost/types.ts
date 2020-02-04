@@ -9,6 +9,11 @@ export interface StoryBoostData {
       name: string;
       multisigAddress: string;
     };
+    listing: {
+      challenge: {
+        challengeID: string;
+      };
+    };
   };
   groupedSanitizedPayments: StoryBoostPaymentsData[];
 }

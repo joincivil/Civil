@@ -8,11 +8,17 @@ export const storyBoostQuery = gql`
           title
         }
         channel {
+          id
           isStripeConnected
           stripeAccountID
           newsroom {
             name
             multisigAddress
+          }
+          listing {
+            challenge {
+              challengeID
+            }
           }
         }
         groupedSanitizedPayments {
