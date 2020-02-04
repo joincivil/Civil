@@ -5,8 +5,6 @@ import { KirbyEthereum, KirbyEthereumProvider, KirbyEthereumContext } from "@kir
 import { ApolloConsumer } from "react-apollo";
 import ApolloClient from "apollo-client";
 
-import { IdentityParentPlugin } from "./IdentityParentPlugin";
-
 export interface CivilInnerProviderProps {
   config: any;
   featureFlags: string[];
@@ -60,7 +58,7 @@ export const CivilProvider: React.FunctionComponent<CivilProviderProps> = ({
   config,
 }) => {
   const plugins = React.useMemo(() => {
-    return [new IdentityParentPlugin()];
+    return [];
   }, []);
 
   return (

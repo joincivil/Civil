@@ -1,26 +1,23 @@
 import * as React from "react";
 
-import { NavLink } from "./NavLink";
 import {
-  Arrow,
-  AvatarContainer,
-  CvlContainer,
-  UserAvatar,
-  NavUser,
-  StyledVisibleIfLoggedInLink,
   NavBarButton,
-  BorderlessNavBarButton,
+  StyledVisibleIfLoggedInLink,
+  NavUser,
+  CvlContainer,
+  AvatarContainer,
+  UserAvatar,
   HandleContainer,
   UserAvatarFigure,
 } from "./styledComponents";
+import { ICivilContext, CivilContext, ClipLoader, Arrow } from "@joincivil/components";
+import { KirbyEthereum, KirbyEthereumContext, useKirbySelector } from "@kirby-web3/ethereum-react";
 import { NavLinkDashboardText } from "./textComponents";
-import { ICivilContext, CivilContext, ClipLoader } from "@joincivil/components";
-import { useDispatch } from "react-redux";
-import { showWeb3LoginModal, showWeb3SignupModal } from "../../redux/actionCreators/ui";
-import NavDrawer from "./NavDrawer";
+import { NavLink } from "./NavLink";
 
 const UserAccount: React.FunctionComponent = props => {
   // context
+  const kirby = React.useContext<KirbyEthereum>(KirbyEthereumContext);
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
   if (civilCtx === null) {
     // context still loading
@@ -28,24 +25,42 @@ const UserAccount: React.FunctionComponent = props => {
   }
 
   // redux
-  const dispatch = useDispatch();
-
   const civilUser = civilCtx.currentUser;
-  const userAccount = civilUser && civilUser.ethAddress;
 
-  // state
-  const [isUserDrawerOpen, setUserDrawerOpen] = React.useState(false);
-  const toggleDrawer = () => {
-    if (userAccount) {
-      setUserDrawerOpen(!isUserDrawerOpen);
+  // kirby
+  const { auth, loadingAuth } = useKirbySelector((state: any) => {
+    return state.trustedweb;
+  });
+
+  React.useEffect(() => {
+    async function doAuth(): Promise<void> {
+      // remove `did` field from object
+      const { did, ephemeral, ...data } = auth;
+      // TODO(dankins): hack to get signer, this breaks if DID rotates key or if not ethr did method
+      data.signer = did.replace("did:ethr:", "").toLowerCase();
+      try {
+        await civilCtx.auth.authenticate(data);
+      } catch (err) {
+        console.log("authenticate error", err.message);
+        if (err.message === "GraphQL error: signature invalid or not signed up") {
+          await civilCtx.auth.signup(data);
+        }
+      }
     }
-  };
 
-  async function onLoginPressed(): Promise<any> {
-    dispatch!(await showWeb3LoginModal());
+    if (auth) {
+      doAuth().catch(err => {
+        console.log("error doing auth", err);
+      });
+    }
+  }, [auth]);
+
+  if (loadingAuth) {
+    return <ClipLoader size={10} />;
   }
-  async function onSignupPressed(): Promise<any> {
-    dispatch!(await showWeb3SignupModal());
+
+  function onAuthenticatePressed(): void {
+    kirby.trustedweb.requestAuthentication();
   }
 
   if (civilUser) {
@@ -64,20 +79,17 @@ const UserAccount: React.FunctionComponent = props => {
           </NavLink>
         </StyledVisibleIfLoggedInLink>
         <div ref={userAccountElRef}>
-          <NavUser onClick={(ev: any) => toggleDrawer()}>
+          <NavUser onClick={() => kirby.trustedweb.showHome()}>
             <CvlContainer>
               <AvatarContainer>
                 {tiny72AvatarDataUrl && <UserAvatar src={civilUser.userChannel!.tiny72AvatarDataUrl} />}
                 {showFigure && <UserAvatarFigure>{initial}</UserAvatarFigure>}
               </AvatarContainer>
               <HandleContainer>{civilUser.userChannel!.handle}</HandleContainer>
-              <Arrow isOpen={isUserDrawerOpen} />
+              <Arrow isOpen={false} />
             </CvlContainer>
           </NavUser>
         </div>
-        {isUserDrawerOpen && (
-          <NavDrawer userAccountElRef={userAccountElRef} handleOutsideClick={() => setUserDrawerOpen(false)} />
-        )}
       </>
     );
   } else if (civilCtx.auth.loading) {
@@ -86,8 +98,7 @@ const UserAccount: React.FunctionComponent = props => {
 
   return (
     <>
-      <BorderlessNavBarButton onClick={onLoginPressed}>Log In</BorderlessNavBarButton>
-      <NavBarButton onClick={onSignupPressed}>Sign Up</NavBarButton>
+      <NavBarButton onClick={onAuthenticatePressed}>Login / Signup</NavBarButton>
     </>
   );
 };

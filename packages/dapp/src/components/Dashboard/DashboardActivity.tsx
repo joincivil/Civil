@@ -276,7 +276,6 @@ class DashboardActivity extends React.Component<
                       refetch: challengeRefetch,
                     }: any): JSX.Element => {
                       if (nrsignupLoading || challengeLoading) {
-                        console.log("loading.");
                         return <LoadingMessage />;
                       }
                       if (nrsignupError && !nrsignupError.toString().includes(NO_JSONB)) {
@@ -332,23 +331,19 @@ class DashboardActivity extends React.Component<
     const registryUrl = formatRoute(routes.APPLY_TO_REGISTRY);
 
     if (!channelNewsrooms.size && (error || !data || !data.nrsignupNewsroom)) {
-      console.log("here 1");
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
     const newsrooms = channelNewsrooms;
 
     if (!newsrooms.size && data && data.nrsignupNewsroom) {
-      console.log("here 2");
       return <NoNewsrooms hasInProgressApplication={true} applyToRegistryURL={registryUrl} />;
     }
 
     if (!newsrooms.size) {
-      console.log("here 3");
       return <NoNewsrooms applyToRegistryURL={registryUrl} />;
     }
 
-    console.log("here 4");
     return (
       <>
         <NewsroomsList listings={newsrooms} />

@@ -40,6 +40,10 @@ const KirbyApp = React.lazy(async () => {
   console.log("loading kirby");
   return import(/* webpackChunkName: "kirby-app" */ "@joincivil/kirby");
 });
+const KirbyLogin = React.lazy(async () => {
+  console.log("loading kirby");
+  return import(/* webpackChunkName: "kirby-login" */ "./popups/KirbyLogin");
+});
 
 export const App = () => {
   return (
@@ -50,6 +54,7 @@ export const App = () => {
           <Route path="/embed" render={() => <EmbedsApp />} />
           <Route path="/stories" render={() => <StoriesApp />} />
           <Route path="/kirby" render={() => <KirbyApp config={config} />} />
+          <Route path="/popups/login" render={() => <KirbyLogin config={config} />} />
           <Route path="*" render={() => <LazyRegistryApp />} />
         </Switch>
       </React.Suspense>

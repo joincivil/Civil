@@ -42,9 +42,9 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
   const out: [string, string[]] = [ethAddress.substring(0, 2), ethAddress.substring(2).split("")];
   const lenRest = out[1].length;
   for (let i = 3; i < lenRest; i = i + 4) {
-    out[1][i] = out[1][i] + " ";
+    out[1][i] = out[1][i];
   }
-  return `${out[0]} ${out[1].join("")}`;
+  return `${out[0]}${out[1].join("")}`;
 }
 
 export function abbreviateAddress(address: EthAddress): string {

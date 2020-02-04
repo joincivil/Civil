@@ -1,7 +1,7 @@
 import * as React from "react";
 import { EthAddress } from "@joincivil/typescript-types";
 import { CivilContext, ICivilContext, MetaMaskModal, ModalHeading } from "@joincivil/components";
-import { KirbyEthereumContext, KirbyEthereum } from "@kirby-web3/ethereum-react";
+import { useKirbySelector } from "@kirby-web3/ethereum-react";
 import { StyledAuthHeader } from "./authStyledComponents";
 
 export interface AuthWeb3Props {
@@ -26,32 +26,43 @@ const SWITCH_TO_LOGIN = "switch to log in";
 export const AuthWeb3: React.FunctionComponent<AuthWeb3Props> = (props: AuthWeb3Props) => {
   // context
   const civilCtx = React.useContext<ICivilContext>(CivilContext);
-  const kirby = React.useContext<KirbyEthereum>(KirbyEthereumContext);
+  const civilUser = civilCtx.currentUser;
+  const userAccount = civilUser && civilUser.ethAddress;
+
+  // kirby state
+  const trustedWebState = useKirbySelector((state: any) => {
+    return state.trustedweb;
+  });
+  const { auth, loadingAuth } = trustedWebState;
 
   // state
   const [isSignRejectionOpen, setisSignRejectionOpen] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>(undefined);
   const [onErrContinue, setOnErrContinue] = React.useState<{ cb(): void } | undefined>(undefined);
 
+  console.log("render me timbers", trustedWebState);
+
   // effects
   React.useEffect(() => {
-    kirbyLogin().catch(err => {
-      console.log("error", err);
-    });
-  }, []);
+    if (auth) {
+      kirbyLogin().catch(err => {
+        console.log("kirbyLogin error");
+      });
+    } else if (!auth && !loadingAuth && userAccount) {
+      console.log("auth changed, logging out user", userAccount);
+      civilCtx.auth.logout();
+    }
+  }, [trustedWebState]);
 
   async function kirbyLogin(): Promise<void> {
     try {
-      let sig;
       if (props.messagePrefix === "Log in to Civil") {
-        sig = await kirby.kirby.plugins.identity.login("Civil");
-        await civilCtx.auth.authenticate(sig);
+        await civilCtx.auth.authenticate(auth);
       } else {
-        sig = await kirby.kirby.plugins.identity.signup("Civil");
-        await civilCtx.auth.signup(sig);
+        await civilCtx.auth.signup(auth);
       }
       if (props.onAuthenticated) {
-        props.onAuthenticated(sig.signer);
+        props.onAuthenticated(auth.signer);
       }
       if (props.onSignUpContinue) {
         props.onSignUpContinue();

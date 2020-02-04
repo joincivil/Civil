@@ -15,6 +15,7 @@ import {
   CircleLockIcon,
 } from "@joincivil/elements";
 import { routes } from "../constants";
+import { KirbyEthereum, KirbyEthereumContext } from "@kirby-web3/ethereum-react";
 
 const COLUMN_BREAK_QUERY = "@media only screen and (max-width: 900px)";
 
@@ -135,10 +136,6 @@ const CTAShadow = styled.div`
 const CTATop = styled.div`
   padding: 28px 24px 32px;
 `;
-const CTABottom = styled.div`
-  padding: 32px 24px;
-  background: rgb(250, 250, 251);
-`;
 
 const CTAHeader = styled.div`
   font-size: 24px;
@@ -146,15 +143,6 @@ const CTAHeader = styled.div`
   letter-spacing: 0.25px;
   line-height: 30px;
   margin-bottom: 24px;
-`;
-const CTASubhead = styled.div`
-  font-size: 17px;
-  letter-spacing: -0.04px;
-  line-height: 25px;
-`;
-const CTASubheadWelcome = styled(CTASubhead)`
-  font-weight: bold;
-  margin-bottom: 16px;
 `;
 const CTANotice = styled.div`
   font-size: 13px;
@@ -165,6 +153,7 @@ const DEFAULT_NEXT = formatRoute(routes.DASHBOARD, { activeDashboardTab: "newsro
 const GetStartedPage = () => {
   const qsParams = qs.parse(document.location.search.substr(1));
   const context = React.useContext<ICivilContext>(CivilContext);
+  const kirby = React.useContext<KirbyEthereum>(KirbyEthereumContext);
   if (!context || !context.auth || context.auth.loading) {
     return <LoadingMessage />;
   }
@@ -180,26 +169,23 @@ const GetStartedPage = () => {
           <InfoIconWrap>
             <StyledHollowGreenCheck color={colors.accent.CIVIL_BLUE_VERY_FADED} />
           </InfoIconWrap>
-          Sign up using a wallet
+          Trusted web accounts
         </InfoHeading>
-        <p>Use a wallet to quickly connect to Ethereum and create a Civil account.</p>
+        <p>Create a trusted web account to quickly connect to all of Civil's services.</p>
         <InfoHeading>
           <InfoIconWrap>
             <StyledAvatarGenericIcon color={colors.accent.CIVIL_BLUE_VERY_FADED} />
           </InfoIconWrap>
           Decentralized identity
         </InfoHeading>
-        <p>Take your tokens, ETH transactions, and wallet address information with you.</p>
+        <p>Create and take your profiles with you when you create an account.</p>
         <InfoHeading>
           <InfoIconWrap>
             <StyledCircleLockIcon color={colors.accent.CIVIL_BLUE_VERY_FADED} />
           </InfoIconWrap>
-          Focus on security
+          Security and privacy
         </InfoHeading>
-        <p>
-          Only you have access to your wallet. No one can sign any transactions without your consent and no one can lock
-          your account or prevent you from making transactions.
-        </p>
+        <p>Civil uses trusted web accounts instead of cookies to preserve your privacy and protect your data.</p>
 
         <MoreInfoContainer>
           <Collapsable header={<InfoHeading>Learn more about wallets</InfoHeading>} open={false}>
@@ -232,19 +218,13 @@ const GetStartedPage = () => {
         <CTAHeader>Create your Civil account</CTAHeader>
         <CTAShadow>
           <CTATop>
-            <CTASubheadWelcome>Welcome{qsParams.name && " " + qsParams.name}!</CTASubheadWelcome>
-            <CTASubhead>Let's get started creating your account.</CTASubhead>
-            <StyledButton size={buttonSizes.MEDIUM_WIDE} onClick={() => context.auth.showWeb3Signup()}>
-              Sign Up
+            <StyledButton size={buttonSizes.MEDIUM_WIDE} onClick={() => kirby.trustedweb.requestAuthentication()}>
+              Get started
             </StyledButton>
-            <CTANotice>You'll be selecting a wallet to sign up.</CTANotice>
+            <CTANotice>
+              <a href="#">What is a trusted web account?</a>
+            </CTANotice>
           </CTATop>
-          <CTABottom>
-            Already have an account?{" "}
-            <a href="#" onClick={() => context.auth.showWeb3Login()}>
-              Log in
-            </a>
-          </CTABottom>
         </CTAShadow>
       </CTA>
     </Wrapper>

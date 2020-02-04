@@ -11,11 +11,19 @@ import { ICivilContext, CivilContext } from "@joincivil/components";
 import { setNetworkValue, setDefaultNetworkValue } from "@joincivil/utils";
 import SetAvatar from "./Auth/SetAvatar";
 import config from "../helpers/config";
+import { useKirbySelector } from "@kirby-web3/ethereum-react";
 
 export const Web3AuthWrapper: React.FunctionComponent = () => {
   // context
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const civilUser = civilContext.currentUser;
+  const userAccount = civilUser && civilUser.ethAddress;
+
+  // kirby state
+  const trustedWebState = useKirbySelector((state: any) => {
+    return state.trustedweb;
+  });
+  const { auth, loadingAuth } = trustedWebState;
 
   // redux
   const dispatch = useDispatch();
@@ -28,6 +36,22 @@ export const Web3AuthWrapper: React.FunctionComponent = () => {
       state.networkDependent.user.account &&
       state.networkDependent.user.account.account,
   );
+
+  // effects
+  React.useEffect(() => {
+    // if (auth) {
+    //   // console.log("AUTH YO", auth);
+    //   // kirbyLogin(auth).catch(err => {
+    //   //   console.log("bad juju");
+    //   // });
+    // }
+
+    if (!auth && !loadingAuth && userAccount) {
+      console.log("auth changed, logging out user", userAccount);
+      civilContext.auth.logout();
+    }
+    console.log("authweb3 data", { auth, loadingAuth, userAccount });
+  }, [trustedWebState]);
 
   React.useEffect(() => {
     setDefaultNetworkValue(parseInt(config.DEFAULT_ETHEREUM_NETWORK!, 10));

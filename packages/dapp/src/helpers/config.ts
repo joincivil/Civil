@@ -16,6 +16,7 @@ export interface ConfigType {
   APP_VERSION?: string;
   KIRBY_TARGET_ORIGIN?: string;
   KIRBY_IFRAME_SRC?: string;
+  KIRBY_ID_HUB_URI?: string;
 }
 
 const defaultConfig: ConfigType = {
@@ -36,6 +37,7 @@ const defaultConfig: ConfigType = {
   APP_VERSION: process.env.REACT_APP_APP_VERSION,
   KIRBY_TARGET_ORIGIN: process.env.REACT_APP_KIRBY_TARGET_ORIGIN,
   KIRBY_IFRAME_SRC: process.env.REACT_APP_KIRBY_IFRAME_SRC,
+  KIRBY_ID_HUB_URI: process.env.REACT_APP_KIRBY_ID_HUB_URI,
 };
 
 const serverConfigString = (window as any).SERVER_CONFIG;
