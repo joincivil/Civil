@@ -82,7 +82,7 @@ export const StoryBoost: React.FunctionComponent<StoryBoostProps> = props => {
               <StoryModal open={isStoryNewsroomModalOpen} handleClose={props.closeStoryBoost}>
                 <StoryNewsroomDetails
                   activeChallenge={activeChallenge}
-                  newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.newsroom.handle }}
+                  newsroom={{ ...storyBoostData.channel.newsroom, handle: storyBoostData.channel.handle }}
                 />
               </StoryModal>
             )}
