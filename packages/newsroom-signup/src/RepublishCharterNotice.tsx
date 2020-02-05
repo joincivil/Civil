@@ -350,7 +350,7 @@ export class RepublishCharterNotice extends React.Component<RepublishCharterNoti
     } else {
       this.setState({
         metaMaskErrorModal: true,
-        errorText: err.message || err.toString(),
+        errorText: err ? err.message || err.toString() : "An unknown error occurred",
       });
     }
   };

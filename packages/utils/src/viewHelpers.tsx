@@ -47,6 +47,10 @@ export function getFormattedEthAddress(ethAddress: EthAddress): string {
   return `${out[0]} ${out[1].join("")}`;
 }
 
+export function abbreviateAddress(address: EthAddress): string {
+  return address.substr(0, 6) + "..." + address.substr(-4);
+}
+
 // accepts token balance in lowest-level form (no decimals). Converts to readable format (18 decimal places; cut off at 2)
 export function getFormattedTokenBalance(balance: BigNumber, noCVLLabel?: boolean, decimals: number = 2): string {
   // @ts-ignore types are wrong, commify exists

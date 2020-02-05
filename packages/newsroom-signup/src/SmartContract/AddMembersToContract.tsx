@@ -1,4 +1,5 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import {
   OBSectionHeader,
   OBSectionDescription,
@@ -10,10 +11,11 @@ import {
   CivilContext,
   ICivilContext,
 } from "@joincivil/components";
-import { CharterData, EthAddress } from "@joincivil/typescript-types";
+import { CharterData, EthAddress, RosterMember } from "@joincivil/typescript-types";
 import { NewsroomInstance } from "@joincivil/core";
 import styled from "styled-components";
 import { AddMember } from "./AddMember";
+import { StateWithNewsroom } from "../reducers";
 
 const MemberUL = styled.ul`
   list-style: none;
@@ -23,7 +25,7 @@ const MemberUL = styled.ul`
 
 const MemberUlLabels = styled.li`
   display: grid;
-  grid-template-columns: 30% 32% 38%;
+  grid-template-columns: 28% 15% 27% 30%;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
   padding-bottom: 10px;
 `;
@@ -42,14 +44,24 @@ export interface AddMembersToContractProps {
   newsroom: NewsroomInstance;
   profileWalletAddress?: EthAddress;
   managerMode?: boolean;
+  nonCharterMembers?: EthAddress[];
   updateCharter(charter: Partial<CharterData>): void;
 }
 
-export class AddMembersToContract extends React.Component<AddMembersToContractProps> {
+type ContractMemberData = Partial<RosterMember> & { notInCharter: boolean };
+
+export class AddMembersToContractComponent extends React.Component<AddMembersToContractProps> {
   public static contextType = CivilContext;
   public context: ICivilContext;
 
   public render(): JSX.Element {
+    const members = ((this.props.charter.roster as ContractMemberData[]) || []).concat(
+      (this.props.nonCharterMembers || []).map(address => ({
+        ethAddress: address!,
+        notInCharter: true,
+      })),
+    );
+
     return (
       <>
         <OBSectionHeader>Assign access to your Newsroom Smart Contract</OBSectionHeader>
@@ -88,27 +100,26 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
         <MemberUL>
           <MemberUlLabels>
             <MemberUlLabel>Name</MemberUlLabel>
+            <MemberUlLabel>ETH Address</MemberUlLabel>
             <MemberUlLabel>Civil Role</MemberUlLabel>
             <MemberUlLabel>Status</MemberUlLabel>
           </MemberUlLabels>
-          {this.props.charter.roster &&
-            this.props.charter.roster!.map((member, index) => {
-              return (
-                <AddMember
-                  key={index}
-                  index={index}
-                  civil={this.context.civil!}
-                  newsroom={this.props.newsroom}
-                  name={member.name}
-                  avatarUrl={member.avatarUrl}
-                  memberAddress={member.ethAddress}
-                  updateCharter={this.props.updateCharter}
-                  charter={this.props.charter}
-                  profileWalletAddress={this.props.profileWalletAddress}
-                  forceCharterUpdateForMissingAddress={this.props.managerMode}
-                />
-              );
-            })}
+          {members.map((member, index) => (
+            <AddMember
+              key={index}
+              index={index}
+              civil={this.context.civil!}
+              newsroom={this.props.newsroom}
+              name={member.name}
+              avatarUrl={member.avatarUrl}
+              memberAddress={member.ethAddress}
+              notInCharter={member.notInCharter}
+              updateCharter={this.props.updateCharter}
+              charter={this.props.charter}
+              profileWalletAddress={this.props.profileWalletAddress}
+              forceCharterUpdateForMissingAddress={this.props.managerMode}
+            />
+          ))}
         </MemberUL>
         <OBSectionDescription>
           To add additional users, please{" "}
@@ -123,3 +134,28 @@ export class AddMembersToContract extends React.Component<AddMembersToContractPr
     );
   }
 }
+
+const mapStateToProps = (state: StateWithNewsroom, ownProps: AddMembersToContractProps): AddMembersToContractProps => {
+  const newsroomAddress = ownProps.newsroom ? ownProps.newsroom.address : "";
+  const newsroom = state.newsrooms.get(newsroomAddress);
+  const contractOwners = (newsroom.wrapper && newsroom.wrapper.data && newsroom.wrapper.data.owners) || [];
+  const contractEditors = (newsroom.editors && newsroom.editors.toArray()) || [];
+
+  const charterMemberAddresses = (ownProps.charter.roster || [])
+    .filter(member => !!member.ethAddress)
+    .map(member => member.ethAddress!.toLowerCase());
+  const nonCharterOfficers = contractOwners.filter(
+    address => charterMemberAddresses.indexOf(address.toLowerCase()) === -1,
+  );
+  const nonCharterEditors = contractEditors.filter(
+    address => charterMemberAddresses.indexOf(address.toLowerCase()) === -1,
+  );
+  const nonCharterMembers = nonCharterOfficers.concat(nonCharterEditors);
+
+  return {
+    ...ownProps,
+    nonCharterMembers,
+  };
+};
+
+export const AddMembersToContract = connect(mapStateToProps)(AddMembersToContractComponent);

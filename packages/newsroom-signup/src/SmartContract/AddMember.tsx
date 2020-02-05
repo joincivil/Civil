@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Civil, NewsroomInstance } from "@joincivil/core";
-import { NewsroomRoles } from "@joincivil/utils";
+import { NewsroomRoles, abbreviateAddress } from "@joincivil/utils";
 import {
   colors,
   fonts,
@@ -14,6 +14,8 @@ import {
   Button,
   TextInput,
   BorderlessButton,
+  ToolTip,
+  QuestionToolTip,
 } from "@joincivil/components";
 import { AvatarImg, AvatarWrap, noAvatar, MemberDisplayName } from "../styledComponents";
 import styled from "styled-components";
@@ -29,7 +31,7 @@ import { addAndHydrateEditor, addAndHydrateOwner, fetchNewsroom, removeEditor } 
 export interface AddMemberProps {
   civil: Civil;
   newsroom: NewsroomInstance;
-  name: string;
+  name?: string;
   index: number;
   memberAddress?: EthAddress;
   charter: Partial<CharterData>;
@@ -37,6 +39,7 @@ export interface AddMemberProps {
   hasBothRoles?: boolean;
   avatarUrl?: string;
   isOnContract?: boolean;
+  notInCharter?: boolean;
   profileWalletAddress?: EthAddress;
   forceCharterUpdateForMissingAddress?: boolean;
   updateCharter(charter: Partial<CharterData>): void;
@@ -84,7 +87,7 @@ const options = [
 
 const StyledLi = styled.li`
   display: grid;
-  grid-template-columns: 30% 32% 38%;
+  grid-template-columns: 28% 15% 27% 30%;
   padding: 15px 0;
   border-bottom: 1px solid ${colors.accent.CIVIL_GRAY_4};
 `;
@@ -372,7 +375,9 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
   }
 
   public renderRemoveButton(): JSX.Element | null {
-    const isMe = this.props.profileWalletAddress && this.props.profileWalletAddress === this.props.memberAddress;
+    const isMe =
+      this.props.profileWalletAddress &&
+      this.props.profileWalletAddress.toLowerCase() === (this.props.memberAddress || "").toLowerCase();
     if (!this.props.isOnContract || isMe) {
       return null;
     }
@@ -386,13 +391,13 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
   }
 
   public render(): JSX.Element {
-    let thirdSection = null;
+    let fourthSection = null;
     if (this.props.memberAddress && this.state.selectedState.value !== memberTypes.NONE) {
-      thirdSection = this.props.isOnContract ? (
-        <SectionWrapper>
+      fourthSection = this.props.isOnContract ? (
+        <>
           <StyledCheck />
           <StatusText>Added to Smart Contract</StatusText>
-        </SectionWrapper>
+        </>
       ) : (
         <TransactionButtonNoModal Button={TransactionButtonInner} transactions={this.getTransaction(false)}>
           Add to Smart Contract
@@ -404,7 +409,24 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
         <StyledLi>
           <SectionWrapper>
             <AvatarWrap>{this.props.avatarUrl ? <AvatarImg src={this.props.avatarUrl} /> : noAvatar}</AvatarWrap>
-            <StyledDisplayName>{this.props.name}</StyledDisplayName>
+            <StyledDisplayName>
+              {this.props.name}
+              {this.props.notInCharter && (
+                <>
+                  <i>not in charter</i>
+                  <QuestionToolTip
+                    explainerText={
+                      "This ETH address was found on your newsroom smart contract, but there is no roster member in your charter with that address. If you know who this ETH address belongs to, please update your charter accordingly."
+                    }
+                  />
+                </>
+              )}
+            </StyledDisplayName>
+          </SectionWrapper>
+          <SectionWrapper>
+            <ToolTip explainerText={<code>{this.props.memberAddress}</code>} width={310}>
+              <code>{this.props.memberAddress && abbreviateAddress(this.props.memberAddress)}</code>
+            </ToolTip>
           </SectionWrapper>
           <SectionWrapper>
             <StyledSelect
@@ -414,7 +436,7 @@ export class AddMemberComponent extends React.Component<AddMemberProps & Dispatc
               options={options}
             />
           </SectionWrapper>
-          <SectionWrapper>{thirdSection}</SectionWrapper>
+          <SectionWrapper>{fourthSection}</SectionWrapper>
           <SectionWrapper>{this.renderRemoveButton()}</SectionWrapper>
           {this.renderAddAddress()}
         </StyledLi>
