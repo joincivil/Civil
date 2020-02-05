@@ -46,6 +46,23 @@ export const PaymentTitleText: React.FunctionComponent = props => {
   );
 };
 
+export const TransactionsTabText: React.FunctionComponent = props => {
+  return (
+    <AccountTabText>
+      Transactions
+      <span>View all the boosts and newsrooms that you have supported</span>
+    </AccountTabText>
+  );
+};
+
+export const TransactionsTitleText: React.FunctionComponent = props => {
+  return (
+    <>
+      <h2>Transaction History</h2>
+    </>
+  );
+};
+
 export const AccountChangesSavedText: React.FunctionComponent = props => {
   return <>Your changes have been saved.</>;
 };
