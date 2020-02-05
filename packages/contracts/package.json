@@ -19,14 +19,14 @@
     "coverage:report:html": "istanbul report html && open coverage/index.html",
     "coverage:report:lcov": "istanbul report lcov",
     "migrate": "truffle migrate",
-    "migrate:ganache": "run-s 'migrate --reset --network=ganache' build:stripArtifacts",
+    "migrate:ganache": "run-s 'migrate --reset --network ganache' build:stripArtifacts",
     "migrate:rinkeby": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=rinkeby' build:stable",
-    "migrate:rinkeby:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=rinkeby' build:stable",
-    "migrate:ropsten": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=ropsten' build:stable",
-    "migrate:ropsten:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=ropsten' build:stable",
-    "migrate:mainnet": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network=mainnet' build:stable",
-    "migrate:mainnet:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network=mainnet' build:stable",
-    "migrate:ledgerMainnet": "run-s 'migrate --network=ledgerMainnet' build:stripArtifacts",
+    "migrate:rinkeby:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network rinkeby' build:stable",
+    "migrate:ropsten": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network ropsten' build:stable",
+    "migrate:ropsten:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network ropsten' build:stable",
+    "migrate:mainnet": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --network mainnet' build:stable",
+    "migrate:mainnet:reset": "CONTRACT_BUILDS_DIRECTORY=\"../artifacts/v1\" run-s 'migrate --reset --network mainnet' build:stable",
+    "migrate:ledgerMainnet": "run-s 'migrate --network ledgerMainnet' build:stripArtifacts",
     "test": "truffle test --network ganache",
     "clean": "rimraf build/ coverage/ .0x-artifacts/",
     "prepare": "truffle install",
@@ -75,6 +75,7 @@
     "web3-providers-http": "^1.2.4"
   },
   "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.30",
     "chai-bignumber": "^3.0.0"
   },
   "publishConfig": {
