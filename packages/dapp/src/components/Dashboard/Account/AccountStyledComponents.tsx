@@ -104,6 +104,7 @@ export const AccountTabText = styled.span`
 
 export const AccountSectionWrap = styled.div`
   width: 90%;
+  min-width: 300px;
 
   ${BorderlessButton} {
     font-size: 13px;
@@ -256,4 +257,20 @@ export const AccountUserInfoText = styled.span`
   color: ${colors.accent.CIVIL_GRAY_0};
   font-size: 14px;
   margin-right: 10px;
+`;
+
+export const AccountTransactionsTable = styled(AccountPaymentTable)`
+  tr:nth-child(2n) {
+    background: ${colors.accent.CIVIL_GRAY_5};
+  }
+  td {
+    padding: 2px 4px;
+    svg {
+      position: relative;
+      top: 2px;
+    }
+  }
+`;
+export const NoWrapTd = styled.td`
+  white-space: nowrap;
 `;

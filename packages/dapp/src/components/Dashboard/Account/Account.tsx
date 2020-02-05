@@ -5,13 +5,14 @@ import ScrollToTopOnMount from "../../utility/ScrollToTop";
 import { Tabs, Tab } from "@joincivil/components";
 import { AccountProfile } from "./AccountProfile";
 import { AccountPayments } from "./AccountPayments";
+import { AccountTransactions } from "./AccountTransactions";
 import { AccountHeader, AccountWrap, AccountTabNav, AccountTabs } from "./AccountStyledComponents";
-import { AccountTitleText, ProfileTabText, PaymentTabText } from "./AccountTextComponents";
+import { AccountTitleText, ProfileTabText, PaymentTabText, TransactionsTabText } from "./AccountTextComponents";
 
 export interface AccountParams {
-  activeTab?: "profile" | "payments";
+  activeTab?: "profile" | "payments" | "transactions";
 }
-const TABS = ["profile", "payments"];
+const TABS = ["profile", "payments", "transactions"];
 
 export interface AccountProps {
   userAccount?: string;
@@ -51,6 +52,9 @@ const AccountPage: React.FunctionComponent<AccountProps> = props => {
           </Tab>
           <Tab title={<PaymentTabText />}>
             <AccountPayments />
+          </Tab>
+          <Tab title={<TransactionsTabText />}>
+            <AccountTransactions />
           </Tab>
         </Tabs>
       </AccountWrap>
