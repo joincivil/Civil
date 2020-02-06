@@ -113,6 +113,7 @@ class StoryFeed extends React.Component<StoryFeedProps> {
                         fetchMore({
                           query: STORY_FEED_QUERY,
                           variables: {
+                            filter: { alg: this.props.queryFilterAlg, channelID: this.props.queryFilterChannelID },
                             cursor: postsStoryfeed.pageInfo.endCursor,
                           },
                           updateQuery: (previousResult: any, { fetchMoreResult }: any) => {
