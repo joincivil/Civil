@@ -12,7 +12,7 @@ import {
   QuestionToolTip,
 } from "@joincivil/components";
 import {
-  AccountSectionWrap,
+  AccountTransactionsSectionWrap,
   AccountSectionHeader,
   AccountPaymentSection,
   AccountTransactionsTable,
@@ -112,7 +112,7 @@ export const AccountTransactions: React.FunctionComponent = () => {
   }
 
   return (
-    <AccountSectionWrap>
+    <AccountTransactionsSectionWrap>
       <AccountSectionHeader>
         <TransactionsTitleText />
       </AccountSectionHeader>
@@ -164,7 +164,7 @@ export const AccountTransactions: React.FunctionComponent = () => {
           }}
         </Query>
       </AccountPaymentSection>
-    </AccountSectionWrap>
+    </AccountTransactionsSectionWrap>
   );
 };
 

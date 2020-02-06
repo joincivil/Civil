@@ -116,6 +116,9 @@ export const AccountSectionWrap = styled.div`
     text-transform: none;
   }
 `;
+export const AccountTransactionsSectionWrap = styled(AccountSectionWrap)`
+  width: 100%;
+`
 
 export const AccountSectionHeader = styled.div`
   h2 {
