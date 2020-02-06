@@ -94,7 +94,7 @@ interface TransactionData {
 interface PaymentHistoryData {
   currentUser: {
     userChannel: {
-      paymentsMadeByChannel: TransactionData[];
+      paymentsMadeByChannel?: TransactionData[];
     };
   };
 }
@@ -124,6 +124,14 @@ export const AccountTransactions: React.FunctionComponent = () => {
             } else if (error || !data) {
               console.error("error querying currentUser for paymentsMadeByChannel:", error || "no data returned");
               return <ErrorLoadingData />;
+            } else if (!data.currentUser.userChannel.paymentsMadeByChannel) {
+              return (
+                <p>
+                  You have made no transactions yet. Head on over to the{" "}
+                  <Link to={formatRoute(routes.STORY_FEED)}>Civil story feed</Link> to find great work that deserves
+                  your support!
+                </p>
+              );
             }
 
             const transactions = data.currentUser.userChannel.paymentsMadeByChannel
