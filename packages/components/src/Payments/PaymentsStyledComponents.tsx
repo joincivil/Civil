@@ -203,7 +203,7 @@ export const PaymentNotice = styled.p`
 export const PaymentTerms = styled.p`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 12px;
-  line-height: 22px;
+  line-height: 18px;
   margin: 15px 0 10px;
 
   a {
