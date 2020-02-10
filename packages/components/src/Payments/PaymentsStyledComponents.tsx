@@ -203,7 +203,7 @@ export const PaymentNotice = styled.p`
 export const PaymentTerms = styled.p`
   color: ${colors.accent.CIVIL_GRAY_1};
   font-size: 12px;
-  line-height: 22px;
+  line-height: 18px;
   margin: 15px 0 10px;
 
   a {
@@ -583,17 +583,21 @@ export const PaymentExpress = styled.div`
 `;
 
 export const PaymentOrBorder = styled.div`
+  background-color: ${colors.accent.CIVIL_GRAY_4};
   height: 1px;
-  margin: 10px 10%;
+  margin: 20px 5%;
   position: relative;
   width: 90%;
 
   &:after {
+    background-color: ${colors.basic.WHITE};
+    color: ${colors.accent.CIVIL_GRAY_2};
     content: "Or";
+    font-size: 12px;
     left: calc(50% - 25px);
     position: absolute;
     text-align: center;
-    top: calc(50% - 25px);
+    top: -8px;
     width: 50px;
   }
 `;

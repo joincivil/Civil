@@ -5,7 +5,6 @@ import { PAYMENTS_STRIPE_MUTATION } from "./queries";
 import makeAsyncScriptLoader from "react-async-script";
 import PaymentRequestForm from "./PaymentsRequest";
 import { CivilContext, ICivilContext } from "../context";
-import { LoadingMessage } from "../";
 
 export interface PaymentsStripeProps {
   postId: string;
@@ -14,6 +13,8 @@ export interface PaymentsStripeProps {
   usdToSpend: number;
   handlePaymentSuccess(): void;
 }
+
+const Loading: React.FunctionComponent = props => <></>;
 
 export interface PaymentsStripeStates {
   stripeLoaded: boolean;
@@ -33,7 +34,7 @@ export class PaymentsLoadStripePayRequest extends React.Component<PaymentsStripe
 
   public render(): JSX.Element {
     const userChannelID = (this.context && this.context.currentUser && this.context.currentUser.userChannel.id) || "";
-    const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
+    const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(Loading);
     if (this.state.stripeLoaded) {
       return (
         <StripeProvider apiKey={this.context.config.STRIPE_API_KEY}>

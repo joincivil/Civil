@@ -1,25 +1,10 @@
 import * as React from "react";
 import { MutationFunc } from "react-apollo";
-import {
-  injectStripe,
-  ReactStripeElements,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-} from "react-stripe-elements";
+import { injectStripe, ReactStripeElements, CardElement } from "react-stripe-elements";
 import styled from "styled-components";
 import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
-import {
-  mediaQueries,
-  DropdownArrow,
-  CCAmexIcon,
-  CCDiscoverIcon,
-  CCMastercardIcon,
-  CCVisaIcon,
-  CCSecurityCodeIcon,
-} from "@joincivil/elements";
 import { CivilContext, ICivilContext } from "../context";
-import { isValidEmail, STRIPE_COUNTRIES } from "@joincivil/utils";
+import { isValidEmail } from "@joincivil/utils";
 import {
   PaymentTerms,
   PaymentBtn,
@@ -37,7 +22,12 @@ import {
   PaymentErrorText,
   PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
-import { InputValidationUI, InputValidationStyleProps, StripeElement } from "./PaymentsInputValidationUI";
+import {
+  InputValidationUI,
+  InputStripeValidationUI,
+  StripeElement,
+  InputErrorMessage,
+} from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
 import { Checkbox, CheckboxSizes } from "../input";
 
@@ -45,45 +35,6 @@ const StripeWrapper = styled.div`
   margin: 20px 0 0;
   max-width: 500px;
   width: 100%;
-`;
-
-const StripeCardInfoFlex = styled.div`
-  display: flex;
-
-  & > div {
-    width: 50%;
-  }
-`;
-
-const CreditCardIconsWrap = styled.div`
-  position: absolute;
-  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
-  top: 13px;
-
-  svg {
-    margin-right: 8px;
-  }
-
-  ${mediaQueries.MOBILE} {
-    right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "25px" : "8px")};
-
-    svg {
-      margin-right: 5px;
-    }
-  }
-`;
-
-const CreditCardCVCWrap = styled.div`
-  position: absolute;
-  right: ${(props: InputValidationStyleProps) => (props.inputState === INPUT_STATE.INVALID ? "30px" : "10px")};
-  top: 10px;
-`;
-
-const DropDownWrap = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 8px;
-  z-index: 0;
 `;
 
 export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStripeProps {
@@ -104,18 +55,14 @@ export interface PaymentStripeFormStates {
   emailState: string;
   name: string;
   nameState: string;
-  country: string;
-  postalCode: string;
-  postalCodeState: string;
-  cardNumberState: string;
-  cardExpiryState: string;
-  cardCVCState: string;
+  cardInfoState: string;
   isPaymentError: boolean;
   paymentProcessing: boolean;
   wasEmailPrepopulated: boolean;
   promptSaveEmail: boolean;
   shouldSaveEmailToAccount: boolean;
   shouldAddEmailToMailingList: boolean;
+  displayStripeErrorMessage: string;
 }
 
 class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentStripeFormStates> {
@@ -130,16 +77,12 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       emailState: this.props.userEmail ? INPUT_STATE.VALID : INPUT_STATE.EMPTY,
       name: "",
       nameState: INPUT_STATE.EMPTY,
-      country: "USA",
-      postalCode: "",
-      postalCodeState: INPUT_STATE.VALID,
-      cardNumberState: INPUT_STATE.EMPTY,
-      cardExpiryState: INPUT_STATE.EMPTY,
-      cardCVCState: INPUT_STATE.EMPTY,
+      cardInfoState: INPUT_STATE.EMPTY,
       isPaymentError: false,
       paymentProcessing: false,
       shouldSaveEmailToAccount: true,
       shouldAddEmailToMailingList: false,
+      displayStripeErrorMessage: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -172,73 +115,19 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
                 </InputValidationUI>
               </>
             )}
-            <PaymentInputLabel>Card information</PaymentInputLabel>
-            <InputValidationUI inputState={this.state.cardNumberState} className={"positionTop"}>
-              <StripeElement inputState={this.state.cardNumberState}>
-                <CardNumberElement
-                  id="card-number"
-                  style={{ base: { fontSize: "13px" } }}
-                  onBlur={() => this.handleOnBlurStripe()}
-                />
-              </StripeElement>
-              <CreditCardIconsWrap inputState={this.state.cardNumberState}>
-                <CCAmexIcon />
-                <CCDiscoverIcon />
-                <CCMastercardIcon />
-                <CCVisaIcon />
-              </CreditCardIconsWrap>
-            </InputValidationUI>
-            <StripeCardInfoFlex>
-              <InputValidationUI inputState={this.state.cardExpiryState} className={"positionBottomLeft"}>
-                <StripeElement inputState={this.state.cardExpiryState}>
-                  <CardExpiryElement
-                    id="card-expiry"
-                    style={{ base: { fontSize: "13px" } }}
-                    onBlur={() => this.handleOnBlurStripe()}
-                  />
-                </StripeElement>
-              </InputValidationUI>
-              <InputValidationUI inputState={this.state.cardCVCState} className={"positionBottomRight"}>
-                <StripeElement inputState={this.state.cardCVCState}>
-                  <CardCvcElement
-                    id="card-cvc"
-                    style={{ base: { fontSize: "13px" } }}
-                    onBlur={() => this.handleOnBlurStripe()}
-                  />
-                </StripeElement>
-                <CreditCardCVCWrap inputState={this.state.cardCVCState}>
-                  <CCSecurityCodeIcon />
-                </CreditCardCVCWrap>
-              </InputValidationUI>
-            </StripeCardInfoFlex>
             <PaymentInputLabel>Name on card</PaymentInputLabel>
             <InputValidationUI inputState={this.state.nameState}>
               <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
             </InputValidationUI>
-            <PaymentInputLabel>Country or region</PaymentInputLabel>
-            <InputValidationUI className={"positionTop"}>
-              <select id="country" name="country" onChange={() => this.handleOnBlur(event)}>
-                {STRIPE_COUNTRIES.map((country: any, i: number) => {
-                  return (
-                    <option key={i} value={country.value}>
-                      {country.name}
-                    </option>
-                  );
-                })}
-              </select>
-              <DropDownWrap>
-                <DropdownArrow />
-              </DropDownWrap>
-            </InputValidationUI>
-            <InputValidationUI inputState={this.state.postalCodeState} className={"positionBottom"}>
-              <input
-                id="zip"
-                name="zip"
-                maxLength={12}
-                placeholder="Zip code"
-                onBlur={() => this.handleOnBlur(event)}
-              />
-            </InputValidationUI>
+            <PaymentInputLabel>Card information</PaymentInputLabel>
+            <InputStripeValidationUI inputState={this.state.cardInfoState}>
+              <StripeElement inputState={this.state.cardInfoState}>
+                <CardElement id="card-info" style={{ base: { fontSize: "13px" } }} onChange={this.handleStripeChange} />
+              </StripeElement>
+              {this.state.displayStripeErrorMessage !== "" && (
+                <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
+              )}
+            </InputStripeValidationUI>
           </StripeWrapper>
         </PaymentsFormWrapper>
         {this.state.promptSaveEmail && this.state.emailState === INPUT_STATE.VALID && (
@@ -269,7 +158,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
             </CheckboxContainer>
           </>
         )}
-        <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.state.paymentProcessing}>
+        <PaymentBtn onClick={() => this.handleSubmit()} disabled={this.disableBoostBtn()}>
           {this.state.paymentProcessing ? "Payment processing..." : "Complete Boost"}
         </PaymentBtn>
         {this.state.isPaymentError && (
@@ -283,6 +172,38 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       </>
     );
   }
+
+  private handleStripeChange = (event: any) => {
+    const stripeElements = document.querySelectorAll(".StripeElement");
+    let displayStripeErrorMessage = "";
+
+    if (event.error) {
+      displayStripeErrorMessage = event.error.message;
+    }
+
+    stripeElements.forEach(element => {
+      const classList = element.classList;
+      if (classList.contains("StripeElement--invalid")) {
+        this.setState({ cardInfoState: INPUT_STATE.INVALID, displayStripeErrorMessage });
+      } else if (classList.contains("StripeElement--empty")) {
+        this.setState({ cardInfoState: INPUT_STATE.EMPTY, displayStripeErrorMessage });
+      } else {
+        this.setState({ cardInfoState: INPUT_STATE.VALID, displayStripeErrorMessage });
+      }
+    });
+  };
+
+  private disableBoostBtn = () => {
+    const disableBoostBtn =
+      this.state.emailState === INPUT_STATE.VALID &&
+      this.state.nameState === INPUT_STATE.VALID &&
+      this.state.cardInfoState === INPUT_STATE.VALID &&
+      this.state.paymentProcessing === false
+        ? false
+        : true;
+
+    return disableBoostBtn;
+  };
 
   private toggleShouldSaveEmailToAccount = () => {
     this.setState({ shouldSaveEmailToAccount: !this.state.shouldSaveEmailToAccount });
@@ -309,131 +230,63 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           ? this.setState({ name: value, nameState: INPUT_STATE.VALID })
           : this.setState({ nameState: INPUT_STATE.INVALID });
         break;
-      case "zip":
-        const validPostalCode = this.isValidPostalCode(value);
-        validPostalCode
-          ? this.setState({ postalCode: value, postalCodeState: INPUT_STATE.VALID })
-          : this.setState({ postalCodeState: INPUT_STATE.INVALID });
-        break;
-      default:
-        break;
-    }
-  };
-
-  private isValidPostalCode = (inputPostalCode: string) => {
-    const postalCode = inputPostalCode.toString().trim();
-    const usa = /^[0-9]{5}(?:-[0-9]{4})?$/;
-    const can = /^[ABCEGHJKLMNPRSTVXY]\d[ -]?\d[A-Za-z]\d$/;
-    const gbr = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
-
-    // Stripe recommends getting the zip/postal codes for the US, UK, and Canada
-    switch (this.state.country) {
-      case "USA":
-        return usa.test(postalCode);
-      case "CAN":
-        return can.test(postalCode);
-      case "GBR":
-        return gbr.test(postalCode);
-      default:
-        return true;
-    }
-  };
-
-  private handleOnBlurStripe = () => {
-    const stripeElements = document.querySelectorAll(".StripeElement");
-
-    stripeElements.forEach(element => {
-      const id = element.id;
-      const classList = element.classList;
-      if (classList.contains("StripeElement--invalid")) {
-        this.isStripeElementValid(id, INPUT_STATE.INVALID);
-      } else if (classList.contains("StripeElement--empty")) {
-        this.isStripeElementValid(id, INPUT_STATE.EMPTY);
-      } else {
-        this.isStripeElementValid(id, INPUT_STATE.VALID);
-      }
-    });
-  };
-
-  private isStripeElementValid = (element: string, state: string) => {
-    switch (element) {
-      case "card-number":
-        this.setState({ cardNumberState: state });
-        break;
-      case "card-expiry":
-        this.setState({ cardExpiryState: state });
-        break;
-      case "card-cvc":
-        this.setState({ cardCVCState: state });
-        break;
       default:
         break;
     }
   };
 
   private async handleSubmit(): Promise<void> {
-    if (
-      this.state.emailState === INPUT_STATE.VALID &&
-      this.state.nameState === INPUT_STATE.VALID &&
-      this.state.postalCodeState === INPUT_STATE.VALID &&
-      this.state.cardNumberState === INPUT_STATE.VALID &&
-      this.state.cardExpiryState === INPUT_STATE.VALID &&
-      this.state.cardCVCState === INPUT_STATE.VALID
-    ) {
-      this.context.fireAnalyticsEvent("boost", "Stripe submit clicked", this.props.postId, this.props.usdToSpend);
-      this.setState({ paymentProcessing: true, isPaymentError: false });
-      if (this.props.stripe) {
-        try {
-          let didSaveEmail = false;
-          if (this.state.promptSaveEmail && this.state.email && this.state.shouldSaveEmailToAccount) {
-            didSaveEmail = true;
-            const variables = {
-              input: {
-                emailAddress: this.state.email,
-                channelID: this.props.userChannelID,
-                addToMailing: this.state.shouldAddEmailToMailingList,
-              },
-            };
-            await this.props.setEmail({
-              variables,
-            });
-          }
-          const token = await this.props.stripe.createToken({
-            name: this.state.name,
-            address_country: this.state.country,
-            address_zip: this.state.postalCode,
-          });
-          await this.props.savePayment({
-            variables: {
-              postID: this.props.postId,
-              input: {
-                // @ts-ignore
-                paymentToken: token.token.id,
-                amount: this.props.usdToSpend,
-                currencyCode: "usd",
-                emailAddress: this.state.email,
-                shouldPublicize: this.props.shouldPublicize,
-                payerChannelID: this.props.userChannelID,
-              },
+    this.context.fireAnalyticsEvent("boost", "Stripe submit clicked", this.props.postId, this.props.usdToSpend);
+    this.setState({ paymentProcessing: true, isPaymentError: false });
+    if (this.props.stripe) {
+      try {
+        let didSaveEmail = false;
+        if (this.state.promptSaveEmail && this.state.email && this.state.shouldSaveEmailToAccount) {
+          didSaveEmail = true;
+          const variables = {
+            input: {
+              emailAddress: this.state.email,
+              channelID: this.props.userChannelID,
+              addToMailing: this.state.shouldAddEmailToMailingList,
             },
+          };
+          await this.props.setEmail({
+            variables,
           });
-          this.context.fireAnalyticsEvent(
-            "boost",
-            "Stripe transaction confirmed",
-            this.props.postId,
-            this.props.usdToSpend,
-          );
-          this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail);
-        } catch (err) {
-          console.error(err);
-          this.context.fireAnalyticsEvent(
-            "boost",
-            "Stripe transaction rejected",
-            this.props.postId,
-            this.props.usdToSpend,
-          );
-          this.setState({ paymentProcessing: false, isPaymentError: true });
         }
+        const token = await this.props.stripe.createToken({
+          name: this.state.name,
+        });
+        await this.props.savePayment({
+          variables: {
+            postID: this.props.postId,
+            input: {
+              // @ts-ignore
+              paymentToken: token.token.id,
+              amount: this.props.usdToSpend,
+              currencyCode: "usd",
+              emailAddress: this.state.email,
+              shouldPublicize: this.props.shouldPublicize,
+              payerChannelID: this.props.userChannelID,
+            },
+          },
+        });
+        this.context.fireAnalyticsEvent(
+          "boost",
+          "Stripe transaction confirmed",
+          this.props.postId,
+          this.props.usdToSpend,
+        );
+        this.props.handlePaymentSuccess(this.state.email !== "" && true, didSaveEmail);
+      } catch (err) {
+        console.error(err);
+        this.context.fireAnalyticsEvent(
+          "boost",
+          "Stripe transaction rejected",
+          this.props.postId,
+          this.props.usdToSpend,
+        );
+        this.setState({ paymentProcessing: false, isPaymentError: true });
       }
     }
   }

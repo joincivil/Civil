@@ -15,6 +15,19 @@ export const StripeElement = styled.div`
   padding: 12px;
 `;
 
+const InputErrorMessageWrapper = styled.div`
+  bottom: -25px;
+  color: ${colors.accent.CIVIL_RED};
+  font-size: 12px;
+  left: 2px;
+  position: absolute;
+
+  svg {
+    margin-right: 5px;
+    vertical-align: top;
+  }
+`;
+
 const InputWrapper = styled.div`
   margin-bottom: 20px;
   position: relative;
@@ -76,43 +89,6 @@ const InputWrapper = styled.div`
       outline: none;
     }
   }
-
-  &.positionTop {
-    margin-bottom: 0;
-
-    ${StripeElement},
-    input,
-    select {
-      border-radius: 3px 3px 0 0;
-    }
-  }
-
-  &.positionBottom {
-    ${StripeElement},
-    input,
-    select {
-      border-radius: 0 0 3px 3px;
-      border-width: 0 1px 1px 1px;
-    }
-  }
-
-  &.positionBottomLeft {
-    ${StripeElement},
-    input,
-    select {
-      border-radius: 0 0 0 3px;
-      border-width: 0 0 1px 1px;
-    }
-  }
-
-  &.positionBottomRight {
-    ${StripeElement},
-    input,
-    select {
-      border-radius: 0 0 3px;
-      border-width: 0 1px 1px 1px;
-    }
-  }
 `;
 
 const InputErrorIcon = styled.div`
@@ -137,6 +113,27 @@ export const InputValidationUI: React.FunctionComponent<InputValidationUIProps> 
           <ErrorIcon width={20} height={20} />
         </InputErrorIcon>
       </InputWrapper>
+    </>
+  );
+};
+
+export const InputStripeValidationUI: React.FunctionComponent<InputValidationUIProps> = props => {
+  return (
+    <>
+      <InputWrapper inputState={props.inputState} className={props.className}>
+        {props.children}
+      </InputWrapper>
+    </>
+  );
+};
+
+export const InputErrorMessage: React.FunctionComponent<InputValidationUIProps> = props => {
+  return (
+    <>
+      <InputErrorMessageWrapper>
+        <ErrorIcon width={16} height={16} />
+        {props.children}
+      </InputErrorMessageWrapper>
     </>
   );
 };
