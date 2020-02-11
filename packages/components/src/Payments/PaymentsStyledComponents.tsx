@@ -678,7 +678,7 @@ export const CheckboxSection = styled.li`
 
 export const CheckboxLabel = styled.span`
   color: ${colors.primary.CIVIL_GRAY_1};
-  font: 400 15px/20px ${fonts.SANS_SERIF};
+  font: 400 14px/24px ${fonts.SANS_SERIF};
   padding-left: 7px;
   vertical-align: middle;
 `;

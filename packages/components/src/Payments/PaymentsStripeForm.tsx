@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import { CivilContext, ICivilContext } from "../context";
 import { isValidEmail } from "@joincivil/utils";
+import { RadioInput, RadioButtonStandard } from "@joincivil/elements";
 import {
   PaymentTerms,
   PaymentBtn,
@@ -30,6 +31,7 @@ import {
 } from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
 import { Checkbox, CheckboxSizes } from "../input";
+import { PaymentStripeFormSavedCard } from "./PaymentsStripeFormSavedCard";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
@@ -43,6 +45,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   shouldPublicize: boolean;
   userEmail?: string;
   userChannelID?: string;
+  userHasSavedCard: boolean;
   usdToSpend: number;
   savePayment: MutationFunc;
   setEmail: MutationFunc;
@@ -62,7 +65,9 @@ export interface PaymentStripeFormStates {
   promptSaveEmail: boolean;
   shouldSaveEmailToAccount: boolean;
   shouldAddEmailToMailingList: boolean;
+  shouldSaveCCToAccount: boolean;
   displayStripeErrorMessage: string;
+  payWithNewCard: boolean;
 }
 
 class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentStripeFormStates> {
@@ -82,13 +87,16 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       paymentProcessing: false,
       shouldSaveEmailToAccount: true,
       shouldAddEmailToMailingList: false,
+      shouldSaveCCToAccount: false,
       displayStripeErrorMessage: "",
+      payWithNewCard: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   public render(): JSX.Element {
+    const showCreditCardForm = !this.props.userHasSavedCard || this.state.payWithNewCard ? true : false;
     return (
       <>
         <PaymentsFormWrapper
@@ -97,38 +105,72 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
           paymentNoticeText={<PaymentStripeNoticeText />}
           showSecureIcon={true}
         >
-          <StripeWrapper>
-            {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
-            {!this.state.wasEmailPrepopulated && (
-              <>
-                <PaymentInputLabel>Email</PaymentInputLabel>
-                <InputValidationUI inputState={this.state.emailState}>
-                  <input
-                    defaultValue={this.state.email}
-                    id="email"
-                    name="email"
-                    type="email"
-                    maxLength={254}
-                    onBlur={() => this.handleOnBlur(event)}
-                  />
-                  <PaymentEmailConfirmationText />
+          {this.props.userHasSavedCard && (
+            <RadioInput
+              name={"Save Credit Card"}
+              label=""
+              onChange={this.handleSavedCreditCard}
+              defaultValue={"Visa 1234"}
+            >
+              <RadioButtonStandard value={"Visa 1234"}>
+                <PaymentStripeFormSavedCard cardDetails={"Visa 1234"} date={"12/24"} />
+              </RadioButtonStandard>
+              <RadioButtonStandard value={"new card"}>Pay with a new credit card</RadioButtonStandard>
+            </RadioInput>
+          )}
+          {showCreditCardForm && (
+            <>
+              <StripeWrapper>
+                {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
+                {!this.state.wasEmailPrepopulated && (
+                  <>
+                    <PaymentInputLabel>Email</PaymentInputLabel>
+                    <InputValidationUI inputState={this.state.emailState}>
+                      <input
+                        defaultValue={this.state.email}
+                        id="email"
+                        name="email"
+                        type="email"
+                        maxLength={254}
+                        onBlur={() => this.handleOnBlur(event)}
+                      />
+                      <PaymentEmailConfirmationText />
+                    </InputValidationUI>
+                  </>
+                )}
+                <PaymentInputLabel>Name on card</PaymentInputLabel>
+                <InputValidationUI inputState={this.state.nameState}>
+                  <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
                 </InputValidationUI>
-              </>
-            )}
-            <PaymentInputLabel>Name on card</PaymentInputLabel>
-            <InputValidationUI inputState={this.state.nameState}>
-              <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
-            </InputValidationUI>
-            <PaymentInputLabel>Card information</PaymentInputLabel>
-            <InputStripeValidationUI inputState={this.state.cardInfoState}>
-              <StripeElement inputState={this.state.cardInfoState}>
-                <CardElement id="card-info" style={{ base: { fontSize: "13px" } }} onChange={this.handleStripeChange} />
-              </StripeElement>
-              {this.state.displayStripeErrorMessage !== "" && (
-                <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
-              )}
-            </InputStripeValidationUI>
-          </StripeWrapper>
+                <PaymentInputLabel>Card information</PaymentInputLabel>
+                <InputStripeValidationUI inputState={this.state.cardInfoState}>
+                  <StripeElement inputState={this.state.cardInfoState}>
+                    <CardElement
+                      id="card-info"
+                      style={{ base: { fontSize: "13px" } }}
+                      onChange={this.handleStripeChange}
+                    />
+                  </StripeElement>
+                  {this.state.displayStripeErrorMessage !== "" && (
+                    <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
+                  )}
+                </InputStripeValidationUI>
+              </StripeWrapper>
+              <PaymentInputLabel>Remember Credit Card</PaymentInputLabel>
+              <CheckboxContainer>
+                <CheckboxSection>
+                  <label>
+                    <Checkbox
+                      size={CheckboxSizes.SMALL}
+                      checked={this.state.shouldSaveCCToAccount}
+                      onClick={this.toggleShouldSaveCCToAccount}
+                    />
+                    <CheckboxLabel>Save my credit card information for future Boosts payments</CheckboxLabel>
+                  </label>
+                </CheckboxSection>
+              </CheckboxContainer>
+            </>
+          )}
         </PaymentsFormWrapper>
         {this.state.promptSaveEmail && this.state.emailState === INPUT_STATE.VALID && (
           <>
@@ -205,12 +247,24 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     return disableBoostBtn;
   };
 
+  private toggleShouldSaveCCToAccount = () => {
+    this.setState({ shouldSaveCCToAccount: !this.state.shouldSaveCCToAccount });
+  };
+
   private toggleShouldSaveEmailToAccount = () => {
     this.setState({ shouldSaveEmailToAccount: !this.state.shouldSaveEmailToAccount });
   };
 
   private toggleShouldAddEmailToMailingList = () => {
     this.setState({ shouldAddEmailToMailingList: !this.state.shouldAddEmailToMailingList });
+  };
+
+  private handleSavedCreditCard = (name: string, value: any) => {
+    if (value === "new card") {
+      this.setState({ payWithNewCard: true });
+    } else {
+      this.setState({ payWithNewCard: false });
+    }
   };
 
   private handleOnBlur = (event: any) => {

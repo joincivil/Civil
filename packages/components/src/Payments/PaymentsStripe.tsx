@@ -54,6 +54,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                           shouldPublicize={this.props.shouldPublicize}
                           userEmail={userEmail}
                           userChannelID={userChannelID}
+                          userHasSavedCard={true}
                           usdToSpend={this.props.usdToSpend}
                           savePayment={paymentsCreateStripePayment}
                           setEmail={setEmailMutation}

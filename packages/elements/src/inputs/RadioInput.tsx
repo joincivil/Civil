@@ -49,6 +49,76 @@ export const RadioButton: React.FunctionComponent<RadioButtonProps> = props => {
   );
 };
 
+export const RadioBtnCircle = styled.div`
+  background-color: ${colors.basic.WHITE};
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px ${colors.accent.CIVIL_GRAY_2};
+  height: 18px;
+  left: 2px;
+  position: absolute;
+  top: calc(50% - 9px);
+  width: 18px;
+`;
+
+export const RadioBtnStandardStyled = styled.div`
+  width: 100%;
+  input {
+    display: none;
+  }
+  input:checked + button {
+    ${RadioBtnCircle} {
+      background-color: ${colors.basic.WHITE};
+      box-shadow: inset 0 0 0 6px ${colors.accent.CIVIL_BLUE};
+      height: 19px;
+      width: 19px;
+    }
+  }
+`;
+
+export const RadioBtn = styled.button`
+  background-color: ${colors.basic.WHITE};
+  border: none;
+  color: ${colors.accent.CIVIL_GRAY_1};
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: -0.09px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  outline: none;
+  padding-left: 30px;
+  position: relative;
+  text-align: left;
+`;
+
+export const RadioButtonStandard: React.FunctionComponent<RadioButtonProps> = props => {
+  let input: any;
+  const { onChange, children, value, name } = props;
+  const clickHandler = () => {
+    input.checked = true;
+    if (onChange) {
+      onChange(name, input.value);
+    }
+  };
+  const defaultChecked = props.defaultValue === props.value;
+
+  return (
+    <RadioBtnStandardStyled>
+      <input
+        type="radio"
+        value={value}
+        defaultChecked={defaultChecked}
+        onChange={onChange}
+        name={name}
+        ref={ref => (input = ref)}
+      />
+      <RadioBtn onClick={clickHandler}>
+        <RadioBtnCircle />
+        {children}
+      </RadioBtn>
+    </RadioBtnStandardStyled>
+  );
+};
+
 export interface RadioInputProps {
   name: string;
   label?: string;
