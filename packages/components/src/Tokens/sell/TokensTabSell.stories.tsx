@@ -6,7 +6,6 @@ import styled from "styled-components";
 import Web3HttpProvider from "web3-providers-http";
 import { TokensTabSell } from "./TokensTabSell";
 import { CivilContext, buildCivilContext } from "../../context/CivilContext";
-import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
 import { UniswapSell } from "./UniswapSell";
 import { Notice, NoticeTypes } from "../../Notice";
 import Web3 from "web3";
@@ -78,15 +77,6 @@ storiesOf("Storefront / Sell Tab", module)
       <Container>
         <CivilContext.Provider value={civilContextNoUniswap}>
           <TokensTabSell network={"4"} />
-        </CivilContext.Provider>
-      </Container>
-    );
-  })
-  .add("Need to Unlock", () => {
-    return (
-      <Container>
-        <CivilContext.Provider value={civilContextNoUniswap}>
-          <TokensTabSellUnlock />
         </CivilContext.Provider>
       </Container>
     );
