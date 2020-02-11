@@ -11,15 +11,10 @@ import {
   ViewTransactionLink,
   QuestionToolTip,
 } from "@joincivil/components";
-import {
-  AccountTransactionsSectionWrap,
-  AccountSectionHeader,
-  AccountPaymentSection,
-  AccountTransactionsTable,
-  NoWrapTd,
-} from "./AccountStyledComponents";
+import { AccountTransactionsTable, NoWrapTd } from "./AccountStyledComponents";
 import { TransactionsTitleText } from "./AccountTextComponents";
 import { routes } from "../../../constants";
+import { UserManagementSection } from "../UserManagement";
 
 export const paymentHistoryQuery = gql`
   query {
@@ -112,59 +107,54 @@ export const AccountTransactions: React.FunctionComponent = () => {
   }
 
   return (
-    <AccountTransactionsSectionWrap>
-      <AccountSectionHeader>
-        <TransactionsTitleText />
-      </AccountSectionHeader>
-      <AccountPaymentSection>
-        <Query<PaymentHistoryData> query={paymentHistoryQuery}>
-          {({ loading, data, error }) => {
-            if (loading) {
-              return <LoadingMessage>Loading Transactions</LoadingMessage>;
-            } else if (error || !data) {
-              console.error("error querying currentUser for paymentsMadeByChannel:", error || "no data returned");
-              return <ErrorLoadingData />;
-            } else if (!data.currentUser.userChannel.paymentsMadeByChannel) {
-              return (
-                <p>
-                  You have made no transactions yet. Head on over to the{" "}
-                  <Link to={formatRoute(routes.STORY_FEED)}>Civil story feed</Link> to find great work that deserves
-                  your support!
-                </p>
-              );
-            }
-
-            const transactions = data.currentUser.userChannel.paymentsMadeByChannel
-              .filter(
-                transaction =>
-                  SUPPORTED_PAYMENT_TYPES.indexOf(transaction.__typename) !== -1 &&
-                  SUPPORTED_POST_TYPES.indexOf(transaction.post.postType) !== -1,
-              )
-              .sort((tA, tB) => new Date(tB.createdAt).getTime() - new Date(tA.createdAt).getTime());
-
+    <UserManagementSection header={<TransactionsTitleText />}>
+      <Query<PaymentHistoryData> query={paymentHistoryQuery}>
+        {({ loading, data, error }) => {
+          if (loading) {
+            return <LoadingMessage>Loading Transactions</LoadingMessage>;
+          } else if (error || !data) {
+            console.error("error querying currentUser for paymentsMadeByChannel:", error || "no data returned");
+            return <ErrorLoadingData />;
+          } else if (!data.currentUser.userChannel.paymentsMadeByChannel) {
             return (
-              <AccountTransactionsTable>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Newsroom</th>
-                    <th>Title</th>
-                    <th>Method</th>
-                    <th>Status</th>
-                    <th>Amount</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transactions.map(transaction => (
-                    <TransactionRow {...transaction} key={transaction.createdAt} />
-                  ))}
-                </tbody>
-              </AccountTransactionsTable>
+              <p>
+                You have made no transactions yet. Head on over to the{" "}
+                <Link to={formatRoute(routes.STORY_FEED)}>Civil story feed</Link> to find great work that deserves your
+                support!
+              </p>
             );
-          }}
-        </Query>
-      </AccountPaymentSection>
-    </AccountTransactionsSectionWrap>
+          }
+
+          const transactions = data.currentUser.userChannel.paymentsMadeByChannel
+            .filter(
+              transaction =>
+                SUPPORTED_PAYMENT_TYPES.indexOf(transaction.__typename) !== -1 &&
+                SUPPORTED_POST_TYPES.indexOf(transaction.post.postType) !== -1,
+            )
+            .sort((tA, tB) => new Date(tB.createdAt).getTime() - new Date(tA.createdAt).getTime());
+
+          return (
+            <AccountTransactionsTable>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Newsroom</th>
+                  <th>Title</th>
+                  <th>Method</th>
+                  <th>Status</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map(transaction => (
+                  <TransactionRow {...transaction} key={transaction.createdAt} />
+                ))}
+              </tbody>
+            </AccountTransactionsTable>
+          );
+        }}
+      </Query>
+    </UserManagementSection>
   );
 };
 
