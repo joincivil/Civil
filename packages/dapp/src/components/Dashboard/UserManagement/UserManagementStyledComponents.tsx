@@ -26,7 +26,7 @@ export const UserManagementTabNav = styled.div`
 
 export const UserManagementTabs = styled.li`
   background-color: ${(props: TabComponentProps) => (props.isActive ? colors.accent.CIVIL_GRAY_6 : colors.basic.WHITE)};
-  border-bottom: ${(props: TabComponentProps) =>
+  border-left: ${(props: TabComponentProps) =>
     props.isActive ? "1px solid" + colors.accent.CIVIL_PURPLE_1 : "1px solid transparent"};
   cursor: pointer;
   padding: 15px;
@@ -35,11 +35,11 @@ export const UserManagementTabs = styled.li`
 
   ${mediaQueries.HOVER} {
     &:hover {
-      border-bottom: 1px solid ${colors.accent.CIVIL_PURPLE_1};
+      border-left: 1px solid ${colors.accent.CIVIL_PURPLE_1};
     }
   }
   &.active {
-    border-bottom: 1px solid ${colors.accent.CIVIL_PURPLE_1};
+    border-left: 1px solid ${colors.accent.CIVIL_PURPLE_1};
   }
 `;
 

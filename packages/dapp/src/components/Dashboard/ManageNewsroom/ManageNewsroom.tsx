@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import * as React from "react";
+import { Helmet } from "react-helmet";
+import ScrollToTopOnMount from "../../utility/ScrollToTop";
 import gql from "graphql-tag";
 import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
@@ -9,8 +11,6 @@ import { EthAddress, CharterData } from "@joincivil/typescript-types";
 import {
   colors,
   Tabs,
-  StyledTabLarge,
-  StyledTabNav,
   Tab,
   LoadingMessage,
   withNewsroomChannel,
@@ -22,6 +22,22 @@ import { NewsroomManager, ManageContractMembers } from "@joincivil/newsroom-sign
 import { routes } from "../../../constants";
 import { getListingPhaseState } from "../../../selectors";
 import { LISTING_QUERY, transformGraphQLDataIntoListing } from "@joincivil/utils";
+import {
+  UserManagementPageLayout,
+  UserManagementSection,
+  UserManagementTabNav,
+  UserManagementTabs,
+} from "../UserManagement";
+import {
+  ManageNewsoomTitleText,
+  EditCharterTabText,
+  EditCharterTitleText,
+  SmartContractTabText,
+  SmartContractTitleText,
+  LaunchBoostTabText,
+  LaunchBoostTitleText,
+} from "./ManageNewsroomTextComponents";
+import { ManageNewsroomSmartContractStyles } from "./ManageNewsroomStyledComponents";
 
 const Notice = styled.div`
   max-width: 800px;
@@ -186,42 +202,59 @@ const ManageNewsroomComponent: React.FunctionComponent<
 
               return (
                 <>
-                  <Tabs
-                    TabsNavComponent={StyledTabNav}
-                    TabComponent={StyledTabLarge}
-                    activeIndex={activeTabIndex}
-                    onActiveTabChange={(tab: number) => {
-                      props.history.push(
-                        formatRoute(props.match.path, { newsroomAddress: props.newsroomAddress, activeTab: TABS[tab] }),
-                      );
-                    }}
-                  >
-                    <Tab title={"Edit Charter"}>
-                      <NewsroomManager
-                        newsroomAddress={newsroom.contractAddress}
-                        publishedCharter={charter}
-                        listingPhaseState={listingPhaseState}
-                      />
-                    </Tab>
-                    <Tab title={"Smart Contract"}>
-                      <ManageContractMembers charter={charter} newsroomAddress={props.newsroomAddress} />
-                    </Tab>
-                    <Tab title={"Launch Boost"}>
-                      <BoostForm
-                        channelID={data.channelsGetByID.id}
-                        newsroomData={{
-                          name: charter.name,
-                          url: charter && charter.newsroomUrl,
-                          owner: newsroom.multisigAddress,
-                        }}
-                        newsroomContractAddress={newsroom.contractAddress}
-                        newsroomAddress={newsroom.contractAddress}
-                        newsroomListingUrl={`${document.location.origin}${listingRoute}`}
-                        newsroomTagline={charter && charter.tagline}
-                        newsroomLogoUrl={charter && charter.logoUrl}
-                      />
-                    </Tab>
-                  </Tabs>
+                  <Helmet title="Newsroom Management - The Civil Registry" />
+                  <ScrollToTopOnMount />
+                  <UserManagementPageLayout header={<ManageNewsoomTitleText newsroom={charter.name} />}>
+                    <Tabs
+                      TabsNavComponent={UserManagementTabNav}
+                      TabComponent={UserManagementTabs}
+                      activeIndex={activeTabIndex}
+                      onActiveTabChange={(tab: number) => {
+                        props.history.push(
+                          formatRoute(props.match.path, {
+                            newsroomAddress: props.newsroomAddress,
+                            activeTab: TABS[tab],
+                          }),
+                        );
+                      }}
+                      flex={true}
+                    >
+                      <Tab title={<EditCharterTabText />}>
+                        <UserManagementSection header={<EditCharterTitleText />}>
+                          <NewsroomManager
+                            newsroomAddress={newsroom.contractAddress}
+                            publishedCharter={charter}
+                            listingPhaseState={listingPhaseState}
+                          />
+                        </UserManagementSection>
+                      </Tab>
+                      <Tab title={<SmartContractTabText />}>
+                        <UserManagementSection header={<SmartContractTitleText />}>
+                          <ManageNewsroomSmartContractStyles>
+                            <ManageContractMembers charter={charter} newsroomAddress={props.newsroomAddress} />
+                          </ManageNewsroomSmartContractStyles>
+                        </UserManagementSection>
+                      </Tab>
+                      <Tab title={<LaunchBoostTabText />}>
+                        <UserManagementSection header={<LaunchBoostTitleText />}>
+                          <BoostForm
+                            channelID={data.channelsGetByID.id}
+                            newsroomData={{
+                              name: charter.name,
+                              url: charter && charter.newsroomUrl,
+                              owner: newsroom.multisigAddress,
+                            }}
+                            newsroomContractAddress={newsroom.contractAddress}
+                            newsroomAddress={newsroom.contractAddress}
+                            newsroomListingUrl={`${document.location.origin}${listingRoute}`}
+                            newsroomTagline={charter && charter.tagline}
+                            newsroomLogoUrl={charter && charter.logoUrl}
+                            removeHeader={true}
+                          />
+                        </UserManagementSection>
+                      </Tab>
+                    </Tabs>
+                  </UserManagementPageLayout>
                 </>
               );
             }}
