@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CivilContext, ICivilContext } from "@joincivil/components";
 import { AccountProfileTable, AccountUserInfoText } from "./AccountStyledComponents";
-import { ProfileTitleText } from "./AccountTextComponents";
+import { ProfileTitleText, AccountChangesSavedText } from "./AccountTextComponents";
 import { AccountUserAvatar } from "./AccountUserAvatarUpdate";
 import { AccountUserEmail } from "./AccountUserEmailUpdate";
 import SetEmail from "../../Auth/SetEmail";
@@ -18,7 +18,11 @@ export const AccountProfile: React.FunctionComponent = props => {
 
   if (currentUser) {
     return (
-      <UserManagementSection header={<ProfileTitleText showNotification={shouldShowSavedNotification} />}>
+      <UserManagementSection
+        showNotification={shouldShowSavedNotification}
+        notificationText={<AccountChangesSavedText />}
+        header={<ProfileTitleText />}
+      >
         <AccountProfileTable>
           <tbody>
             <tr>

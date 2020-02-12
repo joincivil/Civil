@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components/macro";
 import { colors, BorderlessButton } from "@joincivil/elements";
+import { UserManagementNotification } from "../UserManagement";
 
 const UserManagementSectionStyled = styled.div`
   min-width: 300px;
@@ -32,13 +33,22 @@ const UserManagementSectionHeader = styled.div`
 `;
 
 export interface UserManagementSectionProps {
+  showNotification?: boolean;
+  notificationText?: React.ReactElement;
   header: React.ReactElement;
   children: any;
 }
 
 export const UserManagementSection: React.FunctionComponent<UserManagementSectionProps> = props => {
+  const [shouldShowNotification, setShouldShowNotification] = React.useState(props.showNotification || false);
   return (
     <UserManagementSectionStyled>
+      {shouldShowNotification && (
+        <UserManagementNotification
+          text={props.notificationText || ""}
+          handleClose={() => setShouldShowNotification(false)}
+        />
+      )}
       <UserManagementSectionHeader>{props.header}</UserManagementSectionHeader>
       {props.children}
     </UserManagementSectionStyled>

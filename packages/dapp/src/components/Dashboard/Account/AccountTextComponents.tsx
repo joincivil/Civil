@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UserManagementTabText, UserManagementNotification } from "../UserManagement";
+import { UserManagementTabText } from "../UserManagement";
 
 export const AccountTitleText: React.FunctionComponent = props => {
   return <h1>Account</h1>;
@@ -14,20 +14,9 @@ export const ProfileTabText: React.FunctionComponent = props => {
   );
 };
 
-interface ProfileTitleTextProps {
-  showNotification: boolean;
-}
-
-export const ProfileTitleText: React.FunctionComponent<ProfileTitleTextProps> = props => {
-  const [shouldShowNotification, setShouldShowNotification] = React.useState(props.showNotification);
+export const ProfileTitleText: React.FunctionComponent = props => {
   return (
     <>
-      {shouldShowNotification && (
-        <UserManagementNotification
-          text={<AccountChangesSavedText />}
-          handleClose={() => setShouldShowNotification(false)}
-        />
-      )}
       <h2>Edit profile</h2>
       <p>
         Edit your profile and account settings. Your profile picture and username will be displayed on your profile.
