@@ -32,24 +32,20 @@ export const PostComments: React.FunctionComponent<PostCommentsProps> = props =>
   const [myNewCommentIDs, setMyNewCommentIDs] = React.useState([]);
   const [showReply, setShowReply] = React.useState(props.level === 0);
 
-  const edgesLength = (props.comments && props.comments.edges) ? props.comments.edges.length : 0;
+  const edgesLength = props.comments && props.comments.edges ? props.comments.edges.length : 0;
   const remainingChildren = props.numComments - edgesLength;
-  const endCursor = (props.comments && props.comments.pageInfo) ? props.comments.pageInfo.endCursor : "";
+  const endCursor = props.comments && props.comments.pageInfo ? props.comments.pageInfo.endCursor : "";
   return (
     <>
       <StoryDetailsComments>
         {showReply && props.level === 0 && (
           <TopLevelReplySpan onClick={() => setShowReply(false)}>Hide Comment Form</TopLevelReplySpan>
         )}
-        {showReply && props.level !== 0 && (
-          <ReplySpan onClick={() => setShowReply(false)}>Hide Reply Form</ReplySpan>
-        )}
+        {showReply && props.level !== 0 && <ReplySpan onClick={() => setShowReply(false)}>Hide Reply Form</ReplySpan>}
         {!showReply && props.level === 0 && (
           <TopLevelReplySpan onClick={() => setShowReply(true)}>Leave a Comment</TopLevelReplySpan>
         )}
-        {!showReply && props.level !== 0 && (
-          <ReplySpan onClick={() => setShowReply(true)}>Reply</ReplySpan>
-        )}
+        {!showReply && props.level !== 0 && <ReplySpan onClick={() => setShowReply(true)}>Reply</ReplySpan>}
         {showReply && (
           <Mutation mutation={POST_COMMENT_MUTATION}>
             {(postCommentMutation: MutationFunc) => {
@@ -121,9 +117,11 @@ export const PostComments: React.FunctionComponent<PostCommentsProps> = props =>
             </Query>
           );
         })}
-        {props.comments && props.comments.edges && props.comments.edges.map(child => {
-          return <CivilComment comment={child} level={props.level} />;
-        })}
+        {props.comments &&
+          props.comments.edges &&
+          props.comments.edges.map(child => {
+            return <CivilComment comment={child} level={props.level} />;
+          })}
         <MoreComments
           postId={props.postId}
           prevEndCursor={endCursor}
