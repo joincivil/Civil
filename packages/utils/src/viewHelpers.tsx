@@ -176,21 +176,21 @@ export function renderPTagsFromLineBreaks(text: string, wrapperComponent?: any):
   );
 }
 
-/** Copy given string to clipboard. Returns true if successful, false if failed. Should only fail on reaaally old browsers that we don't support. */
-export function copyToClipboard(text: string): boolean {
-  const textArea = document.createElement("textarea");
-  textArea.style.position = "fixed";
-  textArea.style.left = "-9999px";
-  textArea.value = text;
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-  try {
-    document.execCommand("copy");
-  } catch (error) {
-    console.error("Failed to copy text:", error);
+const urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+export function isValidHttpUrl(url: string): boolean {
+  if (url.indexOf("http") !== 0) {
     return false;
   }
-  document.body.removeChild(textArea);
-  return true;
+
+  if (!window.URL) {
+    return !!url.match(urlRegex);
+  }
+
+  try {
+    // tslint:disable-next-line:no-unused-expression
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
 }

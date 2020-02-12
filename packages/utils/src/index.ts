@@ -1,6 +1,7 @@
 import "./rxjs";
 export * from "./airswap";
 export * from "./apolloClient";
+export * from "./browser";
 export * from "./civilConstants";
 export * from "./civilHelpers";
 export * from "./contracts";

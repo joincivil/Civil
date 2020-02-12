@@ -55,25 +55,6 @@ export function getDefaultFromBlock(network: number): number {
   return defaultFromBlocks[network.toString()] || 0;
 }
 
-const urlRegex = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
-export function isValidHttpUrl(url: string): boolean {
-  if (url.indexOf("http") !== 0) {
-    return false;
-  }
-
-  if (!window.URL) {
-    return !!url.match(urlRegex);
-  }
-
-  try {
-    // tslint:disable-next-line:no-unused-expression
-    new URL(url);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
-
 export enum Parameters {
   minDeposit = "minDeposit",
   pMinDeposit = "pMinDeposit",
