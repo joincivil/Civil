@@ -118,7 +118,7 @@ export const AccountSectionWrap = styled.div`
 `;
 export const AccountTransactionsSectionWrap = styled(AccountSectionWrap)`
   width: 100%;
-`
+`;
 
 export const AccountSectionHeader = styled.div`
   h2 {
