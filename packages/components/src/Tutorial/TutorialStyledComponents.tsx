@@ -35,9 +35,8 @@ export const TutorialProgressBarSlideCount = styled.div`
   font-family: ${fonts.SANS_SERIF};
   font-size: 12px;
   font-weight: bold;
-  left: calc(
-    ${(props: TutorialProgressBarProps) => ((props.activeSlide / props.totalSlides) * 100).toString()}% - 25px
-  );
+  left: ${(props: TutorialProgressBarProps) =>
+    "calc(" + ((props.activeSlide / props.totalSlides) * 100).toString() + "% - 25px)"};
   position: absolute;
   text-align: center;
   top: -20px;

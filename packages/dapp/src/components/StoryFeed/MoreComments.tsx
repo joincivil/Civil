@@ -37,11 +37,7 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
   const loadMoreText = props.level === 0 ? "Load More Comments" : "Load More Replies";
 
   if (!firstLoad) {
-    return (
-      <LoadMoreSpan onClick={() => setFirstLoad(true)}>
-        {loadMoreText}
-      </LoadMoreSpan>
-    );
+    return <LoadMoreSpan onClick={() => setFirstLoad(true)}>{loadMoreText}</LoadMoreSpan>;
   } else {
     return (
       <Query query={POST_CHILDREN} variables={{ id, first: 3, after: props.prevEndCursor }}>
@@ -77,8 +73,8 @@ export const MoreComments: React.FunctionComponent<MoreCommentsProps> = props =>
 
                         return newEdges.length
                           ? {
-                            postsGetChildren: {
-                              edges: [...previousResult.postsGetChildren.edges, ...newEdges],
+                              postsGetChildren: {
+                                edges: [...previousResult.postsGetChildren.edges, ...newEdges],
                                 pageInfo,
                                 __typename: previousResult.postsGetChildren.__typename,
                               },

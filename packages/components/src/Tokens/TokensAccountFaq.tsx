@@ -6,8 +6,6 @@ import {
   TokenETHFAQQuestion3Text,
   TokenETHFAQQuestion4Text,
   TokenETHFAQQuestion5Text,
-  TokenETHFAQQuestion6Text,
-  TokenETHFAQQuestion7Text,
 } from "./TokensTextComponents";
 import { Collapsable } from "../Collapsable";
 import metamaskEthAmount from "../images/img-metamask-eth-amount@2x.png";
@@ -101,49 +99,6 @@ export const UserTokenAccountFaq: React.FunctionComponent = props => {
             buy those tokens. Since Airswap is based on a trading network, the prices of Civil tokens (CVL) are based on
             the current market rate and can fluctuate.
           </p>
-        </Collapsable>
-      </TokenFAQCollapse>
-      <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion6Text />} open={false}>
-          <p>
-            We believe it is critical to ensure that only people who aim to advance Civil’s mission should possess Civil
-            tokens. Speculators have the ability to affect the price of Civil tokens, which decouples the value from the
-            actual work being done by real participants in the network.
-          </p>
-          <p>In order to mitigate this, we restrict members from transferring tokens under certain conditions.</p>
-          <p>What are the restrictions?</p>
-          <ul>
-            <li>Anybody can receive tokens. There are only restrictions on SENDING tokens, but never on RECEIVING.</li>
-            <li>
-              After you purchase Civil tokens you may send them to newsrooms on the Registry. However, until your
-              account is unlocked, you cannot sell or transfer Civil tokens to anyone else.
-            </li>
-            <li>
-              In order to unlock your tokens, you must transfer tokens into the voting contract on the Civil Registry,
-              demonstrating your intent to be an active participant. More details on the unlocking process are provided
-              below.
-            </li>
-            <li>After your tokens are unlocked, you are allowed to freely transfer or sell your Civil tokens.</li>
-          </ul>
-        </Collapsable>
-      </TokenFAQCollapse>
-      <TokenFAQCollapse>
-        <Collapsable header={<TokenETHFAQQuestion7Text />} open={false}>
-          <p>Unlocking your tokens enable you to send and sell them.</p>
-          <p>To unlock your tokens, make sure you’re first logged into your MetaMask account</p>
-          <ul>
-            <li>
-              Navigate to your <b>Dashboard</b>, and then onto <b>Tasks</b>, and then to <b>Transfer Tokens</b>
-            </li>
-            <li>
-              Transfer at least 50% of your <b>Available Balance</b> tokens into the <b>Voting Balance</b> and click{" "}
-              <b>Transfer</b>
-            </li>
-            <li>
-              <b>Don’t worry they are still your tokens to use as you see fit.</b>
-            </li>
-          </ul>
-          <p>That’s it! Your tokens are now unlocked. And you only have to do this once.</p>
         </Collapsable>
       </TokenFAQCollapse>
     </FlexColumnsPrimaryModule>

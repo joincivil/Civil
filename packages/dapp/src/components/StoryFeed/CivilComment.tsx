@@ -34,12 +34,7 @@ export const CivilComment: React.FunctionComponent<CivilCommentProps> = props =>
       <CivilCommentContent>
         <p>{text}</p>
       </CivilCommentContent>
-      <PostComments
-        postId={id}
-        comments={children}
-        numComments={numChildren}
-        level={props.level + 1}
-      />
+      <PostComments postId={id} comments={children} numComments={numChildren} level={props.level + 1} />
     </StoryComment>
   );
 };

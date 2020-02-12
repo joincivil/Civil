@@ -118,12 +118,7 @@ export const StoryDetails: React.FunctionComponent<StoryDetailsProps> = props =>
         </StoryDetailsFooterFlex>
       </StoryDetailsFooter>
       <FeatureFlag feature={"comments-mvp"}>
-        <PostComments
-          postId={props.postId}
-          comments={props.children}
-          numComments={props.numChildren}
-          level={0}
-        />
+        <PostComments postId={props.postId} comments={props.children} numComments={props.numChildren} level={0} />
       </FeatureFlag>
       <SharePanel open={shareModalOpen} handleClose={() => setShareModalOpen(false)}>
         <ShareStory title={props.title} url={props.url} />

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { HollowGreenCheck, NorthEastArrow, LockOpenIcon } from "../icons";
+import { HollowGreenCheck, NorthEastArrow } from "../icons";
 import { colors } from "../styleConstants";
 import { urlConstants as links } from "@joincivil/utils";
 
@@ -167,13 +167,6 @@ export const TokenSellInstructionsText: React.FunctionComponent = props => (
 
 export const TokenSellAirswapText: React.FunctionComponent = props => <h3>Sell Civil tokens in Airswap</h3>;
 
-export const TokenUnlockSellText: React.FunctionComponent = props => (
-  <p>
-    You must unlock your tokens to remove the restrictions to sell. Once your tokens are unlocked, you will be eligible
-    to sell them here.
-  </p>
-);
-
 export const TokenSellCompleteText: React.FunctionComponent = props => (
   <>
     <h3>Your sell was successful! </h3>
@@ -192,26 +185,6 @@ export const TokenSellCompleteText: React.FunctionComponent = props => (
   </>
 );
 
-export const TokenUnlockText: React.FunctionComponent = props => (
-  <>
-    <h4>
-      <LockOpenIcon />
-      Unlock Tokens
-    </h4>
-    <p>
-      All first-time token purchasers must unlock their tokens by participating in community votes and the general
-      oversight of Civil. This is to prevent speculators from affecting the price of Civil tokens. Learn more in the FAQ
-      below.
-    </p>
-    <p>
-      Unlocking your tokens is straightforward, and you only have to do this once. Simply{" "}
-      <b>transfer at least 50 percent of your purchased tokens into the voting balance</b>. And that’s it.
-    </p>
-  </>
-);
-
-export const TokenUnlockBtnText: React.FunctionComponent = props => <>Unlock My Tokens</>;
-
 // FAQ section
 
 export const TokenETHFAQQuestion1Text: React.FunctionComponent = props => <h3>What is Ethereum, ETH and gas?</h3>;
@@ -224,18 +197,12 @@ export const TokenETHFAQQuestion4Text: React.FunctionComponent = props => <h3>Ho
 
 export const TokenETHFAQQuestion5Text: React.FunctionComponent = props => <h3>What is Airswap?</h3>;
 
-export const TokenETHFAQQuestion6Text: React.FunctionComponent = props => (
-  <h3>Why do I need to unlock my Civil tokens before I can sell them?</h3>
-);
-
 export const TokenDonateToCivilFoundationText: React.FunctionComponent = () => (
   <>
     <h3>Donate to the Civil Foundation</h3>
     <p>Want to support this project, but don’t want to buy Civil tokens? </p>
   </>
 );
-
-export const TokenETHFAQQuestion7Text: React.FunctionComponent = props => <h3>How do I unlock my tokens?</h3>;
 
 export const TokenQuestionsHeaderText: React.FunctionComponent = props => <h3>Ask Questions</h3>;
 
