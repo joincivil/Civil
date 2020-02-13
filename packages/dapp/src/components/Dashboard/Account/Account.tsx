@@ -6,8 +6,8 @@ import { Tabs, Tab } from "@joincivil/components";
 import { AccountProfile } from "./AccountProfile";
 import { AccountPayments } from "./AccountPayments";
 import { AccountTransactions } from "./AccountTransactions";
-import { AccountHeader, AccountWrap, AccountTabNav, AccountTabs } from "./AccountStyledComponents";
 import { AccountTitleText, ProfileTabText, PaymentTabText, TransactionsTabText } from "./AccountTextComponents";
+import { UserManagementPageLayout, UserManagementTabNav, UserManagementTabs } from "../UserManagement";
 
 export interface AccountParams {
   activeTab?: "profile" | "payments" | "transactions";
@@ -34,13 +34,10 @@ const AccountPage: React.FunctionComponent<AccountProps> = props => {
     <>
       <Helmet title="Account - The Civil Registry" />
       <ScrollToTopOnMount />
-      <AccountHeader>
-        <AccountTitleText />
-      </AccountHeader>
-      <AccountWrap>
+      <UserManagementPageLayout header={<AccountTitleText />}>
         <Tabs
-          TabsNavComponent={AccountTabNav}
-          TabComponent={AccountTabs}
+          TabsNavComponent={UserManagementTabNav}
+          TabComponent={UserManagementTabs}
           activeIndex={activeTabIndex}
           onActiveTabChange={(tab: number) => {
             props.history.push(formatRoute(props.match.path, { activeTab: TABS[tab] }));
@@ -57,7 +54,7 @@ const AccountPage: React.FunctionComponent<AccountProps> = props => {
             <AccountTransactions />
           </Tab>
         </Tabs>
-      </AccountWrap>
+      </UserManagementPageLayout>
     </>
   );
 };

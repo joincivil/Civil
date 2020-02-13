@@ -2,8 +2,6 @@ import * as React from "react";
 import { CivilContext, ICivilContext } from "@joincivil/components";
 import { InvertedButton, buttonSizes } from "@joincivil/elements";
 import {
-  AccountSectionWrap,
-  AccountSectionHeader,
   AccountPaymentSection,
   AccountPaymentSectionHeader,
   AccountPaymentTable,
@@ -12,6 +10,7 @@ import {
   AccountPaymentWalletBalance,
 } from "./AccountStyledComponents";
 import { PaymentTitleText } from "./AccountTextComponents";
+import { UserManagementSection } from "../UserManagement";
 
 export interface AccountPaymentsState {
   balance: any;
@@ -45,10 +44,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
 
     if (currentUser) {
       return (
-        <AccountSectionWrap>
-          <AccountSectionHeader>
-            <PaymentTitleText />
-          </AccountSectionHeader>
+        <UserManagementSection header={<PaymentTitleText />}>
           <AccountPaymentSection>
             <AccountPaymentSectionHeader>
               <h3>Credit and debit cards</h3>
@@ -84,7 +80,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
               </AccountPaymentWallet>
             </AccountPaymentSectionHeader>
           </AccountPaymentSection>
-        </AccountSectionWrap>
+        </UserManagementSection>
       );
     }
 

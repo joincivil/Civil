@@ -1,42 +1,28 @@
 import * as React from "react";
-import { CivilContext, ICivilContext, colors } from "@joincivil/components";
-import { CloseXIcon } from "@joincivil/elements";
-import {
-  AccountSectionWrap,
-  AccountSectionHeader,
-  AccountProfileTable,
-  AccountUserInfoText,
-  AccountChangesSavedMessage,
-  AccountMessegeClose,
-} from "./AccountStyledComponents";
+import { CivilContext, ICivilContext } from "@joincivil/components";
+import { AccountProfileTable, AccountUserInfoText } from "./AccountStyledComponents";
 import { ProfileTitleText, AccountChangesSavedText } from "./AccountTextComponents";
 import { AccountUserAvatar } from "./AccountUserAvatarUpdate";
 import { AccountUserEmail } from "./AccountUserEmailUpdate";
 import SetEmail from "../../Auth/SetEmail";
 import SetAvatar from "../../Auth/SetAvatar";
+import { UserManagementSection } from "../UserManagement";
 
 export const AccountProfile: React.FunctionComponent = props => {
   const civilContext = React.useContext<ICivilContext>(CivilContext);
   const [shouldShowSetEmailModal, setShouldShowSetEmailModal] = React.useState(false);
   const [shouldShowSetAvatarModal, setShouldShowSetAvatarModal] = React.useState(false);
   const [shouldShowConfirmEmailWarning, setShouldShowConfirmEmailWarning] = React.useState(false);
-  const [shouldShowSavedConfirmation, setShouldShowSavedConfirmation] = React.useState(false);
+  const [shouldShowSavedNotification, setShouldShowSavedNotification] = React.useState(false);
   const currentUser = civilContext.currentUser;
 
   if (currentUser) {
     return (
-      <AccountSectionWrap>
-        {shouldShowSavedConfirmation && (
-          <AccountChangesSavedMessage>
-            <AccountChangesSavedText />
-            <AccountMessegeClose onClick={() => setShouldShowSavedConfirmation(false)}>
-              <CloseXIcon color={colors.accent.CIVIL_GRAY_0} />
-            </AccountMessegeClose>
-          </AccountChangesSavedMessage>
-        )}
-        <AccountSectionHeader>
-          <ProfileTitleText />
-        </AccountSectionHeader>
+      <UserManagementSection
+        showNotification={shouldShowSavedNotification}
+        notificationText={<AccountChangesSavedText />}
+        header={<ProfileTitleText />}
+      >
         <AccountProfileTable>
           <tbody>
             <tr>
@@ -76,7 +62,7 @@ export const AccountProfile: React.FunctionComponent = props => {
             onSetEmailComplete={() => {
               setShouldShowSetEmailModal(false);
               setShouldShowConfirmEmailWarning(true);
-              setShouldShowSavedConfirmation(true);
+              setShouldShowSavedNotification(true);
             }}
             onSetEmailCancelled={() => setShouldShowSetEmailModal(false)}
           />
@@ -88,12 +74,12 @@ export const AccountProfile: React.FunctionComponent = props => {
             onSetAvatarComplete={async () => {
               await civilContext.auth.handleInitialState();
               setShouldShowSetAvatarModal(false);
-              setShouldShowSavedConfirmation(true);
+              setShouldShowSavedNotification(true);
             }}
             onSetAvatarCancelled={() => setShouldShowSetAvatarModal(false)}
           />
         )}
-      </AccountSectionWrap>
+      </UserManagementSection>
     );
   }
 

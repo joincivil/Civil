@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AccountTabText } from "./AccountStyledComponents";
+import { UserManagementTabText } from "../UserManagement";
 
 export const AccountTitleText: React.FunctionComponent = props => {
   return <h1>Account</h1>;
@@ -7,10 +7,10 @@ export const AccountTitleText: React.FunctionComponent = props => {
 
 export const ProfileTabText: React.FunctionComponent = props => {
   return (
-    <AccountTabText>
+    <UserManagementTabText>
       Profile
       <span>Your account details</span>
-    </AccountTabText>
+    </UserManagementTabText>
   );
 };
 
@@ -27,10 +27,10 @@ export const ProfileTitleText: React.FunctionComponent = props => {
 
 export const PaymentTabText: React.FunctionComponent = props => {
   return (
-    <AccountTabText>
+    <UserManagementTabText>
       Payment methods
       <span>Manage your payments</span>
-    </AccountTabText>
+    </UserManagementTabText>
   );
 };
 
@@ -48,10 +48,10 @@ export const PaymentTitleText: React.FunctionComponent = props => {
 
 export const TransactionsTabText: React.FunctionComponent = props => {
   return (
-    <AccountTabText>
+    <UserManagementTabText>
       Transactions
       <span>View all the boosts and newsrooms that you have supported</span>
-    </AccountTabText>
+    </UserManagementTabText>
   );
 };
 

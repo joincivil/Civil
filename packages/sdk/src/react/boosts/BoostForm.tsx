@@ -194,6 +194,7 @@ export interface BoostFormInnerProps {
   initialBoostData?: BoostData;
   editMode?: boolean;
   boostId?: string;
+  removeHeader?: boolean;
 }
 export type BoostFormProps = BoostFormInnerProps & BoostPermissionsInjectedProps & NewsroomChannelInjectedProps;
 
@@ -253,7 +254,7 @@ class BoostFormComponent extends React.Component<BoostFormProps, BoostFormState>
           }}
         />
 
-        {this.renderHeader()}
+        {!this.props.removeHeader && this.renderHeader()}
 
         <LoadUser>
           {({ loading: userLoading, user }) => {
