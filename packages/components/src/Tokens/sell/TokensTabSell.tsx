@@ -2,7 +2,6 @@ import * as React from "react";
 import { getFormattedTokenBalance } from "@joincivil/utils";
 import { TokensTabSellActive } from "./TokensTabSellActive";
 import { TokensTabSellComplete } from "./TokensTabSellComplete";
-import { TokensTabSellUnlock } from "./TokensTabSellUnlock";
 import { ICivilContext, CivilContext } from "../../context";
 import { FeatureFlag } from "../../features/FeatureFlag";
 import { ComingSoon } from "../TokensStyledComponents";
@@ -13,7 +12,6 @@ export interface TokensTabSellProps {
 
 export interface TokensTabSellStates {
   isSellComplete: boolean;
-  isTokenUnlocked: boolean | null;
   balance: any | null;
 }
 
@@ -24,17 +22,16 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
     super(props);
     this.state = {
       isSellComplete: false,
-      isTokenUnlocked: null,
       balance: null,
     };
   }
 
   public async componentDidMount(): Promise<void> {
-    await this.setUnlockedStatus();
+    await this.setTokenBalance();
   }
 
   public render(): JSX.Element | null {
-    const { isSellComplete, isTokenUnlocked } = this.state;
+    const { isSellComplete, balance } = this.state;
 
     const comingSoon = (
       <ComingSoon>
@@ -49,18 +46,13 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
     );
 
     let content: JSX.Element;
-    if (isTokenUnlocked === null) {
+    if (balance === null) {
       return null;
-    } else if (!isTokenUnlocked) {
-      content = <TokensTabSellUnlock />;
     } else if (isSellComplete) {
       content = <TokensTabSellComplete />;
     } else {
       content = (
-        <TokensTabSellActive
-          balance={getFormattedTokenBalance(this.state.balance)}
-          onSellComplete={this.onSellComplete}
-        />
+        <TokensTabSellActive balance={getFormattedTokenBalance(balance)} onSellComplete={this.onSellComplete} />
       );
     }
 
@@ -70,17 +62,15 @@ export class TokensTabSell extends React.Component<TokensTabSellProps, TokensTab
       </FeatureFlag>
     );
   }
-  private async setUnlockedStatus(): Promise<void> {
+  private async setTokenBalance(): Promise<void> {
     const civil = this.context.civil;
     const account = await civil.accountStream.first().toPromise();
-    if (!account) {
-      return this.setState({ ...this.state, isTokenUnlocked: false });
+    if (account) {
+      const tcr = await civil.tcrSingletonTrusted();
+      const token = await tcr.getToken();
+      const balance = await token.instance.balanceOf.callAsync(account);
+      this.setState({ ...this.state, balance });
     }
-    const tcr = await civil.tcrSingletonTrusted();
-    const token = await tcr.getToken();
-    const unlocked = await token.isUnlocked(account);
-    const balance = await token.instance.balanceOf.callAsync(account);
-    this.setState({ ...this.state, isTokenUnlocked: unlocked, balance });
   }
 
   private onSellComplete = () => {
