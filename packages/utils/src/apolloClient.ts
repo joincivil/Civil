@@ -78,7 +78,7 @@ export function getApolloClient(httpLinkOptions: HttpLink.Options = {}): ApolloC
         uri = "https://graphql.civil.co/v1/query";
         break;
       case 4:
-        uri = "https://graphql.staging.civil.app/v1/query";
+        uri = "http://localhost:8080/v1/query";
         break;
       case 50:
         uri = "http://localhost:8080/v1/query";
@@ -187,6 +187,14 @@ export const getCurrentUserQuery = gql`
         EmailAddressRestricted
         avatarDataUrl
         tiny72AvatarDataUrl
+        stripeCustomerInfo {
+          sources {
+            id
+            last4Digits
+            expMonth
+            expYear
+          }
+        }
       }
       userChannelAvatarPromptSeen
       userChannelEmailPromptSeen
@@ -207,6 +215,8 @@ export async function getCurrentUser(): Promise<any> {
     if (errors) {
       return null;
     }
+
+    console.log("current user data: ", data);
 
     return (data as any).currentUser;
   } catch (err) {

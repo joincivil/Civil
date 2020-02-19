@@ -23,6 +23,8 @@ export const AccountProfile: React.FunctionComponent = props => {
   const [shouldShowSavedConfirmation, setShouldShowSavedConfirmation] = React.useState(false);
   const currentUser = civilContext.currentUser;
 
+  console.log("currentUser: ", currentUser);
+
   if (currentUser) {
     return (
       <AccountSectionWrap>

@@ -10,6 +10,7 @@ import { PaymentsGooglePay } from "./PaymentsGooglePay";
 import { PaymentsWrapper } from "./PaymentsWrapper";
 import { SuggestedPaymentAmounts, CreditCardMin, PAYMENT_STATE } from "./types";
 import { PaymentsSuccess } from "./PaymentsSuccess";
+import { ApolloConsumer } from "react-apollo";
 
 export interface PaymentsProps {
   postId: string;
@@ -181,15 +182,20 @@ export class Payments extends React.Component<PaymentsProps, PaymentsStates> {
           selectedUsdToSpend={selectedUsdToSpend}
           handleBack={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
         >
-          <PaymentsStripe
-            postId={postId}
-            newsroomName={newsroomName}
-            shouldPublicize={shouldPublicize}
-            usdToSpend={usdToSpend}
-            stripeAccountID={stripeAccountID}
-            handlePaymentSuccess={this.handlePaymentSuccess}
-            handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
-          />
+          <ApolloConsumer>
+            {client => (
+              <PaymentsStripe
+                postId={postId}
+                newsroomName={newsroomName}
+                shouldPublicize={shouldPublicize}
+                usdToSpend={usdToSpend}
+                stripeAccountID={stripeAccountID}
+                handlePaymentSuccess={this.handlePaymentSuccess}
+                handleEditPaymentType={() => this.handleUpdateState(PAYMENT_STATE.SELECT_PAYMENT_TYPE)}
+                apolloClient={client}
+              />
+            )}
+            </ApolloConsumer>
         </PaymentsWrapper>
       );
     }

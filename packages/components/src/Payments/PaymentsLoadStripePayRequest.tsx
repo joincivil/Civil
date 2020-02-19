@@ -41,16 +41,17 @@ export class PaymentsLoadStripePayRequest extends React.Component<PaymentsStripe
           <Elements>
             <Mutation mutation={PAYMENTS_STRIPE_MUTATION}>
               {(paymentsCreateStripePayment: MutationFunc) => {
-                return (
-                  <PaymentRequestForm
-                    savePayment={paymentsCreateStripePayment}
-                    boostId={this.props.postId}
-                    usdToSpend={this.props.usdToSpend}
-                    userChannelID={userChannelID}
-                    shouldPublicize={this.props.shouldPublicize}
-                    handlePaymentSuccess={this.props.handlePaymentSuccess}
-                  />
-                );
+                // return (
+                //   <PaymentRequestForm
+                //     savePayment={paymentsCreateStripePayment}
+                //     boostId={this.props.postId}
+                //     usdToSpend={this.props.usdToSpend}
+                //     userChannelID={userChannelID}
+                //     shouldPublicize={this.props.shouldPublicize}
+                //     handlePaymentSuccess={this.props.handlePaymentSuccess}
+                //   />
+                // );
+                return (<>ok</>)
               }}
             </Mutation>
           </Elements>
