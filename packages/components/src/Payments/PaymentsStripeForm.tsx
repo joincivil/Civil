@@ -347,7 +347,6 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
             emailAddress: this.state.email,
             shouldPublicize: this.props.shouldPublicize,
             payerChannelID: this.props.userChannelID,
-            shouldSaveCard: true,
           }
         }
 
