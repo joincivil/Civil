@@ -194,6 +194,7 @@ export const getCurrentUserQuery = gql`
             expMonth
             expYear
             brand
+            name
           }
         }
       }
