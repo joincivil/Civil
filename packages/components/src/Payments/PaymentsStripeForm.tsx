@@ -57,6 +57,7 @@ export interface PaymentStripeFormProps extends ReactStripeElements.InjectedStri
   apolloClient: ApolloClient<any>;
   paymentIntentsEnabled: boolean;
   stripeApiKey: string;
+  connectedStripeAccountID: string;
   handlePaymentSuccess(userSubmittedEmail: boolean, didSaveEmail: boolean): void;
   handleEditPaymentType(): void;
 }
@@ -342,12 +343,12 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     }
   }
 
-  private async clonePaymentMethodAndPayViaIntent(paymentMethodID: string): Promise<boolean> {
+  private async clonePaymentMethodAndPayViaIntent(paymentMethodID: string, clonePayerChannelID?: string): Promise<boolean> {
     try {
       const cloneVariables = {
         postID: this.props.postId,
         input: {
-          payerChannelID: this.props.userChannelID,
+          payerChannelID: clonePayerChannelID,
           paymentMethodID,
           amount: 0,
           currencyCode: "usd",
@@ -378,8 +379,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       console.log("paymentIntent: ", paymentIntent);
       const paymentIntentSecret = (paymentIntent as any).data.paymentsCreateStripePaymentIntent.clientSecret;
 
+      const connectedAccountStripe = window.Stripe(this.props.stripeApiKey, {
+        stripeAccount: this.props.connectedStripeAccountID,
+      });
       // @types for stripe-react-elements are out of date, so have to cast stripe props to any
-      const piResult = await(this.props.stripe as any).confirmCardPayment(paymentIntentSecret, {
+      const piResult = await(connectedAccountStripe as any).confirmCardPayment(paymentIntentSecret, {
         payment_method: pamentMethodID2,
       });
       console.log("piResult: ", piResult);
@@ -393,8 +397,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
   private async savePaymentMethodThenCloneAndPayViaIntent(): Promise<boolean> {
     try {
       console.log("props:", this.props);
-      const platformStripe = window.Stripe(this.props.stripeApiKey, { stripeAccount: "acct_1BbHH2I7gPEo6b55" });
-      const result = await(platformStripe as any).createPaymentMethod({
+      const result = await(this.props.stripe as any).createPaymentMethod({
         type: "card",
         card: (this.props as any).elements.getElement("card"),
         billing_details: {
@@ -404,11 +407,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       });
       console.log("result: ", result);
 
-      const paymentMethodId = result.paymentMethod.id;
+      const paymentMethodID = result.paymentMethod.id;
 
       const paymentMethodVariables = {
         input: {
-          paymentMethodID: paymentMethodId,
+          paymentMethodID,
           emailAddress: this.state.email,
           payerChannelID: this.props.userChannelID,
         },
@@ -418,8 +421,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         mutation: CREATE_PAYMENT_METHOD,
         variables: paymentMethodVariables,
       });
-      console.log("paymentMethod: ", paymentMethodResult);
-      return this.clonePaymentMethodAndPayViaIntent(paymentMethodResult.paymentMethod.id);
+      console.log("paymentMethodResult: ", paymentMethodResult);
+      return this.clonePaymentMethodAndPayViaIntent(
+        paymentMethodResult.data.paymentsCreateStripePaymentMethod.paymentMethodID,
+        this.props.userChannelID,
+      );
     } catch (err) {
       console.error(err);
       return false;
@@ -449,9 +455,11 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       if (!this.props.paymentIntentsEnabled) {
         success = await this.handleChargePayment();
       } else if (this.state.paymentMethodId !== "") {
-        success = await this.clonePaymentMethodAndPayViaIntent(this.state.paymentMethodId);
+        success = await this.clonePaymentMethodAndPayViaIntent(this.state.paymentMethodId, this.props.userChannelID);
       } else if (this.state.payWithNewCard && this.state.shouldSaveCCToAccount) {
         success = await this.savePaymentMethodThenCloneAndPayViaIntent();
+      } else {
+        success = false;
       }
     }
     if (success) {

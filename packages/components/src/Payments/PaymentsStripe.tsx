@@ -41,10 +41,10 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
     const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
     if (this.state.stripeLoaded) {
       return (
-        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.props.stripeAccountID}>
+        <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={"acct_1BbHH2I7gPEo6b55"}>
           <Elements>
             <ApolloConsumer>
-               {client => (
+              {client => (
                 <PaymentStripeForm
                   postId={this.props.postId}
                   newsroomName={this.props.newsroomName}
@@ -58,6 +58,7 @@ export class PaymentsStripe extends React.Component<PaymentsStripeProps, Payment
                   paymentMethods={paymentMethods}
                   paymentIntentsEnabled={features.featureEnabled("payment-intents")}
                   stripeApiKey={this.context.config.STRIPE_API_KEY}
+                  connectedStripeAccountID={this.props.stripeAccountID}
                 />
               )}
             </ApolloConsumer>
