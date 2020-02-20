@@ -23,3 +23,30 @@ export const SET_EMAIL_MUTATION = gql`
     }
   }
 `;
+
+export const GET_STRIPE_PAYMENT_INTENT = gql`
+  mutation($postID: String!, $input: PaymentsCreateStripePaymentInput!) {
+    paymentsCreateStripePaymentIntent(postID: $postID, input: $input) {
+      id
+      clientSecret
+    }
+  }
+`;
+
+export const CREATE_PAYMENT_METHOD = gql`
+  mutation($input: PaymentsCreateStripePaymentMethodInput!) {
+    paymentsCreateStripePaymentMethod(input: $input) {
+      paymentMethodID
+      customerID
+    }
+  }
+`;
+
+export const CLONE_PAYMENT_METHOD = gql`
+  mutation($postID: String!, $input: PaymentsCreateStripePaymentInput!) {
+    paymentsCloneCustomerPaymentMethod(postID: $postID, input: $input) {
+      payerChannelID
+      paymentMethodID
+    }
+  }
+`;
