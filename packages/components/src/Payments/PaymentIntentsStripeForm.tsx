@@ -365,7 +365,9 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
         mutation: CLONE_PAYMENT_METHOD,
         variables: cloneVariables,
       });
-      console.log("cloneResult: ", cloneResult);
+      if (cloneResult.error) {
+        console.error(cloneResult.error)
+      }
       const pamentMethodID2 = (cloneResult as any).data.paymentsClonePaymentMethod.paymentMethodID;
 
       const paymentIntentVariables = {
@@ -383,17 +385,23 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
         mutation: GET_STRIPE_PAYMENT_INTENT,
         variables: paymentIntentVariables,
       });
-      console.log("paymentIntent: ", paymentIntent);
+      if (paymentIntent.error) {
+        console.error(paymentIntent.error);
+        return false;
+      }
       const paymentIntentSecret = (paymentIntent as any).data.paymentsCreateStripePaymentIntent.clientSecret;
 
       const connectedAccountStripe = window.Stripe(this.props.stripeApiKey, {
         stripeAccount: this.props.connectedStripeAccountID,
       });
-      // @types for stripe-react-elements are out of date, so have to cast stripe props to any
-      const piResult = await (connectedAccountStripe as any).confirmCardPayment(paymentIntentSecret, {
+
+      const piResult = await connectedAccountStripe.confirmCardPayment(paymentIntentSecret, {
         payment_method: pamentMethodID2,
       });
-      console.log("piResult: ", piResult);
+      if (piResult.error) {
+        console.error(piResult.error);
+        return false;
+      }
       return true;
     } catch (err) {
       console.error(err);
@@ -403,7 +411,6 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
 
   private async savePaymentMethodThenCloneAndPayViaIntent(): Promise<boolean> {
     try {
-      console.log("props:", this.props);
       const result = await (this.props.stripe as any).createPaymentMethod({
         type: "card",
         card: (this.props as any).elements.getElement("card"),
@@ -412,7 +419,6 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
           email: this.state.email,
         },
       });
-      console.log("result: ", result);
 
       const paymentMethodID = result.paymentMethod.id;
 
@@ -428,7 +434,10 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
         mutation: CREATE_PAYMENT_METHOD,
         variables: paymentMethodVariables,
       });
-      console.log("paymentMethodResult: ", paymentMethodResult);
+      if (paymentMethodResult.error) {
+        console.error(paymentMethodResult.error);
+        return false;
+      }
       return this.clonePaymentMethodAndPayViaIntent(
         paymentMethodResult.data.paymentsCreateStripePaymentMethod.paymentMethodID,
         this.props.userChannelID,
@@ -441,7 +450,6 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
 
   private async useOneTimePaymentIntent(): Promise<boolean> {
     try {
-      console.log("props:", this.props);
       const result = await (this.props.stripe as any).createPaymentMethod({
         type: "card",
         card: (this.props as any).elements.getElement("card"),
@@ -450,7 +458,6 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
           email: this.state.email,
         },
       });
-      console.log("result: ", result);
 
       const paymentMethodID = result.paymentMethod.id;
       return this.clonePaymentMethodAndPayViaIntent(paymentMethodID);

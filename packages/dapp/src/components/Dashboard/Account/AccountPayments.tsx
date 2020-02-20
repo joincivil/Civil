@@ -42,7 +42,6 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
   public render(): JSX.Element {
     const currentUser = this.context.currentUser;
 
-    console.log("currentUser: ", currentUser);
     const paymentMethods = currentUser && currentUser.userChannel && currentUser.userChannel.stripeCustomerInfo && currentUser.userChannel.stripeCustomerInfo.paymentMethods;
 
     if (currentUser) {
