@@ -359,7 +359,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
         variables: cloneVariables,
       });
       console.log("cloneResult: ", cloneResult);
-      const pamentMethodID2 = (cloneResult as any).data.paymentsCloneCustomerPaymentMethod.paymentMethodID;
+      const pamentMethodID2 = (cloneResult as any).data.paymentsClonePaymentMethod.paymentMethodID;
 
       const paymentIntentVariables = {
         postID: this.props.postId,
@@ -432,6 +432,28 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
     }
   }
 
+  private async useOneTimePaymentIntent(): Promise<boolean> {
+    try {
+      console.log("props:", this.props);
+      const result = await(this.props.stripe as any).createPaymentMethod({
+        type: "card",
+        card: (this.props as any).elements.getElement("card"),
+        billing_details: {
+          name: this.state.name,
+          email: this.state.email,
+        },
+      });
+      console.log("result: ", result);
+
+      const paymentMethodID = result.paymentMethod.id;
+      return this.clonePaymentMethodAndPayViaIntent(paymentMethodID);
+
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  }
+
   private async handleSubmit(): Promise<void> {
     this.context.fireAnalyticsEvent("boost", "Stripe submit clicked", this.props.postId, this.props.usdToSpend);
     this.setState({ paymentProcessing: true, isPaymentError: false });
@@ -459,7 +481,7 @@ class PaymentStripeForm extends React.Component<PaymentStripeFormProps, PaymentS
       } else if (this.state.payWithNewCard && this.state.shouldSaveCCToAccount) {
         success = await this.savePaymentMethodThenCloneAndPayViaIntent();
       } else {
-        success = false;
+        success = await this.useOneTimePaymentIntent();
       }
     }
     if (success) {

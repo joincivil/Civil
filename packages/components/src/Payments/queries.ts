@@ -44,7 +44,7 @@ export const CREATE_PAYMENT_METHOD = gql`
 
 export const CLONE_PAYMENT_METHOD = gql`
   mutation($postID: String!, $input: PaymentsCreateStripePaymentInput!) {
-    paymentsCloneCustomerPaymentMethod(postID: $postID, input: $input) {
+    paymentsClonePaymentMethod(postID: $postID, input: $input) {
       payerChannelID
       paymentMethodID
     }
