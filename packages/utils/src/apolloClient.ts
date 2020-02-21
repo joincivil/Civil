@@ -187,6 +187,16 @@ export const getCurrentUserQuery = gql`
         EmailAddressRestricted
         avatarDataUrl
         tiny72AvatarDataUrl
+        stripeCustomerInfo {
+          paymentMethods {
+            paymentMethodID
+            last4Digits
+            expMonth
+            expYear
+            brand
+            name
+          }
+        }
       }
       userChannelAvatarPromptSeen
       userChannelEmailPromptSeen

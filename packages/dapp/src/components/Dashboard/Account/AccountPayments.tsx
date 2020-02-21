@@ -41,6 +41,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
 
   public render(): JSX.Element {
     const currentUser = this.context.currentUser;
+    const paymentMethods = currentUser && currentUser.userChannel && currentUser.userChannel.stripeCustomerInfo && currentUser.userChannel.stripeCustomerInfo.paymentMethods;
 
     if (currentUser) {
       return (
@@ -52,19 +53,24 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
             <AccountPaymentTable>
               <thead>
                 <tr>
-                  <th>Default</th>
-                  <th>Credit Card Number</th>
+                  <th>Brand</th>
+                  <th>Last 4 Digits</th>
                   <th>Name</th>
                   <th>Exp. Date</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
+                {paymentMethods && (paymentMethods.map((pm: any) => {
+                  return (
+                    <tr>
+                      <td>{pm.brand}</td>
+                      <td>{pm.last4Digits}</td>
+                      <td>{pm.name}</td>
+                      <td>{pm.expMonth + "/" + pm.expYear}</td>
+                    </tr>
+                  );
+                }))}
+
               </tbody>
             </AccountPaymentTable>
             <InvertedButton size={buttonSizes.SMALL}>Add card</InvertedButton>
