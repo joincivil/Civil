@@ -1,10 +1,16 @@
 import * as React from "react";
-import { PaymentsStripeCardComponent } from "@joincivil/components";
+import { PaymentsStripeCardComponent, Button } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import { injectStripe, ReactStripeElements } from "react-stripe-elements";
+import ApolloClient from "apollo-client";
+import { CREATE_PAYMENT_METHOD } from "@joincivil/components/src/Payments/queries";
 
 export interface AccountAddCardProps extends ReactStripeElements.InjectedStripeProps {
   userEmail: string;
+  userChannelID: string;
+  apolloClient: ApolloClient<any>;
+  handleCancel(): void;
+  handleAdded(): void;
 }
 
 export interface AccountAddCardState {
@@ -15,6 +21,7 @@ export interface AccountAddCardState {
   cardInfoState: string;
   wasEmailPrepopulated: boolean;
   displayStripeErrorMessage: string;
+  addCardDisabled: boolean;
 }
 
 enum INPUT_STATE {
@@ -35,6 +42,7 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
       nameState: INPUT_STATE.EMPTY,
       cardInfoState: INPUT_STATE.EMPTY,
       displayStripeErrorMessage: "",
+      addCardDisabled: false,
     };
   }
 
@@ -52,8 +60,47 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
           handleOnBlur={this.handleOnBlur}
           handleStripeChange={this.handleStripeChange}
         />
+        <Button onClick={this.props.handleCancel}>CANCEL</Button>
+        <Button onClick={this.handleAddCard} disabled={this.state.addCardDisabled}>ADD</Button>
       </div>
     );
+  }
+
+  private handleAddCard = async () => {
+    try {
+      this.setState({addCardDisabled: true});
+      const result = await (this.props.stripe as any).createPaymentMethod({
+        type: "card",
+        card: (this.props as any).elements.getElement("card"),
+        billing_details: {
+          name: this.state.name,
+          email: this.state.email,
+        },
+      });
+
+      const paymentMethodID = result.paymentMethod.id;
+
+      const paymentMethodVariables = {
+        input: {
+          paymentMethodID,
+          emailAddress: this.state.email,
+          payerChannelID: this.props.userChannelID,
+        },
+      };
+
+      const paymentMethodResult = await this.props.apolloClient.mutate({
+        mutation: CREATE_PAYMENT_METHOD,
+        variables: paymentMethodVariables,
+      });
+      if (paymentMethodResult.error) {
+        console.error(paymentMethodResult.error);
+        return false;
+      }
+      this.props.handleAdded();
+      this.setState({addCardDisabled: false});
+    } catch (err) {
+      this.setState({addCardDisabled: false});
+    }
   }
 
   private handleOnBlur = (event: any) => {

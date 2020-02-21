@@ -11,7 +11,7 @@ import {
 } from "./AccountStyledComponents";
 import { PaymentTitleText } from "./AccountTextComponents";
 import { UserManagementSection } from "../UserManagement";
-import { Mutation, MutationFunc } from "react-apollo";
+import { Mutation, MutationFunc, ApolloConsumer } from "react-apollo";
 import gql from "graphql-tag";
 import { getCurrentUserQuery } from "@joincivil/utils";
 import AccountAddCard from "./AccountAddCard";
@@ -138,9 +138,20 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
             <Modal width={588}>
               <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.context.config.STRIPE_PLATFORM_ACCOUNT_ID}>
                 <Elements>
-                  <AccountAddCard
-                    userEmail={email}
-                  />
+                  <ApolloConsumer>
+                    {client => (
+                      <AccountAddCard
+                        userEmail={email}
+                        userChannelID={channelID}
+                        handleCancel={() => {this.setState({showAddCardModal: false})}}
+                        handleAdded={async () => {
+                          await this.context.auth.handleInitialState();
+                          this.setState({ showAddCardModal: false });
+                        }}
+                        apolloClient={client}
+                      />
+                    )}
+                  </ApolloConsumer>
                 </Elements>
               </StripeProvider>
             </Modal>

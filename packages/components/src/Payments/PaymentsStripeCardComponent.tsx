@@ -22,7 +22,7 @@ interface PaymentsStripeCardComponentProps {
   handleStripeChange(event: any): void;
 }
 
-const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripeCardComponentProps> = props => {
+export const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripeCardComponentProps> = props => {
   const { email, wasEmailPrepopulated, emailState, nameState, cardInfoState, displayStripeErrorMessage, handleOnBlur, handleStripeChange } = props;
   return (
     <StripeWrapper>
@@ -63,5 +63,3 @@ const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripeCardCom
     </StripeWrapper>
   );
 }
-
-export default PaymentsStripeCardComponent;

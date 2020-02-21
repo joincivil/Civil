@@ -31,7 +31,7 @@ import { INPUT_STATE } from "./types";
 import { Checkbox, CheckboxSizes } from "../input";
 import { PaymentStripeFormSavedCard } from "./PaymentsStripeFormSavedCard";
 import ApolloClient from "apollo-client";
-import PaymentsStripeCardComponent from "./PaymentsStripeCardComponent";
+import { PaymentsStripeCardComponent } from "./PaymentsStripeCardComponent";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
