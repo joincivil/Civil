@@ -6,7 +6,7 @@ import {
   CREATE_PAYMENT_METHOD,
   CLONE_PAYMENT_METHOD,
 } from "./queries";
-import { injectStripe, ReactStripeElements, CardElement } from "react-stripe-elements";
+import { injectStripe, ReactStripeElements } from "react-stripe-elements";
 import styled from "styled-components";
 import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import { CivilContext, ICivilContext } from "../context";
@@ -24,21 +24,14 @@ import {
 import {
   PayWithCardText,
   PaymentStripeNoticeText,
-  PaymentEmailConfirmationText,
   PaymentTermsText,
   PaymentErrorText,
-  PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
-import {
-  InputValidationUI,
-  InputStripeValidationUI,
-  StripeElement,
-  InputErrorMessage,
-} from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
 import { Checkbox, CheckboxSizes } from "../input";
 import { PaymentStripeFormSavedCard } from "./PaymentsStripeFormSavedCard";
 import ApolloClient from "apollo-client";
+import PaymentsStripeCardComponent from "./PaymentsStripeCardComponent";
 
 const StripeWrapper = styled.div`
   margin: 20px 0 0;
@@ -147,7 +140,17 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
           )}
           {showCreditCardForm && (
             <>
-              <StripeWrapper>
+            <PaymentsStripeCardComponent
+              email={this.state.email}
+              wasEmailPrepopulated={this.state.wasEmailPrepopulated}
+              emailState={this.state.emailState}
+              nameState={this.state.nameState}
+              cardInfoState={this.state.cardInfoState}
+              displayStripeErrorMessage={this.state.displayStripeErrorMessage}
+              handleOnBlur={this.handleOnBlur}
+              handleStripeChange={this.handleStripeChange}
+            />
+              {/* <StripeWrapper>
                 {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
                 {!this.state.wasEmailPrepopulated && (
                   <>
@@ -182,7 +185,7 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
                     <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
                   )}
                 </InputStripeValidationUI>
-              </StripeWrapper>
+              </StripeWrapper> */}
               {this.props.userChannelID && this.props.userChannelID !== "" && (
                 <>
                   <PaymentInputLabel>Remember Credit Card</PaymentInputLabel>
