@@ -1,9 +1,10 @@
 import * as React from "react";
-import { PaymentsStripeCardComponent, Button } from "@joincivil/components";
+import { PaymentsStripeCardComponent, Button, buttonSizes, InvertedButton } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import { injectStripe, ReactStripeElements } from "react-stripe-elements";
 import ApolloClient from "apollo-client";
 import { CREATE_PAYMENT_METHOD } from "@joincivil/components/src/Payments/queries";
+import styled from "styled-components";
 
 export interface AccountAddCardProps extends ReactStripeElements.InjectedStripeProps {
   userEmail: string;
@@ -29,6 +30,16 @@ enum INPUT_STATE {
   VALID = "valid",
   INVALID = "invalid",
 }
+
+const ButtonDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+
+const SaveButton = styled(Button)`
+  margin-left: 10px;
+`;
 
 class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCardState> {
 
@@ -60,8 +71,10 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
           handleOnBlur={this.handleOnBlur}
           handleStripeChange={this.handleStripeChange}
         />
-        <Button onClick={this.props.handleCancel}>CANCEL</Button>
-        <Button onClick={this.handleAddCard} disabled={this.state.addCardDisabled}>ADD</Button>
+        <ButtonDiv>
+          <InvertedButton onClick={this.props.handleCancel} size={buttonSizes.SMALL}>Cancel</InvertedButton>
+          <SaveButton onClick={this.handleAddCard} disabled={this.state.addCardDisabled} size={buttonSizes.SMALL}>Save</SaveButton>
+        </ButtonDiv>
       </div>
     );
   }

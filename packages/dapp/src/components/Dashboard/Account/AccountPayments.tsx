@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CivilContext, ICivilContext, Modal, LoadingMessage } from "@joincivil/components";
-import { InvertedButton, buttonSizes } from "@joincivil/elements";
+import { InvertedButton, buttonSizes, BorderlessButton } from "@joincivil/elements";
 import {
   AccountPaymentSection,
   AccountPaymentSectionHeader,
@@ -55,7 +55,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
 
   public render(): JSX.Element {
     const currentUser = this.context.currentUser;
-    const { userChannel } = currentUser;
+    const userChannel = currentUser && currentUser.userChannel;
     let paymentMethods;
     let channelID = "";
     let email = "";
@@ -103,11 +103,11 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
                     <td>{pm.last4Digits}</td>
                     <td>{pm.name}</td>
                     <td>{pm.expMonth + "/" + pm.expYear}</td>
-                    <th>
+                    <td>
                       <Mutation mutation={removeCardMutation}>
                         {(removeCard: MutationFunc) => {
                           return (
-                            <span onClick={async () => {
+                            <BorderlessButton size={buttonSizes.SMALL} onClick={async () => {
                               const res = await removeCard({
                                 variables: {
                                   paymentMethodID: pm.paymentMethodID,
@@ -122,11 +122,11 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
                               if (res.data && res.data.paymentsRemoveSavedPaymentMethod) {
                                 await this.context.auth.handleInitialState()
                               }
-                            }}>Remove</span>
+                            }}>Remove</BorderlessButton>
                           )
                         }}
                       </Mutation>
-                    </th>
+                    </td>
                   </tr>
                 );
               }))}
