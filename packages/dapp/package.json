@@ -36,6 +36,7 @@
     "json-loader": "^0.5.7",
     "react": "^16.11.0",
     "react-apollo": "^2.3.3",
+    "react-async-script": "^1.1.1",
     "react-dom": "^16.11.0",
     "react-ellipsis-text": "^1.2.1",
     "react-helmet": "^5.2.0",
