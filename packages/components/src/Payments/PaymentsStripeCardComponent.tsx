@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { PaymentInputLabel } from "./PaymentsStyledComponents";
 import { InputValidationUI, InputStripeValidationUI, StripeElement, InputErrorMessage } from "./PaymentsInputValidationUI";
-import { PaymentEmailPrepopulatedText, PaymentEmailConfirmationText } from "./PaymentsTextComponents";
+import { PaymentEmailPrepopulatedText, PaymentEmailConfirmationText, AddCardEmailConfirmationText } from "./PaymentsTextComponents";
 import { CardElement } from "react-stripe-elements";
 
 const StripeWrapper = styled.div`
@@ -18,12 +18,13 @@ interface PaymentsStripeCardComponentProps {
   nameState: string;
   cardInfoState: string;
   displayStripeErrorMessage: string;
+  showAddCardText?: boolean;
   handleOnBlur(event: any): void;
   handleStripeChange(event: any): void;
 }
 
 export const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripeCardComponentProps> = props => {
-  const { email, wasEmailPrepopulated, emailState, nameState, cardInfoState, displayStripeErrorMessage, handleOnBlur, handleStripeChange } = props;
+  const { email, wasEmailPrepopulated, emailState, nameState, cardInfoState, displayStripeErrorMessage, handleOnBlur, handleStripeChange, showAddCardText } = props;
   return (
     <StripeWrapper>
       {wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={email} />}
@@ -39,7 +40,8 @@ export const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripe
               maxLength={254}
               onBlur={() => handleOnBlur(event)}
             />
-            <PaymentEmailConfirmationText />
+            {showAddCardText && <AddCardEmailConfirmationText />}
+            {!showAddCardText && <PaymentEmailConfirmationText />}
           </InputValidationUI>
         </>
       )}

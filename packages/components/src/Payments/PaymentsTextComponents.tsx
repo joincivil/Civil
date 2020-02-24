@@ -153,6 +153,10 @@ export const PaymentEmailConfirmationText: React.FunctionComponent = props => (
   <p>We’ll be sending you a confirmation email of your completed transaction.</p>
 );
 
+export const AddCardEmailConfirmationText: React.FunctionComponent = props => (
+  <p>We’ll keep your email on file to send confirmations of completed transactions.</p>
+);
+
 export const PaymentTermsText: React.FunctionComponent = props => (
   <>
     By sending a Boost, you agree to Civil’s{" "}

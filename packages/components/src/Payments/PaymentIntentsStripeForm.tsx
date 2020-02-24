@@ -150,42 +150,6 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
               handleOnBlur={this.handleOnBlur}
               handleStripeChange={this.handleStripeChange}
             />
-              {/* <StripeWrapper>
-                {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
-                {!this.state.wasEmailPrepopulated && (
-                  <>
-                    <PaymentInputLabel>Email</PaymentInputLabel>
-                    <InputValidationUI inputState={this.state.emailState}>
-                      <input
-                        defaultValue={this.state.email}
-                        id="email"
-                        name="email"
-                        type="email"
-                        maxLength={254}
-                        onBlur={() => this.handleOnBlur(event)}
-                      />
-                      <PaymentEmailConfirmationText />
-                    </InputValidationUI>
-                  </>
-                )}
-                <PaymentInputLabel>Name on card</PaymentInputLabel>
-                <InputValidationUI inputState={this.state.nameState}>
-                  <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
-                </InputValidationUI>
-                <PaymentInputLabel>Card information</PaymentInputLabel>
-                <InputStripeValidationUI inputState={this.state.cardInfoState}>
-                  <StripeElement inputState={this.state.cardInfoState}>
-                    <CardElement
-                      id="card-info"
-                      style={{ base: { fontSize: "13px" } }}
-                      onChange={this.handleStripeChange}
-                    />
-                  </StripeElement>
-                  {this.state.displayStripeErrorMessage !== "" && (
-                    <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
-                  )}
-                </InputStripeValidationUI>
-              </StripeWrapper> */}
               {this.props.userChannelID && this.props.userChannelID !== "" && (
                 <>
                   <PaymentInputLabel>Remember Credit Card</PaymentInputLabel>

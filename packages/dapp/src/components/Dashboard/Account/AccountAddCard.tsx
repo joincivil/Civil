@@ -70,6 +70,7 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
           displayStripeErrorMessage={this.state.displayStripeErrorMessage}
           handleOnBlur={this.handleOnBlur}
           handleStripeChange={this.handleStripeChange}
+          showAddCardText={true}
         />
         <ButtonDiv>
           <InvertedButton onClick={this.props.handleCancel} size={buttonSizes.SMALL}>Cancel</InvertedButton>
@@ -107,7 +108,7 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
       });
       if (paymentMethodResult.error) {
         console.error(paymentMethodResult.error);
-        return false;
+        this.setState({ addCardDisabled: false });
       }
       this.props.handleAdded();
       this.setState({addCardDisabled: false});
