@@ -6,7 +6,7 @@ import {
   CREATE_PAYMENT_METHOD,
   CLONE_PAYMENT_METHOD,
 } from "./queries";
-import { injectStripe, ReactStripeElements, CardElement } from "react-stripe-elements";
+import { injectStripe, ReactStripeElements } from "react-stripe-elements";
 import styled from "styled-components";
 import { PaymentsFormWrapper } from "./PaymentsFormWrapper";
 import { CivilContext, ICivilContext } from "../context";
@@ -24,27 +24,14 @@ import {
 import {
   PayWithCardText,
   PaymentStripeNoticeText,
-  PaymentEmailConfirmationText,
   PaymentTermsText,
   PaymentErrorText,
-  PaymentEmailPrepopulatedText,
 } from "./PaymentsTextComponents";
-import {
-  InputValidationUI,
-  InputStripeValidationUI,
-  StripeElement,
-  InputErrorMessage,
-} from "./PaymentsInputValidationUI";
 import { INPUT_STATE } from "./types";
 import { Checkbox, CheckboxSizes } from "../input";
 import { PaymentStripeFormSavedCard } from "./PaymentsStripeFormSavedCard";
 import ApolloClient from "apollo-client";
-
-const StripeWrapper = styled.div`
-  margin: 20px 0 0;
-  max-width: 500px;
-  width: 100%;
-`;
+import { PaymentsStripeCardComponent } from "./PaymentsStripeCardComponent";
 
 export interface PaymentIntentsStripeFormProps extends ReactStripeElements.InjectedStripeProps {
   postId: string;
@@ -147,42 +134,16 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
           )}
           {showCreditCardForm && (
             <>
-              <StripeWrapper>
-                {this.state.wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={this.state.email} />}
-                {!this.state.wasEmailPrepopulated && (
-                  <>
-                    <PaymentInputLabel>Email</PaymentInputLabel>
-                    <InputValidationUI inputState={this.state.emailState}>
-                      <input
-                        defaultValue={this.state.email}
-                        id="email"
-                        name="email"
-                        type="email"
-                        maxLength={254}
-                        onBlur={() => this.handleOnBlur(event)}
-                      />
-                      <PaymentEmailConfirmationText />
-                    </InputValidationUI>
-                  </>
-                )}
-                <PaymentInputLabel>Name on card</PaymentInputLabel>
-                <InputValidationUI inputState={this.state.nameState}>
-                  <input id="name" name="name" onBlur={() => this.handleOnBlur(event)} required />
-                </InputValidationUI>
-                <PaymentInputLabel>Card information</PaymentInputLabel>
-                <InputStripeValidationUI inputState={this.state.cardInfoState}>
-                  <StripeElement inputState={this.state.cardInfoState}>
-                    <CardElement
-                      id="card-info"
-                      style={{ base: { fontSize: "13px" } }}
-                      onChange={this.handleStripeChange}
-                    />
-                  </StripeElement>
-                  {this.state.displayStripeErrorMessage !== "" && (
-                    <InputErrorMessage>{this.state.displayStripeErrorMessage}</InputErrorMessage>
-                  )}
-                </InputStripeValidationUI>
-              </StripeWrapper>
+            <PaymentsStripeCardComponent
+              email={this.state.email}
+              wasEmailPrepopulated={this.state.wasEmailPrepopulated}
+              emailState={this.state.emailState}
+              nameState={this.state.nameState}
+              cardInfoState={this.state.cardInfoState}
+              displayStripeErrorMessage={this.state.displayStripeErrorMessage}
+              handleOnBlur={this.handleOnBlur}
+              handleStripeChange={this.handleStripeChange}
+            />
               {this.props.userChannelID && this.props.userChannelID !== "" && (
                 <>
                   <PaymentInputLabel>Remember Credit Card</PaymentInputLabel>

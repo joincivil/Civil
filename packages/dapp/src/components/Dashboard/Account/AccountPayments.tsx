@@ -1,6 +1,6 @@
 import * as React from "react";
-import { CivilContext, ICivilContext } from "@joincivil/components";
-import { InvertedButton, buttonSizes } from "@joincivil/elements";
+import { CivilContext, ICivilContext, Modal, LoadingMessage } from "@joincivil/components";
+import { InvertedButton, buttonSizes, BorderlessButton } from "@joincivil/elements";
 import {
   AccountPaymentSection,
   AccountPaymentSectionHeader,
@@ -11,10 +11,24 @@ import {
 } from "./AccountStyledComponents";
 import { PaymentTitleText } from "./AccountTextComponents";
 import { UserManagementSection } from "../UserManagement";
+import { Mutation, MutationFunc, ApolloConsumer } from "react-apollo";
+import gql from "graphql-tag";
+import { getCurrentUserQuery } from "@joincivil/utils";
+import AccountAddCard from "./AccountAddCard";
+import { StripeProvider, Elements } from "react-stripe-elements";
+import makeAsyncScriptLoader from "react-async-script";
 
 export interface AccountPaymentsState {
   balance: any;
+  showAddCardModal: boolean;
+  stripeLoaded: boolean;
 }
+
+const removeCardMutation = gql`
+  mutation($paymentMethodID: String!, $channelID: String!) {
+    paymentsRemoveSavedPaymentMethod(paymentMethodID: $paymentMethodID, channelID: $channelID)
+  }
+`;
 
 export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
   public static contextType = CivilContext;
@@ -22,7 +36,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { balance: 0 };
+    this.state = { balance: 0, showAddCardModal: false, stripeLoaded: false, };
   }
 
   public async componentDidMount(): Promise<void> {
@@ -41,55 +55,120 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
 
   public render(): JSX.Element {
     const currentUser = this.context.currentUser;
-    const paymentMethods = currentUser && currentUser.userChannel && currentUser.userChannel.stripeCustomerInfo && currentUser.userChannel.stripeCustomerInfo.paymentMethods;
+    const userChannel = currentUser && currentUser.userChannel;
+    let paymentMethods;
+    let channelID = "";
+    let email = "";
+    if (userChannel) {
+      paymentMethods = userChannel.stripeCustomerInfo && userChannel.stripeCustomerInfo.paymentMethods;
+      channelID = userChannel.id;
+      email = userChannel.EmailAddressRestricted;
+    }
 
-    if (currentUser) {
+    const AsyncScriptLoader = makeAsyncScriptLoader("https://js.stripe.com/v3/")(LoadingMessage);
+    if (!currentUser) {
+      return <>Log in to view your Account</>;
+    }
+    if (!this.state.stripeLoaded) {
       return (
-        <UserManagementSection header={<PaymentTitleText />}>
-          <AccountPaymentSection>
-            <AccountPaymentSectionHeader>
-              <h3>Credit and debit cards</h3>
-            </AccountPaymentSectionHeader>
-            <AccountPaymentTable>
-              <thead>
-                <tr>
-                  <th>Brand</th>
-                  <th>Last 4 Digits</th>
-                  <th>Name</th>
-                  <th>Exp. Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paymentMethods && (paymentMethods.map((pm: any) => {
-                  return (
-                    <tr>
-                      <td>{pm.brand}</td>
-                      <td>{pm.last4Digits}</td>
-                      <td>{pm.name}</td>
-                      <td>{pm.expMonth + "/" + pm.expYear}</td>
-                    </tr>
-                  );
-                }))}
-
-              </tbody>
-            </AccountPaymentTable>
-            <InvertedButton size={buttonSizes.SMALL}>Add card</InvertedButton>
-          </AccountPaymentSection>
-          <AccountPaymentSection>
-            <AccountPaymentSectionHeader>
-              <h3>Wallets</h3>
-              <AccountPaymentWallet>
-                <label>Wallet address</label>
-                <AccountPaymentWalletAddress>{currentUser.ethAddress}</AccountPaymentWalletAddress>
-                <label>ETH balance</label>
-                <AccountPaymentWalletBalance>{this.state.balance}</AccountPaymentWalletBalance>
-              </AccountPaymentWallet>
-            </AccountPaymentSectionHeader>
-          </AccountPaymentSection>
-        </UserManagementSection>
+        <AsyncScriptLoader
+          asyncScriptOnLoad={() => {
+            this.setState({ stripeLoaded: true });
+          }}
+        />
       );
     }
 
-    return <>Log in to view your Account</>;
+    return (
+      <UserManagementSection header={<PaymentTitleText />}>
+        <AccountPaymentSection>
+          <AccountPaymentSectionHeader>
+            <h3>Credit and debit cards</h3>
+          </AccountPaymentSectionHeader>
+          <AccountPaymentTable>
+            <thead>
+              <tr>
+                <th>Brand</th>
+                <th>Last 4 Digits</th>
+                <th>Name</th>
+                <th>Exp. Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {paymentMethods && (paymentMethods.map((pm: any) => {
+                return (
+                  <tr>
+                    <td>{pm.brand}</td>
+                    <td>{pm.last4Digits}</td>
+                    <td>{pm.name}</td>
+                    <td>{pm.expMonth + "/" + pm.expYear}</td>
+                    <td>
+                      <Mutation mutation={removeCardMutation}>
+                        {(removeCard: MutationFunc) => {
+                          return (
+                            <BorderlessButton size={buttonSizes.SMALL} onClick={async () => {
+                              const res = await removeCard({
+                                variables: {
+                                  paymentMethodID: pm.paymentMethodID,
+                                  channelID,
+                                },
+                                refetchQueries: [
+                                  {
+                                    query: getCurrentUserQuery,
+                                  },
+                                ],
+                              }) as any;
+                              if (res.data && res.data.paymentsRemoveSavedPaymentMethod) {
+                                await this.context.auth.handleInitialState()
+                              }
+                            }}>Remove</BorderlessButton>
+                          )
+                        }}
+                      </Mutation>
+                    </td>
+                  </tr>
+                );
+              }))}
+
+            </tbody>
+          </AccountPaymentTable>
+          <InvertedButton size={buttonSizes.SMALL} onClick={() => this.setState({showAddCardModal: true})}>Add card</InvertedButton>
+          {this.state.showAddCardModal && (
+            <Modal width={588}>
+              <StripeProvider apiKey={this.context.config.STRIPE_API_KEY} stripeAccount={this.context.config.STRIPE_PLATFORM_ACCOUNT_ID}>
+                <Elements>
+                  <ApolloConsumer>
+                    {client => (
+                      <AccountAddCard
+                        userEmail={email}
+                        userChannelID={channelID}
+                        handleCancel={() => {this.setState({showAddCardModal: false})}}
+                        handleAdded={async () => {
+                          await this.context.auth.handleInitialState();
+                          this.setState({ showAddCardModal: false });
+                        }}
+                        apolloClient={client}
+                      />
+                    )}
+                  </ApolloConsumer>
+                </Elements>
+              </StripeProvider>
+            </Modal>
+          )}
+        </AccountPaymentSection>
+        <AccountPaymentSection>
+          <AccountPaymentSectionHeader>
+            <h3>Wallets</h3>
+            <AccountPaymentWallet>
+              <label>Wallet address</label>
+              <AccountPaymentWalletAddress>{currentUser.ethAddress}</AccountPaymentWalletAddress>
+              <label>ETH balance</label>
+              <AccountPaymentWalletBalance>{this.state.balance}</AccountPaymentWalletBalance>
+            </AccountPaymentWallet>
+          </AccountPaymentSectionHeader>
+        </AccountPaymentSection>
+      </UserManagementSection>
+    );
   }
 }
