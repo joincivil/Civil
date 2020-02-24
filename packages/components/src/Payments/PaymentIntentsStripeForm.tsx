@@ -33,12 +33,6 @@ import { PaymentStripeFormSavedCard } from "./PaymentsStripeFormSavedCard";
 import ApolloClient from "apollo-client";
 import { PaymentsStripeCardComponent } from "./PaymentsStripeCardComponent";
 
-const StripeWrapper = styled.div`
-  margin: 20px 0 0;
-  max-width: 500px;
-  width: 100%;
-`;
-
 export interface PaymentIntentsStripeFormProps extends ReactStripeElements.InjectedStripeProps {
   postId: string;
   newsroomName: string;
