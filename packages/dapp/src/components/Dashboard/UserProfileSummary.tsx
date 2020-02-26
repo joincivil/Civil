@@ -1,5 +1,6 @@
 import { DashboardUserProfileSummary } from "@joincivil/components";
 import * as React from "react";
+import { routes } from "../../constants";
 
 const UserProfileSummary = (props: any) => {
   const { user, onSetEmailClicked, onSetAvatarClicked } = props;
@@ -24,6 +25,7 @@ const UserProfileSummary = (props: any) => {
     userEmailAddress,
     onSetEmailClicked,
     onSetAvatarClicked,
+    accountURL: routes.ACCOUNT_ROOT,
   };
   return <DashboardUserProfileSummary {...componentProps} />;
 };

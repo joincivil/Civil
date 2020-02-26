@@ -18,12 +18,20 @@ export interface DashboardUserProfileSummaryProps {
   userAvatarImgDataURL: string;
   userHandle: string;
   userEmailAddress: string;
+  accountURL: string;
   onSetEmailClicked(): void;
   onSetAvatarClicked(): void;
 }
 
 export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryProps) => {
-  const { userAvatarImgDataURL, userHandle, userEmailAddress, onSetEmailClicked, onSetAvatarClicked } = props;
+  const {
+    userAvatarImgDataURL,
+    userHandle,
+    userEmailAddress,
+    onSetEmailClicked,
+    onSetAvatarClicked,
+    accountURL,
+  } = props;
   const initial = userHandle ? userHandle.charAt(0) : "?";
   return (
     <StyledUserProfile>
@@ -70,7 +78,7 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
             set email
           </StyledUserSetEmailText>
         )}
-        <InvertedButton  size={buttonSizes.SMALL} to={"/account"}>
+        <InvertedButton size={buttonSizes.SMALL} to={accountURL}>
           Edit Account
         </InvertedButton>
       </StyledUserHandleAndEmailContainer>
