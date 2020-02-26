@@ -43,6 +43,11 @@ export const NavDrawerComponent: React.FunctionComponent<NavDrawerProps> = props
         </Button>
       </NavDrawerSection>
       <NavDrawerSection>
+        <Button size={buttonSizes.SMALL} to={routes.ACCOUNT_ROOT}>
+          View My Account
+        </Button>
+      </NavDrawerSection>
+      <NavDrawerSection>
         <Button size={buttonSizes.SMALL} onClick={onLogoutPressed}>
           Logout
         </Button>

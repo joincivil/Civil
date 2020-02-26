@@ -22,6 +22,7 @@ export enum routes {
   DASHBOARD = "/dashboard/:activeDashboardTab/:activeDashboardSubTab?",
   DASHBOARD_ROOT = "/dashboard",
   ACCOUNT = "/account/:activeTab?",
+  ACCOUNT_ROOT = "/account",
   AUTH = "/auth",
   AUTH_SIGNUP = "/auth/signup",
   AUTH_SIGNUP_WEB3 = "/auth/signup/web3",

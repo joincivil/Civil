@@ -12,6 +12,7 @@ import {
   StyledAvatarContainer,
   StyledEditSpan,
 } from "./DashboardStyledComponents";
+import { InvertedButton, buttonSizes } from "@joincivil/elements";
 
 export interface DashboardUserProfileSummaryProps {
   userAvatarImgDataURL: string;
@@ -69,6 +70,9 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
             set email
           </StyledUserSetEmailText>
         )}
+        <InvertedButton  size={buttonSizes.SMALL} to={"/account"}>
+          Edit Account
+        </InvertedButton>
       </StyledUserHandleAndEmailContainer>
     </StyledUserProfile>
   );

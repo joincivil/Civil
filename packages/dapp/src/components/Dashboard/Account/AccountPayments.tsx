@@ -88,8 +88,7 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
           <AccountPaymentTable>
             <thead>
               <tr>
-                <th>Brand</th>
-                <th>Last 4 Digits</th>
+                <th>Card</th>
                 <th>Name</th>
                 <th>Exp. Date</th>
                 <th></th>
@@ -99,31 +98,37 @@ export class AccountPayments extends React.Component<{}, AccountPaymentsState> {
               {paymentMethods && (paymentMethods.map((pm: any) => {
                 return (
                   <tr>
-                    <td>{pm.brand}</td>
-                    <td>{pm.last4Digits}</td>
+                    <td>
+                      {pm.brand + " ending in " + pm.last4Digits}
+                    </td>
                     <td>{pm.name}</td>
                     <td>{pm.expMonth + "/" + pm.expYear}</td>
                     <td>
                       <Mutation mutation={removeCardMutation}>
                         {(removeCard: MutationFunc) => {
                           return (
-                            <BorderlessButton size={buttonSizes.SMALL} onClick={async () => {
-                              const res = await removeCard({
-                                variables: {
-                                  paymentMethodID: pm.paymentMethodID,
-                                  channelID,
-                                },
-                                refetchQueries: [
-                                  {
-                                    query: getCurrentUserQuery,
+                            <BorderlessButton
+                              size={buttonSizes.SMALL}
+                              onClick={async () => {
+                                const res = (await removeCard({
+                                  variables: {
+                                    paymentMethodID: pm.paymentMethodID,
+                                    channelID,
                                   },
-                                ],
-                              }) as any;
-                              if (res.data && res.data.paymentsRemoveSavedPaymentMethod) {
-                                await this.context.auth.handleInitialState()
-                              }
-                            }}>Remove</BorderlessButton>
-                          )
+                                  refetchQueries: [
+                                    {
+                                      query: getCurrentUserQuery,
+                                    },
+                                  ],
+                                })) as any;
+                                if (res.data && res.data.paymentsRemoveSavedPaymentMethod) {
+                                  await this.context.auth.handleInitialState();
+                                }
+                              }}
+                            >
+                              Remove
+                            </BorderlessButton>
+                          );
                         }}
                       </Mutation>
                     </td>

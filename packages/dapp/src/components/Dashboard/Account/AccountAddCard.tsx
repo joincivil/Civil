@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PaymentsStripeCardComponent, Button, buttonSizes, InvertedButton } from "@joincivil/components";
+import { PaymentsStripeCardComponent, Button, buttonSizes, InvertedButton, PageHeadingLeftAligned, PageHeadingTextLeftAligned } from "@joincivil/components";
 import { isValidEmail } from "@joincivil/utils";
 import { injectStripe, ReactStripeElements } from "react-stripe-elements";
 import ApolloClient from "apollo-client";
@@ -60,6 +60,8 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
   public render(): JSX.Element {
     return (
       <div>
+        <PageHeadingLeftAligned>Add Card</PageHeadingLeftAligned>
+        <PageHeadingTextLeftAligned>Add a credit or debit card as a payment method.</PageHeadingTextLeftAligned>
         <PaymentsStripeCardComponent
           email={this.state.email}
           emailState={this.state.emailState}
@@ -73,8 +75,12 @@ class AccountAddCard extends React.Component<AccountAddCardProps, AccountAddCard
           showAddCardText={true}
         />
         <ButtonDiv>
-          <InvertedButton onClick={this.props.handleCancel} size={buttonSizes.SMALL}>Cancel</InvertedButton>
-          <SaveButton onClick={this.handleAddCard} disabled={this.state.addCardDisabled} size={buttonSizes.SMALL}>Save</SaveButton>
+          <InvertedButton onClick={this.props.handleCancel} size={buttonSizes.SMALL}>
+            Cancel
+          </InvertedButton>
+          <SaveButton onClick={this.handleAddCard} disabled={this.state.addCardDisabled} size={buttonSizes.SMALL}>
+            Save
+          </SaveButton>
         </ButtonDiv>
       </div>
     );

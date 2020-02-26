@@ -30,7 +30,7 @@ export const PaymentsStripeCardComponent: React.FunctionComponent<PaymentsStripe
       {wasEmailPrepopulated && <PaymentEmailPrepopulatedText email={email} />}
       {!wasEmailPrepopulated && (
         <>
-          <PaymentInputLabel>Email</PaymentInputLabel>
+          <PaymentInputLabel>Email Address</PaymentInputLabel>
           <InputValidationUI inputState={emailState}>
             <input
               defaultValue={email}
