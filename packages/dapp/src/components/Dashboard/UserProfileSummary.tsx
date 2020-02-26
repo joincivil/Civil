@@ -1,9 +1,8 @@
 import { DashboardUserProfileSummary } from "@joincivil/components";
 import * as React from "react";
-import { routes } from "../../constants";
 
 const UserProfileSummary = (props: any) => {
-  const { user, onSetEmailClicked, onSetAvatarClicked } = props;
+  const { user } = props;
 
   if (!user) {
     console.error("User not found in UserProfileSummary");
@@ -23,9 +22,6 @@ const UserProfileSummary = (props: any) => {
     userAvatarImgDataURL,
     userHandle,
     userEmailAddress,
-    onSetEmailClicked,
-    onSetAvatarClicked,
-    accountURL: routes.ACCOUNT_ROOT,
   };
   return <DashboardUserProfileSummary {...componentProps} />;
 };

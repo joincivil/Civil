@@ -3,24 +3,16 @@ import {
   StyledUserProfile,
   StyledUserHandleAndEmailContainer,
   StyledUserAvatar,
-  StyledEditAvatar,
   StyledUserHandleText,
   StyledUserEmailText,
-  StyledUserSetEmailText,
-  StyledChangeUserEmailText,
   StyledUserNoAvatar,
   StyledAvatarContainer,
-  StyledEditSpan,
 } from "./DashboardStyledComponents";
-import { InvertedButton, buttonSizes } from "@joincivil/elements";
 
 export interface DashboardUserProfileSummaryProps {
   userAvatarImgDataURL: string;
   userHandle: string;
   userEmailAddress: string;
-  accountURL: string;
-  onSetEmailClicked(): void;
-  onSetAvatarClicked(): void;
 }
 
 export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryProps) => {
@@ -28,59 +20,23 @@ export const DashboardUserProfileSummary = (props: DashboardUserProfileSummaryPr
     userAvatarImgDataURL,
     userHandle,
     userEmailAddress,
-    onSetEmailClicked,
-    onSetAvatarClicked,
-    accountURL,
   } = props;
   const initial = userHandle ? userHandle.charAt(0) : "?";
   return (
     <StyledUserProfile>
       {userAvatarImgDataURL && (
-        <StyledAvatarContainer
-          onClick={() => {
-            onSetAvatarClicked();
-          }}
-        >
+        <StyledAvatarContainer>
           <StyledUserAvatar src={userAvatarImgDataURL} />
-          <StyledEditAvatar></StyledEditAvatar>
-          <StyledEditSpan>Edit</StyledEditSpan>
         </StyledAvatarContainer>
       )}
       {!userAvatarImgDataURL && (
-        <StyledAvatarContainer
-          onClick={() => {
-            onSetAvatarClicked();
-          }}
-        >
+        <StyledAvatarContainer>
           <StyledUserNoAvatar>{initial}</StyledUserNoAvatar>
-          <StyledEditAvatar></StyledEditAvatar>
-          <StyledEditSpan>Edit</StyledEditSpan>
         </StyledAvatarContainer>
       )}
       <StyledUserHandleAndEmailContainer>
         <StyledUserHandleText>{userHandle}</StyledUserHandleText>
         {userEmailAddress && <StyledUserEmailText>{userEmailAddress}</StyledUserEmailText>}
-        {userEmailAddress && (
-          <StyledChangeUserEmailText
-            onClick={() => {
-              onSetEmailClicked();
-            }}
-          >
-            change email
-          </StyledChangeUserEmailText>
-        )}
-        {!userEmailAddress && (
-          <StyledUserSetEmailText
-            onClick={() => {
-              onSetEmailClicked();
-            }}
-          >
-            set email
-          </StyledUserSetEmailText>
-        )}
-        <InvertedButton size={buttonSizes.SMALL} to={accountURL}>
-          Edit Account
-        </InvertedButton>
       </StyledUserHandleAndEmailContainer>
     </StyledUserProfile>
   );
