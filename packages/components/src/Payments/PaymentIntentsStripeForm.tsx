@@ -447,12 +447,14 @@ class PaymentIntentsStripeForm extends React.Component<PaymentIntentsStripeFormP
       });
     }
     let success = false;
+
+    const cardFormVisible = !this.state.hasSavedPaymentMethod || this.state.payWithNewCard;
     if (this.props.stripe) {
       if (!this.props.paymentIntentsEnabled) {
         success = await this.handleChargePayment();
       } else if (this.state.paymentMethodId !== "") {
         success = await this.clonePaymentMethodAndPayViaIntent(this.state.paymentMethodId, this.props.userChannelID);
-      } else if (this.state.payWithNewCard && this.state.shouldSaveCCToAccount) {
+      } else if (cardFormVisible && this.state.shouldSaveCCToAccount) {
         success = await this.savePaymentMethodThenCloneAndPayViaIntent();
       } else {
         success = await this.useOneTimePaymentIntent();

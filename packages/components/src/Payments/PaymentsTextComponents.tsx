@@ -154,7 +154,7 @@ export const PaymentEmailConfirmationText: React.FunctionComponent = props => (
 );
 
 export const AddCardEmailConfirmationText: React.FunctionComponent = props => (
-  <p>We’ll keep your email on file to send confirmations of completed transactions.</p>
+  <p>We'll send receipts to this email address when you contribute to boosts.</p>
 );
 
 export const PaymentTermsText: React.FunctionComponent = props => (
