@@ -24,11 +24,17 @@ const CREATE_LINK_MUTATION = gql`
   }
 `;
 
-// Need to declare this out here because this reference is lost during callbacks
+// Need to declare this out here because this `document.currentScript` reference is lost during callbacks
 const currentScript: HTMLScriptElement | null = document.currentScript as any;
 if (!currentScript) {
   throw Error("Civil Boost Embed: Failed to get document.currentScript");
 }
+if (currentScript.closest && !currentScript.closest("body")) {
+  throw Error(
+    "Civil Boost Embed: Boost script is not placed in <body> and so cannot be displayed. Script must be placed within <body> at the location where you want the embed to show up.",
+  );
+}
+
 const ENVIRONMENT = currentScript.src && currentScript.src.indexOf("civil.co") !== -1 ? "production" : "staging";
 
 Sentry.init({
