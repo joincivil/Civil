@@ -17,6 +17,7 @@ export interface ConfirmEmailTokenProps {
   ethAuthNextExt?: boolean;
   apolloClient: ApolloClient<any>;
   onEmailConfirmContinue?(): void;
+  onMutationSuccess?(): Promise<void>;
 }
 
 export interface ConfirmEmailTokenState {
@@ -48,12 +49,14 @@ class ConfirmEmailTokenWithApolloClient extends React.Component<ConfirmEmailToke
         mutation: verifyMutation,
         variables: { token },
       });
-
       if (error) {
         console.log("Error authenticating:", error);
         const errorMessage = error.graphQLErrors.map((e: any) => e.message).join(" ,");
         this.setState({ errorMessage, hasVerified: true });
       } else {
+        if (this.props.onMutationSuccess) {
+          await this.props.onMutationSuccess();
+        }
         this.setState({ errorMessage: undefined, hasVerified: true });
       }
     } catch (err) {
