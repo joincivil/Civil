@@ -185,6 +185,7 @@ export const getCurrentUserQuery = gql`
         handle
         id
         EmailAddressRestricted
+        isAwaitingEmailConfirmation
         avatarDataUrl
         tiny72AvatarDataUrl
         stripeCustomerInfo {
