@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { colors, mediaQueries } from "@joincivil/elements";
+import { mediaQueries } from "@joincivil/elements";
 import heroImgUrl from "../images/storyfeed-banner-2x.png";
 import civilImgUrl from "../images/img-civil.png";
 

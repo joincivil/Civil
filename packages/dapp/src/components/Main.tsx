@@ -69,9 +69,7 @@ const ManageNewsroomChannelPage = React.lazy(async () =>
 );
 const GetStartedPage = React.lazy(async () => import(/* webpackChunkName: "get-started-page" */ "./GetStarted"));
 
-const SunsetPage = React.lazy(async () =>
-  import(/* webpackChunkName: "sunset-page" */ "./Sunset/Sunset"),
-);
+const SunsetPage = React.lazy(async () => import(/* webpackChunkName: "sunset-page" */ "./Sunset/Sunset"));
 
 export interface MainReduxProps {
   network: string;
