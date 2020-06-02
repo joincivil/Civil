@@ -69,6 +69,10 @@ const ManageNewsroomChannelPage = React.lazy(async () =>
 );
 const GetStartedPage = React.lazy(async () => import(/* webpackChunkName: "get-started-page" */ "./GetStarted"));
 
+const SunsetPage = React.lazy(async () =>
+  import(/* webpackChunkName: "storyfeed-page" */ "./Sunset/Sunset"),
+);
+
 export interface MainReduxProps {
   network: string;
 }
@@ -145,7 +149,6 @@ export const Main: React.FunctionComponent = () => {
     <StyledMainContainer>
       {networkIsSupported && (
         <Switch>
-          <Redirect exact path={routes.HOMEPAGE} to={formatRoute(routes.STORY_FEED)} />
           <Redirect
             exact
             path={routes.REGISTRY_HOME_ROOT}
@@ -159,6 +162,7 @@ export const Main: React.FunctionComponent = () => {
               subListingType: registrySubListingTypes.IN_APPLICATION,
             })}
           />
+          <Route path={routes.HOMEPAGE} component={AsyncComponent(SunsetPage)} />
           <Route path={routes.REGISTRY_HOME} component={AsyncComponent(Listings)} />
           <Route path={routes.CONTRACT_ADDRESSES} component={AsyncComponent(ContractAddresses)} />
           <Route path={routes.CHALLENGE} component={AsyncComponent(ChallengePage)} />
