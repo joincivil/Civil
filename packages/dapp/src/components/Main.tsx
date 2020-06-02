@@ -160,7 +160,6 @@ export const Main: React.FunctionComponent = () => {
               subListingType: registrySubListingTypes.IN_APPLICATION,
             })}
           />
-          <Route path={routes.HOMEPAGE} component={AsyncComponent(SunsetPage)} />
           <Route path={routes.REGISTRY_HOME} component={AsyncComponent(Listings)} />
           <Route path={routes.CONTRACT_ADDRESSES} component={AsyncComponent(ContractAddresses)} />
           <Route path={routes.CHALLENGE} component={AsyncComponent(ChallengePage)} />
@@ -188,6 +187,7 @@ export const Main: React.FunctionComponent = () => {
           <Route path={routes.STORY_BOOST_NEWSROOM} component={AsyncComponent(StoryFeedPage, { newsroom: true })} />
           <Route path={routes.STORY_FEED} component={AsyncComponent(StoryFeedPage)} />
           <Route path={routes.GET_STARTED} component={AsyncComponent(GetStartedPage)} />
+          <Route path={routes.HOMEPAGE} component={AsyncComponent(SunsetPage)} />
           {/* TODO(jorgelo): Better 404 */}
           <Route path="*" render={() => <h1>404</h1>} />
         </Switch>

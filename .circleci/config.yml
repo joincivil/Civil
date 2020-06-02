@@ -8,7 +8,7 @@ defaults: &defaults
 jobs:
     build:
         <<: *defaults
-        resource_class: medium+
+        resource_class: xlarge
         steps:
             - checkout
             - restore_cache:
