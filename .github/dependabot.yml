@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    day: saturday
+    time: "20:00"
+    timezone: EST
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: rxjs
+    versions:
+    - ">= 6.a, < 7"
+  - dependency-name: npm
+    versions:
+    - 6.14.10
+    - 6.14.12
+  - dependency-name: lodash-es
+    versions:
+    - 4.17.20
