@@ -53,7 +53,7 @@
     "redux-thunk": "^2.2.0",
     "reselect": "^4.0.0",
     "rxjs": "^5.5.7",
-    "sanitize-html": "^1.18.2",
+    "sanitize-html": "^2.3.2",
     "semantic-ui-react": "~0.82.0",
     "sort-by": "^1.2.0",
     "store": "^2.0.12",

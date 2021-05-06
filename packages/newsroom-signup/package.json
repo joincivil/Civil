@@ -28,7 +28,7 @@
     "react-apollo": "^2.3.3",
     "react-select": "^2.4.2",
     "redux-beacon": "^2.0.5",
-    "sanitize-html": "^1.20.0"
+    "sanitize-html": "^2.3.2"
   },
   "devDependencies": {
     "@joincivil/typescript-types": "^1.4.9",
